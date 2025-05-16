@@ -1,0 +1,195 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User model with role-based access control
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  password      String?
+  role          Role      @default(STUDENT)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Profile information
+  profile       Profile?
+
+  // Relationships
+  accounts      Account[]
+  sessions      Session[]
+  assessments   Assessment[]    @relation("CreatedAssessments")
+  responses     Response[]
+  resources     Resource[]      @relation("CreatedResources")
+  curriculums   Curriculum[]    @relation("CreatedCurriculums")
+  projects      Project[]       @relation("CreatedProjects")
+  
+  // For educators and professionals
+  students      User[]          @relation("EducatorToStudent")
+  educator      User?           @relation("EducatorToStudent", fields: [educatorId], references: [id])
+  educatorId    String?
+}
+
+model Profile {
+  id            String    @id @default(cuid())
+  bio           String?
+  school        String?
+  yearGroup     String?
+  specialNeeds  String?
+  preferences   Json?     // Storing user preferences as JSON
+  learningStyle String?
+  
+  // Relationship with User
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId        String    @unique
+}
+
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?  @db.Text
+  access_token       String?  @db.Text
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?  @db.Text
+  session_state      String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// Assessment module models
+model Assessment {
+  id          String    @id @default(cuid())
+  title       String
+  description String?
+  type        String    // Multiple choice, open-ended, etc.
+  questions   Json      // Array of questions stored as JSON
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  published   Boolean   @default(false)
+  
+  // Relationships
+  creator     User      @relation("CreatedAssessments", fields: [creatorId], references: [id])
+  creatorId   String
+  responses   Response[]
+  curriculum  Curriculum? @relation(fields: [curriculumId], references: [id])
+  curriculumId String?
+}
+
+model Response {
+  id           String    @id @default(cuid())
+  answers      Json      // Answers stored as JSON
+  score        Float?
+  feedback     String?
+  createdAt    DateTime  @default(now())
+  
+  // Relationships
+  assessment   Assessment @relation(fields: [assessmentId], references: [id])
+  assessmentId String
+  user         User       @relation(fields: [userId], references: [id])
+  userId       String
+}
+
+// Resource module models
+model Resource {
+  id          String    @id @default(cuid())
+  title       String
+  description String?
+  type        String    // Document, video, audio, etc.
+  url         String?
+  content     String?   @db.Text
+  tags        String[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  // Relationships
+  creator     User      @relation("CreatedResources", fields: [creatorId], references: [id])
+  creatorId   String
+  curriculum  Curriculum? @relation(fields: [curriculumId], references: [id])
+  curriculumId String?
+}
+
+// Curriculum module models
+model Curriculum {
+  id          String    @id @default(cuid())
+  title       String
+  description String?
+  objectives  String[]
+  level       String?
+  subject     String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  // Relationships
+  creator     User      @relation("CreatedCurriculums", fields: [creatorId], references: [id])
+  creatorId   String
+  resources   Resource[]
+  assessments Assessment[]
+}
+
+// Project module models
+model Project {
+  id          String    @id @default(cuid())
+  title       String
+  description String?
+  content     String?   @db.Text
+  status      String    // In progress, completed, etc.
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  // Relationships
+  creator     User      @relation("CreatedProjects", fields: [creatorId], references: [id])
+  creatorId   String
+}
+
+// Immersive learning models
+model ImmersiveEnvironment {
+  id          String    @id @default(cuid())
+  title       String
+  description String?
+  sceneData   Json      // A-Frame scene data stored as JSON
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+// Enum for user roles
+enum Role {
+  ADMIN
+  EDUCATOR
+  PROFESSIONAL
+  PARENT
+  STUDENT
+  GUEST
+}
