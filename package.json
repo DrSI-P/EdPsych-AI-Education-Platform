@@ -9,11 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.51.0",
     "@auth/prisma-adapter": "^2.9.1",
+    "@google/generative-ai": "^0.24.1",
     "@prisma/client": "^6.8.2",
     "bcrypt": "^6.0.0",
     "next": "15.3.2",
     "next-auth": "^5.0.0-beta.28",
+    "openai": "^4.100.0",
     "prisma": "^6.8.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
