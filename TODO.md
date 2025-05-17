@@ -221,7 +221,7 @@ This document serves as a comprehensive checklist for implementing all features 
 - [x] Implement resource recommendations
 - [x] Create community features
 - [x] Implement discussion forums
-- [ ] Create webinar integration
+- [x] Create webinar integration
 - [ ] Implement CPD tracking
 - [ ] Create professional portfolio
 - [ ] Implement mentor matching
