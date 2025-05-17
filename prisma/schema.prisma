@@ -11,107 +11,44 @@ datasource db {
 }
 
 model User {
-  id                String    @id @default(cuid())
-  name              String?
-  email             String?   @unique
-  emailVerified     DateTime?
-  image             String?
-  accounts          Account[]
-  sessions          Session[]
-  role              String    @default("student")
-  createdAt         DateTime  @default(now())
-  updatedAt         DateTime  @updatedAt
-  
-  // Learning Style Assessment
-  learningStyleAssessments LearningStyleAssessment[]
-  learningStyleResults     LearningStyleResult[]
-  
-  // Content Transformation
-  contentTransformations   ContentTransformation[]
-  
-  // Speech Recognition
-  speechRecognitionSettings SpeechRecognitionSettings?
-  speechCalibrations        SpeechCalibration[]
-  
-  // Curriculum Differentiation
-  curriculumDifferentiations CurriculumDifferentiation[]
-  
-  // Multi-Modal Content
-  multiModalContents MultiModalContent[]
-  
-  // Adaptive Complexity
-  adaptiveComplexitySettings AdaptiveComplexitySettings?
-  adaptiveComplexityLogs     AdaptiveComplexityLog[]
-  
-  // Progress Pacing
-  progressPacingSettings ProgressPacingSettings?
-  progressPacingLogs     ProgressPacingLog[]
-  
-  // Executive Dysfunction
-  executiveDysfunctionTasks ExecutiveDysfunctionTask[]
-  executiveDysfunctionSettings ExecutiveDysfunctionSettings?
-  
-  // Learning Differences
-  learningDifferencesSettings LearningDifferencesSettings?
-  learningDifferencesAssessments LearningDifferencesAssessment[]
-  
-  // Accessibility Features
-  accessibilitySettings AccessibilitySettings?
-  accessibilityLogs     AccessibilityLog[]
-  
-  // Personalized Interventions
+  id                        String                     @id @default(cuid())
+  name                      String?
+  email                     String?                    @unique
+  emailVerified             DateTime?
+  image                     String?
+  accounts                  Account[]
+  sessions                  Session[]
+  learningStyle             LearningStyle?
+  accessibilitySettings     AccessibilitySettings?
+  speechCalibration         SpeechCalibration?
+  executiveDysfunction      ExecutiveDysfunctionSettings?
+  learningDifferences       LearningDifferencesSettings?
   personalizedInterventions PersonalizedIntervention[]
-  interventionLogs          InterventionLog[]
-  
-  // Progress Monitoring
-  progressMonitoringSettings ProgressMonitoringSettings?
-  monitoringGoals            MonitoringGoal[]
-  
-  // Intervention Analytics
-  interventionAnalyticsSettings InterventionAnalyticsSettings?
-  analyticsLogs                 AnalyticsLog[]
-  
-  // Parent-Teacher Communication
-  parentTeacherMessages ParentTeacherMessage[]
-  parentTeacherMeetings ParentTeacherMeeting[]
-  parentTeacherReports  ParentTeacherReport[]
-  communicationSettings CommunicationSettings?
-  
-  // Sensory Regulation
-  sensoryRegulationSettings SensoryRegulationSettings?
-  sensoryActivities         SensoryActivity[]
-  sensoryDiets              SensoryDiet[]
-  sensoryRegulationLogs     SensoryRegulationLog[]
-  
-  // Behavior Tracking
-  behaviorDefinitions BehaviorDefinition[]
-  behaviorTrackings   BehaviorTracking[]
-  behaviorGoals       BehaviorGoal[]
-  rewards             Reward[]
-  behaviorSettings    BehaviorSettings?
-  
-  // Social Skills Development
-  socialSkillsSettings SocialSkillsSettings?
-  socialSkillsActivities SocialSkillsActivity[]
-  socialSkillsGoals      SocialSkillsGoal[]
-  socialSkillsLogs       SocialSkillsLog[]
-  socialStories          SocialStory[]
-  peerInteractions       PeerInteraction[]
+  progressMonitoring        ProgressMonitoring?
+  interventionAnalytics     InterventionAnalyticsSettings?
+  parentTeacherComm         ParentTeacherCommunicationSettings?
+  sensoryRegulation         SensoryRegulationSettings?
+  behaviorTracking          BehaviorTrackingSettings?
+  socialSkills              SocialSkillsSettings?
+  emotionalRegulation       EmotionalRegulationSettings?
+  emotionRecords            EmotionRecord[]
+  emotionJournals           EmotionJournal[]
+  emotionalRegulationLogs   EmotionalRegulationLog[]
 }
 
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?  @db.Text
-  session_state      String?
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -134,587 +71,517 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-// Learning Style Assessment Models
-model LearningStyleAssessment {
+model LearningStyle {
+  id                 String   @id @default(cuid())
+  userId             String   @unique
+  visual             Int
+  auditory           Int
+  readingWriting     Int
+  kinesthetic        Int
+  primaryStyle       String
+  secondaryStyle     String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+  recommendedContent Json?
+  user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model AccessibilitySettings {
+  id                     String   @id @default(cuid())
+  userId                 String   @unique
+  textToSpeechEnabled    Boolean  @default(false)
+  speechToTextEnabled    Boolean  @default(false)
+  highContrastMode       Boolean  @default(false)
+  reducedMotion          Boolean  @default(false)
+  keyboardNavigationMode Boolean  @default(false)
+  screenReaderOptimized  Boolean  @default(false)
+  fontSize               Int      @default(16)
+  lineSpacing            Float    @default(1.5)
+  fontFamily             String   @default("Arial")
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @updatedAt
+  user                   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model AccessibilityLog {
   id        String   @id @default(cuid())
   userId    String
-  answers   Json
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model LearningStyleResult {
-  id                String   @id @default(cuid())
-  userId            String
-  visual            Float
-  auditory          Float
-  readingWriting    Float
-  kinesthetic       Float
-  dominantStyle     String
-  secondaryStyle    String?
-  recommendations   Json
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-// Content Transformation Models
-model ContentTransformation {
-  id                String   @id @default(cuid())
-  userId            String
-  originalContent   String   @db.Text
-  transformedContent String   @db.Text
-  learningStyle     String
-  contentType       String
-  subjectArea       String?
-  ageRange          String?
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-// Speech Recognition Models
-model SpeechRecognitionSettings {
-  id                String   @id @default(cuid())
-  userId            String   @unique
-  sensitivity       Float    @default(0.5)
-  noiseReduction    Boolean  @default(true)
-  dialect           String   @default("british")
-  punctuationMode   String   @default("auto")
-  specializedVocabulary Json?
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  feature   String
+  action    String
+  timestamp DateTime @default(now())
+  details   Json?
 }
 
 model SpeechCalibration {
   id                String   @id @default(cuid())
-  userId            String
+  userId            String   @unique
   calibrationData   Json
-  accuracy          Float
-  completedAt       DateTime
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-// Curriculum Differentiation Models
-model CurriculumDifferentiation {
-  id                String   @id @default(cuid())
-  userId            String
-  originalContent   String   @db.Text
-  differentiatedContent String @db.Text
-  subjectArea       String
-  yearGroup         String
-  difficultyLevel   String
-  learningObjectives Json
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-// Multi-Modal Content Models
-model MultiModalContent {
-  id                String   @id @default(cuid())
-  userId            String
-  title             String
-  textContent       String?  @db.Text
-  visualContent     Json?
-  audioContent      Json?
-  interactiveContent Json?
-  learningStyle     String
-  subjectArea       String
-  ageRange          String
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-// Adaptive Complexity Models
-model AdaptiveComplexitySettings {
-  id                String   @id @default(cuid())
-  userId            String   @unique
-  startingLevel     String   @default("medium")
-  adaptationRate    String   @default("moderate")
-  subjectPreferences Json?
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model AdaptiveComplexityLog {
-  id                String   @id @default(cuid())
-  userId            String
-  contentId         String?
-  previousLevel     String
-  newLevel          String
-  reason            String
-  subjectArea       String?
-  createdAt         DateTime @default(now())
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-// Progress Pacing Models
-model ProgressPacingSettings {
-  id                String   @id @default(cuid())
-  userId            String   @unique
-  pacingPreference  String   @default("moderate")
-  reminderFrequency String   @default("daily")
-  subjectPriorities Json?
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model ProgressPacingLog {
-  id                String   @id @default(cuid())
-  userId            String
-  activityType      String
-  timeSpent         Int
-  completionStatus  String
-  subjectArea       String?
-  createdAt         DateTime @default(now())
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-// Executive Dysfunction Models
-model ExecutiveDysfunctionTask {
-  id                String   @id @default(cuid())
-  userId            String
-  title             String
-  description       String?
-  dueDate           DateTime?
-  priority          String   @default("medium")
-  status            String   @default("pending")
-  steps             Json?
-  reminderSettings  Json?
-  completedAt       DateTime?
+  noiseProfile      Json?
+  accentProfile     String?
+  vocabularyProfile Json?
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
   user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model ExecutiveDysfunctionSettings {
-  id                String   @id @default(cuid())
-  userId            String   @unique
-  taskBreakdownLevel String  @default("medium")
-  reminderFrequency String   @default("medium")
-  visualAids        Boolean  @default(true)
-  organizationTools Json?
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                   String   @id @default(cuid())
+  userId               String   @unique
+  taskBreakdownLevel   String   @default("medium") // simple, medium, detailed
+  reminderFrequency    String   @default("medium") // low, medium, high
+  visualAidsEnabled    Boolean  @default(true)
+  timeManagementTools  Boolean  @default(true)
+  organizationSupport  Boolean  @default(true)
+  prioritizationHelp   Boolean  @default(true)
+  distractionReduction Boolean  @default(false)
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+  user                 User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-// Learning Differences Models
+model Task {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  dueDate     DateTime?
+  priority    String   @default("medium") // low, medium, high
+  status      String   @default("pending") // pending, in-progress, completed
+  steps       Json?
+  userId      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
 model LearningDifferencesSettings {
-  id                String   @id @default(cuid())
-  userId            String   @unique
-  dyslexiaSettings  Json?
-  dyscalculiaSettings Json?
-  adhdSettings      Json?
-  autismSettings    Json?
-  otherSettings     Json?
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                     String   @id @default(cuid())
+  userId                 String   @unique
+  dyslexiaSupport        Boolean  @default(false)
+  dyslexiaSettings       Json?
+  dyscalculiaSupport     Boolean  @default(false)
+  dyscalculiaSettings    Json?
+  adhdSupport            Boolean  @default(false)
+  adhdSettings           Json?
+  autismSupport          Boolean  @default(false)
+  autismSettings         Json?
+  otherDifferences       Json?
+  fontPreference         String?
+  colorScheme            String?
+  readingAids            Boolean  @default(false)
+  mathAids               Boolean  @default(false)
+  organizationalAids     Boolean  @default(false)
+  sensoryConsiderations  Json?
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @updatedAt
+  user                   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model LearningDifferencesAssessment {
-  id                String   @id @default(cuid())
-  userId            String
-  assessmentType    String
-  responses         Json
-  results           Json
-  recommendations   Json
-  completedAt       DateTime
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id           String   @id @default(cuid())
+  userId       String
+  assessmentType String
+  responses    Json
+  results      Json
+  recommendations Json?
+  createdAt    DateTime @default(now())
 }
 
-// Accessibility Models
-model AccessibilitySettings {
-  id                String   @id @default(cuid())
-  userId            String   @unique
-  textToSpeechEnabled Boolean @default(false)
-  textToSpeechVoice  String?
-  textToSpeechRate   Float?
-  speechToTextEnabled Boolean @default(false)
-  highContrastMode   String?
-  reducedMotion      Boolean @default(false)
-  keyboardNavigation Json?
-  screenReaderOptimization Json?
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model AccessibilityLog {
-  id                String   @id @default(cuid())
-  userId            String
-  featureUsed       String
-  duration          Int?
-  context           String?
-  createdAt         DateTime @default(now())
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-// Personalized Interventions Models
 model PersonalizedIntervention {
   id                String   @id @default(cuid())
   userId            String
-  interventionType  String
   targetArea        String
+  interventionType  String
+  intensity         String   @default("moderate") // light, moderate, intensive
   description       String
-  intensity         String
-  frequency         String
-  duration          Int
-  materials         Json?
+  strategies        Json
+  resources         Json?
+  schedule          Json?
   progress          Json?
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
   user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model InterventionLog {
-  id                String   @id @default(cuid())
-  userId            String
-  interventionId    String?
-  activityType      String
-  duration          Int
-  notes             String?
-  effectiveness     Int?
-  createdAt         DateTime @default(now())
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-// Progress Monitoring Models
-model ProgressMonitoringSettings {
+model ProgressMonitoring {
   id                String   @id @default(cuid())
   userId            String   @unique
-  monitoringFrequency String  @default("weekly")
-  notificationPreference String @default("email")
-  dataVisualization String   @default("charts")
+  monitoringFrequency String  @default("weekly") // daily, weekly, monthly
+  alertThreshold    Int      @default(3)
+  autoGenerateReports Boolean @default(true)
+  dataVisualization String   @default("charts") // charts, tables, both
+  shareWithTeachers Boolean  @default(true)
+  shareWithParents  Boolean  @default(true)
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
   user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model MonitoringGoal {
-  id                String   @id @default(cuid())
-  userId            String
-  title             String
-  description       String?
-  targetArea        String
-  baselineValue     Float
-  targetValue       Float
-  currentValue      Float
-  unit              String?
-  startDate         DateTime
-  targetDate        DateTime
-  dataPoints        DataPoint[]
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id           String   @id @default(cuid())
+  userId       String
+  title        String
+  description  String?
+  targetArea   String
+  baselineValue Float?
+  targetValue  Float
+  currentValue Float?
+  unit         String?
+  timeframe    String
+  startDate    DateTime
+  endDate      DateTime?
+  status       String   @default("active") // active, completed, abandoned
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
 
 model DataPoint {
-  id                String   @id @default(cuid())
-  goalId            String
-  value             Float
-  notes             String?
-  recordedAt        DateTime
-  createdAt         DateTime @default(now())
-  goal              MonitoringGoal @relation(fields: [goalId], references: [id], onDelete: Cascade)
+  id         String   @id @default(cuid())
+  goalId     String
+  value      Float
+  notes      String?
+  timestamp  DateTime @default(now())
 }
 
-// Intervention Analytics Models
+model MonitoringLog {
+  id        String   @id @default(cuid())
+  userId    String
+  action    String
+  details   Json?
+  timestamp DateTime @default(now())
+}
+
 model InterventionAnalyticsSettings {
   id                String   @id @default(cuid())
   userId            String   @unique
+  dataCollectionFrequency String @default("weekly")
   comparisonMetrics Json
+  statisticalMethods Json?
   visualizationPreferences Json?
-  reportFrequency   String   @default("monthly")
+  reportingSchedule Json?
+  alertThresholds   Json?
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
   user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model AnalyticsLog {
-  id                String   @id @default(cuid())
-  userId            String
-  analysisType      String
-  parameters        Json
-  results           Json?
-  createdAt         DateTime @default(now())
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id        String   @id @default(cuid())
+  userId    String
+  action    String
+  details   Json?
+  timestamp DateTime @default(now())
 }
 
-// Parent-Teacher Communication Models
-model ParentTeacherMessage {
-  id                String   @id @default(cuid())
-  userId            String
-  senderRole        String
-  recipientRole     String
-  subject           String
-  content           String   @db.Text
-  attachments       Json?
-  isRead            Boolean  @default(false)
-  isUrgent          Boolean  @default(false)
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model ParentTeacherMeeting {
-  id                String   @id @default(cuid())
-  userId            String
-  title             String
-  description       String?
-  meetingType       String
-  scheduledAt       DateTime
-  duration          Int
-  location          String?
-  participants      Json
-  agenda            Json?
-  notes             String?  @db.Text
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model ParentTeacherReport {
-  id                String   @id @default(cuid())
-  userId            String
-  title             String
-  reportType        String
-  content           String   @db.Text
-  generatedAt       DateTime
-  sharedWith        Json?
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model CommunicationSettings {
+model ParentTeacherCommunicationSettings {
   id                String   @id @default(cuid())
   userId            String   @unique
-  preferredMethod   String   @default("email")
-  frequency         String   @default("weekly")
-  privacySettings   Json?
-  notificationPreferences Json?
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  messagePreferences Json
+  meetingPreferences Json?
+  reportPreferences  Json?
+  privacySettings    Json
+  notificationSettings Json
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+  user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-// Sensory Regulation Models
+model Message {
+  id           String   @id @default(cuid())
+  senderId     String
+  recipientId  String
+  subject      String
+  content      String
+  isRead       Boolean  @default(false)
+  isUrgent     Boolean  @default(false)
+  attachments  Json?
+  createdAt    DateTime @default(now())
+}
+
+model Meeting {
+  id           String   @id @default(cuid())
+  organizerId  String
+  participants Json
+  title        String
+  description  String?
+  meetingType  String
+  startTime    DateTime
+  endTime      DateTime
+  location     String?
+  virtualLink  String?
+  agenda       Json?
+  notes        String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Report {
+  id           String   @id @default(cuid())
+  userId       String
+  title        String
+  content      String
+  reportType   String
+  recipients   Json
+  createdAt    DateTime @default(now())
+}
+
 model SensoryRegulationSettings {
   id                String   @id @default(cuid())
   userId            String   @unique
-  sensoryProfile    Json
-  environmentPreferences Json?
-  alertLevels       Json?
+  visualPreferences Json?
+  auditoryPreferences Json?
+  tactilePreferences Json?
+  vestibularPreferences Json?
+  proprioceptivePreferences Json?
+  alertingStrategies Json?
+  calmingStrategies Json?
+  organizingStrategies Json?
+  environmentalModifications Json?
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
   user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model SensoryActivity {
-  id                String   @id @default(cuid())
-  userId            String
-  title             String
-  description       String
-  sensorySystems    Json
-  duration          Int
-  intensity         String
-  purpose           String
-  materials         Json?
-  instructions      String?  @db.Text
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id           String   @id @default(cuid())
+  name         String
+  description  String
+  sensorySystems Json
+  category     String   // calming, alerting, organizing
+  duration     Int?
+  materials    Json?
+  steps        Json
+  evidenceBase String?
+  createdAt    DateTime @default(now())
 }
 
 model SensoryDiet {
-  id                String   @id @default(cuid())
-  userId            String
-  title             String
-  description       String?
-  schedule          Json
-  activities        Json
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id           String   @id @default(cuid())
+  userId       String
+  name         String
+  description  String?
+  activities   Json
+  schedule     Json
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
 
 model SensoryRegulationLog {
-  id                String   @id @default(cuid())
-  userId            String
-  activityId        String?
-  alertLevelBefore  String?
-  alertLevelAfter   String?
-  notes             String?
-  createdAt         DateTime @default(now())
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id        String   @id @default(cuid())
+  userId    String
+  action    String
+  details   Json?
+  timestamp DateTime @default(now())
 }
 
-// Behavior Tracking Models
-model BehaviorDefinition {
-  id                String   @id @default(cuid())
-  userId            String
-  title             String
-  description       String
-  category          String
-  trackingMethod    String
-  antecedents       Json?
-  consequences      Json?
-  replacementBehaviors Json?
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  trackings         BehaviorTracking[]
-  goals             BehaviorGoal[]
-}
-
-model BehaviorTracking {
-  id                String   @id @default(cuid())
-  userId            String
-  behaviorId        String
-  occurrenceTime    DateTime
-  duration          Int?
-  intensity         Int?
-  location          String?
-  antecedent        String?
-  consequence       String?
-  notes             String?
-  createdAt         DateTime @default(now())
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  behavior          BehaviorDefinition @relation(fields: [behaviorId], references: [id], onDelete: Cascade)
-}
-
-model BehaviorGoal {
-  id                String   @id @default(cuid())
-  userId            String
-  behaviorId        String
-  targetType        String
-  targetValue       Float
-  timeframe         String
-  startDate         DateTime
-  endDate           DateTime
-  reinforcement     Json?
-  progress          Float    @default(0)
-  status            String   @default("active")
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  behavior          BehaviorDefinition @relation(fields: [behaviorId], references: [id], onDelete: Cascade)
-}
-
-model Reward {
-  id                String   @id @default(cuid())
-  userId            String
-  title             String
-  description       String?
-  category          String
-  pointValue        Int?
-  isAvailable       Boolean  @default(true)
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model BehaviorSettings {
+model BehaviorTrackingSettings {
   id                String   @id @default(cuid())
   userId            String   @unique
   trackingFrequency String   @default("daily")
-  reinforcementSystem String  @default("token")
-  pointSystem       Json?
-  notificationSettings Json?
+  behaviorCategories Json
+  goalSettings      Json?
+  rewardSystem      Json?
+  notificationPreferences Json?
+  dataVisualization String   @default("charts")
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
   user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-// Social Skills Development Models
+model BehaviorDefinition {
+  id           String   @id @default(cuid())
+  userId       String
+  name         String
+  description  String
+  category     String   // positive, challenge, neutral
+  trackingMethod String // frequency, duration, binary
+  replacementBehaviors Json?
+  antecedents  Json?
+  consequences Json?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model BehaviorTracking {
+  id           String   @id @default(cuid())
+  userId       String
+  behaviorId   String
+  timestamp    DateTime @default(now())
+  duration     Int?     // in seconds, if applicable
+  frequency    Int?
+  intensity    Int?
+  notes        String?
+  location     String?
+  antecedent   String?
+  consequence  String?
+}
+
+model BehaviorGoal {
+  id           String   @id @default(cuid())
+  userId       String
+  behaviorId   String
+  targetType   String   // increase, decrease, maintain
+  targetValue  Float
+  currentValue Float?
+  timeframe    String   // daily, weekly, monthly
+  startDate    DateTime
+  endDate      DateTime?
+  status       String   @default("active")
+  rewards      Json?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Reward {
+  id           String   @id @default(cuid())
+  userId       String
+  name         String
+  description  String
+  pointValue   Int?
+  category     String?
+  isAvailable  Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model BehaviorTrackingLog {
+  id        String   @id @default(cuid())
+  userId    String
+  action    String
+  details   Json?
+  timestamp DateTime @default(now())
+}
+
 model SocialSkillsSettings {
   id                String   @id @default(cuid())
   userId            String   @unique
-  focusAreas        String[]
-  difficultyLevel   String   @default("medium")
-  environmentSettings Json?
+  skillAreas        Json
+  difficultyLevel   String   @default("moderate")
+  peerInteractions  Boolean  @default(true)
+  socialStories     Boolean  @default(true)
+  visualSupports    Boolean  @default(true)
+  promptingLevel    String   @default("moderate")
+  reinforcementSystem Json?
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
   user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model SocialSkillsActivity {
-  id                String   @id @default(cuid())
-  userId            String
-  title             String
-  skillArea         String
-  description       String
-  difficultyLevel   String
-  ageRange          String
-  materials         String[]
-  steps             Json
-  adaptations       Json?
-  evidenceBase      String?
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id           String   @id @default(cuid())
+  name         String
+  description  String
+  skillArea    String
+  difficultyLevel String
+  duration     Int?
+  groupSize    String?
+  materials    Json?
+  steps        Json
+  adaptations  Json?
+  evidenceBase String?
+  createdAt    DateTime @default(now())
 }
 
 model SocialSkillsGoal {
-  id                String   @id @default(cuid())
-  userId            String
-  title             String
-  description       String?
-  skillArea         String
-  measurableOutcome String
-  strategies        Json
-  progress          Int      @default(0)
-  startDate         DateTime
-  targetDate        DateTime?
-  completedDate     DateTime?
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model SocialSkillsLog {
-  id                String   @id @default(cuid())
-  userId            String
-  action            String
-  details           Json?
-  createdAt         DateTime @default(now())
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id           String   @id @default(cuid())
+  userId       String
+  skillArea    String
+  description  String
+  baselineData Json?
+  targetCriteria Json
+  strategies   Json
+  progress     Json?
+  status       String   @default("active")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
 
 model SocialStory {
-  id                String   @id @default(cuid())
-  userId            String
-  title             String
-  targetSkill       String
-  content           String   @db.Text
-  illustrations     Json?
-  ageRange          String
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id           String   @id @default(cuid())
+  userId       String
+  title        String
+  content      Json
+  situation    String
+  visualSupports Json?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
 
 model PeerInteraction {
-  id                String   @id @default(cuid())
-  userId            String
-  interactionType   String
-  participants      Int
-  duration          Int
-  setting           String
-  successRating     Int
-  notes             String?
-  createdAt         DateTime @default(now())
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id           String   @id @default(cuid())
+  userId       String
+  date         DateTime
+  setting      String
+  participants Int
+  duration     Int?
+  skillsUsed   Json?
+  challenges   Json?
+  successLevel Int?
+  notes        String?
+  createdAt    DateTime @default(now())
+}
+
+model SocialSkillsLog {
+  id        String   @id @default(cuid())
+  userId    String
+  action    String
+  details   Json?
+  timestamp DateTime @default(now())
+}
+
+model EmotionalRegulationSettings {
+  id                     String   @id @default(cuid())
+  userId                 String   @unique
+  emotionVocabularyLevel String   @default("intermediate") // basic, intermediate, advanced
+  preferredStrategies    String[] // array of strategy IDs
+  triggerAwareness       Boolean  @default(true)
+  selfMonitoringLevel    String   @default("guided") // independent, guided, supported
+  notificationPreferences Json?
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @updatedAt
+  user                   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model EmotionRecord {
+  id           String   @id @default(cuid())
+  userId       String
+  name         String
+  intensity    Int
+  triggers     String?
+  bodyFeelings String[]
+  thoughts     String?
+  strategies   RegulationStrategy[]
+  createdAt    DateTime @default(now())
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model RegulationStrategy {
+  id           String   @id @default(cuid())
+  name         String
+  description  String
+  steps        Json
+  suitableFor  String[] // array of emotion names
+  evidenceBase String?
+  emotions     EmotionRecord[]
+  journals     EmotionJournal[]
+  createdAt    DateTime @default(now())
+}
+
+model EmotionJournal {
+  id           String   @id @default(cuid())
+  userId       String
+  title        String
+  content      String
+  emotions     String[] // array of emotion names
+  strategies   RegulationStrategy[]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model EmotionalRegulationLog {
+  id        String   @id @default(cuid())
+  userId    String
+  action    String
+  details   Json?
+  timestamp DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
