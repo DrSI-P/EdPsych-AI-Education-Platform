@@ -10,35 +10,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id                        String                     @id @default(cuid())
-  name                      String?
-  email                     String?                    @unique
-  emailVerified             DateTime?
-  image                     String?
-  accounts                  Account[]
-  sessions                  Session[]
-  learningStyle             LearningStyle?
-  accessibilitySettings     AccessibilitySettings?
-  speechCalibration         SpeechCalibration?
-  executiveDysfunction      ExecutiveDysfunctionSettings?
-  learningDifferences       LearningDifferencesSettings?
-  personalizedInterventions PersonalizedIntervention[]
-  progressMonitoring        ProgressMonitoring?
-  interventionAnalytics     InterventionAnalyticsSettings?
-  parentTeacherComm         ParentTeacherCommunicationSettings?
-  sensoryRegulation         SensoryRegulationSettings?
-  behaviorTracking          BehaviorTrackingSettings?
-  socialSkills              SocialSkillsSettings?
-  emotionalRegulation       EmotionalRegulationSettings?
-  emotionRecords            EmotionRecord[]
-  emotionJournals           EmotionJournal[]
-  emotionalRegulationLogs   EmotionalRegulationLog[]
-  transitionPlans           TransitionPlan[]
-  iep504Plans               IEP504Plan[]
-  iep504PlanLogs            IEP504PlanLog[]
-}
-
+// User and Authentication Models
 model Account {
   id                String  @id @default(cuid())
   userId            String
@@ -66,6 +38,32 @@ model Session {
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+model User {
+  id                String    @id @default(uuid())
+  name              String?
+  email             String?   @unique
+  emailVerified     DateTime?
+  image             String?
+  role              Role      @default(USER)
+  accounts          Account[]
+  sessions          Session[]
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  
+  // Special Educational Needs Support
+  transitionPlans   TransitionPlan[]
+  iep504Plans       IEP504Plan[]
+  
+  // Restorative Justice
+  restorativeTrainingProgress RestorativeTrainingProgress[]
+}
+
+enum Role {
+  USER
+  TEACHER
+  ADMIN
+}
+
 model VerificationToken {
   identifier String
   token      String   @unique
@@ -74,695 +72,225 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-model LearningStyle {
-  id                 String   @id @default(cuid())
-  userId             String   @unique
-  visual             Int
-  auditory           Int
-  readingWriting     Int
-  kinesthetic        Int
-  primaryStyle       String
-  secondaryStyle     String?
-  createdAt          DateTime @default(now())
-  updatedAt          DateTime @updatedAt
-  recommendedContent Json?
-  user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model AccessibilitySettings {
-  id                     String   @id @default(cuid())
-  userId                 String   @unique
-  textToSpeechEnabled    Boolean  @default(false)
-  speechToTextEnabled    Boolean  @default(false)
-  highContrastMode       Boolean  @default(false)
-  reducedMotion          Boolean  @default(false)
-  keyboardNavigationMode Boolean  @default(false)
-  screenReaderOptimized  Boolean  @default(false)
-  fontSize               Int      @default(16)
-  lineSpacing            Float    @default(1.5)
-  fontFamily             String   @default("Arial")
-  createdAt              DateTime @default(now())
-  updatedAt              DateTime @updatedAt
-  user                   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model AccessibilityLog {
-  id        String   @id @default(cuid())
-  userId    String
-  feature   String
-  action    String
-  timestamp DateTime @default(now())
-  details   Json?
-}
-
-model SpeechCalibration {
-  id                String   @id @default(cuid())
-  userId            String   @unique
-  calibrationData   Json
-  noiseProfile      Json?
-  accentProfile     String?
-  vocabularyProfile Json?
+// Special Educational Needs Support Models
+model TransitionPlan {
+  id                String   @id @default(uuid())
+  userId            String
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  studentName       String
+  transitionType    String
+  currentSetting    String
+  targetSetting     String
+  startDate         DateTime
+  targetDate        DateTime
+  strengths         String[]
+  needs             String[]
+  preferences       String[]
+  goals             TransitionGoal[]
+  teamMembers       TransitionTeamMember[]
+  resources         TransitionResource[]
+  accommodations    TransitionAccommodation[]
+  notes             String?
+  status            String   @default("active")
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
+}
+
+model TransitionGoal {
+  id              String         @id @default(uuid())
+  transitionPlanId String
+  transitionPlan  TransitionPlan @relation(fields: [transitionPlanId], references: [id], onDelete: Cascade)
+  category        String
+  description     String
+  steps           String[]
+  targetDate      DateTime
+  status          String         @default("not-started")
+  progress        Int            @default(0)
+  notes           String?
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+}
+
+model TransitionTeamMember {
+  id              String         @id @default(uuid())
+  transitionPlanId String
+  transitionPlan  TransitionPlan @relation(fields: [transitionPlanId], references: [id], onDelete: Cascade)
+  name            String
+  role            String
+  contactInfo     String?
+  responsibilities String[]
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+}
+
+model TransitionResource {
+  id              String         @id @default(uuid())
+  transitionPlanId String
+  transitionPlan  TransitionPlan @relation(fields: [transitionPlanId], references: [id], onDelete: Cascade)
+  name            String
+  type            String
+  description     String?
+  url             String?
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+}
+
+model TransitionAccommodation {
+  id              String         @id @default(uuid())
+  transitionPlanId String
+  transitionPlan  TransitionPlan @relation(fields: [transitionPlanId], references: [id], onDelete: Cascade)
+  category        String
+  description     String
+  implementation  String?
+  effectiveness   String?
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+}
+
+model IEP504Plan {
+  id                String   @id @default(uuid())
+  userId            String
   user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  planType          String   // "IEP" or "504"
+  studentName       String
+  dateOfBirth       DateTime?
+  schoolName        String?
+  yearGroup         String?
+  startDate         DateTime
+  reviewDate        DateTime
+  strengths         String[]
+  needs             String[]
+  parentInput       String?
+  studentInput      String?
+  goals             IEP504Goal[]
+  accommodations    IEP504Accommodation[]
+  services          IEP504Service[]
+  teamMembers       IEP504TeamMember[]
+  notes             String?
+  status            String   @default("active")
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 }
 
-model ExecutiveDysfunctionSettings {
-  id                   String   @id @default(cuid())
-  userId               String   @unique
-  taskBreakdownLevel   String   @default("medium") // simple, medium, detailed
-  reminderFrequency    String   @default("medium") // low, medium, high
-  visualAidsEnabled    Boolean  @default(true)
-  timeManagementTools  Boolean  @default(true)
-  organizationSupport  Boolean  @default(true)
-  prioritizationHelp   Boolean  @default(true)
-  distractionReduction Boolean  @default(false)
-  createdAt            DateTime @default(now())
-  updatedAt            DateTime @updatedAt
-  user                 User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+model IEP504Goal {
+  id              String     @id @default(uuid())
+  planId          String
+  plan            IEP504Plan @relation(fields: [planId], references: [id], onDelete: Cascade)
+  area            String
+  description     String
+  currentLevel    String?
+  targetLevel     String
+  strategies      String[]
+  evaluation      String?
+  timeline        String?
+  progress        Int        @default(0)
+  status          String     @default("in-progress")
+  notes           String?
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
 }
 
-model Task {
-  id          String   @id @default(cuid())
+model IEP504Accommodation {
+  id              String     @id @default(uuid())
+  planId          String
+  plan            IEP504Plan @relation(fields: [planId], references: [id], onDelete: Cascade)
+  category        String
+  description     String
+  implementation  String?
+  effectiveness   String?
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+}
+
+model IEP504Service {
+  id              String     @id @default(uuid())
+  planId          String
+  plan            IEP504Plan @relation(fields: [planId], references: [id], onDelete: Cascade)
+  name            String
+  provider        String
+  frequency       String
+  duration        String
+  startDate       DateTime
+  endDate         DateTime?
+  notes           String?
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+}
+
+model IEP504TeamMember {
+  id              String     @id @default(uuid())
+  planId          String
+  plan            IEP504Plan @relation(fields: [planId], references: [id], onDelete: Cascade)
+  name            String
+  role            String
+  contactInfo     String?
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+}
+
+// Restorative Justice Models
+model RestorativeTrainingModule {
+  id          String   @id @default(uuid())
   title       String
-  description String?
-  dueDate     DateTime?
-  priority    String   @default("medium") // low, medium, high
-  status      String   @default("pending") // pending, in-progress, completed
-  steps       Json?
-  userId      String
+  description String
+  duration    String
+  level       String
+  order       Int      @default(0)
+  sections    RestorativeTrainingSection[]
+  resources   RestorativeTrainingResource[]
+  progress    RestorativeTrainingProgress[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
 
-model LearningDifferencesSettings {
-  id                     String   @id @default(cuid())
-  userId                 String   @unique
-  dyslexiaSupport        Boolean  @default(false)
-  dyslexiaSettings       Json?
-  dyscalculiaSupport     Boolean  @default(false)
-  dyscalculiaSettings    Json?
-  adhdSupport            Boolean  @default(false)
-  adhdSettings           Json?
-  autismSupport          Boolean  @default(false)
-  autismSettings         Json?
-  otherDifferences       Json?
-  fontPreference         String?
-  colorScheme            String?
-  readingAids            Boolean  @default(false)
-  mathAids               Boolean  @default(false)
-  organizationalAids     Boolean  @default(false)
-  sensoryConsiderations  Json?
-  createdAt              DateTime @default(now())
-  updatedAt              DateTime @updatedAt
-  user                   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model LearningDifferencesAssessment {
-  id           String   @id @default(cuid())
-  userId       String
-  assessmentType String
-  responses    Json
-  results      Json
-  recommendations Json?
-  createdAt    DateTime @default(now())
-}
-
-model PersonalizedIntervention {
-  id                String   @id @default(cuid())
-  userId            String
-  targetArea        String
-  interventionType  String
-  intensity         String   @default("moderate") // light, moderate, intensive
-  description       String
-  strategies        Json
-  resources         Json?
-  schedule          Json?
-  progress          Json?
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model ProgressMonitoring {
-  id                String   @id @default(cuid())
-  userId            String   @unique
-  monitoringFrequency String  @default("weekly") // daily, weekly, monthly
-  alertThreshold    Int      @default(3)
-  autoGenerateReports Boolean @default(true)
-  dataVisualization String   @default("charts") // charts, tables, both
-  shareWithTeachers Boolean  @default(true)
-  shareWithParents  Boolean  @default(true)
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model MonitoringGoal {
-  id           String   @id @default(cuid())
-  userId       String
-  title        String
-  description  String?
-  targetArea   String
-  baselineValue Float?
-  targetValue  Float
-  currentValue Float?
-  unit         String?
-  timeframe    String
-  startDate    DateTime
-  endDate      DateTime?
-  status       String   @default("active") // active, completed, abandoned
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-}
-
-model DataPoint {
-  id         String   @id @default(cuid())
-  goalId     String
-  value      Float
-  notes      String?
-  timestamp  DateTime @default(now())
-}
-
-model MonitoringLog {
-  id        String   @id @default(cuid())
-  userId    String
-  action    String
-  details   Json?
-  timestamp DateTime @default(now())
-}
-
-model InterventionAnalyticsSettings {
-  id                String   @id @default(cuid())
-  userId            String   @unique
-  dataCollectionFrequency String @default("weekly")
-  comparisonMetrics Json
-  statisticalMethods Json?
-  visualizationPreferences Json?
-  reportingSchedule Json?
-  alertThresholds   Json?
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model AnalyticsLog {
-  id        String   @id @default(cuid())
-  userId    String
-  action    String
-  details   Json?
-  timestamp DateTime @default(now())
-}
-
-model ParentTeacherCommunicationSettings {
-  id                String   @id @default(cuid())
-  userId            String   @unique
-  messagePreferences Json
-  meetingPreferences Json?
-  reportPreferences  Json?
-  privacySettings    Json
-  notificationSettings Json
-  createdAt          DateTime @default(now())
-  updatedAt          DateTime @updatedAt
-  user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model Message {
-  id           String   @id @default(cuid())
-  senderId     String
-  recipientId  String
-  subject      String
-  content      String
-  isRead       Boolean  @default(false)
-  isUrgent     Boolean  @default(false)
-  attachments  Json?
-  createdAt    DateTime @default(now())
-}
-
-model Meeting {
-  id           String   @id @default(cuid())
-  organizerId  String
-  participants Json
-  title        String
-  description  String?
-  meetingType  String
-  startTime    DateTime
-  endTime      DateTime
-  location     String?
-  virtualLink  String?
-  agenda       Json?
-  notes        String?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-}
-
-model Report {
-  id           String   @id @default(cuid())
-  userId       String
-  title        String
-  content      String
-  reportType   String
-  recipients   Json
-  createdAt    DateTime @default(now())
-}
-
-model SensoryRegulationSettings {
-  id                String   @id @default(cuid())
-  userId            String   @unique
-  visualPreferences Json?
-  auditoryPreferences Json?
-  tactilePreferences Json?
-  vestibularPreferences Json?
-  proprioceptivePreferences Json?
-  alertingStrategies Json?
-  calmingStrategies Json?
-  organizingStrategies Json?
-  environmentalModifications Json?
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model SensoryActivity {
-  id           String   @id @default(cuid())
-  name         String
-  description  String
-  sensorySystems Json
-  category     String   // calming, alerting, organizing
-  duration     Int?
-  materials    Json?
-  steps        Json
-  evidenceBase String?
-  createdAt    DateTime @default(now())
-}
-
-model SensoryDiet {
-  id           String   @id @default(cuid())
-  userId       String
-  name         String
-  description  String?
-  activities   Json
-  schedule     Json
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-}
-
-model SensoryRegulationLog {
-  id        String   @id @default(cuid())
-  userId    String
-  action    String
-  details   Json?
-  timestamp DateTime @default(now())
-}
-
-model BehaviorTrackingSettings {
-  id                String   @id @default(cuid())
-  userId            String   @unique
-  trackingFrequency String   @default("daily")
-  behaviorCategories Json
-  goalSettings      Json?
-  rewardSystem      Json?
-  notificationPreferences Json?
-  dataVisualization String   @default("charts")
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model BehaviorDefinition {
-  id           String   @id @default(cuid())
-  userId       String
-  name         String
-  description  String
-  category     String   // positive, challenge, neutral
-  trackingMethod String // frequency, duration, binary
-  replacementBehaviors Json?
-  antecedents  Json?
-  consequences Json?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-}
-
-model BehaviorTracking {
-  id           String   @id @default(cuid())
-  userId       String
-  behaviorId   String
-  timestamp    DateTime @default(now())
-  duration     Int?     // in seconds, if applicable
-  frequency    Int?
-  intensity    Int?
-  notes        String?
-  location     String?
-  antecedent   String?
-  consequence  String?
-}
-
-model BehaviorGoal {
-  id           String   @id @default(cuid())
-  userId       String
-  behaviorId   String
-  targetType   String   // increase, decrease, maintain
-  targetValue  Float
-  currentValue Float?
-  timeframe    String   // daily, weekly, monthly
-  startDate    DateTime
-  endDate      DateTime?
-  status       String   @default("active")
-  rewards      Json?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-}
-
-model Reward {
-  id           String   @id @default(cuid())
-  userId       String
-  name         String
-  description  String
-  pointValue   Int?
-  category     String?
-  isAvailable  Boolean  @default(true)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-}
-
-model BehaviorTrackingLog {
-  id        String   @id @default(cuid())
-  userId    String
-  action    String
-  details   Json?
-  timestamp DateTime @default(now())
-}
-
-model SocialSkillsSettings {
-  id                String   @id @default(cuid())
-  userId            String   @unique
-  skillAreas        Json
-  difficultyLevel   String   @default("moderate")
-  peerInteractions  Boolean  @default(true)
-  socialStories     Boolean  @default(true)
-  visualSupports    Boolean  @default(true)
-  promptingLevel    String   @default("moderate")
-  reinforcementSystem Json?
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model SocialSkillsActivity {
-  id           String   @id @default(cuid())
-  name         String
-  description  String
-  skillArea    String
-  difficultyLevel String
-  duration     Int?
-  groupSize    String?
-  materials    Json?
-  steps        Json
-  adaptations  Json?
-  evidenceBase String?
-  createdAt    DateTime @default(now())
-}
-
-model SocialSkillsGoal {
-  id           String   @id @default(cuid())
-  userId       String
-  skillArea    String
-  description  String
-  baselineData Json?
-  targetCriteria Json
-  strategies   Json
-  progress     Json?
-  status       String   @default("active")
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-}
-
-model SocialStory {
-  id           String   @id @default(cuid())
-  userId       String
-  title        String
-  content      Json
-  situation    String
-  visualSupports Json?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-}
-
-model PeerInteraction {
-  id           String   @id @default(cuid())
-  userId       String
-  date         DateTime
-  setting      String
-  participants Int
-  duration     Int?
-  skillsUsed   Json?
-  challenges   Json?
-  successLevel Int?
-  notes        String?
-  createdAt    DateTime @default(now())
-}
-
-model SocialSkillsLog {
-  id        String   @id @default(cuid())
-  userId    String
-  action    String
-  details   Json?
-  timestamp DateTime @default(now())
-}
-
-model EmotionalRegulationSettings {
-  id                     String   @id @default(cuid())
-  userId                 String   @unique
-  emotionVocabularyLevel String   @default("intermediate") // basic, intermediate, advanced
-  emotionTrackingEnabled Boolean  @default(true)
-  journalingEnabled      Boolean  @default(true)
-  strategyPreferences    Json?
-  reminderFrequency      String   @default("daily")
-  privacySettings        Json?
-  createdAt              DateTime @default(now())
-  updatedAt              DateTime @updatedAt
-  user                   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model EmotionRecord {
-  id           String   @id @default(cuid())
-  userId       String
-  emotion      String
-  intensity    Int
-  timestamp    DateTime @default(now())
-  triggers     Json?
-  bodyLocation Json?
-  notes        String?
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model RegulationStrategy {
-  id           String   @id @default(cuid())
-  name         String
-  description  String
-  category     String   // cognitive, physical, social, sensory
-  steps        Json?
-  evidenceBase String?
-  suitableFor  Json?
-  createdAt    DateTime @default(now())
-}
-
-model EmotionJournal {
-  id           String   @id @default(cuid())
-  userId       String
-  title        String?
-  content      String
-  emotions     Json?
-  strategies   Json?
-  effectiveness Int?
-  timestamp    DateTime @default(now())
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model EmotionalRegulationLog {
-  id        String   @id @default(cuid())
-  userId    String
-  action    String
-  details   Json?
-  timestamp DateTime @default(now())
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-// Transition Planning Models
-model TransitionPlan {
-  id                 String               @id @default(cuid())
-  userId             String
-  studentId          String?
-  title              String
-  transitionType     String
-  startDate          DateTime
-  targetDate         DateTime
-  studentStrengths   String?
-  studentNeeds       String?
-  studentPreferences String?
-  status             String               @default("draft")
-  progress           Int                  @default(0)
-  createdAt          DateTime             @default(now())
-  updatedAt          DateTime             @updatedAt
-  goals              TransitionGoal[]
-  supportTeam        SupportTeamMember[]
-  resources          TransitionResource[]
-  accommodations     Accommodation[]
-  user               User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model TransitionGoal {
-  id           String        @id @default(cuid())
-  transitionPlanId String
-  title        String
-  description  String
-  category     String
-  steps        Json
-  status       String        @default("not-started")
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
-  transitionPlan TransitionPlan @relation(fields: [transitionPlanId], references: [id], onDelete: Cascade)
-}
-
-model SupportTeamMember {
-  id                String        @id @default(cuid())
-  transitionPlanId  String
-  name              String
-  role              String
-  contactInfo       String?
-  responsibilities  String?
-  createdAt         DateTime      @default(now())
-  updatedAt         DateTime      @updatedAt
-  transitionPlan    TransitionPlan @relation(fields: [transitionPlanId], references: [id], onDelete: Cascade)
-}
-
-model TransitionResource {
-  id               String        @id @default(cuid())
-  transitionPlanId String
-  title            String
-  type             String
-  link             String?
-  description      String?
-  createdAt        DateTime      @default(now())
-  updatedAt        DateTime      @updatedAt
-  transitionPlan   TransitionPlan @relation(fields: [transitionPlanId], references: [id], onDelete: Cascade)
-}
-
-model Accommodation {
-  id                 String        @id @default(cuid())
-  transitionPlanId   String
-  title              String
-  category           String
-  description        String
-  implementationNotes String?
-  createdAt          DateTime      @default(now())
-  updatedAt          DateTime      @updatedAt
-  transitionPlan     TransitionPlan @relation(fields: [transitionPlanId], references: [id], onDelete: Cascade)
-}
-
-model TransitionPlanningLog {
-  id        String   @id @default(cuid())
-  userId    String
-  planId    String?
-  action    String
-  details   Json?
-  timestamp DateTime @default(now())
-}
-
-// IEP/504 Plan Management Models
-model IEP504Plan {
-  id            String              @id @default(cuid())
-  userId        String
-  title         String
-  planType      String              // iep or 504
-  studentName   String
-  studentId     String?
-  dateOfBirth   DateTime?
-  startDate     DateTime
-  reviewDate    DateTime
-  presentLevels String?
-  strengths     String?
-  challenges    String?
-  parentInput   String?
-  studentInput  String?
-  status        String              @default("draft") // draft, active, review, completed
-  progress      Int                 @default(0)
-  createdAt     DateTime            @default(now())
-  updatedAt     DateTime            @updatedAt
-  goals         IEP504Goal[]
-  accommodations IEP504Accommodation[]
-  services      IEP504Service[]
-  teamMembers   IEP504TeamMember[]
-  user          User                @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model IEP504Goal {
-  id               String     @id @default(cuid())
-  planId           String
-  title            String
-  area             String     // academic, social, behavioral, etc.
-  description      String
-  baselineData     String?
-  evaluationMethod String
-  mastery          String?
-  timeline         String?
-  objectives       String[]
-  progress         Int        @default(0)
-  createdAt        DateTime   @default(now())
-  updatedAt        DateTime   @updatedAt
-  plan             IEP504Plan @relation(fields: [planId], references: [id], onDelete: Cascade)
-}
-
-model IEP504Accommodation {
-  id          String     @id @default(cuid())
-  planId      String
+model RestorativeTrainingSection {
+  id          String   @id @default(uuid())
+  moduleId    String
+  module      RestorativeTrainingModule @relation(fields: [moduleId], references: [id], onDelete: Cascade)
   title       String
-  category    String     // instructional, environmental, assessment, etc.
-  description String
-  frequency   String?
-  location    String?
-  provider    String?
-  notes       String?
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
-  plan        IEP504Plan @relation(fields: [planId], references: [id], onDelete: Cascade)
-}
-
-model IEP504Service {
-  id          String     @id @default(cuid())
-  planId      String
-  title       String
-  provider    String
-  frequency   String
+  type        String
+  content     String   @db.Text
   duration    String
-  location    String?
-  startDate   DateTime
-  endDate     DateTime
-  description String?
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
-  plan        IEP504Plan @relation(fields: [planId], references: [id], onDelete: Cascade)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
-model IEP504TeamMember {
-  id        String     @id @default(cuid())
-  planId    String
-  name      String
-  role      String
-  email     String?
-  phone     String?
-  notes     String?
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  plan      IEP504Plan @relation(fields: [planId], references: [id], onDelete: Cascade)
+model RestorativeTrainingResource {
+  id          String   @id @default(uuid())
+  moduleId    String
+  module      RestorativeTrainingModule @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  title       String
+  type        String
+  url         String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
-model IEP504PlanLog {
-  id        String   @id @default(cuid())
-  userId    String
-  planId    String?
-  action    String
-  details   Json?
-  timestamp DateTime @default(now())
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+model RestorativeTrainingProgress {
+  id                String   @id @default(uuid())
+  userId            String
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  moduleId          String
+  module            RestorativeTrainingModule @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  completedSections String[]
+  lastAccessed      DateTime @default(now())
+  certificateIssued Boolean  @default(false)
+  quizAttempts      RestorativeTrainingQuizAttempt[]
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@unique([userId, moduleId])
+}
+
+model RestorativeTrainingQuizAttempt {
+  id          String   @id @default(uuid())
+  progressId  String
+  progress    RestorativeTrainingProgress @relation(fields: [progressId], references: [id], onDelete: Cascade)
+  quizId      String
+  score       Int
+  attemptedAt DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
