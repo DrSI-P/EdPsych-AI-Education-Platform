@@ -59,6 +59,7 @@ model User {
   curriculumDifferentiations CurriculumDifferentiation[]
   multiModalContents    MultiModalContent[]
   adaptiveContents      AdaptiveContent[]
+  progressPacings       ProgressPacing[]
 }
 
 model VerificationToken {
@@ -241,6 +242,22 @@ model AdaptiveContent {
   keyStage              String?
   sourceContentId       String?
   performanceMetricsUsed Boolean  @default(false)
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+}
+
+model ProgressPacing {
+  id                    String   @id @default(cuid())
+  userId                String
+  user                  User     @relation(fields: [userId], references: [id])
+  title                 String
+  originalContent       String   @db.Text
+  adjustedPacing        Json
+  settings              Json
+  subject               String?
+  keyStage              String?
+  sourceContentId       String?
+  progressMetricsUsed   Boolean  @default(false)
   createdAt             DateTime @default(now())
   updatedAt             DateTime @updatedAt
 }
