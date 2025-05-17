@@ -7,11 +7,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
+import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "@/components/ui/use-toast";
 import { 
   Clock, 
-  BarChart3, 
+  LineChart, 
   BookOpen, 
   Sparkles, 
   ArrowRight, 
@@ -19,63 +19,57 @@ import {
   RefreshCw,
   Gauge,
   Zap,
-  LineChart,
-  Timer,
-  Lightbulb,
-  AlertCircle,
+  BarChart3,
   FastForward,
-  SkipForward,
-  ChevronRight
+  Calendar,
+  Award,
+  AlertCircle
 } from "lucide-react";
 
 interface ProgressPacingEngineProps {
-  content?: string;
-  title?: string;
+  studentId?: string;
+  curriculumId?: string;
   subject?: string;
   keyStage?: string;
-  contentId?: string;
-  studentProgressData?: any;
+  initialPacingData?: any;
   onPacingAdjusted?: (adjustedPacing: any) => void;
   className?: string;
 }
 
 export default function ProgressPacingEngine({
-  content = '',
-  title = '',
+  studentId,
+  curriculumId,
   subject = '',
   keyStage = '',
-  contentId,
-  studentProgressData,
+  initialPacingData,
   onPacingAdjusted,
   className
 }: ProgressPacingEngineProps) {
   const [isAdjusting, setIsAdjusting] = useState(false);
-  const [adjustedPacing, setAdjustedPacing] = useState<any>(null);
-  const [activeTab, setActiveTab] = useState('original');
+  const [pacingData, setPacingData] = useState<any>(initialPacingData || null);
+  const [activeTab, setActiveTab] = useState('current');
   const [settings, setSettings] = useState({
     baselinePace: 50,
     adaptToProgress: true,
-    includeRemediation: true,
-    includeAcceleration: true,
-    preserveComprehension: true,
+    includeReinforcementActivities: true,
+    includeAccelerationOptions: true,
+    considerLearningStyle: true,
     adaptationStrength: 70,
-    autoAssessProgress: true,
-    enableMasteryBasedAdvancement: true
+    autoAssessMastery: true,
+    enableBreakpoints: true
   });
   const [progressMetrics, setProgressMetrics] = useState<any>(null);
   
   // Fetch student progress data if available
   useEffect(() => {
-    if (studentProgressData) {
-      setProgressMetrics(studentProgressData);
-    } else if (contentId) {
-      fetchProgressData(contentId);
+    if (studentId) {
+      fetchProgressData(studentId, curriculumId);
     }
-  }, [studentProgressData, contentId]);
+  }, [studentId, curriculumId]);
   
-  const fetchProgressData = async (contentId: string) => {
+  const fetchProgressData = async (studentId: string, curriculumId?: string) => {
     try {
-      const response = await fetch(`/api/ai/student-progress?contentId=${contentId}`);
+      const response = await fetch(`/api/ai/student-progress?studentId=${studentId}${curriculumId ? `&curriculumId=${curriculumId}` : ''}`);
       if (response.ok) {
         const data = await response.json();
         setProgressMetrics(data.progressMetrics);
@@ -94,10 +88,10 @@ export default function ProgressPacingEngine({
   };
 
   const adjustPacing = async () => {
-    if (!content && !contentId && !title) {
+    if (!studentId && !curriculumId) {
       toast({
-        title: "Missing content",
-        description: "Please provide content, a title, or select existing content.",
+        title: "Missing information",
+        description: "Please provide student ID or curriculum ID.",
         variant: "destructive"
       });
       return;
@@ -112,39 +106,38 @@ export default function ProgressPacingEngine({
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          content,
-          title,
+          studentId,
+          curriculumId,
           subject,
           keyStage,
-          contentId,
           settings,
           progressMetrics
         }),
       });
 
       if (!response.ok) {
-        throw new Error('Failed to adjust content pacing');
+        throw new Error('Failed to adjust learning pace');
       }
 
       const data = await response.json();
-      setAdjustedPacing(data.adjustedPacing);
+      setPacingData(data.pacingData);
       
       if (onPacingAdjusted) {
-        onPacingAdjusted(data.adjustedPacing);
+        onPacingAdjusted(data.pacingData);
       }
 
       toast({
         title: "Pacing adjusted",
-        description: "Content has been successfully adjusted to the appropriate learning pace.",
+        description: "Learning pace has been successfully adjusted based on student progress.",
       });
       
-      // Switch to adjusted content tab
+      // Switch to adjusted pacing tab
       setActiveTab('adjusted');
     } catch (error) {
       console.error('Error adjusting pacing:', error);
       toast({
         title: "Adjustment failed",
-        description: "Failed to adjust content pacing. Please try again.",
+        description: "Failed to adjust learning pace. Please try again.",
         variant: "destructive"
       });
     } finally {
@@ -153,11 +146,11 @@ export default function ProgressPacingEngine({
   };
   
   const getPaceLevelDescription = (level: number) => {
-    if (level < 20) return "Very Slow";
-    if (level < 40) return "Slow";
+    if (level < 20) return "Very Gradual";
+    if (level < 40) return "Gradual";
     if (level < 60) return "Moderate";
-    if (level < 80) return "Fast";
-    return "Very Fast";
+    if (level < 80) return "Accelerated";
+    return "Highly Accelerated";
   };
   
   const getPaceBadgeColor = (level: number) => {
@@ -185,24 +178,11 @@ export default function ProgressPacingEngine({
         
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <p className="text-xs text-muted-foreground mb-1">Mastery Level</p>
-            <div className="flex items-center gap-2">
-              <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
-                <div 
-                  className="bg-blue-600 h-2 rounded-full" 
-                  style={{ width: `${progressMetrics.masteryLevel}%` }}
-                ></div>
-              </div>
-              <span className="text-xs font-medium">{progressMetrics.masteryLevel}%</span>
-            </div>
-          </div>
-          
-          <div>
             <p className="text-xs text-muted-foreground mb-1">Learning Velocity</p>
             <div className="flex items-center gap-2">
               <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
                 <div 
-                  className="bg-green-600 h-2 rounded-full" 
+                  className="bg-blue-600 h-2 rounded-full" 
                   style={{ width: `${progressMetrics.learningVelocity}%` }}
                 ></div>
               </div>
@@ -211,15 +191,15 @@ export default function ProgressPacingEngine({
           </div>
           
           <div>
-            <p className="text-xs text-muted-foreground mb-1">Retention Rate</p>
+            <p className="text-xs text-muted-foreground mb-1">Mastery Level</p>
             <div className="flex items-center gap-2">
               <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
                 <div 
-                  className="bg-purple-600 h-2 rounded-full" 
-                  style={{ width: `${progressMetrics.retentionRate}%` }}
+                  className="bg-green-600 h-2 rounded-full" 
+                  style={{ width: `${progressMetrics.masteryLevel}%` }}
                 ></div>
               </div>
-              <span className="text-xs font-medium">{progressMetrics.retentionRate}%</span>
+              <span className="text-xs font-medium">{progressMetrics.masteryLevel}%</span>
             </div>
           </div>
           
@@ -228,11 +208,24 @@ export default function ProgressPacingEngine({
             <div className="flex items-center gap-2">
               <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
                 <div 
-                  className="bg-amber-600 h-2 rounded-full" 
+                  className="bg-purple-600 h-2 rounded-full" 
                   style={{ width: `${progressMetrics.engagementConsistency}%` }}
                 ></div>
               </div>
               <span className="text-xs font-medium">{progressMetrics.engagementConsistency}%</span>
+            </div>
+          </div>
+          
+          <div>
+            <p className="text-xs text-muted-foreground mb-1">Knowledge Retention</p>
+            <div className="flex items-center gap-2">
+              <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
+                <div 
+                  className="bg-amber-600 h-2 rounded-full" 
+                  style={{ width: `${progressMetrics.knowledgeRetention}%` }}
+                ></div>
+              </div>
+              <span className="text-xs font-medium">{progressMetrics.knowledgeRetention}%</span>
             </div>
           </div>
         </div>
@@ -256,7 +249,7 @@ export default function ProgressPacingEngine({
         <CardHeader>
           <CardTitle className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Timer className="h-5 w-5 text-primary" />
+              <Clock className="h-5 w-5 text-primary" />
               Progress-Adaptive Pacing
             </div>
           </CardTitle>
@@ -284,7 +277,7 @@ export default function ProgressPacingEngine({
                 onValueChange={(value) => setSettings({...settings, baselinePace: value[0]})}
               />
               <p className="text-xs text-muted-foreground">
-                Adjust the slider to set the desired pace level for the content
+                Adjust the slider to set the baseline pace for learning progression
               </p>
             </div>
             
@@ -303,40 +296,40 @@ export default function ProgressPacingEngine({
             
             <div className="flex items-center justify-between">
               <div className="space-y-0.5">
-                <label className="text-sm font-medium">Include Remediation</label>
+                <label className="text-sm font-medium">Include Reinforcement Activities</label>
                 <p className="text-xs text-muted-foreground">
-                  Add additional support for struggling students
+                  Add activities to reinforce concepts when needed
                 </p>
               </div>
               <Switch 
-                checked={settings.includeRemediation}
-                onCheckedChange={(checked) => setSettings({...settings, includeRemediation: checked})}
+                checked={settings.includeReinforcementActivities}
+                onCheckedChange={(checked) => setSettings({...settings, includeReinforcementActivities: checked})}
               />
             </div>
             
             <div className="flex items-center justify-between">
               <div className="space-y-0.5">
-                <label className="text-sm font-medium">Include Acceleration</label>
+                <label className="text-sm font-medium">Include Acceleration Options</label>
                 <p className="text-xs text-muted-foreground">
-                  Add advanced pacing for high-performing students
+                  Add options to accelerate for advanced learners
                 </p>
               </div>
               <Switch 
-                checked={settings.includeAcceleration}
-                onCheckedChange={(checked) => setSettings({...settings, includeAcceleration: checked})}
+                checked={settings.includeAccelerationOptions}
+                onCheckedChange={(checked) => setSettings({...settings, includeAccelerationOptions: checked})}
               />
             </div>
             
             <div className="flex items-center justify-between">
               <div className="space-y-0.5">
-                <label className="text-sm font-medium">Preserve Comprehension</label>
+                <label className="text-sm font-medium">Consider Learning Style</label>
                 <p className="text-xs text-muted-foreground">
-                  Ensure understanding is maintained at all paces
+                  Adjust pacing based on learning style preferences
                 </p>
               </div>
               <Switch 
-                checked={settings.preserveComprehension}
-                onCheckedChange={(checked) => setSettings({...settings, preserveComprehension: checked})}
+                checked={settings.considerLearningStyle}
+                onCheckedChange={(checked) => setSettings({...settings, considerLearningStyle: checked})}
               />
             </div>
             
@@ -355,33 +348,33 @@ export default function ProgressPacingEngine({
                 onValueChange={(value) => setSettings({...settings, adaptationStrength: value[0]})}
               />
               <p className="text-xs text-muted-foreground">
-                Higher values create more significant changes to the original pacing
+                Higher values create more significant changes to the standard pacing
               </p>
             </div>
             
             <div className="flex items-center justify-between">
               <div className="space-y-0.5">
-                <label className="text-sm font-medium">Auto-Assess Progress</label>
+                <label className="text-sm font-medium">Auto-Assess Mastery</label>
                 <p className="text-xs text-muted-foreground">
-                  Include progress checks within content
+                  Include mastery checks to verify readiness to progress
                 </p>
               </div>
               <Switch 
-                checked={settings.autoAssessProgress}
-                onCheckedChange={(checked) => setSettings({...settings, autoAssessProgress: checked})}
+                checked={settings.autoAssessMastery}
+                onCheckedChange={(checked) => setSettings({...settings, autoAssessMastery: checked})}
               />
             </div>
             
             <div className="flex items-center justify-between">
               <div className="space-y-0.5">
-                <label className="text-sm font-medium">Mastery-Based Advancement</label>
+                <label className="text-sm font-medium">Enable Breakpoints</label>
                 <p className="text-xs text-muted-foreground">
-                  Require mastery before advancing to next topics
+                  Add strategic pauses for reflection and consolidation
                 </p>
               </div>
               <Switch 
-                checked={settings.enableMasteryBasedAdvancement}
-                onCheckedChange={(checked) => setSettings({...settings, enableMasteryBasedAdvancement: checked})}
+                checked={settings.enableBreakpoints}
+                onCheckedChange={(checked) => setSettings({...settings, enableBreakpoints: checked})}
               />
             </div>
           </div>
@@ -404,7 +397,7 @@ export default function ProgressPacingEngine({
               </>
             ) : (
               <>
-                <Timer className="h-4 w-4" />
+                <Clock className="h-4 w-4" />
                 Adjust Pacing
               </>
             )}
@@ -420,7 +413,7 @@ export default function ProgressPacingEngine({
               <div className="text-center">
                 <h3 className="text-lg font-medium">Adjusting Learning Pace</h3>
                 <p className="text-sm text-muted-foreground">
-                  Adapting content to the appropriate learning pace...
+                  Adapting learning pace to the student's progress...
                 </p>
               </div>
             </div>
@@ -428,59 +421,52 @@ export default function ProgressPacingEngine({
         </Card>
       )}
       
-      {adjustedPacing && !isAdjusting && (
+      {pacingData && !isAdjusting && (
         <Card>
           <CardHeader>
             <CardTitle>Learning Pace Comparison</CardTitle>
             <CardDescription>
-              Compare original and adjusted learning pace
+              Compare standard and personalized learning pace
             </CardDescription>
           </CardHeader>
           
           <CardContent>
-            <Tabs defaultValue="original" value={activeTab} onValueChange={setActiveTab}>
+            <Tabs defaultValue="current" value={activeTab} onValueChange={setActiveTab}>
               <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="original" className="flex items-center gap-1">
-                  Original Pacing
-                  <Badge variant="outline" className={getPaceBadgeColor(adjustedPacing.originalPace)}>
-                    {adjustedPacing.originalPace}%
+                <TabsTrigger value="current" className="flex items-center gap-1">
+                  Standard Pace
+                  <Badge variant="outline" className={getPaceBadgeColor(pacingData.standardPace)}>
+                    {pacingData.standardPace}%
                   </Badge>
                 </TabsTrigger>
                 <TabsTrigger value="adjusted" className="flex items-center gap-1">
-                  Adjusted Pacing
-                  <Badge variant="outline" className={getPaceBadgeColor(adjustedPacing.adjustedPace)}>
-                    {adjustedPacing.adjustedPace}%
+                  Adjusted Pace
+                  <Badge variant="outline" className={getPaceBadgeColor(pacingData.adjustedPace)}>
+                    {pacingData.adjustedPace}%
                   </Badge>
                 </TabsTrigger>
               </TabsList>
               
               <div className="mt-4 border rounded-md p-4">
-                <TabsContent value="original">
+                <TabsContent value="current">
                   <div className="prose prose-sm dark:prose-invert max-w-none">
-                    <h3>{adjustedPacing.title || 'Original Pacing'}</h3>
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-between text-sm">
-                        <span>Estimated Completion Time:</span>
-                        <Badge variant="outline" className="bg-slate-50 text-slate-700 border-slate-200">
-                          {adjustedPacing.originalCompletionTime}
-                        </Badge>
-                      </div>
-                      
-                      <div className="space-y-2">
-                        <h4 className="text-sm font-medium">Learning Sequence</h4>
-                        <div className="space-y-3">
-                          {adjustedPacing.originalSequence.map((item: any, index: number) => (
-                            <div key={index} className="border rounded-md p-3">
-                              <div className="flex items-center justify-between mb-2">
-                                <h5 className="text-sm font-medium">{item.title}</h5>
-                                <Badge variant="outline" className="text-xs">
-                                  {item.duration}
-                                </Badge>
-                              </div>
-                              <p className="text-xs text-muted-foreground">{item.description}</p>
+                    <h3>Standard Learning Schedule</h3>
+                    <p>{pacingData.standardDescription}</p>
+                    
+                    <div className="mt-4">
+                      <h4 className="text-sm font-medium">Timeline</h4>
+                      <div className="space-y-2 mt-2">
+                        {pacingData.standardTimeline.map((item: any, index: number) => (
+                          <div key={index} className="flex items-start gap-3">
+                            <div className="flex-shrink-0 w-16 text-xs text-muted-foreground">
+                              {item.timeframe}
                             </div>
-                          ))}
-                        </div>
+                            <div>
+                              <div className="text-sm font-medium">{item.milestone}</div>
+                              <div className="text-xs text-muted-foreground">{item.description}</div>
+                            </div>
+                          </div>
+                        ))}
                       </div>
                     </div>
                   </div>
@@ -488,80 +474,91 @@ export default function ProgressPacingEngine({
                 
                 <TabsContent value="adjusted">
                   <div className="prose prose-sm dark:prose-invert max-w-none">
-                    <h3>{adjustedPacing.title || 'Adjusted Pacing'}</h3>
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-between text-sm">
-                        <span>Estimated Completion Time:</span>
-                        <Badge variant="outline" className="bg-slate-50 text-slate-700 border-slate-200">
-                          {adjustedPacing.adjustedCompletionTime}
-                        </Badge>
-                      </div>
-                      
-                      <div className="space-y-2">
-                        <h4 className="text-sm font-medium">Adaptive Learning Sequence</h4>
-                        <div className="space-y-3">
-                          {adjustedPacing.adjustedSequence.map((item: any, index: number) => (
-                            <div key={index} className="border rounded-md p-3">
-                              <div className="flex items-center justify-between mb-2">
-                                <h5 className="text-sm font-medium flex items-center gap-1">
-                                  {item.type === 'remediation' && (
-                                    <AlertCircle className="h-3 w-3 text-blue-500" />
-                                  )}
-                                  {item.type === 'acceleration' && (
-                                    <FastForward className="h-3 w-3 text-purple-500" />
-                                  )}
-                                  {item.type === 'core' && (
-                                    <ChevronRight className="h-3 w-3 text-slate-500" />
-                                  )}
-                                  {item.title}
-                                </h5>
-                                <Badge variant="outline" className="text-xs">
-                                  {item.duration}
-                                </Badge>
-                              </div>
-                              <p className="text-xs text-muted-foreground">{item.description}</p>
-                              
-                              {item.masteryCheck && settings.enableMasteryBasedAdvancement && (
-                                <div className="mt-2 pt-2 border-t border-dashed flex items-center gap-2">
-                                  <CheckCircle2 className="h-3 w-3 text-green-500" />
-                                  <span className="text-xs font-medium text-green-600 dark:text-green-400">
-                                    Mastery Check
-                                  </span>
-                                </div>
-                              )}
+                    <h3>Personalized Learning Schedule</h3>
+                    <p>{pacingData.adjustedDescription}</p>
+                    
+                    <div className="mt-4">
+                      <h4 className="text-sm font-medium">Timeline</h4>
+                      <div className="space-y-2 mt-2">
+                        {pacingData.adjustedTimeline.map((item: any, index: number) => (
+                          <div key={index} className="flex items-start gap-3">
+                            <div className="flex-shrink-0 w-16 text-xs text-muted-foreground">
+                              {item.timeframe}
                             </div>
-                          ))}
-                        </div>
+                            <div>
+                              <div className="text-sm font-medium">{item.milestone}</div>
+                              <div className="text-xs text-muted-foreground">{item.description}</div>
+                            </div>
+                          </div>
+                        ))}
                       </div>
                     </div>
                     
-                    {adjustedPacing.remediation && settings.includeRemediation && (
+                    {pacingData.reinforcementActivities && settings.includeReinforcementActivities && (
                       <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900/30 rounded-md">
                         <h4 className="text-sm font-medium flex items-center gap-2 text-blue-700 dark:text-blue-300">
-                          <AlertCircle className="h-4 w-4" />
-                          Remediation Support
+                          <BookOpen className="h-4 w-4" />
+                          Reinforcement Activities
                         </h4>
-                        <div dangerouslySetInnerHTML={{ __html: adjustedPacing.remediation }} />
+                        <p className="text-xs text-blue-700 dark:text-blue-300 mt-1">
+                          Additional activities to strengthen understanding of key concepts
+                        </p>
+                        <ul className="mt-2 space-y-1 text-sm">
+                          {pacingData.reinforcementActivities.map((activity: string, index: number) => (
+                            <li key={index}>{activity}</li>
+                          ))}
+                        </ul>
                       </div>
                     )}
                     
-                    {adjustedPacing.acceleration && settings.includeAcceleration && (
+                    {pacingData.accelerationOptions && settings.includeAccelerationOptions && (
                       <div className="mt-4 p-3 bg-purple-50 dark:bg-purple-900/30 rounded-md">
                         <h4 className="text-sm font-medium flex items-center gap-2 text-purple-700 dark:text-purple-300">
                           <FastForward className="h-4 w-4" />
-                          Acceleration Opportunities
+                          Acceleration Options
                         </h4>
-                        <div dangerouslySetInnerHTML={{ __html: adjustedPacing.acceleration }} />
+                        <p className="text-xs text-purple-700 dark:text-purple-300 mt-1">
+                          Advanced options for students who master concepts quickly
+                        </p>
+                        <ul className="mt-2 space-y-1 text-sm">
+                          {pacingData.accelerationOptions.map((option: string, index: number) => (
+                            <li key={index}>{option}</li>
+                          ))}
+                        </ul>
                       </div>
                     )}
                     
-                    {adjustedPacing.progressChecks && settings.autoAssessProgress && (
+                    {pacingData.masteryCheckpoints && settings.autoAssessMastery && (
                       <div className="mt-4 p-3 bg-amber-50 dark:bg-amber-900/30 rounded-md">
                         <h4 className="text-sm font-medium flex items-center gap-2 text-amber-700 dark:text-amber-300">
-                          <Gauge className="h-4 w-4" />
-                          Progress Checks
+                          <Award className="h-4 w-4" />
+                          Mastery Checkpoints
                         </h4>
-                        <div dangerouslySetInnerHTML={{ __html: adjustedPacing.progressChecks }} />
+                        <p className="text-xs text-amber-700 dark:text-amber-300 mt-1">
+                          Key points to verify understanding before progressing
+                        </p>
+                        <ul className="mt-2 space-y-1 text-sm">
+                          {pacingData.masteryCheckpoints.map((checkpoint: string, index: number) => (
+                            <li key={index}>{checkpoint}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                    
+                    {pacingData.breakpoints && settings.enableBreakpoints && (
+                      <div className="mt-4 p-3 bg-green-50 dark:bg-green-900/30 rounded-md">
+                        <h4 className="text-sm font-medium flex items-center gap-2 text-green-700 dark:text-green-300">
+                          <AlertCircle className="h-4 w-4" />
+                          Strategic Breakpoints
+                        </h4>
+                        <p className="text-xs text-green-700 dark:text-green-300 mt-1">
+                          Planned pauses for reflection and knowledge consolidation
+                        </p>
+                        <ul className="mt-2 space-y-1 text-sm">
+                          {pacingData.breakpoints.map((breakpoint: string, index: number) => (
+                            <li key={index}>{breakpoint}</li>
+                          ))}
+                        </ul>
                       </div>
                     )}
                   </div>
@@ -573,21 +570,28 @@ export default function ProgressPacingEngine({
               <h4 className="text-sm font-medium mb-2">Pacing Adjustment Summary</h4>
               <div className="space-y-2">
                 <div className="flex items-center justify-between text-sm">
-                  <span>Original Pace:</span>
-                  <Badge variant="outline" className={getPaceBadgeColor(adjustedPacing.originalPace)}>
-                    {adjustedPacing.originalPace}% - {getPaceLevelDescription(adjustedPacing.originalPace)}
+                  <span>Standard Pace:</span>
+                  <Badge variant="outline" className={getPaceBadgeColor(pacingData.standardPace)}>
+                    {pacingData.standardPace}% - {getPaceLevelDescription(pacingData.standardPace)}
                   </Badge>
                 </div>
                 <div className="flex items-center justify-between text-sm">
                   <span>Adjusted Pace:</span>
-                  <Badge variant="outline" className={getPaceBadgeColor(adjustedPacing.adjustedPace)}>
-                    {adjustedPacing.adjustedPace}% - {getPaceLevelDescription(adjustedPacing.adjustedPace)}
+                  <Badge variant="outline" className={getPaceBadgeColor(pacingData.adjustedPace)}>
+                    {pacingData.adjustedPace}% - {getPaceLevelDescription(pacingData.adjustedPace)}
                   </Badge>
                 </div>
                 <div className="flex items-center justify-between text-sm">
                   <span>Adaptation Type:</span>
                   <Badge variant="outline">
-                    {adjustedPacing.adaptationType}
+                    {pacingData.adaptationType}
+                  </Badge>
+                </div>
+                <div className="flex items-center justify-between text-sm">
+                  <span>Estimated Completion:</span>
+                  <Badge variant="outline" className="flex items-center gap-1">
+                    <Calendar className="h-3 w-3" />
+                    {pacingData.estimatedCompletion}
                   </Badge>
                 </div>
               </div>
@@ -598,7 +602,7 @@ export default function ProgressPacingEngine({
             <Button 
               variant="outline" 
               size="sm" 
-              onClick={() => setAdjustedPacing(null)}
+              onClick={() => setPacingData(null)}
               className="flex items-center gap-1"
             >
               Reset
@@ -608,13 +612,13 @@ export default function ProgressPacingEngine({
               size="sm"
               onClick={() => {
                 toast({
-                  title: "Pacing saved",
-                  description: "The adjusted pacing has been saved to your account.",
+                  title: "Pacing plan saved",
+                  description: "The personalized pacing plan has been saved to your account.",
                 });
               }}
               className="flex items-center gap-1"
             >
-              Save Adjusted Pacing
+              Save Pacing Plan
             </Button>
           </CardFooter>
         </Card>

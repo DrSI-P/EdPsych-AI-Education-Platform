@@ -5,14 +5,14 @@ import ProgressPacingEngine from '@/components/ai/progress-pacing/progress-pacin
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { Timer, BookOpen, Layers, ArrowRight, CheckCircle2, BarChart3, Gauge } from "lucide-react";
+import { Clock, BookOpen, Users, ArrowRight, CheckCircle2, BarChart3 } from "lucide-react";
 import { useRouter, useSearchParams } from 'next/navigation';
 
 export default function ProgressPacingPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [content, setContent] = useState<any>(null);
-  const contentId = searchParams.get('contentId');
+  const studentId = searchParams.get('studentId');
+  const curriculumId = searchParams.get('curriculumId');
 
   return (
     <div className="container mx-auto py-8 px-4">
@@ -32,60 +32,38 @@ export default function ProgressPacingPage() {
           
           <TabsContent value="adjust" className="pt-4">
             <div className="space-y-8">
-              {!contentId && (
+              {!studentId && !curriculumId && (
                 <Card className="mb-6">
                   <CardHeader>
-                    <CardTitle>Select Content to Adjust</CardTitle>
+                    <CardTitle>Select Student or Curriculum</CardTitle>
                     <CardDescription>
-                      Choose existing content or create new adaptive pacing
+                      Choose a student or curriculum to adjust learning pace
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <Button 
+                        variant="outline" 
+                        className="h-auto flex flex-col items-center justify-center p-6 gap-2"
+                        onClick={() => router.push('/students')}
+                      >
+                        <Users className="h-10 w-10 text-primary mb-2" />
+                        <span className="text-lg font-medium">Select Student</span>
+                        <span className="text-sm text-muted-foreground text-center">
+                          Adjust pacing based on individual student progress
+                        </span>
+                      </Button>
+                      
                       <Button 
                         variant="outline" 
                         className="h-auto flex flex-col items-center justify-center p-6 gap-2"
                         onClick={() => router.push('/curriculum')}
                       >
                         <BookOpen className="h-10 w-10 text-primary mb-2" />
-                        <span className="text-lg font-medium">Curriculum Plans</span>
+                        <span className="text-lg font-medium">Select Curriculum</span>
                         <span className="text-sm text-muted-foreground text-center">
-                          Adjust pacing of curriculum plans
+                          Adjust pacing for a specific curriculum plan
                         </span>
-                      </Button>
-                      
-                      <Button 
-                        variant="outline" 
-                        className="h-auto flex flex-col items-center justify-center p-6 gap-2"
-                        onClick={() => router.push('/resources')}
-                      >
-                        <Layers className="h-10 w-10 text-primary mb-2" />
-                        <span className="text-lg font-medium">Resources</span>
-                        <span className="text-sm text-muted-foreground text-center">
-                          Adjust pacing of learning resources
-                        </span>
-                      </Button>
-                      
-                      <Button 
-                        variant="outline" 
-                        className="h-auto flex flex-col items-center justify-center p-6 gap-2"
-                        onClick={() => router.push('/adaptive-complexity')}
-                      >
-                        <Gauge className="h-10 w-10 text-primary mb-2" />
-                        <span className="text-lg font-medium">Adaptive Content</span>
-                        <span className="text-sm text-muted-foreground text-center">
-                          Adjust pacing of complexity-adjusted content
-                        </span>
-                      </Button>
-                    </div>
-                    
-                    <div className="mt-6 text-center">
-                      <p className="text-sm text-muted-foreground mb-4">
-                        Or create new progress-adaptive content from scratch
-                      </p>
-                      <Button onClick={() => setContent({ title: '', content: '' })}>
-                        <Timer className="h-4 w-4 mr-2" />
-                        Create New Content
                       </Button>
                     </div>
                   </CardContent>
@@ -93,9 +71,8 @@ export default function ProgressPacingPage() {
               )}
               
               <ProgressPacingEngine 
-                contentId={contentId || undefined}
-                content={content?.content}
-                title={content?.title}
+                studentId={studentId || undefined}
+                curriculumId={curriculumId || undefined}
               />
             </div>
           </TabsContent>
@@ -113,10 +90,10 @@ export default function ProgressPacingPage() {
                 <div>
                   <h3 className="text-lg font-medium mb-2">What is Progress-Adaptive Pacing?</h3>
                   <p>
-                    Progress-Adaptive Pacing is an advanced educational technology that automatically adjusts the pace of learning based on individual student progress and mastery. This feature ensures that each student moves through the curriculum at an optimal rate—not too fast to cause confusion or knowledge gaps, yet not too slow to cause disengagement or boredom.
+                    Progress-Adaptive Pacing is an advanced educational approach that automatically adjusts the pace of learning based on individual student progress, ensuring that each student moves through the curriculum at an optimal rate. This feature recognizes that students learn at different speeds and adapts accordingly, preventing both frustration from moving too quickly and disengagement from moving too slowly.
                   </p>
                   <p className="mt-2">
-                    By leveraging artificial intelligence and evidence-based pedagogical principles, the system creates personalized learning journeys that adapt to each student's unique progress patterns, making education more efficient, engaging, and effective.
+                    By leveraging artificial intelligence and evidence-based pedagogical principles, the system creates personalized learning journeys that respond dynamically to each student's progress, mastery level, and learning patterns, making education more efficient, engaging, and effective.
                   </p>
                 </div>
                 
@@ -124,19 +101,19 @@ export default function ProgressPacingPage() {
                   <h3 className="text-lg font-medium mb-2">Key Features</h3>
                   <ul className="list-disc pl-5 space-y-2">
                     <li>
-                      <span className="font-medium">Progress-Based Adaptation:</span> Automatically adjusts learning pace based on student progress data, mastery levels, and learning velocity.
+                      <span className="font-medium">Progress-Based Adaptation:</span> Automatically adjusts learning pace based on student progress data, mastery levels, and engagement patterns.
                     </li>
                     <li>
-                      <span className="font-medium">Remediation Support:</span> Provides additional time and resources for topics where students need more practice or support.
+                      <span className="font-medium">Reinforcement Activities:</span> Provides additional practice opportunities when needed to ensure concept mastery before progression.
                     </li>
                     <li>
-                      <span className="font-medium">Acceleration Opportunities:</span> Offers faster progression and enrichment for students who demonstrate mastery and readiness for advanced content.
+                      <span className="font-medium">Acceleration Options:</span> Offers pathways for advanced progression when students demonstrate strong understanding and mastery.
                     </li>
                     <li>
-                      <span className="font-medium">Progress Checks:</span> Embeds assessment points within the learning sequence to verify understanding and guide further adaptations.
+                      <span className="font-medium">Mastery Checkpoints:</span> Embeds strategic assessment points to verify readiness for progression to new concepts.
                     </li>
                     <li>
-                      <span className="font-medium">Mastery-Based Advancement:</span> Ensures students master essential concepts before moving to more advanced topics, preventing knowledge gaps.
+                      <span className="font-medium">Strategic Breakpoints:</span> Incorporates planned pauses for reflection and knowledge consolidation at key points in the learning journey.
                     </li>
                   </ul>
                 </div>
@@ -147,26 +124,25 @@ export default function ProgressPacingPage() {
                     Research in educational psychology demonstrates that adaptive pacing offers significant advantages:
                   </p>
                   <ul className="list-disc pl-5 space-y-1 mt-2">
-                    <li>Increased engagement through appropriately paced content</li>
-                    <li>Reduced frustration from moving too quickly through challenging material</li>
-                    <li>Prevention of boredom from unnecessary repetition of mastered content</li>
-                    <li>Support for students with diverse learning speeds and needs</li>
-                    <li>More efficient use of learning time through personalized pacing</li>
-                    <li>Improved knowledge retention through mastery-based progression</li>
+                    <li>Reduced frustration and anxiety from inappropriate pacing</li>
+                    <li>Increased engagement through appropriately challenging progression</li>
+                    <li>More efficient use of learning time for all students</li>
+                    <li>Stronger knowledge retention through mastery-based progression</li>
+                    <li>Greater student agency and ownership of learning</li>
                   </ul>
                 </div>
                 
                 <div>
                   <h3 className="text-lg font-medium mb-2">Evidence-Based Approach</h3>
                   <p>
-                    Our progress-adaptive pacing system is built on established research in mastery learning theory, spaced repetition principles, and the science of knowledge acquisition and retention. The system implements best practices for presenting information at the optimal pace while ensuring deep understanding and long-term retention.
+                    Our progress-adaptive pacing system is built on established research in mastery learning, spaced repetition, and the zone of proximal development. The system implements best practices for pacing educational content while ensuring deep understanding and knowledge retention.
                   </p>
                 </div>
                 
                 <div>
                   <h3 className="text-lg font-medium mb-2">UK Curriculum Alignment</h3>
                   <p>
-                    All adapted pacing maintains alignment with UK curriculum standards and uses UK English spelling and terminology. The system ensures that while the learning pace may be adjusted, the core learning objectives and curriculum requirements are preserved.
+                    All pacing adjustments maintain alignment with UK curriculum standards and progression expectations. The system ensures that while the pace may be personalized, the core learning objectives and curriculum requirements are preserved and achieved.
                   </p>
                 </div>
                 
@@ -176,7 +152,7 @@ export default function ProgressPacingPage() {
                     Teacher Tip
                   </h3>
                   <p>
-                    Progress-adaptive pacing is particularly valuable for mixed-ability classrooms, students with special educational needs, and personalized learning programs. Consider using this feature to create individualized learning pathways that allow all students to progress at their optimal pace while ensuring mastery of essential concepts.
+                    Progress-adaptive pacing is particularly valuable for mixed-ability classrooms and personalized learning environments. Consider using this feature to create individualized learning plans that allow each student to progress at their optimal pace while still achieving curriculum objectives within appropriate timeframes.
                   </p>
                 </div>
               </CardContent>

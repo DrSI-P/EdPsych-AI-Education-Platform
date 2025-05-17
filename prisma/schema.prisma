@@ -250,13 +250,17 @@ model ProgressPacing {
   id                    String   @id @default(cuid())
   userId                String
   user                  User     @relation(fields: [userId], references: [id])
-  title                 String
-  originalContent       String   @db.Text
-  adjustedPacing        Json
+  studentId             String?
+  curriculumId          String?
+  standardPace          Int
+  adjustedPace          Int
+  adaptationType        String
+  estimatedCompletion   String
+  pacingData            Json
   settings              Json
   subject               String?
   keyStage              String?
-  sourceContentId       String?
+  learningStyleUsed     Boolean  @default(false)
   progressMetricsUsed   Boolean  @default(false)
   createdAt             DateTime @default(now())
   updatedAt             DateTime @updatedAt

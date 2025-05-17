@@ -14,226 +14,240 @@ export async function POST(req: NextRequest) {
     
     const data = await req.json();
     const { 
-      content, 
-      title,
+      studentId, 
+      curriculumId,
       subject,
       keyStage,
-      contentId,
       settings,
       progressMetrics
     } = data;
     
     // Validate input
-    if (!content && !contentId && !title) {
-      return NextResponse.json({ error: 'No content, title, or content ID provided' }, { status: 400 });
+    if (!studentId && !curriculumId) {
+      return NextResponse.json({ error: 'No student ID or curriculum ID provided' }, { status: 400 });
     }
     
-    // Get content if ID is provided
-    let contentToAdjust = content;
-    let contentTitle = title;
-    let contentSubject = subject;
-    let contentKeyStage = keyStage;
-    let originalPace = 50; // Default pace level
+    // Get student data if ID is provided
+    let studentData = null;
+    let curriculumData = null;
+    let learningStyleProfile = null;
     
-    if (contentId) {
-      // Check if it's a curriculum plan
-      const curriculumPlan = await prisma.curriculumPlan.findUnique({
-        where: { id: contentId }
+    if (studentId) {
+      // Get student data
+      const user = await prisma.user.findUnique({
+        where: { id: studentId }
       });
       
-      if (curriculumPlan) {
-        contentToAdjust = curriculumPlan.content || '';
-        contentTitle = curriculumPlan.title;
-        contentSubject = curriculumPlan.subject || '';
-        contentKeyStage = curriculumPlan.keyStage || '';
-      } else {
-        // Check if it's a resource
-        const resource = await prisma.resource.findUnique({
-          where: { id: contentId }
-        });
+      if (user) {
+        studentData = {
+          id: user.id,
+          name: user.name
+        };
         
-        if (resource) {
-          contentToAdjust = resource.content || '';
-          contentTitle = resource.title;
-          contentSubject = resource.tags.find(tag => tag.startsWith('subject:'))?.replace('subject:', '') || '';
-          contentKeyStage = resource.tags.find(tag => tag.startsWith('keyStage:'))?.replace('keyStage:', '') || '';
-        } else {
-          // Check if it's multi-modal content
-          const multiModalContent = await prisma.multiModalContent.findUnique({
-            where: { id: contentId }
+        // Get learning style profile if needed
+        if (settings.considerLearningStyle) {
+          learningStyleProfile = await prisma.learningStyleProfile.findFirst({
+            where: { userId: studentId },
+            orderBy: { createdAt: 'desc' }
           });
-          
-          if (multiModalContent) {
-            contentToAdjust = JSON.stringify(multiModalContent.multiModalContent);
-            contentTitle = multiModalContent.title;
-            contentSubject = multiModalContent.subject || '';
-            contentKeyStage = multiModalContent.keyStage || '';
-          } else {
-            // Check if it's adaptive content
-            const adaptiveContent = await prisma.adaptiveContent.findUnique({
-              where: { id: contentId }
-            });
-            
-            if (adaptiveContent) {
-              contentToAdjust = JSON.stringify(adaptiveContent.adjustedContent);
-              contentTitle = adaptiveContent.title;
-              contentSubject = adaptiveContent.subject || '';
-              contentKeyStage = adaptiveContent.keyStage || '';
-            } else {
-              return NextResponse.json({ error: 'Content not found' }, { status: 404 });
-            }
-          }
         }
       }
     }
     
-    // Determine target pace level
-    let targetPace = settings.baselinePace;
+    // Get curriculum data if ID is provided
+    if (curriculumId) {
+      const curriculum = await prisma.curriculumPlan.findUnique({
+        where: { id: curriculumId }
+      });
+      
+      if (curriculum) {
+        curriculumData = {
+          id: curriculum.id,
+          title: curriculum.title,
+          subject: curriculum.subject,
+          gradeLevel: curriculum.gradeLevel,
+          objectives: curriculum.objectives
+        };
+      }
+    }
+    
+    // Determine baseline pace
+    let baselinePace = settings.baselinePace;
     
     // If adapt to progress is enabled and progress metrics are available
     if (settings.adaptToProgress && progressMetrics?.recommendedPace) {
-      targetPace = progressMetrics.recommendedPace;
+      baselinePace = progressMetrics.recommendedPace;
     }
     
     // Determine adaptation type
-    let adaptationType = "Maintained";
-    if (targetPace < originalPace - 10) {
-      adaptationType = "Slowed";
-    } else if (targetPace > originalPace + 10) {
+    let adaptationType = "Standard";
+    const standardPace = 50; // Default standard pace
+    
+    if (baselinePace < standardPace - 10) {
+      adaptationType = "Gradual";
+    } else if (baselinePace > standardPace + 10) {
       adaptationType = "Accelerated";
     }
     
     // Get AI service
     const aiService = getAIService();
     
-    // Create prompt for adaptive pacing adjustment
+    // Create prompt for progress-adaptive pacing
     const prompt = `
-      You are an expert educational content designer specializing in adapting learning pace to meet individual student needs.
+      You are an expert educational designer specializing in personalized learning pacing based on individual student progress.
       
-      Task: Adjust the pacing of the following educational content to match the target pace level.
+      Task: Create a personalized learning pace plan that adapts to the student's progress and learning needs.
       
-      Original Content:
-      ${contentToAdjust || 'No specific content provided. Generate appropriate content based on the title: ' + contentTitle}
+      ${studentData ? `Student Information:
+      - ID: ${studentData.id}
+      - Name: ${studentData.name}` : 'No specific student information provided.'}
       
-      Title: ${contentTitle || 'Educational Content'}
-      Subject: ${contentSubject || 'General'}
-      Key Stage: ${contentKeyStage || 'Not specified'}
+      ${curriculumData ? `Curriculum Information:
+      - Title: ${curriculumData.title}
+      - Subject: ${curriculumData.subject || 'Not specified'}
+      - Grade Level: ${curriculumData.gradeLevel || 'Not specified'}
+      - Objectives: ${JSON.stringify(curriculumData.objectives)}` : `
+      Subject: ${subject || 'General'}
+      Key Stage: ${keyStage || 'Not specified'}`}
       
-      Target Pace Level: ${targetPace}% (${targetPace < 30 ? 'Slow' : targetPace < 60 ? 'Moderate' : 'Fast'})
+      ${learningStyleProfile ? `Learning Style Profile:
+      - Primary Style: ${learningStyleProfile.primaryStyle}
+      - Secondary Style: ${learningStyleProfile.secondaryStyle}
+      - Visual Score: ${learningStyleProfile.visualScore}
+      - Auditory Score: ${learningStyleProfile.auditoryScore}
+      - Kinesthetic Score: ${learningStyleProfile.kinestheticScore}
+      - Reading/Writing Score: ${learningStyleProfile.readingWritingScore}` : ''}
+      
+      Baseline Pace Level: ${baselinePace}% (${baselinePace < 30 ? 'Gradual' : baselinePace < 60 ? 'Moderate' : 'Accelerated'})
       Adaptation Type: ${adaptationType}
       Adaptation Strength: ${settings.adaptationStrength}%
       
-      Adjustment Settings:
-      - Include Remediation: ${settings.includeRemediation ? 'Yes' : 'No'}
-      - Include Acceleration: ${settings.includeAcceleration ? 'Yes' : 'No'}
-      - Preserve Comprehension: ${settings.preserveComprehension ? 'Yes' : 'No'}
-      - Auto-Assess Progress: ${settings.autoAssessProgress ? 'Yes' : 'No'}
-      - Mastery-Based Advancement: ${settings.enableMasteryBasedAdvancement ? 'Yes' : 'No'}
+      Pacing Settings:
+      - Adapt to Progress Data: ${settings.adaptToProgress ? 'Yes' : 'No'}
+      - Include Reinforcement Activities: ${settings.includeReinforcementActivities ? 'Yes' : 'No'}
+      - Include Acceleration Options: ${settings.includeAccelerationOptions ? 'Yes' : 'No'}
+      - Consider Learning Style: ${settings.considerLearningStyle ? 'Yes' : 'No'}
+      - Auto-Assess Mastery: ${settings.autoAssessMastery ? 'Yes' : 'No'}
+      - Enable Breakpoints: ${settings.enableBreakpoints ? 'Yes' : 'No'}
       
-      ${progressMetrics ? `
-      Student Progress Metrics:
-      - Mastery Level: ${progressMetrics.masteryLevel}%
+      ${progressMetrics ? `Student Progress Metrics:
       - Learning Velocity: ${progressMetrics.learningVelocity}%
-      - Retention Rate: ${progressMetrics.retentionRate}%
+      - Mastery Level: ${progressMetrics.masteryLevel}%
       - Engagement Consistency: ${progressMetrics.engagementConsistency}%
+      - Knowledge Retention: ${progressMetrics.knowledgeRetention}%
+      - Recommended Pace: ${progressMetrics.recommendedPace}%` : ''}
+      
+      Please create a personalized learning pace plan according to the following guidelines:
+      
+      1. For Gradual pacing (baseline pace < 40%):
+         - Provide more time for concept exploration and practice
+         - Include additional reinforcement activities
+         - Add strategic breakpoints for reflection and consolidation
+         - Ensure mastery before progression to new concepts
+         - Focus on depth of understanding over breadth of coverage
+      
+      2. For Moderate pacing (baseline pace 40-70%):
+         - Balance concept exploration with steady progression
+         - Include some reinforcement activities for key concepts
+         - Add occasional breakpoints at natural transition points
+         - Verify understanding of core concepts before progression
+         - Balance depth and breadth of coverage
+      
+      3. For Accelerated pacing (baseline pace > 70%):
+         - Allow for faster progression through familiar concepts
+         - Include extension activities for deeper exploration
+         - Add minimal breakpoints only where essential
+         - Verify mastery through more challenging assessments
+         - Expand breadth of coverage with opportunities for depth in areas of interest
+      
+      ${settings.includeReinforcementActivities ? `
+      If including reinforcement activities, please provide:
+      - Additional practice exercises for key concepts
+      - Alternative explanations using different approaches
+      - Real-world application examples
+      - Guided review activities
       ` : ''}
       
-      Please adjust the content pacing according to the following guidelines:
-      
-      1. For Slower pace (target pace < 40%):
-         - Break content into smaller, more manageable chunks
-         - Provide more time for practice and consolidation
-         - Include more frequent progress checks
-         - Add additional explanations and examples
-         - Reduce cognitive load by focusing on core concepts
-      
-      2. For Moderate pace (target pace 40-70%):
-         - Balance content delivery with practice time
-         - Provide regular but not excessive progress checks
-         - Include appropriate examples and explanations
-         - Maintain a steady progression through topics
-         - Allow flexibility for individual differences
-      
-      3. For Faster pace (target pace > 70%):
-         - Combine related concepts where appropriate
-         - Reduce repetition while maintaining comprehension
-         - Include challenge activities for advanced learners
-         - Accelerate through familiar content
-         - Provide opportunities for deeper exploration
-      
-      ${settings.includeRemediation ? `
-      If including remediation, please provide:
-      - Additional practice opportunities
-      - Prerequisite concept reviews
-      - Alternative explanations
-      - Scaffolded learning activities
+      ${settings.includeAccelerationOptions ? `
+      If including acceleration options, please provide:
+      - Advanced concept exploration opportunities
+      - Independent research projects
+      - Cross-curricular application challenges
+      - Peer teaching opportunities
       ` : ''}
       
-      ${settings.includeAcceleration ? `
-      If including acceleration, please provide:
-      - Advanced challenge activities
-      - Enrichment opportunities
-      - Deeper exploration of concepts
-      - Connections to higher-level content
+      ${settings.autoAssessMastery ? `
+      If including mastery checkpoints, please provide:
+      - Key knowledge verification points
+      - Skill demonstration opportunities
+      - Application challenges
+      - Self-assessment prompts
       ` : ''}
       
-      ${settings.autoAssessProgress ? `
-      If including progress checks, please provide:
-      - Brief formative assessments
-      - Self-reflection prompts
-      - Knowledge application tasks
-      - Progress tracking mechanisms
+      ${settings.enableBreakpoints ? `
+      If including strategic breakpoints, please provide:
+      - Reflection points for knowledge consolidation
+      - Synthesis activities to connect concepts
+      - Progress celebration moments
+      - Preparation points before new concept introduction
       ` : ''}
       
-      ${settings.enableMasteryBasedAdvancement ? `
-      If enabling mastery-based advancement, please:
-      - Define clear mastery criteria for each section
-      - Include mastery checks at key points
-      - Provide remediation paths for non-mastery
-      - Allow advancement only upon demonstration of mastery
-      ` : ''}
-      
-      Ensure all content is:
+      Ensure all pacing recommendations are:
       - Evidence-based and pedagogically sound
       - Aligned with UK curriculum standards for the specified key stage
       - Age-appropriate and engaging
-      - Free from cultural bias and inclusive of diverse perspectives
+      - Supportive of diverse learning needs
       - Using UK English spelling and terminology
       
-      Return the adjusted pacing as a JSON object with the following structure:
+      Return the personalized pacing plan as a JSON object with the following structure:
       {
-        "title": "Content title",
-        "originalPace": 50,
-        "adjustedPace": 30,
-        "adaptationType": "Slowed",
-        "originalCompletionTime": "45 minutes",
-        "adjustedCompletionTime": "60 minutes",
-        "originalSequence": [
+        "standardPace": 50,
+        "adjustedPace": 70,
+        "adaptationType": "Accelerated",
+        "estimatedCompletion": "6 weeks",
+        "standardDescription": "Brief description of the standard pacing approach",
+        "adjustedDescription": "Brief description of the adjusted pacing approach",
+        "standardTimeline": [
           {
-            "title": "Introduction to Topic",
-            "duration": "10 minutes",
-            "description": "Brief description of this section"
+            "timeframe": "Week 1",
+            "milestone": "Introduction to concepts",
+            "description": "Brief description of activities"
           },
-          // Additional sequence items...
+          // Additional timeline entries...
         ],
-        "adjustedSequence": [
+        "adjustedTimeline": [
           {
-            "title": "Introduction to Topic",
-            "duration": "15 minutes",
-            "description": "Brief description of this section",
-            "type": "core", // core, remediation, or acceleration
-            "masteryCheck": false // true if this section includes a mastery check
+            "timeframe": "Week 1",
+            "milestone": "Accelerated introduction and application",
+            "description": "Brief description of activities"
           },
-          // Additional sequence items...
+          // Additional timeline entries...
         ],
-        "remediation": "HTML-formatted remediation content (if includeRemediation is true)",
-        "acceleration": "HTML-formatted acceleration activities (if includeAcceleration is true)",
-        "progressChecks": "HTML-formatted progress checks (if autoAssessProgress is true)"
+        "reinforcementActivities": [
+          "Activity 1 description",
+          "Activity 2 description",
+          // Additional activities...
+        ],
+        "accelerationOptions": [
+          "Option 1 description",
+          "Option 2 description",
+          // Additional options...
+        ],
+        "masteryCheckpoints": [
+          "Checkpoint 1 description",
+          "Checkpoint 2 description",
+          // Additional checkpoints...
+        ],
+        "breakpoints": [
+          "Breakpoint 1 description",
+          "Breakpoint 2 description",
+          // Additional breakpoints...
+        ]
       }
     `;
     
-    // Call AI service for adaptive pacing adjustment
-    const adjustmentResponse = await aiService.getCompletion({
+    // Call AI service for progress-adaptive pacing
+    const pacingResponse = await aiService.getCompletion({
       prompt,
       model: 'gpt-4',
       temperature: 0.5,
@@ -242,38 +256,42 @@ export async function POST(req: NextRequest) {
     });
     
     // Parse the response
-    let adjustedPacing;
+    let pacingData;
     try {
-      adjustedPacing = JSON.parse(adjustmentResponse);
+      pacingData = JSON.parse(pacingResponse);
     } catch (error) {
       console.error('Error parsing AI response:', error);
-      return NextResponse.json({ error: 'Failed to parse adjusted pacing' }, { status: 500 });
+      return NextResponse.json({ error: 'Failed to parse pacing data' }, { status: 500 });
     }
     
-    // Save the adjusted pacing
+    // Save the pacing data
     const savedPacing = await prisma.progressPacing.create({
       data: {
         userId: session.user.id,
-        title: adjustedPacing.title || contentTitle || 'Adjusted Pacing',
-        originalContent: contentToAdjust || '',
-        adjustedPacing: adjustedPacing,
+        studentId: studentId || null,
+        curriculumId: curriculumId || null,
+        standardPace: pacingData.standardPace,
+        adjustedPace: pacingData.adjustedPace,
+        adaptationType: pacingData.adaptationType,
+        estimatedCompletion: pacingData.estimatedCompletion,
+        pacingData: pacingData,
         settings: settings,
-        subject: contentSubject || null,
-        keyStage: contentKeyStage || null,
-        sourceContentId: contentId || null,
+        subject: subject || null,
+        keyStage: keyStage || null,
+        learningStyleUsed: learningStyleProfile ? true : false,
         progressMetricsUsed: progressMetrics ? true : false
       }
     });
     
     return NextResponse.json({
       success: true,
-      adjustedPacing,
+      pacingData,
       pacingId: savedPacing.id
     });
     
   } catch (error) {
-    console.error('Error in progress pacing adjustment:', error);
-    return NextResponse.json({ error: 'Failed to adjust content pacing' }, { status: 500 });
+    console.error('Error in progress-adaptive pacing:', error);
+    return NextResponse.json({ error: 'Failed to adjust learning pace' }, { status: 500 });
   }
 }
 
@@ -286,13 +304,15 @@ export async function GET(req: NextRequest) {
     }
     
     const { searchParams } = new URL(req.url);
-    const contentId = searchParams.get('contentId');
+    const studentId = searchParams.get('studentId');
+    const curriculumId = searchParams.get('curriculumId');
     
-    // Get user's progress pacing
+    // Get user's progress pacing data
     const progressPacings = await prisma.progressPacing.findMany({
       where: {
         userId: session.user.id,
-        ...(contentId ? { sourceContentId: contentId } : {})
+        ...(studentId ? { studentId } : {}),
+        ...(curriculumId ? { curriculumId } : {})
       },
       orderBy: {
         createdAt: 'desc'
@@ -306,7 +326,7 @@ export async function GET(req: NextRequest) {
     });
     
   } catch (error) {
-    console.error('Error fetching progress pacing:', error);
-    return NextResponse.json({ error: 'Failed to fetch progress pacing' }, { status: 500 });
+    console.error('Error fetching progress pacing data:', error);
+    return NextResponse.json({ error: 'Failed to fetch progress pacing data' }, { status: 500 });
   }
 }
