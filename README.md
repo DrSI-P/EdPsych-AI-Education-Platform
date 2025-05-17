@@ -1,28 +1,55 @@
 # EdPsych-AI-Education-Platform
 
-A comprehensive unified educational platform leveraging artificial intelligence to personalize learning experiences, provide advanced assessment tools, and support curriculum planning for educators, students, and educational institutions.
+A transformative educational platform leveraging artificial intelligence to personalize learning experiences, amplify student voice, streamline administrative tasks, and provide evidence-based support aligned with UK educational psychology principles.
 
-## Project Overview
+## Executive Summary
 
-The EdPsych-AI-Education-Platform unifies four existing repositories into a single, comprehensive educational platform:
+The EdPsych-AI-Education-Platform represents a groundbreaking advancement in educational technology, designed by educational psychologists for real-world educational environments. The platform seamlessly integrates AI-powered tools with evidence-based educational psychology principles to create a comprehensive ecosystem that serves educators, students, parents, and educational institutions.
 
-1. **School_Platform**: A Next.js-based educational platform with OpenAI integration
-2. **EdPsych-Pupil-Voice-Tool**: A Flask/Next.js application for collecting pupil voice data
-3. **edpsych-connect-platform-f**: A comprehensive modular platform with multiple specialized modules
-4. **Ai-Educational-Platform**: A Node.js/Express platform with immersive learning features
+### Vision and Mission
+
+Our vision is to revolutionize education through personalized learning paths, systematic curriculum coverage, and engagement strategies tailored to individual learning styles and interests. The platform empowers educators by reducing administrative burden, provides students with amplified voice and agency, and ensures all stakeholders benefit from data-driven insights and evidence-based practices.
+
+### Core Innovations
+
+- **AI-Enhanced Educational Psychology**: Merging advanced AI capabilities with established educational psychology principles
+- **Personalized Learning Pathways**: Adapting content and approaches based on individual starting points and learning styles
+- **Restorative Justice Framework**: Supporting positive relationships and understanding underlying behaviors
+- **Student Voice Amplification**: Ensuring students' perspectives are heard, valued, and incorporated
+- **Administrative Automation**: Freeing educators from paperwork to focus on teaching and relationships
+- **Evidence-Based Practice**: Grounding all features in research and educational psychology best practices
+- **Inclusive Design**: Ensuring accessibility and support for all learners, particularly those with special educational needs
 
 ## Key Features
 
-- **Authentication and User Management**: Comprehensive role-based access control
-- **Assessment Module**: Advanced assessment creation, collection, and analysis
-- **Curriculum Planning**: AI-assisted curriculum development aligned with UK standards
-- **Resource Library**: Extensive educational resource management
-- **Immersive Learning**: VR/AR educational experiences using A-Frame and WebXR
-- **Special Educational Needs Support**: Tools for executive dysfunction and learning differences
-- **Professional Development**: Resources and tools for educator growth
-- **AI Personalization**: Adaptive learning powered by multiple AI providers
+### Teacher Administrative Automation
+- **Automated Documentation**: Intelligent processing of classroom activities into structured documentation
+- **Smart Lesson Planning**: AI-enhanced curriculum planning aligned with UK standards
+- **Automated Progress Reports**: Data-driven, personalized student progress reporting
+- **Meeting Note Transcription**: EHCNA-aligned key point extraction from educational meetings
+- **Contextual Resource Recommendation**: Intelligent suggestion of relevant resources based on educational context
+
+### Student Voice Amplification
+- **Multi-Modal Feedback Collection**: Diverse channels for student expression
+- **Anonymous Suggestion System**: Safe space for student input
+- **Student-Led Conferences**: Tools for student ownership of educational discussions
+- **Collaborative Goal Setting**: Student agency in educational planning
+- **Student Council Digital Portal**: Platform for student leadership and democratic participation
+- **Impact Visualization Tools**: Demonstrating the effect of student voice
+
+### Restorative Justice Framework
+- **Staff Training Modules**: Comprehensive professional development on restorative approaches
+- **Outcome Measurement Tools**: Evidence-based assessment of restorative practices
+- **Parent Education Resources**: Supporting home-school partnership in restorative approaches
+- **Circle Process Templates**: Structured guides for restorative conversations
+- **Agreement Tracking System**: Monitoring and supporting restorative agreements
+
+### Special Educational Needs Support
+- **Executive Dysfunction Tools**: Specialized support for planning, organization, and time management
+- **Learning Style Adaptation**: Content transformation based on individual learning preferences
+- **Adaptive Complexity**: Adjusting material difficulty based on learner capability
+- **Multi-Modal Content**: Supporting diverse learning needs through various presentation formats
 - **Accessibility Features**: Text-to-speech, speech-to-text, and other accessibility tools
-- **Analytics and Reporting**: Comprehensive educational data analysis
 
 ## Technology Stack
 
@@ -66,6 +93,7 @@ Comprehensive documentation is available in the `/docs` directory:
 - `/docs/architecture`: Technical architecture documentation
 - `/docs/implementation`: Implementation guides and checklists
 - `/docs/api`: API documentation and specifications
+- `/docs/features`: Detailed feature documentation and educational psychology foundations
 
 ## Getting Started
 
