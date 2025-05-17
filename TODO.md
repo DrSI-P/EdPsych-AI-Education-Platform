@@ -164,7 +164,7 @@ This document serves as a comprehensive checklist for implementing all features 
 - [x] Create learning differences accommodation
 - [x] Implement accessibility features
 - [x] Create text-to-speech functionality
-- [ ] Implement speech-to-text functionality
+- [x] Implement speech-to-text functionality
 - [ ] Create high contrast mode
 - [ ] Implement reduced motion mode
 - [ ] Create keyboard navigation optimization
