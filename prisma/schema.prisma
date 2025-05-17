@@ -55,8 +55,7 @@ model User {
   learningStyleProfiles LearningStyleProfile[]
   contentTransformations ContentTransformation[]
   emotionalCheckins     EmotionalCheckin[]
-  speechRecognitionLogs SpeechRecognitionLog[]
-  curriculumDifferentiations CurriculumDifferentiation[]
+  speechCalibrations    SpeechCalibration[]
 }
 
 model VerificationToken {
@@ -119,7 +118,6 @@ model CurriculumPlan {
   userId        String
   user          User           @relation(fields: [userId], references: [id])
   collaborations Collaboration[]
-  differentiations CurriculumDifferentiation[]
 }
 
 model Collaboration {
@@ -183,31 +181,11 @@ model EmotionalCheckin {
   createdAt         DateTime @default(now())
 }
 
-model SpeechRecognitionLog {
-  id                    String   @id @default(cuid())
-  userId                String
-  user                  User     @relation(fields: [userId], references: [id])
-  originalTranscript    String   @db.Text
-  enhancedTranscript    String   @db.Text
-  childVoiceOptimization Boolean  @default(true)
-  language              String   @default("en-GB")
-  confidenceScore       Float?
-  duration              Float?
-  createdAt             DateTime @default(now())
-}
-
-model CurriculumDifferentiation {
-  id                    String   @id @default(cuid())
-  userId                String
-  user                  User     @relation(fields: [userId], references: [id])
-  curriculumPlanId      String?
-  curriculumPlan        CurriculumPlan? @relation(fields: [curriculumPlanId], references: [id])
-  originalContent       String   @db.Text
-  differentiatedContent Json
-  settings              Json
-  subject               String?
-  keyStage              String?
-  year                  String?
-  createdAt             DateTime @default(now())
-  updatedAt             DateTime @updatedAt
+model SpeechCalibration {
+  id               String   @id @default(cuid())
+  userId           String
+  user             User     @relation(fields: [userId], references: [id])
+  calibrationData  String   @db.Text
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
 }
