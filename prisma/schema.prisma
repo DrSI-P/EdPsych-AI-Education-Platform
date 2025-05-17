@@ -61,6 +61,8 @@ model User {
   progressMonitoring     ProgressMonitoring?
   monitoringGoals        MonitoringGoal[]
   monitoringLogs         MonitoringLog[]
+  analyticsSettings      InterventionAnalyticsSettings?
+  analyticsLogs          AnalyticsLog[]
 }
 
 model VerificationToken {
@@ -238,6 +240,7 @@ model PersonalizedInterventions {
   userId              String   @unique
   enabled             Boolean  @default(false)
   learningProfile     String
+  interventionType    String   @default("general")
   interventionLevel   String   @default("moderate")
   targetAreas         String   @db.Text
   customStrategies    String?  @db.Text
@@ -254,6 +257,7 @@ model InterventionLog {
   userId            String
   action            String
   learningProfile   String
+  interventionType  String
   interventionLevel String
   details           String?  @db.Text
   createdAt         DateTime @default(now())
@@ -303,6 +307,31 @@ model DataPoint {
 }
 
 model MonitoringLog {
+  id               String   @id @default(cuid())
+  userId           String
+  action           String
+  details          String?  @db.Text
+  createdAt        DateTime @default(now())
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model InterventionAnalyticsSettings {
+  id                    String   @id @default(cuid())
+  userId                String   @unique
+  enabled               Boolean  @default(false)
+  dataSource            String   @default("all")
+  timeRange             String   @default("term")
+  groupBy               String   @default("intervention")
+  comparisonEnabled     Boolean  @default(true)
+  significanceThreshold Float    @default(0.05)
+  automaticReports      Boolean  @default(true)
+  selectedInterventions String[] @default([])
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+  user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model AnalyticsLog {
   id               String   @id @default(cuid())
   userId           String
   action           String
