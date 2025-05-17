@@ -69,6 +69,10 @@ model User {
   organizedMeetings      CommunicationMeeting[]   @relation("OrganizedMeetings")
   communicationLogs      CommunicationLog[]
   communicationReportRequests CommunicationReportRequest[]
+  sensoryRegulationSettings SensoryRegulationSettings?
+  sensoryActivities      SensoryActivity[]
+  sensoryDiets           SensoryDiet[]
+  sensoryRegulationLogs  SensoryRegulationLog[]
 }
 
 model VerificationToken {
@@ -439,4 +443,77 @@ model Student {
   supportNeeds     String[]
   messages         CommunicationMessage[]
   meetings         CommunicationMeeting[]
+}
+
+// Sensory Regulation Models
+model SensoryRegulationSettings {
+  id                        String   @id @default(cuid())
+  userId                    String   @unique
+  visualStimulation         Int      @default(50)
+  auditoryStimulation       Int      @default(50)
+  tactileStimulation        Int      @default(50)
+  vestibularStimulation     Int      @default(50)
+  proprioceptiveStimulation Int      @default(50)
+  environmentalControls     Boolean  @default(true)
+  sensoryBreaks             Boolean  @default(true)
+  sensoryProfile            String   @default("balanced")
+  alertnessLevel            String   @default("optimal")
+  createdAt                 DateTime @default(now())
+  updatedAt                 DateTime @updatedAt
+  user                      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  activities                SensoryActivity[]
+}
+
+model SensoryActivity {
+  id             String   @id @default(cuid())
+  userId         String
+  name           String
+  description    String
+  category       String   // calming, alerting, organizing
+  sensorySystems String[] // visual, auditory, tactile, vestibular, proprioceptive, etc.
+  duration       Int      // in minutes
+  materials      String?
+  instructions   String
+  evidenceBase   String?
+  isCustom       Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  settings       SensoryRegulationSettings? @relation(fields: [settingsId], references: [id])
+  settingsId     String?
+  dietSchedules  SensoryDietSchedule[]
+}
+
+model SensoryDiet {
+  id          String   @id @default(cuid())
+  userId      String
+  name        String
+  description String?
+  isActive    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  schedule    SensoryDietSchedule[]
+}
+
+model SensoryDietSchedule {
+  id         String   @id @default(cuid())
+  dietId     String
+  activityId String
+  time       String   // formatted time string (e.g., "08:30")
+  duration   Int      // in minutes
+  notes      String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  diet       SensoryDiet @relation(fields: [dietId], references: [id], onDelete: Cascade)
+  activity   SensoryActivity @relation(fields: [activityId], references: [id])
+}
+
+model SensoryRegulationLog {
+  id        String   @id @default(cuid())
+  userId    String
+  action    String   // e.g., update_settings, create_activity, complete_activity
+  details   String   // JSON string with action-specific details
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
