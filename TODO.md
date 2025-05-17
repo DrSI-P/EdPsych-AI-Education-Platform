@@ -162,8 +162,8 @@ This document serves as a comprehensive checklist for implementing all features 
 ### Special Educational Needs Support (from edpsych-connect-platform-f)
 - [x] Implement executive dysfunction support tools
 - [x] Create learning differences accommodation
-- [ ] Implement accessibility features
-- [ ] Create text-to-speech functionality
+- [x] Implement accessibility features
+- [x] Create text-to-speech functionality
 - [ ] Implement speech-to-text functionality
 - [ ] Create high contrast mode
 - [ ] Implement reduced motion mode

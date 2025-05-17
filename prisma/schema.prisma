@@ -54,6 +54,8 @@ model User {
   curriculumPlans        CurriculumPlan[]
   progressPacing         ProgressPacing[]
   executiveFunctionTasks ExecutiveFunctionTask[]
+  accessibilitySettings  AccessibilitySettings?
+  accessibilityLogs      AccessibilityLog[]
 }
 
 model VerificationToken {
@@ -196,5 +198,32 @@ model ExecutiveFunctionTask {
   tags             String[]
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model AccessibilitySettings {
+  id                    String   @id @default(cuid())
+  userId                String   @unique
+  textSize              Int      @default(100)
+  lineSpacing           Int      @default(150)
+  highContrastMode      Boolean  @default(false)
+  dyslexiaFont          Boolean  @default(false)
+  reducedMotion         Boolean  @default(false)
+  voiceRecognitionActive Boolean  @default(false)
+  textToSpeechActive    Boolean  @default(false)
+  speechRate            Float    @default(1.0)
+  speechPitch           Float    @default(1.0)
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+  user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model AccessibilityLog {
+  id               String   @id @default(cuid())
+  userId           String
+  feature          String
+  options          String?
+  textLength       Int?
+  timestamp        DateTime @default(now())
   user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
