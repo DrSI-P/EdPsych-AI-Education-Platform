@@ -56,6 +56,8 @@ model User {
   executiveFunctionTasks ExecutiveFunctionTask[]
   accessibilitySettings  AccessibilitySettings?
   accessibilityLogs      AccessibilityLog[]
+  personalizedInterventions PersonalizedInterventions?
+  interventionLogs       InterventionLog[]
 }
 
 model VerificationToken {
@@ -226,4 +228,31 @@ model AccessibilityLog {
   textLength       Int?
   timestamp        DateTime @default(now())
   user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model PersonalizedInterventions {
+  id                  String   @id @default(cuid())
+  userId              String   @unique
+  enabled             Boolean  @default(false)
+  learningProfile     String
+  interventionLevel   String   @default("moderate")
+  targetAreas         String   @db.Text
+  customStrategies    String?  @db.Text
+  progressTracking    Boolean  @default(true)
+  reminderFrequency   String   @default("weekly")
+  parentTeacherUpdates Boolean @default(true)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  user                User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model InterventionLog {
+  id                String   @id @default(cuid())
+  userId            String
+  action            String
+  learningProfile   String
+  interventionLevel String
+  details           String?  @db.Text
+  createdAt         DateTime @default(now())
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
