@@ -1,119 +1,130 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth/auth-options';
-import prisma from '@/lib/db/prisma';
+import prisma from '@/lib/prisma';
 
-// GET handler for fetching curriculum standards
-export async function GET(request: NextRequest) {
+export async function GET(req: NextRequest) {
   try {
-    // Check authentication
-    const session = await getServerSession(authOptions);
-    
-    if (!session) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    const { searchParams } = new URL(req.url);
+    const page = parseInt(searchParams.get('page') || '1');
+    const limit = parseInt(searchParams.get('limit') || '10');
+    const search = searchParams.get('search') || '';
+    const subject = searchParams.get('subject') || undefined;
+    const keyStage = searchParams.get('keyStage') || undefined;
+    const category = searchParams.get('category') || undefined;
+    const year = searchParams.get('year') || undefined;
+
+    const skip = (page - 1) * limit;
+
+    // Build filter conditions
+    const where: any = {};
+
+    if (search) {
+      where.OR = [
+        { code: { contains: search, mode: 'insensitive' } },
+        { description: { contains: search, mode: 'insensitive' } },
+      ];
     }
-    
-    // Get query parameters
-    const { searchParams } = new URL(request.url);
-    const subject = searchParams.get('subject');
-    const keyStage = searchParams.get('keyStage');
-    const year = searchParams.get('year');
-    const category = searchParams.get('category');
-    
-    // Build the query
-    const query: any = {};
-    
+
     if (subject) {
-      query.subject = subject;
+      where.subject = subject;
     }
-    
+
     if (keyStage) {
-      query.keyStage = keyStage;
+      where.keyStage = keyStage;
     }
-    
-    if (year) {
-      query.year = year;
-    }
-    
+
     if (category) {
-      query.category = category;
+      where.category = category;
     }
-    
-    // Fetch curriculum standards
+
+    if (year) {
+      where.year = year;
+    }
+
+    // Get curriculum standards with pagination
     const standards = await prisma.curriculumStandard.findMany({
-      where: query,
-      orderBy: [
-        { subject: 'asc' },
-        { keyStage: 'asc' },
-        { year: 'asc' },
-        { code: 'asc' },
-      ],
+      where,
+      orderBy: { code: 'asc' },
+      skip,
+      take: limit,
     });
-    
-    return NextResponse.json(standards);
-    
+
+    // Get total count for pagination
+    const totalStandards = await prisma.curriculumStandard.count({ where });
+    const totalPages = Math.ceil(totalStandards / limit);
+
+    return NextResponse.json({
+      standards,
+      pagination: {
+        page,
+        limit,
+        totalStandards,
+        totalPages,
+      },
+    });
   } catch (error) {
     console.error('Error fetching curriculum standards:', error);
     return NextResponse.json(
-      { error: 'An error occurred while fetching curriculum standards' },
+      { error: 'Failed to fetch curriculum standards' },
       { status: 500 }
     );
   }
 }
 
-// POST handler for creating a new curriculum standard (admin only)
-export async function POST(request: NextRequest) {
+export async function POST(req: NextRequest) {
   try {
-    // Check authentication
     const session = await getServerSession(authOptions);
-    
-    if (!session) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+
+    if (!session || !session.user || session.user.role !== 'ADMIN') {
+      return NextResponse.json(
+        { error: 'You must be an administrator to create curriculum standards' },
+        { status: 401 }
+      );
     }
-    
-    // Check if user is an admin
-    if (session.user.role !== 'admin') {
-      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
-    }
-    
-    // Parse request body
-    const body = await request.json();
-    const { code, description, subject, keyStage, year, category } = body;
+
+    const body = await req.json();
     
     // Validate required fields
-    if (!code || !description || !subject || !keyStage) {
-      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
-    }
+    const { code, description, subject, keyStage, category, subcategory, year } = body;
     
+    if (!code || !description || !subject || !keyStage || !category || !year) {
+      return NextResponse.json(
+        { error: 'Missing required fields' },
+        { status: 400 }
+      );
+    }
+
     // Check if standard with the same code already exists
     const existingStandard = await prisma.curriculumStandard.findFirst({
-      where: {
-        code,
-      },
+      where: { code },
     });
-    
+
     if (existingStandard) {
-      return NextResponse.json({ error: 'A standard with this code already exists' }, { status: 409 });
+      return NextResponse.json(
+        { error: 'A curriculum standard with this code already exists' },
+        { status: 409 }
+      );
     }
-    
-    // Create the curriculum standard
+
+    // Create new curriculum standard
     const standard = await prisma.curriculumStandard.create({
       data: {
         code,
         description,
         subject,
         keyStage,
-        year: year || '',
-        category: category || 'knowledge',
+        category,
+        subcategory: subcategory || '',
+        year,
       },
     });
-    
-    return NextResponse.json(standard);
-    
+
+    return NextResponse.json({ standard }, { status: 201 });
   } catch (error) {
     console.error('Error creating curriculum standard:', error);
     return NextResponse.json(
-      { error: 'An error occurred while creating the curriculum standard' },
+      { error: 'Failed to create curriculum standard' },
       { status: 500 }
     );
   }
