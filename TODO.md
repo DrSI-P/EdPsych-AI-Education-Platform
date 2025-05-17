@@ -216,14 +216,16 @@ This document serves as a comprehensive checklist for implementing all features 
 - [x] Create impact visualization tools
 - [x] Implement searchable voice library
 
-### Professional Development (from edpsych-connect-platform-f- [x] Implement professional development courses- [x] Implement course progress tracking
+### Professional Development (from edpsych-connect-platform-f)
+- [x] Implement professional development courses
+- [x] Implement course progress tracking
 - [x] Create certification process
 - [x] Implement resource recommendations
 - [x] Create community features
 - [x] Implement discussion forums
 - [x] Create webinar integration
-- [ ] Implement CPD tracking
-- [ ] Create professional portfolio
+- [x] Implement CPD tracking
+- [x] Create professional portfolio
 - [ ] Implement mentor matching
 - [ ] Create professional development analytics
 
