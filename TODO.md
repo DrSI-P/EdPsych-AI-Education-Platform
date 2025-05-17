@@ -189,7 +189,7 @@ This document serves as a comprehensive checklist for implementing all features 
 - [x] Implement circle process templates
 - [x] Create age-appropriate reflection prompts
 - [x] Implement agreement tracking system
-- [ ] Create community-building activity resources
+- [x] Create community-building activity resources
 - [ ] Implement staff training modules on restorative approaches
 - [ ] Create outcome measurement tools
 - [ ] Implement parent education resources
