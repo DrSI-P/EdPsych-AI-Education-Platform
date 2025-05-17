@@ -227,7 +227,7 @@ This document serves as a comprehensive checklist for implementing all features 
 - [x] Implement CPD tracking
 - [x] Create professional portfolio
 - [x] Implement mentor matching
-- [ ] Create learning communities
+- [x] Create learning communities
 - [ ] Implement research collaboration tools
 
 ### Parent-School Collaboration Hub
