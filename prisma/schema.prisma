@@ -56,6 +56,7 @@ model User {
   contentTransformations ContentTransformation[]
   emotionalCheckins     EmotionalCheckin[]
   speechRecognitionLogs SpeechRecognitionLog[]
+  curriculumDifferentiations CurriculumDifferentiation[]
 }
 
 model VerificationToken {
@@ -118,6 +119,7 @@ model CurriculumPlan {
   userId        String
   user          User           @relation(fields: [userId], references: [id])
   collaborations Collaboration[]
+  differentiations CurriculumDifferentiation[]
 }
 
 model Collaboration {
@@ -192,4 +194,20 @@ model SpeechRecognitionLog {
   confidenceScore       Float?
   duration              Float?
   createdAt             DateTime @default(now())
+}
+
+model CurriculumDifferentiation {
+  id                    String   @id @default(cuid())
+  userId                String
+  user                  User     @relation(fields: [userId], references: [id])
+  curriculumPlanId      String?
+  curriculumPlan        CurriculumPlan? @relation(fields: [curriculumPlanId], references: [id])
+  originalContent       String   @db.Text
+  differentiatedContent Json
+  settings              Json
+  subject               String?
+  keyStage              String?
+  year                  String?
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
 }
