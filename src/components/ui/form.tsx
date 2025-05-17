@@ -1,39 +1,59 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
+import { Label } from './label';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   error?: string;
-  description?: string;
+  hint?: string;
+  leftIcon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
+  fullWidth?: boolean;
+  className?: string;
 }
 
 export function Input({
   label,
   error,
-  description,
+  hint,
+  leftIcon,
+  rightIcon,
+  fullWidth = false,
   className = '',
-  id,
   ...props
 }: InputProps) {
-  const inputId = id || `input-${Math.random().toString(36).substring(2, 9)}`;
-  
+  const inputClasses = `
+    ${error ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'}
+    ${leftIcon ? 'pl-10' : ''}
+    ${rightIcon ? 'pr-10' : ''}
+    ${fullWidth ? 'w-full' : ''}
+    block rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-opacity-50 sm:text-sm
+    ${className}
+  `;
+
   return (
-    <div className="space-y-1">
+    <div className={fullWidth ? 'w-full' : ''}>
       {label && (
-        <label htmlFor={inputId} className="block text-sm font-medium text-gray-700">
+        <Label htmlFor={props.id} className="mb-1">
           {label}
-        </label>
+        </Label>
       )}
-      <input
-        id={inputId}
-        className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-          error ? 'border-red-500' : ''
-        } ${className}`}
-        {...props}
-      />
-      {description && <p className="text-xs text-gray-500">{description}</p>}
-      {error && <p className="text-xs text-red-600">{error}</p>}
+      <div className="relative">
+        {leftIcon && (
+          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            {leftIcon}
+          </div>
+        )}
+        <input className={inputClasses} {...props} />
+        {rightIcon && (
+          <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+            {rightIcon}
+          </div>
+        )}
+      </div>
+      {hint && !error && <p className="mt-1 text-sm text-gray-500">{hint}</p>}
+      {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
     </div>
   );
 }
@@ -41,169 +61,221 @@ export function Input({
 interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   label?: string;
   error?: string;
-  description?: string;
+  hint?: string;
+  fullWidth?: boolean;
+  className?: string;
 }
 
 export function Textarea({
   label,
   error,
-  description,
+  hint,
+  fullWidth = false,
   className = '',
-  id,
   ...props
 }: TextareaProps) {
-  const textareaId = id || `textarea-${Math.random().toString(36).substring(2, 9)}`;
-  
+  const textareaClasses = `
+    ${error ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'}
+    ${fullWidth ? 'w-full' : ''}
+    block rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-opacity-50 sm:text-sm
+    ${className}
+  `;
+
   return (
-    <div className="space-y-1">
+    <div className={fullWidth ? 'w-full' : ''}>
       {label && (
-        <label htmlFor={textareaId} className="block text-sm font-medium text-gray-700">
+        <Label htmlFor={props.id} className="mb-1">
           {label}
-        </label>
+        </Label>
       )}
-      <textarea
-        id={textareaId}
-        className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-          error ? 'border-red-500' : ''
-        } ${className}`}
-        {...props}
-      />
-      {description && <p className="text-xs text-gray-500">{description}</p>}
-      {error && <p className="text-xs text-red-600">{error}</p>}
+      <textarea className={textareaClasses} {...props} />
+      {hint && !error && <p className="mt-1 text-sm text-gray-500">{hint}</p>}
+      {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
     </div>
   );
 }
 
-interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
+interface SelectProps {
+  options: { value: string; label: string }[];
+  value: string;
+  onChange: (value: string) => void;
   label?: string;
   error?: string;
-  description?: string;
-  options: { value: string; label: string }[];
+  hint?: string;
+  fullWidth?: boolean;
+  disabled?: boolean;
+  className?: string;
+  placeholder?: string;
 }
 
 export function Select({
+  options,
+  value,
+  onChange,
   label,
   error,
-  description,
-  options,
+  hint,
+  fullWidth = false,
+  disabled = false,
   className = '',
-  id,
+  placeholder,
   ...props
 }: SelectProps) {
-  const selectId = id || `select-${Math.random().toString(36).substring(2, 9)}`;
-  
+  const selectClasses = `
+    ${error ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'}
+    ${fullWidth ? 'w-full' : ''}
+    ${disabled ? 'bg-gray-100 cursor-not-allowed' : ''}
+    block rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-opacity-50 sm:text-sm
+    ${className}
+  `;
+
   return (
-    <div className="space-y-1">
+    <div className={fullWidth ? 'w-full' : ''}>
       {label && (
-        <label htmlFor={selectId} className="block text-sm font-medium text-gray-700">
+        <Label htmlFor={props.id} className="mb-1">
           {label}
-        </label>
+        </Label>
       )}
       <select
-        id={selectId}
-        className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-          error ? 'border-red-500' : ''
-        } ${className}`}
+        className={selectClasses}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        disabled={disabled}
         {...props}
       >
+        {placeholder && (
+          <option value="" disabled>
+            {placeholder}
+          </option>
+        )}
         {options.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label}
           </option>
         ))}
       </select>
-      {description && <p className="text-xs text-gray-500">{description}</p>}
-      {error && <p className="text-xs text-red-600">{error}</p>}
+      {hint && !error && <p className="mt-1 text-sm text-gray-500">{hint}</p>}
+      {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
     </div>
   );
 }
 
-interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'> {
+interface CheckboxProps {
   label: string;
-  error?: string;
+  checked: boolean;
+  onChange: (checked: boolean) => void;
   description?: string;
+  disabled?: boolean;
+  className?: string;
 }
 
 export function Checkbox({
   label,
-  error,
+  checked,
+  onChange,
   description,
+  disabled = false,
   className = '',
-  id,
   ...props
 }: CheckboxProps) {
-  const checkboxId = id || `checkbox-${Math.random().toString(36).substring(2, 9)}`;
-  
   return (
-    <div className="space-y-1">
-      <div className="flex items-center">
+    <div className={`flex items-start ${className}`}>
+      <div className="flex items-center h-5">
         <input
-          id={checkboxId}
           type="checkbox"
-          className={`h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded ${className}`}
+          checked={checked}
+          onChange={(e) => onChange(e.target.checked)}
+          disabled={disabled}
+          className={`
+            h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500
+            ${disabled ? 'opacity-50 cursor-not-allowed' : ''}
+          `}
           {...props}
         />
-        <label htmlFor={checkboxId} className="ml-2 block text-sm text-gray-700">
+      </div>
+      <div className="ml-3 text-sm">
+        <label className={`font-medium text-gray-700 ${disabled ? 'opacity-50' : ''}`}>
           {label}
         </label>
+        {description && (
+          <p className={`text-gray-500 ${disabled ? 'opacity-50' : ''}`}>{description}</p>
+        )}
       </div>
-      {description && <p className="text-xs text-gray-500">{description}</p>}
-      {error && <p className="text-xs text-red-600">{error}</p>}
     </div>
   );
 }
 
-interface RadioGroupProps {
-  label?: string;
-  error?: string;
-  description?: string;
-  options: { value: string; label: string }[];
+interface RadioProps {
+  options: { value: string; label: string; description?: string }[];
   value: string;
   onChange: (value: string) => void;
   name: string;
+  label?: string;
+  disabled?: boolean;
+  className?: string;
 }
 
-export function RadioGroup({
-  label,
-  error,
-  description,
+export function Radio({
   options,
   value,
   onChange,
   name,
-}: RadioGroupProps) {
-  const groupId = `radio-group-${Math.random().toString(36).substring(2, 9)}`;
-  
+  label,
+  disabled = false,
+  className = '',
+  ...props
+}: RadioProps) {
   return (
-    <div className="space-y-1">
-      {label && (
-        <label className="block text-sm font-medium text-gray-700">
-          {label}
-        </label>
-      )}
+    <div className={className}>
+      {label && <Label className="mb-2">{label}</Label>}
       <div className="space-y-2">
         {options.map((option) => (
-          <div key={option.value} className="flex items-center">
-            <input
-              id={`${groupId}-${option.value}`}
-              name={name}
-              type="radio"
-              value={option.value}
-              checked={value === option.value}
-              onChange={() => onChange(option.value)}
-              className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
-            />
-            <label
-              htmlFor={`${groupId}-${option.value}`}
-              className="ml-2 block text-sm text-gray-700"
-            >
-              {option.label}
-            </label>
+          <div key={option.value} className="flex items-start">
+            <div className="flex items-center h-5">
+              <input
+                type="radio"
+                name={name}
+                value={option.value}
+                checked={value === option.value}
+                onChange={() => onChange(option.value)}
+                disabled={disabled}
+                className={`
+                  h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-500
+                  ${disabled ? 'opacity-50 cursor-not-allowed' : ''}
+                `}
+                {...props}
+              />
+            </div>
+            <div className="ml-3 text-sm">
+              <label className={`font-medium text-gray-700 ${disabled ? 'opacity-50' : ''}`}>
+                {option.label}
+              </label>
+              {option.description && (
+                <p className={`text-gray-500 ${disabled ? 'opacity-50' : ''}`}>
+                  {option.description}
+                </p>
+              )}
+            </div>
           </div>
         ))}
       </div>
-      {description && <p className="text-xs text-gray-500">{description}</p>}
-      {error && <p className="text-xs text-red-600">{error}</p>}
     </div>
+  );
+}
+
+export function Label({
+  children,
+  htmlFor,
+  className = '',
+  ...props
+}: React.LabelHTMLAttributes<HTMLLabelElement>) {
+  return (
+    <label
+      htmlFor={htmlFor}
+      className={`block text-sm font-medium text-gray-700 ${className}`}
+      {...props}
+    >
+      {children}
+    </label>
   );
 }

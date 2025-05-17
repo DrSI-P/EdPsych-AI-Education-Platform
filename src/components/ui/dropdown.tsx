@@ -1,96 +1,197 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 interface DropdownProps {
   trigger: React.ReactNode;
-  items: {
-    label: string;
-    onClick?: () => void;
-    href?: string;
-    icon?: React.ReactNode;
-    disabled?: boolean;
-    danger?: boolean;
-  }[];
+  children: React.ReactNode;
   align?: 'left' | 'right';
+  width?: 'auto' | 'sm' | 'md' | 'lg';
   className?: string;
 }
 
-export function Dropdown({ trigger, items, align = 'left', className = '' }: DropdownProps) {
+export function Dropdown({
+  trigger,
+  children,
+  align = 'left',
+  width = 'auto',
+  className = '',
+}: DropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
-  
-  // Close dropdown when clicking outside
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const closeDropdown = () => {
+    setIsOpen(false);
+  };
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (isOpen && !(event.target as Element).closest('[data-dropdown]')) {
-        setIsOpen(false);
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        closeDropdown();
       }
     };
-    
+
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [isOpen]);
-  
+  }, []);
+
+  // Map width to class
+  const widthClasses = {
+    auto: 'w-auto',
+    sm: 'w-48',
+    md: 'w-56',
+    lg: 'w-64',
+  };
+
+  // Map alignment to class
+  const alignClasses = {
+    left: 'left-0',
+    right: 'right-0',
+  };
+
   return (
-    <div className={`relative inline-block text-left ${className}`} data-dropdown>
-      <div onClick={() => setIsOpen(!isOpen)}>
+    <div className={`relative inline-block text-left ${className}`} ref={dropdownRef}>
+      <div onClick={toggleDropdown} className="cursor-pointer">
         {trigger}
       </div>
-      
+
       {isOpen && (
-        <div 
-          className={`origin-top-${align} absolute ${align}-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10`}
+        <div
+          className={`absolute z-10 mt-2 ${widthClasses[width]} ${alignClasses[align]} rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none`}
+          role="menu"
+          aria-orientation="vertical"
+          aria-labelledby="dropdown-menu"
         >
-          <div className="py-1" role="menu" aria-orientation="vertical">
-            {items.map((item, index) => (
-              <div key={index}>
-                {item.href ? (
-                  <a
-                    href={item.disabled ? undefined : item.href}
-                    className={`
-                      ${item.disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}
-                      ${item.danger ? 'text-red-600 hover:bg-red-50' : 'text-gray-700 hover:bg-gray-100'}
-                      group flex items-center px-4 py-2 text-sm
-                    `}
-                    role="menuitem"
-                    onClick={(e) => {
-                      if (item.disabled) {
-                        e.preventDefault();
-                        return;
-                      }
-                      setIsOpen(false);
-                      item.onClick?.();
-                    }}
-                  >
-                    {item.icon && <span className="mr-3">{item.icon}</span>}
-                    {item.label}
-                  </a>
-                ) : (
-                  <button
-                    type="button"
-                    className={`
-                      ${item.disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}
-                      ${item.danger ? 'text-red-600 hover:bg-red-50' : 'text-gray-700 hover:bg-gray-100'}
-                      group flex w-full items-center px-4 py-2 text-sm
-                    `}
-                    role="menuitem"
-                    disabled={item.disabled}
-                    onClick={() => {
-                      setIsOpen(false);
-                      item.onClick?.();
-                    }}
-                  >
-                    {item.icon && <span className="mr-3">{item.icon}</span>}
-                    {item.label}
-                  </button>
-                )}
-              </div>
-            ))}
+          <div className="py-1" role="none">
+            {children}
           </div>
         </div>
       )}
     </div>
+  );
+}
+
+interface DropdownItemProps {
+  children: React.ReactNode;
+  onClick?: () => void;
+  disabled?: boolean;
+  className?: string;
+}
+
+export function DropdownItem({
+  children,
+  onClick,
+  disabled = false,
+  className = '',
+}: DropdownItemProps) {
+  return (
+    <button
+      className={`block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 ${
+        disabled ? 'opacity-50 cursor-not-allowed' : ''
+      } ${className}`}
+      role="menuitem"
+      onClick={onClick}
+      disabled={disabled}
+    >
+      {children}
+    </button>
+  );
+}
+
+interface DropdownLinkProps {
+  children: React.ReactNode;
+  href: string;
+  className?: string;
+}
+
+export function DropdownLink({ children, href, className = '' }: DropdownLinkProps) {
+  return (
+    <a
+      href={href}
+      className={`block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 ${className}`}
+      role="menuitem"
+    >
+      {children}
+    </a>
+  );
+}
+
+interface DropdownDividerProps {
+  className?: string;
+}
+
+export function DropdownDivider({ className = '' }: DropdownDividerProps) {
+  return <div className={`my-1 h-px bg-gray-200 ${className}`} role="none" />;
+}
+
+interface DropdownLabelProps {
+  children: React.ReactNode;
+  className?: string;
+}
+
+export function DropdownLabel({ children, className = '' }: DropdownLabelProps) {
+  return (
+    <div className={`px-4 py-2 text-xs text-gray-500 ${className}`} role="none">
+      {children}
+    </div>
+  );
+}
+
+interface MenuProps {
+  children: React.ReactNode;
+  className?: string;
+}
+
+export function Menu({ children, className = '' }: MenuProps) {
+  return (
+    <nav className={`bg-white shadow ${className}`}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between h-16">
+          <div className="flex">{children}</div>
+        </div>
+      </div>
+    </nav>
+  );
+}
+
+interface MenuItemProps {
+  children: React.ReactNode;
+  active?: boolean;
+  href?: string;
+  onClick?: () => void;
+  className?: string;
+}
+
+export function MenuItem({
+  children,
+  active = false,
+  href,
+  onClick,
+  className = '',
+}: MenuItemProps) {
+  const classes = `inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${
+    active
+      ? 'border-blue-500 text-gray-900'
+      : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
+  } ${className}`;
+
+  if (href) {
+    return (
+      <a href={href} className={classes}>
+        {children}
+      </a>
+    );
+  }
+
+  return (
+    <button onClick={onClick} className={classes}>
+      {children}
+    </button>
   );
 }

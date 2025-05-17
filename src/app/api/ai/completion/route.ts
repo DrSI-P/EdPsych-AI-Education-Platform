@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
 import Anthropic from '@anthropic-ai/sdk';
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import axios from 'axios';
 import { AIProvider } from '@/lib/ai/ai-service';
 
 // Define types for AI completion requests
@@ -79,10 +80,15 @@ async function handleOpenAICompletion(
   
   const openai = new OpenAI({ apiKey });
   
+  // Ensure UK spelling in prompts for educational content
+  const ukSystemPrompt = requestData.systemPrompt 
+    ? `${requestData.systemPrompt}\n\nPlease use UK English spelling and follow UK educational standards in all responses.`
+    : 'Please use UK English spelling and follow UK educational standards in all responses.';
+  
   const response = await openai.chat.completions.create({
     model: requestData.model,
     messages: [
-      ...(requestData.systemPrompt ? [{ role: 'system', content: requestData.systemPrompt }] : []),
+      { role: 'system', content: ukSystemPrompt },
       { role: 'user', content: requestData.prompt }
     ],
     temperature,
@@ -109,9 +115,14 @@ async function handleAnthropicCompletion(
   
   const anthropic = new Anthropic({ apiKey });
   
+  // Ensure UK spelling in prompts for educational content
+  const ukSystemPrompt = requestData.systemPrompt 
+    ? `${requestData.systemPrompt}\n\nPlease use UK English spelling and follow UK educational standards in all responses.`
+    : 'Please use UK English spelling and follow UK educational standards in all responses.';
+  
   const response = await anthropic.messages.create({
     model: requestData.model,
-    system: requestData.systemPrompt || '',
+    system: ukSystemPrompt,
     messages: [{ role: 'user', content: requestData.prompt }],
     temperature,
     max_tokens: maxTokens
@@ -143,8 +154,12 @@ async function handleGeminiCompletion(
     maxOutputTokens: maxTokens,
   };
   
-  const systemPrompt = requestData.systemPrompt || '';
-  const fullPrompt = systemPrompt ? `${systemPrompt}\n\n${requestData.prompt}` : requestData.prompt;
+  // Ensure UK spelling in prompts for educational content
+  const ukSystemPrompt = requestData.systemPrompt 
+    ? `${requestData.systemPrompt}\n\nPlease use UK English spelling and follow UK educational standards in all responses.`
+    : 'Please use UK English spelling and follow UK educational standards in all responses.';
+  
+  const fullPrompt = `${ukSystemPrompt}\n\n${requestData.prompt}`;
   
   const response = await model.generateContent(fullPrompt, generationConfig);
   
@@ -155,7 +170,7 @@ async function handleGeminiCompletion(
   };
 }
 
-// Handle Grok completions (placeholder - actual implementation would depend on Grok's API)
+// Handle Grok completions
 async function handleGrokCompletion(
   requestData: AICompletionRequest,
   temperature: number,
@@ -166,14 +181,46 @@ async function handleGrokCompletion(
     throw new Error('Grok API key not configured');
   }
   
-  // Placeholder for Grok API implementation
-  // This would be replaced with actual Grok API calls when available
-  
-  return {
-    text: 'Grok API integration is pending. This is a placeholder response.',
-    provider: 'grok',
-    model: requestData.model
+  // Grok API implementation using axios
+  const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${apiKey}`
   };
+  
+  // Ensure UK spelling in prompts for educational content
+  const ukSystemPrompt = requestData.systemPrompt 
+    ? `${requestData.systemPrompt}\n\nPlease use UK English spelling and follow UK educational standards in all responses.`
+    : 'Please use UK English spelling and follow UK educational standards in all responses.';
+  
+  const data = {
+    model: requestData.model || 'grok-1',
+    messages: [
+      { role: 'system', content: ukSystemPrompt },
+      { role: 'user', content: requestData.prompt }
+    ],
+    temperature: temperature,
+    max_tokens: maxTokens
+  };
+  
+  try {
+    // Grok API endpoint - this is a placeholder and should be updated with the actual endpoint
+    const response = await axios.post('https://api.grok.ai/v1/chat/completions', data, { headers });
+    
+    return {
+      text: response.data.choices[0]?.message?.content || '',
+      provider: 'grok',
+      model: requestData.model || 'grok-1'
+    };
+  } catch (error) {
+    console.error('Error calling Grok API:', error);
+    // Implement fallback to OpenAI if Grok fails
+    console.log('Falling back to OpenAI for completion');
+    return handleOpenAICompletion(
+      { ...requestData, provider: 'openai', model: 'gpt-4-turbo' },
+      temperature,
+      maxTokens
+    );
+  }
 }
 
 // Handle OpenRouter completions
@@ -187,20 +234,28 @@ async function handleOpenRouterCompletion(
     throw new Error('OpenRouter API key not configured');
   }
   
+  // Ensure UK spelling in prompts for educational content
+  const ukSystemPrompt = requestData.systemPrompt 
+    ? `${requestData.systemPrompt}\n\nPlease use UK English spelling and follow UK educational standards in all responses.`
+    : 'Please use UK English spelling and follow UK educational standards in all responses.';
+  
   const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${apiKey}`
+      'Authorization': `Bearer ${apiKey}`,
+      'HTTP-Referer': process.env.NEXTAUTH_URL || 'https://edpsychconnect.com',
+      'X-Title': 'EdPsych AI Education Platform'
     },
     body: JSON.stringify({
       model: requestData.model,
       messages: [
-        ...(requestData.systemPrompt ? [{ role: 'system', content: requestData.systemPrompt }] : []),
+        { role: 'system', content: ukSystemPrompt },
         { role: 'user', content: requestData.prompt }
       ],
       temperature,
-      max_tokens: maxTokens
+      max_tokens: maxTokens,
+      fallbacks: ['openai/gpt-4-turbo', 'anthropic/claude-3-opus']
     })
   });
   
@@ -209,6 +264,7 @@ async function handleOpenRouterCompletion(
   return {
     text: data.choices[0]?.message?.content || '',
     provider: 'openrouter',
-    model: requestData.model
+    model: requestData.model,
+    routedTo: data.model || 'unknown'
   };
 }

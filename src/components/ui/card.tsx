@@ -3,79 +3,106 @@
 import React from 'react';
 
 interface CardProps {
-  className?: string;
   children: React.ReactNode;
+  className?: string;
 }
 
-export function Card({ className = '', children }: CardProps) {
+export function Card({ children, className = '' }: CardProps) {
   return (
-    <div className={`bg-white rounded-lg shadow-md overflow-hidden ${className}`}>
+    <div className={`bg-white shadow rounded-lg overflow-hidden ${className}`}>
       {children}
     </div>
   );
 }
 
 interface CardHeaderProps {
-  className?: string;
   children: React.ReactNode;
+  className?: string;
 }
 
-export function CardHeader({ className = '', children }: CardHeaderProps) {
+export function CardHeader({ children, className = '' }: CardHeaderProps) {
   return (
-    <div className={`px-6 py-4 border-b border-gray-200 ${className}`}>
+    <div className={`px-4 py-5 sm:px-6 border-b border-gray-200 ${className}`}>
       {children}
     </div>
   );
 }
 
 interface CardContentProps {
-  className?: string;
   children: React.ReactNode;
+  className?: string;
 }
 
-export function CardContent({ className = '', children }: CardContentProps) {
+export function CardContent({ children, className = '' }: CardContentProps) {
   return (
-    <div className={`px-6 py-4 ${className}`}>
+    <div className={`px-4 py-5 sm:p-6 ${className}`}>
       {children}
     </div>
   );
 }
 
 interface CardFooterProps {
-  className?: string;
   children: React.ReactNode;
+  className?: string;
 }
 
-export function CardFooter({ className = '', children }: CardFooterProps) {
+export function CardFooter({ children, className = '' }: CardFooterProps) {
   return (
-    <div className={`px-6 py-4 border-t border-gray-200 ${className}`}>
+    <div className={`px-4 py-4 sm:px-6 border-t border-gray-200 ${className}`}>
       {children}
     </div>
   );
 }
 
 interface CardTitleProps {
-  className?: string;
   children: React.ReactNode;
+  className?: string;
 }
 
-export function CardTitle({ className = '', children }: CardTitleProps) {
+export function CardTitle({ children, className = '' }: CardTitleProps) {
   return (
-    <h3 className={`text-lg font-semibold text-gray-900 ${className}`}>
+    <h3 className={`text-lg leading-6 font-medium text-gray-900 ${className}`}>
       {children}
     </h3>
   );
 }
 
 interface CardDescriptionProps {
-  className?: string;
   children: React.ReactNode;
+  className?: string;
 }
 
-export function CardDescription({ className = '', children }: CardDescriptionProps) {
+export function CardDescription({ children, className = '' }: CardDescriptionProps) {
   return (
-    <p className={`text-sm text-gray-500 ${className}`}>
+    <p className={`mt-1 max-w-2xl text-sm text-gray-500 ${className}`}>
       {children}
     </p>
+  );
+}
+
+interface CardImageProps {
+  src: string;
+  alt: string;
+  className?: string;
+}
+
+export function CardImage({ src, alt, className = '' }: CardImageProps) {
+  return (
+    <div className={`w-full ${className}`}>
+      <img src={src} alt={alt} className="w-full h-auto" />
+    </div>
+  );
+}
+
+interface CardActionsProps {
+  children: React.ReactNode;
+  className?: string;
+}
+
+export function CardActions({ children, className = '' }: CardActionsProps) {
+  return (
+    <div className={`flex items-center justify-end space-x-3 ${className}`}>
+      {children}
+    </div>
   );
 }

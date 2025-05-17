@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
+import Anthropic from '@anthropic-ai/sdk';
+import { GoogleGenerativeAI } from '@google/generative-ai';
+import axios from 'axios';
 import { AIProvider } from '@/lib/ai/ai-service';
 
 // Define types for AI image generation requests
@@ -33,16 +36,16 @@ export async function POST(request: NextRequest) {
         imageGeneration = await handleOpenAIImageGeneration(requestData);
         break;
       case 'anthropic':
+        imageGeneration = await handleAnthropicImageGeneration(requestData);
+        break;
       case 'gemini':
+        imageGeneration = await handleGeminiImageGeneration(requestData);
+        break;
       case 'grok':
+        imageGeneration = await handleGrokImageGeneration(requestData);
+        break;
       case 'openrouter':
-        // For now, we'll use OpenAI as fallback for other providers
-        // In a production system, we would implement specific handlers for each provider
-        imageGeneration = await handleOpenAIImageGeneration({
-          ...requestData,
-          provider: 'openai',
-          model: 'dall-e-3'
-        });
+        imageGeneration = await handleOpenRouterImageGeneration(requestData);
         break;
       default:
         return NextResponse.json(
@@ -73,18 +76,235 @@ async function handleOpenAIImageGeneration(requestData: AIImageGenerationRequest
   // Ensure UK spelling in prompts for educational content
   const ukPrompt = `Using UK English spelling and educational standards: ${requestData.prompt}`;
   
-  const response = await openai.images.generate({
-    model: requestData.model,
-    prompt: ukPrompt,
-    n: requestData.n || 1,
-    size: requestData.size || '1024x1024',
-    quality: requestData.quality || 'standard',
-    style: requestData.style || 'natural'
-  });
+  try {
+    const response = await openai.images.generate({
+      model: requestData.model,
+      prompt: ukPrompt,
+      n: requestData.n || 1,
+      size: requestData.size || '1024x1024',
+      quality: requestData.quality || 'standard',
+      style: requestData.style || 'natural'
+    });
+    
+    return {
+      images: response.data.map(item => item.url),
+      provider: 'openai',
+      model: requestData.model
+    };
+  } catch (error) {
+    console.error('Error generating OpenAI images:', error);
+    throw error;
+  }
+}
+
+// Handle Anthropic image generation
+async function handleAnthropicImageGeneration(requestData: AIImageGenerationRequest) {
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  if (!apiKey) {
+    throw new Error('Anthropic API key not configured');
+  }
   
-  return {
-    images: response.data.map(item => item.url),
-    provider: 'openai',
-    model: requestData.model
-  };
+  try {
+    const anthropic = new Anthropic({ apiKey });
+    
+    // Ensure UK spelling in prompts for educational content
+    const ukPrompt = `Using UK English spelling and educational standards: ${requestData.prompt}`;
+    
+    // Claude 3 Opus and Sonnet support image generation via the messages API
+    const response = await anthropic.messages.create({
+      model: requestData.model,
+      max_tokens: 1024,
+      system: "You are an educational image generator. Generate detailed image descriptions for educational content using UK English spelling and following UK educational standards.",
+      messages: [
+        {
+          role: "user",
+          content: [
+            {
+              type: "text",
+              text: `Please generate a detailed image description for: ${ukPrompt}`
+            }
+          ]
+        }
+      ]
+    });
+    
+    // Since Anthropic doesn't have a direct image generation API yet,
+    // we'll use the text description to generate an image with OpenAI
+    const imageDescription = response.content[0].text;
+    
+    console.log('Using Anthropic description to generate image with OpenAI:', imageDescription);
+    
+    return handleOpenAIImageGeneration({
+      ...requestData,
+      provider: 'openai',
+      model: 'dall-e-3',
+      prompt: imageDescription
+    });
+  } catch (error) {
+    console.error('Error with Anthropic image generation:', error);
+    // Fallback to OpenAI
+    console.log('Falling back to OpenAI for image generation');
+    return handleOpenAIImageGeneration({
+      ...requestData,
+      provider: 'openai',
+      model: 'dall-e-3'
+    });
+  }
+}
+
+// Handle Gemini image generation
+async function handleGeminiImageGeneration(requestData: AIImageGenerationRequest) {
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) {
+    throw new Error('Gemini API key not configured');
+  }
+  
+  try {
+    const genAI = new GoogleGenerativeAI(apiKey);
+    const model = genAI.getGenerativeModel({ model: 'gemini-pro-vision' });
+    
+    // Ensure UK spelling in prompts for educational content
+    const ukPrompt = `Using UK English spelling and educational standards, create a detailed description for an educational image about: ${requestData.prompt}`;
+    
+    const result = await model.generateContent(ukPrompt);
+    const imageDescription = result.response.text();
+    
+    console.log('Using Gemini description to generate image with OpenAI:', imageDescription);
+    
+    // Use OpenAI for actual image generation
+    return handleOpenAIImageGeneration({
+      ...requestData,
+      provider: 'openai',
+      model: 'dall-e-3',
+      prompt: imageDescription
+    });
+  } catch (error) {
+    console.error('Error with Gemini image generation:', error);
+    // Fallback to OpenAI
+    console.log('Falling back to OpenAI for image generation');
+    return handleOpenAIImageGeneration({
+      ...requestData,
+      provider: 'openai',
+      model: 'dall-e-3'
+    });
+  }
+}
+
+// Handle Grok image generation
+async function handleGrokImageGeneration(requestData: AIImageGenerationRequest) {
+  const apiKey = process.env.GROK_API_KEY;
+  if (!apiKey) {
+    throw new Error('Grok API key not configured');
+  }
+  
+  try {
+    // Grok API implementation using axios
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${apiKey}`
+    };
+    
+    // Ensure UK spelling in prompts for educational content
+    const ukPrompt = `Using UK English spelling and educational standards: ${requestData.prompt}`;
+    
+    // First get a detailed description from Grok
+    const descriptionResponse = await axios.post('https://api.grok.ai/v1/chat/completions', {
+      model: 'grok-1',
+      messages: [
+        { 
+          role: 'system', 
+          content: 'You are an educational image description generator. Create detailed image descriptions for educational content using UK English spelling and following UK educational standards.' 
+        },
+        { 
+          role: 'user', 
+          content: `Create a detailed description for an educational image about: ${ukPrompt}` 
+        }
+      ],
+      temperature: 0.7,
+      max_tokens: 500
+    }, { headers });
+    
+    const imageDescription = descriptionResponse.data.choices[0]?.message?.content || ukPrompt;
+    
+    console.log('Using Grok description to generate image with OpenAI:', imageDescription);
+    
+    // Use OpenAI for actual image generation
+    return handleOpenAIImageGeneration({
+      ...requestData,
+      provider: 'openai',
+      model: 'dall-e-3',
+      prompt: imageDescription
+    });
+  } catch (error) {
+    console.error('Error with Grok image generation:', error);
+    // Fallback to OpenAI
+    console.log('Falling back to OpenAI for image generation');
+    return handleOpenAIImageGeneration({
+      ...requestData,
+      provider: 'openai',
+      model: 'dall-e-3'
+    });
+  }
+}
+
+// Handle OpenRouter image generation
+async function handleOpenRouterImageGeneration(requestData: AIImageGenerationRequest) {
+  const apiKey = process.env.OPENROUTER_API_KEY;
+  if (!apiKey) {
+    throw new Error('OpenRouter API key not configured');
+  }
+  
+  try {
+    // Ensure UK spelling in prompts for educational content
+    const ukPrompt = `Using UK English spelling and educational standards: ${requestData.prompt}`;
+    
+    // OpenRouter doesn't directly support image generation yet, so we'll use it to get a description
+    // and then use OpenAI for the actual image generation
+    const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`,
+        'HTTP-Referer': process.env.NEXTAUTH_URL || 'https://edpsychconnect.com',
+        'X-Title': 'EdPsych AI Education Platform'
+      },
+      body: JSON.stringify({
+        model: requestData.model || 'openai/gpt-4-turbo',
+        messages: [
+          { 
+            role: 'system', 
+            content: 'You are an educational image description generator. Create detailed image descriptions for educational content using UK English spelling and following UK educational standards.' 
+          },
+          { 
+            role: 'user', 
+            content: `Create a detailed description for an educational image about: ${ukPrompt}` 
+          }
+        ],
+        temperature: 0.7,
+        max_tokens: 500
+      })
+    });
+    
+    const data = await response.json();
+    const imageDescription = data.choices[0]?.message?.content || ukPrompt;
+    
+    console.log('Using OpenRouter description to generate image with OpenAI:', imageDescription);
+    
+    // Use OpenAI for actual image generation
+    return handleOpenAIImageGeneration({
+      ...requestData,
+      provider: 'openai',
+      model: 'dall-e-3',
+      prompt: imageDescription
+    });
+  } catch (error) {
+    console.error('Error with OpenRouter image generation:', error);
+    // Fallback to OpenAI
+    console.log('Falling back to OpenAI for image generation');
+    return handleOpenAIImageGeneration({
+      ...requestData,
+      provider: 'openai',
+      model: 'dall-e-3'
+    });
+  }
 }

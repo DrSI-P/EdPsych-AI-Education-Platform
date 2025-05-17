@@ -1,123 +1,193 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
-  title: string;
   children: React.ReactNode;
-  footer?: React.ReactNode;
+  title?: string;
+  size?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
+  closeOnOverlayClick?: boolean;
+  closeOnEsc?: boolean;
+  className?: string;
 }
 
-export function Modal({ isOpen, onClose, title, children, footer }: ModalProps) {
-  if (!isOpen) return null;
+export function Modal({
+  isOpen,
+  onClose,
+  children,
+  title,
+  size = 'md',
+  closeOnOverlayClick = true,
+  closeOnEsc = true,
+  className = '',
+}: ModalProps) {
+  const [mounted, setMounted] = useState(false);
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
-      {/* Backdrop */}
-      <div 
-        className="fixed inset-0 bg-black bg-opacity-50 transition-opacity" 
-        onClick={onClose}
-      />
-      
-      {/* Modal */}
-      <div className="relative z-10 w-full max-w-md bg-white rounded-lg shadow-xl overflow-hidden">
-        {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b">
-          <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
-          <button
-            type="button"
-            className="text-gray-400 hover:text-gray-500 focus:outline-none"
-            onClick={onClose}
-          >
-            <span className="sr-only">Close</span>
-            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
-        
-        {/* Content */}
-        <div className="p-4">{children}</div>
-        
-        {/* Footer */}
-        {footer && (
-          <div className="p-4 border-t">{footer}</div>
+  useEffect(() => {
+    setMounted(true);
+
+    if (closeOnEsc) {
+      const handleEsc = (event: KeyboardEvent) => {
+        if (event.key === 'Escape') {
+          onClose();
+        }
+      };
+      window.addEventListener('keydown', handleEsc);
+      return () => {
+        window.removeEventListener('keydown', handleEsc);
+      };
+    }
+  }, [closeOnEsc, onClose]);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
+
+  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget && closeOnOverlayClick) {
+      onClose();
+    }
+  };
+
+  // Map size to width class
+  const sizeClasses = {
+    sm: 'max-w-sm',
+    md: 'max-w-md',
+    lg: 'max-w-lg',
+    xl: 'max-w-xl',
+    full: 'max-w-full mx-4',
+  };
+
+  if (!mounted || !isOpen) return null;
+
+  return createPortal(
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 transition-opacity"
+      onClick={handleOverlayClick}
+      aria-modal="true"
+      role="dialog"
+    >
+      <div
+        className={`bg-white rounded-lg shadow-xl overflow-hidden w-full ${sizeClasses[size]} ${className}`}
+        role="dialog"
+        aria-labelledby={title ? 'modal-title' : undefined}
+      >
+        {title && (
+          <div className="px-6 py-4 border-b border-gray-200">
+            <h3 id="modal-title" className="text-lg font-medium text-gray-900">
+              {title}
+            </h3>
+          </div>
         )}
+        <div className="p-6">{children}</div>
       </div>
+    </div>,
+    document.body
+  );
+}
+
+interface ModalHeaderProps {
+  children: React.ReactNode;
+  className?: string;
+}
+
+export function ModalHeader({ children, className = '' }: ModalHeaderProps) {
+  return (
+    <div className={`px-6 py-4 border-b border-gray-200 ${className}`}>
+      {children}
+    </div>
+  );
+}
+
+interface ModalBodyProps {
+  children: React.ReactNode;
+  className?: string;
+}
+
+export function ModalBody({ children, className = '' }: ModalBodyProps) {
+  return <div className={`p-6 ${className}`}>{children}</div>;
+}
+
+interface ModalFooterProps {
+  children: React.ReactNode;
+  className?: string;
+}
+
+export function ModalFooter({ children, className = '' }: ModalFooterProps) {
+  return (
+    <div className={`px-6 py-4 border-t border-gray-200 bg-gray-50 ${className}`}>
+      {children}
     </div>
   );
 }
 
 interface DialogProps {
+  isOpen: boolean;
+  onClose: () => void;
   title: string;
   description?: string;
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-  children: React.ReactNode;
-}
-
-export function Dialog({ title, description, open, onOpenChange, children }: DialogProps) {
-  return (
-    <Modal
-      isOpen={open}
-      onClose={() => onOpenChange(false)}
-      title={title}
-    >
-      {description && <p className="text-sm text-gray-500 mb-4">{description}</p>}
-      {children}
-    </Modal>
-  );
-}
-
-interface AlertDialogProps {
-  title: string;
-  description: string;
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-  onConfirm: () => void;
   confirmText?: string;
   cancelText?: string;
+  onConfirm: () => void;
+  variant?: 'info' | 'warning' | 'danger' | 'success';
+  isLoading?: boolean;
 }
 
-export function AlertDialog({
+export function Dialog({
+  isOpen,
+  onClose,
   title,
   description,
-  open,
-  onOpenChange,
-  onConfirm,
   confirmText = 'Confirm',
   cancelText = 'Cancel',
-}: AlertDialogProps) {
+  onConfirm,
+  variant = 'info',
+  isLoading = false,
+}: DialogProps) {
+  // Map variant to colour classes
+  const variantClasses = {
+    info: 'bg-blue-600 hover:bg-blue-700 focus:ring-blue-500',
+    warning: 'bg-yellow-600 hover:bg-yellow-700 focus:ring-yellow-500',
+    danger: 'bg-red-600 hover:bg-red-700 focus:ring-red-500',
+    success: 'bg-green-600 hover:bg-green-700 focus:ring-green-500',
+  };
+
   return (
-    <Modal
-      isOpen={open}
-      onClose={() => onOpenChange(false)}
-      title={title}
-      footer={
-        <div className="flex justify-end space-x-2">
-          <button
-            type="button"
-            className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-            onClick={() => onOpenChange(false)}
-          >
-            {cancelText}
-          </button>
-          <button
-            type="button"
-            className="px-4 py-2 text-sm font-medium text-white bg-red-600 border border-transparent rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-            onClick={() => {
-              onConfirm();
-              onOpenChange(false);
-            }}
-          >
-            {confirmText}
-          </button>
-        </div>
-      }
-    >
-      <p className="text-sm text-gray-500">{description}</p>
+    <Modal isOpen={isOpen} onClose={onClose} size="sm">
+      <div className="text-center">
+        <h3 className="text-lg font-medium text-gray-900">{title}</h3>
+        {description && <p className="mt-2 text-sm text-gray-500">{description}</p>}
+      </div>
+      <div className="mt-6 flex justify-end space-x-3">
+        <button
+          type="button"
+          className="inline-flex justify-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          onClick={onClose}
+          disabled={isLoading}
+        >
+          {cancelText}
+        </button>
+        <button
+          type="button"
+          className={`inline-flex justify-center px-4 py-2 text-sm font-medium text-white rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 ${
+            variantClasses[variant]
+          } ${isLoading ? 'opacity-75 cursor-not-allowed' : ''}`}
+          onClick={onConfirm}
+          disabled={isLoading}
+        >
+          {isLoading ? 'Loading...' : confirmText}
+        </button>
+      </div>
     </Modal>
   );
 }

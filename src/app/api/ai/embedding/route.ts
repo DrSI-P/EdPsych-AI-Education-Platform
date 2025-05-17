@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
+import Anthropic from '@anthropic-ai/sdk';
+import { GoogleGenerativeAI } from '@google/generative-ai';
+import axios from 'axios';
 import { AIProvider } from '@/lib/ai/ai-service';
 
 // Define types for AI embedding requests
@@ -29,16 +32,16 @@ export async function POST(request: NextRequest) {
         embedding = await handleOpenAIEmbedding(requestData);
         break;
       case 'anthropic':
+        embedding = await handleAnthropicEmbedding(requestData);
+        break;
       case 'gemini':
+        embedding = await handleGeminiEmbedding(requestData);
+        break;
       case 'grok':
+        embedding = await handleGrokEmbedding(requestData);
+        break;
       case 'openrouter':
-        // For now, we'll use OpenAI as fallback for other providers
-        // In a production system, we would implement specific handlers for each provider
-        embedding = await handleOpenAIEmbedding({
-          ...requestData,
-          provider: 'openai',
-          model: 'text-embedding-3-small'
-        });
+        embedding = await handleOpenRouterEmbedding(requestData);
         break;
       default:
         return NextResponse.json(
@@ -66,15 +69,165 @@ async function handleOpenAIEmbedding(requestData: AIEmbeddingRequest) {
   
   const openai = new OpenAI({ apiKey });
   
-  const response = await openai.embeddings.create({
-    model: requestData.model,
-    input: requestData.text,
-    encoding_format: 'float'
-  });
+  try {
+    const response = await openai.embeddings.create({
+      model: requestData.model,
+      input: requestData.text,
+      encoding_format: 'float'
+    });
+    
+    return {
+      embeddings: response.data.map(item => item.embedding),
+      provider: 'openai',
+      model: requestData.model
+    };
+  } catch (error) {
+    console.error('Error generating OpenAI embeddings:', error);
+    throw error;
+  }
+}
+
+// Handle Anthropic embeddings
+async function handleAnthropicEmbedding(requestData: AIEmbeddingRequest) {
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  if (!apiKey) {
+    throw new Error('Anthropic API key not configured');
+  }
   
-  return {
-    embeddings: response.data.map(item => item.embedding),
-    provider: 'openai',
-    model: requestData.model
-  };
+  try {
+    // Anthropic doesn't have a dedicated embeddings API yet
+    // Fallback to OpenAI embeddings
+    console.log('Anthropic embeddings not available, falling back to OpenAI');
+    return handleOpenAIEmbedding({
+      ...requestData,
+      provider: 'openai',
+      model: 'text-embedding-3-small'
+    });
+  } catch (error) {
+    console.error('Error generating Anthropic embeddings:', error);
+    throw error;
+  }
+}
+
+// Handle Gemini embeddings
+async function handleGeminiEmbedding(requestData: AIEmbeddingRequest) {
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) {
+    throw new Error('Gemini API key not configured');
+  }
+  
+  try {
+    const genAI = new GoogleGenerativeAI(apiKey);
+    const model = genAI.getGenerativeModel({ model: 'embedding-001' });
+    
+    // Convert to array if single string
+    const textArray = Array.isArray(requestData.text) ? requestData.text : [requestData.text];
+    
+    // Process each text item
+    const embeddings = await Promise.all(
+      textArray.map(async (text) => {
+        const result = await model.embedContent(text);
+        return result.embedding.values;
+      })
+    );
+    
+    return {
+      embeddings: embeddings,
+      provider: 'gemini',
+      model: 'embedding-001'
+    };
+  } catch (error) {
+    console.error('Error generating Gemini embeddings:', error);
+    // Fallback to OpenAI
+    console.log('Falling back to OpenAI for embeddings');
+    return handleOpenAIEmbedding({
+      ...requestData,
+      provider: 'openai',
+      model: 'text-embedding-3-small'
+    });
+  }
+}
+
+// Handle Grok embeddings
+async function handleGrokEmbedding(requestData: AIEmbeddingRequest) {
+  const apiKey = process.env.GROK_API_KEY;
+  if (!apiKey) {
+    throw new Error('Grok API key not configured');
+  }
+  
+  try {
+    // Grok API implementation using axios
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${apiKey}`
+    };
+    
+    // Convert to array if single string
+    const textArray = Array.isArray(requestData.text) ? requestData.text : [requestData.text];
+    
+    // Placeholder for Grok API endpoint - update with actual endpoint when available
+    const response = await axios.post('https://api.grok.ai/v1/embeddings', {
+      model: requestData.model || 'grok-embedding-1',
+      input: textArray
+    }, { headers });
+    
+    return {
+      embeddings: response.data.data.map((item: any) => item.embedding),
+      provider: 'grok',
+      model: requestData.model || 'grok-embedding-1'
+    };
+  } catch (error) {
+    console.error('Error generating Grok embeddings:', error);
+    // Fallback to OpenAI
+    console.log('Falling back to OpenAI for embeddings');
+    return handleOpenAIEmbedding({
+      ...requestData,
+      provider: 'openai',
+      model: 'text-embedding-3-small'
+    });
+  }
+}
+
+// Handle OpenRouter embeddings
+async function handleOpenRouterEmbedding(requestData: AIEmbeddingRequest) {
+  const apiKey = process.env.OPENROUTER_API_KEY;
+  if (!apiKey) {
+    throw new Error('OpenRouter API key not configured');
+  }
+  
+  try {
+    // Convert to array if single string
+    const textArray = Array.isArray(requestData.text) ? requestData.text : [requestData.text];
+    
+    const response = await fetch('https://openrouter.ai/api/v1/embeddings', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`,
+        'HTTP-Referer': process.env.NEXTAUTH_URL || 'https://edpsychconnect.com',
+        'X-Title': 'EdPsych AI Education Platform'
+      },
+      body: JSON.stringify({
+        model: requestData.model || 'openai/text-embedding-3-small',
+        input: textArray
+      })
+    });
+    
+    const data = await response.json();
+    
+    return {
+      embeddings: data.data.map((item: any) => item.embedding),
+      provider: 'openrouter',
+      model: data.model || requestData.model,
+    };
+  } catch (error) {
+    console.error('Error generating OpenRouter embeddings:', error);
+    // Fallback to OpenAI
+    console.log('Falling back to OpenAI for embeddings');
+    return handleOpenAIEmbedding({
+      ...requestData,
+      provider: 'openai',
+      model: 'text-embedding-3-small'
+    });
+  }
 }

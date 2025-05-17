@@ -18,7 +18,7 @@ model User {
   emailVerified DateTime?
   image         String?
   password      String?
-  role          Role      @default(STUDENT)
+  role          String    @default("student")
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 
@@ -38,6 +38,9 @@ model User {
   students      User[]          @relation("EducatorToStudent")
   educator      User?           @relation("EducatorToStudent", fields: [educatorId], references: [id])
   educatorId    String?
+  
+  // Password reset
+  passwordReset PasswordReset?
 }
 
 model Profile {
@@ -89,37 +92,88 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
+// Password reset model
+model PasswordReset {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  expires   DateTime
+  createdAt DateTime @default(now())
+  
+  // Relationship with User
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String   @unique
+}
+
 // Assessment module models
 model Assessment {
-  id          String    @id @default(cuid())
-  title       String
-  description String?
-  type        String    // Multiple choice, open-ended, etc.
-  questions   Json      // Array of questions stored as JSON
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  published   Boolean   @default(false)
+  id                String    @id @default(cuid())
+  title             String
+  description       String    @db.Text
+  type              String    // quiz, test, survey, formative, summative, diagnostic
+  subject           String    // english, maths, science, etc.
+  keyStage          String    // eyfs, ks1, ks2, ks3, ks4, ks5
+  timeLimit         Int       @default(0) // in minutes, 0 for no limit
+  passingScore      Int       @default(70) // percentage
+  showResults       Boolean   @default(true)
+  randomizeQuestions Boolean  @default(false)
+  allowRetakes      Boolean   @default(true)
+  status            String    @default("draft") // draft, published, archived
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
   
   // Relationships
-  creator     User      @relation("CreatedAssessments", fields: [creatorId], references: [id])
-  creatorId   String
-  responses   Response[]
-  curriculum  Curriculum? @relation(fields: [curriculumId], references: [id])
-  curriculumId String?
+  createdBy         User      @relation("CreatedAssessments", fields: [createdById], references: [id])
+  createdById       String
+  questions         Question[]
+  responses         Response[]
+  curriculum        Curriculum? @relation(fields: [curriculumId], references: [id])
+  curriculumId      String?
+}
+
+model Question {
+  id              String    @id @default(cuid())
+  type            String    // multiple-choice, open-ended, matching, file-upload
+  content         String    @db.Text
+  options         Json?     // For multiple choice questions
+  correctAnswer   Json?     // The correct answer(s)
+  points          Int       @default(1)
+  order           Int       // Question order in the assessment
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  // Relationships
+  assessment      Assessment @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
+  assessmentId    String
+  answers         Answer[]
+}
+
+model Answer {
+  id              String    @id @default(cuid())
+  content         Json      // The user's answer
+  isCorrect       Boolean?  // Whether the answer is correct (auto-graded)
+  feedback        String?   @db.Text // Feedback for this specific answer
+  createdAt       DateTime  @default(now())
+  
+  // Relationships
+  question        Question  @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  questionId      String
+  response        Response  @relation(fields: [responseId], references: [id], onDelete: Cascade)
+  responseId      String
 }
 
 model Response {
-  id           String    @id @default(cuid())
-  answers      Json      // Answers stored as JSON
-  score        Float?
-  feedback     String?
-  createdAt    DateTime  @default(now())
+  id              String    @id @default(cuid())
+  score           Float?    // Overall score
+  feedback        String?   @db.Text // Overall feedback
+  startedAt       DateTime  @default(now())
+  completedAt     DateTime?
   
   // Relationships
-  assessment   Assessment @relation(fields: [assessmentId], references: [id])
-  assessmentId String
-  user         User       @relation(fields: [userId], references: [id])
-  userId       String
+  assessment      Assessment @relation(fields: [assessmentId], references: [id])
+  assessmentId    String
+  user            User       @relation(fields: [userId], references: [id])
+  userId          String
+  answers         Answer[]
 }
 
 // Resource module models
@@ -182,14 +236,4 @@ model ImmersiveEnvironment {
   sceneData   Json      // A-Frame scene data stored as JSON
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
-}
-
-// Enum for user roles
-enum Role {
-  ADMIN
-  EDUCATOR
-  PROFESSIONAL
-  PARENT
-  STUDENT
-  GUEST
 }

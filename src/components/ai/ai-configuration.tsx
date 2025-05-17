@@ -8,6 +8,7 @@ import { Tabs } from '@/components/ui/tabs';
 import { Spinner } from '@/components/ui/loading';
 import { Alert } from '@/components/ui/alert';
 import { useToast } from '@/components/ui/toast';
+import { AIProvider } from '@/lib/ai/ai-service';
 
 interface AIConfigurationProps {
   className?: string;
@@ -20,9 +21,9 @@ export function AIConfiguration({
   const [loading, setLoading] = useState(false);
   const [saved, setSaved] = useState(false);
   
-  // Mock AI configuration data
+  // AI configuration data
   const [config, setConfig] = useState({
-    defaultProvider: 'openai',
+    defaultProvider: 'openai' as AIProvider,
     defaultModel: 'gpt-4o',
     temperature: 0.7,
     maxTokens: 2000,
@@ -78,11 +79,40 @@ export function AIConfiguration({
     educationalSettings: {
       ageGroup: 'all',
       curriculumAlignment: 'uk_national',
-      subjectSpecialization: false,
+      subjectSpecialisation: false,
       difficultyAdaptation: true,
       feedbackStyle: 'constructive'
     }
   });
+  
+  // Fetch current configuration on component mount
+  useEffect(() => {
+    const fetchConfig = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('/api/ai/config');
+        if (response.ok) {
+          const data = await response.json();
+          // Merge fetched data with default config
+          setConfig(prev => ({
+            ...prev,
+            defaultProvider: data.defaultProvider || prev.defaultProvider,
+            defaultModel: data.defaultModel || prev.defaultModel,
+          }));
+        }
+      } catch (error) {
+        console.error('Error fetching AI configuration:', error);
+        showToast({
+          title: 'Failed to load configuration',
+          type: 'error'
+        });
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchConfig();
+  }, [showToast]);
   
   // Handle configuration change
   const handleConfigChange = (section: string, setting: string, value: any) => {
@@ -121,18 +151,44 @@ export function AIConfiguration({
   };
   
   // Handle save configuration
-  const handleSaveConfig = () => {
+  const handleSaveConfig = async () => {
     setLoading(true);
     
-    // Simulate API call
-    setTimeout(() => {
-      setLoading(false);
-      setSaved(true);
-      showToast({
-        title: 'AI configuration saved',
-        type: 'success'
+    try {
+      const response = await fetch('/api/ai/config', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          defaultProvider: config.defaultProvider,
+          defaultModel: config.defaultModel,
+          systemPrompt: config.systemPrompt,
+          temperature: config.temperature,
+          maxTokens: config.maxTokens,
+          safetySettings: config.safetySettings,
+          educationalSettings: config.educationalSettings
+        })
       });
-    }, 1000);
+      
+      if (response.ok) {
+        setSaved(true);
+        showToast({
+          title: 'AI configuration saved',
+          type: 'success'
+        });
+      } else {
+        throw new Error('Failed to save configuration');
+      }
+    } catch (error) {
+      console.error('Error saving AI configuration:', error);
+      showToast({
+        title: 'Failed to save configuration',
+        type: 'error'
+      });
+    } finally {
+      setLoading(false);
+    }
   };
   
   // Reset saved state when config changes
@@ -401,288 +457,85 @@ export function AIConfiguration({
                   options={[
                     { value: 'constructive', label: 'Constructive' },
                     { value: 'encouraging', label: 'Encouraging' },
-                    { value: 'direct', label: 'Direct' },
-                    { value: 'socratic', label: 'Socratic (Question-based)' }
+                    { value: 'detailed', label: 'Detailed' },
+                    { value: 'concise', label: 'Concise' },
+                    { value: 'socratic', label: 'Socratic' }
                   ]}
                   value={config.educationalSettings.feedbackStyle}
                   onChange={(value) => handleNestedConfigChange('educationalSettings', 'educationalSettings', 'feedbackStyle', value)}
                   className="w-full"
                 />
-                <p className="text-xs text-gray-500 mt-1">Style of feedback provided in educational contexts</p>
+                <p className="text-xs text-gray-500 mt-1">Style of feedback provided to learners</p>
               </div>
             </CardContent>
           </Card>
-        </div>
-      )
-    },
-    {
-      id: 'providers',
-      label: 'Provider Settings',
-      content: (
-        <div className="space-y-6">
-          <Card>
-            <CardHeader>
-              <h3 className="text-lg font-semibold">OpenAI Configuration</h3>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <Checkbox 
-                  label="Enable OpenAI"
-                  checked={config.providers.openai.enabled}
-                  onChange={(checked) => handleNestedConfigChange('providers', 'openai', 'enabled', checked)}
-                  description="Use OpenAI models for AI services"
-                />
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium mb-1">Default Model</label>
-                <Select
-                  options={[
-                    { value: 'gpt-4o', label: 'GPT-4o' },
-                    { value: 'gpt-4-turbo', label: 'GPT-4 Turbo' },
-                    { value: 'gpt-3.5-turbo', label: 'GPT-3.5 Turbo' }
-                  ]}
-                  value={config.providers.openai.defaultModel}
-                  onChange={(value) => handleNestedConfigChange('providers', 'openai', 'defaultModel', value)}
-                  className="w-full"
-                  disabled={!config.providers.openai.enabled}
-                />
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium mb-1">API Status</label>
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                  <span className="text-sm text-green-600">Connected</span>
-                </div>
-                <p className="text-xs text-gray-500 mt-1">API key is valid and connection is working</p>
-              </div>
-              
-              <div className="pt-2">
-                <Button variant="outline" className="w-full" disabled={!config.providers.openai.enabled}>
-                  Test OpenAI Connection
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardHeader>
-              <h3 className="text-lg font-semibold">Anthropic Configuration</h3>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <Checkbox 
-                  label="Enable Anthropic"
-                  checked={config.providers.anthropic.enabled}
-                  onChange={(checked) => handleNestedConfigChange('providers', 'anthropic', 'enabled', checked)}
-                  description="Use Anthropic Claude models for AI services"
-                />
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium mb-1">Default Model</label>
-                <Select
-                  options={[
-                    { value: 'claude-3-opus', label: 'Claude 3 Opus' },
-                    { value: 'claude-3-sonnet', label: 'Claude 3 Sonnet' },
-                    { value: 'claude-3-haiku', label: 'Claude 3 Haiku' }
-                  ]}
-                  value={config.providers.anthropic.defaultModel}
-                  onChange={(value) => handleNestedConfigChange('providers', 'anthropic', 'defaultModel', value)}
-                  className="w-full"
-                  disabled={!config.providers.anthropic.enabled}
-                />
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium mb-1">API Status</label>
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                  <span className="text-sm text-green-600">Connected</span>
-                </div>
-                <p className="text-xs text-gray-500 mt-1">API key is valid and connection is working</p>
-              </div>
-              
-              <div className="pt-2">
-                <Button variant="outline" className="w-full" disabled={!config.providers.anthropic.enabled}>
-                  Test Anthropic Connection
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Card>
-              <CardHeader>
-                <h3 className="text-lg font-semibold">Google Gemini</h3>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div>
-                  <Checkbox 
-                    label="Enable Gemini"
-                    checked={config.providers.gemini.enabled}
-                    onChange={(checked) => handleNestedConfigChange('providers', 'gemini', 'enabled', checked)}
-                    description="Use Google Gemini models"
-                  />
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium mb-1">Default Model</label>
-                  <Select
-                    options={[
-                      { value: 'gemini-pro', label: 'Gemini Pro' },
-                      { value: 'gemini-ultra', label: 'Gemini Ultra' }
-                    ]}
-                    value={config.providers.gemini.defaultModel}
-                    onChange={(value) => handleNestedConfigChange('providers', 'gemini', 'defaultModel', value)}
-                    className="w-full"
-                    disabled={!config.providers.gemini.enabled}
-                  />
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium mb-1">API Status</label>
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                    <span className="text-sm text-green-600">Connected</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-            
-            <Card>
-              <CardHeader>
-                <h3 className="text-lg font-semibold">GROK</h3>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div>
-                  <Checkbox 
-                    label="Enable GROK"
-                    checked={config.providers.grok.enabled}
-                    onChange={(checked) => handleNestedConfigChange('providers', 'grok', 'enabled', checked)}
-                    description="Use GROK models"
-                  />
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium mb-1">Default Model</label>
-                  <Select
-                    options={[
-                      { value: 'grok-1', label: 'Grok-1' }
-                    ]}
-                    value={config.providers.grok.defaultModel}
-                    onChange={(value) => handleNestedConfigChange('providers', 'grok', 'defaultModel', value)}
-                    className="w-full"
-                    disabled={!config.providers.grok.enabled}
-                  />
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium mb-1">API Status</label>
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                    <span className="text-sm text-green-600">Connected</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-            
-            <Card>
-              <CardHeader>
-                <h3 className="text-lg font-semibold">OpenRouter</h3>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div>
-                  <Checkbox 
-                    label="Enable OpenRouter"
-                    checked={config.providers.openrouter.enabled}
-                    onChange={(checked) => handleNestedConfigChange('providers', 'openrouter', 'enabled', checked)}
-                    description="Use OpenRouter for model access"
-                  />
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium mb-1">Default Model</label>
-                  <Select
-                    options={[
-                      { value: 'openai/gpt-4o', label: 'OpenAI GPT-4o' },
-                      { value: 'anthropic/claude-3-opus', label: 'Anthropic Claude 3 Opus' },
-                      { value: 'meta/llama-3', label: 'Meta Llama 3' }
-                    ]}
-                    value={config.providers.openrouter.defaultModel}
-                    onChange={(value) => handleNestedConfigChange('providers', 'openrouter', 'defaultModel', value)}
-                    className="w-full"
-                    disabled={!config.providers.openrouter.enabled}
-                  />
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium mb-1">API Status</label>
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                    <span className="text-sm text-green-600">Connected</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
         </div>
       )
     },
     {
       id: 'usage',
-      label: 'Usage & Limits',
+      label: 'Usage & Cost',
       content: (
         <div className="space-y-6">
           <Card>
             <CardHeader>
-              <h3 className="text-lg font-semibold">Rate Limiting</h3>
+              <h3 className="text-lg font-semibold">Usage Limits</h3>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <label className="block text-sm font-medium mb-1">API Rate Limit (calls/minute)</label>
+                <label className="block text-sm font-medium mb-1">Rate Limit (requests per minute)</label>
                 <Input 
                   type="number"
                   value={config.usageSettings.rateLimit}
                   onChange={(e) => handleNestedConfigChange('usageSettings', 'usageSettings', 'rateLimit', parseInt(e.target.value))}
                   className="w-full"
                 />
-                <p className="text-xs text-gray-500 mt-1">Maximum number of API calls allowed per minute</p>
+                <p className="text-xs text-gray-500 mt-1">Maximum number of AI requests per minute</p>
               </div>
               
-              <div className="pt-2">
+              <div>
                 <Checkbox 
                   label="Enable user quotas"
                   checked={config.usageSettings.userQuota.enabled}
-                  onChange={(checked) => handleNestedConfigChange('usageSettings', 'userQuota', 'enabled', checked)}
-                  description="Set usage limits per user"
+                  onChange={(checked) => handleNestedConfigChange('usageSettings', 'usageSettings', 'userQuota', {
+                    ...config.usageSettings.userQuota,
+                    enabled: checked
+                  })}
+                  description="Set limits on AI usage per user"
                 />
               </div>
               
-              <div>
-                <label className="block text-sm font-medium mb-1">Daily User Limit</label>
-                <Input 
-                  type="number"
-                  value={config.usageSettings.userQuota.dailyLimit}
-                  onChange={(e) => handleNestedConfigChange('usageSettings', 'userQuota', 'dailyLimit', parseInt(e.target.value))}
-                  className="w-full"
-                  disabled={!config.usageSettings.userQuota.enabled}
-                />
-                <p className="text-xs text-gray-500 mt-1">Maximum number of AI requests per user per day</p>
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium mb-1">Monthly User Limit</label>
-                <Input 
-                  type="number"
-                  value={config.usageSettings.userQuota.monthlyLimit}
-                  onChange={(e) => handleNestedConfigChange('usageSettings', 'userQuota', 'monthlyLimit', parseInt(e.target.value))}
-                  className="w-full"
-                  disabled={!config.usageSettings.userQuota.enabled}
-                />
-                <p className="text-xs text-gray-500 mt-1">Maximum number of AI requests per user per month</p>
-              </div>
+              {config.usageSettings.userQuota.enabled && (
+                <>
+                  <div>
+                    <label className="block text-sm font-medium mb-1">Daily User Limit</label>
+                    <Input 
+                      type="number"
+                      value={config.usageSettings.userQuota.dailyLimit}
+                      onChange={(e) => handleNestedConfigChange('usageSettings', 'usageSettings', 'userQuota', {
+                        ...config.usageSettings.userQuota,
+                        dailyLimit: parseInt(e.target.value)
+                      })}
+                      className="w-full"
+                    />
+                    <p className="text-xs text-gray-500 mt-1">Maximum AI requests per user per day</p>
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-medium mb-1">Monthly User Limit</label>
+                    <Input 
+                      type="number"
+                      value={config.usageSettings.userQuota.monthlyLimit}
+                      onChange={(e) => handleNestedConfigChange('usageSettings', 'usageSettings', 'userQuota', {
+                        ...config.usageSettings.userQuota,
+                        monthlyLimit: parseInt(e.target.value)
+                      })}
+                      className="w-full"
+                    />
+                    <p className="text-xs text-gray-500 mt-1">Maximum AI requests per user per month</p>
+                  </div>
+                </>
+              )}
             </CardContent>
           </Card>
           
@@ -695,181 +548,113 @@ export function AIConfiguration({
                 <Checkbox 
                   label="Enable cost management"
                   checked={config.usageSettings.costManagement.enabled}
-                  onChange={(checked) => handleNestedConfigChange('usageSettings', 'costManagement', 'enabled', checked)}
-                  description="Monitor and control AI service costs"
+                  onChange={(checked) => handleNestedConfigChange('usageSettings', 'usageSettings', 'costManagement', {
+                    ...config.usageSettings.costManagement,
+                    enabled: checked
+                  })}
+                  description="Set budget limits for AI usage"
                 />
               </div>
               
-              <div>
-                <label className="block text-sm font-medium mb-1">Monthly Budget Cap (£)</label>
-                <Input 
-                  type="number"
-                  value={config.usageSettings.costManagement.budgetCap}
-                  onChange={(e) => handleNestedConfigChange('usageSettings', 'costManagement', 'budgetCap', parseInt(e.target.value))}
-                  className="w-full"
-                  disabled={!config.usageSettings.costManagement.enabled}
-                />
-                <p className="text-xs text-gray-500 mt-1">Maximum monthly spending on AI services</p>
-              </div>
-              
-              <div className="pt-2">
-                <label className="block text-sm font-medium mb-1">Current Month Usage</label>
-                <div className="space-y-2">
-                  <div>
-                    <div className="flex justify-between text-sm mb-1">
-                      <span>Budget Used</span>
-                      <span>£42.50 / £{config.usageSettings.costManagement.budgetCap}.00</span>
-                    </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2">
-                      <div 
-                        className="bg-blue-600 h-2 rounded-full" 
-                        style={{ width: `${(42.5 / config.usageSettings.costManagement.budgetCap) * 100}%` }}
-                      ></div>
-                    </div>
-                  </div>
-                  
-                  <div className="grid grid-cols-2 gap-4 pt-2">
-                    <div className="p-3 bg-gray-50 rounded-md">
-                      <p className="text-xs text-gray-500">Total Requests</p>
-                      <p className="text-sm font-medium">12,450</p>
-                    </div>
-                    <div className="p-3 bg-gray-50 rounded-md">
-                      <p className="text-xs text-gray-500">Total Tokens</p>
-                      <p className="text-sm font-medium">3.2M</p>
-                    </div>
-                  </div>
+              {config.usageSettings.costManagement.enabled && (
+                <div>
+                  <label className="block text-sm font-medium mb-1">Monthly Budget Cap (£)</label>
+                  <Input 
+                    type="number"
+                    value={config.usageSettings.costManagement.budgetCap}
+                    onChange={(e) => handleNestedConfigChange('usageSettings', 'usageSettings', 'costManagement', {
+                      ...config.usageSettings.costManagement,
+                      budgetCap: parseInt(e.target.value)
+                    })}
+                    className="w-full"
+                  />
+                  <p className="text-xs text-gray-500 mt-1">Maximum monthly spending on AI services</p>
                 </div>
+              )}
+              
+              <div className="mt-4">
+                <Alert type="info">
+                  <p>Cost optimisation is enabled. The system will automatically select the most cost-effective AI provider based on the task requirements.</p>
+                </Alert>
               </div>
             </CardContent>
           </Card>
-          
-          <Card>
-            <CardHeader>
-              <h3 className="text-lg font-semibold">Usage Analytics</h3>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="p-4 bg-gray-50 rounded-md">
-                    <h4 className="text-sm font-medium mb-2">OpenAI Usage</h4>
-                    <p className="text-2xl font-bold text-blue-600">56%</p>
-                    <p className="text-xs text-gray-500 mt-1">7,012 requests</p>
-                  </div>
-                  
-                  <div className="p-4 bg-gray-50 rounded-md">
-                    <h4 className="text-sm font-medium mb-2">Anthropic Usage</h4>
-                    <p className="text-2xl font-bold text-purple-600">28%</p>
-                    <p className="text-xs text-gray-500 mt-1">3,486 requests</p>
-                  </div>
-                  
-                  <div className="p-4 bg-gray-50 rounded-md">
-                    <h4 className="text-sm font-medium mb-2">Other Providers</h4>
-                    <p className="text-2xl font-bold text-green-600">16%</p>
-                    <p className="text-xs text-gray-500 mt-1">1,952 requests</p>
-                  </div>
+        </div>
+      )
+    },
+    {
+      id: 'providers',
+      label: 'Provider Settings',
+      content: (
+        <div className="space-y-6">
+          {Object.entries(config.providers).map(([provider, settings]) => (
+            <Card key={provider}>
+              <CardHeader>
+                <h3 className="text-lg font-semibold">{provider.charAt(0).toUpperCase() + provider.slice(1)} Settings</h3>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div>
+                  <Checkbox 
+                    label={`Enable ${provider.charAt(0).toUpperCase() + provider.slice(1)}`}
+                    checked={settings.enabled}
+                    onChange={(checked) => handleNestedConfigChange('providers', provider, 'enabled', checked)}
+                    description={`Use ${provider.charAt(0).toUpperCase() + provider.slice(1)} as an AI provider`}
+                  />
                 </div>
                 
-                <div className="pt-2">
-                  <Button variant="outline" className="w-full">
-                    View Detailed Analytics
-                  </Button>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+                {settings.enabled && (
+                  <div>
+                    <label className="block text-sm font-medium mb-1">Default Model</label>
+                    <Select
+                      options={settings.models.map(model => ({ value: model, label: model }))}
+                      value={settings.defaultModel}
+                      onChange={(value) => handleNestedConfigChange('providers', provider, 'defaultModel', value)}
+                      className="w-full"
+                    />
+                    <p className="text-xs text-gray-500 mt-1">Default model to use for this provider</p>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          ))}
         </div>
       )
     }
   ];
   
   return (
-    <div className={className}>
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-xl font-semibold">AI Configuration</h2>
-        <div className="flex items-center gap-2">
-          {saved && (
-            <span className="text-sm text-green-600">Configuration saved</span>
-          )}
-          <Button 
-            onClick={handleSaveConfig}
-            disabled={loading}
-          >
-            {loading ? (
-              <>
-                <Spinner size="sm" className="mr-2" />
-                Saving...
-              </>
-            ) : 'Save Configuration'}
-          </Button>
+    <div className={`ai-configuration ${className}`}>
+      <div className="mb-6">
+        <h2 className="text-2xl font-bold mb-2">AI Configuration</h2>
+        <p className="text-gray-600">Configure AI providers, models, and settings for the EdPsych AI Education Platform</p>
+      </div>
+      
+      {loading && (
+        <div className="flex justify-center my-8">
+          <Spinner size="large" />
         </div>
-      </div>
+      )}
       
-      <Tabs tabs={tabs} />
-      
-      <div className="mt-6">
-        <Card>
-          <CardHeader>
-            <h3 className="text-lg font-semibold">API Key Management</h3>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <p className="text-sm text-gray-600">
-              API keys are securely stored in environment variables. To update API keys, please contact the system administrator.
-            </p>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium mb-1">OpenAI API Key</label>
-                <Input 
-                  type="password"
-                  value="••••••••••••••••••••••••••••••"
-                  disabled
-                  className="w-full"
-                />
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium mb-1">Anthropic API Key</label>
-                <Input 
-                  type="password"
-                  value="••••••••••••••••••••••••••••••"
-                  disabled
-                  className="w-full"
-                />
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium mb-1">Google Gemini API Key</label>
-                <Input 
-                  type="password"
-                  value="••••••••••••••••••••••••••••••"
-                  disabled
-                  className="w-full"
-                />
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium mb-1">GROK API Key</label>
-                <Input 
-                  type="password"
-                  value="••••••••••••••••••••••••••••••"
-                  disabled
-                  className="w-full"
-                />
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium mb-1">OpenRouter API Key</label>
-                <Input 
-                  type="password"
-                  value="••••••••••••••••••••••••••••••"
-                  disabled
-                  className="w-full"
-                />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+      {!loading && (
+        <>
+          <Tabs tabs={tabs} />
+          
+          <div className="mt-6 flex justify-end">
+            {saved && (
+              <Alert type="success" className="mr-4">
+                Configuration saved successfully
+              </Alert>
+            )}
+            <Button 
+              onClick={handleSaveConfig} 
+              disabled={loading || saved}
+              loading={loading}
+            >
+              Save Configuration
+            </Button>
+          </div>
+        </>
+      )}
     </div>
   );
 }
