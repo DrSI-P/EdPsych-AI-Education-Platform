@@ -58,6 +58,7 @@ model User {
   speechRecognitionLogs SpeechRecognitionLog[]
   curriculumDifferentiations CurriculumDifferentiation[]
   multiModalContents    MultiModalContent[]
+  adaptiveContents      AdaptiveContent[]
 }
 
 model VerificationToken {
@@ -224,6 +225,22 @@ model MultiModalContent {
   subject               String?
   keyStage              String?
   sourceContentId       String?
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+}
+
+model AdaptiveContent {
+  id                    String   @id @default(cuid())
+  userId                String
+  user                  User     @relation(fields: [userId], references: [id])
+  title                 String
+  originalContent       String   @db.Text
+  adjustedContent       Json
+  settings              Json
+  subject               String?
+  keyStage              String?
+  sourceContentId       String?
+  performanceMetricsUsed Boolean  @default(false)
   createdAt             DateTime @default(now())
   updatedAt             DateTime @updatedAt
 }
