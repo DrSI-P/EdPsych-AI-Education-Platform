@@ -35,6 +35,8 @@ model User {
   emotionJournals           EmotionJournal[]
   emotionalRegulationLogs   EmotionalRegulationLog[]
   transitionPlans           TransitionPlan[]
+  iep504Plans               IEP504Plan[]
+  iep504PlanLogs            IEP504PlanLog[]
 }
 
 model Account {
@@ -665,4 +667,102 @@ model TransitionPlanningLog {
   action    String
   details   Json?
   timestamp DateTime @default(now())
+}
+
+// IEP/504 Plan Management Models
+model IEP504Plan {
+  id            String              @id @default(cuid())
+  userId        String
+  title         String
+  planType      String              // iep or 504
+  studentName   String
+  studentId     String?
+  dateOfBirth   DateTime?
+  startDate     DateTime
+  reviewDate    DateTime
+  presentLevels String?
+  strengths     String?
+  challenges    String?
+  parentInput   String?
+  studentInput  String?
+  status        String              @default("draft") // draft, active, review, completed
+  progress      Int                 @default(0)
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt
+  goals         IEP504Goal[]
+  accommodations IEP504Accommodation[]
+  services      IEP504Service[]
+  teamMembers   IEP504TeamMember[]
+  user          User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model IEP504Goal {
+  id               String     @id @default(cuid())
+  planId           String
+  title            String
+  area             String     // academic, social, behavioral, etc.
+  description      String
+  baselineData     String?
+  evaluationMethod String
+  mastery          String?
+  timeline         String?
+  objectives       String[]
+  progress         Int        @default(0)
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
+  plan             IEP504Plan @relation(fields: [planId], references: [id], onDelete: Cascade)
+}
+
+model IEP504Accommodation {
+  id          String     @id @default(cuid())
+  planId      String
+  title       String
+  category    String     // instructional, environmental, assessment, etc.
+  description String
+  frequency   String?
+  location    String?
+  provider    String?
+  notes       String?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  plan        IEP504Plan @relation(fields: [planId], references: [id], onDelete: Cascade)
+}
+
+model IEP504Service {
+  id          String     @id @default(cuid())
+  planId      String
+  title       String
+  provider    String
+  frequency   String
+  duration    String
+  location    String?
+  startDate   DateTime
+  endDate     DateTime
+  description String?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  plan        IEP504Plan @relation(fields: [planId], references: [id], onDelete: Cascade)
+}
+
+model IEP504TeamMember {
+  id        String     @id @default(cuid())
+  planId    String
+  name      String
+  role      String
+  email     String?
+  phone     String?
+  notes     String?
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  plan      IEP504Plan @relation(fields: [planId], references: [id], onDelete: Cascade)
+}
+
+model IEP504PlanLog {
+  id        String   @id @default(cuid())
+  userId    String
+  planId    String?
+  action    String
+  details   Json?
+  timestamp DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
