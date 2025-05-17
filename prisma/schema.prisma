@@ -63,6 +63,12 @@ model User {
   monitoringLogs         MonitoringLog[]
   analyticsSettings      InterventionAnalyticsSettings?
   analyticsLogs          AnalyticsLog[]
+  communicationSettings  CommunicationSettings?
+  sentMessages           CommunicationMessage[]   @relation("SentMessages")
+  receivedMessages       CommunicationMessage[]   @relation("ReceivedMessages")
+  organizedMeetings      CommunicationMeeting[]   @relation("OrganizedMeetings")
+  communicationLogs      CommunicationLog[]
+  communicationReportRequests CommunicationReportRequest[]
 }
 
 model VerificationToken {
@@ -338,4 +344,99 @@ model AnalyticsLog {
   details          String?  @db.Text
   createdAt        DateTime @default(now())
   user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model CommunicationSettings {
+  id                  String   @id @default(cuid())
+  userId              String   @unique
+  emailNotifications  Boolean  @default(true)
+  smsNotifications    Boolean  @default(false)
+  autoTranslate       Boolean  @default(false)
+  privacyMode         Boolean  @default(true)
+  reminderFrequency   String   @default("weekly")
+  messageTemplate     Boolean  @default(true)
+  readReceipts        Boolean  @default(true)
+  urgentFlagging      Boolean  @default(true)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  user                User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model CommunicationMessage {
+  id               String   @id @default(cuid())
+  content          String   @db.Text
+  senderId         String
+  recipientId      String
+  studentId        String
+  urgent           Boolean  @default(false)
+  read             Boolean  @default(false)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  sender           User     @relation("SentMessages", fields: [senderId], references: [id], onDelete: Cascade)
+  recipient        User     @relation("ReceivedMessages", fields: [recipientId], references: [id], onDelete: Cascade)
+  student          Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  attachments      CommunicationAttachment[]
+}
+
+model CommunicationAttachment {
+  id               String   @id @default(cuid())
+  messageId        String
+  name             String
+  type             String
+  size             String
+  url              String
+  createdAt        DateTime @default(now())
+  message          CommunicationMessage @relation(fields: [messageId], references: [id], onDelete: Cascade)
+}
+
+model CommunicationMeeting {
+  id               String   @id @default(cuid())
+  title            String
+  description      String?  @db.Text
+  meetingType      String   @default("parent_teacher")
+  scheduledDate    DateTime
+  duration         Int      @default(30)
+  location         String
+  organizerId      String
+  studentId        String
+  participantIds   String[]
+  status           String   @default("scheduled")
+  virtualMeetingUrl String?
+  notes            String?  @db.Text
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  organizer        User     @relation("OrganizedMeetings", fields: [organizerId], references: [id], onDelete: Cascade)
+  student          Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+}
+
+model CommunicationLog {
+  id               String   @id @default(cuid())
+  userId           String
+  action           String
+  details          String?  @db.Text
+  createdAt        DateTime @default(now())
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model CommunicationReportRequest {
+  id               String   @id @default(cuid())
+  userId           String
+  reportType       String
+  timeRange        String   @default("term")
+  format           String   @default("pdf")
+  status           String   @default("pending")
+  resultUrl        String?
+  customParameters Json?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Student {
+  id               String   @id @default(cuid())
+  name             String
+  yearGroup        String
+  supportNeeds     String[]
+  messages         CommunicationMessage[]
+  meetings         CommunicationMeeting[]
 }
