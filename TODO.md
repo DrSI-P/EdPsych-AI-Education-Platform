@@ -391,6 +391,18 @@ This document serves as a comprehensive checklist for implementing all features 
 - [ ] Create help center
 - [ ] Implement FAQ
 
+### Video Demonstrations and Training
+- [ ] Create faceless video demonstrations of platform features
+- [ ] Develop faceless video training for educators
+- [ ] Develop faceless video training for parents
+- [ ] Develop faceless video training for children and young people
+- [ ] Develop faceless video training for professionals
+- [ ] Create searchable video library with categorisation
+- [ ] Implement interactive video guides with chapter navigation
+- [ ] Create feature-specific tutorial videos
+- [ ] Develop onboarding video sequences
+- [ ] Implement video accessibility features (captions, transcripts)
+
 ## Progress Tracking
 
 This checklist will be regularly updated to track progress. Items will be marked as:
