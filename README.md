@@ -1,6 +1,6 @@
 # EdPsych-AI-Education-Platform
 
-A transformative educational platform leveraging artificial intelligence to personalize learning experiences, amplify student voice, streamline administrative tasks, and provide evidence-based support aligned with UK educational psychology principles.
+A transformative educational platform leveraging artificial intelligence to personalise learning experiences, amplify student voice, streamline administrative tasks, and provide evidence-based support aligned with UK educational psychology principles.
 
 ## Executive Summary
 
@@ -8,13 +8,13 @@ The EdPsych-AI-Education-Platform represents a groundbreaking advancement in edu
 
 ### Vision and Mission
 
-Our vision is to revolutionize education through personalized learning paths, systematic curriculum coverage, and engagement strategies tailored to individual learning styles and interests. The platform empowers educators by reducing administrative burden, provides students with amplified voice and agency, and ensures all stakeholders benefit from data-driven insights and evidence-based practices.
+Our vision is to revolutionise education through personalised learning paths, systematic curriculum coverage, and engagement strategies tailored to individual learning styles and interests. The platform empowers educators by reducing administrative burden, provides students with amplified voice and agency, and ensures all stakeholders benefit from data-driven insights and evidence-based practices.
 
 ### Core Innovations
 
 - **AI-Enhanced Educational Psychology**: Merging advanced AI capabilities with established educational psychology principles
-- **Personalized Learning Pathways**: Adapting content and approaches based on individual starting points and learning styles
-- **Restorative Justice Framework**: Supporting positive relationships and understanding underlying behaviors
+- **Personalised Learning Pathways**: Adapting content and approaches based on individual starting points and learning styles
+- **Restorative Justice Framework**: Supporting positive relationships and understanding underlying behaviours
 - **Student Voice Amplification**: Ensuring students' perspectives are heard, valued, and incorporated
 - **Administrative Automation**: Freeing educators from paperwork to focus on teaching and relationships
 - **Evidence-Based Practice**: Grounding all features in research and educational psychology best practices
@@ -25,7 +25,7 @@ Our vision is to revolutionize education through personalized learning paths, sy
 ### Teacher Administrative Automation
 - **Automated Documentation**: Intelligent processing of classroom activities into structured documentation
 - **Smart Lesson Planning**: AI-enhanced curriculum planning aligned with UK standards
-- **Automated Progress Reports**: Data-driven, personalized student progress reporting
+- **Automated Progress Reports**: Data-driven, personalised student progress reporting
 - **Meeting Note Transcription**: EHCNA-aligned key point extraction from educational meetings
 - **Contextual Resource Recommendation**: Intelligent suggestion of relevant resources based on educational context
 
@@ -35,7 +35,7 @@ Our vision is to revolutionize education through personalized learning paths, sy
 - **Student-Led Conferences**: Tools for student ownership of educational discussions
 - **Collaborative Goal Setting**: Student agency in educational planning
 - **Student Council Digital Portal**: Platform for student leadership and democratic participation
-- **Impact Visualization Tools**: Demonstrating the effect of student voice
+- **Impact Visualisation Tools**: Demonstrating the effect of student voice
 
 ### Restorative Justice Framework
 - **Staff Training Modules**: Comprehensive professional development on restorative approaches
@@ -45,7 +45,7 @@ Our vision is to revolutionize education through personalized learning paths, sy
 - **Agreement Tracking System**: Monitoring and supporting restorative agreements
 
 ### Special Educational Needs Support
-- **Executive Dysfunction Tools**: Specialized support for planning, organization, and time management
+- **Executive Dysfunction Tools**: Specialised support for planning, organisation, and time management
 - **Learning Style Adaptation**: Content transformation based on individual learning preferences
 - **Adaptive Complexity**: Adjusting material difficulty based on learner capability
 - **Multi-Modal Content**: Supporting diverse learning needs through various presentation formats
@@ -61,7 +61,7 @@ Our vision is to revolutionize education through personalized learning paths, sy
 
 ### Backend
 - Next.js API routes
-- Express.js for specialized services
+- Express.js for specialised services
 - Socket.io for real-time features
 
 ### Database
