@@ -34,6 +34,7 @@ model User {
   emotionRecords            EmotionRecord[]
   emotionJournals           EmotionJournal[]
   emotionalRegulationLogs   EmotionalRegulationLog[]
+  transitionPlans           TransitionPlan[]
 }
 
 model Account {
@@ -531,10 +532,11 @@ model EmotionalRegulationSettings {
   id                     String   @id @default(cuid())
   userId                 String   @unique
   emotionVocabularyLevel String   @default("intermediate") // basic, intermediate, advanced
-  preferredStrategies    String[] // array of strategy IDs
-  triggerAwareness       Boolean  @default(true)
-  selfMonitoringLevel    String   @default("guided") // independent, guided, supported
-  notificationPreferences Json?
+  emotionTrackingEnabled Boolean  @default(true)
+  journalingEnabled      Boolean  @default(true)
+  strategyPreferences    Json?
+  reminderFrequency      String   @default("daily")
+  privacySettings        Json?
   createdAt              DateTime @default(now())
   updatedAt              DateTime @updatedAt
   user                   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -543,13 +545,12 @@ model EmotionalRegulationSettings {
 model EmotionRecord {
   id           String   @id @default(cuid())
   userId       String
-  name         String
+  emotion      String
   intensity    Int
-  triggers     String?
-  bodyFeelings String[]
-  thoughts     String?
-  strategies   RegulationStrategy[]
-  createdAt    DateTime @default(now())
+  timestamp    DateTime @default(now())
+  triggers     Json?
+  bodyLocation Json?
+  notes        String?
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
@@ -557,23 +558,22 @@ model RegulationStrategy {
   id           String   @id @default(cuid())
   name         String
   description  String
-  steps        Json
-  suitableFor  String[] // array of emotion names
+  category     String   // cognitive, physical, social, sensory
+  steps        Json?
   evidenceBase String?
-  emotions     EmotionRecord[]
-  journals     EmotionJournal[]
+  suitableFor  Json?
   createdAt    DateTime @default(now())
 }
 
 model EmotionJournal {
   id           String   @id @default(cuid())
   userId       String
-  title        String
+  title        String?
   content      String
-  emotions     String[] // array of emotion names
-  strategies   RegulationStrategy[]
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  emotions     Json?
+  strategies   Json?
+  effectiveness Int?
+  timestamp    DateTime @default(now())
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
@@ -584,4 +584,85 @@ model EmotionalRegulationLog {
   details   Json?
   timestamp DateTime @default(now())
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// Transition Planning Models
+model TransitionPlan {
+  id                 String               @id @default(cuid())
+  userId             String
+  studentId          String?
+  title              String
+  transitionType     String
+  startDate          DateTime
+  targetDate         DateTime
+  studentStrengths   String?
+  studentNeeds       String?
+  studentPreferences String?
+  status             String               @default("draft")
+  progress           Int                  @default(0)
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime             @updatedAt
+  goals              TransitionGoal[]
+  supportTeam        SupportTeamMember[]
+  resources          TransitionResource[]
+  accommodations     Accommodation[]
+  user               User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model TransitionGoal {
+  id           String        @id @default(cuid())
+  transitionPlanId String
+  title        String
+  description  String
+  category     String
+  steps        Json
+  status       String        @default("not-started")
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  transitionPlan TransitionPlan @relation(fields: [transitionPlanId], references: [id], onDelete: Cascade)
+}
+
+model SupportTeamMember {
+  id                String        @id @default(cuid())
+  transitionPlanId  String
+  name              String
+  role              String
+  contactInfo       String?
+  responsibilities  String?
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+  transitionPlan    TransitionPlan @relation(fields: [transitionPlanId], references: [id], onDelete: Cascade)
+}
+
+model TransitionResource {
+  id               String        @id @default(cuid())
+  transitionPlanId String
+  title            String
+  type             String
+  link             String?
+  description      String?
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+  transitionPlan   TransitionPlan @relation(fields: [transitionPlanId], references: [id], onDelete: Cascade)
+}
+
+model Accommodation {
+  id                 String        @id @default(cuid())
+  transitionPlanId   String
+  title              String
+  category           String
+  description        String
+  implementationNotes String?
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
+  transitionPlan     TransitionPlan @relation(fields: [transitionPlanId], references: [id], onDelete: Cascade)
+}
+
+model TransitionPlanningLog {
+  id        String   @id @default(cuid())
+  userId    String
+  planId    String?
+  action    String
+  details   Json?
+  timestamp DateTime @default(now())
 }
