@@ -55,6 +55,7 @@ model User {
   learningStyleProfiles LearningStyleProfile[]
   contentTransformations ContentTransformation[]
   emotionalCheckins     EmotionalCheckin[]
+  speechRecognitionLogs SpeechRecognitionLog[]
 }
 
 model VerificationToken {
@@ -178,4 +179,17 @@ model EmotionalCheckin {
   strategies        String[] 
   aiSuggestions     String?  @db.Text
   createdAt         DateTime @default(now())
+}
+
+model SpeechRecognitionLog {
+  id                    String   @id @default(cuid())
+  userId                String
+  user                  User     @relation(fields: [userId], references: [id])
+  originalTranscript    String   @db.Text
+  enhancedTranscript    String   @db.Text
+  childVoiceOptimization Boolean  @default(true)
+  language              String   @default("en-GB")
+  confidenceScore       Float?
+  duration              Float?
+  createdAt             DateTime @default(now())
 }
