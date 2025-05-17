@@ -10,66 +10,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// User model with role-based access control
-model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  password      String?
-  role          String    @default("student")
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-
-  // Profile information
-  profile       Profile?
-
-  // Relationships
-  accounts      Account[]
-  sessions      Session[]
-  assessments   Assessment[]    @relation("CreatedAssessments")
-  responses     Response[]
-  resources     Resource[]      @relation("CreatedResources")
-  curriculums   Curriculum[]    @relation("CreatedCurriculums")
-  projects      Project[]       @relation("CreatedProjects")
-  
-  // For educators and professionals
-  students      User[]          @relation("EducatorToStudent")
-  educator      User?           @relation("EducatorToStudent", fields: [educatorId], references: [id])
-  educatorId    String?
-  
-  // Password reset
-  passwordReset PasswordReset?
-}
-
-model Profile {
-  id            String    @id @default(cuid())
-  bio           String?
-  school        String?
-  yearGroup     String?
-  specialNeeds  String?
-  preferences   Json?     // Storing user preferences as JSON
-  learningStyle String?
-  
-  // Relationship with User
-  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId        String    @unique
-}
-
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?  @db.Text
-  session_state      String?
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -84,6 +37,59 @@ model Session {
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+model User {
+  id                String              @id @default(cuid())
+  name              String?
+  email             String?             @unique
+  emailVerified     DateTime?
+  image             String?
+  password          String?
+  role              UserRole            @default(STUDENT)
+  accounts          Account[]
+  sessions          Session[]
+  profile           Profile?
+  createdAssessments Assessment[]        @relation("CreatedAssessments")
+  takenAssessments  AssessmentResponse[] @relation("TakenAssessments")
+  passwordResets    PasswordReset[]
+  emailVerifications EmailVerification[]
+  createdResources  Resource[]          @relation("CreatedResources")
+  savedResources    SavedResource[]
+  resourceRatings   ResourceRating[]
+  resourceComments  ResourceComment[]
+}
+
+model PasswordReset {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+model EmailVerification {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+model Profile {
+  id          String   @id @default(cuid())
+  userId      String   @unique
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  bio         String?  @db.Text
+  location    String?
+  website     String?
+  occupation  String?
+  institution String?
+  interests   String[] @default([])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
 model VerificationToken {
   identifier String
   token      String   @unique
@@ -92,148 +98,134 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-// Password reset model
-model PasswordReset {
-  id        String   @id @default(cuid())
-  token     String   @unique
-  expires   DateTime
-  createdAt DateTime @default(now())
-  
-  // Relationship with User
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    String   @unique
+enum UserRole {
+  STUDENT
+  TEACHER
+  PROFESSIONAL
+  ADMIN
 }
 
-// Assessment module models
+// Assessment Models
 model Assessment {
-  id                String    @id @default(cuid())
-  title             String
-  description       String    @db.Text
-  type              String    // quiz, test, survey, formative, summative, diagnostic
-  subject           String    // english, maths, science, etc.
-  keyStage          String    // eyfs, ks1, ks2, ks3, ks4, ks5
-  timeLimit         Int       @default(0) // in minutes, 0 for no limit
-  passingScore      Int       @default(70) // percentage
-  showResults       Boolean   @default(true)
-  randomizeQuestions Boolean  @default(false)
-  allowRetakes      Boolean   @default(true)
-  status            String    @default("draft") // draft, published, archived
-  createdAt         DateTime  @default(now())
-  updatedAt         DateTime  @updatedAt
-  
-  // Relationships
-  createdBy         User      @relation("CreatedAssessments", fields: [createdById], references: [id])
-  createdById       String
-  questions         Question[]
-  responses         Response[]
-  curriculum        Curriculum? @relation(fields: [curriculumId], references: [id])
-  curriculumId      String?
+  id          String   @id @default(cuid())
+  title       String
+  description String?  @db.Text
+  type        String
+  subject     String?
+  keyStage    String?
+  timeLimit   Int?     // in minutes
+  passingScore Int?
+  isPublished Boolean  @default(false)
+  createdById String
+  createdBy   User     @relation("CreatedAssessments", fields: [createdById], references: [id])
+  questions   Question[]
+  responses   AssessmentResponse[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model Question {
-  id              String    @id @default(cuid())
-  type            String    // multiple-choice, open-ended, matching, file-upload
-  content         String    @db.Text
-  options         Json?     // For multiple choice questions
-  correctAnswer   Json?     // The correct answer(s)
-  points          Int       @default(1)
-  order           Int       // Question order in the assessment
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
-  
-  // Relationships
-  assessment      Assessment @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
-  assessmentId    String
-  answers         Answer[]
+  id           String   @id @default(cuid())
+  assessmentId String
+  assessment   Assessment @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
+  type         String
+  content      String   @db.Text
+  options      Json?
+  correctAnswer Json?
+  points       Int      @default(1)
+  order        Int
+  responses    QuestionResponse[]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
 
-model Answer {
-  id              String    @id @default(cuid())
-  content         Json      // The user's answer
-  isCorrect       Boolean?  // Whether the answer is correct (auto-graded)
-  feedback        String?   @db.Text // Feedback for this specific answer
-  createdAt       DateTime  @default(now())
-  
-  // Relationships
-  question        Question  @relation(fields: [questionId], references: [id], onDelete: Cascade)
-  questionId      String
-  response        Response  @relation(fields: [responseId], references: [id], onDelete: Cascade)
-  responseId      String
+model AssessmentResponse {
+  id           String   @id @default(cuid())
+  assessmentId String
+  assessment   Assessment @relation(fields: [assessmentId], references: [id])
+  userId       String
+  user         User     @relation("TakenAssessments", fields: [userId], references: [id])
+  startedAt    DateTime @default(now())
+  submittedAt  DateTime?
+  score        Int?
+  maxScore     Int?
+  passed       Boolean?
+  responses    QuestionResponse[]
+  feedback     String?  @db.Text
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
 
-model Response {
-  id              String    @id @default(cuid())
-  score           Float?    // Overall score
-  feedback        String?   @db.Text // Overall feedback
-  startedAt       DateTime  @default(now())
-  completedAt     DateTime?
-  
-  // Relationships
-  assessment      Assessment @relation(fields: [assessmentId], references: [id])
-  assessmentId    String
-  user            User       @relation(fields: [userId], references: [id])
-  userId          String
-  answers         Answer[]
+model QuestionResponse {
+  id                  String   @id @default(cuid())
+  assessmentResponseId String
+  assessmentResponse   AssessmentResponse @relation(fields: [assessmentResponseId], references: [id], onDelete: Cascade)
+  questionId          String
+  question            Question @relation(fields: [questionId], references: [id])
+  answer              Json?
+  isCorrect           Boolean?
+  score               Int?
+  feedback            String?  @db.Text
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
 }
 
-// Resource module models
+// Resource Library Models
 model Resource {
-  id          String    @id @default(cuid())
-  title       String
-  description String?
-  type        String    // Document, video, audio, etc.
-  url         String?
-  content     String?   @db.Text
-  tags        String[]
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  
-  // Relationships
-  creator     User      @relation("CreatedResources", fields: [creatorId], references: [id])
-  creatorId   String
-  curriculum  Curriculum? @relation(fields: [curriculumId], references: [id])
-  curriculumId String?
+  id                String   @id @default(cuid())
+  title             String
+  description       String   @db.Text
+  subject           String
+  keyStage          String
+  type              String
+  authorId          String
+  author            User     @relation("CreatedResources", fields: [authorId], references: [id])
+  files             Json[]   // Array of file URLs and metadata
+  thumbnail         String?
+  tags              String[]
+  downloads         Int      @default(0)
+  rating            Float?
+  isPublic          Boolean  @default(true)
+  allowDownload     Boolean  @default(true)
+  requireAttribution Boolean  @default(true)
+  savedBy           SavedResource[]
+  ratings           ResourceRating[]
+  comments          ResourceComment[]
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 }
 
-// Curriculum module models
-model Curriculum {
-  id          String    @id @default(cuid())
-  title       String
-  description String?
-  objectives  String[]
-  level       String?
-  subject     String?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  
-  // Relationships
-  creator     User      @relation("CreatedCurriculums", fields: [creatorId], references: [id])
-  creatorId   String
-  resources   Resource[]
-  assessments Assessment[]
+model SavedResource {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  resourceId String
+  resource   Resource @relation(fields: [resourceId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+
+  @@unique([userId, resourceId])
 }
 
-// Project module models
-model Project {
-  id          String    @id @default(cuid())
-  title       String
-  description String?
-  content     String?   @db.Text
-  status      String    // In progress, completed, etc.
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  
-  // Relationships
-  creator     User      @relation("CreatedProjects", fields: [creatorId], references: [id])
-  creatorId   String
+model ResourceRating {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  resourceId String
+  resource   Resource @relation(fields: [resourceId], references: [id], onDelete: Cascade)
+  rating     Int      // 1-5 stars
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([userId, resourceId])
 }
 
-// Immersive learning models
-model ImmersiveEnvironment {
-  id          String    @id @default(cuid())
-  title       String
-  description String?
-  sceneData   Json      // A-Frame scene data stored as JSON
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+model ResourceComment {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  resourceId String
+  resource   Resource @relation(fields: [resourceId], references: [id], onDelete: Cascade)
+  content    String   @db.Text
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
