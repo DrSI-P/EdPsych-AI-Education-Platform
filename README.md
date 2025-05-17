@@ -130,6 +130,17 @@ EdPsych-AI-Education-Platform delivers measurable improvements across key educat
 - **CPD Tracking**: Documentation of continuing professional development
 - **Professional Portfolio**: Showcase of accomplishments and skills
 
+### Video Demonstrations and Training
+- **Faceless Video Demonstrations**: Comprehensive visual guides to platform features
+- **Educator Training Videos**: Specialised guidance for teaching professionals
+- **Parent Training Videos**: Support for home-school partnership
+- **Child and Young Person Training**: Age-appropriate guidance for students
+- **Professional Training Videos**: Specialised content for educational professionals
+- **Interactive Video Guides**: Chapter-based navigation for targeted learning
+- **Searchable Video Library**: Categorised repository of training content
+- **Onboarding Video Sequences**: Structured introduction to platform features
+- **Accessibility Features**: Captions and transcripts for all video content
+
 ### Accessibility and Compliance
 - **WCAG 2.1 AA Compliance**: Meeting international accessibility standards
 - **Keyboard Navigation**: Full functionality without mouse dependency
