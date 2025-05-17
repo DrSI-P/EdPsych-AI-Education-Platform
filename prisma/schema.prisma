@@ -38,28 +38,22 @@ model Session {
 }
 
 model User {
-  id                    String                  @id @default(cuid())
-  name                  String?
-  email                 String?                 @unique
-  emailVerified         DateTime?
-  image                 String?
-  password              String?
-  role                  String                  @default("user")
-  accounts              Account[]
-  sessions              Session[]
-  assessments           Assessment[]
-  assessmentResponses   AssessmentResponse[]
-  resources             Resource[]
-  curriculumPlans       CurriculumPlan[]
-  collaborations        Collaboration[]
-  learningStyleProfiles LearningStyleProfile[]
+  id                     String                   @id @default(cuid())
+  name                   String?
+  email                  String?                  @unique
+  emailVerified          DateTime?
+  image                  String?
+  role                   String                   @default("user")
+  accounts               Account[]
+  sessions               Session[]
+  learningStyleProfile   LearningStyleProfile?
+  emotionalCheckins      EmotionalCheckin[]
+  teacherAutomation      TeacherAutomation[]
   contentTransformations ContentTransformation[]
-  emotionalCheckins     EmotionalCheckin[]
-  speechRecognitionLogs SpeechRecognitionLog[]
-  curriculumDifferentiations CurriculumDifferentiation[]
-  multiModalContents    MultiModalContent[]
-  adaptiveContents      AdaptiveContent[]
-  progressPacings       ProgressPacing[]
+  speechCalibrations     SpeechCalibration[]
+  curriculumPlans        CurriculumPlan[]
+  progressPacing         ProgressPacing[]
+  executiveFunctionTasks ExecutiveFunctionTask[]
 }
 
 model VerificationToken {
@@ -70,198 +64,137 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-model Assessment {
-  id          String               @id @default(cuid())
-  title       String
-  description String?
-  questions   Json
-  published   Boolean              @default(false)
-  createdAt   DateTime             @default(now())
-  updatedAt   DateTime             @updatedAt
-  userId      String
-  user        User                 @relation(fields: [userId], references: [id])
-  responses   AssessmentResponse[]
-}
-
-model AssessmentResponse {
-  id           String     @id @default(cuid())
-  answers      Json
-  score        Float?
-  feedback     String?
-  submittedAt  DateTime   @default(now())
-  assessmentId String
-  assessment   Assessment @relation(fields: [assessmentId], references: [id])
-  userId       String
-  user         User       @relation(fields: [userId], references: [id])
-}
-
-model Resource {
-  id          String   @id @default(cuid())
-  title       String
-  description String?
-  content     String?
-  fileUrl     String?
-  fileType    String?
-  tags        String[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  userId      String
-  user        User     @relation(fields: [userId], references: [id])
-}
-
-model CurriculumPlan {
-  id            String         @id @default(cuid())
-  title         String
-  description   String?
-  objectives    Json
-  content       Json
-  gradeLevel    String?
-  subject       String?
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
-  userId        String
-  user          User           @relation(fields: [userId], references: [id])
-  collaborations Collaboration[]
-  differentiations CurriculumDifferentiation[]
-}
-
-model Collaboration {
-  id               String         @id @default(cuid())
-  role             String         @default("viewer") // owner, editor, viewer
-  curriculumPlanId String
-  curriculumPlan   CurriculumPlan @relation(fields: [curriculumPlanId], references: [id])
-  userId           String
-  user             User           @relation(fields: [userId], references: [id])
-  createdAt        DateTime       @default(now())
-  updatedAt        DateTime       @updatedAt
-
-  @@unique([curriculumPlanId, userId])
-}
-
 model LearningStyleProfile {
-  id                 String   @id @default(cuid())
-  userId             String
-  user               User     @relation(fields: [userId], references: [id])
-  primaryStyle       String
-  secondaryStyle     String
-  visualScore        Float
-  auditoryScore      Float
-  kinestheticScore   Float
-  readingWritingScore Float
-  rawResults         String   @db.Text
-  answers            String   @db.Text
-  createdAt          DateTime @default(now())
-  updatedAt          DateTime @updatedAt
-}
-
-model ContentTransformation {
-  id                    String   @id @default(cuid())
-  userId                String
-  user                  User     @relation(fields: [userId], references: [id])
-  originalContent       String   @db.Text
-  contentType           String   @default("lesson")
-  subjectArea           String?
-  targetAge             Int      @default(10)
-  complexity            Int      @default(50)
-  learningStylePreference String?
-  visualContent         String   @db.Text
-  auditoryContent       String   @db.Text
-  kinestheticContent    String   @db.Text
-  readingWritingContent String   @db.Text
-  multimodalContent     String   @db.Text
-  createdAt             DateTime @default(now())
-  updatedAt             DateTime @updatedAt
+  id                String   @id @default(cuid())
+  userId            String   @unique
+  visual            Int
+  auditory          Int
+  readingWriting    Int
+  kinesthetic       Int
+  primaryStyle      String
+  secondaryStyle    String
+  recommendations   Json
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model EmotionalCheckin {
+  id              String   @id @default(cuid())
+  userId          String
+  emotion         String
+  intensity       Int
+  context         String?
+  notes           String?
+  recommendations Json?
+  createdAt       DateTime @default(now())
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model TeacherAutomation {
   id                String   @id @default(cuid())
   userId            String
-  user              User     @relation(fields: [userId], references: [id])
-  mood              String
-  intensity         Int
-  context           String?
-  reflection        String?
-  strategies        String[] 
-  aiSuggestions     String?  @db.Text
+  documentType      String
+  content           String   @db.Text
+  generatedContent  String   @db.Text
+  metadata          Json?
   createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model SpeechRecognitionLog {
-  id                    String   @id @default(cuid())
-  userId                String
-  user                  User     @relation(fields: [userId], references: [id])
-  originalTranscript    String   @db.Text
-  enhancedTranscript    String   @db.Text
-  childVoiceOptimization Boolean  @default(true)
-  language              String   @default("en-GB")
-  confidenceScore       Float?
-  duration              Float?
-  createdAt             DateTime @default(now())
+model ContentTransformation {
+  id               String   @id @default(cuid())
+  userId           String
+  originalContent  String   @db.Text
+  transformedContent String @db.Text
+  learningStyle    String
+  metadata         Json?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model CurriculumDifferentiation {
-  id                    String   @id @default(cuid())
-  userId                String
-  user                  User     @relation(fields: [userId], references: [id])
-  curriculumPlanId      String?
-  curriculumPlan        CurriculumPlan? @relation(fields: [curriculumPlanId], references: [id])
-  originalContent       String   @db.Text
-  differentiatedContent Json
-  settings              Json
-  subject               String?
-  keyStage              String?
-  year                  String?
-  createdAt             DateTime @default(now())
-  updatedAt             DateTime @updatedAt
+model SpeechCalibration {
+  id               String   @id @default(cuid())
+  userId           String
+  calibrationData  Json
+  accuracy         Float
+  noiseProfile     Json?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model CurriculumPlan {
+  id               String   @id @default(cuid())
+  userId           String
+  title            String
+  description      String?
+  subject          String
+  yearGroup        String
+  standards        Json
+  content          Json
+  differentiation  Json?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model MultiModalContent {
-  id                    String   @id @default(cuid())
-  userId                String
-  user                  User     @relation(fields: [userId], references: [id])
-  title                 String
-  originalContent       String   @db.Text
-  multiModalContent     Json
-  settings              Json
-  subject               String?
-  keyStage              String?
-  sourceContentId       String?
-  createdAt             DateTime @default(now())
-  updatedAt             DateTime @updatedAt
+  id               String   @id @default(cuid())
+  title            String
+  description      String?
+  visualContent    String?  @db.Text
+  audioContent     String?
+  textContent      String?  @db.Text
+  interactiveContent Json?
+  metadata         Json?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
 }
 
-model AdaptiveContent {
-  id                    String   @id @default(cuid())
-  userId                String
-  user                  User     @relation(fields: [userId], references: [id])
-  title                 String
-  originalContent       String   @db.Text
-  adjustedContent       Json
-  settings              Json
-  subject               String?
-  keyStage              String?
-  sourceContentId       String?
-  performanceMetricsUsed Boolean  @default(false)
-  createdAt             DateTime @default(now())
-  updatedAt             DateTime @updatedAt
+model AdaptiveComplexity {
+  id               String   @id @default(cuid())
+  contentId        String
+  levelName        String
+  complexity       Int
+  content          String   @db.Text
+  scaffolding      Json?
+  extensions       Json?
+  assessments      Json?
+  metadata         Json?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
 }
 
 model ProgressPacing {
-  id                    String   @id @default(cuid())
-  userId                String
-  user                  User     @relation(fields: [userId], references: [id])
-  studentId             String?
-  curriculumId          String?
-  standardPace          Int
-  adjustedPace          Int
-  adaptationType        String
-  estimatedCompletion   String
-  pacingData            Json
-  settings              Json
-  subject               String?
-  keyStage              String?
-  learningStyleUsed     Boolean  @default(false)
-  progressMetricsUsed   Boolean  @default(false)
-  createdAt             DateTime @default(now())
-  updatedAt             DateTime @updatedAt
+  id               String   @id @default(cuid())
+  userId           String
+  learningPath     String
+  currentPace      Float
+  recommendedPace  Float
+  milestones       Json
+  adaptations      Json?
+  metadata         Json?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model ExecutiveFunctionTask {
+  id               String   @id @default(cuid())
+  userId           String
+  title            String
+  description      String?
+  dueDate          String?
+  priority         String
+  status           String
+  steps            Json
+  timeEstimate     Int
+  visualReminder   String?
+  tags             String[]
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
