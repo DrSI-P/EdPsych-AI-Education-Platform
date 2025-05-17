@@ -56,11 +56,29 @@ const meetingTypes = [
   { id: 'parent-conference', name: 'Parent Conference' },
   { id: 'staff-meeting', name: 'Staff Meeting' },
   { id: 'iep-meeting', name: 'IEP/504 Meeting' },
+  { id: 'ehcna-meeting', name: 'EHCNA Meeting' },
+  { id: 'annual-review', name: 'Annual Review' },
   { id: 'department-meeting', name: 'Department Meeting' },
   { id: 'student-conference', name: 'Student Conference' },
   { id: 'professional-development', name: 'Professional Development' },
   { id: 'admin-meeting', name: 'Administrative Meeting' },
   { id: 'other', name: 'Other' }
+];
+
+// EHCNA categories
+const ehcnaCategories = [
+  { id: 'communication', name: 'Communication and Interaction' },
+  { id: 'cognition', name: 'Cognition and Learning' },
+  { id: 'semh', name: 'Social, Emotional and Mental Health' },
+  { id: 'sensory', name: 'Sensory and Physical' }
+];
+
+// Preparation for Adulthood categories
+const preparationForAdulthoodCategories = [
+  { id: 'employment', name: 'Employment' },
+  { id: 'independent-living', name: 'Independent Living' },
+  { id: 'community-inclusion', name: 'Community Inclusion' },
+  { id: 'health', name: 'Health' }
 ];
 
 // Sample languages
@@ -215,8 +233,23 @@ export default function MeetingNoteTranscription() {
   const [filteredMeetings, setFilteredMeetings] = useState<any[]>(sampleMeetings);
   const [editingKeyPoints, setEditingKeyPoints] = useState(false);
   const [editingActionItems, setEditingActionItems] = useState(false);
-  const [newKeyPoint, setNewKeyPoint] = useState({ text: '', category: 'information', highlighted: false });
-  const [newActionItem, setNewActionItem] = useState({ text: '', assignedTo: '', dueDate: '', completed: false });
+  const [newKeyPoint, setNewKeyPoint] = useState({ 
+    text: '', 
+    category: 'information', 
+    ehcnaArea: '', 
+    preparationForAdulthood: false, 
+    highlighted: false 
+  });
+  const [newActionItem, setNewActionItem] = useState({ 
+    text: '', 
+    assignedTo: '', 
+    dueDate: '', 
+    completed: false, 
+    ehcnaArea: '' 
+  });
+  const [useEhcnaCategories, setUseEhcnaCategories] = useState(false);
+  const [usePreparationForAdulthood, setUsePreparationForAdulthood] = useState(false);
+  const [studentYear, setStudentYear] = useState<number | undefined>();
   const [uploadedAudioFile, setUploadedAudioFile] = useState<File | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentPlaybackTime, setCurrentPlaybackTime] = useState(0);
@@ -422,19 +455,115 @@ Speaker 1: Let's develop an action plan. Who can take responsibility for [Action
     // For demo purposes, we'll simulate AI processing
     
     setTimeout(() => {
-      // Generate sample key points based on the transcript
-      const sampleKeyPoints = [
-        { text: 'First key point extracted from the transcript', category: 'information', highlighted: true },
-        { text: 'Important decision made during the meeting', category: 'decision', highlighted: true },
-        { text: 'Issue that needs to be addressed', category: 'issue', highlighted: false },
-        { text: 'Resource mentioned during discussion', category: 'resource', highlighted: false }
-      ];
+      // Generate sample key points based on the transcript and EHCNA categories if enabled
+      let sampleKeyPoints = [];
+      
+      if (useEhcnaCategories) {
+        // EHCNA-categorized key points
+        sampleKeyPoints = [
+          { 
+            text: 'Student shows strong verbal communication skills in one-to-one settings', 
+            category: 'strength', 
+            ehcnaArea: 'Communication and Interaction',
+            highlighted: true 
+          },
+          { 
+            text: 'Student struggles with processing complex written instructions', 
+            category: 'development', 
+            ehcnaArea: 'Cognition and Learning',
+            highlighted: true 
+          },
+          { 
+            text: 'Student demonstrates anxiety in group situations', 
+            category: 'concern', 
+            ehcnaArea: 'Social, Emotional and Mental Health',
+            highlighted: false 
+          },
+          { 
+            text: 'Student benefits from movement breaks during extended desk work', 
+            category: 'strategy', 
+            ehcnaArea: 'Sensory and Physical',
+            highlighted: false 
+          }
+        ];
+        
+        // Add preparation for adulthood key points if applicable
+        if (usePreparationForAdulthood || (studentYear && studentYear >= 9)) {
+          sampleKeyPoints.push(
+            { 
+              text: 'Student expresses interest in pursuing a career in technology', 
+              category: 'interest', 
+              ehcnaArea: 'Preparation for Adulthood - Employment',
+              preparationForAdulthood: true,
+              highlighted: true 
+            },
+            { 
+              text: 'Student needs support with independent travel planning', 
+              category: 'development', 
+              ehcnaArea: 'Preparation for Adulthood - Independent Living',
+              preparationForAdulthood: true,
+              highlighted: true 
+            }
+          );
+        }
+      } else {
+        // Standard key points
+        sampleKeyPoints = [
+          { text: 'First key point extracted from the transcript', category: 'information', highlighted: true },
+          { text: 'Important decision made during the meeting', category: 'decision', highlighted: true },
+          { text: 'Issue that needs to be addressed', category: 'issue', highlighted: false },
+          { text: 'Resource mentioned during discussion', category: 'resource', highlighted: false }
+        ];
+      }
       
       // Generate sample action items
-      const sampleActionItems = [
-        { text: 'Follow up on key discussion point', assignedTo: meetingParticipants.split(',')[0]?.trim() || 'Unassigned', dueDate: '', completed: false },
-        { text: 'Share resources discussed in meeting', assignedTo: meetingParticipants.split(',')[1]?.trim() || 'Unassigned', dueDate: '', completed: false }
-      ];
+      let sampleActionItems = [];
+      
+      if (useEhcnaCategories) {
+        sampleActionItems = [
+          { 
+            text: 'Provide visual supports for complex instructions', 
+            assignedTo: 'Class Teacher', 
+            dueDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(), 
+            completed: false,
+            ehcnaArea: 'Cognition and Learning'
+          },
+          { 
+            text: 'Schedule weekly check-in with school counselor', 
+            assignedTo: 'SENCO', 
+            dueDate: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString(), 
+            completed: false,
+            ehcnaArea: 'Social, Emotional and Mental Health'
+          }
+        ];
+        
+        // Add preparation for adulthood action items if applicable
+        if (usePreparationForAdulthood || (studentYear && studentYear >= 9)) {
+          sampleActionItems.push(
+            { 
+              text: 'Arrange work experience placement in local tech company', 
+              assignedTo: 'Careers Advisor', 
+              dueDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(), 
+              completed: false,
+              ehcnaArea: 'Preparation for Adulthood - Employment'
+            }
+          );
+        }
+      } else {
+        sampleActionItems = [
+          { text: 'Follow up on key discussion point', assignedTo: meetingParticipants.split(',')[0]?.trim() || 'Unassigned', dueDate: '', completed: false },
+          { text: 'Share resources discussed in meeting', assignedTo: meetingParticipants.split(',')[1]?.trim() || 'Unassigned', dueDate: '', completed: false }
+        ];
+      }
+      
+      // Create tags based on meeting type and EHCNA/preparation for adulthood if applicable
+      const tags = [meetingType];
+      if (useEhcnaCategories) {
+        tags.push('EHCNA');
+      }
+      if (usePreparationForAdulthood || (studentYear && studentYear >= 9)) {
+        tags.push('Preparation for Adulthood');
+      }
       
       // Create a new meeting object
       const newMeeting = {
@@ -443,12 +572,15 @@ Speaker 1: Let's develop an action plan. Who can take responsibility for [Action
         type: meetingType,
         date: meetingDate || new Date().toISOString(),
         duration: recordingTime,
-        participants: meetingParticipants.split(',').map(p => p.trim()),
+        participants: meetingParticipants.split('\n').map(p => p.trim()).filter(Boolean),
         language: selectedLanguage,
         transcript: liveTranscript,
         keyPoints: sampleKeyPoints,
         actionItems: sampleActionItems,
-        tags: [meetingType]
+        tags: tags,
+        studentYear: studentYear,
+        useEhcnaCategories: useEhcnaCategories,
+        usePreparationForAdulthood: usePreparationForAdulthood || (studentYear && studentYear >= 9)
       };
       
       setCurrentMeeting(newMeeting);
