@@ -11,51 +11,36 @@ datasource db {
 }
 
 model User {
-  id                String                     @id @default(uuid())
+  id                String              @id @default(cuid())
   name              String?
-  email             String                     @unique
+  email             String?             @unique
   emailVerified     DateTime?
   image             String?
-  role              String                     @default("user")
-  createdAt         DateTime                   @default(now())
-  updatedAt         DateTime                   @updatedAt
+  role              String              @default("user")
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
   accounts          Account[]
   sessions          Session[]
   transitionPlans   TransitionPlan[]
-  iepPlans          IEP504Plan[]
-  emotionalPatterns EmotionalPatternRecord[]
-  strategies        PersonalizedStrategy[]
-  mindfulnessLogs   MindfulnessActivityLog[]
+  iep504Plans       IEP504Plan[]
   teacherAlerts     TeacherAlert[]
-  vocabularyLogs    EmotionalVocabularyLog[]
-  digitalExpressions DigitalExpression[]
-  communications    ParentTeacherCommunication[]
-  restorativeConversations RestorativeConversation[]
-  circleTemplates   CircleTemplate[]
-  reflectionResponses ReflectionResponse[]
-  restorativeAgreements RestorativeAgreement[]
-  communityActivities CommunityBuildingActivity[]
-  trainingProgress  RestorativeTrainingProgress[]
-  trainingQuizAttempts RestorativeTrainingQuizAttempt[]
-  outcomeMeasurements OutcomeMeasurement[]
-  parentEducationFavorites ParentEducationFavorite[]
+  documentations    Documentation[]
+  lessonPlans       LessonPlan[]
 }
 
 model Account {
-  id                String   @id @default(uuid())
+  id                String  @id @default(cuid())
   userId            String
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String?  @db.Text
-  access_token      String?  @db.Text
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String?  @db.Text
+  id_token          String? @db.Text
   session_state     String?
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -63,7 +48,7 @@ model Account {
 }
 
 model Session {
-  id           String   @id @default(uuid())
+  id           String   @id @default(cuid())
   sessionToken String   @unique
   userId       String
   expires      DateTime
@@ -78,582 +63,229 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-// Transition Planning Models
+// Special Needs Support Models
+
 model TransitionPlan {
-  id                String              @id @default(uuid())
-  userId            String
+  id                String   @id @default(cuid())
+  title             String
   studentName       String
-  studentAge        Int
   transitionType    String
   currentSetting    String
   targetSetting     String
   startDate         DateTime
-  targetDate        DateTime
+  endDate           DateTime
   strengths         String[]
   needs             String[]
   preferences       String[]
-  goals             TransitionGoal[]
-  supportTeam       SupportTeamMember[]
+  goals             Json
+  supportTeam       Json
+  documents         Json?
   notes             String?
-  status            String              @default("active")
-  createdAt         DateTime            @default(now())
-  updatedAt         DateTime            @updatedAt
-  
-  user              User                @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model TransitionGoal {
-  id               String           @id @default(uuid())
-  transitionPlanId String
-  category         String
-  description      String
-  steps            TransitionStep[]
-  status           String           @default("not-started")
-  createdAt        DateTime         @default(now())
-  updatedAt        DateTime         @updatedAt
-  
-  transitionPlan   TransitionPlan   @relation(fields: [transitionPlanId], references: [id], onDelete: Cascade)
-}
-
-model TransitionStep {
-  id               String         @id @default(uuid())
-  transitionGoalId String
-  description      String
-  responsibleParty String
-  dueDate          DateTime?
-  status           String         @default("not-started")
-  notes            String?
-  createdAt        DateTime       @default(now())
-  updatedAt        DateTime       @updatedAt
-  
-  transitionGoal   TransitionGoal @relation(fields: [transitionGoalId], references: [id], onDelete: Cascade)
-}
-
-model SupportTeamMember {
-  id               String         @id @default(uuid())
-  transitionPlanId String
-  name             String
-  role             String
-  contactInfo      String?
-  notes            String?
-  createdAt        DateTime       @default(now())
-  updatedAt        DateTime       @updatedAt
-  
-  transitionPlan   TransitionPlan @relation(fields: [transitionPlanId], references: [id], onDelete: Cascade)
-}
-
-// IEP/504 Plan Models
-model IEP504Plan {
-  id                String              @id @default(uuid())
+  status            String   @default("active")
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
   userId            String
+  user              User     @relation(fields: [userId], references: [id])
+}
+
+model IEP504Plan {
+  id                String   @id @default(cuid())
+  title             String
   studentName       String
-  studentAge        Int
-  planType          String              @default("IEP")
+  dateOfBirth       DateTime
+  schoolYear        String
+  planType          String
   startDate         DateTime
   reviewDate        DateTime
-  strengths         String[]
-  needs             String[]
-  accommodations    Accommodation[]
-  goals             EducationalGoal[]
-  supportServices   SupportService[]
-  assessments       Assessment[]
-  meetingNotes      String?
-  status            String              @default("active")
-  createdAt         DateTime            @default(now())
-  updatedAt         DateTime            @updatedAt
-  
-  user              User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  presentLevels     Json
+  accommodations    Json
+  goals             Json
+  teamMembers       Json
+  parentInput       String?
+  studentInput      String?
+  evaluationMethods String[]
+  documents         Json?
+  notes             String?
+  status            String   @default("active")
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  userId            String
+  user              User     @relation(fields: [userId], references: [id])
 }
 
-model Accommodation {
-  id               String     @id @default(uuid())
-  iepPlanId        String
-  category         String
-  description      String
-  implementationDetails String?
-  frequency        String?
-  createdAt        DateTime   @default(now())
-  updatedAt        DateTime   @updatedAt
-  
-  iepPlan          IEP504Plan @relation(fields: [iepPlanId], references: [id], onDelete: Cascade)
-}
-
-model EducationalGoal {
-  id               String           @id @default(uuid())
-  iepPlanId        String
-  area             String
-  description      String
-  baselineData     String?
-  evaluationMethod String?
-  targetDate       DateTime?
-  progress         String           @default("not-started")
-  progressNotes    ProgressNote[]
-  createdAt        DateTime         @default(now())
-  updatedAt        DateTime         @updatedAt
-  
-  iepPlan          IEP504Plan       @relation(fields: [iepPlanId], references: [id], onDelete: Cascade)
-}
-
-model ProgressNote {
-  id               String         @id @default(uuid())
-  goalId           String
-  date             DateTime
-  note             String
-  progress         String
-  createdAt        DateTime       @default(now())
-  updatedAt        DateTime       @updatedAt
-  
-  goal             EducationalGoal @relation(fields: [goalId], references: [id], onDelete: Cascade)
-}
-
-model SupportService {
-  id               String     @id @default(uuid())
-  iepPlanId        String
-  serviceType      String
-  provider         String
-  frequency        String
-  duration         String
-  startDate        DateTime
-  endDate          DateTime?
-  notes            String?
-  createdAt        DateTime   @default(now())
-  updatedAt        DateTime   @updatedAt
-  
-  iepPlan          IEP504Plan @relation(fields: [iepPlanId], references: [id], onDelete: Cascade)
-}
-
-model Assessment {
-  id               String     @id @default(uuid())
-  iepPlanId        String
-  assessmentType   String
-  administrator    String
-  dateAdministered DateTime
-  results          String
-  recommendations  String?
-  createdAt        DateTime   @default(now())
-  updatedAt        DateTime   @updatedAt
-  
-  iepPlan          IEP504Plan @relation(fields: [iepPlanId], references: [id], onDelete: Cascade)
-}
-
-// Emotional Regulation Models
-model EmotionalPatternRecord {
-  id               String     @id @default(uuid())
-  userId           String
-  studentName      String
-  date             DateTime
-  situation        String
-  emotion          String
-  intensity        Int
-  triggers         String[]
-  physicalSigns    String[]
-  thoughts         String[]
-  behaviors        String[]
-  consequences     String[]
-  copingStrategies String[]
-  effectiveness    Int?
-  notes            String?
-  createdAt        DateTime   @default(now())
-  updatedAt        DateTime   @updatedAt
-  
-  user             User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model PersonalizedStrategy {
-  id               String     @id @default(uuid())
-  userId           String
-  studentName      String
-  emotion          String
-  intensity        String
-  strategy         String
-  description      String
-  steps            String[]
-  resources        String[]
-  effectiveness    Int?
-  notes            String?
-  isFavorite       Boolean    @default(false)
-  createdAt        DateTime   @default(now())
-  updatedAt        DateTime   @updatedAt
-  
-  user             User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-// Mindfulness Models
-model MindfulnessActivity {
-  id               String                 @id @default(uuid())
-  title            String
-  description      String
-  ageGroup         String[]
-  duration         Int
-  audioUrl         String?
-  imageUrl         String?
-  instructions     String
-  benefits         String[]
-  category         String
-  tags             String[]
-  createdAt        DateTime               @default(now())
-  updatedAt        DateTime               @updatedAt
-  
-  activityLogs     MindfulnessActivityLog[]
-}
-
-model MindfulnessActivityLog {
-  id               String             @id @default(uuid())
-  userId           String
-  activityId       String
-  date             DateTime
-  duration         Int
-  notes            String?
-  mood             String?
-  rating           Int?
-  createdAt        DateTime           @default(now())
-  updatedAt        DateTime           @updatedAt
-  
-  user             User               @relation(fields: [userId], references: [id], onDelete: Cascade)
-  activity         MindfulnessActivity @relation(fields: [activityId], references: [id], onDelete: Cascade)
-}
-
-// Teacher Alert Models
 model TeacherAlert {
-  id               String     @id @default(uuid())
-  userId           String
-  studentName      String
-  date             DateTime
-  setting          String
-  antecedent       String
-  behavior         String
-  consequence      String
-  function         String?
-  interventions    String[]
-  effectiveness    Int?
-  followUp         String?
-  status           String     @default("active")
-  createdAt        DateTime   @default(now())
-  updatedAt        DateTime   @updatedAt
-  
-  user             User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-// Emotional Vocabulary Models
-model EmotionalVocabulary {
-  id               String                   @id @default(uuid())
-  word             String
-  definition       String
-  category         String
-  intensity        Int
-  synonyms         String[]
-  examples         String[]
-  imageUrl         String?
-  ageGroup         String[]
-  createdAt        DateTime                 @default(now())
-  updatedAt        DateTime                 @updatedAt
-  
-  vocabularyLogs   EmotionalVocabularyLog[]
-}
-
-model EmotionalVocabularyLog {
-  id               String             @id @default(uuid())
-  userId           String
-  vocabularyId     String
-  date             DateTime
-  context          String?
-  notes            String?
-  createdAt        DateTime           @default(now())
-  updatedAt        DateTime           @updatedAt
-  
-  user             User               @relation(fields: [userId], references: [id], onDelete: Cascade)
-  vocabulary       EmotionalVocabulary @relation(fields: [vocabularyId], references: [id], onDelete: Cascade)
-}
-
-// Digital Expression Models
-model DigitalExpression {
-  id               String     @id @default(uuid())
-  userId           String
-  title            String
-  content          String
-  mediaUrl         String?
-  emotion          String?
-  isPrivate        Boolean    @default(true)
-  tags             String[]
-  createdAt        DateTime   @default(now())
-  updatedAt        DateTime   @updatedAt
-  
-  user             User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-// Parent-Teacher Communication Models
-model ParentTeacherCommunication {
-  id               String     @id @default(uuid())
-  userId           String
-  studentName      String
-  type             String     // message, meeting, report
-  title            String
-  content          String
-  emotionalFocus   String[]
-  priority         String     @default("normal")
-  status           String     @default("active")
-  date             DateTime?
-  location         String?
-  participants     String[]
-  attachments      String[]
-  createdAt        DateTime   @default(now())
-  updatedAt        DateTime   @updatedAt
-  
-  user             User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                String   @id @default(cuid())
+  studentName       String
+  alertType         String
+  description       String
+  antecedent        String?
+  behavior          String
+  consequence       String?
+  setting           String
+  date              DateTime
+  time              String?
+  duration          String?
+  intensity         Int?
+  frequency         String?
+  interventions     String[]
+  effectiveStrategies String[]
+  followUp          String?
+  status            String   @default("active")
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  userId            String
+  user              User     @relation(fields: [userId], references: [id])
 }
 
 // Restorative Justice Models
+
 model RestorativeConversation {
-  id               String     @id @default(uuid())
-  userId           String
-  title            String
-  description      String
-  date             DateTime
-  participants     String[]
-  framework        String
-  questions        Json
-  responses        Json
-  agreements       Json?
-  followUpDate     DateTime?
-  status           String     @default("active")
-  notes            String?
-  createdAt        DateTime   @default(now())
-  updatedAt        DateTime   @updatedAt
-  
-  user             User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                String   @id @default(cuid())
+  title             String
+  participants      String[]
+  date              DateTime
+  framework         String
+  questions         Json
+  responses         Json
+  agreements        Json?
+  followUpDate      DateTime?
+  status            String   @default("active")
+  notes             String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 }
 
-model CircleTemplate {
-  id               String     @id @default(uuid())
-  userId           String?
-  title            String
-  description      String
-  purpose          String
-  ageGroup         String[]
-  estimatedTime    Int
-  materials        String[]
-  openingCeremony  String
-  checkInQuestions String[]
-  mainActivity     String
-  closingCeremony  String
-  facilitatorNotes String?
-  isPublic         Boolean    @default(false)
-  createdAt        DateTime   @default(now())
-  updatedAt        DateTime   @updatedAt
-  
-  user             User?      @relation(fields: [userId], references: [id], onDelete: SetNull)
+model CircleProcess {
+  id                String   @id @default(cuid())
+  title             String
+  circleType        String
+  participants      String[]
+  date              DateTime
+  openingCeremony   String?
+  centerpiece       String?
+  talkingPiece      String?
+  questions         Json
+  agreements        Json?
+  closingCeremony   String?
+  notes             String?
+  status            String   @default("active")
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 }
 
 model ReflectionPrompt {
-  id               String               @id @default(uuid())
-  question         String
-  ageGroup         String[]
-  category         String
-  purpose          String
-  followUpQuestions String[]
-  createdAt        DateTime             @default(now())
-  updatedAt        DateTime             @updatedAt
-  
-  responses        ReflectionResponse[]
+  id                String   @id @default(cuid())
+  title             String
+  ageGroup          String
+  category          String
+  prompts           String[]
+  guidanceNotes     String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 }
 
-model ReflectionResponse {
-  id               String           @id @default(uuid())
-  userId           String
-  promptId         String
-  response         String
-  date             DateTime
-  createdAt        DateTime         @default(now())
-  updatedAt        DateTime         @updatedAt
-  
-  user             User             @relation(fields: [userId], references: [id], onDelete: Cascade)
-  prompt           ReflectionPrompt @relation(fields: [promptId], references: [id], onDelete: Cascade)
+model Agreement {
+  id                String   @id @default(cuid())
+  title             String
+  participants      String[]
+  date              DateTime
+  agreements        Json
+  checkInDates      DateTime[]
+  checkInNotes      Json?
+  status            String   @default("active")
+  completionDate    DateTime?
+  notes             String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 }
 
-model RestorativeAgreement {
-  id               String                    @id @default(uuid())
-  userId           String
-  title            String
-  description      String
-  participants     String[]
-  date             DateTime
-  terms            RestorativeAgreementTerm[]
-  status           String                    @default("active")
-  followUpDate     DateTime?
-  notes            String?
-  createdAt        DateTime                  @default(now())
-  updatedAt        DateTime                  @updatedAt
-  
-  user             User                      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  updates          RestorativeAgreementUpdate[]
+model CommunityActivity {
+  id                String   @id @default(cuid())
+  title             String
+  activityType      String
+  ageGroup          String
+  timeRequired      String
+  groupSize         String
+  materials         String[]
+  steps             Json
+  variations        Json?
+  objectives        String[]
+  notes             String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 }
 
-model RestorativeAgreementTerm {
-  id               String             @id @default(uuid())
-  agreementId      String
-  description      String
-  responsibleParty String
-  dueDate          DateTime?
-  status           String             @default("active")
-  notes            String?
-  createdAt        DateTime           @default(now())
-  updatedAt        DateTime           @updatedAt
-  
-  agreement        RestorativeAgreement @relation(fields: [agreementId], references: [id], onDelete: Cascade)
-}
-
-model RestorativeAgreementUpdate {
-  id               String             @id @default(uuid())
-  agreementId      String
-  date             DateTime
-  note             String
-  status           String
-  createdAt        DateTime           @default(now())
-  updatedAt        DateTime           @updatedAt
-  
-  agreement        RestorativeAgreement @relation(fields: [agreementId], references: [id], onDelete: Cascade)
-}
-
-model CommunityBuildingActivity {
-  id               String     @id @default(uuid())
-  userId           String?
-  title            String
-  description      String
-  activityType     String
-  ageGroup         String[]
-  groupSize        String
-  timeRequired     Int
-  materials        String[]
-  steps            String[]
-  variations       String[]
-  facilitation     String?
-  isPublic         Boolean    @default(false)
-  createdAt        DateTime   @default(now())
-  updatedAt        DateTime   @updatedAt
-  
-  user             User?      @relation(fields: [userId], references: [id], onDelete: SetNull)
-}
-
-model RestorativeTrainingModule {
-  id               String                      @id @default(uuid())
-  title            String
-  description      String
-  level            String
-  estimatedTime    Int
-  sections         RestorativeTrainingSection[]
-  resources        RestorativeTrainingResource[]
-  createdAt        DateTime                    @default(now())
-  updatedAt        DateTime                    @updatedAt
-  
-  progress         RestorativeTrainingProgress[]
-}
-
-model RestorativeTrainingSection {
-  id               String     @id @default(uuid())
-  moduleId         String
-  title            String
-  description      String
-  contentType      String
-  content          String
-  order            Int
-  createdAt        DateTime   @default(now())
-  updatedAt        DateTime   @updatedAt
-  
-  module           RestorativeTrainingModule @relation(fields: [moduleId], references: [id], onDelete: Cascade)
-}
-
-model RestorativeTrainingResource {
-  id               String     @id @default(uuid())
-  moduleId         String
-  title            String
-  description      String
-  resourceType     String
-  url              String
-  createdAt        DateTime   @default(now())
-  updatedAt        DateTime   @updatedAt
-  
-  module           RestorativeTrainingModule @relation(fields: [moduleId], references: [id], onDelete: Cascade)
-}
-
-model RestorativeTrainingProgress {
-  id               String     @id @default(uuid())
-  userId           String
-  moduleId         String
-  completedSections String[]
-  progress         Int        @default(0)
-  completed        Boolean    @default(false)
-  certificateIssued Boolean   @default(false)
-  certificateUrl   String?
-  startDate        DateTime   @default(now())
-  completionDate   DateTime?
-  createdAt        DateTime   @default(now())
-  updatedAt        DateTime   @updatedAt
-  
-  user             User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-  module           RestorativeTrainingModule @relation(fields: [moduleId], references: [id], onDelete: Cascade)
-}
-
-model RestorativeTrainingQuizAttempt {
-  id               String     @id @default(uuid())
-  userId           String
-  sectionId        String
-  score            Int
-  maxScore         Int
-  passed           Boolean
-  answers          Json
-  createdAt        DateTime   @default(now())
-  
-  user             User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+model StaffTrainingModule {
+  id                String   @id @default(cuid())
+  title             String
+  level             String
+  contentTypes      String[]
+  duration          String
+  objectives        String[]
+  content           Json
+  resources         Json?
+  assessments       Json?
+  completionCriteria Json
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 }
 
 model OutcomeMeasurement {
-  id               String     @id @default(uuid())
-  userId           String
-  title            String
-  description      String
-  measurementType  String
-  targetGroup      String
-  date             DateTime
-  schoolConnectedness Int?
-  psychologicalAdjustment Int?
-  implementationFidelity Int?
-  academicEngagement Int?
-  schoolClimate    Int?
-  longTermOutcomes Int?
-  qualitativeData  String?
-  notes            String?
-  createdAt        DateTime   @default(now())
-  updatedAt        DateTime   @updatedAt
-  
-  user             User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                String   @id @default(cuid())
+  title             String
+  measurementType   String
+  targetGroup       String
+  metrics           Json
+  questions         Json?
+  scoringGuide      Json?
+  implementationNotes String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 }
 
 model ParentEducationResource {
-  id               String     @id @default(uuid())
-  title            String
-  description      String
-  category         String
-  ageGroups        String[]
-  difficultyLevel  String
-  content          String
-  videoUrl         String?
-  downloadUrl      String?
-  estimatedTime    String?
-  tags             String[]
-  createdAt        DateTime   @default(now())
-  updatedAt        DateTime   @updatedAt
-  
-  favorites        ParentEducationFavorite[]
+  id                String   @id @default(cuid())
+  title             String
+  resourceType      String
+  ageGroup          String
+  difficultyLevel   String
+  content           Json
+  objectives        String[]
+  implementationSteps Json?
+  materials         String[]
+  notes             String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 }
 
-model ParentEducationFavorite {
-  id               String     @id @default(uuid())
-  userId           String
-  resourceId       String
-  createdAt        DateTime   @default(now())
-  
-  user             User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-  resource         ParentEducationResource @relation(fields: [resourceId], references: [id], onDelete: Cascade)
-  
-  @@unique([userId, resourceId])
+// Teacher Administrative Automation Models
+
+model Documentation {
+  id                String   @id @default(cuid())
+  title             String
+  templateId        String
+  content           Json
+  metadata          Json?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  userId            String
+  user              User     @relation(fields: [userId], references: [id])
+}
+
+model LessonPlan {
+  id                String   @id @default(cuid())
+  title             String
+  subject           String
+  yearGroup         String
+  templateId        String
+  duration          String?
+  objectives        String?
+  content           Json
+  learningStyles    String[]
+  specialNeeds      String[]
+  metadata          Json?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  userId            String
+  user              User     @relation(fields: [userId], references: [id])
 }
