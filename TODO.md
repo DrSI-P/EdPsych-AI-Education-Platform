@@ -209,8 +209,8 @@ This document serves as a comprehensive checklist for implementing all features 
 - [x] Create multi-modal feedback collection tools
 - [x] Implement anonymous suggestion system
 - [x] Implement transcription and translation system for EAL students
-- [ ] Create student-led conference tools
-- [ ] Implement collaborative goal setting interfaces
+- [x] Create student-led conference tools
+- [x] Implement collaborative goal setting interfaces
 - [ ] Create preference tracking system
 - [ ] Implement student council digital portal
 - [ ] Create impact visualization tools
