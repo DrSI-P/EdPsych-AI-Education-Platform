@@ -177,9 +177,9 @@ export default function Home() {
       <section className="py-16 sm:py-20 bg-slate-50 dark:bg-slate-900">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-center">Revolutionary Features</h2>
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-center">Innovative Features</h2>
             <p className="text-xl text-center text-muted-foreground mb-12 max-w-3xl mx-auto">
-              EdPsych Connect transforms education through these innovative capabilities
+              EdPsych Connect transforms education through these powerful capabilities
             </p>
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
