@@ -1,235 +1,244 @@
 'use client';
 
-import { useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Button } from "@/components/ui/button";
+import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { ChevronRight, Users, BookOpen, Award, Heart, Lightbulb, Target } from 'lucide-react';
 
 export default function AboutPage() {
-  const [activeTab, setActiveTab] = useState("biography");
-
   return (
-    <div className="container mx-auto py-10 px-4 md:px-6">
-      <div className="flex flex-col items-center mb-10">
-        <h1 className="text-4xl font-bold text-center mb-6">About Dr. Scott Ighavongbe-Patrick</h1>
-        <div className="relative w-64 h-64 rounded-full overflow-hidden mb-8 border-4 border-primary shadow-lg">
+    <div className="container mx-auto py-12 px-4">
+      {/* Hero Section */}
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="text-center mb-16"
+      >
+        <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-6">About EdPsych Connect</h1>
+        <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          Transforming education through the perfect blend of educational psychology principles and cutting-edge technology.
+        </p>
+      </motion.div>
+
+      {/* Mission and Vision */}
+      <motion.section
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.2, duration: 0.5 }}
+        className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-20 items-center"
+      >
+        <div className="order-2 md:order-1">
+          <h2 className="text-3xl font-bold mb-6">Our Mission & Vision</h2>
+          
+          <div className="space-y-6">
+            <div className="flex gap-4">
+              <div className="mt-1 bg-primary/10 p-2 rounded-full">
+                <Target className="h-6 w-6 text-primary" />
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold mb-2">Mission</h3>
+                <p className="text-muted-foreground">
+                  To empower every learner through personalized, evidence-based educational experiences that adapt to individual needs, learning styles, and developmental stages.
+                </p>
+              </div>
+            </div>
+            
+            <div className="flex gap-4">
+              <div className="mt-1 bg-primary/10 p-2 rounded-full">
+                <Lightbulb className="h-6 w-6 text-primary" />
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold mb-2">Vision</h3>
+                <p className="text-muted-foreground">
+                  A world where every child has access to personalized education that recognizes their unique potential, adapts to their individual learning journey, and empowers them to thrive in an ever-changing future.
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          <div className="mt-8">
+            <Button asChild>
+              <Link href="/about/team">
+                Meet Our Team <ChevronRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
+        </div>
+        
+        <div className="order-1 md:order-2 relative h-[400px] rounded-xl overflow-hidden shadow-xl">
           <Image 
-            src="/images/dr-scott-portrait.png" 
-            alt="Dr. Scott Ighavongbe-Patrick" 
-            fill
+            src="/images/about/mission-vision.jpg" 
+            alt="Students engaged in personalized learning" 
+            fill 
             className="object-cover"
-            priority
+            sizes="(max-width: 768px) 100vw, 50vw"
           />
         </div>
-        <div className="max-w-3xl text-center">
-          <p className="text-xl mb-4">
-            Educational Psychologist, Visionary, and Advocate for Transformative Education
-          </p>
-          <p className="text-lg text-muted-foreground">
-            Founder of EdPsych Connect Limited and creator of the EdPsych Connect Platform
-          </p>
-        </div>
-      </div>
+      </motion.section>
 
-      <Tabs defaultValue="biography" className="max-w-4xl mx-auto" onValueChange={setActiveTab}>
-        <TabsList className="grid grid-cols-4 mb-8">
-          <TabsTrigger value="biography">Biography</TabsTrigger>
-          <TabsTrigger value="vision">Vision & Mission</TabsTrigger>
-          <TabsTrigger value="expertise">Expertise</TabsTrigger>
-          <TabsTrigger value="publications">Publications</TabsTrigger>
-        </TabsList>
+      {/* Our Story */}
+      <motion.section
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.4, duration: 0.5 }}
+        className="mb-20"
+      >
+        <h2 className="text-3xl font-bold mb-8 text-center">Our Story</h2>
         
-        <TabsContent value="biography" className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Professional Journey</CardTitle>
-              <CardDescription>Over 12 years of experience as an Educational Psychologist</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <p>
-                Dr. Scott Ighavongbe-Patrick is a dedicated Educational Psychologist with over 12 years of experience working with children, young people, and educational institutions across the UK. His professional journey has been shaped by a deep commitment to understanding the underlying causes of educational challenges and developing holistic, evidence-based solutions.
-              </p>
-              <p>
-                Dr. Scott's background combines rigorous academic training with practical experience in educational psychology. His approach is informed by both his professional expertise and personal journey through an education system that did not always recognize or nurture individual potential.
-              </p>
-              <p>
-                Before founding EdPsych Connect Limited, Dr. Scott worked extensively within UK educational systems, where he witnessed firsthand the challenges faced by students, particularly those from disadvantaged backgrounds or with special educational needs. This experience fueled his passion for creating more inclusive, supportive educational environments.
-              </p>
-              <p>
-                Dr. Scott also brings valuable experience from his background in sales management, where he developed strong negotiation and facilitation skills. These abilities have proven invaluable in his work as an Educational Psychologist, particularly when reaching hard-to-engage individuals and advocating for children's needs within complex educational systems.
+        <Tabs defaultValue="beginning" className="w-full">
+          <TabsList className="grid w-full grid-cols-3">
+            <TabsTrigger value="beginning">The Beginning</TabsTrigger>
+            <TabsTrigger value="development">Development</TabsTrigger>
+            <TabsTrigger value="future">Future Vision</TabsTrigger>
+          </TabsList>
+          
+          <TabsContent value="beginning" className="mt-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+              <div className="relative h-[300px] rounded-xl overflow-hidden shadow-lg">
+                <Image 
+                  src="/images/about/beginning.jpg" 
+                  alt="The beginning of EdPsych Connect" 
+                  fill 
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </div>
+              <div>
+                <h3 className="text-2xl font-semibold mb-4">From Vision to Reality</h3>
+                <p className="text-muted-foreground mb-4">
+                  EdPsych Connect began with Dr. Scott Ighavongbe-Patrick's vision to transform educational experiences for all children. Drawing from over 12 years of experience as an Educational Psychologist, Dr. Scott recognized the need for a platform that could truly personalize learning based on sound educational psychology principles.
+                </p>
+                <p className="text-muted-foreground">
+                  The platform was born from a commitment to empower learners through tailored, evidence-based support, with a particular focus on creating equitable access for disadvantaged children and young people.
+                </p>
+              </div>
+            </div>
+          </TabsContent>
+          
+          <TabsContent value="development" className="mt-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+              <div>
+                <h3 className="text-2xl font-semibold mb-4">Building the Platform</h3>
+                <p className="text-muted-foreground mb-4">
+                  The development of EdPsych Connect brought together experts in educational psychology, technology, and design. The team worked tirelessly to create a platform that seamlessly integrates cutting-edge AI technology with evidence-based educational practices.
+                </p>
+                <p className="text-muted-foreground">
+                  Each feature was carefully designed to address specific learning needs, from adaptive complexity adjustment to voice input functionality for children who struggle with typing. The platform evolved through continuous feedback from educators, parents, and students, ensuring it truly serves its users.
+                </p>
+              </div>
+              <div className="relative h-[300px] rounded-xl overflow-hidden shadow-lg">
+                <Image 
+                  src="/images/about/development.jpg" 
+                  alt="The development of EdPsych Connect" 
+                  fill 
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </div>
+            </div>
+          </TabsContent>
+          
+          <TabsContent value="future" className="mt-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+              <div className="relative h-[300px] rounded-xl overflow-hidden shadow-lg">
+                <Image 
+                  src="/images/about/future.jpg" 
+                  alt="The future vision of EdPsych Connect" 
+                  fill 
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </div>
+              <div>
+                <h3 className="text-2xl font-semibold mb-4">Looking Forward</h3>
+                <p className="text-muted-foreground mb-4">
+                  The future of EdPsych Connect is focused on continuous innovation and expansion. We envision a platform that not only adapts to individual learning needs but anticipates them, creating truly personalized educational journeys for every child.
+                </p>
+                <p className="text-muted-foreground">
+                  Our roadmap includes advanced features like neuroscience-informed adaptive interfaces, digital twin learning companions, and integrated biofeedback systems. We're committed to pushing the boundaries of what's possible in educational technology while staying true to our foundation in educational psychology principles.
+                </p>
+              </div>
+            </div>
+          </TabsContent>
+        </Tabs>
+      </motion.section>
+
+      {/* Core Values */}
+      <motion.section
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.6, duration: 0.5 }}
+        className="mb-20"
+      >
+        <h2 className="text-3xl font-bold mb-8 text-center">Our Core Values</h2>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <Card className="overflow-hidden border-2 hover:border-primary/50 transition-all duration-300">
+            <div className="h-2 bg-primary"></div>
+            <CardContent className="pt-6">
+              <div className="bg-primary/10 p-3 rounded-full w-fit mb-4">
+                <BookOpen className="h-6 w-6 text-primary" />
+              </div>
+              <h3 className="text-xl font-semibold mb-3">Evidence-Based Approach</h3>
+              <p className="text-muted-foreground">
+                We ground all our features and methodologies in sound educational psychology research and evidence-based practices, ensuring that our platform delivers real educational value.
               </p>
             </CardContent>
           </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>Personal Philosophy</CardTitle>
-              <CardDescription>Empowering learners through tailored, evidence-based support</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <p>
-                At the heart of Dr. Scott's approach is a belief in the unique potential of every child. His personal story of resilience informs his commitment to creating educational environments where all students can thrive, regardless of their background or abilities.
-              </p>
-              <p>
-                Dr. Scott is a passionate advocate for inclusive education and equitable access, particularly for disadvantaged children and young people. He emphasizes the importance of relationship-building and understanding the underlying causes of behavior, drawing on frameworks such as Restorative Justice.
-              </p>
-              <p>
-                His educational philosophy centers on four key pillars: creativity, inclusion, emotional well-being, and student agency. Dr. Scott believes that by honoring these principles, education can become a transformative rather than transactional experience.
+          
+          <Card className="overflow-hidden border-2 hover:border-primary/50 transition-all duration-300">
+            <div className="h-2 bg-primary"></div>
+            <CardContent className="pt-6">
+              <div className="bg-primary/10 p-3 rounded-full w-fit mb-4">
+                <Heart className="h-6 w-6 text-primary" />
+              </div>
+              <h3 className="text-xl font-semibold mb-3">Inclusive Education</h3>
+              <p className="text-muted-foreground">
+                We believe in creating educational experiences that are accessible to all learners, regardless of background, ability, or learning style, with a particular focus on supporting disadvantaged children.
               </p>
             </CardContent>
           </Card>
-        </TabsContent>
-
-        <TabsContent value="vision" className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>The EdPsych Connect Vision</CardTitle>
-              <CardDescription>Revolutionizing learning through personalization and engagement</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <p>
-                Dr. Scott's vision for EdPsych Connect is to revolutionize learning through personalized learning paths based on individual starting points, systematic curriculum coverage to minimize learning gaps, identification of learning styles, and content adaptation based on children's interests to maximize motivation and engagement.
-              </p>
-              <p>
-                The EdPsych Connect platform represents the culmination of Dr. Scott's research, experience, and vision. It aims to be the nucleus of every school, bringing together evidence-based approaches to support both students and teachers in creating more effective, engaging, and emotionally supportive learning environments.
-              </p>
-              <p>
-                Central to this vision is the belief that technology should serve to enhance human connections rather than replace them. The platform is designed to reduce administrative burdens on teachers, freeing them to focus on relationship-building and quality teaching—the aspects of education that make the most difference in children's lives.
+          
+          <Card className="overflow-hidden border-2 hover:border-primary/50 transition-all duration-300">
+            <div className="h-2 bg-primary"></div>
+            <CardContent className="pt-6">
+              <div className="bg-primary/10 p-3 rounded-full w-fit mb-4">
+                <Award className="h-6 w-6 text-primary" />
+              </div>
+              <h3 className="text-xl font-semibold mb-3">Excellence in Innovation</h3>
+              <p className="text-muted-foreground">
+                We strive for excellence in everything we do, constantly pushing the boundaries of what's possible in educational technology while maintaining the highest standards of quality and effectiveness.
               </p>
             </CardContent>
           </Card>
+        </div>
+      </motion.section>
 
-          <Card>
-            <CardHeader>
-              <CardTitle>Mission and Impact</CardTitle>
-              <CardDescription>Creating educational environments where every child can thrive</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <p>
-                Dr. Scott's mission is to transform educational experiences for all children, with particular attention to those who struggle in traditional settings. He is committed to creating systems that listen to and honor children's voices, in alignment with Article 12 of the United Nations Convention on the Rights of the Child.
-              </p>
-              <p>
-                Through the EdPsych Connect platform, Dr. Scott aims to address critical challenges in education, including school anxiety leading to emotionally-based school non-attendance, teacher burnout due to administrative burdens, and the lack of differentiated curriculum that meets individual learning needs.
-              </p>
-              <p>
-                The ultimate goal is to create educational environments where students enjoy coming to school, teachers have time for meaningful relationships with their students, and learning is personalized, engaging, and future-focused. Dr. Scott envisions a world where no child leaves school worse off than when they entered—where education truly fulfills its potential as a transformative force in children's lives.
-              </p>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="expertise" className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Areas of Expertise</CardTitle>
-              <CardDescription>Specialized knowledge and evidence-based approaches</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <ul className="list-disc pl-6 space-y-2">
-                <li>Educational Psychology and Child Development</li>
-                <li>Special Educational Needs and Disabilities (SEND)</li>
-                <li>Emotionally-Based School Non-Attendance</li>
-                <li>Restorative Justice in Educational Settings</li>
-                <li>Attachment Theory and Its Applications in Schools</li>
-                <li>Personalized Learning and Curriculum Differentiation</li>
-                <li>Social-Emotional Learning and Well-being</li>
-                <li>Educational Technology and AI in Learning</li>
-                <li>Inclusive Education Practices</li>
-                <li>Teacher Professional Development</li>
-                <li>Educational Assessment and Intervention</li>
-                <li>Student Voice and Empowerment</li>
-              </ul>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>Theoretical Frameworks</CardTitle>
-              <CardDescription>Evidence-based models that inform Dr. Scott's approach</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <p>
-                Dr. Scott's work is informed by several key theoretical frameworks, including:
-              </p>
-              <ul className="list-disc pl-6 space-y-2">
-                <li><strong>Restorative Justice:</strong> Creating emotionally safe environments through dialogue and mutual understanding</li>
-                <li><strong>Humanistic Theories:</strong> Focusing on the whole person and their potential for growth</li>
-                <li><strong>Tomkins' Theory of Affect Script:</strong> Understanding emotional responses and development</li>
-                <li><strong>Nathanson's Compass of Shame:</strong> Addressing shame-based responses in educational settings</li>
-                <li><strong>Universal Design for Learning (UDL):</strong> Adapting instruction to meet the needs of all learners</li>
-                <li><strong>Zone of Proximal Development:</strong> Supporting learning through appropriate scaffolding</li>
-                <li><strong>Attachment Theory:</strong> Understanding the impact of relationships on learning and development</li>
-              </ul>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="publications" className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Doctoral Research</CardTitle>
-              <CardDescription>Systematic review of children's voices in education</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <p>
-                Dr. Scott's doctoral thesis represents a significant contribution to the field of educational psychology. Through a systematic review spanning 25 years of research, he captured and analyzed the voices of children in educational settings, with particular attention to those who had been excluded from school.
-              </p>
-              <p>
-                This research highlighted the critical importance of listening to children's perspectives and acting on their input—not just hearing them. It demonstrated that when children's voices are valued and incorporated into educational decisions, outcomes improve across multiple dimensions.
-              </p>
-              <p>
-                The findings from this research directly inform the design and functionality of the EdPsych Connect platform, particularly its emphasis on student voice, agency, and personalized approaches to learning.
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>Upcoming Book</CardTitle>
-              <CardDescription>"Restoring Genius: How Education Can Nurture Every Child's Unique Path"</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <p>
-                Dr. Scott is currently working on a comprehensive book titled "Restoring Genius: How Education Can Nurture Every Child's Unique Path." This work explores how educators, parents, and policymakers can create more inclusive, empowering, and emotionally supportive learning environments.
-              </p>
-              <p>
-                The book challenges traditional assumptions about education and advocates for a model that values creativity, inclusion, emotional well-being, and student agency. It offers practical strategies based on evidence-based frameworks such as Restorative Justice, Humanistic Theories, and models of emotional development.
-              </p>
-              <p>
-                "Restoring Genius" represents the culmination of Dr. Scott's research and experience, providing a blueprint for transforming educational practices to better serve all children, particularly those who have been marginalized or underserved by traditional approaches.
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>Professional Resources</CardTitle>
-              <CardDescription>Practical guides and educational materials</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <p>
-                In addition to his academic work, Dr. Scott has developed numerous professional resources for educators, parents, and educational psychologists. These include:
-              </p>
-              <ul className="list-disc pl-6 space-y-2">
-                <li>"Supporting Children with Attachment Needs" - A comprehensive guide for educators</li>
-                <li>"The Biological Basis of Emotions" - Educational resource on emotional development</li>
-                <li>Assessment frameworks and protocols for educational psychologists</li>
-                <li>Intervention guides for supporting children with specific needs</li>
-                <li>Professional development materials for teachers and school staff</li>
-              </ul>
-              <p>
-                These resources reflect Dr. Scott's commitment to translating research into practical tools that can make a real difference in educational settings. Many of these materials are incorporated into the EdPsych Connect platform, making evidence-based approaches accessible to a wider audience.
-              </p>
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
-
-      <div className="flex justify-center mt-10">
-        <Button size="lg" className="mr-4">Contact Dr. Scott</Button>
-        <Button size="lg" variant="outline">Learn More About EdPsych Connect</Button>
-      </div>
+      {/* CTA Section */}
+      <motion.section
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.8, duration: 0.5 }}
+        className="bg-primary/5 rounded-xl p-8 md:p-12 text-center"
+      >
+        <h2 className="text-3xl font-bold mb-4">Join Our Educational Journey</h2>
+        <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
+          Discover how EdPsych Connect is transforming education through personalized, evidence-based learning experiences.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Button size="lg" asChild>
+            <Link href="/register">Get Started</Link>
+          </Button>
+          <Button size="lg" variant="outline" asChild>
+            <Link href="/contact">Contact Us</Link>
+          </Button>
+        </div>
+      </motion.section>
     </div>
   );
 }

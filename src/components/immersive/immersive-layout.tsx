@@ -1,486 +1,256 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
-import { useRouter } from 'next/navigation';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Card, CardContent } from '@/components/ui/card';
+import { ImmersiveViewer } from './immersive-viewer';
 import { Button } from '@/components/ui/button';
-import { Spinner } from '@/components/ui/loading';
-import { Alert } from '@/components/ui/alert';
-import { useToast } from '@/components/ui/toast';
-import { VrHeadset } from '@/components/icons/vr-headset';
-import { Gamepad2, Maximize2, Minimize2, Eye, EyeOff, Volume2, VolumeX, Settings, HelpCircle, ArrowLeft } from 'lucide-react';
+import { VrHeadset } from '@/components/icons';
 
 interface ImmersiveLayoutProps {
-  children: React.ReactNode;
-  title: string;
+  title?: string;
   description?: string;
   isVR?: boolean;
   isAR?: boolean;
   is3D?: boolean;
-  isLoading?: boolean;
-  error?: string;
   onBack?: () => void;
   onToggleFullscreen?: () => void;
   onToggleVR?: () => void;
   className?: string;
+  children?: React.ReactNode;
 }
 
 /**
- * ImmersiveLayout - A responsive layout component for immersive learning experiences
+ * Immersive Layout Component
  * 
- * This component provides a consistent layout for immersive learning experiences,
- * including VR, AR, and 3D content. It includes controls for fullscreen, VR mode,
- * accessibility options, and more.
+ * A layout component for immersive learning experiences that provides
+ * consistent structure, navigation, and accessibility features.
  */
 export function ImmersiveLayout({
-  children,
   title,
   description,
   isVR = false,
   isAR = false,
   is3D = true,
-  isLoading = false,
-  error = '',
   onBack,
   onToggleFullscreen,
   onToggleVR,
-  className = ''
+  className = '',
+  children
 }: ImmersiveLayoutProps) {
-  const router = useRouter();
-  const { showToast } = useToast();
-  const contentRef = useRef<HTMLDivElement>(null);
-  
-  // State for UI controls
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const [vrMode, setVrMode] = useState(false);
-  const [showControls, setShowControls] = useState(true);
-  const [audioEnabled, setAudioEnabled] = useState(true);
-  const [highContrastMode, setHighContrastMode] = useState(false);
-  const [reducedMotion, setReducedMotion] = useState(false);
-  const [showAccessibilityPanel, setShowAccessibilityPanel] = useState(false);
-  const [showHelpPanel, setShowHelpPanel] = useState(false);
+  const [isVRMode, setIsVRMode] = useState(false);
+  const [isHighContrast, setIsHighContrast] = useState(false);
+  const [isReducedMotion, setIsReducedMotion] = useState(false);
+  const [showAccessibilityMenu, setShowAccessibilityMenu] = useState(false);
+  
+  // Check for user preference for reduced motion
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setIsReducedMotion(mediaQuery.matches);
+    
+    const handleChange = (e: MediaQueryListEvent) => {
+      setIsReducedMotion(e.matches);
+    };
+    
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
   
   // Handle fullscreen toggle
   const handleToggleFullscreen = () => {
     if (!document.fullscreenElement) {
-      contentRef.current?.requestFullscreen().catch(err => {
-        showToast({
-          title: 'Error entering fullscreen',
-          description: err.message,
-          type: 'error'
-        });
+      document.documentElement.requestFullscreen().catch(err => {
+        console.error(`Error attempting to enable fullscreen: ${err.message}`);
       });
+      setIsFullscreen(true);
     } else {
-      document.exitFullscreen();
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+        setIsFullscreen(false);
+      }
     }
     
-    // Call the provided handler if available
     onToggleFullscreen?.();
   };
   
-  // Update fullscreen state when fullscreen changes
-  useEffect(() => {
-    const handleFullscreenChange = () => {
-      setIsFullscreen(!!document.fullscreenElement);
-    };
-    
-    document.addEventListener('fullscreenchange', handleFullscreenChange);
-    return () => {
-      document.removeEventListener('fullscreenchange', handleFullscreenChange);
-    };
-  }, []);
-  
   // Handle VR mode toggle
   const handleToggleVR = () => {
-    setVrMode(!vrMode);
-    
-    // Call the provided handler if available
+    setIsVRMode(!isVRMode);
     onToggleVR?.();
-    
-    if (!vrMode) {
-      showToast({
-        title: 'VR Mode Enabled',
-        description: 'Please put on your VR headset now.',
-        type: 'info'
-      });
-    }
   };
   
-  // Handle back button
-  const handleBack = () => {
-    if (onBack) {
-      onBack();
-    } else {
-      router.back();
-    }
+  // Handle high contrast toggle
+  const handleToggleHighContrast = () => {
+    setIsHighContrast(!isHighContrast);
+    // Apply high contrast mode to the document
+    document.documentElement.classList.toggle('high-contrast-mode', !isHighContrast);
   };
   
-  // Apply accessibility settings to content
-  useEffect(() => {
-    if (contentRef.current) {
-      // Apply high contrast mode
-      if (highContrastMode) {
-        contentRef.current.classList.add('high-contrast-mode');
-      } else {
-        contentRef.current.classList.remove('high-contrast-mode');
-      }
-      
-      // Apply reduced motion
-      if (reducedMotion) {
-        contentRef.current.classList.add('reduced-motion');
-      } else {
-        contentRef.current.classList.remove('reduced-motion');
-      }
-    }
-  }, [highContrastMode, reducedMotion]);
+  // Handle reduced motion toggle
+  const handleToggleReducedMotion = () => {
+    setIsReducedMotion(!isReducedMotion);
+    // Apply reduced motion mode to the document
+    document.documentElement.classList.toggle('reduced-motion', !isReducedMotion);
+  };
   
-  // Keyboard navigation
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      // ESC key to exit fullscreen or VR mode
-      if (e.key === 'Escape') {
-        if (document.fullscreenElement) {
-          document.exitFullscreen();
-        }
-        if (vrMode) {
-          setVrMode(false);
-          onToggleVR?.();
-        }
-      }
-      
-      // F key for fullscreen
-      if (e.key === 'f' || e.key === 'F') {
-        handleToggleFullscreen();
-      }
-      
-      // H key to toggle controls
-      if (e.key === 'h' || e.key === 'H') {
-        setShowControls(!showControls);
-      }
-      
-      // M key to toggle audio
-      if (e.key === 'm' || e.key === 'M') {
-        setAudioEnabled(!audioEnabled);
-      }
-      
-      // A key to toggle accessibility panel
-      if (e.key === 'a' || e.key === 'A') {
-        setShowAccessibilityPanel(!showAccessibilityPanel);
-      }
-      
-      // ? key to toggle help panel
-      if (e.key === '?') {
-        setShowHelpPanel(!showHelpPanel);
-      }
-    };
-    
-    window.addEventListener('keydown', handleKeyDown);
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [showControls, audioEnabled, showAccessibilityPanel, showHelpPanel, vrMode, onToggleVR]);
+  // Toggle accessibility menu
+  const toggleAccessibilityMenu = () => {
+    setShowAccessibilityMenu(!showAccessibilityMenu);
+  };
   
   return (
-    <div className={`immersive-layout relative w-full h-full min-h-[500px] ${className}`}>
+    <div 
+      className={`immersive-layout relative w-full h-full overflow-hidden ${
+        isHighContrast ? 'high-contrast-mode' : ''
+      } ${
+        isReducedMotion ? 'reduced-motion' : ''
+      } ${className}`}
+    >
       {/* Main content area */}
-      <div 
-        ref={contentRef}
-        className={`immersive-content relative w-full h-full overflow-hidden rounded-lg ${
-          isFullscreen ? 'fixed inset-0 z-50 rounded-none' : ''
-        } ${
-          vrMode ? 'vr-mode' : ''
-        } ${
-          highContrastMode ? 'high-contrast-mode' : ''
-        } ${
-          reducedMotion ? 'reduced-motion' : ''
-        }`}
-      >
-        {/* Loading state */}
-        {isLoading && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/50 z-10">
-            <Spinner size="lg" className="text-white" />
-          </div>
-        )}
-        
-        {/* Error state */}
-        {error && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/50 z-10 p-4">
-            <Alert variant="error" className="max-w-md">
-              {error}
-            </Alert>
-          </div>
-        )}
-        
-        {/* Actual content */}
-        <div className={`immersive-scene w-full h-full ${isLoading || error ? 'opacity-50' : ''}`}>
+      <div className="immersive-content-area w-full h-full">
+        <ImmersiveViewer
+          title={title}
+          description={description}
+          contentType={isVR ? 'vr' : isAR ? 'ar' : '3d'}
+          isVRSupported={isVR}
+          onBack={onBack}
+          className="w-full h-full"
+        >
           {children}
-        </div>
+        </ImmersiveViewer>
+      </div>
+      
+      {/* Toolbar */}
+      <div className="absolute top-4 right-4 z-20 flex items-center space-x-2">
+        {/* Accessibility menu toggle */}
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={toggleAccessibilityMenu}
+          className="bg-white/90 backdrop-blur-sm hover:bg-white"
+          aria-label="Accessibility options"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fillRule="evenodd" d="M10 2a8 8 0 100 16 8 8 0 000-16zM6.75 9.25a.75.75 0 000 1.5h6.5a.75.75 0 000-1.5h-6.5zM6.75 6.75a.75.75 0 000 1.5h6.5a.75.75 0 000-1.5h-6.5zM6.75 12.75a.75.75 0 000 1.5h6.5a.75.75 0 000-1.5h-6.5z" clipRule="evenodd" />
+          </svg>
+        </Button>
         
-        {/* Top controls bar */}
-        <AnimatePresence>
-          {showControls && (
-            <motion.div 
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.2 }}
-              className="absolute top-0 left-0 right-0 p-2 md:p-4 flex items-center justify-between bg-gradient-to-b from-black/70 to-transparent z-20"
-            >
-              <div className="flex items-center">
-                <Button 
-                  variant="ghost" 
-                  size="icon" 
-                  onClick={handleBack}
-                  aria-label="Back"
-                  className="text-white hover:bg-white/20"
-                >
-                  <ArrowLeft className="h-5 w-5" />
-                </Button>
-                <div className="ml-2 text-white">
-                  <h1 className="text-lg font-bold line-clamp-1">{title}</h1>
-                  {description && (
-                    <p className="text-xs text-white/70 line-clamp-1 hidden md:block">{description}</p>
-                  )}
+        {/* Fullscreen toggle */}
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={handleToggleFullscreen}
+          className="bg-white/90 backdrop-blur-sm hover:bg-white"
+          aria-label={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            {isFullscreen ? (
+              <path fillRule="evenodd" d="M5 4a1 1 0 00-1 1v4a1 1 0 01-2 0V5a3 3 0 013-3h4a1 1 0 010 2H5zm10 8a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 010-2h4a1 1 0 001-1v-4a1 1 0 012 0zm-10 0a1 1 0 00-1 1v4a1 1 0 001 1h4a1 1 0 000-2H5a1 1 0 01-1-1v-4a1 1 0 00-2 0z" clipRule="evenodd" />
+            ) : (
+              <path fillRule="evenodd" d="M3 4a1 1 0 011-1h4a1 1 0 010 2H6.414l2.293 2.293a1 1 0 01-1.414 1.414L5 6.414V8a1 1 0 01-2 0V4zm9 1a1 1 0 010-2h4a1 1 0 011 1v4a1 1 0 01-2 0V6.414l-2.293 2.293a1 1 0 11-1.414-1.414L13.586 5H12zm-9 7a1 1 0 012 0v1.586l2.293-2.293a1 1 0 011.414 1.414L6.414 15H8a1 1 0 010 2H4a1 1 0 01-1-1v-4zm13-1a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 010-2h1.586l-2.293-2.293a1 1 0 011.414-1.414L15 13.586V12a1 1 0 011-1z" clipRule="evenodd" />
+            )}
+          </svg>
+        </Button>
+        
+        {/* VR mode toggle (only if VR is supported) */}
+        {isVR && (
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleToggleVR}
+            className={`${
+              isVRMode 
+                ? 'bg-blue-600 text-white hover:bg-blue-700' 
+                : 'bg-white/90 backdrop-blur-sm hover:bg-white'
+            }`}
+            aria-label={isVRMode ? "Exit VR mode" : "Enter VR mode"}
+          >
+            <VrHeadset className="h-5 w-5" />
+          </Button>
+        )}
+      </div>
+      
+      {/* Accessibility menu */}
+      <AnimatePresence>
+        {showAccessibilityMenu && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.2 }}
+            className="absolute top-16 right-4 z-20 bg-white rounded-lg shadow-lg p-4 w-64"
+          >
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="font-semibold">Accessibility Options</h3>
+              <button
+                onClick={toggleAccessibilityMenu}
+                className="text-gray-500 hover:text-gray-700"
+                aria-label="Close accessibility menu"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                </svg>
+              </button>
+            </div>
+            
+            <div className="space-y-4">
+              {/* High contrast mode */}
+              <div className="flex items-center justify-between">
+                <label htmlFor="high-contrast" className="text-sm">
+                  High Contrast Mode
+                </label>
+                <div className="relative inline-block w-10 mr-2 align-middle select-none">
+                  <input
+                    type="checkbox"
+                    id="high-contrast"
+                    checked={isHighContrast}
+                    onChange={handleToggleHighContrast}
+                    className="sr-only"
+                  />
+                  <div className={`block h-6 rounded-full w-10 ${isHighContrast ? 'bg-blue-600' : 'bg-gray-300'}`}></div>
+                  <div className={`dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform ${isHighContrast ? 'transform translate-x-4' : ''}`}></div>
                 </div>
               </div>
               
-              <div className="flex items-center space-x-1">
-                {/* Experience type indicator */}
-                <div className="hidden md:flex items-center mr-2 px-2 py-1 bg-blue-500/70 text-white text-xs rounded-full">
-                  {isVR && (
-                    <>
-                      <VrHeadset className="h-3 w-3 mr-1" />
-                      <span>VR</span>
-                    </>
-                  )}
-                  {isAR && (
-                    <>
-                      <Gamepad2 className="h-3 w-3 mr-1" />
-                      <span>AR</span>
-                    </>
-                  )}
-                  {is3D && !isVR && !isAR && (
-                    <>
-                      <span>3D</span>
-                    </>
-                  )}
+              {/* Reduced motion */}
+              <div className="flex items-center justify-between">
+                <label htmlFor="reduced-motion" className="text-sm">
+                  Reduced Motion
+                </label>
+                <div className="relative inline-block w-10 mr-2 align-middle select-none">
+                  <input
+                    type="checkbox"
+                    id="reduced-motion"
+                    checked={isReducedMotion}
+                    onChange={handleToggleReducedMotion}
+                    className="sr-only"
+                  />
+                  <div className={`block h-6 rounded-full w-10 ${isReducedMotion ? 'bg-blue-600' : 'bg-gray-300'}`}></div>
+                  <div className={`dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform ${isReducedMotion ? 'transform translate-x-4' : ''}`}></div>
                 </div>
-                
-                {/* Audio toggle */}
-                <Button 
-                  variant="ghost" 
-                  size="icon" 
-                  onClick={() => setAudioEnabled(!audioEnabled)}
-                  aria-label={audioEnabled ? "Mute audio" : "Unmute audio"}
-                  className="text-white hover:bg-white/20"
-                >
-                  {audioEnabled ? (
-                    <Volume2 className="h-5 w-5" />
-                  ) : (
-                    <VolumeX className="h-5 w-5" />
-                  )}
-                </Button>
-                
-                {/* Accessibility settings */}
-                <Button 
-                  variant="ghost" 
-                  size="icon" 
-                  onClick={() => setShowAccessibilityPanel(!showAccessibilityPanel)}
-                  aria-label="Accessibility settings"
-                  className="text-white hover:bg-white/20"
-                >
-                  <Settings className="h-5 w-5" />
-                </Button>
-                
-                {/* Help */}
-                <Button 
-                  variant="ghost" 
-                  size="icon" 
-                  onClick={() => setShowHelpPanel(!showHelpPanel)}
-                  aria-label="Help"
-                  className="text-white hover:bg-white/20"
-                >
-                  <HelpCircle className="h-5 w-5" />
-                </Button>
-                
-                {/* Fullscreen toggle */}
-                <Button 
-                  variant="ghost" 
-                  size="icon" 
-                  onClick={handleToggleFullscreen}
-                  aria-label={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
-                  className="text-white hover:bg-white/20"
-                >
-                  {isFullscreen ? (
-                    <Minimize2 className="h-5 w-5" />
-                  ) : (
-                    <Maximize2 className="h-5 w-5" />
-                  )}
-                </Button>
-                
-                {/* VR mode toggle (only if VR is supported) */}
-                {isVR && (
-                  <Button 
-                    variant={vrMode ? "default" : "ghost"}
-                    size="sm" 
-                    onClick={handleToggleVR}
-                    aria-label={vrMode ? "Exit VR mode" : "Enter VR mode"}
-                    className={vrMode ? "bg-blue-500 text-white" : "text-white hover:bg-white/20"}
-                  >
-                    <VrHeadset className="h-4 w-4 mr-1" />
-                    <span className="hidden sm:inline">VR Mode</span>
-                  </Button>
-                )}
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-        
-        {/* Bottom controls toggle */}
-        <div className="absolute bottom-4 right-4 z-20">
-          <Button 
-            variant="default" 
-            size="icon" 
-            onClick={() => setShowControls(!showControls)}
-            aria-label={showControls ? "Hide controls" : "Show controls"}
-            className="rounded-full shadow-lg"
-          >
-            {showControls ? (
-              <EyeOff className="h-5 w-5" />
-            ) : (
-              <Eye className="h-5 w-5" />
-            )}
-          </Button>
-        </div>
-        
-        {/* Accessibility panel */}
-        <AnimatePresence>
-          {showAccessibilityPanel && (
-            <motion.div 
-              initial={{ opacity: 0, x: 300 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 300 }}
-              transition={{ duration: 0.3 }}
-              className="absolute top-16 right-4 z-30 w-72"
-            >
-              <Card>
-                <CardContent className="p-4">
-                  <h3 className="text-lg font-bold mb-4">Accessibility Settings</h3>
-                  
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <label htmlFor="high-contrast" className="text-sm font-medium">
-                        High Contrast Mode
-                      </label>
-                      <input
-                        id="high-contrast"
-                        type="checkbox"
-                        checked={highContrastMode}
-                        onChange={() => setHighContrastMode(!highContrastMode)}
-                        className="toggle"
-                      />
-                    </div>
-                    
-                    <div className="flex items-center justify-between">
-                      <label htmlFor="reduced-motion" className="text-sm font-medium">
-                        Reduced Motion
-                      </label>
-                      <input
-                        id="reduced-motion"
-                        type="checkbox"
-                        checked={reducedMotion}
-                        onChange={() => setReducedMotion(!reducedMotion)}
-                        className="toggle"
-                      />
-                    </div>
-                    
-                    <div className="flex items-center justify-between">
-                      <label htmlFor="audio-enabled" className="text-sm font-medium">
-                        Audio
-                      </label>
-                      <input
-                        id="audio-enabled"
-                        type="checkbox"
-                        checked={audioEnabled}
-                        onChange={() => setAudioEnabled(!audioEnabled)}
-                        className="toggle"
-                      />
-                    </div>
-                    
-                    <div className="pt-2">
-                      <Button 
-                        variant="outline" 
-                        size="sm" 
-                        onClick={() => setShowAccessibilityPanel(false)}
-                        className="w-full"
-                      >
-                        Close
-                      </Button>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          )}
-        </AnimatePresence>
-        
-        {/* Help panel */}
-        <AnimatePresence>
-          {showHelpPanel && (
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.2 }}
-              className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30 w-full max-w-md"
-            >
-              <Card>
-                <CardContent className="p-4">
-                  <h3 className="text-lg font-bold mb-4">Keyboard Shortcuts</h3>
-                  
-                  <div className="space-y-2 text-sm">
-                    <div className="flex justify-between">
-                      <span className="font-medium">F</span>
-                      <span>Toggle fullscreen</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="font-medium">H</span>
-                      <span>Toggle controls</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="font-medium">M</span>
-                      <span>Toggle audio</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="font-medium">A</span>
-                      <span>Accessibility settings</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="font-medium">?</span>
-                      <span>Show/hide this help</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="font-medium">ESC</span>
-                      <span>Exit fullscreen or VR mode</span>
-                    </div>
-                  </div>
-                  
-                  <div className="pt-4">
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      onClick={() => setShowHelpPanel(false)}
-                      className="w-full"
-                    >
-                      Close
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          )}
-        </AnimatePresence>
+              
+              {/* Keyboard shortcuts */}
+              <div className="pt-2 border-t border-gray-200">
+                <h4 className="text-sm font-medium mb-2">Keyboard Shortcuts</h4>
+                <ul className="text-xs space-y-1 text-gray-600">
+                  <li><span className="font-mono bg-gray-100 px-1 rounded">F</span> - Toggle fullscreen</li>
+                  <li><span className="font-mono bg-gray-100 px-1 rounded">Esc</span> - Exit fullscreen or go back</li>
+                  <li><span className="font-mono bg-gray-100 px-1 rounded">+</span> / <span className="font-mono bg-gray-100 px-1 rounded">-</span> - Zoom in/out</li>
+                  <li><span className="font-mono bg-gray-100 px-1 rounded">R</span> - Reset view</li>
+                  <li><span className="font-mono bg-gray-100 px-1 rounded">A</span> - Toggle accessibility menu</li>
+                  {isVR && <li><span className="font-mono bg-gray-100 px-1 rounded">V</span> - Toggle VR mode</li>}
+                </ul>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      
+      {/* Keyboard event listeners */}
+      <div className="sr-only" aria-live="polite">
+        {/* This div is for screen readers to announce keyboard shortcuts */}
+        Keyboard shortcuts available. Press A to open accessibility menu.
       </div>
     </div>
   );
