@@ -51,9 +51,10 @@ export async function POST(req: NextRequest) {
       data: {
         userId: session.user.id,
         feature: 'text-to-speech',
-        options: JSON.stringify(speechOptions),
-        textLength: text.length,
-        timestamp: new Date()
+        options: JSON.stringify({
+          ...speechOptions,
+          textLength: text.length
+        })
       }
     });
 
