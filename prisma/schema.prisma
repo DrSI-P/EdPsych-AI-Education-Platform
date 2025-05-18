@@ -289,6 +289,10 @@ model AccessibilitySettings {
   customBackgroundColor   String   @default("#000000")
   customLinkColor         String   @default("#ffff00")
   
+  // General accessibility settings
+  lineSpacing             Int      @default(150)
+  dyslexiaFont            Boolean  @default(false)
+  
   // Keyboard navigation settings
   keyboardNavigation      Boolean  @default(false)
   highlightFocus          Boolean  @default(true)
@@ -319,6 +323,7 @@ model AccessibilitySettings {
   announcementLevel       String   @default("moderate")
   
   // Speech-to-text settings
+  voiceRecognitionActive  Boolean  @default(false)
   textToSpeechActive      Boolean  @default(false)
   speechRate              Float    @default(1.0)
   speechPitch             Float    @default(1.0)
