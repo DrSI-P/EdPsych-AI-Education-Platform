@@ -24,7 +24,8 @@ type CheckinData = {
   strategies: string[];
 };
 
-export default function EmotionalCheckin() {
+// Export both as default and named export to fix build warnings
+export function EmotionalCheckin() {
   const { toast } = useToast();
   const aiService = useAIService();
   const [step, setStep] = useState(1);

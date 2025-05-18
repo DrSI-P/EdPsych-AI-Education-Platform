@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Toaster as Sonner } from "sonner"
+import { Toaster as Sonner, toast as sonnerToast } from "sonner"
 
 import { cn } from "@/lib/utils"
 
@@ -29,12 +29,16 @@ const Toaster = ({ ...props }: ToasterProps) => {
 
 export { Toaster }
 
+// Export the toast function directly to fix the build warning
+export const toast = sonnerToast;
+
 export const useToast = () => {
   return {
     toast: (message: string, options?: any) => {
       console.log(message, options);
       // This is a simplified implementation
       // In a real app, this would use the actual toast library
+      sonnerToast(message, options);
     },
     dismiss: (toastId?: string) => {
       console.log("Dismissed toast", toastId);

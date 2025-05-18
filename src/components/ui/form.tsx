@@ -3,6 +3,15 @@
 import React from 'react';
 import { Label } from './label';
 
+// Add Form component export to fix build warning
+export function Form({ children, ...props }: React.FormHTMLAttributes<HTMLFormElement>) {
+  return (
+    <form {...props}>
+      {children}
+    </form>
+  );
+}
+
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   error?: string;
