@@ -109,8 +109,19 @@ export async function POST(request: NextRequest) {
       );
     }
     
+    // Define the Question type
+    type Question = {
+      type: string;
+      content: string;
+      points: number;
+      options?: any[];
+      answer?: string;
+      pairs?: any[];
+      [key: string]: any; // Allow for other properties
+    };
+
     // Add order to questions
-    assessment.questions = assessment.questions.map((question, index) => ({
+    assessment.questions = assessment.questions.map((question: Question, index: number) => ({
       ...question,
       order: index
     }));
