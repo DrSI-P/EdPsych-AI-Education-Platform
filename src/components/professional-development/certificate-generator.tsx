@@ -29,8 +29,8 @@ import {
   AvatarFallback, 
   AvatarImage 
 } from "@/components/ui/avatar";
+// Import Certificate from our custom icons to fix build errors
 import { 
-  Certificate, 
   Clock, 
   Download, 
   FileText, 
@@ -39,6 +39,7 @@ import {
   Star, 
   Users 
 } from "lucide-react";
+import { Certificate } from "@/components/icons/certificate";
 
 // Certificate generation component
 export default function CertificateGenerator() {

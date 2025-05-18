@@ -9,7 +9,9 @@ import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Pagination } from '@/components/ui/pagination';
-import { Search, Grid3X3, List, Filter, Plus, VrHeadset, Gamepad2, BookOpen, Brain } from 'lucide-react';
+// Import VrHeadset from our custom icons to fix build errors
+import { Search, Grid3X3, List, Filter, Plus, Gamepad2, BookOpen, Brain } from 'lucide-react';
+import { VrHeadset } from '@/components/icons/vr-headset';
 import Link from 'next/link';
 
 export default function ImmersiveLearning() {
