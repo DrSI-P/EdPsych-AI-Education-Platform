@@ -1,18 +1,12 @@
 'use client';
 
 import React from 'react';
-import { 
-  AnimatedPage, 
-  StaggerContainer, 
-  StaggerItem, 
-  HoverScale 
-} from '@/components/animations/motion';
-import { ImmersiveLayout } from '@/components/immersive/immersive-layout';
-import { ThreeDScene } from '@/components/immersive/3d-navigation';
-import { ImmersiveContentViewer } from '@/components/immersive/immersive-content-viewer';
+import { motion } from 'framer-motion';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import { ImmersiveLayout } from '@/components/immersive/immersive-layout';
+import { ThreeDScene } from '@/components/immersive/3d-navigation';
 
 interface ImmersiveExperience {
   id: string;
@@ -22,6 +16,50 @@ interface ImmersiveExperience {
   thumbnailUrl?: string;
   scenarioUrl: string;
 }
+
+// Animation variants
+const pageTransitionVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { 
+      duration: 0.5,
+      ease: "easeInOut"
+    }
+  },
+  exit: { 
+    opacity: 0, 
+    y: -20,
+    transition: { 
+      duration: 0.3,
+      ease: "easeInOut"
+    }
+  }
+};
+
+const staggerContainerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2
+    }
+  }
+};
+
+const staggerItemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.4,
+      ease: "easeOut"
+    }
+  }
+};
 
 /**
  * Enhanced Immersive Learning Page with Animations
@@ -115,8 +153,18 @@ export default function ImmersiveLearningPage() {
   
   // Render experience card
   const renderExperienceCard = (experience: ImmersiveExperience, index: number) => (
-    <StaggerItem key={experience.id} index={index}>
-      <HoverScale className="h-full">
+    <motion.div 
+      key={experience.id} 
+      variants={staggerItemVariants}
+      className="h-full"
+    >
+      <motion.div 
+        className="h-full"
+        whileHover={{ 
+          scale: 1.03,
+          transition: { duration: 0.2 }
+        }}
+      >
         <Card className="h-full flex flex-col overflow-hidden hover:shadow-lg transition-shadow duration-300">
           <div className="relative h-40 overflow-hidden bg-gray-100">
             {experience.thumbnailUrl ? (
@@ -150,12 +198,18 @@ export default function ImmersiveLearningPage() {
             </Button>
           </div>
         </Card>
-      </HoverScale>
-    </StaggerItem>
+      </motion.div>
+    </motion.div>
   );
   
   return (
-    <AnimatedPage className="min-h-screen">
+    <motion.div
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      variants={pageTransitionVariants}
+      className="min-h-screen"
+    >
       {activeExperience ? (
         // Active experience view
         <div className="h-[calc(100vh-8rem)]">
@@ -208,13 +262,23 @@ export default function ImmersiveLearningPage() {
             </TabsList>
             
             <TabsContent value="all">
-              <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <motion.div 
+                variants={staggerContainerVariants}
+                initial="hidden"
+                animate="visible"
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+              >
                 {experiences.map((exp, index) => renderExperienceCard(exp, index))}
-              </StaggerContainer>
+              </motion.div>
             </TabsContent>
             
             <TabsContent value="vr">
-              <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <motion.div 
+                variants={staggerContainerVariants}
+                initial="hidden"
+                animate="visible"
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+              >
                 {vrExperiences.length > 0 ? (
                   vrExperiences.map((exp, index) => renderExperienceCard(exp, index))
                 ) : (
@@ -222,11 +286,16 @@ export default function ImmersiveLearningPage() {
                     <p className="text-gray-500">No VR experiences available yet.</p>
                   </div>
                 )}
-              </StaggerContainer>
+              </motion.div>
             </TabsContent>
             
             <TabsContent value="ar">
-              <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <motion.div 
+                variants={staggerContainerVariants}
+                initial="hidden"
+                animate="visible"
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+              >
                 {arExperiences.length > 0 ? (
                   arExperiences.map((exp, index) => renderExperienceCard(exp, index))
                 ) : (
@@ -234,11 +303,16 @@ export default function ImmersiveLearningPage() {
                     <p className="text-gray-500">No AR experiences available yet.</p>
                   </div>
                 )}
-              </StaggerContainer>
+              </motion.div>
             </TabsContent>
             
             <TabsContent value="3d">
-              <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <motion.div 
+                variants={staggerContainerVariants}
+                initial="hidden"
+                animate="visible"
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+              >
                 {threeDExperiences.length > 0 ? (
                   threeDExperiences.map((exp, index) => renderExperienceCard(exp, index))
                 ) : (
@@ -246,11 +320,16 @@ export default function ImmersiveLearningPage() {
                     <p className="text-gray-500">No 3D experiences available yet.</p>
                   </div>
                 )}
-              </StaggerContainer>
+              </motion.div>
             </TabsContent>
           </Tabs>
           
-          <AnimatedPage className="mt-12 bg-gray-50 rounded-lg p-6">
+          <motion.div 
+            initial="hidden"
+            animate="visible"
+            variants={pageTransitionVariants}
+            className="mt-12 bg-gray-50 rounded-lg p-6"
+          >
             <h2 className="text-xl font-semibold mb-4">About Immersive Learning</h2>
             <p className="mb-4">
               Immersive learning uses virtual reality (VR), augmented reality (AR), and interactive 3D environments to create engaging educational experiences that can help students better understand complex concepts.
@@ -258,8 +337,13 @@ export default function ImmersiveLearningPage() {
             <p className="mb-4">
               Research has shown that immersive learning can improve retention, increase engagement, and provide unique opportunities for experiential learning that wouldn't be possible in traditional classroom settings.
             </p>
-            <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6" delay={0.4}>
-              <StaggerItem index={0}>
+            <motion.div 
+              variants={staggerContainerVariants}
+              initial="hidden"
+              animate="visible"
+              className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6"
+            >
+              <motion.div variants={staggerItemVariants}>
                 <Card>
                   <CardHeader>
                     <h3 className="font-semibold">Virtual Reality (VR)</h3>
@@ -270,8 +354,8 @@ export default function ImmersiveLearningPage() {
                     </p>
                   </CardContent>
                 </Card>
-              </StaggerItem>
-              <StaggerItem index={1}>
+              </motion.div>
+              <motion.div variants={staggerItemVariants}>
                 <Card>
                   <CardHeader>
                     <h3 className="font-semibold">Augmented Reality (AR)</h3>
@@ -282,8 +366,8 @@ export default function ImmersiveLearningPage() {
                     </p>
                   </CardContent>
                 </Card>
-              </StaggerItem>
-              <StaggerItem index={2}>
+              </motion.div>
+              <motion.div variants={staggerItemVariants}>
                 <Card>
                   <CardHeader>
                     <h3 className="font-semibold">3D Interactive</h3>
@@ -294,11 +378,11 @@ export default function ImmersiveLearningPage() {
                     </p>
                   </CardContent>
                 </Card>
-              </StaggerItem>
-            </StaggerContainer>
-          </AnimatedPage>
+              </motion.div>
+            </motion.div>
+          </motion.div>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 }
