@@ -385,7 +385,7 @@ export default function TakePupilVoiceSurveyPage() {
               onClick={handleSubmit}
               disabled={submitting}
             >
-              {submitting ? <Spinner size="small" /> : 'Submit'}
+              {submitting ? <Spinner size="sm" /> : 'Submit'}
             </Button>
           )}
         </CardFooter>

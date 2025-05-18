@@ -343,7 +343,7 @@ export default function CreatePupilVoiceSurveyPage() {
             </div>
             <Button
               variant="outline"
-              size="small"
+              size="sm"
               onClick={() => handleAddOption(activeQuestionIndex)}
             >
               Add Option
@@ -368,7 +368,7 @@ export default function CreatePupilVoiceSurveyPage() {
         <div className="flex justify-between pt-4">
           <Button
             variant="outline"
-            size="small"
+            size="sm"
             onClick={() => handleRemoveQuestion(activeQuestionIndex)}
           >
             Delete Question
@@ -377,7 +377,7 @@ export default function CreatePupilVoiceSurveyPage() {
           <div className="flex space-x-2">
             <Button
               variant="outline"
-              size="small"
+              size="sm"
               onClick={() => handleMoveQuestion(activeQuestionIndex, 'up')}
               disabled={activeQuestionIndex === 0}
             >
@@ -385,7 +385,7 @@ export default function CreatePupilVoiceSurveyPage() {
             </Button>
             <Button
               variant="outline"
-              size="small"
+              size="sm"
               onClick={() => handleMoveQuestion(activeQuestionIndex, 'down')}
               disabled={activeQuestionIndex === questions.length - 1}
             >
@@ -509,13 +509,13 @@ export default function CreatePupilVoiceSurveyPage() {
               onClick={() => handleSaveSurvey('draft')}
               disabled={saving}
             >
-              {saving ? <Spinner size="small" /> : 'Save as Draft'}
+              {saving ? <Spinner size="sm" /> : 'Save as Draft'}
             </Button>
             <Button
               onClick={() => handleSaveSurvey('active')}
               disabled={saving || questions.length === 0}
             >
-              {saving ? <Spinner size="small" /> : 'Publish Survey'}
+              {saving ? <Spinner size="sm" /> : 'Publish Survey'}
             </Button>
           </div>
         </div>

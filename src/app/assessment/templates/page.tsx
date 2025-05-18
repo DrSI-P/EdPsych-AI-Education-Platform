@@ -197,7 +197,7 @@ export default function AssessmentTemplatesPage() {
                 By {template.createdBy.name}
               </div>
               <Button 
-                size="small"
+                size="sm"
                 onClick={() => handleUseTemplate(template.id)}
               >
                 Use Template

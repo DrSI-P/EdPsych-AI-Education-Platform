@@ -548,7 +548,7 @@ export default function ManualGradingPage() {
                           </span>
                           <Button
                             variant="outline"
-                            size="small"
+                            size="sm"
                             onClick={() => {
                               setCurrentQuestionIndex(index);
                               setActiveTab('question-by-question');
@@ -602,7 +602,7 @@ export default function ManualGradingPage() {
                     onClick={handleSaveGrades}
                     disabled={isSaving}
                   >
-                    {isSaving ? <Spinner size="small" className="mr-2" /> : null}
+                    {isSaving ? <Spinner size="sm" className="mr-2" /> : null}
                     Save Grades
                   </Button>
                 </div>
@@ -691,12 +691,12 @@ export default function ManualGradingPage() {
                       <h4 className="font-medium text-blue-800">AI Grading Assistance</h4>
                       <Button
                         variant="outline"
-                        size="small"
+                        size="sm"
                         onClick={() => handleGenerateAiFeedback(currentQuestion.id)}
                         disabled={isGeneratingAiSuggestion === currentQuestion.id}
                       >
                         {isGeneratingAiSuggestion === currentQuestion.id ? (
-                          <Spinner size="small" className="mr-2" />
+                          <Spinner size="sm" className="mr-2" />
                         ) : null}
                         Generate AI Suggestion
                       </Button>
@@ -716,7 +716,7 @@ export default function ManualGradingPage() {
                         </div>
                         <Button
                           variant="outline"
-                          size="small"
+                          size="sm"
                           onClick={() => handleApplyAiSuggestion(currentQuestion.id)}
                         >
                           Apply AI Suggestion
@@ -742,7 +742,7 @@ export default function ManualGradingPage() {
                   onClick={handleSaveGrades}
                   disabled={isSaving}
                 >
-                  {isSaving ? <Spinner size="small" className="mr-2" /> : null}
+                  {isSaving ? <Spinner size="sm" className="mr-2" /> : null}
                   Save Grades
                 </Button>
               </div>
