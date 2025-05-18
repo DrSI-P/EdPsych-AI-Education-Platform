@@ -90,12 +90,12 @@ async function handleOpenAIImageGeneration(requestData: AIImageGenerationRequest
     // The response structure is { created: number, data: Array<{url: string, revised_prompt?: string}> }
     // Define the Image type to match what OpenAI returns
     type Image = {
-      url: string;
+      url: string | undefined;
       revised_prompt?: string;
     };
     
     return {
-      images: response.data?.map((item: Image) => item.url) || [],
+      images: response.data?.map((item: Image) => item.url || '') || [],
       provider: 'openai',
       model: requestData.model
     };
