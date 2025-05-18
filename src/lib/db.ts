@@ -2,6 +2,9 @@
 
 import prisma from './prisma';
 
+// Export prisma client directly for API routes
+export { prisma };
+
 // Database utility functions
 export const db = {
   // User operations
