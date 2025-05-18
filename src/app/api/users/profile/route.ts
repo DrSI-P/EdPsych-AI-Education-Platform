@@ -1,5 +1,5 @@
 import { auth } from '@/lib/auth/auth';
-import { getUserById, updateUserProfile } from '@/lib/auth';
+import { getUserById, updateUserProfile } from '@/lib/auth/users';
 import { profileSchema } from '@/lib/validations/schemas';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
