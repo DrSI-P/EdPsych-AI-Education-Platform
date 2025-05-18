@@ -1,206 +1,165 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
-import { motion } from 'framer-motion';
-import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Skeleton } from '@/components/ui/skeleton';
+import { Button, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { HeyGenService, HeyGenVideo } from '@/lib/heygen/heygen-service';
-import { ArrowLeft, Download, Share2 } from 'lucide-react';
-import Link from 'next/link';
+import { Loader2, Download, ArrowLeft } from 'lucide-react';
 
-export default function VideoViewPage() {
+const VideoViewPage = () => {
   const params = useParams();
-  const videoId = params?.id as string;
-  const [video, setVideo] = useState<HeyGenVideo | null>(null);
+  const videoId = params.id as string;
+  
   const [loading, setLoading] = useState(true);
+  const [video, setVideo] = useState<HeyGenVideo | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchVideo = async () => {
+      if (!videoId) return;
+      
       try {
-        setLoading(true);
         const heygenService = HeyGenService.getInstance({
-          apiKey: process.env.NEXT_PUBLIC_HEYGEN_API_KEY || 'demo-key',
-          baseUrl: process.env.NEXT_PUBLIC_HEYGEN_API_URL || 'https://api.heygen.com',
+          apiKey: process.env.NEXT_PUBLIC_HEYGEN_API_KEY || 'demo_key',
+          baseUrl: process.env.NEXT_PUBLIC_HEYGEN_API_URL || 'https://api.heygen.com'
         });
         
         await heygenService.initialize();
-        const videoData = await heygenService.getVideoStatus(videoId);
-        
-        if (videoData) {
-          setVideo(videoData);
-        } else {
-          setError('Video not found');
-        }
-      } catch (err) {
-        console.error('Error fetching video:', err);
-        setError('Failed to load video');
+        const fetchedVideo = await heygenService.getVideoStatus(videoId);
+        setVideo(fetchedVideo);
+      } catch (error) {
+        console.error('Failed to fetch video:', error);
+        setError('Failed to load video. Please try again later.');
       } finally {
         setLoading(false);
       }
     };
-
+    
     fetchVideo();
   }, [videoId]);
 
-  if (loading) {
-    return (
-      <div className="container mx-auto py-12 px-4">
-        <div className="mb-6">
-          <Link href="/ai-avatar-videos" className="flex items-center text-muted-foreground hover:text-foreground transition-colors">
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Video Library
-          </Link>
-        </div>
-        
-        <Skeleton className="h-8 w-1/3 mb-4" />
-        <Skeleton className="h-4 w-1/2 mb-8" />
-        
-        <Skeleton className="h-[480px] w-full rounded-lg mb-8" />
-        
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Skeleton className="h-24 rounded-lg" />
-          <Skeleton className="h-24 rounded-lg" />
-          <Skeleton className="h-24 rounded-lg" />
-        </div>
-      </div>
-    );
-  }
-
-  if (error || !video) {
-    return (
-      <div className="container mx-auto py-12 px-4">
-        <div className="mb-6">
-          <Link href="/ai-avatar-videos" className="flex items-center text-muted-foreground hover:text-foreground transition-colors">
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Video Library
-          </Link>
-        </div>
-        
-        <Card>
-          <CardContent className="flex flex-col items-center justify-center py-12">
-            <h1 className="text-2xl font-bold mb-4">Video Not Found</h1>
-            <p className="text-muted-foreground mb-6">{error || 'The requested video could not be found'}</p>
-            <Button asChild>
-              <Link href="/ai-avatar-videos">Return to Video Library</Link>
-            </Button>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
+  const formatDate = (date: Date) => {
+    return new Date(date).toLocaleDateString('en-GB', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
 
   return (
-    <div className="container mx-auto py-12 px-4">
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <div className="mb-6">
-          <Link href="/ai-avatar-videos" className="flex items-center text-muted-foreground hover:text-foreground transition-colors">
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Video Library
-          </Link>
+    <div className="container mx-auto py-8">
+      <Button variant="outline" className="mb-6" asChild>
+        <a href="/ai-avatar-videos">
+          <ArrowLeft className="h-4 w-4 mr-2" />
+          Back to Video Library
+        </a>
+      </Button>
+      
+      {loading ? (
+        <div className="flex justify-center items-center h-64">
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          <span className="ml-2">Loading video...</span>
         </div>
-        
-        <h1 className="text-3xl font-bold mb-2">{video.title}</h1>
-        {video.description && (
-          <p className="text-muted-foreground mb-8">{video.description}</p>
-        )}
-        
-        <div className="aspect-video bg-black rounded-lg overflow-hidden mb-8">
-          {video.url ? (
-            <video 
-              src={video.url} 
-              controls 
-              className="w-full h-full"
-              poster={video.thumbnailUrl}
-            />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center bg-muted">
-              <p className="text-muted-foreground">Video is still processing</p>
+      ) : error ? (
+        <div className="bg-destructive/10 text-destructive p-4 rounded-md">
+          {error}
+        </div>
+      ) : !video ? (
+        <div className="text-center p-8 border border-dashed rounded-lg">
+          <h3 className="text-xl font-medium mb-2">Video not found</h3>
+          <p className="text-muted-foreground mb-4">
+            The requested video could not be found.
+          </p>
+          <Button asChild>
+            <a href="/ai-avatar-videos">Return to Video Library</a>
+          </Button>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="lg:col-span-2">
+            <div className="aspect-video bg-muted rounded-lg overflow-hidden">
+              {video.status === 'completed' && video.url ? (
+                <video 
+                  src={video.url} 
+                  controls 
+                  poster={video.thumbnailUrl} 
+                  className="w-full h-full"
+                >
+                  Your browser does not support the video tag.
+                </video>
+              ) : (
+                <div className="w-full h-full flex items-center justify-center">
+                  {video.status === 'pending' || video.status === 'processing' ? (
+                    <div className="text-center">
+                      <Loader2 className="h-8 w-8 animate-spin text-primary mx-auto mb-2" />
+                      <p>Video is still processing...</p>
+                    </div>
+                  ) : (
+                    <p className="text-destructive">Video generation failed</p>
+                  )}
+                </div>
+              )}
             </div>
-          )}
-        </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          <Card>
-            <CardContent className="p-6">
-              <h2 className="font-semibold mb-2">Video Details</h2>
-              <p className="text-sm text-muted-foreground mb-1">Status: {video.status}</p>
-              <p className="text-sm text-muted-foreground mb-1">Created: {new Date(video.createdAt).toLocaleDateString()}</p>
-              <p className="text-sm text-muted-foreground">Updated: {new Date(video.updatedAt).toLocaleDateString()}</p>
-            </CardContent>
-          </Card>
+          </div>
           
-          <Card>
-            <CardContent className="p-6">
-              <h2 className="font-semibold mb-2">Share</h2>
-              <Button variant="outline" className="w-full">
-                <Share2 className="mr-2 h-4 w-4" />
-                Share Video
-              </Button>
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardContent className="p-6">
-              <h2 className="font-semibold mb-2">Download</h2>
-              <Button variant="outline" className="w-full" disabled={!video.url}>
-                <Download className="mr-2 h-4 w-4" />
-                Download Video
-              </Button>
-            </CardContent>
-          </Card>
+          <div>
+            <Card>
+              <CardHeader>
+                <CardTitle>{video.title}</CardTitle>
+                <CardDescription>
+                  <span className={`px-2 py-1 text-xs rounded-full ${
+                    video.status === 'completed' ? 'bg-green-100 text-green-800' :
+                    video.status === 'processing' || video.status === 'pending' ? 'bg-blue-100 text-blue-800' :
+                    'bg-red-100 text-red-800'
+                  }`}>
+                    {video.status.charAt(0).toUpperCase() + video.status.slice(1)}
+                  </span>
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div>
+                  <h3 className="text-sm font-medium">Description</h3>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    {video.description || 'No description provided'}
+                  </p>
+                </div>
+                
+                <div>
+                  <h3 className="text-sm font-medium">Created</h3>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    {formatDate(video.createdAt)}
+                  </p>
+                </div>
+                
+                {video.updatedAt && (
+                  <div>
+                    <h3 className="text-sm font-medium">Last Updated</h3>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      {formatDate(video.updatedAt)}
+                    </p>
+                  </div>
+                )}
+              </CardContent>
+              <CardFooter>
+                <Button 
+                  className="w-full" 
+                  disabled={video.status !== 'completed' || !video.url}
+                  asChild
+                >
+                  <a href={video.url} download={video.title}>
+                    <Download className="h-4 w-4 mr-2" />
+                    Download Video
+                  </a>
+                </Button>
+              </CardFooter>
+            </Card>
+          </div>
         </div>
-        
-        <div className="mb-8">
-          <h2 className="text-2xl font-semibold mb-4">Related Videos</h2>
-          <p className="text-muted-foreground">Explore more AI avatar videos from our educational library.</p>
-        </div>
-        
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Placeholder for related videos - would be dynamically populated in production */}
-          <Card className="overflow-hidden">
-            <div className="aspect-video bg-muted relative">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <p className="text-muted-foreground">Related Video</p>
-              </div>
-            </div>
-            <CardContent className="p-4">
-              <h3 className="font-semibold truncate">Educational Psychology Foundations</h3>
-              <p className="text-sm text-muted-foreground mt-1">Learn about the core principles</p>
-            </CardContent>
-          </Card>
-          
-          <Card className="overflow-hidden">
-            <div className="aspect-video bg-muted relative">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <p className="text-muted-foreground">Related Video</p>
-              </div>
-            </div>
-            <CardContent className="p-4">
-              <h3 className="font-semibold truncate">Adaptive Learning Systems</h3>
-              <p className="text-sm text-muted-foreground mt-1">Personalized education approaches</p>
-            </CardContent>
-          </Card>
-          
-          <Card className="overflow-hidden">
-            <div className="aspect-video bg-muted relative">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <p className="text-muted-foreground">Related Video</p>
-              </div>
-            </div>
-            <CardContent className="p-4">
-              <h3 className="font-semibold truncate">Voice Input Accessibility</h3>
-              <p className="text-sm text-muted-foreground mt-1">Making education accessible</p>
-            </CardContent>
-          </Card>
-        </div>
-      </motion.div>
+      )}
     </div>
   );
-}
+};
+
+export default VideoViewPage;

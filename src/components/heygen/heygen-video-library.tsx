@@ -1,245 +1,174 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { Button, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { HeyGenService, HeyGenVideo } from '@/lib/heygen/heygen-service';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Search, Filter, Video } from 'lucide-react';
-import Link from 'next/link';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Loader2, Play, Download, ExternalLink } from 'lucide-react';
 
-/**
- * AI Avatar Video Library Component
- * 
- * This component displays all generated AI avatar videos and provides
- * search and filtering capabilities.
- */
-export const HeyGenVideoLibrary: React.FC = () => {
-  const [videos, setVideos] = useState<HeyGenVideo[]>([]);
-  const [filteredVideos, setFilteredVideos] = useState<HeyGenVideo[]>([]);
-  const [searchQuery, setSearchQuery] = useState('');
+const HeyGenVideoLibrary = () => {
   const [loading, setLoading] = useState(true);
-  
-  // Initialize HeyGen service
-  const heygenService = HeyGenService.getInstance({
-    apiKey: process.env.NEXT_PUBLIC_HEYGEN_API_KEY || 'demo-api-key',
-    baseUrl: process.env.NEXT_PUBLIC_HEYGEN_API_URL || 'https://api.heygen.com'
-  });
-  
-  // Sample video data for demonstration
-  const sampleVideos: HeyGenVideo[] = [
-    {
-      id: 'video_1',
-      status: 'completed',
-      url: '/sample-videos/executive-summary.mp4',
-      thumbnailUrl: '/sample-videos/executive-summary-thumb.jpg',
-      createdAt: new Date('2025-05-15'),
-      updatedAt: new Date('2025-05-15'),
-      title: 'Executive Summary',
-      category: 'Core Platform'
-    },
-    {
-      id: 'video_2',
-      status: 'completed',
-      url: '/sample-videos/platform-features.mp4',
-      thumbnailUrl: '/sample-videos/platform-features-thumb.jpg',
-      createdAt: new Date('2025-05-15'),
-      updatedAt: new Date('2025-05-15'),
-      title: 'Platform Features Overview',
-      category: 'Core Platform'
-    },
-    {
-      id: 'video_3',
-      status: 'completed',
-      url: '/sample-videos/educator-onboarding.mp4',
-      thumbnailUrl: '/sample-videos/educator-onboarding-thumb.jpg',
-      createdAt: new Date('2025-05-16'),
-      updatedAt: new Date('2025-05-16'),
-      title: 'Educator Onboarding',
-      category: 'User Onboarding'
-    },
-    {
-      id: 'video_4',
-      status: 'completed',
-      url: '/sample-videos/parent-onboarding.mp4',
-      thumbnailUrl: '/sample-videos/parent-onboarding-thumb.jpg',
-      createdAt: new Date('2025-05-16'),
-      updatedAt: new Date('2025-05-16'),
-      title: 'Parent Onboarding',
-      category: 'User Onboarding'
-    },
-    {
-      id: 'video_5',
-      status: 'completed',
-      url: '/sample-videos/student-ks2.mp4',
-      thumbnailUrl: '/sample-videos/student-ks2-thumb.jpg',
-      createdAt: new Date('2025-05-17'),
-      updatedAt: new Date('2025-05-17'),
-      title: 'Student Onboarding (Key Stage 2)',
-      category: 'User Onboarding'
-    },
-    {
-      id: 'video_6',
-      status: 'completed',
-      url: '/sample-videos/adaptive-complexity.mp4',
-      thumbnailUrl: '/sample-videos/adaptive-complexity-thumb.jpg',
-      createdAt: new Date('2025-05-17'),
-      updatedAt: new Date('2025-05-17'),
-      title: 'Adaptive Complexity System',
-      category: 'Feature Demonstration'
-    },
-    {
-      id: 'video_7',
-      status: 'completed',
-      url: '/sample-videos/voice-input.mp4',
-      thumbnailUrl: '/sample-videos/voice-input-thumb.jpg',
-      createdAt: new Date('2025-05-18'),
-      updatedAt: new Date('2025-05-18'),
-      title: 'Voice Input and Accessibility',
-      category: 'Feature Demonstration'
-    },
-    {
-      id: 'video_8',
-      status: 'completed',
-      url: '/sample-videos/immersive-learning.mp4',
-      thumbnailUrl: '/sample-videos/immersive-learning-thumb.jpg',
-      createdAt: new Date('2025-05-18'),
-      updatedAt: new Date('2025-05-18'),
-      title: 'Immersive Learning Environments',
-      category: 'Feature Demonstration'
-    }
-  ];
-  
+  const [videos, setVideos] = useState<HeyGenVideo[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState('all');
+
   useEffect(() => {
-    // Initialize HeyGen service and fetch videos
-    const initService = async () => {
+    const fetchVideos = async () => {
       try {
-        await heygenService.initialize();
+        const heygenService = HeyGenService.getInstance({
+          apiKey: process.env.NEXT_PUBLIC_HEYGEN_API_KEY || 'demo_key',
+          baseUrl: process.env.NEXT_PUBLIC_HEYGEN_API_URL || 'https://api.heygen.com'
+        });
         
-        // In a production environment, we would fetch videos from HeyGen
-        // For now, we'll use our sample data
-        setVideos(sampleVideos);
-        setFilteredVideos(sampleVideos);
-        setLoading(false);
+        await heygenService.initialize();
+        const fetchedVideos = await heygenService.getAllVideos();
+        setVideos(fetchedVideos);
       } catch (error) {
-        console.error('Failed to initialize HeyGen service:', error);
-        // Still use sample data in case of error
-        setVideos(sampleVideos);
-        setFilteredVideos(sampleVideos);
+        console.error('Failed to fetch videos:', error);
+        setError('Failed to load videos. Please try again later.');
+      } finally {
         setLoading(false);
       }
     };
     
-    initService();
+    fetchVideos();
   }, []);
-  
-  // Handle search
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const query = e.target.value.toLowerCase();
-    setSearchQuery(query);
-    
-    if (!query) {
-      setFilteredVideos(videos);
-      return;
+
+  const getFilteredVideos = () => {
+    switch (activeTab) {
+      case 'completed':
+        return videos.filter(video => video.status === 'completed');
+      case 'processing':
+        return videos.filter(video => video.status === 'pending' || video.status === 'processing');
+      case 'failed':
+        return videos.filter(video => video.status === 'failed');
+      default:
+        return videos;
     }
-    
-    const filtered = videos.filter(video => 
-      video.title?.toLowerCase().includes(query) || 
-      video.category?.toLowerCase().includes(query)
-    );
-    
-    setFilteredVideos(filtered);
   };
-  
-  // Group videos by category
-  const videosByCategory = filteredVideos.reduce((acc, video) => {
-    const category = video.category || 'Uncategorized';
-    if (!acc[category]) {
-      acc[category] = [];
-    }
-    acc[category].push(video);
-    return acc;
-  }, {} as Record<string, HeyGenVideo[]>);
-  
+
+  const formatDate = (date: Date) => {
+    return new Date(date).toLocaleDateString('en-GB', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric'
+    });
+  };
+
   return (
-    <div className="w-full">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
-        <div className="relative w-full md:w-96">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
-          <Input
-            type="text"
-            placeholder="Search videos..."
-            value={searchQuery}
-            onChange={handleSearch}
-            className="pl-10"
-          />
-        </div>
-        
+    <div className="container mx-auto py-8">
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-3xl font-bold">AI Avatar Video Library</h1>
         <Button asChild>
-          <Link href="/ai-avatar-videos/generate">
-            <Video className="mr-2 h-4 w-4" />
-            Generate New Video
-          </Link>
+          <a href="/ai-avatar-videos/generate">Create New Video</a>
         </Button>
       </div>
       
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full mb-6">
+        <TabsList className="grid w-full grid-cols-4">
+          <TabsTrigger value="all">All Videos</TabsTrigger>
+          <TabsTrigger value="completed">Completed</TabsTrigger>
+          <TabsTrigger value="processing">Processing</TabsTrigger>
+          <TabsTrigger value="failed">Failed</TabsTrigger>
+        </TabsList>
+      </Tabs>
+      
       {loading ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[1, 2, 3, 4, 5, 6].map(i => (
-            <Card key={i} className="overflow-hidden">
-              <div className="aspect-video bg-gray-200 animate-pulse" />
-              <CardContent className="p-4">
-                <div className="h-6 bg-gray-200 rounded animate-pulse mb-2" />
-                <div className="h-4 bg-gray-200 rounded animate-pulse w-1/2" />
-              </CardContent>
-            </Card>
-          ))}
+        <div className="flex justify-center items-center h-64">
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          <span className="ml-2">Loading videos...</span>
         </div>
-      ) : filteredVideos.length === 0 ? (
-        <div className="text-center py-12">
-          <p className="text-gray-500 mb-4">No videos found matching your search.</p>
-          <Button variant="outline" onClick={() => setSearchQuery('')}>
-            Clear Search
+      ) : error ? (
+        <div className="bg-destructive/10 text-destructive p-4 rounded-md">
+          {error}
+        </div>
+      ) : getFilteredVideos().length === 0 ? (
+        <div className="text-center p-8 border border-dashed rounded-lg">
+          <h3 className="text-xl font-medium mb-2">No videos found</h3>
+          <p className="text-muted-foreground mb-4">
+            {activeTab === 'all' 
+              ? "You haven't created any AI avatar videos yet." 
+              : `No ${activeTab} videos found.`}
+          </p>
+          <Button asChild>
+            <a href="/ai-avatar-videos/generate">Create Your First Video</a>
           </Button>
         </div>
       ) : (
-        <div className="space-y-8">
-          {Object.entries(videosByCategory).map(([category, categoryVideos]) => (
-            <div key={category}>
-              <h2 className="text-xl font-semibold mb-4">{category}</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {categoryVideos.map(video => (
-                  <Card key={video.id} className="overflow-hidden">
-                    <div className="aspect-video bg-gray-100 relative">
-                      {video.thumbnailUrl ? (
-                        <img 
-                          src={video.thumbnailUrl} 
-                          alt={video.title || 'Video thumbnail'} 
-                          className="w-full h-full object-cover"
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center">
-                          <Video className="text-gray-400" size={48} />
-                        </div>
-                      )}
-                      <div className="absolute inset-0 bg-black bg-opacity-20 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <Button asChild variant="secondary">
-                          <Link href={`/ai-avatar-videos/view/${video.id}`}>
-                            Watch Video
-                          </Link>
-                        </Button>
-                      </div>
-                    </div>
-                    <CardContent className="p-4">
-                      <h3 className="font-medium mb-1">{video.title || 'Untitled Video'}</h3>
-                      <p className="text-sm text-gray-500">
-                        {video.createdAt?.toLocaleDateString()}
-                      </p>
-                    </CardContent>
-                  </Card>
-                ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {getFilteredVideos().map(video => (
+            <Card key={video.id} className="overflow-hidden">
+              <div className="aspect-video bg-muted relative">
+                {video.thumbnailUrl ? (
+                  <img 
+                    src={video.thumbnailUrl} 
+                    alt={video.title} 
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center bg-secondary/20">
+                    {video.status === 'pending' || video.status === 'processing' ? (
+                      <Loader2 className="h-8 w-8 animate-spin text-primary" />
+                    ) : (
+                      <span className="text-muted-foreground">No preview available</span>
+                    )}
+                  </div>
+                )}
+                {video.status === 'completed' && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 hover:opacity-100 transition-opacity">
+                    <Button asChild variant="secondary" size="icon">
+                      <a href={`/ai-avatar-videos/view/${video.id}`}>
+                        <Play className="h-6 w-6" />
+                      </a>
+                    </Button>
+                  </div>
+                )}
+                <div className="absolute top-2 right-2">
+                  <span className={`px-2 py-1 text-xs rounded-full ${
+                    video.status === 'completed' ? 'bg-green-100 text-green-800' :
+                    video.status === 'processing' || video.status === 'pending' ? 'bg-blue-100 text-blue-800' :
+                    'bg-red-100 text-red-800'
+                  }`}>
+                    {video.status.charAt(0).toUpperCase() + video.status.slice(1)}
+                  </span>
+                </div>
               </div>
-            </div>
+              <CardHeader>
+                <CardTitle className="line-clamp-1">{video.title}</CardTitle>
+                <CardDescription>
+                  Created: {formatDate(video.createdAt)}
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground line-clamp-2">
+                  {video.description || 'No description provided'}
+                </p>
+              </CardContent>
+              <CardFooter className="flex justify-between">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  disabled={video.status !== 'completed'}
+                  asChild
+                >
+                  <a href={video.url} download={video.title}>
+                    <Download className="h-4 w-4 mr-2" />
+                    Download
+                  </a>
+                </Button>
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  disabled={video.status !== 'completed'}
+                  asChild
+                >
+                  <a href={`/ai-avatar-videos/view/${video.id}`}>
+                    <ExternalLink className="h-4 w-4 mr-2" />
+                    View
+                  </a>
+                </Button>
+              </CardFooter>
+            </Card>
           ))}
         </div>
       )}
