@@ -15,42 +15,64 @@ export async function GET(req: NextRequest) {
     const searchParams = req.nextUrl.searchParams;
     const type = searchParams.get('type') || 'all';
     
-    // Get user profile and executive function settings
+    // Note: ExecutiveFunctionProfile model is not defined in the Prisma schema
+    // For now, we'll just return mock data
+    
+    // Get user
     const user = await prisma.user.findUnique({
-      where: { id: userId },
-      include: {
-        executiveFunctionProfile: true,
-        executiveFunctionTasks: {
-          orderBy: { createdAt: 'desc' },
-          include: {
-            steps: true
-          }
-        }
-      }
+      where: { id: userId }
     });
     
     if (!user) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
     
+    // Mock data for executive function profile and tasks
+    const mockProfile = {
+      id: `mock-profile-${userId}`,
+      userId,
+      settings: {
+        useVisualSupports: true,
+        useAudioReminders: true,
+        useTimerBreakdown: true,
+        useAutomaticBreaks: true,
+        useTaskBreakdown: true,
+        complexityThreshold: 60,
+        reminderFrequency: 'medium',
+        interfaceComplexity: 'standard'
+      },
+      createdAt: new Date(),
+      updatedAt: new Date()
+    };
+    
+    const mockTasks: Array<{
+      id: string;
+      userId: string;
+      title: string;
+      description: string;
+      status: string;
+      createdAt: Date;
+      updatedAt: Date;
+    }> = [];
+    
     // Return different data based on request type
     switch (type) {
       case 'profile':
-        return NextResponse.json({ 
-          profile: user.executiveFunctionProfile 
+        return NextResponse.json({
+          profile: mockProfile
         });
         
       case 'tasks':
-        return NextResponse.json({ 
-          tasks: user.executiveFunctionTasks 
+        return NextResponse.json({
+          tasks: mockTasks
         });
         
       case 'all':
       default:
         return NextResponse.json({
-          profile: user.executiveFunctionProfile,
-          tasks: user.executiveFunctionTasks,
-          settings: user.executiveFunctionProfile?.settings || null
+          profile: mockProfile,
+          tasks: mockTasks,
+          settings: mockProfile.settings
         });
     }
   } catch (error) {
@@ -70,52 +92,47 @@ export async function POST(req: NextRequest) {
     const userId = session.user.id;
     const { type, data } = await req.json();
     
+    // Note: ExecutiveFunctionProfile model is not defined in the Prisma schema
+    // For now, we'll just return mock data
+    
+    // Mock profile data
+    const mockProfile = {
+      id: `mock-profile-${userId}`,
+      userId,
+      settings: data.settings || {
+        useVisualSupports: true,
+        useAudioReminders: true,
+        useTimerBreakdown: true,
+        useAutomaticBreaks: true,
+        useTaskBreakdown: true,
+        complexityThreshold: 60,
+        reminderFrequency: 'medium',
+        interfaceComplexity: 'standard'
+      },
+      createdAt: new Date(),
+      updatedAt: new Date()
+    };
+    
     switch (type) {
       case 'profile':
-        // Create or update executive function profile
-        const profile = await prisma.executiveFunctionProfile.upsert({
-          where: {
-            userId
-          },
-          update: {
-            ...data,
-            updatedAt: new Date()
-          },
-          create: {
-            userId,
-            ...data,
-            settings: data.settings || {
-              useVisualSupports: true,
-              useAudioReminders: true,
-              useTimerBreakdown: true,
-              useAutomaticBreaks: true,
-              useTaskBreakdown: true,
-              complexityThreshold: 60,
-              reminderFrequency: 'medium',
-              interfaceComplexity: 'standard'
-            }
-          }
-        });
+        // Log the profile creation/update request
+        console.log(`Creating/updating executive function profile for user: ${userId}`);
+        console.log('Profile data:', data);
         
-        return NextResponse.json({ profile });
+        return NextResponse.json({
+          profile: mockProfile,
+          message: 'Profile storage is not implemented yet'
+        });
         
       case 'settings':
-        // Update executive function settings
-        const updatedProfile = await prisma.executiveFunctionProfile.upsert({
-          where: {
-            userId
-          },
-          update: {
-            settings: data,
-            updatedAt: new Date()
-          },
-          create: {
-            userId,
-            settings: data
-          }
-        });
+        // Log the settings update request
+        console.log(`Updating executive function settings for user: ${userId}`);
+        console.log('Settings data:', data);
         
-        return NextResponse.json({ settings: updatedProfile.settings });
+        return NextResponse.json({
+          settings: mockProfile.settings,
+          message: 'Settings storage is not implemented yet'
+        });
         
       default:
         return NextResponse.json({ error: 'Invalid request type' }, { status: 400 });
@@ -137,20 +154,28 @@ export async function PUT(req: NextRequest) {
     const userId = session.user.id;
     const { type, id, data } = await req.json();
     
+    // Note: ExecutiveFunctionProfile model is not defined in the Prisma schema
+    // For now, we'll just return mock data
+    
+    // Mock profile data
+    const mockProfile = {
+      id: `mock-profile-${userId}`,
+      userId,
+      ...data,
+      settings: data.settings || {},
+      updatedAt: new Date()
+    };
+    
     switch (type) {
       case 'profile':
-        // Update executive function profile
-        const profile = await prisma.executiveFunctionProfile.update({
-          where: {
-            userId
-          },
-          data: {
-            ...data,
-            updatedAt: new Date()
-          }
-        });
+        // Log the profile update request
+        console.log(`Updating executive function profile for user: ${userId}`);
+        console.log('Profile data:', data);
         
-        return NextResponse.json({ profile });
+        return NextResponse.json({
+          profile: mockProfile,
+          message: 'Profile update is not implemented yet'
+        });
         
       default:
         return NextResponse.json({ error: 'Invalid request type' }, { status: 400 });
