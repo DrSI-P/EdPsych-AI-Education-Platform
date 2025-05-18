@@ -8,8 +8,7 @@ interface LoadingProps {
   className?: string;
 }
 
-// Export Progress component to fix build warnings
-export { Progress } from './progress';
+// Progress component is defined in this file, no need to import from progress.tsx
 
 export function Spinner({ size = 'md', color = 'primary', className = '' }: LoadingProps) {
   const sizeClasses = {
