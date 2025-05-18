@@ -29,8 +29,12 @@ export async function POST(req: NextRequest) {
     // Get AI service
     const aiService = getAIService();
     
-    // Get user's learning style profile if available and no preference specified
-    let userLearningStyle = null;
+    // Use the provided learning style preference
+    let userLearningStyle = learningStylePreference;
+    
+    // Note: LearningStyleProfile model is not currently defined in the schema
+    // If needed in the future, uncomment and update this code:
+    /*
     if (!learningStylePreference) {
       const learningStyleProfile = await prisma.learningStyleProfile.findFirst({
         where: {
@@ -45,6 +49,7 @@ export async function POST(req: NextRequest) {
         userLearningStyle = learningStyleProfile.primaryStyle.toLowerCase();
       }
     }
+    */
     
     // Create prompt for content transformation
     const prompt = `
