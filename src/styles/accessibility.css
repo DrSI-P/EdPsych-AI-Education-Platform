@@ -1,0 +1,77 @@
+/* Import high contrast styles */
+@import './high-contrast.css';
+
+/* Global CSS variables for high contrast mode */
+:root {
+  --text-size-adjust: 100%;
+  --contrast-adjust: 100%;
+  --custom-text-color: #ffffff;
+  --custom-background-color: #000000;
+  --custom-link-color: #ffff00;
+}
+
+/* Add WCAG 2.1 AA compliant focus styles for keyboard navigation */
+*:focus-visible {
+  outline: 3px solid #0066cc !important;
+  outline-offset: 2px !important;
+}
+
+/* Ensure text remains visible during webfont load */
+html {
+  font-display: swap;
+}
+
+/* Ensure sufficient color contrast for all text */
+.text-muted-foreground {
+  color: #6b7280;
+}
+
+/* High contrast mode overrides this for better contrast */
+.high-contrast .text-muted-foreground,
+.dark-high-contrast .text-muted-foreground,
+.yellow-black .text-muted-foreground,
+.black-yellow .text-muted-foreground,
+.blue-yellow .text-muted-foreground,
+.custom-contrast .text-muted-foreground {
+  color: var(--text-color) !important;
+  opacity: 0.8 !important;
+}
+
+/* Ensure form controls have visible boundaries */
+input, select, textarea {
+  border: 1px solid #d1d5db;
+}
+
+/* Ensure links are distinguishable */
+a {
+  text-decoration: underline;
+}
+
+/* Ensure buttons have sufficient contrast */
+button, 
+.button {
+  border: 1px solid transparent;
+}
+
+/* Ensure disabled elements maintain sufficient contrast */
+[disabled] {
+  opacity: 0.6;
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Class-based reduced motion for our custom control */
+.reduce-animations * {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
