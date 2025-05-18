@@ -268,7 +268,7 @@ export default function ParentCommunicationManagement() {
         sender: 'teacher',
         name: selectedConversation.name.split(' ')[0] + ' ' + selectedConversation.name.split(' ')[1],
         avatar: selectedConversation.avatar,
-        content: 'Thank you for your message. I'll follow up on this shortly.',
+        content: 'Thank you for your message. I\'ll follow up on this shortly.',
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         translated: false,
         attachments: []

@@ -179,15 +179,15 @@ Mr. Roberts: The new GCSE specifications place more emphasis on 19th-century tex
 Ms. Thomas: I've found some accessible extracts we could use to build their confidence with these texts.
 Ms. Johnson: Great initiative. Please share those with the team.
 Mr. Williams: Should we also consider a cross-curricular project with History for the Victorian literature?
-Ms. Johnson: That's an excellent idea. I'll speak with the Head of History about possibilities.
+Ms. Johnson: That\'s an excellent idea. I\'ll speak with the Head of History about possibilities.
 Mrs. Davies: For resources, we'll need to order some new class sets of books. Can we discuss budget allocation?
 Ms. Johnson: Yes, I've received our department budget for next year. We have £2,500 for new resources.
 Mr. Roberts: That should be sufficient if we prioritize carefully.
-Ms. Johnson: Agreed. Please send me your resource requests by Friday, and I'll compile the order.
+Ms. Johnson: Agreed. Please send me your resource requests by Friday, and I\'ll compile the order.
 Ms. Thomas: One last item - the literacy intervention program needs reviewing.
 Ms. Johnson: Yes, let's schedule a separate meeting focused specifically on intervention strategies next week.
 Mr. Williams: Tuesday afternoon would work for me.
-Ms. Johnson: Let's say Tuesday at 3:30 pm. I'll send a calendar invitation. Thank you all for your contributions today.
+Ms. Johnson: Let\'s say Tuesday at 3:30 pm. I\'ll send a calendar invitation. Thank you all for your contributions today.
     `,
     keyPoints: [
       { text: 'Year 7 curriculum to include more diverse texts', category: 'decision', highlighted: true },

@@ -721,7 +721,7 @@ const EmotionalRegulationEngine = () => {
                         </div>
                       </CardContent>
                       <CardFooter>
-                        <Button className="w-full">I'll Try This</Button>
+                        <Button className="w-full">I\'ll Try This</Button>
                       </CardFooter>
                     </Card>
                   ))
