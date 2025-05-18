@@ -18,6 +18,29 @@ export interface AIModel {
   bestFor: string[];
 }
 
+// Export aiService to fix build warning
+export const aiService = {
+  getModel: (modelId: string) => {
+    return AI_MODELS.find(model => model.id === modelId);
+  },
+  getBestModelForTask: (task: string, type: AIModelType = 'text') => {
+    const eligibleModels = AI_MODELS.filter(model => model.types.includes(type));
+    
+    for (const model of eligibleModels) {
+      if (model.bestFor.some(bestFor => bestFor.toLowerCase().includes(task.toLowerCase()))) {
+        return model;
+      }
+    }
+    
+    // Default to a reasonable model if no specific match
+    return eligibleModels[0];
+  },
+  getAllModels: () => AI_MODELS,
+  getModelsForProvider: (provider: AIProvider) => {
+    return AI_MODELS.filter(model => model.provider === provider);
+  }
+};
+
 // Define available models for each provider
 export const AI_MODELS: AIModel[] = [
   {
