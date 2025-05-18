@@ -2,12 +2,9 @@
 
 import React from 'react';
 import LearningCommunities from '@/components/professional-development/learning-communities';
-import { Metadata } from 'next';
 
-export const metadata: Metadata = {
-  title: 'Learning Communities | EdPsych Connect',
-  description: 'Connect, collaborate, and share with educators across schools through secure learning communities.',
-};
+// Metadata should not be exported from client components
+// Removed the metadata export to fix the React Server Components error
 
 export default function LearningCommunitiesPage() {
   return (

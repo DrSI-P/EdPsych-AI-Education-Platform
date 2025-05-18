@@ -697,7 +697,7 @@ const MOCK_RESEARCH_IMPACT = [
     students: 1200,
     description: 'Implementation of targeted intervention reducing mathematics anxiety and improving attainment for participating students.',
     evidence: ['Anxiety Measures', 'Attainment Data', 'Student Interviews'],
-    testimonial: 'The intervention has made a remarkable difference to our students' confidence and engagement with mathematics, particularly for previously anxious learners.'
+    testimonial: 'The intervention has made a remarkable difference to our students\' confidence and engagement with mathematics, particularly for previously anxious learners.'
   },
   {
     id: 'impact5',

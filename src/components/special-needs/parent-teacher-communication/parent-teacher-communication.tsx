@@ -108,7 +108,7 @@ const ParentTeacherCommunication = () => {
       recipient: "Mr. & Mrs. Johnson",
       recipientRole: "parent",
       subject: "Weekly emotional wellbeing update for Alex",
-      content: "Dear Mr. and Mrs. Johnson,\n\nI wanted to share a positive update on Alex's emotional regulation progress this week. He's been using the breathing techniques we practiced when feeling frustrated, and I've noticed he's able to calm himself more quickly. He mentioned feeling proud of this achievement.\n\nHe did have a challenging moment during group work on Tuesday, but was able to use his words to express his feelings instead of withdrawing as he might have done previously.\n\nIs there anything you've noticed at home that might help us continue supporting his emotional regulation at school?\n\nBest regards,\nMs. Thompson",
+      content: "Dear Mr. and Mrs. Johnson,\n\nI wanted to share a positive update on Alex\'s emotional regulation progress this week. He\'s been using the breathing techniques we practiced when feeling frustrated, and I\'ve noticed he\'s able to calm himself more quickly. He mentioned feeling proud of this achievement.\n\nHe did have a challenging moment during group work on Tuesday, but was able to use his words to express his feelings instead of withdrawing as he might have done previously.\n\nIs there anything you\'ve noticed at home that might help us continue supporting his emotional regulation at school?\n\nBest regards,\nMs. Thompson",
       date: "2025-05-15T14:30:00Z",
       emotionalFocus: "regulation",
       priority: "normal",

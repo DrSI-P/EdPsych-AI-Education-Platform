@@ -460,7 +460,7 @@ const RestorativeConversationFrameworks = () => {
           prompts: [
             "[To first disputant] Please tell us what happened from your perspective.",
             "[To second disputant] Now, please tell us what happened from your perspective.",
-            "Let me summarize what I've heard from both of you..."
+            "            "Let me summarize what I\'ve heard from both of you...""
           ],
           guidance: "Mediators should take brief notes. After each person speaks, mediators summarize what they heard to ensure understanding. Disputants should address the mediators, not each other, during this phase."
         },

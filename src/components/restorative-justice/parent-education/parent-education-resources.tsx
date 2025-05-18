@@ -270,7 +270,7 @@ const mockModules: Module[] = [
       {
         id: '2-3',
         title: 'Practice Scenarios',
-        description: 'Apply what you've learned to common family situations.',
+        description: 'Apply what you\'ve learned to common family situations.',
         content: 'Lesson content would appear here.',
         completed: false,
         estimatedTime: '20 minutes'
@@ -313,8 +313,7 @@ const mockActivities: FamilyActivity[] = [
     ageGroups: ['primary', 'secondary'],
     materials: ['Large paper or poster board', 'Markers or pens', 'Sticky notes', 'Blu-tack or tape'],
     steps: [
-      'Gather the family and explain that you'll be creating agreements together',
-      'Ask: "What do we need from each other to thrive as a family?"',
+       'Gather the family and explain that you\'ll be creating agreements together',      'Ask: "What do we need from each other to thrive as a family?"',
       'Have everyone write ideas on sticky notes (help younger children)',
       'Group similar ideas together',
       'Discuss and refine into 3-5 positive, simple agreements',

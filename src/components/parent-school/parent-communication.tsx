@@ -64,7 +64,7 @@ const MOCK_CONVERSATIONS = [
     id: '1',
     name: 'Ms. Johnson (Year 4 Teacher)',
     avatar: '/avatars/teacher1.png',
-    lastMessage: 'Thank you for sharing those reading strategies. I've noticed improvement already!',
+    lastMessage: 'Thank you for sharing those reading strategies. I\'ve noticed improvement already!',
     time: '10:32 AM',
     unread: 0,
     online: true
@@ -82,7 +82,7 @@ const MOCK_CONVERSATIONS = [
     id: '3',
     name: 'Mrs. Patel (SENCO)',
     avatar: '/avatars/teacher3.png',
-    lastMessage: 'I've attached the updated support plan for review.',
+    lastMessage: 'I\'ve attached the updated support plan for review.',
     time: 'Monday',
     unread: 0,
     online: true
@@ -100,7 +100,7 @@ const MOCK_CONVERSATIONS = [
     id: '5',
     name: 'Ms. Chen (Art Teacher)',
     avatar: '/avatars/teacher5.png',
-    lastMessage: 'Emma's artwork was exceptional this week. I've shared some photos.',
+    lastMessage: 'Emma\'s artwork was exceptional this week. I\'ve shared some photos.',
     time: 'Last week',
     unread: 0,
     online: true
@@ -114,7 +114,7 @@ const MOCK_MESSAGES = [
     sender: 'teacher',
     name: 'Ms. Johnson',
     avatar: '/avatars/teacher1.png',
-    content: 'Good morning! I wanted to share some observations about Oliver's reading progress this week.',
+    content: 'Good morning! I wanted to share some observations about Oliver\'s reading progress this week.',
     time: '10:02 AM',
     translated: false,
     attachments: []
@@ -124,7 +124,7 @@ const MOCK_MESSAGES = [
     sender: 'parent',
     name: 'You',
     avatar: '/avatars/parent1.png',
-    content: 'Good morning Ms. Johnson! That would be great, we've been practicing at home as well.',
+    content: 'Good morning Ms. Johnson! That would be great, we\'ve been practicing at home as well.',
     time: '10:05 AM',
     translated: false,
     attachments: []
@@ -134,7 +134,7 @@ const MOCK_MESSAGES = [
     sender: 'teacher',
     name: 'Ms. Johnson',
     avatar: '/avatars/teacher1.png',
-    content: 'I've noticed he's much more confident with decoding unfamiliar words. The strategies we discussed at parents' evening seem to be working well. He finished his first chapter book yesterday and was so proud!',
+    content: 'I\'ve noticed he\'s much more confident with decoding unfamiliar words. The strategies we discussed at parents\' evening seem to be working well. He finished his first chapter book yesterday and was so proud!',
     time: '10:08 AM',
     translated: false,
     attachments: [
@@ -151,7 +151,7 @@ const MOCK_MESSAGES = [
     sender: 'parent',
     name: 'You',
     avatar: '/avatars/parent1.png',
-    content: 'That's wonderful news! He's been very excited about reading at home too. The visual bookmarks with the decoding strategies have been really helpful. He uses them every time he gets stuck.',
+    content: 'That\'s wonderful news! He\'s been very excited about reading at home too. The visual bookmarks with the decoding strategies have been really helpful. He uses them every time he gets stuck.',
     time: '10:15 AM',
     translated: false,
     attachments: []
@@ -161,7 +161,7 @@ const MOCK_MESSAGES = [
     sender: 'teacher',
     name: 'Ms. Johnson',
     avatar: '/avatars/teacher1.png',
-    content: 'I'm so glad to hear that! Would you be interested in some additional resources to support his growing interest in reading? I have some book recommendations and activities that might be engaging for him.',
+    content: 'I\'m so glad to hear that! Would you be interested in some additional resources to support his growing interest in reading? I have some book recommendations and activities that might be engaging for him.',
     time: '10:20 AM',
     translated: false,
     attachments: []
@@ -181,7 +181,7 @@ const MOCK_MESSAGES = [
     sender: 'teacher',
     name: 'Ms. Johnson',
     avatar: '/avatars/teacher1.png',
-    content: 'Perfect! I'll put together a list of space and adventure books at his reading level. I'll also include some comprehension activities that you can try at home. These will help reinforce his understanding while keeping it fun and engaging.',
+    content: 'Perfect! I\'ll put together a list of space and adventure books at his reading level. I\'ll also include some comprehension activities that you can try at home. These will help reinforce his understanding while keeping it fun and engaging.',
     time: '10:30 AM',
     translated: false,
     attachments: []
@@ -191,7 +191,7 @@ const MOCK_MESSAGES = [
     sender: 'parent',
     name: 'You',
     avatar: '/avatars/parent1.png',
-    content: 'Thank you for sharing those reading strategies. I've noticed improvement already!',
+    content: 'Thank you for sharing those reading strategies. I\'ve noticed improvement already!',
     time: '10:32 AM',
     translated: false,
     attachments: []

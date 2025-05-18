@@ -947,9 +947,9 @@ export async function DELETE(request: NextRequest) {
         memberships.splice(membershipIndex, 1);
         
         // Update community member count
-        const communityIndex = communities.findIndex(c => c.id === communityId);
-        if (communityIndex !== -1) {
-          communities[communityIndex].members -= 1;
+        const memberCommunityIndex = communities.findIndex(c => c.id === communityId);
+        if (memberCommunityIndex !== -1) {
+          communities[memberCommunityIndex].members -= 1;
         }
         
         return NextResponse.json({ success: true, deleted: deletedMembership });
