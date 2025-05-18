@@ -10,7 +10,18 @@ export * from './button';
 export * from './calendar';
 export * from './card';
 export * from './checkbox';
-export * from './dialog';
+
+// Export dialog components with explicit names to avoid conflicts with modal
+export {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger
+} from './dialog';
+
 // Export dropdown components with explicit names to avoid conflicts
 export { 
   Dropdown,
@@ -21,7 +32,9 @@ export {
   Menu,
   MenuItem
 } from './dropdown';
+
 export * from './dropdown-menu';
+
 // Export form components with explicit names to avoid conflicts
 export { 
   Input,
@@ -29,26 +42,73 @@ export {
   Select,
   Checkbox as FormCheckbox,
   Radio,
-  FormLabel
+  FormLabel,
+  Form
 } from './form';
+
 export * from './input';
 export * from './label';
-export * from './loading';
-export * from './modal';
+
+// Export loading components with explicit names to avoid conflicts
+export {
+  Loading,
+  LoadingDots,
+  LoadingSpinner
+} from './loading';
+
+// Export modal components with explicit names to avoid conflicts with dialog
+export {
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay
+} from './modal';
+
 export * from './pagination';
 export * from './popover';
-export * from './progress';
+
+// Export progress component with explicit name to avoid conflicts
+export {
+  Progress
+} from './progress';
+
 export * from './radio-group';
 export * from './scroll-area';
 export * from './select';
 export * from './separator';
-export * from './skeleton';
+
+// Export skeleton component with explicit name to avoid conflicts
+export {
+  Skeleton
+} from './skeleton';
+
 export * from './slider';
 export * from './switch';
 export * from './table';
 export * from './tabs';
 export * from './textarea';
-export * from './toast';
-export * from './toaster';
+
+// Export toast components with explicit names to avoid conflicts
+export {
+  Toast,
+  ToastProvider,
+  ToastTitle,
+  ToastDescription,
+  ToastClose,
+  ToastViewport
+} from './toast';
+
+// Export toaster component with explicit name to avoid conflicts
+export {
+  Toaster
+} from './toaster';
+
 export * from './tooltip';
-export * from './use-toast';
+
+// Export use-toast with explicit name to avoid conflicts
+export {
+  toast,
+  useToast
+} from './use-toast';
