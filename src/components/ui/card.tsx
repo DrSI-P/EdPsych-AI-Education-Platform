@@ -1,6 +1,10 @@
 'use client';
 
 import React from 'react';
+import { Button } from '@/components/ui/button';
+
+// Re-export Button to fix import issues
+export { Button };
 
 interface CardProps {
   children: React.ReactNode;
