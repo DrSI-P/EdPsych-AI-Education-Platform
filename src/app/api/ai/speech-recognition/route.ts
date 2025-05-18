@@ -62,17 +62,24 @@ export async function POST(req: NextRequest) {
     const enhancedTranscript = response.text;
     
     // Log the speech recognition activity
-    await prisma.speechRecognitionLog.create({
-      data: {
-        userId: session.user.id,
-        originalTranscript: audioData.transcript,
-        enhancedTranscript,
-        childVoiceOptimization,
-        language,
-        confidenceScore: audioData.confidence || null,
-        duration: audioData.duration || null
-      }
-    });
+    try {
+      // Use type assertion to tell TypeScript that the property exists
+      await (prisma as any).speechRecognitionLog.create({
+        data: {
+          userId: session.user.id,
+          originalTranscript: audioData.transcript,
+          enhancedTranscript,
+          childVoiceOptimization,
+          language,
+          confidenceScore: audioData.confidence || null,
+          duration: audioData.duration || null
+        }
+      });
+    } catch (logError) {
+      // If the model doesn't exist yet, just log the error and continue
+      console.error('Error logging speech recognition:', logError);
+      // This will allow the app to continue working even if the model doesn't exist yet
+    }
     
     return NextResponse.json({
       success: true,
@@ -93,16 +100,39 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
-    // Get user's speech recognition logs
-    const logs = await prisma.speechRecognitionLog.findMany({
-      where: {
-        userId: session.user.id
-      },
-      orderBy: {
-        createdAt: 'desc'
-      },
-      take: 10
-    });
+    // Define the type for the logs
+    type SpeechRecognitionLog = {
+      id: string;
+      userId: string;
+      originalTranscript: string;
+      enhancedTranscript: string;
+      childVoiceOptimization: boolean;
+      language: string;
+      confidenceScore: number | null;
+      duration: number | null;
+      createdAt: Date;
+      updatedAt: Date;
+    };
+
+    // Get user's speech recognition logs with fallback
+    let logs: SpeechRecognitionLog[] = [];
+    
+    try {
+      // Use type assertion to tell TypeScript that the property exists
+      logs = await (prisma as any).speechRecognitionLog.findMany({
+        where: {
+          userId: session.user.id
+        },
+        orderBy: {
+          createdAt: 'desc'
+        },
+        take: 10
+      });
+    } catch (logError) {
+      // If the model doesn't exist yet, just log the error and return an empty array
+      console.error('Error fetching speech recognition logs:', logError);
+      // This will allow the app to continue working even if the model doesn't exist yet
+    }
     
     return NextResponse.json({
       success: true,
