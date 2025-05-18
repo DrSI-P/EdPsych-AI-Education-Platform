@@ -130,7 +130,20 @@ async function handleAnthropicImageGeneration(requestData: AIImageGenerationRequ
     
     // Since Anthropic doesn't have a direct image generation API yet,
     // we'll use the text description to generate an image with OpenAI
-    const imageDescription = response.content[0].text;
+    let imageDescription = '';
+    
+    // Handle different content block types from Anthropic API
+    if (response.content && response.content.length > 0) {
+      const contentBlock = response.content[0];
+      if ('text' in contentBlock) {
+        // If the contentBlock has a text property, use it directly
+        imageDescription = contentBlock.text;
+      } else {
+        // For tool_use, server_tool_use, or web_search_tool types
+        // Try to extract meaningful information or convert to string
+        imageDescription = JSON.stringify(contentBlock);
+      }
+    }
     
     console.log('Using Anthropic description to generate image with OpenAI:', imageDescription);
     
