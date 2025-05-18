@@ -1,9 +1,12 @@
+'use client';
+
 import '@/styles/globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/toaster';
 import { AuthProvider } from '@/components/auth-provider';
+import { RootLayoutWrapper } from '@/components/root-layout-wrapper';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -23,7 +26,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <AuthProvider>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            {children}
+            <RootLayoutWrapper>
+              {children}
+            </RootLayoutWrapper>
             <Toaster />
           </ThemeProvider>
         </AuthProvider>
