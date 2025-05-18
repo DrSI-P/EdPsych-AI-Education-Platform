@@ -94,7 +94,7 @@ const SafeDigitalExpressionSpaces = () => {
     {
       id: "j2",
       title: "Feeling frustrated with math homework",
-      content: "I spent two hours on my math homework today and still couldn't figure out some of the problems. It makes me feel really stupid when everyone else seems to understand it. I know I should ask for help, but I'm embarrassed. Maybe I'll try watching some tutorial videos online before the next class.",
+      content: "I spent two hours on my math homework today and still couldn\'t figure out some of the problems. It makes me feel really stupid when everyone else seems to understand it. I know I should ask for help, but I\'m embarrassed. Maybe I\'ll try watching some tutorial videos online before the next class.",
       date: "2025-05-12T19:45:00Z",
       mood: "frustrated",
       tags: ["school", "homework", "math", "frustration"],
@@ -122,7 +122,7 @@ const SafeDigitalExpressionSpaces = () => {
           id: "r2",
           author: "Jamie",
           role: "peer",
-          content: "That's awesome! I'm on the team too, so I'll see you at practice!",
+          content: "That\'s awesome! I\'m on the team too, so I\'ll see you at practice!",
           date: "2025-05-14T18:30:00Z"
         }
       ]
@@ -140,7 +140,7 @@ const SafeDigitalExpressionSpaces = () => {
     {
       id: "j5",
       title: "Mindfulness practice reflection",
-      content: "I tried the 10-minute mindfulness exercise from class today. It was hard to sit still at first, but by the end I felt calmer. I noticed that my thoughts kept drifting to my upcoming science test, but I practiced bringing my attention back to my breathing like we learned. I think I'll try to do this every morning before school.",
+      content: "I tried the 10-minute mindfulness exercise from class today. It was hard to sit still at first, but by the end I felt calmer. I noticed that my thoughts kept drifting to my upcoming science test, but I practiced bringing my attention back to my breathing like we learned. I think I\'ll try to do this every morning before school.",
       date: "2025-05-16T08:15:00Z",
       mood: "calm",
       tags: ["mindfulness", "wellbeing", "practice"],

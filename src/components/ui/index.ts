@@ -11,9 +11,26 @@ export * from './calendar';
 export * from './card';
 export * from './checkbox';
 export * from './dialog';
-export * from './dropdown';
+// Export dropdown components with explicit names to avoid conflicts
+export { 
+  Dropdown,
+  DropdownItem,
+  DropdownLink,
+  DropdownDivider,
+  DropdownLabel,
+  Menu,
+  MenuItem
+} from './dropdown';
 export * from './dropdown-menu';
-export * from './form';
+// Export form components with explicit names to avoid conflicts
+export { 
+  Input,
+  Textarea,
+  Select,
+  Checkbox as FormCheckbox,
+  Radio,
+  FormLabel
+} from './form';
 export * from './input';
 export * from './label';
 export * from './loading';
@@ -32,5 +49,6 @@ export * from './table';
 export * from './tabs';
 export * from './textarea';
 export * from './toast';
+export * from './toaster';
 export * from './tooltip';
 export * from './use-toast';

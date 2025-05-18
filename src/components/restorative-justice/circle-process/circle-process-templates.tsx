@@ -105,7 +105,7 @@ const CircleProcessTemplates = () => {
       structure: {
         openingCeremony: "Welcome everyone to our circle. Today we're going to take some time to connect as a community and get to know each other better. In our circle, we use a talking piece (show the object). When you're holding the talking piece, it's your turn to speak, and everyone else listens respectfully. You can always pass if you don't want to share.",
         checkIn: "Let's start with a quick check-in. When the talking piece comes to you, please share your name and how you're feeling today in one or two words.",
-        mainActivity: "For our main activity today, we'll be exploring the topic of [specific topic]. I'll ask a question, and we'll pass the talking piece around the circle. Remember, you can always pass if you don't want to share.",
+        mainActivity: "For our main activity today, we\'ll be exploring the topic of [specific topic]. I\'ll ask a question, and we\'ll pass the talking piece around the circle. Remember, you can always pass if you don\'t want to share.",
         checkOut: "Before we close our circle, let's do a quick check-out. When the talking piece comes to you, please share one word about how you're feeling now.",
         closingCeremony: "Thank you everyone for participating in our circle today. I appreciate your honesty and respect for each other. Let's close our circle with a moment of silence to reflect on what we've shared."
       },
@@ -159,7 +159,7 @@ const CircleProcessTemplates = () => {
       structure: {
         openingCeremony: "Welcome everyone to our circle. Today we're going to work together to address [specific issue] that has been affecting our community. In our circle, we use a talking piece. When you're holding it, it's your turn to speak, and everyone else listens respectfully. Our goal today is not to blame anyone but to understand what's happening and find solutions together.",
         checkIn: "Let's start with a quick check-in. When the talking piece comes to you, please share your name and one word about how you're feeling about being in this circle today.",
-        mainActivity: "For our main activity, we'll explore what's been happening, how it's affecting everyone, and what we can do to make things better. I'll ask several questions, and we'll pass the talking piece around for each one.",
+        mainActivity: "For our main activity, we\'ll explore what\'s been happening, how it\'s affecting everyone, and what we can do to make things better. I\'ll ask several questions, and we\'ll pass the talking piece around for each one.",
         checkOut: "Before we close, let's do a final round. When the talking piece comes to you, please share one thing you're taking away from our circle today.",
         closingCeremony: "Thank you everyone for your honesty and ideas today. I'm confident that together we can improve this situation. Let's close our circle by taking a deep breath together and committing to our agreements."
       },
@@ -214,7 +214,7 @@ const CircleProcessTemplates = () => {
       structure: {
         openingCeremony: "Welcome everyone to our celebration circle! Today is a special opportunity for us to acknowledge our achievements and celebrate our successes. In our circle, we use a talking piece to ensure everyone has a chance to speak and be heard. Let's begin with a moment to appreciate being together.",
         checkIn: "Let's start with a quick check-in. When the talking piece comes to you, please share your name and one word that describes how you're feeling today.",
-        mainActivity: "For our main activity, we'll be celebrating [specific achievement/milestone]. I'll ask several questions, and we'll pass the talking piece around for each one. Remember, this is a time to acknowledge both individual and collective achievements.",
+        mainActivity: "For our main activity, we\'ll be celebrating [specific achievement/milestone]. I\'ll ask several questions, and we\'ll pass the talking piece around for each one. Remember, this is a time to acknowledge both individual and collective achievements.",
         checkOut: "Before we close our celebration, let's do a final round. When the talking piece comes to you, please share one thing you're grateful for from our time together.",
         closingCeremony: "Thank you everyone for sharing in this celebration. Your contributions make our community stronger. Let's close our circle by [closing activity - e.g., a group cheer, a moment of appreciation, etc.]."
       },
@@ -269,7 +269,7 @@ const CircleProcessTemplates = () => {
       structure: {
         openingCeremony: "Welcome everyone to our circle. We're here today to address a conflict that has occurred and find a way forward that works for everyone. This is a safe space where we listen to understand, not to respond. When you hold the talking piece, you have the floor to speak your truth. When you're not holding it, your job is to listen with an open heart and mind.",
         checkIn: "Let's start with a check-in. When the talking piece comes to you, please share your name and how you're feeling about being here today, in just a word or two.",
-        mainActivity: "For our main activity, we'll explore what happened, how everyone has been affected, and how we can make things right. I'll ask several questions, and we'll pass the talking piece around for each one. Remember, we're here to understand and resolve, not to blame.",
+        mainActivity: "For our main activity, we\'ll explore what happened, how everyone has been affected, and how we can make things right. I\'ll ask several questions, and we\'ll pass the talking piece around for each one. Remember, we\'re here to understand and resolve, not to blame.",
         checkOut: "Before we close, let's do a final round. When the talking piece comes to you, please share one thing you're committing to do moving forward.",
         closingCeremony: "Thank you everyone for your honesty and willingness to work through this conflict. The agreements we've made today will help us move forward in a positive way. Let's close our circle by shaking hands (or another appropriate gesture) as a sign of our commitment to these agreements."
       },
@@ -334,7 +334,7 @@ const CircleProcessTemplates = () => {
       structure: {
         openingCeremony: "Welcome to our academic circle. Today we'll be exploring [specific topic/subject] together. In our circle, everyone's voice and perspective is valuable. We use a talking piece to ensure everyone has a chance to contribute. Our goal today is to deepen our understanding through collaborative discussion.",
         checkIn: "Let's start with a quick check-in. When the talking piece comes to you, please share your name and one thing you already know or wonder about our topic today.",
-        mainActivity: "For our main activity, we'll explore different aspects of [topic]. I'll pose several questions, and we'll pass the talking piece around for each one. Feel free to build on others' ideas as we go.",
+        mainActivity: "For our main activity, we\'ll explore different aspects of [topic]. I\'ll pose several questions, and we\'ll pass the talking piece around for each one. Feel free to build on others\' ideas as we go.",
         checkOut: "Before we close, let's do a final round. When the talking piece comes to you, please share one new insight you're taking away from our discussion today.",
         closingCeremony: "Thank you everyone for your thoughtful contributions. Our collective wisdom has helped us understand this topic more deeply. Let's close our circle by acknowledging what we've learned together."
       },
