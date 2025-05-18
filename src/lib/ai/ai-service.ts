@@ -88,6 +88,53 @@ export function getAIService() {
         console.error('Error generating educational content:', error);
         throw error;
       }
+    },
+    
+    // Evaluate open-ended answers
+    evaluateOpenEndedAnswer: async (params: {
+      question: string;
+      expectedAnswer: string;
+      studentAnswer: string;
+      maxScore: number;
+    }) => {
+      try {
+        // Simulate API call delay
+        await new Promise(resolve => setTimeout(resolve, 1200));
+        
+        const { question, expectedAnswer, studentAnswer, maxScore } = params;
+        
+        // Simple mock evaluation logic
+        const expectedWords = expectedAnswer.toLowerCase().split(/\s+/).filter(w => w.length > 3);
+        const studentWords = studentAnswer.toLowerCase().split(/\s+/).filter(w => w.length > 3);
+        
+        // Count matching words
+        const matchingWords = studentWords.filter(word => expectedWords.includes(word));
+        const matchRatio = expectedWords.length > 0 ? matchingWords.length / expectedWords.length : 0;
+        
+        // Calculate score based on match ratio
+        const score = Math.round(matchRatio * maxScore * 10) / 10;
+        
+        // Generate feedback
+        let feedback = '';
+        if (matchRatio > 0.8) {
+          feedback = 'Excellent answer! You covered all the key points.';
+        } else if (matchRatio > 0.6) {
+          feedback = 'Good answer. You covered most of the key points.';
+        } else if (matchRatio > 0.4) {
+          feedback = 'Satisfactory answer, but you missed some important points.';
+        } else {
+          feedback = 'Your answer needs improvement. Consider reviewing the material.';
+        }
+        
+        return {
+          score,
+          feedback,
+          matchRatio
+        };
+      } catch (error) {
+        console.error('Error evaluating open-ended answer:', error);
+        throw error;
+      }
     }
   };
 }
@@ -142,12 +189,33 @@ export function useAIService() {
     }
   };
   
+  // Evaluate open-ended answers
+  const evaluateOpenEndedAnswer = async (params: {
+    question: string;
+    expectedAnswer: string;
+    studentAnswer: string;
+    maxScore: number;
+  }) => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const result = await aiService.evaluateOpenEndedAnswer(params);
+      setIsLoading(false);
+      return result;
+    } catch (err) {
+      setError(err instanceof Error ? err : new Error('Unknown error occurred'));
+      setIsLoading(false);
+      throw err;
+    }
+  };
+  
   return {
     isLoading,
     error,
     generateText,
     analyzeSentiment,
-    generateEducationalContent
+    generateEducationalContent,
+    evaluateOpenEndedAnswer
   };
 }
 
@@ -232,6 +300,53 @@ export const aiService = {
       };
     } catch (error) {
       console.error('Error generating educational content:', error);
+      throw error;
+    }
+  },
+  
+  // Evaluate open-ended answers
+  evaluateOpenEndedAnswer: async (params: {
+    question: string;
+    expectedAnswer: string;
+    studentAnswer: string;
+    maxScore: number;
+  }) => {
+    try {
+      // Simulate API call delay
+      await new Promise(resolve => setTimeout(resolve, 1200));
+      
+      const { question, expectedAnswer, studentAnswer, maxScore } = params;
+      
+      // Simple mock evaluation logic
+      const expectedWords = expectedAnswer.toLowerCase().split(/\s+/).filter(w => w.length > 3);
+      const studentWords = studentAnswer.toLowerCase().split(/\s+/).filter(w => w.length > 3);
+      
+      // Count matching words
+      const matchingWords = studentWords.filter(word => expectedWords.includes(word));
+      const matchRatio = expectedWords.length > 0 ? matchingWords.length / expectedWords.length : 0;
+      
+      // Calculate score based on match ratio
+      const score = Math.round(matchRatio * maxScore * 10) / 10;
+      
+      // Generate feedback
+      let feedback = '';
+      if (matchRatio > 0.8) {
+        feedback = 'Excellent answer! You covered all the key points.';
+      } else if (matchRatio > 0.6) {
+        feedback = 'Good answer. You covered most of the key points.';
+      } else if (matchRatio > 0.4) {
+        feedback = 'Satisfactory answer, but you missed some important points.';
+      } else {
+        feedback = 'Your answer needs improvement. Consider reviewing the material.';
+      }
+      
+      return {
+        score,
+        feedback,
+        matchRatio
+      };
+    } catch (error) {
+      console.error('Error evaluating open-ended answer:', error);
       throw error;
     }
   }
