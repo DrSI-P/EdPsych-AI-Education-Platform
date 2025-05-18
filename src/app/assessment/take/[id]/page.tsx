@@ -789,7 +789,7 @@ export default function AssessmentTakePage() {
               onClick={handleSubmit}
               disabled={isSubmitting}
             >
-              {isSubmitting ? <Spinner size="small" className="mr-2" /> : null}
+              {isSubmitting ? <Spinner size="sm" className="mr-2" /> : null}
               Submit Assessment
             </Button>
           </div>

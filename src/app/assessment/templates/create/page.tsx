@@ -260,7 +260,7 @@ export default function CreateAssessmentTemplatePage() {
             onClick={handleCreateTemplate}
             disabled={loading || !selectedAssessment}
           >
-            {loading ? <Spinner size="small" /> : 'Create Template'}
+            {loading ? <Spinner size="sm" /> : 'Create Template'}
           </Button>
         </div>
 

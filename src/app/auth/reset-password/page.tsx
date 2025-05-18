@@ -98,7 +98,7 @@ export default function RequestResetPage() {
                     className="w-full"
                     disabled={loading}
                   >
-                    {loading ? <Spinner size="small" className="mr-2" /> : null}
+                    {loading ? <Spinner size="sm" className="mr-2" /> : null}
                     Send Reset Link
                   </Button>
                 </div>

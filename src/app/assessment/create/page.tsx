@@ -502,7 +502,7 @@ export default function CreateAssessmentPage() {
                   type="submit"
                   disabled={loading}
                 >
-                  {loading ? <Spinner size="small" className="mr-2" /> : null}
+                  {loading ? <Spinner size="sm" className="mr-2" /> : null}
                   Create Assessment
                 </Button>
               )}
@@ -555,7 +555,7 @@ export default function CreateAssessmentPage() {
               onClick={handleAIGenerate}
               disabled={aiLoading}
             >
-              {aiLoading ? <Spinner size="small" className="mr-2" /> : null}
+              {aiLoading ? <Spinner size="sm" className="mr-2" /> : null}
               Generate
             </Button>
           </div>
