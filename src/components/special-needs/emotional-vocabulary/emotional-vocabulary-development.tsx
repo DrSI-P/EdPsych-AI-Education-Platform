@@ -29,7 +29,7 @@ import {
   Filter,
   Heart,
   HelpCircle,
-  Image,
+  ImageIcon,
   Info,
   Layers,
   MessageCircle,

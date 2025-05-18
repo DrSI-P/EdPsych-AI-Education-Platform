@@ -246,7 +246,7 @@ const MOCK_FEEDBACK = [
     strategyId: '1',
     author: 'Parent',
     rating: 4,
-    comment: 'Very useful approaches. We've been using the question prompts during reading time and they've helped my daughter think more deeply about the text.',
+    comment: 'Very useful approaches. We\'ve been using the question prompts during reading time and they\'ve helped my daughter think more deeply about the text.',
     date: '2025-06-18',
     helpful: 5
   },

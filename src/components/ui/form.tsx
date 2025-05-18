@@ -263,7 +263,7 @@ export function Radio({
   );
 }
 
-export function Label({
+export function FormLabel({
   children,
   htmlFor,
   className = '',

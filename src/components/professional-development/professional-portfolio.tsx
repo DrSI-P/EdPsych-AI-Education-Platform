@@ -185,7 +185,7 @@ const sampleReflections = [
   {
     id: 1,
     title: "Implementing Mastery Approach",
-    content: "Reflecting on my journey implementing a mastery approach in mathematics teaching, I've observed significant improvements in student conceptual understanding. The key challenges included adjusting pacing to ensure deep learning while covering curriculum requirements. Moving forward, I plan to develop more formative assessment tools to better track conceptual development.",
+    content: "Reflecting on my journey implementing a mastery approach in mathematics teaching, I\'ve observed significant improvements in student conceptual understanding. The key challenges included adjusting pacing to ensure deep learning while covering curriculum requirements. Moving forward, I plan to develop more formative assessment tools to better track conceptual development.",
     date: "2023-12-15",
     tags: ["Mastery Learning", "Curriculum Development", "Assessment"],
     visibility: "public"
@@ -193,7 +193,7 @@ const sampleReflections = [
   {
     id: 2,
     title: "Digital Learning During Pandemic",
-    content: "The rapid shift to digital learning during the pandemic presented both challenges and opportunities. While initially difficult to maintain student engagement, the development of interactive digital resources ultimately enhanced my teaching practice. I've continued to incorporate these tools even after returning to classroom teaching, creating a more blended approach.",
+    content: "The rapid shift to digital learning during the pandemic presented both challenges and opportunities. While initially difficult to maintain student engagement, the development of interactive digital resources ultimately enhanced my teaching practice. I\'ve continued to incorporate these tools even after returning to classroom teaching, creating a more blended approach.",
     date: "2022-06-30",
     tags: ["Digital Learning", "Remote Teaching", "Student Engagement"],
     visibility: "public"
@@ -201,7 +201,7 @@ const sampleReflections = [
   {
     id: 3,
     title: "Leadership Development Reflection",
-    content: "Taking on the mathematics department lead role has developed my leadership skills significantly. I've learned the importance of distributed leadership, clear communication, and data-informed decision making. Areas for further development include managing difficult conversations and strategic planning for longer-term department development.",
+    content: "Taking on the mathematics department lead role has developed my leadership skills significantly. I\'ve learned the importance of distributed leadership, clear communication, and data-informed decision making. Areas for further development include managing difficult conversations and strategic planning for longer-term department development.",
     date: "2023-08-20",
     tags: ["Leadership", "Department Management", "Professional Growth"],
     visibility: "private"
