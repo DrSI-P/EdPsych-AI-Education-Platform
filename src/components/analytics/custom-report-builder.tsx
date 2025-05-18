@@ -1,1145 +1,1465 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { 
-  Card, 
-  CardContent, 
-  CardDescription, 
-  CardFooter, 
-  CardHeader, 
-  CardTitle 
-} from "@/components/ui/card";
-import { 
-  Select, 
-  SelectContent, 
-  SelectItem, 
-  SelectTrigger, 
-  SelectValue 
-} from "@/components/ui/select";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Slider } from "@/components/ui/slider";
+import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Switch } from "@/components/ui/switch";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
+import { format, subDays, subMonths, subYears } from "date-fns";
 import { 
-  BarChart, 
-  Bar, 
-  LineChart, 
-  Line, 
-  PieChart, 
-  Pie, 
-  ResponsiveContainer, 
-  XAxis, 
-  YAxis, 
-  CartesianGrid, 
-  Tooltip, 
-  Legend, 
-  Cell,
-  RadarChart,
-  Radar,
-  PolarGrid,
-  PolarAngleAxis,
-  PolarRadiusAxis,
-  ScatterChart,
-  Scatter,
-  AreaChart,
-  Area
-} from 'recharts';
-import { 
-  Download, 
-  FileText, 
-  Filter, 
-  Search,
-  RefreshCw,
-  Plus,
-  Trash2,
-  Copy,
-  Save,
-  Calendar,
-  Clock,
-  BarChart2,
-  PieChart as PieChartIcon,
-  LineChart as LineChartIcon,
-  Activity,
-  LayoutGrid,
-  Settings,
-  Eye,
-  EyeOff,
-  ChevronDown,
-  ChevronUp,
-  X,
-  Check,
-  Sliders,
-  Share2,
-  Mail,
-  Printer,
-  FileDown
+  Download, Filter, RefreshCw, Settings, Share2, Calendar as CalendarIcon, 
+  ChevronDown, Maximize2, HelpCircle, BookOpen, BarChart2, PieChart as PieChartIcon,
+  LineChart as LineChartIcon, Activity, Users, BookOpen as BookOpenIcon, Clock, 
+  Award, TrendingUp, AlertTriangle, CheckCircle, Info, FileText, Sliders, 
+  BarChart as BarChartIcon, Layers, Save, Plus, Edit, Trash2, ArrowUp, ArrowDown,
+  ArrowRight, Target, Eye, EyeOff, Zap, Flag, User, UserPlus, UserCheck, Star,
+  Lightbulb, Clipboard, Briefcase, Heart, ThumbsUp, MessageSquare, School, GraduationCap,
+  FileQuestion, BookMarked, Laptop, Tablet, Smartphone, Printer, Database, Search,
+  Library, Book, Video, Music, Image, File, FilePlus, FileText2, FileCheck, Move,
+  Grid, List, Table, Layout, Columns, PlusCircle, MinusCircle, Copy, Scissors, Type,
+  AlignLeft, AlignCenter, AlignRight, Bold, Italic, Underline, Link, Image as ImageIcon,
+  FileImage, Palette, PenTool, Droplet, Aperture, Figma, Crop, Maximize, Minimize,
+  RotateCcw, RotateCw, Shuffle, DivideCircle, Percent, Hash, DollarSign, PoundSign,
+  ChevronsUp, ChevronsDown, ArrowUpRight, ArrowDownRight, CornerRightDown, CornerRightUp,
+  ChevronRight, ChevronLeft, X, Check, Menu, MoreHorizontal, MoreVertical, ExternalLink
 } from 'lucide-react';
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
-import { 
-  DropdownMenu, 
-  DropdownMenuContent, 
-  DropdownMenuItem, 
-  DropdownMenuLabel, 
-  DropdownMenuSeparator, 
-  DropdownMenuTrigger 
-} from "@/components/ui/dropdown-menu";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { DateRangePicker } from "@/components/ui/date-range-picker";
-import { toast } from "@/components/ui/use-toast";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { cn } from "@/lib/utils";
+import { DndProvider, useDrag, useDrop } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import { v4 as uuidv4 } from 'uuid';
 
-// Mock data for demonstration
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8', '#82ca9d'];
+// Define item types for drag and drop
+const ItemTypes = {
+  CHART: 'chart',
+  TABLE: 'table',
+  TEXT: 'text',
+  IMAGE: 'image',
+  METRIC: 'metric',
+  DIVIDER: 'divider',
+  HEADING: 'heading',
+};
 
-const mockReportTemplates = [
-  { id: 1, name: 'Student Progress Summary', category: 'Student', description: 'Comprehensive overview of student progress across subjects', frequency: 'Term' },
-  { id: 2, name: 'Class Performance Analysis', category: 'Class', description: 'Detailed analysis of class performance with comparisons to previous terms', frequency: 'Term' },
-  { id: 3, name: 'Educator Effectiveness Report', category: 'Educator', description: 'Analysis of teaching effectiveness and student outcomes', frequency: 'Term' },
-  { id: 4, name: 'Resource Utilization Report', category: 'Resource', description: 'Overview of resource usage and effectiveness', frequency: 'Monthly' },
-  { id: 5, name: 'Curriculum Coverage Analysis', category: 'Curriculum', description: 'Analysis of curriculum coverage and learning gaps', frequency: 'Term' },
-  { id: 6, name: 'Parent-Teacher Conference Report', category: 'Student', description: 'Personalized student report for parent meetings', frequency: 'As needed' },
-  { id: 7, name: 'SEND Progress Tracker', category: 'SEND', description: 'Specialized report for tracking SEND student progress', frequency: 'Monthly' },
-  { id: 8, name: 'Intervention Impact Analysis', category: 'Intervention', description: 'Measures the effectiveness of interventions on student progress', frequency: 'Monthly' },
+// Sample data for charts
+const sampleChartData = {
+  bar: [
+    { name: 'Jan', value: 400 },
+    { name: 'Feb', value: 300 },
+    { name: 'Mar', value: 600 },
+    { name: 'Apr', value: 800 },
+    { name: 'May', value: 500 },
+    { name: 'Jun', value: 900 },
+  ],
+  line: [
+    { name: 'Jan', value: 400 },
+    { name: 'Feb', value: 300 },
+    { name: 'Mar', value: 600 },
+    { name: 'Apr', value: 800 },
+    { name: 'May', value: 500 },
+    { name: 'Jun', value: 900 },
+  ],
+  pie: [
+    { name: 'Group A', value: 400 },
+    { name: 'Group B', value: 300 },
+    { name: 'Group C', value: 300 },
+    { name: 'Group D', value: 200 },
+  ],
+};
+
+// Sample data for tables
+const sampleTableData = {
+  students: {
+    headers: ['Student', 'Attendance', 'Progress', 'Attainment', 'Engagement'],
+    rows: [
+      ['Emily Johnson', '95%', '82%', 'Above Expected', 'High'],
+      ['James Smith', '88%', '75%', 'Expected', 'Medium'],
+      ['Sophia Williams', '92%', '90%', 'Above Expected', 'High'],
+      ['Oliver Brown', '78%', '65%', 'Below Expected', 'Medium'],
+      ['Charlotte Jones', '96%', '88%', 'Above Expected', 'High'],
+    ],
+  },
+  subjects: {
+    headers: ['Subject', 'Average Score', 'Progress', 'Resources Used', 'Teacher'],
+    rows: [
+      ['English', '78%', '+12%', '245', 'Ms. Andrews'],
+      ['Mathematics', '82%', '+15%', '310', 'Mr. Peterson'],
+      ['Science', '85%', '+18%', '280', 'Dr. Reynolds'],
+      ['History', '76%', '+8%', '190', 'Mrs. Thompson'],
+      ['Geography', '80%', '+10%', '175', 'Mr. Wilson'],
+    ],
+  },
+  resources: {
+    headers: ['Resource', 'Usage', 'Effectiveness', 'Cost', 'ROI'],
+    rows: [
+      ['Digital Textbooks', '420', '85%', '£2,500', '3.2x'],
+      ['Interactive Simulations', '175', '92%', '£1,800', '3.8x'],
+      ['Educational Videos', '320', '88%', '£2,200', '3.5x'],
+      ['Practice Worksheets', '280', '75%', '£1,200', '2.8x'],
+      ['Assessment Tools', '210', '90%', '£1,900', '3.6x'],
+    ],
+  },
+};
+
+// Sample metrics data
+const sampleMetricsData = [
+  { title: 'Average Attendance', value: '92%', change: '+3%', icon: Users },
+  { title: 'Student Progress', value: '78%', change: '+12%', icon: TrendingUp },
+  { title: 'Resource Usage', value: '5,842', change: '+15%', icon: BookOpen },
+  { title: 'Assessment Completion', value: '95%', change: '+5%', icon: CheckCircle },
+  { title: 'Teacher Engagement', value: '88%', change: '+7%', icon: Heart },
+  { title: 'Parent Participation', value: '65%', change: '+20%', icon: UserPlus },
 ];
 
-const mockDataSources = [
-  { id: 'students', name: 'Students', fields: ['id', 'name', 'year', 'class', 'attendance', 'progress'] },
-  { id: 'assessments', name: 'Assessments', fields: ['id', 'student_id', 'subject', 'score', 'date', 'type'] },
-  { id: 'educators', name: 'Educators', fields: ['id', 'name', 'role', 'subjects', 'effectiveness'] },
-  { id: 'curriculum', name: 'Curriculum', fields: ['id', 'subject', 'unit', 'objectives', 'coverage'] },
-  { id: 'resources', name: 'Resources', fields: ['id', 'name', 'type', 'subject', 'usage', 'effectiveness'] },
-  { id: 'interventions', name: 'Interventions', fields: ['id', 'student_id', 'type', 'start_date', 'end_date', 'impact'] },
-  { id: 'attendance', name: 'Attendance', fields: ['id', 'student_id', 'date', 'status', 'reason'] },
-  { id: 'behaviour', name: 'Behaviour', fields: ['id', 'student_id', 'date', 'type', 'description', 'action'] },
+// Available chart components
+const chartComponents = [
+  { id: 'bar-chart', name: 'Bar Chart', type: ItemTypes.CHART, icon: BarChartIcon, chartType: 'bar' },
+  { id: 'line-chart', name: 'Line Chart', type: ItemTypes.CHART, icon: LineChartIcon, chartType: 'line' },
+  { id: 'pie-chart', name: 'Pie Chart', type: ItemTypes.CHART, icon: PieChartIcon, chartType: 'pie' },
+  { id: 'area-chart', name: 'Area Chart', type: ItemTypes.CHART, icon: Activity, chartType: 'area' },
+  { id: 'scatter-chart', name: 'Scatter Plot', type: ItemTypes.CHART, icon: DivideCircle, chartType: 'scatter' },
+  { id: 'radar-chart', name: 'Radar Chart', type: ItemTypes.CHART, icon: Target, chartType: 'radar' },
 ];
 
-const mockChartTypes = [
-  { id: 'bar', name: 'Bar Chart', icon: <BarChart2 className="h-4 w-4" /> },
-  { id: 'line', name: 'Line Chart', icon: <LineChart className="h-4 w-4" /> },
-  { id: 'pie', name: 'Pie Chart', icon: <PieChartIcon className="h-4 w-4" /> },
-  { id: 'area', name: 'Area Chart', icon: <Activity className="h-4 w-4" /> },
-  { id: 'scatter', name: 'Scatter Plot', icon: <LayoutGrid className="h-4 w-4" /> },
-  { id: 'radar', name: 'Radar Chart', icon: <Activity className="h-4 w-4" /> },
+// Available table components
+const tableComponents = [
+  { id: 'student-table', name: 'Student Data Table', type: ItemTypes.TABLE, icon: Users, dataType: 'students' },
+  { id: 'subject-table', name: 'Subject Data Table', type: ItemTypes.TABLE, icon: BookOpen, dataType: 'subjects' },
+  { id: 'resource-table', name: 'Resource Data Table', type: ItemTypes.TABLE, icon: Database, dataType: 'resources' },
 ];
 
-const mockSavedReports = [
-  { id: 1, name: 'Year 4 Term Progress', category: 'Student', created: '2025-05-10', lastRun: '2025-05-15', schedule: 'Weekly' },
-  { id: 2, name: 'Mathematics Department Analysis', category: 'Curriculum', created: '2025-04-22', lastRun: '2025-05-01', schedule: 'Monthly' },
-  { id: 3, name: 'SEND Intervention Impact', category: 'Intervention', created: '2025-05-05', lastRun: '2025-05-14', schedule: 'Bi-weekly' },
-  { id: 4, name: 'Educator Performance Q2', category: 'Educator', created: '2025-04-15', lastRun: '2025-05-10', schedule: 'Monthly' },
-  { id: 5, name: 'Resource Effectiveness', category: 'Resource', created: '2025-03-20', lastRun: '2025-05-01', schedule: 'Monthly' },
+// Available text components
+const textComponents = [
+  { id: 'heading', name: 'Heading', type: ItemTypes.HEADING, icon: Type },
+  { id: 'paragraph', name: 'Paragraph', type: ItemTypes.TEXT, icon: AlignLeft },
+  { id: 'divider', name: 'Divider', type: ItemTypes.DIVIDER, icon: Minus },
 ];
 
-const mockScheduleOptions = [
-  { id: 'daily', name: 'Daily' },
-  { id: 'weekly', name: 'Weekly' },
-  { id: 'biweekly', name: 'Bi-weekly' },
-  { id: 'monthly', name: 'Monthly' },
-  { id: 'termly', name: 'Termly' },
-  { id: 'asneeded', name: 'As needed' },
+// Available metric components
+const metricComponents = [
+  { id: 'metric-card', name: 'Metric Card', type: ItemTypes.METRIC, icon: Activity },
 ];
 
-const mockDeliveryOptions = [
-  { id: 'email', name: 'Email', icon: <Mail className="h-4 w-4" /> },
-  { id: 'download', name: 'Download', icon: <FileDown className="h-4 w-4" /> },
-  { id: 'print', name: 'Print', icon: <Printer className="h-4 w-4" /> },
-  { id: 'share', name: 'Share Link', icon: <Share2 className="h-4 w-4" /> },
+// Available image components
+const imageComponents = [
+  { id: 'image', name: 'Image', type: ItemTypes.IMAGE, icon: ImageIcon },
 ];
 
-const mockFormatOptions = [
-  { id: 'pdf', name: 'PDF' },
-  { id: 'excel', name: 'Excel' },
-  { id: 'word', name: 'Word' },
-  { id: 'html', name: 'HTML' },
+// All available components
+const allComponents = [
+  ...chartComponents,
+  ...tableComponents,
+  ...textComponents,
+  ...metricComponents,
+  ...imageComponents,
 ];
 
-const mockFilterOptions = [
-  { id: 'year', name: 'Year Group', values: ['Year 3', 'Year 4', 'Year 5', 'Year 6'] },
-  { id: 'subject', name: 'Subject', values: ['Mathematics', 'English', 'Science', 'History', 'Geography', 'Art'] },
-  { id: 'term', name: 'Term', values: ['Autumn', 'Spring', 'Summer'] },
-  { id: 'progress', name: 'Progress Range', values: ['Below 60%', '60-80%', 'Above 80%'] },
-];
+// Draggable component for the sidebar
+const DraggableComponent = ({ component }) => {
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: component.type,
+    item: { ...component, id: `${component.id}-${uuidv4()}` },
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging(),
+    }),
+  }));
 
-const CustomReportBuilder = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState('builder');
-  const [selectedTemplate, setSelectedTemplate] = useState(null);
-  const [reportName, setReportName] = useState('');
-  const [reportDescription, setReportDescription] = useState('');
-  const [selectedDataSource, setSelectedDataSource] = useState('');
-  const [selectedFields, setSelectedFields] = useState([]);
-  const [selectedChartType, setSelectedChartType] = useState('bar');
-  const [selectedFilters, setSelectedFilters] = useState([]);
-  const [showPreview, setShowPreview] = useState(false);
-  const [reportSchedule, setReportSchedule] = useState('asneeded');
-  const [deliveryMethod, setDeliveryMethod] = useState('email');
-  const [reportFormat, setReportFormat] = useState('pdf');
-  const [recipients, setRecipients] = useState('');
-  const [searchQuery, setSearchQuery] = useState('');
-  
-  // For drag and drop functionality
-  const [reportSections, setReportSections] = useState([
-    { id: 1, type: 'chart', chartType: 'bar', title: 'Progress Overview', dataSource: 'students', fields: ['progress'] },
-    { id: 2, type: 'table', title: 'Detailed Data', dataSource: 'students', fields: ['name', 'year', 'progress'] },
-  ]);
+  return (
+    <div
+      ref={drag}
+      className={cn(
+        "flex items-center space-x-2 rounded-md border p-2 cursor-move",
+        isDragging ? "opacity-50" : "opacity-100"
+      )}
+    >
+      <component.icon className="h-4 w-4" />
+      <span className="text-sm">{component.name}</span>
+    </div>
+  );
+};
 
-  useEffect(() => {
-    // Simulate data loading
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1500);
+// Droppable report canvas
+const ReportCanvas = ({ items, setItems, onEditItem, onRemoveItem, onMoveItem, onDuplicateItem }) => {
+  const [{ isOver }, drop] = useDrop(() => ({
+    accept: [
+      ItemTypes.CHART,
+      ItemTypes.TABLE,
+      ItemTypes.TEXT,
+      ItemTypes.IMAGE,
+      ItemTypes.METRIC,
+      ItemTypes.DIVIDER,
+      ItemTypes.HEADING,
+    ],
+    drop: (item, monitor) => {
+      const didDrop = monitor.didDrop();
+      if (didDrop) {
+        return;
+      }
+      
+      // Add the new item to the report
+      setItems((prevItems) => [...prevItems, { ...item, position: prevItems.length }]);
+    },
+    collect: (monitor) => ({
+      isOver: !!monitor.isOver({ shallow: true }),
+    }),
+  }));
 
-    return () => clearTimeout(timer);
-  }, []);
+  return (
+    <div
+      ref={drop}
+      className={cn(
+        "min-h-[600px] rounded-lg border-2 border-dashed p-4 transition-colors",
+        isOver ? "border-primary bg-primary/5" : "border-muted-foreground/20"
+      )}
+    >
+      {items.length === 0 ? (
+        <div className="flex h-full flex-col items-center justify-center space-y-2 text-center">
+          <div className="rounded-full bg-muted p-3">
+            <PlusCircle className="h-6 w-6 text-muted-foreground" />
+          </div>
+          <h3 className="text-lg font-medium">Add Report Components</h3>
+          <p className="text-sm text-muted-foreground max-w-md">
+            Drag and drop components from the sidebar to build your custom report.
+            Add charts, tables, text, and more to create a comprehensive view.
+          </p>
+        </div>
+      ) : (
+        <div className="space-y-4">
+          {items.map((item, index) => (
+            <ReportItem
+              key={item.id}
+              item={item}
+              index={index}
+              onEdit={() => onEditItem(item.id)}
+              onRemove={() => onRemoveItem(item.id)}
+              onMoveUp={() => onMoveItem(index, index - 1)}
+              onMoveDown={() => onMoveItem(index, index + 1)}
+              onDuplicate={() => onDuplicateItem(item.id)}
+              canMoveUp={index > 0}
+              canMoveDown={index < items.length - 1}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
 
-  const handleTemplateSelect = (template) => {
-    setSelectedTemplate(template);
-    setReportName(template.name);
-    setReportDescription(template.description);
-    // In a real implementation, this would load the template configuration
-    toast({
-      title: "Template Selected",
-      description: `${template.name} template has been loaded.`,
-    });
-  };
-
-  const handleDataSourceChange = (source) => {
-    setSelectedDataSource(source);
-    setSelectedFields([]);
-  };
-
-  const handleFieldToggle = (field) => {
-    if (selectedFields.includes(field)) {
-      setSelectedFields(selectedFields.filter(f => f !== field));
-    } else {
-      setSelectedFields([...selectedFields, field]);
+// Individual report item
+const ReportItem = ({ item, index, onEdit, onRemove, onMoveUp, onMoveDown, onDuplicate, canMoveUp, canMoveDown }) => {
+  const renderContent = () => {
+    switch (item.type) {
+      case ItemTypes.CHART:
+        return <ChartPreview chartType={item.chartType} />;
+      case ItemTypes.TABLE:
+        return <TablePreview dataType={item.dataType} />;
+      case ItemTypes.TEXT:
+        return (
+          <div className="p-4 bg-white rounded-md">
+            <p className="text-sm text-muted-foreground">
+              {item.content || "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."}
+            </p>
+          </div>
+        );
+      case ItemTypes.HEADING:
+        return (
+          <div className="p-4 bg-white rounded-md">
+            <h3 className="text-xl font-bold">
+              {item.content || "Section Heading"}
+            </h3>
+          </div>
+        );
+      case ItemTypes.METRIC:
+        return <MetricPreview />;
+      case ItemTypes.IMAGE:
+        return (
+          <div className="p-4 bg-white rounded-md flex items-center justify-center">
+            <div className="h-40 w-full bg-muted flex items-center justify-center rounded-md">
+              <ImageIcon className="h-10 w-10 text-muted-foreground" />
+              <span className="ml-2 text-sm text-muted-foreground">Image Placeholder</span>
+            </div>
+          </div>
+        );
+      case ItemTypes.DIVIDER:
+        return (
+          <div className="p-4 bg-white rounded-md">
+            <div className="h-px w-full bg-muted-foreground/20" />
+          </div>
+        );
+      default:
+        return null;
     }
   };
 
-  const handleAddFilter = (filter) => {
-    if (!selectedFilters.includes(filter)) {
-      setSelectedFilters([...selectedFilters, filter]);
-    }
-  };
+  return (
+    <div className="rounded-md border shadow-sm">
+      <div className="flex items-center justify-between bg-muted p-2 rounded-t-md">
+        <div className="flex items-center space-x-2">
+          <Badge variant="outline" className="text-xs">
+            {index + 1}
+          </Badge>
+          <span className="text-sm font-medium">{item.name}</span>
+        </div>
+        <div className="flex items-center space-x-1">
+          <Button variant="ghost" size="icon" onClick={onEdit} title="Edit">
+            <Edit className="h-4 w-4" />
+          </Button>
+          <Button variant="ghost" size="icon" onClick={onDuplicate} title="Duplicate">
+            <Copy className="h-4 w-4" />
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={onMoveUp}
+            disabled={!canMoveUp}
+            title="Move Up"
+            className={!canMoveUp ? "opacity-50 cursor-not-allowed" : ""}
+          >
+            <ArrowUp className="h-4 w-4" />
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={onMoveDown}
+            disabled={!canMoveDown}
+            title="Move Down"
+            className={!canMoveDown ? "opacity-50 cursor-not-allowed" : ""}
+          >
+            <ArrowDown className="h-4 w-4" />
+          </Button>
+          <Button variant="ghost" size="icon" onClick={onRemove} title="Remove">
+            <Trash2 className="h-4 w-4" />
+          </Button>
+        </div>
+      </div>
+      {renderContent()}
+    </div>
+  );
+};
 
-  const handleRemoveFilter = (filter) => {
-    setSelectedFilters(selectedFilters.filter(f => f !== filter));
-  };
-
-  const handleAddSection = (type) => {
-    const newSection = {
-      id: Date.now(),
-      type,
-      title: type === 'chart' ? 'New Chart' : 'New Table',
-      dataSource: selectedDataSource || 'students',
-      fields: [],
-      chartType: type === 'chart' ? selectedChartType : null,
-    };
-    setReportSections([...reportSections, newSection]);
-  };
-
-  const handleRemoveSection = (id) => {
-    setReportSections(reportSections.filter(section => section.id !== id));
-  };
-
-  const handleSaveReport = () => {
-    // In a real implementation, this would save the report configuration
-    toast({
-      title: "Report Saved",
-      description: `${reportName} has been saved successfully.`,
-    });
-  };
-
-  const handleGenerateReport = () => {
-    // In a real implementation, this would generate the report
-    toast({
-      title: "Generating Report",
-      description: "Your report is being generated and will be available shortly.",
-    });
-  };
-
-  const handleScheduleReport = () => {
-    // In a real implementation, this would schedule the report
-    toast({
-      title: "Report Scheduled",
-      description: `${reportName} has been scheduled for ${reportSchedule} delivery.`,
-    });
-  };
-
-  const handleRunSavedReport = (report) => {
-    // In a real implementation, this would run the saved report
-    toast({
-      title: "Running Report",
-      description: `${report.name} is being generated and will be available shortly.`,
-    });
-  };
-
-  const handleDeleteSavedReport = (report) => {
-    // In a real implementation, this would delete the saved report
-    toast({
-      title: "Report Deleted",
-      description: `${report.name} has been deleted.`,
-    });
-  };
-
-  const renderSkeleton = () => (
-    <div className="space-y-4">
-      <Skeleton className="h-8 w-[300px]" />
-      <Skeleton className="h-4 w-[250px]" />
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Skeleton className="h-[400px] w-full" />
-        <Skeleton className="h-[400px] w-full md:col-span-2" />
+// Chart preview component
+const ChartPreview = ({ chartType }) => {
+  return (
+    <div className="p-4 bg-white rounded-md">
+      <div className="h-60 w-full bg-muted flex flex-col items-center justify-center rounded-md">
+        {chartType === 'bar' && <BarChartIcon className="h-10 w-10 text-primary" />}
+        {chartType === 'line' && <LineChartIcon className="h-10 w-10 text-primary" />}
+        {chartType === 'pie' && <PieChartIcon className="h-10 w-10 text-primary" />}
+        {chartType === 'area' && <Activity className="h-10 w-10 text-primary" />}
+        {chartType === 'scatter' && <DivideCircle className="h-10 w-10 text-primary" />}
+        {chartType === 'radar' && <Target className="h-10 w-10 text-primary" />}
+        <span className="mt-2 text-sm text-muted-foreground">{chartType.charAt(0).toUpperCase() + chartType.slice(1)} Chart Preview</span>
       </div>
     </div>
   );
+};
 
-  const renderTemplateSelector = () => (
-    <Card>
-      <CardHeader>
-        <CardTitle>Report Templates</CardTitle>
-        <CardDescription>
-          Start with a pre-configured template or create a custom report
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-4">
-          <div className="flex items-center space-x-2">
-            <Search className="h-4 w-4 text-muted-foreground" />
-            <Input 
-              placeholder="Search templates..." 
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="flex-1"
-            />
-          </div>
-          
-          <ScrollArea className="h-[400px]">
-            <div className="space-y-3">
-              {mockReportTemplates
-                .filter(template => 
-                  searchQuery === '' || 
-                  template.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                  template.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                  template.category.toLowerCase().includes(searchQuery.toLowerCase())
-                )
-                .map(template => (
-                  <div 
-                    key={template.id}
-                    className="border rounded-md p-4 hover:border-primary cursor-pointer transition-colors"
-                    onClick={() => handleTemplateSelect(template)}
-                  >
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <h4 className="font-medium">{template.name}</h4>
-                        <p className="text-sm text-muted-foreground">{template.description}</p>
-                        <div className="flex items-center space-x-2 mt-2">
-                          <Badge variant="outline">{template.category}</Badge>
-                          <Badge variant="outline">{template.frequency}</Badge>
-                        </div>
-                      </div>
-                      <Button variant="ghost" size="sm">Use</Button>
-                    </div>
-                  </div>
-                ))
-              }
-            </div>
-          </ScrollArea>
-        </div>
-      </CardContent>
-      <CardFooter>
-        <Button 
-          variant="outline" 
-          className="w-full"
-          onClick={() => {
-            setSelectedTemplate(null);
-            setReportName('');
-            setReportDescription('');
-          }}
-        >
-          <Plus className="mr-2 h-4 w-4" />
-          Create Custom Report
-        </Button>
-      </CardFooter>
-    </Card>
-  );
-
-  const renderDataSourceSelector = () => (
-    <Card>
-      <CardHeader>
-        <CardTitle>Data Sources</CardTitle>
-        <CardDescription>
-          Select the primary data source for your report
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-4">
-          <Select value={selectedDataSource} onValueChange={handleDataSourceChange}>
-            <SelectTrigger>
-              <SelectValue placeholder="Select data source" />
-            </SelectTrigger>
-            <SelectContent>
-              {mockDataSources.map(source => (
-                <SelectItem key={source.id} value={source.id}>{source.name}</SelectItem>
+// Table preview component
+const TablePreview = ({ dataType }) => {
+  const data = sampleTableData[dataType] || sampleTableData.students;
+  
+  return (
+    <div className="p-4 bg-white rounded-md overflow-x-auto">
+      <table className="w-full border-collapse">
+        <thead>
+          <tr className="bg-muted">
+            {data.headers.map((header, index) => (
+              <th key={index} className="border px-4 py-2 text-left text-sm font-medium">
+                {header}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {data.rows.slice(0, 3).map((row, rowIndex) => (
+            <tr key={rowIndex} className={rowIndex % 2 === 0 ? "bg-white" : "bg-muted/50"}>
+              {row.map((cell, cellIndex) => (
+                <td key={cellIndex} className="border px-4 py-2 text-sm">
+                  {cell}
+                </td>
               ))}
-            </SelectContent>
-          </Select>
-          
-          {selectedDataSource && (
-            <>
-              <div>
-                <h4 className="font-medium mb-2">Available Fields</h4>
-                <div className="space-y-2">
-                  {mockDataSources
-                    .find(source => source.id === selectedDataSource)
-                    ?.fields.map(field => (
-                      <div key={field} className="flex items-center space-x-2">
-                        <Checkbox 
-                          id={`field-${field}`} 
-                          checked={selectedFields.includes(field)}
-                          onCheckedChange={() => handleFieldToggle(field)}
-                        />
-                        <Label htmlFor={`field-${field}`}>{field}</Label>
-                      </div>
-                    ))
-                  }
-                </div>
-              </div>
-              
-              <Separator />
-              
-              <div>
-                <h4 className="font-medium mb-2">Filters</h4>
-                <div className="space-y-2">
-                  {mockFilterOptions.map(filter => (
-                    <div key={filter.id} className="flex items-center space-x-2">
-                      <Checkbox 
-                        id={`filter-${filter.id}`} 
-                        checked={selectedFilters.includes(filter.id)}
-                        onCheckedChange={() => 
-                          selectedFilters.includes(filter.id) 
-                            ? handleRemoveFilter(filter.id) 
-                            : handleAddFilter(filter.id)
-                        }
-                      />
-                      <Label htmlFor={`filter-${filter.id}`}>{filter.name}</Label>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              
-              {selectedFilters.length > 0 && (
-                <div>
-                  <h4 className="font-medium mb-2">Active Filters</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {selectedFilters.map(filterId => {
-                      const filter = mockFilterOptions.find(f => f.id === filterId);
-                      return (
-                        <Badge key={filterId} variant="secondary" className="flex items-center gap-1">
-                          {filter.name}
-                          <X 
-                            className="h-3 w-3 cursor-pointer" 
-                            onClick={() => handleRemoveFilter(filterId)}
-                          />
-                        </Badge>
-                      );
-                    })}
-                  </div>
-                </div>
-              )}
-            </>
-          )}
-        </div>
-      </CardContent>
-    </Card>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
+};
 
-  const renderVisualizationSelector = () => (
-    <Card>
-      <CardHeader>
-        <CardTitle>Visualizations</CardTitle>
-        <CardDescription>
-          Choose how to visualize your data
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-4">
-          <div>
-            <h4 className="font-medium mb-2">Chart Type</h4>
-            <div className="grid grid-cols-3 gap-2">
-              {mockChartTypes.map(chart => (
-                <Button
-                  key={chart.id}
-                  variant={selectedChartType === chart.id ? "default" : "outline"}
-                  className="flex flex-col items-center justify-center h-20 p-2"
-                  onClick={() => setSelectedChartType(chart.id)}
-                >
-                  <div className="mb-1">{chart.icon}</div>
-                  <span className="text-xs">{chart.name}</span>
-                </Button>
-              ))}
-            </div>
-          </div>
-          
-          <Separator />
-          
-          <div>
-            <h4 className="font-medium mb-2">Report Sections</h4>
-            <div className="space-y-2">
-              <div className="flex space-x-2">
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  onClick={() => handleAddSection('chart')}
-                >
-                  <Plus className="mr-2 h-4 w-4" />
-                  Add Chart
-                </Button>
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  onClick={() => handleAddSection('table')}
-                >
-                  <Plus className="mr-2 h-4 w-4" />
-                  Add Table
-                </Button>
-              </div>
-              
-              <ScrollArea className="h-[200px] border rounded-md p-2">
-                {reportSections.map((section, index) => (
-                  <div 
-                    key={section.id}
-                    className="flex items-center justify-between p-2 border-b last:border-b-0"
-                  >
-                    <div className="flex items-center">
-                      <div className="mr-2">
-                        {section.type === 'chart' ? (
-                          <BarChart2 className="h-4 w-4" />
-                        ) : (
-                          <LayoutGrid className="h-4 w-4" />
-                        )}
-                      </div>
-                      <div>
-                        <p className="text-sm font-medium">{section.title}</p>
-                        <p className="text-xs text-muted-foreground">
-                          {section.type === 'chart' ? 'Chart' : 'Table'} - 
-                          {mockDataSources.find(ds => ds.id === section.dataSource)?.name}
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-center space-x-1">
-                      <Button 
-                        variant="ghost" 
-                        size="icon"
-                        onClick={() => {
-                          // In a real implementation, this would open a section editor
-                          toast({
-                            title: "Edit Section",
-                            description: `Editing ${section.title}`,
-                          });
-                        }}
-                      >
-                        <Settings className="h-4 w-4" />
-                      </Button>
-                      <Button 
-                        variant="ghost" 
-                        size="icon"
-                        onClick={() => handleRemoveSection(section.id)}
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </div>
-                ))}
-              </ScrollArea>
-            </div>
-          </div>
+// Metric preview component
+const MetricPreview = () => {
+  const randomMetric = sampleMetricsData[Math.floor(Math.random() * sampleMetricsData.length)];
+  
+  return (
+    <div className="p-4 bg-white rounded-md">
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="text-sm text-muted-foreground">{randomMetric.title}</p>
+          <h4 className="text-2xl font-bold">{randomMetric.value}</h4>
+          <p className={cn(
+            "text-xs",
+            randomMetric.change.startsWith('+') ? "text-green-500" : "text-red-500"
+          )}>
+            {randomMetric.change} from previous period
+          </p>
         </div>
-      </CardContent>
-    </Card>
+        <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
+          <randomMetric.icon className="h-6 w-6 text-primary" />
+        </div>
+      </div>
+    </div>
   );
+};
 
-  const renderReportPreview = () => (
-    <Card>
-      <CardHeader>
-        <div className="flex justify-between items-center">
-          <div>
-            <CardTitle>Report Preview</CardTitle>
-            <CardDescription>
-              Preview how your report will look
-            </CardDescription>
-          </div>
-          <Button 
-            variant="outline" 
-            size="sm"
-            onClick={() => setShowPreview(!showPreview)}
-          >
-            {showPreview ? (
-              <>
-                <EyeOff className="mr-2 h-4 w-4" />
-                Hide Preview
-              </>
-            ) : (
-              <>
-                <Eye className="mr-2 h-4 w-4" />
-                Show Preview
-              </>
-            )}
-          </Button>
-        </div>
-      </CardHeader>
-      <CardContent>
-        {showPreview ? (
+// Item editor modal
+const ItemEditorModal = ({ item, onSave, onCancel }) => {
+  const [editedItem, setEditedItem] = useState({ ...item });
+  
+  const handleSave = () => {
+    onSave(editedItem);
+  };
+  
+  const renderEditor = () => {
+    switch (item.type) {
+      case ItemTypes.CHART:
+        return (
           <div className="space-y-4">
-            <div className="border-b pb-4">
-              <h2 className="text-2xl font-bold">{reportName || 'Untitled Report'}</h2>
-              <p className="text-muted-foreground">{reportDescription || 'No description provided'}</p>
-              <div className="flex items-center space-x-2 mt-2">
-                <Badge variant="outline">
-                  {mockDataSources.find(ds => ds.id === selectedDataSource)?.name || 'No data source'}
-                </Badge>
-                <Badge variant="outline">
-                  Generated on {new Date().toLocaleDateString()}
-                </Badge>
+            <div className="space-y-2">
+              <Label htmlFor="chart-title">Chart Title</Label>
+              <Input
+                id="chart-title"
+                value={editedItem.title || ''}
+                onChange={(e) => setEditedItem({ ...editedItem, title: e.target.value })}
+                placeholder="Enter chart title"
+              />
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="chart-type">Chart Type</Label>
+              <Select
+                value={editedItem.chartType}
+                onValueChange={(value) => setEditedItem({ ...editedItem, chartType: value })}
+              >
+                <SelectTrigger id="chart-type">
+                  <SelectValue placeholder="Select chart type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="bar">Bar Chart</SelectItem>
+                  <SelectItem value="line">Line Chart</SelectItem>
+                  <SelectItem value="pie">Pie Chart</SelectItem>
+                  <SelectItem value="area">Area Chart</SelectItem>
+                  <SelectItem value="scatter">Scatter Plot</SelectItem>
+                  <SelectItem value="radar">Radar Chart</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="data-source">Data Source</Label>
+              <Select
+                value={editedItem.dataSource || 'students'}
+                onValueChange={(value) => setEditedItem({ ...editedItem, dataSource: value })}
+              >
+                <SelectTrigger id="data-source">
+                  <SelectValue placeholder="Select data source" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="students">Student Data</SelectItem>
+                  <SelectItem value="subjects">Subject Data</SelectItem>
+                  <SelectItem value="resources">Resource Data</SelectItem>
+                  <SelectItem value="assessments">Assessment Data</SelectItem>
+                  <SelectItem value="attendance">Attendance Data</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            
+            <div className="space-y-2">
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="show-legend"
+                  checked={editedItem.showLegend !== false}
+                  onCheckedChange={(checked) => setEditedItem({ ...editedItem, showLegend: checked })}
+                />
+                <Label htmlFor="show-legend">Show Legend</Label>
               </div>
             </div>
             
-            {reportSections.map((section, index) => (
-              <div key={section.id} className="border rounded-md p-4">
-                <h3 className="text-lg font-medium mb-2">{section.title}</h3>
-                {section.type === 'chart' ? (
-                  <div className="h-[300px]">
-                    <ResponsiveContainer width="100%" height="100%">
-                      {section.chartType === 'bar' && (
-                        <BarChart
-                          data={[
-                            { name: 'Category A', value: 65 },
-                            { name: 'Category B', value: 75 },
-                            { name: 'Category C', value: 85 },
-                            { name: 'Category D', value: 70 },
-                            { name: 'Category E', value: 80 },
-                          ]}
-                          margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-                        >
-                          <CartesianGrid strokeDasharray="3 3" />
-                          <XAxis dataKey="name" />
-                          <YAxis />
-                          <Tooltip />
-                          <Legend />
-                          <Bar dataKey="value" fill="#8884d8" />
-                        </BarChart>
-                      )}
-                      {section.chartType === 'line' && (
-                        <LineChart
-                          data={[
-                            { name: 'Jan', value: 65 },
-                            { name: 'Feb', value: 70 },
-                            { name: 'Mar', value: 75 },
-                            { name: 'Apr', value: 72 },
-                            { name: 'May', value: 78 },
-                            { name: 'Jun', value: 82 },
-                          ]}
-                          margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-                        >
-                          <CartesianGrid strokeDasharray="3 3" />
-                          <XAxis dataKey="name" />
-                          <YAxis />
-                          <Tooltip />
-                          <Legend />
-                          <Line type="monotone" dataKey="value" stroke="#8884d8" />
-                        </LineChart>
-                      )}
-                      {section.chartType === 'pie' && (
-                        <PieChart>
-                          <Pie
-                            data={[
-                              { name: 'Category A', value: 65 },
-                              { name: 'Category B', value: 75 },
-                              { name: 'Category C', value: 85 },
-                              { name: 'Category D', value: 70 },
-                              { name: 'Category E', value: 80 },
-                            ]}
-                            cx="50%"
-                            cy="50%"
-                            labelLine={false}
-                            label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
-                            outerRadius={80}
-                            fill="#8884d8"
-                            dataKey="value"
-                          >
-                            {[0, 1, 2, 3, 4].map((entry, index) => (
-                              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                            ))}
-                          </Pie>
-                          <Tooltip />
-                        </PieChart>
-                      )}
-                      {section.chartType === 'area' && (
-                        <AreaChart
-                          data={[
-                            { name: 'Jan', value: 65 },
-                            { name: 'Feb', value: 70 },
-                            { name: 'Mar', value: 75 },
-                            { name: 'Apr', value: 72 },
-                            { name: 'May', value: 78 },
-                            { name: 'Jun', value: 82 },
-                          ]}
-                          margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-                        >
-                          <CartesianGrid strokeDasharray="3 3" />
-                          <XAxis dataKey="name" />
-                          <YAxis />
-                          <Tooltip />
-                          <Legend />
-                          <Area type="monotone" dataKey="value" stroke="#8884d8" fill="#8884d8" />
-                        </AreaChart>
-                      )}
-                      {section.chartType === 'scatter' && (
-                        <ScatterChart
-                          margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-                        >
-                          <CartesianGrid strokeDasharray="3 3" />
-                          <XAxis type="number" dataKey="x" name="Score" />
-                          <YAxis type="number" dataKey="y" name="Value" />
-                          <Tooltip cursor={{ strokeDasharray: '3 3' }} />
-                          <Legend />
-                          <Scatter name="Values" data={[
-                            { x: 10, y: 30 },
-                            { x: 30, y: 50 },
-                            { x: 45, y: 20 },
-                            { x: 60, y: 80 },
-                            { x: 75, y: 40 },
-                            { x: 90, y: 60 },
-                          ]} fill="#8884d8" />
-                        </ScatterChart>
-                      )}
-                      {section.chartType === 'radar' && (
-                        <RadarChart cx="50%" cy="50%" outerRadius="80%" data={[
-                          { subject: 'Math', A: 120, fullMark: 150 },
-                          { subject: 'English', A: 98, fullMark: 150 },
-                          { subject: 'Science', A: 86, fullMark: 150 },
-                          { subject: 'History', A: 99, fullMark: 150 },
-                          { subject: 'Geography', A: 85, fullMark: 150 },
-                          { subject: 'Art', A: 65, fullMark: 150 },
-                        ]}>
-                          <PolarGrid />
-                          <PolarAngleAxis dataKey="subject" />
-                          <PolarRadiusAxis angle={30} domain={[0, 150]} />
-                          <Radar name="Student" dataKey="A" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
-                          <Tooltip />
-                        </RadarChart>
-                      )}
-                    </ResponsiveContainer>
-                  </div>
-                ) : (
-                  <div className="border rounded-md">
-                    <Table>
-                      <TableHeader>
-                        <TableRow>
-                          <TableHead>Name</TableHead>
-                          <TableHead>Year</TableHead>
-                          <TableHead>Progress</TableHead>
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody>
-                        <TableRow>
-                          <TableCell>Emma Smith</TableCell>
-                          <TableCell>Year 4</TableCell>
-                          <TableCell>78%</TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell>James Wilson</TableCell>
-                          <TableCell>Year 4</TableCell>
-                          <TableCell>65%</TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell>Sophia Johnson</TableCell>
-                          <TableCell>Year 4</TableCell>
-                          <TableCell>82%</TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell>Noah Williams</TableCell>
-                          <TableCell>Year 4</TableCell>
-                          <TableCell>70%</TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell>Olivia Brown</TableCell>
-                          <TableCell>Year 4</TableCell>
-                          <TableCell>75%</TableCell>
-                        </TableRow>
-                      </TableBody>
-                    </Table>
-                  </div>
-                )}
+            <div className="space-y-2">
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="show-grid"
+                  checked={editedItem.showGrid !== false}
+                  onCheckedChange={(checked) => setEditedItem({ ...editedItem, showGrid: checked })}
+                />
+                <Label htmlFor="show-grid">Show Grid</Label>
               </div>
-            ))}
-          </div>
-        ) : (
-          <div className="h-[400px] flex items-center justify-center border border-dashed rounded-md">
-            <div className="text-center">
-              <Eye className="h-8 w-8 mx-auto text-muted-foreground mb-2" />
-              <h3 className="text-lg font-medium">Preview Hidden</h3>
-              <p className="text-muted-foreground">Click "Show Preview" to see how your report will look</p>
             </div>
           </div>
-        )}
-      </CardContent>
-    </Card>
+        );
+      
+      case ItemTypes.TABLE:
+        return (
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="table-title">Table Title</Label>
+              <Input
+                id="table-title"
+                value={editedItem.title || ''}
+                onChange={(e) => setEditedItem({ ...editedItem, title: e.target.value })}
+                placeholder="Enter table title"
+              />
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="data-type">Data Type</Label>
+              <Select
+                value={editedItem.dataType}
+                onValueChange={(value) => setEditedItem({ ...editedItem, dataType: value })}
+              >
+                <SelectTrigger id="data-type">
+                  <SelectValue placeholder="Select data type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="students">Student Data</SelectItem>
+                  <SelectItem value="subjects">Subject Data</SelectItem>
+                  <SelectItem value="resources">Resource Data</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="row-limit">Row Limit</Label>
+              <Select
+                value={editedItem.rowLimit || '5'}
+                onValueChange={(value) => setEditedItem({ ...editedItem, rowLimit: value })}
+              >
+                <SelectTrigger id="row-limit">
+                  <SelectValue placeholder="Select row limit" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="5">5 rows</SelectItem>
+                  <SelectItem value="10">10 rows</SelectItem>
+                  <SelectItem value="15">15 rows</SelectItem>
+                  <SelectItem value="20">20 rows</SelectItem>
+                  <SelectItem value="all">All rows</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            
+            <div className="space-y-2">
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="show-pagination"
+                  checked={editedItem.showPagination !== false}
+                  onCheckedChange={(checked) => setEditedItem({ ...editedItem, showPagination: checked })}
+                />
+                <Label htmlFor="show-pagination">Show Pagination</Label>
+              </div>
+            </div>
+            
+            <div className="space-y-2">
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="enable-sorting"
+                  checked={editedItem.enableSorting !== false}
+                  onCheckedChange={(checked) => setEditedItem({ ...editedItem, enableSorting: checked })}
+                />
+                <Label htmlFor="enable-sorting">Enable Sorting</Label>
+              </div>
+            </div>
+          </div>
+        );
+      
+      case ItemTypes.TEXT:
+        return (
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="text-content">Text Content</Label>
+              <Textarea
+                id="text-content"
+                value={editedItem.content || ''}
+                onChange={(e) => setEditedItem({ ...editedItem, content: e.target.value })}
+                placeholder="Enter text content"
+                rows={6}
+              />
+            </div>
+          </div>
+        );
+      
+      case ItemTypes.HEADING:
+        return (
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="heading-content">Heading Text</Label>
+              <Input
+                id="heading-content"
+                value={editedItem.content || ''}
+                onChange={(e) => setEditedItem({ ...editedItem, content: e.target.value })}
+                placeholder="Enter heading text"
+              />
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="heading-level">Heading Level</Label>
+              <Select
+                value={editedItem.headingLevel || 'h2'}
+                onValueChange={(value) => setEditedItem({ ...editedItem, headingLevel: value })}
+              >
+                <SelectTrigger id="heading-level">
+                  <SelectValue placeholder="Select heading level" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="h1">Heading 1 (Largest)</SelectItem>
+                  <SelectItem value="h2">Heading 2</SelectItem>
+                  <SelectItem value="h3">Heading 3</SelectItem>
+                  <SelectItem value="h4">Heading 4</SelectItem>
+                  <SelectItem value="h5">Heading 5 (Smallest)</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        );
+      
+      case ItemTypes.METRIC:
+        return (
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="metric-title">Metric Title</Label>
+              <Input
+                id="metric-title"
+                value={editedItem.title || ''}
+                onChange={(e) => setEditedItem({ ...editedItem, title: e.target.value })}
+                placeholder="Enter metric title"
+              />
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="metric-value">Metric Value</Label>
+              <Input
+                id="metric-value"
+                value={editedItem.value || ''}
+                onChange={(e) => setEditedItem({ ...editedItem, value: e.target.value })}
+                placeholder="Enter metric value"
+              />
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="metric-change">Change Value</Label>
+              <Input
+                id="metric-change"
+                value={editedItem.change || ''}
+                onChange={(e) => setEditedItem({ ...editedItem, change: e.target.value })}
+                placeholder="e.g. +10%"
+              />
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="metric-icon">Icon</Label>
+              <Select
+                value={editedItem.icon || 'TrendingUp'}
+                onValueChange={(value) => setEditedItem({ ...editedItem, icon: value })}
+              >
+                <SelectTrigger id="metric-icon">
+                  <SelectValue placeholder="Select icon" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="TrendingUp">Trending Up</SelectItem>
+                  <SelectItem value="Users">Users</SelectItem>
+                  <SelectItem value="BookOpen">Book</SelectItem>
+                  <SelectItem value="CheckCircle">Check Circle</SelectItem>
+                  <SelectItem value="Heart">Heart</SelectItem>
+                  <SelectItem value="Award">Award</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        );
+      
+      case ItemTypes.IMAGE:
+        return (
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="image-title">Image Title</Label>
+              <Input
+                id="image-title"
+                value={editedItem.title || ''}
+                onChange={(e) => setEditedItem({ ...editedItem, title: e.target.value })}
+                placeholder="Enter image title"
+              />
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="image-url">Image URL</Label>
+              <Input
+                id="image-url"
+                value={editedItem.url || ''}
+                onChange={(e) => setEditedItem({ ...editedItem, url: e.target.value })}
+                placeholder="Enter image URL"
+              />
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="image-alt">Alt Text</Label>
+              <Input
+                id="image-alt"
+                value={editedItem.alt || ''}
+                onChange={(e) => setEditedItem({ ...editedItem, alt: e.target.value })}
+                placeholder="Enter alt text"
+              />
+            </div>
+          </div>
+        );
+      
+      default:
+        return null;
+    }
+  };
+  
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+      <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-lg">
+        <div className="mb-4 flex items-center justify-between">
+          <h3 className="text-lg font-medium">Edit {item.name}</h3>
+          <Button variant="ghost" size="icon" onClick={onCancel}>
+            <X className="h-4 w-4" />
+          </Button>
+        </div>
+        
+        <div className="mb-6">
+          {renderEditor()}
+        </div>
+        
+        <div className="flex justify-end space-x-2">
+          <Button variant="outline" onClick={onCancel}>
+            Cancel
+          </Button>
+          <Button onClick={handleSave}>
+            Save Changes
+          </Button>
+        </div>
+      </div>
+    </div>
   );
+};
 
-  const renderReportSettings = () => (
-    <Card>
-      <CardHeader>
-        <CardTitle>Report Settings</CardTitle>
-        <CardDescription>
-          Configure report details and delivery options
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-4">
+// Report settings modal
+const ReportSettingsModal = ({ settings, onSave, onCancel }) => {
+  const [editedSettings, setEditedSettings] = useState({ ...settings });
+  
+  const handleSave = () => {
+    onSave(editedSettings);
+  };
+  
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+      <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-lg">
+        <div className="mb-4 flex items-center justify-between">
+          <h3 className="text-lg font-medium">Report Settings</h3>
+          <Button variant="ghost" size="icon" onClick={onCancel}>
+            <X className="h-4 w-4" />
+          </Button>
+        </div>
+        
+        <div className="mb-6 space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="report-name">Report Name</Label>
-            <Input 
-              id="report-name" 
-              placeholder="Enter report name" 
-              value={reportName}
-              onChange={(e) => setReportName(e.target.value)}
+            <Label htmlFor="report-title">Report Title</Label>
+            <Input
+              id="report-title"
+              value={editedSettings.title || ''}
+              onChange={(e) => setEditedSettings({ ...editedSettings, title: e.target.value })}
+              placeholder="Enter report title"
             />
           </div>
           
           <div className="space-y-2">
             <Label htmlFor="report-description">Description</Label>
-            <Textarea 
-              id="report-description" 
-              placeholder="Enter report description" 
-              value={reportDescription}
-              onChange={(e) => setReportDescription(e.target.value)}
+            <Textarea
+              id="report-description"
+              value={editedSettings.description || ''}
+              onChange={(e) => setEditedSettings({ ...editedSettings, description: e.target.value })}
+              placeholder="Enter report description"
+              rows={3}
             />
           </div>
           
-          <Separator />
+          <div className="space-y-2">
+            <Label htmlFor="report-author">Author</Label>
+            <Input
+              id="report-author"
+              value={editedSettings.author || ''}
+              onChange={(e) => setEditedSettings({ ...editedSettings, author: e.target.value })}
+              placeholder="Enter author name"
+            />
+          </div>
           
           <div className="space-y-2">
-            <Label>Schedule</Label>
-            <Select value={reportSchedule} onValueChange={setReportSchedule}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select schedule" />
+            <Label htmlFor="report-layout">Layout</Label>
+            <Select
+              value={editedSettings.layout || 'standard'}
+              onValueChange={(value) => setEditedSettings({ ...editedSettings, layout: value })}
+            >
+              <SelectTrigger id="report-layout">
+                <SelectValue placeholder="Select layout" />
               </SelectTrigger>
               <SelectContent>
-                {mockScheduleOptions.map(option => (
-                  <SelectItem key={option.id} value={option.id}>{option.name}</SelectItem>
-                ))}
+                <SelectItem value="standard">Standard</SelectItem>
+                <SelectItem value="compact">Compact</SelectItem>
+                <SelectItem value="wide">Wide</SelectItem>
+                <SelectItem value="dashboard">Dashboard</SelectItem>
               </SelectContent>
             </Select>
           </div>
           
           <div className="space-y-2">
-            <Label>Delivery Method</Label>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-              {mockDeliveryOptions.map(option => (
-                <Button
-                  key={option.id}
-                  variant={deliveryMethod === option.id ? "default" : "outline"}
-                  className="flex items-center justify-center"
-                  onClick={() => setDeliveryMethod(option.id)}
-                >
-                  {option.icon}
-                  <span className="ml-2">{option.name}</span>
-                </Button>
-              ))}
+            <Label htmlFor="report-theme">Theme</Label>
+            <Select
+              value={editedSettings.theme || 'default'}
+              onValueChange={(value) => setEditedSettings({ ...editedSettings, theme: value })}
+            >
+              <SelectTrigger id="report-theme">
+                <SelectValue placeholder="Select theme" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="default">Default</SelectItem>
+                <SelectItem value="professional">Professional</SelectItem>
+                <SelectItem value="modern">Modern</SelectItem>
+                <SelectItem value="colorful">Colorful</SelectItem>
+                <SelectItem value="minimal">Minimal</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          
+          <div className="space-y-2">
+            <div className="flex items-center space-x-2">
+              <Checkbox
+                id="include-header"
+                checked={editedSettings.includeHeader !== false}
+                onCheckedChange={(checked) => setEditedSettings({ ...editedSettings, includeHeader: checked })}
+              />
+              <Label htmlFor="include-header">Include Header</Label>
             </div>
           </div>
           
-          {deliveryMethod === 'email' && (
+          <div className="space-y-2">
+            <div className="flex items-center space-x-2">
+              <Checkbox
+                id="include-footer"
+                checked={editedSettings.includeFooter !== false}
+                onCheckedChange={(checked) => setEditedSettings({ ...editedSettings, includeFooter: checked })}
+              />
+              <Label htmlFor="include-footer">Include Footer</Label>
+            </div>
+          </div>
+          
+          <div className="space-y-2">
+            <div className="flex items-center space-x-2">
+              <Checkbox
+                id="include-page-numbers"
+                checked={editedSettings.includePageNumbers !== false}
+                onCheckedChange={(checked) => setEditedSettings({ ...editedSettings, includePageNumbers: checked })}
+              />
+              <Label htmlFor="include-page-numbers">Include Page Numbers</Label>
+            </div>
+          </div>
+        </div>
+        
+        <div className="flex justify-end space-x-2">
+          <Button variant="outline" onClick={onCancel}>
+            Cancel
+          </Button>
+          <Button onClick={handleSave}>
+            Save Settings
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Export modal
+const ExportModal = ({ onExport, onCancel }) => {
+  const [exportSettings, setExportSettings] = useState({
+    format: 'pdf',
+    quality: 'high',
+    includeInteractivity: true,
+    orientation: 'portrait',
+    paperSize: 'a4',
+  });
+  
+  const handleExport = () => {
+    onExport(exportSettings);
+  };
+  
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+      <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-lg">
+        <div className="mb-4 flex items-center justify-between">
+          <h3 className="text-lg font-medium">Export Report</h3>
+          <Button variant="ghost" size="icon" onClick={onCancel}>
+            <X className="h-4 w-4" />
+          </Button>
+        </div>
+        
+        <div className="mb-6 space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="export-format">Format</Label>
+            <Select
+              value={exportSettings.format}
+              onValueChange={(value) => setExportSettings({ ...exportSettings, format: value })}
+            >
+              <SelectTrigger id="export-format">
+                <SelectValue placeholder="Select format" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="pdf">PDF Document</SelectItem>
+                <SelectItem value="docx">Word Document (DOCX)</SelectItem>
+                <SelectItem value="xlsx">Excel Spreadsheet (XLSX)</SelectItem>
+                <SelectItem value="html">Web Page (HTML)</SelectItem>
+                <SelectItem value="png">Image (PNG)</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          
+          <div className="space-y-2">
+            <Label htmlFor="export-quality">Quality</Label>
+            <Select
+              value={exportSettings.quality}
+              onValueChange={(value) => setExportSettings({ ...exportSettings, quality: value })}
+            >
+              <SelectTrigger id="export-quality">
+                <SelectValue placeholder="Select quality" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="draft">Draft (Faster)</SelectItem>
+                <SelectItem value="standard">Standard</SelectItem>
+                <SelectItem value="high">High Quality</SelectItem>
+                <SelectItem value="print">Print Quality</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          
+          {exportSettings.format === 'pdf' && (
+            <>
+              <div className="space-y-2">
+                <Label htmlFor="paper-size">Paper Size</Label>
+                <Select
+                  value={exportSettings.paperSize}
+                  onValueChange={(value) => setExportSettings({ ...exportSettings, paperSize: value })}
+                >
+                  <SelectTrigger id="paper-size">
+                    <SelectValue placeholder="Select paper size" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="a4">A4</SelectItem>
+                    <SelectItem value="a3">A3</SelectItem>
+                    <SelectItem value="letter">Letter</SelectItem>
+                    <SelectItem value="legal">Legal</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="orientation">Orientation</Label>
+                <Select
+                  value={exportSettings.orientation}
+                  onValueChange={(value) => setExportSettings({ ...exportSettings, orientation: value })}
+                >
+                  <SelectTrigger id="orientation">
+                    <SelectValue placeholder="Select orientation" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="portrait">Portrait</SelectItem>
+                    <SelectItem value="landscape">Landscape</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </>
+          )}
+          
+          {(exportSettings.format === 'html' || exportSettings.format === 'pdf') && (
+            <div className="space-y-2">
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="include-interactivity"
+                  checked={exportSettings.includeInteractivity}
+                  onCheckedChange={(checked) => setExportSettings({ ...exportSettings, includeInteractivity: checked })}
+                />
+                <Label htmlFor="include-interactivity">Include Interactive Elements</Label>
+              </div>
+            </div>
+          )}
+        </div>
+        
+        <div className="flex justify-end space-x-2">
+          <Button variant="outline" onClick={onCancel}>
+            Cancel
+          </Button>
+          <Button onClick={handleExport}>
+            Export
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Share modal
+const ShareModal = ({ onShare, onCancel }) => {
+  const [shareSettings, setShareSettings] = useState({
+    method: 'link',
+    recipients: '',
+    message: '',
+    expiryDays: '7',
+    accessLevel: 'view',
+  });
+  
+  const handleShare = () => {
+    onShare(shareSettings);
+  };
+  
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+      <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-lg">
+        <div className="mb-4 flex items-center justify-between">
+          <h3 className="text-lg font-medium">Share Report</h3>
+          <Button variant="ghost" size="icon" onClick={onCancel}>
+            <X className="h-4 w-4" />
+          </Button>
+        </div>
+        
+        <div className="mb-6 space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="share-method">Share Method</Label>
+            <Select
+              value={shareSettings.method}
+              onValueChange={(value) => setShareSettings({ ...shareSettings, method: value })}
+            >
+              <SelectTrigger id="share-method">
+                <SelectValue placeholder="Select method" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="link">Shareable Link</SelectItem>
+                <SelectItem value="email">Email</SelectItem>
+                <SelectItem value="platform">Platform Users</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          
+          {shareSettings.method !== 'link' && (
             <div className="space-y-2">
               <Label htmlFor="recipients">Recipients</Label>
-              <Textarea 
-                id="recipients" 
-                placeholder="Enter email addresses (one per line)" 
-                value={recipients}
-                onChange={(e) => setRecipients(e.target.value)}
+              <Textarea
+                id="recipients"
+                value={shareSettings.recipients}
+                onChange={(e) => setShareSettings({ ...shareSettings, recipients: e.target.value })}
+                placeholder={shareSettings.method === 'email' ? "Enter email addresses (comma separated)" : "Enter usernames (comma separated)"}
+                rows={3}
               />
             </div>
           )}
           
           <div className="space-y-2">
-            <Label>Format</Label>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-              {mockFormatOptions.map(option => (
-                <Button
-                  key={option.id}
-                  variant={reportFormat === option.id ? "default" : "outline"}
-                  className="flex items-center justify-center"
-                  onClick={() => setReportFormat(option.id)}
-                >
-                  {option.name}
-                </Button>
-              ))}
-            </div>
-          </div>
-        </div>
-      </CardContent>
-      <CardFooter className="flex justify-between">
-        <Button variant="outline" onClick={handleSaveReport}>
-          <Save className="mr-2 h-4 w-4" />
-          Save Report
-        </Button>
-        <div className="space-x-2">
-          <Button variant="outline" onClick={handleScheduleReport}>
-            <Calendar className="mr-2 h-4 w-4" />
-            Schedule
-          </Button>
-          <Button onClick={handleGenerateReport}>
-            <FileText className="mr-2 h-4 w-4" />
-            Generate Now
-          </Button>
-        </div>
-      </CardFooter>
-    </Card>
-  );
-
-  const renderSavedReports = () => (
-    <Card>
-      <CardHeader>
-        <div className="flex justify-between items-center">
-          <div>
-            <CardTitle>Saved Reports</CardTitle>
-            <CardDescription>
-              View, run, and manage your saved reports
-            </CardDescription>
-          </div>
-          <div className="flex items-center space-x-2">
-            <Search className="h-4 w-4 text-muted-foreground" />
-            <Input 
-              placeholder="Search reports..." 
-              className="w-[200px]"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+            <Label htmlFor="share-message">Message (Optional)</Label>
+            <Textarea
+              id="share-message"
+              value={shareSettings.message}
+              onChange={(e) => setShareSettings({ ...shareSettings, message: e.target.value })}
+              placeholder="Add a message to recipients"
+              rows={3}
             />
           </div>
+          
+          <div className="space-y-2">
+            <Label htmlFor="expiry-days">Link Expiry</Label>
+            <Select
+              value={shareSettings.expiryDays}
+              onValueChange={(value) => setShareSettings({ ...shareSettings, expiryDays: value })}
+            >
+              <SelectTrigger id="expiry-days">
+                <SelectValue placeholder="Select expiry period" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="1">1 day</SelectItem>
+                <SelectItem value="7">7 days</SelectItem>
+                <SelectItem value="30">30 days</SelectItem>
+                <SelectItem value="90">90 days</SelectItem>
+                <SelectItem value="never">Never expires</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          
+          <div className="space-y-2">
+            <Label htmlFor="access-level">Access Level</Label>
+            <Select
+              value={shareSettings.accessLevel}
+              onValueChange={(value) => setShareSettings({ ...shareSettings, accessLevel: value })}
+            >
+              <SelectTrigger id="access-level">
+                <SelectValue placeholder="Select access level" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="view">View only</SelectItem>
+                <SelectItem value="comment">View and comment</SelectItem>
+                <SelectItem value="edit">View and edit</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
         </div>
-      </CardHeader>
-      <CardContent>
-        <div className="border rounded-md">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Report Name</TableHead>
-                <TableHead>Category</TableHead>
-                <TableHead>Last Run</TableHead>
-                <TableHead>Schedule</TableHead>
-                <TableHead className="text-right">Actions</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {mockSavedReports
-                .filter(report => 
-                  searchQuery === '' || 
-                  report.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                  report.category.toLowerCase().includes(searchQuery.toLowerCase())
-                )
-                .map(report => (
-                  <TableRow key={report.id}>
-                    <TableCell className="font-medium">{report.name}</TableCell>
-                    <TableCell>
-                      <Badge variant="outline">{report.category}</Badge>
-                    </TableCell>
-                    <TableCell>{report.lastRun}</TableCell>
-                    <TableCell>{report.schedule}</TableCell>
-                    <TableCell className="text-right">
-                      <div className="flex justify-end space-x-2">
-                        <Button 
-                          variant="ghost" 
-                          size="sm"
-                          onClick={() => handleRunSavedReport(report)}
-                        >
-                          Run
-                        </Button>
-                        <Button 
-                          variant="ghost" 
-                          size="sm"
-                          onClick={() => {
-                            // In a real implementation, this would edit the report
-                            setReportName(report.name);
-                            setActiveTab('builder');
-                          }}
-                        >
-                          Edit
-                        </Button>
-                        <Button 
-                          variant="ghost" 
-                          size="sm"
-                          onClick={() => handleDeleteSavedReport(report)}
-                        >
-                          Delete
-                        </Button>
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                ))
-              }
-            </TableBody>
-          </Table>
-        </div>
-      </CardContent>
-    </Card>
-  );
-
-  const renderScheduledReports = () => (
-    <Card>
-      <CardHeader>
-        <CardTitle>Scheduled Reports</CardTitle>
-        <CardDescription>
-          View and manage your scheduled reports
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className="border rounded-md">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Report Name</TableHead>
-                <TableHead>Frequency</TableHead>
-                <TableHead>Next Run</TableHead>
-                <TableHead>Recipients</TableHead>
-                <TableHead className="text-right">Actions</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              <TableRow>
-                <TableCell className="font-medium">Year 4 Term Progress</TableCell>
-                <TableCell>Weekly</TableCell>
-                <TableCell>2025-05-22</TableCell>
-                <TableCell>5 recipients</TableCell>
-                <TableCell className="text-right">
-                  <div className="flex justify-end space-x-2">
-                    <Button variant="ghost" size="sm">Edit</Button>
-                    <Button variant="ghost" size="sm">Pause</Button>
-                  </div>
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="font-medium">Mathematics Department Analysis</TableCell>
-                <TableCell>Monthly</TableCell>
-                <TableCell>2025-06-01</TableCell>
-                <TableCell>3 recipients</TableCell>
-                <TableCell className="text-right">
-                  <div className="flex justify-end space-x-2">
-                    <Button variant="ghost" size="sm">Edit</Button>
-                    <Button variant="ghost" size="sm">Pause</Button>
-                  </div>
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="font-medium">SEND Intervention Impact</TableCell>
-                <TableCell>Bi-weekly</TableCell>
-                <TableCell>2025-05-28</TableCell>
-                <TableCell>4 recipients</TableCell>
-                <TableCell className="text-right">
-                  <div className="flex justify-end space-x-2">
-                    <Button variant="ghost" size="sm">Edit</Button>
-                    <Button variant="ghost" size="sm">Pause</Button>
-                  </div>
-                </TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </div>
-      </CardContent>
-    </Card>
-  );
-
-  return (
-    <div className="space-y-6">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-        <div>
-          <h2 className="text-2xl font-bold tracking-tight">Custom Report Builder</h2>
-          <p className="text-muted-foreground">
-            Create, customize, and schedule reports with powerful visualizations
-          </p>
+        
+        <div className="flex justify-end space-x-2">
+          <Button variant="outline" onClick={onCancel}>
+            Cancel
+          </Button>
+          <Button onClick={handleShare}>
+            Share
+          </Button>
         </div>
       </div>
-
-      <Tabs value={activeTab} onValueChange={setActiveTab}>
-        <TabsList className="grid grid-cols-1 md:grid-cols-3 w-full">
-          <TabsTrigger value="builder">Report Builder</TabsTrigger>
-          <TabsTrigger value="saved">Saved Reports</TabsTrigger>
-          <TabsTrigger value="scheduled">Scheduled Reports</TabsTrigger>
-        </TabsList>
-        
-        <TabsContent value="builder" className="space-y-6">
-          {isLoading ? (
-            renderSkeleton()
-          ) : (
-            <>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div>
-                  {renderTemplateSelector()}
-                </div>
-                <div className="md:col-span-2 space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {renderDataSourceSelector()}
-                    {renderVisualizationSelector()}
-                  </div>
-                  {renderReportSettings()}
-                </div>
-              </div>
-              {renderReportPreview()}
-            </>
-          )}
-        </TabsContent>
-        
-        <TabsContent value="saved" className="space-y-6">
-          {isLoading ? (
-            renderSkeleton()
-          ) : (
-            renderSavedReports()
-          )}
-        </TabsContent>
-        
-        <TabsContent value="scheduled" className="space-y-6">
-          {isLoading ? (
-            renderSkeleton()
-          ) : (
-            renderScheduledReports()
-          )}
-        </TabsContent>
-      </Tabs>
     </div>
   );
 };
 
-export default CustomReportBuilder;
+// Main component
+export function CustomReportBuilder() {
+  // State for report items
+  const [reportItems, setReportItems] = useState([]);
+  
+  // State for report settings
+  const [reportSettings, setReportSettings] = useState({
+    title: 'Custom Analytics Report',
+    description: 'A comprehensive analysis of school performance metrics',
+    author: '',
+    layout: 'standard',
+    theme: 'default',
+    includeHeader: true,
+    includeFooter: true,
+    includePageNumbers: true,
+  });
+  
+  // State for modals
+  const [editingItem, setEditingItem] = useState(null);
+  const [showSettingsModal, setShowSettingsModal] = useState(false);
+  const [showExportModal, setShowExportModal] = useState(false);
+  const [showShareModal, setShowShareModal] = useState(false);
+  
+  // State for active tab
+  const [activeTab, setActiveTab] = useState('charts');
+  
+  // Handle edit item
+  const handleEditItem = (itemId) => {
+    const item = reportItems.find((item) => item.id === itemId);
+    if (item) {
+      setEditingItem(item);
+    }
+  };
+  
+  // Handle save edited item
+  const handleSaveEditedItem = (editedItem) => {
+    setReportItems((prevItems) =>
+      prevItems.map((item) => (item.id === editedItem.id ? editedItem : item))
+    );
+    setEditingItem(null);
+  };
+  
+  // Handle remove item
+  const handleRemoveItem = (itemId) => {
+    setReportItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
+  };
+  
+  // Handle move item
+  const handleMoveItem = (fromIndex, toIndex) => {
+    if (toIndex < 0 || toIndex >= reportItems.length) return;
+    
+    setReportItems((prevItems) => {
+      const newItems = [...prevItems];
+      const [movedItem] = newItems.splice(fromIndex, 1);
+      newItems.splice(toIndex, 0, movedItem);
+      return newItems;
+    });
+  };
+  
+  // Handle duplicate item
+  const handleDuplicateItem = (itemId) => {
+    const item = reportItems.find((item) => item.id === itemId);
+    if (item) {
+      const duplicatedItem = {
+        ...item,
+        id: `${item.id.split('-')[0]}-${uuidv4()}`,
+      };
+      setReportItems((prevItems) => [...prevItems, duplicatedItem]);
+    }
+  };
+  
+  // Handle save settings
+  const handleSaveSettings = (newSettings) => {
+    setReportSettings(newSettings);
+    setShowSettingsModal(false);
+  };
+  
+  // Handle export
+  const handleExport = (exportSettings) => {
+    // In a real implementation, this would trigger the export process
+    console.log('Exporting report with settings:', exportSettings);
+    
+    // Simulate export process
+    setTimeout(() => {
+      alert(`Report exported as ${exportSettings.format.toUpperCase()}`);
+      setShowExportModal(false);
+    }, 1500);
+  };
+  
+  // Handle share
+  const handleShare = (shareSettings) => {
+    // In a real implementation, this would trigger the sharing process
+    console.log('Sharing report with settings:', shareSettings);
+    
+    // Simulate sharing process
+    setTimeout(() => {
+      if (shareSettings.method === 'link') {
+        alert('Shareable link created: https://edpsych-connect.com/reports/shared/abc123');
+      } else if (shareSettings.method === 'email') {
+        alert(`Report shared via email to ${shareSettings.recipients}`);
+      } else {
+        alert(`Report shared with platform users: ${shareSettings.recipients}`);
+      }
+      setShowShareModal(false);
+    }, 1500);
+  };
+  
+  // Render component tabs
+  const renderComponentTabs = () => (
+    <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+      <TabsList className="grid w-full grid-cols-3 md:grid-cols-6">
+        <TabsTrigger value="charts">Charts</TabsTrigger>
+        <TabsTrigger value="tables">Tables</TabsTrigger>
+        <TabsTrigger value="metrics">Metrics</TabsTrigger>
+        <TabsTrigger value="text">Text</TabsTrigger>
+        <TabsTrigger value="images">Images</TabsTrigger>
+        <TabsTrigger value="templates">Templates</TabsTrigger>
+      </TabsList>
+      
+      <TabsContent value="charts" className="mt-4 space-y-2">
+        {chartComponents.map((component) => (
+          <DraggableComponent key={component.id} component={component} />
+        ))}
+      </TabsContent>
+      
+      <TabsContent value="tables" className="mt-4 space-y-2">
+        {tableComponents.map((component) => (
+          <DraggableComponent key={component.id} component={component} />
+        ))}
+      </TabsContent>
+      
+      <TabsContent value="metrics" className="mt-4 space-y-2">
+        {metricComponents.map((component) => (
+          <DraggableComponent key={component.id} component={component} />
+        ))}
+      </TabsContent>
+      
+      <TabsContent value="text" className="mt-4 space-y-2">
+        {textComponents.map((component) => (
+          <DraggableComponent key={component.id} component={component} />
+        ))}
+      </TabsContent>
+      
+      <TabsContent value="images" className="mt-4 space-y-2">
+        {imageComponents.map((component) => (
+          <DraggableComponent key={component.id} component={component} />
+        ))}
+      </TabsContent>
+      
+      <TabsContent value="templates" className="mt-4 space-y-2">
+        <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
+          <div className="rounded-md border p-4 cursor-pointer hover:bg-muted/50">
+            <div className="flex items-center space-x-2">
+              <Layout className="h-5 w-5 text-primary" />
+              <span className="font-medium">Student Progress Report</span>
+            </div>
+            <p className="mt-2 text-xs text-muted-foreground">
+              A comprehensive template for tracking individual student progress across subjects.
+            </p>
+          </div>
+          
+          <div className="rounded-md border p-4 cursor-pointer hover:bg-muted/50">
+            <div className="flex items-center space-x-2">
+              <Layout className="h-5 w-5 text-primary" />
+              <span className="font-medium">Resource Effectiveness</span>
+            </div>
+            <p className="mt-2 text-xs text-muted-foreground">
+              Analyze the impact and usage patterns of teaching resources.
+            </p>
+          </div>
+          
+          <div className="rounded-md border p-4 cursor-pointer hover:bg-muted/50">
+            <div className="flex items-center space-x-2">
+              <Layout className="h-5 w-5 text-primary" />
+              <span className="font-medium">Attendance Dashboard</span>
+            </div>
+            <p className="mt-2 text-xs text-muted-foreground">
+              Track attendance patterns and identify trends across classes and time periods.
+            </p>
+          </div>
+          
+          <div className="rounded-md border p-4 cursor-pointer hover:bg-muted/50">
+            <div className="flex items-center space-x-2">
+              <Layout className="h-5 w-5 text-primary" />
+              <span className="font-medium">Assessment Analysis</span>
+            </div>
+            <p className="mt-2 text-xs text-muted-foreground">
+              Detailed breakdown of assessment results with comparative analysis.
+            </p>
+          </div>
+        </div>
+      </TabsContent>
+    </Tabs>
+  );
+  
+  return (
+    <DndProvider backend={HTML5Backend}>
+      <div className="container mx-auto py-6">
+        {/* Header */}
+        <div className="flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0 mb-6">
+          <div>
+            <h1 className="text-3xl font-bold tracking-tight">Custom Report Builder</h1>
+            <p className="text-muted-foreground">
+              Create tailored reports with drag-and-drop simplicity
+            </p>
+          </div>
+          <div className="flex flex-col space-y-2 md:flex-row md:items-center md:space-x-2 md:space-y-0">
+            <Button variant="outline" onClick={() => setShowSettingsModal(true)}>
+              <Settings className="mr-2 h-4 w-4" />
+              Settings
+            </Button>
+            <Button variant="outline" onClick={() => setShowShareModal(true)}>
+              <Share2 className="mr-2 h-4 w-4" />
+              Share
+            </Button>
+            <Button onClick={() => setShowExportModal(true)}>
+              <Download className="mr-2 h-4 w-4" />
+              Export
+            </Button>
+          </div>
+        </div>
+        
+        {/* Main content */}
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
+          {/* Sidebar */}
+          <div className="md:col-span-1 space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Components</CardTitle>
+                <CardDescription>
+                  Drag and drop to add to your report
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="p-4">
+                {renderComponentTabs()}
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardHeader>
+                <CardTitle>Report Information</CardTitle>
+              </CardHeader>
+              <CardContent className="p-4 space-y-4">
+                <div>
+                  <p className="text-sm font-medium">Title</p>
+                  <p className="text-sm text-muted-foreground">{reportSettings.title}</p>
+                </div>
+                
+                <div>
+                  <p className="text-sm font-medium">Components</p>
+                  <p className="text-sm text-muted-foreground">{reportItems.length} items</p>
+                </div>
+                
+                <div>
+                  <p className="text-sm font-medium">Layout</p>
+                  <p className="text-sm text-muted-foreground capitalize">{reportSettings.layout}</p>
+                </div>
+                
+                <div>
+                  <p className="text-sm font-medium">Theme</p>
+                  <p className="text-sm text-muted-foreground capitalize">{reportSettings.theme}</p>
+                </div>
+                
+                <Button variant="outline" className="w-full" onClick={() => setShowSettingsModal(true)}>
+                  <Edit className="mr-2 h-4 w-4" />
+                  Edit Settings
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+          
+          {/* Canvas */}
+          <div className="md:col-span-3 space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>{reportSettings.title}</CardTitle>
+                <CardDescription>
+                  {reportSettings.description}
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="p-4">
+                <ReportCanvas
+                  items={reportItems}
+                  setItems={setReportItems}
+                  onEditItem={handleEditItem}
+                  onRemoveItem={handleRemoveItem}
+                  onMoveItem={handleMoveItem}
+                  onDuplicateItem={handleDuplicateItem}
+                />
+              </CardContent>
+              <CardFooter className="flex justify-between">
+                <p className="text-sm text-muted-foreground">
+                  {reportItems.length} components
+                </p>
+                <Button variant="outline" size="sm" onClick={() => setReportItems([])}>
+                  <Trash2 className="mr-2 h-4 w-4" />
+                  Clear All
+                </Button>
+              </CardFooter>
+            </Card>
+          </div>
+        </div>
+        
+        {/* Modals */}
+        {editingItem && (
+          <ItemEditorModal
+            item={editingItem}
+            onSave={handleSaveEditedItem}
+            onCancel={() => setEditingItem(null)}
+          />
+        )}
+        
+        {showSettingsModal && (
+          <ReportSettingsModal
+            settings={reportSettings}
+            onSave={handleSaveSettings}
+            onCancel={() => setShowSettingsModal(false)}
+          />
+        )}
+        
+        {showExportModal && (
+          <ExportModal
+            onExport={handleExport}
+            onCancel={() => setShowExportModal(false)}
+          />
+        )}
+        
+        {showShareModal && (
+          <ShareModal
+            onShare={handleShare}
+            onCancel={() => setShowShareModal(false)}
+          />
+        )}
+      </div>
+    </DndProvider>
+  );
+}
