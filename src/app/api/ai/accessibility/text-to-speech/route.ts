@@ -47,15 +47,14 @@ export async function POST(req: NextRequest) {
     };
 
     // Log the request for analytics (optional)
-    await prisma.accessibilityLog.create({
-      data: {
-        userId: session.user.id,
-        feature: 'text-to-speech',
-        options: JSON.stringify({
-          ...speechOptions,
-          textLength: text.length
-        })
-      }
+    // Note: accessibilityLog model is not defined in the Prisma schema
+    // Just log to console for now
+    console.log('Text-to-speech request:', {
+      userId: session.user.id,
+      feature: 'text-to-speech',
+      options: speechOptions,
+      textLength: text.length,
+      timestamp: new Date()
     });
 
     // In a production environment, this would connect to a TTS service
