@@ -18,13 +18,42 @@ export async function PUT(
     
     const assessmentId = params.id;
     
+    // Define the type for assessment
+    type Question = {
+      id: string;
+      text: string;
+      type: string;
+      options?: any;
+      correctAnswer?: string;
+      order: number;
+    };
+
+    type Assessment = {
+      id: string;
+      title: string;
+      description?: string;
+      status: string;
+      type: string;
+      createdById: string;
+      questions: Question[];
+      createdAt: Date;
+      updatedAt: Date;
+    };
+
     // Fetch the assessment to check ownership and questions
-    const assessment = await prisma.assessment.findUnique({
-      where: { id: assessmentId },
-      include: {
-        questions: true,
-      },
-    });
+    let assessment: Assessment | null = null;
+    
+    try {
+      assessment = await (prisma as any).assessment.findUnique({
+        where: { id: assessmentId },
+        include: {
+          questions: true,
+        },
+      });
+    } catch (findError) {
+      console.error('Error finding assessment:', findError);
+      return NextResponse.json({ error: 'Assessment not found or database error' }, { status: 404 });
+    }
     
     if (!assessment) {
       return NextResponse.json({ error: 'Assessment not found' }, { status: 404 });
@@ -49,12 +78,22 @@ export async function PUT(
     }
     
     // Update the assessment status to published
-    const publishedAssessment = await prisma.assessment.update({
-      where: { id: assessmentId },
-      data: {
-        status: 'published',
-      },
-    });
+    let publishedAssessment;
+    
+    try {
+      publishedAssessment = await (prisma as any).assessment.update({
+        where: { id: assessmentId },
+        data: {
+          status: 'published',
+        },
+      });
+    } catch (updateError) {
+      console.error('Error updating assessment:', updateError);
+      return NextResponse.json(
+        { error: 'Failed to update assessment status' },
+        { status: 500 }
+      );
+    }
     
     return NextResponse.json(publishedAssessment);
     
