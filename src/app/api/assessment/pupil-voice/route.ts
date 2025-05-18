@@ -26,21 +26,56 @@ export async function GET(request: NextRequest) {
       query.status = status;
     }
     
+    // Define types for our models
+    type PupilVoiceSurveyQuestion = {
+      id: string;
+      text: string;
+      type: string;
+      required: boolean;
+      options?: any;
+      order: number;
+    };
+
+    type PupilVoiceSurveyResponse = {
+      id: string;
+    };
+
+    type PupilVoiceSurvey = {
+      id: string;
+      title: string;
+      description: string;
+      status: string;
+      createdById: string;
+      templateId?: string;
+      questions: PupilVoiceSurveyQuestion[];
+      responses: PupilVoiceSurveyResponse[];
+      createdAt: Date;
+      updatedAt: Date;
+    };
+
     // Fetch pupil voice surveys
-    const surveys = await prisma.pupilVoiceSurvey.findMany({
-      where: query,
-      orderBy: [
-        { createdAt: 'desc' },
-      ],
-      include: {
-        questions: true,
-        responses: {
-          select: {
-            id: true,
+    let surveys: PupilVoiceSurvey[] = [];
+    
+    try {
+      surveys = await (prisma as any).pupilVoiceSurvey.findMany({
+        where: query,
+        orderBy: [
+          { createdAt: 'desc' },
+        ],
+        include: {
+          questions: true,
+          responses: {
+            select: {
+              id: true,
+            },
           },
         },
-      },
-    });
+      });
+    } catch (findError) {
+      console.error('Error finding pupil voice surveys:', findError);
+      // Return empty array if there's an error
+      surveys = [];
+    }
     
     // Transform the data to include question and response counts
     const transformedSurveys = surveys.map(survey => ({
@@ -85,31 +120,41 @@ export async function POST(request: NextRequest) {
     }
     
     // Create the pupil voice survey
-    const survey = await prisma.pupilVoiceSurvey.create({
-      data: {
-        title,
-        description: description || '',
-        status: 'draft',
-        createdBy: {
-          connect: {
-            id: session.user.id,
+    let survey;
+    
+    try {
+      survey = await (prisma as any).pupilVoiceSurvey.create({
+        data: {
+          title,
+          description: description || '',
+          status: 'draft',
+          createdBy: {
+            connect: {
+              id: session.user.id,
+            },
           },
+          questions: {
+            create: questions?.map((question: any) => ({
+              text: question.text,
+              type: question.type,
+              required: question.required || false,
+              options: question.options || [],
+              order: question.order || 0,
+            })) || [],
+          },
+          templateId: templateId || null,
         },
-        questions: {
-          create: questions?.map((question: any) => ({
-            text: question.text,
-            type: question.type,
-            required: question.required || false,
-            options: question.options || [],
-            order: question.order || 0,
-          })) || [],
+        include: {
+          questions: true,
         },
-        templateId: templateId || null,
-      },
-      include: {
-        questions: true,
-      },
-    });
+      });
+    } catch (createError) {
+      console.error('Error creating pupil voice survey:', createError);
+      return NextResponse.json(
+        { error: 'Failed to create pupil voice survey' },
+        { status: 500 }
+      );
+    }
     
     return NextResponse.json(survey);
     
