@@ -3,6 +3,91 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
+// Add missing toast components to fix build warnings
+export interface ToastTitleProps {
+  children: React.ReactNode;
+  className?: string;
+}
+
+export function ToastTitle({ children, className = '' }: ToastTitleProps) {
+  return (
+    <div className={`font-medium text-sm ${className}`}>
+      {children}
+    </div>
+  );
+}
+
+export interface ToastDescriptionProps {
+  children: React.ReactNode;
+  className?: string;
+}
+
+export function ToastDescription({ children, className = '' }: ToastDescriptionProps) {
+  return (
+    <div className={`text-sm opacity-90 ${className}`}>
+      {children}
+    </div>
+  );
+}
+
+export interface ToastCloseProps {
+  onClick?: () => void;
+  className?: string;
+}
+
+export function ToastClose({ onClick, className = '' }: ToastCloseProps) {
+  return (
+    <button 
+      onClick={onClick} 
+      className={`ml-auto flex h-6 w-6 items-center justify-center rounded-md hover:bg-gray-100 ${className}`}
+      aria-label="Close"
+    >
+      <svg
+        className="w-4 h-4"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d="M6 18L18 6M6 6l12 12"
+        ></path>
+      </svg>
+    </button>
+  );
+}
+
+export interface ToastViewportProps {
+  children: React.ReactNode;
+  className?: string;
+  position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left' | 'top-center' | 'bottom-center';
+}
+
+export function ToastViewport({ 
+  children, 
+  className = '',
+  position = 'bottom-right'
+}: ToastViewportProps) {
+  // Map position to position classes
+  const positionClasses = {
+    'top-right': 'top-0 right-0 flex flex-col pt-4 pr-4',
+    'top-left': 'top-0 left-0 flex flex-col pt-4 pl-4',
+    'bottom-right': 'bottom-0 right-0 flex flex-col pb-4 pr-4',
+    'bottom-left': 'bottom-0 left-0 flex flex-col pb-4 pl-4',
+    'top-center': 'top-0 left-1/2 transform -translate-x-1/2 flex flex-col pt-4',
+    'bottom-center': 'bottom-0 left-1/2 transform -translate-x-1/2 flex flex-col pb-4',
+  };
+
+  return (
+    <div className={`fixed z-50 ${positionClasses[position]} ${className}`}>
+      {children}
+    </div>
+  );
+}
+
 interface ToastProps {
   message: string;
   type?: 'success' | 'error' | 'warning' | 'info';
