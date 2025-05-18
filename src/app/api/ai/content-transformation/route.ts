@@ -92,8 +92,7 @@ export async function POST(req: NextRequest) {
     `;
     
     // Call AI service for transformation
-    const aiResponse = await aiService.getCompletion({
-      prompt,
+    const aiResponse = await aiService.generateText(prompt, {
       model: 'gpt-4',
       temperature: 0.7,
       max_tokens: 2500,
@@ -103,7 +102,10 @@ export async function POST(req: NextRequest) {
     // Parse AI response
     let transformedContent;
     try {
-      transformedContent = JSON.parse(aiResponse);
+      // aiService.generateText returns an object with a text property
+      // The text property contains the AI-generated response as a string
+      // We need to parse this string as JSON
+      transformedContent = JSON.parse(aiResponse.text);
     } catch (error) {
       console.error('Failed to parse AI response:', error);
       return NextResponse.json({ error: 'Failed to transform content' }, { status: 500 });
