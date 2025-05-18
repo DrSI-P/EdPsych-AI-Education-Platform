@@ -277,19 +277,55 @@ model Documentation {
 // Accessibility Models
 
 model AccessibilitySettings {
-  id                    String   @id @default(cuid())
-  userId                String   @unique
-  highContrastMode      Boolean  @default(false)
-  contrastMode          String   @default("high-contrast")
-  textSize              Int      @default(100)
-  contrastLevel         Int      @default(100)
-  reduceAnimations      Boolean  @default(false)
-  customTextColor       String   @default("#ffffff")
-  customBackgroundColor String   @default("#000000")
-  customLinkColor       String   @default("#ffff00")
-  createdAt             DateTime @default(now())
-  updatedAt             DateTime @updatedAt
-  user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                      String   @id @default(cuid())
+  userId                  String   @unique
+  // High contrast settings
+  highContrastMode        Boolean  @default(false)
+  contrastMode            String   @default("high-contrast")
+  textSize                Int      @default(100)
+  contrastLevel           Int      @default(100)
+  reduceAnimations        Boolean  @default(false)
+  customTextColor         String   @default("#ffffff")
+  customBackgroundColor   String   @default("#000000")
+  customLinkColor         String   @default("#ffff00")
+  
+  // Keyboard navigation settings
+  keyboardNavigation      Boolean  @default(false)
+  highlightFocus          Boolean  @default(true)
+  skipLinks               Boolean  @default(true)
+  keyboardShortcuts       Boolean  @default(true)
+  tabSize                 String   @default("normal")
+  focusIndicatorSize      Int      @default(3)
+  focusIndicatorColor     String   @default("blue")
+  customFocusColor        String   @default("#0066cc")
+  
+  // Reduced motion settings
+  reduceMotion            Boolean  @default(false)
+  motionLevel             String   @default("moderate")
+  allowEssentialAnimations Boolean  @default(true)
+  allowHoverEffects       Boolean  @default(false)
+  allowTransitions        Boolean  @default(true)
+  transitionSpeed         Int      @default(50)
+  allowAutoplay           Boolean  @default(false)
+  
+  // Screen reader optimization settings
+  screenReaderOptimization Boolean  @default(false)
+  enhancedAria            Boolean  @default(true)
+  improvedAltText         Boolean  @default(true)
+  semanticHeadings        Boolean  @default(true)
+  tableAccessibility      Boolean  @default(true)
+  formLabels              Boolean  @default(true)
+  readingOrder            Boolean  @default(true)
+  announcementLevel       String   @default("moderate")
+  
+  // Speech-to-text settings
+  textToSpeechActive      Boolean  @default(false)
+  speechRate              Float    @default(1.0)
+  speechPitch             Float    @default(1.0)
+  
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
+  user                    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model AccessibilityLog {
