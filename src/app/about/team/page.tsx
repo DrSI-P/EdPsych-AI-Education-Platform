@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { LinkedInIcon, TwitterIcon, MailIcon, BookOpenIcon } from 'lucide-react';
+import { LinkedInIcon, TwitterIcon, MailIcon, BookOpenIcon } from '@/components/icons';
 
 const TeamMember = ({ 
   name, 
