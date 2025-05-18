@@ -381,19 +381,24 @@ model SpeechRecognitionLog {
 
 // Assessment Models
 model Assessment {
-  id            String     @id @default(cuid())
-  title         String
-  description   String?    @db.Text
-  status        String     @default("draft") // draft, published, archived
-  type          String     // quiz, survey, diagnostic, etc.
-  createdById   String
-  createdBy     User       @relation("CreatedBy", fields: [createdById], references: [id])
-  questions     Question[]
-  responses     Response[]
-  passingScore  Float      @default(60.0)
-  allowRetakes  Boolean    @default(false)
-  createdAt     DateTime   @default(now())
-  updatedAt     DateTime   @updatedAt
+  id                 String     @id @default(cuid())
+  title              String
+  description        String?    @db.Text
+  status             String     @default("draft") // draft, published, archived
+  type               String     // quiz, survey, diagnostic, etc.
+  subject            String?    // The subject area (e.g., Math, Science)
+  keyStage           String?    // UK education key stage
+  timeLimit          Int?       // Time limit in minutes
+  passingScore       Float      @default(60.0)
+  showResults        Boolean    @default(true)
+  randomizeQuestions Boolean    @default(false)
+  allowRetakes       Boolean    @default(false)
+  createdById        String
+  createdBy          User       @relation("CreatedBy", fields: [createdById], references: [id])
+  questions          Question[]
+  responses          Response[]
+  createdAt          DateTime   @default(now())
+  updatedAt          DateTime   @updatedAt
 }
 
 model Question {

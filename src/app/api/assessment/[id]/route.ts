@@ -18,22 +18,64 @@ export async function GET(
     
     const assessmentId = params.id;
     
+    // Define the type for assessment
+    type Question = {
+      id: string;
+      text: string;
+      content: string;
+      type: string;
+      options?: any;
+      correctAnswer?: any;
+      order: number;
+    };
+
+    type Assessment = {
+      id: string;
+      title: string;
+      description?: string;
+      status: string;
+      type: string;
+      subject?: string;
+      keyStage?: string;
+      timeLimit?: number;
+      passingScore: number;
+      showResults: boolean;
+      randomizeQuestions: boolean;
+      allowRetakes: boolean;
+      createdById: string;
+      createdBy: {
+        id: string;
+        name?: string;
+        email?: string;
+      };
+      questions: Question[];
+      createdAt: Date;
+      updatedAt: Date;
+    };
+
     // Fetch the assessment with questions
-    const assessment = await prisma.assessment.findUnique({
-      where: { id: assessmentId },
-      include: {
-        questions: {
-          orderBy: { order: 'asc' },
-        },
-        createdBy: {
-          select: {
-            id: true,
-            name: true,
-            email: true,
+    let assessment: Assessment | null = null;
+    
+    try {
+      assessment = await (prisma as any).assessment.findUnique({
+        where: { id: assessmentId },
+        include: {
+          questions: {
+            orderBy: { order: 'asc' },
+          },
+          createdBy: {
+            select: {
+              id: true,
+              name: true,
+              email: true,
+            },
           },
         },
-      },
-    });
+      });
+    } catch (findError) {
+      console.error('Error finding assessment:', findError);
+      return NextResponse.json({ error: 'Assessment not found or database error' }, { status: 404 });
+    }
     
     if (!assessment) {
       return NextResponse.json({ error: 'Assessment not found' }, { status: 404 });
@@ -76,9 +118,16 @@ export async function PUT(
     const assessmentId = params.id;
     
     // Fetch the assessment to check ownership
-    const assessment = await prisma.assessment.findUnique({
-      where: { id: assessmentId },
-    });
+    let assessment = null;
+    
+    try {
+      assessment = await (prisma as any).assessment.findUnique({
+        where: { id: assessmentId },
+      });
+    } catch (findError) {
+      console.error('Error finding assessment:', findError);
+      return NextResponse.json({ error: 'Assessment not found or database error' }, { status: 404 });
+    }
     
     if (!assessment) {
       return NextResponse.json({ error: 'Assessment not found' }, { status: 404 });
@@ -96,21 +145,31 @@ export async function PUT(
     const body = await request.json();
     
     // Update the assessment
-    const updatedAssessment = await prisma.assessment.update({
-      where: { id: assessmentId },
-      data: {
-        title: body.title,
-        description: body.description,
-        type: body.type,
-        subject: body.subject,
-        keyStage: body.keyStage,
-        timeLimit: body.timeLimit,
-        passingScore: body.passingScore,
-        showResults: body.showResults,
-        randomizeQuestions: body.randomizeQuestions,
-        allowRetakes: body.allowRetakes,
-      },
-    });
+    let updatedAssessment = null;
+    
+    try {
+      updatedAssessment = await (prisma as any).assessment.update({
+        where: { id: assessmentId },
+        data: {
+          title: body.title,
+          description: body.description,
+          type: body.type,
+          subject: body.subject,
+          keyStage: body.keyStage,
+          timeLimit: body.timeLimit,
+          passingScore: body.passingScore,
+          showResults: body.showResults,
+          randomizeQuestions: body.randomizeQuestions,
+          allowRetakes: body.allowRetakes,
+        },
+      });
+    } catch (updateError) {
+      console.error('Error updating assessment:', updateError);
+      return NextResponse.json(
+        { error: 'Failed to update assessment' },
+        { status: 500 }
+      );
+    }
     
     return NextResponse.json(updatedAssessment);
     
@@ -139,9 +198,16 @@ export async function DELETE(
     const assessmentId = params.id;
     
     // Fetch the assessment to check ownership
-    const assessment = await prisma.assessment.findUnique({
-      where: { id: assessmentId },
-    });
+    let assessment = null;
+    
+    try {
+      assessment = await (prisma as any).assessment.findUnique({
+        where: { id: assessmentId },
+      });
+    } catch (findError) {
+      console.error('Error finding assessment:', findError);
+      return NextResponse.json({ error: 'Assessment not found or database error' }, { status: 404 });
+    }
     
     if (!assessment) {
       return NextResponse.json({ error: 'Assessment not found' }, { status: 404 });
@@ -156,9 +222,17 @@ export async function DELETE(
     }
     
     // Delete the assessment and all related questions and answers
-    await prisma.assessment.delete({
-      where: { id: assessmentId },
-    });
+    try {
+      await (prisma as any).assessment.delete({
+        where: { id: assessmentId },
+      });
+    } catch (deleteError) {
+      console.error('Error deleting assessment:', deleteError);
+      return NextResponse.json(
+        { error: 'Failed to delete assessment' },
+        { status: 500 }
+      );
+    }
     
     return NextResponse.json({ success: true });
     
