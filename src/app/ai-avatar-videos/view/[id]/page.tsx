@@ -12,7 +12,7 @@ import Link from 'next/link';
 
 export default function VideoViewPage() {
   const params = useParams();
-  const videoId = params.id as string;
+  const videoId = params?.id as string;
   const [video, setVideo] = useState<HeyGenVideo | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
