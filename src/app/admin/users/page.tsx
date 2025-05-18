@@ -190,9 +190,20 @@ export default function AdminUserManagement() {
     // fetchUsers will be called by the useEffect
   };
 
+  // Create a wrapper function that extracts the value from the event
   const handleTabChange = (tab: string) => {
     setActiveTab(tab);
     setCurrentPage(1); // Reset to first page on tab change
+  };
+  
+  // Create a FormEventHandler wrapper for the Tabs component
+  const handleTabChangeWrapper = (event: React.FormEvent<HTMLDivElement>) => {
+    // Extract the tab value from the event target's value or data attribute
+    const target = event.target as HTMLElement;
+    const tabValue = target.getAttribute('data-value') || target.id.replace('tab-', '');
+    if (tabValue) {
+      handleTabChange(tabValue);
+    }
   };
 
   const handlePageChange = (page: number) => {
@@ -280,7 +291,7 @@ export default function AdminUserManagement() {
               { id: 'admin', label: 'Administrators' },
             ]}
             activeTab={activeTab}
-            onChange={handleTabChange}
+            onChange={handleTabChangeWrapper}
             className="mb-6"
           />
           
