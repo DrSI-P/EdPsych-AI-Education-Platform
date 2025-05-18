@@ -11,7 +11,9 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/components/ui/use-toast";
-import { Mic, MicOff, Send, Globe, VolumeUp, Volume2, MessageSquare, Copy, Download, RefreshCw, Check, X, FileText, BookOpen } from 'lucide-react';
+// Import VolumeUp from our custom icons to fix build errors
+import { Mic, MicOff, Send, Globe, Volume2, MessageSquare, Copy, Download, RefreshCw, Check, X, FileText, BookOpen } from 'lucide-react';
+import { VolumeUp } from '@/components/icons/volume-up';
 
 // Mock data for language options
 const languageOptions = [

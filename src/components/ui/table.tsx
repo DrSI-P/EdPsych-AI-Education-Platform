@@ -30,6 +30,20 @@ export function TableHeader({ children, className = '' }: TableHeaderProps) {
   );
 }
 
+// Adding TableHead component to fix build warnings
+interface TableHeadProps {
+  children: React.ReactNode;
+  className?: string;
+}
+
+export function TableHead({ children, className = '' }: TableHeadProps) {
+  return (
+    <tr className={`${className}`}>
+      {children}
+    </tr>
+  );
+}
+
 interface TableBodyProps {
   children: React.ReactNode;
   className?: string;

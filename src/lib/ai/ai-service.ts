@@ -2,169 +2,236 @@
 
 import { useState, useEffect } from 'react';
 
-// Define types for AI service providers
-export type AIProvider = 'openai' | 'anthropic' | 'gemini' | 'grok' | 'openrouter';
-
-export type AIModelType = 'text' | 'vision' | 'embedding' | 'speech-to-text' | 'text-to-speech';
-
-export interface AIModel {
-  id: string;
-  provider: AIProvider;
-  name: string;
-  description: string;
-  types: AIModelType[];
-  contextLength: number;
-  capabilities: string[];
-  bestFor: string[];
-}
-
-// Define available models for each provider
-export const AI_MODELS: AIModel[] = [
-  {
-    id: 'gpt-4-turbo',
-    provider: 'openai',
-    name: 'GPT-4 Turbo',
-    description: 'Advanced language model with strong reasoning capabilities',
-    types: ['text', 'vision'],
-    contextLength: 128000,
-    capabilities: ['Text generation', 'Image understanding', 'Complex reasoning'],
-    bestFor: ['Complex educational content', 'Detailed explanations', 'Curriculum planning']
-  },
-  {
-    id: 'gpt-3.5-turbo',
-    provider: 'openai',
-    name: 'GPT-3.5 Turbo',
-    description: 'Balanced language model for general educational use',
-    types: ['text'],
-    contextLength: 16000,
-    capabilities: ['Text generation', 'Basic reasoning', 'Educational content'],
-    bestFor: ['Quick responses', 'Simpler explanations', 'Younger students']
-  },
-  {
-    id: 'claude-3-opus',
-    provider: 'anthropic',
-    name: 'Claude 3 Opus',
-    description: 'Advanced model with nuanced understanding and reasoning',
-    types: ['text', 'vision'],
-    contextLength: 200000,
-    capabilities: ['Text generation', 'Image understanding', 'Nuanced reasoning'],
-    bestFor: ['Special educational needs support', 'Detailed curriculum analysis', 'Complex educational content']
-  },
-  {
-    id: 'claude-3-sonnet',
-    provider: 'anthropic',
-    name: 'Claude 3 Sonnet',
-    description: 'Balanced model for educational applications',
-    types: ['text', 'vision'],
-    contextLength: 180000,
-    capabilities: ['Text generation', 'Image understanding', 'Educational content'],
-    bestFor: ['Balanced educational support', 'Curriculum development', 'Student assistance']
-  },
-  {
-    id: 'gemini-pro',
-    provider: 'gemini',
-    name: 'Gemini Pro',
-    description: 'Versatile model with strong multimodal capabilities',
-    types: ['text', 'vision'],
-    contextLength: 32000,
-    capabilities: ['Text generation', 'Image understanding', 'Multimodal learning'],
-    bestFor: ['Mathematics education', 'Science education', 'Visual learning materials']
-  },
-  {
-    id: 'gemini-ultra',
-    provider: 'gemini',
-    name: 'Gemini Ultra',
-    description: 'Advanced model with superior reasoning and multimodal understanding',
-    types: ['text', 'vision'],
-    contextLength: 32000,
-    capabilities: ['Text generation', 'Image understanding', 'Advanced reasoning'],
-    bestFor: ['Advanced mathematics', 'Complex scientific concepts', 'Multimodal educational content']
-  },
-  {
-    id: 'grok-1',
-    provider: 'grok',
-    name: 'Grok-1',
-    description: 'Conversational model with current knowledge and engaging style',
-    types: ['text'],
-    contextLength: 8000,
-    capabilities: ['Text generation', 'Current events knowledge', 'Engaging dialogue'],
-    bestFor: ['Current events education', 'Engaging younger learners', 'Interactive learning']
-  },
-  {
-    id: 'openrouter-router',
-    provider: 'openrouter',
-    name: 'OpenRouter',
-    description: 'Meta-service that routes to optimal models based on task',
-    types: ['text', 'vision'],
-    contextLength: 32000,
-    capabilities: ['Model routing', 'Cost optimization', 'Fallback handling'],
-    bestFor: ['Optimizing AI costs', 'Ensuring service reliability', 'Accessing multiple models']
-  }
-];
-
-// Hook for AI service configuration
-export function useAIService() {
-  const [defaultProvider, setDefaultProvider] = useState<AIProvider>('openai');
-  const [defaultModel, setDefaultModel] = useState<string>('gpt-4-turbo');
-  const [isConfigured, setIsConfigured] = useState<boolean>(false);
-  
-  // Check if AI services are configured
-  useEffect(() => {
-    const checkConfiguration = async () => {
+// Server-side AI service function for API routes
+export function getAIService() {
+  return {
+    // Generate text using AI
+    generateText: async (prompt: string, options: any = {}) => {
       try {
-        const response = await fetch('/api/ai/config');
-        const data = await response.json();
-        setIsConfigured(data.configured);
-        if (data.defaultProvider) {
-          setDefaultProvider(data.defaultProvider);
-        }
-        if (data.defaultModel) {
-          setDefaultModel(data.defaultModel);
-        }
+        // In a real implementation, this would call an actual AI service
+        console.log('Server: Generating text for prompt:', prompt, 'with options:', options);
+        
+        // Simulate API call delay
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        return {
+          text: `AI-generated response for: ${prompt}`,
+          metadata: {
+            model: options.model || 'default',
+            tokens: Math.floor(Math.random() * 100) + 50,
+            timestamp: new Date().toISOString()
+          }
+        };
       } catch (error) {
-        console.error('Error checking AI configuration:', error);
-        setIsConfigured(false);
+        console.error('Error generating text:', error);
+        throw error;
       }
-    };
+    },
     
-    checkConfiguration();
-  }, []);
-  
-  // Get models for a specific provider
-  const getModelsForProvider = (provider: AIProvider): AIModel[] => {
-    return AI_MODELS.filter(model => model.provider === provider);
-  };
-  
-  // Get model by ID
-  const getModelById = (modelId: string): AIModel | undefined => {
-    return AI_MODELS.find(model => model.id === modelId);
-  };
-  
-  // Get best model for a specific task
-  const getBestModelForTask = (task: string, type: AIModelType = 'text'): AIModel => {
-    // This is a simplified implementation
-    // In a real system, this would use more sophisticated matching
-    const eligibleModels = AI_MODELS.filter(model => model.types.includes(type));
+    // Analyze sentiment of text
+    analyzeSentiment: async (text: string) => {
+      try {
+        // Simulate API call delay
+        await new Promise(resolve => setTimeout(resolve, 800));
+        
+        // Simple mock sentiment analysis
+        const words = text.toLowerCase().split(' ');
+        const positiveWords = ['good', 'great', 'excellent', 'happy', 'positive', 'like', 'love'];
+        const negativeWords = ['bad', 'poor', 'terrible', 'sad', 'negative', 'dislike', 'hate'];
+        
+        let positiveCount = 0;
+        let negativeCount = 0;
+        
+        words.forEach(word => {
+          if (positiveWords.includes(word)) positiveCount++;
+          if (negativeWords.includes(word)) negativeCount++;
+        });
+        
+        let sentiment = 'neutral';
+        if (positiveCount > negativeCount) sentiment = 'positive';
+        if (negativeCount > positiveCount) sentiment = 'negative';
+        
+        return {
+          sentiment,
+          confidence: 0.7,
+          details: {
+            positiveScore: positiveCount / words.length,
+            negativeScore: negativeCount / words.length,
+            neutralScore: 1 - ((positiveCount + negativeCount) / words.length)
+          }
+        };
+      } catch (error) {
+        console.error('Error analyzing sentiment:', error);
+        throw error;
+      }
+    },
     
-    for (const model of eligibleModels) {
-      if (model.bestFor.some(bestFor => bestFor.toLowerCase().includes(task.toLowerCase()))) {
-        return model;
+    // Generate educational content
+    generateEducationalContent: async (topic: string, ageGroup: string, format: string) => {
+      try {
+        // Simulate API call delay
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        
+        return {
+          content: `Educational content about ${topic} for ${ageGroup} in ${format} format.`,
+          metadata: {
+            topic,
+            ageGroup,
+            format,
+            timestamp: new Date().toISOString()
+          }
+        };
+      } catch (error) {
+        console.error('Error generating educational content:', error);
+        throw error;
       }
     }
-    
-    // Default to the current default model if no specific match
-    return getModelById(defaultModel) || eligibleModels[0];
+  };
+}
+
+// Custom hook for using AI service in components
+export function useAIService() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
+  
+  // Generate text using AI
+  const generateText = async (prompt: string, options: any = {}) => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const result = await aiService.generateText(prompt, options);
+      setIsLoading(false);
+      return result;
+    } catch (err) {
+      setError(err instanceof Error ? err : new Error('Unknown error occurred'));
+      setIsLoading(false);
+      throw err;
+    }
+  };
+  
+  // Analyze sentiment of text
+  const analyzeSentiment = async (text: string) => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const result = await aiService.analyzeSentiment(text);
+      setIsLoading(false);
+      return result;
+    } catch (err) {
+      setError(err instanceof Error ? err : new Error('Unknown error occurred'));
+      setIsLoading(false);
+      throw err;
+    }
+  };
+  
+  // Generate educational content
+  const generateEducationalContent = async (topic: string, ageGroup: string, format: string) => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const result = await aiService.generateEducationalContent(topic, ageGroup, format);
+      setIsLoading(false);
+      return result;
+    } catch (err) {
+      setError(err instanceof Error ? err : new Error('Unknown error occurred'));
+      setIsLoading(false);
+      throw err;
+    }
   };
   
   return {
-    isConfigured,
-    defaultProvider,
-    defaultModel,
-    setDefaultProvider,
-    setDefaultModel,
-    getModelsForProvider,
-    getModelById,
-    getBestModelForTask,
-    allModels: AI_MODELS
+    isLoading,
+    error,
+    generateText,
+    analyzeSentiment,
+    generateEducationalContent
   };
 }
+
+// AI service for handling AI-related operations
+export const aiService = {
+  // Generate text using AI
+  generateText: async (prompt: string, options: any = {}) => {
+    try {
+      // In a real implementation, this would call an actual AI service
+      // For now, we'll return a mock response
+      console.log('Generating text for prompt:', prompt, 'with options:', options);
+      
+      // Simulate API call delay
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      return {
+        text: `AI-generated response for: ${prompt}`,
+        metadata: {
+          model: options.model || 'default',
+          tokens: Math.floor(Math.random() * 100) + 50,
+          timestamp: new Date().toISOString()
+        }
+      };
+    } catch (error) {
+      console.error('Error generating text:', error);
+      throw error;
+    }
+  },
+  
+  // Analyze sentiment of text
+  analyzeSentiment: async (text: string) => {
+    try {
+      // Simulate API call delay
+      await new Promise(resolve => setTimeout(resolve, 800));
+      
+      // Simple mock sentiment analysis
+      const words = text.toLowerCase().split(' ');
+      const positiveWords = ['good', 'great', 'excellent', 'happy', 'positive', 'like', 'love'];
+      const negativeWords = ['bad', 'poor', 'terrible', 'sad', 'negative', 'dislike', 'hate'];
+      
+      let positiveCount = 0;
+      let negativeCount = 0;
+      
+      words.forEach(word => {
+        if (positiveWords.includes(word)) positiveCount++;
+        if (negativeWords.includes(word)) negativeCount++;
+      });
+      
+      let sentiment = 'neutral';
+      if (positiveCount > negativeCount) sentiment = 'positive';
+      if (negativeCount > positiveCount) sentiment = 'negative';
+      
+      return {
+        sentiment,
+        confidence: 0.7,
+        details: {
+          positiveScore: positiveCount / words.length,
+          negativeScore: negativeCount / words.length,
+          neutralScore: 1 - ((positiveCount + negativeCount) / words.length)
+        }
+      };
+    } catch (error) {
+      console.error('Error analyzing sentiment:', error);
+      throw error;
+    }
+  },
+  
+  // Generate educational content
+  generateEducationalContent: async (topic: string, ageGroup: string, format: string) => {
+    try {
+      // Simulate API call delay
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      return {
+        content: `Educational content about ${topic} for ${ageGroup} in ${format} format.`,
+        metadata: {
+          topic,
+          ageGroup,
+          format,
+          timestamp: new Date().toISOString()
+        }
+      };
+    } catch (error) {
+      console.error('Error generating educational content:', error);
+      throw error;
+    }
+  }
+};
+
+export default aiService;

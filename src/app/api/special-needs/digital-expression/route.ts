@@ -256,7 +256,7 @@ export async function GET(req: Request) {
         
       default:
         // Return all data types if no specific type is requested
-        const [journalEntries, artworks, mediaProjects, groups] = await Promise.all([
+        const [allJournalEntries, allArtworks, allMediaProjects, allGroups] = await Promise.all([
           prisma.digitalJournalEntry.findMany({
             where: { userId: session.user.id },
             orderBy: { createdAt: 'desc' },
@@ -297,10 +297,10 @@ export async function GET(req: Request) {
         ]);
         
         responseData = {
-          journalEntries,
-          artworks,
-          mediaProjects,
-          groups,
+          journalEntries: allJournalEntries,
+          artworks: allArtworks,
+          mediaProjects: allMediaProjects,
+          groups: allGroups,
         };
     }
     

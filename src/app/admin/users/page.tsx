@@ -7,7 +7,7 @@ import { Table } from '@/components/ui/table';
 import { Modal } from '@/components/ui/modal';
 import { Alert } from '@/components/ui/alert';
 import { Spinner } from '@/components/ui/loading';
-import { Tabs } from '@/components/ui/tabs';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Pagination } from '@/components/ui/pagination';
 import { Dropdown } from '@/components/ui/dropdown';
 
@@ -190,8 +190,9 @@ export default function AdminUserManagement() {
     // fetchUsers will be called by the useEffect
   };
 
-  const handleTabChange = (tab: string) => {
-    setActiveTab(tab);
+  // Create a wrapper function that extracts the value from the event
+  const handleTabChange = (value: string) => {
+    setActiveTab(value);
     setCurrentPage(1); // Reset to first page on tab change
   };
 
@@ -218,7 +219,7 @@ export default function AdminUserManagement() {
       </div>
       
       {error && (
-        <Alert type="error" className="mb-6">
+        <Alert variant="error" className="mb-6">
           {error}
         </Alert>
       )}
@@ -270,19 +271,16 @@ export default function AdminUserManagement() {
             </Button>
           </div>
           
-          <Tabs
-            tabs={[
-              { id: 'all', label: 'All Users' },
-              { id: 'student', label: 'Students' },
-              { id: 'teacher', label: 'Teachers' },
-              { id: 'parent', label: 'Parents' },
-              { id: 'professional', label: 'Professionals' },
-              { id: 'admin', label: 'Administrators' },
-            ]}
-            activeTab={activeTab}
-            onChange={handleTabChange}
-            className="mb-6"
-          />
+          <Tabs defaultValue={activeTab} className="mb-6" onValueChange={handleTabChange}>
+            <TabsList className="w-full">
+              <TabsTrigger value="all">All Users</TabsTrigger>
+              <TabsTrigger value="student">Students</TabsTrigger>
+              <TabsTrigger value="teacher">Teachers</TabsTrigger>
+              <TabsTrigger value="parent">Parents</TabsTrigger>
+              <TabsTrigger value="professional">Professionals</TabsTrigger>
+              <TabsTrigger value="admin">Administrators</TabsTrigger>
+            </TabsList>
+          </Tabs>
           
           {loading ? (
             <div className="flex justify-center items-center py-12">

@@ -137,7 +137,7 @@ export default function PupilVoicePage() {
                   {survey.status !== 'draft' && (
                     <Button 
                       variant="outline"
-                      size="small"
+                      size="sm"
                       onClick={() => handleViewResults(survey.id)}
                     >
                       View Results
@@ -146,14 +146,14 @@ export default function PupilVoicePage() {
                   {survey.status === 'draft' && (
                     <Button 
                       variant="outline"
-                      size="small"
+                      size="sm"
                       onClick={() => handleEditSurvey(survey.id)}
                     >
                       Edit
                     </Button>
                   )}
                   <Button 
-                    size="small"
+                    size="sm"
                     onClick={() => handlePreviewSurvey(survey.id)}
                   >
                     {survey.status === 'draft' ? 'Preview' : 'View'}
@@ -187,7 +187,7 @@ export default function PupilVoicePage() {
               <div className="mt-4">
                 <Button 
                   variant="outline"
-                  size="small"
+                  size="sm"
                   onClick={() => router.push('/assessment/pupil-voice/create?template=classroom')}
                 >
                   Use Template
@@ -205,7 +205,7 @@ export default function PupilVoicePage() {
               <div className="mt-4">
                 <Button 
                   variant="outline"
-                  size="small"
+                  size="sm"
                   onClick={() => router.push('/assessment/pupil-voice/create?template=wellbeing')}
                 >
                   Use Template
@@ -223,7 +223,7 @@ export default function PupilVoicePage() {
               <div className="mt-4">
                 <Button 
                   variant="outline"
-                  size="small"
+                  size="sm"
                   onClick={() => router.push('/assessment/pupil-voice/create?template=subject')}
                 >
                   Use Template

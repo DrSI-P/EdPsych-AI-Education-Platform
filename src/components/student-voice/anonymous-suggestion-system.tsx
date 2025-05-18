@@ -98,7 +98,7 @@ export default function AnonymousSuggestionSystem() {
         responses: [
           {
             id: '1-1',
-            content: 'Thank you for your suggestion! We've created a reading corner with cushions and a small bookshelf in the back of the classroom.',
+            content: 'Thank you for your suggestion! We\'ve created a reading corner with cushions and a small bookshelf in the back of the classroom.',
             fromStaff: true,
             createdAt: '2025-05-10T14:30:00Z'
           }
@@ -126,7 +126,7 @@ export default function AnonymousSuggestionSystem() {
           },
           {
             id: '2-2',
-            content: 'We're currently reviewing this suggestion and looking at ways to incorporate more practical work into our science curriculum. Thank you for your input!',
+            content: 'We\'re currently reviewing this suggestion and looking at ways to incorporate more practical work into our science curriculum. Thank you for your input!',
             fromStaff: true,
             createdAt: '2025-05-13T16:20:00Z'
           }

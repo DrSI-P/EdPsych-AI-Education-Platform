@@ -1,12 +1,23 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { cn } from "@/lib/utils";
 
 interface AlertProps {
   variant?: 'info' | 'success' | 'warning' | 'error';
   title?: string;
   children: React.ReactNode;
   dismissible?: boolean;
+  className?: string;
+}
+
+interface AlertTitleProps {
+  children: React.ReactNode;
+  className?: string;
+}
+
+interface AlertDescriptionProps {
+  children: React.ReactNode;
   className?: string;
 }
 
@@ -93,3 +104,31 @@ export function Alert({
     </div>
   );
 }
+
+export const AlertTitle = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLHeadingElement> & AlertTitleProps
+>(({ className, children, ...props }, ref) => (
+  <h5
+    ref={ref}
+    className={cn("mb-1 font-medium leading-none tracking-tight", className)}
+    {...props}
+  >
+    {children}
+  </h5>
+));
+AlertTitle.displayName = "AlertTitle";
+
+export const AlertDescription = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLParagraphElement> & AlertDescriptionProps
+>(({ className, children, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn("text-sm", className)}
+    {...props}
+  >
+    {children}
+  </div>
+));
+AlertDescription.displayName = "AlertDescription";

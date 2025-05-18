@@ -1,649 +1,572 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
-import { Input, Textarea, Select, Checkbox } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
-import { Tabs } from '@/components/ui/tabs';
-import { Spinner } from '@/components/ui/loading';
-import { Alert } from '@/components/ui/alert';
-import { useToast } from '@/components/ui/toast';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Switch } from '@/components/ui/switch';
+import { Label } from '@/components/ui/label';
+import { Slider } from '@/components/ui/slider';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Separator } from '@/components/ui/separator';
+import { toast } from '@/components/ui/use-toast';
+import { 
+  Sun, 
+  Moon, 
+  ZoomIn, 
+  ZoomOut, 
+  Type, 
+  Contrast, 
+  MousePointer, 
+  Keyboard, 
+  Volume2, 
+  Eye, 
+  Sparkles, 
+  Wand2, 
+  Check,
+  RefreshCw
+} from 'lucide-react';
 
-interface AccessibilitySettingsProps {
-  className?: string;
-}
-
-export function AccessibilitySettings({
-  className = ''
-}: AccessibilitySettingsProps) {
-  const { showToast } = useToast();
-  const [loading, setLoading] = useState(false);
-  const [saved, setSaved] = useState(false);
+export default function AccessibilitySettings() {
+  // Visual settings
+  const [theme, setTheme] = useState('system');
+  const [highContrast, setHighContrast] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(false);
+  const [fontSize, setFontSize] = useState(100);
+  const [lineSpacing, setLineSpacing] = useState(1.5);
+  const [letterSpacing, setLetterSpacing] = useState(0);
+  const [dyslexicFont, setDyslexicFont] = useState(false);
   
-  // Mock user accessibility settings
-  const [settings, setSettings] = useState({
-    textToSpeech: true,
-    speechToText: true,
-    highContrast: false,
-    largeText: false,
-    reducedMotion: false,
-    screenReader: false,
-    keyboardNavigation: true,
-    readingGuide: false,
-    dyslexiaFont: false,
-    colourBlindMode: 'none',
-    autoPlayVideos: false,
-    captionsEnabled: true,
-    readingSpeed: 'medium',
-    soundEffects: true,
-    notificationSounds: true,
-    hapticFeedback: false,
-    customTheme: 'default'
-  });
+  // Reading and navigation settings
+  const [textToSpeech, setTextToSpeech] = useState(false);
+  const [readingGuide, setReadingGuide] = useState(false);
+  const [readingSpeed, setReadingSpeed] = useState(1);
+  const [keyboardNavigation, setKeyboardNavigation] = useState(false);
+  const [cursorSize, setCursorSize] = useState('medium');
   
-  // Handle settings change
-  const handleSettingChange = (setting: string, value: any) => {
-    setSettings(prev => ({
-      ...prev,
-      [setting]: value
-    }));
-    setSaved(false);
-  };
+  // Cognitive settings
+  const [simplifiedInterface, setSimplifiedInterface] = useState(false);
+  const [extendedTimers, setExtendedTimers] = useState(false);
+  const [focusMode, setFocusMode] = useState(false);
   
-  // Handle save settings
-  const handleSaveSettings = () => {
-    setLoading(true);
-    
-    // Simulate API call
-    setTimeout(() => {
-      setLoading(false);
-      setSaved(true);
-      showToast({
-        title: 'Accessibility settings saved',
-        type: 'success'
-      });
-    }, 1000);
-  };
-  
-  // Reset saved state when settings change
+  // Apply settings to document
   useEffect(() => {
-    setSaved(false);
-  }, [settings]);
-  
-  const tabs = [
-    {
-      id: 'visual',
-      label: 'Visual Settings',
-      content: (
-        <div className="space-y-6">
-          <Card>
-            <CardHeader>
-              <h3 className="text-lg font-semibold">Display Preferences</h3>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <Checkbox 
-                  label="High contrast mode"
-                  checked={settings.highContrast}
-                  onChange={(checked) => handleSettingChange('highContrast', checked)}
-                  description="Increases contrast between text and background for better readability"
-                />
-              </div>
-              
-              <div>
-                <Checkbox 
-                  label="Large text"
-                  checked={settings.largeText}
-                  onChange={(checked) => handleSettingChange('largeText', checked)}
-                  description="Increases the default font size throughout the platform"
-                />
-              </div>
-              
-              <div>
-                <Checkbox 
-                  label="Reduced motion"
-                  checked={settings.reducedMotion}
-                  onChange={(checked) => handleSettingChange('reducedMotion', checked)}
-                  description="Minimises animations and transitions"
-                />
-              </div>
-              
-              <div>
-                <Checkbox 
-                  label="Reading guide"
-                  checked={settings.readingGuide}
-                  onChange={(checked) => handleSettingChange('readingGuide', checked)}
-                  description="Displays a reading guide to help focus on current text"
-                />
-              </div>
-              
-              <div>
-                <Checkbox 
-                  label="Use dyslexia-friendly font"
-                  checked={settings.dyslexiaFont}
-                  onChange={(checked) => handleSettingChange('dyslexiaFont', checked)}
-                  description="Uses a font designed to be more readable for users with dyslexia"
-                />
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium mb-1">Colour blind mode</label>
-                <Select
-                  options={[
-                    { value: 'none', label: 'None' },
-                    { value: 'protanopia', label: 'Protanopia (red-blind)' },
-                    { value: 'deuteranopia', label: 'Deuteranopia (green-blind)' },
-                    { value: 'tritanopia', label: 'Tritanopia (blue-blind)' },
-                    { value: 'achromatopsia', label: 'Achromatopsia (monochromacy)' }
-                  ]}
-                  value={settings.colourBlindMode}
-                  onChange={(value) => handleSettingChange('colourBlindMode', value)}
-                  className="w-full"
-                />
-                <p className="text-xs text-gray-500 mt-1">Adjusts colours to be more distinguishable for different types of colour blindness</p>
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium mb-1">Custom theme</label>
-                <Select
-                  options={[
-                    { value: 'default', label: 'Default' },
-                    { value: 'light', label: 'Light' },
-                    { value: 'dark', label: 'Dark' },
-                    { value: 'blue', label: 'Blue (reduced blue light)' },
-                    { value: 'sepia', label: 'Sepia (warm tones)' }
-                  ]}
-                  value={settings.customTheme}
-                  onChange={(value) => handleSettingChange('customTheme', value)}
-                  className="w-full"
-                />
-                <p className="text-xs text-gray-500 mt-1">Choose a theme that works best for your visual preferences</p>
-              </div>
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardHeader>
-              <h3 className="text-lg font-semibold">Media Preferences</h3>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <Checkbox 
-                  label="Automatically play videos"
-                  checked={settings.autoPlayVideos}
-                  onChange={(checked) => handleSettingChange('autoPlayVideos', checked)}
-                  description="Videos will play automatically when loaded"
-                />
-              </div>
-              
-              <div>
-                <Checkbox 
-                  label="Enable captions by default"
-                  checked={settings.captionsEnabled}
-                  onChange={(checked) => handleSettingChange('captionsEnabled', checked)}
-                  description="Automatically enable captions for videos when available"
-                />
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium mb-1">Reading speed preference</label>
-                <Select
-                  options={[
-                    { value: 'slow', label: 'Slow' },
-                    { value: 'medium', label: 'Medium' },
-                    { value: 'fast', label: 'Fast' }
-                  ]}
-                  value={settings.readingSpeed}
-                  onChange={(value) => handleSettingChange('readingSpeed', value)}
-                  className="w-full"
-                />
-                <p className="text-xs text-gray-500 mt-1">Adjusts the default speed for text-to-speech and guided reading features</p>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      )
-    },
-    {
-      id: 'audio',
-      label: 'Audio & Speech',
-      content: (
-        <div className="space-y-6">
-          <Card>
-            <CardHeader>
-              <h3 className="text-lg font-semibold">Speech Settings</h3>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <Checkbox 
-                  label="Enable text-to-speech"
-                  checked={settings.textToSpeech}
-                  onChange={(checked) => handleSettingChange('textToSpeech', checked)}
-                  description="Allows text content to be read aloud"
-                />
-              </div>
-              
-              <div>
-                <Checkbox 
-                  label="Enable speech-to-text"
-                  checked={settings.speechToText}
-                  onChange={(checked) => handleSettingChange('speechToText', checked)}
-                  description="Allows voice input for text fields and search"
-                />
-              </div>
-              
-              <div>
-                <Checkbox 
-                  label="Screen reader compatibility mode"
-                  checked={settings.screenReader}
-                  onChange={(checked) => handleSettingChange('screenReader', checked)}
-                  description="Optimises content for screen readers and assistive technologies"
-                />
-              </div>
-              
-              <div className="pt-2">
-                <label className="block text-sm font-medium mb-1">Voice selection</label>
-                <Select
-                  options={[
-                    { value: 'uk_female_1', label: 'UK English - Female 1' },
-                    { value: 'uk_female_2', label: 'UK English - Female 2' },
-                    { value: 'uk_male_1', label: 'UK English - Male 1' },
-                    { value: 'uk_male_2', label: 'UK English - Male 2' },
-                    { value: 'child_voice', label: 'Child Voice' }
-                  ]}
-                  value="uk_female_1"
-                  className="w-full"
-                />
-                <p className="text-xs text-gray-500 mt-1">Select the voice for text-to-speech features</p>
-              </div>
-              
-              <div className="pt-2">
-                <label className="block text-sm font-medium mb-1">Speech rate</label>
-                <div className="flex items-center gap-2">
-                  <span className="text-sm">Slow</span>
-                  <input 
-                    type="range" 
-                    min="0.5" 
-                    max="2" 
-                    step="0.1" 
-                    defaultValue="1"
-                    className="w-full" 
-                  />
-                  <span className="text-sm">Fast</span>
-                </div>
-              </div>
-              
-              <div className="pt-2">
-                <label className="block text-sm font-medium mb-1">Speech pitch</label>
-                <div className="flex items-center gap-2">
-                  <span className="text-sm">Low</span>
-                  <input 
-                    type="range" 
-                    min="0.5" 
-                    max="2" 
-                    step="0.1" 
-                    defaultValue="1"
-                    className="w-full" 
-                  />
-                  <span className="text-sm">High</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardHeader>
-              <h3 className="text-lg font-semibold">Sound Settings</h3>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <Checkbox 
-                  label="Enable sound effects"
-                  checked={settings.soundEffects}
-                  onChange={(checked) => handleSettingChange('soundEffects', checked)}
-                  description="Play sound effects for interactions and achievements"
-                />
-              </div>
-              
-              <div>
-                <Checkbox 
-                  label="Enable notification sounds"
-                  checked={settings.notificationSounds}
-                  onChange={(checked) => handleSettingChange('notificationSounds', checked)}
-                  description="Play sounds for notifications and alerts"
-                />
-              </div>
-              
-              <div className="pt-2">
-                <label className="block text-sm font-medium mb-1">Sound volume</label>
-                <div className="flex items-center gap-2">
-                  <span className="text-sm">Low</span>
-                  <input 
-                    type="range" 
-                    min="0" 
-                    max="100" 
-                    step="1" 
-                    defaultValue="80"
-                    className="w-full" 
-                  />
-                  <span className="text-sm">High</span>
-                </div>
-              </div>
-              
-              <div className="pt-2">
-                <Button variant="outline" className="w-full">
-                  Test Audio
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      )
-    },
-    {
-      id: 'interaction',
-      label: 'Interaction',
-      content: (
-        <div className="space-y-6">
-          <Card>
-            <CardHeader>
-              <h3 className="text-lg font-semibold">Input Methods</h3>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <Checkbox 
-                  label="Enhanced keyboard navigation"
-                  checked={settings.keyboardNavigation}
-                  onChange={(checked) => handleSettingChange('keyboardNavigation', checked)}
-                  description="Improves keyboard navigation throughout the platform"
-                />
-              </div>
-              
-              <div>
-                <Checkbox 
-                  label="Haptic feedback"
-                  checked={settings.hapticFeedback}
-                  onChange={(checked) => handleSettingChange('hapticFeedback', checked)}
-                  description="Provides tactile feedback for touch interactions (on supported devices)"
-                />
-              </div>
-              
-              <div className="pt-2">
-                <label className="block text-sm font-medium mb-1">Keyboard shortcuts</label>
-                <Select
-                  options={[
-                    { value: 'standard', label: 'Standard' },
-                    { value: 'enhanced', label: 'Enhanced' },
-                    { value: 'custom', label: 'Custom' }
-                  ]}
-                  value="standard"
-                  className="w-full"
-                />
-                <p className="text-xs text-gray-500 mt-1">Choose keyboard shortcut configuration</p>
-              </div>
-              
-              <div className="pt-2">
-                <label className="block text-sm font-medium mb-1">Touch target size</label>
-                <Select
-                  options={[
-                    { value: 'standard', label: 'Standard' },
-                    { value: 'large', label: 'Large' },
-                    { value: 'extra_large', label: 'Extra Large' }
-                  ]}
-                  value="standard"
-                  className="w-full"
-                />
-                <p className="text-xs text-gray-500 mt-1">Adjusts the size of buttons and interactive elements</p>
-              </div>
-              
-              <div className="pt-2">
-                <label className="block text-sm font-medium mb-1">Cursor size</label>
-                <Select
-                  options={[
-                    { value: 'standard', label: 'Standard' },
-                    { value: 'large', label: 'Large' },
-                    { value: 'extra_large', label: 'Extra Large' }
-                  ]}
-                  value="standard"
-                  className="w-full"
-                />
-                <p className="text-xs text-gray-500 mt-1">Adjusts the size of the cursor</p>
-              </div>
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardHeader>
-              <h3 className="text-lg font-semibold">Timing & Pacing</h3>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="pt-2">
-                <label className="block text-sm font-medium mb-1">Interaction timeout</label>
-                <Select
-                  options={[
-                    { value: 'standard', label: 'Standard' },
-                    { value: 'extended', label: 'Extended (1.5x)' },
-                    { value: 'double', label: 'Double (2x)' },
-                    { value: 'none', label: 'No timeout' }
-                  ]}
-                  value="standard"
-                  className="w-full"
-                />
-                <p className="text-xs text-gray-500 mt-1">Adjusts how long interactive elements remain active</p>
-              </div>
-              
-              <div className="pt-2">
-                <label className="block text-sm font-medium mb-1">Animation speed</label>
-                <Select
-                  options={[
-                    { value: 'standard', label: 'Standard' },
-                    { value: 'slow', label: 'Slow' },
-                    { value: 'very_slow', label: 'Very Slow' },
-                    { value: 'none', label: 'No Animations' }
-                  ]}
-                  value="standard"
-                  className="w-full"
-                />
-                <p className="text-xs text-gray-500 mt-1">Adjusts the speed of animations and transitions</p>
-              </div>
-              
-              <div className="pt-2">
-                <label className="block text-sm font-medium mb-1">Auto-advance timing</label>
-                <Select
-                  options={[
-                    { value: 'standard', label: 'Standard' },
-                    { value: 'slow', label: 'Slow' },
-                    { value: 'very_slow', label: 'Very Slow' },
-                    { value: 'manual', label: 'Manual Only' }
-                  ]}
-                  value="standard"
-                  className="w-full"
-                />
-                <p className="text-xs text-gray-500 mt-1">Controls timing for slideshows and auto-advancing content</p>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      )
-    },
-    {
-      id: 'cognitive',
-      label: 'Cognitive Support',
-      content: (
-        <div className="space-y-6">
-          <Card>
-            <CardHeader>
-              <h3 className="text-lg font-semibold">Reading & Comprehension</h3>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <Checkbox 
-                  label="Simplified view"
-                  checked={false}
-                  onChange={() => {}}
-                  description="Reduces visual complexity and distractions"
-                />
-              </div>
-              
-              <div>
-                <Checkbox 
-                  label="Focus mode"
-                  checked={false}
-                  onChange={() => {}}
-                  description="Highlights active content and dims surrounding elements"
-                />
-              </div>
-              
-              <div>
-                <Checkbox 
-                  label="Reading ruler"
-                  checked={false}
-                  onChange={() => {}}
-                  description="Displays a horizontal guide to help track lines of text"
-                />
-              </div>
-              
-              <div>
-                <Checkbox 
-                  label="Highlight text while speaking"
-                  checked={true}
-                  onChange={() => {}}
-                  description="Highlights text as it's being read aloud"
-                />
-              </div>
-              
-              <div className="pt-2">
-                <label className="block text-sm font-medium mb-1">Text complexity</label>
-                <Select
-                  options={[
-                    { value: 'standard', label: 'Standard' },
-                    { value: 'simplified', label: 'Simplified' },
-                    { value: 'very_simplified', label: 'Very Simplified' }
-                  ]}
-                  value="standard"
-                  className="w-full"
-                />
-                <p className="text-xs text-gray-500 mt-1">Adjusts the complexity of text content when available</p>
-              </div>
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardHeader>
-              <h3 className="text-lg font-semibold">Learning Support</h3>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <Checkbox 
-                  label="Show additional explanations"
-                  checked={true}
-                  onChange={() => {}}
-                  description="Provides additional context and explanations for complex concepts"
-                />
-              </div>
-              
-              <div>
-                <Checkbox 
-                  label="Visual aids for instructions"
-                  checked={true}
-                  onChange={() => {}}
-                  description="Includes visual aids alongside text instructions"
-                />
-              </div>
-              
-              <div>
-                <Checkbox 
-                  label="Step-by-step guidance"
-                  checked={true}
-                  onChange={() => {}}
-                  description="Breaks complex tasks into smaller, manageable steps"
-                />
-              </div>
-              
-              <div>
-                <Checkbox 
-                  label="Progress tracking"
-                  checked={true}
-                  onChange={() => {}}
-                  description="Shows visual indicators of progress through content"
-                />
-              </div>
-              
-              <div className="pt-2">
-                <label className="block text-sm font-medium mb-1">Learning pace</label>
-                <Select
-                  options={[
-                    { value: 'standard', label: 'Standard' },
-                    { value: 'gradual', label: 'Gradual' },
-                    { value: 'very_gradual', label: 'Very Gradual' },
-                    { value: 'self_paced', label: 'Self-paced' }
-                  ]}
-                  value="standard"
-                  className="w-full"
-                />
-                <p className="text-xs text-gray-500 mt-1">Adjusts the pace of learning activities and assessments</p>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      )
+    // Only run in browser environment
+    if (typeof window === 'undefined') return;
+    
+    const html = document.documentElement;
+    
+    // Apply font size
+    html.style.fontSize = `${fontSize}%`;
+    
+    // Apply line spacing
+    document.body.style.lineHeight = lineSpacing.toString();
+    
+    // Apply letter spacing
+    document.body.style.letterSpacing = `${letterSpacing}px`;
+    
+    // Apply dyslexic font
+    if (dyslexicFont) {
+      html.style.fontFamily = "'OpenDyslexic', sans-serif";
+    } else {
+      html.style.fontFamily = '';
     }
-  ];
+    
+    // Apply high contrast
+    if (highContrast) {
+      html.classList.add('high-contrast');
+    } else {
+      html.classList.remove('high-contrast');
+    }
+    
+    // Apply reduced motion
+    if (reducedMotion) {
+      html.classList.add('reduced-motion');
+    } else {
+      html.classList.remove('reduced-motion');
+    }
+    
+    // Apply simplified interface
+    if (simplifiedInterface) {
+      html.classList.add('simplified-interface');
+    } else {
+      html.classList.remove('simplified-interface');
+    }
+    
+    // Apply focus mode
+    if (focusMode) {
+      html.classList.add('focus-mode');
+    } else {
+      html.classList.remove('focus-mode');
+    }
+    
+    // Apply keyboard navigation
+    if (keyboardNavigation) {
+      html.classList.add('keyboard-focus');
+    } else {
+      html.classList.remove('keyboard-focus');
+    }
+    
+    // Apply cursor size
+    switch (cursorSize) {
+      case 'large':
+        html.classList.add('cursor-large');
+        html.classList.remove('cursor-medium', 'cursor-small');
+        break;
+      case 'medium':
+        html.classList.add('cursor-medium');
+        html.classList.remove('cursor-large', 'cursor-small');
+        break;
+      case 'small':
+        html.classList.add('cursor-small');
+        html.classList.remove('cursor-large', 'cursor-medium');
+        break;
+    }
+    
+    // Clean up on unmount
+    return () => {
+      html.style.fontSize = '';
+      document.body.style.lineHeight = '';
+      document.body.style.letterSpacing = '';
+      html.style.fontFamily = '';
+      html.classList.remove(
+        'high-contrast', 
+        'reduced-motion', 
+        'simplified-interface', 
+        'focus-mode', 
+        'keyboard-focus',
+        'cursor-large',
+        'cursor-medium',
+        'cursor-small'
+      );
+    };
+  }, [
+    fontSize, 
+    lineSpacing, 
+    letterSpacing, 
+    dyslexicFont, 
+    highContrast, 
+    reducedMotion, 
+    simplifiedInterface, 
+    focusMode, 
+    keyboardNavigation, 
+    cursorSize
+  ]);
+  
+  // Save settings to local storage
+  const saveSettings = () => {
+    const settings = {
+      theme,
+      highContrast,
+      reducedMotion,
+      fontSize,
+      lineSpacing,
+      letterSpacing,
+      dyslexicFont,
+      textToSpeech,
+      readingGuide,
+      readingSpeed,
+      keyboardNavigation,
+      cursorSize,
+      simplifiedInterface,
+      extendedTimers,
+      focusMode
+    };
+    
+    localStorage.setItem('accessibility-settings', JSON.stringify(settings));
+    
+    toast({
+      title: "Settings Saved",
+      description: "Your accessibility settings have been saved.",
+      duration: 3000,
+    });
+  };
+  
+  // Load settings from local storage
+  useEffect(() => {
+    // Only run in browser environment
+    if (typeof window === 'undefined') return;
+    
+    const savedSettings = localStorage.getItem('accessibility-settings');
+    
+    if (savedSettings) {
+      try {
+        const settings = JSON.parse(savedSettings);
+        
+        setTheme(settings.theme || 'system');
+        setHighContrast(settings.highContrast || false);
+        setReducedMotion(settings.reducedMotion || false);
+        setFontSize(settings.fontSize || 100);
+        setLineSpacing(settings.lineSpacing || 1.5);
+        setLetterSpacing(settings.letterSpacing || 0);
+        setDyslexicFont(settings.dyslexicFont || false);
+        setTextToSpeech(settings.textToSpeech || false);
+        setReadingGuide(settings.readingGuide || false);
+        setReadingSpeed(settings.readingSpeed || 1);
+        setKeyboardNavigation(settings.keyboardNavigation || false);
+        setCursorSize(settings.cursorSize || 'medium');
+        setSimplifiedInterface(settings.simplifiedInterface || false);
+        setExtendedTimers(settings.extendedTimers || false);
+        setFocusMode(settings.focusMode || false);
+      } catch (error) {
+        console.error('Failed to parse saved accessibility settings:', error);
+      }
+    }
+  }, []);
+  
+  // Reset settings to defaults
+  const resetSettings = () => {
+    setTheme('system');
+    setHighContrast(false);
+    setReducedMotion(false);
+    setFontSize(100);
+    setLineSpacing(1.5);
+    setLetterSpacing(0);
+    setDyslexicFont(false);
+    setTextToSpeech(false);
+    setReadingGuide(false);
+    setReadingSpeed(1);
+    setKeyboardNavigation(false);
+    setCursorSize('medium');
+    setSimplifiedInterface(false);
+    setExtendedTimers(false);
+    setFocusMode(false);
+    
+    localStorage.removeItem('accessibility-settings');
+    
+    toast({
+      title: "Settings Reset",
+      description: "Your accessibility settings have been reset to defaults.",
+      duration: 3000,
+    });
+  };
   
   return (
-    <div className={className}>
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-xl font-semibold">Accessibility Settings</h2>
-        <div className="flex items-center gap-2">
-          {saved && (
-            <span className="text-sm text-green-600">Settings saved</span>
-          )}
-          <Button 
-            onClick={handleSaveSettings}
-            disabled={loading}
-          >
-            {loading ? (
-              <>
-                <Spinner size="sm" className="mr-2" />
-                Saving...
-              </>
-            ) : 'Save Settings'}
-          </Button>
-        </div>
-      </div>
+    <div className="container mx-auto py-6">
+      <h1 className="text-3xl font-bold mb-6">Accessibility Settings</h1>
       
-      <Tabs tabs={tabs} />
-      
-      <div className="mt-6">
-        <Card>
-          <CardHeader>
-            <h3 className="text-lg font-semibold">Accessibility Profile</h3>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <p className="text-sm text-gray-600">
-              You can save your accessibility settings as a profile to quickly apply them across devices.
-            </p>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium mb-1">Profile Name</label>
-                <Input 
-                  placeholder="e.g., My Accessibility Settings"
-                  className="w-full"
+      <Tabs defaultValue="visual">
+        <TabsList className="grid grid-cols-3 w-[400px] mb-6">
+          <TabsTrigger value="visual">Visual</TabsTrigger>
+          <TabsTrigger value="reading">Reading & Navigation</TabsTrigger>
+          <TabsTrigger value="cognitive">Cognitive Support</TabsTrigger>
+        </TabsList>
+        
+        <TabsContent value="visual">
+          <Card>
+            <CardHeader>
+              <CardTitle>Visual Settings</CardTitle>
+              <CardDescription>
+                Customize the visual appearance of the platform to suit your needs.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="space-y-2">
+                <Label htmlFor="theme">Theme</Label>
+                <Select value={theme} onValueChange={setTheme}>
+                  <SelectTrigger id="theme">
+                    <SelectValue placeholder="Select theme" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="light">
+                      <div className="flex items-center">
+                        <Sun className="h-4 w-4 mr-2" />
+                        <span>Light</span>
+                      </div>
+                    </SelectItem>
+                    <SelectItem value="dark">
+                      <div className="flex items-center">
+                        <Moon className="h-4 w-4 mr-2" />
+                        <span>Dark</span>
+                      </div>
+                    </SelectItem>
+                    <SelectItem value="system">
+                      <div className="flex items-center">
+                        <RefreshCw className="h-4 w-4 mr-2" />
+                        <span>System</span>
+                      </div>
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              
+              <div className="flex items-center justify-between">
+                <div>
+                  <Label htmlFor="high-contrast" className="block mb-1">High Contrast</Label>
+                  <p className="text-sm text-muted-foreground">
+                    Increase contrast for better visibility
+                  </p>
+                </div>
+                <Switch
+                  id="high-contrast"
+                  checked={highContrast}
+                  onCheckedChange={setHighContrast}
                 />
               </div>
               
-              <div className="flex items-end gap-2">
-                <Button variant="outline" className="flex-1">
-                  Save as Profile
-                </Button>
-                <Button variant="outline">
-                  Load Profile
-                </Button>
+              <div className="flex items-center justify-between">
+                <div>
+                  <Label htmlFor="reduced-motion" className="block mb-1">Reduced Motion</Label>
+                  <p className="text-sm text-muted-foreground">
+                    Minimize animations and transitions
+                  </p>
+                </div>
+                <Switch
+                  id="reduced-motion"
+                  checked={reducedMotion}
+                  onCheckedChange={setReducedMotion}
+                />
               </div>
-            </div>
-          </CardContent>
-        </Card>
+              
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="font-size">Font Size ({fontSize}%)</Label>
+                  <div className="flex items-center">
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={() => setFontSize(Math.max(70, fontSize - 10))}
+                    >
+                      <ZoomOut className="h-4 w-4" />
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      className="ml-2"
+                      onClick={() => setFontSize(Math.min(200, fontSize + 10))}
+                    >
+                      <ZoomIn className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+                <Slider
+                  id="font-size"
+                  min={70}
+                  max={200}
+                  step={10}
+                  value={[fontSize]}
+                  onValueChange={(value) => setFontSize(value[0])}
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="line-spacing">Line Spacing ({lineSpacing})</Label>
+                <Slider
+                  id="line-spacing"
+                  min={1}
+                  max={3}
+                  step={0.1}
+                  value={[lineSpacing]}
+                  onValueChange={(value) => setLineSpacing(value[0])}
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="letter-spacing">Letter Spacing ({letterSpacing}px)</Label>
+                <Slider
+                  id="letter-spacing"
+                  min={0}
+                  max={5}
+                  step={0.5}
+                  value={[letterSpacing]}
+                  onValueChange={(value) => setLetterSpacing(value[0])}
+                />
+              </div>
+              
+              <div className="flex items-center justify-between">
+                <div>
+                  <Label htmlFor="dyslexic-font" className="block mb-1">Dyslexia-Friendly Font</Label>
+                  <p className="text-sm text-muted-foreground">
+                    Use OpenDyslexic font for improved readability
+                  </p>
+                </div>
+                <Switch
+                  id="dyslexic-font"
+                  checked={dyslexicFont}
+                  onCheckedChange={setDyslexicFont}
+                />
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+        
+        <TabsContent value="reading">
+          <Card>
+            <CardHeader>
+              <CardTitle>Reading & Navigation Settings</CardTitle>
+              <CardDescription>
+                Customize reading and navigation features to improve accessibility.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <Label htmlFor="text-to-speech" className="block mb-1">Text to Speech</Label>
+                  <p className="text-sm text-muted-foreground">
+                    Enable text-to-speech for reading content aloud
+                  </p>
+                </div>
+                <Switch
+                  id="text-to-speech"
+                  checked={textToSpeech}
+                  onCheckedChange={setTextToSpeech}
+                />
+              </div>
+              
+              <div className="flex items-center justify-between">
+                <div>
+                  <Label htmlFor="reading-guide" className="block mb-1">Reading Guide</Label>
+                  <p className="text-sm text-muted-foreground">
+                    Show a reading guide to help focus on current line
+                  </p>
+                </div>
+                <Switch
+                  id="reading-guide"
+                  checked={readingGuide}
+                  onCheckedChange={setReadingGuide}
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="reading-speed">Reading Speed ({readingSpeed}x)</Label>
+                <Slider
+                  id="reading-speed"
+                  min={0.5}
+                  max={2}
+                  step={0.1}
+                  value={[readingSpeed]}
+                  onValueChange={(value) => setReadingSpeed(value[0])}
+                />
+              </div>
+              
+              <Separator />
+              
+              <div className="flex items-center justify-between">
+                <div>
+                  <Label htmlFor="keyboard-navigation" className="block mb-1">Enhanced Keyboard Navigation</Label>
+                  <p className="text-sm text-muted-foreground">
+                    Improve focus indicators and keyboard shortcuts
+                  </p>
+                </div>
+                <Switch
+                  id="keyboard-navigation"
+                  checked={keyboardNavigation}
+                  onCheckedChange={setKeyboardNavigation}
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="cursor-size">Cursor Size</Label>
+                <Select value={cursorSize} onValueChange={setCursorSize}>
+                  <SelectTrigger id="cursor-size">
+                    <SelectValue placeholder="Select cursor size" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="small">Small</SelectItem>
+                    <SelectItem value="medium">Medium</SelectItem>
+                    <SelectItem value="large">Large</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+        
+        <TabsContent value="cognitive">
+          <Card>
+            <CardHeader>
+              <CardTitle>Cognitive Support Settings</CardTitle>
+              <CardDescription>
+                Customize features to support different cognitive needs.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <Label htmlFor="simplified-interface" className="block mb-1">Simplified Interface</Label>
+                  <p className="text-sm text-muted-foreground">
+                    Reduce visual complexity and distractions
+                  </p>
+                </div>
+                <Switch
+                  id="simplified-interface"
+                  checked={simplifiedInterface}
+                  onCheckedChange={setSimplifiedInterface}
+                />
+              </div>
+              
+              <div className="flex items-center justify-between">
+                <div>
+                  <Label htmlFor="extended-timers" className="block mb-1">Extended Timers</Label>
+                  <p className="text-sm text-muted-foreground">
+                    Provide additional time for timed activities
+                  </p>
+                </div>
+                <Switch
+                  id="extended-timers"
+                  checked={extendedTimers}
+                  onCheckedChange={setExtendedTimers}
+                />
+              </div>
+              
+              <div className="flex items-center justify-between">
+                <div>
+                  <Label htmlFor="focus-mode" className="block mb-1">Focus Mode</Label>
+                  <p className="text-sm text-muted-foreground">
+                    Highlight active elements and reduce distractions
+                  </p>
+                </div>
+                <Switch
+                  id="focus-mode"
+                  checked={focusMode}
+                  onCheckedChange={setFocusMode}
+                />
+              </div>
+              
+              <Separator />
+              
+              <div className="bg-muted p-4 rounded-md">
+                <h4 className="font-medium mb-2">Recommended Settings</h4>
+                <div className="space-y-3">
+                  <div>
+                    <p className="font-medium">For ADHD:</p>
+                    <ul className="list-disc pl-5 text-sm">
+                      <li>Enable Focus Mode</li>
+                      <li>Enable Reduced Motion</li>
+                      <li>Enable Extended Timers</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <p className="font-medium">For Dyslexia:</p>
+                    <ul className="list-disc pl-5 text-sm">
+                      <li>Enable Dyslexia-Friendly Font</li>
+                      <li>Increase Line Spacing (1.8+)</li>
+                      <li>Enable Reading Guide</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <p className="font-medium">For Visual Processing:</p>
+                    <ul className="list-disc pl-5 text-sm">
+                      <li>Enable High Contrast</li>
+                      <li>Increase Font Size (120%+)</li>
+                      <li>Enable Simplified Interface</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
+      
+      <div className="flex justify-between mt-6">
+        <Button variant="outline" onClick={resetSettings}>
+          Reset to Defaults
+        </Button>
+        <Button onClick={saveSettings}>
+          <Check className="h-4 w-4 mr-2" />
+          Save Settings
+        </Button>
       </div>
     </div>
   );

@@ -187,7 +187,7 @@ export default function CurriculumAlignmentPage() {
                   </div>
                 </div>
                 <Button 
-                  size="small"
+                  size="sm"
                   onClick={() => handleAlignAssessment(standard.id)}
                   className="ml-4"
                 >

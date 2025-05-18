@@ -418,7 +418,7 @@ export default function AssessmentResultsPage() {
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                       <Button
                         variant="outline"
-                        size="small"
+                        size="sm"
                         onClick={() => setSelectedResponse(response.id)}
                       >
                         View Details
@@ -439,7 +439,7 @@ export default function AssessmentResultsPage() {
                   <h3 className="text-lg font-medium">Response Details</h3>
                   <Button
                     variant="outline"
-                    size="small"
+                    size="sm"
                     onClick={() => setSelectedResponse(null)}
                   >
                     Close

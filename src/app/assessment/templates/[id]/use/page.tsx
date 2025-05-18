@@ -249,7 +249,7 @@ export default function UseAssessmentTemplatePage() {
                   onClick={handleCreateAssessment}
                   disabled={saving || !title.trim()}
                 >
-                  {saving ? <Spinner size="small" /> : 'Create Assessment'}
+                  {saving ? <Spinner size="sm" /> : 'Create Assessment'}
                 </Button>
               </div>
               
