@@ -503,7 +503,7 @@ export default function AdminUserManagement() {
               Cancel
             </Button>
             <Button
-              variant="danger"
+              variant="destructive"
               onClick={handleConfirmDelete}
               disabled={actionLoading}
             >
