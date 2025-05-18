@@ -20,6 +20,8 @@ export interface AvatarCreationParams {
 export interface VideoGenerationParams {
   avatarId: string;
   scriptId: string;
+  title: string;
+  description?: string;
   outfit?: string;
   background?: string;
   voiceId?: string;
@@ -34,9 +36,13 @@ export interface HeyGenAvatar {
 
 export interface HeyGenVideo {
   id: string;
+  title: string;
+  description?: string;
   status: 'pending' | 'processing' | 'completed' | 'failed';
   url?: string;
   thumbnailUrl?: string;
+  avatarId?: string;
+  scriptId?: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -53,6 +59,7 @@ export class HeyGenService {
   private config: HeyGenConfig;
   private avatars: HeyGenAvatar[] = [];
   private voices: HeyGenVoice[] = [];
+  private videos: HeyGenVideo[] = [];
   private initialized: boolean = false;
 
   private constructor(config: HeyGenConfig) {
@@ -76,6 +83,7 @@ export class HeyGenService {
       
       this.avatars = await this.fetchAvatars();
       this.voices = await this.fetchVoices();
+      this.videos = await this.fetchVideos();
       this.initialized = true;
     } catch (error) {
       console.error('Failed to initialize HeyGen Service:', error);
@@ -178,7 +186,11 @@ export class HeyGenService {
       
       const newVideo: HeyGenVideo = {
         id: `video_${Date.now()}`,
+        title: params.title,
+        description: params.description,
         status: 'pending',
+        avatarId: params.avatarId,
+        scriptId: params.scriptId,
         createdAt: new Date(),
         updatedAt: new Date()
       };
@@ -189,6 +201,8 @@ export class HeyGenService {
         newVideo.url = `/api/heygen/videos/${newVideo.id}`;
         newVideo.thumbnailUrl = `/api/heygen/thumbnails/${newVideo.id}`;
         newVideo.updatedAt = new Date();
+        
+        this.videos.push(newVideo);
       }, 5000);
       
       return newVideo;
@@ -205,9 +219,13 @@ export class HeyGenService {
       // In production, this would call the HeyGen API to check video status
       // For now, we'll simulate the response
       
-      // This is a placeholder - in a real implementation, we would store and retrieve videos
+      const video = this.videos.find(v => v.id === id);
+      if (video) return { ...video };
+      
+      // If not found in our local cache, return a simulated response
       return {
         id,
+        title: "Sample Video",
         status: 'completed',
         url: `/api/heygen/videos/${id}`,
         thumbnailUrl: `/api/heygen/thumbnails/${id}`,
@@ -218,6 +236,11 @@ export class HeyGenService {
       console.error('Failed to get video status:', error);
       throw error;
     }
+  }
+  
+  public async getAllVideos(): Promise<HeyGenVideo[]> {
+    await this.ensureInitialized();
+    return [...this.videos];
   }
 
   // Helper Methods
@@ -238,6 +261,33 @@ export class HeyGenService {
     // In production, this would fetch voices from the HeyGen API
     // For now, we'll return an empty array
     return [];
+  }
+  
+  private async fetchVideos(): Promise<HeyGenVideo[]> {
+    // In production, this would fetch videos from the HeyGen API
+    // For now, we'll return sample videos
+    return [
+      {
+        id: 'video_sample_1',
+        title: 'Introduction to EdPsych Connect',
+        description: 'An overview of the platform and its features',
+        status: 'completed',
+        url: '/api/heygen/videos/sample1',
+        thumbnailUrl: '/api/heygen/thumbnails/sample1',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        id: 'video_sample_2',
+        title: 'Adaptive Learning Features',
+        description: 'How our adaptive learning system personalizes education',
+        status: 'completed',
+        url: '/api/heygen/videos/sample2',
+        thumbnailUrl: '/api/heygen/thumbnails/sample2',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }
+    ];
   }
 }
 
