@@ -64,7 +64,6 @@ import {
   BarChart, 
   BookOpen, 
   Calendar, 
-  Certificate, 
   CheckCircle, 
   Clock, 
   Download, 
@@ -78,6 +77,7 @@ import {
   Users, 
   Video 
 } from "lucide-react";
+import { Certificate } from "@/components/icons";
 
 // Course difficulty levels with UK spelling
 const DIFFICULTY_LEVELS = [
