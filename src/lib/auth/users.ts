@@ -1,165 +1,106 @@
-import { hash } from 'bcrypt';
-import { z } from 'zod';
-import { userSchema } from '@/lib/validations/schemas';
-import prisma from '@/lib/db/prisma';
+'use client';
 
-// Type for user registration data
-export type UserRegistrationData = z.infer<typeof userSchema>;
+import { hash, compare } from 'bcrypt';
+import { db } from '../db';
 
-/**
- * Register a new user
- * @param userData User registration data
- * @returns The created user object (without password)
- */
-export async function registerUser(userData: UserRegistrationData) {
-  // Validate user data
-  const validatedData = userSchema.parse(userData);
-  
-  // Check if user already exists
-  const existingUser = await prisma.user.findUnique({
-    where: { email: validatedData.email },
-  });
-  
-  if (existingUser) {
-    throw new Error('User with this email already exists');
-  }
-  
-  // Hash password if provided
-  let hashedPassword = null;
-  if (validatedData.password) {
-    hashedPassword = await hash(validatedData.password, 10);
-  }
-  
-  // Create user
-  const user = await prisma.user.create({
-    data: {
-      name: validatedData.name,
-      email: validatedData.email,
-      password: hashedPassword,
-      role: validatedData.role,
-      profile: {
-        create: {} // Create empty profile
+// User authentication functions
+export const users = {
+  // Verify password for a user
+  verifyPassword: async (email: string, password: string) => {
+    try {
+      const user = await db.user.findByEmail(email);
+      
+      if (!user) {
+        return { success: false, message: 'User not found' };
       }
-    },
-    select: {
-      id: true,
-      name: true,
-      email: true,
-      role: true,
-      createdAt: true,
-      profile: true,
-    },
-  });
+      
+      // In a real implementation, this would use bcrypt.compare
+      // For now, we'll simulate password verification
+      const isValid = await compare(password, user.password);
+      
+      if (!isValid) {
+        return { success: false, message: 'Invalid password' };
+      }
+      
+      return { 
+        success: true, 
+        user: {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          role: user.role
+        }
+      };
+    } catch (error) {
+      console.error('Error verifying password:', error);
+      return { success: false, message: 'Authentication error' };
+    }
+  },
   
-  return user;
-}
-
-/**
- * Get user by ID
- * @param userId User ID
- * @returns User object (without password)
- */
-export async function getUserById(userId: string) {
-  const user = await prisma.user.findUnique({
-    where: { id: userId },
-    select: {
-      id: true,
-      name: true,
-      email: true,
-      role: true,
-      createdAt: true,
-      profile: true,
-    },
-  });
+  // Create a new user
+  createUser: async (userData: any) => {
+    try {
+      // Check if user already exists
+      const existingUser = await db.user.findByEmail(userData.email);
+      
+      if (existingUser) {
+        return { success: false, message: 'User already exists' };
+      }
+      
+      // Hash password
+      const hashedPassword = await hash(userData.password, 10);
+      
+      // Create user with hashed password
+      const newUser = await db.user.create({
+        ...userData,
+        password: hashedPassword
+      });
+      
+      return { 
+        success: true, 
+        user: {
+          id: newUser.id,
+          name: newUser.name,
+          email: newUser.email,
+          role: newUser.role
+        }
+      };
+    } catch (error) {
+      console.error('Error creating user:', error);
+      return { success: false, message: 'Failed to create user' };
+    }
+  },
   
-  if (!user) {
-    throw new Error('User not found');
+  // Update user password
+  updatePassword: async (userId: string, currentPassword: string, newPassword: string) => {
+    try {
+      const user = await db.user.findById(userId);
+      
+      if (!user) {
+        return { success: false, message: 'User not found' };
+      }
+      
+      // Verify current password
+      const isValid = await compare(currentPassword, user.password);
+      
+      if (!isValid) {
+        return { success: false, message: 'Current password is incorrect' };
+      }
+      
+      // Hash new password
+      const hashedPassword = await hash(newPassword, 10);
+      
+      // Update user with new password
+      await db.user.update(userId, {
+        password: hashedPassword
+      });
+      
+      return { success: true, message: 'Password updated successfully' };
+    } catch (error) {
+      console.error('Error updating password:', error);
+      return { success: false, message: 'Failed to update password' };
+    }
   }
-  
-  return user;
-}
+};
 
-/**
- * Update user profile
- * @param userId User ID
- * @param profileData Profile data to update
- * @returns Updated user object (without password)
- */
-export async function updateUserProfile(userId: string, profileData: any) {
-  const user = await prisma.user.update({
-    where: { id: userId },
-    data: {
-      name: profileData.name,
-      profile: {
-        upsert: {
-          create: {
-            bio: profileData.bio,
-            school: profileData.school,
-            yearGroup: profileData.yearGroup,
-            specialNeeds: profileData.specialNeeds,
-            learningStyle: profileData.learningStyle,
-            preferences: profileData.preferences || {},
-          },
-          update: {
-            bio: profileData.bio,
-            school: profileData.school,
-            yearGroup: profileData.yearGroup,
-            specialNeeds: profileData.specialNeeds,
-            learningStyle: profileData.learningStyle,
-            preferences: profileData.preferences || {},
-          },
-        },
-      },
-    },
-    select: {
-      id: true,
-      name: true,
-      email: true,
-      role: true,
-      profile: true,
-    },
-  });
-  
-  return user;
-}
-
-/**
- * Get users by role
- * @param role User role
- * @returns Array of users with the specified role
- */
-export async function getUsersByRole(role: string) {
-  const users = await prisma.user.findMany({
-    where: { role: role as any },
-    select: {
-      id: true,
-      name: true,
-      email: true,
-      role: true,
-      createdAt: true,
-    },
-  });
-  
-  return users;
-}
-
-/**
- * Change user role
- * @param userId User ID
- * @param newRole New role
- * @returns Updated user object
- */
-export async function changeUserRole(userId: string, newRole: string) {
-  const user = await prisma.user.update({
-    where: { id: userId },
-    data: { role: newRole as any },
-    select: {
-      id: true,
-      name: true,
-      email: true,
-      role: true,
-    },
-  });
-  
-  return user;
-}
+export default users;

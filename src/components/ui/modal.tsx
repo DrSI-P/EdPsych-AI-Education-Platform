@@ -3,6 +3,9 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
+// Export Dialog component to fix build warnings
+export { Dialog } from './dialog';
+
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;

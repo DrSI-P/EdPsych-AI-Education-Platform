@@ -1,56 +1,71 @@
-// Database utilities for the EdPsych AI Education Platform
-// This file provides a centralized interface for database operations
+'use client';
 
-import prismaInstance from './prisma';
+import prisma from './prisma';
 
-// Re-export the prisma instance as a named export for consistency
-export const prisma = prismaInstance;
+// Database utility functions
+export const db = {
+  // User operations
+  user: {
+    findById: async (id: string) => {
+      return prisma.user.findUnique({
+        where: { id }
+      });
+    },
+    findByEmail: async (email: string) => {
+      return prisma.user.findUnique({
+        where: { email }
+      });
+    },
+    create: async (data: any) => {
+      return prisma.user.create({
+        data
+      });
+    },
+    update: async (id: string, data: any) => {
+      return prisma.user.update({
+        where: { id },
+        data
+      });
+    }
+  },
+  
+  // Resource operations
+  resource: {
+    findById: async (id: string) => {
+      return prisma.resource.findUnique({
+        where: { id }
+      });
+    },
+    findMany: async (filters: any = {}) => {
+      return prisma.resource.findMany({
+        where: filters
+      });
+    },
+    create: async (data: any) => {
+      return prisma.resource.create({
+        data
+      });
+    },
+    update: async (id: string, data: any) => {
+      return prisma.resource.update({
+        where: { id },
+        data
+      });
+    }
+  },
+  
+  // Generic query function
+  query: async (model: string, operation: string, params: any = {}) => {
+    if (!prisma[model]) {
+      throw new Error(`Model ${model} not found`);
+    }
+    
+    if (!prisma[model][operation]) {
+      throw new Error(`Operation ${operation} not found on model ${model}`);
+    }
+    
+    return prisma[model][operation](params);
+  }
+};
 
-// Helper functions for database operations
-export async function findUserById(id: string) {
-  // Placeholder implementation
-  return null;
-}
-
-export async function findUserByEmail(email: string) {
-  // Placeholder implementation
-  return null;
-}
-
-export async function createUser(userData: any) {
-  // Placeholder implementation
-  return null;
-}
-
-export async function updateUser(id: string, userData: any) {
-  // Placeholder implementation
-  return null;
-}
-
-export async function getCurriculumStandards(country: string, subject: string, keyStage: string) {
-  // Placeholder implementation
-  return [];
-}
-
-export async function getCurriculumPlans(userId: string) {
-  // Placeholder implementation
-  return [];
-}
-
-export async function saveCurriculumPlan(planData: any) {
-  // Placeholder implementation
-  return null;
-}
-
-export async function getCollaborationProjects(userId: string) {
-  // Placeholder implementation
-  return [];
-}
-
-export async function createCollaborationProject(projectData: any) {
-  // Placeholder implementation
-  return null;
-}
-
-// Default export for backward compatibility
-export default prisma;
+export default db;
