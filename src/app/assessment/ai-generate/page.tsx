@@ -290,7 +290,7 @@ export default function AIAssessmentGeneratorPage() {
             onClick={handleGenerateAssessment}
             disabled={generating || !subject || !keyStage || selectedQuestionTypes.length === 0}
           >
-            {generating ? <Spinner size="small" /> : 'Generate Assessment'}
+            {generating ? <Spinner size="sm" /> : 'Generate Assessment'}
           </Button>
         </div>
 
@@ -431,7 +431,7 @@ export default function AIAssessmentGeneratorPage() {
               onClick={handleSaveAssessment}
               disabled={loading}
             >
-              {loading ? <Spinner size="small" /> : 'Save Assessment'}
+              {loading ? <Spinner size="sm" /> : 'Save Assessment'}
             </Button>
           </div>
         </div>

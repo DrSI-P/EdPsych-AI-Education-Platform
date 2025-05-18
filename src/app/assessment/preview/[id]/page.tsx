@@ -424,7 +424,7 @@ export default function AssessmentPreviewPage() {
                         disabled={publishing}
                         className="w-full"
                       >
-                        {publishing ? <Spinner size="small" className="mr-2" /> : null}
+                        {publishing ? <Spinner size="sm" className="mr-2" /> : null}
                         Publish Assessment
                       </Button>
                     )}

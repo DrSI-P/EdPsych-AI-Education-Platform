@@ -308,7 +308,7 @@ export default function AlignAssessmentPage() {
                     onClick={handleSaveAlignment}
                     disabled={saving}
                   >
-                    {saving ? <Spinner size="small" /> : 'Save Alignment'}
+                    {saving ? <Spinner size="sm" /> : 'Save Alignment'}
                   </Button>
                 </div>
               </div>

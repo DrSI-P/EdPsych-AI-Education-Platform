@@ -94,7 +94,7 @@ const SafeDigitalExpressionSpaces = () => {
     {
       id: "j2",
       title: "Feeling frustrated with math homework",
-      content: "I spent two hours on my math homework today and still couldn't figure out some of the problems. It makes me feel really stupid when everyone else seems to understand it. I know I should ask for help, but I'm embarrassed. Maybe I'll try watching some tutorial videos online before the next class.",
+      content: "I spent two hours on my math homework today and still couldn\'t figure out some of the problems. It makes me feel really stupid when everyone else seems to understand it. I know I should ask for help, but I\'m embarrassed. Maybe I\'ll try watching some tutorial videos online before the next class.",
       date: "2025-05-12T19:45:00Z",
       mood: "frustrated",
       tags: ["school", "homework", "math", "frustration"],
@@ -122,7 +122,7 @@ const SafeDigitalExpressionSpaces = () => {
           id: "r2",
           author: "Jamie",
           role: "peer",
-          content: "That's awesome! I'm on the team too, so I'll see you at practice!",
+          content: "That\'s awesome! I\'m on the team too, so I\'ll see you at practice!",
           date: "2025-05-14T18:30:00Z"
         }
       ]
@@ -140,7 +140,7 @@ const SafeDigitalExpressionSpaces = () => {
     {
       id: "j5",
       title: "Mindfulness practice reflection",
-      content: "I tried the 10-minute mindfulness exercise from class today. It was hard to sit still at first, but by the end I felt calmer. I noticed that my thoughts kept drifting to my upcoming science test, but I practiced bringing my attention back to my breathing like we learned. I think I'll try to do this every morning before school.",
+      content: "I tried the 10-minute mindfulness exercise from class today. It was hard to sit still at first, but by the end I felt calmer. I noticed that my thoughts kept drifting to my upcoming science test, but I practiced bringing my attention back to my breathing like we learned. I think I\'ll try to do this every morning before school.",
       date: "2025-05-16T08:15:00Z",
       mood: "calm",
       tags: ["mindfulness", "wellbeing", "practice"],
@@ -163,7 +163,7 @@ const SafeDigitalExpressionSpaces = () => {
     {
       id: "a1",
       title: "My emotions color wheel",
-      description: "I created this color wheel to show different emotions I've been feeling this month. Each color represents a different feeling, and the size shows how often I felt that way.",
+      description: "I created this color wheel to show different emotions I\'ve been feeling this month. Each color represents a different feeling, and the size shows how often I felt that way.",
       date: "2025-05-08T15:30:00Z",
       medium: "digital",
       imageUrl: "/art/emotions-wheel.png",
@@ -232,7 +232,7 @@ const SafeDigitalExpressionSpaces = () => {
           id: "mr1",
           author: "Jamie",
           role: "peer",
-          content: "Thank you for sharing this. I've been dealing with similar feelings and it helps to know I'm not alone.",
+          content: "Thank you for sharing this. I\'ve been dealing with similar feelings and it helps to know I\'m not alone.",
           date: "2025-05-08T09:15:00Z"
         },
         {
@@ -354,7 +354,7 @@ const SafeDigitalExpressionSpaces = () => {
               id: "gmr4",
               author: "Taylor",
               role: "peer",
-              content: "I've been here for two weeks now and still get lost sometimes! I found that taking a photo of the school map helped. Also, the color-coded hallways make more sense after a few days.",
+              content: "I\'ve been here for two weeks now and still get lost sometimes! I found that taking a photo of the school map helped. Also, the color-coded hallways make more sense after a few days.",
               date: "2025-05-15T16:25:00Z"
             },
             {
@@ -382,7 +382,7 @@ const SafeDigitalExpressionSpaces = () => {
           id: "gm4",
           author: "Riley",
           role: "peer",
-          content: "I've been trying the body scan meditation before bed, but I keep falling asleep halfway through! Is that normal or am I doing it wrong?",
+          content: "I\'ve been trying the body scan meditation before bed, but I keep falling asleep halfway through! Is that normal or am I doing it wrong?",
           date: "2025-05-16T20:15:00Z",
           responses: [
             {

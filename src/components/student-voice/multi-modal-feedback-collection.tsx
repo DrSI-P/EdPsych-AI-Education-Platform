@@ -15,7 +15,9 @@ import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/components/ui/use-toast";
-import { Mic, MicOff, Send, Image, Video, Smile, Save, Download, Copy, Globe, VolumeUp, Volume2, MessageSquare, Eye, EyeOff, RefreshCw, Check, X } from 'lucide-react';
+// Import VolumeUp from our custom icons to fix build errors
+import { Mic, MicOff, Send, Image, Video, Smile, Save, Download, Copy, Globe, Volume2, MessageSquare, Eye, EyeOff, RefreshCw, Check, X } from 'lucide-react';
+import { VolumeUp } from '@/components/icons/volume-up';
 
 // Mock data for language options
 const languageOptions = [

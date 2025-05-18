@@ -8,6 +8,27 @@ interface LoadingProps {
   className?: string;
 }
 
+// Export additional components needed by the barrel file
+export function Loading({ size = 'md', color = 'primary', className = '' }: LoadingProps) {
+  return <Spinner size={size} color={color} className={className} />;
+}
+
+export function LoadingDots({ size = 'md', color = 'primary', className = '' }: LoadingProps) {
+  return (
+    <div className={`flex space-x-1 ${className}`}>
+      <div className={`animate-bounce bg-${color === 'white' ? 'white' : 'blue-600'} rounded-full`} style={{ width: size === 'sm' ? '4px' : size === 'md' ? '6px' : '8px', height: size === 'sm' ? '4px' : size === 'md' ? '6px' : '8px' }}></div>
+      <div className={`animate-bounce bg-${color === 'white' ? 'white' : 'blue-600'} rounded-full animation-delay-200`} style={{ width: size === 'sm' ? '4px' : size === 'md' ? '6px' : '8px', height: size === 'sm' ? '4px' : size === 'md' ? '6px' : '8px', animationDelay: '0.2s' }}></div>
+      <div className={`animate-bounce bg-${color === 'white' ? 'white' : 'blue-600'} rounded-full animation-delay-400`} style={{ width: size === 'sm' ? '4px' : size === 'md' ? '6px' : '8px', height: size === 'sm' ? '4px' : size === 'md' ? '6px' : '8px', animationDelay: '0.4s' }}></div>
+    </div>
+  );
+}
+
+export function LoadingSpinner({ size = 'md', color = 'primary', className = '' }: LoadingProps) {
+  return <Spinner size={size} color={color} className={className} />;
+}
+
+// Progress component is defined in this file, no need to import from progress.tsx
+
 export function Spinner({ size = 'md', color = 'primary', className = '' }: LoadingProps) {
   const sizeClasses = {
     sm: 'h-4 w-4',

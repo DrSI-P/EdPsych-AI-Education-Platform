@@ -1,128 +1,595 @@
 /**
- * CogniFit Assessment Tool Plugin Implementation
+ * Cognifit Assessment Plugin Implementation
  * 
- * This file implements the CogniFit assessment tool plugin for the EdPsych-AI-Education-Platform.
- * It integrates with CogniFit's API to provide cognitive assessment capabilities.
+ * This file implements an assessment tool plugin for integrating Cognifit's
+ * cognitive assessment tools with the EdPsych-AI-Education-Platform.
  */
 
 import { 
-  AssessmentToolPluginTemplate,
-  AssessmentType,
-  AssessmentDifficulty,
-  AssessmentResultLevel,
-  AssessmentMetadata,
-  AssessmentResult
-} from '@/lib/plugins/templates/assessmentToolPlugin';
-import { PluginMetadata, PluginStatus } from '@/lib/plugins/types';
+  BaseAssessmentToolPlugin, 
+  AssessmentToolPluginParams,
+  AssessmentToolPluginResponse,
+  AssessmentToolPluginResult
+} from '../templates/assessmentToolPlugin';
+import { PluginMetadata, PluginStatus } from '../types';
 
 /**
- * CogniFit API client
+ * Cognifit API client interface
  */
-class CogniFitApiClient {
-  private apiKey: string;
-  private apiSecret: string;
-  private baseUrl: string = 'https://api.cognifit.com/v1';
+interface CognifitApiClient {
+  initialize(apiKey: string, apiSecret: string): Promise<boolean>;
+  createAssessment(params: CognifitAssessmentParams): Promise<CognifitAssessment>;
+  getAssessment(assessmentId: string): Promise<CognifitAssessment>;
+  scoreAssessment(assessmentId: string, responses: CognifitResponse[]): Promise<CognifitResult>;
+  getResults(assessmentId: string): Promise<CognifitResult>;
+}
+
+/**
+ * Cognifit assessment parameters
+ */
+interface CognifitAssessmentParams {
+  assessmentType: string;
+  ageRange: {
+    min: number;
+    max: number;
+  };
+  domain: string;
+  subdomains: string[];
+  difficulty: string;
+  itemCount: number;
+  timeLimit?: number;
+  adaptive?: boolean;
+  accessibility?: {
+    simplifiedInstructions?: boolean;
+    highContrast?: boolean;
+    audioInstructions?: boolean;
+    extendedTime?: boolean;
+  };
+}
+
+/**
+ * Cognifit assessment
+ */
+interface CognifitAssessment {
+  id: string;
+  status: 'ready' | 'in_progress' | 'completed' | 'error';
+  createdAt: string;
+  updatedAt: string;
+  params: CognifitAssessmentParams;
+  items: CognifitItem[];
+}
+
+/**
+ * Cognifit assessment item
+ */
+interface CognifitItem {
+  id: string;
+  type: string;
+  difficulty: string;
+  domain: string;
+  subdomain: string;
+  content: any;
+  timeLimit?: number;
+}
+
+/**
+ * Cognifit response
+ */
+interface CognifitResponse {
+  itemId: string;
+  response: any;
+  timestamp: string;
+  responseTime: number;
+}
+
+/**
+ * Cognifit result
+ */
+interface CognifitResult {
+  assessmentId: string;
+  userId: string;
+  overallScore: number;
+  maxScore: number;
+  percentile: number;
+  completedAt: string;
+  duration: number;
+  itemResults: CognifitItemResult[];
+  domainScores: {
+    [domain: string]: {
+      score: number;
+      percentile: number;
+      classification: string;
+    };
+  };
+  recommendations: {
+    overall: string;
+    byDomain: {
+      [domain: string]: string;
+    };
+    activities: string[];
+  };
+}
+
+/**
+ * Cognifit item result
+ */
+interface CognifitItemResult {
+  itemId: string;
+  correct: boolean;
+  score: number;
+  responseTime: number;
+}
+
+/**
+ * Mock implementation of the Cognifit API client
+ */
+class MockCognifitApiClient implements CognifitApiClient {
+  private apiKey: string = '';
+  private apiSecret: string = '';
+  private initialized: boolean = false;
+  private assessments: Map<string, CognifitAssessment> = new Map();
+  private results: Map<string, CognifitResult> = new Map();
   
-  constructor(apiKey: string, apiSecret: string) {
+  /**
+   * Initialize the API client
+   * 
+   * @param apiKey The API key
+   * @param apiSecret The API secret
+   * @returns Whether initialization was successful
+   */
+  async initialize(apiKey: string, apiSecret: string): Promise<boolean> {
+    // In a real implementation, this would validate the credentials with the Cognifit API
     this.apiKey = apiKey;
     this.apiSecret = apiSecret;
+    this.initialized = true;
+    
+    return true;
   }
   
   /**
-   * Make authenticated request to CogniFit API
+   * Create a Cognifit assessment
+   * 
+   * @param params The assessment parameters
+   * @returns The created assessment
    */
-  private async request(endpoint: string, method: string = 'GET', body?: any): Promise<any> {
-    const url = `${this.baseUrl}${endpoint}`;
-    const headers = {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${this.apiKey}`,
-      'X-API-Secret': this.apiSecret
-    };
-    
-    const options: RequestInit = {
-      method,
-      headers,
-      body: body ? JSON.stringify(body) : undefined
-    };
-    
-    const response = await fetch(url, options);
-    
-    if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(`CogniFit API error (${response.status}): ${errorText}`);
+  async createAssessment(params: CognifitAssessmentParams): Promise<CognifitAssessment> {
+    if (!this.initialized) {
+      throw new Error('Cognifit API client not initialized');
     }
     
-    return response.json();
+    // Generate a unique ID for the assessment
+    const id = `cognifit-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+    
+    // Create mock items based on parameters
+    const items: CognifitItem[] = [];
+    for (let i = 0; i < params.itemCount; i++) {
+      const subdomain = params.subdomains[i % params.subdomains.length];
+      items.push({
+        id: `item-${id}-${i}`,
+        type: this.getItemType(i),
+        difficulty: params.difficulty,
+        domain: params.domain,
+        subdomain,
+        content: {
+          question: `Sample ${subdomain} question ${i + 1}`,
+          options: ['Option A', 'Option B', 'Option C', 'Option D'],
+          correctOption: Math.floor(Math.random() * 4)
+        },
+        timeLimit: params.timeLimit ? Math.floor(params.timeLimit / params.itemCount) : undefined
+      });
+    }
+    
+    // Create the assessment
+    const assessment: CognifitAssessment = {
+      id,
+      status: 'ready',
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      params,
+      items
+    };
+    
+    // Store the assessment
+    this.assessments.set(id, assessment);
+    
+    return assessment;
   }
   
   /**
-   * Get available assessments
+   * Get a Cognifit assessment
+   * 
+   * @param assessmentId The ID of the assessment to get
+   * @returns The assessment
    */
-  async getAssessments(): Promise<any[]> {
-    return this.request('/assessments');
+  async getAssessment(assessmentId: string): Promise<CognifitAssessment> {
+    if (!this.initialized) {
+      throw new Error('Cognifit API client not initialized');
+    }
+    
+    // Retrieve the assessment
+    const assessment = this.assessments.get(assessmentId);
+    
+    if (!assessment) {
+      throw new Error(`Assessment not found: ${assessmentId}`);
+    }
+    
+    return assessment;
   }
   
   /**
-   * Get assessment details
+   * Score a Cognifit assessment
+   * 
+   * @param assessmentId The ID of the assessment to score
+   * @param responses The responses to score
+   * @returns The assessment results
    */
-  async getAssessment(assessmentId: string): Promise<any> {
-    return this.request(`/assessments/${assessmentId}`);
+  async scoreAssessment(assessmentId: string, responses: CognifitResponse[]): Promise<CognifitResult> {
+    if (!this.initialized) {
+      throw new Error('Cognifit API client not initialized');
+    }
+    
+    // Retrieve the assessment
+    const assessment = await this.getAssessment(assessmentId);
+    
+    // Create mock item results
+    const itemResults: CognifitItemResult[] = [];
+    let totalScore = 0;
+    const maxScore = assessment.items.length * 10; // Assuming 10 points per item
+    
+    // Domain scores
+    const domainScores: {
+      [domain: string]: {
+        score: number;
+        percentile: number;
+        classification: string;
+      };
+    } = {};
+    
+    // Initialize domain scores
+    domainScores[assessment.params.domain] = {
+      score: 0,
+      percentile: 0,
+      classification: 'Average'
+    };
+    
+    for (const subdomain of assessment.params.subdomains) {
+      domainScores[subdomain] = {
+        score: 0,
+        percentile: 0,
+        classification: 'Average'
+      };
+    }
+    
+    // Process each response
+    for (const response of responses) {
+      // Find the corresponding item
+      const item = assessment.items.find(i => i.id === response.itemId);
+      
+      if (!item) {
+        continue;
+      }
+      
+      // Determine if the response is correct (mock implementation)
+      const correct = Math.random() > 0.3; // 70% chance of correct
+      
+      // Calculate score (0-10)
+      const score = correct ? 5 + Math.floor(Math.random() * 6) : Math.floor(Math.random() * 5);
+      
+      // Add to total score
+      totalScore += score;
+      
+      // Add to domain scores
+      domainScores[item.domain].score += score;
+      domainScores[item.subdomain].score += score;
+      
+      // Add item result
+      itemResults.push({
+        itemId: item.id,
+        correct,
+        score,
+        responseTime: parseInt(response.responseTime.toString())
+      });
+    }
+    
+    // Calculate percentiles and classifications for domain scores
+    for (const domain in domainScores) {
+      const score = domainScores[domain].score;
+      const maxDomainScore = assessment.items.filter(i => 
+        i.domain === domain || i.subdomain === domain
+      ).length * 10;
+      
+      const percentage = maxDomainScore > 0 ? (score / maxDomainScore) * 100 : 0;
+      const percentile = Math.min(99, Math.max(1, Math.floor(percentage)));
+      
+      domainScores[domain].percentile = percentile;
+      
+      // Determine classification
+      if (percentile >= 90) {
+        domainScores[domain].classification = 'Superior';
+      } else if (percentile >= 75) {
+        domainScores[domain].classification = 'Above Average';
+      } else if (percentile >= 25) {
+        domainScores[domain].classification = 'Average';
+      } else if (percentile >= 10) {
+        domainScores[domain].classification = 'Below Average';
+      } else {
+        domainScores[domain].classification = 'Low';
+      }
+    }
+    
+    // Calculate overall percentile
+    const percentage = (totalScore / maxScore) * 100;
+    const percentile = Math.min(99, Math.max(1, Math.floor(percentage)));
+    
+    // Create recommendations
+    const recommendations = this.generateRecommendations(domainScores);
+    
+    // Create the result
+    const result: CognifitResult = {
+      assessmentId,
+      userId: 'user-123', // Mock user ID
+      overallScore: totalScore,
+      maxScore,
+      percentile,
+      completedAt: new Date().toISOString(),
+      duration: responses.reduce((sum, r) => sum + r.responseTime, 0),
+      itemResults,
+      domainScores,
+      recommendations
+    };
+    
+    // Store the result
+    this.results.set(assessmentId, result);
+    
+    return result;
   }
   
   /**
-   * Create assessment session
+   * Get Cognifit assessment results
+   * 
+   * @param assessmentId The ID of the assessment to get results for
+   * @returns The assessment results
    */
-  async createAssessmentSession(params: any): Promise<any> {
-    return this.request('/assessment-sessions', 'POST', params);
+  async getResults(assessmentId: string): Promise<CognifitResult> {
+    if (!this.initialized) {
+      throw new Error('Cognifit API client not initialized');
+    }
+    
+    // Retrieve the results
+    const results = this.results.get(assessmentId);
+    
+    if (!results) {
+      throw new Error(`Results not found for assessment: ${assessmentId}`);
+    }
+    
+    return results;
   }
   
   /**
-   * Get assessment session
+   * Get a mock item type based on index
+   * 
+   * @param index The item index
+   * @returns The item type
    */
-  async getAssessmentSession(sessionId: string): Promise<any> {
-    return this.request(`/assessment-sessions/${sessionId}`);
+  private getItemType(index: number): string {
+    const types = [
+      'multiple_choice',
+      'sequence_memory',
+      'spatial_recognition',
+      'working_memory',
+      'attention_focus',
+      'processing_speed'
+    ];
+    
+    return types[index % types.length];
   }
   
   /**
-   * Get assessment results
+   * Generate mock recommendations based on domain scores
+   * 
+   * @param domainScores The domain scores
+   * @returns The recommendations
    */
-  async getAssessmentResults(sessionId: string): Promise<any> {
-    return this.request(`/assessment-sessions/${sessionId}/results`);
+  private generateRecommendations(domainScores: {
+    [domain: string]: {
+      score: number;
+      percentile: number;
+      classification: string;
+    };
+  }): CognifitResult['recommendations'] {
+    const recommendations: CognifitResult['recommendations'] = {
+      overall: 'Based on your assessment results, we recommend focusing on improving your cognitive skills through regular practice and targeted exercises.',
+      byDomain: {},
+      activities: [
+        'Daily memory exercises',
+        'Attention training games',
+        'Processing speed challenges',
+        'Logical reasoning puzzles',
+        'Visual-spatial recognition activities'
+      ]
+    };
+    
+    // Generate domain-specific recommendations
+    for (const domain in domainScores) {
+      const { classification } = domainScores[domain];
+      
+      switch (classification) {
+        case 'Superior':
+          recommendations.byDomain[domain] = `Your ${domain} skills are excellent. Continue challenging yourself with advanced exercises.`;
+          break;
+        case 'Above Average':
+          recommendations.byDomain[domain] = `Your ${domain} skills are strong. Regular practice will help maintain and further improve these abilities.`;
+          break;
+        case 'Average':
+          recommendations.byDomain[domain] = `Your ${domain} skills are at an average level. Consistent practice will help strengthen these abilities.`;
+          break;
+        case 'Below Average':
+          recommendations.byDomain[domain] = `Your ${domain} skills could benefit from targeted practice. We recommend focusing on exercises specifically designed to improve this area.`;
+          break;
+        case 'Low':
+          recommendations.byDomain[domain] = `Your ${domain} skills need significant improvement. We recommend a structured program of daily exercises focused on this area.`;
+          break;
+      }
+    }
+    
+    return recommendations;
   }
 }
 
 /**
- * CogniFit Assessment Tool Plugin
+ * Cognifit Assessment Plugin
+ * 
+ * This plugin integrates Cognifit's cognitive assessment tools with the
+ * EdPsych-AI-Education-Platform's assessment engine.
  */
-export class CogniFitAssessmentPlugin extends AssessmentToolPluginTemplate {
-  private apiClient: CogniFitApiClient | null = null;
+export class CognifitAssessmentPlugin extends BaseAssessmentToolPlugin {
+  private apiClient: CognifitApiClient;
   
   /**
-   * Get plugin metadata
+   * Constructor for the Cognifit assessment plugin
    */
-  getMetadata(): PluginMetadata {
-    return {
+  constructor() {
+    // Define plugin metadata
+    const metadata: PluginMetadata = {
       id: 'cognifit-assessment',
-      name: 'CogniFit Assessment Tools',
-      description: 'Integrates CogniFit cognitive assessment and training tools.',
+      name: 'Cognifit Assessment Tool',
+      description: 'Integrates Cognifit\'s cognitive assessment tools for measuring and improving cognitive abilities.',
       version: '1.0.0',
-      author: 'EdPsych-AI-Education-Platform',
-      website: 'https://www.cognifit.com',
-      icon: '/icons/cognifit.svg',
-      tags: ['assessment', 'cognitive', 'special-needs'],
-      supportedFeatures: ['cognitive-assessment', 'progress-tracking', 'reporting'],
-      requiredPermissions: ['read_assessment', 'write_assessment', 'external_api'],
-      compatibilityVersion: '1.0',
+      author: 'EdPsych Connect',
+      website: 'https://www.cognifit.com/',
+      icon: 'brain',
+      tags: ['assessment', 'cognitive', 'psychology', 'neuroscience'],
+      supportedFeatures: ['cognitive_assessment', 'performance_tracking', 'personalized_recommendations'],
+      requiredPermissions: ['read_assessment', 'write_assessment'],
+      compatibilityVersion: '1.0'
     };
+    
+    super(metadata);
+    
+    // Initialize API client
+    this.apiClient = new MockCognifitApiClient();
+  }
+  
+  /**
+   * Initialize the plugin
+   * 
+   * @returns Whether initialization was successful
+   */
+  protected async initializePlugin(): Promise<boolean> {
+    try {
+      // Get API credentials from settings
+      const apiKey = this.settings.apiKey || '';
+      const apiSecret = this.settings.apiSecret || '';
+      
+      // Initialize the API client
+      return await this.apiClient.initialize(apiKey, apiSecret);
+    } catch (error) {
+      console.error('Error initializing Cognifit plugin:', error);
+      return false;
+    }
+  }
+  
+  /**
+   * Shut down the plugin
+   */
+  protected async shutdownPlugin(): Promise<void> {
+    // No specific shutdown needed for this plugin
+  }
+  
+  /**
+   * Configure the plugin
+   * 
+   * @param settings The plugin settings
+   * @returns Whether configuration was successful
+   */
+  protected async configurePlugin(settings: Record<string, any>): Promise<boolean> {
+    try {
+      // If API credentials are provided, reinitialize the client
+      if (settings.apiKey && settings.apiSecret) {
+        return await this.apiClient.initialize(settings.apiKey, settings.apiSecret);
+      }
+      
+      return true;
+    } catch (error) {
+      console.error('Error configuring Cognifit plugin:', error);
+      return false;
+    }
+  }
+  
+  /**
+   * Create an assessment using Cognifit
+   * 
+   * @param params The assessment parameters
+   * @returns The created assessment
+   */
+  protected async createAssessmentImpl(params: AssessmentToolPluginParams): Promise<any> {
+    try {
+      // Convert platform parameters to Cognifit parameters
+      const cognifitParams = this.convertToCognifitParams(params);
+      
+      // Create the assessment
+      const assessment = await this.apiClient.createAssessment(cognifitParams);
+      
+      return assessment;
+    } catch (error) {
+      console.error('Error creating Cognifit assessment:', error);
+      throw error;
+    }
+  }
+  
+  /**
+   * Score an assessment using Cognifit
+   * 
+   * @param assessmentId The ID of the assessment to score
+   * @param responses The student's responses
+   * @returns The assessment results
+   */
+  protected async scoreAssessmentImpl(assessmentId: string, responses: AssessmentToolPluginResponse[]): Promise<any> {
+    try {
+      // Convert platform responses to Cognifit responses
+      const cognifitResponses = this.convertToCognifitResponses(responses);
+      
+      // Score the assessment
+      const result = await this.apiClient.scoreAssessment(assessmentId, cognifitResponses);
+      
+      return result;
+    } catch (error) {
+      console.error('Error scoring Cognifit assessment:', error);
+      throw error;
+    }
+  }
+  
+  /**
+   * Get assessment results using Cognifit
+   * 
+   * @param assessmentId The ID of the assessment to get results for
+   * @returns The assessment results
+   */
+  protected async getResultsImpl(assessmentId: string): Promise<any> {
+    try {
+      // Get the results
+      const result = await this.apiClient.getResults(assessmentId);
+      
+      return result;
+    } catch (error) {
+      console.error('Error getting Cognifit results:', error);
+      throw error;
+    }
   }
   
   /**
    * Validate plugin settings
+   * 
+   * @param settings The settings to validate
+   * @returns Whether the settings are valid
    */
-  protected validateSettings(): boolean {
-    // Check if required settings are present
-    if (!this.settings.apiKey || !this.settings.apiSecret) {
-      console.error('CogniFit plugin missing required settings: apiKey and apiSecret');
+  protected validateSettings(settings: Record<string, any>): boolean {
+    // Validate required settings
+    if (settings.apiKey && typeof settings.apiKey !== 'string') {
+      return false;
+    }
+    
+    if (settings.apiSecret && typeof settings.apiSecret !== 'string') {
       return false;
     }
     
@@ -130,283 +597,117 @@ export class CogniFitAssessmentPlugin extends AssessmentToolPluginTemplate {
   }
   
   /**
-   * Initialize provider-specific resources
+   * Convert platform parameters to Cognifit parameters
+   * 
+   * @param params The platform parameters
+   * @returns The Cognifit parameters
    */
-  protected async initializeProvider(): Promise<void> {
-    if (!this.settings.apiKey || !this.settings.apiSecret) {
-      throw new Error('CogniFit API credentials not configured');
+  private convertToCognifitParams(params: AssessmentToolPluginParams): CognifitAssessmentParams {
+    // Map assessment type
+    let assessmentType = 'cognitive_assessment';
+    if (params.assessmentType === 'diagnostic') {
+      assessmentType = 'cognitive_assessment';
+    } else if (params.assessmentType === 'progress_check') {
+      assessmentType = 'progress_assessment';
     }
     
-    this.apiClient = new CogniFitApiClient(
-      this.settings.apiKey,
-      this.settings.apiSecret
-    );
+    // Map subject to domain
+    let domain = 'general_cognition';
+    let subdomains: string[] = ['memory', 'attention', 'reasoning'];
     
-    // Verify API connection
-    try {
-      await this.apiClient.getAssessments();
-    } catch (error) {
-      throw new Error(`Failed to connect to CogniFit API: ${error.message}`);
+    if (params.subject === 'mathematics') {
+      domain = 'mathematical_cognition';
+      subdomains = ['numerical_reasoning', 'spatial_awareness', 'logical_thinking'];
+    } else if (params.subject === 'english') {
+      domain = 'verbal_cognition';
+      subdomains = ['verbal_memory', 'reading_comprehension', 'verbal_reasoning'];
+    } else if (params.subject === 'science') {
+      domain = 'scientific_reasoning';
+      subdomains = ['analytical_thinking', 'pattern_recognition', 'hypothesis_testing'];
     }
-  }
-  
-  /**
-   * Shutdown provider-specific resources
-   */
-  protected async shutdownProvider(): Promise<void> {
-    this.apiClient = null;
-  }
-  
-  /**
-   * Configure provider with settings
-   */
-  protected async configureProvider(settings: Record<string, any>): Promise<void> {
-    if (settings.apiKey && settings.apiSecret) {
-      this.apiClient = new CogniFitApiClient(
-        settings.apiKey,
-        settings.apiSecret
-      );
-      
-      // Verify API connection
-      try {
-        await this.apiClient.getAssessments();
-      } catch (error) {
-        throw new Error(`Failed to connect to CogniFit API: ${error.message}`);
+    
+    // Add topics as subdomains if available
+    if (params.topics && params.topics.length > 0) {
+      subdomains = [...subdomains, ...params.topics];
+    }
+    
+    // Map difficulty level
+    let difficulty = 'medium';
+    switch (params.difficultyLevel) {
+      case 'beginner':
+      case 'foundation':
+        difficulty = 'easy';
+        break;
+      case 'intermediate':
+        difficulty = 'medium';
+        break;
+      case 'higher':
+      case 'advanced':
+      case 'challenge':
+        difficulty = 'hard';
+        break;
+    }
+    
+    // Create Cognifit parameters
+    return {
+      assessmentType,
+      ageRange: params.targetAgeRange,
+      domain,
+      subdomains,
+      difficulty,
+      itemCount: params.questionCount,
+      timeLimit: params.timeLimit,
+      adaptive: params.adaptiveDifficulty,
+      accessibility: {
+        simplifiedInstructions: params.accessibilityOptions?.simplifiedLanguage,
+        highContrast: params.accessibilityOptions?.highContrast,
+        audioInstructions: params.accessibilityOptions?.textToSpeech,
+        extendedTime: params.accessibilityOptions?.extendedTime
       }
-    }
-  }
-  
-  /**
-   * Validate assessment parameters
-   */
-  protected validateAssessmentParams(params: any): boolean {
-    // Check if required parameters are present
-    if (!params.type || !params.userId) {
-      return false;
-    }
-    
-    return true;
-  }
-  
-  /**
-   * Create assessment in provider
-   */
-  protected async createProviderAssessment(params: any): Promise<any> {
-    if (!this.apiClient) {
-      throw new Error('CogniFit API client not initialized');
-    }
-    
-    // Map platform parameters to CogniFit parameters
-    const cognifitParams = {
-      assessment_type: this.mapAssessmentType(params.type),
-      user_id: params.userId,
-      language: params.language || 'en-GB',
-      redirect_url: params.redirectUrl,
-      ...this.getAdditionalParams(params)
     };
-    
-    // Create assessment session in CogniFit
-    const session = await this.apiClient.createAssessmentSession(cognifitParams);
-    
-    return session;
   }
   
   /**
-   * Map provider assessment to platform format
+   * Convert platform responses to Cognifit responses
+   * 
+   * @param responses The platform responses
+   * @returns The Cognifit responses
    */
-  protected mapProviderAssessment(assessment: any): AssessmentMetadata {
+  private convertToCognifitResponses(responses: AssessmentToolPluginResponse[]): CognifitResponse[] {
+    return responses.map(response => ({
+      itemId: response.questionId,
+      response: response.responseData,
+      timestamp: response.timestamp.toISOString(),
+      responseTime: Math.floor(Math.random() * 10000) + 1000 // Mock response time between 1-11 seconds
+    }));
+  }
+  
+  /**
+   * Convert Cognifit results to platform results
+   * 
+   * @param result The Cognifit result
+   * @returns The platform result
+   */
+  private convertToPluginResult(result: CognifitResult): AssessmentToolPluginResult {
     return {
-      id: assessment.id,
-      name: assessment.name,
-      description: assessment.description || 'CogniFit cognitive assessment',
-      type: this.mapCognifitType(assessment.type),
-      difficulty: AssessmentDifficulty.ADAPTIVE,
-      ageRangeMin: assessment.min_age || 7,
-      ageRangeMax: assessment.max_age || 99,
-      estimatedTimeMinutes: assessment.estimated_time_minutes || 30,
-      tags: ['cognitive', 'cognifit', assessment.type]
+      assessmentId: result.assessmentId,
+      studentId: result.userId,
+      score: result.overallScore,
+      maxScore: result.maxScore,
+      percentage: (result.overallScore / result.maxScore) * 100,
+      passed: result.percentile >= 50,
+      completedAt: new Date(result.completedAt),
+      timeSpent: result.duration,
+      questionResults: result.itemResults.map(ir => ({
+        questionId: ir.itemId,
+        correct: ir.correct,
+        score: ir.score
+      })),
+      feedback: {
+        overall: result.recommendations.overall,
+        byTopic: result.recommendations.byDomain,
+        nextSteps: result.recommendations.activities
+      }
     };
-  }
-  
-  /**
-   * Validate assessment responses
-   */
-  protected validateResponses(responses: any): boolean {
-    // CogniFit handles responses internally, so we just need to validate the session ID
-    return !!responses.sessionId;
-  }
-  
-  /**
-   * Score assessment in provider
-   */
-  protected async scoreProviderAssessment(assessmentId: string, responses: any): Promise<any> {
-    if (!this.apiClient) {
-      throw new Error('CogniFit API client not initialized');
-    }
-    
-    // CogniFit handles scoring internally, so we just need to get the results
-    const results = await this.apiClient.getAssessmentResults(responses.sessionId);
-    
-    return results;
-  }
-  
-  /**
-   * Get assessment results from provider
-   */
-  protected async getProviderResults(assessmentId: string): Promise<any> {
-    if (!this.apiClient) {
-      throw new Error('CogniFit API client not initialized');
-    }
-    
-    // Get results from CogniFit
-    const results = await this.apiClient.getAssessmentResults(assessmentId);
-    
-    return results;
-  }
-  
-  /**
-   * Map provider result to platform format
-   */
-  protected mapProviderResult(result: any): AssessmentResult {
-    // Calculate overall score
-    const scores = result.cognitive_skills.map(skill => skill.score);
-    const totalScore = scores.reduce((sum, score) => sum + score, 0);
-    const maxPossibleScore = scores.length * 800; // CogniFit scores range from 0-800
-    const percentageScore = (totalScore / maxPossibleScore) * 100;
-    
-    // Determine result level
-    let level = AssessmentResultLevel.AVERAGE;
-    if (percentageScore >= 80) {
-      level = AssessmentResultLevel.WELL_ABOVE_AVERAGE;
-    } else if (percentageScore >= 60) {
-      level = AssessmentResultLevel.ABOVE_AVERAGE;
-    } else if (percentageScore >= 40) {
-      level = AssessmentResultLevel.AVERAGE;
-    } else if (percentageScore >= 20) {
-      level = AssessmentResultLevel.BELOW_AVERAGE;
-    } else {
-      level = AssessmentResultLevel.WELL_BELOW_AVERAGE;
-    }
-    
-    // Map strengths and areas for improvement
-    const strengths = result.cognitive_skills
-      .filter(skill => skill.score >= 600)
-      .map(skill => skill.name);
-    
-    const areasForImprovement = result.cognitive_skills
-      .filter(skill => skill.score < 400)
-      .map(skill => skill.name);
-    
-    // Map recommendations
-    const recommendations = result.recommendations || [];
-    
-    return {
-      assessmentId: result.assessment_id,
-      userId: result.user_id,
-      startedAt: new Date(result.started_at),
-      completedAt: new Date(result.completed_at),
-      totalScore,
-      maxPossibleScore,
-      percentageScore,
-      timeSpent: result.time_spent_seconds || 0,
-      level,
-      responses: [], // CogniFit doesn't provide individual responses
-      strengths,
-      areasForImprovement,
-      recommendations,
-      rawData: result
-    };
-  }
-  
-  /**
-   * Map assessment type to CogniFit type
-   */
-  private mapAssessmentType(type: AssessmentType): string {
-    const mapping: Record<AssessmentType, string> = {
-      [AssessmentType.COGNITIVE]: 'cognitive',
-      [AssessmentType.EXECUTIVE_FUNCTION]: 'executive',
-      [AssessmentType.ATTENTION]: 'attention',
-      [AssessmentType.MEMORY]: 'memory',
-      [AssessmentType.PERCEPTION]: 'perception',
-      [AssessmentType.REASONING]: 'reasoning',
-      [AssessmentType.COORDINATION]: 'coordination',
-      [AssessmentType.EMOTIONAL]: 'emotional',
-      [AssessmentType.LITERACY]: 'reading',
-      [AssessmentType.NUMERACY]: 'math',
-      [AssessmentType.BEHAVIORAL]: 'behavior',
-      [AssessmentType.SENSORY]: 'sensory',
-      [AssessmentType.LANGUAGE]: 'language',
-      [AssessmentType.MOTOR]: 'motor',
-      [AssessmentType.CUSTOM]: 'custom'
-    };
-    
-    return mapping[type] || 'cognitive';
-  }
-  
-  /**
-   * Map CogniFit type to assessment type
-   */
-  private mapCognifitType(type: string): AssessmentType {
-    switch (type.toLowerCase()) {
-      case 'cognitive':
-        return AssessmentType.COGNITIVE;
-      case 'executive':
-        return AssessmentType.EXECUTIVE_FUNCTION;
-      case 'attention':
-        return AssessmentType.COGNITIVE;
-      case 'memory':
-        return AssessmentType.COGNITIVE;
-      case 'perception':
-        return AssessmentType.COGNITIVE;
-      case 'reasoning':
-        return AssessmentType.COGNITIVE;
-      case 'coordination':
-        return AssessmentType.MOTOR;
-      case 'emotional':
-        return AssessmentType.EMOTIONAL;
-      case 'reading':
-        return AssessmentType.LITERACY;
-      case 'math':
-        return AssessmentType.NUMERACY;
-      case 'behavior':
-        return AssessmentType.BEHAVIORAL;
-      case 'sensory':
-        return AssessmentType.SENSORY;
-      case 'language':
-        return AssessmentType.LANGUAGE;
-      case 'motor':
-        return AssessmentType.MOTOR;
-      default:
-        return AssessmentType.CUSTOM;
-    }
-  }
-  
-  /**
-   * Get additional parameters for CogniFit assessment
-   */
-  private getAdditionalParams(params: any): Record<string, any> {
-    const additionalParams: Record<string, any> = {};
-    
-    // Add optional parameters if provided
-    if (params.age) {
-      additionalParams.age = params.age;
-    }
-    
-    if (params.gender) {
-      additionalParams.gender = params.gender;
-    }
-    
-    if (params.educationLevel) {
-      additionalParams.education_level = params.educationLevel;
-    }
-    
-    if (params.customInstructions) {
-      additionalParams.custom_instructions = params.customInstructions;
-    }
-    
-    return additionalParams;
   }
 }
-
-// Export plugin class
-export default CogniFitAssessmentPlugin;

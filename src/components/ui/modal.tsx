@@ -3,6 +3,29 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
+// Import Dialog component from dialog.tsx
+import { Dialog as DialogPrimitive } from './dialog';
+
+// Export additional components needed by the barrel file
+export function ModalContent({ children, className = '' }: { children: React.ReactNode; className?: string }) {
+  return <div className={`p-6 ${className}`}>{children}</div>;
+}
+
+export function ModalOverlay({ 
+  onClick, 
+  className = '' 
+}: { 
+  onClick?: (e: React.MouseEvent<HTMLDivElement>) => void; 
+  className?: string 
+}) {
+  return (
+    <div
+      className={`fixed inset-0 z-40 bg-black bg-opacity-50 transition-opacity ${className}`}
+      onClick={onClick}
+    />
+  );
+}
+
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
