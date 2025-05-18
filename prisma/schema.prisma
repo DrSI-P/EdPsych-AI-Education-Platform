@@ -28,6 +28,7 @@ model User {
   lessonPlans           LessonPlan[]
   accessibilitySettings AccessibilitySettings?
   accessibilityLogs     AccessibilityLog[]
+  assessments           Assessment[]          // Relation to assessments created by this user
 }
 
 model Account {
@@ -63,6 +64,32 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+// Assessment Models
+model Assessment {
+  id          String     @id @default(cuid())
+  title       String
+  description String?
+  status      String     @default("draft") // draft, published, archived
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  createdById String
+  createdBy   User       @relation(fields: [createdById], references: [id])
+  questions   Question[]
+}
+
+model Question {
+  id           String     @id @default(cuid())
+  text         String
+  type         String     // multiple-choice, short-answer, etc.
+  options      Json?      // For multiple choice questions
+  correctAnswer String?
+  points       Int        @default(1)
+  assessmentId String
+  assessment   Assessment @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
 }
 
 // Special Needs Support Models
