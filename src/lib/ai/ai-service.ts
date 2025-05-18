@@ -2,6 +2,9 @@
 
 import { useState, useEffect } from 'react';
 
+// Define AIProvider type
+export type AIProvider = 'openai' | 'anthropic' | 'gemini' | 'grok' | 'openrouter';
+
 // Server-side AI service function for API routes
 export function getAIService() {
   return {
