@@ -1,48 +1,59 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+// Replace Chakra UI imports with our own UI components
 import { 
-  Box, 
   Tabs, 
-  TabList, 
-  Tab, 
-  TabPanels, 
-  TabPanel, 
-  Heading, 
-  Text, 
-  Button, 
-  Flex, 
-  Badge, 
-  Progress, 
-  Card, 
-  CardHeader, 
-  CardBody, 
+  TabsList, 
+  TabsTrigger, 
+  TabsContent 
+} from "@/components/ui/tabs";
+import { 
+  Button 
+} from "@/components/ui/button";
+import { 
+  Progress 
+} from "@/components/ui/progress";
+import { 
+  Badge 
+} from "@/components/ui/badge";
+import {
+  Card,
+  CardContent,
+  CardDescription,
   CardFooter,
-  SimpleGrid,
+  CardHeader,
+  CardTitle
+} from "@/components/ui/card";
+import {
   Accordion,
+  AccordionContent,
   AccordionItem,
-  AccordionButton,
-  AccordionPanel,
-  AccordionIcon,
-  List,
-  ListItem,
-  ListIcon,
-  Icon,
-  Image,
-  useToast,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  useDisclosure,
-  Divider,
-  Tag,
-  TagLabel,
-  Tooltip
-} from '@chakra-ui/react';
+  AccordionTrigger
+} from "@/components/ui/accordion";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Separator } from "@/components/ui/separator";
+import { toast } from "@/components/ui/use-toast";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { 
   FaPlay, 
   FaCheck, 
