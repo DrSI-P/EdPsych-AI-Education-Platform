@@ -3,8 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
-// Export Dialog component to fix build warnings
-export { Dialog } from './dialog';
+// Import Dialog component from dialog.tsx
+import { Dialog as DialogPrimitive } from './dialog';
 
 interface ModalProps {
   isOpen: boolean;
