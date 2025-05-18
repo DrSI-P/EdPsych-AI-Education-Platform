@@ -356,7 +356,7 @@ export default function ParentPortalPage() {
       with: 'Mrs. Johnson',
       role: 'SENCO',
       avatar: '👩‍💼',
-      lastMessage: 'I've prepared some additional resources for James that you can use at home.',
+      lastMessage: "I've prepared some additional resources for James that you can use at home.",
       lastMessageDate: '2025-05-14',
       unread: 0
     },
@@ -544,19 +544,15 @@ export default function ParentPortalPage() {
                     {children.map((child) => (
                       <div 
                         key={child.id}
-                        className={`p-3 rounded-lg cursor-pointer transition-colors flex items-center ${
-                          selectedChildId === child.id 
-                            ? 'bg-primary/10 border border-primary/20' 
-                            : 'hover:bg-muted'
+                        className={`p-3 rounded-lg cursor-pointer flex items-center ${
+                          selectedChildId === child.id ? 'bg-primary/10' : 'hover:bg-muted'
                         }`}
                         onClick={() => setSelectedChildId(child.id)}
                       >
-                        <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-3 text-xl">
-                          {child.avatar}
-                        </div>
+                        <div className="mr-3 text-2xl">{child.avatar}</div>
                         <div>
-                          <div className="font-medium">{child.name}</div>
-                          <div className="text-xs text-muted-foreground">{child.yearGroup} • Age {child.age}</div>
+                          <p className="font-medium">{child.name}</p>
+                          <p className="text-sm text-muted-foreground">{child.yearGroup}</p>
                         </div>
                       </div>
                     ))}
@@ -565,69 +561,54 @@ export default function ParentPortalPage() {
               </div>
               
               <div className="space-y-1">
-                <Button
-                  variant={activeTab === 'dashboard' ? 'secondary' : 'ghost'}
-                  className="w-full justify-start"
+                <Button 
+                  variant={activeTab === 'dashboard' ? 'secondary' : 'ghost'} 
+                  className="w-full justify-start" 
                   onClick={() => setActiveTab('dashboard')}
                 >
                   <Home className="mr-2 h-4 w-4" />
                   Dashboard
                 </Button>
-                
-                <Button
-                  variant={activeTab === 'activities' ? 'secondary' : 'ghost'}
-                  className="w-full justify-start"
-                  onClick={() => setActiveTab('activities')}
-                >
-                  <Bell className="mr-2 h-4 w-4" />
-                  Activities & Updates
-                  {activityUpdates.filter(u => !u.acknowledged).length > 0 && (
-                    <Badge className="ml-auto">{activityUpdates.filter(u => !u.acknowledged).length}</Badge>
-                  )}
-                </Button>
-                
-                <Button
-                  variant={activeTab === 'homework' ? 'secondary' : 'ghost'}
-                  className="w-full justify-start"
-                  onClick={() => setActiveTab('homework')}
+                <Button 
+                  variant={activeTab === 'academics' ? 'secondary' : 'ghost'} 
+                  className="w-full justify-start" 
+                  onClick={() => setActiveTab('academics')}
                 >
                   <BookOpen className="mr-2 h-4 w-4" />
-                  Homework & Assignments
+                  Academics
                 </Button>
-                
-                <Button
-                  variant={activeTab === 'calendar' ? 'secondary' : 'ghost'}
-                  className="w-full justify-start"
+                <Button 
+                  variant={activeTab === 'calendar' ? 'secondary' : 'ghost'} 
+                  className="w-full justify-start" 
                   onClick={() => setActiveTab('calendar')}
                 >
                   <Calendar className="mr-2 h-4 w-4" />
-                  Calendar & Events
+                  Calendar
                 </Button>
-                
-                <Button
-                  variant={activeTab === 'progress' ? 'secondary' : 'ghost'}
-                  className="w-full justify-start"
-                  onClick={() => setActiveTab('progress')}
-                >
-                  <BarChart className="mr-2 h-4 w-4" />
-                  Academic Progress
-                </Button>
-                
-                <Button
-                  variant={activeTab === 'messages' ? 'secondary' : 'ghost'}
-                  className="w-full justify-start"
+                <Button 
+                  variant={activeTab === 'messages' ? 'secondary' : 'ghost'} 
+                  className="w-full justify-start" 
                   onClick={() => setActiveTab('messages')}
                 >
                   <MessageSquare className="mr-2 h-4 w-4" />
                   Messages
-                  {messageThreads.reduce((count, thread) => count + thread.unread, 0) > 0 && (
-                    <Badge className="ml-auto">{messageThreads.reduce((count, thread) => count + thread.unread, 0)}</Badge>
+                  {messageThreads.some(thread => thread.unread > 0) && (
+                    <Badge className="ml-auto">
+                      {messageThreads.reduce((acc, thread) => acc + thread.unread, 0)}
+                    </Badge>
                   )}
                 </Button>
-                
-                <Button
-                  variant={activeTab === 'settings' ? 'secondary' : 'ghost'}
-                  className="w-full justify-start"
+                <Button 
+                  variant={activeTab === 'reports' ? 'secondary' : 'ghost'} 
+                  className="w-full justify-start" 
+                  onClick={() => setActiveTab('reports')}
+                >
+                  <BarChart className="mr-2 h-4 w-4" />
+                  Reports
+                </Button>
+                <Button 
+                  variant={activeTab === 'settings' ? 'secondary' : 'ghost'} 
+                  className="w-full justify-start" 
                   onClick={() => setActiveTab('settings')}
                 >
                   <Settings className="mr-2 h-4 w-4" />
@@ -645,1619 +626,402 @@ export default function ParentPortalPage() {
           transition={{ delay: 0.4, duration: 0.5 }}
           className="lg:col-span-3"
         >
+          {/* Dashboard Tab */}
           {activeTab === 'dashboard' && (
             <div className="space-y-8">
-              {/* Welcome Card */}
               <Card>
-                <CardContent className="p-6">
-                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                    <div>
-                      <h2 className="text-2xl font-semibold mb-2">Welcome Back, Parent</h2>
-                      <p className="text-muted-foreground">
-                        Here's what's happening with {selectedChildId ? getSelectedChild()?.name : 'your children'} today.
+                <CardHeader>
+                  <CardTitle>
+                    {getSelectedChild()?.name}'s Overview
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="p-4 bg-primary/10 rounded-lg">
+                      <div className="flex items-center mb-2">
+                        <Award className="h-5 w-5 mr-2 text-primary" />
+                        <h3 className="font-medium">Achievements</h3>
+                      </div>
+                      <p className="text-2xl font-bold">
+                        {activityUpdates.filter(update => 
+                          update.childId === selectedChildId && 
+                          update.type === 'achievement'
+                        ).length}
                       </p>
+                      <p className="text-sm text-muted-foreground">This term</p>
                     </div>
                     
-                    <div className="flex items-center gap-2">
-                      <div className="text-right">
-                        <div className="font-medium">Today</div>
-                        <div className="text-sm text-muted-foreground">
-                          {new Date().toLocaleDateString('en-GB', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
-                        </div>
+                    <div className="p-4 bg-primary/10 rounded-lg">
+                      <div className="flex items-center mb-2">
+                        <FileText className="h-5 w-5 mr-2 text-primary" />
+                        <h3 className="font-medium">Homework</h3>
                       </div>
-                      <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-xl">
-                        📅
+                      <p className="text-2xl font-bold">
+                        {homeworkItems.filter(item => 
+                          item.childId === selectedChildId && 
+                          (item.status === 'not-started' || item.status === 'in-progress')
+                        ).length}
+                      </p>
+                      <p className="text-sm text-muted-foreground">Pending</p>
+                    </div>
+                    
+                    <div className="p-4 bg-primary/10 rounded-lg">
+                      <div className="flex items-center mb-2">
+                        <Calendar className="h-5 w-5 mr-2 text-primary" />
+                        <h3 className="font-medium">Upcoming</h3>
                       </div>
+                      <p className="text-2xl font-bold">
+                        {upcomingEvents.filter(event => 
+                          !event.childId || event.childId === selectedChildId
+                        ).length}
+                      </p>
+                      <p className="text-sm text-muted-foreground">Events</p>
                     </div>
                   </div>
                 </CardContent>
               </Card>
               
-              {/* Quick Stats */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <Card>
-                  <CardContent className="p-4">
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <p className="text-sm text-muted-foreground mb-1">Unread Updates</p>
-                        <h3 className="text-2xl font-bold">
-                          {activityUpdates.filter(u => !u.acknowledged).length}
-                        </h3>
-                      </div>
-                      <div className="bg-primary/10 p-2 rounded-full">
-                        <Bell className="h-5 w-5 text-primary" />
-                      </div>
-                    </div>
-                    <Button 
-                      variant="link" 
-                      className="p-0 h-auto mt-2"
-                      onClick={() => setActiveTab('activities')}
+                  <CardHeader className="flex flex-row items-center justify-between">
+                    <CardTitle>Recent Activity</CardTitle>
+                    <Tabs 
+                      value={notificationFilter} 
+                      onValueChange={setNotificationFilter}
+                      className="w-[400px]"
                     >
-                      View all updates
-                      <ChevronRight className="h-4 w-4 ml-1" />
-                    </Button>
-                  </CardContent>
-                </Card>
-                
-                <Card>
-                  <CardContent className="p-4">
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <p className="text-sm text-muted-foreground mb-1">Upcoming Events</p>
-                        <h3 className="text-2xl font-bold">
-                          {upcomingEvents.filter(e => new Date(e.date) > new Date()).length}
-                        </h3>
-                      </div>
-                      <div className="bg-primary/10 p-2 rounded-full">
-                        <Calendar className="h-5 w-5 text-primary" />
-                      </div>
-                    </div>
-                    <Button 
-                      variant="link" 
-                      className="p-0 h-auto mt-2"
-                      onClick={() => setActiveTab('calendar')}
-                    >
-                      View calendar
-                      <ChevronRight className="h-4 w-4 ml-1" />
-                    </Button>
-                  </CardContent>
-                </Card>
-                
-                <Card>
-                  <CardContent className="p-4">
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <p className="text-sm text-muted-foreground mb-1">Pending Homework</p>
-                        <h3 className="text-2xl font-bold">
-                          {homeworkItems.filter(h => ['not-started', 'in-progress'].includes(h.status)).length}
-                        </h3>
-                      </div>
-                      <div className="bg-primary/10 p-2 rounded-full">
-                        <BookOpen className="h-5 w-5 text-primary" />
-                      </div>
-                    </div>
-                    <Button 
-                      variant="link" 
-                      className="p-0 h-auto mt-2"
-                      onClick={() => setActiveTab('homework')}
-                    >
-                      View homework
-                      <ChevronRight className="h-4 w-4 ml-1" />
-                    </Button>
-                  </CardContent>
-                </Card>
-              </div>
-              
-              {/* Recent Activity */}
-              <Card>
-                <CardHeader>
-                  <CardTitle>Recent Activity</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    {getFilteredActivityUpdates().slice(0, 3).map((update) => (
-                      <div key={update.id} className="flex items-start gap-4 p-3 rounded-lg bg-muted/50">
-                        <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                          update.status === 'positive' ? 'bg-green-100 text-green-600' :
-                          update.status === 'needs-attention' ? 'bg-red-100 text-red-600' :
-                          'bg-amber-100 text-amber-600'
-                        }`}>
-                          {update.type === 'achievement' && <Award className="h-5 w-5" />}
-                          {update.type === 'assessment' && <FileText className="h-5 w-5" />}
-                          {update.type === 'behavior' && <Users className="h-5 w-5" />}
-                          {update.type === 'attendance' && <Clock className="h-5 w-5" />}
-                          {update.type === 'homework' && <BookOpen className="h-5 w-5" />}
-                        </div>
-                        
-                        <div className="flex-1">
-                          <div className="flex justify-between items-start">
-                            <div>
-                              <h4 className="font-medium">{update.title}</h4>
-                              <p className="text-sm text-muted-foreground">
-                                {children.find(c => c.id === update.childId)?.name} • {new Date(update.date).toLocaleDateString('en-GB')}
-                              </p>
-                            </div>
-                            {!update.acknowledged && (
-                              <Badge variant="outline">New</Badge>
-                            )}
+                      <TabsList className="grid grid-cols-5">
+                        <TabsTrigger value="all">All</TabsTrigger>
+                        <TabsTrigger value="achievement">Awards</TabsTrigger>
+                        <TabsTrigger value="assessment">Tests</TabsTrigger>
+                        <TabsTrigger value="homework">Homework</TabsTrigger>
+                        <TabsTrigger value="behavior">Behavior</TabsTrigger>
+                      </TabsList>
+                    </Tabs>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      {getFilteredActivityUpdates().slice(0, 5).map((update) => (
+                        <div key={update.id} className="flex items-start space-x-4 p-3 rounded-lg bg-muted/50">
+                          <div className={`mt-0.5 ${getStatusColor(update.status || 'neutral')}`}>
+                            {update.type === 'achievement' && <Award className="h-5 w-5" />}
+                            {update.type === 'assessment' && <FileText className="h-5 w-5" />}
+                            {update.type === 'behavior' && <User className="h-5 w-5" />}
+                            {update.type === 'attendance' && <Clock className="h-5 w-5" />}
+                            {update.type === 'homework' && <BookOpen className="h-5 w-5" />}
                           </div>
-                          <p className="mt-2 text-sm">{update.description}</p>
-                          {update.type === 'assessment' && update.score !== undefined && (
-                            <div className="mt-2">
-                              <div className="flex justify-between text-xs mb-1">
-                                <span>Score</span>
-                                <span className={getStatusColor(update.status || 'neutral')}>{update.score}%</span>
-                              </div>
-                              <Progress value={update.score} className="h-2" />
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    ))}
-                    
-                    <Button 
-                      variant="outline" 
-                      className="w-full"
-                      onClick={() => setActiveTab('activities')}
-                    >
-                      View All Activity
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-              
-              {/* Upcoming Events */}
-              <Card>
-                <CardHeader>
-                  <CardTitle>Upcoming Events</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    {getChildEvents()
-                      .filter(event => new Date(event.date) > new Date())
-                      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
-                      .slice(0, 3)
-                      .map((event) => (
-                        <div key={event.id} className="flex items-start gap-4 p-3 rounded-lg bg-muted/50">
-                          <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                            {event.type === 'parent-evening' && <Users className="h-5 w-5 text-primary" />}
-                            {event.type === 'school-event' && <Home className="h-5 w-5 text-primary" />}
-                            {event.type === 'deadline' && <Clock className="h-5 w-5 text-primary" />}
-                            {event.type === 'meeting' && <MessageSquare className="h-5 w-5 text-primary" />}
-                          </div>
-                          
                           <div className="flex-1">
-                            <div className="flex justify-between items-start">
-                              <h4 className="font-medium">{event.title}</h4>
-                              {getEventTypeBadge(event.type)}
+                            <div className="flex justify-between">
+                              <h4 className="font-medium">{update.title}</h4>
+                              <span className="text-sm text-muted-foreground">{update.date}</span>
                             </div>
-                            <p className="text-sm text-muted-foreground">
-                              {new Date(event.date).toLocaleDateString('en-GB')} • {event.time} • {event.location}
-                            </p>
-                            <p className="mt-2 text-sm">{event.description}</p>
-                            {event.childId && (
-                              <div className="mt-2 text-xs text-muted-foreground">
-                                For: {children.find(c => c.id === event.childId)?.name}
-                              </div>
+                            <p className="text-sm mt-1">{update.description}</p>
+                            {update.teacherMessage && (
+                              <p className="text-sm mt-2 italic">"{update.teacherMessage}"</p>
+                            )}
+                            {update.teacherName && (
+                              <p className="text-sm mt-1 text-muted-foreground">- {update.teacherName}</p>
+                            )}
+                            {!update.acknowledged && (
+                              <Button 
+                                variant="outline" 
+                                size="sm" 
+                                className="mt-2"
+                                onClick={() => handleAcknowledgeUpdate(update.id)}
+                              >
+                                Acknowledge
+                              </Button>
                             )}
                           </div>
                         </div>
                       ))}
-                    
-                    <Button 
-                      variant="outline" 
-                      className="w-full"
-                      onClick={() => setActiveTab('calendar')}
-                    >
+                      
+                      {getFilteredActivityUpdates().length === 0 && (
+                        <div className="text-center py-6">
+                          <p className="text-muted-foreground">No activities found</p>
+                        </div>
+                      )}
+                    </div>
+                  </CardContent>
+                  <CardFooter>
+                    <Button variant="outline" className="w-full">
+                      View All Activity
+                    </Button>
+                  </CardFooter>
+                </Card>
+                
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Upcoming Events</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      {getChildEvents().slice(0, 3).map((event) => (
+                        <div key={event.id} className="p-3 rounded-lg bg-muted/50">
+                          <div className="flex justify-between items-start">
+                            <h4 className="font-medium">{event.title}</h4>
+                            {getEventTypeBadge(event.type)}
+                          </div>
+                          <div className="mt-2 flex items-center text-sm text-muted-foreground">
+                            <Calendar className="h-4 w-4 mr-1" />
+                            <span>{event.date} • {event.time}</span>
+                          </div>
+                          <div className="mt-1 text-sm text-muted-foreground">
+                            <p>{event.location}</p>
+                          </div>
+                          <p className="mt-2 text-sm">{event.description}</p>
+                        </div>
+                      ))}
+                      
+                      {getChildEvents().length === 0 && (
+                        <div className="text-center py-6">
+                          <p className="text-muted-foreground">No upcoming events</p>
+                        </div>
+                      )}
+                    </div>
+                  </CardContent>
+                  <CardFooter>
+                    <Button variant="outline" className="w-full">
                       View Full Calendar
                     </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          )}
-          
-          {activeTab === 'activities' && (
-            <div className="space-y-6">
+                  </CardFooter>
+                </Card>
+              </div>
+              
               <Card>
-                <CardContent className="p-6">
-                  <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
-                    <h2 className="text-2xl font-semibold">Activities & Updates</h2>
-                    
-                    <div className="flex items-center gap-2">
-                      <Tabs value={notificationFilter} onValueChange={setNotificationFilter} className="w-full md:w-auto">
-                        <TabsList>
-                          <TabsTrigger value="all">All</TabsTrigger>
-                          <TabsTrigger value="achievement">Achievements</TabsTrigger>
-                          <TabsTrigger value="assessment">Assessments</TabsTrigger>
-                          <TabsTrigger value="behavior">Behavior</TabsTrigger>
-                          <TabsTrigger value="attendance">Attendance</TabsTrigger>
-                          <TabsTrigger value="homework">Homework</TabsTrigger>
-                        </TabsList>
-                      </Tabs>
-                    </div>
-                  </div>
-                  
+                <CardHeader>
+                  <CardTitle>Homework Tracker</CardTitle>
+                </CardHeader>
+                <CardContent>
                   <div className="space-y-4">
-                    {getFilteredActivityUpdates().length > 0 ? (
-                      getFilteredActivityUpdates().map((update) => (
-                        <Card key={update.id}>
-                          <CardContent className="p-4">
-                            <div className="flex items-start gap-4">
-                              <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                                update.status === 'positive' ? 'bg-green-100 text-green-600' :
-                                update.status === 'needs-attention' ? 'bg-red-100 text-red-600' :
-                                'bg-amber-100 text-amber-600'
-                              }`}>
-                                {update.type === 'achievement' && <Award className="h-5 w-5" />}
-                                {update.type === 'assessment' && <FileText className="h-5 w-5" />}
-                                {update.type === 'behavior' && <Users className="h-5 w-5" />}
-                                {update.type === 'attendance' && <Clock className="h-5 w-5" />}
-                                {update.type === 'homework' && <BookOpen className="h-5 w-5" />}
-                              </div>
-                              
-                              <div className="flex-1">
-                                <div className="flex justify-between items-start">
-                                  <div>
-                                    <h4 className="font-medium">{update.title}</h4>
-                                    <p className="text-sm text-muted-foreground">
-                                      {children.find(c => c.id === update.childId)?.name} • {new Date(update.date).toLocaleDateString('en-GB')}
-                                      {update.subject && ` • ${update.subject}`}
-                                      {update.teacherName && ` • ${update.teacherName}`}
-                                    </p>
-                                  </div>
-                                  <div className="flex items-center gap-2">
-                                    {!update.acknowledged && (
-                                      <Badge variant="outline">New</Badge>
-                                    )}
-                                    <Badge className={
-                                      update.status === 'positive' ? 'bg-green-500' :
-                                      update.status === 'needs-attention' ? 'bg-red-500' :
-                                      'bg-amber-500'
-                                    }>
-                                      {update.status === 'positive' ? 'Positive' :
-                                       update.status === 'needs-attention' ? 'Needs Attention' :
-                                       'Neutral'}
-                                    </Badge>
-                                  </div>
-                                </div>
-                                
-                                <p className="mt-2">{update.description}</p>
-                                
-                                {update.type === 'assessment' && update.score !== undefined && (
-                                  <div className="mt-4">
-                                    <div className="flex justify-between text-sm mb-1">
-                                      <span>Score</span>
-                                      <span className={getStatusColor(update.status || 'neutral')}>{update.score}%</span>
-                                    </div>
-                                    <Progress value={update.score} className="h-2" />
-                                  </div>
-                                )}
-                                
-                                {update.teacherMessage && (
-                                  <div className="mt-4 p-3 bg-muted rounded-lg">
-                                    <div className="text-xs text-muted-foreground mb-1">Teacher's Note:</div>
-                                    <p className="text-sm">{update.teacherMessage}</p>
-                                  </div>
-                                )}
-                                
-                                {!update.acknowledged && (
-                                  <div className="mt-4 flex justify-end">
-                                    <Button 
-                                      size="sm"
-                                      onClick={() => handleAcknowledgeUpdate(update.id)}
-                                    >
-                                      Acknowledge
-                                    </Button>
-                                  </div>
-                                )}
-                              </div>
+                    {getChildHomework().slice(0, 3).map((item) => {
+                      const statusInfo = getHomeworkStatusInfo(item.status);
+                      return (
+                        <div key={item.id} className="p-4 rounded-lg bg-muted/50">
+                          <div className="flex justify-between">
+                            <div>
+                              <h4 className="font-medium">{item.title}</h4>
+                              <p className="text-sm text-muted-foreground">{item.subject}</p>
                             </div>
-                          </CardContent>
-                        </Card>
-                      ))
-                    ) : (
-                      <div className="text-center py-12">
-                        <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
-                          <Bell className="h-6 w-6 text-muted-foreground" />
+                            <div className={`flex items-center ${statusInfo.color}`}>
+                              {statusInfo.icon}
+                              <span className="ml-1 text-sm capitalize">{item.status.replace('-', ' ')}</span>
+                            </div>
+                          </div>
+                          <p className="mt-2 text-sm">{item.description}</p>
+                          <div className="mt-3 flex justify-between items-center">
+                            <p className="text-sm text-muted-foreground">Due: {item.dueDate}</p>
+                            {item.status === 'not-started' || item.status === 'in-progress' ? (
+                              <Button size="sm">
+                                {item.status === 'not-started' ? 'Start' : 'Continue'}
+                              </Button>
+                            ) : null}
+                          </div>
                         </div>
-                        <h3 className="text-lg font-medium mb-2">No Updates Found</h3>
-                        <p className="text-muted-foreground">
-                          There are no updates matching your current filter criteria.
-                        </p>
+                      );
+                    })}
+                    
+                    {getChildHomework().length === 0 && (
+                      <div className="text-center py-6">
+                        <p className="text-muted-foreground">No homework assigned</p>
                       </div>
                     )}
                   </div>
                 </CardContent>
+                <CardFooter>
+                  <Button variant="outline" className="w-full">
+                    View All Homework
+                  </Button>
+                </CardFooter>
               </Card>
             </div>
           )}
           
-          {activeTab === 'homework' && (
-            <div className="space-y-6">
-              <Card>
-                <CardContent className="p-6">
-                  <div className="flex justify-between items-center mb-6">
-                    <h2 className="text-2xl font-semibold">Homework & Assignments</h2>
-                    
-                    <div className="flex items-center gap-2">
+          {/* Messages Tab */}
+          {activeTab === 'messages' && (
+            <Card className="h-[calc(100vh-200px)] min-h-[500px]">
+              <div className="grid h-full" style={{ gridTemplateColumns: selectedThreadId ? '300px 1fr' : '1fr' }}>
+                {/* Message List */}
+                <div className="border-r">
+                  <div className="p-4 border-b">
+                    <div className="relative">
+                      <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
                       <Input
-                        placeholder="Search homework..."
+                        type="search"
+                        placeholder="Search messages..."
+                        className="pl-8"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="w-[200px]"
                       />
                     </div>
                   </div>
                   
-                  <Tabs defaultValue="current">
-                    <TabsList className="mb-6">
-                      <TabsTrigger value="current">Current</TabsTrigger>
-                      <TabsTrigger value="completed">Completed</TabsTrigger>
-                      <TabsTrigger value="all">All</TabsTrigger>
-                    </TabsList>
-                    
-                    <TabsContent value="current">
-                      <div className="space-y-4">
-                        {getChildHomework()
-                          .filter(item => ['not-started', 'in-progress', 'late'].includes(item.status))
-                          .filter(item => 
-                            searchQuery ? 
-                              item.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                              item.subject.toLowerCase().includes(searchQuery.toLowerCase()) : 
-                              true
-                          )
-                          .sort((a, b) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime())
-                          .map((item) => (
-                            <Card key={item.id}>
-                              <CardContent className="p-4">
-                                <div className="flex items-start gap-4">
-                                  <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                                    item.status === 'not-started' ? 'bg-red-100 text-red-600' :
-                                    item.status === 'in-progress' ? 'bg-amber-100 text-amber-600' :
-                                    item.status === 'late' ? 'bg-red-100 text-red-600' :
-                                    'bg-green-100 text-green-600'
-                                  }`}>
-                                    {getHomeworkStatusInfo(item.status).icon}
-                                  </div>
-                                  
-                                  <div className="flex-1">
-                                    <div className="flex justify-between items-start">
-                                      <div>
-                                        <h4 className="font-medium">{item.title}</h4>
-                                        <p className="text-sm text-muted-foreground">
-                                          {children.find(c => c.id === item.childId)?.name} • {item.subject} • Due: {new Date(item.dueDate).toLocaleDateString('en-GB')}
-                                        </p>
-                                      </div>
-                                      <Badge className={
-                                        item.status === 'not-started' ? 'bg-red-500' :
-                                        item.status === 'in-progress' ? 'bg-amber-500' :
-                                        item.status === 'late' ? 'bg-red-500' :
-                                        'bg-green-500'
-                                      }>
-                                        {item.status.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
-                                      </Badge>
-                                    </div>
-                                    
-                                    <p className="mt-2">{item.description}</p>
-                                    
-                                    <div className="mt-4 flex justify-end gap-2">
-                                      <Button variant="outline" size="sm">
-                                        View Details
-                                      </Button>
-                                      <Button size="sm">
-                                        Mark as Completed
-                                      </Button>
-                                    </div>
-                                  </div>
-                                </div>
-                              </CardContent>
-                            </Card>
-                          ))}
-                      </div>
-                    </TabsContent>
-                    
-                    <TabsContent value="completed">
-                      <div className="space-y-4">
-                        {getChildHomework()
-                          .filter(item => ['completed', 'submitted', 'graded'].includes(item.status))
-                          .filter(item => 
-                            searchQuery ? 
-                              item.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                              item.subject.toLowerCase().includes(searchQuery.toLowerCase()) : 
-                              true
-                          )
-                          .sort((a, b) => new Date(b.dueDate).getTime() - new Date(a.dueDate).getTime())
-                          .map((item) => (
-                            <Card key={item.id}>
-                              <CardContent className="p-4">
-                                <div className="flex items-start gap-4">
-                                  <div className="w-10 h-10 rounded-full bg-green-100 text-green-600 flex items-center justify-center">
-                                    {getHomeworkStatusInfo(item.status).icon}
-                                  </div>
-                                  
-                                  <div className="flex-1">
-                                    <div className="flex justify-between items-start">
-                                      <div>
-                                        <h4 className="font-medium">{item.title}</h4>
-                                        <p className="text-sm text-muted-foreground">
-                                          {children.find(c => c.id === item.childId)?.name} • {item.subject} • Due: {new Date(item.dueDate).toLocaleDateString('en-GB')}
-                                        </p>
-                                      </div>
-                                      <div className="flex items-center gap-2">
-                                        {item.grade && (
-                                          <Badge variant="outline">{item.grade}</Badge>
-                                        )}
-                                        <Badge className="bg-green-500">
-                                          {item.status.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
-                                        </Badge>
-                                      </div>
-                                    </div>
-                                    
-                                    <p className="mt-2">{item.description}</p>
-                                    
-                                    {item.feedback && (
-                                      <div className="mt-4 p-3 bg-muted rounded-lg">
-                                        <div className="text-xs text-muted-foreground mb-1">Teacher's Feedback:</div>
-                                        <p className="text-sm">{item.feedback}</p>
-                                      </div>
-                                    )}
-                                    
-                                    <div className="mt-4 flex justify-end">
-                                      <Button variant="outline" size="sm">
-                                        View Details
-                                      </Button>
-                                    </div>
-                                  </div>
-                                </div>
-                              </CardContent>
-                            </Card>
-                          ))}
-                      </div>
-                    </TabsContent>
-                    
-                    <TabsContent value="all">
-                      <div className="space-y-4">
-                        {getChildHomework()
-                          .filter(item => 
-                            searchQuery ? 
-                              item.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                              item.subject.toLowerCase().includes(searchQuery.toLowerCase()) : 
-                              true
-                          )
-                          .sort((a, b) => new Date(b.dueDate).getTime() - new Date(a.dueDate).getTime())
-                          .map((item) => (
-                            <Card key={item.id}>
-                              <CardContent className="p-4">
-                                <div className="flex items-start gap-4">
-                                  <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                                    item.status === 'not-started' ? 'bg-red-100 text-red-600' :
-                                    item.status === 'in-progress' ? 'bg-amber-100 text-amber-600' :
-                                    item.status === 'late' ? 'bg-red-100 text-red-600' :
-                                    'bg-green-100 text-green-600'
-                                  }`}>
-                                    {getHomeworkStatusInfo(item.status).icon}
-                                  </div>
-                                  
-                                  <div className="flex-1">
-                                    <div className="flex justify-between items-start">
-                                      <div>
-                                        <h4 className="font-medium">{item.title}</h4>
-                                        <p className="text-sm text-muted-foreground">
-                                          {children.find(c => c.id === item.childId)?.name} • {item.subject} • Due: {new Date(item.dueDate).toLocaleDateString('en-GB')}
-                                        </p>
-                                      </div>
-                                      <div className="flex items-center gap-2">
-                                        {item.grade && (
-                                          <Badge variant="outline">{item.grade}</Badge>
-                                        )}
-                                        <Badge className={
-                                          item.status === 'not-started' ? 'bg-red-500' :
-                                          item.status === 'in-progress' ? 'bg-amber-500' :
-                                          item.status === 'late' ? 'bg-red-500' :
-                                          'bg-green-500'
-                                        }>
-                                          {item.status.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
-                                        </Badge>
-                                      </div>
-                                    </div>
-                                    
-                                    <p className="mt-2">{item.description}</p>
-                                    
-                                    {item.feedback && (
-                                      <div className="mt-4 p-3 bg-muted rounded-lg">
-                                        <div className="text-xs text-muted-foreground mb-1">Teacher's Feedback:</div>
-                                        <p className="text-sm">{item.feedback}</p>
-                                      </div>
-                                    )}
-                                    
-                                    <div className="mt-4 flex justify-end gap-2">
-                                      <Button variant="outline" size="sm">
-                                        View Details
-                                      </Button>
-                                      {['not-started', 'in-progress', 'late'].includes(item.status) && (
-                                        <Button size="sm">
-                                          Mark as Completed
-                                        </Button>
-                                      )}
-                                    </div>
-                                  </div>
-                                </div>
-                              </CardContent>
-                            </Card>
-                          ))}
-                      </div>
-                    </TabsContent>
-                  </Tabs>
-                </CardContent>
-              </Card>
-            </div>
-          )}
-          
-          {activeTab === 'calendar' && (
-            <div className="space-y-6">
-              <Card>
-                <CardContent className="p-6">
-                  <div className="flex justify-between items-center mb-6">
-                    <h2 className="text-2xl font-semibold">Calendar & Events</h2>
-                    
-                    <div className="flex items-center gap-2">
-                      <Button>
-                        <PlusCircle className="h-4 w-4 mr-2" />
-                        Add to Calendar
-                      </Button>
-                    </div>
-                  </div>
-                  
-                  <div className="mb-8">
-                    <div className="grid grid-cols-7 gap-1 mb-2">
-                      {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day) => (
-                        <div key={day} className="text-center text-sm font-medium">
-                          {day}
+                  <div className="overflow-auto h-[calc(100%-73px)]">
+                    {messageThreads.map((thread) => (
+                      <div
+                        key={thread.id}
+                        className={`p-4 border-b cursor-pointer hover:bg-muted/50 ${
+                          selectedThreadId === thread.id ? 'bg-muted' : ''
+                        }`}
+                        onClick={() => setSelectedThreadId(thread.id)}
+                      >
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center">
+                            <div className="mr-3 text-2xl">{thread.avatar}</div>
+                            <div>
+                              <h4 className="font-medium">{thread.with}</h4>
+                              <p className="text-xs text-muted-foreground">{thread.role}</p>
+                            </div>
+                          </div>
+                          {thread.unread > 0 && (
+                            <Badge>{thread.unread}</Badge>
+                          )}
                         </div>
-                      ))}
+                        <p className="mt-2 text-sm line-clamp-1">{thread.lastMessage}</p>
+                        <p className="mt-1 text-xs text-muted-foreground">{thread.lastMessageDate}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                
+                {/* Message Thread */}
+                {selectedThreadId ? (
+                  <div className="flex flex-col h-full">
+                    <div className="p-4 border-b flex items-center">
+                      <div className="mr-3 text-2xl">{getSelectedThread()?.avatar}</div>
+                      <div>
+                        <h3 className="font-medium">{getSelectedThread()?.with}</h3>
+                        <p className="text-sm text-muted-foreground">{getSelectedThread()?.role}</p>
+                      </div>
                     </div>
                     
-                    <div className="grid grid-cols-7 gap-1">
-                      {Array.from({ length: 35 }).map((_, index) => {
-                        const day = index + 1;
-                        const isToday = day === 18; // Assuming today is the 18th
-                        const hasEvent = [10, 15, 18, 25, 28, 30].includes(day);
+                    <div className="flex-1 p-4 overflow-auto">
+                      <div className="space-y-4">
+                        {/* This would be populated with actual messages in a real implementation */}
+                        <div className="bg-muted/50 p-3 rounded-lg max-w-[80%]">
+                          <p className="text-sm">{getSelectedThread()?.lastMessage}</p>
+                          <p className="text-xs text-muted-foreground mt-1">{getSelectedThread()?.lastMessageDate}</p>
+                        </div>
                         
-                        return (
-                          <div 
-                            key={index}
-                            className={`aspect-square flex flex-col items-center justify-center rounded-md border text-sm ${
-                              isToday ? 'bg-primary text-primary-foreground' : 
-                              hasEvent ? 'border-primary/50 bg-primary/5' : 
-                              'hover:bg-muted'
-                            }`}
-                          >
-                            <span>{day}</span>
-                            {hasEvent && !isToday && (
-                              <div className="w-1.5 h-1.5 rounded-full bg-primary mt-1"></div>
-                            )}
-                          </div>
-                        );
-                      })}
+                        <div className="bg-primary/10 p-3 rounded-lg max-w-[80%] ml-auto">
+                          <p className="text-sm">Thank you for letting me know. I'll discuss this with them at home.</p>
+                          <p className="text-xs text-muted-foreground mt-1">2025-05-17</p>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  
-                  <h3 className="text-lg font-medium mb-4">Upcoming Events</h3>
-                  <div className="space-y-4">
-                    {getChildEvents()
-                      .filter(event => new Date(event.date) > new Date())
-                      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
-                      .map((event) => (
-                        <Card key={event.id}>
-                          <CardContent className="p-4">
-                            <div className="flex items-start gap-4">
-                              <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                                {event.type === 'parent-evening' && <Users className="h-5 w-5 text-primary" />}
-                                {event.type === 'school-event' && <Home className="h-5 w-5 text-primary" />}
-                                {event.type === 'deadline' && <Clock className="h-5 w-5 text-primary" />}
-                                {event.type === 'meeting' && <MessageSquare className="h-5 w-5 text-primary" />}
-                              </div>
-                              
-                              <div className="flex-1">
-                                <div className="flex justify-between items-start">
-                                  <h4 className="font-medium">{event.title}</h4>
-                                  {getEventTypeBadge(event.type)}
-                                </div>
-                                <p className="text-sm text-muted-foreground">
-                                  {new Date(event.date).toLocaleDateString('en-GB')} • {event.time} • {event.location}
-                                </p>
-                                <p className="mt-2">{event.description}</p>
-                                {event.childId && (
-                                  <div className="mt-2 text-sm text-muted-foreground">
-                                    For: {children.find(c => c.id === event.childId)?.name}
-                                  </div>
-                                )}
-                                
-                                <div className="mt-4 flex justify-end gap-2">
-                                  <Button variant="outline" size="sm">
-                                    Add to Personal Calendar
-                                  </Button>
-                                  {event.type === 'parent-evening' && (
-                                    <Button size="sm">
-                                      Book Appointment
-                                    </Button>
-                                  )}
-                                </div>
-                              </div>
-                            </div>
-                          </CardContent>
-                        </Card>
-                      ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          )}
-          
-          {activeTab === 'progress' && (
-            <div className="space-y-6">
-              <Card>
-                <CardContent className="p-6">
-                  <div className="flex justify-between items-center mb-6">
-                    <h2 className="text-2xl font-semibold">Academic Progress</h2>
                     
-                    <div className="flex items-center gap-2">
-                      <Button variant="outline">
-                        <FileText className="h-4 w-4 mr-2" />
-                        Download Report
-                      </Button>
-                    </div>
-                  </div>
-                  
-                  {selectedChildId && (
-                    <div className="space-y-8">
-                      <div>
-                        <h3 className="text-lg font-medium mb-4">Subject Performance</h3>
-                        <div className="space-y-4">
-                          <div>
-                            <div className="flex justify-between mb-1">
-                              <div className="font-medium">Mathematics</div>
-                              <div className="text-green-500">85%</div>
-                            </div>
-                            <Progress value={85} className="h-2" />
-                            <div className="flex justify-between mt-1 text-xs text-muted-foreground">
-                              <span>Above Expected Level</span>
-                              <span>Year 5 Average: 72%</span>
-                            </div>
-                          </div>
-                          
-                          <div>
-                            <div className="flex justify-between mb-1">
-                              <div className="font-medium">English</div>
-                              <div className="text-green-500">78%</div>
-                            </div>
-                            <Progress value={78} className="h-2" />
-                            <div className="flex justify-between mt-1 text-xs text-muted-foreground">
-                              <span>Meeting Expected Level</span>
-                              <span>Year 5 Average: 75%</span>
-                            </div>
-                          </div>
-                          
-                          <div>
-                            <div className="flex justify-between mb-1">
-                              <div className="font-medium">Science</div>
-                              <div className="text-amber-500">68%</div>
-                            </div>
-                            <Progress value={68} className="h-2" />
-                            <div className="flex justify-between mt-1 text-xs text-muted-foreground">
-                              <span>Approaching Expected Level</span>
-                              <span>Year 5 Average: 70%</span>
-                            </div>
-                          </div>
-                          
-                          <div>
-                            <div className="flex justify-between mb-1">
-                              <div className="font-medium">History</div>
-                              <div className="text-green-500">82%</div>
-                            </div>
-                            <Progress value={82} className="h-2" />
-                            <div className="flex justify-between mt-1 text-xs text-muted-foreground">
-                              <span>Above Expected Level</span>
-                              <span>Year 5 Average: 68%</span>
-                            </div>
-                          </div>
-                          
-                          <div>
-                            <div className="flex justify-between mb-1">
-                              <div className="font-medium">Art</div>
-                              <div className="text-green-500">90%</div>
-                            </div>
-                            <Progress value={90} className="h-2" />
-                            <div className="flex justify-between mt-1 text-xs text-muted-foreground">
-                              <span>Exceeding Expected Level</span>
-                              <span>Year 5 Average: 78%</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <div>
-                        <h3 className="text-lg font-medium mb-4">Recent Assessments</h3>
-                        <div className="space-y-4">
-                          {activityUpdates
-                            .filter(update => update.childId === selectedChildId && update.type === 'assessment')
-                            .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-                            .map((assessment) => (
-                              <Card key={assessment.id}>
-                                <CardContent className="p-4">
-                                  <div className="flex items-start gap-4">
-                                    <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                                      assessment.status === 'positive' ? 'bg-green-100 text-green-600' :
-                                      assessment.status === 'needs-attention' ? 'bg-red-100 text-red-600' :
-                                      'bg-amber-100 text-amber-600'
-                                    }`}>
-                                      <FileText className="h-5 w-5" />
-                                    </div>
-                                    
-                                    <div className="flex-1">
-                                      <div className="flex justify-between items-start">
-                                        <div>
-                                          <h4 className="font-medium">{assessment.title}</h4>
-                                          <p className="text-sm text-muted-foreground">
-                                            {assessment.subject} • {new Date(assessment.date).toLocaleDateString('en-GB')} • {assessment.teacherName}
-                                          </p>
-                                        </div>
-                                        <Badge className={
-                                          assessment.status === 'positive' ? 'bg-green-500' :
-                                          assessment.status === 'needs-attention' ? 'bg-red-500' :
-                                          'bg-amber-500'
-                                        }>
-                                          {assessment.score}%
-                                        </Badge>
-                                      </div>
-                                      
-                                      <p className="mt-2">{assessment.description}</p>
-                                      
-                                      {assessment.teacherMessage && (
-                                        <div className="mt-4 p-3 bg-muted rounded-lg">
-                                          <div className="text-xs text-muted-foreground mb-1">Teacher's Note:</div>
-                                          <p className="text-sm">{assessment.teacherMessage}</p>
-                                        </div>
-                                      )}
-                                    </div>
-                                  </div>
-                                </CardContent>
-                              </Card>
-                            ))}
-                        </div>
-                      </div>
-                      
-                      <div>
-                        <h3 className="text-lg font-medium mb-4">Learning Goals</h3>
-                        <div className="space-y-4">
-                          <Card>
-                            <CardContent className="p-4">
-                              <h4 className="font-medium mb-2">Mathematics</h4>
-                              <div className="space-y-2">
-                                <div className="flex items-center">
-                                  <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
-                                  <span>Understand and use equivalent fractions</span>
-                                </div>
-                                <div className="flex items-center">
-                                  <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
-                                  <span>Add and subtract fractions with the same denominator</span>
-                                </div>
-                                <div className="flex items-center">
-                                  <div className="h-4 w-4 border border-muted-foreground rounded-full mr-2" />
-                                  <span>Add and subtract fractions with different denominators</span>
-                                </div>
-                                <div className="flex items-center">
-                                  <div className="h-4 w-4 border border-muted-foreground rounded-full mr-2" />
-                                  <span>Multiply proper fractions and mixed numbers by whole numbers</span>
-                                </div>
-                              </div>
-                            </CardContent>
-                          </Card>
-                          
-                          <Card>
-                            <CardContent className="p-4">
-                              <h4 className="font-medium mb-2">English</h4>
-                              <div className="space-y-2">
-                                <div className="flex items-center">
-                                  <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
-                                  <span>Use expanded noun phrases to convey complicated information concisely</span>
-                                </div>
-                                <div className="flex items-center">
-                                  <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
-                                  <span>Use modal verbs to indicate degrees of possibility</span>
-                                </div>
-                                <div className="flex items-center">
-                                  <div className="h-4 w-4 border border-muted-foreground rounded-full mr-2" />
-                                  <span>Use relative clauses beginning with who, which, where, when, whose, that</span>
-                                </div>
-                                <div className="flex items-center">
-                                  <div className="h-4 w-4 border border-muted-foreground rounded-full mr-2" />
-                                  <span>Use commas to clarify meaning or avoid ambiguity in writing</span>
-                                </div>
-                              </div>
-                            </CardContent>
-                          </Card>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-            </div>
-          )}
-          
-          {activeTab === 'messages' && (
-            <div className="space-y-6">
-              <Card>
-                <CardContent className="p-6">
-                  <h2 className="text-2xl font-semibold mb-6">Messages</h2>
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div className="md:col-span-1 border-r pr-6">
-                      <div className="mb-4">
-                        <Input
-                          placeholder="Search messages..."
-                          value={searchQuery}
-                          onChange={(e) => setSearchQuery(e.target.value)}
-                          className="w-full"
+                    <div className="p-4 border-t">
+                      <div className="flex space-x-2">
+                        <Textarea
+                          placeholder="Type your message..."
+                          className="min-h-[80px]"
+                          value={messageInput}
+                          onChange={(e) => setMessageInput(e.target.value)}
                         />
+                        <Button onClick={handleSendMessage}>Send</Button>
                       </div>
-                      
-                      <div className="space-y-2">
-                        {messageThreads
-                          .filter(thread => 
-                            searchQuery ? 
-                              thread.with.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                              thread.lastMessage.toLowerCase().includes(searchQuery.toLowerCase()) : 
-                              true
-                          )
-                          .map((thread) => (
-                            <div 
-                              key={thread.id}
-                              className={`p-3 rounded-lg cursor-pointer transition-colors ${
-                                selectedThreadId === thread.id 
-                                  ? 'bg-primary/10 border border-primary/20' 
-                                  : 'hover:bg-muted'
-                              }`}
-                              onClick={() => setSelectedThreadId(thread.id)}
-                            >
-                              <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-xl">
-                                  {thread.avatar}
-                                </div>
-                                <div className="flex-1 min-w-0">
-                                  <div className="flex justify-between items-center">
-                                    <div className="font-medium truncate">{thread.with}</div>
-                                    <div className="text-xs text-muted-foreground">
-                                      {new Date(thread.lastMessageDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}
-                                    </div>
-                                  </div>
-                                  <div className="text-xs text-muted-foreground mb-1">{thread.role}</div>
-                                  <div className="text-sm truncate">
-                                    {thread.lastMessage}
-                                  </div>
-                                </div>
-                              </div>
-                              {thread.unread > 0 && (
-                                <div className="flex justify-end mt-1">
-                                  <div className="w-5 h-5 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center">
-                                    {thread.unread}
-                                  </div>
-                                </div>
-                              )}
-                            </div>
-                          ))}
-                      </div>
-                    </div>
-                    
-                    <div className="md:col-span-2">
-                      {selectedThreadId ? (
-                        <div className="flex flex-col h-[600px]">
-                          <div className="border-b pb-4 mb-4">
-                            <div className="flex items-center gap-3">
-                              <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-xl">
-                                {getSelectedThread()?.avatar}
-                              </div>
-                              <div>
-                                <div className="font-medium">{getSelectedThread()?.with}</div>
-                                <div className="text-xs text-muted-foreground">{getSelectedThread()?.role}</div>
-                              </div>
-                            </div>
-                          </div>
-                          
-                          <div className="flex-1 overflow-y-auto mb-4 space-y-4">
-                            <div className="flex justify-start">
-                              <div className="bg-muted rounded-lg p-3 max-w-[80%]">
-                                <p className="text-sm">Hello! I wanted to discuss Emily's recent progress in mathematics. She's been doing very well with fractions.</p>
-                                <div className="text-xs text-muted-foreground mt-1">10:30 AM</div>
-                              </div>
-                            </div>
-                            
-                            <div className="flex justify-end">
-                              <div className="bg-primary text-primary-foreground rounded-lg p-3 max-w-[80%]">
-                                <p className="text-sm">Thank you for letting me know. We've been practicing at home as well. Are there any specific areas where she could use more support?</p>
-                                <div className="text-xs text-primary-foreground/70 mt-1">10:45 AM</div>
-                              </div>
-                            </div>
-                            
-                            <div className="flex justify-start">
-                              <div className="bg-muted rounded-lg p-3 max-w-[80%]">
-                                <p className="text-sm">She's doing great with equivalent fractions and basic operations. We'll be moving on to fractions with different denominators next week, so some preview work on that would be helpful.</p>
-                                <div className="text-xs text-muted-foreground mt-1">11:02 AM</div>
-                              </div>
-                            </div>
-                            
-                            <div className="flex justify-start">
-                              <div className="bg-muted rounded-lg p-3 max-w-[80%]">
-                                <p className="text-sm">I've attached some practice worksheets that you might find useful.</p>
-                                <div className="mt-2 p-2 bg-background rounded border flex items-center gap-2">
-                                  <FileText className="h-4 w-4" />
-                                  <span className="text-xs">fraction_practice.pdf</span>
-                                </div>
-                                <div className="text-xs text-muted-foreground mt-1">11:05 AM</div>
-                              </div>
-                            </div>
-                            
-                            <div className="flex justify-end">
-                              <div className="bg-primary text-primary-foreground rounded-lg p-3 max-w-[80%]">
-                                <p className="text-sm">This is very helpful, thank you! We'll work on these over the weekend. Is there anything else I should know about her progress?</p>
-                                <div className="text-xs text-primary-foreground/70 mt-1">11:10 AM</div>
-                              </div>
-                            </div>
-                            
-                            <div className="flex justify-start">
-                              <div className="bg-muted rounded-lg p-3 max-w-[80%]">
-                                <p className="text-sm">Emily has been making excellent progress with her reading comprehension skills. She's been actively participating in class discussions about our current book.</p>
-                                <div className="text-xs text-muted-foreground mt-1">Yesterday</div>
-                              </div>
-                            </div>
-                          </div>
-                          
-                          <div className="border-t pt-4">
-                            <div className="flex gap-2">
-                              <Textarea
-                                placeholder="Type your message..."
-                                value={messageInput}
-                                onChange={(e) => setMessageInput(e.target.value)}
-                                className="min-h-[80px] resize-none"
-                              />
-                              <Button 
-                                className="self-end"
-                                disabled={!messageInput.trim()}
-                                onClick={handleSendMessage}
-                              >
-                                Send
-                              </Button>
-                            </div>
-                          </div>
-                        </div>
-                      ) : (
-                        <div className="h-[600px] flex flex-col items-center justify-center">
-                          <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mb-4">
-                            <MessageSquare className="h-6 w-6 text-muted-foreground" />
-                          </div>
-                          <h3 className="text-lg font-medium mb-2">No Conversation Selected</h3>
-                          <p className="text-muted-foreground text-center max-w-md">
-                            Select a conversation from the list to view messages and respond.
-                          </p>
-                        </div>
-                      )}
                     </div>
                   </div>
-                </CardContent>
-              </Card>
-            </div>
+                ) : (
+                  <div className="flex items-center justify-center h-full">
+                    <div className="text-center">
+                      <MessageSquare className="h-12 w-12 mx-auto text-muted-foreground" />
+                      <h3 className="mt-4 text-lg font-medium">Select a conversation</h3>
+                      <p className="mt-2 text-sm text-muted-foreground">
+                        Choose a conversation from the list to start messaging
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </Card>
           )}
           
+          {/* Settings Tab */}
           {activeTab === 'settings' && (
-            <div className="space-y-6">
-              <Card>
-                <CardContent className="p-6">
-                  <h2 className="text-2xl font-semibold mb-6">Account Settings</h2>
+            <Card>
+              <CardHeader>
+                <CardTitle>Account Settings</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="space-y-4">
+                  <h3 className="text-lg font-medium">Profile Information</h3>
                   
-                  <Tabs defaultValue="profile">
-                    <TabsList className="mb-6">
-                      <TabsTrigger value="profile">Profile</TabsTrigger>
-                      <TabsTrigger value="notifications">Notifications</TabsTrigger>
-                      <TabsTrigger value="privacy">Privacy</TabsTrigger>
-                      <TabsTrigger value="accessibility">Accessibility</TabsTrigger>
-                    </TabsList>
-                    
-                    <TabsContent value="profile">
-                      <div className="space-y-6">
-                        <div className="flex items-center gap-4">
-                          <Avatar className="w-20 h-20">
-                            <AvatarFallback>P</AvatarFallback>
-                          </Avatar>
-                          
-                          <div>
-                            <Button variant="outline" size="sm">
-                              Change Photo
-                            </Button>
-                          </div>
-                        </div>
-                        
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                          <div className="space-y-2">
-                            <Label htmlFor="full-name">Full Name</Label>
-                            <Input id="full-name" defaultValue="Parent Name" />
-                          </div>
-                          
-                          <div className="space-y-2">
-                            <Label htmlFor="email">Email Address</Label>
-                            <Input id="email" type="email" defaultValue="parent@example.com" />
-                          </div>
-                          
-                          <div className="space-y-2">
-                            <Label htmlFor="phone">Phone Number</Label>
-                            <Input id="phone" type="tel" defaultValue="07700 900123" />
-                          </div>
-                          
-                          <div className="space-y-2">
-                            <Label htmlFor="relationship">Relationship to Children</Label>
-                            <Input id="relationship" defaultValue="Parent/Guardian" />
-                          </div>
-                        </div>
-                        
-                        <div className="space-y-2">
-                          <Label htmlFor="address">Address</Label>
-                          <Textarea id="address" defaultValue="123 Example Street, Example Town, EX1 2AB" />
-                        </div>
-                        
-                        <div className="flex justify-end">
-                          <Button>Save Changes</Button>
-                        </div>
-                      </div>
-                    </TabsContent>
-                    
-                    <TabsContent value="notifications">
-                      <div className="space-y-6">
-                        <div>
-                          <h3 className="text-lg font-medium mb-4">Notification Preferences</h3>
-                          <div className="space-y-4">
-                            <div className="flex items-center justify-between">
-                              <div>
-                                <Label htmlFor="email-notifications" className="font-medium">Email Notifications</Label>
-                                <p className="text-sm text-muted-foreground">Receive updates via email</p>
-                              </div>
-                              <Switch id="email-notifications" defaultChecked />
-                            </div>
-                            
-                            <div className="flex items-center justify-between">
-                              <div>
-                                <Label htmlFor="sms-notifications" className="font-medium">SMS Notifications</Label>
-                                <p className="text-sm text-muted-foreground">Receive updates via text message</p>
-                              </div>
-                              <Switch id="sms-notifications" defaultChecked />
-                            </div>
-                            
-                            <div className="flex items-center justify-between">
-                              <div>
-                                <Label htmlFor="app-notifications" className="font-medium">In-App Notifications</Label>
-                                <p className="text-sm text-muted-foreground">Receive notifications within the portal</p>
-                              </div>
-                              <Switch id="app-notifications" defaultChecked />
-                            </div>
-                          </div>
-                        </div>
-                        
-                        <div>
-                          <h3 className="text-lg font-medium mb-4">Notification Types</h3>
-                          <div className="space-y-4">
-                            <div className="flex items-center justify-between">
-                              <div>
-                                <Label htmlFor="achievement-notifications" className="font-medium">Achievements</Label>
-                                <p className="text-sm text-muted-foreground">Awards, recognitions, and positive feedback</p>
-                              </div>
-                              <Switch id="achievement-notifications" defaultChecked />
-                            </div>
-                            
-                            <div className="flex items-center justify-between">
-                              <div>
-                                <Label htmlFor="assessment-notifications" className="font-medium">Assessments</Label>
-                                <p className="text-sm text-muted-foreground">Test results, grades, and academic evaluations</p>
-                              </div>
-                              <Switch id="assessment-notifications" defaultChecked />
-                            </div>
-                            
-                            <div className="flex items-center justify-between">
-                              <div>
-                                <Label htmlFor="behavior-notifications" className="font-medium">Behavior</Label>
-                                <p className="text-sm text-muted-foreground">Behavior reports and incidents</p>
-                              </div>
-                              <Switch id="behavior-notifications" defaultChecked />
-                            </div>
-                            
-                            <div className="flex items-center justify-between">
-                              <div>
-                                <Label htmlFor="attendance-notifications" className="font-medium">Attendance</Label>
-                                <p className="text-sm text-muted-foreground">Absences, late arrivals, and early departures</p>
-                              </div>
-                              <Switch id="attendance-notifications" defaultChecked />
-                            </div>
-                            
-                            <div className="flex items-center justify-between">
-                              <div>
-                                <Label htmlFor="homework-notifications" className="font-medium">Homework</Label>
-                                <p className="text-sm text-muted-foreground">Assignments, due dates, and completion status</p>
-                              </div>
-                              <Switch id="homework-notifications" defaultChecked />
-                            </div>
-                            
-                            <div className="flex items-center justify-between">
-                              <div>
-                                <Label htmlFor="event-notifications" className="font-medium">School Events</Label>
-                                <p className="text-sm text-muted-foreground">School activities, meetings, and important dates</p>
-                              </div>
-                              <Switch id="event-notifications" defaultChecked />
-                            </div>
-                          </div>
-                        </div>
-                        
-                        <div className="flex justify-end">
-                          <Button>Save Preferences</Button>
-                        </div>
-                      </div>
-                    </TabsContent>
-                    
-                    <TabsContent value="privacy">
-                      <div className="space-y-6">
-                        <div>
-                          <h3 className="text-lg font-medium mb-4">Privacy Settings</h3>
-                          <div className="space-y-4">
-                            <div className="flex items-center justify-between">
-                              <div>
-                                <Label htmlFor="profile-visibility" className="font-medium">Profile Visibility</Label>
-                                <p className="text-sm text-muted-foreground">Control who can see your profile information</p>
-                              </div>
-                              <div className="w-[180px]">
-                                <Select defaultValue="school-only">
-                                  <SelectTrigger id="profile-visibility">
-                                    <SelectValue placeholder="Select visibility" />
-                                  </SelectTrigger>
-                                  <SelectContent>
-                                    <SelectItem value="school-only">School Staff Only</SelectItem>
-                                    <SelectItem value="teachers">Teachers & Administrators</SelectItem>
-                                    <SelectItem value="all">All School Community</SelectItem>
-                                  </SelectContent>
-                                </Select>
-                              </div>
-                            </div>
-                            
-                            <div className="flex items-center justify-between">
-                              <div>
-                                <Label htmlFor="contact-sharing" className="font-medium">Contact Information Sharing</Label>
-                                <p className="text-sm text-muted-foreground">Allow teachers to share your contact with other parents</p>
-                              </div>
-                              <Switch id="contact-sharing" />
-                            </div>
-                            
-                            <div className="flex items-center justify-between">
-                              <div>
-                                <Label htmlFor="photo-consent" className="font-medium">Photo Usage Consent</Label>
-                                <p className="text-sm text-muted-foreground">Allow school to use photos of your child in publications</p>
-                              </div>
-                              <Switch id="photo-consent" defaultChecked />
-                            </div>
-                          </div>
-                        </div>
-                        
-                        <div>
-                          <h3 className="text-lg font-medium mb-4">Data Management</h3>
-                          <div className="space-y-4">
-                            <Card>
-                              <CardContent className="p-4">
-                                <div className="flex justify-between items-center">
-                                  <div>
-                                    <h4 className="font-medium">Download Your Data</h4>
-                                    <p className="text-sm text-muted-foreground">Get a copy of all your data stored in the system</p>
-                                  </div>
-                                  <Button variant="outline">
-                                    <FileText className="h-4 w-4 mr-2" />
-                                    Download
-                                  </Button>
-                                </div>
-                              </CardContent>
-                            </Card>
-                            
-                            <Card>
-                              <CardContent className="p-4">
-                                <div className="flex justify-between items-center">
-                                  <div>
-                                    <h4 className="font-medium">Data Retention</h4>
-                                    <p className="text-sm text-muted-foreground">Control how long your data is stored</p>
-                                  </div>
-                                  <div className="w-[180px]">
-                                    <Select defaultValue="standard">
-                                      <SelectTrigger>
-                                        <SelectValue placeholder="Select retention" />
-                                      </SelectTrigger>
-                                      <SelectContent>
-                                        <SelectItem value="standard">Standard (3 years)</SelectItem>
-                                        <SelectItem value="extended">Extended (5 years)</SelectItem>
-                                        <SelectItem value="minimum">Minimum (1 year)</SelectItem>
-                                      </SelectContent>
-                                    </Select>
-                                  </div>
-                                </div>
-                              </CardContent>
-                            </Card>
-                          </div>
-                        </div>
-                        
-                        <div className="flex justify-end">
-                          <Button>Save Privacy Settings</Button>
-                        </div>
-                      </div>
-                    </TabsContent>
-                    
-                    <TabsContent value="accessibility">
-                      <div className="space-y-6">
-                        <div>
-                          <h3 className="text-lg font-medium mb-4">Accessibility Preferences</h3>
-                          <div className="space-y-4">
-                            <div className="flex items-center justify-between">
-                              <div>
-                                <Label htmlFor="high-contrast" className="font-medium">High Contrast Mode</Label>
-                                <p className="text-sm text-muted-foreground">Increase contrast for better visibility</p>
-                              </div>
-                              <Switch id="high-contrast" />
-                            </div>
-                            
-                            <div className="flex items-center justify-between">
-                              <div>
-                                <Label htmlFor="text-to-speech" className="font-medium">Text-to-Speech</Label>
-                                <p className="text-sm text-muted-foreground">Enable reading of content aloud</p>
-                              </div>
-                              <Switch id="text-to-speech" />
-                            </div>
-                            
-                            <div className="flex items-center justify-between">
-                              <div>
-                                <Label htmlFor="font-size" className="font-medium">Font Size</Label>
-                                <p className="text-sm text-muted-foreground">Adjust text size for better readability</p>
-                              </div>
-                              <div className="w-[180px]">
-                                <Select defaultValue="medium">
-                                  <SelectTrigger id="font-size">
-                                    <SelectValue placeholder="Select size" />
-                                  </SelectTrigger>
-                                  <SelectContent>
-                                    <SelectItem value="small">Small</SelectItem>
-                                    <SelectItem value="medium">Medium</SelectItem>
-                                    <SelectItem value="large">Large</SelectItem>
-                                    <SelectItem value="x-large">Extra Large</SelectItem>
-                                  </SelectContent>
-                                </Select>
-                              </div>
-                            </div>
-                            
-                            <div className="flex items-center justify-between">
-                              <div>
-                                <Label htmlFor="reduced-motion" className="font-medium">Reduced Motion</Label>
-                                <p className="text-sm text-muted-foreground">Minimize animations and transitions</p>
-                              </div>
-                              <Switch id="reduced-motion" />
-                            </div>
-                          </div>
-                        </div>
-                        
-                        <div>
-                          <h3 className="text-lg font-medium mb-4">Language Preferences</h3>
-                          <div className="space-y-4">
-                            <div className="flex items-center justify-between">
-                              <div>
-                                <Label htmlFor="interface-language" className="font-medium">Interface Language</Label>
-                                <p className="text-sm text-muted-foreground">Select your preferred language for the portal</p>
-                              </div>
-                              <div className="w-[180px]">
-                                <Select defaultValue="en-GB">
-                                  <SelectTrigger id="interface-language">
-                                    <SelectValue placeholder="Select language" />
-                                  </SelectTrigger>
-                                  <SelectContent>
-                                    <SelectItem value="en-GB">English (UK)</SelectItem>
-                                    <SelectItem value="cy">Welsh</SelectItem>
-                                    <SelectItem value="fr">French</SelectItem>
-                                    <SelectItem value="es">Spanish</SelectItem>
-                                    <SelectItem value="pl">Polish</SelectItem>
-                                    <SelectItem value="ar">Arabic</SelectItem>
-                                  </SelectContent>
-                                </Select>
-                              </div>
-                            </div>
-                            
-                            <div className="flex items-center justify-between">
-                              <div>
-                                <Label htmlFor="translation" className="font-medium">Automatic Translation</Label>
-                                <p className="text-sm text-muted-foreground">Automatically translate content to your preferred language</p>
-                              </div>
-                              <Switch id="translation" />
-                            </div>
-                          </div>
-                        </div>
-                        
-                        <div className="flex justify-end">
-                          <Button>Save Accessibility Settings</Button>
-                        </div>
-                      </div>
-                    </TabsContent>
-                  </Tabs>
-                </CardContent>
-              </Card>
-              
-              <Card>
-                <CardContent className="p-6">
-                  <h3 className="text-lg font-medium mb-4">Security</h3>
-                  
-                  <div className="space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <Card>
-                        <CardContent className="p-4">
-                          <div className="flex justify-between items-center">
-                            <div>
-                              <h4 className="font-medium">Change Password</h4>
-                              <p className="text-sm text-muted-foreground">Update your account password</p>
-                            </div>
-                            <Button variant="outline">
-                              <Lock className="h-4 w-4 mr-2" />
-                              Change
-                            </Button>
-                          </div>
-                        </CardContent>
-                      </Card>
-                      
-                      <Card>
-                        <CardContent className="p-4">
-                          <div className="flex justify-between items-center">
-                            <div>
-                              <h4 className="font-medium">Two-Factor Authentication</h4>
-                              <p className="text-sm text-muted-foreground">Add an extra layer of security</p>
-                            </div>
-                            <Switch defaultChecked />
-                          </div>
-                        </CardContent>
-                      </Card>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="name">Full Name</Label>
+                      <Input id="name" defaultValue="Sarah Johnson" />
                     </div>
                     
-                    <Card>
-                      <CardContent className="p-4">
-                        <div className="flex justify-between items-center">
-                          <div>
-                            <h4 className="font-medium">Login History</h4>
-                            <p className="text-sm text-muted-foreground">View recent account activity</p>
-                          </div>
-                          <Button variant="outline">
-                            <User className="h-4 w-4 mr-2" />
-                            View Activity
-                          </Button>
-                        </div>
-                      </CardContent>
-                    </Card>
+                    <div className="space-y-2">
+                      <Label htmlFor="email">Email Address</Label>
+                      <Input id="email" type="email" defaultValue="sarah.johnson@example.com" />
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <Label htmlFor="phone">Phone Number</Label>
+                      <Input id="phone" type="tel" defaultValue="+44 7700 900123" />
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <Label htmlFor="relationship">Relationship to Children</Label>
+                      <Input id="relationship" defaultValue="Mother" />
+                    </div>
                   </div>
-                </CardContent>
-              </Card>
-              
-              <Card>
-                <CardContent className="p-6">
-                  <h3 className="text-lg font-medium mb-4">Support</h3>
                   
-                  <div className="space-y-4">
-                    <Card>
-                      <CardContent className="p-4">
-                        <div className="flex justify-between items-center">
-                          <div>
-                            <h4 className="font-medium">Contact Support</h4>
-                            <p className="text-sm text-muted-foreground">Get help with your account or the portal</p>
-                          </div>
-                          <Button variant="outline">
-                            <Mail className="h-4 w-4 mr-2" />
-                            Contact
-                          </Button>
-                        </div>
-                      </CardContent>
-                    </Card>
+                  <Button>Update Profile</Button>
+                </div>
+                
+                <div className="space-y-4 pt-6 border-t">
+                  <h3 className="text-lg font-medium">Notification Preferences</h3>
+                  
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="font-medium">Email Notifications</p>
+                        <p className="text-sm text-muted-foreground">Receive updates via email</p>
+                      </div>
+                      <Switch defaultChecked />
+                    </div>
                     
-                    <Card>
-                      <CardContent className="p-4">
-                        <div className="flex justify-between items-center">
-                          <div>
-                            <h4 className="font-medium">Help Center</h4>
-                            <p className="text-sm text-muted-foreground">Browse tutorials and FAQs</p>
-                          </div>
-                          <Button variant="outline">
-                            <BookOpen className="h-4 w-4 mr-2" />
-                            View Help
-                          </Button>
-                        </div>
-                      </CardContent>
-                    </Card>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="font-medium">SMS Notifications</p>
+                        <p className="text-sm text-muted-foreground">Receive urgent updates via SMS</p>
+                      </div>
+                      <Switch defaultChecked />
+                    </div>
                     
-                    <Card>
-                      <CardContent className="p-4">
-                        <div className="flex justify-between items-center">
-                          <div>
-                            <h4 className="font-medium">School Contact Information</h4>
-                            <p className="text-sm text-muted-foreground">Contact the school directly</p>
-                          </div>
-                          <div className="flex gap-2">
-                            <Button variant="outline" size="icon">
-                              <Phone className="h-4 w-4" />
-                            </Button>
-                            <Button variant="outline" size="icon">
-                              <Mail className="h-4 w-4" />
-                            </Button>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="font-medium">In-App Notifications</p>
+                        <p className="text-sm text-muted-foreground">Receive notifications within the app</p>
+                      </div>
+                      <Switch defaultChecked />
+                    </div>
                   </div>
-                </CardContent>
-              </Card>
-            </div>
+                </div>
+                
+                <div className="space-y-4 pt-6 border-t">
+                  <h3 className="text-lg font-medium">Security</h3>
+                  
+                  <div className="space-y-2">
+                    <Button variant="outline" className="w-full justify-start">
+                      <Lock className="mr-2 h-4 w-4" />
+                      Change Password
+                    </Button>
+                    
+                    <Button variant="outline" className="w-full justify-start">
+                      <User className="mr-2 h-4 w-4" />
+                      Two-Factor Authentication
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           )}
         </motion.div>
       </div>
-
-      {/* How It Works Section */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.6, duration: 0.5 }}
-        className="mt-12 mb-12"
-      >
-        <h2 className="text-3xl font-semibold mb-6 text-center">How It Works</h2>
-        
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          <Card>
-            <CardContent className="p-6 text-center">
-              <div className="bg-primary/10 p-3 rounded-full w-fit mx-auto mb-4">
-                <Bell className="h-6 w-6 text-primary" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Real-Time Updates</h3>
-              <p className="text-muted-foreground">
-                Receive instant notifications about your child's achievements, assessments, behavior, and attendance, keeping you informed about their educational journey.
-              </p>
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardContent className="p-6 text-center">
-              <div className="bg-primary/10 p-3 rounded-full w-fit mx-auto mb-4">
-                <MessageSquare className="h-6 w-6 text-primary" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Direct Communication</h3>
-              <p className="text-muted-foreground">
-                Maintain open lines of communication with teachers and school staff through our secure messaging system, ensuring timely and effective collaboration.
-              </p>
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardContent className="p-6 text-center">
-              <div className="bg-primary/10 p-3 rounded-full w-fit mx-auto mb-4">
-                <BarChart className="h-6 w-6 text-primary" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Progress Tracking</h3>
-              <p className="text-muted-foreground">
-                Monitor your child's academic progress across all subjects with detailed insights into assessments, learning goals, and areas for improvement.
-              </p>
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardContent className="p-6 text-center">
-              <div className="bg-primary/10 p-3 rounded-full w-fit mx-auto mb-4">
-                <Calendar className="h-6 w-6 text-primary" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Calendar Integration</h3>
-              <p className="text-muted-foreground">
-                Stay organized with a comprehensive calendar of school events, deadlines, parent-teacher meetings, and other important dates relevant to your child.
-              </p>
-            </CardContent>
-          </Card>
-        </div>
-      </motion.div>
-
-      {/* Benefits Section */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.8, duration: 0.5 }}
-      >
-        <h2 className="text-3xl font-semibold mb-6 text-center">Benefits</h2>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <Card>
-            <CardContent className="p-6">
-              <h3 className="text-xl font-semibold mb-4">For Parents</h3>
-              <ul className="space-y-3">
-                <li className="flex items-start">
-                  <div className="mr-2 mt-1 bg-primary/10 p-1 rounded-full">
-                    <Zap className="h-4 w-4 text-primary" />
-                  </div>
-                  <div>
-                    <span className="font-medium">Enhanced Engagement</span>
-                    <p className="text-sm text-muted-foreground">Stay actively involved in your child's education with comprehensive insights into their school life.</p>
-                  </div>
-                </li>
-                <li className="flex items-start">
-                  <div className="mr-2 mt-1 bg-primary/10 p-1 rounded-full">
-                    <Zap className="h-4 w-4 text-primary" />
-                  </div>
-                  <div>
-                    <span className="font-medium">Timely Intervention</span>
-                    <p className="text-sm text-muted-foreground">Identify and address potential challenges early through real-time updates and progress tracking.</p>
-                  </div>
-                </li>
-                <li className="flex items-start">
-                  <div className="mr-2 mt-1 bg-primary/10 p-1 rounded-full">
-                    <Zap className="h-4 w-4 text-primary" />
-                  </div>
-                  <div>
-                    <span className="font-medium">Streamlined Communication</span>
-                    <p className="text-sm text-muted-foreground">Communicate directly with teachers and staff without scheduling constraints or phone tag.</p>
-                  </div>
-                </li>
-                <li className="flex items-start">
-                  <div className="mr-2 mt-1 bg-primary/10 p-1 rounded-full">
-                    <Zap className="h-4 w-4 text-primary" />
-                  </div>
-                  <div>
-                    <span className="font-medium">Holistic View</span>
-                    <p className="text-sm text-muted-foreground">Gain a comprehensive understanding of your child's academic, social, and behavioral development.</p>
-                  </div>
-                </li>
-              </ul>
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardContent className="p-6">
-              <h3 className="text-xl font-semibold mb-4">For Schools</h3>
-              <ul className="space-y-3">
-                <li className="flex items-start">
-                  <div className="mr-2 mt-1 bg-primary/10 p-1 rounded-full">
-                    <Zap className="h-4 w-4 text-primary" />
-                  </div>
-                  <div>
-                    <span className="font-medium">Increased Parent Involvement</span>
-                    <p className="text-sm text-muted-foreground">Foster stronger home-school connections through transparent and accessible communication channels.</p>
-                  </div>
-                </li>
-                <li className="flex items-start">
-                  <div className="mr-2 mt-1 bg-primary/10 p-1 rounded-full">
-                    <Zap className="h-4 w-4 text-primary" />
-                  </div>
-                  <div>
-                    <span className="font-medium">Efficient Communication</span>
-                    <p className="text-sm text-muted-foreground">Reduce administrative burden with streamlined digital communication and automated updates.</p>
-                  </div>
-                </li>
-                <li className="flex items-start">
-                  <div className="mr-2 mt-1 bg-primary/10 p-1 rounded-full">
-                    <Zap className="h-4 w-4 text-primary" />
-                  </div>
-                  <div>
-                    <span className="font-medium">Data-Driven Insights</span>
-                    <p className="text-sm text-muted-foreground">Leverage comprehensive data to identify trends and improve educational outcomes.</p>
-                  </div>
-                </li>
-                <li className="flex items-start">
-                  <div className="mr-2 mt-1 bg-primary/10 p-1 rounded-full">
-                    <Zap className="h-4 w-4 text-primary" />
-                  </div>
-                  <div>
-                    <span className="font-medium">Enhanced Community Building</span>
-                    <p className="text-sm text-muted-foreground">Create a stronger school community through improved transparency and engagement.</p>
-                  </div>
-                </li>
-              </ul>
-            </CardContent>
-          </Card>
-        </div>
-      </motion.div>
     </div>
   );
 }
