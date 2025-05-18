@@ -128,8 +128,22 @@ async function handleAnthropicCompletion(
     max_tokens: maxTokens
   });
   
+  // Handle different content block types from Anthropic API
+  let responseText = '';
+  if (response.content && response.content.length > 0) {
+    const contentBlock = response.content[0];
+    if ('text' in contentBlock) {
+      responseText = contentBlock.text;
+    } else if (contentBlock.type === 'text') {
+      responseText = contentBlock.text;
+    } else {
+      // If it's another type of content block, try to extract meaningful text
+      responseText = JSON.stringify(contentBlock);
+    }
+  }
+  
   return {
-    text: response.content[0]?.text || '',
+    text: responseText,
     provider: 'anthropic',
     model: requestData.model
   };
