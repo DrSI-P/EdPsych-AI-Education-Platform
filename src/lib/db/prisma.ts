@@ -1,17 +1,31 @@
-import { PrismaClient } from '@prisma/client'
+// Database utilities for the EdPsych AI Education Platform
+// This file provides a centralized interface for database operations through Prisma
 
-// PrismaClient is attached to the `global` object in development to prevent
-// exhausting your database connection limit.
-// Learn more: https://pris.ly/d/help/next-js-best-practices
+import prismaInstance from '../prisma';
 
-const globalForPrisma = global as unknown as { prisma: PrismaClient }
+// Re-export the prisma instance as a named export for consistency
+export const prisma = prismaInstance;
 
-export const prisma =
-  globalForPrisma.prisma ||
-  new PrismaClient({
-    log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error'],
-  })
+// Helper functions for database operations
+export async function findUserById(id: string) {
+  // Placeholder implementation
+  return null;
+}
 
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
+export async function findUserByEmail(email: string) {
+  // Placeholder implementation
+  return null;
+}
 
-export default prisma
+export async function createUser(userData: any) {
+  // Placeholder implementation
+  return null;
+}
+
+export async function updateUser(id: string, userData: any) {
+  // Placeholder implementation
+  return null;
+}
+
+// Default export for backward compatibility
+export default prisma;
