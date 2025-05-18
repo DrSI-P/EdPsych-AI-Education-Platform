@@ -1,769 +1,567 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { 
-  Card, 
-  CardContent, 
-  CardDescription, 
-  CardFooter, 
-  CardHeader, 
-  CardTitle 
-} from "@/components/ui/card";
-import { 
-  Tabs, 
-  TabsContent, 
-  TabsList, 
-  TabsTrigger 
-} from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
-import { 
-  DropdownMenu, 
-  DropdownMenuContent, 
-  DropdownMenuItem, 
-  DropdownMenuLabel, 
-  DropdownMenuSeparator, 
-  DropdownMenuTrigger 
-} from "@/components/ui/dropdown-menu";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { 
-  BookOpen, 
-  Calendar, 
-  Clock, 
-  Edit, 
-  Eye, 
-  Filter, 
-  Heart, 
-  MessageSquare, 
-  MoreHorizontal, 
-  Search, 
-  Share2, 
-  Tag, 
-  ThumbsUp, 
-  Bookmark,
-  BookmarkPlus,
-  Sparkles,
-  Lightbulb,
-  Zap,
-  Award,
-  TrendingUp,
-  User,
-  FileText,
-  Layers,
-  ChevronRight
+  BookOpen, Clock, Calendar, User, Tag, ThumbsUp, MessageSquare, 
+  Share2, Bookmark, Search, Filter, TrendingUp, Award, Lightbulb,
+  BookMarked, School, GraduationCap, Users, Heart, ChevronRight,
+  ArrowRight, PlusCircle, Settings, Bell, RefreshCw, FileText,
+  Edit, Eye, Printer, Download, ExternalLink, BarChart2, Zap
 } from 'lucide-react';
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-// Mock data for demonstration
-const featuredPosts = [
+// Sample blog post data
+const sampleBlogPosts = [
   {
     id: 1,
-    title: "AI-Powered Differentiation: Transforming Inclusive Education",
-    excerpt: "Explore how artificial intelligence is revolutionizing differentiated instruction in UK classrooms, providing personalized support for all learners.",
+    title: "Evidence-Based Strategies for Supporting Executive Function in the Classroom",
+    excerpt: "Practical approaches to help students develop organization, time management, and self-regulation skills based on the latest research.",
     author: {
-      name: "Dr. Emma Wilson",
-      avatar: "/avatars/emma-wilson.jpg",
+      name: "Dr. Emma Thompson",
+      avatar: "/avatars/emma-thompson.jpg",
       role: "Educational Psychologist"
     },
-    publishedAt: "2025-05-15",
-    readTime: "8 min read",
-    category: "Inclusive Education",
-    tags: ["AI", "Differentiation", "Inclusion", "Personalized Learning"],
-    featured: true,
-    image: "/blog/ai-differentiation.jpg",
+    category: "Teaching Strategies",
+    tags: ["Executive Function", "Self-Regulation", "Classroom Management"],
+    publishedAt: "2025-05-15T10:30:00Z",
+    readTime: 8,
+    imageUrl: "/blog/executive-function-strategies.jpg",
     likes: 124,
     comments: 32,
-    views: 1850,
-    curriculum: ["SEND", "Inclusive Practice"],
-    ageRange: ["KS2", "KS3", "KS4"]
+    aiGenerated: false,
+    featured: true
   },
   {
     id: 2,
-    title: "Evidence-Based Approaches to Supporting Executive Function",
-    excerpt: "A comprehensive review of research-backed strategies for developing executive function skills in primary and secondary education.",
+    title: "The Impact of Formative Assessment on Student Metacognition",
+    excerpt: "How regular, low-stakes assessment can develop students' awareness of their own learning processes and improve academic outcomes.",
     author: {
-      name: "Prof. James Thompson",
-      avatar: "/avatars/james-thompson.jpg",
-      role: "Cognitive Psychologist"
+      name: "AI Education Assistant",
+      avatar: "/avatars/ai-assistant.jpg",
+      role: "AI Content Creator"
     },
-    publishedAt: "2025-05-10",
-    readTime: "12 min read",
-    category: "Cognitive Development",
-    tags: ["Executive Function", "Working Memory", "Self-Regulation", "Metacognition"],
-    featured: true,
-    image: "/blog/executive-function.jpg",
+    category: "Assessment",
+    tags: ["Formative Assessment", "Metacognition", "Feedback"],
+    publishedAt: "2025-05-12T14:15:00Z",
+    readTime: 6,
+    imageUrl: "/blog/formative-assessment.jpg",
     likes: 98,
-    comments: 27,
-    views: 1420,
-    curriculum: ["PSHE", "Learning Skills"],
-    ageRange: ["KS1", "KS2", "KS3"]
+    comments: 17,
+    aiGenerated: true,
+    featured: false
   },
   {
     id: 3,
-    title: "The Future of Assessment: Beyond Traditional Testing",
-    excerpt: "How innovative assessment approaches are providing richer insights into student learning while reducing test anxiety and promoting growth mindset.",
+    title: "Neurodiversity in the Classroom: Beyond Labels to Strengths",
+    excerpt: "Moving from deficit-based approaches to strength-based support for neurodiverse learners, with practical classroom applications.",
     author: {
-      name: "Dr. Sarah Chen",
-      avatar: "/avatars/sarah-chen.jpg",
-      role: "Assessment Specialist"
+      name: "Sarah Williams",
+      avatar: "/avatars/sarah-williams.jpg",
+      role: "SENCO Specialist"
     },
-    publishedAt: "2025-05-08",
-    readTime: "10 min read",
-    category: "Assessment",
-    tags: ["Formative Assessment", "Alternative Assessment", "Growth Mindset", "Feedback"],
-    featured: true,
-    image: "/blog/future-assessment.jpg",
-    likes: 87,
-    comments: 19,
-    views: 1280,
-    curriculum: ["Assessment", "Pedagogy"],
-    ageRange: ["All Phases"]
-  }
-];
-
-const recentPosts = [
+    category: "Inclusive Education",
+    tags: ["Neurodiversity", "Strengths-Based", "Inclusion"],
+    publishedAt: "2025-05-10T09:45:00Z",
+    readTime: 10,
+    imageUrl: "/blog/neurodiversity-classroom.jpg",
+    likes: 156,
+    comments: 41,
+    aiGenerated: false,
+    featured: true
+  },
   {
     id: 4,
-    title: "Building Emotional Literacy Through Digital Storytelling",
-    excerpt: "Practical strategies for using digital storytelling tools to develop emotional vocabulary and self-awareness in primary students.",
+    title: "Applying Cognitive Load Theory to Lesson Design",
+    excerpt: "Practical strategies for optimizing instruction based on how the brain processes and retains information.",
     author: {
-      name: "Olivia Parker",
-      avatar: "/avatars/olivia-parker.jpg",
-      role: "Primary Educator"
+      name: "AI Education Assistant",
+      avatar: "/avatars/ai-assistant.jpg",
+      role: "AI Content Creator"
     },
-    publishedAt: "2025-05-05",
-    readTime: "7 min read",
-    category: "Social-Emotional Learning",
-    tags: ["Emotional Literacy", "Digital Storytelling", "Primary Education"],
-    image: "/blog/emotional-literacy.jpg",
-    likes: 76,
-    comments: 15,
-    views: 980,
-    curriculum: ["PSHE", "English"],
-    ageRange: ["EYFS", "KS1", "KS2"]
+    category: "Lesson Planning",
+    tags: ["Cognitive Load", "Instructional Design", "Memory"],
+    publishedAt: "2025-05-08T11:20:00Z",
+    readTime: 7,
+    imageUrl: "/blog/cognitive-load-theory.jpg",
+    likes: 112,
+    comments: 23,
+    aiGenerated: true,
+    featured: false
   },
   {
     id: 5,
-    title: "Neurodiversity in the Digital Classroom: Creating Inclusive Spaces",
-    excerpt: "Best practices for designing digital learning environments that support and celebrate neurodivergent learners.",
+    title: "Building Emotional Literacy Through Literature",
+    excerpt: "Using children's books and young adult fiction to develop emotional vocabulary, empathy, and self-awareness.",
     author: {
-      name: "Dr. Michael Rivera",
-      avatar: "/avatars/michael-rivera.jpg",
-      role: "Neurodiversity Specialist"
+      name: "Dr. James Roberts",
+      avatar: "/avatars/james-roberts.jpg",
+      role: "Literacy Specialist"
     },
-    publishedAt: "2025-05-03",
-    readTime: "9 min read",
-    category: "Neurodiversity",
-    tags: ["ADHD", "Autism", "Dyslexia", "Digital Accessibility"],
-    image: "/blog/neurodiversity-classroom.jpg",
-    likes: 112,
-    comments: 28,
-    views: 1560,
-    curriculum: ["SEND", "Digital Literacy"],
-    ageRange: ["All Phases"]
+    category: "Social-Emotional Learning",
+    tags: ["Emotional Literacy", "Literature", "Empathy"],
+    publishedAt: "2025-05-05T15:30:00Z",
+    readTime: 9,
+    imageUrl: "/blog/emotional-literacy.jpg",
+    likes: 143,
+    comments: 38,
+    aiGenerated: false,
+    featured: false
   },
   {
     id: 6,
-    title: "Restorative Practices in the Digital Age",
-    excerpt: "How technology can enhance restorative approaches to behavior and relationship-building in schools.",
+    title: "The Science of Effective Revision Strategies",
+    excerpt: "Evidence-based approaches to help students prepare for exams, based on cognitive psychology research.",
     author: {
-      name: "Aisha Johnson",
-      avatar: "/avatars/aisha-johnson.jpg",
-      role: "Restorative Practice Consultant"
+      name: "AI Education Assistant",
+      avatar: "/avatars/ai-assistant.jpg",
+      role: "AI Content Creator"
     },
-    publishedAt: "2025-05-01",
-    readTime: "11 min read",
-    category: "Behavior Management",
-    tags: ["Restorative Justice", "Digital Tools", "School Culture"],
-    image: "/blog/restorative-practices.jpg",
-    likes: 94,
-    comments: 22,
-    views: 1320,
-    curriculum: ["PSHE", "Citizenship"],
-    ageRange: ["KS2", "KS3", "KS4"]
-  },
-  {
-    id: 7,
-    title: "Metacognition: Teaching Students How to Learn",
-    excerpt: "Research-informed strategies for developing metacognitive skills across the curriculum.",
-    author: {
-      name: "Prof. David Williams",
-      avatar: "/avatars/david-williams.jpg",
-      role: "Learning Scientist"
-    },
-    publishedAt: "2025-04-28",
-    readTime: "10 min read",
-    category: "Learning Strategies",
-    tags: ["Metacognition", "Self-Regulation", "Study Skills"],
-    image: "/blog/metacognition.jpg",
-    likes: 88,
-    comments: 17,
-    views: 1240,
-    curriculum: ["Cross-Curricular"],
-    ageRange: ["KS2", "KS3", "KS4"]
+    category: "Study Skills",
+    tags: ["Revision", "Memory", "Exam Preparation"],
+    publishedAt: "2025-05-03T13:10:00Z",
+    readTime: 8,
+    imageUrl: "/blog/revision-strategies.jpg",
+    likes: 187,
+    comments: 45,
+    aiGenerated: true,
+    featured: false
   }
 ];
 
+// Sample categories
 const categories = [
-  { name: "Inclusive Education", count: 24 },
-  { name: "Assessment", count: 18 },
-  { name: "Social-Emotional Learning", count: 32 },
-  { name: "Cognitive Development", count: 15 },
-  { name: "Behavior Management", count: 21 },
-  { name: "Learning Strategies", count: 27 },
-  { name: "Neurodiversity", count: 19 },
-  { name: "Educational Technology", count: 23 },
-  { name: "Professional Development", count: 16 }
+  { id: 1, name: "Teaching Strategies", count: 42 },
+  { id: 2, name: "Assessment", count: 28 },
+  { id: 3, name: "Inclusive Education", count: 35 },
+  { id: 4, name: "Social-Emotional Learning", count: 31 },
+  { id: 5, name: "Lesson Planning", count: 24 },
+  { id: 6, name: "Study Skills", count: 19 },
+  { id: 7, name: "Educational Technology", count: 26 },
+  { id: 8, name: "Professional Development", count: 22 },
+  { id: 9, name: "Research Insights", count: 17 },
+  { id: 10, name: "Classroom Management", count: 29 }
 ];
 
+// Sample popular tags
 const popularTags = [
-  { name: "AI", count: 42 },
-  { name: "Inclusion", count: 38 },
-  { name: "Differentiation", count: 35 },
-  { name: "Growth Mindset", count: 31 },
-  { name: "Metacognition", count: 29 },
-  { name: "Feedback", count: 27 },
-  { name: "SEND", count: 25 },
-  { name: "Wellbeing", count: 24 },
-  { name: "Assessment", count: 22 },
-  { name: "Digital Literacy", count: 21 }
+  { id: 1, name: "Executive Function", count: 18 },
+  { id: 2, name: "Metacognition", count: 24 },
+  { id: 3, name: "Inclusion", count: 32 },
+  { id: 4, name: "Differentiation", count: 27 },
+  { id: 5, name: "Feedback", count: 21 },
+  { id: 6, name: "Self-Regulation", count: 19 },
+  { id: 7, name: "Assessment", count: 35 },
+  { id: 8, name: "Neurodiversity", count: 26 },
+  { id: 9, name: "Literacy", count: 30 },
+  { id: 10, name: "Wellbeing", count: 28 }
 ];
 
-const curriculumAreas = [
-  { name: "SEND", count: 45 },
-  { name: "PSHE", count: 38 },
-  { name: "English", count: 32 },
-  { name: "Mathematics", count: 28 },
-  { name: "Science", count: 25 },
-  { name: "Digital Literacy", count: 22 },
-  { name: "Cross-Curricular", count: 37 }
-];
-
-const ageRanges = [
-  { name: "EYFS", count: 28 },
-  { name: "KS1", count: 35 },
-  { name: "KS2", count: 42 },
-  { name: "KS3", count: 38 },
-  { name: "KS4", count: 31 },
-  { name: "Post-16", count: 24 },
-  { name: "All Phases", count: 29 }
-];
-
-const EducationalAIBlog = () => {
-  const [activeTab, setActiveTab] = useState("all");
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedTag, setSelectedTag] = useState(null);
-  const [selectedCurriculum, setSelectedCurriculum] = useState(null);
-  const [selectedAgeRange, setSelectedAgeRange] = useState(null);
-
-  const handleSearch = (e) => {
-    e.preventDefault();
-    // In a real implementation, this would trigger a search
-    console.log("Searching for:", searchQuery);
-  };
-
-  const handleCategorySelect = (category) => {
-    setSelectedCategory(category === selectedCategory ? null : category);
-  };
-
-  const handleTagSelect = (tag) => {
-    setSelectedTag(tag === selectedTag ? null : tag);
-  };
-
-  const handleCurriculumSelect = (curriculum) => {
-    setSelectedCurriculum(curriculum === selectedCurriculum ? null : curriculum);
-  };
-
-  const handleAgeRangeSelect = (ageRange) => {
-    setSelectedAgeRange(ageRange === selectedAgeRange ? null : ageRange);
-  };
-
-  const clearFilters = () => {
-    setSelectedCategory(null);
-    setSelectedTag(null);
-    setSelectedCurriculum(null);
-    setSelectedAgeRange(null);
-    setSearchQuery("");
-  };
-
-  const renderFeaturedPosts = () => (
-    <div className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {featuredPosts.map((post) => (
-          <Card key={post.id} className="overflow-hidden flex flex-col h-full">
-            <div className="relative h-48 overflow-hidden">
-              <div className="absolute top-2 left-2 z-10">
-                <Badge variant="secondary" className="bg-primary text-primary-foreground">
-                  Featured
-                </Badge>
+// Featured Blog Post Component
+const FeaturedPost = ({ post }) => {
+  return (
+    <Card className="overflow-hidden">
+      <div className="relative h-[300px] w-full">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/70 z-10" />
+        <div className="absolute bottom-6 left-6 right-6 z-20">
+          <div className="flex items-center space-x-2 mb-2">
+            <Badge variant="secondary" className="bg-primary text-primary-foreground">
+              {post.category}
+            </Badge>
+            {post.aiGenerated && (
+              <Badge variant="outline" className="bg-purple-500/10 text-purple-500 border-purple-500/20">
+                <Zap className="mr-1 h-3 w-3" />
+                AI Generated
+              </Badge>
+            )}
+          </div>
+          <h2 className="text-2xl font-bold text-white mb-2">{post.title}</h2>
+          <p className="text-white/80 mb-4 line-clamp-2">{post.excerpt}</p>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <Avatar className="h-8 w-8">
+                <AvatarImage src={post.author.avatar} alt={post.author.name} />
+                <AvatarFallback>{post.author.name.charAt(0)}</AvatarFallback>
+              </Avatar>
+              <div>
+                <p className="text-sm font-medium text-white">{post.author.name}</p>
+                <p className="text-xs text-white/70">{post.author.role}</p>
               </div>
-              <img 
-                src={post.image} 
-                alt={post.title} 
-                className="w-full h-full object-cover transition-transform hover:scale-105"
-              />
             </div>
-            <CardHeader className="pb-2">
-              <div className="flex items-center justify-between">
-                <Badge variant="outline">{post.category}</Badge>
-                <div className="flex items-center text-sm text-muted-foreground">
-                  <Calendar className="h-3 w-3 mr-1" />
-                  {post.publishedAt}
-                </div>
+            <div className="flex items-center space-x-4">
+              <div className="flex items-center text-white/80 text-sm">
+                <Clock className="mr-1 h-4 w-4" />
+                {post.readTime} min read
               </div>
-              <CardTitle className="text-xl mt-2 line-clamp-2">
-                <a href={`/blog/post/${post.id}`} className="hover:underline">
-                  {post.title}
-                </a>
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="flex-grow">
-              <p className="text-muted-foreground line-clamp-3">
-                {post.excerpt}
-              </p>
-            </CardContent>
-            <CardFooter className="flex justify-between items-center pt-0">
-              <div className="flex items-center space-x-2">
-                <Avatar className="h-8 w-8">
-                  <AvatarImage src={post.author.avatar} alt={post.author.name} />
-                  <AvatarFallback>{post.author.name.charAt(0)}</AvatarFallback>
-                </Avatar>
-                <div>
-                  <p className="text-sm font-medium">{post.author.name}</p>
-                  <p className="text-xs text-muted-foreground">{post.author.role}</p>
-                </div>
-              </div>
-              <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                <div className="flex items-center">
-                  <Clock className="h-3 w-3 mr-1" />
-                  {post.readTime}
-                </div>
-              </div>
-            </CardFooter>
-          </Card>
-        ))}
-      </div>
-    </div>
-  );
-
-  const renderPostList = (posts) => (
-    <div className="space-y-6">
-      {posts.map((post) => (
-        <Card key={post.id} className="overflow-hidden">
-          <div className="flex flex-col md:flex-row">
-            <div className="md:w-1/4 h-48 md:h-auto relative">
-              <img 
-                src={post.image} 
-                alt={post.title} 
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="md:w-3/4 flex flex-col">
-              <CardHeader className="pb-2">
-                <div className="flex items-center justify-between">
-                  <Badge variant="outline">{post.category}</Badge>
-                  <div className="flex items-center text-sm text-muted-foreground">
-                    <Calendar className="h-3 w-3 mr-1" />
-                    {post.publishedAt}
-                  </div>
-                </div>
-                <CardTitle className="text-xl mt-2">
-                  <a href={`/blog/post/${post.id}`} className="hover:underline">
-                    {post.title}
-                  </a>
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="flex-grow">
-                <p className="text-muted-foreground">
-                  {post.excerpt}
-                </p>
-                <div className="flex flex-wrap gap-2 mt-3">
-                  {post.tags.slice(0, 3).map((tag) => (
-                    <Badge key={tag} variant="secondary" className="text-xs">
-                      {tag}
-                    </Badge>
-                  ))}
-                  {post.tags.length > 3 && (
-                    <Badge variant="secondary" className="text-xs">
-                      +{post.tags.length - 3} more
-                    </Badge>
-                  )}
-                </div>
-              </CardContent>
-              <CardFooter className="flex justify-between items-center pt-0">
-                <div className="flex items-center space-x-2">
-                  <Avatar className="h-8 w-8">
-                    <AvatarImage src={post.author.avatar} alt={post.author.name} />
-                    <AvatarFallback>{post.author.name.charAt(0)}</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <p className="text-sm font-medium">{post.author.name}</p>
-                    <p className="text-xs text-muted-foreground">{post.author.role}</p>
-                  </div>
-                </div>
-                <div className="flex items-center space-x-4 text-sm text-muted-foreground">
-                  <div className="flex items-center">
-                    <Eye className="h-3 w-3 mr-1" />
-                    {post.views}
-                  </div>
-                  <div className="flex items-center">
-                    <ThumbsUp className="h-3 w-3 mr-1" />
-                    {post.likes}
-                  </div>
-                  <div className="flex items-center">
-                    <MessageSquare className="h-3 w-3 mr-1" />
-                    {post.comments}
-                  </div>
-                </div>
-              </CardFooter>
+              <Button variant="secondary" size="sm" className="text-xs">
+                Read Article
+                <ArrowRight className="ml-1 h-3 w-3" />
+              </Button>
             </div>
           </div>
-        </Card>
+        </div>
+        <img 
+          src={post.imageUrl || "https://placehold.co/800x400/e2e8f0/1e293b?text=Featured+Article"} 
+          alt={post.title}
+          className="h-full w-full object-cover"
+        />
+      </div>
+    </Card>
+  );
+};
+
+// Blog Post Card Component
+const BlogPostCard = ({ post }) => {
+  return (
+    <Card className="overflow-hidden h-full flex flex-col">
+      <div className="relative h-48">
+        <img 
+          src={post.imageUrl || "https://placehold.co/400x300/e2e8f0/1e293b?text=Blog+Post"} 
+          alt={post.title}
+          className="h-full w-full object-cover"
+        />
+        <div className="absolute top-3 left-3 flex space-x-2">
+          <Badge variant="secondary" className="bg-primary text-primary-foreground">
+            {post.category}
+          </Badge>
+          {post.aiGenerated && (
+            <Badge variant="outline" className="bg-purple-500/10 text-purple-500 border-purple-500/20">
+              <Zap className="mr-1 h-3 w-3" />
+              AI
+            </Badge>
+          )}
+        </div>
+      </div>
+      <CardContent className="flex-grow pt-4">
+        <h3 className="text-xl font-bold mb-2 line-clamp-2">{post.title}</h3>
+        <p className="text-muted-foreground mb-4 line-clamp-3">{post.excerpt}</p>
+        <div className="flex items-center justify-between mt-auto">
+          <div className="flex items-center space-x-2">
+            <Avatar className="h-6 w-6">
+              <AvatarImage src={post.author.avatar} alt={post.author.name} />
+              <AvatarFallback>{post.author.name.charAt(0)}</AvatarFallback>
+            </Avatar>
+            <span className="text-sm font-medium">{post.author.name}</span>
+          </div>
+          <div className="flex items-center text-muted-foreground text-sm">
+            <Clock className="mr-1 h-4 w-4" />
+            {post.readTime} min
+          </div>
+        </div>
+      </CardContent>
+      <CardFooter className="border-t pt-4 flex justify-between">
+        <div className="flex items-center space-x-4 text-muted-foreground">
+          <div className="flex items-center">
+            <ThumbsUp className="mr-1 h-4 w-4" />
+            <span className="text-sm">{post.likes}</span>
+          </div>
+          <div className="flex items-center">
+            <MessageSquare className="mr-1 h-4 w-4" />
+            <span className="text-sm">{post.comments}</span>
+          </div>
+        </div>
+        <Button variant="ghost" size="sm">
+          Read More
+          <ChevronRight className="ml-1 h-4 w-4" />
+        </Button>
+      </CardFooter>
+    </Card>
+  );
+};
+
+// Category List Component
+const CategoryList = ({ categories }) => {
+  return (
+    <div className="space-y-1">
+      {categories.map((category) => (
+        <div 
+          key={category.id}
+          className="flex items-center justify-between py-2 px-3 rounded-md hover:bg-muted cursor-pointer"
+        >
+          <span className="font-medium">{category.name}</span>
+          <Badge variant="secondary">{category.count}</Badge>
+        </div>
       ))}
     </div>
   );
+};
 
-  const renderSidebar = () => (
-    <div className="space-y-6">
-      <Card>
-        <CardHeader>
-          <CardTitle>Search</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSearch} className="flex space-x-2">
-            <Input
-              placeholder="Search articles..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="flex-grow"
-            />
-            <Button type="submit" size="sm">
-              <Search className="h-4 w-4" />
-            </Button>
-          </form>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader>
-          <CardTitle>Categories</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <ScrollArea className="h-[200px]">
-            <div className="space-y-2">
-              {categories.map((category) => (
-                <div 
-                  key={category.name} 
-                  className={`flex justify-between items-center p-2 rounded-md cursor-pointer ${
-                    selectedCategory === category.name ? 'bg-muted' : 'hover:bg-muted/50'
-                  }`}
-                  onClick={() => handleCategorySelect(category.name)}
-                >
-                  <span className="text-sm">{category.name}</span>
-                  <Badge variant="secondary" className="text-xs">
-                    {category.count}
-                  </Badge>
-                </div>
-              ))}
-            </div>
-          </ScrollArea>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader>
-          <CardTitle>Popular Tags</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="flex flex-wrap gap-2">
-            {popularTags.map((tag) => (
-              <Badge 
-                key={tag.name} 
-                variant={selectedTag === tag.name ? "default" : "outline"}
-                className="cursor-pointer"
-                onClick={() => handleTagSelect(tag.name)}
-              >
-                {tag.name} ({tag.count})
-              </Badge>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader>
-          <CardTitle>Curriculum Areas</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-2">
-            {curriculumAreas.map((area) => (
-              <div 
-                key={area.name} 
-                className={`flex justify-between items-center p-2 rounded-md cursor-pointer ${
-                  selectedCurriculum === area.name ? 'bg-muted' : 'hover:bg-muted/50'
-                }`}
-                onClick={() => handleCurriculumSelect(area.name)}
-              >
-                <span className="text-sm">{area.name}</span>
-                <Badge variant="secondary" className="text-xs">
-                  {area.count}
-                </Badge>
-              </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader>
-          <CardTitle>Age Ranges</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="flex flex-wrap gap-2">
-            {ageRanges.map((range) => (
-              <Badge 
-                key={range.name} 
-                variant={selectedAgeRange === range.name ? "default" : "outline"}
-                className="cursor-pointer"
-                onClick={() => handleAgeRangeSelect(range.name)}
-              >
-                {range.name} ({range.count})
-              </Badge>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
-
-      {(selectedCategory || selectedTag || selectedCurriculum || selectedAgeRange || searchQuery) && (
-        <div className="flex justify-end">
-          <Button variant="outline" size="sm" onClick={clearFilters}>
-            Clear Filters
-          </Button>
-        </div>
-      )}
+// Tag Cloud Component
+const TagCloud = ({ tags }) => {
+  return (
+    <div className="flex flex-wrap gap-2">
+      {tags.map((tag) => (
+        <Badge 
+          key={tag.id} 
+          variant="outline"
+          className="cursor-pointer hover:bg-muted"
+        >
+          {tag.name} ({tag.count})
+        </Badge>
+      ))}
     </div>
   );
+};
 
+// AI Content Generator Component
+const AIContentGenerator = () => {
+  const [prompt, setPrompt] = useState("");
+  const [generating, setGenerating] = useState(false);
+  
+  const handleGenerate = () => {
+    if (!prompt) return;
+    setGenerating(true);
+    // Simulate AI generation
+    setTimeout(() => {
+      setGenerating(false);
+      setPrompt("");
+      // In a real implementation, this would call an API to generate content
+    }, 2000);
+  };
+  
   return (
-    <div className="space-y-8">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">Educational AI Blog</h1>
-        <p className="text-muted-foreground mt-2">
-          Evidence-based insights, research, and best practices for educational professionals
-        </p>
-      </div>
+    <Card>
+      <CardHeader>
+        <CardTitle className="flex items-center">
+          <Zap className="mr-2 h-5 w-5 text-purple-500" />
+          AI Content Assistant
+        </CardTitle>
+        <CardDescription>
+          Generate educational content with AI assistance
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <div className="space-y-4">
+          <div>
+            <label htmlFor="prompt" className="text-sm font-medium block mb-1">
+              What would you like to write about?
+            </label>
+            <Input
+              id="prompt"
+              placeholder="e.g., Strategies for supporting dyslexic students in the classroom"
+              value={prompt}
+              onChange={(e) => setPrompt(e.target.value)}
+            />
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <Badge variant="outline" className="cursor-pointer hover:bg-muted">Teaching strategies</Badge>
+            <Badge variant="outline" className="cursor-pointer hover:bg-muted">Assessment methods</Badge>
+            <Badge variant="outline" className="cursor-pointer hover:bg-muted">Inclusive education</Badge>
+            <Badge variant="outline" className="cursor-pointer hover:bg-muted">Classroom management</Badge>
+          </div>
+        </div>
+      </CardContent>
+      <CardFooter>
+        <Button 
+          onClick={handleGenerate} 
+          disabled={!prompt || generating}
+          className="w-full"
+        >
+          {generating ? (
+            <>
+              <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
+              Generating Content...
+            </>
+          ) : (
+            <>
+              <Lightbulb className="mr-2 h-4 w-4" />
+              Generate Content
+            </>
+          )}
+        </Button>
+      </CardFooter>
+    </Card>
+  );
+};
 
-      <div className="flex justify-between items-center">
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList>
-            <TabsTrigger value="all">All Posts</TabsTrigger>
-            <TabsTrigger value="featured">Featured</TabsTrigger>
-            <TabsTrigger value="recent">Recent</TabsTrigger>
-            <TabsTrigger value="popular">Popular</TabsTrigger>
-          </TabsList>
-        </Tabs>
-        
-        <div className="flex items-center space-x-2">
-          <Button variant="outline" size="sm">
-            <Filter className="h-4 w-4 mr-2" />
-            Filter
+// Main Educational AI Blog Component
+export function EducationalAIBlog() {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [activeTab, setActiveTab] = useState("all");
+  
+  // Filter featured posts
+  const featuredPosts = sampleBlogPosts.filter(post => post.featured);
+  
+  // Filter posts based on active tab
+  const filteredPosts = sampleBlogPosts.filter(post => {
+    if (activeTab === "all") return true;
+    if (activeTab === "ai-generated") return post.aiGenerated;
+    if (activeTab === "human-authored") return !post.aiGenerated;
+    return post.category.toLowerCase() === activeTab.toLowerCase();
+  });
+  
+  return (
+    <div className="container mx-auto py-8">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
+        <div>
+          <h1 className="text-4xl font-bold tracking-tight">Educational AI Blog</h1>
+          <p className="text-xl text-muted-foreground mt-2">
+            Evidence-based insights and strategies for educational excellence
+          </p>
+        </div>
+        <div className="mt-4 md:mt-0 flex space-x-2">
+          <Button variant="outline">
+            <Bell className="mr-2 h-4 w-4" />
+            Subscribe
           </Button>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="sm">
-                <Tag className="h-4 w-4 mr-2" />
-                Sort
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem>Newest First</DropdownMenuItem>
-              <DropdownMenuItem>Oldest First</DropdownMenuItem>
-              <DropdownMenuItem>Most Popular</DropdownMenuItem>
-              <DropdownMenuItem>Most Commented</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <Button>
+            <PlusCircle className="mr-2 h-4 w-4" />
+            Create Post
+          </Button>
         </div>
       </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="md:col-span-2">
-          <div className="space-y-8">
-            {activeTab === "featured" && renderFeaturedPosts()}
-            {activeTab === "all" && (
-              <>
-                <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <h2 className="text-2xl font-bold">Featured Posts</h2>
-                    <Button variant="link" className="text-sm">
-                      View all featured
-                      <ChevronRight className="h-4 w-4 ml-1" />
-                    </Button>
-                  </div>
-                  {renderFeaturedPosts()}
-                </div>
-                
-                <Separator />
-                
-                <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <h2 className="text-2xl font-bold">Recent Posts</h2>
-                    <Button variant="link" className="text-sm">
-                      View all recent
-                      <ChevronRight className="h-4 w-4 ml-1" />
-                    </Button>
-                  </div>
-                  {renderPostList(recentPosts)}
-                </div>
-              </>
-            )}
-            {activeTab === "recent" && renderPostList(recentPosts)}
-            {activeTab === "popular" && renderPostList([...recentPosts].sort((a, b) => b.views - a.views))}
+      
+      {/* Featured Posts */}
+      {featuredPosts.length > 0 && (
+        <div className="mb-12">
+          <h2 className="text-2xl font-bold mb-6">Featured Articles</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {featuredPosts.slice(0, 2).map(post => (
+              <FeaturedPost key={post.id} post={post} />
+            ))}
+          </div>
+        </div>
+      )}
+      
+      {/* Main Content */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Left Sidebar */}
+        <div className="lg:col-span-1 space-y-6">
+          {/* Search */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Search</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="relative">
+                <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+                <Input
+                  placeholder="Search articles..."
+                  className="pl-8"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+              </div>
+            </CardContent>
+          </Card>
+          
+          {/* Categories */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center">
+                <BookMarked className="mr-2 h-5 w-5" />
+                Categories
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <CategoryList categories={categories} />
+            </CardContent>
+          </Card>
+          
+          {/* Popular Tags */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center">
+                <Tag className="mr-2 h-5 w-5" />
+                Popular Tags
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <TagCloud tags={popularTags} />
+            </CardContent>
+          </Card>
+          
+          {/* AI Content Generator */}
+          <AIContentGenerator />
+        </div>
+        
+        {/* Main Content Area */}
+        <div className="lg:col-span-2 space-y-6">
+          {/* Tabs */}
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+            <TabsList className="w-full overflow-x-auto flex-nowrap justify-start">
+              <TabsTrigger value="all">All Posts</TabsTrigger>
+              <TabsTrigger value="ai-generated">AI Generated</TabsTrigger>
+              <TabsTrigger value="human-authored">Human Authored</TabsTrigger>
+              <TabsTrigger value="Teaching Strategies">Teaching</TabsTrigger>
+              <TabsTrigger value="Assessment">Assessment</TabsTrigger>
+              <TabsTrigger value="Inclusive Education">Inclusion</TabsTrigger>
+            </TabsList>
+          </Tabs>
+          
+          {/* Filter and Sort */}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <Button variant="outline" size="sm">
+                <Filter className="mr-2 h-4 w-4" />
+                Filter
+              </Button>
+              <Select
+                defaultValue="latest"
+                options={[
+                  { value: "latest", label: "Latest" },
+                  { value: "popular", label: "Most Popular" },
+                  { value: "trending", label: "Trending" }
+                ]}
+              />
+            </div>
+            <div className="text-sm text-muted-foreground">
+              Showing {filteredPosts.length} articles
+            </div>
           </div>
           
-          <div className="mt-8 flex justify-center">
-            <Button variant="outline">Load More</Button>
+          {/* Blog Posts Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {filteredPosts.map(post => (
+              <BlogPostCard key={post.id} post={post} />
+            ))}
+          </div>
+          
+          {/* Pagination */}
+          <div className="flex items-center justify-center mt-8">
+            <div className="flex items-center space-x-2">
+              <Button variant="outline" size="sm" disabled>
+                Previous
+              </Button>
+              <Button variant="outline" size="sm" className="bg-primary text-primary-foreground">
+                1
+              </Button>
+              <Button variant="outline" size="sm">
+                2
+              </Button>
+              <Button variant="outline" size="sm">
+                3
+              </Button>
+              <Button variant="outline" size="sm">
+                Next
+              </Button>
+            </div>
           </div>
         </div>
-        
-        <div>
-          {renderSidebar()}
-        </div>
-      </div>
-      
-      <div className="mt-12">
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center">
-              <Sparkles className="h-5 w-5 mr-2 text-primary" />
-              AI-Assisted Content Creation
-            </CardTitle>
-            <CardDescription>
-              Use our AI tools to help create, edit, and enhance your educational blog posts
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm flex items-center">
-                    <Lightbulb className="h-4 w-4 mr-2 text-yellow-500" />
-                    Topic Generator
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-xs text-muted-foreground">
-                    Generate evidence-based topic ideas aligned with educational trends
-                  </p>
-                </CardContent>
-                <CardFooter>
-                  <Button variant="outline" size="sm" className="w-full">Try It</Button>
-                </CardFooter>
-              </Card>
-              
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm flex items-center">
-                    <Zap className="h-4 w-4 mr-2 text-blue-500" />
-                    Content Assistant
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-xs text-muted-foreground">
-                    Get AI help with drafting, editing, and enhancing your blog content
-                  </p>
-                </CardContent>
-                <CardFooter>
-                  <Button variant="outline" size="sm" className="w-full">Try It</Button>
-                </CardFooter>
-              </Card>
-              
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm flex items-center">
-                    <Award className="h-4 w-4 mr-2 text-green-500" />
-                    Research Helper
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-xs text-muted-foreground">
-                    Find relevant research, citations, and evidence to support your writing
-                  </p>
-                </CardContent>
-                <CardFooter>
-                  <Button variant="outline" size="sm" className="w-full">Try It</Button>
-                </CardFooter>
-              </Card>
-            </div>
-            
-            <div className="flex justify-center">
-              <Button>
-                <Edit className="h-4 w-4 mr-2" />
-                Create New Post
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-      
-      <div className="mt-8">
-        <Card>
-          <CardHeader>
-            <CardTitle>Contribute to the Educational Community</CardTitle>
-            <CardDescription>
-              Share your expertise, research, and best practices with educators across the UK
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="flex items-start space-x-3">
-                <div className="bg-primary/10 p-2 rounded-full">
-                  <FileText className="h-5 w-5 text-primary" />
-                </div>
-                <div>
-                  <h3 className="font-medium">Submit an Article</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Share your educational insights and research findings
-                  </p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-3">
-                <div className="bg-primary/10 p-2 rounded-full">
-                  <User className="h-5 w-5 text-primary" />
-                </div>
-                <div>
-                  <h3 className="font-medium">Become a Regular Contributor</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Apply to join our team of educational experts
-                  </p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-3">
-                <div className="bg-primary/10 p-2 rounded-full">
-                  <Layers className="h-5 w-5 text-primary" />
-                </div>
-                <div>
-                  <h3 className="font-medium">Suggest Topics</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Recommend topics you'd like to see covered
-                  </p>
-                </div>
-              </div>
-            </div>
-            
-            <div className="flex justify-center mt-4">
-              <Button variant="outline">
-                Learn More About Contributing
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
       </div>
     </div>
+  );
+}
+
+// Simple Select Component (for demo purposes)
+const Select = ({ defaultValue, options }) => {
+  return (
+    <select 
+      defaultValue={defaultValue}
+      className="bg-background border rounded-md px-3 py-1 text-sm"
+    >
+      {options.map(option => (
+        <option key={option.value} value={option.value}>
+          {option.label}
+        </option>
+      ))}
+    </select>
   );
 };
 
