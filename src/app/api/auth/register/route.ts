@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
-import { registerUser } from '@/lib/auth/users';
+import { registerUser } from '@/lib/auth';
 import { userSchema } from '@/lib/validations/schemas';
 
 export async function POST(request: Request) {
