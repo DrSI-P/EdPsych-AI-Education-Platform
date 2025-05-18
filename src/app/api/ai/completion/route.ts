@@ -133,11 +133,11 @@ async function handleAnthropicCompletion(
   if (response.content && response.content.length > 0) {
     const contentBlock = response.content[0];
     if ('text' in contentBlock) {
-      responseText = contentBlock.text;
-    } else if (contentBlock.type === 'text') {
+      // If the contentBlock has a text property, use it directly
       responseText = contentBlock.text;
     } else {
-      // If it's another type of content block, try to extract meaningful text
+      // For tool_use, server_tool_use, or web_search_tool types
+      // Try to extract meaningful information or convert to string
       responseText = JSON.stringify(contentBlock);
     }
   }
