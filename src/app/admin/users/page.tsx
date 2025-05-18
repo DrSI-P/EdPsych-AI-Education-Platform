@@ -218,7 +218,7 @@ export default function AdminUserManagement() {
       </div>
       
       {error && (
-        <Alert type="error" className="mb-6">
+        <Alert variant="error" className="mb-6">
           {error}
         </Alert>
       )}
