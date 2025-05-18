@@ -338,7 +338,7 @@ export default function ParentPortalPage() {
       with: 'Mr. Thompson',
       role: 'Form Tutor - Year 8',
       avatar: '👨‍🏫',
-      lastMessage: 'I'd like to discuss James's recent science assessment results with you.',
+      lastMessage: 'I'd like to discuss James's recent slastMessage: "I'd like to discuss James's recent science assessment results with you.",cience assessment results with you.',
       lastMessageDate: '2025-05-16',
       unread: 0
     },
