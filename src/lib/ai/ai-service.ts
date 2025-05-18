@@ -2,6 +2,65 @@
 
 import { useState, useEffect } from 'react';
 
+// Custom hook for using AI service in components
+export function useAIService() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
+  
+  // Generate text using AI
+  const generateText = async (prompt: string, options: any = {}) => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const result = await aiService.generateText(prompt, options);
+      setIsLoading(false);
+      return result;
+    } catch (err) {
+      setError(err instanceof Error ? err : new Error('Unknown error occurred'));
+      setIsLoading(false);
+      throw err;
+    }
+  };
+  
+  // Analyze sentiment of text
+  const analyzeSentiment = async (text: string) => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const result = await aiService.analyzeSentiment(text);
+      setIsLoading(false);
+      return result;
+    } catch (err) {
+      setError(err instanceof Error ? err : new Error('Unknown error occurred'));
+      setIsLoading(false);
+      throw err;
+    }
+  };
+  
+  // Generate educational content
+  const generateEducationalContent = async (topic: string, ageGroup: string, format: string) => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const result = await aiService.generateEducationalContent(topic, ageGroup, format);
+      setIsLoading(false);
+      return result;
+    } catch (err) {
+      setError(err instanceof Error ? err : new Error('Unknown error occurred'));
+      setIsLoading(false);
+      throw err;
+    }
+  };
+  
+  return {
+    isLoading,
+    error,
+    generateText,
+    analyzeSentiment,
+    generateEducationalContent
+  };
+}
+
 // AI service for handling AI-related operations
 export const aiService = {
   // Generate text using AI
