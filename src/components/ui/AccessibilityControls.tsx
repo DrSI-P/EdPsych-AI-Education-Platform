@@ -1,16 +1,42 @@
-import React, { useState, useEffect } from 'react';
+'use client';
+
+import React from 'react';
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useTheme } from '@/components/theme-provider';
+import { Slider } from '@/components/ui/slider';
+import { Switch } from '@/components/ui/switch';
+import { Label } from '@/components/ui/label';
+import { 
+  Sun, 
+  Moon, 
+  Monitor, 
+  Type, 
+  ZoomIn, 
+  ZoomOut, 
+  Eye, 
+  Move, 
+  PanelLeftClose,
+  PanelLeftOpen
+} from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface AccessibilityControlsProps {
-  position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left';
+  position?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
   initialFontSize?: number;
-  initialContrast?: 'normal' | 'high' | 'dark';
+  initialContrast?: 'normal' | 'high';
   initialReduceMotion?: boolean;
   initialDyslexicFont?: boolean;
+  className?: string;
 }
 
 /**
- * AccessibilityControls component that provides user controls for accessibility features
- * including font size, contrast, motion reduction, and dyslexic-friendly font
+ * AccessibilityControls Component
+ * 
+ * A floating panel that provides accessibility controls for the platform,
+ * including theme switching, font size adjustment, contrast modes,
+ * motion reduction, and dyslexic font options.
  */
 const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({
   position = 'bottom-right',
@@ -18,253 +44,197 @@ const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({
   initialContrast = 'normal',
   initialReduceMotion = false,
   initialDyslexicFont = false,
+  className,
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [fontSize, setFontSize] = useState(initialFontSize);
-  const [contrast, setContrast] = useState(initialContrast);
-  const [reduceMotion, setReduceMotion] = useState(initialReduceMotion);
-  const [dyslexicFont, setDyslexicFont] = useState(initialDyslexicFont);
-
+  const { 
+    theme, 
+    setTheme, 
+    fontSize, 
+    setFontSize,
+    isReducedMotion,
+    setIsReducedMotion,
+    isDyslexicFont,
+    setIsDyslexicFont
+  } = useTheme();
+  
+  const [isOpen, setIsOpen] = React.useState(false);
+  
   // Position classes
   const positionClasses = {
-    'top-right': 'top-4 right-4',
     'top-left': 'top-4 left-4',
-    'bottom-right': 'bottom-4 right-4',
+    'top-right': 'top-4 right-4',
     'bottom-left': 'bottom-4 left-4',
+    'bottom-right': 'bottom-4 right-4',
   };
-
-  // Apply accessibility settings
-  useEffect(() => {
-    // Apply font size
-    document.documentElement.style.fontSize = `${fontSize}px`;
-    
-    // Apply contrast
-    document.body.classList.remove('high-contrast', 'dark-contrast');
-    if (contrast === 'high') {
-      document.body.classList.add('high-contrast');
-    } else if (contrast === 'dark') {
-      document.body.classList.add('dark-contrast');
-    }
-    
-    // Apply reduced motion
-    if (reduceMotion) {
-      document.body.classList.add('reduce-motion');
-    } else {
-      document.body.classList.remove('reduce-motion');
-    }
-    
-    // Apply dyslexic font
-    if (dyslexicFont) {
-      document.body.classList.add('dyslexic-font');
-    } else {
-      document.body.classList.remove('dyslexic-font');
-    }
-    
-    // Save settings to localStorage
-    localStorage.setItem('accessibility', JSON.stringify({
-      fontSize,
-      contrast,
-      reduceMotion,
-      dyslexicFont
-    }));
-  }, [fontSize, contrast, reduceMotion, dyslexicFont]);
-
-  // Load settings from localStorage on initial render
-  useEffect(() => {
-    const savedSettings = localStorage.getItem('accessibility');
-    if (savedSettings) {
-      try {
-        const settings = JSON.parse(savedSettings);
-        setFontSize(settings.fontSize || initialFontSize);
-        setContrast(settings.contrast || initialContrast);
-        setReduceMotion(settings.reduceMotion || initialReduceMotion);
-        setDyslexicFont(settings.dyslexicFont || initialDyslexicFont);
-      } catch (e) {
-        console.error('Error loading accessibility settings:', e);
-      }
-    }
-  }, [initialFontSize, initialContrast, initialReduceMotion, initialDyslexicFont]);
-
+  
+  // Toggle panel
+  const togglePanel = () => {
+    setIsOpen(!isOpen);
+  };
+  
+  // Handle font size change
+  const handleFontSizeChange = (value: number[]) => {
+    setFontSize(value[0]);
+  };
+  
+  // Handle theme change
+  const handleThemeChange = (newTheme: 'light' | 'dark' | 'system' | 'high-contrast') => {
+    setTheme(newTheme);
+  };
+  
+  // Handle motion reduction change
+  const handleMotionReductionChange = (checked: boolean) => {
+    setIsReducedMotion(checked);
+  };
+  
+  // Handle dyslexic font change
+  const handleDyslexicFontChange = (checked: boolean) => {
+    setIsDyslexicFont(checked);
+  };
+  
   return (
-    <>
-      {/* Global styles for accessibility */}
-      <style jsx global>{`
-        /* High contrast mode */
-        body.high-contrast {
-          background-color: white !important;
-          color: black !important;
-        }
-        
-        body.high-contrast a,
-        body.high-contrast button {
-          color: navy !important;
-          border-color: navy !important;
-        }
-        
-        body.high-contrast input,
-        body.high-contrast textarea,
-        body.high-contrast select {
-          background-color: white !important;
-          color: black !important;
-          border: 2px solid black !important;
-        }
-        
-        /* Dark contrast mode */
-        body.dark-contrast {
-          background-color: black !important;
-          color: white !important;
-        }
-        
-        body.dark-contrast a,
-        body.dark-contrast button {
-          color: yellow !important;
-          border-color: yellow !important;
-        }
-        
-        body.dark-contrast input,
-        body.dark-contrast textarea,
-        body.dark-contrast select {
-          background-color: #333 !important;
-          color: white !important;
-          border: 2px solid white !important;
-        }
-        
-        /* Reduced motion */
-        body.reduce-motion * {
-          animation: none !important;
-          transition: none !important;
-        }
-        
-        /* Dyslexic-friendly font */
-        body.dyslexic-font * {
-          font-family: 'OpenDyslexic', 'Comic Sans MS', sans-serif !important;
-          letter-spacing: 0.05em !important;
-          word-spacing: 0.1em !important;
-          line-height: 1.5 !important;
-        }
-        
-        /* Font for OpenDyslexic */
-        @font-face {
-          font-family: 'OpenDyslexic';
-          src: url('/fonts/OpenDyslexic-Regular.woff2') format('woff2');
-          font-weight: normal;
-          font-style: normal;
-          font-display: swap;
-        }
-      `}</style>
-      
-      {/* Accessibility button */}
-      <div className={`fixed z-50 ${positionClasses[position]}`}>
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-          aria-label="Accessibility options"
-          aria-expanded={isOpen}
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-          </svg>
-        </button>
-        
-        {/* Accessibility panel */}
-        {isOpen && (
-          <div className="absolute bottom-full right-0 mb-2 w-64 bg-white rounded-lg shadow-xl p-4 border border-gray-200">
-            <h3 className="text-lg font-semibold mb-3">Accessibility Options</h3>
-            
-            {/* Font size controls */}
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-1">Font Size</label>
-              <div className="flex items-center">
-                <button
-                  onClick={() => setFontSize(Math.max(12, fontSize - 2))}
-                  className="bg-gray-200 p-2 rounded-l hover:bg-gray-300"
-                  aria-label="Decrease font size"
-                >
-                  A-
-                </button>
-                <div className="px-3 py-2 bg-gray-100 text-center flex-grow">
-                  {fontSize}px
+    <div className={cn(
+      'fixed z-50',
+      positionClasses[position],
+      className
+    )}>
+      <AnimatePresence mode="wait">
+        {isOpen ? (
+          <motion.div
+            key="panel"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            className="origin-bottom-right"
+          >
+            <Card className="w-72 shadow-lg border-primary/20">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-lg flex items-center justify-between">
+                  <span>Accessibility</span>
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    onClick={togglePanel}
+                    className="h-8 w-8"
+                  >
+                    <PanelLeftClose className="h-4 w-4" />
+                  </Button>
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {/* Theme Selection */}
+                <div className="space-y-2">
+                  <Label>Theme</Label>
+                  <div className="flex items-center justify-between gap-2">
+                    <Button
+                      variant={theme === 'light' ? 'default' : 'outline'}
+                      size="sm"
+                      onClick={() => handleThemeChange('light')}
+                      className="flex-1"
+                    >
+                      <Sun className="h-4 w-4 mr-1" />
+                      Light
+                    </Button>
+                    <Button
+                      variant={theme === 'dark' ? 'default' : 'outline'}
+                      size="sm"
+                      onClick={() => handleThemeChange('dark')}
+                      className="flex-1"
+                    >
+                      <Moon className="h-4 w-4 mr-1" />
+                      Dark
+                    </Button>
+                    <Button
+                      variant={theme === 'system' ? 'default' : 'outline'}
+                      size="sm"
+                      onClick={() => handleThemeChange('system')}
+                      className="flex-1"
+                    >
+                      <Monitor className="h-4 w-4 mr-1" />
+                      Auto
+                    </Button>
+                  </div>
                 </div>
-                <button
-                  onClick={() => setFontSize(Math.min(24, fontSize + 2))}
-                  className="bg-gray-200 p-2 rounded-r hover:bg-gray-300"
-                  aria-label="Increase font size"
-                >
-                  A+
-                </button>
-              </div>
-            </div>
-            
-            {/* Contrast controls */}
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-1">Contrast</label>
-              <div className="grid grid-cols-3 gap-2">
-                <button
-                  onClick={() => setContrast('normal')}
-                  className={`p-2 rounded ${contrast === 'normal' ? 'bg-blue-600 text-white' : 'bg-gray-200 hover:bg-gray-300'}`}
-                >
-                  Normal
-                </button>
-                <button
-                  onClick={() => setContrast('high')}
-                  className={`p-2 rounded ${contrast === 'high' ? 'bg-blue-600 text-white' : 'bg-gray-200 hover:bg-gray-300'}`}
-                >
-                  High
-                </button>
-                <button
-                  onClick={() => setContrast('dark')}
-                  className={`p-2 rounded ${contrast === 'dark' ? 'bg-blue-600 text-white' : 'bg-gray-200 hover:bg-gray-300'}`}
-                >
-                  Dark
-                </button>
-              </div>
-            </div>
-            
-            {/* Toggle switches */}
-            <div className="space-y-3">
-              {/* Reduce motion toggle */}
-              <div className="flex items-center justify-between">
-                <label className="text-sm font-medium text-gray-700">Reduce Motion</label>
-                <button
-                  onClick={() => setReduceMotion(!reduceMotion)}
-                  className={`relative inline-flex items-center h-6 rounded-full w-11 ${reduceMotion ? 'bg-blue-600' : 'bg-gray-300'}`}
-                  role="switch"
-                  aria-checked={reduceMotion}
-                >
-                  <span className={`inline-block w-4 h-4 transform transition-transform bg-white rounded-full ${reduceMotion ? 'translate-x-6' : 'translate-x-1'}`} />
-                </button>
-              </div>
-              
-              {/* Dyslexic font toggle */}
-              <div className="flex items-center justify-between">
-                <label className="text-sm font-medium text-gray-700">Dyslexic Font</label>
-                <button
-                  onClick={() => setDyslexicFont(!dyslexicFont)}
-                  className={`relative inline-flex items-center h-6 rounded-full w-11 ${dyslexicFont ? 'bg-blue-600' : 'bg-gray-300'}`}
-                  role="switch"
-                  aria-checked={dyslexicFont}
-                >
-                  <span className={`inline-block w-4 h-4 transform transition-transform bg-white rounded-full ${dyslexicFont ? 'translate-x-6' : 'translate-x-1'}`} />
-                </button>
-              </div>
-            </div>
-            
-            {/* Reset button */}
-            <button
-              onClick={() => {
-                setFontSize(initialFontSize);
-                setContrast(initialContrast);
-                setReduceMotion(initialReduceMotion);
-                setDyslexicFont(initialDyslexicFont);
-              }}
-              className="mt-4 w-full py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                
+                {/* Font Size */}
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <Label>Font Size</Label>
+                    <span className="text-sm text-muted-foreground">{fontSize}px</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <ZoomOut className="h-4 w-4 text-muted-foreground" />
+                    <Slider
+                      value={[fontSize]}
+                      min={12}
+                      max={24}
+                      step={1}
+                      onValueChange={handleFontSizeChange}
+                    />
+                    <ZoomIn className="h-4 w-4 text-muted-foreground" />
+                  </div>
+                </div>
+                
+                {/* High Contrast */}
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Eye className="h-4 w-4 text-muted-foreground" />
+                    <Label htmlFor="high-contrast">High Contrast</Label>
+                  </div>
+                  <Switch
+                    id="high-contrast"
+                    checked={theme === 'high-contrast'}
+                    onCheckedChange={(checked) => handleThemeChange(checked ? 'high-contrast' : 'light')}
+                  />
+                </div>
+                
+                {/* Reduce Motion */}
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Move className="h-4 w-4 text-muted-foreground" />
+                    <Label htmlFor="reduce-motion">Reduce Motion</Label>
+                  </div>
+                  <Switch
+                    id="reduce-motion"
+                    checked={isReducedMotion}
+                    onCheckedChange={handleMotionReductionChange}
+                  />
+                </div>
+                
+                {/* Dyslexic Font */}
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Type className="h-4 w-4 text-muted-foreground" />
+                    <Label htmlFor="dyslexic-font">Dyslexic Font</Label>
+                  </div>
+                  <Switch
+                    id="dyslexic-font"
+                    checked={isDyslexicFont}
+                    onCheckedChange={handleDyslexicFontChange}
+                  />
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+        ) : (
+          <motion.div
+            key="button"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+          >
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={togglePanel}
+              className="h-10 w-10 rounded-full shadow-md bg-background border-primary/20"
             >
-              Reset to Defaults
-            </button>
-          </div>
+              <PanelLeftOpen className="h-5 w-5" />
+            </Button>
+          </motion.div>
         )}
-      </div>
-    </>
+      </AnimatePresence>
+    </div>
   );
 };
 
