@@ -286,7 +286,7 @@ export default function AdminUserManagement() {
           
           {loading ? (
             <div className="flex justify-center items-center py-12">
-              <Spinner size="large" />
+              <Spinner size="lg" />
             </div>
           ) : users.length === 0 ? (
             <div className="text-center py-12 bg-gray-50 rounded-md">
@@ -366,14 +366,14 @@ export default function AdminUserManagement() {
                           <div className="flex justify-end space-x-2">
                             <Button
                               variant="outline"
-                              size="small"
+                              size="sm"
                               onClick={() => handleEditUser(user)}
                             >
                               Edit
                             </Button>
                             <Button
                               variant="outline"
-                              size="small"
+                              size="sm"
                               className="text-red-600 hover:text-red-900 border-red-300 hover:border-red-500"
                               onClick={() => handleDeleteUser(user)}
                             >
@@ -478,7 +478,7 @@ export default function AdminUserManagement() {
               onClick={handleSaveUser}
               disabled={actionLoading}
             >
-              {actionLoading ? <Spinner size="small" className="mr-2" /> : null}
+              {actionLoading ? <Spinner size="sm" className="mr-2" /> : null}
               {selectedUser ? 'Save Changes' : 'Create User'}
             </Button>
           </div>
@@ -505,11 +505,11 @@ export default function AdminUserManagement() {
               Cancel
             </Button>
             <Button
-              variant="danger"
+              variant="destructive"
               onClick={handleConfirmDelete}
               disabled={actionLoading}
             >
-              {actionLoading ? <Spinner size="small" className="mr-2" /> : null}
+              {actionLoading ? <Spinner size="sm" className="mr-2" /> : null}
               Delete User
             </Button>
           </div>
