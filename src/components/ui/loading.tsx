@@ -8,6 +8,10 @@ interface LoadingProps {
   className?: string;
 }
 
+// Export Progress, Skeleton, and Spinner components to fix build warnings
+export { Progress } from './progress';
+export { Skeleton } from './skeleton';
+
 export function Spinner({ size = 'md', color = 'primary', className = '' }: LoadingProps) {
   const sizeClasses = {
     sm: 'h-4 w-4',
