@@ -161,21 +161,22 @@ async function handleGeminiCompletion(
   }
   
   const genAI = new GoogleGenerativeAI(apiKey);
-  const model = genAI.getGenerativeModel({ model: requestData.model });
-  
-  const generationConfig = {
-    temperature,
-    maxOutputTokens: maxTokens,
-  };
+  const model = genAI.getGenerativeModel({
+    model: requestData.model,
+    generationConfig: {
+      temperature,
+      maxOutputTokens: maxTokens,
+    }
+  });
   
   // Ensure UK spelling in prompts for educational content
-  const ukSystemPrompt = requestData.systemPrompt 
+  const ukSystemPrompt = requestData.systemPrompt
     ? `${requestData.systemPrompt}\n\nPlease use UK English spelling and follow UK educational standards in all responses.`
     : 'Please use UK English spelling and follow UK educational standards in all responses.';
   
   const fullPrompt = `${ukSystemPrompt}\n\n${requestData.prompt}`;
   
-  const response = await model.generateContent(fullPrompt, generationConfig);
+  const response = await model.generateContent(fullPrompt);
   
   return {
     text: response.response.text(),
