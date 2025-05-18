@@ -191,19 +191,9 @@ export default function AdminUserManagement() {
   };
 
   // Create a wrapper function that extracts the value from the event
-  const handleTabChange = (tab: string) => {
-    setActiveTab(tab);
+  const handleTabChange = (value: string) => {
+    setActiveTab(value);
     setCurrentPage(1); // Reset to first page on tab change
-  };
-  
-  // Create a FormEventHandler wrapper for the Tabs component
-  const handleTabChangeWrapper = (event: React.FormEvent<HTMLDivElement>) => {
-    // Extract the tab value from the event target's value or data attribute
-    const target = event.target as HTMLElement;
-    const tabValue = target.getAttribute('data-value') || target.id.replace('tab-', '');
-    if (tabValue) {
-      handleTabChange(tabValue);
-    }
   };
 
   const handlePageChange = (page: number) => {
@@ -281,19 +271,16 @@ export default function AdminUserManagement() {
             </Button>
           </div>
           
-          <Tabs
-            tabs={[
-              { id: 'all', label: 'All Users' },
-              { id: 'student', label: 'Students' },
-              { id: 'teacher', label: 'Teachers' },
-              { id: 'parent', label: 'Parents' },
-              { id: 'professional', label: 'Professionals' },
-              { id: 'admin', label: 'Administrators' },
-            ]}
-            activeTab={activeTab}
-            onChange={handleTabChangeWrapper}
-            className="mb-6"
-          />
+          <Tabs defaultValue={activeTab} className="mb-6" onValueChange={handleTabChange}>
+            <TabsList className="w-full">
+              <TabsTrigger value="all">All Users</TabsTrigger>
+              <TabsTrigger value="student">Students</TabsTrigger>
+              <TabsTrigger value="teacher">Teachers</TabsTrigger>
+              <TabsTrigger value="parent">Parents</TabsTrigger>
+              <TabsTrigger value="professional">Professionals</TabsTrigger>
+              <TabsTrigger value="admin">Administrators</TabsTrigger>
+            </TabsList>
+          </Tabs>
           
           {loading ? (
             <div className="flex justify-center items-center py-12">
