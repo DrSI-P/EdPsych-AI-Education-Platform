@@ -10,9 +10,9 @@ export interface AIImageGenerationRequest {
   provider: AIProvider;
   model: string;
   prompt: string;
-  size?: string;
-  quality?: string;
-  style?: string;
+  size?: "1024x1024" | "auto" | "1536x1024" | "1024x1536" | "256x256" | "512x512";
+  quality?: "standard" | "hd";
+  style?: "natural" | "vivid";
   n?: number;
 }
 
