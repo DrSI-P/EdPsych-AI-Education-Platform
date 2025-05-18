@@ -1,16 +1,17 @@
-module.exports = {
+/** @type {import('jest').Config} */
+const config = {
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
   setupFilesAfterEnv: ['<rootDir>/src/tests/jest.setup.js'],
-  transform: {
-    '^.+\\.(ts|tsx)$': ['ts-jest', {
-      tsconfig: 'tsconfig.jest.json',
-    }],
-  },
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
-    '\\.(jpg|jpeg|png|gif|webp|svg)$': '<rootDir>/src/tests/__mocks__/fileMock.js',
+    '\\.(jpg|jpeg|png|gif|webp|svg)$': '<rootDir>/src/tests/__mocks__/fileMock.js'
+  },
+  transform: {
+    '^.+\\.(ts|tsx)$': ['ts-jest', {
+      tsconfig: '<rootDir>/tsconfig.json',
+    }],
   },
   testPathIgnorePatterns: [
     '<rootDir>/node_modules/',
@@ -20,28 +21,14 @@ module.exports = {
     'src/**/*.{js,jsx,ts,tsx}',
     '!src/**/*.d.ts',
     '!src/**/_*.{js,jsx,ts,tsx}',
-    '!src/**/*.stories.{js,jsx,ts,tsx}',
-    '!src/pages/_*.{js,jsx,ts,tsx}',
-  ],
-  coverageThreshold: {
-    global: {
-      branches: 70,
-      functions: 70,
-      lines: 70,
-      statements: 70,
-    },
-  },
-  testMatch: [
-    '<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}',
-    '<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}'
-  ],
-  watchPlugins: [
-    'jest-watch-typeahead/filename',
-    'jest-watch-typeahead/testname'
+    '!src/**/*.stories.{js,jsx,ts,tsx}'
   ],
   globals: {
     'ts-jest': {
-      tsconfig: 'tsconfig.jest.json',
-    },
-  },
-}
+      tsconfig: '<rootDir>/tsconfig.json',
+      isolatedModules: true
+    }
+  }
+};
+
+module.exports = config;

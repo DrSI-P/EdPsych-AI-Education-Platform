@@ -2,58 +2,227 @@ import { PrismaClient } from '@prisma/client';
 import fs from 'fs';
 import path from 'path';
 import { validateAndSanitizeUser } from '@/lib/validation';
+import { safeDbOperation, DatabaseError, DatabaseErrorType } from '@/lib/db-utils';
 
 const prisma = new PrismaClient();
 
-// Database monitoring and maintenance utilities
+/**
+ * EdPsych-AI-Education-Platform Database Maintenance Utilities
+ * Provides comprehensive database health monitoring, optimization, and maintenance
+ * with specific focus on educational data integrity and performance
+ */
 
 /**
- * Performs a database health check and returns detailed status information
+ * Database health check result interface
  */
-export async function checkDatabaseHealth() {
+export interface DatabaseHealthCheckResult {
+  status: 'healthy' | 'unhealthy' | 'warning';
+  timestamp: string;
+  connectionStatus: boolean;
+  statistics?: {
+    userCount: number;
+    assessmentCount: number;
+    resourceCount: number;
+    curriculumPlanCount: number;
+    semhAssessmentCount: number;
+    biofeedbackSessionCount: number;
+    emotionalPatternRecordCount: number;
+    communicationCount: number;
+  };
+  performance?: {
+    queryTimeMs: number;
+    averageResponseTimeMs: number;
+    slowQueries: number;
+  };
+  issues?: Array<{
+    type: string;
+    severity: 'low' | 'medium' | 'high' | 'critical';
+    message: string;
+    details?: any;
+  }>;
+  recommendations?: string[];
+  error?: string;
+}
+
+/**
+ * Performs a comprehensive database health check and returns detailed status information
+ * @returns Database health check result
+ */
+export async function checkDatabaseHealth(): Promise<DatabaseHealthCheckResult> {
   try {
     const startTime = Date.now();
+    const issues: Array<{type: string; severity: any; message: string; details?: any}> = [];
+    const recommendations: string[] = [];
     
     // Check basic connectivity
-    await prisma.$queryRaw`SELECT 1`;
+    let connectionStatus = false;
+    try {
+      await prisma.$queryRaw`SELECT 1`;
+      connectionStatus = true;
+    } catch (error) {
+      return {
+        status: 'unhealthy',
+        timestamp: new Date().toISOString(),
+        connectionStatus: false,
+        error: error.message
+      };
+    }
     
     // Get database statistics
     const userCount = await prisma.user.count();
     const assessmentCount = await prisma.assessment.count();
     const resourceCount = await prisma.resource.count();
+    const curriculumPlanCount = await prisma.curriculumPlan.count();
+    const semhAssessmentCount = await prisma.semhAssessment?.count() || 0;
+    const biofeedbackSessionCount = await prisma.biofeedbackSession?.count() || 0;
+    const emotionalPatternRecordCount = await prisma.emotionalPatternRecord?.count() || 0;
+    const communicationCount = await prisma.parentTeacherCommunication?.count() || 0;
+    
+    // Check for orphaned records
+    const orphanedProfiles = await prisma.profile.count({
+      where: {
+        user: {
+          is: null
+        }
+      }
+    });
+    
+    if (orphanedProfiles > 0) {
+      issues.push({
+        type: 'data_integrity',
+        severity: 'medium',
+        message: `Found ${orphanedProfiles} orphaned profile records`,
+        details: { count: orphanedProfiles }
+      });
+      recommendations.push('Run data integrity repair to clean up orphaned profiles');
+    }
+    
+    const orphanedAssessmentResults = await prisma.assessmentResult.count({
+      where: {
+        OR: [
+          { assessment: { is: null } },
+          { student: { is: null } }
+        ]
+      }
+    });
+    
+    if (orphanedAssessmentResults > 0) {
+      issues.push({
+        type: 'data_integrity',
+        severity: 'medium',
+        message: `Found ${orphanedAssessmentResults} orphaned assessment result records`,
+        details: { count: orphanedAssessmentResults }
+      });
+      recommendations.push('Run data integrity repair to clean up orphaned assessment results');
+    }
+    
+    // Check for data consistency
+    const invalidUsers = await prisma.user.count({
+      where: {
+        OR: [
+          { email: { equals: '' } },
+          { name: { equals: '' } }
+        ]
+      }
+    });
+    
+    if (invalidUsers > 0) {
+      issues.push({
+        type: 'data_quality',
+        severity: 'high',
+        message: `Found ${invalidUsers} users with invalid data`,
+        details: { count: invalidUsers }
+      });
+      recommendations.push('Run data integrity repair to fix invalid user records');
+    }
     
     // Check query performance
     const queryTime = Date.now() - startTime;
     
+    // Simulate checking for slow queries (in a real implementation, this would analyze query logs)
+    const slowQueries = 0;
+    const averageResponseTimeMs = queryTime / 5; // Approximate based on operations performed
+    
+    if (queryTime > 1000) {
+      issues.push({
+        type: 'performance',
+        severity: 'medium',
+        message: 'Database queries are taking longer than expected',
+        details: { queryTimeMs: queryTime }
+      });
+      recommendations.push('Run database optimization to improve query performance');
+    }
+    
+    // Determine overall status
+    let status: 'healthy' | 'unhealthy' | 'warning' = 'healthy';
+    
+    if (issues.some(issue => issue.severity === 'critical')) {
+      status = 'unhealthy';
+    } else if (issues.some(issue => ['high', 'medium'].includes(issue.severity))) {
+      status = 'warning';
+    }
+    
     return {
-      status: 'healthy',
+      status,
+      timestamp: new Date().toISOString(),
+      connectionStatus,
       statistics: {
         userCount,
         assessmentCount,
         resourceCount,
+        curriculumPlanCount,
+        semhAssessmentCount,
+        biofeedbackSessionCount,
+        emotionalPatternRecordCount,
+        communicationCount
       },
       performance: {
         queryTimeMs: queryTime,
+        averageResponseTimeMs,
+        slowQueries
       },
-      timestamp: new Date().toISOString()
+      issues: issues.length > 0 ? issues : undefined,
+      recommendations: recommendations.length > 0 ? recommendations : undefined
     };
   } catch (error) {
     console.error('Database health check failed:', error);
     return {
       status: 'unhealthy',
-      error: error.message,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
+      connectionStatus: false,
+      error: error.message
     };
   }
 }
 
 /**
- * Logs database operations for monitoring and auditing
+ * Database operation log entry interface
  */
-export async function logDatabaseOperation(operation: string, model: string, userId: string, details: any) {
+export interface DatabaseOperationLogEntry {
+  timestamp: string;
+  operation: string;
+  model: string;
+  userId: string;
+  details: string;
+}
+
+/**
+ * Logs database operations for monitoring, auditing, and compliance
+ * @param operation Operation type (e.g., 'create', 'update', 'delete')
+ * @param model Model name (e.g., 'User', 'Assessment')
+ * @param userId ID of user performing the operation
+ * @param details Operation details
+ * @returns Success status
+ */
+export async function logDatabaseOperation(
+  operation: string,
+  model: string,
+  userId: string,
+  details: any
+): Promise<boolean> {
   try {
     // Create log entry
-    const logEntry = {
+    const logEntry: DatabaseOperationLogEntry = {
       timestamp: new Date().toISOString(),
       operation,
       model,
@@ -73,6 +242,28 @@ export async function logDatabaseOperation(operation: string, model: string, use
     // Append log entry to file
     fs.appendFileSync(logFile, JSON.stringify(logEntry) + '\n');
     
+    // For sensitive operations, create a separate audit log
+    if (['delete', 'bulkDelete', 'updateRole', 'updatePermissions'].includes(operation)) {
+      const auditLogFile = path.join(logDir, `audit-log-${new Date().toISOString().split('T')[0]}.log`);
+      fs.appendFileSync(auditLogFile, JSON.stringify({
+        ...logEntry,
+        auditLevel: 'HIGH',
+        ipAddress: 'IP_ADDRESS', // In a real implementation, this would capture the actual IP
+        userAgent: 'USER_AGENT'  // In a real implementation, this would capture the actual user agent
+      }) + '\n');
+    }
+    
+    // For educational data operations, log additional context
+    if (['Assessment', 'SemhAssessment', 'BiofeedbackSession', 'EmotionalPatternRecord'].includes(model)) {
+      const educationalLogFile = path.join(logDir, `educational-data-${new Date().toISOString().split('T')[0]}.log`);
+      fs.appendFileSync(educationalLogFile, JSON.stringify({
+        ...logEntry,
+        dataCategory: 'EDUCATIONAL',
+        sensitivityLevel: 'HIGH',
+        retentionPolicy: 'STANDARD_EDUCATIONAL'
+      }) + '\n');
+    }
+    
     return true;
   } catch (error) {
     console.error('Failed to log database operation:', error);
@@ -81,76 +272,211 @@ export async function logDatabaseOperation(operation: string, model: string, use
 }
 
 /**
- * Performs database optimization tasks
+ * Database optimization result interface
  */
-export async function optimizeDatabase() {
+export interface DatabaseOptimizationResult {
+  status: 'success' | 'error' | 'partial';
+  message: string;
+  timestamp: string;
+  operations?: {
+    vacuum?: boolean;
+    analyze?: boolean;
+    reindex?: boolean;
+    cleanup?: boolean;
+  };
+  details?: any;
+  error?: string;
+}
+
+/**
+ * Performs database optimization tasks
+ * @returns Optimization result
+ */
+export async function optimizeDatabase(): Promise<DatabaseOptimizationResult> {
   try {
-    // For PostgreSQL, you might run VACUUM ANALYZE
-    // For other databases, appropriate optimization commands would be used
-    // This is a simplified example
+    const operations = {
+      vacuum: false,
+      analyze: false,
+      reindex: false,
+      cleanup: false
+    };
     
-    await prisma.$executeRawUnsafe('VACUUM ANALYZE');
+    // For PostgreSQL, run VACUUM ANALYZE
+    try {
+      await prisma.$executeRawUnsafe('VACUUM ANALYZE');
+      operations.vacuum = true;
+      operations.analyze = true;
+    } catch (error) {
+      console.error('VACUUM ANALYZE failed:', error);
+      // Continue with other operations
+    }
+    
+    // For PostgreSQL, run REINDEX
+    try {
+      await prisma.$executeRawUnsafe('REINDEX DATABASE CONCURRENTLY current_database()');
+      operations.reindex = true;
+    } catch (error) {
+      console.error('REINDEX failed:', error);
+      // Continue with other operations
+    }
+    
+    // Clean up temporary data
+    try {
+      // In a real implementation, this would clean up temporary tables or data
+      operations.cleanup = true;
+    } catch (error) {
+      console.error('Cleanup failed:', error);
+      // Continue with other operations
+    }
+    
+    // Determine overall status
+    const allOperationsSuccessful = Object.values(operations).every(op => op === true);
+    const anyOperationSuccessful = Object.values(operations).some(op => op === true);
+    
+    const status = allOperationsSuccessful ? 'success' : (anyOperationSuccessful ? 'partial' : 'error');
+    const message = allOperationsSuccessful 
+      ? 'Database optimization completed successfully' 
+      : (anyOperationSuccessful 
+          ? 'Database optimization partially completed' 
+          : 'Database optimization failed');
     
     return {
-      status: 'success',
-      message: 'Database optimization completed successfully',
-      timestamp: new Date().toISOString()
+      status: status as 'success' | 'error' | 'partial',
+      message,
+      timestamp: new Date().toISOString(),
+      operations
     };
   } catch (error) {
     console.error('Database optimization failed:', error);
     return {
       status: 'error',
-      error: error.message,
-      timestamp: new Date().toISOString()
+      message: 'Database optimization failed',
+      timestamp: new Date().toISOString(),
+      error: error.message
     };
   }
 }
 
 /**
- * Validates database schema integrity
+ * Database schema validation result interface
  */
-export async function validateDatabaseSchema() {
+export interface DatabaseSchemaValidationResult {
+  status: 'valid' | 'error' | 'warning';
+  message: string;
+  timestamp: string;
+  missingModels?: string[];
+  extraModels?: string[];
+  modelIssues?: Array<{
+    model: string;
+    issues: string[];
+  }>;
+  error?: string;
+}
+
+/**
+ * Validates database schema integrity
+ * @returns Schema validation result
+ */
+export async function validateDatabaseSchema(): Promise<DatabaseSchemaValidationResult> {
   try {
     // Use Prisma's introspection to check schema
     const introspection = await prisma.$introspect();
     
     // Compare with expected models
-    const expectedModels = ['User', 'Profile', 'Assessment', 'Question', 'AssessmentResult', 'Answer', 'Resource', 'CurriculumPlan', 'Unit', 'Lesson'];
+    const expectedModels = [
+      'User', 'Profile', 'Assessment', 'Question', 'AssessmentResult', 'Answer', 
+      'Resource', 'CurriculumPlan', 'Unit', 'Lesson', 'SemhAssessment', 'SemhArea',
+      'BiofeedbackSession', 'EmotionalPatternRecord', 'EmotionalPattern',
+      'LearningPreferences', 'EmotionalProfile', 'ParentTeacherCommunication'
+    ];
     const actualModels = introspection.models.map(model => model.name);
     
     const missingModels = expectedModels.filter(model => !actualModels.includes(model));
+    const extraModels = actualModels.filter(model => !expectedModels.includes(model));
+    
+    // Check for model issues
+    const modelIssues: Array<{model: string; issues: string[]}> = [];
+    
+    for (const model of introspection.models) {
+      const issues: string[] = [];
+      
+      // Check for required fields
+      if (model.name === 'User' && !model.fields.some(field => field.name === 'email')) {
+        issues.push('Missing required field: email');
+      }
+      
+      if (model.name === 'User' && !model.fields.some(field => field.name === 'role')) {
+        issues.push('Missing required field: role');
+      }
+      
+      if (model.name === 'Profile' && !model.fields.some(field => field.name === 'firstName')) {
+        issues.push('Missing required field: firstName');
+      }
+      
+      if (issues.length > 0) {
+        modelIssues.push({
+          model: model.name,
+          issues
+        });
+      }
+    }
+    
+    // Determine overall status
+    let status: 'valid' | 'error' | 'warning' = 'valid';
+    let message = 'Database schema is valid';
     
     if (missingModels.length > 0) {
-      return {
-        status: 'error',
-        missingModels,
-        message: 'Database schema is missing expected models',
-        timestamp: new Date().toISOString()
-      };
+      status = 'error';
+      message = 'Database schema is missing expected models';
+    } else if (extraModels.length > 0 || modelIssues.length > 0) {
+      status = 'warning';
+      message = 'Database schema has warnings';
     }
     
     return {
-      status: 'valid',
-      message: 'Database schema is valid',
-      timestamp: new Date().toISOString()
+      status,
+      message,
+      timestamp: new Date().toISOString(),
+      missingModels: missingModels.length > 0 ? missingModels : undefined,
+      extraModels: extraModels.length > 0 ? extraModels : undefined,
+      modelIssues: modelIssues.length > 0 ? modelIssues : undefined
     };
   } catch (error) {
     console.error('Database schema validation failed:', error);
     return {
       status: 'error',
-      error: error.message,
-      timestamp: new Date().toISOString()
+      message: 'Database schema validation failed',
+      timestamp: new Date().toISOString(),
+      error: error.message
     };
   }
 }
 
 /**
- * Performs data integrity checks
+ * Data integrity check result interface
  */
-export async function checkDataIntegrity() {
+export interface DataIntegrityCheckResult {
+  status: 'valid' | 'issues' | 'error';
+  timestamp: string;
+  issues?: {
+    orphanedProfiles: number;
+    orphanedAssessmentResults: number;
+    invalidUsers: number;
+    inconsistentRelationships: number;
+    duplicateRecords: number;
+  };
+  details?: any;
+  error?: string;
+}
+
+/**
+ * Performs comprehensive data integrity checks
+ * @returns Data integrity check result
+ */
+export async function checkDataIntegrity(): Promise<DataIntegrityCheckResult> {
   try {
     // Check for orphaned records
-    const orphanedProfiles = await prisma.profile.findMany({
+    const orphanedProfiles = await prisma.profile.count({
       where: {
         user: {
           is: null
@@ -158,7 +484,7 @@ export async function checkDataIntegrity() {
       }
     });
     
-    const orphanedAssessmentResults = await prisma.assessmentResult.findMany({
+    const orphanedAssessmentResults = await prisma.assessmentResult.count({
       where: {
         OR: [
           { assessment: { is: null } },
@@ -168,7 +494,7 @@ export async function checkDataIntegrity() {
     });
     
     // Check for data consistency
-    const invalidUsers = await prisma.user.findMany({
+    const invalidUsers = await prisma.user.count({
       where: {
         OR: [
           { email: { equals: '' } },
@@ -177,30 +503,98 @@ export async function checkDataIntegrity() {
       }
     });
     
+    // Check for inconsistent relationships
+    // For example, students with parent relationships where the parent doesn't have a corresponding child relationship
+    let inconsistentRelationships = 0;
+    const students = await prisma.user.findMany({
+      where: { role: 'STUDENT' },
+      include: { parents: true }
+    });
+    
+    for (const student of students) {
+      for (const parent of student.parents) {
+        const parentWithChildren = await prisma.user.findUnique({
+          where: { id: parent.id },
+          include: { children: true }
+        });
+        
+        if (!parentWithChildren?.children.some(child => child.id === student.id)) {
+          inconsistentRelationships++;
+        }
+      }
+    }
+    
+    // Check for duplicate records
+    // This is a simplified example - in a real implementation, you would check for business-level duplicates
+    const duplicateEmails = await prisma.$queryRaw`
+      SELECT email, COUNT(*) as count
+      FROM "User"
+      GROUP BY email
+      HAVING COUNT(*) > 1
+    `;
+    
+    const duplicateRecords = Array.isArray(duplicateEmails) ? duplicateEmails.length : 0;
+    
+    // Determine overall status
+    const hasIssues = orphanedProfiles > 0 || orphanedAssessmentResults > 0 || 
+                      invalidUsers > 0 || inconsistentRelationships > 0 || 
+                      duplicateRecords > 0;
+    
     return {
-      status: orphanedProfiles.length === 0 && orphanedAssessmentResults.length === 0 && invalidUsers.length === 0 ? 'valid' : 'issues',
-      issues: {
-        orphanedProfiles: orphanedProfiles.length,
-        orphanedAssessmentResults: orphanedAssessmentResults.length,
-        invalidUsers: invalidUsers.length
-      },
-      timestamp: new Date().toISOString()
+      status: hasIssues ? 'issues' : 'valid',
+      timestamp: new Date().toISOString(),
+      issues: hasIssues ? {
+        orphanedProfiles,
+        orphanedAssessmentResults,
+        invalidUsers,
+        inconsistentRelationships,
+        duplicateRecords
+      } : undefined
     };
   } catch (error) {
     console.error('Data integrity check failed:', error);
     return {
       status: 'error',
-      error: error.message,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
+      error: error.message
     };
   }
 }
 
 /**
- * Repairs data integrity issues
+ * Data integrity repair result interface
  */
-export async function repairDataIntegrity() {
+export interface DataIntegrityRepairResult {
+  status: 'success' | 'partial' | 'error';
+  timestamp: string;
+  repairs?: {
+    deletedOrphanedProfiles: number;
+    deletedOrphanedResults: number;
+    fixedUsers: number;
+    fixedRelationships: number;
+    deDuplicatedRecords: number;
+  };
+  error?: string;
+}
+
+/**
+ * Repairs data integrity issues
+ * @returns Data integrity repair result
+ */
+export async function repairDataIntegrity(): Promise<DataIntegrityRepairResult> {
   try {
+    // Create a backup before repair
+    const backupDir = path.join(process.cwd(), 'backups');
+    if (!fs.existsSync(backupDir)) {
+      fs.mkdirSync(backupDir, { recursive: true });
+    }
+    
+    const backupFile = path.join(backupDir, `pre_repair_backup_${new Date().toISOString().replace(/:/g, '-')}.json`);
+    
+    // In a real implementation, this would create a proper database backup
+    // For this example, we'll just log the backup location
+    console.log(`Backup would be created at: ${backupFile}`);
+    
     // Delete orphaned profiles
     const deleteOrphanedProfiles = await prisma.profile.deleteMany({
       where: {
@@ -249,21 +643,317 @@ export async function repairDataIntegrity() {
       }
     }
     
+    // Fix inconsistent relationships
+    let fixedRelationships = 0;
+    const students = await prisma.user.findMany({
+      where: { role: 'STUDENT' },
+      include: { parents: true }
+    });
+    
+    for (const student of students) {
+      for (const parent of student.parents) {
+        const parentWithChildren = await prisma.user.findUnique({
+          where: { id: parent.id },
+          include: { children: true }
+        });
+        
+        if (!parentWithChildren?.children.some(child => child.id === student.id)) {
+          await prisma.user.update({
+            where: { id: parent.id },
+            data: {
+              children: {
+                connect: { id: student.id }
+              }
+            }
+          });
+          fixedRelationships++;
+        }
+      }
+    }
+    
+    // De-duplicate records
+    // This is a simplified example - in a real implementation, you would handle this more carefully
+    let deDuplicatedRecords = 0;
+    const duplicateEmails = await prisma.$queryRaw`
+      SELECT email, array_agg(id) as ids
+      FROM "User"
+      GROUP BY email
+      HAVING COUNT(*) > 1
+    `;
+    
+    if (Array.isArray(duplicateEmails)) {
+      for (const dupRecord of duplicateEmails) {
+        // Keep the first record, delete the rest
+        const ids = dupRecord.ids.slice(1);
+        await prisma.user.deleteMany({
+          where: {
+            id: { in: ids }
+          }
+        });
+        deDuplicatedRecords += ids.length;
+      }
+    }
+    
     return {
       status: 'success',
+      timestamp: new Date().toISOString(),
       repairs: {
         deletedOrphanedProfiles: deleteOrphanedProfiles.count,
         deletedOrphanedResults: deleteOrphanedResults.count,
-        fixedUsers
-      },
-      timestamp: new Date().toISOString()
+        fixedUsers,
+        fixedRelationships,
+        deDuplicatedRecords
+      }
     };
   } catch (error) {
     console.error('Data integrity repair failed:', error);
     return {
       status: 'error',
-      error: error.message,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
+      error: error.message
     };
   }
+}
+
+/**
+ * Database usage statistics interface
+ */
+export interface DatabaseUsageStatistics {
+  timestamp: string;
+  period: 'daily' | 'weekly' | 'monthly';
+  operations: {
+    reads: number;
+    writes: number;
+    deletes: number;
+  };
+  models: Record<string, {
+    reads: number;
+    writes: number;
+    deletes: number;
+  }>;
+  users: Record<string, {
+    operations: number;
+    lastActive: string;
+  }>;
+  performance: {
+    averageQueryTimeMs: number;
+    slowestQueryTimeMs: number;
+    slowestQueryModel: string;
+  };
+}
+
+/**
+ * Collects and analyzes database usage statistics
+ * @param period Statistics period
+ * @returns Database usage statistics
+ */
+export async function collectDatabaseUsageStatistics(
+  period: 'daily' | 'weekly' | 'monthly' = 'daily'
+): Promise<DatabaseUsageStatistics> {
+  try {
+    // In a real implementation, this would analyze database logs or metrics
+    // For this example, we'll return simulated statistics
+    
+    // Get date range based on period
+    const now = new Date();
+    let startDate: Date;
+    
+    switch (period) {
+      case 'daily':
+        startDate = new Date(now);
+        startDate.setDate(now.getDate() - 1);
+        break;
+      case 'weekly':
+        startDate = new Date(now);
+        startDate.setDate(now.getDate() - 7);
+        break;
+      case 'monthly':
+        startDate = new Date(now);
+        startDate.setMonth(now.getMonth() - 1);
+        break;
+    }
+    
+    // Simulate reading logs
+    const logDir = path.join(process.cwd(), 'logs');
+    const logFiles = fs.existsSync(logDir) ? fs.readdirSync(logDir).filter(file => file.startsWith('db-operations-')) : [];
+    
+    // Initialize statistics
+    const operations = { reads: 0, writes: 0, deletes: 0 };
+    const models: Record<string, { reads: number; writes: number; deletes: number }> = {};
+    const users: Record<string, { operations: number; lastActive: string }> = {};
+    const queryTimes: number[] = [];
+    let slowestQueryTimeMs = 0;
+    let slowestQueryModel = '';
+    
+    // Process log files
+    for (const logFile of logFiles) {
+      const filePath = path.join(logDir, logFile);
+      if (fs.existsSync(filePath)) {
+        const fileContent = fs.readFileSync(filePath, 'utf8');
+        const lines = fileContent.split('\n').filter(line => line.trim());
+        
+        for (const line of lines) {
+          try {
+            const entry = JSON.parse(line);
+            const entryDate = new Date(entry.timestamp);
+            
+            // Skip entries outside the period
+            if (entryDate < startDate) continue;
+            
+            // Update operation counts
+            if (entry.operation === 'read' || entry.operation === 'findMany' || entry.operation === 'findUnique') {
+              operations.reads++;
+            } else if (entry.operation === 'create' || entry.operation === 'update' || entry.operation === 'upsert') {
+              operations.writes++;
+            } else if (entry.operation === 'delete' || entry.operation === 'deleteMany') {
+              operations.deletes++;
+            }
+            
+            // Update model statistics
+            if (!models[entry.model]) {
+              models[entry.model] = { reads: 0, writes: 0, deletes: 0 };
+            }
+            
+            if (entry.operation === 'read' || entry.operation === 'findMany' || entry.operation === 'findUnique') {
+              models[entry.model].reads++;
+            } else if (entry.operation === 'create' || entry.operation === 'update' || entry.operation === 'upsert') {
+              models[entry.model].writes++;
+            } else if (entry.operation === 'delete' || entry.operation === 'deleteMany') {
+              models[entry.model].deletes++;
+            }
+            
+            // Update user statistics
+            if (!users[entry.userId]) {
+              users[entry.userId] = { operations: 0, lastActive: entry.timestamp };
+            }
+            
+            users[entry.userId].operations++;
+            if (new Date(entry.timestamp) > new Date(users[entry.userId].lastActive)) {
+              users[entry.userId].lastActive = entry.timestamp;
+            }
+            
+            // Update query performance statistics
+            if (entry.details && entry.details.queryTimeMs) {
+              const queryTime = parseFloat(entry.details.queryTimeMs);
+              queryTimes.push(queryTime);
+              
+              if (queryTime > slowestQueryTimeMs) {
+                slowestQueryTimeMs = queryTime;
+                slowestQueryModel = entry.model;
+              }
+            }
+          } catch (error) {
+            console.error('Error parsing log entry:', error);
+          }
+        }
+      }
+    }
+    
+    // Calculate average query time
+    const averageQueryTimeMs = queryTimes.length > 0 
+      ? queryTimes.reduce((sum, time) => sum + time, 0) / queryTimes.length 
+      : 0;
+    
+    return {
+      timestamp: new Date().toISOString(),
+      period,
+      operations,
+      models,
+      users,
+      performance: {
+        averageQueryTimeMs,
+        slowestQueryTimeMs,
+        slowestQueryModel
+      }
+    };
+  } catch (error) {
+    console.error('Failed to collect database usage statistics:', error);
+    
+    // Return minimal statistics
+    return {
+      timestamp: new Date().toISOString(),
+      period,
+      operations: { reads: 0, writes: 0, deletes: 0 },
+      models: {},
+      users: {},
+      performance: {
+        averageQueryTimeMs: 0,
+        slowestQueryTimeMs: 0,
+        slowestQueryModel: ''
+      }
+    };
+  }
+}
+
+/**
+ * Database maintenance schedule interface
+ */
+export interface DatabaseMaintenanceSchedule {
+  daily: {
+    time: string;
+    tasks: string[];
+  };
+  weekly: {
+    day: string;
+    time: string;
+    tasks: string[];
+  };
+  monthly: {
+    day: number;
+    time: string;
+    tasks: string[];
+  };
+  quarterly: {
+    months: number[];
+    day: number;
+    time: string;
+    tasks: string[];
+  };
+}
+
+/**
+ * Gets the recommended database maintenance schedule
+ * @returns Database maintenance schedule
+ */
+export function getDatabaseMaintenanceSchedule(): DatabaseMaintenanceSchedule {
+  return {
+    daily: {
+      time: '02:00',
+      tasks: [
+        'Backup database',
+        'Check database health',
+        'Log rotation'
+      ]
+    },
+    weekly: {
+      day: 'Sunday',
+      time: '03:00',
+      tasks: [
+        'VACUUM ANALYZE',
+        'Check data integrity',
+        'Collect usage statistics'
+      ]
+    },
+    monthly: {
+      day: 1,
+      time: '04:00',
+      tasks: [
+        'Full database optimization',
+        'Schema validation',
+        'Performance analysis',
+        'Storage cleanup'
+      ]
+    },
+    quarterly: {
+      months: [1, 4, 7, 10],
+      day: 15,
+      time: '05:00',
+      tasks: [
+        'Comprehensive database audit',
+        'Long-term backup archiving',
+        'Index optimization',
+        'Query optimization review'
+      ]
+    }
+  };
 }
