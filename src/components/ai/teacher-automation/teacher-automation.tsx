@@ -211,12 +211,13 @@ export default function TeacherAutomation() {
         Format the lesson plan professionally with clear headings and sections.
       `;
       
-      const response = await aiService.getCompletion({
-        prompt,
+      const result = await aiService.generateText(prompt, {
         model: 'gpt-4',
         temperature: 0.7,
         max_tokens: 1500
       });
+      
+      const response = result.text;
       
       setGeneratedContent(response);
     } catch (error) {
@@ -259,12 +260,13 @@ export default function TeacherAutomation() {
         Format the report with clear headings and professional structure.
       `;
       
-      const response = await aiService.getCompletion({
-        prompt,
+      const result = await aiService.generateText(prompt, {
         model: 'gpt-4',
         temperature: 0.7,
         max_tokens: 1000
       });
+      
+      const response = result.text;
       
       setGeneratedContent(response);
     } catch (error) {
@@ -306,12 +308,13 @@ export default function TeacherAutomation() {
         Format the feedback in a clear, well-structured manner that is easy for the student to understand and apply.
       `;
       
-      const response = await aiService.getCompletion({
-        prompt,
+      const result = await aiService.generateText(prompt, {
         model: 'gpt-4',
         temperature: 0.7,
         max_tokens: 1000
       });
+      
+      const response = result.text;
       
       setGeneratedContent(response);
     } catch (error) {

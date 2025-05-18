@@ -344,12 +344,13 @@ export default function SmartLessonPlanning() {
         Format your response as a ready-to-use section that the teacher can directly include in their lesson plan.
       `;
       
-      const response = await aiService.getCompletion({
-        prompt,
+      const result = await aiService.generateText(prompt, {
         model: 'gpt-4',
         temperature: 0.7,
         max_tokens: 500
       });
+      
+      const response = result.text;
       
       // Store the suggestion
       setAiSuggestions(prev => ({
@@ -433,12 +434,13 @@ export default function SmartLessonPlanning() {
         The final lesson plan should be ready for classroom use with minimal additional preparation.
       `;
       
-      const response = await aiService.getCompletion({
-        prompt,
+      const result = await aiService.generateText(prompt, {
         model: 'gpt-4',
         temperature: 0.5,
         max_tokens: 2000
       });
+      
+      const response = result.text;
       
       setGeneratedLessonPlan(response);
       setActiveTab('preview');

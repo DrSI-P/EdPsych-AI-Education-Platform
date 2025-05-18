@@ -82,8 +82,7 @@ export async function POST(request: NextRequest) {
     Ensure all content follows UK spelling and educational standards. Make the assessment appropriate for ${keyStage} students.`;
     
     // Call the AI service to generate the assessment
-    const aiResponse = await aiService.getCompletion({
-      prompt: aiPrompt,
+    const response = await aiService.generateText(aiPrompt, {
       model: 'gpt-4',
       temperature: 0.7,
       max_tokens: 4000,
@@ -93,7 +92,7 @@ export async function POST(request: NextRequest) {
     // Parse the AI response
     let assessment;
     try {
-      assessment = JSON.parse(aiResponse);
+      assessment = JSON.parse(response.text);
     } catch (error) {
       console.error('Error parsing AI response:', error);
       return NextResponse.json(

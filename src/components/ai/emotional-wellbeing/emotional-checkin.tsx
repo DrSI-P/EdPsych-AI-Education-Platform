@@ -157,12 +157,13 @@ export function EmotionalCheckin() {
         Format each strategy as a concise, actionable suggestion.
       `;
       
-      const aiResponse = await aiService.getCompletion({
-        prompt,
+      const result = await aiService.generateText(prompt, {
         model: 'gpt-4',
         temperature: 0.7,
         max_tokens: 500
       });
+      
+      const aiResponse = result.text;
       
       // Parse the AI response to extract strategies
       const strategies = aiResponse

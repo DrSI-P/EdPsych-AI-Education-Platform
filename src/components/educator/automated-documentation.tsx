@@ -442,12 +442,13 @@ export default function AutomatedDocumentation() {
         Focus on improving structure, clarity, and professional presentation only.
       `;
       
-      const response = await aiService.getCompletion({
-        prompt,
+      const result = await aiService.generateText(prompt, {
         model: 'gpt-4',
         temperature: 0.5,
         max_tokens: 1500
       });
+      
+      const response = result.text;
       
       setGeneratedDocument(response);
       setActiveTab('preview');

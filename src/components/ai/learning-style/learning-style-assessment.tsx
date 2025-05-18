@@ -184,12 +184,13 @@ export default function LearningStyleAssessment() {
         }).join('\n')}
       `;
       
-      const aiResponse = await aiService.getCompletion({
-        prompt,
+      const result = await aiService.generateText(prompt, {
         model: 'gpt-4',
         temperature: 0.7,
         max_tokens: 1000
       });
+      
+      const aiResponse = result.text;
       
       // Parse the AI response - in a real implementation, this would be more robust
       // For now, we'll simulate the results

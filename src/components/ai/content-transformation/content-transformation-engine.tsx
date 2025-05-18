@@ -146,33 +146,33 @@ export default function ContentTransformationEngine({
         }
       `;
       
-      const aiResponse = await aiService.getCompletion({
-        prompt,
+      const apiResult = await aiService.generateText(prompt, {
         model: 'gpt-4',
         temperature: 0.7,
         max_tokens: 2500,
         response_format: { type: 'json_object' }
       });
       
+      const aiResponse = apiResult.text;
+      
       // Parse AI response
-      let result;
       try {
-        result = JSON.parse(aiResponse);
+        const parsedResult = JSON.parse(aiResponse);
         setTransformedContent({
-          visual: result.visual,
-          auditory: result.auditory,
-          kinesthetic: result.kinesthetic,
-          readingWriting: result.readingWriting,
-          multimodal: result.multimodal
+          visual: parsedResult.visual,
+          auditory: parsedResult.auditory,
+          kinesthetic: parsedResult.kinesthetic,
+          readingWriting: parsedResult.readingWriting,
+          multimodal: parsedResult.multimodal
         });
         
         if (onTransformationComplete) {
           onTransformationComplete({
-            visual: result.visual,
-            auditory: result.auditory,
-            kinesthetic: result.kinesthetic,
-            readingWriting: result.readingWriting,
-            multimodal: result.multimodal
+            visual: parsedResult.visual,
+            auditory: parsedResult.auditory,
+            kinesthetic: parsedResult.kinesthetic,
+            readingWriting: parsedResult.readingWriting,
+            multimodal: parsedResult.multimodal
           });
         }
         
