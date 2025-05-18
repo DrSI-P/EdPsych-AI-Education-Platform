@@ -61,7 +61,10 @@ export async function POST(req: NextRequest) {
     
     const enhancedTranscript = response.text;
     
-    // Log the speech recognition activity
+    // TODO: Implement speech recognition logging
+    // The speechRecognitionLog model doesn't exist in the Prisma schema yet
+    // Uncomment this code after adding the model to the schema
+    /*
     await prisma.speechRecognitionLog.create({
       data: {
         userId: session.user.id,
@@ -73,6 +76,7 @@ export async function POST(req: NextRequest) {
         duration: audioData.duration || null
       }
     });
+    */
     
     return NextResponse.json({
       success: true,
@@ -93,7 +97,10 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
-    // Get user's speech recognition logs
+    // TODO: Implement speech recognition logs retrieval
+    // The speechRecognitionLog model doesn't exist in the Prisma schema yet
+    // Uncomment this code after adding the model to the schema
+    /*
     const logs = await prisma.speechRecognitionLog.findMany({
       where: {
         userId: session.user.id
@@ -103,6 +110,10 @@ export async function GET(req: NextRequest) {
       },
       take: 10
     });
+    */
+    
+    // Return empty logs array for now
+    const logs = [];
     
     return NextResponse.json({
       success: true,
