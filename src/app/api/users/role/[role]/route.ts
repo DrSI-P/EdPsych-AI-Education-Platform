@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { auth } from '@/lib/auth/auth';
-import { getUsersByRole, changeUserRole } from '@/lib/auth';
+import { getUsersByRole, changeUserRole } from '@/lib/auth/users';
 import { z } from 'zod';
 
 // GET users by role

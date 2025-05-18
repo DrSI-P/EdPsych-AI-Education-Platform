@@ -7,7 +7,7 @@ import { Table } from '@/components/ui/table';
 import { Modal } from '@/components/ui/modal';
 import { Alert } from '@/components/ui/alert';
 import { Spinner } from '@/components/ui/loading';
-import { Tabs } from '@/components/ui/tabs';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Pagination } from '@/components/ui/pagination';
 import { Dropdown } from '@/components/ui/dropdown';
 
@@ -284,7 +284,7 @@ export default function AdminUserManagement() {
           
           {loading ? (
             <div className="flex justify-center items-center py-12">
-              <Spinner size="large" />
+              <Spinner size="lg" />
             </div>
           ) : users.length === 0 ? (
             <div className="text-center py-12 bg-gray-50 rounded-md">
@@ -364,14 +364,14 @@ export default function AdminUserManagement() {
                           <div className="flex justify-end space-x-2">
                             <Button
                               variant="outline"
-                              size="small"
+                              size="sm"
                               onClick={() => handleEditUser(user)}
                             >
                               Edit
                             </Button>
                             <Button
                               variant="outline"
-                              size="small"
+                              size="sm"
                               className="text-red-600 hover:text-red-900 border-red-300 hover:border-red-500"
                               onClick={() => handleDeleteUser(user)}
                             >

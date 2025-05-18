@@ -16,6 +16,9 @@ import {
 import { prisma } from '../db';
 import { eventBus } from '../events';
 
+// Import the plugins placeholder directly
+import pluginsPlaceholder from '../../../plugins';
+
 class PluginRegistry implements IPluginRegistry {
   private plugins: Map<string, BasePlugin> = new Map();
   private instances: Map<string, PluginInstance> = new Map();
@@ -320,39 +323,27 @@ class PluginRegistry implements IPluginRegistry {
       
       for (const dbPlugin of dbPlugins) {
         try {
-          // Create a stub plugin instance if dynamic import fails
-          let plugin: BasePlugin;
-          
-          try {
-            // Try to load plugin module dynamically
-            // This is a simplified version - in production, you'd have a more robust plugin loading mechanism
-            const pluginModule = await import(`../../../plugins/${dbPlugin.id}`);
-            plugin = new pluginModule.default() as BasePlugin;
-          } catch (importError) {
-            console.warn(`Could not import plugin ${dbPlugin.id}, using stub implementation:`, importError);
-            
-            // Create a stub plugin implementation
-            plugin = {
-              getMetadata: () => ({
-                id: dbPlugin.id,
-                name: dbPlugin.name,
-                description: dbPlugin.description,
-                version: dbPlugin.version,
-                author: dbPlugin.author,
-                website: dbPlugin.website || '',
-                icon: dbPlugin.icon || '',
-                tags: dbPlugin.tags as string[] || [],
-                supportedFeatures: dbPlugin.supportedFeatures as string[],
-                requiredPermissions: dbPlugin.requiredPermissions as string[],
-                settings: dbPlugin.settings as Record<string, any> || {},
-                compatibilityVersion: dbPlugin.compatibilityVersion,
-              }),
-              initialize: async () => true,
-              shutdown: async () => true,
-              configure: async () => true,
-              execute: async () => ({ success: false, message: 'Stub implementation' }),
-            };
-          }
+          // Create a stub plugin instance
+          const plugin: BasePlugin = {
+            getMetadata: () => ({
+              id: dbPlugin.id,
+              name: dbPlugin.name,
+              description: dbPlugin.description,
+              version: dbPlugin.version,
+              author: dbPlugin.author,
+              website: dbPlugin.website || '',
+              icon: dbPlugin.icon || '',
+              tags: dbPlugin.tags as string[] || [],
+              supportedFeatures: dbPlugin.supportedFeatures as string[],
+              requiredPermissions: dbPlugin.requiredPermissions as string[],
+              settings: dbPlugin.settings as Record<string, any> || {},
+              compatibilityVersion: dbPlugin.compatibilityVersion,
+            }),
+            initialize: async () => true,
+            shutdown: async () => true,
+            configure: async () => true,
+            execute: async () => ({ success: false, message: 'Stub implementation' }),
+          };
           
           // Create instance
           const instance: PluginInstance = {
