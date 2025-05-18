@@ -418,11 +418,11 @@ This document serves as a comprehensive checklist for implementing all features 
 - [ ] Implement FAQ
 
 ### Video Demonstrations and Training
-- [ ] Create faceless video demonstrations of platform features
-- [ ] Develop faceless video training for educators
-- [ ] Develop faceless video training for parents
-- [ ] Develop faceless video training for children and young people
-- [ ] Develop faceless video training for professionals
+- [ ] Create AI Avatar video demonstrations of platform features using owner's image
+- [ ] Develop AI Avatar video training for educators using owner's image
+- [ ] Develop AI Avatar video training for parents using owner's image
+- [ ] Develop AI Avatar video training for children and young people using owner's image
+- [ ] Develop AI Avatar video training for professionals using owner's image
 - [ ] Create searchable video library with categorisation
 - [ ] Implement interactive video guides with chapter navigation
 - [ ] Create feature-specific tutorial videos
