@@ -1,7 +1,7 @@
-// Database utilities for the EdPsych AI Education Platform
+// Database index file for the EdPsych AI Education Platform
 // This file provides a centralized interface for database operations
 
-import prismaInstance from './prisma';
+import prismaInstance from '../prisma';
 
 // Re-export the prisma instance as a named export for consistency
 export const prisma = prismaInstance;
@@ -23,31 +23,6 @@ export async function createUser(userData: any) {
 }
 
 export async function updateUser(id: string, userData: any) {
-  // Placeholder implementation
-  return null;
-}
-
-export async function getCurriculumStandards(country: string, subject: string, keyStage: string) {
-  // Placeholder implementation
-  return [];
-}
-
-export async function getCurriculumPlans(userId: string) {
-  // Placeholder implementation
-  return [];
-}
-
-export async function saveCurriculumPlan(planData: any) {
-  // Placeholder implementation
-  return null;
-}
-
-export async function getCollaborationProjects(userId: string) {
-  // Placeholder implementation
-  return [];
-}
-
-export async function createCollaborationProject(projectData: any) {
   // Placeholder implementation
   return null;
 }
