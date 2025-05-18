@@ -288,3 +288,26 @@ export function FormLabel({
     </label>
   );
 }
+
+// Add the missing form components that are causing the build error
+
+// Simple implementation of FormField
+export function FormField({ name, children }: { name: string; children: React.ReactNode }) {
+  return <div className="space-y-2">{children}</div>;
+}
+
+// Simple implementation of FormItem
+export function FormItem({ children }: { children: React.ReactNode }) {
+  return <div className="space-y-2">{children}</div>;
+}
+
+// Simple implementation of FormControl
+export function FormControl({ children }: { children: React.ReactNode }) {
+  return <div>{children}</div>;
+}
+
+// Simple implementation of FormMessage
+export function FormMessage({ children }: { children: React.ReactNode }) {
+  if (!children) return null;
+  return <p className="text-sm font-medium text-red-500">{children}</p>;
+}
