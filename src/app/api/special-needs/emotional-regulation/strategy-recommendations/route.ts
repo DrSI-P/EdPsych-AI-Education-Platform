@@ -233,13 +233,32 @@ export async function POST(req: Request) {
   }
 }
 
+// Define interfaces for recommendation data
+interface RegulationStrategy {
+  id: string;
+  name: string;
+  description: string;
+  steps: string[];
+  suitableFor: string[];
+  category: string;
+  complexity: string;
+  duration: string;
+  evidenceBase: string;
+}
+
+interface Recommendation extends RegulationStrategy {
+  reason: string;
+  reasonType: string;
+  score: number;
+}
+
 // Helper function to generate personalized recommendations
 function generatePersonalizedRecommendations(
   emotionRecords: any[],
   strategyHistory: any[],
   userSettings: any,
   params: any
-) {
+): Recommendation[] {
   // This would be replaced with actual recommendation logic in production
   // For now, we'll return a placeholder response
   
@@ -359,7 +378,7 @@ function generatePersonalizedRecommendations(
   });
   
   // Step 4: Generate personalized recommendations
-  const recommendations = [];
+  const recommendations: Recommendation[] = [];
   
   // 4.1: Add strategies that have worked well in the past
   effectiveStrategies.forEach(strategyId => {
