@@ -49,14 +49,14 @@ export async function GET(req: Request) {
     const duration = searchParams.get('duration');
     
     // Fetch user settings
-    const userSettings = await db.mindfulnessSettings.findUnique({
+    const userSettings = await db.query('mindfulnessSettings', 'findUnique', {
       where: {
         userId: session.user.id
       }
     });
     
     // Fetch activity history
-    const activityHistory = await db.mindfulnessLog.findMany({
+    const activityHistory = await db.query('mindfulnessLog', 'findMany', {
       where: {
         userId: session.user.id,
         action: 'complete_activity'
@@ -68,7 +68,7 @@ export async function GET(req: Request) {
     });
     
     // Fetch favorite activities
-    const favoriteActivities = await db.mindfulnessSettings.findUnique({
+    const favoriteActivities = await db.query('mindfulnessSettings', 'findUnique', {
       where: {
         userId: session.user.id
       },
@@ -88,7 +88,7 @@ export async function GET(req: Request) {
         reminderFrequency: 'weekly',
         backgroundSounds: true
       },
-      activityHistory: activityHistory.map(log => ({
+      activityHistory: activityHistory.map((log: any) => ({
         id: log.id,
         activityId: log.details.activityId,
         completedAt: log.timestamp,
@@ -137,7 +137,7 @@ export async function POST(req: Request) {
         const preferences = validationResult.data;
         
         // Update user preferences
-        await db.mindfulnessSettings.upsert({
+        await db.query('mindfulnessSettings', 'upsert', {
           where: {
             userId: session.user.id
           },
@@ -168,7 +168,7 @@ export async function POST(req: Request) {
         }
         
         // Get current favorites
-        const userSettings = await db.mindfulnessSettings.findUnique({
+        const userSettings = await db.query('mindfulnessSettings', 'findUnique', {
           where: {
             userId: session.user.id
           },
@@ -181,13 +181,13 @@ export async function POST(req: Request) {
         
         // Toggle favorite status
         if (favoriteActivities.includes(activityId)) {
-          favoriteActivities = favoriteActivities.filter(id => id !== activityId);
+          favoriteActivities = favoriteActivities.filter((id: string) => id !== activityId);
         } else {
           favoriteActivities.push(activityId);
         }
         
         // Update user settings
-        await db.mindfulnessSettings.upsert({
+        await db.query('mindfulnessSettings', 'upsert', {
           where: {
             userId: session.user.id
           },
@@ -226,7 +226,7 @@ export async function POST(req: Request) {
         }
         
         // Log activity completion
-        await db.mindfulnessLog.create({
+        await db.query('mindfulnessLog', 'create', {
           data: {
             userId: session.user.id,
             action: 'complete_activity',
@@ -258,7 +258,7 @@ export async function POST(req: Request) {
         }
         
         // Log activity feedback
-        await db.mindfulnessLog.create({
+        await db.query('mindfulnessLog', 'create', {
           data: {
             userId: session.user.id,
             action: 'activity_feedback',
