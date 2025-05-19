@@ -3,6 +3,37 @@ import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth/auth-options';
 import prisma from '@/lib/prisma';
 
+// Define types for the immersive tool
+interface ImmersiveToolWithRelations {
+  id: string;
+  title: string;
+  description: string;
+  subject: string;
+  keyStage: string;
+  type: string;
+  features: string[];
+  toolUrl: string;
+  thumbnailUrl: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+  author: {
+    id: string;
+    name: string;
+    image: string | null;
+  };
+  reviews: {
+    id: string;
+    rating: number;
+  }[];
+}
+
+// Define type for transformed tool
+interface TransformedTool extends Omit<ImmersiveToolWithRelations, 'reviews'> {
+  reviewCount: number;
+  averageRating: number | null;
+  reviews: undefined;
+}
+
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
@@ -61,10 +92,10 @@ export async function GET(req: NextRequest) {
     });
 
     // Transform data to include calculated fields
-    const transformedTools = tools.map(tool => {
+    const transformedTools = tools.map((tool: ImmersiveToolWithRelations) => {
       const reviewCount = tool.reviews.length;
-      const averageRating = reviewCount > 0 
-        ? tool.reviews.reduce((sum, review) => sum + review.rating, 0) / reviewCount 
+      const averageRating = reviewCount > 0
+        ? tool.reviews.reduce((sum, review) => sum + review.rating, 0) / reviewCount
         : null;
       
       return {
@@ -72,7 +103,7 @@ export async function GET(req: NextRequest) {
         reviewCount,
         averageRating,
         reviews: undefined,
-      };
+      } as TransformedTool;
     });
 
     // Get total count for pagination
@@ -88,7 +119,7 @@ export async function GET(req: NextRequest) {
         totalPages,
       },
     });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Error fetching immersive tools:', error);
     return NextResponse.json(
       { error: 'Failed to fetch immersive tools' },
@@ -159,7 +190,7 @@ export async function POST(req: NextRequest) {
     });
 
     return NextResponse.json({ tool }, { status: 201 });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Error creating immersive tool:', error);
     return NextResponse.json(
       { error: 'Failed to create immersive tool' },
