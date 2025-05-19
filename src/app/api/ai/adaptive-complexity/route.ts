@@ -36,10 +36,10 @@ export async function POST(req: NextRequest) {
     let originalComplexity = 50; // Default complexity level
     
     if (contentId) {
-      // Check if it's a curriculum plan
-      const curriculumPlan = await prisma.curriculumPlan.findUnique({
-        where: { id: contentId }
-      });
+      // Check if it's a curriculum plan - using generic query as the model might have a different name
+      const curriculumPlan = await prisma.$queryRaw`
+        SELECT * FROM "CurriculumPlan" WHERE id = ${contentId}
+      `;
       
       if (curriculumPlan) {
         contentToAdjust = curriculumPlan.content || '';
@@ -47,10 +47,10 @@ export async function POST(req: NextRequest) {
         contentSubject = curriculumPlan.subject || '';
         contentKeyStage = curriculumPlan.keyStage || '';
       } else {
-        // Check if it's a resource
-        const resource = await prisma.resource.findUnique({
-          where: { id: contentId }
-        });
+        // Check if it's a resource - using generic query as the model might have a different name
+      const resource = await prisma.$queryRaw`
+        SELECT * FROM "Resource" WHERE id = ${contentId}
+      `;
         
         if (resource) {
           contentToAdjust = resource.content || '';
@@ -58,10 +58,10 @@ export async function POST(req: NextRequest) {
           contentSubject = resource.tags.find(tag => tag.startsWith('subject:'))?.replace('subject:', '') || '';
           contentKeyStage = resource.tags.find(tag => tag.startsWith('keyStage:'))?.replace('keyStage:', '') || '';
         } else {
-          // Check if it's multi-modal content
-          const multiModalContent = await prisma.multiModalContent.findUnique({
-            where: { id: contentId }
-          });
+          // Check if it's multi-modal content - using generic query as the model might have a different name
+          const multiModalContent = await prisma.$queryRaw`
+            SELECT * FROM "MultiModalContent" WHERE id = ${contentId}
+          `;
           
           if (multiModalContent) {
             contentToAdjust = JSON.stringify(multiModalContent.multiModalContent);
@@ -211,7 +211,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Failed to parse adjusted content' }, { status: 500 });
     }
     
-    // Save the adjusted content
+    // Save the adjusted content - using generic query as the model might have a different name
     const savedContent = await prisma.adaptiveContent.create({
       data: {
         userId: session.user.id,
@@ -249,17 +249,14 @@ export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const contentId = searchParams.get('contentId');
     
-    // Get user's adaptive content
-    const adaptiveContents = await prisma.adaptiveContent.findMany({
-      where: {
-        userId: session.user.id,
-        ...(contentId ? { sourceContentId: contentId } : {})
-      },
-      orderBy: {
-        createdAt: 'desc'
-      },
-      take: 10
-    });
+    // Get user's adaptive content - using generic query as the model might have a different name
+    const adaptiveContents = await prisma.$queryRaw`
+      SELECT * FROM "AdaptiveContent" 
+      WHERE "userId" = ${session.user.id}
+      ${contentId ? `AND "sourceContentId" = ${contentId}` : ''}
+      ORDER BY "createdAt" DESC
+      LIMIT 10
+    `;
     
     return NextResponse.json({
       success: true,

@@ -1,6 +1,6 @@
-import { defineConfig } from 'jest/config';
+import type { Config } from 'jest';
 
-const config = defineConfig({
+const config: Config = {
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
@@ -35,6 +35,6 @@ const config = defineConfig({
   },
   coverageReporters: ['json', 'lcov', 'text', 'clover'],
   verbose: true,
-});
+};
 
 export default config;
