@@ -409,16 +409,16 @@ async function getUserWebinars(userId: string) {
 
   // Separate upcoming and attended webinars
   const upcomingWebinars = registrations
-    .filter(reg => new Date(reg.webinar.date) >= now)
-    .map(reg => ({
+    .filter((reg: any) => new Date(reg.webinar.date) >= now)
+    .map((reg: any) => ({
       ...reg.webinar,
       addedToCalendar: reg.addedToCalendar,
       status: 'upcoming',
     }));
 
   const attendedWebinars = registrations
-    .filter(reg => new Date(reg.webinar.date) < now && reg.attended)
-    .map(reg => ({
+    .filter((reg: any) => new Date(reg.webinar.date) < now && reg.attended)
+    .map((reg: any) => ({
       ...reg.webinar,
       certificateAvailable: reg.certificateIssued,
       status: 'attended',
