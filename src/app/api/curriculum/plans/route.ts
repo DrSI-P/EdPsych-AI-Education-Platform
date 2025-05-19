@@ -86,8 +86,49 @@ export async function GET(req: NextRequest) {
       },
     });
 
+    // Define interface for CurriculumPlan type
+    interface CurriculumPlan {
+      id: string;
+      title: string;
+      description: string;
+      subject: string;
+      keyStage: string;
+      year: string;
+      term: string;
+      status: string;
+      authorId: string;
+      createdAt: Date;
+      updatedAt: Date;
+      author: {
+        id: string;
+        name: string;
+        image: string;
+      };
+      objectives: { id: string }[];
+      resources: { id: string }[];
+      assessments: { id: string }[];
+      collaborators: {
+        id: string;
+        user: {
+          id: string;
+          name: string;
+          image: string;
+        };
+      }[];
+    }
+
+    // Define interface for collaborator type
+    interface Collaborator {
+      id: string;
+      user: {
+        id: string;
+        name: string;
+        image: string;
+      };
+    }
+
     // Transform data to include counts
-    const transformedPlans = plans.map(plan => ({
+    const transformedPlans = plans.map((plan: CurriculumPlan) => ({
       ...plan,
       objectivesCount: plan.objectives.length,
       resourcesCount: plan.resources.length,
@@ -96,7 +137,7 @@ export async function GET(req: NextRequest) {
       objectives: undefined,
       resources: undefined,
       assessments: undefined,
-      collaborators: plan.collaborators.map(c => c.user),
+      collaborators: plan.collaborators.map((c: Collaborator) => c.user),
     }));
 
     // Get total count for pagination
