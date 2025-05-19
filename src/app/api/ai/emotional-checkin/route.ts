@@ -80,15 +80,14 @@ export async function POST(req: NextRequest) {
     
     if (previousCheckins.length > 0) {
       try {
-        const aiResponse = await aiService.getCompletion({
-          prompt: patternAnalysisPrompt,
+        const aiResponse = await aiService.generateText(patternAnalysisPrompt, {
           model: 'gpt-4',
           temperature: 0.5,
-          max_tokens: 1000,
-          response_format: { type: 'json_object' }
+          maxTokens: 1000,
+          responseFormat: { type: 'json_object' }
         });
         
-        patternAnalysis = JSON.parse(aiResponse);
+        patternAnalysis = JSON.parse(aiResponse.text);
       } catch (error) {
         console.error('Error analyzing emotional patterns:', error);
         // Continue without pattern analysis if it fails
@@ -134,17 +133,21 @@ export async function GET(req: NextRequest) {
     
     // Calculate trigger frequency
     const triggerFrequency = recentCheckins.reduce((acc, checkin) => {
-      checkin.triggers.forEach(trigger => {
-        acc[trigger] = (acc[trigger] || 0) + 1;
-      });
+      if (Array.isArray(checkin.triggers)) {
+        checkin.triggers.forEach((trigger: string) => {
+          acc[trigger] = (acc[trigger] || 0) + 1;
+        });
+      }
       return acc;
     }, {} as Record<string, number>);
     
     // Calculate strategy effectiveness (simplified)
     const strategyFrequency = recentCheckins.reduce((acc, checkin) => {
-      checkin.strategies.forEach(strategy => {
-        acc[strategy] = (acc[strategy] || 0) + 1;
-      });
+      if (Array.isArray(checkin.strategies)) {
+        checkin.strategies.forEach((strategy: string) => {
+          acc[strategy] = (acc[strategy] || 0) + 1;
+        });
+      }
       return acc;
     }, {} as Record<string, number>);
     

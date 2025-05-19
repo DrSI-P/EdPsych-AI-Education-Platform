@@ -3,7 +3,10 @@ import OpenAI from 'openai';
 import Anthropic from '@anthropic-ai/sdk';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import axios from 'axios';
-import { AIProvider } from '@/lib/ai/ai-service';
+import aiService from '@/lib/ai/ai-service';
+
+// Define AIProvider type locally since it's not exported from ai-service
+type AIProvider = 'openai' | 'anthropic' | 'gemini' | 'grok' | 'openrouter';
 
 // Define types for AI embedding requests
 export interface AIEmbeddingRequest {

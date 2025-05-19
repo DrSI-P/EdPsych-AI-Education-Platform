@@ -36,22 +36,32 @@ export async function POST(req: NextRequest) {
     let planYear = year;
     
     if (curriculumPlanId) {
-      const plan = await prisma.curriculumPlan.findUnique({
-        where: { id: curriculumPlanId },
-        include: {
-          objectives: true,
+      try {
+        const plan = await prisma.curriculumPlan.findUnique({
+          where: {
+            id: curriculumPlanId
+          },
+          include: {
+            objectives: true
+          }
+        });
+        
+        if (plan) {
+          planContent = plan.content || '';
+          planSubject = plan.subject;
+          planKeyStage = plan.keyStage;
+          planYear = plan.year;
+          
+          if (plan.objectives && plan.objectives.length > 0) {
+            planObjectives = plan.objectives.map(obj => obj.description);
+          }
+        } else {
+          return NextResponse.json({ error: 'Curriculum plan not found' }, { status: 404 });
         }
-      });
-      
-      if (!plan) {
-        return NextResponse.json({ error: 'Curriculum plan not found' }, { status: 404 });
+      } catch (error) {
+        console.log('Error fetching curriculum plan:', error);
+        return NextResponse.json({ error: 'Failed to fetch curriculum plan' }, { status: 500 });
       }
-      
-      planContent = plan.content || '';
-      planObjectives = plan.objectives.map(obj => obj.description);
-      planSubject = plan.subject;
-      planKeyStage = plan.keyStage;
-      planYear = plan.year;
     }
     
     // Get AI service
@@ -131,41 +141,48 @@ export async function POST(req: NextRequest) {
     `;
     
     // Call AI service for differentiation
-    const differentiationResponse = await aiService.getCompletion({
-      prompt,
+    const differentiationResponse = await aiService.generateText(prompt, {
       model: 'gpt-4',
       temperature: 0.5,
-      max_tokens: 3000,
-      response_format: { type: "json_object" }
+      maxTokens: 3000,
+      responseFormat: { type: "json_object" }
     });
     
     // Parse the response
     let differentiatedContent;
     try {
-      differentiatedContent = JSON.parse(differentiationResponse);
+      // Extract text from AI response object
+      const responseText = differentiationResponse.text;
+      differentiatedContent = JSON.parse(responseText);
     } catch (error) {
       console.error('Error parsing AI response:', error);
       return NextResponse.json({ error: 'Failed to parse differentiated curriculum' }, { status: 500 });
     }
     
     // Save the differentiated curriculum
-    const savedDifferentiation = await prisma.curriculumDifferentiation.create({
-      data: {
-        userId: session.user.id,
-        curriculumPlanId: curriculumPlanId || null,
-        originalContent: planContent,
-        differentiatedContent: differentiatedContent,
-        settings: settings,
-        subject: planSubject || null,
-        keyStage: planKeyStage || null,
-        year: planYear || null
-      }
-    });
+    let differentiation;
+    try {
+      differentiation = await prisma.curriculumDifferentiation.create({
+        data: {
+          userId: session.user.id,
+          curriculumPlanId: curriculumPlanId || null,
+          originalContent: planContent,
+          differentiatedContent: differentiatedContent,
+          settings,
+          subject: planSubject || null,
+          keyStage: planKeyStage || null,
+          year: planYear || null
+        }
+      });
+    } catch (error) {
+      console.log('Failed to save curriculum differentiation to database:', error);
+      // Continue without saving to database
+    }
     
     return NextResponse.json({
       success: true,
       differentiatedContent,
-      differentiationId: savedDifferentiation.id
+      differentiationId: differentiation?.id
     });
     
   } catch (error) {

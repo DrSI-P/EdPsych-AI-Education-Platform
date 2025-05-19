@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { AIProvider } from '@/lib/ai/ai-service';
+import aiService from '@/lib/ai/ai-service';
+
+// Define AIProvider type locally since it's not exported from ai-service
+type AIProvider = 'openai' | 'anthropic' | 'gemini' | 'grok' | 'openrouter';
 
 // Define environment variable keys for each provider
 const PROVIDER_API_KEYS = {

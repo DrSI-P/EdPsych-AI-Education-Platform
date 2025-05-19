@@ -130,8 +130,7 @@ export async function POST(req: NextRequest) {
     `;
     
     // Call AI service for multi-modal content generation
-    const multiModalResponse = await aiService.getCompletion({
-      prompt,
+    const multiModalResponse = await aiService.generateText(prompt, {
       model: 'gpt-4',
       temperature: 0.7,
       max_tokens: 4000,
@@ -141,7 +140,7 @@ export async function POST(req: NextRequest) {
     // Parse the response
     let multiModalContent;
     try {
-      multiModalContent = JSON.parse(multiModalResponse);
+      multiModalContent = JSON.parse(multiModalResponse.text);
     } catch (error) {
       console.error('Error parsing AI response:', error);
       return NextResponse.json({ error: 'Failed to parse multi-modal content' }, { status: 500 });

@@ -53,12 +53,13 @@ export async function POST(req: NextRequest) {
     `;
     
     // Call AI service for enhancement
-    const enhancedTranscript = await aiService.getCompletion({
-      prompt,
+    const enhancedTranscriptResponse = await aiService.generateText(prompt, {
       model: 'gpt-4',
       temperature: 0.3,
       max_tokens: 1000
     });
+    
+    const enhancedTranscript = enhancedTranscriptResponse.text;
     
     // Log the speech recognition activity
     await prisma.speechRecognitionLog.create({
