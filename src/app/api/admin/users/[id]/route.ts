@@ -52,8 +52,7 @@ export async function GET(
         email: true,
         role: true,
         emailVerified: true,
-        createdAt: true,
-        updatedAt: true,
+        // Removed createdAt and updatedAt as they don't exist in the User model
       },
     });
     
@@ -149,8 +148,7 @@ export async function PUT(
         email: true,
         role: true,
         emailVerified: true,
-        createdAt: true,
-        updatedAt: true,
+        // Removed createdAt and updatedAt as they don't exist in the User model
       },
     });
     
