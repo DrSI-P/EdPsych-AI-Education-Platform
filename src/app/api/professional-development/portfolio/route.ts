@@ -411,7 +411,7 @@ async function handleAddEvidence(body: any) {
     // Link to achievements if provided
     if (evidenceData.associatedAchievements && evidenceData.associatedAchievements.length > 0) {
       await Promise.all(
-        evidenceData.associatedAchievements.map(async (achievementId) => {
+        evidenceData.associatedAchievements.map(async (achievementId: string) => {
           await prisma.portfolioEvidenceAchievement.create({
             data: {
               evidenceId: evidence.id,
@@ -484,7 +484,7 @@ async function handleUpdateEvidence(body: any) {
       // Add new associations
       if (associatedAchievements.length > 0) {
         await Promise.all(
-          associatedAchievements.map(async (achievementId) => {
+          associatedAchievements.map(async (achievementId: string) => {
             await prisma.portfolioEvidenceAchievement.create({
               data: {
                 evidenceId: id,
@@ -571,7 +571,7 @@ async function handleAddReflection(body: any) {
     // Link to evidence if provided
     if (associatedEvidence && associatedEvidence.length > 0) {
       await Promise.all(
-        associatedEvidence.map(async (evidenceId) => {
+        associatedEvidence.map(async (evidenceId: string) => {
           await prisma.portfolioReflectionEvidence.create({
             data: {
               reflectionId: reflection.id,
@@ -644,7 +644,7 @@ async function handleUpdateReflection(body: any) {
       // Add new associations
       if (associatedEvidence.length > 0) {
         await Promise.all(
-          associatedEvidence.map(async (evidenceId) => {
+          associatedEvidence.map(async (evidenceId: string) => {
             await prisma.portfolioReflectionEvidence.create({
               data: {
                 reflectionId: id,
@@ -900,7 +900,7 @@ async function getEvidence(userId: string, visibility: string | null) {
 
   // Get achievement associations for each evidence item
   const evidenceWithAssociations = await Promise.all(
-    evidence.map(async (item) => {
+    evidence.map(async (item: any) => {
       const associations = await prisma.portfolioEvidenceAchievement.findMany({
         where: { evidenceId: item.id },
         include: { achievement: true }
@@ -908,7 +908,7 @@ async function getEvidence(userId: string, visibility: string | null) {
 
       return {
         ...item,
-        associatedAchievements: associations.map(a => ({
+        associatedAchievements: associations.map((a: any) => ({
           id: a.achievementId,
           title: a.achievement.title
         }))
@@ -933,7 +933,7 @@ async function getReflections(userId: string, visibility: string | null) {
 
   // Get evidence associations for each reflection
   const reflectionsWithAssociations = await Promise.all(
-    reflections.map(async (item) => {
+    reflections.map(async (item: any) => {
       const associations = await prisma.portfolioReflectionEvidence.findMany({
         where: { reflectionId: item.id },
         include: { evidence: true }
@@ -941,7 +941,7 @@ async function getReflections(userId: string, visibility: string | null) {
 
       return {
         ...item,
-        associatedEvidence: associations.map(a => ({
+        associatedEvidence: associations.map((a: any) => ({
           id: a.evidenceId,
           title: a.evidence.title
         }))
@@ -973,7 +973,7 @@ async function getAchievementDetails(id: string, userId: string) {
     include: { evidence: true }
   });
 
-  const associatedEvidence = evidenceAssociations.map(a => ({
+  const associatedEvidence = evidenceAssociations.map((a: any) => ({
     id: a.evidenceId,
     title: a.evidence.title,
     type: a.evidence.type,
@@ -1008,7 +1008,7 @@ async function getEvidenceDetails(id: string, userId: string) {
     include: { achievement: true }
   });
 
-  const associatedAchievements = achievementAssociations.map(a => ({
+  const associatedAchievements = achievementAssociations.map((a: any) => ({
     id: a.achievementId,
     title: a.achievement.title,
     type: a.achievement.type
@@ -1020,7 +1020,7 @@ async function getEvidenceDetails(id: string, userId: string) {
     include: { reflection: true }
   });
 
-  const associatedReflections = reflectionAssociations.map(r => ({
+  const associatedReflections = reflectionAssociations.map((r: any) => ({
     id: r.reflectionId,
     title: r.reflection.title,
     date: r.reflection.date
@@ -1054,7 +1054,7 @@ async function getReflectionDetails(id: string, userId: string) {
     include: { evidence: true }
   });
 
-  const associatedEvidence = evidenceAssociations.map(a => ({
+  const associatedEvidence = evidenceAssociations.map((a: any) => ({
     id: a.evidenceId,
     title: a.evidence.title,
     type: a.evidence.type,
@@ -1147,8 +1147,8 @@ async function getPortfolioAnalytics(userId: string) {
     recentCpdActivities: cpdActivities,
     viewsData,
     sectionViewsData,
-    totalCpdPoints: cpdActivities.reduce((sum, activity) => sum + activity.points, 0),
-    totalCpdHours: cpdActivities.reduce((sum, activity) => sum + activity.duration, 0)
+    totalCpdPoints: cpdActivities.reduce((sum: number, activity: any) => sum + activity.points, 0),
+    totalCpdHours: cpdActivities.reduce((sum: number, activity: any) => sum + activity.duration, 0)
   }, { status: 200 });
 }
 
