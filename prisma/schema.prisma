@@ -43,6 +43,7 @@ model User {
   curriculumComments       CurriculumPlanComment[]
   createdTasks             CurriculumPlanTask[]      @relation("TaskCreator")
   assignedTasks            CurriculumPlanTask[]      @relation("TaskAssignee")
+  curriculumAlignments     CurriculumAlignment[]
 }
 
 model Account {
@@ -601,6 +602,34 @@ model CurriculumAssessment {
   content     Json?
   createdAt   DateTime       @default(now())
   updatedAt   DateTime       @updatedAt
+}
+
+model CurriculumStandard {
+  id          String                @id @default(cuid())
+  code        String
+  title       String
+  description String                @db.Text
+  subject     String
+  keyStage    String
+  category    String?
+  subcategory String?
+  assessments CurriculumAlignment[]
+  createdAt   DateTime              @default(now())
+  updatedAt   DateTime              @updatedAt
+}
+
+model CurriculumAlignment {
+  id                   String            @id @default(cuid())
+  curriculumStandardId String
+  curriculumStandard   CurriculumStandard @relation(fields: [curriculumStandardId], references: [id], onDelete: Cascade)
+  assessmentId         String
+  assessment           Assessment        @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
+  alignedById          String
+  alignedBy            User              @relation(fields: [alignedById], references: [id])
+  createdAt            DateTime          @default(now())
+  updatedAt            DateTime          @updatedAt
+
+  @@unique([curriculumStandardId, assessmentId])
 }
 
 model CurriculumPlanCollaborator {
