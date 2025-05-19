@@ -74,8 +74,9 @@ export async function POST(req: NextRequest) {
     await prisma.accessibilityLog.create({
       data: {
         userId: session.user.id,
+        action: 'setting_changed',
         feature: 'screen-reader-optimization',
-        options: JSON.stringify(validatedSettings),
+        details: JSON.stringify(validatedSettings),
       }
     });
 
