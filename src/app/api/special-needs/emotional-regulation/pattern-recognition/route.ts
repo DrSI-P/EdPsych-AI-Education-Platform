@@ -48,7 +48,7 @@ export async function GET(req: Request) {
     const params = validationResult.data;
     
     // Fetch emotion records from database
-    const emotionRecords = await db.emotionRecord.findMany({
+    const emotionRecords = await db.query('emotionRecord', 'findMany', {
       where: {
         userId: session.user.id,
         timestamp: {
@@ -65,7 +65,7 @@ export async function GET(req: Request) {
     });
     
     // Fetch emotion journals for the same period
-    const emotionJournals = await db.emotionJournal.findMany({
+    const emotionJournals = await db.query('emotionJournal', 'findMany', {
       where: {
         userId: session.user.id,
         timestamp: {
@@ -474,7 +474,7 @@ export async function POST(req: Request) {
     const body = await req.json();
     
     // Save user preferences for pattern recognition
-    await db.emotionalRegulationSettings.update({
+    await db.query('emotionalRegulationSettings', 'update', {
       where: {
         userId: session.user.id
       },
@@ -485,7 +485,7 @@ export async function POST(req: Request) {
     });
     
     // Log the activity
-    await db.emotionalRegulationLog.create({
+    await db.query('emotionalRegulationLog', 'create', {
       data: {
         userId: session.user.id,
         action: 'update_pattern_recognition_settings',
