@@ -1009,10 +1009,10 @@ async function getMentorshipAnalytics(userId: string) {
     }
   });
   
-  const completedMeetings = meetings.filter(m => m.status === 'completed').length;
+  const completedMeetings = meetings.filter((m: any) => m.status === 'completed').length;
   const totalMeetingHours = meetings
-    .filter(m => m.status === 'completed')
-    .reduce((total, meeting) => total + meeting.duration / 60, 0);
+    .filter((m: any) => m.status === 'completed')
+    .reduce((total: number, meeting: any) => total + meeting.duration / 60, 0);
   
   // Get all goals
   const allGoals = [...mentorMentorships, ...menteeMentorships].flatMap(m => m.goals);
