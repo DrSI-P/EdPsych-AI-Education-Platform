@@ -47,7 +47,7 @@ export async function GET(req: Request) {
     }
     
     // Fetch prompts from database
-    const prompts = await db.reflectionPrompt.findMany({
+    const prompts = await db.query('reflectionPrompt', 'findMany', {
       where: filters,
       orderBy: {
         createdAt: 'desc'
@@ -82,7 +82,7 @@ export async function POST(req: Request) {
     const validatedData = reflectionPromptSchema.parse(body);
     
     // Create prompt in database
-    const prompt = await db.reflectionPrompt.create({
+    const prompt = await db.query('reflectionPrompt', 'create', {
       data: {
         ...validatedData,
         userId: session.user.id
@@ -93,7 +93,7 @@ export async function POST(req: Request) {
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
-        { error: "Validation error", details: error.errors },
+        { error: "Validation error", details: (error as z.ZodError).errors },
         { status: 400 }
       );
     }
@@ -131,7 +131,7 @@ export async function PUT(req: Request) {
     const validatedData = reflectionPromptSchema.parse(body);
     
     // Check if prompt exists and belongs to user
-    const existingPrompt = await db.reflectionPrompt.findUnique({
+    const existingPrompt = await db.query('reflectionPrompt', 'findUnique', {
       where: {
         id: body.id
       }
@@ -152,7 +152,7 @@ export async function PUT(req: Request) {
     }
     
     // Update prompt
-    const updatedPrompt = await db.reflectionPrompt.update({
+    const updatedPrompt = await db.query('reflectionPrompt', 'update', {
       where: {
         id: body.id
       },
@@ -163,7 +163,7 @@ export async function PUT(req: Request) {
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
-        { error: "Validation error", details: error.errors },
+        { error: "Validation error", details: (error as z.ZodError).errors },
         { status: 400 }
       );
     }
@@ -199,7 +199,7 @@ export async function DELETE(req: Request) {
     }
     
     // Check if prompt exists and belongs to user
-    const existingPrompt = await db.reflectionPrompt.findUnique({
+    const existingPrompt = await db.query('reflectionPrompt', 'findUnique', {
       where: {
         id: id
       }
@@ -220,7 +220,7 @@ export async function DELETE(req: Request) {
     }
     
     // Delete prompt
-    await db.reflectionPrompt.delete({
+    await db.query('reflectionPrompt', 'delete', {
       where: {
         id: id
       }
