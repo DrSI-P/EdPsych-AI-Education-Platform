@@ -129,7 +129,7 @@ export async function GET(req: NextRequest) {
     if (plan.authorId === session.user.id) {
       userRole = 'owner';
     } else {
-      const collaborator = collaborators.find(c => c.user.id === session.user.id);
+      const collaborator = collaborators.find((c: any) => c.user.id === session.user.id);
       if (collaborator) {
         userRole = collaborator.role;
       }
