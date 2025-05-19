@@ -92,9 +92,68 @@ export async function POST(req: NextRequest) {
   }
 }
 
+// Define types for each data structure
+type StudentProgressData = Array<{
+  name: string;
+  maths: number;
+  english: number;
+  science: number;
+}>;
+
+type AttendanceData = Array<{
+  name: string;
+  present: number;
+  absent: number;
+  late: number;
+}>;
+
+type BehaviourData = Array<{
+  name: string;
+  positive: number;
+  concern: number;
+}>;
+
+type ResourceUsageData = Array<{
+  name: string;
+  value: number;
+}>;
+
+type ParentEngagementData = Array<{
+  name: string;
+  value: number;
+  color: string;
+}>;
+
+type TimeAllocationData = Array<{
+  name: string;
+  value: number;
+}>;
+
+type LearningStylesData = Array<{
+  name: string;
+  students: number;
+}>;
+
+type InterventionEffectivenessData = Array<{
+  name: string;
+  before: number;
+  after: number;
+}>;
+
+// Union type for mockData
+type VisualisationData =
+  | StudentProgressData
+  | AttendanceData
+  | BehaviourData
+  | ResourceUsageData
+  | ParentEngagementData
+  | TimeAllocationData
+  | LearningStylesData
+  | InterventionEffectivenessData;
+
 async function handleGetData(body: any, session: any) {
   try {
-    const { dataType, timeRange, filters, aggregation } = 
+    const { dataType, timeRange, filters, aggregation } =
       dataRequestSchema.parse(body);
     
     // In a real implementation, this would:
@@ -104,7 +163,7 @@ async function handleGetData(body: any, session: any) {
     // 4. Return the formatted data
     
     // For now, we'll return mock data based on the requested type
-    let mockData;
+    let mockData: VisualisationData = [];
     
     switch (dataType) {
       case "student_progress":
