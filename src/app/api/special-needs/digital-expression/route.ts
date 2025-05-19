@@ -70,7 +70,17 @@ export async function GET(req: Request) {
     const searchQuery = searchParams.get('search');
     
     // Build base query with user filter
-    const baseQuery = {
+    const baseQuery: {
+      where: {
+        userId: string;
+        isPrivate?: boolean;
+        OR?: any;
+        type?: string;
+      };
+      orderBy: {
+        createdAt: 'desc';
+      };
+    } = {
       where: {
         userId: session.user.id,
       },
@@ -533,7 +543,7 @@ export async function POST(req: Request) {
     
     if (error instanceof z.ZodError) {
       return NextResponse.json(
-        { error: 'Validation error', details: error.errors },
+        { error: 'Validation error', details: (error as z.ZodError).errors },
         { status: 400 }
       );
     }
