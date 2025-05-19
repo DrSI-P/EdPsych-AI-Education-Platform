@@ -100,10 +100,10 @@ export async function GET(req: Request) {
       }
     });
     
-    const favoriteIds = favorites.map(fav => fav.activityId);
+    const favoriteIds = favorites.map((fav: any) => fav.activityId);
     
     // Add isFavorite flag to activities
-    const activitiesWithFavorites = activities.map(activity => ({
+    const activitiesWithFavorites = activities.map((activity: any) => ({
       ...activity,
       isFavorite: favoriteIds.includes(activity.id)
     }));
@@ -111,7 +111,7 @@ export async function GET(req: Request) {
     return NextResponse.json(activitiesWithFavorites);
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return NextResponse.json({ error: error.errors }, { status: 400 });
+      return NextResponse.json({ error: (error as z.ZodError).errors }, { status: 400 });
     }
     
     console.error('Error fetching activities:', error);
@@ -160,7 +160,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ success: true });
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return NextResponse.json({ error: error.errors }, { status: 400 });
+      return NextResponse.json({ error: (error as z.ZodError).errors }, { status: 400 });
     }
     
     console.error('Error toggling favorite:', error);
