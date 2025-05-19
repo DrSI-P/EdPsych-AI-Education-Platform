@@ -88,7 +88,7 @@ export async function PUT(
     
     // Parse request body
     const body = await request.json();
-    const { title, description, isPublic, tags } = body;
+    const { title, description, isPublic } = body;
     
     // Update the template
     const updatedTemplate = await prisma.assessmentTemplate.update({
@@ -99,7 +99,6 @@ export async function PUT(
         title: title || existingTemplate.title,
         description: description !== undefined ? description : existingTemplate.description,
         isPublic: isPublic !== undefined ? isPublic : existingTemplate.isPublic,
-        tags: tags || existingTemplate.tags,
       },
       include: {
         createdBy: {
