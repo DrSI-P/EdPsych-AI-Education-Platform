@@ -4,6 +4,37 @@ import { authOptions } from '@/lib/auth/auth-options';
 import { prisma } from '@/lib/db';
 import { getAIService } from '@/lib/ai/ai-service';
 
+// Define interfaces for task data
+interface ExecutiveFunctionTask {
+  id: string;
+  userId: string;
+  title: string;
+  description?: string;
+  dueDate?: string | null;
+  priority: string;
+  status: string;
+  steps: any[];
+  timeEstimate: string;
+  visualReminder?: string;
+  tags: string[];
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+interface TaskResponse {
+  id: string;
+  title: string;
+  description: string;
+  dueDate: string;
+  priority: string;
+  status: string;
+  steps: any[];
+  timeEstimate: string;
+  visualReminder: string;
+  tags: string[];
+  isExpanded: boolean;
+}
+
 export async function GET(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
@@ -32,7 +63,7 @@ export async function GET(req: NextRequest) {
     
     return NextResponse.json({
       success: true,
-      tasks: tasks.map(task => ({
+      tasks: tasks.map((task: ExecutiveFunctionTask): TaskResponse => ({
         id: task.id,
         title: task.title,
         description: task.description || '',
@@ -78,7 +109,7 @@ export async function POST(req: NextRequest) {
     
     // Create new tasks
     const createdTasks = await Promise.all(
-      tasks.map(async (task: any) => {
+      tasks.map(async (task: TaskResponse) => {
         return prisma.executiveFunctionTask.create({
           data: {
             id: task.id,
