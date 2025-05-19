@@ -43,6 +43,7 @@ model User {
   accessibilityLogs     AccessibilityLog[]
   epProfile             EPProfile?
   specialistProfile     SpecialistProfile?
+  createdPupilVoiceSurveys PupilVoiceSurvey[]  @relation("PupilVoiceSurveyCreator")
 }
 
 // Next Auth models
@@ -449,52 +450,37 @@ model AccessibilitySettings {
   customLinkColor      String?
   // Screen reader settings
   screenReaderOptimized Boolean  @default(false)
-  dyslexiaFriendlyFont Boolean  @default(false)
-  // Screen reader optimization settings
-  screenReaderOptimization Boolean @default(false)
-  enhancedAria         Boolean  @default(true)
-  improvedAltText      Boolean  @default(true)
-  semanticHeadings     Boolean  @default(true)
-  tableAccessibility   Boolean  @default(true)
-  formLabels           Boolean  @default(true)
-  readingOrder         Boolean  @default(true)
-  announcementLevel    String   @default("moderate")
-  // Keyboard navigation settings
-  keyboardNavigation   Boolean  @default(false)
-  highlightFocus       Boolean  @default(true)
-  skipLinks            Boolean  @default(true)
-  keyboardShortcuts    Boolean  @default(true)
-  tabSize              String   @default("normal")
-  focusIndicatorSize   Int      @default(3)
-  focusIndicatorColor  String   @default("blue")
-  customFocusColor     String   @default("#0066cc")
-  // Reduced motion settings
+  dyslexiaFriendly     Boolean  @default(false)
+  dyslexiaFont         String   @default("opendyslexic")
+  // Voice input settings
+  voiceInputEnabled    Boolean  @default(false)
+  voiceCommandsEnabled Boolean  @default(false)
+  // Keyboard navigation
+  keyboardNavigationOptimized Boolean @default(false)
+  // Focus settings
+  focusIndicators      Boolean  @default(true)
+  // Motion sensitivity
   reduceMotion         Boolean  @default(false)
-  motionLevel          String   @default("moderate")
-  allowEssentialAnimations Boolean @default(true)
-  allowHoverEffects    Boolean  @default(false)
-  allowTransitions     Boolean  @default(true)
-  transitionSpeed      Int      @default(50)
-  allowAutoplay        Boolean  @default(false)
-  // Speech-to-text settings
-  textToSpeechActive   Boolean  @default(false)
-  speechRate           Float    @default(1.0)
-  speechPitch          Float    @default(1.0)
+  // Color blindness settings
+  colorBlindnessType   String?  // protanopia, deuteranopia, tritanopia, etc.
+  // Additional settings
+  settings             Json?    // For future extensibility
   createdAt            DateTime @default(now())
   updatedAt            DateTime @updatedAt
   user                 User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model AccessibilityLog {
-  id        String   @id @default(cuid())
-  userId    String
-  feature   String
-  options   String?  @db.Text
-  createdAt DateTime @default(now())
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                   String   @id @default(cuid())
+  userId               String
+  action               String   // setting_changed, feature_used, etc.
+  feature              String   // high-contrast-mode, screen-reader, voice-input, etc.
+  details              Json
+  createdAt            DateTime @default(now())
+  user                 User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-// Educational Psychologist Collaboration Models
+// Educational Psychologist Models
 model EPProfile {
   id                String   @id @default(cuid())
   userId            String   @unique
@@ -715,4 +701,57 @@ model IEPReview {
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
   iepPlan           IEPPlan  @relation(fields: [iepPlanId], references: [id], onDelete: Cascade)
+}
+
+// Pupil Voice Survey Models
+model PupilVoiceSurvey {
+  id                String   @id @default(cuid())
+  title             String
+  description       String   @db.Text
+  status            String   @default("draft") // draft, active, completed, archived
+  createdById       String
+  templateId        String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  createdBy         User     @relation("PupilVoiceSurveyCreator", fields: [createdById], references: [id])
+  questions         PupilVoiceQuestion[]
+  responses         PupilVoiceResponse[]
+}
+
+model PupilVoiceQuestion {
+  id                String   @id @default(cuid())
+  surveyId          String
+  text              String   @db.Text
+  type              String   // multiple_choice, scale, text, etc.
+  required          Boolean  @default(false)
+  options           Json?    // Array of options for multiple choice questions
+  order             Int      @default(0)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  survey            PupilVoiceSurvey @relation(fields: [surveyId], references: [id], onDelete: Cascade)
+  answers           PupilVoiceAnswer[]
+}
+
+model PupilVoiceResponse {
+  id                String   @id @default(cuid())
+  surveyId          String
+  respondentId      String?  // Optional if anonymous
+  status            String   @default("in_progress") // in_progress, completed
+  startedAt         DateTime @default(now())
+  completedAt       DateTime?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  survey            PupilVoiceSurvey @relation(fields: [surveyId], references: [id], onDelete: Cascade)
+  answers           PupilVoiceAnswer[]
+}
+
+model PupilVoiceAnswer {
+  id                String   @id @default(cuid())
+  responseId        String
+  questionId        String
+  answer            Json     // Flexible structure for different answer types
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  response          PupilVoiceResponse @relation(fields: [responseId], references: [id], onDelete: Cascade)
+  question          PupilVoiceQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
 }
