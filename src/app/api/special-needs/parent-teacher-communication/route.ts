@@ -4,6 +4,52 @@ import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import prisma from '@/lib/prisma';
 
+// Define interfaces for the data structures
+interface Message {
+  id: string;
+  senderId: string;
+  senderRole: string;
+  recipient: string;
+  subject: string;
+  content: string;
+  emotionalFocus: string;
+  priority: string;
+  hasAttachments: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+interface Meeting {
+  id: string;
+  organizerId: string;
+  organizerRole: string;
+  title: string;
+  date: Date;
+  duration: string;
+  location: string;
+  agenda: string;
+  emotionalFocus: string;
+  status: string;
+  participants: string[];
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+interface Report {
+  id: string;
+  authorId: string;
+  authorRole: string;
+  title: string;
+  type: string;
+  student: string;
+  period: string;
+  content: string;
+  emotionalFocus: string;
+  hasAttachments: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 // Schema for message creation/update
 const messageSchema = z.object({
   recipient: z.string().min(1, "Recipient is required"),
@@ -64,9 +110,9 @@ export async function GET(request: Request) {
     const userId = session.user.id;
     
     // Determine which data to fetch based on type
-    let messages = [];
-    let meetings = [];
-    let reports = [];
+    let messages: Message[] = [];
+    let meetings: Meeting[] = [];
+    let reports: Report[] = [];
     
     if (type === 'all' || type === 'messages') {
       // Fetch messages
