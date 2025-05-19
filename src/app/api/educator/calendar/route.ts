@@ -88,8 +88,18 @@ export async function GET(request: NextRequest) {
       {
         id: '4',
         title: 'Progress Reports',
-        start: new Date(new Date().setDate(new Date().getDate() + 1)).setHours(13, 0, 0, 0).toISOString(),
-        end: new Date(new Date().setDate(new Date().getDate() + 1)).setHours(15, 0, 0, 0).toISOString(),
+        start: (() => {
+          const date = new Date();
+          date.setDate(date.getDate() + 1);
+          date.setHours(13, 0, 0, 0);
+          return date.toISOString();
+        })(),
+        end: (() => {
+          const date = new Date();
+          date.setDate(date.getDate() + 1);
+          date.setHours(15, 0, 0, 0);
+          return date.toISOString();
+        })(),
         type: 'administrative',
         priority: 'high',
         location: 'Office',
@@ -100,8 +110,18 @@ export async function GET(request: NextRequest) {
       {
         id: '5',
         title: 'Inclusive Teaching Workshop',
-        start: new Date(new Date().setDate(new Date().getDate() + 2)).setHours(9, 0, 0, 0).toISOString(),
-        end: new Date(new Date().setDate(new Date().getDate() + 2)).setHours(12, 0, 0, 0).toISOString(),
+        start: (() => {
+          const date = new Date();
+          date.setDate(date.getDate() + 2);
+          date.setHours(9, 0, 0, 0);
+          return date.toISOString();
+        })(),
+        end: (() => {
+          const date = new Date();
+          date.setDate(date.getDate() + 2);
+          date.setHours(12, 0, 0, 0);
+          return date.toISOString();
+        })(),
         type: 'professional',
         priority: 'medium',
         location: 'Training Centre',
@@ -159,7 +179,7 @@ export async function POST(request: NextRequest) {
     };
     
     return NextResponse.json(result);
-  } catch (error) {
+  } catch (error: any) {
     if (error instanceof z.ZodError) {
       return NextResponse.json({ error: error.errors }, { status: 400 });
     }
@@ -247,7 +267,7 @@ export async function PUT(request: NextRequest) {
     }
     
     return NextResponse.json(filteredSuggestions);
-  } catch (error) {
+  } catch (error: any) {
     if (error instanceof z.ZodError) {
       return NextResponse.json({ error: error.errors }, { status: 400 });
     }
@@ -291,7 +311,7 @@ export async function PATCH(request: NextRequest) {
     };
     
     return NextResponse.json(analyticsData);
-  } catch (error) {
+  } catch (error: any) {
     if (error instanceof z.ZodError) {
       return NextResponse.json({ error: error.errors }, { status: 400 });
     }
