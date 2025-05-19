@@ -39,7 +39,7 @@ const CopyrightRegistrationSchema = z.object({
 });
 
 // Mock blockchain interaction function
-const mockBlockchainInteraction = async (action, data) => {
+const mockBlockchainInteraction = async (action: string, data: Record<string, any>) => {
   // Simulate blockchain delay
   await new Promise(resolve => setTimeout(resolve, 1500));
   
