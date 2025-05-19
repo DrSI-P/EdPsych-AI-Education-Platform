@@ -145,7 +145,7 @@ async function handleProgressUpdate(body: any) {
     // Calculate overall progress
     let overallProgress = 0;
     if (allModuleProgress.length > 0) {
-      const totalProgress = allModuleProgress.reduce((sum, item) => sum + item.progress, 0);
+      const totalProgress = allModuleProgress.reduce((sum: number, item: any) => sum + item.progress, 0);
       overallProgress = Math.round(totalProgress / allModuleProgress.length);
     }
 
