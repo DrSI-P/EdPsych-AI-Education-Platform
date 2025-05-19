@@ -109,7 +109,7 @@ export async function POST(req: NextRequest) {
           { status: 400 }
         );
     }
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Error in mentor matching API:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
@@ -172,10 +172,11 @@ async function handleUpdateProfile(body: any) {
       { message: 'Profile updated successfully', profile },
       { status: 200 }
     );
-  } catch (error) {
+  } catch (error: unknown) {
     if (error instanceof z.ZodError) {
+      const zodError = error as z.ZodError;
       return NextResponse.json(
-        { error: 'Invalid profile data', details: error.errors },
+        { error: 'Invalid profile data', details: zodError.errors },
         { status: 400 }
       );
     }
@@ -208,10 +209,11 @@ async function handleRequestMentorship(body: any) {
       { message: 'Mentorship request sent successfully', request },
       { status: 201 }
     );
-  } catch (error) {
+  } catch (error: unknown) {
     if (error instanceof z.ZodError) {
+      const zodError = error as z.ZodError;
       return NextResponse.json(
-        { error: 'Invalid request data', details: error.errors },
+        { error: 'Invalid request data', details: zodError.errors },
         { status: 400 }
       );
     }
@@ -266,7 +268,7 @@ async function handleRespondToRequest(body: any) {
           startDate: startDate.toISOString(),
           endDate: endDate.toISOString(),
           focusAreas: request.focusAreas,
-          goals: request.goals.map(goal => ({
+          goals: request.goals.map((goal: string) => ({
             text: goal,
             status: 'not_started'
           })),
@@ -323,7 +325,7 @@ async function handleRespondToRequest(body: any) {
       { message: 'Mentorship request declined', request: updatedRequest },
       { status: 200 }
     );
-  } catch (error) {
+  } catch (error: unknown) {
     throw error;
   }
 }
@@ -364,7 +366,7 @@ async function handleUpdateMentorship(body: any) {
       { message: 'Mentorship updated successfully', mentorship },
       { status: 200 }
     );
-  } catch (error) {
+  } catch (error: unknown) {
     throw error;
   }
 }
@@ -397,10 +399,11 @@ async function handleAddMeeting(body: any) {
       { message: 'Meeting added successfully', meeting },
       { status: 201 }
     );
-  } catch (error) {
+  } catch (error: unknown) {
     if (error instanceof z.ZodError) {
+      const zodError = error as z.ZodError;
       return NextResponse.json(
-        { error: 'Invalid meeting data', details: error.errors },
+        { error: 'Invalid meeting data', details: zodError.errors },
         { status: 400 }
       );
     }
@@ -493,7 +496,7 @@ async function handleUpdateMeeting(body: any) {
       { message: 'Meeting updated successfully', meeting },
       { status: 200 }
     );
-  } catch (error) {
+  } catch (error: unknown) {
     throw error;
   }
 }
@@ -526,10 +529,11 @@ async function handleAddResource(body: any) {
       { message: 'Resource added successfully', resource },
       { status: 201 }
     );
-  } catch (error) {
+  } catch (error: unknown) {
     if (error instanceof z.ZodError) {
+      const zodError = error as z.ZodError;
       return NextResponse.json(
-        { error: 'Invalid resource data', details: error.errors },
+        { error: 'Invalid resource data', details: zodError.errors },
         { status: 400 }
       );
     }
@@ -565,10 +569,11 @@ async function handleAddFeedback(body: any) {
       { message: 'Feedback added successfully', feedback },
       { status: 201 }
     );
-  } catch (error) {
+  } catch (error: unknown) {
     if (error instanceof z.ZodError) {
+      const zodError = error as z.ZodError;
       return NextResponse.json(
-        { error: 'Invalid feedback data', details: error.errors },
+        { error: 'Invalid feedback data', details: zodError.errors },
         { status: 400 }
       );
     }
@@ -641,7 +646,7 @@ async function handleUpdateGoal(body: any) {
       { message: 'Goal updated successfully', mentorship: updatedMentorship },
       { status: 200 }
     );
-  } catch (error) {
+  } catch (error: unknown) {
     throw error;
   }
 }
@@ -767,7 +772,7 @@ async function handleCompleteMentorship(body: any) {
       { message: 'Mentorship completed successfully', mentorship: updatedMentorship },
       { status: 200 }
     );
-  } catch (error) {
+  } catch (error: unknown) {
     throw error;
   }
 }
@@ -819,7 +824,7 @@ export async function GET(req: NextRequest) {
           { status: 400 }
         );
     }
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Error in mentor matching API:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
@@ -1025,8 +1030,8 @@ async function getMentorshipAnalytics(userId: string) {
   const totalCpdPoints = cpdActivities.reduce((total, activity) => total + activity.points, 0);
   
   // Get expertise distribution
-  const expertiseDistribution = mentorMentorships.reduce((acc, mentorship) => {
-    mentorship.focusAreas.forEach(area => {
+  const expertiseDistribution = mentorMentorships.reduce((acc: Record<number, number>, mentorship) => {
+    mentorship.focusAreas.forEach((area: number) => {
       if (!acc[area]) {
         acc[area] = 0;
       }
@@ -1041,9 +1046,9 @@ async function getMentorshipAnalytics(userId: string) {
     month.setMonth(month.getMonth() - 11 + i);
     const monthStr = month.toLocaleString('default', { month: 'short' });
     
-    const monthMeetings = meetings.filter(m => {
+    const monthMeetings = meetings.filter((m: any) => {
       const meetingDate = new Date(m.date);
-      return meetingDate.getMonth() === month.getMonth() && 
+      return meetingDate.getMonth() === month.getMonth() &&
              meetingDate.getFullYear() === month.getFullYear() &&
              m.status === 'completed';
     }).length;
