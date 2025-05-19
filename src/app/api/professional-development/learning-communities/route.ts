@@ -204,8 +204,26 @@ export async function GET(request: NextRequest) {
   try {
     switch (endpoint) {
       case 'communities':
+        // Define interface for community type
+        interface Community {
+          id: string;
+          name: string;
+          description: string;
+          categories: string[];
+          privacy: string;
+          schools?: string[];
+          createdAt?: string;
+          updatedAt?: string;
+          createdBy?: string;
+          members?: number;
+          schoolCount?: number;
+          featured?: boolean;
+          image?: string;
+          activity?: string;
+        }
+
         if (id) {
-          const community = communities.find(c => c.id === id);
+          const community = communities.find((c: Community) => c.id === id);
           if (!community) {
             return NextResponse.json({ error: "Community not found" }, { status: 404 });
           }
@@ -219,7 +237,7 @@ export async function GET(request: NextRequest) {
         }
         const userMemberships = memberships.filter(m => m.userId === userId);
         const userCommunities = userMemberships.map(membership => {
-          const community = communities.find(c => c.id === membership.communityId);
+          const community = communities.find((c: Community) => c.id === membership.communityId);
           return {
             ...community,
             role: membership.role,
@@ -272,8 +290,28 @@ export async function GET(request: NextRequest) {
         return NextResponse.json(events);
         
       case 'collaborations':
+        // Define interface for collaboration type
+        interface Collaboration {
+          id: string;
+          communityId: string;
+          title: string;
+          description: string;
+          type: string;
+          schools: string[];
+          members?: string[];
+          memberCount?: number;
+          status: string;
+          progress: number;
+          dueDate: string;
+          createdAt?: string;
+          updatedAt?: string;
+          createdBy?: string;
+          resources?: string[];
+          discussions?: string[];
+        }
+
         if (id) {
-          const collaboration = collaborations.find(c => c.id === id);
+          const collaboration = collaborations.find((c: Collaboration) => c.id === id);
           if (!collaboration) {
             return NextResponse.json({ error: "Collaboration not found" }, { status: 404 });
           }
@@ -421,7 +459,7 @@ export async function POST(request: NextRequest) {
           return NextResponse.json({ error: "User ID and Community ID are required" }, { status: 400 });
         }
         
-        const community = communities.find(c => c.id === communityId);
+        const community = communities.find((c: Community) => c.id === communityId);
         if (!community) {
           return NextResponse.json({ error: "Community not found" }, { status: 404 });
         }

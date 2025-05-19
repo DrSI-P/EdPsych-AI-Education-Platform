@@ -189,8 +189,21 @@ export async function GET(request: NextRequest) {
       }
       
     case 'conferences':
+      // Define interface for conference type
+      interface Conference {
+        id: string;
+        title: string;
+        description: string;
+        date: string;
+        status: string;
+        studentId: string;
+        portfolioId: string;
+        createdAt: string;
+        updatedAt: string;
+      }
+      
       if (id) {
-        const conference = mockConferences.find(c => c.id === id);
+        const conference = mockConferences.find((c: Conference) => c.id === id);
         if (!conference) {
           return NextResponse.json({ error: "Conference not found" }, { status: 404 });
         }
