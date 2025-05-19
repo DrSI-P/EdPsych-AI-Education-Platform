@@ -1027,7 +1027,7 @@ async function getMentorshipAnalytics(userId: string) {
     }
   });
   
-  const totalCpdPoints = cpdActivities.reduce((total, activity) => total + activity.points, 0);
+  const totalCpdPoints = cpdActivities.reduce((total: number, activity: any) => total + activity.points, 0);
   
   // Get expertise distribution
   const expertiseDistribution = mentorMentorships.reduce((acc: Record<number, number>, mentorship) => {
