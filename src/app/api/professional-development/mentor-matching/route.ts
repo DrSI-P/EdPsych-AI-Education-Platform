@@ -880,7 +880,7 @@ async function getMeetings(userId: string) {
     select: { id: true }
   });
   
-  const mentorshipIds = mentorships.map(m => m.id);
+  const mentorshipIds = mentorships.map((m: any) => m.id);
   
   // Get meetings for these mentorships
   const meetings = await prisma.mentorshipMeeting.findMany({
