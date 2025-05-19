@@ -42,7 +42,7 @@ export async function POST(
     }
     
     // Check if user has already completed this assessment
-    const existingResponse = await prisma.response.findFirst({
+    const existingResponse = await prisma.assessmentResponse.findFirst({
       where: {
         assessmentId,
         userId: session.user.id,
@@ -58,7 +58,7 @@ export async function POST(
     }
     
     // Create a new response
-    const response = await prisma.response.create({
+    const response = await prisma.assessmentResponse.create({
       data: {
         assessment: { connect: { id: assessmentId } },
         user: { connect: { id: session.user.id } },
@@ -135,7 +135,7 @@ export async function POST(
               feedback = aiEvaluation.feedback;
               
               // Save the answer with AI evaluation
-              await prisma.answer.create({
+              await prisma.assessmentAnswer.create({
                 data: {
                   question: { connect: { id: questionId } },
                   response: { connect: { id: response.id } },
@@ -184,7 +184,7 @@ export async function POST(
       }
       
       // Save the answer
-      await prisma.answer.create({
+      await prisma.assessmentAnswer.create({
         data: {
           question: { connect: { id: questionId } },
           response: { connect: { id: response.id } },
@@ -221,7 +221,7 @@ export async function POST(
     }
     
     // Update the response with the score and feedback
-    await prisma.response.update({
+    await prisma.assessmentResponse.update({
       where: { id: response.id },
       data: {
         score: totalScore,
