@@ -32,6 +32,7 @@ model User {
   createdAssessments    Assessment[]          @relation("CreatedBy")
   createdTemplates      AssessmentTemplate[]  @relation("CreatedBy")
   responses             Response[]
+  gradedResponses       Response[]            @relation("ResponseGrader")
   pupilVoiceSurveys     PupilVoiceSurvey[]    @relation("PupilVoiceSurveyCreator")
   pupilVoiceResponses   PupilVoiceSurveyResponse[]
 }
@@ -510,6 +511,9 @@ model Response {
   completedAt DateTime?
   score       Float?
   feedback    String?  @db.Text
+  gradedById  String?
+  gradedBy    User?    @relation("ResponseGrader", fields: [gradedById], references: [id])
+  gradedAt    DateTime?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

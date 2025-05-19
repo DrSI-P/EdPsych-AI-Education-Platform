@@ -18,28 +18,71 @@ export async function GET(
     
     const responseId = params.id;
     
+    // Define types for our models
+    type Answer = {
+      id: string;
+      questionId: string;
+      responseId: string;
+      content: any;
+      isCorrect?: boolean;
+      feedback?: string;
+    };
+
+    type Assessment = {
+      id: string;
+      title: string;
+      description?: string;
+      createdById: string;
+    };
+
+    type User = {
+      id: string;
+      name?: string;
+      email?: string;
+    };
+
+    type Response = {
+      id: string;
+      assessmentId: string;
+      userId: string;
+      startedAt: Date;
+      completedAt?: Date;
+      score?: number;
+      feedback?: string;
+      user: User;
+      answers: Answer[];
+      assessment: Assessment;
+    };
+
     // Fetch the response with user and answers
-    const response = await prisma.response.findUnique({
-      where: { id: responseId },
-      include: {
-        user: {
-          select: {
-            id: true,
-            name: true,
-            email: true,
+    let response: Response | null = null;
+    
+    try {
+      response = await (prisma as any).response.findUnique({
+        where: { id: responseId },
+        include: {
+          user: {
+            select: {
+              id: true,
+              name: true,
+              email: true,
+            },
+          },
+          answers: true,
+          assessment: {
+            select: {
+              id: true,
+              title: true,
+              description: true,
+              createdById: true,
+            },
           },
         },
-        answers: true,
-        assessment: {
-          select: {
-            id: true,
-            title: true,
-            description: true,
-            createdById: true,
-          },
-        },
-      },
-    });
+      });
+    } catch (findError) {
+      console.error('Error finding response:', findError);
+      return NextResponse.json({ error: 'Response not found or database error' }, { status: 404 });
+    }
     
     if (!response) {
       return NextResponse.json({ error: 'Response not found' }, { status: 404 });
@@ -93,12 +136,19 @@ export async function PUT(
     const responseId = params.id;
     
     // Fetch the response to check if it exists
-    const response = await prisma.response.findUnique({
-      where: { id: responseId },
-      include: {
-        assessment: true,
-      },
-    });
+    let response = null;
+    
+    try {
+      response = await (prisma as any).response.findUnique({
+        where: { id: responseId },
+        include: {
+          assessment: true,
+        },
+      });
+    } catch (findError) {
+      console.error('Error finding response:', findError);
+      return NextResponse.json({ error: 'Response not found or database error' }, { status: 404 });
+    }
     
     if (!response) {
       return NextResponse.json({ error: 'Response not found' }, { status: 404 });
@@ -116,25 +166,40 @@ export async function PUT(
     for (const grade of grades) {
       if (!grade.answerId) continue;
       
-      await prisma.answer.update({
-        where: { id: grade.answerId },
-        data: {
-          isCorrect: grade.isCorrect,
-          feedback: grade.feedback,
-        },
-      });
+      try {
+        await (prisma as any).answer.update({
+          where: { id: grade.answerId },
+          data: {
+            isCorrect: grade.isCorrect,
+            feedback: grade.feedback,
+          },
+        });
+      } catch (updateError) {
+        console.error(`Error updating answer ${grade.answerId}:`, updateError);
+        // Continue with other answers even if one fails
+      }
     }
     
     // Update the response with the total score and feedback
-    const updatedResponse = await prisma.response.update({
-      where: { id: responseId },
-      data: {
-        score: totalScore,
-        feedback: feedback || response.feedback,
-        gradedBy: { connect: { id: session.user.id } },
-        gradedAt: new Date(),
-      },
-    });
+    let updatedResponse;
+    
+    try {
+      updatedResponse = await (prisma as any).response.update({
+        where: { id: responseId },
+        data: {
+          score: totalScore,
+          feedback: feedback || response.feedback,
+          gradedBy: { connect: { id: session.user.id } },
+          gradedAt: new Date(),
+        },
+      });
+    } catch (updateError) {
+      console.error('Error updating response:', updateError);
+      return NextResponse.json(
+        { error: 'Failed to update response with grades' },
+        { status: 500 }
+      );
+    }
     
     return NextResponse.json(updatedResponse);
     
