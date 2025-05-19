@@ -121,7 +121,7 @@ export async function POST(req: NextRequest) {
     const validatedData = planSchema.parse(data);
     
     // Create the plan with a transaction to ensure all related records are created
-    const result = await prisma.$transaction(async (prisma: PrismaClient) => {
+    const result = await prisma.$transaction(async (prisma) => {
       // Create the main plan
       const plan = await prisma.iEP504Plan.create({
         data: {
@@ -145,7 +145,9 @@ export async function POST(req: NextRequest) {
       
       // Create goals if provided
       if (validatedData.goals && validatedData.goals.length > 0) {
-        await Promise.all(validatedData.goals.map((goal: z.infer<typeof planSchema>['goals'][number]) =>
+        // Use type assertion to tell TypeScript that goals is definitely an array at this point
+        const goals = validatedData.goals as NonNullable<z.infer<typeof planSchema>['goals']>;
+        await Promise.all(goals.map((goal: any) =>
           prisma.iEP504Goal.create({
             data: {
               planId: plan.id,
@@ -165,7 +167,9 @@ export async function POST(req: NextRequest) {
       
       // Create accommodations if provided
       if (validatedData.accommodations && validatedData.accommodations.length > 0) {
-        await Promise.all(validatedData.accommodations.map((accommodation: z.infer<typeof planSchema>['accommodations'][number]) =>
+        // Use type assertion to tell TypeScript that accommodations is definitely an array at this point
+        const accommodations = validatedData.accommodations as NonNullable<z.infer<typeof planSchema>['accommodations']>;
+        await Promise.all(accommodations.map((accommodation: any) =>
           prisma.iEP504Accommodation.create({
             data: {
               planId: plan.id,
@@ -183,7 +187,9 @@ export async function POST(req: NextRequest) {
       
       // Create services if provided
       if (validatedData.services && validatedData.services.length > 0) {
-        await Promise.all(validatedData.services.map((service: z.infer<typeof planSchema>['services'][number]) =>
+        // Use type assertion to tell TypeScript that services is definitely an array at this point
+        const services = validatedData.services as NonNullable<z.infer<typeof planSchema>['services']>;
+        await Promise.all(services.map((service: any) =>
           prisma.iEP504Service.create({
             data: {
               planId: plan.id,
@@ -202,7 +208,9 @@ export async function POST(req: NextRequest) {
       
       // Create team members if provided
       if (validatedData.teamMembers && validatedData.teamMembers.length > 0) {
-        await Promise.all(validatedData.teamMembers.map((member: z.infer<typeof planSchema>['teamMembers'][number]) =>
+        // Use type assertion to tell TypeScript that teamMembers is definitely an array at this point
+        const teamMembers = validatedData.teamMembers as NonNullable<z.infer<typeof planSchema>['teamMembers']>;
+        await Promise.all(teamMembers.map((member: any) =>
           prisma.iEP504TeamMember.create({
             data: {
               planId: plan.id,
