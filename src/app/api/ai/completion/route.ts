@@ -3,7 +3,10 @@ import OpenAI from 'openai';
 import Anthropic from '@anthropic-ai/sdk';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import axios from 'axios';
-import { AIProvider } from '@/lib/ai/ai-service';
+import aiService from '@/lib/ai/ai-service';
+
+// Define AIProvider type locally since it's not exported from ai-service
+type AIProvider = 'openai' | 'anthropic' | 'gemini' | 'grok' | 'openrouter';
 
 // Define types for AI completion requests
 export interface AICompletionRequest {
@@ -128,8 +131,20 @@ async function handleAnthropicCompletion(
     max_tokens: maxTokens
   });
   
+  // Extract text from content blocks safely
+  let extractedText = '';
+  if (response.content && Array.isArray(response.content) && response.content.length > 0) {
+    for (const block of response.content) {
+      // Check if this is a text block
+      if (block.type === 'text' && 'text' in block) {
+        extractedText += block.text;
+      }
+      // Handle other block types if needed in the future
+    }
+  }
+  
   return {
-    text: response.content[0]?.text || '',
+    text: extractedText,
     provider: 'anthropic',
     model: requestData.model
   };
@@ -149,11 +164,6 @@ async function handleGeminiCompletion(
   const genAI = new GoogleGenerativeAI(apiKey);
   const model = genAI.getGenerativeModel({ model: requestData.model });
   
-  const generationConfig = {
-    temperature,
-    maxOutputTokens: maxTokens,
-  };
-  
   // Ensure UK spelling in prompts for educational content
   const ukSystemPrompt = requestData.systemPrompt 
     ? `${requestData.systemPrompt}\n\nPlease use UK English spelling and follow UK educational standards in all responses.`
@@ -161,7 +171,14 @@ async function handleGeminiCompletion(
   
   const fullPrompt = `${ukSystemPrompt}\n\n${requestData.prompt}`;
   
-  const response = await model.generateContent(fullPrompt, generationConfig);
+  // Use the correct type for generation options according to GoogleGenerativeAI SDK
+  const response = await model.generateContent({
+    contents: [{ role: 'user', parts: [{ text: fullPrompt }] }],
+    generationConfig: {
+      temperature,
+      maxOutputTokens: maxTokens,
+    }
+  });
   
   return {
     text: response.response.text(),

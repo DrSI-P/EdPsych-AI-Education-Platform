@@ -57,7 +57,8 @@ export async function POST(req: NextRequest) {
     // Get curriculum data if ID is provided
     if (curriculumId) {
       const curriculum = await prisma.curriculumPlan.findUnique({
-        where: { id: curriculumId }
+        where: { id: curriculumId },
+        include: { objectives: true }
       });
       
       if (curriculum) {
@@ -245,10 +246,8 @@ export async function POST(req: NextRequest) {
         ]
       }
     `;
-    
-    // Call AI service for progress-adaptive pacing
-    const pacingResponse = await aiService.getCompletion({
-      prompt,
+        // Call AI service for progress-adaptive pacing
+    const pacingResponse = await aiService.generateText(prompt, {
       model: 'gpt-4',
       temperature: 0.5,
       max_tokens: 4000,
@@ -258,9 +257,8 @@ export async function POST(req: NextRequest) {
     // Parse the response
     let pacingData;
     try {
-      pacingData = JSON.parse(pacingResponse);
-    } catch (error) {
-      console.error('Error parsing AI response:', error);
+      pacingData = JSON.parse(pacingResponse.text);
+    } catch (error) {      console.error('Error parsing AI response:', error);
       return NextResponse.json({ error: 'Failed to parse pacing data' }, { status: 500 });
     }
     

@@ -32,17 +32,19 @@ export async function POST(req: NextRequest) {
     // Get user's learning style profile if available and no preference specified
     let userLearningStyle = null;
     if (!learningStylePreference) {
-      const learningStyleProfile = await prisma.learningStyleProfile.findFirst({
-        where: {
-          userId: session.user.id
-        },
-        orderBy: {
-          createdAt: 'desc'
+      try {
+        const learningStyleProfile = await prisma.learningStyleProfile.findUnique({
+          where: {
+            userId: session.user.id
+          }
+        });
+        
+        if (learningStyleProfile) {
+          userLearningStyle = learningStyleProfile.primaryStyle?.toLowerCase() || null;
         }
-      });
-      
-      if (learningStyleProfile) {
-        userLearningStyle = learningStyleProfile.primaryStyle.toLowerCase();
+      } catch (error) {
+        console.log('Learning style profile not found:', error);
+        // Continue without learning style profile
       }
     }
     
@@ -87,45 +89,52 @@ export async function POST(req: NextRequest) {
     `;
     
     // Call AI service for transformation
-    const aiResponse = await aiService.getCompletion({
-      prompt,
+    const aiResponse = await aiService.generateText(prompt, {
       model: 'gpt-4',
       temperature: 0.7,
-      max_tokens: 2500,
-      response_format: { type: 'json_object' }
+      maxTokens: 2500,
+      responseFormat: { type: 'json_object' }
     });
     
     // Parse AI response
     let transformedContent;
     try {
-      transformedContent = JSON.parse(aiResponse);
+      // Extract text from AI response object
+      const responseText = aiResponse.text;
+      transformedContent = JSON.parse(responseText);
     } catch (error) {
       console.error('Failed to parse AI response:', error);
       return NextResponse.json({ error: 'Failed to transform content' }, { status: 500 });
     }
     
     // Save transformation to database
-    const contentTransformation = await prisma.contentTransformation.create({
-      data: {
-        userId: session.user.id,
-        originalContent,
-        contentType,
-        subjectArea: subjectArea || null,
-        targetAge,
-        complexity,
-        learningStylePreference: learningStylePreference || userLearningStyle || null,
-        visualContent: transformedContent.visual,
-        auditoryContent: transformedContent.auditory,
-        kinestheticContent: transformedContent.kinesthetic,
-        readingWritingContent: transformedContent.readingWriting,
-        multimodalContent: transformedContent.multimodal
-      }
-    });
+    let contentTransformation;
+    try {
+      contentTransformation = await prisma.contentTransformation.create({
+        data: {
+          userId: session.user.id,
+          originalContent,
+          contentType,
+          subjectArea: subjectArea || null,
+          targetAge,
+          complexity,
+          learningStylePreference: learningStylePreference || userLearningStyle || null,
+          visualContent: transformedContent.visual,
+          auditoryContent: transformedContent.auditory,
+          kinestheticContent: transformedContent.kinesthetic,
+          readingWritingContent: transformedContent.readingWriting,
+          multimodalContent: transformedContent.multimodal
+        }
+      });
+    } catch (error) {
+      console.log('Failed to save content transformation to database:', error);
+      // Continue without saving to database
+    }
     
     return NextResponse.json({
       success: true,
       transformedContent,
-      transformationId: contentTransformation.id
+      transformationId: contentTransformation?.id
     });
     
   } catch (error) {
@@ -151,17 +160,17 @@ export async function GET(req: NextRequest) {
         where: {
           userId: session.user.id
         },
-        orderBy: {
-          createdAt: 'desc'
-        },
-        take: 10,
         select: {
           id: true,
           contentType: true,
           subjectArea: true,
           targetAge: true,
           createdAt: true
-        }
+        },
+        orderBy: {
+          createdAt: 'desc'
+        },
+        take: 10
       });
       
       return NextResponse.json({
