@@ -9,10 +9,11 @@ const config = {
     '\\.(jpg|jpeg|png|gif|webp|svg)$': '<rootDir>/src/tests/__mocks__/fileMock.js'
   },
   transform: {
-    '^.+\\.(ts|tsx)$': ['ts-jest', {
-      tsconfig: '<rootDir>/tsconfig.json',
-    }],
+    '^.+\\.(js|jsx|ts|tsx)$': 'babel-jest'
   },
+  transformIgnorePatterns: [
+    '/node_modules/(?!(@next|next)/)'
+  ],
   testPathIgnorePatterns: [
     '<rootDir>/node_modules/',
     '<rootDir>/.next/'
@@ -22,13 +23,7 @@ const config = {
     '!src/**/*.d.ts',
     '!src/**/_*.{js,jsx,ts,tsx}',
     '!src/**/*.stories.{js,jsx,ts,tsx}'
-  ],
-  globals: {
-    'ts-jest': {
-      tsconfig: '<rootDir>/tsconfig.json',
-      isolatedModules: true
-    }
-  }
+  ]
 };
 
 module.exports = config;

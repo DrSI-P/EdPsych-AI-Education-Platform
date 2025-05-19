@@ -1,7 +1,7 @@
 // Jest setup file
-import '@testing-library/jest-dom';
-import 'whatwg-fetch';
-import { TextDecoder, TextEncoder } from 'util';
+require('@testing-library/jest-dom');
+require('whatwg-fetch');
+const { TextDecoder, TextEncoder } = require('util');
 
 // Mock the global fetch
 global.fetch = jest.fn();

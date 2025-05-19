@@ -5,6 +5,7 @@
  * and ensuring a cohesive visual identity across all components.
  */
 
+import React from "react";
 import { createContext, useContext, useEffect, useState } from "react";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
