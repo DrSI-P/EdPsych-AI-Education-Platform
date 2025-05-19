@@ -121,7 +121,7 @@ export async function POST(req: NextRequest) {
     const validatedData = planSchema.parse(data);
     
     // Create the plan with a transaction to ensure all related records are created
-    const result = await prisma.$transaction(async (prisma) => {
+    const result = await prisma.$transaction(async (prisma: any) => {
       // Create the main plan
       const plan = await prisma.iEP504Plan.create({
         data: {
