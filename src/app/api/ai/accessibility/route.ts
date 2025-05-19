@@ -35,12 +35,14 @@ export async function GET(req: NextRequest) {
         textSize: 100,
         lineSpacing: 150,
         highContrastMode: false,
-        dyslexiaFont: false,
+        dyslexiaFont: "opendyslexic",
+        dyslexiaFriendly: false,
         reducedMotion: false,
-        voiceRecognitionActive: false,
-        textToSpeechActive: false,
-        speechRate: 1,
-        speechPitch: 1
+        voiceInputEnabled: false,
+        voiceCommandsEnabled: false,
+        screenReaderOptimized: false,
+        keyboardNavigationOptimized: false,
+        focusIndicators: true
       }
     });
   } catch (error) {
@@ -74,17 +76,27 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Validate settings
+    // Validate settings - ensure types match schema definitions
+    // Only include fields that exist in the AccessibilitySettings model
     const validatedSettings = {
       textSize: Number(settings.textSize) || 100,
       lineSpacing: Number(settings.lineSpacing) || 150,
       highContrastMode: Boolean(settings.highContrastMode),
-      dyslexiaFont: Boolean(settings.dyslexiaFont),
-      reducedMotion: Boolean(settings.reducedMotion),
-      voiceRecognitionActive: Boolean(settings.voiceRecognitionActive),
-      textToSpeechActive: Boolean(settings.textToSpeechActive),
-      speechRate: Number(settings.speechRate) || 1,
-      speechPitch: Number(settings.speechPitch) || 1
+      contrastMode: settings.contrastMode || "high-contrast",
+      contrastLevel: Number(settings.contrastLevel) || 100,
+      reduceAnimations: Boolean(settings.reduceAnimations || false),
+      customTextColor: settings.customTextColor || null,
+      customBackgroundColor: settings.customBackgroundColor || null,
+      customLinkColor: settings.customLinkColor || null,
+      screenReaderOptimized: Boolean(settings.screenReaderOptimized || false),
+      dyslexiaFriendly: Boolean(settings.dyslexiaFriendly || false),
+      dyslexiaFont: settings.dyslexiaFont || "opendyslexic",
+      voiceInputEnabled: Boolean(settings.voiceInputEnabled || settings.voiceRecognitionActive || false),
+      voiceCommandsEnabled: Boolean(settings.voiceCommandsEnabled || false),
+      keyboardNavigationOptimized: Boolean(settings.keyboardNavigationOptimized || false),
+      focusIndicators: Boolean(settings.focusIndicators || true),
+      reduceMotion: Boolean(settings.reduceMotion || false),
+      colorBlindnessType: settings.colorBlindnessType || null
     };
 
     // Save settings to database (upsert to create or update)

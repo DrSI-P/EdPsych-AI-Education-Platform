@@ -199,12 +199,12 @@ async function main() {
     data: {
       title: 'Emotional Regulation Assessment - Emily Johnson',
       description: 'Comprehensive assessment of emotional regulation skills and strategies',
-      status: 'published',
-      createdById: edPsych.id,
+      type: 'observation',
+      creatorId: edPsych.id,  // Changed from createdById to creatorId to match schema
       questions: {
         create: [
           {
-            text: 'Self-Awareness',
+            question: 'Self-Awareness',
             type: 'observation',
             options: {
               score: 3,
@@ -214,7 +214,7 @@ async function main() {
             }
           },
           {
-            text: 'Self-Regulation',
+            question: 'Self-Regulation',
             type: 'observation',
             options: {
               score: 2,
@@ -224,7 +224,7 @@ async function main() {
             }
           },
           {
-            text: 'Social Awareness',
+            question: 'Social Awareness',
             type: 'observation',
             options: {
               score: 4,
@@ -242,12 +242,12 @@ async function main() {
     data: {
       title: 'Social Skills Assessment - James Johnson',
       description: 'Assessment of social communication and interaction skills',
-      status: 'published',
-      createdById: edPsych.id,
+      type: 'observation',
+      creatorId: edPsych.id,  // Changed from createdById to creatorId to match schema
       questions: {
         create: [
           {
-            text: 'Verbal Communication',
+            question: 'Verbal Communication',
             type: 'observation',
             options: {
               score: 4,
@@ -257,7 +257,7 @@ async function main() {
             }
           },
           {
-            text: 'Non-verbal Communication',
+            question: 'Non-verbal Communication',
             type: 'observation',
             options: {
               score: 3,
@@ -267,7 +267,7 @@ async function main() {
             }
           },
           {
-            text: 'Friendship Skills',
+            question: 'Friendship Skills',
             type: 'observation',
             options: {
               score: 3,
