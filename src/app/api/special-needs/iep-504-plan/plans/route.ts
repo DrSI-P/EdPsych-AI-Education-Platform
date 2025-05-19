@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import prisma from '@/lib/prisma';
@@ -71,7 +71,7 @@ const planSchema = z.object({
 });
 
 // GET handler to retrieve all plans for a user
-export async function GET(req) {
+export async function GET(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
     
@@ -105,7 +105,7 @@ export async function GET(req) {
 }
 
 // POST handler to create a new plan
-export async function POST(req) {
+export async function POST(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
     
@@ -144,7 +144,7 @@ export async function POST(req) {
       
       // Create goals if provided
       if (validatedData.goals && validatedData.goals.length > 0) {
-        await Promise.all(validatedData.goals.map(goal => 
+        await Promise.all(validatedData.goals.map((goal: z.infer<typeof planSchema>['goals'][number]) =>
           prisma.iEP504Goal.create({
             data: {
               planId: plan.id,
@@ -164,7 +164,7 @@ export async function POST(req) {
       
       // Create accommodations if provided
       if (validatedData.accommodations && validatedData.accommodations.length > 0) {
-        await Promise.all(validatedData.accommodations.map(accommodation => 
+        await Promise.all(validatedData.accommodations.map((accommodation: z.infer<typeof planSchema>['accommodations'][number]) =>
           prisma.iEP504Accommodation.create({
             data: {
               planId: plan.id,
@@ -182,7 +182,7 @@ export async function POST(req) {
       
       // Create services if provided
       if (validatedData.services && validatedData.services.length > 0) {
-        await Promise.all(validatedData.services.map(service => 
+        await Promise.all(validatedData.services.map((service: z.infer<typeof planSchema>['services'][number]) =>
           prisma.iEP504Service.create({
             data: {
               planId: plan.id,
@@ -201,7 +201,7 @@ export async function POST(req) {
       
       // Create team members if provided
       if (validatedData.teamMembers && validatedData.teamMembers.length > 0) {
-        await Promise.all(validatedData.teamMembers.map(member => 
+        await Promise.all(validatedData.teamMembers.map((member: z.infer<typeof planSchema>['teamMembers'][number]) =>
           prisma.iEP504TeamMember.create({
             data: {
               planId: plan.id,
@@ -236,9 +236,9 @@ export async function POST(req) {
     console.error('Error creating plan:', error);
     
     if (error instanceof z.ZodError) {
-      return NextResponse.json({ 
-        error: 'Validation error', 
-        details: error.errors 
+      return NextResponse.json({
+        error: 'Validation error',
+        details: (error as z.ZodError).errors
       }, { status: 400 });
     }
     
