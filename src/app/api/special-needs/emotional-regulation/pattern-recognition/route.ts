@@ -96,56 +96,56 @@ export async function GET(req: Request) {
   }
 }
 
+// Define types for analysis data
+interface Insight {
+  id: string;
+  type: string;
+  title: string;
+  description: string;
+  emotion?: string;
+  count?: number;
+  intensity?: number;
+  timeOfDay?: string;
+  dayOfWeek?: string;
+  trigger?: string;
+}
+
+interface TriggerPattern {
+  trigger: string;
+  total: number;
+  [emotion: string]: number | string;
+}
+
+interface TimePoint {
+  hour?: number;
+  day?: number;
+  name?: string;
+  count: number;
+}
+
+interface TimePatterns {
+  hourly: TimePoint[];
+  daily: TimePoint[];
+}
+
+interface EmotionTrend {
+  date: string;
+  [emotion: string]: string | number;
+}
+
+interface EmotionCorrelation {
+  source: string;
+  target: string;
+  count: number;
+  strength: number;
+}
+
 // Function to generate pattern analysis from emotion data
 function generatePatternAnalysis(
   emotionRecords: any[],
   emotionJournals: any[],
   analysisType: string = 'all'
 ) {
-  // Define types for analysis data
-  interface Insight {
-    id: string;
-    type: string;
-    title: string;
-    description: string;
-    emotion?: string;
-    count?: number;
-    intensity?: number;
-    timeOfDay?: string;
-    dayOfWeek?: string;
-    trigger?: string;
-  }
-
-  interface TriggerPattern {
-    trigger: string;
-    total: number;
-    [emotion: string]: number | string;
-  }
-
-  interface TimePoint {
-    hour?: number;
-    day?: number;
-    name?: string;
-    count: number;
-  }
-
-  interface TimePatterns {
-    hourly: TimePoint[];
-    daily: TimePoint[];
-  }
-
-  interface EmotionTrend {
-    date: string;
-    [emotion: string]: string | number;
-  }
-
-  interface EmotionCorrelation {
-    source: string;
-    target: string;
-    count: number;
-    strength: number;
-  }
-
   // Initialize analysis object
   const analysis: {
     insights: Insight[];
