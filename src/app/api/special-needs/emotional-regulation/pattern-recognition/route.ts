@@ -102,8 +102,58 @@ function generatePatternAnalysis(
   emotionJournals: any[],
   analysisType: string = 'all'
 ) {
+  // Define types for analysis data
+  interface Insight {
+    id: string;
+    type: string;
+    title: string;
+    description: string;
+    emotion?: string;
+    count?: number;
+    intensity?: number;
+    timeOfDay?: string;
+    dayOfWeek?: string;
+    trigger?: string;
+  }
+
+  interface TriggerPattern {
+    trigger: string;
+    total: number;
+    [emotion: string]: number | string;
+  }
+
+  interface TimePoint {
+    hour?: number;
+    day?: number;
+    name?: string;
+    count: number;
+  }
+
+  interface TimePatterns {
+    hourly: TimePoint[];
+    daily: TimePoint[];
+  }
+
+  interface EmotionTrend {
+    date: string;
+    [emotion: string]: string | number;
+  }
+
+  interface EmotionCorrelation {
+    source: string;
+    target: string;
+    count: number;
+    strength: number;
+  }
+
   // Initialize analysis object
-  const analysis = {
+  const analysis: {
+    insights: Insight[];
+    triggerPatterns: TriggerPattern[];
+    timePatterns: TimePatterns;
+    emotionTrends: EmotionTrend[];
+    emotionCorrelations: EmotionCorrelation[];
+  } = {
     insights: [],
     triggerPatterns: [],
     timePatterns: { hourly: [], daily: [] },
@@ -144,7 +194,7 @@ function generatePatternAnalysis(
 }
 
 // Helper function to generate insights
-function generateInsights(emotionRecords: any[]) {
+function generateInsights(emotionRecords: any[]): Insight[] {
   const insights = [];
   
   // Most common emotion
@@ -308,7 +358,7 @@ function generateInsights(emotionRecords: any[]) {
 }
 
 // Helper function to generate trigger patterns
-function generateTriggerPatterns(emotionRecords: any[]) {
+function generateTriggerPatterns(emotionRecords: any[]): TriggerPattern[] {
   // Group emotions by triggers
   const triggerEmotions: Record<string, Record<string, number>> = {};
   
@@ -342,7 +392,7 @@ function generateTriggerPatterns(emotionRecords: any[]) {
 }
 
 // Helper function to generate time patterns
-function generateTimePatterns(emotionRecords: any[]) {
+function generateTimePatterns(emotionRecords: any[]): TimePatterns {
   // Group by hour of day
   const hourCounts = Array(24).fill(0).map((_, i) => ({ hour: i, count: 0 }));
   
@@ -370,7 +420,7 @@ function generateTimePatterns(emotionRecords: any[]) {
 }
 
 // Helper function to generate emotion trends
-function generateEmotionTrends(emotionRecords: any[]) {
+function generateEmotionTrends(emotionRecords: any[]): EmotionTrend[] {
   // Group by date
   const dateEmotions: Record<string, Record<string, number>> = {};
   
@@ -396,7 +446,7 @@ function generateEmotionTrends(emotionRecords: any[]) {
 }
 
 // Helper function to generate emotion correlations
-function generateEmotionCorrelations(emotionRecords: any[]) {
+function generateEmotionCorrelations(emotionRecords: any[]): EmotionCorrelation[] {
   // Find emotions that often occur together or in sequence
   const emotionPairs: Record<string, { source: string; target: string; count: number; strength: number }> = {};
   
