@@ -79,7 +79,7 @@ export async function GET(req: Request) {
     });
     
     // Generate pattern analysis based on the data
-    const patternAnalysis = generatePatternAnalysis(emotionRecords, emotionJournals, params.analysisType);
+    const patternAnalysis = generatePatternAnalysis(emotionRecords, emotionJournals, params.analysisType || 'all');
     
     return NextResponse.json({
       emotionRecords,
@@ -100,7 +100,7 @@ export async function GET(req: Request) {
 function generatePatternAnalysis(
   emotionRecords: any[],
   emotionJournals: any[],
-  analysisType: string
+  analysisType: string = 'all'
 ) {
   // Initialize analysis object
   const analysis = {
