@@ -124,12 +124,24 @@ export async function GET(req: NextRequest) {
       );
     }
 
+    // Define interface for collaborator type
+    interface Collaborator {
+      user: {
+        id: string;
+        name?: string;
+        email?: string;
+        image?: string;
+        role?: string;
+      };
+      role: string;
+    }
+
     // Determine user's role in this plan
     let userRole = 'viewer';
     if (plan.authorId === session.user.id) {
       userRole = 'owner';
     } else {
-      const collaborator = collaborators.find((c: any) => c.user.id === session.user.id);
+      const collaborator = collaborators.find((c: Collaborator) => c.user.id === session.user.id);
       if (collaborator) {
         userRole = collaborator.role;
       }
