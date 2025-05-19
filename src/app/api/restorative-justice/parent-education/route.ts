@@ -76,9 +76,9 @@ export async function GET(req: NextRequest) {
         select: { resourceId: true }
       });
       
-      const favoriteIds = favorites.map(fav => fav.resourceId);
+      const favoriteIds = favorites.map((fav: any) => fav.resourceId);
       
-      resourcesWithFavorites = resources.map(resource => ({
+      resourcesWithFavorites = resources.map((resource: any) => ({
         ...resource,
         isFavorite: favoriteIds.includes(resource.id)
       }));
@@ -154,7 +154,7 @@ export async function POST(req: NextRequest) {
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
-        { error: error.errors },
+        { error: (error as z.ZodError).errors },
         { status: 400 }
       );
     }
@@ -190,7 +190,7 @@ export async function PATCH(req: NextRequest) {
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
-        { error: error.errors },
+        { error: (error as z.ZodError).errors },
         { status: 400 }
       );
     }
