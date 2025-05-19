@@ -25,8 +25,8 @@ const LessonPlanRequestSchema = z.object({
 // Schema for lesson plan retrieval request
 const GetLessonPlanSchema = z.object({
   userId: z.string().optional(),
-  limit: z.number().optional(),
-  offset: z.number().optional(),
+  limit: z.number().optional().default(10),
+  offset: z.number().optional().default(0),
   subject: z.string().optional(),
   yearGroup: z.string().optional(),
   searchTerm: z.string().optional()
@@ -65,14 +65,15 @@ export async function POST(request: NextRequest) {
       data: newLessonPlan
     }, { status: 201 });
     
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Error saving lesson plan:', error);
     
     if (error instanceof z.ZodError) {
-      return NextResponse.json({ 
-        success: false, 
-        message: "Validation error", 
-        errors: error.errors 
+      const zodError = error as z.ZodError;
+      return NextResponse.json({
+        success: false,
+        message: "Validation error",
+        errors: zodError.errors
       }, { status: 400 });
     }
     
@@ -198,14 +199,15 @@ export async function GET(request: NextRequest) {
       offset: validatedParams.offset
     });
     
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Error retrieving lesson plans:', error);
     
     if (error instanceof z.ZodError) {
-      return NextResponse.json({ 
-        success: false, 
-        message: "Validation error", 
-        errors: error.errors 
+      const zodError = error as z.ZodError;
+      return NextResponse.json({
+        success: false,
+        message: "Validation error",
+        errors: zodError.errors
       }, { status: 400 });
     }
     
