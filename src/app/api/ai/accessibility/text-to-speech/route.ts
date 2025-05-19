@@ -50,8 +50,9 @@ export async function POST(req: NextRequest) {
     await prisma.accessibilityLog.create({
       data: {
         userId: session.user.id,
+        action: 'feature_used',
         feature: 'text-to-speech',
-        options: JSON.stringify(speechOptions)
+        details: JSON.stringify(speechOptions)
         // timestamp and textLength fields removed as they're not in the schema
         // createdAt is automatically set by Prisma
       }

@@ -32,22 +32,11 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Validate settings
+    // Validate settings - using only fields that exist in the AccessibilitySettings model
+    // Ensure all field names and types exactly match the schema
     const validatedSettings = {
-      keyboardNavigation: Boolean(settings.keyboardNavigation),
-      highlightFocus: settings.highlightFocus !== undefined 
-        ? Boolean(settings.highlightFocus) 
-        : true,
-      skipLinks: settings.skipLinks !== undefined 
-        ? Boolean(settings.skipLinks) 
-        : true,
-      keyboardShortcuts: settings.keyboardShortcuts !== undefined 
-        ? Boolean(settings.keyboardShortcuts) 
-        : true,
-      tabSize: settings.tabSize || 'normal',
-      focusIndicatorSize: Number(settings.focusIndicatorSize) || 3,
-      focusIndicatorColor: settings.focusIndicatorColor || 'blue',
-      customFocusColor: settings.customFocusColor || '#0066cc',
+      keyboardNavigationOptimized: Boolean(settings.keyboardNavigation),
+      focusIndicators: Boolean(settings.highlightFocus ?? true),
     };
 
     // Save settings to database (upsert to create or update)
@@ -66,8 +55,9 @@ export async function POST(req: NextRequest) {
     await prisma.accessibilityLog.create({
       data: {
         userId: session.user.id,
+        action: 'setting_changed',
         feature: 'keyboard-navigation',
-        options: JSON.stringify(validatedSettings),
+        details: JSON.stringify(validatedSettings),
       }
     });
 
