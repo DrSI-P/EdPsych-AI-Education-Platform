@@ -32,30 +32,13 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Validate settings
+    // Validate settings - ensure types match schema definitions
     const validatedSettings = {
-      screenReaderOptimization: Boolean(settings.screenReaderOptimization),
-      enhancedAria: settings.enhancedAria !== undefined 
-        ? Boolean(settings.enhancedAria) 
-        : true,
-      improvedAltText: settings.improvedAltText !== undefined 
-        ? Boolean(settings.improvedAltText) 
-        : true,
-      semanticHeadings: settings.semanticHeadings !== undefined 
-        ? Boolean(settings.semanticHeadings) 
-        : true,
-      tableAccessibility: settings.tableAccessibility !== undefined 
-        ? Boolean(settings.tableAccessibility) 
-        : true,
-      formLabels: settings.formLabels !== undefined 
-        ? Boolean(settings.formLabels) 
-        : true,
-      readingOrder: settings.readingOrder !== undefined 
-        ? Boolean(settings.readingOrder) 
-        : true,
-      announcementLevel: ['minimal', 'moderate', 'verbose'].includes(settings.announcementLevel)
-        ? settings.announcementLevel
-        : 'moderate',
+      screenReaderOptimized: Boolean(settings.screenReaderOptimization),
+      // Only include fields that exist in the AccessibilitySettings model
+      // and ensure their types match the schema
+      dyslexiaFriendly: Boolean(settings.improvedAltText || false),
+      dyslexiaFont: settings.dyslexiaFont ? String(settings.dyslexiaFont) : "opendyslexic",
     };
 
     // Save settings to database (upsert to create or update)
@@ -76,7 +59,16 @@ export async function POST(req: NextRequest) {
         userId: session.user.id,
         action: 'setting_changed',
         feature: 'screen-reader-optimization',
-        details: JSON.stringify(validatedSettings),
+        details: JSON.stringify({
+          screenReaderOptimization: settings.screenReaderOptimization,
+          enhancedAria: settings.enhancedAria,
+          improvedAltText: settings.improvedAltText,
+          semanticHeadings: settings.semanticHeadings,
+          tableAccessibility: settings.tableAccessibility,
+          formLabels: settings.formLabels,
+          readingOrder: settings.readingOrder,
+          announcementLevel: settings.announcementLevel
+        }),
       }
     });
 

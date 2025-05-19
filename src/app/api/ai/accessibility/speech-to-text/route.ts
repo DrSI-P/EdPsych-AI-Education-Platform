@@ -53,16 +53,31 @@ export async function POST(req: NextRequest) {
           userId: session.user.id
         },
         update: {
-          textToSpeechActive: true,
-          // Only update other settings if they're provided
-          ...(settings.speechRate && { speechRate: settings.speechRate }),
-          ...(settings.speechPitch && { speechPitch: settings.speechPitch })
+          voiceInputEnabled: true,
+          // Restore the speech settings now that they're in the schema
+          speechRate: settings.speechRate || 1.0,
+          speechPitch: settings.speechPitch || 1.0
         },
         create: {
           userId: session.user.id,
-          textToSpeechActive: true,
+          voiceInputEnabled: true,
+          // Restore the speech settings now that they're in the schema
           speechRate: settings.speechRate || 1.0,
-          speechPitch: settings.speechPitch || 1.0
+          speechPitch: settings.speechPitch || 1.0,
+          // Required default values for other fields
+          textSize: 100,
+          lineSpacing: 150,
+          highContrastMode: false,
+          contrastMode: "high-contrast",
+          contrastLevel: 100,
+          reduceAnimations: false,
+          screenReaderOptimized: false,
+          dyslexiaFriendly: false,
+          dyslexiaFont: "opendyslexic",
+          voiceCommandsEnabled: false,
+          keyboardNavigationOptimized: false,
+          focusIndicators: true,
+          reduceMotion: false
         }
       });
     }
