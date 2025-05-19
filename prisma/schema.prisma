@@ -370,16 +370,24 @@ model AvatarVideoHistory {
 
 // Assessment Models
 model Assessment {
-  id           String   @id @default(cuid())
-  title        String
-  description  String   @db.Text
-  status       String   @default("draft") // draft, published, archived
-  createdById  String
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  createdBy    User     @relation("AssessmentCreator", fields: [createdById], references: [id])
-  questions    AssessmentQuestion[]
-  responses    AssessmentResponse[]
+  id                 String   @id @default(cuid())
+  title              String
+  description        String   @db.Text
+  type               String   @default("standard") // standard, diagnostic, formative, summative, etc.
+  subject            String?
+  keyStage           String?
+  timeLimit          Int?
+  passingScore       Int?
+  showResults        Boolean  @default(true)
+  randomizeQuestions Boolean  @default(false)
+  allowRetakes       Boolean  @default(true)
+  status             String   @default("draft") // draft, published, archived
+  createdById        String
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+  createdBy          User     @relation("AssessmentCreator", fields: [createdById], references: [id])
+  questions          AssessmentQuestion[]
+  responses          AssessmentResponse[]
 }
 
 model AssessmentQuestion {
