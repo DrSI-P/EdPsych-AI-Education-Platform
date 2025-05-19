@@ -605,7 +605,7 @@ async function handleUpdateGoal(body: any) {
     }
     
     // Update goal status
-    const goals = mentorship.goals.map(goal => {
+    const goals = mentorship.goals.map((goal: any) => {
       if (goal.id === goalId) {
         return { ...goal, status };
       }
