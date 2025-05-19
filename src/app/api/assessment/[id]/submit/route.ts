@@ -120,7 +120,7 @@ export async function POST(
           if (question.expectedAnswer && typeof content === 'string' && content.trim()) {
             try {
               const aiEvaluation = await aiService.evaluateOpenEndedAnswer({
-                question: question.content,
+                question: question.content || question.text || "",
                 expectedAnswer: question.expectedAnswer as string,
                 studentAnswer: content,
                 maxScore: question.points
@@ -139,9 +139,11 @@ export async function POST(
                 data: {
                   question: { connect: { id: questionId } },
                   response: { connect: { id: response.id } },
-                  content: { text: content },
-                  isCorrect,
-                  feedback,
+                  answer: { 
+                    text: content,
+                    isCorrect,
+                    feedback
+                  }
                 },
               });
               
@@ -157,24 +159,24 @@ export async function POST(
             } catch (error) {
               console.error('Error evaluating open-ended answer with AI:', error);
               // Fall back to manual grading (marked as needing review)
-              isCorrect = null;
+              isCorrect = false; // Use false instead of null for manual review
               feedback = 'This answer requires manual review.';
             }
           } else {
             // No expected answer or empty student answer
-            isCorrect = null;
+            isCorrect = false; // Use false instead of null for manual review
             feedback = 'This answer requires manual review.';
           }
           break;
           
         case 'file-upload':
           // File uploads always need manual review
-          isCorrect = null;
+          isCorrect = false; // Use false instead of null for manual review
           feedback = 'Your file has been submitted and will be reviewed.';
           break;
           
         default:
-          isCorrect = null;
+          isCorrect = false; // Use false instead of null for manual grading
           feedback = 'This question type requires manual grading.';
       }
       

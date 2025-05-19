@@ -391,16 +391,20 @@ model Assessment {
 }
 
 model AssessmentQuestion {
-  id           String   @id @default(cuid())
-  assessmentId String
-  text         String
-  type         String   // multiple_choice, scale, text, observation
-  options      Json     // Flexible structure for different question types
-  order        Int      @default(0)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  assessment   Assessment @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
-  answers      AssessmentAnswer[]
+  id             String   @id @default(cuid())
+  assessmentId   String
+  text           String
+  content        String?  @db.Text  // Alternative field for question content
+  type           String   // multiple_choice, scale, text, observation
+  options        Json     // Flexible structure for different question types
+  correctAnswer  Json?    // Correct answer data for automatic grading
+  expectedAnswer String?  @db.Text  // Expected answer for open-ended questions
+  points         Int      @default(1)
+  order          Int      @default(0)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  assessment     Assessment @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
+  answers        AssessmentAnswer[]
 }
 
 model AssessmentResponse {
