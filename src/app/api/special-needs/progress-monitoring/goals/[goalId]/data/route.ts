@@ -3,6 +3,15 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/db';
 
+// Define interface for data point
+interface DataPoint {
+  id: string;
+  goalId: string;
+  date: Date;
+  value: number;
+  notes: string;
+}
+
 /**
  * API endpoint for managing data points for a specific goal
  * 
@@ -51,7 +60,7 @@ export async function GET(
 
     return NextResponse.json({
       success: true,
-      dataPoints: dataPoints.map(point => ({
+      dataPoints: dataPoints.map((point: DataPoint) => ({
         id: point.id,
         date: point.date.toISOString().split('T')[0], // Format as YYYY-MM-DD
         value: point.value,
