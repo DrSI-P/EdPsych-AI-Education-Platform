@@ -37,6 +37,12 @@ model User {
   pupilVoiceSurveys     PupilVoiceSurvey[]    @relation("PupilVoiceSurveyCreator")
   pupilVoiceResponses   PupilVoiceSurveyResponse[]
   passwordReset         PasswordReset?
+  // Curriculum planning relations
+  authoredCurriculumPlans CurriculumPlan[]
+  curriculumCollaborations CurriculumPlanCollaborator[]
+  curriculumComments       CurriculumPlanComment[]
+  createdTasks             CurriculumPlanTask[]      @relation("TaskCreator")
+  assignedTasks            CurriculumPlanTask[]      @relation("TaskAssignee")
 }
 
 model Account {
@@ -535,6 +541,63 @@ model Response {
   gradedAt    DateTime?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+}
+
+// Curriculum Planning Models
+model CurriculumPlan {
+  id            String                     @id @default(cuid())
+  title         String
+  description   String?                    @db.Text
+  subject       String
+  yearGroup     String
+  authorId      String
+  author        User                       @relation(fields: [authorId], references: [id])
+  collaborators CurriculumPlanCollaborator[]
+  comments      CurriculumPlanComment[]
+  tasks         CurriculumPlanTask[]
+  content       Json
+  createdAt     DateTime                   @default(now())
+  updatedAt     DateTime                   @updatedAt
+}
+
+model CurriculumPlanCollaborator {
+  id        String         @id @default(cuid())
+  planId    String
+  plan      CurriculumPlan @relation(fields: [planId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role      String         // "editor" or "viewer"
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+
+  @@unique([planId, userId])
+}
+
+model CurriculumPlanComment {
+  id        String         @id @default(cuid())
+  planId    String
+  plan      CurriculumPlan @relation(fields: [planId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  content   String         @db.Text
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+}
+
+model CurriculumPlanTask {
+  id           String         @id @default(cuid())
+  planId       String
+  plan         CurriculumPlan @relation(fields: [planId], references: [id], onDelete: Cascade)
+  title        String
+  description  String         @db.Text
+  status       String         // "pending", "in_progress", "completed"
+  createdById  String
+  createdBy    User           @relation("TaskCreator", fields: [createdById], references: [id])
+  assignedToId String?
+  assignedTo   User?          @relation("TaskAssignee", fields: [assignedToId], references: [id])
+  dueDate      DateTime?
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
 }
 
 model Answer {
