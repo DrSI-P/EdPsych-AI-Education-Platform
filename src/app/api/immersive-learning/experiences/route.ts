@@ -3,6 +3,38 @@ import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth/auth-options';
 import prisma from '@/lib/prisma';
 
+// Define types for the immersive experience
+interface ImmersiveExperienceWithRelations {
+  id: string;
+  title: string;
+  description: string;
+  subject: string;
+  keyStage: string;
+  type: string;
+  duration: number;
+  accessibility: string[];
+  contentUrl: string;
+  thumbnailUrl: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+  author: {
+    id: string;
+    name: string;
+    image: string | null;
+  };
+  reviews: {
+    id: string;
+    rating: number;
+  }[];
+}
+
+// Define type for transformed experience
+interface TransformedExperience extends Omit<ImmersiveExperienceWithRelations, 'reviews'> {
+  reviewCount: number;
+  averageRating: number | null;
+  reviews: undefined;
+}
+
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
@@ -68,10 +100,10 @@ export async function GET(req: NextRequest) {
     });
 
     // Transform data to include calculated fields
-    const transformedExperiences = experiences.map(exp => {
+    const transformedExperiences = experiences.map((exp: ImmersiveExperienceWithRelations) => {
       const reviewCount = exp.reviews.length;
-      const averageRating = reviewCount > 0 
-        ? exp.reviews.reduce((sum, review) => sum + review.rating, 0) / reviewCount 
+      const averageRating = reviewCount > 0
+        ? exp.reviews.reduce((sum, review) => sum + review.rating, 0) / reviewCount
         : null;
       
       return {
@@ -79,7 +111,7 @@ export async function GET(req: NextRequest) {
         reviewCount,
         averageRating,
         reviews: undefined,
-      };
+      } as TransformedExperience;
     });
 
     // Get total count for pagination
@@ -95,7 +127,7 @@ export async function GET(req: NextRequest) {
         totalPages,
       },
     });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Error fetching immersive experiences:', error);
     return NextResponse.json(
       { error: 'Failed to fetch immersive experiences' },
@@ -168,7 +200,7 @@ export async function POST(req: NextRequest) {
     });
 
     return NextResponse.json({ experience }, { status: 201 });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Error creating immersive experience:', error);
     return NextResponse.json(
       { error: 'Failed to create immersive experience' },
