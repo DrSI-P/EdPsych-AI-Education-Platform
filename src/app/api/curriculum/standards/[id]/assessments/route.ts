@@ -36,8 +36,24 @@ export async function GET(
       return NextResponse.json({ error: 'Curriculum standard not found' }, { status: 404 });
     }
     
+    // Define interface for CurriculumAlignment type
+    interface CurriculumAlignment {
+      id: string;
+      curriculumStandardId: string;
+      assessmentId: string;
+      alignedById: string;
+      createdAt: Date;
+      updatedAt: Date;
+      assessment: {
+        id: string;
+        title: string;
+        description: string;
+        [key: string]: any; // For other assessment properties
+      };
+    }
+
     // Extract the assessments
-    const assessments = standard.assessments.map(alignment => alignment.assessment);
+    const assessments = standard.assessments.map((alignment: CurriculumAlignment) => alignment.assessment);
     
     return NextResponse.json(assessments);
     
