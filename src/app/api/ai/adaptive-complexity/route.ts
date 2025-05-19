@@ -36,36 +36,55 @@ export async function POST(req: NextRequest) {
     let originalComplexity = 50; // Default complexity level
     
     if (contentId) {
-      // Check if it's a curriculum plan - using generic query as the model might have a different name
-      const curriculumPlan = await prisma.$queryRaw`
+      // Check if it's a curriculum plan - using generic query with proper type casting
+      const curriculumPlanResult = await prisma.$queryRaw`
         SELECT * FROM "CurriculumPlan" WHERE id = ${contentId}
       `;
       
+      // Cast the result to an array and get the first item
+      const curriculumPlan = curriculumPlanResult && Array.isArray(curriculumPlanResult) && curriculumPlanResult.length > 0 
+        ? curriculumPlanResult[0] as { content?: string; title?: string; subject?: string; keyStage?: string }
+        : null;
+      
       if (curriculumPlan) {
         contentToAdjust = curriculumPlan.content || '';
-        contentTitle = curriculumPlan.title;
+        contentTitle = curriculumPlan.title || '';
         contentSubject = curriculumPlan.subject || '';
         contentKeyStage = curriculumPlan.keyStage || '';
       } else {
-        // Check if it's a resource - using generic query as the model might have a different name
-      const resource = await prisma.$queryRaw`
+        // Check if it's a resource - using generic query with proper type casting
+      const resourceResult = await prisma.$queryRaw`
         SELECT * FROM "Resource" WHERE id = ${contentId}
       `;
         
+        // Cast the result to an array and get the first item
+        const resource = resourceResult && Array.isArray(resourceResult) && resourceResult.length > 0 
+          ? resourceResult[0] as { content?: string; title?: string; tags?: string[] }
+          : null;
+        
         if (resource) {
           contentToAdjust = resource.content || '';
-          contentTitle = resource.title;
-          contentSubject = resource.tags.find(tag => tag.startsWith('subject:'))?.replace('subject:', '') || '';
-          contentKeyStage = resource.tags.find(tag => tag.startsWith('keyStage:'))?.replace('keyStage:', '') || '';
+          contentTitle = resource.title || '';
+          contentSubject = resource.tags && Array.isArray(resource.tags) 
+            ? resource.tags.find(tag => tag.startsWith('subject:'))?.replace('subject:', '') || '' 
+            : '';
+          contentKeyStage = resource.tags && Array.isArray(resource.tags) 
+            ? resource.tags.find(tag => tag.startsWith('keyStage:'))?.replace('keyStage:', '') || '' 
+            : '';
         } else {
-          // Check if it's multi-modal content - using generic query as the model might have a different name
-          const multiModalContent = await prisma.$queryRaw`
+          // Check if it's multi-modal content - using generic query with proper type casting
+          const multiModalContentResult = await prisma.$queryRaw`
             SELECT * FROM "MultiModalContent" WHERE id = ${contentId}
           `;
           
+          // Cast the result to an array and get the first item
+          const multiModalContent = multiModalContentResult && Array.isArray(multiModalContentResult) && multiModalContentResult.length > 0 
+            ? multiModalContentResult[0] as { multiModalContent?: any; title?: string; subject?: string; keyStage?: string }
+            : null;
+          
           if (multiModalContent) {
-            contentToAdjust = JSON.stringify(multiModalContent.multiModalContent);
-            contentTitle = multiModalContent.title;
+            contentToAdjust = multiModalContent.multiModalContent ? JSON.stringify(multiModalContent.multiModalContent) : '';
+            contentTitle = multiModalContent.title || '';
             contentSubject = multiModalContent.subject || '';
             contentKeyStage = multiModalContent.keyStage || '';
           } else {
@@ -249,14 +268,25 @@ export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const contentId = searchParams.get('contentId');
     
-    // Get user's adaptive content - using generic query as the model might have a different name
-    const adaptiveContents = await prisma.$queryRaw`
+    // Get user's adaptive content - using generic query with proper type casting
+    const adaptiveContentsResult = await prisma.$queryRaw`
       SELECT * FROM "AdaptiveContent" 
       WHERE "userId" = ${session.user.id}
       ${contentId ? `AND "sourceContentId" = ${contentId}` : ''}
       ORDER BY "createdAt" DESC
       LIMIT 10
     `;
+    
+    // Cast the result to an array of adaptive contents
+    const adaptiveContents = Array.isArray(adaptiveContentsResult) 
+      ? adaptiveContentsResult as Array<{
+          id: string;
+          title: string;
+          originalContent: string;
+          adjustedContent: any;
+          createdAt: Date;
+        }>
+      : [];
     
     return NextResponse.json({
       success: true,
