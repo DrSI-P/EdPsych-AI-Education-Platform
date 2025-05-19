@@ -222,7 +222,7 @@ async function handleFeedback(body: any) {
       select: { rating: true },
     });
 
-    const averageRating = allFeedback.reduce((sum, item) => sum + item.rating, 0) / allFeedback.length;
+    const averageRating = allFeedback.reduce((sum: number, item: any) => sum + item.rating, 0) / allFeedback.length;
 
     await prisma.webinar.update({
       where: { id: webinarId },
