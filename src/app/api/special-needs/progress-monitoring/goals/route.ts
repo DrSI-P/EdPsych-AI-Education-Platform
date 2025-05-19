@@ -1,7 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import { prisma } from '@/lib/db';
+import { db } from '@/lib/db';
+
+// Define interface for monitoring goal
+interface MonitoringGoal {
+  id: string;
+  userId: string;
+  title: string;
+  description: string;
+  targetDate: Date;
+  baseline: number;
+  target: number;
+  currentValue: number;
+  unit: string;
+  notes: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
 
 /**
  * API endpoint for managing progress monitoring goals
@@ -20,7 +36,7 @@ export async function GET(req: NextRequest) {
     }
 
     // Get user's progress monitoring goals
-    const goals = await prisma.monitoringGoal.findMany({
+    const goals = await db.query('monitoringGoal', 'findMany', {
       where: {
         userId: session.user.id
       },
@@ -31,7 +47,7 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      goals: goals.map(goal => ({
+      goals: goals.map((goal: MonitoringGoal) => ({
         id: goal.id,
         title: goal.title,
         description: goal.description,
@@ -83,7 +99,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Create goal in database
-    const newGoal = await prisma.monitoringGoal.create({
+    const newGoal = await db.query('monitoringGoal', 'create', {
       data: {
         userId: session.user.id,
         title: goal.title,
@@ -98,7 +114,7 @@ export async function POST(req: NextRequest) {
     });
 
     // Log the goal creation for analytics
-    await prisma.monitoringLog.create({
+    await db.query('monitoringLog', 'create', {
       data: {
         userId: session.user.id,
         action: 'goal_created',
