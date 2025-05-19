@@ -139,12 +139,33 @@ export function useAIService() {
     }
   };
   
+  // Evaluate open-ended answer
+  const evaluateOpenEndedAnswer = async (params: { 
+    question: string, 
+    expectedAnswer: string, 
+    studentAnswer: string, 
+    maxScore: number 
+  }) => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const result = await aiService.evaluateOpenEndedAnswer(params);
+      setIsLoading(false);
+      return result;
+    } catch (err) {
+      setError(err instanceof Error ? err : new Error('Unknown error occurred'));
+      setIsLoading(false);
+      throw err;
+    }
+  };
+  
   return {
     isLoading,
     error,
     generateText,
     analyzeSentiment,
-    generateEducationalContent
+    generateEducationalContent,
+    evaluateOpenEndedAnswer
   };
 }
 
@@ -229,6 +250,55 @@ export const aiService = {
       };
     } catch (error) {
       console.error('Error generating educational content:', error);
+      throw error;
+    }
+  },
+  
+  // Evaluate open-ended answer
+  evaluateOpenEndedAnswer: async ({ question, expectedAnswer, studentAnswer, maxScore }: { 
+    question: string, 
+    expectedAnswer: string, 
+    studentAnswer: string, 
+    maxScore: number 
+  }) => {
+    try {
+      // Simulate API call delay
+      await new Promise(resolve => setTimeout(resolve, 1200));
+      
+      // Simple mock evaluation logic
+      const keywords = expectedAnswer.toLowerCase().split(' ');
+      const studentWords = studentAnswer.toLowerCase().split(' ');
+      
+      // Count matching keywords
+      let matchCount = 0;
+      keywords.forEach(keyword => {
+        if (studentWords.includes(keyword)) matchCount++;
+      });
+      
+      // Calculate score based on keyword matches
+      const matchRatio = keywords.length > 0 ? matchCount / keywords.length : 0;
+      const score = Math.round(matchRatio * maxScore);
+      
+      // Generate feedback based on score
+      let feedback = '';
+      if (score >= maxScore * 0.8) {
+        feedback = "Excellent answer! You've covered all the key points.";
+      } else if (score >= maxScore * 0.6) {
+        feedback = "Good answer, but you could expand on some key concepts.";
+      } else if (score >= maxScore * 0.4) {
+        feedback = "Your answer addresses some points but misses important concepts.";
+      } else {
+        feedback = "Your answer needs improvement. Review the material and try again.";
+      }
+      
+      return {
+        score,
+        feedback,
+        matchRatio,
+        maxScore
+      };
+    } catch (error) {
+      console.error('Error evaluating open-ended answer:', error);
       throw error;
     }
   }
