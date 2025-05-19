@@ -3,6 +3,7 @@ import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import prisma from '@/lib/prisma';
 import { z } from 'zod';
+import { PrismaClient } from '@prisma/client';
 
 // Schema for validating sensory diet
 const sensoryDietSchema = z.object({
@@ -84,7 +85,7 @@ export async function POST(req: NextRequest) {
     const validatedData = sensoryDietSchema.parse(body);
 
     // Start a transaction
-    const result = await prisma.$transaction(async (prisma) => {
+    const result = await prisma.$transaction(async (prisma: PrismaClient) => {
       // If this diet is being set as active, deactivate all other diets
       if (validatedData.isActive) {
         await prisma.sensoryDiet.updateMany({

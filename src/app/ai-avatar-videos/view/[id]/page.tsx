@@ -2,13 +2,14 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
-import { Button, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { HeyGenService, HeyGenVideo } from '@/lib/heygen/heygen-service';
 import { Loader2, Download, ArrowLeft } from 'lucide-react';
 
 const VideoViewPage = () => {
   const params = useParams();
-  const videoId = params.id as string;
+  const videoId = params?.id as string || '';
   
   const [loading, setLoading] = useState(true);
   const [video, setVideo] = useState<HeyGenVideo | null>(null);
