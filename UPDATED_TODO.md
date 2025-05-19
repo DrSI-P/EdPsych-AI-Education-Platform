@@ -51,15 +51,14 @@
   - [x] Health checks
   - [x] Alerting system
 
+- [x] User Documentation
+  - [x] Administrator guide
+  - [x] Teacher guide
+  - [x] Student guide
+  - [x] Parent guide
+  - [x] Documentation index
+
 ## Remaining Tasks
-
-### Documentation
-
-- [ ] User Documentation
-  - [ ] Administrator guide
-  - [ ] Teacher guide
-  - [ ] Student guide
-  - [ ] Parent guide
 
 ### Content Development
 
