@@ -62,8 +62,36 @@ export async function POST(request: NextRequest) {
     const usePreparationForAdulthood = validatedData.preparationForAdulthood ?? 
                                       (validatedData.studentYear && validatedData.studentYear >= 9) ?? false;
     
+    // Define the type for key points to match the schema
+    type KeyPoint = {
+      text: string;
+      category: string;
+      ehcnaArea?: string;
+      preparationForAdulthood?: boolean;
+      highlighted: boolean;
+    };
+
+    type ActionItem = {
+      text: string;
+      assignedTo: string;
+      dueDate: string;
+      completed: boolean;
+      ehcnaArea?: string;
+    };
+
     // Mock response with EHCNA categories if requested
-    const response = {
+    const response: {
+      id: string;
+      title: string;
+      type: string;
+      date: string;
+      participants: string[];
+      language: string;
+      transcript: string;
+      keyPoints: KeyPoint[];
+      actionItems: ActionItem[];
+      tags: string[];
+    } = {
       id: meetingId,
       title: validatedData.title,
       type: validatedData.type,
@@ -146,9 +174,10 @@ export async function POST(request: NextRequest) {
     }
     
     return NextResponse.json(response, { status: 201 });
-  } catch (error) {
+  } catch (error: unknown) {
     if (error instanceof z.ZodError) {
-      return NextResponse.json({ error: error.errors }, { status: 400 });
+      const zodError = error as z.ZodError;
+      return NextResponse.json({ error: zodError.errors }, { status: 400 });
     }
     
     console.error('Error processing meeting note:', error);
@@ -165,7 +194,33 @@ export async function GET(request: NextRequest) {
     
     // In a real implementation, we would fetch meeting notes from the database
     // For now, we'll return mock data
-    const meetings = [
+    // Define types to match the schema
+    type MeetingNote = {
+      id: string;
+      title: string;
+      type: string;
+      date: string;
+      participants: string[];
+      language: string;
+      transcript: string;
+      keyPoints: {
+        text: string;
+        category: string;
+        ehcnaArea?: string;
+        preparationForAdulthood?: boolean;
+        highlighted: boolean;
+      }[];
+      actionItems: {
+        text: string;
+        assignedTo: string;
+        dueDate: string;
+        completed: boolean;
+        ehcnaArea?: string;
+      }[];
+      tags: string[];
+    };
+
+    const meetings: MeetingNote[] = [
       {
         id: 'meeting-123456',
         title: 'Annual Review Meeting - Alex Johnson',
@@ -179,12 +234,14 @@ export async function GET(request: NextRequest) {
             text: "Alex has made significant progress in reading comprehension",
             category: "strength",
             ehcnaArea: "Cognition and Learning",
+            preparationForAdulthood: false,
             highlighted: true,
           },
           {
             text: "Alex continues to struggle with peer relationships during unstructured time",
             category: "development",
             ehcnaArea: "Social, Emotional and Mental Health",
+            preparationForAdulthood: false,
             highlighted: true,
           }
         ],
@@ -220,7 +277,7 @@ export async function GET(request: NextRequest) {
     }
     
     return NextResponse.json(filteredMeetings);
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Error fetching meeting notes:', error);
     return NextResponse.json({ error: 'Failed to fetch meeting notes' }, { status: 500 });
   }
