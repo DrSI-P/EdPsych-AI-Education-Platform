@@ -549,15 +549,58 @@ model CurriculumPlan {
   title         String
   description   String?                    @db.Text
   subject       String
-  yearGroup     String
+  keyStage      String
+  year          String?
+  term          String?
+  status        String                     @default("draft")
+  yearGroup     String?
   authorId      String
   author        User                       @relation(fields: [authorId], references: [id])
   collaborators CurriculumPlanCollaborator[]
   comments      CurriculumPlanComment[]
   tasks         CurriculumPlanTask[]
-  content       Json
+  objectives    CurriculumObjective[]
+  resources     CurriculumResource[]
+  assessments   CurriculumAssessment[]
+  content       Json?
   createdAt     DateTime                   @default(now())
   updatedAt     DateTime                   @updatedAt
+}
+
+model CurriculumObjective {
+  id          String         @id @default(cuid())
+  planId      String
+  plan        CurriculumPlan @relation(fields: [planId], references: [id], onDelete: Cascade)
+  title       String
+  description String?        @db.Text
+  order       Int            @default(0)
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+}
+
+model CurriculumResource {
+  id          String         @id @default(cuid())
+  planId      String
+  plan        CurriculumPlan @relation(fields: [planId], references: [id], onDelete: Cascade)
+  title       String
+  description String?        @db.Text
+  type        String
+  url         String?
+  content     String?        @db.Text
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+}
+
+model CurriculumAssessment {
+  id          String         @id @default(cuid())
+  planId      String
+  plan        CurriculumPlan @relation(fields: [planId], references: [id], onDelete: Cascade)
+  title       String
+  description String?        @db.Text
+  type        String
+  content     Json?
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
 }
 
 model CurriculumPlanCollaborator {
