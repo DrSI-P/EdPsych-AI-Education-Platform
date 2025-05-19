@@ -1,6 +1,136 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 
+// Define interfaces for data types
+interface Community {
+  id: string;
+  name: string;
+  description: string;
+  categories: string[];
+  privacy: string;
+  schools?: string[];
+  createdAt?: string;
+  updatedAt?: string;
+  createdBy?: string;
+  members?: number;
+  schoolCount?: number;
+  featured?: boolean;
+  image?: string;
+  activity?: string;
+}
+
+interface Resource {
+  id: string;
+  communityId: string;
+  title: string;
+  description: string;
+  type: string;
+  tags: string[];
+  fileUrl?: string;
+  fileType?: string;
+  fileSize?: number;
+  author: {
+    id: string;
+    name: string;
+    school: string;
+  };
+  createdAt?: string;
+  updatedAt?: string;
+  downloads?: number;
+  rating?: number;
+  reviews?: number;
+  featured?: boolean;
+  privacySettings?: {
+    anonymized?: boolean;
+    attribution?: boolean;
+    reviewed?: boolean;
+    sharingScope?: string;
+  };
+}
+
+interface Discussion {
+  id: string;
+  communityId: string;
+  title: string;
+  content: string;
+  author: {
+    id: string;
+    name: string;
+    role?: string;
+    school: string;
+    avatar?: string;
+  };
+  createdAt?: string;
+  updatedAt?: string;
+  replies?: number;
+  views?: number;
+  lastReplyAt?: string | null;
+  pinned?: boolean;
+  tags?: string[];
+}
+
+interface Event {
+  id: string;
+  communityId: string;
+  title: string;
+  description: string;
+  type: string;
+  date: string;
+  time: string;
+  location: string;
+  host: {
+    id: string;
+    name: string;
+    school: string;
+  };
+  capacity?: number;
+  attendees?: string[];
+  attendeeCount?: number;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+interface Collaboration {
+  id: string;
+  communityId: string;
+  title: string;
+  description: string;
+  type: string;
+  schools: string[];
+  members?: string[];
+  memberCount?: number;
+  status: string;
+  progress: number;
+  dueDate: string;
+  createdAt?: string;
+  updatedAt?: string;
+  createdBy?: string;
+  resources?: string[];
+  discussions?: string[];
+}
+
+interface Membership {
+  userId: string;
+  communityId: string;
+  role: string;
+  joinedAt?: string;
+  lastActivity?: string;
+  status?: string;
+}
+
+interface PrivacySetting {
+  communityId: string;
+  visibility: string;
+  discussionsAccess: string;
+  resourcesAccess: string;
+  eventsAccess: string;
+  collaborationsAccess: string;
+  enableAnonymization: boolean;
+  requireApproval: boolean;
+  maintainAttribution: boolean;
+  approvedSchools?: string[];
+}
+
 // Schema definitions for Learning Communities API
 const CommunitySchema = z.object({
   id: z.string().optional(),
@@ -132,16 +262,16 @@ const MembershipSchema = z.object({
 });
 
 // Mock data storage (would be replaced with database in production)
-let communities = [];
-let resources = [];
-let discussions = [];
-let events = [];
-let collaborations = [];
-let memberships = [];
-let privacySettings = [];
+let communities: Community[] = [];
+let resources: Resource[] = [];
+let discussions: Discussion[] = [];
+let events: Event[] = [];
+let collaborations: Collaboration[] = [];
+let memberships: Membership[] = [];
+let privacySettings: PrivacySetting[] = [];
 
 // Integration with other professional development modules
-const integrateCPDActivity = async (userId, activityType, details) => {
+const integrateCPDActivity = async (userId: string, activityType: string, details: any) => {
   try {
     // In a real implementation, this would call the CPD Tracking API
     console.log(`Recording CPD activity for user ${userId}: ${activityType}`);
@@ -152,7 +282,7 @@ const integrateCPDActivity = async (userId, activityType, details) => {
   }
 };
 
-const integratePortfolio = async (userId, portfolioItem) => {
+const integratePortfolio = async (userId: string, portfolioItem: any) => {
   try {
     // In a real implementation, this would call the Professional Portfolio API
     console.log(`Adding portfolio item for user ${userId}`);
@@ -163,7 +293,7 @@ const integratePortfolio = async (userId, portfolioItem) => {
   }
 };
 
-const integrateMentorMatching = async (userId, expertise) => {
+const integrateMentorMatching = async (userId: string, expertise: string[]) => {
   try {
     // In a real implementation, this would call the Mentor Matching API
     console.log(`Updating expertise for user ${userId}: ${expertise.join(', ')}`);
@@ -175,8 +305,8 @@ const integrateMentorMatching = async (userId, expertise) => {
 };
 
 // Helper functions
-const calculateCPDPoints = (activityType) => {
-  const pointsMap = {
+const calculateCPDPoints = (activityType: string): number => {
+  const pointsMap: Record<string, number> = {
     'resource_share': 2,
     'discussion_post': 1,
     'discussion_reply': 0.5,
@@ -190,7 +320,7 @@ const calculateCPDPoints = (activityType) => {
   return pointsMap[activityType] || 0;
 };
 
-const generateId = (prefix) => {
+const generateId = (prefix: string): string => {
   return `${prefix}_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 };
 
@@ -204,23 +334,6 @@ export async function GET(request: NextRequest) {
   try {
     switch (endpoint) {
       case 'communities':
-        // Define interface for community type
-        interface Community {
-          id: string;
-          name: string;
-          description: string;
-          categories: string[];
-          privacy: string;
-          schools?: string[];
-          createdAt?: string;
-          updatedAt?: string;
-          createdBy?: string;
-          members?: number;
-          schoolCount?: number;
-          featured?: boolean;
-          image?: string;
-          activity?: string;
-        }
 
         if (id) {
           const community = communities.find((c: Community) => c.id === id);
@@ -290,25 +403,6 @@ export async function GET(request: NextRequest) {
         return NextResponse.json(events);
         
       case 'collaborations':
-        // Define interface for collaboration type
-        interface Collaboration {
-          id: string;
-          communityId: string;
-          title: string;
-          description: string;
-          type: string;
-          schools: string[];
-          members?: string[];
-          memberCount?: number;
-          status: string;
-          progress: number;
-          dueDate: string;
-          createdAt?: string;
-          updatedAt?: string;
-          createdBy?: string;
-          resources?: string[];
-          discussions?: string[];
-        }
 
         if (id) {
           const collaboration = collaborations.find((c: Collaboration) => c.id === id);
@@ -371,7 +465,7 @@ export async function GET(request: NextRequest) {
       default:
         return NextResponse.json({ error: "Invalid endpoint" }, { status: 400 });
     }
-  } catch (error) {
+  } catch (error: unknown) {
     console.error("Error processing GET request:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
@@ -445,9 +539,10 @@ export async function POST(request: NextRequest) {
           await integrateMentorMatching(body.userId, newCommunity.categories);
           
           return NextResponse.json({ success: true, community: newCommunity });
-        } catch (error) {
+        } catch (error: unknown) {
           if (error instanceof z.ZodError) {
-            return NextResponse.json({ error: error.errors }, { status: 400 });
+            const zodError = error as z.ZodError;
+            return NextResponse.json({ error: zodError.errors }, { status: 400 });
           }
           throw error;
         }
@@ -481,7 +576,11 @@ export async function POST(request: NextRequest) {
         memberships.push(newMembership);
         
         // Update community member count
-        community.members += 1;
+        if (community.members !== undefined) {
+          community.members += 1;
+        } else {
+          community.members = 1;
+        }
         
         // Integrate with CPD tracking
         await integrateCPDActivity(userId, 'community_join', {
@@ -524,9 +623,10 @@ export async function POST(request: NextRequest) {
           });
           
           return NextResponse.json({ success: true, resource: newResource });
-        } catch (error) {
+        } catch (error: unknown) {
           if (error instanceof z.ZodError) {
-            return NextResponse.json({ error: error.errors }, { status: 400 });
+            const zodError = error as z.ZodError;
+            return NextResponse.json({ error: zodError.errors }, { status: 400 });
           }
           throw error;
         }
@@ -555,9 +655,10 @@ export async function POST(request: NextRequest) {
           });
           
           return NextResponse.json({ success: true, discussion: newDiscussion });
-        } catch (error) {
+        } catch (error: unknown) {
           if (error instanceof z.ZodError) {
-            return NextResponse.json({ error: error.errors }, { status: 400 });
+            const zodError = error as z.ZodError;
+            return NextResponse.json({ error: zodError.errors }, { status: 400 });
           }
           throw error;
         }
@@ -594,9 +695,10 @@ export async function POST(request: NextRequest) {
           });
           
           return NextResponse.json({ success: true, event: newEvent });
-        } catch (error) {
+        } catch (error: unknown) {
           if (error instanceof z.ZodError) {
-            return NextResponse.json({ error: error.errors }, { status: 400 });
+            const zodError = error as z.ZodError;
+            return NextResponse.json({ error: zodError.errors }, { status: 400 });
           }
           throw error;
         }
@@ -636,9 +738,10 @@ export async function POST(request: NextRequest) {
           });
           
           return NextResponse.json({ success: true, collaboration: newCollaboration });
-        } catch (error) {
+        } catch (error: unknown) {
           if (error instanceof z.ZodError) {
-            return NextResponse.json({ error: error.errors }, { status: 400 });
+            const zodError = error as z.ZodError;
+            return NextResponse.json({ error: zodError.errors }, { status: 400 });
           }
           throw error;
         }
@@ -661,9 +764,10 @@ export async function POST(request: NextRequest) {
           }
           
           return NextResponse.json({ success: true, settings: settingsData });
-        } catch (error) {
+        } catch (error: unknown) {
           if (error instanceof z.ZodError) {
-            return NextResponse.json({ error: error.errors }, { status: 400 });
+            const zodError = error as z.ZodError;
+            return NextResponse.json({ error: zodError.errors }, { status: 400 });
           }
           throw error;
         }
@@ -714,7 +818,7 @@ export async function POST(request: NextRequest) {
       default:
         return NextResponse.json({ error: "Invalid endpoint" }, { status: 400 });
     }
-  } catch (error) {
+  } catch (error: unknown) {
     console.error("Error processing POST request:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
@@ -748,9 +852,10 @@ export async function PUT(request: NextRequest) {
           communities[communityIndex] = updatedCommunity;
           
           return NextResponse.json({ success: true, community: updatedCommunity });
-        } catch (error) {
+        } catch (error: unknown) {
           if (error instanceof z.ZodError) {
-            return NextResponse.json({ error: error.errors }, { status: 400 });
+            const zodError = error as z.ZodError;
+            return NextResponse.json({ error: zodError.errors }, { status: 400 });
           }
           throw error;
         }
@@ -773,9 +878,10 @@ export async function PUT(request: NextRequest) {
           resources[resourceIndex] = updatedResource;
           
           return NextResponse.json({ success: true, resource: updatedResource });
-        } catch (error) {
+        } catch (error: unknown) {
           if (error instanceof z.ZodError) {
-            return NextResponse.json({ error: error.errors }, { status: 400 });
+            const zodError = error as z.ZodError;
+            return NextResponse.json({ error: zodError.errors }, { status: 400 });
           }
           throw error;
         }
@@ -798,9 +904,10 @@ export async function PUT(request: NextRequest) {
           discussions[discussionIndex] = updatedDiscussion;
           
           return NextResponse.json({ success: true, discussion: updatedDiscussion });
-        } catch (error) {
+        } catch (error: unknown) {
           if (error instanceof z.ZodError) {
-            return NextResponse.json({ error: error.errors }, { status: 400 });
+            const zodError = error as z.ZodError;
+            return NextResponse.json({ error: zodError.errors }, { status: 400 });
           }
           throw error;
         }
@@ -823,9 +930,10 @@ export async function PUT(request: NextRequest) {
           events[eventIndex] = updatedEvent;
           
           return NextResponse.json({ success: true, event: updatedEvent });
-        } catch (error) {
+        } catch (error: unknown) {
           if (error instanceof z.ZodError) {
-            return NextResponse.json({ error: error.errors }, { status: 400 });
+            const zodError = error as z.ZodError;
+            return NextResponse.json({ error: zodError.errors }, { status: 400 });
           }
           throw error;
         }
@@ -848,9 +956,10 @@ export async function PUT(request: NextRequest) {
           collaborations[collaborationIndex] = updatedCollaboration;
           
           return NextResponse.json({ success: true, collaboration: updatedCollaboration });
-        } catch (error) {
+        } catch (error: unknown) {
           if (error instanceof z.ZodError) {
-            return NextResponse.json({ error: error.errors }, { status: 400 });
+            const zodError = error as z.ZodError;
+            return NextResponse.json({ error: zodError.errors }, { status: 400 });
           }
           throw error;
         }
@@ -882,7 +991,7 @@ export async function PUT(request: NextRequest) {
       default:
         return NextResponse.json({ error: "Invalid endpoint" }, { status: 400 });
     }
-  } catch (error) {
+  } catch (error: unknown) {
     console.error("Error processing PUT request:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
@@ -986,7 +1095,7 @@ export async function DELETE(request: NextRequest) {
         
         // Update community member count
         const memberCommunityIndex = communities.findIndex(c => c.id === communityId);
-        if (memberCommunityIndex !== -1) {
+        if (memberCommunityIndex !== -1 && communities[memberCommunityIndex].members !== undefined) {
           communities[memberCommunityIndex].members -= 1;
         }
         
@@ -995,7 +1104,7 @@ export async function DELETE(request: NextRequest) {
       default:
         return NextResponse.json({ error: "Invalid endpoint" }, { status: 400 });
     }
-  } catch (error) {
+  } catch (error: unknown) {
     console.error("Error processing DELETE request:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
