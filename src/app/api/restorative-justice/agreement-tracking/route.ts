@@ -110,7 +110,7 @@ export async function POST(req: Request) {
           }
         },
         terms: {
-          create: validatedData.terms.map(term => ({
+          create: validatedData.terms.map((term: any) => ({
             description: term.description,
             responsibleParty: term.responsibleParty,
             dueDate: new Date(term.dueDate),
@@ -183,9 +183,9 @@ export async function PATCH(req: Request) {
     });
     
     // Calculate new progress
-    const completedTerms = agreement.terms.filter(term => 
-      term.id === validatedData.termId ? 
-        validatedData.status === 'completed' : 
+    const completedTerms = agreement.terms.filter((term: any) =>
+      term.id === validatedData.termId ?
+        validatedData.status === 'completed' :
         term.status === 'completed'
     ).length;
     
@@ -195,9 +195,9 @@ export async function PATCH(req: Request) {
     let status = agreement.status;
     if (progress === 100) {
       status = 'completed';
-    } else if (agreement.terms.some(term => 
-      term.id === validatedData.termId ? 
-        validatedData.status === 'at-risk' : 
+    } else if (agreement.terms.some((term: any) =>
+      term.id === validatedData.termId ?
+        validatedData.status === 'at-risk' :
         term.status === 'at-risk'
     )) {
       status = 'at-risk';
@@ -213,7 +213,7 @@ export async function PATCH(req: Request) {
         status,
         updates: {
           create: {
-            content: `Term "${agreement.terms.find(t => t.id === validatedData.termId)?.description}" status updated to ${validatedData.status}.${validatedData.notes ? ` Notes: ${validatedData.notes}` : ''}`,
+            content: `Term "${agreement.terms.find((t: any) => t.id === validatedData.termId)?.description}" status updated to ${validatedData.status}.${validatedData.notes ? ` Notes: ${validatedData.notes}` : ''}`,
             author: session.user.name || 'System'
           }
         }
