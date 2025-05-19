@@ -3,6 +3,26 @@ import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import prisma from '@/lib/prisma';
 
+// Define interfaces for the data structures
+interface InterventionData {
+  id: string;
+  type: string;
+  name: string;
+  startDate: Date;
+  endDate?: Date;
+  effectiveness?: number;
+  goals?: any[];
+  notes?: string;
+}
+
+interface StudentProgressData {
+  id: string;
+  goalId: string;
+  date: Date;
+  value: number;
+  notes?: string;
+}
+
 export async function POST(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
@@ -28,8 +48,8 @@ export async function POST(req: NextRequest) {
     }
     
     // Fetch user's intervention data
-    let interventionData = [];
-    let studentProgress = [];
+    let interventionData: InterventionData[] = [];
+    let studentProgress: StudentProgressData[] = [];
     
     // If using real data (not demo data)
     if (settings.enabled) {
