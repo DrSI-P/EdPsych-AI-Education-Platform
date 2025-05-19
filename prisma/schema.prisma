@@ -429,6 +429,7 @@ model AssessmentTemplate {
   description String?                      @db.Text
   type        String                       // quiz, survey, diagnostic, etc.
   category    String?                      // subject area or category
+  tags        String[]                     // Tags for categorization and filtering
   createdById String
   createdBy   User                         @relation("CreatedBy", fields: [createdById], references: [id])
   questions   AssessmentTemplateQuestion[]
