@@ -1,14 +1,16 @@
 import '@/styles/globals.css';
 import { Inter } from 'next/font/google';
-import { ThemeProvider } from '@/components/theme-provider';
-import { Toaster } from '@/components/ui/toaster';
-import { AuthProvider } from '@/components/auth-provider';
-// Import metadata from separate file
-import { metadata } from './metadata';
+import { Providers } from '@/components/providers';
+import type { Metadata } from 'next';
 
 const inter = Inter({ subsets: ['latin'] });
 
-// Metadata is now imported from a separate file
+// Define metadata directly in layout.tsx
+export const metadata: Metadata = {
+  title: 'EdPsych-AI-Education-Platform',
+  description: 'A comprehensive AI-powered education platform for educational psychologists, teachers, students, and parents.',
+  manifest: '/manifest.json',
+};
 
 export default function RootLayout({
   children,
@@ -18,12 +20,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <AuthProvider>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            {children}
-            <Toaster />
-          </ThemeProvider>
-        </AuthProvider>
+        <Providers children={children}>
+          {children}
+        </Providers>
       </body>
     </html>
   );
