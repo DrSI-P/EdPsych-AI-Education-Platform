@@ -73,18 +73,16 @@ export async function POST(req: NextRequest) {
     `;
     
     // Call AI service for analysis
-    const aiResponse = await aiService.getCompletion({
-      prompt,
+    const aiResponse = await aiService.generateText(prompt, {
       model: 'gpt-4',
       temperature: 0.7,
-      max_tokens: 1500,
-      response_format: { type: 'json_object' }
+      max_tokens: 1000
     });
     
     // Parse AI response
     let results;
     try {
-      results = JSON.parse(aiResponse);
+      results = JSON.parse(aiResponse.text);
     } catch (error) {
       console.error('Failed to parse AI response:', error);
       return NextResponse.json({ error: 'Failed to analyze learning style' }, { status: 500 });
@@ -96,10 +94,10 @@ export async function POST(req: NextRequest) {
         userId: session.user.id,
         primaryStyle: results.primaryStyle.name,
         secondaryStyle: results.secondaryStyle.name,
-        visualScore: results.allStyles.find(s => s.name === 'Visual')?.score || 0,
-        auditoryScore: results.allStyles.find(s => s.name === 'Auditory')?.score || 0,
-        kinestheticScore: results.allStyles.find(s => s.name === 'Kinesthetic')?.score || 0,
-        readingWritingScore: results.allStyles.find(s => s.name === 'Reading/Writing')?.score || 0,
+        visualScore: results.allStyles.find((s: { name: string; score: number }) => s.name === 'Visual')?.score || 0,
+        auditoryScore: results.allStyles.find((s: { name: string; score: number }) => s.name === 'Auditory')?.score || 0,
+        kinestheticScore: results.allStyles.find((s: { name: string; score: number }) => s.name === 'Kinesthetic')?.score || 0,
+        readingWritingScore: results.allStyles.find((s: { name: string; score: number }) => s.name === 'Reading/Writing')?.score || 0,
         rawResults: JSON.stringify(results),
         answers: JSON.stringify(answers)
       }
@@ -153,7 +151,7 @@ export async function GET(req: NextRequest) {
         auditoryScore: learningStyleProfile.auditoryScore,
         kinestheticScore: learningStyleProfile.kinestheticScore,
         readingWritingScore: learningStyleProfile.readingWritingScore,
-        results: JSON.parse(learningStyleProfile.rawResults),
+        results: learningStyleProfile.rawResults ? JSON.parse(learningStyleProfile.rawResults) : {},
         createdAt: learningStyleProfile.createdAt
       }
     });

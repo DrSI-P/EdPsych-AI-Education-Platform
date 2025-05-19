@@ -3,7 +3,10 @@ import OpenAI from 'openai';
 import Anthropic from '@anthropic-ai/sdk';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import axios from 'axios';
-import { AIProvider } from '@/lib/ai/ai-service';
+import { getAIService } from '@/lib/ai/ai-service';
+
+// Define AIProvider type locally
+type AIProvider = 'openai' | 'anthropic' | 'gemini' | 'azure' | 'ollama' | 'grok' | 'openrouter' | 'stability';
 
 // Define types for AI image generation requests
 export interface AIImageGenerationRequest {
@@ -81,13 +84,13 @@ async function handleOpenAIImageGeneration(requestData: AIImageGenerationRequest
       model: requestData.model,
       prompt: ukPrompt,
       n: requestData.n || 1,
-      size: requestData.size || '1024x1024',
-      quality: requestData.quality || 'standard',
-      style: requestData.style || 'natural'
+      size: (requestData.size as "1024x1024" | "1536x1024" | "1024x1536" | "256x256" | "512x512" | "1792x1024" | "1024x1792") || '1024x1024',
+      quality: (requestData.quality as "standard" | "hd" | "medium" | "high" | "low") || 'standard',
+      style: (requestData.style as "natural" | "vivid") || 'natural'
     });
     
     return {
-      images: response.data.map(item => item.url),
+      images: response.data?.map(item => item.url) || [],
       provider: 'openai',
       model: requestData.model
     };
@@ -130,7 +133,17 @@ async function handleAnthropicImageGeneration(requestData: AIImageGenerationRequ
     
     // Since Anthropic doesn't have a direct image generation API yet,
     // we'll use the text description to generate an image with OpenAI
-    const imageDescription = response.content[0].text;
+    let imageDescription = '';
+    if (response.content && response.content.length > 0) {
+      const block = response.content[0];
+      if ('text' in block) {
+        imageDescription = block.text;
+      }
+    }
+    
+    if (!imageDescription) {
+      throw new Error('Failed to extract image description from Anthropic response');
+    }
     
     console.log('Using Anthropic description to generate image with OpenAI:', imageDescription);
     
