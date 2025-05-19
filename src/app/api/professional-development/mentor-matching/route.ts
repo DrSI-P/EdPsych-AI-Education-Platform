@@ -623,7 +623,7 @@ async function handleUpdateGoal(body: any) {
     // If goal is completed, add to portfolio achievements
     if (status === 'completed') {
       // Get goal details
-      const goal = mentorship.goals.find(g => g.id === goalId);
+      const goal = mentorship.goals.find((g: any) => g.id === goalId);
       
       if (goal) {
         // Add achievement to mentee's portfolio
