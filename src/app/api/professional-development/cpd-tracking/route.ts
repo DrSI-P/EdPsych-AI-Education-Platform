@@ -2,6 +2,44 @@ import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { prisma } from '@/lib/prisma';
 
+// Define interfaces for our data types
+interface CPDActivity {
+  id: string;
+  title: string;
+  type: string;
+  provider?: string;
+  date: string;
+  duration: number;
+  points: number;
+  categories: number[];
+  standards: number[];
+  status: 'Planned' | 'In Progress' | 'Completed';
+  evidence?: string;
+  reflection?: string;
+  userId: string;
+  reviews?: any[];
+}
+
+interface CPDGoal {
+  id: string;
+  title: string;
+  description?: string;
+  targetPoints: number;
+  categories: number[];
+  standards: number[];
+  deadline: string;
+  userId: string;
+}
+
+// Define record types for our analytics
+interface StringNumberRecord {
+  [key: string]: number;
+}
+
+interface NumberNumberRecord {
+  [key: number]: number;
+}
+
 // Schema for CPD activity
 const cpdActivitySchema = z.object({
   title: z.string().min(3).max(200),
@@ -73,7 +111,7 @@ export async function POST(req: NextRequest) {
           { status: 400 }
         );
     }
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Error in CPD tracking API:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
@@ -99,10 +137,11 @@ async function handleCreateActivity(body: any) {
       { message: 'CPD activity created successfully', activity },
       { status: 201 }
     );
-  } catch (error) {
+  } catch (error: unknown) {
     if (error instanceof z.ZodError) {
+      const zodError = error as z.ZodError;
       return NextResponse.json(
-        { error: 'Invalid activity data', details: error.errors },
+        { error: 'Invalid activity data', details: zodError.errors },
         { status: 400 }
       );
     }
@@ -151,10 +190,11 @@ async function handleUpdateActivity(body: any) {
       { message: 'CPD activity updated successfully', activity },
       { status: 200 }
     );
-  } catch (error) {
+  } catch (error: unknown) {
     if (error instanceof z.ZodError) {
+      const zodError = error as z.ZodError;
       return NextResponse.json(
-        { error: 'Invalid activity data', details: error.errors },
+        { error: 'Invalid activity data', details: zodError.errors },
         { status: 400 }
       );
     }
@@ -179,10 +219,11 @@ async function handleCreateGoal(body: any) {
       { message: 'CPD goal created successfully', goal },
       { status: 201 }
     );
-  } catch (error) {
+  } catch (error: unknown) {
     if (error instanceof z.ZodError) {
+      const zodError = error as z.ZodError;
       return NextResponse.json(
-        { error: 'Invalid goal data', details: error.errors },
+        { error: 'Invalid goal data', details: zodError.errors },
         { status: 400 }
       );
     }
@@ -231,10 +272,11 @@ async function handleUpdateGoal(body: any) {
       { message: 'CPD goal updated successfully', goal },
       { status: 200 }
     );
-  } catch (error) {
+  } catch (error: unknown) {
     if (error instanceof z.ZodError) {
+      const zodError = error as z.ZodError;
       return NextResponse.json(
-        { error: 'Invalid goal data', details: error.errors },
+        { error: 'Invalid goal data', details: zodError.errors },
         { status: 400 }
       );
     }
@@ -301,10 +343,11 @@ async function handleAddReflection(body: any) {
       { message: 'CPD reflection added successfully', reflection },
       { status: 200 }
     );
-  } catch (error) {
+  } catch (error: unknown) {
     if (error instanceof z.ZodError) {
+      const zodError = error as z.ZodError;
       return NextResponse.json(
-        { error: 'Invalid reflection data', details: error.errors },
+        { error: 'Invalid reflection data', details: zodError.errors },
         { status: 400 }
       );
     }
@@ -346,10 +389,11 @@ async function handleAddEvidence(body: any) {
       { message: 'Evidence added successfully', evidence },
       { status: 201 }
     );
-  } catch (error) {
+  } catch (error: unknown) {
     if (error instanceof z.ZodError) {
+      const zodError = error as z.ZodError;
       return NextResponse.json(
-        { error: 'Invalid evidence data', details: error.errors },
+        { error: 'Invalid evidence data', details: zodError.errors },
         { status: 400 }
       );
     }
@@ -387,7 +431,7 @@ async function handleGenerateReport(body: any) {
     });
 
     // Calculate total points
-    const totalPoints = activities.reduce((sum, activity) => {
+    const totalPoints = activities.reduce((sum: number, activity: CPDActivity) => {
       if (activity.status === 'Completed') {
         return sum + activity.points;
       }
@@ -399,8 +443,8 @@ async function handleGenerateReport(body: any) {
       user: await prisma.user.findUnique({ where: { id: userId } }),
       activities,
       totalPoints,
-      totalHours: activities.reduce((sum, activity) => sum + activity.duration, 0),
-      completedActivities: activities.filter(a => a.status === 'Completed').length,
+      totalHours: activities.reduce((sum: number, activity: CPDActivity) => sum + activity.duration, 0),
+      completedActivities: activities.filter((a: CPDActivity) => a.status === 'Completed').length,
       generatedAt: new Date(),
       period: {
         start: startDate ? new Date(startDate) : undefined,
@@ -418,7 +462,7 @@ async function handleGenerateReport(body: any) {
       },
       { status: 200 }
     );
-  } catch (error) {
+  } catch (error: unknown) {
     throw error;
   }
 }
@@ -471,7 +515,7 @@ export async function GET(req: NextRequest) {
           { status: 400 }
         );
     }
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Error in CPD tracking API:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
@@ -570,8 +614,8 @@ async function getGoalDetails(goalId: string, userId: string) {
   });
 
   // Calculate progress towards goal
-  const completedActivities = relatedActivities.filter(a => a.status === 'Completed');
-  const pointsAchieved = completedActivities.reduce((sum, activity) => sum + activity.points, 0);
+  const completedActivities = relatedActivities.filter((a: CPDActivity) => a.status === 'Completed');
+  const pointsAchieved = completedActivities.reduce((sum: number, activity: CPDActivity) => sum + activity.points, 0);
   const progressPercentage = Math.min(100, (pointsAchieved / goal.targetPoints) * 100);
 
   return NextResponse.json({ 
@@ -601,19 +645,19 @@ async function getUserAnalytics(userId: string, startDate: string | null, endDat
 
   // Calculate total points and hours
   const totalPoints = activities
-    .filter(a => a.status === 'Completed')
-    .reduce((sum, activity) => sum + activity.points, 0);
+    .filter((a: CPDActivity) => a.status === 'Completed')
+    .reduce((sum: number, activity: CPDActivity) => sum + activity.points, 0);
   
   const totalHours = activities
-    .filter(a => a.status === 'Completed')
-    .reduce((sum, activity) => sum + activity.duration, 0);
+    .filter((a: CPDActivity) => a.status === 'Completed')
+    .reduce((sum: number, activity: CPDActivity) => sum + activity.duration, 0);
 
   // Calculate points by category
-  const categoryPoints = {};
+  const categoryPoints: NumberNumberRecord = {};
   activities
-    .filter(a => a.status === 'Completed')
-    .forEach(activity => {
-      activity.categories.forEach(categoryId => {
+    .filter((a: CPDActivity) => a.status === 'Completed')
+    .forEach((activity: CPDActivity) => {
+      activity.categories.forEach((categoryId: number) => {
         if (!categoryPoints[categoryId]) {
           categoryPoints[categoryId] = 0;
         }
@@ -622,11 +666,11 @@ async function getUserAnalytics(userId: string, startDate: string | null, endDat
     });
 
   // Calculate points by standard
-  const standardPoints = {};
+  const standardPoints: NumberNumberRecord = {};
   activities
-    .filter(a => a.status === 'Completed')
-    .forEach(activity => {
-      activity.standards.forEach(standardId => {
+    .filter((a: CPDActivity) => a.status === 'Completed')
+    .forEach((activity: CPDActivity) => {
+      activity.standards.forEach((standardId: number) => {
         if (!standardPoints[standardId]) {
           standardPoints[standardId] = 0;
         }
@@ -635,10 +679,10 @@ async function getUserAnalytics(userId: string, startDate: string | null, endDat
     });
 
   // Calculate points by month
-  const monthlyPoints = {};
+  const monthlyPoints: StringNumberRecord = {};
   activities
-    .filter(a => a.status === 'Completed')
-    .forEach(activity => {
+    .filter((a: CPDActivity) => a.status === 'Completed')
+    .forEach((activity: CPDActivity) => {
       const month = new Date(activity.date).toISOString().substring(0, 7); // YYYY-MM format
       if (!monthlyPoints[month]) {
         monthlyPoints[month] = 0;
@@ -647,8 +691,8 @@ async function getUserAnalytics(userId: string, startDate: string | null, endDat
     });
 
   // Calculate activity type distribution
-  const activityTypes = {};
-  activities.forEach(activity => {
+  const activityTypes: StringNumberRecord = {};
+  activities.forEach((activity: CPDActivity) => {
     if (!activityTypes[activity.type]) {
       activityTypes[activity.type] = 0;
     }
@@ -659,9 +703,9 @@ async function getUserAnalytics(userId: string, startDate: string | null, endDat
     analytics: {
       totalPoints,
       totalHours,
-      completedActivities: activities.filter(a => a.status === 'Completed').length,
-      plannedActivities: activities.filter(a => a.status === 'Planned').length,
-      inProgressActivities: activities.filter(a => a.status === 'In Progress').length,
+      completedActivities: activities.filter((a: CPDActivity) => a.status === 'Completed').length,
+      plannedActivities: activities.filter((a: CPDActivity) => a.status === 'Planned').length,
+      inProgressActivities: activities.filter((a: CPDActivity) => a.status === 'In Progress').length,
       categoryPoints,
       standardPoints,
       monthlyPoints,
@@ -679,11 +723,11 @@ async function getUserRecommendations(userId: string) {
   });
 
   // Calculate points by category
-  const categoryPoints = {};
+  const categoryPoints: NumberNumberRecord = {};
   activities
-    .filter(a => a.status === 'Completed')
-    .forEach(activity => {
-      activity.categories.forEach(categoryId => {
+    .filter((a: CPDActivity) => a.status === 'Completed')
+    .forEach((activity: CPDActivity) => {
+      activity.categories.forEach((categoryId: number) => {
         if (!categoryPoints[categoryId]) {
           categoryPoints[categoryId] = 0;
         }
@@ -692,11 +736,11 @@ async function getUserRecommendations(userId: string) {
     });
 
   // Calculate points by standard
-  const standardPoints = {};
+  const standardPoints: NumberNumberRecord = {};
   activities
-    .filter(a => a.status === 'Completed')
-    .forEach(activity => {
-      activity.standards.forEach(standardId => {
+    .filter((a: CPDActivity) => a.status === 'Completed')
+    .forEach((activity: CPDActivity) => {
+      activity.standards.forEach((standardId: number) => {
         if (!standardPoints[standardId]) {
           standardPoints[standardId] = 0;
         }
@@ -710,8 +754,8 @@ async function getUserRecommendations(userId: string) {
   const allCategories = [1, 2, 3, 4, 5, 6, 7, 8];
   const allStandards = [1, 2, 3, 4, 5, 6, 7, 8];
 
-  const categoryGaps = allCategories.filter(id => !categoryPoints[id] || categoryPoints[id] < 5);
-  const standardGaps = allStandards.filter(id => !standardPoints[id] || standardPoints[id] < 5);
+  const categoryGaps = allCategories.filter((id: number) => !categoryPoints[id] || categoryPoints[id] < 5);
+  const standardGaps = allStandards.filter((id: number) => !standardPoints[id] || standardPoints[id] < 5);
 
   // In a real implementation, this would fetch actual course recommendations
   // For now, we'll return placeholder recommendations
