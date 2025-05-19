@@ -65,7 +65,7 @@ export async function GET(req: Request) {
     const params = validationResult.data;
     
     // Fetch user settings
-    const userSettings = await db.emotionalRegulationSettings.findUnique({
+    const userSettings = await db.query('emotionalRegulationSettings', 'findUnique', {
       where: {
         userId: session.user.id
       }
@@ -79,7 +79,7 @@ export async function GET(req: Request) {
     }
     
     // Fetch emotion records for pattern analysis
-    const emotionRecords = await db.emotionRecord.findMany({
+    const emotionRecords = await db.query('emotionRecord', 'findMany', {
       where: {
         userId: session.user.id,
         timestamp: {
@@ -92,7 +92,7 @@ export async function GET(req: Request) {
     });
     
     // Fetch strategy usage history
-    const strategyHistory = await db.emotionalRegulationLog.findMany({
+    const strategyHistory = await db.query('emotionalRegulationLog', 'findMany', {
       where: {
         userId: session.user.id,
         action: 'strategy_feedback'
@@ -159,7 +159,7 @@ export async function POST(req: Request) {
       const preferences = validationResult.data;
       
       // Update user preferences
-      await db.emotionalRegulationSettings.update({
+      await db.query('emotionalRegulationSettings', 'update', {
         where: {
           userId: session.user.id
         },
@@ -175,7 +175,7 @@ export async function POST(req: Request) {
       });
       
       // Log the activity
-      await db.emotionalRegulationLog.create({
+      await db.query('emotionalRegulationLog', 'create', {
         data: {
           userId: session.user.id,
           action: 'update_strategy_preferences',
@@ -204,7 +204,7 @@ export async function POST(req: Request) {
       const feedback = validationResult.data;
       
       // Log the strategy feedback
-      await db.emotionalRegulationLog.create({
+      await db.query('emotionalRegulationLog', 'create', {
         data: {
           userId: session.user.id,
           action: 'strategy_feedback',
