@@ -25,6 +25,20 @@ export async function POST(
       include: {
         questions: {
           orderBy: { order: 'asc' },
+          select: {
+            id: true,
+            text: true,
+            content: true,
+            type: true,
+            options: true,
+            correctAnswer: true,
+            expectedAnswer: true,
+            points: true,
+            order: true,
+            assessmentId: true,
+            createdAt: true,
+            updatedAt: true
+          }
         },
       },
     });
@@ -190,9 +204,11 @@ export async function POST(
         data: {
           question: { connect: { id: questionId } },
           response: { connect: { id: response.id } },
-          content: content,
-          isCorrect,
-          feedback,
+          answer: {
+            text: content,
+            isCorrect,
+            feedback
+          }
         },
       });
       
@@ -236,7 +252,7 @@ export async function POST(
       score: totalScore,
       totalPoints,
       percentage,
-      passed: percentage >= assessment.passingScore,
+      passed: percentage >= (assessment.passingScore ?? 70), // Default to 70% if passingScore is null
       feedback: overallFeedback,
       answers: processedAnswers,
     });
