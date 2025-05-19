@@ -50,22 +50,22 @@ export async function GET(req: NextRequest) {
     });
     
     // Format modules for frontend
-    const formattedModules = modules.map(module => ({
+    const formattedModules = modules.map((module: any) => ({
       id: module.id,
       title: module.title,
       description: module.description,
       duration: module.duration,
       level: module.level,
       order: module.order,
-      sections: module.sections.map(section => ({
+      sections: module.sections.map((section: any) => ({
         id: section.id,
         title: section.title,
         type: section.type,
         content: section.content,
         duration: section.duration,
         order: section.order
-      })).sort((a, b) => a.order - b.order),
-      resources: module.resources.map(resource => ({
+      })).sort((a: any, b: any) => a.order - b.order),
+      resources: module.resources.map((resource: any) => ({
         id: resource.id,
         title: resource.title,
         type: resource.type,
@@ -116,7 +116,7 @@ export async function POST(req: NextRequest) {
           level: validatedData.level,
           order: body.order || 0,
           sections: {
-            create: validatedData.sections.map((section, index) => ({
+            create: validatedData.sections.map((section: any, index: number) => ({
               title: section.title,
               type: section.type,
               content: section.content,
@@ -125,7 +125,7 @@ export async function POST(req: NextRequest) {
             }))
           },
           resources: {
-            create: validatedData.resources.map(resource => ({
+            create: validatedData.resources.map((resource: any) => ({
               title: resource.title,
               type: resource.type,
               url: resource.url,
@@ -142,7 +142,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json(module, { status: 201 });
     } catch (validationError) {
       if (validationError instanceof z.ZodError) {
-        return NextResponse.json({ error: validationError.errors }, { status: 400 });
+        return NextResponse.json({ error: (validationError as z.ZodError).errors }, { status: 400 });
       }
       throw validationError;
     }
@@ -194,7 +194,7 @@ export async function PUT(req: NextRequest) {
           order: body.order || 0,
           sections: {
             deleteMany: {},
-            create: validatedData.sections.map((section, index) => ({
+            create: validatedData.sections.map((section: any, index: number) => ({
               title: section.title,
               type: section.type,
               content: section.content,
@@ -204,7 +204,7 @@ export async function PUT(req: NextRequest) {
           },
           resources: {
             deleteMany: {},
-            create: validatedData.resources.map(resource => ({
+            create: validatedData.resources.map((resource: any) => ({
               title: resource.title,
               type: resource.type,
               url: resource.url,
@@ -221,7 +221,7 @@ export async function PUT(req: NextRequest) {
       return NextResponse.json(module);
     } catch (validationError) {
       if (validationError instanceof z.ZodError) {
-        return NextResponse.json({ error: validationError.errors }, { status: 400 });
+        return NextResponse.json({ error: (validationError as z.ZodError).errors }, { status: 400 });
       }
       throw validationError;
     }
