@@ -145,7 +145,7 @@ export default function ManualGradingPage() {
     if (params && params.id) {
       fetchData();
     }
-  }, [params.id]);
+  }, [params?.id]);
 
   const handleScoreChange = (questionId: string, score: number) => {
     const question = assessment?.questions.find(q => q.id === questionId);
