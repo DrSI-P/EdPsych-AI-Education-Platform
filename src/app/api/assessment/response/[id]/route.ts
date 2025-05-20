@@ -19,7 +19,7 @@ export async function GET(
     const responseId = params.id;
     
     // Fetch the response with user and answers
-    const response = await prisma.response.findUnique({
+    const response = await prisma.assessmentResponse.findUnique({
       where: { id: responseId },
       include: {
         user: {
