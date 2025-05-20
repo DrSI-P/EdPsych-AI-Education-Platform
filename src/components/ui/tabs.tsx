@@ -4,6 +4,9 @@ import React, { useState } from 'react';
 import * as TabsPrimitive from '@radix-ui/react-tabs';
 import { cn } from '@/lib/utils';
 
+// Export the original Radix UI Tabs component for full compatibility
+export const TabsRoot = TabsPrimitive.Root;
+
 // Radix UI based components
 export const TabsList = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.List>,
@@ -58,17 +61,19 @@ interface TabItem {
 }
 
 interface TabsProps {
-  tabs: TabItem[];
+  tabs?: TabItem[];
   activeTab?: string;
+  defaultValue?: string;
   onChange?: (value: string) => void;
   className?: string;
   children?: React.ReactNode;
 }
 
 // Main Tabs component that supports both the tabs prop pattern and the Radix UI pattern
-export function Tabs({ tabs, activeTab, onChange, className, children }: TabsProps) {
+export function Tabs({ tabs = [], activeTab, defaultValue, onChange, className, children }: TabsProps) {
   const defaultTab = tabs.length > 0 ? tabs[0].id : '';
-  const [internalActiveTab, setInternalActiveTab] = useState(activeTab || defaultTab);
+  const initialValue = activeTab || defaultValue || defaultTab;
+  const [internalActiveTab, setInternalActiveTab] = useState(initialValue);
   
   const handleValueChange = (value: string) => {
     setInternalActiveTab(value);
@@ -79,22 +84,30 @@ export function Tabs({ tabs, activeTab, onChange, className, children }: TabsPro
   
   const currentActiveTab = activeTab || internalActiveTab;
   
+  // When both activeTab and defaultValue are provided, activeTab takes precedence
+  // Only pass defaultValue to TabsPrimitive.Root if activeTab is not provided
+  const rootProps = activeTab
+    ? { value: currentActiveTab, onValueChange: handleValueChange }
+    : { value: currentActiveTab, onValueChange: handleValueChange, defaultValue: defaultValue };
+
   return (
     <div className={className}>
-      <TabsPrimitive.Root value={currentActiveTab} onValueChange={handleValueChange}>
-        <TabsList className="w-full">
-          {tabs.map((tab) => (
-            <TabsTrigger key={tab.id} value={tab.id}>
-              {tab.label}
-            </TabsTrigger>
-          ))}
-        </TabsList>
+      <TabsPrimitive.Root {...rootProps}>
+        {tabs.length > 0 && (
+          <TabsList className="w-full">
+            {tabs.map((tab) => (
+              <TabsTrigger key={tab.id} value={tab.id}>
+                {tab.label}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+        )}
         
         {/* If children are provided, render them (for conditional rendering) */}
         {children}
         
         {/* If tab content is provided in the tabs prop, render it */}
-        {!children && tabs.map((tab) => (
+        {!children && tabs.length > 0 && tabs.map((tab) => (
           tab.content && (
             <TabsContent key={tab.id} value={tab.id}>
               {tab.content}
