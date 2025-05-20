@@ -31,7 +31,12 @@ const prismaClientSingleton = () => {
   }).$extends({
     query: {
       $allModels: {
-        async $allOperations({ args, query, operation, model }) {
+        async $allOperations({ args, query, operation, model }: {
+          args: unknown;
+          query: (args: unknown) => Promise<unknown>;
+          operation: string;
+          model: string;
+        }) {
           const start = performance.now();
           const result = await query(args);
           const end = performance.now();
