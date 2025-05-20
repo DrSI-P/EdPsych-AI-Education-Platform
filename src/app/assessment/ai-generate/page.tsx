@@ -13,6 +13,33 @@ interface AIAssessmentGeneratorProps {
   // Props can be added as needed
 }
 
+interface AssessmentOption {
+  text: string;
+  isCorrect: boolean;
+}
+
+interface AssessmentPair {
+  left: string;
+  right: string;
+}
+
+interface AssessmentQuestion {
+  type: string;
+  content: string;
+  options?: AssessmentOption[];
+  pairs?: AssessmentPair[];
+  answer?: string;
+}
+
+interface GeneratedAssessment {
+  title: string;
+  description: string;
+  subject: string;
+  keyStage: string;
+  type: string;
+  questions: AssessmentQuestion[];
+}
+
 export default function AIAssessmentGeneratorPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -24,7 +51,7 @@ export default function AIAssessmentGeneratorPage() {
   const [keyStage, setKeyStage] = useState('');
   const [questionCount, setQuestionCount] = useState(10);
   const [assessmentType, setAssessmentType] = useState('quiz');
-  const [generatedAssessment, setGeneratedAssessment] = useState(null);
+  const [generatedAssessment, setGeneratedAssessment] = useState<GeneratedAssessment | null>(null);
   const [previewMode, setPreviewMode] = useState(false);
 
   const subjects = [
