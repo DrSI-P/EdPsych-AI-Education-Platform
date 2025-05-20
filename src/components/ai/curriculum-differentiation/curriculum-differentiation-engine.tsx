@@ -409,23 +409,28 @@ export default function CurriculumDifferentiationEngine({
           </CardHeader>
           
           <CardContent className="pt-2">
-            <Tabs defaultValue="visual" value={activeTab} onValueChange={setActiveTab}>
+            <Tabs defaultValue="visual" value={activeTab} onValueChange={(value) => {
+              if (typeof value === 'string') {
+                setActiveTab(value);
+              }
+            }}>
               <TabsList className="grid w-full grid-cols-4">
                 <TabsTrigger value="visual" className="flex items-center gap-1">
                   <span className="hidden sm:inline">Visual</span>
-                  <span className="sm:hidden">👁️</span>
+                  <span className="sm:hidden">ðï¸</span>
                 </TabsTrigger>
                 <TabsTrigger value="auditory" className="flex items-center gap-1">
                   <span className="hidden sm:inline">Auditory</span>
-                  <span className="sm:hidden">👂</span>
+                  <span className="sm:hidden">ð</span>
                 </TabsTrigger>
                 <TabsTrigger value="kinesthetic" className="flex items-center gap-1">
                   <span className="hidden sm:inline">Kinesthetic</span>
-                  <span className="sm:hidden">✋</span>
+                  <span className="sm:hidden">â</span>
                 </TabsTrigger>
+                {/* Reading/Writing tab */}
                 <TabsTrigger value="readingWriting" className="flex items-center gap-1">
                   <span className="hidden sm:inline">Reading/Writing</span>
-                  <span className="sm:hidden">�"�</span>
+                  <span className="sm:hidden">ð</span>
                 </TabsTrigger>
               </TabsList>
               
@@ -496,4 +501,3 @@ export default function CurriculumDifferentiationEngine({
     </div>
   );
 }
-

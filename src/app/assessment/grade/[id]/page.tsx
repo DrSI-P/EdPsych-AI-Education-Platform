@@ -360,7 +360,7 @@ export default function ManualGradingPage() {
               const option = question.options?.find(o => o.id === optionId);
               return option ? (
                 <li key={optionId} className={option.isCorrect ? 'text-green-600' : 'text-red-600'}>
-                  {option.text} {option.isCorrect ? 'âœ"' : 'âœ—'}
+                  {option.text} {option.isCorrect ? '\u2713' : '\u2717'}
                 </li>
               ) : null;
             })}
@@ -391,7 +391,7 @@ export default function ManualGradingPage() {
               
               return leftItem && rightItem ? (
                 <li key={leftId} className={isCorrect ? 'text-green-600' : 'text-red-600'}>
-                  {leftItem.left} â†’ {rightItem.right} {isCorrect ? 'âœ"' : 'âœ—'}
+                  {leftItem.left} -&gt; {rightItem.right} {isCorrect ? '\u2713' : '\u2717'}
                 </li>
               ) : null;
             })}
@@ -504,7 +504,11 @@ export default function ManualGradingPage() {
               { id: 'question-by-question', label: 'Question by Question' },
             ]}
             activeTab={activeTab}
-            onChange={setActiveTab}
+            onChange={(value) => {
+              if (typeof value === 'string') {
+                setActiveTab(value);
+              }
+            }}
             className="mb-6"
           />
 

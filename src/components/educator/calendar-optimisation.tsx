@@ -15,25 +15,26 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Spinner } from "@/components/ui/loading";
 import { useToast } from "@/components/ui/use-toast";
-import { 
-  Calendar as CalendarIcon, 
-  Clock, 
-  Users, 
-  BookOpen, 
-  FileText, 
-  Briefcase, 
-  GraduationCap, 
-  AlertCircle, 
-  CheckCircle2, 
-  BarChart4, 
-  Settings, 
+import {
+  Calendar as CalendarIcon,
+  Clock,
+  Users,
+  BookOpen,
+  FileText,
+  Briefcase,
+  GraduationCap,
+  AlertCircle,
+  CheckCircle2,
+  BarChart4,
+  Settings,
   Plus,
   Trash2,
   Edit,
   Copy,
   RefreshCw,
   ArrowUpDown,
-  Filter
+  Filter,
+  MapPin
 } from 'lucide-react';
 import { useAIService } from '@/lib/ai/ai-service';
 
@@ -786,7 +787,7 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
                 
                 {selectedActivity.location && (
                   <div className="flex items-start mb-2">
-                    <span className="h-4 w-4 mr-2 text-muted-foreground">ü"ç</span>
+                    <MapPin className="h-4 w-4 mr-2 text-muted-foreground" />
                     <span>{selectedActivity.location}</span>
                   </div>
                 )}
@@ -1304,7 +1305,11 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
           
           <div className="py-4">
             {analyticsData ? (
-              <Tabs defaultValue="distribution">
+              <Tabs defaultValue="distribution" onValueChange={(value) => {
+                if (typeof value === 'string') {
+                  // Handle tab change if needed
+                }
+              }}>
                 <TabsList className="grid w-full grid-cols-3">
                   <TabsTrigger value="distribution">Time Distribution</TabsTrigger>
                   <TabsTrigger value="trends">Weekly Trends</TabsTrigger>
