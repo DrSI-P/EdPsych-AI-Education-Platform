@@ -86,8 +86,18 @@ export default function ManualGradingPage() {
 
   useEffect(() => {
     const fetchData = async () => {
+      if (!params || !params.id) {
+        setError('Assessment ID is missing');
+        setLoading(false);
+        return;
+      }
+      
       try {
         // Fetch the response with assessment and answers
+        if (!params || !params.id) {
+          throw new Error('Assessment ID is missing');
+        }
+        
         const responseRes = await fetch(`/api/assessment/response/${params.id}`);
         
         if (!responseRes.ok) {
@@ -204,9 +214,12 @@ export default function ManualGradingPage() {
       setSaveSuccess(true);
       
       // Refresh response data
-      const updatedRes = await fetch(`/api/assessment/response/${params.id}`);
-      const updatedData = await updatedRes.json();
-      setResponse(updatedData);
+      if (params && params.id) {
+        const responseId = params.id; // Store in a local variable to satisfy TypeScript
+        const updatedRes = await fetch(`/api/assessment/response/${responseId}`);
+        const updatedData = await updatedRes.json();
+        setResponse(updatedData);
+      }
     } catch (err) {
       console.error('Error saving grades:', err);
       setError('An error occurred while saving the grades');
