@@ -77,7 +77,7 @@ async function handleOpenAIEmbedding(requestData: AIEmbeddingRequest) {
     });
     
     return {
-      embeddings: response.data.map(item => item.embedding),
+      embeddings: response.data.map((item: { embedding: number[] }) => item.embedding),
       provider: 'openai',
       model: requestData.model
     };
@@ -125,7 +125,7 @@ async function handleGeminiEmbedding(requestData: AIEmbeddingRequest) {
     
     // Process each text item
     const embeddings = await Promise.all(
-      textArray.map(async (text) => {
+      textArray.map(async (text: string) => {
         const result = await model.embedContent(text);
         return result.embedding.values;
       })
@@ -172,7 +172,7 @@ async function handleGrokEmbedding(requestData: AIEmbeddingRequest) {
     }, { headers });
     
     return {
-      embeddings: response.data.data.map((item: any) => item.embedding),
+      embeddings: response.data.data.map((item: { embedding: number[] }) => item.embedding),
       provider: 'grok',
       model: requestData.model || 'grok-embedding-1'
     };
@@ -216,7 +216,7 @@ async function handleOpenRouterEmbedding(requestData: AIEmbeddingRequest) {
     const data = await response.json();
     
     return {
-      embeddings: data.data.map((item: any) => item.embedding),
+      embeddings: data.data.map((item: { embedding: number[] }) => item.embedding),
       provider: 'openrouter',
       model: data.model || requestData.model,
     };
