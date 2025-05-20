@@ -37,7 +37,15 @@ CREATE TABLE IF NOT EXISTS "AccessibilityLog" (
 );
 
 -- Ensure indexes exist
-CREATE UNIQUE INDEX IF NOT EXISTS "PluginCredential_pluginId_userId_key" ON "PluginCredential"("pluginId", "userId");
+DO $$
+BEGIN
+    BEGIN
+        CREATE UNIQUE INDEX "PluginCredential_pluginId_userId_key" ON "PluginCredential"("pluginId", "userId");
+    EXCEPTION
+        WHEN duplicate_table THEN
+        -- Index already exists, do nothing
+    END;
+END $$;
 
 -- Ensure foreign keys exist
 DO $$

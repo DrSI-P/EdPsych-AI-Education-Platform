@@ -14,4 +14,13 @@ CREATE TABLE IF NOT EXISTS "AccessibilityLog" (
 );
 
 -- AddForeignKey
-ALTER TABLE "AccessibilityLog" ADD CONSTRAINT IF NOT EXISTS "AccessibilityLog_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+-- Using DO block to handle potential errors if constraint already exists
+DO $$
+BEGIN
+    BEGIN
+        ALTER TABLE "AccessibilityLog" ADD CONSTRAINT "AccessibilityLog_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+    EXCEPTION
+        WHEN duplicate_object THEN
+        -- Constraint already exists, do nothing
+    END;
+END $$;
