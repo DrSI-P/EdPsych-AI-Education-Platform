@@ -288,7 +288,6 @@ export default function AssessmentPreviewPage() {
             </TabsList>
             
             <TabsContent value="preview">
-              <div>
               <div className="bg-gray-50 p-4 rounded-md mb-6">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div>
@@ -427,7 +426,7 @@ export default function AssessmentPreviewPage() {
                   </div>
                 </div>
               </div>
-            </div>
+              </div>
             </TabsContent>
           </Tabs>
         </CardContent>
