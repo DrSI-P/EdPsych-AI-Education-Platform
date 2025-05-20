@@ -139,7 +139,7 @@ export interface SharedGoal {
   description: string;
   category: 'academic' | 'behavioural' | 'social' | 'emotional' | 'other';
   createdAt: Date;
-  createdById: string;
+  creatorId: string;
   createdByRole: CommunicationRole;
   targetDate?: Date;
   status: 'not_started' | 'in_progress' | 'completed' | 'revised';
@@ -198,7 +198,7 @@ export interface Celebration {
   title: string;
   description: string;
   achievementDate: Date;
-  createdById: string;
+  creatorId: string;
   createdByRole: CommunicationRole;
   createdAt: Date;
   category: 'academic' | 'extracurricular' | 'character' | 'effort' | 'other';
@@ -257,7 +257,7 @@ export interface HomeStrategy {
     max: number;
   };
   supportNeeds: string[];
-  createdById: string;
+  creatorId: string;
   createdByRole: CommunicationRole;
   createdAt: Date;
   updatedAt: Date;
