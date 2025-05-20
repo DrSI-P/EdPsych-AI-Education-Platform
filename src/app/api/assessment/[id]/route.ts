@@ -25,7 +25,7 @@ export async function GET(
         questions: {
           orderBy: { order: 'asc' },
         },
-        createdBy: {
+        creator: {
           select: {
             id: true,
             name: true,
@@ -40,7 +40,7 @@ export async function GET(
     }
     
     // Check if user has access to this assessment
-    const isCreator = assessment.createdById === session.user.id;
+    const isCreator = assessment.creatorId === session.user.id;
     const isAdmin = session.user.role === 'admin';
     const isPublished = assessment.status === 'published';
     
@@ -85,7 +85,7 @@ export async function PUT(
     }
     
     // Check if user has permission to update this assessment
-    const isCreator = assessment.createdById === session.user.id;
+    const isCreator = assessment.creatorId === session.user.id;
     const isAdmin = session.user.role === 'admin';
     
     if (!isCreator && !isAdmin) {
@@ -148,7 +148,7 @@ export async function DELETE(
     }
     
     // Check if user has permission to delete this assessment
-    const isCreator = assessment.createdById === session.user.id;
+    const isCreator = assessment.creatorId === session.user.id;
     const isAdmin = session.user.role === 'admin';
     
     if (!isCreator && !isAdmin) {

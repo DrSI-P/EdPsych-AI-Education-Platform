@@ -37,7 +37,7 @@ export async function GET(
             answers: true,
           },
         },
-        createdBy: {
+        creator: {
           select: {
             id: true,
             name: true,
@@ -52,7 +52,7 @@ export async function GET(
     }
     
     // Check if user has access to this assessment's results
-    const isCreator = assessment.createdById === session.user.id;
+    const isCreator = assessment.creatorId === session.user.id;
     const isAdmin = session.user.role === 'admin';
     const isTeacher = session.user.role === 'teacher';
     const isProfessional = session.user.role === 'professional';
