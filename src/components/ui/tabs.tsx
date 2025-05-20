@@ -63,6 +63,7 @@ interface TabItem {
 interface TabsProps {
   tabs?: TabItem[];
   activeTab?: string;
+  value?: string;  // Added for compatibility with Radix UI
   defaultValue?: string;
   onChange?: (value: string) => void;
   onValueChange?: (value: string) => void;  // Added for compatibility with Radix UI
@@ -71,9 +72,11 @@ interface TabsProps {
 }
 
 // Main Tabs component that supports both the tabs prop pattern and the Radix UI pattern
-export function Tabs({ tabs = [], activeTab, defaultValue, onChange, onValueChange, className, children }: TabsProps) {
+export function Tabs({ tabs = [], activeTab, value, defaultValue, onChange, onValueChange, className, children }: TabsProps) {
   const defaultTab = tabs.length > 0 ? tabs[0].id : '';
-  const initialValue = activeTab || defaultValue || defaultTab;
+  // Use value prop as an alias for activeTab
+  const effectiveActiveTab = activeTab || value;
+  const initialValue = effectiveActiveTab || defaultValue || defaultTab;
   const [internalActiveTab, setInternalActiveTab] = useState(initialValue);
   
   const handleValueChange = (value: string) => {
@@ -87,11 +90,11 @@ export function Tabs({ tabs = [], activeTab, defaultValue, onChange, onValueChan
     }
   };
   
-  const currentActiveTab = activeTab || internalActiveTab;
+  const currentActiveTab = effectiveActiveTab || internalActiveTab;
   
-  // When both activeTab and defaultValue are provided, activeTab takes precedence
-  // Only pass defaultValue to TabsPrimitive.Root if activeTab is not provided
-  const rootProps = activeTab
+  // When both effectiveActiveTab and defaultValue are provided, effectiveActiveTab takes precedence
+  // Only pass defaultValue to TabsPrimitive.Root if effectiveActiveTab is not provided
+  const rootProps = effectiveActiveTab
     ? { value: currentActiveTab, onValueChange: handleValueChange }
     : { value: currentActiveTab, onValueChange: handleValueChange, defaultValue: defaultValue };
 
