@@ -1,13 +1,47 @@
+// @ts-ignore
 import { NextRequest, NextResponse } from 'next/server';
+// @ts-ignore
 import { z } from 'zod';
+
+// Define feature type
+type Feature =
+  | 'aiRecommendations'
+  | 'progressReports'
+  | 'meetingNotes'
+  | 'lessonPlans'
+  | 'blockchainCredentials'
+  | 'copyrightRegistration'
+  | 'storage';
+
+// Define subscription tier type
+type SubscriptionTier = 'free' | 'educator' | 'professional' | 'institution' | 'enterprise';
+
+// Define user type
+type User = {
+  subscription: {
+    tier: SubscriptionTier;
+    billingCycle: string;
+    status: string;
+  };
+  credits: number;
+  usage: {
+    aiRecommendations: number;
+    progressReports: number;
+    meetingNotes: number;
+    lessonPlans: number;
+    blockchainCredentials: number;
+    copyrightRegistration: number;
+    storage: number;
+  };
+};
 
 // Schema for usage tracking
 const UsageSchema = z.object({
   userId: z.string(),
   feature: z.enum([
-    'aiRecommendations', 
-    'progressReports', 
-    'meetingNotes', 
+    'aiRecommendations',
+    'progressReports',
+    'meetingNotes',
     'lessonPlans',
     'blockchainCredentials',
     'copyrightRegistration',
@@ -129,52 +163,57 @@ const mockDb = {
   ]),
   
   // Track usage for a feature
-  trackUsage(userId, feature, quantity) {
-    const user = this.users.get(userId);
+  trackUsage(userId: string, feature: Feature, quantity: number) {
+    const user = this.users.get(userId) as User | undefined;
     if (!user) return { success: false, error: 'User not found' };
     
-    if (!user.usage[feature] && user.usage[feature] !== 0) {
+    // Type guard to check if feature is valid
+    if (!(feature in user.usage)) {
       return { success: false, error: 'Invalid feature' };
     }
     
-    user.usage[feature] += quantity;
-    return { 
-      success: true, 
-      usage: user.usage[feature],
-      limit: tierLimits[user.subscription.tier][feature],
-      remaining: Math.max(0, tierLimits[user.subscription.tier][feature] - user.usage[feature])
+    user.usage[feature as keyof typeof user.usage] += quantity;
+    return {
+      success: true,
+      usage: user.usage[feature as keyof typeof user.usage],
+      limit: tierLimits[user.subscription.tier][feature as keyof typeof user.usage],
+      remaining: Math.max(0, tierLimits[user.subscription.tier][feature as keyof typeof user.usage] - user.usage[feature as keyof typeof user.usage])
     };
   },
   
   // Check if a user has reached their limit for a feature
-  checkLimit(userId, feature) {
-    const user = this.users.get(userId);
+  checkLimit(userId: string, feature: Feature) {
+    const user = this.users.get(userId) as User | undefined;
     if (!user) return { success: false, error: 'User not found' };
     
-    if (!user.usage[feature] && user.usage[feature] !== 0) {
+    // Type guard to check if feature is valid
+    if (!(feature in user.usage)) {
       return { success: false, error: 'Invalid feature' };
     }
     
-    const limit = tierLimits[user.subscription.tier][feature];
-    const usage = user.usage[feature];
+    const limit = tierLimits[user.subscription.tier][feature as keyof typeof user.usage];
+    const usage = user.usage[feature as keyof typeof user.usage];
     const remaining = Math.max(0, limit - usage);
     const hasReachedLimit = usage >= limit;
     
-    return { 
-      success: true, 
+    // Check if feature exists in creditCosts
+    const featureHasCreditCost = feature in creditCosts;
+    
+    return {
+      success: true,
       hasReachedLimit,
       usage,
       limit,
       remaining,
-      canUseCredits: creditCosts[feature] ? true : false,
-      creditCost: creditCosts[feature] || 0,
+      canUseCredits: featureHasCreditCost,
+      creditCost: featureHasCreditCost ? creditCosts[feature as keyof typeof creditCosts] : 0,
       availableCredits: user.credits
     };
   },
   
   // Manage AI credits
-  manageCredits(userId, operation, amount = 0) {
-    const user = this.users.get(userId);
+  manageCredits(userId: string, operation: 'add' | 'subtract' | 'check', amount = 0) {
+    const user = this.users.get(userId) as User | undefined;
     if (!user) return { success: false, error: 'User not found' };
     
     if (operation === 'add') {
@@ -196,20 +235,21 @@ const mockDb = {
   },
   
   // Use credits to access a feature beyond subscription limits
-  useCreditsForFeature(userId, feature, quantity = 1) {
-    const user = this.users.get(userId);
+  useCreditsForFeature(userId: string, feature: Feature, quantity = 1) {
+    const user = this.users.get(userId) as User | undefined;
     if (!user) return { success: false, error: 'User not found' };
     
-    if (!creditCosts[feature]) {
+    // Check if feature exists in creditCosts
+    if (!(feature in creditCosts)) {
       return { success: false, error: 'Feature not available for credit usage' };
     }
     
-    const totalCost = creditCosts[feature] * quantity;
+    const totalCost = creditCosts[feature as keyof typeof creditCosts] * quantity;
     
     if (user.credits < totalCost) {
-      return { 
-        success: false, 
-        error: 'Insufficient credits', 
+      return {
+        success: false,
+        error: 'Insufficient credits',
         credits: user.credits,
         required: totalCost,
         shortfall: totalCost - user.credits
@@ -218,13 +258,13 @@ const mockDb = {
     
     // Deduct credits and track usage
     user.credits -= totalCost;
-    user.usage[feature] += quantity;
+    user.usage[feature as keyof typeof user.usage] += quantity;
     
-    return { 
-      success: true, 
+    return {
+      success: true,
       credits: user.credits,
       used: totalCost,
-      usage: user.usage[feature]
+      usage: user.usage[feature as keyof typeof user.usage]
     };
   }
 };
@@ -269,8 +309,9 @@ export async function POST(req: NextRequest) {
     console.error('Error in subscription fair usage API:', error);
     
     if (error instanceof z.ZodError) {
+      const zodError = error as z.ZodError;
       return NextResponse.json(
-        { success: false, error: 'Validation error', details: error.errors },
+        { success: false, error: 'Validation error', details: zodError.errors },
         { status: 400 }
       );
     }
