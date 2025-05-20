@@ -2,8 +2,11 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import prisma from '@/lib/prisma';
-import { type PrismaClient } from '@prisma/client';
+import { type PrismaClient, Prisma } from '@prisma/client';
 import { z } from 'zod';
+
+// Type for the transaction prisma client
+type TransactionPrismaClient = Omit<PrismaClient, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends">;
 
 // Schema for plan creation/update
 const planSchema = z.object({
@@ -121,7 +124,7 @@ export async function POST(req: NextRequest) {
     const validatedData = planSchema.parse(data);
     
     // Create the plan with a transaction to ensure all related records are created
-    const result = await prisma.$transaction(async (prisma: any) => {
+    const result = await prisma.$transaction(async (prisma: TransactionPrismaClient) => {
       // Create the main plan
       const plan = await prisma.iEP504Plan.create({
         data: {
@@ -147,7 +150,8 @@ export async function POST(req: NextRequest) {
       if (validatedData.goals && validatedData.goals.length > 0) {
         // Use type assertion to tell TypeScript that goals is definitely an array at this point
         const goals = validatedData.goals as NonNullable<z.infer<typeof planSchema>['goals']>;
-        await Promise.all(goals.map((goal: any) =>
+        type GoalType = z.infer<typeof planSchema>['goals'][number];
+        await Promise.all(goals.map((goal: GoalType) =>
           prisma.iEP504Goal.create({
             data: {
               planId: plan.id,
@@ -169,7 +173,8 @@ export async function POST(req: NextRequest) {
       if (validatedData.accommodations && validatedData.accommodations.length > 0) {
         // Use type assertion to tell TypeScript that accommodations is definitely an array at this point
         const accommodations = validatedData.accommodations as NonNullable<z.infer<typeof planSchema>['accommodations']>;
-        await Promise.all(accommodations.map((accommodation: any) =>
+        type AccommodationType = z.infer<typeof planSchema>['accommodations'][number];
+        await Promise.all(accommodations.map((accommodation: AccommodationType) =>
           prisma.iEP504Accommodation.create({
             data: {
               planId: plan.id,
@@ -189,7 +194,8 @@ export async function POST(req: NextRequest) {
       if (validatedData.services && validatedData.services.length > 0) {
         // Use type assertion to tell TypeScript that services is definitely an array at this point
         const services = validatedData.services as NonNullable<z.infer<typeof planSchema>['services']>;
-        await Promise.all(services.map((service: any) =>
+        type ServiceType = z.infer<typeof planSchema>['services'][number];
+        await Promise.all(services.map((service: ServiceType) =>
           prisma.iEP504Service.create({
             data: {
               planId: plan.id,
@@ -210,7 +216,8 @@ export async function POST(req: NextRequest) {
       if (validatedData.teamMembers && validatedData.teamMembers.length > 0) {
         // Use type assertion to tell TypeScript that teamMembers is definitely an array at this point
         const teamMembers = validatedData.teamMembers as NonNullable<z.infer<typeof planSchema>['teamMembers']>;
-        await Promise.all(teamMembers.map((member: any) =>
+        type TeamMemberType = z.infer<typeof planSchema>['teamMembers'][number];
+        await Promise.all(teamMembers.map((member: TeamMemberType) =>
           prisma.iEP504TeamMember.create({
             data: {
               planId: plan.id,
@@ -245,9 +252,10 @@ export async function POST(req: NextRequest) {
     console.error('Error creating plan:', error);
     
     if (error instanceof z.ZodError) {
+      const zodError = error as z.ZodError;
       return NextResponse.json({
         error: 'Validation error',
-        details: (error as z.ZodError).errors
+        details: zodError.errors
       }, { status: 400 });
     }
     
