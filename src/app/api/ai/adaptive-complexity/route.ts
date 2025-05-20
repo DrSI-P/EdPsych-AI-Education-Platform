@@ -36,55 +36,38 @@ export async function POST(req: NextRequest) {
     let originalComplexity = 50; // Default complexity level
     
     if (contentId) {
-      // Check if it's a curriculum plan - using generic query with proper type casting
-      const curriculumPlanResult = await prisma.$queryRaw`
-        SELECT * FROM "CurriculumPlan" WHERE id = ${contentId}
-      `;
-      
-      // Cast the result to an array and get the first item
-      const curriculumPlan = curriculumPlanResult && Array.isArray(curriculumPlanResult) && curriculumPlanResult.length > 0 
-        ? curriculumPlanResult[0] as { content?: string; title?: string; subject?: string; keyStage?: string }
-        : null;
+      // Check if it's a curriculum plan - using Prisma's type-safe query
+      const curriculumPlan = await prisma.curriculumPlan.findUnique({
+        where: { id: contentId }
+      });
       
       if (curriculumPlan) {
         contentToAdjust = curriculumPlan.content || '';
-        contentTitle = curriculumPlan.title || '';
+        contentTitle = curriculumPlan.title;
         contentSubject = curriculumPlan.subject || '';
         contentKeyStage = curriculumPlan.keyStage || '';
       } else {
-        // Check if it's a resource - using generic query with proper type casting
-      const resourceResult = await prisma.$queryRaw`
-        SELECT * FROM "Resource" WHERE id = ${contentId}
-      `;
-        
-        // Cast the result to an array and get the first item
-        const resource = resourceResult && Array.isArray(resourceResult) && resourceResult.length > 0 
-          ? resourceResult[0] as { content?: string; title?: string; tags?: string[] }
-          : null;
+        // Check if it's a resource - using Prisma's type-safe query
+        const resource = await prisma.resource.findUnique({
+          where: { id: contentId }
+        });
         
         if (resource) {
-          contentToAdjust = resource.content || '';
-          contentTitle = resource.title || '';
-          contentSubject = resource.tags && Array.isArray(resource.tags) 
-            ? resource.tags.find(tag => tag.startsWith('subject:'))?.replace('subject:', '') || '' 
-            : '';
-          contentKeyStage = resource.tags && Array.isArray(resource.tags) 
-            ? resource.tags.find(tag => tag.startsWith('keyStage:'))?.replace('keyStage:', '') || '' 
-            : '';
+          // Use description instead of content which doesn't exist in the schema
+          contentToAdjust = resource.description || '';
+          contentTitle = resource.title;
+          // Resource model doesn't have tags property, use provided values
+          contentSubject = subject || '';
+          contentKeyStage = keyStage || '';
         } else {
-          // Check if it's multi-modal content - using generic query with proper type casting
-          const multiModalContentResult = await prisma.$queryRaw`
-            SELECT * FROM "MultiModalContent" WHERE id = ${contentId}
-          `;
-          
-          // Cast the result to an array and get the first item
-          const multiModalContent = multiModalContentResult && Array.isArray(multiModalContentResult) && multiModalContentResult.length > 0 
-            ? multiModalContentResult[0] as { multiModalContent?: any; title?: string; subject?: string; keyStage?: string }
-            : null;
+          // Check if it's multi-modal content - using Prisma's type-safe query
+          const multiModalContent = await prisma.multiModalContent.findUnique({
+            where: { id: contentId }
+          });
           
           if (multiModalContent) {
             contentToAdjust = multiModalContent.multiModalContent ? JSON.stringify(multiModalContent.multiModalContent) : '';
-            contentTitle = multiModalContent.title || '';
+            contentTitle = multiModalContent.title;
             contentSubject = multiModalContent.subject || '';
             contentKeyStage = multiModalContent.keyStage || '';
           } else {
@@ -229,46 +212,25 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Failed to parse adjusted content' }, { status: 500 });
     }
     
-    // Save the adjusted content using generic query since AdaptiveContent model doesn't exist
-    const savedContent = await prisma.$executeRaw`
-      INSERT INTO "AdaptiveContent" (
-        "id", 
-        "userId", 
-        "title", 
-        "originalContent", 
-        "adjustedContent", 
-        "settings", 
-        "subject", 
-        "keyStage", 
-        "sourceContentId", 
-        "performanceMetricsUsed",
-        "createdAt"
-      ) 
-      VALUES (
-        ${crypto.randomUUID()}, 
-        ${session.user.id}, 
-        ${adjustedContent.title || contentTitle || 'Adjusted Content'}, 
-        ${contentToAdjust || ''}, 
-        ${JSON.stringify(adjustedContent)}, 
-        ${JSON.stringify(settings)}, 
-        ${contentSubject || null}, 
-        ${contentKeyStage || null}, 
-        ${contentId || null}, 
-        ${performanceMetrics ? true : false},
-        ${new Date()}
-      )
-      RETURNING id
-    `;
-    
-    // Create a mock savedContent object with id for response
-    const mockSavedContent = {
-      id: crypto.randomUUID()
-    };
+    // Save the adjusted content using Prisma's type-safe query
+    const savedContent = await prisma.adaptiveContent.create({
+      data: {
+        userId: session.user.id,
+        title: adjustedContent.title || contentTitle || 'Adjusted Content',
+        originalContent: contentToAdjust || '',
+        adjustedContent: adjustedContent,
+        settings: settings,
+        subject: contentSubject || null,
+        keyStage: contentKeyStage || null,
+        sourceContentId: contentId || null,
+        performanceMetricsUsed: performanceMetrics ? true : false
+      }
+    });
     
     return NextResponse.json({
       success: true,
       adjustedContent,
-      contentId: mockSavedContent.id
+      contentId: savedContent.id
     });
     
   } catch (error) {
@@ -288,25 +250,17 @@ export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const contentId = searchParams.get('contentId');
     
-    // Get user's adaptive content - using generic query with proper type casting
-    const adaptiveContentsResult = await prisma.$queryRaw`
-      SELECT * FROM "AdaptiveContent" 
-      WHERE "userId" = ${session.user.id}
-      ${contentId ? `AND "sourceContentId" = ${contentId}` : ''}
-      ORDER BY "createdAt" DESC
-      LIMIT 10
-    `;
-    
-    // Cast the result to an array of adaptive contents
-    const adaptiveContents = Array.isArray(adaptiveContentsResult) 
-      ? adaptiveContentsResult as Array<{
-          id: string;
-          title: string;
-          originalContent: string;
-          adjustedContent: any;
-          createdAt: Date;
-        }>
-      : [];
+    // Get user's adaptive content using Prisma's type-safe query
+    const adaptiveContents = await prisma.adaptiveContent.findMany({
+      where: {
+        userId: session.user.id,
+        ...(contentId ? { sourceContentId: contentId } : {})
+      },
+      orderBy: {
+        createdAt: 'desc'
+      },
+      take: 10
+    });
     
     return NextResponse.json({
       success: true,
