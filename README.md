@@ -183,8 +183,17 @@ EdPsych-AI-Education-Platform delivers measurable improvements across key educat
 - NextAuth.js with Prisma adapter
 
 ### Deployment
-- Vercel
+- Vercel with optimized configuration
+  - Automated database migrations
+  - Environment validation
+  - Performance optimizations
+  - Serverless function configuration
+  - Caching strategies
+  - Automated maintenance
 - CI/CD with GitHub Actions
+  - Linting and testing
+  - Preview deployments
+  - Production deployments
 
 ## Implementation Approach
 
@@ -203,19 +212,72 @@ The EdPsych-AI-Education-Platform is being developed through a systematic, phase
 # Install dependencies
 npm install
 
+# Set up environment variables
+# Copy .env.example to .env and update with your values
+cp .env.example .env
+
+# Generate Prisma client
+npx prisma generate
+
+# Run database migrations
+npx prisma migrate deploy
+
 # Run the development server
 npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+### Database Setup
+
+The project uses Prisma ORM with PostgreSQL. To set up the database:
+
+1. Ensure you have PostgreSQL installed and running
+2. Create a database for the project
+3. Update the `DATABASE_URL` in your `.env` file
+4. Run `npx prisma migrate deploy` to apply all migrations
+
+For more details on database migrations and deployment, see [PRISMA_DEPLOYMENT.md](./PRISMA_DEPLOYMENT.md).
+
+## Deployment and Development Documentation
+
+For detailed information about deployment and development configuration, please refer to:
+
+- [Vercel Deployment Configuration](./VERCEL_DEPLOYMENT.md) - Details about Vercel-specific configurations
+- [Prisma Database Deployment](./PRISMA_DEPLOYMENT.md) - Information about database migrations and management
+- [GitHub Configuration](./GITHUB_CONFIGURATION.md) - GitHub workflows, templates, and integration with Vercel
+
 ## Contributing
+
+We welcome contributions to the EdPsych-AI-Education-Platform! Please follow these steps to contribute:
 
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/amazing-feature`)
 3. Commit your changes (`git commit -m 'Add some amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+5. Open a Pull Request using the provided template
+
+### Development Workflow
+
+The project follows a structured development workflow:
+
+1. **Issues**: Create an issue using the appropriate template (bug report or feature request)
+2. **Branches**: Create a branch from the issue with a descriptive name
+3. **Development**: Make your changes following the project's coding standards
+4. **Testing**: Ensure all tests pass and add new tests for your changes
+5. **Pull Request**: Submit a PR with a clear description of your changes
+6. **Review**: Address any feedback from code reviews
+7. **Merge**: Once approved, your PR will be merged
+
+### Automated Checks
+
+The project includes several automated checks:
+
+- **GitHub Actions**: Automatically lint and test your code when you open a pull request
+- **Dependabot**: Automatically updates dependencies with security fixes
+- **Branch Protection**: Ensures code quality by requiring reviews and passing checks
+
+For more details, see the [GitHub Configuration](./GITHUB_CONFIGURATION.md) documentation.
 
 ## License
 

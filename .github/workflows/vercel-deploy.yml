@@ -1,0 +1,92 @@
+name: Vercel Deployment
+
+on:
+  push:
+    branches:
+      - main
+      - staging
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+        
+      - name: Pull Vercel Environment Variables
+        run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+        
+      - name: Build Project Artifacts
+        run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
+        
+      # Deploy to preview for PRs
+      - name: Deploy to Vercel (Preview)
+        if: github.event_name == 'pull_request'
+        run: |
+          DEPLOYMENT_URL=$(vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }})
+          echo "PREVIEW_URL=$DEPLOYMENT_URL" >> $GITHUB_ENV
+          echo "::set-output name=preview_url::$DEPLOYMENT_URL"
+          
+      # Comment on PR with preview URL
+      - name: Comment on PR with Preview URL
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issue_number = context.issue.number;
+            const preview_url = process.env.PREVIEW_URL;
+            
+            github.rest.issues.createComment({
+              issue_number: issue_number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `✅ Vercel preview deployment is ready! \n\n🔍 Preview: ${preview_url}`
+            });
+            
+      # Deploy to production for main branch
+      - name: Deploy to Vercel (Production)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+        
+      # Deploy to staging for staging branch
+      - name: Deploy to Vercel (Staging)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/staging'
+        run: |
+          DEPLOYMENT_URL=$(vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }})
+          echo "STAGING_URL=$DEPLOYMENT_URL" >> $GITHUB_ENV
+          
+      # Run database migrations after production deployment
+      - name: Run Database Migrations (Production)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          # Set up environment for migrations
+          echo "DATABASE_URL=${{ secrets.PROD_DATABASE_URL }}" > .env
+          
+          # Install Prisma CLI
+          npm install -g prisma
+          
+          # Run migrations
+          npx prisma migrate deploy
+          
+          # Clean up
+          rm .env

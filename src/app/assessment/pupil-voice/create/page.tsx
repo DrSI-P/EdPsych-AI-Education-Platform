@@ -6,7 +6,6 @@ import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card'
 import { Button } from '@/components/ui/button';
 import { Alert } from '@/components/ui/alert';
 import { Spinner } from '@/components/ui/loading';
-import { Tabs } from '@/components/ui/tabs';
 import { Form } from '@/components/ui/form';
 
 interface QuestionType {
@@ -480,15 +479,15 @@ export default function CreatePupilVoiceSurveyPage() {
           </div>
           
           <div className="md:col-span-2">
-            <Card>
-              <CardHeader>
+            <Card className="w-full">
+              <CardHeader className="pb-2">
                 <h3 className="text-lg font-medium">
                   {activeQuestionIndex !== null
                     ? `Question ${activeQuestionIndex + 1}`
                     : 'Question Editor'}
                 </h3>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 {renderQuestionEditor()}
               </CardContent>
             </Card>
@@ -546,9 +545,7 @@ export default function CreatePupilVoiceSurveyPage() {
       </div>
 
       {error && (
-        <Alert variant="error" className="mb-6">
-          {error}
-        </Alert>
+        <Alert variant="error" className="mb-6" children={<div>{error}</div>} />
       )}
 
       <div className="mb-6">

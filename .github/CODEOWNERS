@@ -1,0 +1,56 @@
+# This is a CODEOWNERS file for the EdPsych-AI-Education-Platform repository
+# Each line is a file pattern followed by one or more owners.
+# Order is important; the last matching pattern takes precedence.
+
+# These owners will be the default owners for everything in the repo
+* @DrSI-P
+
+# Core application code
+/src/app/ @DrSI-P @lead-developer
+/src/components/ @DrSI-P @frontend-team
+/src/lib/ @DrSI-P @backend-team
+
+# API routes
+/src/app/api/ @backend-team
+
+# AI integration
+/src/app/api/ai/ @ai-team
+/src/lib/ai/ @ai-team
+
+# Database and Prisma
+/prisma/ @database-team
+/src/lib/db.ts @database-team
+/src/lib/prisma.ts @database-team
+
+# Authentication
+/src/app/api/auth/ @security-team
+/src/lib/auth.ts @security-team
+
+# Configuration files
+*.json @DevOps-team
+*.yml @DevOps-team
+*.yaml @DevOps-team
+/vercel.json @DevOps-team
+
+# CI/CD and GitHub Actions
+/.github/ @DevOps-team
+
+# Documentation
+*.md @documentation-team
+/docs/ @documentation-team
+
+# Testing
+/tests/ @testing-team
+/src/**/*.test.ts @testing-team
+/src/**/*.test.tsx @testing-team
+
+# Special educational needs features
+/src/app/special-needs/ @special-needs-team
+/src/app/api/special-needs/ @special-needs-team
+
+# Accessibility
+/src/app/accessibility/ @accessibility-team
+/src/lib/accessibility/ @accessibility-team
+
+# Deployment and infrastructure
+/scripts/ @DevOps-team

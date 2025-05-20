@@ -1,0 +1,70 @@
+{
+  "features": {
+    "aiAssistant": true,
+    "speechRecognition": true,
+    "immersiveLearning": true,
+    "adaptiveComplexity": true,
+    "contentTransformation": true,
+    "curriculumPlanning": true,
+    "specialNeedsSupport": true,
+    "studentVoice": true,
+    "teacherAutomation": true,
+    "restorativeJustice": true,
+    "parentSchoolCommunication": true,
+    "professionalDevelopment": true,
+    "analytics": true,
+    "betaFeatures": false
+  },
+  "aiProviders": {
+    "primary": "openai",
+    "fallback": ["anthropic", "gemini"]
+  },
+  "limits": {
+    "aiRequestsPerDay": 100,
+    "speechRecognitionMinutesPerDay": 30,
+    "maxFileUploadSizeMB": 10,
+    "maxStorageGB": 5
+  },
+  "ui": {
+    "theme": "system",
+    "colorScheme": "blue",
+    "defaultFontSize": "medium",
+    "animations": true
+  },
+  "maintenance": {
+    "enabled": false,
+    "message": "The system is currently undergoing maintenance. Please check back later.",
+    "allowAdminAccess": true
+  },
+  "abTests": {
+    "newDashboard": {
+      "enabled": true,
+      "percentage": 50,
+      "startDate": "2025-05-01T00:00:00Z",
+      "endDate": "2025-06-01T00:00:00Z"
+    },
+    "enhancedAccessibility": {
+      "enabled": true,
+      "percentage": 100,
+      "startDate": "2025-04-15T00:00:00Z",
+      "endDate": null
+    }
+  },
+  "notifications": {
+    "email": true,
+    "inApp": true,
+    "push": false
+  },
+  "performance": {
+    "cacheLifetimeSeconds": 3600,
+    "prefetchResources": true,
+    "lazyLoadImages": true,
+    "compressionLevel": "high"
+  },
+  "security": {
+    "mfaRequired": false,
+    "sessionTimeoutMinutes": 60,
+    "passwordPolicyStrength": "medium",
+    "allowedOrigins": ["https://edpsychconnect.com", "https://www.edpsychconnect.com"]
+  }
+}

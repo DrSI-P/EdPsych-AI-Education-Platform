@@ -6,7 +6,7 @@ import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card'
 import { Button } from '@/components/ui/button';
 import { Alert } from '@/components/ui/alert';
 import { Spinner } from '@/components/ui/loading';
-import { Tabs } from '@/components/ui/tabs';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 
 export default function PreviewPupilVoiceSurveyPage() {
   const router = useRouter();
@@ -346,7 +346,7 @@ export default function PreviewPupilVoiceSurveyPage() {
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <Spinner size="large" />
+        <Spinner size="lg" />
       </div>
     );
   }
@@ -354,8 +354,8 @@ export default function PreviewPupilVoiceSurveyPage() {
   if (error) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <Alert type="error" className="mb-6">
-          {error}
+        <Alert variant="error" className="mb-6">
+          <div>{error}</div>
         </Alert>
         <Button
           onClick={() => router.push('/assessment/pupil-voice')}
@@ -369,8 +369,8 @@ export default function PreviewPupilVoiceSurveyPage() {
   if (!survey) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <Alert type="error" className="mb-6">
-          Survey not found
+        <Alert variant="error" className="mb-6">
+          <div>Survey not found</div>
         </Alert>
         <Button
           onClick={() => router.push('/assessment/pupil-voice')}
@@ -401,18 +401,20 @@ export default function PreviewPupilVoiceSurveyPage() {
       </div>
 
       <div className="mb-6">
-        <Tabs
-          tabs={[
-            { id: 'preview', label: 'Preview' },
-            { id: 'settings', label: 'Settings' },
-          ]}
-          activeTab={activeTab}
-          onChange={setActiveTab}
-          className="mb-4"
-        />
-
-        {activeTab === 'preview' && renderPreviewTab()}
-        {activeTab === 'settings' && renderSettingsTab()}
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-4">
+          <TabsList>
+            <TabsTrigger value="preview">Preview</TabsTrigger>
+            <TabsTrigger value="settings">Settings</TabsTrigger>
+          </TabsList>
+          
+          <TabsContent value="preview">
+            {renderPreviewTab()}
+          </TabsContent>
+          
+          <TabsContent value="settings">
+            {renderSettingsTab()}
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );

@@ -1,12 +1,13 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import type { ChangeEvent } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Alert } from '@/components/ui/alert';
 import { Spinner } from '@/components/ui/loading';
-import { Tabs } from '@/components/ui/tabs';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 interface Question {
   id: string;
@@ -225,7 +226,7 @@ export default function AssessmentPreviewPage() {
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <Spinner size="large" />
+        <Spinner size="lg" />
       </div>
     );
   }
@@ -233,8 +234,8 @@ export default function AssessmentPreviewPage() {
   if (error) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <Alert type="error" className="mb-6">
-          {error}
+        <Alert variant="error" className="mb-6">
+          <div>{error}</div>
         </Alert>
         <Button onClick={() => router.back()}>
           Go Back
@@ -246,8 +247,8 @@ export default function AssessmentPreviewPage() {
   if (!assessment) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <Alert type="error" className="mb-6">
-          Assessment not found
+        <Alert variant="error" className="mb-6">
+          <div>Assessment not found</div>
         </Alert>
         <Button onClick={() => router.push('/assessment')}>
           Go to Assessments
@@ -273,25 +274,21 @@ export default function AssessmentPreviewPage() {
       </div>
 
       {publishSuccess && (
-        <Alert type="success" className="mb-6">
-          Assessment published successfully! Redirecting...
+        <Alert variant="success" className="mb-6">
+          <div>Assessment published successfully! Redirecting...</div>
         </Alert>
       )}
 
       <Card className="mb-6">
         <CardContent className="p-6">
-          <Tabs
-            tabs={[
-              { id: 'preview', label: 'Preview' },
-              { id: 'settings', label: 'Settings' },
-            ]}
-            activeTab={activeTab}
-            onChange={setActiveTab}
-            className="mb-6"
-          />
-
-          {activeTab === 'preview' && (
-            <div>
+          <Tabs value={activeTab} onValueChange={(value: string) => setActiveTab(value)} className="mb-6">
+            <TabsList>
+              <TabsTrigger value="preview">Preview</TabsTrigger>
+              <TabsTrigger value="settings">Settings</TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value="preview">
+              <div>
               <div className="bg-gray-50 p-4 rounded-md mb-6">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div>
@@ -350,12 +347,12 @@ export default function AssessmentPreviewPage() {
                   </div>
                 )}
               </div>
-            </div>
-          )}
-
-          {activeTab === 'settings' && (
-            <div className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              </div>
+            </TabsContent>
+            
+            <TabsContent value="settings">
+              <div className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <h3 className="text-lg font-medium mb-2">Assessment Settings</h3>
                   <div className="space-y-4 bg-gray-50 p-4 rounded-md">
@@ -400,8 +397,8 @@ export default function AssessmentPreviewPage() {
                     </p>
                     
                     {assessment.questions.length === 0 ? (
-                      <Alert type="warning">
-                        You need to add at least one question before publishing this assessment.
+                      <Alert variant="warning">
+                        <div>You need to add at least one question before publishing this assessment.</div>
                       </Alert>
                     ) : assessment.status === 'published' ? (
                       <div className="bg-green-50 border border-green-200 rounded-md p-3">
@@ -431,8 +428,8 @@ export default function AssessmentPreviewPage() {
                   </div>
                 </div>
               </div>
-            </div>
-          )}
+            </TabsContent>
+          </Tabs>
         </CardContent>
         <CardFooter className="flex justify-between border-t p-6">
           <Button

@@ -77,7 +77,7 @@ async function handleOpenAIEmbedding(requestData: AIEmbeddingRequest) {
     });
     
     return {
-      embeddings: response.data.map((item: { embedding: number[] }) => item.embedding),
+      embeddings: response.data.map((item: { embedding: number[] }): number[] => item.embedding),
       provider: 'openai',
       model: requestData.model
     };
@@ -172,7 +172,7 @@ async function handleGrokEmbedding(requestData: AIEmbeddingRequest) {
     }, { headers });
     
     return {
-      embeddings: response.data.data.map((item: { embedding: number[] }) => item.embedding),
+      embeddings: response.data.data.map((item: { embedding: number[] }): number[] => item.embedding),
       provider: 'grok',
       model: requestData.model || 'grok-embedding-1'
     };
@@ -216,7 +216,7 @@ async function handleOpenRouterEmbedding(requestData: AIEmbeddingRequest) {
     const data = await response.json();
     
     return {
-      embeddings: data.data.map((item: { embedding: number[] }) => item.embedding),
+      embeddings: data.data.map((item: { embedding: number[] }): number[] => item.embedding),
       provider: 'openrouter',
       model: data.model || requestData.model,
     };

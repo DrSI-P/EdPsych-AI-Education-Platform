@@ -2,11 +2,12 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import type { ChangeEvent } from 'react';
 import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Alert } from '@/components/ui/alert';
 import { Spinner } from '@/components/ui/loading';
-import { Tabs } from '@/components/ui/tabs';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Form } from '@/components/ui/form';
 
 interface CurriculumStandard {
@@ -141,7 +142,7 @@ export default function CurriculumAlignmentPage() {
     setFilteredStandards(filtered);
   }, [standards, searchQuery, selectedSubject, selectedKeyStage, selectedYear, selectedCategory]);
 
-  const handleAlignAssessment = (standardId: string) => {
+  const handleAlignAssessment = (standardId: string): void => {
     router.push(`/assessment/curriculum/align?standard=${standardId}`);
   };
 
@@ -164,9 +165,9 @@ export default function CurriculumAlignmentPage() {
 
     return (
       <div className="space-y-4">
-        {filteredStandards.map((standard) => (
-          <Card key={standard.id} className="overflow-hidden">
-            <CardContent className="p-4">
+        {filteredStandards.map((standard: CurriculumStandard) => (
+          <Card key={standard.id}>
+            <CardContent className="p-4 overflow-hidden">
               <div className="flex justify-between items-start">
                 <div className="flex-grow">
                   <div className="flex items-center mb-2">
@@ -239,93 +240,92 @@ export default function CurriculumAlignmentPage() {
       </div>
 
       {error && (
-        <Alert variant="error" className="mb-6">
-          <div>{error}</div>
+        <Alert>
+          <div className="mb-6 text-red-500">{error}</div>
         </Alert>
       )}
 
       <div className="mb-6">
-        <Tabs
-          tabs={[
-            { id: 'browse', label: 'Browse Standards' },
-            { id: 'aligned', label: 'Aligned Assessments' },
-          ]}
-          activeTab={activeTab}
-          onChange={setActiveTab}
-          className="mb-4"
-        />
+        <Tabs defaultValue={activeTab} onValueChange={(value: string) => setActiveTab(value)} className="mb-4">
+          <TabsList>
+            <TabsTrigger value="browse">Browse Standards</TabsTrigger>
+            <TabsTrigger value="aligned">Aligned Assessments</TabsTrigger>
+          </TabsList>
+          
+          <TabsContent value="browse">
+            <div className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
+                <div className="lg:col-span-1">
+                  <input
+                    type="text"
+                    placeholder="Search standards..."
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                    value={searchQuery}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <select
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                    value={selectedSubject}
+                    onChange={(e: ChangeEvent<HTMLSelectElement>) => setSelectedSubject(e.target.value)}
+                  >
+                    {subjects.map((subject) => (
+                      <option key={subject.value} value={subject.value}>
+                        {subject.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <select
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                    value={selectedKeyStage}
+                    onChange={(e: ChangeEvent<HTMLSelectElement>) => setSelectedKeyStage(e.target.value)}
+                  >
+                    {keyStages.map((keyStage) => (
+                      <option key={keyStage.value} value={keyStage.value}>
+                        {keyStage.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <select
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                    value={selectedYear}
+                    onChange={(e: ChangeEvent<HTMLSelectElement>) => setSelectedYear(e.target.value)}
+                  >
+                    {years.map((year) => (
+                      <option key={year.value} value={year.value}>
+                        {year.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <select
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                    value={selectedCategory}
+                    onChange={(e: ChangeEvent<HTMLSelectElement>) => setSelectedCategory(e.target.value)}
+                  >
+                    {categories.map((category) => (
+                      <option key={category.value} value={category.value}>
+                        {category.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
 
-        {activeTab === 'browse' && (
-          <div className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
-              <div className="lg:col-span-1">
-                <input
-                  type="text"
-                  placeholder="Search standards..."
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-              </div>
-              <div>
-                <select
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                  value={selectedSubject}
-                  onChange={(e) => setSelectedSubject(e.target.value)}
-                >
-                  {subjects.map((subject) => (
-                    <option key={subject.value} value={subject.value}>
-                      {subject.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <select
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                  value={selectedKeyStage}
-                  onChange={(e) => setSelectedKeyStage(e.target.value)}
-                >
-                  {keyStages.map((keyStage) => (
-                    <option key={keyStage.value} value={keyStage.value}>
-                      {keyStage.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <select
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                  value={selectedYear}
-                  onChange={(e) => setSelectedYear(e.target.value)}
-                >
-                  {years.map((year) => (
-                    <option key={year.value} value={year.value}>
-                      {year.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <select
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                  value={selectedCategory}
-                  onChange={(e) => setSelectedCategory(e.target.value)}
-                >
-                  {categories.map((category) => (
-                    <option key={category.value} value={category.value}>
-                      {category.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
+              {renderBrowseTab()}
             </div>
-
-            {renderBrowseTab()}
-          </div>
-        )}
-
-        {activeTab === 'aligned' && renderAlignedTab()}
+          </TabsContent>
+          
+          <TabsContent value="aligned">
+            {renderAlignedTab()}
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );

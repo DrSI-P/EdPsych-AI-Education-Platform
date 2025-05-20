@@ -1,6 +1,100 @@
 {
   "version": 2,
   "framework": "nextjs",
-  "buildCommand": "npm run build",
-  "installCommand": "npm install"
+  "buildCommand": "node scripts/validate-env.js && npx prisma migrate deploy && npm run build",
+  "installCommand": "npm install",
+  "crons": [
+    {
+      "path": "/api/cron/db-maintenance",
+      "schedule": "0 0 * * *"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "www.edpsychconnect.com",
+      "destination": "https://edpsychconnect.com",
+      "permanent": true
+    }
+  ],
+  "domains": [
+    "edpsychconnect.com",
+    "www.edpsychconnect.com",
+    "app.edpsychconnect.com"
+  ],
+  "protection": {
+    "production": {
+      "enabled": true,
+      "accessRules": [
+        {
+          "type": "email",
+          "value": "*@edpsychconnect.com"
+        },
+        {
+          "type": "team",
+          "teamId": "team_edpsych"
+        }
+      ]
+    },
+    "preview": {
+      "enabled": true,
+      "accessRules": [
+        {
+          "type": "email",
+          "value": "*@edpsychconnect.com"
+        },
+        {
+          "type": "team",
+          "teamId": "team_edpsych"
+        }
+      ]
+    }
+  },
+  "functions": {
+    "src/app/api/ai/*/route.ts": {
+      "memory": 1024,
+      "maxDuration": 60
+    },
+    "src/app/api/speech-recognition/*/route.ts": {
+      "memory": 1024,
+      "maxDuration": 60
+    }
+  },
+  "headers": [
+    {
+      "source": "/images/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/_next/static/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/api/resources/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600, s-maxage=86400"
+        }
+      ]
+    },
+    {
+      "source": "/api/curriculum/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600, s-maxage=86400"
+        }
+      ]
+    }
+  ]
 }

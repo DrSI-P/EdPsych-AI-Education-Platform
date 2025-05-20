@@ -88,7 +88,7 @@ export async function POST(req: NextRequest) {
     const validatedData = sensoryDietSchema.parse(body);
 
     // Start a transaction
-    const result = await prisma.$transaction(async (prisma: TransactionPrismaClient) => {
+    const result = await prisma.$transaction(async (prisma: TransactionPrismaClient): Promise<any> => {
       // If this diet is being set as active, deactivate all other diets
       if (validatedData.isActive) {
         await prisma.sensoryDiet.updateMany({
@@ -115,7 +115,7 @@ export async function POST(req: NextRequest) {
       // Create schedule items
       if (validatedData.schedule && validatedData.schedule.length > 0) {
         await prisma.sensoryDietSchedule.createMany({
-          data: validatedData.schedule.map(item => ({
+          data: validatedData.schedule.map((item: { time: string; activityId: string; duration: number; notes?: string }) => ({
             dietId: diet.id,
             time: item.time,
             activityId: item.activityId,
@@ -152,8 +152,9 @@ export async function POST(req: NextRequest) {
     
     // Handle validation errors
     if (error instanceof z.ZodError) {
+      const zodError = error as z.ZodError;
       return NextResponse.json(
-        { error: 'Validation error', details: error.errors },
+        { error: 'Validation error', details: zodError.errors },
         { status: 400 }
       );
     }
