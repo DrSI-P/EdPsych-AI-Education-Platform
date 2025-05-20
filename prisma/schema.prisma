@@ -65,6 +65,7 @@ model User {
   messages              Message[]
   sentMessages          Message[]           @relation("SentMessages")
   pupilVoiceResponses   PupilVoiceResponse[]
+  createdPupilVoiceSurveys PupilVoiceSurvey[]
   // Added missing opposite relations for new models
   contentTransformations ContentTransformation[]
   curriculumPlans       CurriculumPlan[]
@@ -301,10 +302,15 @@ model Assessment {
   title             String
   description       String   @db.Text
   type              String   // quiz, test, assignment, project, etc.
+  subject           String?
+  keyStage          String?
   timeLimit         Int?     // Time limit in minutes
   passingScore      Int?     // Minimum score to pass
   isPublished       Boolean  @default(false)
   status            String   @default("draft") // draft, published, archived
+  showResults       Boolean  @default(true)
+  randomizeQuestions Boolean  @default(false)
+  allowRetakes      Boolean  @default(true)
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
   creator           User     @relation(fields: [creatorId], references: [id])
@@ -449,15 +455,55 @@ model Message {
 }
 
 // Pupil Voice Models
+model PupilVoiceSurvey {
+  id                String   @id @default(cuid())
+  title             String
+  description       String   @db.Text
+  status            String   @default("draft") // draft, published, archived
+  createdById       String
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  templateId        String?
+  createdBy         User     @relation(fields: [createdById], references: [id])
+  questions         PupilVoiceQuestion[]
+  responses         PupilVoiceResponse[]
+}
+
+model PupilVoiceQuestion {
+  id                String   @id @default(cuid())
+  surveyId          String
+  text              String   @db.Text
+  type              String   // multiple-choice, rating, open-ended, etc.
+  required          Boolean  @default(false)
+  options           Json?    // For multiple choice questions
+  order             Int      @default(0)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  survey            PupilVoiceSurvey @relation(fields: [surveyId], references: [id], onDelete: Cascade)
+  answers           PupilVoiceAnswer[]
+}
+
 model PupilVoiceResponse {
   id                String   @id @default(cuid())
+  surveyId          String
   userId            String
-  question          String   @db.Text
-  response          String   @db.Text
-  sentiment         String?  // positive, negative, neutral
-  tags              String[] // Array of tags
+  completedAt       DateTime?
   createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  survey            PupilVoiceSurvey @relation(fields: [surveyId], references: [id], onDelete: Cascade)
   user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  answers           PupilVoiceAnswer[]
+}
+
+model PupilVoiceAnswer {
+  id                String   @id @default(cuid())
+  responseId        String
+  questionId        String
+  answer            Json
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  response          PupilVoiceResponse @relation(fields: [responseId], references: [id], onDelete: Cascade)
+  question          PupilVoiceQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
 }
 
 // EP Profile Model
