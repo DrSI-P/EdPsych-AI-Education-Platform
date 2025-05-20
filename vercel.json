@@ -16,11 +16,6 @@
       "permanent": true
     }
   ],
-  "domains": [
-    "edpsychconnect.com",
-    "www.edpsychconnect.com",
-    "app.edpsychconnect.com"
-  ],
   "protection": {
     "production": {
       "enabled": true,
