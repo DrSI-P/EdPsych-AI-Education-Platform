@@ -322,11 +322,11 @@ export default function AdminUserManagement() {
                             <div className="flex-shrink-0 h-10 w-10 bg-gray-200 rounded-full flex items-center justify-center">
                               {user.name ? (
                                 <span className="text-gray-600 font-medium">
-                                  {user.name.split(' ').map(n => n[0]).join('').toUpperCase()}
+                                  {user.name.split(' ').filter(n => n.length > 0).map(n => n[0]).join('').toUpperCase()}
                                 </span>
                               ) : (
                                 <span className="text-gray-600 font-medium">
-                                  {user.email[0].toUpperCase()}
+                                  {user.email && user.email.length > 0 ? user.email[0].toUpperCase() : '?'}
                                 </span>
                               )}
                             </div>

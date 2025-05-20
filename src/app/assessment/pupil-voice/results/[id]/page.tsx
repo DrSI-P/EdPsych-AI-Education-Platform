@@ -215,8 +215,9 @@ export default function PupilVoiceResultsPage() {
                 {(question.type === 'multiple_choice' || question.type === 'likert_scale' || 
                  question.type === 'emoji_scale' || question.type === 'yes_no') && (
                   <div className="space-y-3">
-                    {Object.entries(questionStats.optionCounts as Record<string, number>).sort((a, b) => b[1] - a[1]).map(([option, count]: [string, number]) => {
-                      const percentage = (count / questionStats.responseCount) * 100;
+                    {questionStats.optionCounts && Object.keys(questionStats.optionCounts).length > 0 ?
+                      Object.entries(questionStats.optionCounts as Record<string, number>).sort((a, b) => b[1] - a[1]).map(([option, count]: [string, number]) => {
+                        const percentage = (count / questionStats.responseCount) * 100;
                       
                       return (
                         <div key={option}>
@@ -240,7 +241,7 @@ export default function PupilVoiceResultsPage() {
                           </div>
                         </div>
                       );
-                    })}
+                    }) : <p className="text-sm text-gray-500">No response data available for this question.</p>}
                   </div>
                 )}
                 

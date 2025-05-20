@@ -281,7 +281,7 @@ export default function NeuroadaptiveInterfacePage() {
                         max={3}
                         step={0.5}
                         value={[simulationSpeed]}
-                        onValueChange={(value) => setSimulationSpeed(value[0])}
+                        onValueChange={(value) => setSimulationSpeed(value && value.length > 0 ? value[0] : simulationSpeed)}
                         className="w-24"
                       />
                     </div>

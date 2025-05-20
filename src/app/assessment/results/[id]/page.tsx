@@ -182,8 +182,8 @@ export default function AssessmentResultsPage() {
       totalResponses: assessment.responses.length,
       averageScore: scores.reduce((sum, score) => sum + score, 0) / scores.length,
       passingRate: (passingCount / assessment.responses.length) * 100,
-      highestScore: sortedScores[sortedScores.length - 1],
-      lowestScore: sortedScores[0],
+      highestScore: sortedScores.length > 0 ? sortedScores[sortedScores.length - 1] : 0,
+      lowestScore: sortedScores.length > 0 ? sortedScores[0] : 0,
       medianScore: median,
       scoreDistribution: distribution,
       questionSuccessRates
