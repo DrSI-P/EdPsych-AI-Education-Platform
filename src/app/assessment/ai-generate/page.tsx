@@ -303,7 +303,7 @@ export default function AIAssessmentGeneratorPage() {
         </div>
 
         {error && (
-          <Alert type="error" className="mt-4">
+          <Alert variant="error" className="mt-4">
             {error}
           </Alert>
         )}
@@ -445,7 +445,7 @@ export default function AIAssessmentGeneratorPage() {
         </div>
         
         {error && (
-          <Alert type="error" className="mt-4">
+          <Alert variant="error" className="mt-4">
             {error}
           </Alert>
         )}
