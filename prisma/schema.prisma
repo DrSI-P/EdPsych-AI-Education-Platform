@@ -66,6 +66,7 @@ model User {
   sentMessages          Message[]           @relation("SentMessages")
   pupilVoiceResponses   PupilVoiceResponse[]
   createdPupilVoiceSurveys PupilVoiceSurvey[]
+  gradedResponses    AssessmentResponse[] @relation("GradedResponses")
   // Added missing opposite relations for new models
   contentTransformations ContentTransformation[]
   curriculumPlans       CurriculumPlan[]
@@ -344,10 +345,13 @@ model AssessmentResponse {
   feedback     String?
   startedAt    DateTime @default(now())
   completedAt  DateTime?
+  gradedById   String?
+  gradedAt     DateTime?
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
   assessment   Assessment @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  gradedBy     User?    @relation("GradedResponses", fields: [gradedById], references: [id])
   answers      AssessmentAnswer[]
 }
 

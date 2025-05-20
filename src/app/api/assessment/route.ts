@@ -72,7 +72,7 @@ export async function POST(request: NextRequest) {
         randomizeQuestions,
         allowRetakes,
         status: 'draft',
-        createdBy: {
+        creator: {
           connect: { id: session.user.id },
         },
       },
@@ -150,7 +150,7 @@ export async function GET(request: NextRequest) {
     const assessments = await prisma.assessment.findMany({
       where,
       include: {
-        createdBy: {
+        creator: {
           select: {
             id: true,
             name: true,
