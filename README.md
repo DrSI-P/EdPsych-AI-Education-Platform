@@ -247,6 +247,7 @@ For detailed information about deployment and development configuration, please 
 
 - [Vercel Deployment Configuration](./VERCEL_DEPLOYMENT.md) - Details about Vercel-specific configurations
 - [Prisma Database Deployment](./PRISMA_DEPLOYMENT.md) - Information about database migrations and management
+- [Migration Fix Documentation](./docs/MIGRATION_FIX.md) - Details about resolving failed Prisma migrations
 - [GitHub Configuration](./GITHUB_CONFIGURATION.md) - GitHub workflows, templates, and integration with Vercel
 
 ## Contributing

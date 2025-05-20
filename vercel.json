@@ -1,7 +1,7 @@
 {
   "version": 2,
   "framework": "nextjs",
-  "buildCommand": "node scripts/validate-env.js && npm run prisma:deploy && npm run build",
+  "buildCommand": "node scripts/validate-env.js && npm run prisma:fix-and-deploy && npm run build",
   "installCommand": "npm install",
   "crons": [
     {
