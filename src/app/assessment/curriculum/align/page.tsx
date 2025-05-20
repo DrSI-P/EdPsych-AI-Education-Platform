@@ -78,7 +78,7 @@ export default function AlignAssessmentPage() {
           
           if (alignedResponse.ok) {
             const alignedData = await alignedResponse.json();
-            setSelectedAssessments(alignedData.map(a => a.id));
+            setSelectedAssessments(alignedData.map((a: { id: string }) => a.id));
           }
         }
       } catch (err) {
@@ -96,8 +96,8 @@ export default function AlignAssessmentPage() {
     // Filter assessments based on search query
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
-      const filtered = assessments.filter(assessment => 
-        assessment.title.toLowerCase().includes(query) || 
+      const filtered = assessments.filter((assessment: Assessment) =>
+        assessment.title.toLowerCase().includes(query) ||
         assessment.description?.toLowerCase().includes(query)
       );
       setFilteredAssessments(filtered);
@@ -107,9 +107,9 @@ export default function AlignAssessmentPage() {
   }, [assessments, searchQuery]);
 
   const handleToggleAssessment = (assessmentId: string) => {
-    setSelectedAssessments(prev => {
+    setSelectedAssessments((prev: string[]) => {
       if (prev.includes(assessmentId)) {
-        return prev.filter(id => id !== assessmentId);
+        return prev.filter((id: string) => id !== assessmentId);
       } else {
         return [...prev, assessmentId];
       }
@@ -141,9 +141,9 @@ export default function AlignAssessmentPage() {
 
       // Redirect back to curriculum page
       router.push('/assessment/curriculum');
-    } catch (err) {
+    } catch (err: unknown) {
       console.error('Error saving alignment:', err);
-      setError(err.message || 'An error occurred while saving the alignment');
+      setError(err instanceof Error ? err.message : 'An error occurred while saving the alignment');
     } finally {
       setSaving(false);
     }
@@ -242,7 +242,7 @@ export default function AlignAssessmentPage() {
                   placeholder="Search assessments..."
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                   value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value)}
                 />
               </div>
               
@@ -254,7 +254,7 @@ export default function AlignAssessmentPage() {
                 </div>
               ) : (
                 <div className="space-y-4 max-h-96 overflow-y-auto pr-2">
-                  {filteredAssessments.map((assessment) => (
+                  {filteredAssessments.map((assessment: Assessment) => (
                     <div 
                       key={assessment.id} 
                       className={`border rounded-md p-4 cursor-pointer transition-all ${
@@ -282,7 +282,7 @@ export default function AlignAssessmentPage() {
                             type="checkbox"
                             checked={selectedAssessments.includes(assessment.id)}
                             onChange={() => {}} // Handled by the div click
-                            onClick={(e) => e.stopPropagation()}
+                            onClick={(e: React.MouseEvent) => e.stopPropagation()}
                             className="h-5 w-5 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
                           />
                         </div>
