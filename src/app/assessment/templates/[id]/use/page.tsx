@@ -12,7 +12,7 @@ import { Form } from '@/components/ui/form';
 export default function UseAssessmentTemplatePage() {
   const router = useRouter();
   const params = useParams();
-  const templateId = params.id;
+  const templateId = params?.id;
   
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -48,7 +48,7 @@ export default function UseAssessmentTemplatePage() {
       }
     };
     
-    if (templateId) {
+    if (params && params.id) {
       fetchTemplate();
     }
   }, [templateId]);

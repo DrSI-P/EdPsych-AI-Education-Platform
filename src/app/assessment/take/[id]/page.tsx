@@ -63,6 +63,10 @@ export default function AssessmentTakePage() {
   useEffect(() => {
     const fetchAssessment = async () => {
       try {
+        if (!params || !params.id) {
+          throw new Error('Assessment ID is missing');
+        }
+        
         const response = await fetch(`/api/assessment/${params.id}`);
         
         if (!response.ok) {
@@ -99,10 +103,10 @@ export default function AssessmentTakePage() {
         setLoading(false);
       }
     };
-    
-    if (params.id) {
+    if (params && params.id) {
       fetchAssessment();
     }
+    
     
     return () => {
       // Clean up timer on unmount
@@ -110,7 +114,7 @@ export default function AssessmentTakePage() {
         clearInterval(timerRef.current);
       }
     };
-  }, [params.id]);
+  }, [params?.id]);
 
   // Set up timer
   useEffect(() => {
@@ -286,8 +290,10 @@ export default function AssessmentTakePage() {
     
     switch (question.type) {
       case 'multiple-choice':
-        const allowMultiple = question.options?.some(option => option.isCorrect) && 
-                             question.options?.filter(option => option.isCorrect).length > 1;
+        const allowMultiple = question.options ?
+                             (question.options.some(option => option.isCorrect) &&
+                             question.options.filter(option => option.isCorrect).length > 1) :
+                             false;
         
         return (
           <div className="space-y-4">

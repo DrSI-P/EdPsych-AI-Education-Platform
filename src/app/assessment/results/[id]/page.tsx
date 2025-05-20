@@ -72,6 +72,10 @@ export default function AssessmentResultsPage() {
   useEffect(() => {
     const fetchAssessment = async () => {
       try {
+        if (!params || !params.id) {
+          throw new Error('Assessment ID is missing');
+        }
+        
         const response = await fetch(`/api/assessment/${params.id}/results`);
         
         if (!response.ok) {
@@ -88,10 +92,10 @@ export default function AssessmentResultsPage() {
       }
     };
     
-    if (params.id) {
+    if (params && params.id) {
       fetchAssessment();
     }
-  }, [params.id]);
+  }, [params?.id]);
 
   useEffect(() => {
     const fetchResponseDetails = async () => {

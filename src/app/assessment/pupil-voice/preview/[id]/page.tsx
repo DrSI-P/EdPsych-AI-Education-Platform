@@ -11,7 +11,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 export default function PreviewPupilVoiceSurveyPage() {
   const router = useRouter();
   const params = useParams();
-  const surveyId = params.id as string;
+  const surveyId = params?.id as string | undefined;
   
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -48,8 +48,10 @@ export default function PreviewPupilVoiceSurveyPage() {
       }
     };
     
-    fetchSurvey();
-  }, [surveyId]);
+    if (params && params.id) {
+      fetchSurvey();
+    }
+  }, [params?.id]);
 
   const handlePublishSurvey = async () => {
     try {

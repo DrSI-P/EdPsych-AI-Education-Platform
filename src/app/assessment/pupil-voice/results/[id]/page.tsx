@@ -11,7 +11,7 @@ import { Tabs } from '@/components/ui/tabs';
 export default function PupilVoiceResultsPage() {
   const router = useRouter();
   const params = useParams();
-  const surveyId = params.id as string;
+  const surveyId = params?.id as string | undefined;
   
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -49,8 +49,10 @@ export default function PupilVoiceResultsPage() {
       }
     };
     
-    fetchSurveyAndResponses();
-  }, [surveyId]);
+    if (params && params.id) {
+      fetchSurveyAndResponses();
+    }
+  }, [params?.id]);
 
   // Calculate response statistics
   const calculateStats = () => {
@@ -213,7 +215,7 @@ export default function PupilVoiceResultsPage() {
                 {(question.type === 'multiple_choice' || question.type === 'likert_scale' || 
                  question.type === 'emoji_scale' || question.type === 'yes_no') && (
                   <div className="space-y-3">
-                    {Object.entries(questionStats.optionCounts).sort((a, b) => b[1] - a[1]).map(([option, count]: [string, any]) => {
+                    {Object.entries(questionStats.optionCounts as Record<string, number>).sort((a, b) => b[1] - a[1]).map(([option, count]: [string, number]) => {
                       const percentage = (count / questionStats.responseCount) * 100;
                       
                       return (

@@ -10,7 +10,7 @@ import { Spinner } from '@/components/ui/loading';
 export default function TakePupilVoiceSurveyPage() {
   const router = useRouter();
   const params = useParams();
-  const surveyId = params.id as string;
+  const surveyId = params?.id as string | undefined;
   
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
@@ -60,8 +60,10 @@ export default function TakePupilVoiceSurveyPage() {
       }
     };
     
-    fetchSurvey();
-  }, [surveyId]);
+    if (params && params.id) {
+      fetchSurvey();
+    }
+  }, [params?.id]);
 
   const handleInputChange = (questionId: string, value: any) => {
     setResponses(prev => ({
