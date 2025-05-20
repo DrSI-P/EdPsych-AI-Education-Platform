@@ -89,24 +89,26 @@ export async function POST(req: NextRequest) {
     }
     
     // Save results to database
-    const learningStyleProfile = await prisma.learningStyleProfile.create({
+    const learningStyle = await prisma.learningStyle.create({
       data: {
         userId: session.user.id,
-        primaryStyle: results.primaryStyle.name,
-        secondaryStyle: results.secondaryStyle.name,
-        visualScore: results.allStyles.find((s: { name: string; score: number }) => s.name === 'Visual')?.score || 0,
-        auditoryScore: results.allStyles.find((s: { name: string; score: number }) => s.name === 'Auditory')?.score || 0,
-        kinestheticScore: results.allStyles.find((s: { name: string; score: number }) => s.name === 'Kinesthetic')?.score || 0,
-        readingWritingScore: results.allStyles.find((s: { name: string; score: number }) => s.name === 'Reading/Writing')?.score || 0,
-        rawResults: JSON.stringify(results),
-        answers: JSON.stringify(answers)
+        visual: results.allStyles.find((s: { name: string; score: number }) => s.name === 'Visual')?.score || 0,
+        auditory: results.allStyles.find((s: { name: string; score: number }) => s.name === 'Auditory')?.score || 0,
+        kinesthetic: results.allStyles.find((s: { name: string; score: number }) => s.name === 'Kinesthetic')?.score || 0,
+        readWrite: results.allStyles.find((s: { name: string; score: number }) => s.name === 'Reading/Writing')?.score || 0,
+        assessmentResults: JSON.stringify(results),
+        additionalStyles: JSON.stringify({
+          primaryStyle: results.primaryStyle.name,
+          secondaryStyle: results.secondaryStyle.name,
+          recommendations: results.personalizedRecommendations
+        })
       }
     });
     
     return NextResponse.json({
       success: true,
       results,
-      profileId: learningStyleProfile.id
+      profileId: learningStyle.id
     });
     
   } catch (error) {
@@ -124,7 +126,7 @@ export async function GET(req: NextRequest) {
     }
     
     // Get the user's most recent learning style profile
-    const learningStyleProfile = await prisma.learningStyleProfile.findFirst({
+    const learningStyle = await prisma.learningStyle.findFirst({
       where: {
         userId: session.user.id
       },
@@ -133,26 +135,63 @@ export async function GET(req: NextRequest) {
       }
     });
     
-    if (!learningStyleProfile) {
+    if (!learningStyle) {
       return NextResponse.json({ 
         success: true,
         hasProfile: false 
       });
     }
     
+    // Parse additional styles data with proper error handling
+    let additionalData = {
+      primaryStyle: '',
+      secondaryStyle: '',
+      recommendations: []
+    };
+    
+    if (learningStyle.additionalStyles) {
+      try {
+        const parsedData = JSON.parse(learningStyle.additionalStyles.toString());
+        if (parsedData && typeof parsedData === 'object') {
+          additionalData = {
+            primaryStyle: parsedData.primaryStyle || '',
+            secondaryStyle: parsedData.secondaryStyle || '',
+            recommendations: Array.isArray(parsedData.recommendations) ? parsedData.recommendations : []
+          };
+        }
+      } catch (e) {
+        console.error('Error parsing additional styles:', e);
+        // Continue with default values
+      }
+    }
+    
+    // Parse assessment results with proper error handling
+    let results = {};
+    if (learningStyle.assessmentResults) {
+      try {
+        const parsedResults = JSON.parse(learningStyle.assessmentResults.toString());
+        if (parsedResults && typeof parsedResults === 'object') {
+          results = parsedResults;
+        }
+      } catch (e) {
+        console.error('Error parsing assessment results:', e);
+        // Continue with empty results
+      }
+    }
+    
     return NextResponse.json({
       success: true,
       hasProfile: true,
       profile: {
-        id: learningStyleProfile.id,
-        primaryStyle: learningStyleProfile.primaryStyle,
-        secondaryStyle: learningStyleProfile.secondaryStyle,
-        visualScore: learningStyleProfile.visualScore,
-        auditoryScore: learningStyleProfile.auditoryScore,
-        kinestheticScore: learningStyleProfile.kinestheticScore,
-        readingWritingScore: learningStyleProfile.readingWritingScore,
-        results: learningStyleProfile.rawResults ? JSON.parse(learningStyleProfile.rawResults) : {},
-        createdAt: learningStyleProfile.createdAt
+        id: learningStyle.id,
+        primaryStyle: additionalData.primaryStyle,
+        secondaryStyle: additionalData.secondaryStyle,
+        visualScore: learningStyle.visual,
+        auditoryScore: learningStyle.auditory,
+        kinestheticScore: learningStyle.kinesthetic,
+        readingWritingScore: learningStyle.readWrite,
+        results: results,
+        createdAt: learningStyle.createdAt
       }
     });
     
