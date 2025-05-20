@@ -356,6 +356,8 @@ model AssessmentAnswer {
   assessmentResponseId String
   questionId         String
   answer             Json
+  isCorrect          Boolean?
+  feedback           String?  @db.Text
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
   response           AssessmentResponse @relation(fields: [assessmentResponseId], references: [id], onDelete: Cascade)

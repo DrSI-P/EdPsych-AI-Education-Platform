@@ -39,7 +39,7 @@ export async function GET(
     }
     
     // Check if user has access to this response
-    const isCreator = response.assessment.createdById === session.user.id;
+    const isCreator = response.assessment.creatorId === session.user.id;
     const isAdmin = session.user.role === 'admin';
     const isTeacher = session.user.role === 'teacher';
     const isProfessional = session.user.role === 'professional';

@@ -19,7 +19,7 @@ export async function GET(
     const responseId = params.id;
     
     // Fetch the response with user and answers
-    const response = await prisma.response.findUnique({
+    const response = await prisma.assessmentResponse.findUnique({
       where: { id: responseId },
       include: {
         user: {
@@ -35,7 +35,7 @@ export async function GET(
             id: true,
             title: true,
             description: true,
-            createdById: true,
+            creatorId: true,
           },
         },
       },
@@ -46,7 +46,7 @@ export async function GET(
     }
     
     // Check if user has access to this response
-    const isCreator = response.assessment.createdById === session.user.id;
+    const isCreator = response.assessment.creatorId === session.user.id;
     const isAdmin = session.user.role === 'admin';
     const isTeacher = session.user.role === 'teacher';
     const isProfessional = session.user.role === 'professional';
@@ -93,7 +93,7 @@ export async function PUT(
     const responseId = params.id;
     
     // Fetch the response to check if it exists
-    const response = await prisma.response.findUnique({
+    const response = await prisma.assessmentResponse.findUnique({
       where: { id: responseId },
       include: {
         assessment: true,
@@ -116,7 +116,7 @@ export async function PUT(
     for (const grade of grades) {
       if (!grade.answerId) continue;
       
-      await prisma.answer.update({
+      await prisma.assessmentAnswer.update({
         where: { id: grade.answerId },
         data: {
           isCorrect: grade.isCorrect,
@@ -126,7 +126,7 @@ export async function PUT(
     }
     
     // Update the response with the total score and feedback
-    const updatedResponse = await prisma.response.update({
+    const updatedResponse = await prisma.assessmentResponse.update({
       where: { id: responseId },
       data: {
         score: totalScore,
