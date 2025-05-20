@@ -37,7 +37,7 @@ interface Assessment {
 export default function AlignAssessmentPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const standardId = searchParams.get('standard');
+  const standardId = searchParams ? searchParams.get('standard') : null;
   
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -152,7 +152,7 @@ export default function AlignAssessmentPage() {
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <Spinner size="large" />
+        <Spinner size="lg" />
       </div>
     );
   }
@@ -160,8 +160,8 @@ export default function AlignAssessmentPage() {
   if (!standard) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <Alert type="error">
-          Curriculum standard not found or you don't have permission to access it.
+        <Alert variant="error">
+          <div>Curriculum standard not found or you don't have permission to access it.</div>
         </Alert>
         <div className="mt-4">
           <Button onClick={() => router.push('/assessment/curriculum')}>
@@ -314,8 +314,8 @@ export default function AlignAssessmentPage() {
               </div>
               
               {error && (
-                <Alert type="error" className="mt-4 w-full">
-                  {error}
+                <Alert variant="error" className="mt-4 w-full">
+                  <div>{error}</div>
                 </Alert>
               )}
             </CardFooter>
