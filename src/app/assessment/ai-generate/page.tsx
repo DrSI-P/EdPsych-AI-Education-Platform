@@ -502,7 +502,12 @@ export default function AIAssessmentGeneratorPage() {
               { id: 'preview', label: 'Preview' },
             ]}
             activeTab={activeTab}
-            onChange={setActiveTab}
+            onChange={(e) => {
+              // Extract the tab value from the event and update state
+              if (e && e.target && typeof (e.target as any).value === 'string') {
+                setActiveTab((e.target as any).value);
+              }
+            }}
             className="mb-6"
           />
 
