@@ -237,6 +237,8 @@ The project uses Prisma ORM with PostgreSQL. To set up the database:
 3. Update the `DATABASE_URL` in your `.env` file
 4. Run `npx prisma migrate deploy` to apply all migrations
 
+For production deployments, ensure your database connection string uses the correct port and connection parameters. The platform includes robust migration handling to ensure database schema consistency across environments.
+
 For more details on database migrations and deployment, see [PRISMA_DEPLOYMENT.md](./PRISMA_DEPLOYMENT.md).
 
 ## Deployment and Development Documentation
