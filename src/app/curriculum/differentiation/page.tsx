@@ -134,7 +134,7 @@ export default function CurriculumDifferentiationPage() {
               
               <CurriculumDifferentiationEngine 
                 curriculumPlanId={planId || undefined}
-                curriculumContent={curriculumPlan?.content || ''}
+                curriculumContent={curriculumPlan?.description || ''}
                 objectives={curriculumPlan?.objectives?.map((obj: any) => obj.description) || []}
                 subject={curriculumPlan?.subject || ''}
                 keyStage={curriculumPlan?.keyStage || ''}

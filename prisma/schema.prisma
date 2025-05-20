@@ -44,6 +44,7 @@ model User {
   createdTasks             CurriculumPlanTask[]      @relation("TaskCreator")
   assignedTasks            CurriculumPlanTask[]      @relation("TaskAssignee")
   curriculumAlignments     CurriculumAlignment[]
+  pluginCredentials        PluginCredential[]
 }
 
 model Account {
@@ -362,12 +363,16 @@ model AccessibilitySettings {
 }
 
 model AccessibilityLog {
-  id        String   @id @default(cuid())
-  userId    String
-  feature   String
-  options   String
-  createdAt DateTime @default(now())
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id             String   @id @default(cuid())
+  userId         String
+  settingChanged String
+  oldValue       String?
+  newValue       String?
+  action         String?  // Added missing field
+  feature        String?  // Added missing field
+  details        String?  @db.Text // Added missing field
+  createdAt      DateTime @default(now())
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model LessonPlan {
@@ -654,6 +659,18 @@ model CurriculumPlanComment {
   content   String         @db.Text
   createdAt DateTime       @default(now())
   updatedAt DateTime       @updatedAt
+}
+
+model PluginCredential {
+  id                String   @id @default(cuid())
+  pluginId          String   // Identifier for the plugin (e.g., 'google-drive-integration')
+  userId            String   // User who owns these credentials
+  credentials       Json     // Stored credentials (access token, refresh token, etc.)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([pluginId, userId])
 }
 
 model CurriculumPlanTask {

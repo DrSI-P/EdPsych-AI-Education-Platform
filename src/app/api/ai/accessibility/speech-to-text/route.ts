@@ -35,9 +35,17 @@ export async function POST(req: NextRequest) {
     await prisma.accessibilityLog.create({
       data: {
         userId: session.user.id,
-        feature: 'speech-to-text',
-        options: JSON.stringify({
+        settingChanged: 'speech-to-text',
+        oldValue: null,
+        newValue: JSON.stringify({
           ...(settings || {}),
+          textLength: text.length,
+          duration: duration,
+          confidence: confidence
+        }),
+        action: 'speech_recognition',
+        feature: 'speech-to-text',
+        details: JSON.stringify({
           textLength: text.length,
           duration: duration,
           confidence: confidence

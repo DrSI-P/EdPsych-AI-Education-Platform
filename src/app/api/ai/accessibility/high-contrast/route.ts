@@ -60,8 +60,12 @@ export async function POST(req: NextRequest) {
     await prisma.accessibilityLog.create({
       data: {
         userId: session.user.id,
+        settingChanged: 'high-contrast-mode',
+        oldValue: null,
+        newValue: JSON.stringify(validatedSettings),
+        action: 'setting_changed',
         feature: 'high-contrast-mode',
-        options: JSON.stringify(validatedSettings),
+        details: JSON.stringify(validatedSettings),
       }
     });
 

@@ -67,8 +67,12 @@ export async function POST(req: NextRequest) {
     await prisma.accessibilityLog.create({
       data: {
         userId: session.user.id,
+        settingChanged: 'reduced-motion-mode',
+        oldValue: null,
+        newValue: JSON.stringify(validatedSettings),
+        action: 'setting_changed',
         feature: 'reduced-motion-mode',
-        options: JSON.stringify(validatedSettings),
+        details: JSON.stringify(validatedSettings),
       }
     });
 
