@@ -101,7 +101,11 @@ export default function AIAssessmentGeneratorPage() {
       setActiveTab('preview');
     } catch (err) {
       console.error('Error generating assessment:', err);
-      setError(err.message || 'An error occurred while generating the assessment');
+      setError(
+        err instanceof Error
+          ? err.message
+          : 'An error occurred while generating the assessment'
+      );
     } finally {
       setGenerating(false);
     }
@@ -132,15 +136,19 @@ export default function AIAssessmentGeneratorPage() {
       router.push(`/assessment/edit/${data.id}`);
     } catch (err) {
       console.error('Error saving assessment:', err);
-      setError(err.message || 'An error occurred while saving the assessment');
+      setError(
+        err instanceof Error
+          ? err.message
+          : 'An error occurred while saving the assessment'
+      );
     } finally {
       setLoading(false);
     }
   };
 
-  const handleToggleQuestionType = (type) => {
+  const handleToggleQuestionType = (type: string) => {
     if (selectedQuestionTypes.includes(type)) {
-      setSelectedQuestionTypes(selectedQuestionTypes.filter(t => t !== type));
+      setSelectedQuestionTypes(selectedQuestionTypes.filter((t: string) => t !== type));
     } else {
       setSelectedQuestionTypes([...selectedQuestionTypes, type]);
     }
