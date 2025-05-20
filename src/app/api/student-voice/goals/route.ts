@@ -143,7 +143,7 @@ const mockReflections = [
     createdBy: "student123",
     createdAt: "2025-05-01T14:30:00Z",
     authorName: "Jamie Smith",
-    authorRole: "Student"
+    authorRole: "student"
   },
   {
     id: "r2",
@@ -152,7 +152,7 @@ const mockReflections = [
     createdBy: "teacher456",
     createdAt: "2025-05-05T09:15:00Z",
     authorName: "Ms. Johnson",
-    authorRole: "Teacher"
+    authorRole: "teacher"
   },
   {
     id: "r3",
@@ -161,7 +161,7 @@ const mockReflections = [
     createdBy: "parent789",
     createdAt: "2025-05-10T19:45:00Z",
     authorName: "Mr. Smith",
-    authorRole: "Parent"
+    authorRole: "parent"
   }
 ];
 
@@ -270,9 +270,9 @@ export async function POST(request: NextRequest) {
         };
         
         const authorDetails: AuthorDetailsType = {
-          "student123": { name: "Jamie Smith", role: "Student" },
-          "teacher456": { name: "Ms. Johnson", role: "Teacher" },
-          "parent789": { name: "Mr. Smith", role: "Parent" }
+          "student123": { name: "Jamie Smith", role: "student" },
+          "teacher456": { name: "Ms. Johnson", role: "teacher" },
+          "parent789": { name: "Mr. Smith", role: "parent" }
         };
         
         // Use type assertion to tell TypeScript that this is a valid key lookup
@@ -283,7 +283,7 @@ export async function POST(request: NextRequest) {
           ...reflectionData,
           createdAt: new Date().toISOString(),
           authorName: author.name,
-          authorRole: author.role
+          authorRole: author.role.toLowerCase()
         };
         
         return NextResponse.json({ 
