@@ -2,11 +2,12 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import type { PupilVoiceSurvey } from '@/types/assessment';
 import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Alert } from '@/components/ui/alert';
 import { Spinner } from '@/components/ui/loading';
-import { Tabs } from '@/components/ui/tabs';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Form } from '@/components/ui/form';
 
 export default function PupilVoicePage() {
@@ -14,8 +15,8 @@ export default function PupilVoicePage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [activeTab, setActiveTab] = useState('surveys');
-  const [surveys, setSurveys] = useState([]);
-  const [filteredSurveys, setFilteredSurveys] = useState([]);
+  const [surveys, setSurveys] = useState<PupilVoiceSurvey[]>([]);
+  const [filteredSurveys, setFilteredSurveys] = useState<PupilVoiceSurvey[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState('all');
 
@@ -83,7 +84,7 @@ export default function PupilVoicePage() {
     if (loading) {
       return (
         <div className="flex justify-center items-center py-12">
-          <Spinner size="large" />
+          <Spinner size="lg" />
         </div>
       );
     }
@@ -273,22 +274,19 @@ export default function PupilVoicePage() {
       </div>
 
       {error && (
-        <Alert type="error" className="mb-6">
+        <Alert variant="error" className="mb-6">
           {error}
         </Alert>
       )}
 
       <div className="mb-6">
-        <Tabs
-          tabs={[
-            { id: 'surveys', label: 'My Surveys' },
-            { id: 'templates', label: 'Templates' },
-            { id: 'insights', label: 'Insights' },
-          ]}
-          activeTab={activeTab}
-          onChange={setActiveTab}
-          className="mb-4"
-        />
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-4">
+          <TabsList>
+            <TabsTrigger value="surveys">My Surveys</TabsTrigger>
+            <TabsTrigger value="templates">Templates</TabsTrigger>
+            <TabsTrigger value="insights">Insights</TabsTrigger>
+          </TabsList>
+        </Tabs>
 
         {activeTab === 'surveys' && (
           <div className="space-y-6">
