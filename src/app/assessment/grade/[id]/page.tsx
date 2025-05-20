@@ -142,7 +142,7 @@ export default function ManualGradingPage() {
       }
     };
     
-    if (params.id) {
+    if (params && params.id) {
       fetchData();
     }
   }, [params.id]);
