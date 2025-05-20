@@ -27,8 +27,8 @@ export async function POST(
           orderBy: { order: 'asc' },
           select: {
             id: true,
-            text: true,
-            content: true,
+            question: true,
+
             type: true,
             options: true,
             correctAnswer: true,
@@ -134,7 +134,7 @@ export async function POST(
           if (question.expectedAnswer && typeof content === 'string' && content.trim()) {
             try {
               const aiEvaluation = await aiService.evaluateOpenEndedAnswer({
-                question: question.content || question.text || "",
+                question: question.question || "",
                 expectedAnswer: question.expectedAnswer as string,
                 studentAnswer: content,
                 maxScore: question.points
