@@ -1,5 +1,5 @@
 -- CreateTable
-CREATE TABLE "PluginCredential" (
+CREATE TABLE IF NOT EXISTS "PluginCredential" (
     "id" TEXT NOT NULL,
     "pluginId" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
@@ -11,12 +11,7 @@ CREATE TABLE "PluginCredential" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "PluginCredential_pluginId_userId_key" ON "PluginCredential"("pluginId", "userId");
+CREATE UNIQUE INDEX IF NOT EXISTS "PluginCredential_pluginId_userId_key" ON "PluginCredential"("pluginId", "userId");
 
 -- AddForeignKey
-ALTER TABLE "PluginCredential" ADD CONSTRAINT "PluginCredential_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AlterTable
-ALTER TABLE "AccessibilityLog" ADD COLUMN "action" TEXT,
-ADD COLUMN "feature" TEXT,
-ADD COLUMN "details" TEXT;
+ALTER TABLE "PluginCredential" ADD CONSTRAINT IF NOT EXISTS "PluginCredential_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;

@@ -16,34 +16,6 @@
       "permanent": true
     }
   ],
-  "protection": {
-    "production": {
-      "enabled": true,
-      "accessRules": [
-        {
-          "type": "email",
-          "value": "*@edpsychconnect.com"
-        },
-        {
-          "type": "team",
-          "teamId": "team_edpsych"
-        }
-      ]
-    },
-    "preview": {
-      "enabled": true,
-      "accessRules": [
-        {
-          "type": "email",
-          "value": "*@edpsychconnect.com"
-        },
-        {
-          "type": "team",
-          "teamId": "team_edpsych"
-        }
-      ]
-    }
-  },
   "functions": {
     "src/app/api/ai/*/route.ts": {
       "memory": 1024,
