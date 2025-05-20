@@ -27,7 +27,7 @@ import {
   ArrowRight, Target, Eye, EyeOff, Zap, Flag, User, UserPlus, UserCheck, Star,
   Lightbulb, Clipboard, Briefcase, Heart, ThumbsUp, MessageSquare, School, GraduationCap,
   FileQuestion, BookMarked, Laptop, Tablet, Smartphone, Printer, Database, Search,
-  Library, Book, Video, Music, Image, File, FilePlus, FileText, FileCheck
+  Library, Book, Video, Music, Image, File, FilePlus, FileCheck
 } from 'lucide-react';
 import { cn } from "@/lib/utils";
 
