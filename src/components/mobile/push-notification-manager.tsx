@@ -100,7 +100,7 @@ export const PushNotificationManager: React.FC<PushNotificationManagerProps> = (
       {showPermissionPrompt && (
         <div className="notification-permission-prompt">
           <div className="prompt-content">
-            <div className="prompt-icon">ðŸ””</div>
+            <div className="prompt-icon">ðŸ""</div>
             <div className="prompt-text">
               <h3>Enable Notifications</h3>
               <p>Stay updated with important information about your learning journey, assignments, and achievements.</p>

@@ -93,7 +93,7 @@ interface Dimension {
   id: DimensionType;
   name: string;
   description: string;
-  icon: React.ReactElement;
+  icon: React.ReactNode;
   tools: Tool[];
 }
 
@@ -117,7 +117,7 @@ const dimensions: Dimension[] = [
       {
         id: 'scs',
         name: 'School Connectedness Scale (SCS)',
-        description: 'Validated measure of students' sense of connection to their school environment',
+        description: "Validated measure of students' sense of connection to their school environment",
         type: 'survey',
         targetAudience: ['students'],
         timeRequired: '10-15 minutes'
@@ -125,7 +125,7 @@ const dimensions: Dimension[] = [
       {
         id: 'sscs',
         name: 'Sense of School Community Scale (SSCS)',
-        description: 'Assesses students' perception of community within the school',
+        description: "Assesses students' perception of community within the school",
         type: 'survey',
         targetAudience: ['students'],
         timeRequired: '15-20 minutes'
@@ -157,7 +157,7 @@ const dimensions: Dimension[] = [
       {
         id: 'emotional-regulation',
         name: 'Emotional Regulation Assessment',
-        description: 'Measures students' ability to recognize and manage emotions',
+        description: "Measures students' ability to recognize and manage emotions",
         type: 'survey',
         targetAudience: ['students', 'teachers'],
         timeRequired: '10-15 minutes'

@@ -27,7 +27,7 @@ import {
   ArrowRight, Target, Eye, EyeOff, Zap, Flag, User, UserPlus, UserCheck, Star,
   Lightbulb, Clipboard, Briefcase, Heart, ThumbsUp, MessageSquare, School, GraduationCap,
   FileQuestion, BookMarked, Laptop, Tablet, Smartphone, Printer, Database, Search,
-  Library, Book, Video, Music, Image, File, FilePlus, FileText2, FileCheck
+  Library, Book, Video, Music, Image, File, FilePlus, FileText, FileCheck
 } from 'lucide-react';
 import { cn } from "@/lib/utils";
 
@@ -702,7 +702,7 @@ export function ResourceAndAssessmentAnalytics() {
                 <Treemap
                   data={resourceCategoriesData}
                   dataKey="size"
-                  ratio={4/3}
+                  aspectRatio={4/3}
                   stroke="#fff"
                   fill="#8884d8"
                   content={<CustomizedContent colors={['#8884d8', '#82ca9d', '#ffc658']} />}
@@ -772,9 +772,14 @@ export function ResourceAndAssessmentAnalytics() {
                     nameKey="name"
                     label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
                   >
-                    {({ name, value, color }) => (
-                      <Cell key={`cell-${name}`} fill={color} />
-                    )}
+                    {[
+                      { name: 'Desktop/Laptop', value: 45, color: '#8884d8' },
+                      { name: 'Tablet', value: 35, color: '#82ca9d' },
+                      { name: 'Smartphone', value: 15, color: '#ffc658' },
+                      { name: 'Interactive Whiteboard', value: 5, color: '#ff8042' },
+                    ].map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
                   </Pie>
                   <Tooltip formatter={(value) => [`${value}%`, 'Percentage']} />
                   <Legend />
@@ -814,9 +819,15 @@ export function ResourceAndAssessmentAnalytics() {
                     nameKey="name"
                     label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
                   >
-                    {({ name, value, color }) => (
-                      <Cell key={`cell-${name}`} fill={color} />
-                    )}
+                    {[
+                      { name: 'Documents', value: 30, color: '#8884d8' },
+                      { name: 'Videos', value: 25, color: '#82ca9d' },
+                      { name: 'Interactive', value: 20, color: '#ffc658' },
+                      { name: 'Images', value: 15, color: '#ff8042' },
+                      { name: 'Audio', value: 10, color: '#0088fe' },
+                    ].map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
                   </Pie>
                   <Tooltip formatter={(value) => [`${value}%`, 'Percentage']} />
                 </PieChart>
@@ -1323,9 +1334,12 @@ export function ResourceAndAssessmentAnalytics() {
                     nameKey="name"
                     label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
                   >
-                    {({ name, value, color }) => (
-                      <Cell key={`cell-${name}`} fill={color} />
-                    )}
+                    {[
+                      { name: 'Digital', value: 65, color: '#8884d8' },
+                      { name: 'Traditional', value: 35, color: '#82ca9d' },
+                    ].map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
                   </Pie>
                   <Tooltip formatter={(value) => [`${value}%`, 'Percentage']} />
                   <Legend />
@@ -1362,9 +1376,14 @@ export function ResourceAndAssessmentAnalytics() {
                     nameKey="name"
                     label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
                   >
-                    {({ name, value, color }) => (
-                      <Cell key={`cell-${name}`} fill={color} />
-                    )}
+                    {[
+                      { name: 'Creation', value: 25, color: '#8884d8' },
+                      { name: 'Administration', value: 15, color: '#82ca9d' },
+                      { name: 'Marking', value: 40, color: '#ffc658' },
+                      { name: 'Feedback', value: 20, color: '#ff8042' },
+                    ].map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
                   </Pie>
                   <Tooltip formatter={(value) => [`${value}%`, 'Percentage']} />
                   <Legend />
@@ -1893,7 +1912,7 @@ export function ResourceAndAssessmentAnalytics() {
                 <AlertTriangle className="h-5 w-5 text-amber-500" />
                 <div>
                   <p className="text-sm font-medium">Outdated Computing Materials</p>
-                  <p className="text-xs text-muted-foreground">65% of computing resources >2 years old</p>
+                  <p className="text-xs text-muted-foreground">65% of computing resources {'>'}2 years old</p>
                 </div>
               </div>
               
@@ -2050,7 +2069,21 @@ export function ResourceAndAssessmentAnalytics() {
 }
 
 // Custom content component for Treemap
-const CustomizedContent = (props) => {
+// Define the props type for CustomizedContent
+interface CustomizedContentProps {
+  root?: any;
+  depth?: number;
+  x?: number;
+  y?: number;
+  width?: number;
+  height?: number;
+  index?: number;
+  colors?: string[];
+  name?: string;
+  value?: number;
+}
+
+const CustomizedContent = (props: CustomizedContentProps) => {
   const { root, depth, x, y, width, height, index, colors, name, value } = props;
 
   return (

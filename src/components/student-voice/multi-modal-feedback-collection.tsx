@@ -66,13 +66,13 @@ const subjects = [
 // Mock data for emoji reactions
 const emojiReactions = [
   { emoji: '😀', label: 'Happy' },
-  { emoji: '🤔', label: 'Thinking' },
+  { emoji: '�"', label: 'Thinking' },
   { emoji: '😕', label: 'Confused' },
   { emoji: '😢', label: 'Sad' },
   { emoji: '😡', label: 'Angry' },
   { emoji: '👍', label: 'Agree' },
   { emoji: '👎', label: 'Disagree' },
-  { emoji: '❓', label: 'Question' }
+  { emoji: '�"', label: 'Question' }
 ];
 
 // Interface for feedback entry
@@ -160,7 +160,7 @@ export default function MultiModalFeedbackCollection() {
         sentiment: 'neutral',
         reactions: [
           { emoji: '👍', count: 5 },
-          { emoji: '🤔', count: 2 }
+          { emoji: '�"', count: 2 }
         ],
         createdAt: '2025-05-15T10:30:00Z'
       },

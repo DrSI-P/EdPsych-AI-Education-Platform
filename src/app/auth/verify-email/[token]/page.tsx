@@ -73,7 +73,7 @@ export default function VerifyEmailPage() {
           <CardContent className="pt-6">
             {loading ? (
               <div className="text-center py-8">
-                <Spinner size="large" className="mb-4" />
+                <Spinner size="lg" className="mb-4" />
                 <p className="text-gray-600">Verifying your email address...</p>
               </div>
             ) : success ? (
@@ -88,7 +88,7 @@ export default function VerifyEmailPage() {
                     </div>
                   </div>
                 </div>
-                <Alert type="success" className="mb-4">
+                <Alert variant="success" className="mb-4">
                   Your email has been verified successfully!
                 </Alert>
                 <p className="text-sm text-gray-600 mb-6">
@@ -122,7 +122,7 @@ export default function VerifyEmailPage() {
                     </div>
                   </div>
                 </div>
-                <Alert type="error" className="mb-4">
+                <Alert variant="error" className="mb-4">
                   {error || 'Verification failed'}
                 </Alert>
                 <p className="text-sm text-gray-600 mb-6">

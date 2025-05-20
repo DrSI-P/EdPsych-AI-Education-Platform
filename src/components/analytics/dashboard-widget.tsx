@@ -228,7 +228,7 @@ export const DashboardWidget: React.FC<DashboardWidgetProps> = ({
             'text-muted-foreground'
           }`}>
             {trend === 'up' && '↑ '}
-            {trend === 'down' && '↓ '}
+            {trend === 'down' && '�" '}
             {trend === 'stable' && '→ '}
             {trendPercentage ? `${trendPercentage}%` : ''} from previous period
           </div>

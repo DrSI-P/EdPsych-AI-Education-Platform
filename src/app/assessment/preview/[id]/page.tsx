@@ -347,7 +347,6 @@ export default function AssessmentPreviewPage() {
                   </div>
                 )}
               </div>
-              </div>
             </TabsContent>
             
             <TabsContent value="settings">
@@ -428,6 +427,7 @@ export default function AssessmentPreviewPage() {
                   </div>
                 </div>
               </div>
+            </div>
             </TabsContent>
           </Tabs>
         </CardContent>

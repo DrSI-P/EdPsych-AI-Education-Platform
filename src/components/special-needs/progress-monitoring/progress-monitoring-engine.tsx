@@ -1047,18 +1047,19 @@ export default function ProgressMonitoringEngine({
                         >
                           <CartesianGrid strokeDasharray="3 3" />
                           <XAxis dataKey="date" />
-                          <YAxis 
-                            domain={[
-                              Math.min(selectedGoal.baseline, Math.min(...dataPoints.map(d => d.value))) * 0.9,
-                              Math.max(selectedGoal.target, Math.max(...dataPoints.map(d => d.value))) * 1.1
-                            ]}
+                          <YAxis
+                            domain={(() => {
+                              const minValue = Math.min(selectedGoal.baseline, ...dataPoints.map(d => d.value));
+                              const maxValue = Math.max(selectedGoal.target, ...dataPoints.map(d => d.value));
+                              return [minValue * 0.9, maxValue * 1.1];
+                            })()}
                           />
                           <Tooltip />
                           <Legend />
                           <Line 
                             type="monotone" 
                             dataKey="value" 
-                            name={`${selectedGoal.title} (${selectedGoal.unit})`}
+                            name={selectedGoal.title + " (" + selectedGoal.unit + ")"}
                             stroke="#8884d8" 
                             activeDot={{ r: 8 }} 
                           />
@@ -1170,7 +1171,7 @@ export default function ProgressMonitoringEngine({
                             <div key={index} className="grid grid-cols-3 p-3">
                               <div>{point.date}</div>
                               <div>{point.value} {selectedGoal.unit}</div>
-                              <div className="text-sm text-muted-foreground truncate">{point.notes || "—"}</div>
+                              <div className="text-sm text-muted-foreground truncate">{point.notes || "No notes"}</div>
                             </div>
                           ))}
                         </div>

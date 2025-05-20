@@ -67,7 +67,7 @@ export const AvatarVideoIntegration: React.FC<AvatarVideoIntegrationProps> = ({
           componentType,
           position,
           videoId: position === 'intro' ? 'video1' : position === 'summary' ? 'video2' : undefined,
-          scriptTemplate: position === 'feedback' ? 'Well done on completing this {{subject}} activity! You've made great progress with {{skill}}.' : undefined,
+          scriptTemplate: position === 'feedback' ? "Well done on completing this {{subject}} activity! You've made great progress with {{skill}}." : undefined,
           dynamicVariables: position === 'feedback' ? { subject: 'mathematics', skill: 'fractions' } : undefined,
           conditions: {
             userRole: ['student', 'teacher'],

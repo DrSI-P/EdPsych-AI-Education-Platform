@@ -120,7 +120,7 @@ export default function PupilVoiceResultsPage() {
           <CardHeader>
             <h3 className="text-lg font-medium">Response Summary</h3>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
                 <h4 className="text-sm font-medium text-gray-500">Total Responses</h4>
@@ -148,7 +148,7 @@ export default function PupilVoiceResultsPage() {
           <CardHeader>
             <h3 className="text-lg font-medium">Question Response Rates</h3>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="space-y-4">
               {survey.questions.map((question: any, index: number) => {
                 const questionStats = stats.questionStats[question.id];
@@ -196,7 +196,7 @@ export default function PupilVoiceResultsPage() {
           
           return (
             <Card key={question.id}>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <div className="flex items-start">
                   <div className="w-8 h-8 bg-indigo-100 text-indigo-800 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
                     {index + 1}
@@ -342,7 +342,7 @@ export default function PupilVoiceResultsPage() {
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <Spinner size="large" />
+        <Spinner size="lg" />
       </div>
     );
   }
@@ -350,7 +350,7 @@ export default function PupilVoiceResultsPage() {
   if (error) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <Alert type="error" className="mb-6">
+        <Alert variant="error" className="mb-6">
           {error}
         </Alert>
         <Button
@@ -365,7 +365,7 @@ export default function PupilVoiceResultsPage() {
   if (!survey) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <Alert type="error" className="mb-6">
+        <Alert variant="error" className="mb-6">
           Survey not found
         </Alert>
         <Button
@@ -392,7 +392,7 @@ export default function PupilVoiceResultsPage() {
           </div>
         </div>
         
-        <Alert type="info" className="mb-6">
+        <Alert variant="info" className="mb-6">
           No responses have been collected for this survey yet.
         </Alert>
       </div>

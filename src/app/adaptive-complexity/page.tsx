@@ -113,7 +113,7 @@ export default function AdaptiveComplexityPage() {
                 <div>
                   <h3 className="text-lg font-medium mb-2">What is Adaptive Complexity Adjustment?</h3>
                   <p>
-                    Adaptive Complexity Adjustment is an advanced educational technology that automatically modifies the complexity level of learning content to match individual student needs, abilities, and performance. This feature ensures that each student receives content at the optimal level of challengeâ€”not too difficult to cause frustration, yet not too simple to cause boredom.
+                    Adaptive Complexity Adjustment is an advanced educational technology that automatically modifies the complexity level of learning content to match individual student needs, abilities, and performance. This feature ensures that each student receives content at the optimal level of challengeâ€"not too difficult to cause frustration, yet not too simple to cause boredom.
                   </p>
                   <p className="mt-2">
                     By leveraging artificial intelligence and evidence-based pedagogical principles, the system creates personalized learning experiences that adapt to each student's unique learning journey, making education more accessible, engaging, and effective.

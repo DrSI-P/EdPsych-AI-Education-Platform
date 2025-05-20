@@ -425,7 +425,7 @@ export default function CurriculumDifferentiationEngine({
                 </TabsTrigger>
                 <TabsTrigger value="readingWriting" className="flex items-center gap-1">
                   <span className="hidden sm:inline">Reading/Writing</span>
-                  <span className="sm:hidden">ğŸ“</span>
+                  <span className="sm:hidden">ğŸ"</span>
                 </TabsTrigger>
               </TabsList>
               

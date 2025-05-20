@@ -145,7 +145,7 @@ export const VideoLibrary: React.FC<VideoLibraryProps> = ({
           {
             id: 'script1',
             title: 'Introduction to Fractions',
-            content: 'Hello everyone! Today we're going to learn about fractions. A fraction represents a part of a whole. Imagine you have a pizza cut into 8 equal slices. If you eat 3 slices, you've eaten 3/8 of the pizza. The number on the bottom (8) is called the denominator, and it tells us how many equal parts the whole is divided into. The number on the top (3) is called the numerator, and it tells us how many of those parts we're talking about.',
+            content: "Hello everyone! Today we're going to learn about fractions. A fraction represents a part of a whole. Imagine you have a pizza cut into 8 equal slices. If you eat 3 slices, you've eaten 3/8 of the pizza. The number on the bottom (8) is called the denominator, and it tells us how many equal parts the whole is divided into. The number on the top (3) is called the numerator, and it tells us how many of those parts we're talking about.",
             notes: 'Use visual aids for pizza example. Speak slowly when introducing numerator and denominator.',
             visualCues: [],
             emotionMarkers: [],
@@ -162,7 +162,7 @@ export const VideoLibrary: React.FC<VideoLibraryProps> = ({
           {
             id: 'script2',
             title: 'Understanding Anxiety in the Classroom',
-            content: 'Welcome to this professional development session on understanding anxiety in the classroom. Anxiety is one of the most common mental health challenges that students face, and it can significantly impact their learning and wellbeing. In this video, we'll discuss how to recognize signs of anxiety, strategies to support anxious students, and when to seek additional help from specialists.',
+            content: "Welcome to this professional development session on understanding anxiety in the classroom. Anxiety is one of the most common mental health challenges that students face, and it can significantly impact their learning and wellbeing. In this video, we'll discuss how to recognize signs of anxiety, strategies to support anxious students, and when to seek additional help from specialists.",
             notes: 'Maintain a calm, supportive tone throughout. Include practical examples that teachers can implement immediately.',
             visualCues: [],
             emotionMarkers: [],
@@ -179,7 +179,7 @@ export const VideoLibrary: React.FC<VideoLibraryProps> = ({
           {
             id: 'script3',
             title: 'Phonics Practice: Short Vowel Sounds',
-            content: 'Hi there! Today we're going to practice our short vowel sounds. These are the sounds that the vowels a, e, i, o, and u make in words like "cat," "pet," "sit," "hot," and "sun." Let's start with the short "a" sound. Can you say "a" as in "apple"? Great job! Now, let's try some words with the short "a" sound: cat, hat, map, tap, and bag.',
+            content: "Hi there! Today we're going to practice our short vowel sounds. These are the sounds that the vowels a, e, i, o, and u make in words like \"cat,\" \"pet,\" \"sit,\" \"hot,\" and \"sun.\" Let's start with the short \"a\" sound. Can you say \"a\" as in \"apple\"? Great job! Now, let's try some words with the short \"a\" sound: cat, hat, map, tap, and bag.",
             visualCues: [],
             emotionMarkers: [],
             pauseMarkers: [],

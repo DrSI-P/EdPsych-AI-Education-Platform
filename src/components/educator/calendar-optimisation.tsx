@@ -786,7 +786,7 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
                 
                 {selectedActivity.location && (
                   <div className="flex items-start mb-2">
-                    <span className="h-4 w-4 mr-2 text-muted-foreground">üìç</span>
+                    <span className="h-4 w-4 mr-2 text-muted-foreground">ü"ç</span>
                     <span>{selectedActivity.location}</span>
                   </div>
                 )}

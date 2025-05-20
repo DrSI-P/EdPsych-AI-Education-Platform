@@ -665,7 +665,7 @@ export const MobileSearchBar: React.FC<MobileSearchBarProps> = ({
         placeholder={placeholder}
       />
       <button type="submit" className="search-button">
-        <span className="search-icon">ğŸ”</span>
+        <span className="search-icon">ğŸ"</span>
       </button>
     </form>
   );

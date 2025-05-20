@@ -672,7 +672,7 @@ export default function StudentVoiceCapture() {
                 <div className="text-2xl">
                   {emotionDetected === 'Joy' && '😊'}
                   {emotionDetected === 'Frustration' && '😣'}
-                  {emotionDetected === 'Curiosity' && '🤔'}
+                  {emotionDetected === 'Curiosity' && '�"'}
                   {emotionDetected === 'Anxiety' && '😰'}
                   {emotionDetected === 'Pride' && '😌'}
                   {emotionDetected === 'Boredom' && '😒'}
@@ -699,7 +699,7 @@ export default function StudentVoiceCapture() {
                 {sentiment === 'positive' && '👍 Positive'}
                 {sentiment === 'negative' && '👎 Negative'}
                 {sentiment === 'neutral' && '😐 Neutral'}
-                {sentiment === 'mixed' && '🤔 Mixed'}
+                {sentiment === 'mixed' && '�" Mixed'}
               </div>
             </div>
           )}

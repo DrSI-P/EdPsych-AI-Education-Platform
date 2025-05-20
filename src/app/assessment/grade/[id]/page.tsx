@@ -360,7 +360,7 @@ export default function ManualGradingPage() {
               const option = question.options?.find(o => o.id === optionId);
               return option ? (
                 <li key={optionId} className={option.isCorrect ? 'text-green-600' : 'text-red-600'}>
-                  {option.text} {option.isCorrect ? '✓' : '✗'}
+                  {option.text} {option.isCorrect ? '�"' : '✗'}
                 </li>
               ) : null;
             })}
@@ -391,7 +391,7 @@ export default function ManualGradingPage() {
               
               return leftItem && rightItem ? (
                 <li key={leftId} className={isCorrect ? 'text-green-600' : 'text-red-600'}>
-                  {leftItem.left} → {rightItem.right} {isCorrect ? '✓' : '✗'}
+                  {leftItem.left} → {rightItem.right} {isCorrect ? '�"' : '✗'}
                 </li>
               ) : null;
             })}
@@ -434,7 +434,7 @@ export default function ManualGradingPage() {
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <Spinner size="large" />
+        <Spinner size="lg" />
       </div>
     );
   }
@@ -442,7 +442,7 @@ export default function ManualGradingPage() {
   if (error) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <Alert type="error" className="mb-6">
+        <Alert variant="error" className="mb-6">
           {error}
         </Alert>
         <Button onClick={() => router.back()}>
@@ -455,7 +455,7 @@ export default function ManualGradingPage() {
   if (!assessment || !response) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <Alert type="error" className="mb-6">
+        <Alert variant="error" className="mb-6">
           Assessment response not found
         </Alert>
         <Button onClick={() => router.push('/assessment')}>
@@ -491,7 +491,7 @@ export default function ManualGradingPage() {
       </div>
 
       {saveSuccess && (
-        <Alert type="success" className="mb-6">
+        <Alert variant="success" className="mb-6">
           Grades saved successfully!
         </Alert>
       )}

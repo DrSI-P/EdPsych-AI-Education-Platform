@@ -238,7 +238,7 @@ export default function PreviewPupilVoiceSurveyPage() {
           <CardHeader>
             <h3 className="text-lg font-medium">Survey Settings</h3>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="space-y-4">
               <div>
                 <h4 className="text-sm font-medium text-gray-700">Status</h4>

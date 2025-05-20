@@ -79,7 +79,7 @@ export default function VideoViewPage() {
           </Link>
         </div>
         
-        <Card>
+        <Card className="w-full">
           <CardContent className="flex flex-col items-center justify-center py-12">
             <h1 className="text-2xl font-bold mb-4">Video Not Found</h1>
             <p className="text-muted-foreground mb-6">{error || 'The requested video could not be found'}</p>
@@ -127,7 +127,7 @@ export default function VideoViewPage() {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          <Card>
+          <Card className="w-full">
             <CardContent className="p-6">
               <h2 className="font-semibold mb-2">Video Details</h2>
               <p className="text-sm text-muted-foreground mb-1">Status: {video.status}</p>
@@ -136,7 +136,7 @@ export default function VideoViewPage() {
             </CardContent>
           </Card>
           
-          <Card>
+          <Card className="w-full">
             <CardContent className="p-6">
               <h2 className="font-semibold mb-2">Share</h2>
               <Button variant="outline" className="w-full">
@@ -146,7 +146,7 @@ export default function VideoViewPage() {
             </CardContent>
           </Card>
           
-          <Card>
+          <Card className="w-full">
             <CardContent className="p-6">
               <h2 className="font-semibold mb-2">Download</h2>
               <Button variant="outline" className="w-full" disabled={!video.url}>

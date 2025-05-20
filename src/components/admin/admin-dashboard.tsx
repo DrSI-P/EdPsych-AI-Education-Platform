@@ -263,7 +263,7 @@ export function AdminDashboard({
               <div className="flex justify-between items-center">
                 <div>
                   <h2 className="text-xl font-semibold">Admin Dashboard</h2>
-                  <p className="text-sm text-gray-600">{adminData.role} • {adminData.organisation}</p>
+                  <p className="text-sm text-gray-600">{adminData.role} - {adminData.organisation}</p>
                 </div>
                 <div className="text-right">
                   <p className="text-sm font-medium">System Status</p>
@@ -480,7 +480,7 @@ export function AdminDashboard({
                         <div className="flex justify-between items-start">
                           <div>
                             <h4 className="font-medium">{school.name}</h4>
-                            <p className="text-sm text-gray-600">{school.type} • {school.location}</p>
+                            <p className="text-sm text-gray-600">{school.type} - {school.location}</p>
                           </div>
                           <span className={`text-xs px-2 py-0.5 rounded-full ${
                             school.status === 'active' ? 'bg-green-100 text-green-800' :
@@ -1056,7 +1056,7 @@ export function AdminDashboard({
                       <label className="block text-sm font-medium mb-1">OpenAI API Key</label>
                       <Input 
                         type="password"
-                        value="••••••••••••••••••••••••••••••"
+                        value="******************************"
                         className="w-full"
                       />
                     </div>
@@ -1065,7 +1065,7 @@ export function AdminDashboard({
                       <label className="block text-sm font-medium mb-1">Anthropic API Key</label>
                       <Input 
                         type="password"
-                        value="••••••••••••••••••••••••••••••"
+                        value="******************************"
                         className="w-full"
                       />
                     </div>
@@ -1074,7 +1074,7 @@ export function AdminDashboard({
                       <label className="block text-sm font-medium mb-1">Google Gemini API Key</label>
                       <Input 
                         type="password"
-                        value="••••••••••••••••••••••••••••••"
+                        value="******************************"
                         className="w-full"
                       />
                     </div>
@@ -1083,7 +1083,7 @@ export function AdminDashboard({
                       <label className="block text-sm font-medium mb-1">GROK API Key</label>
                       <Input 
                         type="password"
-                        value="••••••••••••••••••••••••••••••"
+                        value="******************************"
                         className="w-full"
                       />
                     </div>
@@ -1092,7 +1092,7 @@ export function AdminDashboard({
                       <label className="block text-sm font-medium mb-1">OpenRouter API Key</label>
                       <Input 
                         type="password"
-                        value="••••••••••••••••••••••••••••••"
+                        value="******************************"
                         className="w-full"
                       />
                     </div>
@@ -1114,7 +1114,7 @@ export function AdminDashboard({
                       <label className="block text-sm font-medium mb-1">PostgreSQL Connection</label>
                       <Input 
                         type="password"
-                        value="••••••••••••••••••••••••••••••"
+                        value="******************************"
                         className="w-full"
                       />
                     </div>
@@ -1123,15 +1123,15 @@ export function AdminDashboard({
                       <label className="block text-sm font-medium mb-1">MongoDB Connection</label>
                       <Input 
                         type="password"
-                        value="••••••••••••••••••••••••••••••"
+                        value="******************************"
                         className="w-full"
                       />
                     </div>
                     
                     <div>
                       <label className="block text-sm font-medium mb-1">Firebase Configuration</label>
-                      <Textarea 
-                        value="{\n  \"apiKey\": \"•••••••••••••••••••••••\",\n  \"authDomain\": \"edpsych-connect.firebaseapp.com\",\n  \"projectId\": \"edpsych-connect\"\n  // Additional fields hidden\n}"
+                      <Textarea
+                        value={"{\n  \"apiKey\": \"***********************\",\n  \"authDomain\": \"edpsych-connect.firebaseapp.com\",\n  \"projectId\": \"edpsych-connect\"\n  // Additional fields hidden\n}"}
                         className="w-full h-24 font-mono text-xs"
                       />
                     </div>

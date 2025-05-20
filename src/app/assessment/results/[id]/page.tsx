@@ -196,14 +196,14 @@ export default function AssessmentResultsPage() {
     return (
       <div className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <Card>
+          <Card className="w-full">
             <CardContent className="p-6">
               <h3 className="text-lg font-medium mb-2">Total Responses</h3>
               <p className="text-3xl font-bold">{stats.totalResponses}</p>
             </CardContent>
           </Card>
           
-          <Card>
+          <Card className="w-full">
             <CardContent className="p-6">
               <h3 className="text-lg font-medium mb-2">Average Score</h3>
               <p className="text-3xl font-bold">
@@ -212,7 +212,7 @@ export default function AssessmentResultsPage() {
             </CardContent>
           </Card>
           
-          <Card>
+          <Card className="w-full">
             <CardContent className="p-6">
               <h3 className="text-lg font-medium mb-2">Passing Rate</h3>
               <p className="text-3xl font-bold">{stats.passingRate.toFixed(1)}%</p>
@@ -317,7 +317,7 @@ export default function AssessmentResultsPage() {
           <CardHeader>
             <h3 className="text-lg font-medium">Additional Statistics</h3>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
                 <p className="text-sm font-medium text-gray-500">Highest Score</p>
@@ -434,7 +434,7 @@ export default function AssessmentResultsPage() {
         {selectedResponse && (
           <div className="mt-6">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <div className="flex justify-between items-center">
                   <h3 className="text-lg font-medium">Response Details</h3>
                   <Button
@@ -449,7 +449,7 @@ export default function AssessmentResultsPage() {
               <CardContent>
                 {responseLoading ? (
                   <div className="flex justify-center py-8">
-                    <Spinner size="large" />
+                    <Spinner size="lg" />
                   </div>
                 ) : responseDetails ? (
                   <div className="space-y-6">
@@ -708,7 +708,7 @@ export default function AssessmentResultsPage() {
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <Spinner size="large" />
+        <Spinner size="lg" />
       </div>
     );
   }
@@ -716,7 +716,7 @@ export default function AssessmentResultsPage() {
   if (error) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <Alert type="error" className="mb-6">
+        <Alert variant="error" className="mb-6">
           {error}
         </Alert>
         <Button onClick={() => router.back()}>
@@ -729,7 +729,7 @@ export default function AssessmentResultsPage() {
   if (!assessment) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <Alert type="error" className="mb-6">
+        <Alert variant="error" className="mb-6">
           Assessment not found
         </Alert>
         <Button onClick={() => router.push('/assessment')}>

@@ -4,38 +4,44 @@ Write-Host "Starting TypeScript error fixes..." -ForegroundColor Green
 
 # 1. Fix Alert components - change type to variant
 Write-Host "Fixing Alert components..." -ForegroundColor Cyan
-Get-ChildItem -Path "EdPsych-AI-Education-Platform/src" -Recurse -Include "*.tsx", "*.ts" |
-    ForEach-Object {
-        $content = [string]::Join("`n", (Get-Content $_.FullName))
+Get-ChildItem -Path "EdPsych-AI-Education-Platform/src" -Recurse -Include "*.tsx", "*.ts" | ForEach-Object {
+    try {
+        $content = [string]::Join("`n", (Get-Content -LiteralPath $_.FullName -ErrorAction Stop))
         $updated = $content -replace '<Alert\s+type="(error|success|warning|info)"', '<Alert variant="$1"'
         
         # Add div wrapper for children if not present
         $updated = $updated -replace '(<Alert\s+variant="[^"]+"\s+[^>]*>)([^<].*?)(<\/Alert>)', '$1<div>$2</div>$3'
         
         if ($updated -ne $content) {
-            Set-Content -Path $_.FullName -Value $updated
+            Set-Content -LiteralPath $_.FullName -Value $updated
             Write-Host "  Fixed Alert in $($_.FullName)" -ForegroundColor Yellow
         }
+    } catch {
+        Write-Host "  Skipping $($_.FullName): $_" -ForegroundColor Gray
     }
+}
 
 # 2. Fix Spinner components - change size="large" to size="lg"
 Write-Host "Fixing Spinner components..." -ForegroundColor Cyan
-Get-ChildItem -Path "EdPsych-AI-Education-Platform/src" -Recurse -Include "*.tsx", "*.ts" |
-    ForEach-Object {
-        $content = [string]::Join("`n", (Get-Content $_.FullName))
+Get-ChildItem -Path "EdPsych-AI-Education-Platform/src" -Recurse -Include "*.tsx", "*.ts" | ForEach-Object {
+    try {
+        $content = [string]::Join("`n", (Get-Content -LiteralPath $_.FullName -ErrorAction Stop))
         $updated = $content -replace '<Spinner\s+size="large"', '<Spinner size="lg"'
         
         if ($updated -ne $content) {
-            Set-Content -Path $_.FullName -Value $updated
+            Set-Content -LiteralPath $_.FullName -Value $updated
             Write-Host "  Fixed Spinner in $($_.FullName)" -ForegroundColor Yellow
         }
+    } catch {
+        Write-Host "  Skipping $($_.FullName): $_" -ForegroundColor Gray
     }
+}
 
 # 3. Fix Tabs components - change to Radix UI pattern
 Write-Host "Fixing Tabs components..." -ForegroundColor Cyan
-Get-ChildItem -Path "EdPsych-AI-Education-Platform/src" -Recurse -Include "*.tsx", "*.ts" |
-    ForEach-Object {
-        $content = [string]::Join("`n", (Get-Content $_.FullName))
+Get-ChildItem -Path "EdPsych-AI-Education-Platform/src" -Recurse -Include "*.tsx", "*.ts" | ForEach-Object {
+    try {
+        $content = [string]::Join("`n", (Get-Content -LiteralPath $_.FullName -ErrorAction Stop))
         
         # Check if file contains the old Tabs pattern
         if ($content -match '<Tabs\s+tabs=') {
@@ -71,17 +77,20 @@ Get-ChildItem -Path "EdPsych-AI-Education-Platform/src" -Recurse -Include "*.tsx
                 # Replace the old Tabs component with the new one
                 $updated = $content -replace '<Tabs\s+tabs=\[\s*({[^}]*}(?:,\s*{[^}]*})*)\s*\]\s*activeTab=\w+\s*onChange=\w+[^>]*>.*?<\/Tabs>', $newTabsComponent
                 
-                Set-Content -Path $_.FullName -Value $updated
+                Set-Content -LiteralPath $_.FullName -Value $updated
                 Write-Host "  Fixed Tabs in $($_.FullName)" -ForegroundColor Yellow
             }
         }
+    } catch {
+        Write-Host "  Skipping $($_.FullName): $_" -ForegroundColor Gray
     }
+}
 
 # 4. Fix Card components - add className props
 Write-Host "Fixing Card components..." -ForegroundColor Cyan
-Get-ChildItem -Path "EdPsych-AI-Education-Platform/src" -Recurse -Include "*.tsx", "*.ts" |
-    ForEach-Object {
-        $content = [string]::Join("`n", (Get-Content $_.FullName))
+Get-ChildItem -Path "EdPsych-AI-Education-Platform/src" -Recurse -Include "*.tsx", "*.ts" | ForEach-Object {
+    try {
+        $content = [string]::Join("`n", (Get-Content -LiteralPath $_.FullName -ErrorAction Stop))
         
         # Add className to Card components if missing
         $updated = $content -replace '<Card>(?!\s*<CardHeader)', '<Card className="w-full">'
@@ -89,40 +98,49 @@ Get-ChildItem -Path "EdPsych-AI-Education-Platform/src" -Recurse -Include "*.tsx
         $updated = $updated -replace '<CardContent>(?!\s*{)', '<CardContent className="pt-2">'
         
         if ($updated -ne $content) {
-            Set-Content -Path $_.FullName -Value $updated
+            Set-Content -LiteralPath $_.FullName -Value $updated
             Write-Host "  Fixed Card in $($_.FullName)" -ForegroundColor Yellow
         }
+    } catch {
+        Write-Host "  Skipping $($_.FullName): $_" -ForegroundColor Gray
     }
+}
 
 # 5. Add React import if missing
 Write-Host "Adding React imports where missing..." -ForegroundColor Cyan
-Get-ChildItem -Path "EdPsych-AI-Education-Platform/src" -Recurse -Include "*.tsx", "*.ts" |
-    ForEach-Object {
-        $content = [string]::Join("`n", (Get-Content $_.FullName))
+Get-ChildItem -Path "EdPsych-AI-Education-Platform/src" -Recurse -Include "*.tsx", "*.ts" | ForEach-Object {
+    try {
+        $content = [string]::Join("`n", (Get-Content -LiteralPath $_.FullName -ErrorAction Stop))
         
         # Check if file uses JSX but doesn't import React
         if ($content -match '<\w+' -and -not $content -match "import\s+React") {
             $updated = "import React from 'react';" + "`n" + $content
-            Set-Content -Path $_.FullName -Value $updated
+            Set-Content -LiteralPath $_.FullName -Value $updated
             Write-Host "  Added React import to $($_.FullName)" -ForegroundColor Yellow
         }
+    } catch {
+        Write-Host "  Skipping $($_.FullName): $_" -ForegroundColor Gray
     }
+}
 
 # 6. Update import statements for Tabs components
 Write-Host "Updating Tabs import statements..." -ForegroundColor Cyan
-Get-ChildItem -Path "EdPsych-AI-Education-Platform/src" -Recurse -Include "*.tsx", "*.ts" |
-    ForEach-Object {
-        $content = [string]::Join("`n", (Get-Content $_.FullName))
+Get-ChildItem -Path "EdPsych-AI-Education-Platform/src" -Recurse -Include "*.tsx", "*.ts" | ForEach-Object {
+    try {
+        $content = [string]::Join("`n", (Get-Content -LiteralPath $_.FullName -ErrorAction Stop))
         
         # Check if file imports Tabs but not TabsList, TabsTrigger, TabsContent
         if ($content -match "import\s+{\s*Tabs\s*}" -and -not $content -match "TabsList") {
             $updated = $content -replace 'import\s+{\s*Tabs\s*}\s+from\s+[''"]@/components/ui/tabs[''"]', 'import { Tabs, TabsList, TabsTrigger, TabsContent } from ''@/components/ui/tabs'''
             
             if ($updated -ne $content) {
-                Set-Content -Path $_.FullName -Value $updated
+                Set-Content -LiteralPath $_.FullName -Value $updated
                 Write-Host "  Updated Tabs imports in $($_.FullName)" -ForegroundColor Yellow
             }
         }
+    } catch {
+        Write-Host "  Skipping $($_.FullName): $_" -ForegroundColor Gray
     }
+}
 
 Write-Host "TypeScript error fixes completed!" -ForegroundColor Green

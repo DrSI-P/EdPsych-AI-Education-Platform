@@ -106,7 +106,7 @@ export default function UseAssessmentTemplatePage() {
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <Spinner size="large" />
+        <Spinner size="lg" />
       </div>
     );
   }
@@ -114,7 +114,7 @@ export default function UseAssessmentTemplatePage() {
   if (!template) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <Alert type="error">
+        <Alert variant="error">
           Template not found or you don't have permission to access it.
         </Alert>
         <div className="mt-4">
@@ -146,7 +146,7 @@ export default function UseAssessmentTemplatePage() {
             <CardHeader>
               <h2 className="text-xl font-semibold">Assessment Details</h2>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <Form className="space-y-4">
                 <div className="space-y-2">
                   <label className="block text-sm font-medium text-gray-700">Assessment Title</label>
@@ -254,7 +254,7 @@ export default function UseAssessmentTemplatePage() {
               </div>
               
               {error && (
-                <Alert type="error" className="mt-4 w-full">
+                <Alert variant="error" className="mt-4 w-full">
                   {error}
                 </Alert>
               )}
@@ -267,7 +267,7 @@ export default function UseAssessmentTemplatePage() {
             <CardHeader>
               <h2 className="text-xl font-semibold">Template Information</h2>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="space-y-4">
                 <div>
                   <h3 className="text-lg font-medium">{template.title}</h3>

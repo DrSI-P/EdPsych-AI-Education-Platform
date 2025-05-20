@@ -152,10 +152,10 @@ export default function LearningPathRecommendations() {
     switch (style) {
       case LearningStyle.VISUAL: return 'ğŸ‘ï¸';
       case LearningStyle.AUDITORY: return 'ğŸ‘‚';
-      case LearningStyle.READING_WRITING: return 'ğŸ“';
+      case LearningStyle.READING_WRITING: return 'ğŸ"';
       case LearningStyle.KINESTHETIC: return 'ğŸ¤¸';
-      case LearningStyle.MULTIMODAL: return 'ğŸ”„';
-      default: return 'â“';
+      case LearningStyle.MULTIMODAL: return 'ğŸ"„';
+      default: return 'â"';
     }
   };
   

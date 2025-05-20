@@ -100,7 +100,7 @@ export const AccessibilityValidator: React.FC<AccessibilityValidatorProps> = ({
     <div className="accessibility-validator">
       {isValidating && (
         <div className="validation-indicator">
-          <span className="validation-icon">ğŸ”</span>
+          <span className="validation-icon">ğŸ"</span>
           <span className="validation-text">Validating accessibility...</span>
         </div>
       )}
@@ -202,7 +202,7 @@ export const UserExperienceValidator: React.FC<UserExperienceValidatorProps> = (
     <div className="user-experience-validator">
       {isValidating && (
         <div className="validation-indicator">
-          <span className="validation-icon">ğŸ“Š</span>
+          <span className="validation-icon">ğŸ"Š</span>
           <span className="validation-text">Analyzing user experience...</span>
         </div>
       )}
@@ -484,7 +484,7 @@ export const DeviceCompatibilityValidator: React.FC<DeviceCompatibilityValidator
     <div className="device-compatibility-validator">
       {isValidating && (
         <div className="validation-indicator">
-          <span className="validation-icon">ğŸ“±</span>
+          <span className="validation-icon">ğŸ"±</span>
           <span className="validation-text">Checking device compatibility...</span>
         </div>
       )}

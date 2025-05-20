@@ -101,14 +101,14 @@ export function StudentDashboard({
         title: 'Science Explorer',
         description: 'Completed all interactive science experiments in the current unit',
         date: '2025-05-05',
-        icon: 'ðŸ”¬'
+        icon: 'ðŸ"¬'
       },
       {
         id: '3',
         title: 'Consistent Learner',
         description: 'Logged in and completed activities for 30 consecutive days',
         date: '2025-04-28',
-        icon: 'ðŸ“š'
+        icon: 'ðŸ"š'
       }
     ],
     recommendations: [

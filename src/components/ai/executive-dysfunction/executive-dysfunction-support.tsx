@@ -813,7 +813,7 @@ export default function ExecutiveDysfunctionSupport({
                     😠 Frustrated
                   </Button>
                   <Button variant="outline" size="sm" className="h-auto py-2">
-                    😔 Overwhelmed
+                    �" Overwhelmed
                   </Button>
                 </div>
               </div>

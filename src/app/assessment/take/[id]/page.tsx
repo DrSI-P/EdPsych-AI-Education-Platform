@@ -651,7 +651,7 @@ export default function AssessmentTakePage() {
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <Spinner size="large" />
+        <Spinner size="lg" />
       </div>
     );
   }
@@ -659,7 +659,7 @@ export default function AssessmentTakePage() {
   if (error) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <Alert type="error" className="mb-6">
+        <Alert variant="error" className="mb-6">
           {error}
         </Alert>
         <Button onClick={() => router.back()}>
@@ -672,7 +672,7 @@ export default function AssessmentTakePage() {
   if (!assessment) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <Alert type="error" className="mb-6">
+        <Alert variant="error" className="mb-6">
           Assessment not found
         </Alert>
         <Button onClick={() => router.push('/assessment')}>
@@ -685,7 +685,7 @@ export default function AssessmentTakePage() {
   if (submissionComplete) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <Card>
+        <Card className="w-full">
           <CardContent className="p-6">
             {renderResults()}
           </CardContent>

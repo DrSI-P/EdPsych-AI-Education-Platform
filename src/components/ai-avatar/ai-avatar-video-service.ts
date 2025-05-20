@@ -112,7 +112,7 @@ export class AIAvatarVideoService {
       {
         id: 'educational-psychology-foundations',
         title: 'Educational Psychology Foundations',
-        description: 'An explanation of the educational psychology principles that inspired the platform and how they're implemented.',
+        description: "An explanation of the educational psychology principles that inspired the platform and how they're implemented.",
         category: AIAvatarVideoCategory.INSPIRATIONAL,
         audience: AIAvatarVideoAudience.ALL,
         duration: 240, // 4:00 minutes
