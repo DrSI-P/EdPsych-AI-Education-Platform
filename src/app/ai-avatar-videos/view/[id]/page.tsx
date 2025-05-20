@@ -12,7 +12,7 @@ import Link from 'next/link';
 
 export default function VideoViewPage() {
   const params = useParams();
-  const videoId = params?.id as string;
+  const videoId = params?.id ? params.id as string : undefined;
   const [video, setVideo] = useState<HeyGenVideo | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -20,6 +20,12 @@ export default function VideoViewPage() {
   useEffect(() => {
     const fetchVideo = async () => {
       try {
+        if (!videoId) {
+          setError('Video ID is missing');
+          setLoading(false);
+          return;
+        }
+        
         setLoading(true);
         const heygenService = HeyGenService.getInstance({
           apiKey: process.env.NEXT_PUBLIC_HEYGEN_API_KEY || 'demo-key',
@@ -42,7 +48,9 @@ export default function VideoViewPage() {
       }
     };
 
-    fetchVideo();
+    if (videoId) {
+      fetchVideo();
+    }
   }, [videoId]);
 
   if (loading) {
