@@ -24,7 +24,7 @@ export async function GET(
         id: templateId,
         OR: [
           { isPublic: true },
-          { createdById: session.user.id }
+          { creatorId: session.user.id }
         ]
       },
       include: {
@@ -80,7 +80,7 @@ export async function PUT(
     
     // Check if user has permission to update the template
     const isAdmin = session.user.role === 'admin';
-    const isOwner = existingTemplate.createdById === session.user.id;
+    const isOwner = existingTemplate.creatorId === session.user.id;
     
     if (!isAdmin && !isOwner) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
@@ -150,7 +150,7 @@ export async function DELETE(
     
     // Check if user has permission to delete the template
     const isAdmin = session.user.role === 'admin';
-    const isOwner = existingTemplate.createdById === session.user.id;
+    const isOwner = existingTemplate.creatorId === session.user.id;
     
     if (!isAdmin && !isOwner) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });

@@ -36,7 +36,7 @@ export async function GET(request: NextRequest) {
     }
     
     if (createdBy) {
-      query.createdById = createdBy;
+      query.creatorId = createdBy;
     }
     
     // Fetch templates
@@ -45,7 +45,7 @@ export async function GET(request: NextRequest) {
         ...query,
         OR: [
           { isPublic: true },
-          { createdById: session.user.id }
+          { creatorId: session.user.id }
         ]
       },
       include: {

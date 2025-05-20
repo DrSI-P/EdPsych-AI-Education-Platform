@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
     
     // Build the query
     const query: any = {
-      createdById: session.user.id,
+      creatorId: session.user.id,
     };
     
     if (status && status !== 'all') {

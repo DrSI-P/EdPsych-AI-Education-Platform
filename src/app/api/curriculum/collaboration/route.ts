@@ -512,7 +512,7 @@ export async function POST(req: NextRequest) {
 
         // Only task creator, assignee, or plan owner can delete
         if (
-          task.createdById !== session.user.id && 
+          task.creatorId !== session.user.id && 
           task.assignedToId !== session.user.id && 
           plan.authorId !== session.user.id && 
           session.user.role !== 'ADMIN'

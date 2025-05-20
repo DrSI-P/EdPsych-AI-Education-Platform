@@ -115,7 +115,7 @@ export async function GET(request: NextRequest) {
     // For non-admin users, only show their own assessments or published ones
     if (session.user.role !== 'admin') {
       where.OR = [
-        { createdById: session.user.id },
+        { creatorId: session.user.id },
         { status: 'published' },
       ];
     }
