@@ -338,7 +338,7 @@ export default function AnalyticsAndReporting() {
             </CardTitle>
             <TrendingUp className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold">+12.5%</div>
             <p className="text-xs text-muted-foreground">
               +2.1% from previous period
@@ -356,7 +356,7 @@ export default function AnalyticsAndReporting() {
             </CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold">68%</div>
             <p className="text-xs text-muted-foreground">
               +5% from previous period
@@ -374,7 +374,7 @@ export default function AnalyticsAndReporting() {
             </CardTitle>
             <Activity className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold">-8.3%</div>
             <p className="text-xs text-muted-foreground">
               -2.1% from previous period
@@ -392,7 +392,7 @@ export default function AnalyticsAndReporting() {
             </CardTitle>
             <Award className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold">+15.2%</div>
             <p className="text-xs text-muted-foreground">
               +3.7% from previous period
@@ -407,13 +407,13 @@ export default function AnalyticsAndReporting() {
       {/* Progress charts */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Student Progress Trends</CardTitle>
             <CardDescription>
               Average progress scores across core subjects
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[350px]">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart
@@ -460,13 +460,13 @@ export default function AnalyticsAndReporting() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Cohort Comparison</CardTitle>
             <CardDescription>
               Current cohort vs previous cohort and national average
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[350px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
@@ -491,13 +491,13 @@ export default function AnalyticsAndReporting() {
       {/* Additional analytics */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Progress by Student Group</CardTitle>
             <CardDescription>
               Comparative analysis across student demographics
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
                 <RadarChart outerRadius={90} data={[
@@ -521,13 +521,13 @@ export default function AnalyticsAndReporting() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Predicted Outcomes</CardTitle>
             <CardDescription>
               AI-powered prediction of end-of-year results
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
@@ -553,7 +553,7 @@ export default function AnalyticsAndReporting() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>At-Risk Students</CardTitle>
             <CardDescription>
               Students requiring additional support
@@ -623,7 +623,7 @@ export default function AnalyticsAndReporting() {
             </CardTitle>
             <Award className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold">85%</div>
             <p className="text-xs text-muted-foreground">
               +3% from previous period
@@ -641,7 +641,7 @@ export default function AnalyticsAndReporting() {
             </CardTitle>
             <BookOpenIcon className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold">78%</div>
             <p className="text-xs text-muted-foreground">
               +5% from previous period
@@ -659,7 +659,7 @@ export default function AnalyticsAndReporting() {
             </CardTitle>
             <Clock className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold">72%</div>
             <p className="text-xs text-muted-foreground">
               +8% from previous period
@@ -677,7 +677,7 @@ export default function AnalyticsAndReporting() {
             </CardTitle>
             <TrendingUp className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold">65%</div>
             <p className="text-xs text-muted-foreground">
               +12% from previous period
@@ -692,13 +692,13 @@ export default function AnalyticsAndReporting() {
       {/* Performance charts */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Performance vs Targets</CardTitle>
             <CardDescription>
               Key performance indicators against targets
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[350px]">
               <ResponsiveContainer width="100%" height="100%">
                 <RadarChart outerRadius={90} data={educatorPerformanceData}>
@@ -715,13 +715,13 @@ export default function AnalyticsAndReporting() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Time Allocation Analysis</CardTitle>
             <CardDescription>
               Actual vs optimal time allocation
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[350px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
@@ -746,13 +746,13 @@ export default function AnalyticsAndReporting() {
       {/* Additional analytics */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Professional Development Impact</CardTitle>
             <CardDescription>
               Effect of CPD activities on teaching effectiveness
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart
@@ -797,7 +797,7 @@ export default function AnalyticsAndReporting() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Recommended Development Areas</CardTitle>
             <CardDescription>
               AI-powered professional development recommendations
@@ -867,7 +867,7 @@ export default function AnalyticsAndReporting() {
             </CardTitle>
             <BookOpenIcon className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold">1,248</div>
             <p className="text-xs text-muted-foreground">
               +124 from previous period
@@ -885,7 +885,7 @@ export default function AnalyticsAndReporting() {
             </CardTitle>
             <Activity className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold">3,842</div>
             <p className="text-xs text-muted-foreground">
               +18% from previous period
@@ -903,7 +903,7 @@ export default function AnalyticsAndReporting() {
             </CardTitle>
             <Award className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold">79.6%</div>
             <p className="text-xs text-muted-foreground">
               +3.2% from previous period
@@ -921,7 +921,7 @@ export default function AnalyticsAndReporting() {
             </CardTitle>
             <Layers className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold">92.3%</div>
             <p className="text-xs text-muted-foreground">
               +4.5% from previous period
@@ -936,13 +936,13 @@ export default function AnalyticsAndReporting() {
       {/* Resource charts */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Resource Usage and Effectiveness</CardTitle>
             <CardDescription>
               Usage metrics and effectiveness ratings
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[350px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
@@ -972,13 +972,13 @@ export default function AnalyticsAndReporting() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Curriculum Coverage Map</CardTitle>
             <CardDescription>
               Resource distribution across curriculum areas
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[350px]">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
@@ -1011,13 +1011,13 @@ export default function AnalyticsAndReporting() {
       {/* Additional analytics */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Resource Gaps Analysis</CardTitle>
             <CardDescription>
               Curriculum areas with resource deficits
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
@@ -1044,7 +1044,7 @@ export default function AnalyticsAndReporting() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Recommended Resources</CardTitle>
             <CardDescription>
               AI-recommended resources based on usage patterns
@@ -1114,7 +1114,7 @@ export default function AnalyticsAndReporting() {
             </CardTitle>
             <FileText className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold">248</div>
             <p className="text-xs text-muted-foreground">
               +32 from previous period
@@ -1132,7 +1132,7 @@ export default function AnalyticsAndReporting() {
             </CardTitle>
             <CheckCircle className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold">0.82</div>
             <p className="text-xs text-muted-foreground">
               +0.03 from previous period
@@ -1150,7 +1150,7 @@ export default function AnalyticsAndReporting() {
             </CardTitle>
             <Activity className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold">94.8%</div>
             <p className="text-xs text-muted-foreground">
               +1.2% from previous period
@@ -1168,7 +1168,7 @@ export default function AnalyticsAndReporting() {
             </CardTitle>
             <Award className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold">72.5%</div>
             <p className="text-xs text-muted-foreground">
               +3.8% from previous period
@@ -1183,13 +1183,13 @@ export default function AnalyticsAndReporting() {
       {/* Assessment charts */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Item Analysis</CardTitle>
             <CardDescription>
               Question difficulty, discrimination, and guessing metrics
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[350px]">
               <ResponsiveContainer width="100%" height="100%">
                 <ScatterChart
@@ -1227,13 +1227,13 @@ export default function AnalyticsAndReporting() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Assessment Types Effectiveness</CardTitle>
             <CardDescription>
               Comparative analysis of assessment formats
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[350px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
@@ -1264,7 +1264,7 @@ export default function AnalyticsAndReporting() {
       {/* Additional analytics */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Common Misconceptions</CardTitle>
             <CardDescription>
               Frequently identified misconceptions from assessments
@@ -1320,7 +1320,7 @@ export default function AnalyticsAndReporting() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Assessment Recommendations</CardTitle>
             <CardDescription>
               AI-powered assessment improvement suggestions
@@ -1461,7 +1461,7 @@ export default function AnalyticsAndReporting() {
           
           <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
             <Card className="md:col-span-1">
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Components</CardTitle>
                 <CardDescription>
                   Drag components to the report canvas
@@ -1515,13 +1515,13 @@ export default function AnalyticsAndReporting() {
             </Card>
             
             <Card className="md:col-span-3">
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Report Canvas</CardTitle>
                 <CardDescription>
                   Design your report layout
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="min-h-[500px] rounded-md border border-dashed border-muted-foreground/50 p-6 text-center">
                   <div className="flex flex-col items-center justify-center space-y-2 h-full">
                     <FileText className="h-8 w-8 text-muted-foreground" />
@@ -1670,7 +1670,7 @@ export default function AnalyticsAndReporting() {
       
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Export Options</CardTitle>
             <CardDescription>
               Select data and format for export
@@ -1754,7 +1754,7 @@ export default function AnalyticsAndReporting() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Advanced Export</CardTitle>
             <CardDescription>
               Custom queries and bulk exports
@@ -1850,3 +1850,4 @@ export default function AnalyticsAndReporting() {
     </div>
   );
 }
+

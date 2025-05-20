@@ -236,7 +236,7 @@ export default function CurriculumPlanner() {
         {/* Filters Sidebar */}
         <div className="lg:col-span-1">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle className="text-lg flex items-center">
                 <Filter className="mr-2 h-5 w-5" />
                 Filters
@@ -385,7 +385,7 @@ export default function CurriculumPlanner() {
                   {filteredPlans.map((plan) => (
                     <Card key={plan.id} className="overflow-hidden flex flex-col h-full">
                       <div className="h-2 bg-primary"></div>
-                      <CardHeader>
+                      <CardHeader className="pb-2">
                         <div className="flex justify-between items-start">
                           <CardTitle className="text-lg">
                             <Link href={`/curriculum/plans/${plan.id}`} className="hover:underline">
@@ -554,7 +554,7 @@ export default function CurriculumPlanner() {
                           </Button>
                         </div>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <p className="text-sm">
                           {standard.description}
                         </p>
@@ -618,3 +618,4 @@ export default function CurriculumPlanner() {
     </div>
   );
 }
+

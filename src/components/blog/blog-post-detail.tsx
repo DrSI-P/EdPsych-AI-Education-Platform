@@ -414,13 +414,13 @@ const BlogPostDetail = () => {
       
       {showCommentForm && (
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Leave a Comment</CardTitle>
             <CardDescription>
               Share your thoughts on this article. All comments are moderated.
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <form onSubmit={handleSubmitComment}>
               <Textarea 
                 placeholder="Write your comment here..." 
@@ -638,7 +638,7 @@ const BlogPostDetail = () => {
                   </a>
                 </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <p className="text-sm text-muted-foreground line-clamp-3">
                   {post.excerpt}
                 </p>
@@ -685,3 +685,4 @@ const BlogPostDetail = () => {
 };
 
 export default BlogPostDetail;
+

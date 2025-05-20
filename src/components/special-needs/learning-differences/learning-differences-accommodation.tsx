@@ -219,7 +219,7 @@ export default function LearningDifferencesAccommodation() {
         
         <TabsContent value="settings" className="space-y-4 mt-6">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Learning Difference Accommodations</CardTitle>
               <CardDescription>
                 Customize your learning experience based on your specific needs.
@@ -412,13 +412,13 @@ export default function LearningDifferencesAccommodation() {
           
           {assessmentResults && (
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Recommended Settings</CardTitle>
                 <CardDescription>
                   Based on your assessment results, we recommend the following accommodations.
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <Alert>
                   <AlertCircle className="h-4 w-4" />
                   <AlertTitle>Personalized Recommendations Available</AlertTitle>
@@ -436,7 +436,7 @@ export default function LearningDifferencesAccommodation() {
         
         <TabsContent value="assessment" className="space-y-4 mt-6">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Learning Differences Assessment</CardTitle>
               <CardDescription>
                 Complete this assessment to receive personalized accommodation recommendations.
@@ -464,7 +464,7 @@ export default function LearningDifferencesAccommodation() {
                       <CardHeader className="pb-2">
                         <CardTitle className="text-base">Dyslexia Indicators</CardTitle>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <div className="h-2 w-full bg-gray-200 rounded-full">
                           <div 
                             className="h-2 bg-blue-600 rounded-full" 
@@ -482,7 +482,7 @@ export default function LearningDifferencesAccommodation() {
                       <CardHeader className="pb-2">
                         <CardTitle className="text-base">Dyscalculia Indicators</CardTitle>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <div className="h-2 w-full bg-gray-200 rounded-full">
                           <div 
                             className="h-2 bg-blue-600 rounded-full" 
@@ -500,7 +500,7 @@ export default function LearningDifferencesAccommodation() {
                       <CardHeader className="pb-2">
                         <CardTitle className="text-base">ADHD Indicators</CardTitle>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <div className="h-2 w-full bg-gray-200 rounded-full">
                           <div 
                             className="h-2 bg-blue-600 rounded-full" 
@@ -518,7 +518,7 @@ export default function LearningDifferencesAccommodation() {
                       <CardHeader className="pb-2">
                         <CardTitle className="text-base">Autism Spectrum Indicators</CardTitle>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <div className="h-2 w-full bg-gray-200 rounded-full">
                           <div 
                             className="h-2 bg-blue-600 rounded-full" 
@@ -554,13 +554,13 @@ export default function LearningDifferencesAccommodation() {
         
         <TabsContent value="preview" className="space-y-4 mt-6">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Content Preview</CardTitle>
               <CardDescription>
                 See how your content will appear with your current accommodation settings.
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div 
                 className={`p-6 border rounded-md ${
                   settings.colorScheme === 'dark' ? 'bg-gray-900 text-white' : 
@@ -616,7 +616,7 @@ export default function LearningDifferencesAccommodation() {
         
         <TabsContent value="about" className="space-y-4 mt-6">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>About Learning Differences Accommodation</CardTitle>
               <CardDescription>
                 Understanding how our accommodation system works and the research behind it.
@@ -664,7 +664,7 @@ export default function LearningDifferencesAccommodation() {
                     <CardHeader className="pb-2">
                       <CardTitle className="text-base">Dyslexia Support</CardTitle>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="pt-2">
                       <p className="text-sm">
                         Includes specialized fonts, text-to-speech, adjusted spacing, color overlays,
                         and structured phonics-based approaches to reading.
@@ -676,7 +676,7 @@ export default function LearningDifferencesAccommodation() {
                     <CardHeader className="pb-2">
                       <CardTitle className="text-base">Dyscalculia Support</CardTitle>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="pt-2">
                       <p className="text-sm">
                         Provides visual representations of mathematical concepts, step-by-step breakdowns,
                         concrete examples, and additional practice opportunities.
@@ -688,7 +688,7 @@ export default function LearningDifferencesAccommodation() {
                     <CardHeader className="pb-2">
                       <CardTitle className="text-base">ADHD Support</CardTitle>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="pt-2">
                       <p className="text-sm">
                         Offers focus tools, chunked content, frequent breaks, reduced distractions,
                         and clear visual organization of information.
@@ -700,7 +700,7 @@ export default function LearningDifferencesAccommodation() {
                     <CardHeader className="pb-2">
                       <CardTitle className="text-base">Autism Support</CardTitle>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="pt-2">
                       <p className="text-sm">
                         Includes sensory considerations, clear and concrete language, visual schedules,
                         predictable routines, and social narrative supports.
@@ -722,3 +722,4 @@ export default function LearningDifferencesAccommodation() {
     </div>
   );
 }
+

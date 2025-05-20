@@ -512,7 +512,7 @@ const BlockchainCredentialsWallet = () => {
           <CardTitle className="mt-2">{credential.title}</CardTitle>
           <CardDescription>Issued by {credential.issuer}</CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-2">
           <p className="text-sm text-muted-foreground mb-2">{credential.description}</p>
           
           {credential.skills && credential.skills.length > 0 && (
@@ -573,7 +573,7 @@ const BlockchainCredentialsWallet = () => {
             Registered on {new Date(registration.registeredAt).toLocaleDateString()}
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-2">
           <p className="text-sm text-muted-foreground mb-3">{registration.description}</p>
           
           <div className="bg-muted p-2 rounded-md text-xs font-mono overflow-hidden text-ellipsis mb-3">
@@ -718,13 +718,13 @@ const BlockchainCredentialsWallet = () => {
         
         <TabsContent value="verify" className="mt-0">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Verify Credentials & Copyright</CardTitle>
               <CardDescription>
                 Verify the authenticity of credentials and copyright registrations
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="flex flex-col space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                   <div className="md:col-span-3">
@@ -1111,3 +1111,4 @@ const BlockchainCredentialsWallet = () => {
 };
 
 export default BlockchainCredentialsWallet;
+

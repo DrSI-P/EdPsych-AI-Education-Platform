@@ -574,7 +574,7 @@ export default function ProgressMonitoringEngine({
   
   return (
     <Card className={className}>
-      <CardHeader>
+      <CardHeader className="pb-2">
         <CardTitle className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <BarChart3 className="h-5 w-5" />
@@ -590,7 +590,7 @@ export default function ProgressMonitoringEngine({
         </CardDescription>
       </CardHeader>
       
-      <CardContent>
+      <CardContent className="pt-2">
         <Tabs value={activeTab} onValueChange={setActiveTab}>
           <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="settings">Settings</TabsTrigger>
@@ -753,7 +753,7 @@ export default function ProgressMonitoringEngine({
                       </div>
                       <CardDescription>{selectedGoal.description}</CardDescription>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="pt-2">
                       <div className="space-y-4">
                         <div className="grid grid-cols-3 gap-4">
                           <div className="space-y-1">
@@ -1220,3 +1220,4 @@ export default function ProgressMonitoringEngine({
     </Card>
   );
 }
+

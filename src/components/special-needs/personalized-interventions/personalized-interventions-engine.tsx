@@ -319,7 +319,7 @@ export default function PersonalizedInterventionsEngine({
   
   return (
     <Card className={className}>
-      <CardHeader>
+      <CardHeader className="pb-2">
         <CardTitle className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Sparkles className="h-5 w-5" />
@@ -335,7 +335,7 @@ export default function PersonalizedInterventionsEngine({
         </CardDescription>
       </CardHeader>
       
-      <CardContent>
+      <CardContent className="pt-2">
         <Tabs defaultValue="profile">
           <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="profile">Learning Profile</TabsTrigger>
@@ -650,3 +650,4 @@ function getInterventionDescription(profileId: string, index: number): string {
   
   return descriptions[profileId]?.[index] || 'Personalized intervention strategy based on individual needs.';
 }
+

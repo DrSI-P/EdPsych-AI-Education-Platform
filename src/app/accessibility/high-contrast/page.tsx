@@ -48,7 +48,7 @@ export default function HighContrastModePage() {
         
         <div className="lg:col-span-1">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle className="flex items-center">
                 <Eye className="h-5 w-5 mr-2" />
                 About High Contrast Mode
@@ -57,7 +57,7 @@ export default function HighContrastModePage() {
                 Understanding the benefits and applications
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <Tabs defaultValue="benefits">
                 <TabsList className="grid w-full grid-cols-3">
                   <TabsTrigger value="benefits">Benefits</TabsTrigger>
@@ -141,13 +141,13 @@ export default function HighContrastModePage() {
           </Card>
           
           <Card className="mt-6">
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle className="flex items-center">
                 <AlertTriangle className="h-5 w-5 mr-2" />
                 Visual Sensitivity Warning
               </CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <p className="text-sm">
                 Some high contrast settings may cause discomfort for users with certain visual sensitivities or conditions like photophobia. If you experience any discomfort, try adjusting the contrast level or switching to a different mode. The "Black on Yellow" and "Yellow on Black" options are often recommended for users with dyslexia, while "White on Black" may be preferred by users with light sensitivity.
               </p>
@@ -158,3 +158,4 @@ export default function HighContrastModePage() {
     </div>
   );
 }
+

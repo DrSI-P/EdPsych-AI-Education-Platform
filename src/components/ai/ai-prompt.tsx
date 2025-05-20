@@ -111,7 +111,7 @@ export function AIPrompt({
       <CardHeader>
         <h3 className="text-lg font-medium">AI Assistant</h3>
       </CardHeader>
-      <CardContent>
+      <CardContent className="pt-2">
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="flex space-x-4">
             <Select
@@ -171,3 +171,4 @@ export function AIPrompt({
     </Card>
   );
 }
+

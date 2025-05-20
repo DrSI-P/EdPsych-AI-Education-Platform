@@ -359,7 +359,7 @@ export default function CPDTracking() {
                 </CardTitle>
                 <Award className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="text-2xl font-bold">{totalPoints}</div>
                 <p className="text-xs text-muted-foreground">
                   Target: {yearlyTarget} points
@@ -377,7 +377,7 @@ export default function CPDTracking() {
                 </CardTitle>
                 <Target className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="text-2xl font-bold">
                   {activities.filter(a => a.status === "Completed").length}
                 </div>
@@ -393,7 +393,7 @@ export default function CPDTracking() {
                 </CardTitle>
                 <Clock className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="text-2xl font-bold">
                   {activities.reduce((sum, activity) => sum + parseFloat(activity.duration), 0)}
                 </div>
@@ -406,7 +406,7 @@ export default function CPDTracking() {
 
           <div className="grid gap-4 md:grid-cols-2">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Recent Activities</CardTitle>
                 <CardDescription>
                   Your most recent CPD activities
@@ -439,13 +439,13 @@ export default function CPDTracking() {
             </Card>
 
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>CPD by Category</CardTitle>
                 <CardDescription>
                   Distribution of your CPD points
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="h-[200px]">
                   <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
@@ -483,13 +483,13 @@ export default function CPDTracking() {
         {/* Activities Tab */}
         <TabsContent value="activities" className="space-y-4">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>CPD Activities</CardTitle>
               <CardDescription>
                 Manage and reflect on your professional development activities
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="space-y-4">
                 {activities.map(activity => (
                   <Card key={activity.id} className="overflow-hidden">
@@ -591,13 +591,13 @@ export default function CPDTracking() {
         <TabsContent value="analytics" className="space-y-4">
           <div className="grid gap-4 md:grid-cols-2">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Monthly CPD Points</CardTitle>
                 <CardDescription>
                   Your CPD points accumulation over the academic year
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="h-[300px]">
                   <ResponsiveContainer width="100%" height="100%">
                     <AreaChart
@@ -621,13 +621,13 @@ export default function CPDTracking() {
             </Card>
 
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>CPD by Teaching Standard</CardTitle>
                 <CardDescription>
                   Distribution across UK teaching standards
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="h-[300px]">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart
@@ -652,13 +652,13 @@ export default function CPDTracking() {
           </div>
 
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>CPD Impact Analysis</CardTitle>
               <CardDescription>
                 Evaluating the impact of your professional development
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="space-y-4">
                 <div className="grid gap-4 md:grid-cols-3">
                   <div className="space-y-2">
@@ -694,13 +694,13 @@ export default function CPDTracking() {
         {/* Planning Tab */}
         <TabsContent value="planning" className="space-y-4">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>CPD Planning</CardTitle>
               <CardDescription>
                 Set goals and plan your professional development journey
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="space-y-6">
                 <div>
                   <h3 className="text-lg font-medium">Annual CPD Targets</h3>
@@ -766,13 +766,13 @@ export default function CPDTracking() {
                   <h3 className="text-lg font-medium">Recommended CPD Activities</h3>
                   <div className="grid gap-4 md:grid-cols-2 mt-4">
                     <Card>
-                      <CardHeader>
+                      <CardHeader className="pb-2">
                         <CardTitle className="text-base">Digital Assessment Strategies</CardTitle>
                         <CardDescription>
                           Webinar • EdTech Learning • 1.5 hours
                         </CardDescription>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <p className="text-sm">
                           Learn effective strategies for implementing digital assessment tools in your classroom.
                         </p>
@@ -786,13 +786,13 @@ export default function CPDTracking() {
                       </CardFooter>
                     </Card>
                     <Card>
-                      <CardHeader>
+                      <CardHeader className="pb-2">
                         <CardTitle className="text-base">Behaviour Management for Secondary</CardTitle>
                         <CardDescription>
                           Course • Behaviour Support Network • 3 hours
                         </CardDescription>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <p className="text-sm">
                           Practical techniques for effective behaviour management in secondary classrooms.
                         </p>
@@ -816,7 +816,7 @@ export default function CPDTracking() {
       {showAddForm && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <Card className="w-full max-w-3xl max-h-[90vh] overflow-y-auto">
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Add CPD Activity</CardTitle>
               <CardDescription>
                 Record a new professional development activity
@@ -1000,3 +1000,4 @@ export default function CPDTracking() {
     </div>
   );
 }
+

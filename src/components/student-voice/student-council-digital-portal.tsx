@@ -199,7 +199,7 @@ export default function StudentCouncilDigitalPortal() {
   return (
     <div className="space-y-6">
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle className="flex items-center">
             <Users className="mr-2 h-5 w-5" />
             Student Council Digital Portal
@@ -208,7 +208,7 @@ export default function StudentCouncilDigitalPortal() {
             Empowering student leadership and amplifying student voice
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-2">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid w-full grid-cols-5 mb-6">
               <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
@@ -444,7 +444,7 @@ export default function StudentCouncilDigitalPortal() {
                       Current student council representatives and officers
                     </CardDescription>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {councilData.members.map((member) => (
                         <div key={member.id} className="flex items-center space-x-4">
@@ -531,13 +531,13 @@ export default function StudentCouncilDigitalPortal() {
                 </div>
                 
                 <Card>
-                  <CardHeader>
+                  <CardHeader className="pb-2">
                     <CardTitle>Upcoming Meetings</CardTitle>
                     <CardDescription>
                       Scheduled council and committee meetings
                     </CardDescription>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <div className="space-y-4">
                       {upcomingMeetings.map((meeting) => (
                         <Card key={meeting.id}>
@@ -559,7 +559,7 @@ export default function StudentCouncilDigitalPortal() {
                               {meeting.date} • {meeting.time} • {meeting.location}
                             </CardDescription>
                           </CardHeader>
-                          <CardContent>
+                          <CardContent className="pt-2">
                             <h4 className="text-sm font-medium mb-2">Agenda</h4>
                             <ul className="space-y-1">
                               {meeting.agenda.map((item, index) => (
@@ -585,13 +585,13 @@ export default function StudentCouncilDigitalPortal() {
                 </Card>
                 
                 <Card>
-                  <CardHeader>
+                  <CardHeader className="pb-2">
                     <CardTitle>Past Meetings</CardTitle>
                     <CardDescription>
                       Previous council and committee meetings with minutes
                     </CardDescription>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <div className="space-y-4">
                       <div className="flex justify-between items-center p-4 border rounded-lg">
                         <div>
@@ -768,13 +768,13 @@ export default function StudentCouncilDigitalPortal() {
                 </div>
                 
                 <Card>
-                  <CardHeader>
+                  <CardHeader className="pb-2">
                     <CardTitle>Completed Initiatives</CardTitle>
                     <CardDescription>
                       Successfully completed council projects and initiatives
                     </CardDescription>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <div className="space-y-4">
                       <div className="flex justify-between items-center p-4 border rounded-lg">
                         <div>
@@ -833,7 +833,7 @@ export default function StudentCouncilDigitalPortal() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="md:col-span-2 space-y-4">
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle>Active Feedback Items</CardTitle>
                       <CardDescription>
                         Current feedback and suggestions from students
@@ -896,7 +896,7 @@ export default function StudentCouncilDigitalPortal() {
                 
                 <div className="space-y-6">
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle className="text-lg">Submit Feedback</CardTitle>
                       <CardDescription>
                         Share your ideas and suggestions
@@ -943,7 +943,7 @@ export default function StudentCouncilDigitalPortal() {
                   </Card>
                   
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle className="text-lg">Feedback Stats</CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-4">
@@ -1024,7 +1024,7 @@ export default function StudentCouncilDigitalPortal() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="md:col-span-2">
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle>Document Library</CardTitle>
                       <CardDescription>
                         Council documents, templates, and resources
@@ -1186,7 +1186,7 @@ export default function StudentCouncilDigitalPortal() {
                 
                 <div className="space-y-6">
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle className="text-lg">Training Resources</CardTitle>
                       <CardDescription>
                         Leadership development materials
@@ -1241,7 +1241,7 @@ export default function StudentCouncilDigitalPortal() {
                   </Card>
                   
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle className="text-lg">Quick Links</CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-2">
@@ -1276,3 +1276,4 @@ export default function StudentCouncilDigitalPortal() {
     </div>
   );
 }
+

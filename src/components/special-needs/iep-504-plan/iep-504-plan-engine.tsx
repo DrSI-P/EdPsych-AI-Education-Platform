@@ -472,13 +472,13 @@ const IEP504PlanEngine = () => {
   return (
     <div className="space-y-6">
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle>IEP/504 Plan Management</CardTitle>
           <CardDescription>
             Create and manage Individualised Education Plans (IEPs) and 504 Accommodation Plans
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-2">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid w-full grid-cols-3">
               <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
@@ -792,7 +792,7 @@ const IEP504PlanEngine = () => {
                   <h3 className="text-lg font-medium">Goals</h3>
                   
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle className="text-md">Add New Goal</CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-4">
@@ -1037,7 +1037,7 @@ const IEP504PlanEngine = () => {
                   <h3 className="text-lg font-medium">Accommodations</h3>
                   
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle className="text-md">Add New Accommodation</CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-4">
@@ -1198,7 +1198,7 @@ const IEP504PlanEngine = () => {
                   <h3 className="text-lg font-medium">Related Services</h3>
                   
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle className="text-md">Add New Service</CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-4">
@@ -1391,7 +1391,7 @@ const IEP504PlanEngine = () => {
                   <h3 className="text-lg font-medium">Team Members</h3>
                   
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle className="text-md">Add Team Member</CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-4">
@@ -1541,7 +1541,7 @@ const IEP504PlanEngine = () => {
                 
                 <div className="grid gap-4 md:grid-cols-2">
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle className="text-md">UK SEND Legislation & Guidance</CardTitle>
                       <CardDescription>Official guidance and resources</CardDescription>
                     </CardHeader>
@@ -1564,7 +1564,7 @@ const IEP504PlanEngine = () => {
                   </Card>
                   
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle className="text-md">Professional Organisations</CardTitle>
                       <CardDescription>Support and guidance from specialist organisations</CardDescription>
                     </CardHeader>
@@ -1587,7 +1587,7 @@ const IEP504PlanEngine = () => {
                   </Card>
                   
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle className="text-md">Templates and Tools</CardTitle>
                       <CardDescription>Practical resources for plan development</CardDescription>
                     </CardHeader>
@@ -1610,7 +1610,7 @@ const IEP504PlanEngine = () => {
                   </Card>
                   
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle className="text-md">Research and Evidence</CardTitle>
                       <CardDescription>Evidence-based approaches to SEND support</CardDescription>
                     </CardHeader>
@@ -1672,3 +1672,4 @@ const IEP504PlanEngine = () => {
 };
 
 export default IEP504PlanEngine;
+

@@ -447,13 +447,13 @@ export default function AdvancedSpeechRecognition({
     <div className={`speech-recognition-container ${className}`}>
       {isCalibrating ? (
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Voice Calibration</CardTitle>
             <CardDescription>
               Please read the following phrase aloud clearly
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <Progress value={calibrationProgress} className="mb-4" />
             
             <div className="bg-muted p-4 rounded-md mb-4 text-center">
@@ -513,7 +513,7 @@ export default function AdvancedSpeechRecognition({
           
           <TabsContent value="speech" className="space-y-4">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Advanced Speech Recognition</CardTitle>
                 <CardDescription>
                   Optimized for children's voices with enhanced accuracy
@@ -617,7 +617,7 @@ export default function AdvancedSpeechRecognition({
           
           <TabsContent value="settings">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Recognition Settings</CardTitle>
                 <CardDescription>
                   Customize speech recognition to match your needs
@@ -764,3 +764,4 @@ export default function AdvancedSpeechRecognition({
     </div>
   );
 }
+

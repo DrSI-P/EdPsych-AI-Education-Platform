@@ -285,7 +285,7 @@ export default function AdaptiveContentSuggestions() {
               Content suggestions are tailored to complement your current learning journey.
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="flex justify-between items-center">
               <div>
                 <h3 className="font-medium">{currentLearningPath.title}</h3>
@@ -477,3 +477,4 @@ export default function AdaptiveContentSuggestions() {
     </div>
   );
 }
+

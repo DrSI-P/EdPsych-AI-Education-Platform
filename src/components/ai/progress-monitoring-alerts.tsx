@@ -692,7 +692,7 @@ export default function ProgressMonitoringAlerts() {
       <TabsContent value="progress" className="mt-0">
         {progressReport ? (
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <div className="flex justify-between items-start">
                 <div>
                   <CardTitle>Learning Progress Report</CardTitle>
@@ -706,7 +706,7 @@ export default function ProgressMonitoringAlerts() {
                 </Badge>
               </div>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
                 <div className="flex items-center space-x-2">
                   <BarChart className="h-5 w-5 text-primary" />
@@ -935,3 +935,4 @@ export default function ProgressMonitoringAlerts() {
     </div>
   );
 }
+

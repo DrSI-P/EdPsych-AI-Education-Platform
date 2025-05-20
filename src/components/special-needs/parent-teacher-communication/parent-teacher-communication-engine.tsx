@@ -150,7 +150,7 @@ export function ParentTeacherCommunicationEngine() {
 
   return (
     <Card className="mb-6">
-      <CardHeader>
+      <CardHeader className="pb-2">
         <CardTitle className="flex items-center">
           <MessageSquare className="mr-2 h-5 w-5" />
           Communication Engine
@@ -159,7 +159,7 @@ export function ParentTeacherCommunicationEngine() {
           Configure your communication preferences and settings
         </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="pt-2">
         <div className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
@@ -317,3 +317,4 @@ export function ParentTeacherCommunicationEngine() {
     </Card>
   );
 }
+

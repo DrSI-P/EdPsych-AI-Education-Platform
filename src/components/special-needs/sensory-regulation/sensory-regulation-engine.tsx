@@ -419,7 +419,7 @@ export function SensoryRegulationEngine() {
         {/* Sensory Profile Tab */}
         <TabsContent value="profile" className="space-y-4">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle className="flex items-center">
                 <Brain className="mr-2 h-5 w-5" />
                 Sensory Regulation Profile
@@ -630,7 +630,7 @@ export function SensoryRegulationEngine() {
         {/* Activities Tab */}
         <TabsContent value="activities" className="space-y-4">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Sensory Activities</CardTitle>
               <CardDescription>
                 Create and manage sensory activities for different sensory needs
@@ -795,7 +795,7 @@ export function SensoryRegulationEngine() {
         {/* Sensory Diets Tab */}
         <TabsContent value="diets" className="space-y-4">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Sensory Diets</CardTitle>
               <CardDescription>
                 Create and manage scheduled sensory activities throughout the day
@@ -1008,7 +1008,7 @@ export function SensoryRegulationEngine() {
         {/* Analytics Tab */}
         <TabsContent value="analytics" className="space-y-4">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle className="flex items-center">
                 <BarChart className="mr-2 h-5 w-5" />
                 Sensory Regulation Analytics
@@ -1032,3 +1032,4 @@ export function SensoryRegulationEngine() {
     </div>
   );
 }
+

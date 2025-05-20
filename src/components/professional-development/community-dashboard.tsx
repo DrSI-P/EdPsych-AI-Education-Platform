@@ -231,7 +231,7 @@ export default function CommunityDashboard() {
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card>
+        <Card className="w-full">
           <CardContent className="pt-6">
             <div className="flex justify-between items-start">
               <div className="space-y-1">
@@ -250,7 +250,7 @@ export default function CommunityDashboard() {
           </CardContent>
         </Card>
         
-        <Card>
+        <Card className="w-full">
           <CardContent className="pt-6">
             <div className="flex justify-between items-start">
               <div className="space-y-1">
@@ -269,7 +269,7 @@ export default function CommunityDashboard() {
           </CardContent>
         </Card>
         
-        <Card>
+        <Card className="w-full">
           <CardContent className="pt-6">
             <div className="flex justify-between items-start">
               <div className="space-y-1">
@@ -288,7 +288,7 @@ export default function CommunityDashboard() {
           </CardContent>
         </Card>
         
-        <Card>
+        <Card className="w-full">
           <CardContent className="pt-6">
             <div className="flex justify-between items-start">
               <div className="space-y-1">
@@ -321,7 +321,7 @@ export default function CommunityDashboard() {
         <TabsContent value="overview" className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle className="flex items-center">
                   <TrendingUp className="mr-2 h-5 w-5" /> Community Growth
                 </CardTitle>
@@ -329,7 +329,7 @@ export default function CommunityDashboard() {
                   Member and school growth over time
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="h-80">
                   <ResponsiveContainer width="100%" height="100%">
                     <LineChart
@@ -364,7 +364,7 @@ export default function CommunityDashboard() {
             </Card>
             
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle className="flex items-center">
                   <Activity className="mr-2 h-5 w-5" /> Activity Trends
                 </CardTitle>
@@ -372,7 +372,7 @@ export default function CommunityDashboard() {
                   Community activity by type over time
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="h-80">
                   <ResponsiveContainer width="100%" height="100%">
                     <AreaChart
@@ -425,7 +425,7 @@ export default function CommunityDashboard() {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle className="flex items-center">
                   <PieChartIcon className="mr-2 h-5 w-5" /> Category Distribution
                 </CardTitle>
@@ -433,7 +433,7 @@ export default function CommunityDashboard() {
                   Content distribution by category
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="h-64">
                   <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
@@ -459,7 +459,7 @@ export default function CommunityDashboard() {
             </Card>
             
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle className="flex items-center">
                   <Award className="mr-2 h-5 w-5" /> Top Contributors
                 </CardTitle>
@@ -467,7 +467,7 @@ export default function CommunityDashboard() {
                   Most active community members
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="space-y-4">
                   {MOCK_TOP_CONTRIBUTORS.slice(0, 5).map((contributor, index) => (
                     <div key={index} className="flex items-center justify-between">
@@ -493,7 +493,7 @@ export default function CommunityDashboard() {
             </Card>
             
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle className="flex items-center">
                   <Target className="mr-2 h-5 w-5" /> Expertise Distribution
                 </CardTitle>
@@ -501,7 +501,7 @@ export default function CommunityDashboard() {
                   Community expertise by subject area
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="h-64">
                   <ResponsiveContainer width="100%" height="100%">
                     <RadarChart cx="50%" cy="50%" outerRadius="80%" data={MOCK_EXPERTISE_DISTRIBUTION}>
@@ -528,7 +528,7 @@ export default function CommunityDashboard() {
         <TabsContent value="engagement" className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle className="flex items-center">
                   <BarChart2 className="mr-2 h-5 w-5" /> Engagement Metrics
                 </CardTitle>
@@ -536,7 +536,7 @@ export default function CommunityDashboard() {
                   Key engagement indicators and targets
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="space-y-4">
                   {MOCK_ENGAGEMENT_METRICS.map((metric, index) => (
                     <div key={index} className="space-y-2">
@@ -559,7 +559,7 @@ export default function CommunityDashboard() {
             </Card>
             
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle className="flex items-center">
                   <MessageSquare className="mr-2 h-5 w-5" /> Discussion Activity
                 </CardTitle>
@@ -567,7 +567,7 @@ export default function CommunityDashboard() {
                   Participation in community discussions
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="h-80">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart
@@ -590,7 +590,7 @@ export default function CommunityDashboard() {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle className="flex items-center">
                   <Clock className="mr-2 h-5 w-5" /> Time of Day Activity
                 </CardTitle>
@@ -598,7 +598,7 @@ export default function CommunityDashboard() {
                   When members are most active
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="h-64">
                   <ResponsiveContainer width="100%" height="100%">
                     <AreaChart
@@ -627,7 +627,7 @@ export default function CommunityDashboard() {
             </Card>
             
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle className="flex items-center">
                   <Calendar className="mr-2 h-5 w-5" /> Event Participation
                 </CardTitle>
@@ -635,7 +635,7 @@ export default function CommunityDashboard() {
                   Attendance at community events
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div>
@@ -673,7 +673,7 @@ export default function CommunityDashboard() {
             </Card>
             
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle className="flex items-center">
                   <Share2 className="mr-2 h-5 w-5" /> Resource Sharing
                 </CardTitle>
@@ -681,7 +681,7 @@ export default function CommunityDashboard() {
                   Most shared and downloaded resources
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="space-y-4">
                   {MOCK_RESOURCE_IMPACT.slice(0, 4).map((resource, index) => (
                     <div key={index} className="space-y-1">
@@ -710,7 +710,7 @@ export default function CommunityDashboard() {
         <TabsContent value="impact" className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle className="flex items-center">
                   <TrendingUp className="mr-2 h-5 w-5" /> Before/After Impact
                 </CardTitle>
@@ -718,7 +718,7 @@ export default function CommunityDashboard() {
                   Measured improvement in key areas
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="h-80">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart
@@ -740,7 +740,7 @@ export default function CommunityDashboard() {
             </Card>
             
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle className="flex items-center">
                   <Target className="mr-2 h-5 w-5" /> Collaboration Outcomes
                 </CardTitle>
@@ -748,7 +748,7 @@ export default function CommunityDashboard() {
                   Results from cross-school collaborations
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="h-80">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart
@@ -772,7 +772,7 @@ export default function CommunityDashboard() {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle className="flex items-center">
                   <BookOpen className="mr-2 h-5 w-5" /> Knowledge Transfer
                 </CardTitle>
@@ -780,7 +780,7 @@ export default function CommunityDashboard() {
                   Effectiveness of knowledge sharing
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="space-y-4">
                   <div className="flex items-center justify-center">
                     <div className="relative w-40 h-40">
@@ -831,7 +831,7 @@ export default function CommunityDashboard() {
             </Card>
             
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle className="flex items-center">
                   <Lightbulb className="mr-2 h-5 w-5" /> Innovation Impact
                 </CardTitle>
@@ -839,7 +839,7 @@ export default function CommunityDashboard() {
                   New approaches developed through collaboration
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="space-y-4">
                   <div className="p-4 border rounded-md bg-muted/50">
                     <div className="flex items-start space-x-3">
@@ -887,7 +887,7 @@ export default function CommunityDashboard() {
             </Card>
             
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle className="flex items-center">
                   <ThumbsUp className="mr-2 h-5 w-5" /> Satisfaction Metrics
                 </CardTitle>
@@ -895,7 +895,7 @@ export default function CommunityDashboard() {
                   Member satisfaction with community value
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center">
@@ -973,7 +973,7 @@ export default function CommunityDashboard() {
         <TabsContent value="schools" className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle className="flex items-center">
                   <School className="mr-2 h-5 w-5" /> School Participation
                 </CardTitle>
@@ -981,7 +981,7 @@ export default function CommunityDashboard() {
                   Activity breakdown by school
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="h-80">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart
@@ -1005,7 +1005,7 @@ export default function CommunityDashboard() {
             </Card>
             
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle className="flex items-center">
                   <Map className="mr-2 h-5 w-5" /> Geographical Distribution
                 </CardTitle>
@@ -1013,7 +1013,7 @@ export default function CommunityDashboard() {
                   School participation by region
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="h-80">
                   <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
@@ -1047,7 +1047,7 @@ export default function CommunityDashboard() {
           </div>
           
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle className="flex items-center">
                 <UserCheck className="mr-2 h-5 w-5" /> School Engagement Leaderboard
               </CardTitle>
@@ -1055,7 +1055,7 @@ export default function CommunityDashboard() {
                 Most active schools across all communities
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="relative overflow-x-auto">
                 <table className="w-full text-sm text-left">
                   <thead className="text-xs uppercase bg-muted">
@@ -1135,7 +1135,7 @@ export default function CommunityDashboard() {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle className="flex items-center">
                   <Globe className="mr-2 h-5 w-5" /> Cross-School Connections
                 </CardTitle>
@@ -1143,7 +1143,7 @@ export default function CommunityDashboard() {
                   Collaboration network strength
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="space-y-4">
                   <div className="flex items-center justify-center">
                     <div className="relative w-40 h-40">
@@ -1194,7 +1194,7 @@ export default function CommunityDashboard() {
             </Card>
             
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle className="flex items-center">
                   <Flag className="mr-2 h-5 w-5" /> School Type Distribution
                 </CardTitle>
@@ -1202,7 +1202,7 @@ export default function CommunityDashboard() {
                   Participation by school type
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="h-64">
                   <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
@@ -1234,7 +1234,7 @@ export default function CommunityDashboard() {
             </Card>
             
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle className="flex items-center">
                   <AlertTriangle className="mr-2 h-5 w-5" /> Engagement Gaps
                 </CardTitle>
@@ -1242,7 +1242,7 @@ export default function CommunityDashboard() {
                   Schools with low participation
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="space-y-4">
                   <div className="p-4 border rounded-md bg-amber-50 border-amber-200">
                     <div className="flex items-start space-x-3">
@@ -1293,7 +1293,7 @@ export default function CommunityDashboard() {
         <TabsContent value="health" className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle className="flex items-center">
                   <Activity className="mr-2 h-5 w-5" /> Community Health Trends
                 </CardTitle>
@@ -1301,7 +1301,7 @@ export default function CommunityDashboard() {
                   Member activity and engagement over time
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="h-80">
                   <ResponsiveContainer width="100%" height="100%">
                     <AreaChart
@@ -1344,7 +1344,7 @@ export default function CommunityDashboard() {
             </Card>
             
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle className="flex items-center">
                   <MessageSquare className="mr-2 h-5 w-5" /> Discussion Health
                 </CardTitle>
@@ -1352,7 +1352,7 @@ export default function CommunityDashboard() {
                   Quality and engagement in community discussions
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="h-80">
                   <ResponsiveContainer width="100%" height="100%">
                     <RadarChart cx="50%" cy="50%" outerRadius="80%" data={[
@@ -1391,7 +1391,7 @@ export default function CommunityDashboard() {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle className="flex items-center">
                   <HelpCircle className="mr-2 h-5 w-5" /> Support Requests
                 </CardTitle>
@@ -1399,7 +1399,7 @@ export default function CommunityDashboard() {
                   Community support and moderation needs
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center">
@@ -1447,7 +1447,7 @@ export default function CommunityDashboard() {
             </Card>
             
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle className="flex items-center">
                   <Info className="mr-2 h-5 w-5" /> Content Quality
                 </CardTitle>
@@ -1455,7 +1455,7 @@ export default function CommunityDashboard() {
                   Resource and discussion quality metrics
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="space-y-4">
                   <div className="flex items-center justify-center">
                     <div className="relative w-40 h-40">
@@ -1510,7 +1510,7 @@ export default function CommunityDashboard() {
             </Card>
             
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle className="flex items-center">
                   <CheckCircle className="mr-2 h-5 w-5" /> Privacy Compliance
                 </CardTitle>
@@ -1518,7 +1518,7 @@ export default function CommunityDashboard() {
                   Data protection and privacy metrics
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="space-y-4">
                   <div className="p-4 border rounded-md bg-green-50 border-green-200">
                     <div className="flex items-start space-x-3">
@@ -1568,3 +1568,4 @@ export default function CommunityDashboard() {
     </div>
   );
 }
+

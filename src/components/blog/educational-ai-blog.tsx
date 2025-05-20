@@ -327,7 +327,7 @@ const AIContentGenerator = () => {
   
   return (
     <Card>
-      <CardHeader>
+      <CardHeader className="pb-2">
         <CardTitle className="flex items-center">
           <Zap className="mr-2 h-5 w-5 text-purple-500" />
           AI Content Assistant
@@ -336,7 +336,7 @@ const AIContentGenerator = () => {
           Generate educational content with AI assistance
         </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="pt-2">
         <div className="space-y-4">
           <div>
             <label htmlFor="prompt" className="text-sm font-medium block mb-1">
@@ -435,10 +435,10 @@ export function EducationalAIBlog() {
         <div className="lg:col-span-1 space-y-6">
           {/* Search */}
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Search</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="relative">
                 <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
                 <Input
@@ -453,26 +453,26 @@ export function EducationalAIBlog() {
           
           {/* Categories */}
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle className="flex items-center">
                 <BookMarked className="mr-2 h-5 w-5" />
                 Categories
               </CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <CategoryList categories={categories} />
             </CardContent>
           </Card>
           
           {/* Popular Tags */}
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle className="flex items-center">
                 <Tag className="mr-2 h-5 w-5" />
                 Popular Tags
               </CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <TagCloud tags={popularTags} />
             </CardContent>
           </Card>
@@ -566,3 +566,4 @@ const Select = ({ defaultValue, options }) => {
 };
 
 export default EducationalAIBlog;
+

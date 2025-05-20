@@ -254,7 +254,7 @@ export default function AccessibilitySettings() {
         
         <TabsContent value="visual">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Visual Settings</CardTitle>
               <CardDescription>
                 Customize the visual appearance of the platform to suit your needs.
@@ -392,7 +392,7 @@ export default function AccessibilitySettings() {
         
         <TabsContent value="reading">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Reading & Navigation Settings</CardTitle>
               <CardDescription>
                 Customize reading and navigation features to improve accessibility.
@@ -474,7 +474,7 @@ export default function AccessibilitySettings() {
         
         <TabsContent value="cognitive">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Cognitive Support Settings</CardTitle>
               <CardDescription>
                 Customize features to support different cognitive needs.
@@ -571,3 +571,4 @@ export default function AccessibilitySettings() {
     </div>
   );
 }
+

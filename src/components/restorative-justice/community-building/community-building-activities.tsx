@@ -510,7 +510,7 @@ const CommunityBuildingActivities = () => {
                 </h2>
                 
                 {filteredActivities.length === 0 ? (
-                  <Card>
+                  <Card className="w-full">
                     <CardContent className="pt-6">
                       <p className="text-center text-muted-foreground">No activities match your filters</p>
                     </CardContent>
@@ -549,7 +549,7 @@ const CommunityBuildingActivities = () => {
                               <span className="text-sm text-muted-foreground">{activity.rating}</span>
                             </div>
                           </CardHeader>
-                          <CardContent>
+                          <CardContent className="pt-2">
                             <div className="flex flex-wrap gap-2 mb-2">
                               {renderCategoryBadge(activity.category)}
                               <Badge variant="outline">{formatTimeRequired(activity.timeRequired)}</Badge>
@@ -569,7 +569,7 @@ const CommunityBuildingActivities = () => {
               <div className="md:col-span-2">
                 {selectedActivity ? (
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <div className="flex justify-between items-start">
                         <div>
                           <CardTitle className="text-2xl">{selectedActivity.title}</CardTitle>
@@ -706,7 +706,7 @@ const CommunityBuildingActivities = () => {
                     </CardFooter>
                   </Card>
                 ) : (
-                  <Card>
+                  <Card className="w-full">
                     <CardContent className="flex flex-col items-center justify-center p-12">
                       <Users className="h-16 w-16 text-muted-foreground mb-4" />
                       <h3 className="text-xl font-medium mb-2">Select an Activity</h3>
@@ -723,7 +723,7 @@ const CommunityBuildingActivities = () => {
           {/* Favorites Tab */}
           <TabsContent value="favorites">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>My Favorite Activities</CardTitle>
                 <CardDescription>
                   Activities you've saved for quick access
@@ -759,7 +759,7 @@ const CommunityBuildingActivities = () => {
                               </Button>
                             </div>
                           </CardHeader>
-                          <CardContent>
+                          <CardContent className="pt-2">
                             <div className="flex flex-wrap gap-2 mb-2">
                               {renderCategoryBadge(activity.category)}
                               <Badge variant="outline">{formatTimeRequired(activity.timeRequired)}</Badge>
@@ -790,7 +790,7 @@ const CommunityBuildingActivities = () => {
           <TabsContent value="about">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <Card className="md:col-span-2">
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>About Community Building Activities</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
@@ -846,7 +846,7 @@ const CommunityBuildingActivities = () => {
               
               <div className="space-y-6">
                 <Card>
-                  <CardHeader>
+                  <CardHeader className="pb-2">
                     <CardTitle>Evidence Base</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
@@ -867,10 +867,10 @@ const CommunityBuildingActivities = () => {
                 </Card>
                 
                 <Card>
-                  <CardHeader>
+                  <CardHeader className="pb-2">
                     <CardTitle>Additional Resources</CardTitle>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <ul className="space-y-4">
                       <li>
                         <a href="#" className="flex items-center text-primary hover:underline">
@@ -915,3 +915,4 @@ const CommunityBuildingActivities = () => {
 };
 
 export default CommunityBuildingActivities;
+

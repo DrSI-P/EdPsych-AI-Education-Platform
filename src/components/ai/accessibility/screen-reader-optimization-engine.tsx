@@ -371,7 +371,7 @@ export default function ScreenReaderOptimizationEngine({
   
   return (
     <Card className={className}>
-      <CardHeader>
+      <CardHeader className="pb-2">
         <CardTitle className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Eye className="h-5 w-5" />
@@ -387,7 +387,7 @@ export default function ScreenReaderOptimizationEngine({
         </CardDescription>
       </CardHeader>
       
-      <CardContent>
+      <CardContent className="pt-2">
         <Tabs defaultValue="settings">
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="settings">Settings</TabsTrigger>
@@ -780,3 +780,4 @@ export default function ScreenReaderOptimizationEngine({
     </Card>
   );
 }
+

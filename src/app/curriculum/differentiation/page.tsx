@@ -56,13 +56,13 @@ export default function CurriculumDifferentiationPage() {
             <div className="space-y-8">
               {planId && curriculumPlan ? (
                 <Card className="mb-6">
-                  <CardHeader>
+                  <CardHeader className="pb-2">
                     <CardTitle>Selected Curriculum Plan</CardTitle>
                     <CardDescription>
                       The following curriculum plan will be differentiated
                     </CardDescription>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <div className="space-y-4">
                       <div>
                         <h3 className="text-lg font-medium">{curriculumPlan.title}</h3>
@@ -100,13 +100,13 @@ export default function CurriculumDifferentiationPage() {
                 </Card>
               ) : !planId ? (
                 <Card className="mb-6">
-                  <CardHeader>
+                  <CardHeader className="pb-2">
                     <CardTitle>Select a Curriculum Plan</CardTitle>
                     <CardDescription>
                       Choose a curriculum plan to differentiate
                     </CardDescription>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <div className="space-y-4">
                       <p>
                         No curriculum plan selected. Please select a plan to differentiate.
@@ -145,7 +145,7 @@ export default function CurriculumDifferentiationPage() {
           
           <TabsContent value="about" className="pt-4">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>About AI-Driven Curriculum Differentiation</CardTitle>
                 <CardDescription>
                   Understanding how this feature enhances personalized learning
@@ -219,3 +219,4 @@ export default function CurriculumDifferentiationPage() {
     </div>
   );
 }
+

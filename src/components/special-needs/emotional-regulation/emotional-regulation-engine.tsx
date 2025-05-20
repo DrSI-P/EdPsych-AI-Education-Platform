@@ -479,13 +479,13 @@ const EmotionalRegulationEngine = () => {
         {/* Identify Emotions Tab */}
         <TabsContent value="identify" className="space-y-6">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>How are you feeling right now?</CardTitle>
               <CardDescription>
                 Select the emotion that best matches how you're feeling.
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="space-y-6">
                 <div>
                   <h3 className="text-lg font-medium mb-3">Basic Emotions</h3>
@@ -551,7 +551,7 @@ const EmotionalRegulationEngine = () => {
         {/* Intensity Tab */}
         <TabsContent value="intensity" className="space-y-6">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>
                 How intense is your {currentEmotion.name.toLowerCase()} feeling?
               </CardTitle>
@@ -632,13 +632,13 @@ const EmotionalRegulationEngine = () => {
         {/* Body Feelings Tab */}
         <TabsContent value="body" className="space-y-6">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Where do you feel this in your body?</CardTitle>
               <CardDescription>
                 Select all the places in your body where you notice this feeling.
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="flex flex-col items-center space-y-6">
                 <div className="relative w-64 h-80">
                   <Image 
@@ -682,22 +682,22 @@ const EmotionalRegulationEngine = () => {
         {/* Strategies Tab */}
         <TabsContent value="strategies" className="space-y-6">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Helpful Strategies</CardTitle>
               <CardDescription>
                 Here are some strategies that might help with your {currentEmotion.name ? currentEmotion.name.toLowerCase() : ""} feelings.
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="space-y-6">
                 {strategies.length > 0 ? (
                   strategies.map((strategy) => (
                     <Card key={strategy.id} className="border-l-4" style={{ borderLeftColor: currentEmotion.name ? getEmotionColor(currentEmotion.name) : "#808080" }}>
-                      <CardHeader>
+                      <CardHeader className="pb-2">
                         <CardTitle>{strategy.name}</CardTitle>
                         <CardDescription>{strategy.description}</CardDescription>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <h4 className="font-medium mb-2">Steps:</h4>
                         <ol className="list-decimal pl-5 space-y-1">
                           {strategy.steps.map((step, index) => (
@@ -746,13 +746,13 @@ const EmotionalRegulationEngine = () => {
         {/* History Tab */}
         <TabsContent value="history" className="space-y-6">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Your Emotion History</CardTitle>
               <CardDescription>
                 Track your emotions over time to notice patterns.
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <ScrollArea className="h-[500px] pr-4">
                 <div className="space-y-6">
                   {emotionHistory.length > 0 ? (
@@ -822,13 +822,13 @@ const EmotionalRegulationEngine = () => {
         {/* Journal Tab */}
         <TabsContent value="journal" className="space-y-6">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Emotion Journal</CardTitle>
               <CardDescription>
                 Write about your feelings and experiences to help understand them better.
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <Tabs defaultValue="view" className="w-full">
                 <TabsList className="grid grid-cols-2 mb-4">
                   <TabsTrigger value="view">View Entries</TabsTrigger>
@@ -841,7 +841,7 @@ const EmotionalRegulationEngine = () => {
                       {emotionJournal.length > 0 ? (
                         emotionJournal.map((entry) => (
                           <Card key={entry.id}>
-                            <CardHeader>
+                            <CardHeader className="pb-2">
                               <div className="flex justify-between items-center">
                                 <CardTitle>{entry.title}</CardTitle>
                                 <div className="text-sm text-muted-foreground">
@@ -859,7 +859,7 @@ const EmotionalRegulationEngine = () => {
                                 ))}
                               </div>
                             </CardHeader>
-                            <CardContent>
+                            <CardContent className="pt-2">
                               <p className="whitespace-pre-line">{entry.content}</p>
                               
                               {entry.strategies && entry.strategies.length > 0 && (
@@ -954,3 +954,4 @@ const EmotionalRegulationEngine = () => {
 };
 
 export default EmotionalRegulationEngine;
+

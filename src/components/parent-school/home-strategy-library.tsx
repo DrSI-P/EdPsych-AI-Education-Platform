@@ -466,7 +466,7 @@ export default function HomeStrategyLibrary() {
         
         <div className="md:col-span-2">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <div className="flex justify-between items-start">
                 <div>
                   <CardTitle>{selectedStrategy.title}</CardTitle>
@@ -502,7 +502,7 @@ export default function HomeStrategyLibrary() {
                 </DropdownMenu>
               </div>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="space-y-6">
                 <div className="aspect-video bg-muted rounded-lg overflow-hidden flex items-center justify-center">
                   {selectedStrategy.thumbnail ? (
@@ -738,3 +738,4 @@ export default function HomeStrategyLibrary() {
     </div>
   );
 }
+

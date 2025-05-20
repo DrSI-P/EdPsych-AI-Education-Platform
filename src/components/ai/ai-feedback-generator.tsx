@@ -119,7 +119,7 @@ Format your feedback with:
       <CardHeader>
         <h3 className="text-lg font-medium">AI Feedback Generator</h3>
       </CardHeader>
-      <CardContent>
+      <CardContent className="pt-2">
         <div className="space-y-4">
           <div className="flex space-x-4">
             <Select
@@ -204,3 +204,4 @@ Format your feedback with:
     </Card>
   );
 }
+

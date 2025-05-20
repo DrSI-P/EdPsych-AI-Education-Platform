@@ -51,7 +51,7 @@ export default function ScreenReaderOptimizationPage() {
         
         <div className="lg:col-span-1">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle className="flex items-center">
                 <Eye className="h-5 w-5 mr-2" />
                 About Screen Readers
@@ -60,7 +60,7 @@ export default function ScreenReaderOptimizationPage() {
                 Understanding the benefits and applications
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <Tabs defaultValue="benefits">
                 <TabsList className="grid w-full grid-cols-3">
                   <TabsTrigger value="benefits">Benefits</TabsTrigger>
@@ -148,13 +148,13 @@ export default function ScreenReaderOptimizationPage() {
           </Card>
           
           <Card className="mt-6">
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle className="flex items-center">
                 <Lightbulb className="h-5 w-5 mr-2" />
                 Creating Screen Reader-Friendly Content
               </CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="text-sm space-y-4">
                 <div>
                   <h4 className="font-medium mb-1">Headings</h4>
@@ -193,3 +193,4 @@ export default function ScreenReaderOptimizationPage() {
     </div>
   );
 }
+

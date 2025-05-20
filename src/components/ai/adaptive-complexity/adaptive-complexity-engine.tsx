@@ -249,7 +249,7 @@ export default function AdaptiveComplexityEngine({
   return (
     <div className={className}>
       <Card className="mb-6">
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <ArrowUpDown className="h-5 w-5 text-primary" />
@@ -396,7 +396,7 @@ export default function AdaptiveComplexityEngine({
       </Card>
       
       {isAdjusting && (
-        <Card>
+        <Card className="w-full">
           <CardContent className="py-6">
             <div className="flex flex-col items-center justify-center space-y-4">
               <RefreshCw className="h-8 w-8 text-primary animate-spin" />
@@ -413,14 +413,14 @@ export default function AdaptiveComplexityEngine({
       
       {adjustedContent && !isAdjusting && (
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Content Complexity Comparison</CardTitle>
             <CardDescription>
               Compare original and adjusted content complexity
             </CardDescription>
           </CardHeader>
           
-          <CardContent>
+          <CardContent className="pt-2">
             <Tabs defaultValue="original" value={activeTab} onValueChange={setActiveTab}>
               <TabsList className="grid w-full grid-cols-2">
                 <TabsTrigger value="original" className="flex items-center gap-1">
@@ -537,3 +537,4 @@ export default function AdaptiveComplexityEngine({
     </div>
   );
 }
+

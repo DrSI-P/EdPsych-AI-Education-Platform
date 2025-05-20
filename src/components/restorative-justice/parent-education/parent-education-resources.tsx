@@ -628,7 +628,7 @@ export default function ParentEducationResources() {
               </div>
               
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>{activeResource.title}</CardTitle>
                   <CardDescription>{activeResource.description}</CardDescription>
                   
@@ -746,12 +746,12 @@ export default function ParentEducationResources() {
               </div>
               
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>{activeLesson.title}</CardTitle>
                   <CardDescription>{activeLesson.description}</CardDescription>
                 </CardHeader>
                 
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="prose max-w-none">
                     <p>This is where the lesson content would appear. It would include text, images, videos, and interactive elements to help parents learn about restorative approaches.</p>
                     
@@ -833,12 +833,12 @@ export default function ParentEducationResources() {
               </div>
               
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>{activeModule.title}</CardTitle>
                   <CardDescription>{activeModule.description}</CardDescription>
                 </CardHeader>
                 
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="space-y-2">
                     {activeModule.lessons.map((lesson, index) => (
                       <div 
@@ -971,7 +971,7 @@ export default function ParentEducationResources() {
               </div>
               
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>{activeActivity.title}</CardTitle>
                   <CardDescription>{activeActivity.description}</CardDescription>
                   
@@ -983,7 +983,7 @@ export default function ParentEducationResources() {
                   </div>
                 </CardHeader>
                 
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="space-y-6">
                     <div>
                       <h3 className="text-lg font-medium mb-2">Materials Needed</h3>
@@ -1049,7 +1049,7 @@ export default function ParentEducationResources() {
         {/* About Tab */}
         <TabsContent value="about" className="space-y-6">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>About Parent Education Resources</CardTitle>
               <CardDescription>
                 Evidence-based resources to support parents in implementing restorative approaches at home
@@ -1093,10 +1093,10 @@ export default function ParentEducationResources() {
           </Card>
           
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>How to Use These Resources</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="space-y-4">
                 <div className="flex gap-4 items-start">
                   <div className="bg-primary/10 p-3 rounded-full">
@@ -1142,10 +1142,10 @@ export default function ParentEducationResources() {
           </Card>
           
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>References</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="space-y-2">
                 <p className="text-sm">
                   Hopkins, B. (2004). Just Schools: A Whole School Approach to Restorative Justice. Jessica Kingsley Publishers.
@@ -1170,3 +1170,4 @@ export default function ParentEducationResources() {
     </div>
   );
 }
+

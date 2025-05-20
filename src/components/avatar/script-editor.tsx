@@ -171,14 +171,14 @@ export const ScriptEditor: React.FC<ScriptEditorProps> = ({
     <div className="script-editor">
       <form onSubmit={handleSubmit}>
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Avatar Video Script Editor</CardTitle>
             <CardDescription>
               Create a script for your AI avatar video
             </CardDescription>
           </CardHeader>
           
-          <CardContent>
+          <CardContent className="pt-2">
             <Tabs value={activeTab} onValueChange={setActiveTab}>
               <TabsList className="grid w-full grid-cols-3">
                 <TabsTrigger value="content">Content</TabsTrigger>
@@ -349,3 +349,4 @@ export const ScriptEditor: React.FC<ScriptEditorProps> = ({
 };
 
 export default ScriptEditor;
+

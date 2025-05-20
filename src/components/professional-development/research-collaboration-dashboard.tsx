@@ -205,7 +205,7 @@ export default function ResearchCollaborationDashboard() {
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card>
+        <Card className="w-full">
           <CardContent className="pt-6">
             <div className="flex justify-between items-start">
               <div className="space-y-1">
@@ -224,7 +224,7 @@ export default function ResearchCollaborationDashboard() {
           </CardContent>
         </Card>
         
-        <Card>
+        <Card className="w-full">
           <CardContent className="pt-6">
             <div className="flex justify-between items-start">
               <div className="space-y-1">
@@ -243,7 +243,7 @@ export default function ResearchCollaborationDashboard() {
           </CardContent>
         </Card>
         
-        <Card>
+        <Card className="w-full">
           <CardContent className="pt-6">
             <div className="flex justify-between items-start">
               <div className="space-y-1">
@@ -262,7 +262,7 @@ export default function ResearchCollaborationDashboard() {
           </CardContent>
         </Card>
         
-        <Card>
+        <Card className="w-full">
           <CardContent className="pt-6">
             <div className="flex justify-between items-start">
               <div className="space-y-1">
@@ -295,7 +295,7 @@ export default function ResearchCollaborationDashboard() {
         <TabsContent value="overview" className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle className="flex items-center">
                   <Activity className="mr-2 h-5 w-5" /> Research Activity Trends
                 </CardTitle>
@@ -303,7 +303,7 @@ export default function ResearchCollaborationDashboard() {
                   Project and output activity over time
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="h-80">
                   <ResponsiveContainer width="100%" height="100%">
                     <LineChart
@@ -325,7 +325,7 @@ export default function ResearchCollaborationDashboard() {
             </Card>
             
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle className="flex items-center">
                   <PieChartIcon className="mr-2 h-5 w-5" /> Research Focus Distribution
                 </CardTitle>
@@ -333,7 +333,7 @@ export default function ResearchCollaborationDashboard() {
                   Distribution of research projects by focus area
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="h-80">
                   <ResponsiveContainer width="100%" height="100%">
                     <RadarChart cx="50%" cy="50%" outerRadius="80%" data={MOCK_RESEARCH_FOCUS_DISTRIBUTION}>
@@ -351,7 +351,7 @@ export default function ResearchCollaborationDashboard() {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle className="flex items-center">
                   <BarChart2 className="mr-2 h-5 w-5" /> Methodology Distribution
                 </CardTitle>
@@ -359,7 +359,7 @@ export default function ResearchCollaborationDashboard() {
                   Research projects by methodology
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="h-64">
                   <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
@@ -385,7 +385,7 @@ export default function ResearchCollaborationDashboard() {
             </Card>
             
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle className="flex items-center">
                   <School className="mr-2 h-5 w-5" /> School Type Distribution
                 </CardTitle>
@@ -393,7 +393,7 @@ export default function ResearchCollaborationDashboard() {
                   Participating schools by type
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="h-64">
                   <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
@@ -419,7 +419,7 @@ export default function ResearchCollaborationDashboard() {
             </Card>
             
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle className="flex items-center">
                   <Globe className="mr-2 h-5 w-5" /> Regional Distribution
                 </CardTitle>
@@ -427,7 +427,7 @@ export default function ResearchCollaborationDashboard() {
                   Schools and projects by region
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="h-64 overflow-y-auto pr-2">
                   <table className="w-full text-sm">
                     <thead>
@@ -457,7 +457,7 @@ export default function ResearchCollaborationDashboard() {
         <TabsContent value="projects" className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle className="flex items-center">
                   <Activity className="mr-2 h-5 w-5" /> Project Status Trends
                 </CardTitle>
@@ -465,7 +465,7 @@ export default function ResearchCollaborationDashboard() {
                   Project status changes over time
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="h-80">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart
@@ -487,7 +487,7 @@ export default function ResearchCollaborationDashboard() {
             </Card>
             
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle className="flex items-center">
                   <Users className="mr-2 h-5 w-5" /> Collaboration Metrics
                 </CardTitle>
@@ -495,7 +495,7 @@ export default function ResearchCollaborationDashboard() {
                   Cross-school collaboration statistics
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="h-80">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart
@@ -516,7 +516,7 @@ export default function ResearchCollaborationDashboard() {
           </div>
           
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle className="flex items-center">
                 <Calendar className="mr-2 h-5 w-5" /> Project Timeline
               </CardTitle>
@@ -524,7 +524,7 @@ export default function ResearchCollaborationDashboard() {
                 Active research projects timeline
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="relative overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
@@ -643,7 +643,7 @@ export default function ResearchCollaborationDashboard() {
         <TabsContent value="outputs" className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle className="flex items-center">
                   <BarChart2 className="mr-2 h-5 w-5" /> Output Types
                 </CardTitle>
@@ -651,7 +651,7 @@ export default function ResearchCollaborationDashboard() {
                   Research outputs by type over time
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="h-80">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart
@@ -674,7 +674,7 @@ export default function ResearchCollaborationDashboard() {
             </Card>
             
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle className="flex items-center">
                   <LineChart className="mr-2 h-5 w-5" /> Engagement Metrics
                 </CardTitle>
@@ -682,7 +682,7 @@ export default function ResearchCollaborationDashboard() {
                   Views, downloads, and citations over time
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="h-80">
                   <ResponsiveContainer width="100%" height="100%">
                     <LineChart
@@ -706,7 +706,7 @@ export default function ResearchCollaborationDashboard() {
           </div>
           
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle className="flex items-center">
                 <BookOpen className="mr-2 h-5 w-5" /> Top Research Outputs
               </CardTitle>
@@ -714,7 +714,7 @@ export default function ResearchCollaborationDashboard() {
                 Most impactful research outputs by engagement
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="relative overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
@@ -785,7 +785,7 @@ export default function ResearchCollaborationDashboard() {
         <TabsContent value="impact" className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle className="flex items-center">
                   <BarChart2 className="mr-2 h-5 w-5" /> Impact Categories
                 </CardTitle>
@@ -793,7 +793,7 @@ export default function ResearchCollaborationDashboard() {
                   Research impact by category
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="h-80">
                   <ResponsiveContainer width="100%" height="100%">
                     <RadarChart cx="50%" cy="50%" outerRadius="80%" data={MOCK_IMPACT_METRICS}>
@@ -809,7 +809,7 @@ export default function ResearchCollaborationDashboard() {
             </Card>
             
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle className="flex items-center">
                   <Users className="mr-2 h-5 w-5" /> Reach Statistics
                 </CardTitle>
@@ -817,7 +817,7 @@ export default function ResearchCollaborationDashboard() {
                   Number of schools and students impacted
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="h-80">
                   <div className="grid grid-cols-2 gap-4 h-full">
                     <div className="flex flex-col items-center justify-center bg-muted/50 rounded-lg p-6">
@@ -848,7 +848,7 @@ export default function ResearchCollaborationDashboard() {
           </div>
           
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle className="flex items-center">
                 <TrendingUp className="mr-2 h-5 w-5" /> Impact Case Studies
               </CardTitle>
@@ -856,7 +856,7 @@ export default function ResearchCollaborationDashboard() {
                 Documented impact from research projects
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="space-y-4">
                 <div className="bg-muted/50 rounded-lg p-4">
                   <div className="flex justify-between items-start">
@@ -944,7 +944,7 @@ export default function ResearchCollaborationDashboard() {
         <TabsContent value="collaboration" className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle className="flex items-center">
                   <Users className="mr-2 h-5 w-5" /> Collaboration Network
                 </CardTitle>
@@ -952,7 +952,7 @@ export default function ResearchCollaborationDashboard() {
                   Connections between schools and researchers
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="h-80 flex items-center justify-center">
                   <div className="text-center">
                     <div className="bg-muted/50 p-8 rounded-lg">
@@ -965,7 +965,7 @@ export default function ResearchCollaborationDashboard() {
             </Card>
             
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle className="flex items-center">
                   <BarChart2 className="mr-2 h-5 w-5" /> Cross-School Collaboration
                 </CardTitle>
@@ -973,7 +973,7 @@ export default function ResearchCollaborationDashboard() {
                   Collaboration metrics by type
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="h-80">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart
@@ -993,7 +993,7 @@ export default function ResearchCollaborationDashboard() {
           </div>
           
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle className="flex items-center">
                 <Globe className="mr-2 h-5 w-5" /> Research Networks
               </CardTitle>
@@ -1001,7 +1001,7 @@ export default function ResearchCollaborationDashboard() {
                 Active research networks and communities
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="space-y-4">
                 <div className="bg-muted/50 rounded-lg p-4">
                   <div className="flex justify-between items-start">
@@ -1100,3 +1100,4 @@ export default function ResearchCollaborationDashboard() {
     </div>
   );
 }
+

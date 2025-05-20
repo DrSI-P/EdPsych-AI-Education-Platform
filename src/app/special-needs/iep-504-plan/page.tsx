@@ -33,7 +33,7 @@ export default function IEP504PlanPage() {
         
         <TabsContent value="about" className="space-y-6">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Understanding IEPs and 504 Plans in UK Education</CardTitle>
               <CardDescription>
                 Key information about educational support plans in the UK context
@@ -164,7 +164,7 @@ export default function IEP504PlanPage() {
         
         <TabsContent value="guidance" className="space-y-6">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Best Practices for Effective Educational Planning</CardTitle>
               <CardDescription>
                 Evidence-based approaches to developing and implementing IEPs and accommodation plans
@@ -336,3 +336,4 @@ export default function IEP504PlanPage() {
     </div>
   );
 }
+

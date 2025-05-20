@@ -160,7 +160,7 @@ export const HeyGenAvatarCreation: React.FC = () => {
   if (success) {
     return (
       <Card className="w-full max-w-3xl mx-auto">
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle className="text-green-600 flex items-center">
             <Check className="mr-2" /> Avatar Created Successfully
           </CardTitle>
@@ -168,7 +168,7 @@ export const HeyGenAvatarCreation: React.FC = () => {
             Your custom AI avatar has been created and is ready to use.
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-2">
           <p className="mb-4">
             The avatar and voice have been successfully created and are now available for generating videos.
             You can now proceed to the video generation process using your custom avatar.
@@ -188,7 +188,7 @@ export const HeyGenAvatarCreation: React.FC = () => {
   
   return (
     <Card className="w-full max-w-3xl mx-auto">
-      <CardHeader>
+      <CardHeader className="pb-2">
         <CardTitle>Create Your Custom AI Avatar</CardTitle>
         <CardDescription>
           Upload photos of yourself and a voice sample to create a personalized AI avatar for your educational videos.
@@ -325,3 +325,4 @@ export const HeyGenAvatarCreation: React.FC = () => {
 };
 
 export default HeyGenAvatarCreation;
+

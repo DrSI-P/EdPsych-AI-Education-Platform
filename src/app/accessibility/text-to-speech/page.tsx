@@ -41,7 +41,7 @@ export default function TextToSpeechPage() {
           />
           
           <Card className="mb-8">
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Sample Texts</CardTitle>
               <CardDescription>
                 Try these sample texts to test the text-to-speech feature
@@ -98,7 +98,7 @@ export default function TextToSpeechPage() {
         
         <div className="lg:col-span-1">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle className="flex items-center">
                 <Headphones className="h-5 w-5 mr-2" />
                 About Text-to-Speech
@@ -107,7 +107,7 @@ export default function TextToSpeechPage() {
                 Understanding the benefits and applications
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <Tabs defaultValue="benefits">
                 <TabsList className="grid w-full grid-cols-3">
                   <TabsTrigger value="benefits">Benefits</TabsTrigger>
@@ -194,3 +194,4 @@ export default function TextToSpeechPage() {
     </div>
   );
 }
+

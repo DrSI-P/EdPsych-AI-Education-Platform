@@ -49,7 +49,7 @@ export default function ContentTransformationPage() {
           
           <TabsContent value="about" className="pt-4">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>About Content Transformation</CardTitle>
                 <CardDescription>
                   Understanding how this feature helps personalize learning experiences
@@ -125,3 +125,4 @@ export default function ContentTransformationPage() {
     </div>
   );
 }
+

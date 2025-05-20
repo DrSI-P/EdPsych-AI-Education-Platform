@@ -561,7 +561,7 @@ export default function AutomatedProgressReportGeneration() {
   return (
     <div className="space-y-6">
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle className="flex items-center">
             <FileText className="mr-2 h-5 w-5" />
             Automated Progress Report Generation
@@ -570,7 +570,7 @@ export default function AutomatedProgressReportGeneration() {
             Create comprehensive, data-driven student progress reports with minimal effort
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-2">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid w-full grid-cols-4">
               <TabsTrigger value="create">Create</TabsTrigger>
@@ -582,13 +582,13 @@ export default function AutomatedProgressReportGeneration() {
             {/* Create Tab */}
             <TabsContent value="create" className="space-y-6">
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Report Template</CardTitle>
                   <CardDescription>
                     Select a template for your progress reports
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     {reportTemplates.map(template => (
                       <div 
@@ -615,7 +615,7 @@ export default function AutomatedProgressReportGeneration() {
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <Card>
-                  <CardHeader>
+                  <CardHeader className="pb-2">
                     <CardTitle className="flex items-center">
                       <Users className="mr-2 h-5 w-5" />
                       Select Students
@@ -624,7 +624,7 @@ export default function AutomatedProgressReportGeneration() {
                       Choose which students to include in the reports
                     </CardDescription>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <div className="space-y-4">
                       <div className="flex flex-wrap gap-2">
                         <Button 
@@ -681,7 +681,7 @@ export default function AutomatedProgressReportGeneration() {
                 </Card>
                 
                 <Card>
-                  <CardHeader>
+                  <CardHeader className="pb-2">
                     <CardTitle className="flex items-center">
                       <BookOpen className="mr-2 h-5 w-5" />
                       Select Subjects
@@ -690,7 +690,7 @@ export default function AutomatedProgressReportGeneration() {
                       Choose which subjects to include in the reports
                     </CardDescription>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <div className="space-y-4">
                       <div className="flex flex-wrap gap-2">
                         <Button 
@@ -738,7 +738,7 @@ export default function AutomatedProgressReportGeneration() {
               </div>
               
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle className="flex items-center">
                     <Settings className="mr-2 h-5 w-5" />
                     Report Options
@@ -747,7 +747,7 @@ export default function AutomatedProgressReportGeneration() {
                     Customize the content and style of your reports
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-4">
                       <div>
@@ -968,7 +968,7 @@ export default function AutomatedProgressReportGeneration() {
                   </div>
                   
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle>Overall Summary</CardTitle>
                     </CardHeader>
                     <CardContent>
@@ -1082,13 +1082,13 @@ export default function AutomatedProgressReportGeneration() {
                   
                   {currentReport.nextSteps && currentReport.nextSteps.length > 0 && (
                     <Card>
-                      <CardHeader>
+                      <CardHeader className="pb-2">
                         <CardTitle className="flex items-center">
                           <Target className="mr-2 h-5 w-5" />
                           Next Steps
                         </CardTitle>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <ul className="space-y-2">
                           {currentReport.nextSteps.map((step: string, index: number) => (
                             <li key={index} className="flex items-start">
@@ -1254,3 +1254,4 @@ export default function AutomatedProgressReportGeneration() {
     </div>
   );
 }
+

@@ -363,7 +363,7 @@ export default function ProfessionalPortfolio() {
               <Badge variant="outline">{portfolioCompleteness}%</Badge>
             </div>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <Progress value={portfolioCompleteness} className="h-2" />
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 mt-4">
               <div className="flex flex-col items-center">
@@ -401,7 +401,7 @@ export default function ProfessionalPortfolio() {
         </Card>
 
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Quick Actions</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
@@ -674,7 +674,7 @@ export default function ProfessionalPortfolio() {
           <div className="grid grid-cols-1 gap-4">
             {achievements.map((achievement) => (
               <Card key={achievement.id}>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <div className="flex justify-between items-start">
                     <div>
                       <CardTitle>{achievement.title}</CardTitle>
@@ -696,7 +696,7 @@ export default function ProfessionalPortfolio() {
                     </div>
                   </div>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <p>{achievement.description}</p>
                   {achievement.evidence.length > 0 && (
                     <div className="mt-4">
@@ -737,7 +737,7 @@ export default function ProfessionalPortfolio() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {evidence.map((item) => (
               <Card key={item.id}>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <div className="flex justify-between items-start">
                     <div>
                       <CardTitle>{item.title}</CardTitle>
@@ -758,7 +758,7 @@ export default function ProfessionalPortfolio() {
                     </div>
                   </div>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <p className="text-sm">{item.description}</p>
                   <div className="flex flex-wrap gap-1 mt-2">
                     {item.tags.map((tag, index) => (
@@ -810,7 +810,7 @@ export default function ProfessionalPortfolio() {
           <div className="grid grid-cols-1 gap-4">
             {reflections.map((reflection) => (
               <Card key={reflection.id}>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <div className="flex justify-between items-start">
                     <div>
                       <CardTitle>{reflection.title}</CardTitle>
@@ -831,7 +831,7 @@ export default function ProfessionalPortfolio() {
                     </div>
                   </div>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <p>{reflection.content}</p>
                   <div className="flex flex-wrap gap-1 mt-3">
                     {reflection.tags.map((tag, index) => (
@@ -857,13 +857,13 @@ export default function ProfessionalPortfolio() {
         {/* Analytics Tab */}
         <TabsContent value="analytics" className="space-y-6">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Portfolio Views</CardTitle>
               <CardDescription>
                 Monthly views of your professional portfolio
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="h-[300px]">
                 <ResponsiveContainer width="100%" height="100%">
                   <AreaChart
@@ -888,13 +888,13 @@ export default function ProfessionalPortfolio() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Section Popularity</CardTitle>
                 <CardDescription>
                   Which sections of your portfolio get the most attention
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="h-[300px]">
                   <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
@@ -920,7 +920,7 @@ export default function ProfessionalPortfolio() {
             </Card>
 
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>CPD Activities</CardTitle>
                 <CardDescription>
                   Your continuing professional development
@@ -978,13 +978,13 @@ export default function ProfessionalPortfolio() {
           </div>
 
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Portfolio Insights</CardTitle>
               <CardDescription>
                 Analysis and recommendations for your professional portfolio
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="space-y-2">
                   <h3 className="font-semibold">Strengths</h3>
@@ -1023,7 +1023,7 @@ export default function ProfessionalPortfolio() {
       {showAddAchievement && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <Card className="w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Add Achievement</CardTitle>
               <CardDescription>
                 Record a new professional achievement
@@ -1109,7 +1109,7 @@ export default function ProfessionalPortfolio() {
       {showAddEvidence && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <Card className="w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Add Evidence</CardTitle>
               <CardDescription>
                 Upload evidence to support your professional portfolio
@@ -1232,7 +1232,7 @@ export default function ProfessionalPortfolio() {
       {showAddReflection && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <Card className="w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Add Reflection</CardTitle>
               <CardDescription>
                 Record a professional reflection on your practice or development
@@ -1329,3 +1329,4 @@ export default function ProfessionalPortfolio() {
     </div>
   );
 }
+

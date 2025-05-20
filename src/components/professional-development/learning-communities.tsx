@@ -552,7 +552,7 @@ export default function LearningCommunities() {
             <div className="flex flex-col md:flex-row gap-4">
               <div className="md:w-3/4">
                 <Card>
-                  <CardHeader>
+                  <CardHeader className="pb-2">
                     <div className="flex flex-col md:flex-row justify-between md:items-center gap-4">
                       <CardTitle>Discover Communities</CardTitle>
                       <div className="relative w-full md:w-64">
@@ -603,7 +603,7 @@ export default function LearningCommunities() {
                       </Select>
                     </div>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <div className="space-y-4">
                       {filteredCommunities.length > 0 ? (
                         filteredCommunities.map(community => (
@@ -674,7 +674,7 @@ export default function LearningCommunities() {
                   <CardHeader className="pb-2">
                     <CardTitle className="text-lg">Featured Communities</CardTitle>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <div className="space-y-4">
                       {MOCK_COMMUNITIES.filter(c => c.featured).slice(0, 3).map(community => (
                         <div key={community.id} className="flex items-start space-x-3 cursor-pointer" onClick={() => handleCommunitySelect(community)}>
@@ -695,7 +695,7 @@ export default function LearningCommunities() {
                   <CardHeader className="pb-2">
                     <CardTitle className="text-lg">Popular Categories</CardTitle>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <div className="flex flex-wrap gap-2">
                       {allCategories.slice(0, 10).map(category => (
                         <Badge 
@@ -715,7 +715,7 @@ export default function LearningCommunities() {
                   <CardHeader className="pb-2">
                     <CardTitle className="text-lg">Community Guidelines</CardTitle>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <div className="space-y-2 text-sm">
                       <p>Our learning communities are designed to foster professional collaboration while maintaining privacy and confidentiality.</p>
                       <ul className="list-disc pl-4 space-y-1">
@@ -750,7 +750,7 @@ export default function LearningCommunities() {
                         {community.role} • Last active {community.lastActivity}
                       </CardDescription>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="pt-2">
                       <div className="space-y-2">
                         <div className="flex justify-between text-sm">
                           <span className="text-muted-foreground">Discussions</span>
@@ -786,10 +786,10 @@ export default function LearningCommunities() {
             </div>
             
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Recent Activity in Your Communities</CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="space-y-4">
                   <div className="flex items-start space-x-4 p-3 rounded-md border">
                     <MessageSquare className="h-5 w-5 text-blue-500 mt-0.5" />
@@ -830,13 +830,13 @@ export default function LearningCommunities() {
           {/* Activity Tab */}
           <TabsContent value="activity" className="space-y-6">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Platform-Wide Activity</CardTitle>
                 <CardDescription>
                   Recent activity across all learning communities
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="space-y-6">
                   <div>
                     <h3 className="font-medium mb-3">Today</h3>
@@ -934,10 +934,10 @@ export default function LearningCommunities() {
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Trending Discussions</CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="space-y-4">
                     <div className="flex items-start space-x-3 p-3 rounded-md border">
                       <div className="bg-blue-100 rounded-full p-2">
@@ -973,10 +973,10 @@ export default function LearningCommunities() {
               </Card>
               
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Popular Resources</CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="space-y-4">
                     <div className="flex items-start space-x-3 p-3 rounded-md border">
                       <div className="bg-green-100 rounded-full p-2">
@@ -1033,7 +1033,7 @@ export default function LearningCommunities() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <div className="md:col-span-3">
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <div className="flex justify-between items-start">
                     <div>
                       <CardTitle className="text-2xl">{selectedCommunity.name}</CardTitle>
@@ -1055,7 +1055,7 @@ export default function LearningCommunities() {
                     ))}
                   </div>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <Tabs defaultValue="discussions" value={communityTab} onValueChange={setCommunityTab}>
                     <TabsList className="grid w-full grid-cols-4">
                       <TabsTrigger value="discussions">Discussions</TabsTrigger>
@@ -1335,7 +1335,7 @@ export default function LearningCommunities() {
                 <CardHeader className="pb-2">
                   <CardTitle className="text-lg">Community Info</CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="space-y-4">
                     <div className="flex justify-between items-center">
                       <span className="text-sm text-muted-foreground">Members</span>
@@ -1385,7 +1385,7 @@ export default function LearningCommunities() {
                 <CardHeader className="pb-2">
                   <CardTitle className="text-lg">Privacy Settings</CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
                       <div className="space-y-0.5">
@@ -1432,7 +1432,7 @@ export default function LearningCommunities() {
                 <CardHeader className="pb-2">
                   <CardTitle className="text-lg">Active Members</CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-2">
@@ -1896,3 +1896,4 @@ export default function LearningCommunities() {
     </div>
   );
 }
+

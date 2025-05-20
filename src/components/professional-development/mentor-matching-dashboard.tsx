@@ -474,7 +474,7 @@ export default function MentorMatchingDashboard() {
               <CardHeader className="pb-2">
                 <CardTitle className="text-lg">Mentorship Summary</CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div>
@@ -513,7 +513,7 @@ export default function MentorMatchingDashboard() {
               <CardHeader className="pb-2">
                 <CardTitle className="text-lg">Recent Activity</CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="space-y-4">
                   <div className="flex items-center space-x-3 p-2 border rounded-md">
                     <Calendar className="h-5 w-5 text-blue-500" />
@@ -544,7 +544,7 @@ export default function MentorMatchingDashboard() {
               <CardHeader className="pb-2">
                 <CardTitle className="text-lg">Upcoming</CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="space-y-4">
                   <div className="flex items-center space-x-3 p-2 border rounded-md">
                     <Calendar className="h-5 w-5 text-primary" />
@@ -574,13 +574,13 @@ export default function MentorMatchingDashboard() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Mentorship Progress</CardTitle>
                 <CardDescription>
                   Track your progress across active mentorships
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="h-[300px]">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart data={mentorshipProgressData}>
@@ -596,13 +596,13 @@ export default function MentorMatchingDashboard() {
             </Card>
 
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Expertise Distribution</CardTitle>
                 <CardDescription>
                   Areas of focus in your mentorship relationships
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="h-[300px]">
                   <ResponsiveContainer width="100%" height="100%">
                     <RechartsPieChart>
@@ -629,13 +629,13 @@ export default function MentorMatchingDashboard() {
           </div>
 
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Top Recommendations</CardTitle>
               <CardDescription>
                 Personalized suggestions based on your profile and goals
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <Card>
                   <CardHeader className="pb-2">
@@ -709,7 +709,7 @@ export default function MentorMatchingDashboard() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="md:col-span-2">
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <div className="flex justify-between items-center">
                     <div>
                       <CardTitle>
@@ -731,7 +731,7 @@ export default function MentorMatchingDashboard() {
                     </div>
                   </div>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="space-y-4">
                     {filteredRecommendations.map((recommendation) => (
                       <Card key={recommendation.id} className="overflow-hidden">
@@ -800,10 +800,10 @@ export default function MentorMatchingDashboard() {
 
             <div className="space-y-4">
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Match Insights</CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="space-y-4">
                     <div className="flex items-center space-x-3 p-3 bg-muted rounded-md">
                       <Zap className="h-5 w-5 text-amber-500" />
@@ -831,10 +831,10 @@ export default function MentorMatchingDashboard() {
               </Card>
 
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Recommended Resources</CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="space-y-3">
                     {MOCK_RECOMMENDED_RESOURCES.map((resource) => (
                       <div key={resource.id} className="flex items-center justify-between p-3 border rounded-md">
@@ -855,10 +855,10 @@ export default function MentorMatchingDashboard() {
               </Card>
 
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Recommended Programs</CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="space-y-3">
                     {MOCK_RECOMMENDED_PROGRAMS.map((program) => (
                       <div key={program.id} className="p-3 border rounded-md">
@@ -886,7 +886,7 @@ export default function MentorMatchingDashboard() {
         {/* Analytics Tab */}
         <TabsContent value="analytics" className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <Card>
+            <Card className="w-full">
               <CardContent className="pt-6">
                 <div className="text-center">
                   <Users className="h-8 w-8 text-primary mx-auto mb-2" />
@@ -899,7 +899,7 @@ export default function MentorMatchingDashboard() {
                 </div>
               </CardContent>
             </Card>
-            <Card>
+            <Card className="w-full">
               <CardContent className="pt-6">
                 <div className="text-center">
                   <Clock className="h-8 w-8 text-blue-500 mx-auto mb-2" />
@@ -908,7 +908,7 @@ export default function MentorMatchingDashboard() {
                 </div>
               </CardContent>
             </Card>
-            <Card>
+            <Card className="w-full">
               <CardContent className="pt-6">
                 <div className="text-center">
                   <CheckCircle className="h-8 w-8 text-green-500 mx-auto mb-2" />
@@ -917,7 +917,7 @@ export default function MentorMatchingDashboard() {
                 </div>
               </CardContent>
             </Card>
-            <Card>
+            <Card className="w-full">
               <CardContent className="pt-6">
                 <div className="text-center">
                   <Award className="h-8 w-8 text-amber-500 mx-auto mb-2" />
@@ -929,13 +929,13 @@ export default function MentorMatchingDashboard() {
           </div>
 
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Mentorship Activity Over Time</CardTitle>
               <CardDescription>
                 Track your engagement with mentorship activities
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="h-[400px]">
                 <ResponsiveContainer width="100%" height="100%">
                   <RechartsLineChart data={mentorshipActivityData}>
@@ -954,13 +954,13 @@ export default function MentorMatchingDashboard() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Expertise Distribution</CardTitle>
                 <CardDescription>
                   Areas of focus in your mentorship relationships
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="h-[300px]">
                   <ResponsiveContainer width="100%" height="100%">
                     <RechartsPieChart>
@@ -986,13 +986,13 @@ export default function MentorMatchingDashboard() {
             </Card>
 
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Goal Completion Rate</CardTitle>
                 <CardDescription>
                   Progress on mentorship goals by category
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="h-[300px]">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart
@@ -1019,13 +1019,13 @@ export default function MentorMatchingDashboard() {
           </div>
 
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Mentorship Quality Metrics</CardTitle>
               <CardDescription>
                 Key indicators of mentorship effectiveness
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="space-y-4">
                   <h3 className="font-medium text-center">Engagement</h3>
@@ -1136,7 +1136,7 @@ export default function MentorMatchingDashboard() {
               <CardHeader className="pb-2">
                 <CardTitle className="text-lg">Impact Summary</CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div>
@@ -1172,13 +1172,13 @@ export default function MentorMatchingDashboard() {
             </Card>
 
             <Card className="md:col-span-2">
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Before & After</CardTitle>
                 <CardDescription>
                   Measuring the impact of mentorship on key areas
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="h-[300px]">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart
@@ -1200,19 +1200,19 @@ export default function MentorMatchingDashboard() {
           </div>
 
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Portfolio Growth</CardTitle>
               <CardDescription>
                 Evidence of professional development through mentorship
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <Card>
                   <CardHeader className="pb-2">
                     <CardTitle className="text-base">Achievements</CardTitle>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <div className="space-y-4">
                       <div className="flex items-center space-x-3">
                         <Award className="h-8 w-8 text-amber-500" />
@@ -1247,7 +1247,7 @@ export default function MentorMatchingDashboard() {
                   <CardHeader className="pb-2">
                     <CardTitle className="text-base">Evidence</CardTitle>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <div className="space-y-4">
                       <div className="flex items-center space-x-3">
                         <FileText className="h-8 w-8 text-blue-500" />
@@ -1282,7 +1282,7 @@ export default function MentorMatchingDashboard() {
                   <CardHeader className="pb-2">
                     <CardTitle className="text-base">Reflections</CardTitle>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <div className="space-y-4">
                       <div className="flex items-center space-x-3">
                         <BookOpen className="h-8 w-8 text-purple-500" />
@@ -1317,13 +1317,13 @@ export default function MentorMatchingDashboard() {
           </Card>
 
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>CPD Integration</CardTitle>
               <CardDescription>
                 How mentorship contributes to your continuing professional development
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <h3 className="font-medium mb-4">CPD Points Earned</h3>
@@ -1384,13 +1384,13 @@ export default function MentorMatchingDashboard() {
           </Card>
 
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Testimonials & Feedback</CardTitle>
               <CardDescription>
                 What others say about the impact of your mentorship relationship
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="p-4 border rounded-md bg-muted">
                   <div className="flex items-center space-x-2 mb-3">
@@ -1469,3 +1469,4 @@ export default function MentorMatchingDashboard() {
     </div>
   );
 }
+

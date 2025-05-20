@@ -56,7 +56,7 @@ export default function KeyboardNavigationPage() {
         
         <div className="lg:col-span-1">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle className="flex items-center">
                 <Keyboard className="h-5 w-5 mr-2" />
                 About Keyboard Navigation
@@ -65,7 +65,7 @@ export default function KeyboardNavigationPage() {
                 Understanding the benefits and applications
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <Tabs defaultValue="benefits">
                 <TabsList className="grid w-full grid-cols-3">
                   <TabsTrigger value="benefits">Benefits</TabsTrigger>
@@ -152,13 +152,13 @@ export default function KeyboardNavigationPage() {
           </Card>
           
           <Card className="mt-6">
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle className="flex items-center">
                 <KeyRound className="h-5 w-5 mr-2" />
                 Keyboard Shortcuts
               </CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="text-sm space-y-2">
                 <p className="font-medium">Platform Navigation:</p>
                 <ul className="space-y-1">
@@ -186,3 +186,4 @@ export default function KeyboardNavigationPage() {
     </div>
   );
 }
+

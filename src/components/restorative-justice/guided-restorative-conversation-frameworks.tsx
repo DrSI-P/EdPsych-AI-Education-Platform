@@ -624,13 +624,13 @@ const GuidedRestorativeConversationFrameworks = () => {
           {/* Frameworks Tab */}
           <TabsContent value="frameworks" className="space-y-6">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Restorative Conversation Frameworks</CardTitle>
                 <CardDescription>
                   Select a framework based on your needs and scenario
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="flex flex-col space-y-4">
                   <div className="flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-4">
                     <div className="flex-1">
@@ -742,13 +742,13 @@ const GuidedRestorativeConversationFrameworks = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div className="md:col-span-2">
                     <Card>
-                      <CardHeader>
+                      <CardHeader className="pb-2">
                         <CardTitle>Conversation Steps</CardTitle>
                         <CardDescription>
                           Follow these steps to guide your restorative conversation
                         </CardDescription>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <div className="space-y-8">
                           {selectedFramework.steps.map((step, index) => (
                             <div key={index} className="relative pl-8 pb-6 border-l-2 border-primary/20 last:border-l-0">
@@ -778,10 +778,10 @@ const GuidedRestorativeConversationFrameworks = () => {
 
                   <div>
                     <Card>
-                      <CardHeader>
+                      <CardHeader className="pb-2">
                         <CardTitle>Guidance Notes</CardTitle>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <div className="space-y-4">
                           <div>
                             <h3 className="text-sm font-medium mb-1">Key Principles</h3>
@@ -848,10 +848,10 @@ const GuidedRestorativeConversationFrameworks = () => {
                     </Card>
 
                     <Card className="mt-4">
-                      <CardHeader>
+                      <CardHeader className="pb-2">
                         <CardTitle>Documentation</CardTitle>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <div className="space-y-4">
                           <div>
                             <Label htmlFor="participants">Participants</Label>
@@ -901,13 +901,13 @@ const GuidedRestorativeConversationFrameworks = () => {
           {/* Create Custom Tab */}
           <TabsContent value="create" className="space-y-6">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Create Custom Framework</CardTitle>
                 <CardDescription>
                   Design your own restorative conversation framework
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
@@ -1058,13 +1058,13 @@ const GuidedRestorativeConversationFrameworks = () => {
           <TabsContent value="resources" className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <Card className="md:col-span-2">
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Restorative Justice Resources</CardTitle>
                   <CardDescription>
                     Educational materials and guides for implementing restorative practices
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="space-y-6">
                     <div>
                       <h3 className="text-lg font-medium mb-2">Key Principles of Restorative Justice</h3>
@@ -1076,7 +1076,7 @@ const GuidedRestorativeConversationFrameworks = () => {
                           <CardHeader className="pb-2">
                             <CardTitle className="text-base">Relationships First</CardTitle>
                           </CardHeader>
-                          <CardContent>
+                          <CardContent className="pt-2">
                             <p className="text-sm">
                               Prioritizes building and maintaining positive relationships within the school community. 
                               When harm occurs, the focus is on repairing relationships rather than simply punishing rule-breaking.
@@ -1087,7 +1087,7 @@ const GuidedRestorativeConversationFrameworks = () => {
                           <CardHeader className="pb-2">
                             <CardTitle className="text-base">Responsibility and Accountability</CardTitle>
                           </CardHeader>
-                          <CardContent>
+                          <CardContent className="pt-2">
                             <p className="text-sm">
                               Encourages individuals to take responsibility for their actions and understand how they 
                               have affected others. Accountability means making things right, not just receiving punishment.
@@ -1098,7 +1098,7 @@ const GuidedRestorativeConversationFrameworks = () => {
                           <CardHeader className="pb-2">
                             <CardTitle className="text-base">Inclusive Decision-Making</CardTitle>
                           </CardHeader>
-                          <CardContent>
+                          <CardContent className="pt-2">
                             <p className="text-sm">
                               Involves all affected parties in the process of addressing harm and finding solutions. 
                               This collaborative approach empowers students and builds community ownership.
@@ -1109,7 +1109,7 @@ const GuidedRestorativeConversationFrameworks = () => {
                           <CardHeader className="pb-2">
                             <CardTitle className="text-base">Healing and Growth</CardTitle>
                           </CardHeader>
-                          <CardContent>
+                          <CardContent className="pt-2">
                             <p className="text-sm">
                               Focuses on healing harm and supporting personal growth rather than punishment. 
                               The process aims to help all parties move forward in a positive way.
@@ -1130,7 +1130,7 @@ const GuidedRestorativeConversationFrameworks = () => {
                           <CardHeader className="pb-2">
                             <CardTitle className="text-base">Punitive (TO)</CardTitle>
                           </CardHeader>
-                          <CardContent>
+                          <CardContent className="pt-2">
                             <p className="text-sm">
                               High control, low support. Focuses on rules and punishment.
                               "What rule was broken? Who did it? What punishment is deserved?"
@@ -1141,7 +1141,7 @@ const GuidedRestorativeConversationFrameworks = () => {
                           <CardHeader className="pb-2">
                             <CardTitle className="text-base">Restorative (WITH)</CardTitle>
                           </CardHeader>
-                          <CardContent>
+                          <CardContent className="pt-2">
                             <p className="text-sm">
                               High control, high support. Collaborative problem-solving.
                               "What happened? Who was affected? How can we make things right?"
@@ -1152,7 +1152,7 @@ const GuidedRestorativeConversationFrameworks = () => {
                           <CardHeader className="pb-2">
                             <CardTitle className="text-base">Neglectful (NOT)</CardTitle>
                           </CardHeader>
-                          <CardContent>
+                          <CardContent className="pt-2">
                             <p className="text-sm">
                               Low control, low support. Indifferent and passive.
                               "It's not my problem. Let someone else deal with it."
@@ -1163,7 +1163,7 @@ const GuidedRestorativeConversationFrameworks = () => {
                           <CardHeader className="pb-2">
                             <CardTitle className="text-base">Permissive (FOR)</CardTitle>
                           </CardHeader>
-                          <CardContent>
+                          <CardContent className="pt-2">
                             <p className="text-sm">
                               Low control, high support. Protective and enabling.
                               "How can I fix this for you? Let me take care of it."
@@ -1221,10 +1221,10 @@ const GuidedRestorativeConversationFrameworks = () => {
 
               <div className="space-y-6">
                 <Card>
-                  <CardHeader>
+                  <CardHeader className="pb-2">
                     <CardTitle>Training Resources</CardTitle>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <div className="space-y-4">
                       <div>
                         <h3 className="text-sm font-medium mb-1">Video Tutorials</h3>
@@ -1284,10 +1284,10 @@ const GuidedRestorativeConversationFrameworks = () => {
                 </Card>
 
                 <Card>
-                  <CardHeader>
+                  <CardHeader className="pb-2">
                     <CardTitle>Research and Evidence</CardTitle>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <div className="space-y-4">
                       <p className="text-sm text-muted-foreground">
                         Restorative justice practices in schools are supported by a growing body of research evidence:
@@ -1340,3 +1340,4 @@ const GuidedRestorativeConversationFrameworks = () => {
 };
 
 export default GuidedRestorativeConversationFrameworks;
+

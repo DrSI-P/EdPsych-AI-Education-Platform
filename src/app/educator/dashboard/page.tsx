@@ -113,7 +113,7 @@ export default function EducatorDashboardPage() {
         <TabsContent value="overview" className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Quick Actions</CardTitle>
                 <CardDescription>Frequently used administrative tools</CardDescription>
               </CardHeader>
@@ -139,7 +139,7 @@ export default function EducatorDashboardPage() {
             
             <div className="space-y-6">
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Recent Documentation</CardTitle>
                   <CardDescription>Your recently created documentation</CardDescription>
                 </CardHeader>
@@ -162,7 +162,7 @@ export default function EducatorDashboardPage() {
               </Card>
               
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Recent Lesson Plans</CardTitle>
                   <CardDescription>Your recently created lesson plans</CardDescription>
                 </CardHeader>
@@ -187,7 +187,7 @@ export default function EducatorDashboardPage() {
           </div>
           
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Administrative Automation</CardTitle>
               <CardDescription>AI-powered tools to reduce your administrative burden</CardDescription>
             </CardHeader>
@@ -237,3 +237,4 @@ export default function EducatorDashboardPage() {
     </div>
   );
 }
+

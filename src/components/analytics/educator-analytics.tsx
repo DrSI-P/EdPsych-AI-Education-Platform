@@ -316,13 +316,13 @@ const EducatorAnalytics = () => {
           
           <TabsContent value="overview" className="space-y-4">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Teaching Effectiveness</CardTitle>
                 <CardDescription>
                   Performance across different subjects and metrics
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="h-[300px]">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart
@@ -345,13 +345,13 @@ const EducatorAnalytics = () => {
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Time Allocation</CardTitle>
                   <CardDescription>
                     How teaching time is distributed
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="h-[250px]">
                     <ResponsiveContainer width="100%" height="100%">
                       <PieChart>
@@ -377,13 +377,13 @@ const EducatorAnalytics = () => {
               </Card>
               
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Student Progress Trend</CardTitle>
                   <CardDescription>
                     Average student progress over time
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="h-[250px]">
                     <ResponsiveContainer width="100%" height="100%">
                       <LineChart
@@ -414,7 +414,7 @@ const EducatorAnalytics = () => {
                 <CardHeader className="pb-2">
                   <CardTitle className="text-sm font-medium">Overall Effectiveness</CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="text-2xl font-bold">{educator.effectiveness}%</div>
                   <p className="text-xs text-muted-foreground">
                     {educator.trend === 'up' && (
@@ -442,7 +442,7 @@ const EducatorAnalytics = () => {
                 <CardHeader className="pb-2">
                   <CardTitle className="text-sm font-medium">Students Supported</CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="text-2xl font-bold">32</div>
                   <p className="text-xs text-muted-foreground">
                     <span className="flex items-center">
@@ -457,7 +457,7 @@ const EducatorAnalytics = () => {
                 <CardHeader className="pb-2">
                   <CardTitle className="text-sm font-medium">Resources Created</CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="text-2xl font-bold">48</div>
                   <p className="text-xs text-muted-foreground">
                     <span className="flex items-center">
@@ -472,13 +472,13 @@ const EducatorAnalytics = () => {
           
           <TabsContent value="teaching" className="space-y-4">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Teaching Strategies</CardTitle>
                 <CardDescription>
                   Effectiveness of different teaching approaches
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="h-[300px]">
                   <ResponsiveContainer width="100%" height="100%">
                     <RadarChart cx="50%" cy="50%" outerRadius="80%" data={teachingStrategiesData}>
@@ -495,13 +495,13 @@ const EducatorAnalytics = () => {
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Lesson Observations</CardTitle>
                   <CardDescription>
                     Recent formal observations and feedback
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <ScrollArea className="h-[250px]">
                     <div className="space-y-4">
                       <div className="border rounded-md p-3">
@@ -551,13 +551,13 @@ const EducatorAnalytics = () => {
               </Card>
               
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Feedback Quality</CardTitle>
                   <CardDescription>
                     Analysis of feedback provided to students
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="space-y-4">
                     <div>
                       <div className="flex justify-between mb-1">
@@ -616,13 +616,13 @@ const EducatorAnalytics = () => {
           
           <TabsContent value="students" className="space-y-4">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Student Progress Distribution</CardTitle>
                 <CardDescription>
                   Distribution of progress across student cohort
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="h-[300px]">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart
@@ -649,13 +649,13 @@ const EducatorAnalytics = () => {
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Student Groups Performance</CardTitle>
                   <CardDescription>
                     Progress comparison across different student groups
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="h-[250px]">
                     <ResponsiveContainer width="100%" height="100%">
                       <BarChart
@@ -682,13 +682,13 @@ const EducatorAnalytics = () => {
               </Card>
               
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Intervention Effectiveness</CardTitle>
                   <CardDescription>
                     Impact of interventions on student progress
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="h-[250px]">
                     <ResponsiveContainer width="100%" height="100%">
                       <LineChart
@@ -730,13 +730,13 @@ const EducatorAnalytics = () => {
           
           <TabsContent value="resources" className="space-y-4">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Resource Effectiveness</CardTitle>
                 <CardDescription>
                   Impact and usage of different teaching resources
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="h-[300px]">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart
@@ -759,13 +759,13 @@ const EducatorAnalytics = () => {
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Resource Creation</CardTitle>
                   <CardDescription>
                     Resources created and shared by subject
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="h-[250px]">
                     <ResponsiveContainer width="100%" height="100%">
                       <PieChart>
@@ -798,13 +798,13 @@ const EducatorAnalytics = () => {
               </Card>
               
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Top Resources</CardTitle>
                   <CardDescription>
                     Most effective resources by student impact
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <ScrollArea className="h-[250px]">
                     <div className="space-y-4">
                       <div className="border rounded-md p-3">
@@ -867,13 +867,13 @@ const EducatorAnalytics = () => {
           
           <TabsContent value="development" className="space-y-4">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Professional Development</CardTitle>
                 <CardDescription>
                   CPD activities and impact on teaching practice
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="h-[300px]">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart
@@ -897,13 +897,13 @@ const EducatorAnalytics = () => {
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>CPD Activities</CardTitle>
                   <CardDescription>
                     Recent professional development activities
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <ScrollArea className="h-[250px]">
                     <div className="space-y-4">
                       {professionalDevelopmentData.map((item, index) => (
@@ -935,13 +935,13 @@ const EducatorAnalytics = () => {
               </Card>
               
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Development Goals</CardTitle>
                   <CardDescription>
                     Current professional development targets
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="space-y-4">
                     <div>
                       <div className="flex justify-between mb-1">
@@ -1054,7 +1054,7 @@ const EducatorAnalytics = () => {
               Total Educators
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold">24</div>
             <p className="text-xs text-muted-foreground">
               In current school
@@ -1067,7 +1067,7 @@ const EducatorAnalytics = () => {
               Average Effectiveness
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold">82%</div>
             <p className="text-xs text-muted-foreground">
               +3% from last term
@@ -1080,7 +1080,7 @@ const EducatorAnalytics = () => {
               CPD Hours
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold">428</div>
             <p className="text-xs text-muted-foreground">
               This academic year
@@ -1093,7 +1093,7 @@ const EducatorAnalytics = () => {
               Resources Created
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold">356</div>
             <p className="text-xs text-muted-foreground">
               This academic year
@@ -1104,7 +1104,7 @@ const EducatorAnalytics = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Card className="md:col-span-1">
-          <CardHeader>
+          <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
               <CardTitle>Educators</CardTitle>
               <div className="relative w-full max-w-sm">
@@ -1136,7 +1136,7 @@ const EducatorAnalytics = () => {
         </Card>
         
         <Card className="md:col-span-2">
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Educator Detail</CardTitle>
             <CardDescription>
               Comprehensive analytics and performance metrics
@@ -1156,3 +1156,4 @@ const EducatorAnalytics = () => {
 };
 
 export default EducatorAnalytics;
+

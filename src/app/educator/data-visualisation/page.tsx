@@ -23,7 +23,7 @@ export default function DataVisualisationPage() {
         
         <TabsContent value="about">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>About Data Visualisation Dashboard</CardTitle>
               <CardDescription>
                 Understanding how this feature helps educators make data-informed decisions
@@ -76,7 +76,7 @@ export default function DataVisualisationPage() {
         
         <TabsContent value="help">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Help & Tips</CardTitle>
               <CardDescription>
                 Guidance on getting the most from the Data Visualisation Dashboard
@@ -133,3 +133,4 @@ export default function DataVisualisationPage() {
     </div>
   );
 }
+

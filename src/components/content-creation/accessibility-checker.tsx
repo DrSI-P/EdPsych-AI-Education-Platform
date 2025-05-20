@@ -280,7 +280,7 @@ export const AccessibilityChecker: React.FC<AccessibilityCheckerProps> = ({
                         </div>
                         <CardDescription>{issue.description}</CardDescription>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <p className="text-sm">{issue.recommendation}</p>
                       </CardContent>
                     </Card>
@@ -326,3 +326,4 @@ export const AccessibilityChecker: React.FC<AccessibilityCheckerProps> = ({
 };
 
 export default AccessibilityChecker;
+

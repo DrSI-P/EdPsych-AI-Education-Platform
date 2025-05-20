@@ -23,7 +23,7 @@ export default function EmotionalRegulationPage() {
         
         <TabsContent value="about" className="py-4">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>About Emotional Regulation Support</CardTitle>
               <CardDescription>
                 Understanding and supporting emotional regulation in educational settings
@@ -90,7 +90,7 @@ export default function EmotionalRegulationPage() {
         
         <TabsContent value="research" className="py-4">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Research & Evidence Base</CardTitle>
               <CardDescription>
                 The science behind our emotional regulation support tools
@@ -207,3 +207,4 @@ export default function EmotionalRegulationPage() {
     </div>
   );
 }
+

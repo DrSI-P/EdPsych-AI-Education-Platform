@@ -776,7 +776,7 @@ export default function ResearchCollaboration() {
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card>
+        <Card className="w-full">
           <CardContent className="pt-6">
             <div className="flex justify-between items-start">
               <div className="space-y-1">
@@ -795,7 +795,7 @@ export default function ResearchCollaboration() {
           </CardContent>
         </Card>
         
-        <Card>
+        <Card className="w-full">
           <CardContent className="pt-6">
             <div className="flex justify-between items-start">
               <div className="space-y-1">
@@ -814,7 +814,7 @@ export default function ResearchCollaboration() {
           </CardContent>
         </Card>
         
-        <Card>
+        <Card className="w-full">
           <CardContent className="pt-6">
             <div className="flex justify-between items-start">
               <div className="space-y-1">
@@ -833,7 +833,7 @@ export default function ResearchCollaboration() {
           </CardContent>
         </Card>
         
-        <Card>
+        <Card className="w-full">
           <CardContent className="pt-6">
             <div className="flex justify-between items-start">
               <div className="space-y-1">
@@ -921,7 +921,7 @@ export default function ResearchCollaboration() {
         <TabsContent value="projects" className="space-y-4">
           {selectedProject || isCreatingProject ? (
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <div className="flex justify-between items-center">
                   <div>
                     {isCreatingProject ? (
@@ -1315,7 +1315,7 @@ export default function ResearchCollaboration() {
               ))}
               
               {filteredProjects.length === 0 && (
-                <Card>
+                <Card className="w-full">
                   <CardContent className="p-6 flex flex-col items-center justify-center">
                     <FileQuestion className="h-12 w-12 text-muted-foreground mb-4" />
                     <h3 className="font-medium text-center">No projects found</h3>
@@ -1509,7 +1509,7 @@ export default function ResearchCollaboration() {
         <TabsContent value="impact" className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle className="flex items-center">
                   <BarChart2 className="mr-2 h-5 w-5" /> Impact by Type
                 </CardTitle>
@@ -1517,7 +1517,7 @@ export default function ResearchCollaboration() {
                   Distribution of research impact by category
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="h-80">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart
@@ -1542,7 +1542,7 @@ export default function ResearchCollaboration() {
             </Card>
             
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle className="flex items-center">
                   <PieChartIcon className="mr-2 h-5 w-5" /> Schools Impacted
                 </CardTitle>
@@ -1550,7 +1550,7 @@ export default function ResearchCollaboration() {
                   Number of schools impacted by research
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="h-80">
                   <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
@@ -1630,3 +1630,4 @@ export default function ResearchCollaboration() {
     </div>
   );
 }
+

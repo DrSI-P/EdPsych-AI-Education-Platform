@@ -84,7 +84,7 @@ export default function CertificateGenerator() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Certificate Preview</CardTitle>
               <CardDescription>
                 Preview and customise your certificate before generation
@@ -165,13 +165,13 @@ export default function CertificateGenerator() {
         
         <div>
           <Card className="mb-6">
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Certificate Options</CardTitle>
               <CardDescription>
                 Customise your certificate appearance
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="space-y-4">
                 <div>
                   <label className="text-sm font-medium mb-2 block">
@@ -215,13 +215,13 @@ export default function CertificateGenerator() {
           </Card>
           
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Certificate Details</CardTitle>
               <CardDescription>
                 Information included in your certificate
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="space-y-3">
                 <div className="flex justify-between">
                   <span className="text-sm text-muted-foreground">Course</span>
@@ -251,3 +251,4 @@ export default function CertificateGenerator() {
     </div>
   );
 }
+

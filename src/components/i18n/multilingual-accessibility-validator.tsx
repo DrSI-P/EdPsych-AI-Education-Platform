@@ -494,7 +494,7 @@ export const MultilingualAccessibilityValidator: React.FC<MultilingualAccessibil
   
   return (
     <Card className={className}>
-      <CardHeader>
+      <CardHeader className="pb-2">
         <CardTitle className="flex items-center">
           <Languages className="h-5 w-5 mr-2" />
           Multilingual Accessibility Validator
@@ -504,7 +504,7 @@ export const MultilingualAccessibilityValidator: React.FC<MultilingualAccessibil
         </CardDescription>
       </CardHeader>
       
-      <CardContent>
+      <CardContent className="pt-2">
         <Tabs value={selectedTab} onValueChange={setSelectedTab}>
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="accessibility">
@@ -664,3 +664,4 @@ export const MultilingualAccessibilityValidator: React.FC<MultilingualAccessibil
 };
 
 export default MultilingualAccessibilityValidator;
+

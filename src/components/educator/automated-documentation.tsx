@@ -766,7 +766,7 @@ export default function AutomatedDocumentation() {
                 </div>
               </div>
               
-              <Card>
+              <Card className="w-full">
                 <CardContent className="p-6">
                   <div className="prose max-w-none">
                     {generatedDocument.split('\n').map((line, index) => (
@@ -869,3 +869,4 @@ export default function AutomatedDocumentation() {
     </div>
   );
 }
+

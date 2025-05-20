@@ -358,7 +358,7 @@ export function StudentProgressTracking() {
             </CardTitle>
             <TrendingUp className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold">+12.5%</div>
             <p className="text-xs text-muted-foreground">
               +2.1% from previous period
@@ -376,7 +376,7 @@ export function StudentProgressTracking() {
             </CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold">68%</div>
             <p className="text-xs text-muted-foreground">
               +5% from previous period
@@ -394,7 +394,7 @@ export function StudentProgressTracking() {
             </CardTitle>
             <Activity className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold">-8.3%</div>
             <p className="text-xs text-muted-foreground">
               -2.1% from previous period
@@ -412,7 +412,7 @@ export function StudentProgressTracking() {
             </CardTitle>
             <Award className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold">+15.2%</div>
             <p className="text-xs text-muted-foreground">
               +3.7% from previous period
@@ -427,13 +427,13 @@ export function StudentProgressTracking() {
       {/* Main charts */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Progress Distribution</CardTitle>
             <CardDescription>
               Student distribution across progress categories
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[350px]">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
@@ -461,13 +461,13 @@ export function StudentProgressTracking() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Subject Performance</CardTitle>
             <CardDescription>
               Average performance across core subjects
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[350px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
@@ -496,13 +496,13 @@ export function StudentProgressTracking() {
       {/* Additional analytics */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Progress by Student Group</CardTitle>
             <CardDescription>
               Comparative analysis across student demographics
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
                 <RadarChart outerRadius={90} data={[
@@ -525,13 +525,13 @@ export function StudentProgressTracking() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Predicted Outcomes</CardTitle>
             <CardDescription>
               AI-powered prediction of end-of-year results
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
@@ -557,7 +557,7 @@ export function StudentProgressTracking() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>At-Risk Students</CardTitle>
             <CardDescription>
               Students requiring additional support
@@ -594,13 +594,13 @@ export function StudentProgressTracking() {
     <>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Multi-Year Progress Trends</CardTitle>
             <CardDescription>
               Longitudinal tracking across academic years
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[400px]">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart
@@ -660,13 +660,13 @@ export function StudentProgressTracking() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Year-on-Year Growth</CardTitle>
             <CardDescription>
               Annual progress increments by subject
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[400px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
@@ -695,13 +695,13 @@ export function StudentProgressTracking() {
       
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Progress Trajectory Analysis</CardTitle>
             <CardDescription>
               Current trajectory with prediction models
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[350px]">
               <ResponsiveContainer width="100%" height="100%">
                 <ComposedChart
@@ -766,13 +766,13 @@ export function StudentProgressTracking() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Attainment Gap Trends</CardTitle>
             <CardDescription>
               Tracking gaps between student groups over time
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[350px]">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart
@@ -833,13 +833,13 @@ export function StudentProgressTracking() {
     <>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Cohort Comparison</CardTitle>
             <CardDescription>
               Current cohort vs previous cohort and national average
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[400px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
@@ -861,13 +861,13 @@ export function StudentProgressTracking() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Student Groups Comparison</CardTitle>
             <CardDescription>
               Performance across different student demographics
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[400px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
@@ -894,13 +894,13 @@ export function StudentProgressTracking() {
       
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Progress Distribution Comparison</CardTitle>
             <CardDescription>
               Distribution of students across progress categories
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[350px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
@@ -928,13 +928,13 @@ export function StudentProgressTracking() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Value Added Analysis</CardTitle>
             <CardDescription>
               Progress relative to starting points
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[350px]">
               <ResponsiveContainer width="100%" height="100%">
                 <ScatterChart
@@ -1005,13 +1005,13 @@ export function StudentProgressTracking() {
     <>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Curriculum Objectives Progress</CardTitle>
             <CardDescription>
               Mastery levels across curriculum objectives
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[400px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
@@ -1034,13 +1034,13 @@ export function StudentProgressTracking() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Curriculum Coverage Map</CardTitle>
             <CardDescription>
               Coverage and mastery across curriculum areas
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[400px]">
               <ResponsiveContainer width="100%" height="100%">
                 <RadarChart outerRadius={150} data={[
@@ -1066,13 +1066,13 @@ export function StudentProgressTracking() {
       
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Curriculum Gaps Analysis</CardTitle>
             <CardDescription>
               Identifying areas with lower mastery levels
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[350px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
@@ -1099,7 +1099,7 @@ export function StudentProgressTracking() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Curriculum Progression</CardTitle>
             <CardDescription>
               Progress through curriculum sequence
@@ -1197,13 +1197,13 @@ export function StudentProgressTracking() {
     <>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Intervention Impact Analysis</CardTitle>
             <CardDescription>
               Before and after comparison for interventions
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[400px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
@@ -1232,13 +1232,13 @@ export function StudentProgressTracking() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Intervention Effectiveness</CardTitle>
             <CardDescription>
               Comparative analysis of intervention types
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[400px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
@@ -1276,13 +1276,13 @@ export function StudentProgressTracking() {
       
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Intervention Targeting Accuracy</CardTitle>
             <CardDescription>
               Analysis of intervention allocation effectiveness
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[350px]">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
@@ -1315,7 +1315,7 @@ export function StudentProgressTracking() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Active Interventions</CardTitle>
             <CardDescription>
               Currently running intervention programmes
@@ -1385,7 +1385,7 @@ export function StudentProgressTracking() {
     <>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
         <Card className="md:col-span-1">
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Student List</CardTitle>
             <CardDescription>
               Select a student to view detailed progress
@@ -1478,7 +1478,7 @@ export function StudentProgressTracking() {
         </Card>
         
         <Card className="md:col-span-3">
-          <CardHeader>
+          <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
               <div>
                 <CardTitle>Student Progress Details</CardTitle>
@@ -1511,7 +1511,7 @@ export function StudentProgressTracking() {
                       </CardTitle>
                       <Activity className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="pt-2">
                       <div className="text-2xl font-bold">76%</div>
                       <p className="text-xs text-muted-foreground">
                         +8% from last assessment
@@ -1526,7 +1526,7 @@ export function StudentProgressTracking() {
                       </CardTitle>
                       <Target className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="pt-2">
                       <div className="text-2xl font-bold">-4%</div>
                       <p className="text-xs text-muted-foreground">
                         Improving trend
@@ -1541,7 +1541,7 @@ export function StudentProgressTracking() {
                       </CardTitle>
                       <UserCheck className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="pt-2">
                       <div className="text-2xl font-bold">94.2%</div>
                       <p className="text-xs text-muted-foreground">
                         -0.8% from last term
@@ -1556,7 +1556,7 @@ export function StudentProgressTracking() {
                       </CardTitle>
                       <BookOpenIcon className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="pt-2">
                       <div className="text-2xl font-bold">Visual</div>
                       <p className="text-xs text-muted-foreground">
                         Secondary: Kinaesthetic
@@ -1567,13 +1567,13 @@ export function StudentProgressTracking() {
                 
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle>Progress Tracking</CardTitle>
                       <CardDescription>
                         Assessment scores over time
                       </CardDescription>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="pt-2">
                       <div className="h-[300px]">
                         <ResponsiveContainer width="100%" height="100%">
                           <LineChart
@@ -1612,13 +1612,13 @@ export function StudentProgressTracking() {
                   </Card>
                   
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle>Subject Performance</CardTitle>
                       <CardDescription>
                         Performance across different subjects
                       </CardDescription>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="pt-2">
                       <div className="h-[300px]">
                         <ResponsiveContainer width="100%" height="100%">
                           <RadarChart outerRadius={90} data={[
@@ -1644,7 +1644,7 @@ export function StudentProgressTracking() {
                 
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle>Strengths</CardTitle>
                       <CardDescription>
                         Areas of strong performance
@@ -1669,7 +1669,7 @@ export function StudentProgressTracking() {
                   </Card>
                   
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle>Areas for Development</CardTitle>
                       <CardDescription>
                         Areas needing additional support
@@ -1694,7 +1694,7 @@ export function StudentProgressTracking() {
                   </Card>
                   
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle>Current Interventions</CardTitle>
                       <CardDescription>
                         Active support programmes
@@ -1771,3 +1771,4 @@ const Search = ({ className, ...props }) => (
     <path d="m21 21-4.3-4.3" />
   </svg>
 );
+

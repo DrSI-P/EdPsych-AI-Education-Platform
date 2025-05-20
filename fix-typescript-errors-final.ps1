@@ -6,7 +6,7 @@ Write-Host "Starting TypeScript error fixes..." -ForegroundColor Green
 Write-Host "Fixing Alert components..." -ForegroundColor Cyan
 Get-ChildItem -Path "EdPsych-AI-Education-Platform/src" -Recurse -Include "*.tsx", "*.ts" |
     ForEach-Object {
-        $content = Get-Content $_.FullName -Raw
+        $content = [string]::Join("`n", (Get-Content $_.FullName))
         $updated = $content -replace '<Alert\s+type="(error|success|warning|info)"', '<Alert variant="$1"'
         
         # Add div wrapper for children if not present
@@ -22,7 +22,7 @@ Get-ChildItem -Path "EdPsych-AI-Education-Platform/src" -Recurse -Include "*.tsx
 Write-Host "Fixing Spinner components..." -ForegroundColor Cyan
 Get-ChildItem -Path "EdPsych-AI-Education-Platform/src" -Recurse -Include "*.tsx", "*.ts" |
     ForEach-Object {
-        $content = Get-Content $_.FullName -Raw
+        $content = [string]::Join("`n", (Get-Content $_.FullName))
         $updated = $content -replace '<Spinner\s+size="large"', '<Spinner size="lg"'
         
         if ($updated -ne $content) {
@@ -35,7 +35,7 @@ Get-ChildItem -Path "EdPsych-AI-Education-Platform/src" -Recurse -Include "*.tsx
 Write-Host "Fixing Tabs components..." -ForegroundColor Cyan
 Get-ChildItem -Path "EdPsych-AI-Education-Platform/src" -Recurse -Include "*.tsx", "*.ts" |
     ForEach-Object {
-        $content = Get-Content $_.FullName -Raw
+        $content = [string]::Join("`n", (Get-Content $_.FullName))
         
         # Check if file contains the old Tabs pattern
         if ($content -match '<Tabs\s+tabs=') {
@@ -81,7 +81,7 @@ Get-ChildItem -Path "EdPsych-AI-Education-Platform/src" -Recurse -Include "*.tsx
 Write-Host "Fixing Card components..." -ForegroundColor Cyan
 Get-ChildItem -Path "EdPsych-AI-Education-Platform/src" -Recurse -Include "*.tsx", "*.ts" |
     ForEach-Object {
-        $content = Get-Content $_.FullName -Raw
+        $content = [string]::Join("`n", (Get-Content $_.FullName))
         
         # Add className to Card components if missing
         $updated = $content -replace '<Card>(?!\s*<CardHeader)', '<Card className="w-full">'
@@ -98,7 +98,7 @@ Get-ChildItem -Path "EdPsych-AI-Education-Platform/src" -Recurse -Include "*.tsx
 Write-Host "Adding React imports where missing..." -ForegroundColor Cyan
 Get-ChildItem -Path "EdPsych-AI-Education-Platform/src" -Recurse -Include "*.tsx", "*.ts" |
     ForEach-Object {
-        $content = Get-Content $_.FullName -Raw
+        $content = [string]::Join("`n", (Get-Content $_.FullName))
         
         # Check if file uses JSX but doesn't import React
         if ($content -match '<\w+' -and -not $content -match "import\s+React") {
@@ -112,7 +112,7 @@ Get-ChildItem -Path "EdPsych-AI-Education-Platform/src" -Recurse -Include "*.tsx
 Write-Host "Updating Tabs import statements..." -ForegroundColor Cyan
 Get-ChildItem -Path "EdPsych-AI-Education-Platform/src" -Recurse -Include "*.tsx", "*.ts" |
     ForEach-Object {
-        $content = Get-Content $_.FullName -Raw
+        $content = [string]::Join("`n", (Get-Content $_.FullName))
         
         # Check if file imports Tabs but not TabsList, TabsTrigger, TabsContent
         if ($content -match "import\s+{\s*Tabs\s*}" -and -not $content -match "TabsList") {

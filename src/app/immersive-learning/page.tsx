@@ -348,7 +348,7 @@ export default function ImmersiveLearningPage() {
                   <CardHeader>
                     <h3 className="font-semibold">Virtual Reality (VR)</h3>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <p className="text-sm">
                       Fully immersive experiences that transport learners to different environments, allowing them to interact with virtual objects and scenarios.
                     </p>
@@ -360,7 +360,7 @@ export default function ImmersiveLearningPage() {
                   <CardHeader>
                     <h3 className="font-semibold">Augmented Reality (AR)</h3>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <p className="text-sm">
                       Overlays digital content onto the real world, enhancing the learning environment with interactive elements and information.
                     </p>
@@ -372,7 +372,7 @@ export default function ImmersiveLearningPage() {
                   <CardHeader>
                     <h3 className="font-semibold">3D Interactive</h3>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <p className="text-sm">
                       Three-dimensional environments that can be explored and manipulated on standard devices, making complex spatial concepts more accessible.
                     </p>
@@ -386,3 +386,4 @@ export default function ImmersiveLearningPage() {
     </motion.div>
   );
 }
+

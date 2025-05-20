@@ -609,7 +609,7 @@ export default function MentorMatching() {
         {/* Find a Mentor Tab */}
         <TabsContent value="find" className="space-y-4">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Find Your Perfect Mentor</CardTitle>
               <CardDescription>
                 Search for mentors based on expertise, subject area, and more
@@ -945,13 +945,13 @@ export default function MentorMatching() {
         {/* My Mentorships Tab */}
         <TabsContent value="mentorships" className="space-y-4">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>My Mentorships</CardTitle>
               <CardDescription>
                 Manage your active and past mentorship relationships
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <Tabs defaultValue="active">
                 <TabsList className="grid w-full grid-cols-3">
                   <TabsTrigger value="active">Active</TabsTrigger>
@@ -1267,7 +1267,7 @@ export default function MentorMatching() {
         {/* My Profile Tab */}
         <TabsContent value="profile" className="space-y-4">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <div className="flex justify-between items-center">
                 <div>
                   <CardTitle>My {profileType === 'mentor' ? 'Mentor' : 'Mentee'} Profile</CardTitle>
@@ -1528,7 +1528,7 @@ export default function MentorMatching() {
                       <div className="space-y-4">
                         <h4 className="font-medium">Mentorship Statistics</h4>
                         <div className="grid grid-cols-3 gap-4">
-                          <Card>
+                          <Card className="w-full">
                             <CardContent className="pt-6">
                               <div className="text-center">
                                 <Users className="h-8 w-8 text-primary mx-auto mb-2" />
@@ -1537,7 +1537,7 @@ export default function MentorMatching() {
                               </div>
                             </CardContent>
                           </Card>
-                          <Card>
+                          <Card className="w-full">
                             <CardContent className="pt-6">
                               <div className="text-center">
                                 <Star className="h-8 w-8 text-yellow-500 mx-auto mb-2" />
@@ -1546,7 +1546,7 @@ export default function MentorMatching() {
                               </div>
                             </CardContent>
                           </Card>
-                          <Card>
+                          <Card className="w-full">
                             <CardContent className="pt-6">
                               <div className="text-center">
                                 <Award className="h-8 w-8 text-green-500 mx-auto mb-2" />
@@ -1572,7 +1572,7 @@ export default function MentorMatching() {
               <CardHeader className="pb-2">
                 <CardTitle className="text-lg">Mentorship Overview</CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div>
@@ -1610,7 +1610,7 @@ export default function MentorMatching() {
               <CardHeader className="pb-2">
                 <CardTitle className="text-lg">Goal Progress</CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <ResponsiveContainer width="100%" height={200}>
                   <BarChart data={mentorshipProgressData}>
                     <CartesianGrid strokeDasharray="3 3" />
@@ -1627,7 +1627,7 @@ export default function MentorMatching() {
               <CardHeader className="pb-2">
                 <CardTitle className="text-lg">Expertise Distribution</CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <ResponsiveContainer width="100%" height={200}>
                   <RechartsPieChart>
                     <Pie
@@ -1651,13 +1651,13 @@ export default function MentorMatching() {
           </div>
 
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Mentorship Activity</CardTitle>
               <CardDescription>
                 Track your mentorship engagement over time
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <ResponsiveContainer width="100%" height={300}>
                 <RechartsLineChart data={mentorshipActivityData}>
                   <CartesianGrid strokeDasharray="3 3" />
@@ -1674,10 +1674,10 @@ export default function MentorMatching() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Upcoming Meetings</CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="space-y-4">
                   {activeMentorships.flatMap(mentorship => 
                     mentorship.meetings
@@ -1714,10 +1714,10 @@ export default function MentorMatching() {
             </Card>
 
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Recommended Resources</CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="space-y-4">
                   <div className="flex items-center justify-between p-3 border rounded-md">
                     <div className="flex items-center space-x-3">
@@ -1764,3 +1764,4 @@ export default function MentorMatching() {
     </div>
   );
 }
+

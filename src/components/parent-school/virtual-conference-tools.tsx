@@ -266,7 +266,7 @@ export default function VirtualConferenceTools() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="md:col-span-1 space-y-6">
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Upcoming Conferences</CardTitle>
                   <CardDescription>
                     Scheduled meetings with teachers
@@ -313,10 +313,10 @@ export default function VirtualConferenceTools() {
               </Card>
               
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Conference Calendar</CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <Calendar
                     mode="single"
                     selected={date}
@@ -354,7 +354,7 @@ export default function VirtualConferenceTools() {
             
             <div className="md:col-span-2">
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <div className="flex justify-between items-start">
                     <div>
                       <div className="flex items-center">
@@ -402,7 +402,7 @@ export default function VirtualConferenceTools() {
                     </DropdownMenu>
                   </div>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="space-y-6">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                       <div className="bg-muted rounded-lg p-3">
@@ -670,7 +670,7 @@ export default function VirtualConferenceTools() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="md:col-span-1 space-y-6">
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Recent Celebrations</CardTitle>
                   <CardDescription>
                     Achievements and progress milestones
@@ -719,10 +719,10 @@ export default function VirtualConferenceTools() {
               </Card>
               
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Celebration Stats</CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="space-y-4">
                     <div className="grid grid-cols-2 gap-4">
                       <div className="bg-muted rounded-lg p-3 text-center">
@@ -787,7 +787,7 @@ export default function VirtualConferenceTools() {
             
             <div className="md:col-span-2">
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <div className="flex justify-between items-start">
                     <div>
                       <div className="flex items-center">
@@ -832,7 +832,7 @@ export default function VirtualConferenceTools() {
                     </DropdownMenu>
                   </div>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="space-y-6">
                     <div className="aspect-video bg-muted rounded-lg overflow-hidden">
                       {selectedCelebration.media.url ? (
@@ -1092,3 +1092,4 @@ export default function VirtualConferenceTools() {
     </div>
   );
 }
+

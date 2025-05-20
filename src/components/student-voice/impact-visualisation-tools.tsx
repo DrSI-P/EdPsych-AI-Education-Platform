@@ -373,7 +373,7 @@ export default function ImpactVisualisationTools() {
   return (
     <div className="space-y-6">
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle className="flex items-center">
             <BarChartIcon className="mr-2 h-5 w-5" />
             Impact Visualisation Tools
@@ -382,7 +382,7 @@ export default function ImpactVisualisationTools() {
             Measuring and visualising the impact of student voice initiatives
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-2">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid w-full grid-cols-4 mb-6">
               <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
@@ -420,7 +420,7 @@ export default function ImpactVisualisationTools() {
                   <CardHeader className="pb-2">
                     <CardTitle className="text-lg">Implementation Summary</CardTitle>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <div className="space-y-4">
                       <div className="flex justify-between items-center">
                         <div className="flex items-center">
@@ -469,7 +469,7 @@ export default function ImpactVisualisationTools() {
                   <CardHeader className="pb-2">
                     <CardTitle className="text-lg">Participation & Satisfaction</CardTitle>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <div className="space-y-4">
                       <div>
                         <div className="flex justify-between mb-1">
@@ -511,7 +511,7 @@ export default function ImpactVisualisationTools() {
                   <CardHeader className="pb-2">
                     <CardTitle className="text-lg">Impact by Category</CardTitle>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <div className="space-y-4">
                       {impactData.categories.map((category) => (
                         <div key={category.id}>
@@ -542,13 +542,13 @@ export default function ImpactVisualisationTools() {
               
               {/* Overall Impact Assessment */}
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Overall Impact Assessment</CardTitle>
                   <CardDescription>
                     Comprehensive view of current impact metrics against targets and previous performance
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <RadarChartComponent 
                     data={impactData.radarData}
                     title="Impact Assessment"
@@ -562,7 +562,7 @@ export default function ImpactVisualisationTools() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {impactData.recentImpacts.slice(0, 4).map((impact) => (
                     <Card key={impact.id}>
-                      <CardHeader>
+                      <CardHeader className="pb-2">
                         <div className="flex justify-between items-start">
                           <div>
                             <CardTitle>{impact.title}</CardTitle>
@@ -578,7 +578,7 @@ export default function ImpactVisualisationTools() {
                           </div>
                         </div>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <p className="text-sm text-muted-foreground mb-4">{impact.description}</p>
                         <div className="space-y-4">
                           {impact.metrics.map((metric, index) => (
@@ -643,7 +643,7 @@ export default function ImpactVisualisationTools() {
               <div className="space-y-6">
                 {impactData.recentImpacts.map((impact) => (
                   <Card key={impact.id}>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <div className="flex justify-between items-start">
                         <div>
                           <CardTitle>{impact.title}</CardTitle>
@@ -782,13 +782,13 @@ export default function ImpactVisualisationTools() {
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <Card>
-                  <CardHeader>
+                  <CardHeader className="pb-2">
                     <CardTitle>Student Participation Trend</CardTitle>
                     <CardDescription>
                       Percentage of students participating in voice initiatives over time
                     </CardDescription>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <LineChartComponent 
                       data={impactData.trends.participationTrend}
                       title="Student Participation"
@@ -807,13 +807,13 @@ export default function ImpactVisualisationTools() {
                 </Card>
                 
                 <Card>
-                  <CardHeader>
+                  <CardHeader className="pb-2">
                     <CardTitle>Implementation Progress</CardTitle>
                     <CardDescription>
                       Cumulative number of implemented changes over time
                     </CardDescription>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <AreaChartComponent 
                       data={impactData.trends.implementationTrend}
                       title="Implementation Progress"
@@ -832,13 +832,13 @@ export default function ImpactVisualisationTools() {
                 </Card>
                 
                 <Card>
-                  <CardHeader>
+                  <CardHeader className="pb-2">
                     <CardTitle>Satisfaction Trend</CardTitle>
                     <CardDescription>
                       Overall student satisfaction with voice initiatives over time
                     </CardDescription>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <LineChartComponent 
                       data={impactData.trends.satisfactionTrend}
                       title="Satisfaction Trend"
@@ -857,13 +857,13 @@ export default function ImpactVisualisationTools() {
                 </Card>
                 
                 <Card>
-                  <CardHeader>
+                  <CardHeader className="pb-2">
                     <CardTitle>Category Distribution</CardTitle>
                     <CardDescription>
                       Distribution of initiatives across impact categories
                     </CardDescription>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <PieChartComponent 
                       data={impactData.categories.map(c => ({ name: c.name, value: c.count }))}
                       title="Category Distribution"
@@ -883,13 +883,13 @@ export default function ImpactVisualisationTools() {
               </div>
               
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Comparative Analysis</CardTitle>
                   <CardDescription>
                     Compare impact metrics across different categories and time periods
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="space-y-4">
                     <div className="flex space-x-4">
                       <div className="w-1/3">
@@ -976,13 +976,13 @@ export default function ImpactVisualisationTools() {
               </div>
               
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Available Reports</CardTitle>
                   <CardDescription>
                     Generate and download reports on student voice impact
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="space-y-4">
                     <div className="flex justify-between items-center p-4 border rounded-lg">
                       <div>
@@ -1028,13 +1028,13 @@ export default function ImpactVisualisationTools() {
               </Card>
               
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Recent Reports</CardTitle>
                   <CardDescription>
                     Previously generated reports
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="space-y-4">
                     <div className="flex justify-between items-center p-4 border rounded-lg">
                       <div className="flex items-center">
@@ -1099,3 +1099,4 @@ export default function ImpactVisualisationTools() {
     </div>
   );
 }
+

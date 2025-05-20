@@ -424,13 +424,13 @@ const TransitionPlanningEngine = () => {
   return (
     <div className="space-y-6">
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle>Transition Planning Tools</CardTitle>
           <CardDescription>
             Create and manage transition plans for educational changes
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-2">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid w-full grid-cols-3">
               <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
@@ -671,7 +671,7 @@ const TransitionPlanningEngine = () => {
                   <h3 className="text-lg font-medium">Transition Goals</h3>
                   
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle className="text-md">Add New Goal</CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-4">
@@ -829,7 +829,7 @@ const TransitionPlanningEngine = () => {
                   <h3 className="text-lg font-medium">Support Team</h3>
                   
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle className="text-md">Add Team Member</CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-4">
@@ -947,7 +947,7 @@ const TransitionPlanningEngine = () => {
                   <h3 className="text-lg font-medium">Resources</h3>
                   
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle className="text-md">Add Resource</CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-4">
@@ -1065,7 +1065,7 @@ const TransitionPlanningEngine = () => {
                   <h3 className="text-lg font-medium">Accommodations</h3>
                   
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle className="text-md">Add Accommodation</CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-4">
@@ -1198,7 +1198,7 @@ const TransitionPlanningEngine = () => {
                 
                 <div className="grid gap-4 md:grid-cols-2">
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle className="text-md">UK Department for Education</CardTitle>
                       <CardDescription>Official guidance and resources</CardDescription>
                     </CardHeader>
@@ -1221,7 +1221,7 @@ const TransitionPlanningEngine = () => {
                   </Card>
                   
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle className="text-md">National Organisations</CardTitle>
                       <CardDescription>Support and guidance from specialist organisations</CardDescription>
                     </CardHeader>
@@ -1244,7 +1244,7 @@ const TransitionPlanningEngine = () => {
                   </Card>
                   
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle className="text-md">Templates and Tools</CardTitle>
                       <CardDescription>Practical resources for transition planning</CardDescription>
                     </CardHeader>
@@ -1267,7 +1267,7 @@ const TransitionPlanningEngine = () => {
                   </Card>
                   
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle className="text-md">Research and Evidence</CardTitle>
                       <CardDescription>Evidence-based approaches to transition planning</CardDescription>
                     </CardHeader>
@@ -1340,3 +1340,4 @@ const TransitionPlanningEngine = () => {
 };
 
 export default TransitionPlanningEngine;
+

@@ -282,7 +282,7 @@ export default function SpeechRecognitionEngine({
   
   return (
     <Card className={cn("w-full", className)}>
-      <CardHeader>
+      <CardHeader className="pb-2">
         <CardTitle className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             {isListening ? (
@@ -495,3 +495,4 @@ export default function SpeechRecognitionEngine({
     </Card>
   );
 }
+

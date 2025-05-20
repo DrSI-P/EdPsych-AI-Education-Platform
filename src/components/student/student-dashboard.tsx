@@ -195,7 +195,7 @@ export function StudentDashboard({
                     <h2 className="text-xl font-semibold">Welcome, {studentData.name}</h2>
                     <p className="text-sm text-gray-600">{studentData.year} • {studentData.school}</p>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <div className="mb-4">
                       <div className="flex justify-between text-sm mb-1">
                         <span>Overall Progress</span>
@@ -343,7 +343,7 @@ export function StudentDashboard({
                 <CardHeader>
                   <h3 className="text-lg font-semibold">Generate Personalised Study Plan</h3>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <AIPrompt
                     placeholder="Describe what you want to focus on (e.g., preparing for upcoming assessments, improving in specific subjects)..."
                     systemPrompt={`You are an educational AI assistant helping ${studentData.name}, a ${studentData.year} student. Create a personalised study plan based on their current progress and the focus areas they mention. Their subject progress is: ${studentData.subjects.map(s => `${s.name}: ${s.progress}% (Current topic: ${s.currentTopic})`).join(', ')}. They have these upcoming assignments: ${studentData.assignments.filter(a => a.status === 'pending').map(a => `${a.title} (${a.subject}, due ${a.dueDate})`).join(', ')}. Create a structured, actionable study plan with specific activities, resources, and time management suggestions. Use UK English spelling and follow UK educational standards.`}
@@ -443,7 +443,7 @@ export function StudentDashboard({
                 <CardHeader>
                   <h3 className="text-lg font-semibold">Subject Recommendations</h3>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="space-y-4">
                     {studentData.subjects.map(subject => (
                       <div key={subject.id} className="space-y-2">
@@ -520,7 +520,7 @@ export function StudentDashboard({
                     .sort((a, b) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime())
                     .map(assignment => (
                       <Card key={assignment.id} className="h-full flex flex-col">
-                        <CardHeader>
+                        <CardHeader className="pb-2">
                           <div className="flex justify-between items-start">
                             <h4 className="text-lg font-semibold">{assignment.title}</h4>
                             <span className={`text-xs px-2 py-0.5 rounded-full ${
@@ -580,7 +580,7 @@ export function StudentDashboard({
                     .filter(a => a.status === 'completed')
                     .map(assignment => (
                       <Card key={assignment.id} className="h-full flex flex-col">
-                        <CardHeader>
+                        <CardHeader className="pb-2">
                           <div className="flex justify-between items-start">
                             <h4 className="text-lg font-semibold">{assignment.title}</h4>
                             <span className="text-xs px-2 py-0.5 rounded-full bg-green-100 text-green-800">
@@ -679,7 +679,7 @@ export function StudentDashboard({
                 <CardHeader>
                   <h3 className="text-lg font-semibold">Achievement Progress</h3>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="space-y-4">
                     <div className="space-y-2">
                       <h4 className="text-sm font-medium">Mathematics Master</h4>
@@ -738,3 +738,4 @@ export function StudentDashboard({
     </div>
   );
 }
+

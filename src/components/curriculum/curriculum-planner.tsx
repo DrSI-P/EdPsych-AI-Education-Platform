@@ -360,7 +360,7 @@ export function CurriculumPlanner({
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {filteredPlans.map(plan => (
                 <Card key={plan.id} className="h-full flex flex-col">
-                  <CardHeader>
+                  <CardHeader className="pb-2">
                     <div className="flex items-start justify-between">
                       <h3 className="text-lg font-semibold">{plan.title}</h3>
                       <span className="px-2 py-1 text-xs rounded-full bg-gray-100 text-gray-800">
@@ -621,3 +621,4 @@ export function CurriculumPlanner({
     </div>
   );
 }
+

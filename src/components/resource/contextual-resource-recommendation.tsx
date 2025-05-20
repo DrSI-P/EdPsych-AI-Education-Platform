@@ -446,7 +446,7 @@ export function ContextualResourceRecommendation({
   return (
     <div className={`contextual-resource-recommendation ${className}`}>
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-2">
           <div className="flex justify-between items-center">
             <div>
               <CardTitle>Resource Recommendations</CardTitle>
@@ -485,7 +485,7 @@ export function ContextualResourceRecommendation({
           </div>
         </CardHeader>
         
-        <CardContent>
+        <CardContent className="pt-2">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid w-full grid-cols-2">
               <TabsTrigger value="recommended">Recommended</TabsTrigger>
@@ -672,7 +672,7 @@ export function ContextualResourceRecommendation({
                     <h3 className="font-medium">Search Results</h3>
                     {sortedResources.map(resource => (
                       <Card key={resource.id}>
-                        <CardHeader>
+                        <CardHeader className="pb-2">
                           <div className="flex items-start justify-between">
                             <div>
                               <CardTitle className="text-base">{resource.title}</CardTitle>
@@ -683,7 +683,7 @@ export function ContextualResourceRecommendation({
                             </div>
                           </div>
                         </CardHeader>
-                        <CardContent>
+                        <CardContent className="pt-2">
                           <p className="text-sm">{resource.description}</p>
                           <div className="mt-3 flex flex-wrap gap-1">
                             {resource.tags.map(tag => (
@@ -727,3 +727,4 @@ export function ContextualResourceRecommendation({
     </div>
   );
 }
+

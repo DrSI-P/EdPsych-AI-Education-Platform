@@ -847,13 +847,13 @@ const PersonalizedStrategyRecommendations = () => {
   return (
     <div className="space-y-6">
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle>Personalized Regulation Strategy Recommendations</CardTitle>
           <CardDescription>
             Discover strategies tailored to your emotional patterns and preferences
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-2">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid w-full grid-cols-4">
               <TabsTrigger value="recommendations">Recommendations</TabsTrigger>
@@ -1027,7 +1027,7 @@ const PersonalizedStrategyRecommendations = () => {
                         
                         return (
                           <Card key={strategy.id}>
-                            <CardHeader>
+                            <CardHeader className="pb-2">
                               <div className="flex justify-between items-start">
                                 <CardTitle className="flex items-center gap-2">
                                   {strategy.name}
@@ -1039,7 +1039,7 @@ const PersonalizedStrategyRecommendations = () => {
                               </div>
                               <CardDescription>{strategy.description}</CardDescription>
                             </CardHeader>
-                            <CardContent>
+                            <CardContent className="pt-2">
                               <div className="mb-4">
                                 <h4 className="font-medium mb-2">Steps:</h4>
                                 <ol className="list-decimal pl-5 space-y-1">
@@ -1089,13 +1089,13 @@ const PersonalizedStrategyRecommendations = () => {
                 {/* History Tab */}
                 <TabsContent value="history" className="space-y-6">
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle>Your Strategy History</CardTitle>
                       <CardDescription>
                         Track which strategies you've used and how effective they were
                       </CardDescription>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="pt-2">
                       <ScrollArea className="h-[500px] pr-4">
                         <div className="space-y-6">
                           {strategyHistory.length > 0 ? (
@@ -1175,13 +1175,13 @@ const PersonalizedStrategyRecommendations = () => {
                 {/* Preferences Tab */}
                 <TabsContent value="preferences" className="space-y-6">
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle>Strategy Preferences</CardTitle>
                       <CardDescription>
                         Customize your strategy recommendations to match your needs
                       </CardDescription>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="pt-2">
                       <div className="space-y-6">
                         <div className="space-y-2">
                           <Label htmlFor="strategy-types">Preferred Strategy Types</Label>
@@ -1313,3 +1313,4 @@ const PersonalizedStrategyRecommendations = () => {
 };
 
 export default PersonalizedStrategyRecommendations;
+

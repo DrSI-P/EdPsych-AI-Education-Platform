@@ -34,13 +34,13 @@ export default function AdaptiveComplexityPage() {
             <div className="space-y-8">
               {!contentId && (
                 <Card className="mb-6">
-                  <CardHeader>
+                  <CardHeader className="pb-2">
                     <CardTitle>Select Content to Adjust</CardTitle>
                     <CardDescription>
                       Choose existing content or create new adaptive content
                     </CardDescription>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                       <Button 
                         variant="outline" 
@@ -102,7 +102,7 @@ export default function AdaptiveComplexityPage() {
           
           <TabsContent value="about" className="pt-4">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>About Adaptive Complexity Adjustment</CardTitle>
                 <CardDescription>
                   Understanding how this feature personalizes content complexity for individual learners
@@ -186,3 +186,4 @@ export default function AdaptiveComplexityPage() {
     </div>
   );
 }
+

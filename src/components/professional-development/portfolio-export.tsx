@@ -181,7 +181,7 @@ export default function PortfolioExport() {
         {/* Export Tab */}
         <TabsContent value="export" className="space-y-4">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Export Options</CardTitle>
               <CardDescription>
                 Choose the format and content for your portfolio export
@@ -434,13 +434,13 @@ export default function PortfolioExport() {
           )}
 
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Recent Exports</CardTitle>
               <CardDescription>
                 Your previously generated portfolio exports
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="space-y-2">
                 <div className="flex items-center justify-between p-2 border rounded-md">
                   <div className="flex items-center">
@@ -486,7 +486,7 @@ export default function PortfolioExport() {
         {/* Share Tab */}
         <TabsContent value="share" className="space-y-4">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Share Your Portfolio</CardTitle>
               <CardDescription>
                 Create a shareable link to your professional portfolio
@@ -805,13 +805,13 @@ export default function PortfolioExport() {
           )}
 
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Active Shared Links</CardTitle>
               <CardDescription>
                 Manage your currently active portfolio sharing links
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="space-y-4">
                 <div className="p-4 border rounded-md space-y-2">
                   <div className="flex justify-between items-start">
@@ -906,3 +906,4 @@ export default function PortfolioExport() {
     </div>
   );
 }
+

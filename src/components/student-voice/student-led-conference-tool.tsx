@@ -145,13 +145,13 @@ export default function StudentLedConferenceTool() {
   return (
     <div className="space-y-6">
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle>Student-Led Conference Tools</CardTitle>
           <CardDescription>
             Prepare for, conduct, and follow up on student-led conferences with teachers and parents
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-2">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid w-full grid-cols-3 mb-6">
               <TabsTrigger value="portfolio">Digital Portfolio</TabsTrigger>
@@ -172,11 +172,11 @@ export default function StudentLedConferenceTool() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {portfolios.map((portfolio) => (
                   <Card key={portfolio.id} className="hover:shadow-md transition-shadow">
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle>{portfolio.title}</CardTitle>
                       <CardDescription>{portfolio.description}</CardDescription>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="pt-2">
                       <div className="flex justify-between text-sm text-muted-foreground">
                         <span>{portfolio.artifactCount} artifacts</span>
                         <span>{portfolio.reflectionCount} reflections</span>
@@ -246,7 +246,7 @@ export default function StudentLedConferenceTool() {
                               <span className="text-sm text-muted-foreground">{reflection.date}</span>
                             </div>
                           </CardHeader>
-                          <CardContent>
+                          <CardContent className="pt-2">
                             <p className="text-sm">{reflection.response}</p>
                           </CardContent>
                           <CardFooter className="flex justify-end">
@@ -284,7 +284,7 @@ export default function StudentLedConferenceTool() {
                         {conference.date.toLocaleDateString()} at {conference.date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
                       </CardDescription>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="pt-2">
                       <div className="space-y-1">
                         <p className="text-sm font-medium">Participants:</p>
                         <ul className="text-sm">
@@ -447,7 +447,7 @@ export default function StudentLedConferenceTool() {
                         <CardHeader className="pb-2">
                           <CardTitle className="text-base">Science Experiment Results</CardTitle>
                         </CardHeader>
-                        <CardContent>
+                        <CardContent className="pt-2">
                           <div className="bg-muted h-40 flex items-center justify-center">
                             <Image className="h-10 w-10 text-muted-foreground" />
                           </div>
@@ -459,7 +459,7 @@ export default function StudentLedConferenceTool() {
                         <CardHeader className="pb-2">
                           <CardTitle className="text-base">Book Report Presentation</CardTitle>
                         </CardHeader>
-                        <CardContent>
+                        <CardContent className="pt-2">
                           <div className="bg-muted h-40 flex items-center justify-center">
                             <Video className="h-10 w-10 text-muted-foreground" />
                           </div>
@@ -500,3 +500,4 @@ export default function StudentLedConferenceTool() {
     </div>
   );
 }
+

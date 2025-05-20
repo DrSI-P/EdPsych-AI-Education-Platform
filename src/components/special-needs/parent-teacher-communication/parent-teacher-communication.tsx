@@ -905,13 +905,13 @@ const ParentTeacherCommunication = () => {
   return (
     <div className="space-y-6">
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle>Parent-Teacher-Student Emotional Communication</CardTitle>
           <CardDescription>
             Collaborate on emotional wellbeing through secure, structured communication channels
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-2">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid w-full grid-cols-3">
               <TabsTrigger value="messages">Messages</TabsTrigger>
@@ -928,7 +928,7 @@ const ParentTeacherCommunication = () => {
                 {/* Messages Tab */}
                 <TabsContent value="messages" className="space-y-6">
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle>Compose New Message</CardTitle>
                       <CardDescription>
                         Send a message about emotional wellbeing to parents, teachers, or students
@@ -1243,7 +1243,7 @@ const ParentTeacherCommunication = () => {
                 {/* Meetings Tab */}
                 <TabsContent value="meetings" className="space-y-6">
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle>Schedule New Meeting</CardTitle>
                       <CardDescription>
                         Arrange a meeting to discuss emotional wellbeing with parents, teachers, or students
@@ -1642,7 +1642,7 @@ const ParentTeacherCommunication = () => {
                 {/* Reports Tab */}
                 <TabsContent value="reports" className="space-y-6">
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle>Emotional Wellbeing Reports</CardTitle>
                       <CardDescription>
                         Access and share reports on emotional wellbeing progress, plans, and resources
@@ -1850,3 +1850,4 @@ const ParentTeacherCommunication = () => {
 };
 
 export default ParentTeacherCommunication;
+

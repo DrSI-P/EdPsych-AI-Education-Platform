@@ -605,13 +605,13 @@ export default function TranscriptionTranslationSystem() {
         {/* Translate Content Tab */}
         <TabsContent value="translate" className="space-y-6">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Translate Educational Content</CardTitle>
               <CardDescription>
                 Convert text between languages to support EAL students
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <form onSubmit={handleRequestTranscription} className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
@@ -754,13 +754,13 @@ export default function TranscriptionTranslationSystem() {
           </Card>
           
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Translation History</CardTitle>
               <CardDescription>
                 Recently translated content
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="space-y-4">
                 {transcriptionHistory.length === 0 ? (
                   <div className="text-center py-8 text-muted-foreground">
@@ -806,7 +806,7 @@ export default function TranscriptionTranslationSystem() {
                           </div>
                         </div>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <div className="space-y-3">
                           <div>
                             <Label className="text-xs text-muted-foreground">Original Text</Label>
@@ -837,13 +837,13 @@ export default function TranscriptionTranslationSystem() {
         <TabsContent value="vocabulary" className="space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Add Key Vocabulary</CardTitle>
                 <CardDescription>
                   Create translated vocabulary lists for EAL students
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <form onSubmit={handleSubmitVocabulary} className="space-y-4">
                   <div>
                     <Label htmlFor="term">Term</Label>
@@ -966,13 +966,13 @@ export default function TranscriptionTranslationSystem() {
             </Card>
             
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Vocabulary List</CardTitle>
                 <CardDescription>
                   Key terms with translations
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="space-y-4">
                   {vocabularyList.length === 0 ? (
                     <div className="text-center py-8 text-muted-foreground">
@@ -1039,7 +1039,7 @@ export default function TranscriptionTranslationSystem() {
         {/* Classroom Support Tab */}
         <TabsContent value="classroom" className="space-y-6">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Live Classroom Transcription</CardTitle>
               <CardDescription>
                 Real-time transcription of classroom speech to support EAL students
@@ -1121,7 +1121,7 @@ export default function TranscriptionTranslationSystem() {
                   <CardHeader className="pb-2">
                     <CardTitle className="text-base">Translation Options</CardTitle>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <div className="space-y-3">
                       <div className="flex items-center justify-between">
                         <Label htmlFor="targetLanguage">Target Language</Label>
@@ -1152,7 +1152,7 @@ export default function TranscriptionTranslationSystem() {
                   <CardHeader className="pb-2">
                     <CardTitle className="text-base">Export Options</CardTitle>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <div className="space-y-3">
                       <div className="flex items-center justify-between">
                         <Label>Format</Label>
@@ -1183,19 +1183,19 @@ export default function TranscriptionTranslationSystem() {
           </Card>
           
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>EAL Support Resources</CardTitle>
               <CardDescription>
                 Tools and resources to support EAL students in the classroom
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <Card>
-                  <CardHeader>
+                  <CardHeader className="pb-2">
                     <CardTitle className="text-lg">Visual Aids</CardTitle>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <p className="text-sm text-muted-foreground mb-4">
                       Generate visual aids with translated labels to support concept understanding.
                     </p>
@@ -1207,10 +1207,10 @@ export default function TranscriptionTranslationSystem() {
                 </Card>
                 
                 <Card>
-                  <CardHeader>
+                  <CardHeader className="pb-2">
                     <CardTitle className="text-lg">Simplified Materials</CardTitle>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <p className="text-sm text-muted-foreground mb-4">
                       Create simplified versions of learning materials with key vocabulary highlighted.
                     </p>
@@ -1222,10 +1222,10 @@ export default function TranscriptionTranslationSystem() {
                 </Card>
                 
                 <Card>
-                  <CardHeader>
+                  <CardHeader className="pb-2">
                     <CardTitle className="text-lg">Parent Communication</CardTitle>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <p className="text-sm text-muted-foreground mb-4">
                       Translate important messages and announcements for EAL parents and guardians.
                     </p>
@@ -1248,3 +1248,4 @@ export default function TranscriptionTranslationSystem() {
     </div>
   );
 }
+

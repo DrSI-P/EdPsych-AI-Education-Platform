@@ -61,7 +61,7 @@ export default function TermsOfServicePage() {
           transition={{ delay: 0.4, duration: 0.5 }}
           className="lg:col-span-3"
         >
-          <Card>
+          <Card className="w-full">
             <CardContent className="p-6">
               <ScrollArea className="h-[800px] pr-4">
                 <div className="space-y-8">
@@ -318,7 +318,7 @@ export default function TermsOfServicePage() {
             <TabsTrigger value="previous">Previous Versions</TabsTrigger>
           </TabsList>
           <TabsContent value="current" className="mt-4">
-            <Card>
+            <Card className="w-full">
               <CardContent className="p-6">
                 <p className="font-medium">Version 1.0 - 18 May 2025</p>
                 <p className="text-muted-foreground mt-2">Initial Terms of Service document.</p>
@@ -326,7 +326,7 @@ export default function TermsOfServicePage() {
             </Card>
           </TabsContent>
           <TabsContent value="previous" className="mt-4">
-            <Card>
+            <Card className="w-full">
               <CardContent className="p-6">
                 <p className="text-muted-foreground">No previous versions available.</p>
               </CardContent>
@@ -374,3 +374,4 @@ export default function TermsOfServicePage() {
     </div>
   );
 }
+

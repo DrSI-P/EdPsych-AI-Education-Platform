@@ -540,7 +540,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
                 </div>
               </CardHeader>
               
-              <CardContent>
+              <CardContent className="pt-2">
                 <p className="mb-4">{goal.description}</p>
                 
                 <div className="mb-4">
@@ -695,3 +695,4 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
 };
 
 export default SharedGoalTracker;
+

@@ -600,11 +600,11 @@ export default function WebinarIntegration() {
         <TabsContent value="my">
           <div className="grid grid-cols-1 gap-4">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Upcoming Webinars</CardTitle>
                 <CardDescription>Webinars you have registered for</CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <ScrollArea className="h-[300px]">
                   {SAMPLE_MY_WEBINARS.filter(w => w.status === 'upcoming').map((webinar, index) => (
                     <div key={webinar.id} className="mb-4">
@@ -651,11 +651,11 @@ export default function WebinarIntegration() {
             </Card>
             
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Attended Webinars</CardTitle>
                 <CardDescription>Webinars you have attended</CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <ScrollArea className="h-[300px]">
                   {SAMPLE_MY_WEBINARS.filter(w => w.status === 'attended').map((webinar, index) => (
                     <div key={webinar.id} className="mb-4">
@@ -700,3 +700,4 @@ export default function WebinarIntegration() {
     </div>
   );
 }
+

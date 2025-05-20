@@ -192,7 +192,7 @@ export default function AlignAssessmentPage() {
             <CardHeader>
               <h2 className="text-xl font-semibold">Curriculum Standard</h2>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="space-y-4">
                 <div className="flex items-center mb-2">
                   <span className="font-mono text-sm bg-gray-100 px-2 py-1 rounded mr-2">
@@ -235,7 +235,7 @@ export default function AlignAssessmentPage() {
                 Choose assessments to align with this curriculum standard.
               </p>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="mb-4">
                 <input
                   type="text"
@@ -325,3 +325,4 @@ export default function AlignAssessmentPage() {
     </div>
   );
 }
+

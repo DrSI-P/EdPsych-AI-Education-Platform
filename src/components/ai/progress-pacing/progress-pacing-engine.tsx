@@ -246,7 +246,7 @@ export default function ProgressPacingEngine({
   return (
     <div className={className}>
       <Card className="mb-6">
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Clock className="h-5 w-5 text-primary" />
@@ -406,7 +406,7 @@ export default function ProgressPacingEngine({
       </Card>
       
       {isAdjusting && (
-        <Card>
+        <Card className="w-full">
           <CardContent className="py-6">
             <div className="flex flex-col items-center justify-center space-y-4">
               <RefreshCw className="h-8 w-8 text-primary animate-spin" />
@@ -423,14 +423,14 @@ export default function ProgressPacingEngine({
       
       {pacingData && !isAdjusting && (
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Learning Pace Comparison</CardTitle>
             <CardDescription>
               Compare standard and personalized learning pace
             </CardDescription>
           </CardHeader>
           
-          <CardContent>
+          <CardContent className="pt-2">
             <Tabs defaultValue="current" value={activeTab} onValueChange={setActiveTab}>
               <TabsList className="grid w-full grid-cols-2">
                 <TabsTrigger value="current" className="flex items-center gap-1">
@@ -626,3 +626,4 @@ export default function ProgressPacingEngine({
     </div>
   );
 }
+

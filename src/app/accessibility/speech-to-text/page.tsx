@@ -40,7 +40,7 @@ export default function SpeechToTextPage() {
           />
           
           <Card className="mb-8">
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Speaking Prompts</CardTitle>
               <CardDescription>
                 Try these prompts to practice using speech-to-text
@@ -97,7 +97,7 @@ export default function SpeechToTextPage() {
         
         <div className="lg:col-span-1">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle className="flex items-center">
                 <Mic className="h-5 w-5 mr-2" />
                 About Speech-to-Text
@@ -106,7 +106,7 @@ export default function SpeechToTextPage() {
                 Understanding the benefits and applications
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <Tabs defaultValue="benefits">
                 <TabsList className="grid w-full grid-cols-3">
                   <TabsTrigger value="benefits">Benefits</TabsTrigger>
@@ -195,3 +195,4 @@ export default function SpeechToTextPage() {
     </div>
   );
 }
+

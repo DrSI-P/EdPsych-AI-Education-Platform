@@ -357,7 +357,7 @@ const CommentModerationDashboard = () => {
                 On post: <span className="font-medium">{comment.postTitle}</span>
               </p>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <p className="text-sm">{comment.content}</p>
               
               {comment.reports && comment.reports.length > 0 && (
@@ -455,7 +455,7 @@ const CommentModerationDashboard = () => {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm">Pending</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold">{moderationStats.pending}</div>
           </CardContent>
         </Card>
@@ -464,7 +464,7 @@ const CommentModerationDashboard = () => {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm">Approved</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold text-green-600">{moderationStats.approved}</div>
           </CardContent>
         </Card>
@@ -473,7 +473,7 @@ const CommentModerationDashboard = () => {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm">Rejected</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold text-red-600">{moderationStats.rejected}</div>
           </CardContent>
         </Card>
@@ -482,7 +482,7 @@ const CommentModerationDashboard = () => {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm">Flagged</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold text-yellow-600">{moderationStats.flagged}</div>
           </CardContent>
         </Card>
@@ -490,13 +490,13 @@ const CommentModerationDashboard = () => {
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Moderation Activity</CardTitle>
             <CardDescription>
               Comments moderated over the past week
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[300px] flex items-center justify-center">
               <div className="text-center text-muted-foreground">
                 <BarChart className="h-16 w-16 mx-auto mb-2" />
@@ -508,13 +508,13 @@ const CommentModerationDashboard = () => {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Report Reasons</CardTitle>
             <CardDescription>
               Most common reasons for reporting comments
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="space-y-4">
               {moderationStats.topReportReasons.map((item) => (
                 <div key={item.reason} className="flex items-center">
@@ -536,13 +536,13 @@ const CommentModerationDashboard = () => {
       </div>
       
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle>Moderation Performance</CardTitle>
           <CardDescription>
             Key metrics for comment moderation
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-2">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="space-y-2">
               <h3 className="text-sm font-medium">Average Response Time</h3>
@@ -573,7 +573,7 @@ const CommentModerationDashboard = () => {
   const renderSettingsPanel = () => (
     <div className="space-y-6">
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle>Automated Moderation Settings</CardTitle>
           <CardDescription>
             Configure AI-powered moderation tools
@@ -637,7 +637,7 @@ const CommentModerationDashboard = () => {
       </Card>
       
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle>Comment Policy Settings</CardTitle>
           <CardDescription>
             Configure comment policies and guidelines
@@ -693,7 +693,7 @@ const CommentModerationDashboard = () => {
   const renderHelpPanel = () => (
     <div className="space-y-6">
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle>Moderation Guidelines</CardTitle>
           <CardDescription>
             Best practices for moderating educational content
@@ -754,7 +754,7 @@ const CommentModerationDashboard = () => {
       </Card>
       
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle>AI Moderation Assistance</CardTitle>
           <CardDescription>
             How AI helps with comment moderation
@@ -954,3 +954,4 @@ const CommentModerationDashboard = () => {
 };
 
 export default CommentModerationDashboard;
+

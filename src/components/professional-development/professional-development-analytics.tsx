@@ -151,7 +151,7 @@ export default function ProfessionalDevelopmentAnalytics() {
                   Total Enrollments
                 </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="text-3xl font-bold">1,248</div>
                 <p className="text-xs text-muted-foreground mt-1 flex items-center">
                   <span className="text-green-500 mr-1">↑ 12%</span> from last month
@@ -165,7 +165,7 @@ export default function ProfessionalDevelopmentAnalytics() {
                   Course Completions
                 </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="text-3xl font-bold">683</div>
                 <p className="text-xs text-muted-foreground mt-1 flex items-center">
                   <span className="text-green-500 mr-1">↑ 8%</span> from last month
@@ -179,7 +179,7 @@ export default function ProfessionalDevelopmentAnalytics() {
                   Active Users
                 </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="text-3xl font-bold">426</div>
                 <p className="text-xs text-muted-foreground mt-1 flex items-center">
                   <span className="text-green-500 mr-1">↑ 15%</span> from last month
@@ -193,7 +193,7 @@ export default function ProfessionalDevelopmentAnalytics() {
                   Average Satisfaction
                 </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="text-3xl font-bold">4.7/5</div>
                 <p className="text-xs text-muted-foreground mt-1 flex items-center">
                   <span className="text-green-500 mr-1">↑ 0.2</span> from last month
@@ -204,11 +204,11 @@ export default function ProfessionalDevelopmentAnalytics() {
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Course Completions</CardTitle>
                 <CardDescription>Monthly course completions over time</CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="h-80">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart
@@ -228,11 +228,11 @@ export default function ProfessionalDevelopmentAnalytics() {
             </Card>
             
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Course Popularity</CardTitle>
                 <CardDescription>Most popular courses by enrollment</CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="h-80">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart
@@ -259,11 +259,11 @@ export default function ProfessionalDevelopmentAnalytics() {
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Time Spent Learning</CardTitle>
                 <CardDescription>Average daily hours spent on courses</CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="h-80">
                   <ResponsiveContainer width="100%" height="100%">
                     <LineChart
@@ -289,11 +289,11 @@ export default function ProfessionalDevelopmentAnalytics() {
             </Card>
             
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Content Engagement</CardTitle>
                 <CardDescription>Engagement by content type</CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="h-80">
                   <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
@@ -326,11 +326,11 @@ export default function ProfessionalDevelopmentAnalytics() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div className="lg:col-span-2">
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Course Performance</CardTitle>
                   <CardDescription>Completion rates and average ratings</CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="space-y-6">
                     {SAMPLE_COURSE_POPULARITY_DATA.map((course, index) => (
                       <div key={index} className="space-y-2">
@@ -356,11 +356,11 @@ export default function ProfessionalDevelopmentAnalytics() {
             
             <div>
               <Card className="mb-6">
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>User Satisfaction</CardTitle>
                   <CardDescription>Overall course satisfaction ratings</CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="h-64">
                     <ResponsiveContainer width="100%" height="100%">
                       <PieChart>
@@ -387,11 +387,11 @@ export default function ProfessionalDevelopmentAnalytics() {
               </Card>
               
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Top Feedback Themes</CardTitle>
                   <CardDescription>Common themes from course feedback</CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="space-y-4">
                     <div className="flex justify-between items-center">
                       <span>Practical examples</span>
@@ -425,11 +425,11 @@ export default function ProfessionalDevelopmentAnalytics() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div className="lg:col-span-2">
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Engagement Over Time</CardTitle>
                   <CardDescription>Daily active users and session duration</CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="h-80">
                     <ResponsiveContainer width="100%" height="100%">
                       <LineChart
@@ -480,11 +480,11 @@ export default function ProfessionalDevelopmentAnalytics() {
             
             <div>
               <Card className="mb-6">
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Peak Usage Times</CardTitle>
                   <CardDescription>Most active hours of the day</CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="h-64">
                     <ResponsiveContainer width="100%" height="100%">
                       <BarChart
@@ -513,11 +513,11 @@ export default function ProfessionalDevelopmentAnalytics() {
               </Card>
               
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Device Usage</CardTitle>
                   <CardDescription>Platform access by device type</CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="h-64">
                     <ResponsiveContainer width="100%" height="100%">
                       <PieChart>
@@ -558,11 +558,11 @@ export default function ProfessionalDevelopmentAnalytics() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div className="lg:col-span-2">
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>User Demographics</CardTitle>
                   <CardDescription>Professional roles of platform users</CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="h-80">
                     <ResponsiveContainer width="100%" height="100%">
                       <BarChart
@@ -591,11 +591,11 @@ export default function ProfessionalDevelopmentAnalytics() {
             
             <div>
               <Card className="mb-6">
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>User Retention</CardTitle>
                   <CardDescription>Return rate after first course</CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="h-64">
                     <ResponsiveContainer width="100%" height="100%">
                       <PieChart>
@@ -629,11 +629,11 @@ export default function ProfessionalDevelopmentAnalytics() {
               </Card>
               
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>User Growth</CardTitle>
                   <CardDescription>New users per month</CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="h-64">
                     <ResponsiveContainer width="100%" height="100%">
                       <LineChart
@@ -671,11 +671,11 @@ export default function ProfessionalDevelopmentAnalytics() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div className="lg:col-span-2">
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Certificates Issued</CardTitle>
                   <CardDescription>Monthly certificate issuance</CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="h-80">
                     <ResponsiveContainer width="100%" height="100%">
                       <BarChart
@@ -703,11 +703,11 @@ export default function ProfessionalDevelopmentAnalytics() {
             
             <div>
               <Card className="mb-6">
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Certificates by Course</CardTitle>
                   <CardDescription>Distribution across courses</CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="h-64">
                     <ResponsiveContainer width="100%" height="100%">
                       <PieChart>
@@ -745,11 +745,11 @@ export default function ProfessionalDevelopmentAnalytics() {
               </Card>
               
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>CPD Points Awarded</CardTitle>
                   <CardDescription>Total CPD points by month</CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="h-64">
                     <ResponsiveContainer width="100%" height="100%">
                       <LineChart
@@ -785,3 +785,4 @@ export default function ProfessionalDevelopmentAnalytics() {
     </div>
   );
 }
+

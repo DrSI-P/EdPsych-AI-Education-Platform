@@ -428,7 +428,7 @@ export default function TaskOrganizer({
   return (
     <div className={className}>
       <Card className="mb-6">
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Brain className="h-5 w-5 text-primary" />
@@ -943,3 +943,4 @@ export default function TaskOrganizer({
     </div>
   );
 }
+

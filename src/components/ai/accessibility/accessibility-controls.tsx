@@ -261,13 +261,13 @@ export default function AccessibilityControls() {
   return (
     <div className="container mx-auto py-8 px-4">
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle>Accessibility Controls</CardTitle>
           <CardDescription>
             Customize your experience to meet your individual needs and preferences.
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-2">
           <Tabs defaultValue="visual" onValueChange={setActiveTab}>
             <TabsList className="grid w-full grid-cols-4">
               <TabsTrigger value="visual">Visual</TabsTrigger>
@@ -563,13 +563,13 @@ export default function AccessibilityControls() {
       
       <div className="mt-8">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Preview</CardTitle>
             <CardDescription>
               See how your content will appear with the current settings.
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div 
               className={`
                 preview-content 
@@ -605,3 +605,4 @@ export default function AccessibilityControls() {
     </div>
   );
 }
+

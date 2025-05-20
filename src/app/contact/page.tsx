@@ -107,7 +107,7 @@ export default function ContactPage() {
           <h2 className="text-2xl font-semibold mb-6">Get in Touch</h2>
           
           <div className="space-y-6">
-            <Card>
+            <Card className="w-full">
               <CardContent className="p-6 flex items-start gap-4">
                 <div className="bg-primary/10 p-3 rounded-full">
                   <MapPin className="h-6 w-6 text-primary" />
@@ -120,7 +120,7 @@ export default function ContactPage() {
               </CardContent>
             </Card>
             
-            <Card>
+            <Card className="w-full">
               <CardContent className="p-6 flex items-start gap-4">
                 <div className="bg-primary/10 p-3 rounded-full">
                   <Phone className="h-6 w-6 text-primary" />
@@ -133,7 +133,7 @@ export default function ContactPage() {
               </CardContent>
             </Card>
             
-            <Card>
+            <Card className="w-full">
               <CardContent className="p-6 flex items-start gap-4">
                 <div className="bg-primary/10 p-3 rounded-full">
                   <Mail className="h-6 w-6 text-primary" />
@@ -146,7 +146,7 @@ export default function ContactPage() {
               </CardContent>
             </Card>
             
-            <Card>
+            <Card className="w-full">
               <CardContent className="p-6 flex items-start gap-4">
                 <div className="bg-primary/10 p-3 rounded-full">
                   <Clock className="h-6 w-6 text-primary" />
@@ -170,7 +170,7 @@ export default function ContactPage() {
         >
           <h2 className="text-2xl font-semibold mb-6">Send Us a Message</h2>
           
-          <Card>
+          <Card className="w-full">
             <CardContent className="p-6">
               {formState === 'success' ? (
                 <motion.div 
@@ -329,7 +329,7 @@ export default function ContactPage() {
         <h2 className="text-2xl font-semibold mb-6 text-center">Frequently Asked Questions</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <Card>
+          <Card className="w-full">
             <CardContent className="p-6">
               <h3 className="font-semibold text-lg mb-2">How can I get started with EdPsych Connect?</h3>
               <p className="text-muted-foreground">
@@ -338,7 +338,7 @@ export default function ContactPage() {
             </CardContent>
           </Card>
           
-          <Card>
+          <Card className="w-full">
             <CardContent className="p-6">
               <h3 className="font-semibold text-lg mb-2">Is EdPsych Connect available for schools and institutions?</h3>
               <p className="text-muted-foreground">
@@ -347,7 +347,7 @@ export default function ContactPage() {
             </CardContent>
           </Card>
           
-          <Card>
+          <Card className="w-full">
             <CardContent className="p-6">
               <h3 className="font-semibold text-lg mb-2">How does EdPsych Connect protect user data?</h3>
               <p className="text-muted-foreground">
@@ -356,7 +356,7 @@ export default function ContactPage() {
             </CardContent>
           </Card>
           
-          <Card>
+          <Card className="w-full">
             <CardContent className="p-6">
               <h3 className="font-semibold text-lg mb-2">Can I use EdPsych Connect on mobile devices?</h3>
               <p className="text-muted-foreground">
@@ -369,3 +369,4 @@ export default function ContactPage() {
     </div>
   );
 }
+

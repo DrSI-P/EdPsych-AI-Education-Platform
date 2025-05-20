@@ -270,7 +270,7 @@ const AnalyticsIntegration = () => {
 
   const renderModuleList = () => (
     <Card>
-      <CardHeader>
+      <CardHeader className="pb-2">
         <div className="flex items-center justify-between">
           <CardTitle>Module Integrations</CardTitle>
           <div className="flex items-center space-x-2">
@@ -318,7 +318,7 @@ const AnalyticsIntegration = () => {
           Analytics integration status with platform modules
         </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="pt-2">
         <div className="space-y-4">
           <div className="flex items-center space-x-2">
             <Search className="h-4 w-4 text-muted-foreground" />
@@ -390,7 +390,7 @@ const AnalyticsIntegration = () => {
 
     return (
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-2">
           <div className="flex justify-between items-center">
             <div>
               <CardTitle>{module.name} Integration</CardTitle>
@@ -409,7 +409,7 @@ const AnalyticsIntegration = () => {
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm font-medium">Data Points</CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="text-2xl font-bold">{module.dataPoints}</div>
                 <p className="text-xs text-muted-foreground">
                   <span className="flex items-center">
@@ -424,7 +424,7 @@ const AnalyticsIntegration = () => {
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm font-medium">Last Sync</CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="text-2xl font-bold">{module.lastSync.split(' ')[0]}</div>
                 <p className="text-xs text-muted-foreground">
                   <span className="flex items-center">
@@ -438,7 +438,7 @@ const AnalyticsIntegration = () => {
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm font-medium">Active Metrics</CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="text-2xl font-bold">{module.metrics.length}</div>
                 <p className="text-xs text-muted-foreground">
                   <span className="flex items-center">
@@ -536,7 +536,7 @@ const AnalyticsIntegration = () => {
   const renderDataFlowTab = () => (
     <div className="space-y-6">
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-2">
           <div className="flex justify-between items-center">
             <div>
               <CardTitle>Cross-Module Data Flow</CardTitle>
@@ -550,7 +550,7 @@ const AnalyticsIntegration = () => {
             />
           </div>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-2">
           <div className="h-[400px]">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart
@@ -595,13 +595,13 @@ const AnalyticsIntegration = () => {
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Data Integration Health</CardTitle>
             <CardDescription>
               Overall health status of module integrations
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
@@ -656,13 +656,13 @@ const AnalyticsIntegration = () => {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Data Volume by Module</CardTitle>
             <CardDescription>
               Analytics data volume across platform modules
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
@@ -691,13 +691,13 @@ const AnalyticsIntegration = () => {
   const renderPrivacyTab = () => (
     <div className="space-y-6">
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle>Privacy & Compliance Settings</CardTitle>
           <CardDescription>
             Configure privacy settings for analytics and reporting
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-2">
           <div className="space-y-6">
             {mockPrivacySettings.map(setting => (
               <div key={setting.id} className="flex items-start justify-between space-x-4">
@@ -724,13 +724,13 @@ const AnalyticsIntegration = () => {
       </Card>
       
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle>GDPR Compliance</CardTitle>
           <CardDescription>
             Data protection compliance status
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-2">
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
@@ -800,13 +800,13 @@ const AnalyticsIntegration = () => {
   const renderExtensibilityTab = () => (
     <div className="space-y-6">
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle>Extensibility Options</CardTitle>
           <CardDescription>
             Configure extensibility features for analytics and reporting
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-2">
           <div className="space-y-6">
             {mockExtensibilityOptions.map(option => (
               <div key={option.id} className="flex items-start justify-between space-x-4">
@@ -833,13 +833,13 @@ const AnalyticsIntegration = () => {
       </Card>
       
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle>API Access</CardTitle>
           <CardDescription>
             Manage API access for external integrations
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-2">
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div>
@@ -963,7 +963,7 @@ const AnalyticsIntegration = () => {
               Connected Modules
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold">7/7</div>
             <p className="text-xs text-muted-foreground">
               All modules connected
@@ -976,7 +976,7 @@ const AnalyticsIntegration = () => {
               Data Points
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold">113</div>
             <p className="text-xs text-muted-foreground">
               +12 from last month
@@ -989,7 +989,7 @@ const AnalyticsIntegration = () => {
               Integration Health
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold">98%</div>
             <p className="text-xs text-muted-foreground">
               +2% from last check
@@ -1002,7 +1002,7 @@ const AnalyticsIntegration = () => {
               Privacy Compliance
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold">100%</div>
             <p className="text-xs text-muted-foreground">
               GDPR compliant
@@ -1063,3 +1063,4 @@ const AnalyticsIntegration = () => {
 };
 
 export default AnalyticsIntegration;
+

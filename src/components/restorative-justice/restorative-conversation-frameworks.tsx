@@ -803,13 +803,13 @@ const RestorativeConversationFrameworks = () => {
   return (
     <div className="space-y-6">
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle>Guided Restorative Conversation Frameworks</CardTitle>
           <CardDescription>
             Evidence-based frameworks for facilitating restorative conversations and conferences
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-2">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid w-full grid-cols-3">
               <TabsTrigger value="frameworks">Frameworks</TabsTrigger>
@@ -952,7 +952,7 @@ const RestorativeConversationFrameworks = () => {
                   {selectedFramework ? (
                     <>
                       <Card>
-                        <CardHeader>
+                        <CardHeader className="pb-2">
                           <CardTitle>{selectedFramework.title}</CardTitle>
                           <CardDescription>{selectedFramework.description}</CardDescription>
                         </CardHeader>
@@ -1026,7 +1026,7 @@ const RestorativeConversationFrameworks = () => {
                                   <CardTitle className="text-lg">{selectedFramework.steps[currentStep].title}</CardTitle>
                                   <CardDescription>{selectedFramework.steps[currentStep].description}</CardDescription>
                                 </CardHeader>
-                                <CardContent>
+                                <CardContent className="pt-2">
                                   <div className="space-y-4">
                                     <div>
                                       <h4 className="text-sm font-medium mb-2">Suggested Prompts</h4>
@@ -1087,10 +1087,10 @@ const RestorativeConversationFrameworks = () => {
                       </Card>
                       
                       <Card>
-                        <CardHeader>
+                        <CardHeader className="pb-2">
                           <CardTitle className="text-lg">Conversation Progress</CardTitle>
                         </CardHeader>
-                        <CardContent>
+                        <CardContent className="pt-2">
                           <div className="space-y-4">
                             <Progress value={(currentStep / (selectedFramework.steps.length - 1)) * 100} />
                             
@@ -1303,3 +1303,4 @@ const RestorativeConversationFrameworks = () => {
 };
 
 export default RestorativeConversationFrameworks;
+

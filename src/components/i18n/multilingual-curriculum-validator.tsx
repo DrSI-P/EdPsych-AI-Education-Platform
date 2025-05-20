@@ -272,7 +272,7 @@ export const MultilingualCurriculumValidator: React.FC<MultilingualCurriculumVal
   if (isValidating) {
     return (
       <Card className={className}>
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle>{t('curriculum_validator', 'curriculum')}</CardTitle>
           <CardDescription>
             {t('curriculum_validator_description', 'curriculum')}
@@ -296,7 +296,7 @@ export const MultilingualCurriculumValidator: React.FC<MultilingualCurriculumVal
   
   return (
     <Card className={className}>
-      <CardHeader>
+      <CardHeader className="pb-2">
         <div className="flex items-center justify-between">
           <div>
             <CardTitle>{t('curriculum_validator', 'curriculum')}</CardTitle>
@@ -480,3 +480,4 @@ export const MultilingualCurriculumValidator: React.FC<MultilingualCurriculumVal
 };
 
 export default MultilingualCurriculumValidator;
+

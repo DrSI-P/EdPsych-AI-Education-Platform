@@ -322,13 +322,13 @@ export default function TextToSpeechEngine({
   
   return (
     <Card className={className}>
-      <CardHeader>
+      <CardHeader className="pb-2">
         <CardTitle>Text-to-Speech Engine</CardTitle>
         <CardDescription>
           Convert text to speech with customizable voice settings
         </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="pt-2">
         <Tabs defaultValue="engine" onValueChange={setActiveTab}>
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="engine">Text-to-Speech</TabsTrigger>
@@ -528,3 +528,4 @@ export default function TextToSpeechEngine({
     </Card>
   );
 }
+

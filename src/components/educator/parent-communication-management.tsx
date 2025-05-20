@@ -243,11 +243,11 @@ export function ParentCommunicationManagement() {
   // Render template selection section
   const renderTemplateSelection = () => (
     <Card className="mb-6">
-      <CardHeader>
+      <CardHeader className="pb-2">
         <CardTitle>Communication Templates</CardTitle>
         <CardDescription>Select a template to use as a starting point</CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="pt-2">
         <div className="mb-4">
           <div className="flex items-center space-x-2 mb-4">
             <Search className="h-4 w-4 text-muted-foreground" />
@@ -303,11 +303,11 @@ export function ParentCommunicationManagement() {
   // Render message composition section
   const renderMessageComposition = () => (
     <Card>
-      <CardHeader>
+      <CardHeader className="pb-2">
         <CardTitle>Compose Message</CardTitle>
         <CardDescription>Customise your message and select recipients</CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="pt-2">
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium mb-1">Subject</label>
@@ -457,7 +457,7 @@ export function ParentCommunicationManagement() {
   const renderCommunicationHistory = () => (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
       <Card className="md:col-span-1">
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle>Students</CardTitle>
           <CardDescription>Select a student to view communication history</CardDescription>
           <div className="mt-2">
@@ -468,7 +468,7 @@ export function ParentCommunicationManagement() {
             />
           </div>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-2">
           <div className="space-y-1 max-h-[400px] overflow-y-auto">
             {filteredStudents.map(student => (
               <div 
@@ -489,7 +489,7 @@ export function ParentCommunicationManagement() {
       </Card>
       
       <Card className="md:col-span-2">
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle>
             {selectedStudent ? `${selectedStudent.name}'s Communication History` : "Communication History"}
           </CardTitle>
@@ -583,7 +583,7 @@ export function ParentCommunicationManagement() {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium">Response Rate</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold">67%</div>
             <p className="text-xs text-muted-foreground">+5% from last month</p>
             <div className="mt-4 h-2 bg-muted rounded-full overflow-hidden">
@@ -596,7 +596,7 @@ export function ParentCommunicationManagement() {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium">Communications Sent</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold">124</div>
             <p className="text-xs text-muted-foreground">Last 30 days</p>
             <div className="mt-4 grid grid-cols-7 gap-1">
@@ -618,7 +618,7 @@ export function ParentCommunicationManagement() {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium">Parent Engagement</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold">83%</div>
             <p className="text-xs text-muted-foreground">+12% from last term</p>
             <div className="mt-4 flex items-center">
@@ -633,11 +633,11 @@ export function ParentCommunicationManagement() {
       </div>
       
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle>Communication Insights</CardTitle>
           <CardDescription>Analysis of parent communication patterns</CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-2">
           <div className="space-y-8">
             <div>
               <h4 className="text-sm font-medium mb-2">Communication by Category</h4>
@@ -773,3 +773,4 @@ export function ParentCommunicationManagement() {
     </div>
   );
 }
+

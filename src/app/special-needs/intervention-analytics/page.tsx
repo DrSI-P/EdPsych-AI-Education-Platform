@@ -35,7 +35,7 @@ export default function InterventionAnalyticsPage() {
         
         <TabsContent value="about" className="space-y-6">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle className="flex items-center gap-2">
                 <Info className="h-5 w-5" />
                 About Intervention Effectiveness Analytics
@@ -98,7 +98,7 @@ export default function InterventionAnalyticsPage() {
                         Education Endowment Foundation
                       </CardTitle>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="pt-2">
                       <p className="text-sm">
                         Our effectiveness metrics are aligned with the EEF's Teaching and Learning Toolkit, which 
                         synthesizes international research to provide evidence-based guidance on educational interventions.
@@ -114,7 +114,7 @@ export default function InterventionAnalyticsPage() {
                         What Works Clearinghouse
                       </CardTitle>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="pt-2">
                       <p className="text-sm">
                         Our statistical methods follow the rigorous standards established by the WWC for evaluating 
                         the effectiveness of educational interventions.
@@ -130,7 +130,7 @@ export default function InterventionAnalyticsPage() {
                         SEND Code of Practice
                       </CardTitle>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="pt-2">
                       <p className="text-sm">
                         Our analytics framework supports the graduated approach (Assess, Plan, Do, Review) outlined 
                         in the UK SEND Code of Practice, providing tools for each stage of the cycle.
@@ -146,7 +146,7 @@ export default function InterventionAnalyticsPage() {
                         Hattie's Visible Learning
                       </CardTitle>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="pt-2">
                       <p className="text-sm">
                         Our effect size calculations are based on John Hattie's meta-analysis work, which synthesizes 
                         research on factors influencing student achievement.
@@ -224,7 +224,7 @@ export default function InterventionAnalyticsPage() {
         
         <TabsContent value="reports" className="space-y-6">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle className="flex items-center gap-2">
                 <FileText className="h-5 w-5" />
                 Intervention Effectiveness Reports
@@ -344,3 +344,4 @@ export default function InterventionAnalyticsPage() {
     </div>
   );
 }
+

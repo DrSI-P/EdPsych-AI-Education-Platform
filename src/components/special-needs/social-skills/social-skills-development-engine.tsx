@@ -638,13 +638,13 @@ const SocialSkillsDevelopmentEngine = () => {
         <TabsContent value="skills" className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Create New Social Skill</CardTitle>
                 <CardDescription>
                   Define social skills you want to teach and develop.
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <form onSubmit={handleSkillSubmit} className="space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="name">Skill Name</Label>
@@ -771,13 +771,13 @@ const SocialSkillsDevelopmentEngine = () => {
             </Card>
             
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Defined Social Skills</CardTitle>
                 <CardDescription>
                   View and manage your defined social skills.
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <ScrollArea className="h-[600px]">
                   {socialSkills.length > 0 ? (
                     <div className="space-y-4">
@@ -818,13 +818,13 @@ const SocialSkillsDevelopmentEngine = () => {
           </div>
           
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Assess Social Skills</CardTitle>
               <CardDescription>
                 Record and track student progress in social skill development.
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <form onSubmit={handleAssessmentSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
@@ -956,13 +956,13 @@ const SocialSkillsDevelopmentEngine = () => {
         <TabsContent value="scenarios" className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Create New Social Scenario</CardTitle>
                 <CardDescription>
                   Define scenarios for practicing social skills.
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <form onSubmit={handleScenarioSubmit} className="space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="title">Scenario Title</Label>
@@ -1104,13 +1104,13 @@ const SocialSkillsDevelopmentEngine = () => {
             </Card>
             
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Available Scenarios</CardTitle>
                 <CardDescription>
                   View and manage your social scenarios.
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <ScrollArea className="h-[600px]">
                   {socialScenarios.length > 0 ? (
                     <div className="space-y-4">
@@ -1166,13 +1166,13 @@ const SocialSkillsDevelopmentEngine = () => {
           </div>
           
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Social Stories and Scripts</CardTitle>
               <CardDescription>
                 Evidence-based social stories and scripts for teaching social skills.
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <Accordion type="single" collapsible className="w-full">
                 <AccordionItem value="item-1">
                   <AccordionTrigger>What are Social Stories?</AccordionTrigger>
@@ -1286,13 +1286,13 @@ const SocialSkillsDevelopmentEngine = () => {
         <TabsContent value="activities" className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Create New Social Activity</CardTitle>
                 <CardDescription>
                   Define activities for practicing social skills.
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <form onSubmit={handleActivitySubmit} className="space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="name">Activity Name</Label>
@@ -1423,13 +1423,13 @@ const SocialSkillsDevelopmentEngine = () => {
             </Card>
             
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Available Activities</CardTitle>
                 <CardDescription>
                   View and manage your social activities.
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <ScrollArea className="h-[600px]">
                   {socialActivities.length > 0 ? (
                     <div className="space-y-4">
@@ -1487,13 +1487,13 @@ const SocialSkillsDevelopmentEngine = () => {
           </div>
           
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Evidence-Based Social Skill Activities</CardTitle>
               <CardDescription>
                 Research-backed activities for developing social skills.
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <Accordion type="single" collapsible className="w-full">
                 <AccordionItem value="item-1">
                   <AccordionTrigger>Video Modeling</AccordionTrigger>
@@ -1587,13 +1587,13 @@ const SocialSkillsDevelopmentEngine = () => {
         <TabsContent value="goals" className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Create New Social Goal</CardTitle>
                 <CardDescription>
                   Set goals for social skill development.
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <form onSubmit={handleGoalSubmit} className="space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="name">Goal Name</Label>
@@ -1717,13 +1717,13 @@ const SocialSkillsDevelopmentEngine = () => {
             </Card>
             
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Active Goals</CardTitle>
                 <CardDescription>
                   View and manage your social skill goals.
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <ScrollArea className="h-[600px]">
                   {socialGoals.length > 0 ? (
                     <div className="space-y-4">
@@ -1797,7 +1797,7 @@ const SocialSkillsDevelopmentEngine = () => {
           </div>
           
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Social Skills Progress</CardTitle>
               <CardDescription>
                 Visualize progress in social skill development over time.
@@ -1838,7 +1838,7 @@ const SocialSkillsDevelopmentEngine = () => {
         {/* Students Tab */}
         <TabsContent value="students" className="space-y-6">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Student Social Skills Progress</CardTitle>
               <CardDescription>
                 View individual student progress in social skill development.
@@ -1988,13 +1988,13 @@ const SocialSkillsDevelopmentEngine = () => {
           </Card>
           
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Add New Student</CardTitle>
               <CardDescription>
                 Add a new student to the social skills development system.
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <p className="text-sm text-muted-foreground mb-4">
                 To add a new student, please use the student management system in the main dashboard.
                 Once added, students will automatically appear in the social skills development module.
@@ -2010,13 +2010,13 @@ const SocialSkillsDevelopmentEngine = () => {
         {/* Settings Tab */}
         <TabsContent value="settings" className="space-y-6">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Social Skills Development Settings</CardTitle>
               <CardDescription>
                 Configure your social skills development system.
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="space-y-6">
                 <div className="space-y-4">
                   <h3 className="text-lg font-medium">Teaching Methods</h3>
@@ -2194,13 +2194,13 @@ const SocialSkillsDevelopmentEngine = () => {
           </Card>
           
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Evidence-Based Practices</CardTitle>
               <CardDescription>
                 Research-backed approaches to social skills development.
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="space-y-4">
                 <div>
                   <h4 className="font-medium">Social Skills Interventions</h4>
@@ -2268,3 +2268,4 @@ const SocialSkillsDevelopmentEngine = () => {
 };
 
 export default SocialSkillsDevelopmentEngine;
+

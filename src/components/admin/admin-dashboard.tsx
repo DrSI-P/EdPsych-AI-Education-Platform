@@ -294,7 +294,7 @@ export function AdminDashboard({
               </div>
               
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <Card>
+                <Card className="w-full">
                   <CardContent className="pt-6">
                     <div className="text-center">
                       <div className="text-3xl font-bold text-blue-600 mb-1">
@@ -304,7 +304,7 @@ export function AdminDashboard({
                     </div>
                   </CardContent>
                 </Card>
-                <Card>
+                <Card className="w-full">
                   <CardContent className="pt-6">
                     <div className="text-center">
                       <div className="text-3xl font-bold text-green-600 mb-1">
@@ -314,7 +314,7 @@ export function AdminDashboard({
                     </div>
                   </CardContent>
                 </Card>
-                <Card>
+                <Card className="w-full">
                   <CardContent className="pt-6">
                     <div className="text-center">
                       <div className="text-3xl font-bold text-purple-600 mb-1">
@@ -324,7 +324,7 @@ export function AdminDashboard({
                     </div>
                   </CardContent>
                 </Card>
-                <Card>
+                <Card className="w-full">
                   <CardContent className="pt-6">
                     <div className="text-center">
                       <div className="text-3xl font-bold text-orange-600 mb-1">
@@ -341,7 +341,7 @@ export function AdminDashboard({
                   <CardHeader>
                     <h3 className="text-lg font-semibold">System Usage</h3>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <div className="space-y-4">
                       <div>
                         <div className="flex justify-between text-sm mb-1">
@@ -436,7 +436,7 @@ export function AdminDashboard({
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <Card>
-                  <CardHeader>
+                  <CardHeader className="pb-2">
                     <div className="flex justify-between items-center">
                       <h3 className="text-lg font-semibold">Recent Users</h3>
                       <Button size="sm">Manage Users</Button>
@@ -468,7 +468,7 @@ export function AdminDashboard({
                 </Card>
                 
                 <Card>
-                  <CardHeader>
+                  <CardHeader className="pb-2">
                     <div className="flex justify-between items-center">
                       <h3 className="text-lg font-semibold">Recent Schools</h3>
                       <Button size="sm">Manage Schools</Button>
@@ -543,7 +543,7 @@ export function AdminDashboard({
                 </div>
               </div>
               
-              <Card>
+              <Card className="w-full">
                 <CardContent className="p-0">
                   <div className="overflow-x-auto">
                     <table className="w-full">
@@ -631,7 +631,7 @@ export function AdminDashboard({
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <Card>
+                    <Card className="w-full">
                       <CardContent className="pt-4">
                         <h4 className="font-medium mb-2">Import Users</h4>
                         <p className="text-sm text-gray-600 mb-4">
@@ -643,7 +643,7 @@ export function AdminDashboard({
                       </CardContent>
                     </Card>
                     
-                    <Card>
+                    <Card className="w-full">
                       <CardContent className="pt-4">
                         <h4 className="font-medium mb-2">Export Users</h4>
                         <p className="text-sm text-gray-600 mb-4">
@@ -655,7 +655,7 @@ export function AdminDashboard({
                       </CardContent>
                     </Card>
                     
-                    <Card>
+                    <Card className="w-full">
                       <CardContent className="pt-4">
                         <h4 className="font-medium mb-2">Bulk Update</h4>
                         <p className="text-sm text-gray-600 mb-4">
@@ -711,7 +711,7 @@ export function AdminDashboard({
                 </div>
               </div>
               
-              <Card>
+              <Card className="w-full">
                 <CardContent className="p-0">
                   <div className="overflow-x-auto">
                     <table className="w-full">
@@ -1162,9 +1162,9 @@ export function AdminDashboard({
                 <CardHeader>
                   <h3 className="text-lg font-semibold">System Maintenance</h3>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                    <Card>
+                    <Card className="w-full">
                       <CardContent className="pt-4">
                         <h4 className="font-medium mb-2">Backup Database</h4>
                         <p className="text-sm text-gray-600 mb-4">
@@ -1176,7 +1176,7 @@ export function AdminDashboard({
                       </CardContent>
                     </Card>
                     
-                    <Card>
+                    <Card className="w-full">
                       <CardContent className="pt-4">
                         <h4 className="font-medium mb-2">Clear Cache</h4>
                         <p className="text-sm text-gray-600 mb-4">
@@ -1188,7 +1188,7 @@ export function AdminDashboard({
                       </CardContent>
                     </Card>
                     
-                    <Card>
+                    <Card className="w-full">
                       <CardContent className="pt-4">
                         <h4 className="font-medium mb-2">System Logs</h4>
                         <p className="text-sm text-gray-600 mb-4">
@@ -1200,7 +1200,7 @@ export function AdminDashboard({
                       </CardContent>
                     </Card>
                     
-                    <Card>
+                    <Card className="w-full">
                       <CardContent className="pt-4">
                         <h4 className="font-medium mb-2">Update System</h4>
                         <p className="text-sm text-gray-600 mb-4">
@@ -1227,3 +1227,4 @@ export function AdminDashboard({
     </div>
   );
 }
+

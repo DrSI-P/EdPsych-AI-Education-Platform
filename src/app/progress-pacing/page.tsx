@@ -34,13 +34,13 @@ export default function ProgressPacingPage() {
             <div className="space-y-8">
               {!studentId && !curriculumId && (
                 <Card className="mb-6">
-                  <CardHeader>
+                  <CardHeader className="pb-2">
                     <CardTitle>Select Student or Curriculum</CardTitle>
                     <CardDescription>
                       Choose a student or curriculum to adjust learning pace
                     </CardDescription>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <Button 
                         variant="outline" 
@@ -79,7 +79,7 @@ export default function ProgressPacingPage() {
           
           <TabsContent value="about" className="pt-4">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>About Progress-Adaptive Pacing</CardTitle>
                 <CardDescription>
                   Understanding how this feature personalizes learning pace for individual students
@@ -163,3 +163,4 @@ export default function ProgressPacingPage() {
     </div>
   );
 }
+

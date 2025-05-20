@@ -555,13 +555,13 @@ export default function CollaborativeWorkspace() {
         {/* Sidebar */}
         <div className="lg:col-span-1">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Participants</CardTitle>
               <CardDescription>
                 {participants.length} collaborators
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="space-y-4">
                 {participants.map((participant) => (
                   <div key={participant.userId} className="flex items-center justify-between">
@@ -599,10 +599,10 @@ export default function CollaborativeWorkspace() {
           </Card>
           
           <Card className="mt-4">
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Session Info</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="space-y-3">
                 <div>
                   <p className="text-sm font-medium">Created</p>
@@ -805,7 +805,7 @@ export default function CollaborativeWorkspace() {
             
             <TabsContent value="chat" className="mt-4">
               <Card className="h-[600px] flex flex-col">
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Group Chat</CardTitle>
                   <CardDescription>
                     {participants.filter(p => p.status === 'online').length} participants online
@@ -869,7 +869,7 @@ export default function CollaborativeWorkspace() {
             
             <TabsContent value="video" className="mt-4">
               <Card className="h-[600px]">
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <div className="flex justify-between items-center">
                     <CardTitle>Video Conference</CardTitle>
                     <Button variant="destructive" size="sm">
@@ -927,3 +927,4 @@ export default function CollaborativeWorkspace() {
     </div>
   );
 }
+

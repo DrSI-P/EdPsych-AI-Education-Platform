@@ -528,13 +528,13 @@ export default function SpeechToTextEngine({
   if (isCalibrating) {
     return (
       <Card className={className}>
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle>Voice Calibration</CardTitle>
           <CardDescription>
             Please read the following phrase aloud clearly
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-2">
           <Progress value={calibrationProgress} className="mb-4" />
           
           <div className="bg-muted p-4 rounded-md mb-4 text-center">
@@ -596,7 +596,7 @@ export default function SpeechToTextEngine({
   // Main UI
   return (
     <Card className={className}>
-      <CardHeader>
+      <CardHeader className="pb-2">
         <CardTitle className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             {isListening ? (
@@ -612,7 +612,7 @@ export default function SpeechToTextEngine({
         </CardDescription>
       </CardHeader>
       
-      <CardContent>
+      <CardContent className="pt-2">
         <Tabs defaultValue="main" onValueChange={setActiveTab}>
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="main">Main</TabsTrigger>
@@ -841,3 +841,4 @@ export default function SpeechToTextEngine({
     </Card>
   );
 }
+

@@ -163,7 +163,7 @@ export const HeyGenVideoGeneration: React.FC = () => {
   if (success && generatedVideo) {
     return (
       <Card className="w-full max-w-3xl mx-auto">
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle className="text-green-600 flex items-center">
             <Check className="mr-2" /> Video Generated Successfully
           </CardTitle>
@@ -171,7 +171,7 @@ export const HeyGenVideoGeneration: React.FC = () => {
             Your AI avatar video has been created and is ready to view.
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-2">
           <div className="aspect-video bg-gray-100 rounded-md overflow-hidden mb-4">
             {generatedVideo.url ? (
               <video 
@@ -202,7 +202,7 @@ export const HeyGenVideoGeneration: React.FC = () => {
   
   return (
     <Card className="w-full max-w-3xl mx-auto">
-      <CardHeader>
+      <CardHeader className="pb-2">
         <CardTitle>Generate AI Avatar Video</CardTitle>
         <CardDescription>
           Create educational videos using your custom AI avatar and voice.
@@ -355,3 +355,4 @@ export const HeyGenVideoGeneration: React.FC = () => {
 };
 
 export default HeyGenVideoGeneration;
+

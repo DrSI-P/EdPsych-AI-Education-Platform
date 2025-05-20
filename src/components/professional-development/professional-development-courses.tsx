@@ -502,14 +502,14 @@ export default function ProfessionalDevelopmentCourses() {
                           </Badge>
                         </div>
                       </div>
-                      <CardHeader>
+                      <CardHeader className="pb-2">
                         <div className="flex justify-between items-start">
                           <CardTitle className="text-xl">{course.title}</CardTitle>
                           <Badge variant="outline">{getCategoryLabel(course.category)}</Badge>
                         </div>
                         <CardDescription className="line-clamp-2">{course.description}</CardDescription>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <div className="flex items-center justify-between text-sm mb-4">
                           <div className="flex items-center gap-1">
                             <Clock size={16} />
@@ -612,13 +612,13 @@ export default function ProfessionalDevelopmentCourses() {
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div className="lg:col-span-2">
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle>Course Content</CardTitle>
                       <CardDescription>
                         {selectedCourse.modules} modules • {selectedCourse.duration} total length
                       </CardDescription>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="pt-2">
                       <Accordion type="single" collapsible className="w-full">
                         {SAMPLE_MODULES.map((module, index) => (
                           <AccordionItem key={module.id} value={`module-${module.id}`}>
@@ -658,10 +658,10 @@ export default function ProfessionalDevelopmentCourses() {
                 
                 <div>
                   <Card className="mb-6">
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle>Instructor</CardTitle>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="pt-2">
                       <div className="flex items-center gap-3 mb-3">
                         <Avatar>
                           <AvatarFallback>{selectedCourse.instructor.split(' ').map(n => n[0]).join('')}</AvatarFallback>
@@ -678,7 +678,7 @@ export default function ProfessionalDevelopmentCourses() {
                   </Card>
                   
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle>Course Discussions</CardTitle>
                     </CardHeader>
                     <CardContent>
@@ -708,7 +708,7 @@ export default function ProfessionalDevelopmentCourses() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {SAMPLE_COURSES.filter(course => course.progress > 0).map(course => (
               <Card key={course.id}>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <div className="flex justify-between items-start">
                     <CardTitle className="text-xl">{course.title}</CardTitle>
                     <Badge className={getDifficultyColor(course.difficulty)}>
@@ -717,7 +717,7 @@ export default function ProfessionalDevelopmentCourses() {
                   </div>
                   <CardDescription>{getCategoryLabel(course.category)}</CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="mb-2">
                     <div className="flex justify-between text-sm mb-1">
                       <span>Progress</span>
@@ -759,11 +759,11 @@ export default function ProfessionalDevelopmentCourses() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {SAMPLE_CERTIFICATES.map(certificate => (
               <Card key={certificate.id}>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>{certificate.course_title}</CardTitle>
                   <CardDescription>Completed on {certificate.completion_date}</CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="bg-muted p-6 rounded-lg flex flex-col items-center justify-center mb-4">
                     <Certificate size={48} className="mb-2 text-primary" />
                     <h3 className="text-lg font-medium">Certificate of Completion</h3>
@@ -798,11 +798,11 @@ export default function ProfessionalDevelopmentCourses() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div className="lg:col-span-2">
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Discussion Forums</CardTitle>
                   <CardDescription>Engage with other professionals in our learning community</CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="space-y-4">
                     {SAMPLE_DISCUSSIONS.map(discussion => (
                       <div key={discussion.id} className="p-4 border rounded-lg">
@@ -829,10 +829,10 @@ export default function ProfessionalDevelopmentCourses() {
             
             <div>
               <Card className="mb-6">
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Community Members</CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="space-y-3">
                     {SAMPLE_COMMUNITY_MEMBERS.map(member => (
                       <div key={member.id} className="flex items-center justify-between">
@@ -856,10 +856,10 @@ export default function ProfessionalDevelopmentCourses() {
               </Card>
               
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Upcoming Events</CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="space-y-3">
                     <div className="p-3 border rounded-lg">
                       <div className="flex items-center gap-3 mb-2">
@@ -891,3 +891,4 @@ export default function ProfessionalDevelopmentCourses() {
     </div>
   );
 }
+

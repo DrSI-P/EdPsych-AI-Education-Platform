@@ -772,13 +772,13 @@ const TeacherAlertSystem = () => {
   return (
     <div className="space-y-6">
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle>Teacher Alert System for Concerning Patterns</CardTitle>
           <CardDescription>
             Monitor student behavior patterns and receive alerts for potential concerns
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-2">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid w-full grid-cols-5">
               <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
@@ -801,7 +801,7 @@ const TeacherAlertSystem = () => {
                       <CardHeader className="pb-2">
                         <CardTitle className="text-lg">Total Alerts</CardTitle>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <div className="text-3xl font-bold">{alerts.length}</div>
                         <p className="text-sm text-muted-foreground">
                           {alerts.filter(a => a.status === "new").length} new
@@ -813,7 +813,7 @@ const TeacherAlertSystem = () => {
                       <CardHeader className="pb-2">
                         <CardTitle className="text-lg">Students Monitored</CardTitle>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <div className="text-3xl font-bold">{students.length}</div>
                         <p className="text-sm text-muted-foreground">
                           {students.filter(s => s.supportPlan !== "None").length} with support plans
@@ -825,7 +825,7 @@ const TeacherAlertSystem = () => {
                       <CardHeader className="pb-2">
                         <CardTitle className="text-lg">ABCC Records</CardTitle>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <div className="text-3xl font-bold">{abccRecords.length}</div>
                         <p className="text-sm text-muted-foreground">
                           Last added: {abccRecords.length > 0 ? formatDate(abccRecords[0].date) : "None"}
@@ -837,7 +837,7 @@ const TeacherAlertSystem = () => {
                       <CardHeader className="pb-2">
                         <CardTitle className="text-lg">Alert Status</CardTitle>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <div className="flex space-x-2">
                           <Badge className="bg-blue-500">{getAlertsByStatus().new}</Badge>
                           <Badge className="bg-amber-500">{getAlertsByStatus()["in-progress"]}</Badge>
@@ -852,13 +852,13 @@ const TeacherAlertSystem = () => {
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <Card>
-                      <CardHeader>
+                      <CardHeader className="pb-2">
                         <CardTitle>Recent Alerts</CardTitle>
                         <CardDescription>
                           Most recent alerts across all students
                         </CardDescription>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <ScrollArea className="h-[300px]">
                           <div className="space-y-4">
                             {getRecentAlerts().map(alert => (
@@ -896,13 +896,13 @@ const TeacherAlertSystem = () => {
                     </Card>
                     
                     <Card>
-                      <CardHeader>
+                      <CardHeader className="pb-2">
                         <CardTitle>Students with Most Alerts</CardTitle>
                         <CardDescription>
                           Students requiring additional attention
                         </CardDescription>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <ScrollArea className="h-[300px]">
                           <div className="space-y-4">
                             {getStudentsWithMostAlerts().map(({ student, count }) => (
@@ -951,13 +951,13 @@ const TeacherAlertSystem = () => {
                   </div>
                   
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle>Alert Distribution</CardTitle>
                       <CardDescription>
                         Breakdown of alerts by type and severity
                       </CardDescription>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="pt-2">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                           <h3 className="text-lg font-medium mb-4">Alerts by Type</h3>
@@ -1103,13 +1103,13 @@ const TeacherAlertSystem = () => {
                   </div>
                   
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle>Alert List</CardTitle>
                       <CardDescription>
                         Alerts for concerning patterns in student behavior
                       </CardDescription>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="pt-2">
                       <Table>
                         <TableHeader>
                           <TableRow>
@@ -1185,13 +1185,13 @@ const TeacherAlertSystem = () => {
                   </Card>
                   
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle>Alert Details</CardTitle>
                       <CardDescription>
                         Select an alert to view detailed information and patterns
                       </CardDescription>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="pt-2">
                       <div className="text-center py-8">
                         <p className="text-muted-foreground">
                           Click on an alert to view detailed information, including identified patterns and recommendations.
@@ -1205,13 +1205,13 @@ const TeacherAlertSystem = () => {
                 <TabsContent value="abcc" className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <Card>
-                      <CardHeader>
+                      <CardHeader className="pb-2">
                         <CardTitle>Create ABCC Record</CardTitle>
                         <CardDescription>
                           Document behavior using the Antecedent-Behavior-Consequence-Communication framework
                         </CardDescription>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <div className="space-y-4">
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div className="space-y-2">
@@ -1361,7 +1361,7 @@ const TeacherAlertSystem = () => {
                     </Card>
                     
                     <Card>
-                      <CardHeader>
+                      <CardHeader className="pb-2">
                         <CardTitle>About ABCC Charts</CardTitle>
                         <CardDescription>
                           Understanding the ABCC framework for behavior analysis
@@ -1488,7 +1488,7 @@ const TeacherAlertSystem = () => {
                         </Select>
                       </div>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="pt-2">
                       <ScrollArea className="h-[600px]">
                         <div className="space-y-6">
                           {getFilteredAbccRecords().length > 0 ? (
@@ -1603,13 +1603,13 @@ const TeacherAlertSystem = () => {
                   </div>
                   
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle>Student List</CardTitle>
                       <CardDescription>
                         Students being monitored for behavioral patterns
                       </CardDescription>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="pt-2">
                       <Table>
                         <TableHeader>
                           <TableRow>
@@ -1702,7 +1702,7 @@ const TeacherAlertSystem = () => {
                   </Card>
                   
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle>Student Profile</CardTitle>
                       <CardDescription>
                         Select a student to view detailed information and behavior patterns
@@ -1910,13 +1910,13 @@ const TeacherAlertSystem = () => {
                 {/* Settings Tab */}
                 <TabsContent value="settings" className="space-y-6">
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle>Alert Settings</CardTitle>
                       <CardDescription>
                         Configure when and how alerts are generated
                       </CardDescription>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="pt-2">
                       <div className="space-y-6">
                         <div>
                           <h3 className="text-lg font-medium mb-4">Alert Thresholds</h3>
@@ -2099,13 +2099,13 @@ const TeacherAlertSystem = () => {
                   </Card>
                   
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle>Data Management</CardTitle>
                       <CardDescription>
                         Export and manage alert and ABCC data
                       </CardDescription>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="pt-2">
                       <div className="space-y-4">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           <Button variant="outline" className="w-full">
@@ -2152,3 +2152,4 @@ const TeacherAlertSystem = () => {
 };
 
 export default TeacherAlertSystem;
+

@@ -628,7 +628,7 @@ export default function SmartLessonPlanning() {
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <Card>
-                  <CardHeader>
+                  <CardHeader className="pb-2">
                     <CardTitle>Lesson Details</CardTitle>
                     <CardDescription>Basic information about your lesson</CardDescription>
                   </CardHeader>
@@ -742,7 +742,7 @@ export default function SmartLessonPlanning() {
                 
                 <div className="space-y-6">
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle>Differentiation</CardTitle>
                       <CardDescription>Customize your lesson for diverse learners</CardDescription>
                     </CardHeader>
@@ -798,7 +798,7 @@ export default function SmartLessonPlanning() {
                   
                   {selectedTemplate.id === 'custom' && (
                     <Card>
-                      <CardHeader>
+                      <CardHeader className="pb-2">
                         <CardTitle>Custom Sections</CardTitle>
                         <CardDescription>Add or remove sections for your custom lesson plan</CardDescription>
                       </CardHeader>
@@ -973,7 +973,7 @@ export default function SmartLessonPlanning() {
                 </div>
               </div>
               
-              <Card>
+              <Card className="w-full">
                 <CardContent className="p-6">
                   <div className="prose max-w-none">
                     {generatedLessonPlan.split('\n').map((line, index) => (
@@ -1072,3 +1072,4 @@ export default function SmartLessonPlanning() {
     </div>
   );
 }
+

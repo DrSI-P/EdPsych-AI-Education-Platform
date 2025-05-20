@@ -182,7 +182,7 @@ export const ImmersiveVoiceInput: React.FC<ImmersiveVoiceInputProps> = ({
         </CardTitle>
       </CardHeader>
       
-      <CardContent>
+      <CardContent className="pt-2">
         <TabsContent value="commands" className="mt-0 space-y-4">
           <div className="flex justify-center">
             {isListening ? (
@@ -276,3 +276,4 @@ export const ImmersiveVoiceInput: React.FC<ImmersiveVoiceInputProps> = ({
 };
 
 export default ImmersiveVoiceInput;
+

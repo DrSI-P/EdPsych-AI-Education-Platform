@@ -345,14 +345,14 @@ export default function ContentTransformationEngine({
   return (
     <div className="space-y-6">
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle>Content Transformation Engine</CardTitle>
           <CardDescription>
             Adapt educational content to different learning styles for personalized learning experiences.
           </CardDescription>
         </CardHeader>
         
-        <CardContent>
+        <CardContent className="pt-2">
           <div className="space-y-6">
             {/* Custom Content Input */}
             <div className="space-y-4">
@@ -478,14 +478,14 @@ export default function ContentTransformationEngine({
       
       {transformedContent && (
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>All Learning Styles</CardTitle>
             <CardDescription>
               Compare content adapted for different learning styles.
             </CardDescription>
           </CardHeader>
           
-          <CardContent>
+          <CardContent className="pt-2">
             <Tabs defaultValue={selectedStyle}>
               <TabsList className="grid grid-cols-5 mb-4">
                 <TabsTrigger value="visual" className="flex items-center gap-1">
@@ -529,3 +529,4 @@ export default function ContentTransformationEngine({
     </div>
   );
 }
+

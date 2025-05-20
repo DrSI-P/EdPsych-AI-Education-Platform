@@ -536,13 +536,13 @@ const AgeAppropriateReflectionPrompts = () => {
           {/* Browse Prompts Tab */}
           <TabsContent value="browse" className="space-y-6">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Reflection Prompts</CardTitle>
                 <CardDescription>
                   Browse age-appropriate prompts for different restorative contexts
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="flex flex-col space-y-4">
                   <div className="flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-4">
                     <div className="flex-1">
@@ -673,7 +673,7 @@ const AgeAppropriateReflectionPrompts = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div className="md:col-span-2">
                     <Card>
-                      <CardHeader>
+                      <CardHeader className="pb-2">
                         <CardTitle>Reflection Prompt</CardTitle>
                         <CardDescription>
                           {selectedPrompt.description}
@@ -687,7 +687,7 @@ const AgeAppropriateReflectionPrompts = () => {
                           </span>
                         </div>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <div className="space-y-6">
                           <div className="p-4 border rounded-lg bg-blue-50 border-blue-200">
                             <h3 className="text-lg font-medium mb-2">Main Prompt</h3>
@@ -730,10 +730,10 @@ const AgeAppropriateReflectionPrompts = () => {
 
                   <div>
                     <Card>
-                      <CardHeader>
+                      <CardHeader className="pb-2">
                         <CardTitle>Usage Guidelines</CardTitle>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <div className="space-y-4">
                           <div>
                             <h3 className="text-sm font-medium mb-1">Recommended For</h3>
@@ -813,13 +813,13 @@ const AgeAppropriateReflectionPrompts = () => {
           {/* Create Custom Tab */}
           <TabsContent value="create" className="space-y-6">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Create Custom Reflection Prompt</CardTitle>
                 <CardDescription>
                   Design your own age-appropriate reflection prompt
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
@@ -978,3 +978,4 @@ const AgeAppropriateReflectionPrompts = () => {
 };
 
 export default AgeAppropriateReflectionPrompts;
+

@@ -247,7 +247,7 @@ export default function SharedGoalTracking() {
                 Track progress across all goals
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="space-y-4">
                 <div>
                   <div className="flex justify-between items-center mb-1">
@@ -409,7 +409,7 @@ export default function SharedGoalTracking() {
                 </DropdownMenu>
               </div>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="space-y-6">
                 <div>
                   <div className="flex justify-between items-center mb-2">
@@ -584,3 +584,4 @@ export default function SharedGoalTracking() {
     </div>
   );
 }
+

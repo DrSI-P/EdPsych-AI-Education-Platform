@@ -445,7 +445,7 @@ export function PupilVoiceTool({
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {filteredEntries.map(entry => (
                 <Card key={entry.id} className="h-full flex flex-col">
-                  <CardHeader>
+                  <CardHeader className="pb-2">
                     <div className="flex items-start justify-between">
                       <h3 className="text-lg font-semibold">{entry.pupilName}</h3>
                       <span className={`px-2 py-1 text-xs rounded-full ${
@@ -640,3 +640,4 @@ export function PupilVoiceTool({
     </div>
   );
 }
+

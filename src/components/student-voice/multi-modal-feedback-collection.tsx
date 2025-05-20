@@ -604,13 +604,13 @@ export default function MultiModalFeedbackCollection() {
         {/* Provide Feedback Tab */}
         <TabsContent value="provide" className="space-y-6">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Share Your Thoughts</CardTitle>
               <CardDescription>
                 Your feedback helps improve the learning experience for everyone
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <form onSubmit={handleSubmitFeedback} className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
@@ -894,13 +894,13 @@ export default function MultiModalFeedbackCollection() {
           </Card>
           
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Quick Reactions</CardTitle>
               <CardDescription>
                 Express your feelings about today's lesson
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {emojiReactions.map(reaction => (
                   <Button
@@ -926,13 +926,13 @@ export default function MultiModalFeedbackCollection() {
         {/* Browse Feedback Tab */}
         <TabsContent value="browse" className="space-y-6">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Recent Feedback</CardTitle>
               <CardDescription>
                 Browse feedback shared by students
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="space-y-6">
                 {feedbackEntries.length === 0 ? (
                   <div className="text-center py-8 text-muted-foreground">
@@ -973,7 +973,7 @@ export default function MultiModalFeedbackCollection() {
                           </div>
                         </div>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <div className="space-y-2">
                           <div className="text-sm">
                             {entry.content}
@@ -1043,13 +1043,13 @@ export default function MultiModalFeedbackCollection() {
         <TabsContent value="transcription" className="space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Transcription & Translation</CardTitle>
                 <CardDescription>
                   Translate classroom content between languages
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <form onSubmit={handleRequestTranscription} className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
@@ -1134,13 +1134,13 @@ export default function MultiModalFeedbackCollection() {
             </Card>
             
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Translation History</CardTitle>
                 <CardDescription>
                   Recently translated content
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="space-y-4">
                   {transcriptionHistory.length === 0 ? (
                     <div className="text-center py-8 text-muted-foreground">
@@ -1200,19 +1200,19 @@ export default function MultiModalFeedbackCollection() {
           </div>
           
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Classroom Transcription Support</CardTitle>
               <CardDescription>
                 Tools to help EAL students access the curriculum
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <Card>
-                  <CardHeader>
+                  <CardHeader className="pb-2">
                     <CardTitle className="text-lg">Live Lesson Transcription</CardTitle>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <p className="text-sm text-muted-foreground mb-4">
                       Automatically transcribe teacher's speech in real-time to help EAL students follow along.
                     </p>
@@ -1224,10 +1224,10 @@ export default function MultiModalFeedbackCollection() {
                 </Card>
                 
                 <Card>
-                  <CardHeader>
+                  <CardHeader className="pb-2">
                     <CardTitle className="text-lg">Key Vocabulary Translation</CardTitle>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <p className="text-sm text-muted-foreground mb-4">
                       Create translated vocabulary lists for lessons to support EAL students.
                     </p>
@@ -1239,10 +1239,10 @@ export default function MultiModalFeedbackCollection() {
                 </Card>
                 
                 <Card>
-                  <CardHeader>
+                  <CardHeader className="pb-2">
                     <CardTitle className="text-lg">Interpreter Mode</CardTitle>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <p className="text-sm text-muted-foreground mb-4">
                       Real-time spoken translation for parent-teacher conferences and student support.
                     </p>
@@ -1265,3 +1265,4 @@ export default function MultiModalFeedbackCollection() {
     </div>
   );
 }
+

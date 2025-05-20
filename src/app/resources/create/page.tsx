@@ -223,7 +223,7 @@ export default function CreateResource() {
                 )}
                 
                 <Card>
-                  <CardHeader>
+                  <CardHeader className="pb-2">
                     <CardTitle>Basic Information</CardTitle>
                     <CardDescription>
                       Provide details about your educational resource
@@ -376,7 +376,7 @@ export default function CreateResource() {
                 </Card>
                 
                 <Card>
-                  <CardHeader>
+                  <CardHeader className="pb-2">
                     <CardTitle>Sharing Settings</CardTitle>
                     <CardDescription>
                       Control how your resource is shared with others
@@ -434,7 +434,7 @@ export default function CreateResource() {
               
               <TabsContent value="files" className="mt-6 space-y-6">
                 <Card>
-                  <CardHeader>
+                  <CardHeader className="pb-2">
                     <CardTitle>Upload Files</CardTitle>
                     <CardDescription>
                       Upload the files for your resource
@@ -510,13 +510,13 @@ export default function CreateResource() {
                 </Card>
                 
                 <Card>
-                  <CardHeader>
+                  <CardHeader className="pb-2">
                     <CardTitle>Resource Preview</CardTitle>
                     <CardDescription>
                       This is how your resource will appear in the library
                     </CardDescription>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <div className="border rounded-lg overflow-hidden">
                       <div className="h-48 bg-muted flex items-center justify-center">
                         {previewUrl ? (
@@ -564,7 +564,7 @@ export default function CreateResource() {
           <div className="lg:col-span-1">
             <div className="sticky top-6 space-y-6">
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Resource Summary</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
@@ -630,10 +630,10 @@ export default function CreateResource() {
               </Card>
               
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Need Help?</CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <p className="text-sm text-muted-foreground">
                     Resources should be aligned with UK curriculum standards and use UK English spelling.
                   </p>
@@ -652,3 +652,4 @@ export default function CreateResource() {
     </div>
   );
 }
+

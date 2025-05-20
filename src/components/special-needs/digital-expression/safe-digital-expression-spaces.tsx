@@ -712,13 +712,13 @@ const SafeDigitalExpressionSpaces = () => {
   return (
     <div className="space-y-6">
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle>Safe Digital Expression Spaces</CardTitle>
           <CardDescription>
             Express yourself, reflect, and connect in a secure digital environment
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-2">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid w-full grid-cols-4">
               <TabsTrigger value="journal">Digital Journal</TabsTrigger>
@@ -736,7 +736,7 @@ const SafeDigitalExpressionSpaces = () => {
                 {/* Digital Journal Tab */}
                 <TabsContent value="journal" className="space-y-6">
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle>Create New Journal Entry</CardTitle>
                       <CardDescription>
                         Express your thoughts, feelings, and experiences in a safe space
@@ -1023,7 +1023,7 @@ const SafeDigitalExpressionSpaces = () => {
                 {/* Creative Expression Tab */}
                 <TabsContent value="art" className="space-y-6">
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle>Creative Expression Gallery</CardTitle>
                       <CardDescription>
                         Express your emotions and experiences through art, drawing, and creative projects
@@ -1065,7 +1065,7 @@ const SafeDigitalExpressionSpaces = () => {
                       </div>
                       
                       {selectedArtwork ? (
-                        <Card>
+                        <Card className="w-full">
                           <div className="aspect-video relative overflow-hidden rounded-t-lg">
                             {/* In a real implementation, this would be an actual image */}
                             <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">
@@ -1201,7 +1201,7 @@ const SafeDigitalExpressionSpaces = () => {
                 {/* Media Projects Tab */}
                 <TabsContent value="media" className="space-y-6">
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle>Media Projects</CardTitle>
                       <CardDescription>
                         Express yourself through video, audio, and interactive media projects
@@ -1259,7 +1259,7 @@ const SafeDigitalExpressionSpaces = () => {
                       </div>
                       
                       {selectedProject ? (
-                        <Card>
+                        <Card className="w-full">
                           <div className="aspect-video relative overflow-hidden rounded-t-lg">
                             {/* In a real implementation, this would be an actual media player */}
                             <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">
@@ -1402,7 +1402,7 @@ const SafeDigitalExpressionSpaces = () => {
                 {/* Peer Support Tab */}
                 <TabsContent value="groups" className="space-y-6">
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle>Peer Support Groups</CardTitle>
                       <CardDescription>
                         Connect with peers and support each other in a safe, moderated environment
@@ -1430,7 +1430,7 @@ const SafeDigitalExpressionSpaces = () => {
                       
                       {selectedGroup ? (
                         <Card>
-                          <CardHeader>
+                          <CardHeader className="pb-2">
                             <div className="flex justify-between items-start">
                               <div>
                                 <CardTitle>{selectedGroup.name}</CardTitle>
@@ -1449,7 +1449,7 @@ const SafeDigitalExpressionSpaces = () => {
                               </div>
                             </div>
                           </CardHeader>
-                          <CardContent>
+                          <CardContent className="pt-2">
                             <div className="space-y-6">
                               <div>
                                 <h3 className="text-lg font-medium mb-2">About this Group</h3>
@@ -1541,7 +1541,7 @@ const SafeDigitalExpressionSpaces = () => {
                               className="cursor-pointer hover:shadow-md transition-shadow"
                               onClick={() => setSelectedGroup(group)}
                             >
-                              <CardHeader>
+                              <CardHeader className="pb-2">
                                 <div className="flex justify-between items-start">
                                   <CardTitle>{group.name}</CardTitle>
                                   <Badge variant="outline" className="bg-blue-50 text-blue-700">
@@ -1552,7 +1552,7 @@ const SafeDigitalExpressionSpaces = () => {
                                   Facilitated by {group.facilitator}
                                 </CardDescription>
                               </CardHeader>
-                              <CardContent>
+                              <CardContent className="pt-2">
                                 <p className="mb-4">{group.description}</p>
                                 
                                 <div className="flex flex-wrap gap-2 mb-4">
@@ -1613,3 +1613,4 @@ const SafeDigitalExpressionSpaces = () => {
 };
 
 export default SafeDigitalExpressionSpaces;
+

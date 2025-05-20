@@ -150,7 +150,7 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
   if (isLoading) {
     return (
       <Card className={className}>
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle>{t('language_settings', 'settings')}</CardTitle>
           <CardDescription>
             {t('language_settings_description', 'settings')}
@@ -168,7 +168,7 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
   if (error && !preferences) {
     return (
       <Card className={className}>
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle>{t('language_settings', 'settings')}</CardTitle>
           <CardDescription>
             {t('language_settings_description', 'settings')}
@@ -194,14 +194,14 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
   
   return (
     <Card className={className}>
-      <CardHeader>
+      <CardHeader className="pb-2">
         <CardTitle>{t('language_settings', 'settings')}</CardTitle>
         <CardDescription>
           {t('language_settings_description', 'settings')}
         </CardDescription>
       </CardHeader>
       
-      <CardContent>
+      <CardContent className="pt-2">
         <Tabs defaultValue="general">
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="general">
@@ -442,3 +442,4 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
 };
 
 export default LanguageSettings;
+

@@ -36,7 +36,7 @@ const ErrorBoundaryIntegration: React.FC = () => {
         
         <TabsContent value="usage" className="mt-6">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>How to Use Error Boundaries</CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -108,7 +108,7 @@ import RootErrorBoundary from '@/components/error-boundary/root-error-boundary';
         
         <TabsContent value="examples" className="mt-6">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Integration Examples</CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -220,7 +220,7 @@ export default function DashboardWrapper() {
         
         <TabsContent value="best-practices" className="mt-6">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Best Practices</CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -355,3 +355,4 @@ export default function DashboardWrapper() {
 };
 
 export default ErrorBoundaryIntegration;
+

@@ -55,7 +55,7 @@ export default function RequestResetPage() {
           </p>
         </div>
         
-        <Card>
+        <Card className="w-full">
           <CardContent className="pt-6">
             {success ? (
               <div className="text-center py-4">
@@ -116,3 +116,4 @@ export default function RequestResetPage() {
     </div>
   );
 }
+

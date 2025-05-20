@@ -23,7 +23,7 @@ export default function CalendarOptimisationPage() {
         
         <TabsContent value="about">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>About Calendar Optimisation</CardTitle>
               <CardDescription>
                 Understanding how this feature helps educators manage their time effectively
@@ -67,7 +67,7 @@ export default function CalendarOptimisationPage() {
         
         <TabsContent value="help">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Help & Tips</CardTitle>
               <CardDescription>
                 Guidance on getting the most from the Calendar Optimisation feature
@@ -134,3 +134,4 @@ export default function CalendarOptimisationPage() {
     </div>
   );
 }
+

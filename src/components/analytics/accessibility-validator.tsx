@@ -175,7 +175,7 @@ export const AccessibilityValidator: React.FC<AccessibilityValidatorProps> = ({
                 <CardTitle>Overall Accessibility Score</CardTitle>
                 <CardDescription>Based on WCAG 2.1 AA standards</CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="flex items-center justify-center">
                   <div className={`text-6xl font-bold ${getScoreColor(accessibilityScore)}`}>
                     {accessibilityScore}
@@ -254,10 +254,10 @@ export const AccessibilityValidator: React.FC<AccessibilityValidatorProps> = ({
           </div>
           
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Summary of Findings</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="space-y-4">
                 <div className="grid grid-cols-3 gap-4">
                   <div className="flex flex-col items-center p-4 border rounded-md">
@@ -309,7 +309,7 @@ export const AccessibilityValidator: React.FC<AccessibilityValidatorProps> = ({
         
         <TabsContent value="issues" className="pt-4">
           {issues.length === 0 ? (
-            <Card>
+            <Card className="w-full">
               <CardContent className="flex flex-col items-center justify-center p-8">
                 <CheckCircle2 className="h-16 w-16 text-green-500 mb-4" />
                 <p className="text-center text-muted-foreground">
@@ -330,7 +330,7 @@ export const AccessibilityValidator: React.FC<AccessibilityValidatorProps> = ({
                       {getImpactBadge(issue.impact)}
                     </div>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <p className="mb-2">{issue.description}</p>
                     <div className="bg-muted p-3 rounded-md">
                       <p className="font-medium">Suggested Fix:</p>
@@ -353,11 +353,11 @@ export const AccessibilityValidator: React.FC<AccessibilityValidatorProps> = ({
         
         <TabsContent value="wcag" className="pt-4">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>WCAG 2.1 AA Compliance</CardTitle>
               <CardDescription>Web Content Accessibility Guidelines compliance status</CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="space-y-4">
                 <div className="border rounded-md">
                   <div className="bg-muted p-3 font-medium">1. Perceivable</div>
@@ -437,11 +437,11 @@ export const AccessibilityValidator: React.FC<AccessibilityValidatorProps> = ({
         
         <TabsContent value="recommendations" className="pt-4">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Recommendations</CardTitle>
               <CardDescription>Suggested improvements for better accessibility</CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="space-y-4">
                 {issues.length === 0 ? (
                   <p>No recommendations needed. The dashboard meets WCAG 2.1 AA standards.</p>
@@ -519,3 +519,4 @@ export const AccessibilityValidator: React.FC<AccessibilityValidatorProps> = ({
 };
 
 export default AccessibilityValidator;
+

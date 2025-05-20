@@ -386,7 +386,7 @@ export function ResourceAndAssessmentAnalytics() {
             </CardTitle>
             <Library className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold">5,842</div>
             <p className="text-xs text-muted-foreground">
               +12% from previous term
@@ -404,7 +404,7 @@ export function ResourceAndAssessmentAnalytics() {
             </CardTitle>
             <Laptop className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold">68%</div>
             <p className="text-xs text-muted-foreground">
               +15% from previous term
@@ -422,7 +422,7 @@ export function ResourceAndAssessmentAnalytics() {
             </CardTitle>
             <FileCheck className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold">87%</div>
             <p className="text-xs text-muted-foreground">
               +5% from previous term
@@ -440,7 +440,7 @@ export function ResourceAndAssessmentAnalytics() {
             </CardTitle>
             <TrendingUp className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold">3.2x</div>
             <p className="text-xs text-muted-foreground">
               +0.4x from previous term
@@ -455,13 +455,13 @@ export function ResourceAndAssessmentAnalytics() {
       {/* Main charts */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Resource Usage Trends</CardTitle>
             <CardDescription>
               Usage patterns across resource types
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[350px]">
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart
@@ -504,13 +504,13 @@ export function ResourceAndAssessmentAnalytics() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Assessment Distribution</CardTitle>
             <CardDescription>
               Distribution of assessment types
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[350px]">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
@@ -541,13 +541,13 @@ export function ResourceAndAssessmentAnalytics() {
       {/* Additional analytics */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Resource Distribution by Subject</CardTitle>
             <CardDescription>
               Resource allocation across curriculum areas
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
@@ -570,13 +570,13 @@ export function ResourceAndAssessmentAnalytics() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Assessment Quality</CardTitle>
             <CardDescription>
               Quality metrics for assessment practices
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
                 <RadarChart outerRadius={90} data={assessmentQualityData}>
@@ -593,7 +593,7 @@ export function ResourceAndAssessmentAnalytics() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Popular Resources</CardTitle>
             <CardDescription>
               Most frequently used teaching resources
@@ -641,13 +641,13 @@ export function ResourceAndAssessmentAnalytics() {
     <>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Resource Usage Trends</CardTitle>
             <CardDescription>
               Usage patterns across resource types
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[400px]">
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart
@@ -690,13 +690,13 @@ export function ResourceAndAssessmentAnalytics() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Resource Categories</CardTitle>
             <CardDescription>
               Hierarchical view of resource categories
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[400px]">
               <ResponsiveContainer width="100%" height="100%">
                 <Treemap
@@ -717,13 +717,13 @@ export function ResourceAndAssessmentAnalytics() {
       
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Resource Distribution by Subject</CardTitle>
             <CardDescription>
               Resource allocation across curriculum areas
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[350px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
@@ -746,13 +746,13 @@ export function ResourceAndAssessmentAnalytics() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Resource Usage by Device</CardTitle>
             <CardDescription>
               Distribution of resource access by device type
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[350px]">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
@@ -787,13 +787,13 @@ export function ResourceAndAssessmentAnalytics() {
       
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Resource Format Distribution</CardTitle>
             <CardDescription>
               Breakdown of digital resource formats
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
@@ -826,13 +826,13 @@ export function ResourceAndAssessmentAnalytics() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Resource Access Patterns</CardTitle>
             <CardDescription>
               When resources are most frequently accessed
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
@@ -859,7 +859,7 @@ export function ResourceAndAssessmentAnalytics() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Popular Resources</CardTitle>
             <CardDescription>
               Most frequently used teaching resources
@@ -900,13 +900,13 @@ export function ResourceAndAssessmentAnalytics() {
     <>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Resource Effectiveness vs. Usage</CardTitle>
             <CardDescription>
               Comparing effectiveness ratings with usage frequency
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[400px]">
               <ResponsiveContainer width="100%" height="100%">
                 <ScatterChart
@@ -940,13 +940,13 @@ export function ResourceAndAssessmentAnalytics() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Resource ROI Analysis</CardTitle>
             <CardDescription>
               Return on investment for different resource types
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[400px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
@@ -978,13 +978,13 @@ export function ResourceAndAssessmentAnalytics() {
       
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Resource Impact on Student Outcomes</CardTitle>
             <CardDescription>
               Correlation between resource usage and student progress
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[350px]">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart
@@ -1031,13 +1031,13 @@ export function ResourceAndAssessmentAnalytics() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Resource Effectiveness by Subject</CardTitle>
             <CardDescription>
               How resource effectiveness varies across subjects
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[350px]">
               <ResponsiveContainer width="100%" height="100%">
                 <RadarChart outerRadius={150} data={[
@@ -1065,13 +1065,13 @@ export function ResourceAndAssessmentAnalytics() {
       
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Cost-Effectiveness Analysis</CardTitle>
             <CardDescription>
               Effectiveness relative to resource cost
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
                 <ScatterChart
@@ -1106,13 +1106,13 @@ export function ResourceAndAssessmentAnalytics() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Resource Longevity</CardTitle>
             <CardDescription>
               Effectiveness retention over time
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart
@@ -1140,7 +1140,7 @@ export function ResourceAndAssessmentAnalytics() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Most Effective Resources</CardTitle>
             <CardDescription>
               Highest impact teaching resources
@@ -1174,13 +1174,13 @@ export function ResourceAndAssessmentAnalytics() {
     <>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Assessment Type Distribution</CardTitle>
             <CardDescription>
               Breakdown of assessment approaches
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[400px]">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
@@ -1208,13 +1208,13 @@ export function ResourceAndAssessmentAnalytics() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Assessment Frequency</CardTitle>
             <CardDescription>
               Assessment patterns throughout the academic year
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[400px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
@@ -1238,13 +1238,13 @@ export function ResourceAndAssessmentAnalytics() {
       
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Assessment Quality</CardTitle>
             <CardDescription>
               Quality metrics for assessment practices
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[350px]">
               <ResponsiveContainer width="100%" height="100%">
                 <RadarChart outerRadius={150} data={assessmentQualityData}>
@@ -1261,13 +1261,13 @@ export function ResourceAndAssessmentAnalytics() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Assessment Format Distribution</CardTitle>
             <CardDescription>
               Types of assessment formats used
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[350px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
@@ -1299,13 +1299,13 @@ export function ResourceAndAssessmentAnalytics() {
       
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Digital vs. Traditional Assessment</CardTitle>
             <CardDescription>
               Comparison of assessment methods
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
@@ -1336,13 +1336,13 @@ export function ResourceAndAssessmentAnalytics() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Assessment Time Efficiency</CardTitle>
             <CardDescription>
               Time spent on different assessment activities
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
@@ -1375,7 +1375,7 @@ export function ResourceAndAssessmentAnalytics() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Assessment Tools</CardTitle>
             <CardDescription>
               Most frequently used assessment tools
@@ -1457,13 +1457,13 @@ export function ResourceAndAssessmentAnalytics() {
     <>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Assessment Impact Analysis</CardTitle>
             <CardDescription>
               Impact metrics for different assessment types
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[400px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
@@ -1485,13 +1485,13 @@ export function ResourceAndAssessmentAnalytics() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Assessment Feedback Impact</CardTitle>
             <CardDescription>
               How different feedback approaches affect learning
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[400px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
@@ -1523,13 +1523,13 @@ export function ResourceAndAssessmentAnalytics() {
       
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Assessment Timing Impact</CardTitle>
             <CardDescription>
               Effect of assessment timing on student outcomes
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[350px]">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart
@@ -1558,13 +1558,13 @@ export function ResourceAndAssessmentAnalytics() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Assessment Format Effectiveness</CardTitle>
             <CardDescription>
               Effectiveness of different assessment formats
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[350px]">
               <ResponsiveContainer width="100%" height="100%">
                 <RadarChart outerRadius={150} data={[
@@ -1592,13 +1592,13 @@ export function ResourceAndAssessmentAnalytics() {
       
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Student Perception</CardTitle>
             <CardDescription>
               How students perceive different assessments
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
@@ -1623,13 +1623,13 @@ export function ResourceAndAssessmentAnalytics() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Assessment Anxiety Impact</CardTitle>
             <CardDescription>
               How assessment approaches affect student anxiety
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
@@ -1657,7 +1657,7 @@ export function ResourceAndAssessmentAnalytics() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>High-Impact Assessment Practices</CardTitle>
             <CardDescription>
               Assessment approaches with greatest learning impact
@@ -1727,7 +1727,7 @@ export function ResourceAndAssessmentAnalytics() {
     <>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Resource Optimization Recommendations</CardTitle>
             <CardDescription>
               AI-powered suggestions to optimize resource usage
@@ -1799,7 +1799,7 @@ export function ResourceAndAssessmentAnalytics() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Assessment Strategy Recommendations</CardTitle>
             <CardDescription>
               Evidence-based suggestions to enhance assessment practices
@@ -1873,7 +1873,7 @@ export function ResourceAndAssessmentAnalytics() {
       
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Resource Gap Analysis</CardTitle>
             <CardDescription>
               Identified gaps in current resource provision
@@ -1924,7 +1924,7 @@ export function ResourceAndAssessmentAnalytics() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Assessment Improvement Areas</CardTitle>
             <CardDescription>
               Key areas for assessment enhancement
@@ -1975,7 +1975,7 @@ export function ResourceAndAssessmentAnalytics() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Cost-Saving Opportunities</CardTitle>
             <CardDescription>
               Potential efficiency improvements and savings
@@ -2155,3 +2155,4 @@ const ReferenceLine = ({ x, y, stroke, label }) => {
     </g>
   );
 };
+

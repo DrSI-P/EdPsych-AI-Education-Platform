@@ -203,13 +203,13 @@ export default function LearningPathRecommendations() {
       <h1 className="text-3xl font-bold mb-6">Personalised Learning Path Recommendations</h1>
       
       <Card className="mb-6">
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle>Generate Your Learning Path</CardTitle>
           <CardDescription>
             Our AI will create a personalised learning path tailored to your learning style, strengths, and interests.
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-2">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-4">
               <div className="space-y-2">
@@ -318,7 +318,7 @@ export default function LearningPathRecommendations() {
       
       {learningPath && (
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <div className="flex justify-between items-start">
               <div>
                 <CardTitle>{learningPath.title}</CardTitle>
@@ -336,7 +336,7 @@ export default function LearningPathRecommendations() {
               </div>
             </div>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
               <div className="flex items-center space-x-2">
                 <BookOpen className="h-5 w-5 text-primary" />
@@ -505,3 +505,4 @@ export default function LearningPathRecommendations() {
     </div>
   );
 }
+

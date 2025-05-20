@@ -237,7 +237,7 @@ export function ProfessionalDashboard({
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <Card>
+                <Card className="w-full">
                   <CardContent className="pt-6">
                     <div className="text-center">
                       <div className="text-3xl font-bold text-blue-600 mb-1">
@@ -247,7 +247,7 @@ export function ProfessionalDashboard({
                     </div>
                   </CardContent>
                 </Card>
-                <Card>
+                <Card className="w-full">
                   <CardContent className="pt-6">
                     <div className="text-center">
                       <div className="text-3xl font-bold text-green-600 mb-1">
@@ -259,7 +259,7 @@ export function ProfessionalDashboard({
                     </div>
                   </CardContent>
                 </Card>
-                <Card>
+                <Card className="w-full">
                   <CardContent className="pt-6">
                     <div className="text-center">
                       <div className="text-3xl font-bold text-purple-600 mb-1">
@@ -364,7 +364,7 @@ export function ProfessionalDashboard({
                 <CardHeader>
                   <h3 className="text-lg font-semibold">Caseload Overview</h3>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="space-y-4">
                     {professionalData.caseload
                       .sort((a, b) => {
@@ -445,7 +445,7 @@ export function ProfessionalDashboard({
                 <CardHeader>
                   <h3 className="text-lg font-semibold">AI Assistant</h3>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="space-y-4">
                     <div>
                       <h4 className="text-sm font-medium mb-2">Generate Report Draft</h4>
@@ -803,7 +803,7 @@ export function ProfessionalDashboard({
                 <CardHeader>
                   <h3 className="text-lg font-semibold">AI Report Assistant</h3>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <AIPrompt
                     placeholder="Describe the student and assessment results for report generation..."
                     systemPrompt={`You are an educational psychology assistant helping ${professionalData.name}, a ${professionalData.role}. Generate a professional report draft based on the information provided. Follow UK educational psychology report standards and use UK English spelling. Include sections for background, assessment results, interpretation, recommendations, and next steps. Keep the tone professional and evidence-based.`}
@@ -852,7 +852,7 @@ export function ProfessionalDashboard({
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {professionalData.resources.map(resource => (
                   <Card key={resource.id} className="h-full flex flex-col">
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <div className="flex justify-between items-start">
                         <h3 className="text-lg font-semibold">{resource.title}</h3>
                         <span className={`text-xs px-2 py-0.5 rounded-full ${
@@ -900,7 +900,7 @@ export function ProfessionalDashboard({
                 <CardHeader>
                   <h3 className="text-lg font-semibold">AI Resource Finder</h3>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <AIPrompt
                     placeholder="Describe the student needs and areas requiring support..."
                     systemPrompt={`You are an educational psychology assistant helping ${professionalData.name}, a ${professionalData.role}. Suggest evidence-based resources and interventions based on the student needs described. Follow UK educational psychology standards and use UK English spelling. For each suggested resource, include: name, brief description, target areas, age appropriateness, implementation approach, and expected outcomes. Focus on practical, evidence-based resources that are available in the UK educational context.`}
@@ -921,3 +921,4 @@ export function ProfessionalDashboard({
     </div>
   );
 }
+

@@ -589,13 +589,13 @@ export default function ParentCommunicationManagement() {
         
         <TabsContent value="announcements" className="space-y-4">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>School Announcements</CardTitle>
               <CardDescription>
                 Important updates and announcements from the school
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="space-y-4">
                 <div className="bg-muted rounded-lg p-4">
                   <div className="flex justify-between items-start">
@@ -710,13 +710,13 @@ export default function ParentCommunicationManagement() {
         
         <TabsContent value="meetings" className="space-y-4">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Upcoming Meetings</CardTitle>
               <CardDescription>
                 Schedule and manage parent-teacher meetings
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="space-y-4">
                 <div className="bg-muted rounded-lg p-4">
                   <div className="flex justify-between items-start">
@@ -807,13 +807,13 @@ export default function ParentCommunicationManagement() {
         
         <TabsContent value="resources" className="space-y-4">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Shared Resources</CardTitle>
               <CardDescription>
                 Resources shared between home and school
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="space-y-4">
                 <div className="flex justify-between items-center">
                   <div className="relative w-full max-w-sm">
@@ -971,3 +971,4 @@ export default function ParentCommunicationManagement() {
     </div>
   );
 }
+

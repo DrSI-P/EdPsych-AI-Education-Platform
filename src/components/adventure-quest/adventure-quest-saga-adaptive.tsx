@@ -751,14 +751,14 @@ const AdaptiveQuestGenerator = ({
       </div>
       
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle className="flex items-center">
             <Sparkles className="h-5 w-5 mr-2" />
             Quest Parameters
           </CardTitle>
           <CardDescription>Customize your quest or let the system adapt to your needs</CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-2">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-4">
               <div>
@@ -1169,7 +1169,7 @@ const ProgressTrackingDashboard = ({
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card>
+        <Card className="w-full">
           <CardContent className="pt-6">
             <div className="flex flex-col items-center">
               <div className="text-2xl font-bold">{completedQuests?.length || 0}</div>
@@ -1178,7 +1178,7 @@ const ProgressTrackingDashboard = ({
           </CardContent>
         </Card>
         
-        <Card>
+        <Card className="w-full">
           <CardContent className="pt-6">
             <div className="flex flex-col items-center">
               <div className="text-2xl font-bold">{Math.round(overallProgress.averageScore)}%</div>
@@ -1187,7 +1187,7 @@ const ProgressTrackingDashboard = ({
           </CardContent>
         </Card>
         
-        <Card>
+        <Card className="w-full">
           <CardContent className="pt-6">
             <div className="flex flex-col items-center">
               <div className="text-2xl font-bold">{overallProgress.totalXP}</div>
@@ -1196,7 +1196,7 @@ const ProgressTrackingDashboard = ({
           </CardContent>
         </Card>
         
-        <Card>
+        <Card className="w-full">
           <CardContent className="pt-6">
             <div className="flex flex-col items-center">
               <div className="text-2xl font-bold">{character?.level || 1}</div>
@@ -1228,14 +1228,14 @@ const ProgressTrackingDashboard = ({
         
         <TabsContent value="overview" className="space-y-6">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle className="flex items-center">
                 <Activity className="h-5 w-5 mr-2" />
                 Overall Progress
               </CardTitle>
               <CardDescription>Your learning journey at a glance</CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="space-y-6">
                 <div>
                   <div className="flex justify-between items-center mb-2">
@@ -1281,7 +1281,7 @@ const ProgressTrackingDashboard = ({
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle className="flex items-center">
                   <Trophy className="h-5 w-5 mr-2" />
                   Recent Achievements
@@ -1314,7 +1314,7 @@ const ProgressTrackingDashboard = ({
             </Card>
             
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle className="flex items-center">
                   <Sword className="h-5 w-5 mr-2" />
                   Active Quests
@@ -1356,7 +1356,7 @@ const ProgressTrackingDashboard = ({
         
         <TabsContent value="subjects" className="space-y-6">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle className="flex items-center">
                 <BookOpen className="h-5 w-5 mr-2" />
                 Subject Performance
@@ -1417,7 +1417,7 @@ const ProgressTrackingDashboard = ({
           </Card>
           
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle className="flex items-center">
                 <PieChart className="h-5 w-5 mr-2" />
                 Subject Distribution
@@ -1448,7 +1448,7 @@ const ProgressTrackingDashboard = ({
         
         <TabsContent value="learning-styles" className="space-y-6">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle className="flex items-center">
                 <Brain className="h-5 w-5 mr-2" />
                 Learning Style Effectiveness
@@ -1521,7 +1521,7 @@ const ProgressTrackingDashboard = ({
           </Card>
           
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle className="flex items-center">
                 <Puzzle className="h-5 w-5 mr-2" />
                 Recommended Learning Approaches
@@ -1591,7 +1591,7 @@ const ProgressTrackingDashboard = ({
         
         <TabsContent value="trends" className="space-y-6">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle className="flex items-center">
                 <LineChart className="h-5 w-5 mr-2" />
                 Progress Over Time
@@ -1640,7 +1640,7 @@ const ProgressTrackingDashboard = ({
           </Card>
           
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle className="flex items-center">
                 <Milestone className="h-5 w-5 mr-2" />
                 Learning Milestones
@@ -2070,3 +2070,4 @@ const User = (props) => (
 );
 
 export default AdventureQuestSagaAdaptive;
+

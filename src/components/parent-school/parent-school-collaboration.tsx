@@ -1199,7 +1199,7 @@ export default function ParentSchoolCollaboration() {
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card>
+        <Card className="w-full">
           <CardContent className="pt-6">
             <div className="flex justify-between items-start">
               <div className="space-y-1">
@@ -1216,7 +1216,7 @@ export default function ParentSchoolCollaboration() {
           </CardContent>
         </Card>
         
-        <Card>
+        <Card className="w-full">
           <CardContent className="pt-6">
             <div className="flex justify-between items-start">
               <div className="space-y-1">
@@ -1233,7 +1233,7 @@ export default function ParentSchoolCollaboration() {
           </CardContent>
         </Card>
         
-        <Card>
+        <Card className="w-full">
           <CardContent className="pt-6">
             <div className="flex justify-between items-start">
               <div className="space-y-1">
@@ -1250,7 +1250,7 @@ export default function ParentSchoolCollaboration() {
           </CardContent>
         </Card>
         
-        <Card>
+        <Card className="w-full">
           <CardContent className="pt-6">
             <div className="flex justify-between items-start">
               <div className="space-y-1">
@@ -1294,7 +1294,7 @@ export default function ParentSchoolCollaboration() {
         <TabsContent value="messages" className="space-y-4">
           {selectedMessage ? (
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <div className="flex justify-between items-center">
                   <div className="flex items-center">
                     <Avatar className="h-10 w-10 mr-2">
@@ -1310,7 +1310,7 @@ export default function ParentSchoolCollaboration() {
                   </Button>
                 </div>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="space-y-4">
                   <div>
                     <div className="flex justify-between items-center mb-2">
@@ -1444,7 +1444,7 @@ export default function ParentSchoolCollaboration() {
               ))}
               
               {filteredMessages.length === 0 && (
-                <Card>
+                <Card className="w-full">
                   <CardContent className="p-8 flex flex-col items-center justify-center">
                     <MessageSquare className="h-12 w-12 text-muted-foreground mb-4" />
                     <h3 className="font-medium text-center">No messages found</h3>
@@ -1463,7 +1463,7 @@ export default function ParentSchoolCollaboration() {
         <TabsContent value="goals" className="space-y-4">
           {selectedGoal ? (
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <div className="flex justify-between items-center">
                   <div>
                     <CardTitle>{selectedGoal.title}</CardTitle>
@@ -1476,7 +1476,7 @@ export default function ParentSchoolCollaboration() {
                   </Button>
                 </div>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="space-y-6">
                   <div>
                     <h3 className="text-lg font-medium">Description</h3>
@@ -1659,7 +1659,7 @@ export default function ParentSchoolCollaboration() {
               ))}
               
               {filteredGoals.length === 0 && (
-                <Card>
+                <Card className="w-full">
                   <CardContent className="p-8 flex flex-col items-center justify-center">
                     <Target className="h-12 w-12 text-muted-foreground mb-4" />
                     <h3 className="font-medium text-center">No goals found</h3>
@@ -1678,7 +1678,7 @@ export default function ParentSchoolCollaboration() {
         <TabsContent value="strategies" className="space-y-4">
           {selectedStrategy ? (
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <div className="flex justify-between items-center">
                   <div>
                     <CardTitle>{selectedStrategy.title}</CardTitle>
@@ -1691,7 +1691,7 @@ export default function ParentSchoolCollaboration() {
                   </Button>
                 </div>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="space-y-6">
                   <div className="aspect-video bg-muted rounded-lg flex items-center justify-center">
                     <img 
@@ -1830,7 +1830,7 @@ export default function ParentSchoolCollaboration() {
               </div>
               
               {filteredStrategies.length === 0 && (
-                <Card>
+                <Card className="w-full">
                   <CardContent className="p-8 flex flex-col items-center justify-center">
                     <BookOpen className="h-12 w-12 text-muted-foreground mb-4" />
                     <h3 className="font-medium text-center">No strategies found</h3>
@@ -1846,7 +1846,7 @@ export default function ParentSchoolCollaboration() {
         <TabsContent value="meetings" className="space-y-4">
           {selectedMeeting ? (
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <div className="flex justify-between items-center">
                   <div>
                     <CardTitle>{selectedMeeting.title}</CardTitle>
@@ -1859,7 +1859,7 @@ export default function ParentSchoolCollaboration() {
                   </Button>
                 </div>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="space-y-1">
@@ -2002,7 +2002,7 @@ export default function ParentSchoolCollaboration() {
                 ))}
                 
                 {filteredMeetings.length === 0 && (
-                  <Card>
+                  <Card className="w-full">
                     <CardContent className="p-8 flex flex-col items-center justify-center">
                       <Calendar className="h-12 w-12 text-muted-foreground mb-4" />
                       <h3 className="font-medium text-center">No meetings found</h3>
@@ -2022,7 +2022,7 @@ export default function ParentSchoolCollaboration() {
         <TabsContent value="celebrations" className="space-y-4">
           {selectedCelebration ? (
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <div className="flex justify-between items-center">
                   <div>
                     <CardTitle>{selectedCelebration.title}</CardTitle>
@@ -2035,7 +2035,7 @@ export default function ParentSchoolCollaboration() {
                   </Button>
                 </div>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="space-y-6">
                   {selectedCelebration.media.map((item) => (
                     <div key={item.id} className="aspect-video bg-muted rounded-lg overflow-hidden">
@@ -2202,7 +2202,7 @@ export default function ParentSchoolCollaboration() {
                 ))}
                 
                 {filteredCelebrations.length === 0 && (
-                  <Card>
+                  <Card className="w-full">
                     <CardContent className="p-8 flex flex-col items-center justify-center">
                       <Award className="h-12 w-12 text-muted-foreground mb-4" />
                       <h3 className="font-medium text-center">No celebrations found</h3>
@@ -2221,3 +2221,4 @@ export default function ParentSchoolCollaboration() {
     </div>
   );
 }
+

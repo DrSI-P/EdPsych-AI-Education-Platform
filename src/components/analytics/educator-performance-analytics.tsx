@@ -319,7 +319,7 @@ export function EducatorPerformanceAnalytics() {
             </CardTitle>
             <Star className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold">94.3%</div>
             <p className="text-xs text-muted-foreground">
               +3.2% from previous term
@@ -337,7 +337,7 @@ export function EducatorPerformanceAnalytics() {
             </CardTitle>
             <TrendingUp className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold">+15.2%</div>
             <p className="text-xs text-muted-foreground">
               +2.1% from previous term
@@ -355,7 +355,7 @@ export function EducatorPerformanceAnalytics() {
             </CardTitle>
             <GraduationCap className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold">92%</div>
             <p className="text-xs text-muted-foreground">
               +5% from previous term
@@ -373,7 +373,7 @@ export function EducatorPerformanceAnalytics() {
             </CardTitle>
             <ThumbsUp className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold">4.7/5</div>
             <p className="text-xs text-muted-foreground">
               +0.3 from previous term
@@ -388,13 +388,13 @@ export function EducatorPerformanceAnalytics() {
       {/* Main charts */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Teaching Effectiveness Trend</CardTitle>
             <CardDescription>
               Performance metrics over the academic year
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[350px]">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart
@@ -439,13 +439,13 @@ export function EducatorPerformanceAnalytics() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Student Attainment Distribution</CardTitle>
             <CardDescription>
               Distribution of students across attainment categories
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[350px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
@@ -471,13 +471,13 @@ export function EducatorPerformanceAnalytics() {
       {/* Additional analytics */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Professional Development</CardTitle>
             <CardDescription>
               Progress towards CPD targets
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
                 <RadarChart outerRadius={90} data={professionalDevelopmentData}>
@@ -494,13 +494,13 @@ export function EducatorPerformanceAnalytics() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Teaching Strategies</CardTitle>
             <CardDescription>
               Effectiveness vs usage of teaching approaches
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
                 <ScatterChart
@@ -535,7 +535,7 @@ export function EducatorPerformanceAnalytics() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Recent Observations</CardTitle>
             <CardDescription>
               Formal lesson observation scores
@@ -569,13 +569,13 @@ export function EducatorPerformanceAnalytics() {
     <>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Teaching Effectiveness Trend</CardTitle>
             <CardDescription>
               Performance metrics over the academic year
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[400px]">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart
@@ -620,13 +620,13 @@ export function EducatorPerformanceAnalytics() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Teaching Strategies Effectiveness</CardTitle>
             <CardDescription>
               Effectiveness vs usage of teaching approaches
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[400px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
@@ -650,13 +650,13 @@ export function EducatorPerformanceAnalytics() {
       
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Student Attainment by Class</CardTitle>
             <CardDescription>
               Distribution of students across attainment categories
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[350px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
@@ -679,13 +679,13 @@ export function EducatorPerformanceAnalytics() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Student Progress Over Time</CardTitle>
             <CardDescription>
               Average progress points across classes
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[350px]">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart
@@ -722,13 +722,13 @@ export function EducatorPerformanceAnalytics() {
       
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Lesson Components Analysis</CardTitle>
             <CardDescription>
               Effectiveness of different lesson elements
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
                 <RadarChart outerRadius={90} data={[
@@ -752,13 +752,13 @@ export function EducatorPerformanceAnalytics() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Subject Performance</CardTitle>
             <CardDescription>
               Teaching effectiveness across subjects
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
@@ -785,7 +785,7 @@ export function EducatorPerformanceAnalytics() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Areas of Excellence</CardTitle>
             <CardDescription>
               Your highest performing teaching areas
@@ -855,13 +855,13 @@ export function EducatorPerformanceAnalytics() {
     <>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Professional Development Progress</CardTitle>
             <CardDescription>
               Progress towards CPD targets by category
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[400px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
@@ -882,13 +882,13 @@ export function EducatorPerformanceAnalytics() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>CPD Activity Timeline</CardTitle>
             <CardDescription>
               Professional development activities over time
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[400px]">
               <ResponsiveContainer width="100%" height="100%">
                 <ComposedChart
@@ -932,13 +932,13 @@ export function EducatorPerformanceAnalytics() {
       
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>CPD Focus Areas</CardTitle>
             <CardDescription>
               Distribution of professional development focus
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
@@ -972,13 +972,13 @@ export function EducatorPerformanceAnalytics() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>CPD Impact Analysis</CardTitle>
             <CardDescription>
               Impact of professional development on teaching
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
@@ -1005,7 +1005,7 @@ export function EducatorPerformanceAnalytics() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Recent CPD Activities</CardTitle>
             <CardDescription>
               Recently completed professional development
@@ -1075,13 +1075,13 @@ export function EducatorPerformanceAnalytics() {
     <>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Observation Scores Trend</CardTitle>
             <CardDescription>
               Formal lesson observation scores over time
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[400px]">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart
@@ -1120,13 +1120,13 @@ export function EducatorPerformanceAnalytics() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Student Feedback Ratings</CardTitle>
             <CardDescription>
               Student feedback on teaching effectiveness
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[400px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
@@ -1150,13 +1150,13 @@ export function EducatorPerformanceAnalytics() {
       
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Observation Feedback Analysis</CardTitle>
             <CardDescription>
               Breakdown of observation feedback by category
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[350px]">
               <ResponsiveContainer width="100%" height="100%">
                 <RadarChart outerRadius={150} data={[
@@ -1181,7 +1181,7 @@ export function EducatorPerformanceAnalytics() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Peer Feedback</CardTitle>
             <CardDescription>
               Feedback from peer observations and reviews
@@ -1258,13 +1258,13 @@ export function EducatorPerformanceAnalytics() {
       
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Parent Feedback</CardTitle>
             <CardDescription>
               Feedback from parents on teaching effectiveness
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
@@ -1296,7 +1296,7 @@ export function EducatorPerformanceAnalytics() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Areas for Development</CardTitle>
             <CardDescription>
               Identified areas for improvement from feedback
@@ -1345,7 +1345,7 @@ export function EducatorPerformanceAnalytics() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Recent Observations</CardTitle>
             <CardDescription>
               Formal lesson observation scores
@@ -1379,13 +1379,13 @@ export function EducatorPerformanceAnalytics() {
     <>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Workload Distribution</CardTitle>
             <CardDescription>
               Breakdown of time spent on different activities
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[400px]">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
@@ -1415,13 +1415,13 @@ export function EducatorPerformanceAnalytics() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Workload Trend</CardTitle>
             <CardDescription>
               Weekly working hours over the academic year
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[400px]">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart
@@ -1468,13 +1468,13 @@ export function EducatorPerformanceAnalytics() {
       
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Task Efficiency</CardTitle>
             <CardDescription>
               Time spent vs. effectiveness for key tasks
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
                 <ScatterChart
@@ -1517,13 +1517,13 @@ export function EducatorPerformanceAnalytics() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Work-Life Balance</CardTitle>
             <CardDescription>
               Working hours distribution across the week
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
@@ -1553,7 +1553,7 @@ export function EducatorPerformanceAnalytics() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Workload Optimisation</CardTitle>
             <CardDescription>
               Recommendations for workload efficiency
@@ -1611,13 +1611,13 @@ export function EducatorPerformanceAnalytics() {
     <>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Performance Comparison</CardTitle>
             <CardDescription>
               Your performance compared to department and school averages
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[400px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
@@ -1640,13 +1640,13 @@ export function EducatorPerformanceAnalytics() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Value Added Comparison</CardTitle>
             <CardDescription>
               Student progress value added compared to school average
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[400px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
@@ -1675,13 +1675,13 @@ export function EducatorPerformanceAnalytics() {
       
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Teaching Approach Comparison</CardTitle>
             <CardDescription>
               Your teaching approach compared to best practice benchmarks
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[350px]">
               <ResponsiveContainer width="100%" height="100%">
                 <RadarChart outerRadius={150} data={[
@@ -1706,13 +1706,13 @@ export function EducatorPerformanceAnalytics() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Professional Growth Comparison</CardTitle>
             <CardDescription>
               Your professional growth compared to career stage expectations
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[350px]">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart
@@ -1761,7 +1761,7 @@ export function EducatorPerformanceAnalytics() {
       
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Strengths vs. Peers</CardTitle>
             <CardDescription>
               Areas where you excel compared to colleagues
@@ -1812,13 +1812,13 @@ export function EducatorPerformanceAnalytics() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>National Standards Comparison</CardTitle>
             <CardDescription>
               Your performance against national teaching standards
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
@@ -1849,7 +1849,7 @@ export function EducatorPerformanceAnalytics() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Career Progression</CardTitle>
             <CardDescription>
               Your readiness for next career steps
@@ -1936,3 +1936,4 @@ const Search = ({ className, ...props }) => (
     <path d="m21 21-4.3-4.3" />
   </svg>
 );
+

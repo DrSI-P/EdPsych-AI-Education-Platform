@@ -230,7 +230,7 @@ export function ParentDashboard({
                   <h3 className="text-lg font-semibold">{currentChild.name}'s Progress</h3>
                   <p className="text-sm text-gray-600">{currentChild.year} • {currentChild.school}</p>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="mb-4">
                     <div className="flex justify-between text-sm mb-1">
                       <span>Overall Progress</span>
@@ -342,7 +342,7 @@ export function ParentDashboard({
                 <CardHeader>
                   <h3 className="text-lg font-semibold">How to Support Your Child</h3>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <AIPrompt
                     placeholder="Ask for specific support strategies (e.g., how to help with algebra, encouraging reading)..."
                     systemPrompt={`You are an educational expert providing advice to parents on how to support their child's learning. The child is ${currentChild.name}, a ${currentChild.year} student. Their subject progress is: ${currentChild.subjects.map(s => `${s.name}: ${s.progress}%`).join(', ')}. Provide practical, evidence-based strategies that parents can use at home to support their child's learning based on the parent's specific query. Use UK English spelling and follow UK educational standards and curriculum. Keep advice practical, specific, and actionable.`}
@@ -614,7 +614,7 @@ export function ParentDashboard({
                 <CardHeader>
                   <h3 className="text-lg font-semibold">Personalised Support</h3>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <AIPrompt
                     placeholder="Ask for specific parental support resources or guidance..."
                     systemPrompt={`You are an educational expert providing resources and guidance to parents. The parent has children in UK schools and is looking for specific resources or guidance. Provide helpful, evidence-based information tailored to their query, including specific resources they might find useful. Use UK English spelling and follow UK educational standards. Keep advice practical and actionable, with specific resource recommendations where possible.`}
@@ -635,3 +635,4 @@ export function ParentDashboard({
     </div>
   );
 }
+

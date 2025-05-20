@@ -522,7 +522,7 @@ export function EmotionalCheckin() {
   return (
     <div className="container mx-auto py-8 px-4 max-w-3xl">
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle>Daily Emotional Check-in</CardTitle>
           <CardDescription>
             Take a moment to check in with your feelings. This helps you understand your emotions and find strategies that work for you.
@@ -535,3 +535,4 @@ export function EmotionalCheckin() {
     </div>
   );
 }
+

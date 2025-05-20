@@ -23,7 +23,7 @@ export default function ParentCommunicationPage() {
         
         <TabsContent value="about">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>About Parent Communication Management</CardTitle>
               <CardDescription>
                 Understanding how this feature helps educators communicate effectively with parents and guardians
@@ -73,7 +73,7 @@ export default function ParentCommunicationPage() {
         
         <TabsContent value="help">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Help & Tips</CardTitle>
               <CardDescription>
                 Guidance on getting the most from the Parent Communication Management system
@@ -130,3 +130,4 @@ export default function ParentCommunicationPage() {
     </div>
   );
 }
+

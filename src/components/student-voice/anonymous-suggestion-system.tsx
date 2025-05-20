@@ -407,13 +407,13 @@ export default function AnonymousSuggestionSystem() {
         {/* Submit Suggestion Tab */}
         <TabsContent value="submit" className="space-y-6">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Share Your Ideas</CardTitle>
               <CardDescription>
                 Your suggestions are anonymous and help make our school better
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <form onSubmit={handleSubmitSuggestion} className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
@@ -549,13 +549,13 @@ export default function AnonymousSuggestionSystem() {
         {/* Browse Suggestions Tab */}
         <TabsContent value="browse" className="space-y-6">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Browse Suggestions</CardTitle>
               <CardDescription>
                 View and interact with suggestions from the school community
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="space-y-6">
                 <div className="flex flex-col md:flex-row gap-4">
                   <div className="md:flex-1">
@@ -648,7 +648,7 @@ export default function AnonymousSuggestionSystem() {
                             </div>
                           </div>
                         </CardHeader>
-                        <CardContent>
+                        <CardContent className="pt-2">
                           <div className="space-y-4">
                             <p className="text-sm">{suggestion.content}</p>
                             
@@ -769,3 +769,4 @@ export default function AnonymousSuggestionSystem() {
     </div>
   );
 }
+

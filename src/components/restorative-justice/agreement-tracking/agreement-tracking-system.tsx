@@ -643,7 +643,7 @@ const AgreementTrackingSystem = () => {
                 <CardHeader className="pb-2">
                   <CardTitle className="text-sm font-medium">Total Agreements</CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="flex items-center">
                     <FileText className="h-5 w-5 text-muted-foreground mr-2" />
                     <span className="text-2xl font-bold">{dashboardStats.total}</span>
@@ -654,7 +654,7 @@ const AgreementTrackingSystem = () => {
                 <CardHeader className="pb-2">
                   <CardTitle className="text-sm font-medium">Active Agreements</CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="flex items-center">
                     <CheckCircle2 className="h-5 w-5 text-green-500 mr-2" />
                     <span className="text-2xl font-bold">{dashboardStats.active}</span>
@@ -665,7 +665,7 @@ const AgreementTrackingSystem = () => {
                 <CardHeader className="pb-2">
                   <CardTitle className="text-sm font-medium">At Risk</CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="flex items-center">
                     <AlertCircle className="h-5 w-5 text-red-500 mr-2" />
                     <span className="text-2xl font-bold">{dashboardStats.atRisk}</span>
@@ -676,7 +676,7 @@ const AgreementTrackingSystem = () => {
                 <CardHeader className="pb-2">
                   <CardTitle className="text-sm font-medium">Upcoming Follow-ups</CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="flex items-center">
                     <Calendar className="h-5 w-5 text-blue-500 mr-2" />
                     <span className="text-2xl font-bold">{dashboardStats.upcomingFollowUps}</span>
@@ -687,13 +687,13 @@ const AgreementTrackingSystem = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <Card className="md:col-span-2">
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Recent Agreements</CardTitle>
                   <CardDescription>
                     Your most recently created agreements
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="space-y-4">
                     {agreements.slice(0, 3).map((agreement) => (
                       <div key={agreement.id} className="flex items-start p-3 border rounded-lg">
@@ -741,13 +741,13 @@ const AgreementTrackingSystem = () => {
               </Card>
 
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Upcoming Follow-ups</CardTitle>
                   <CardDescription>
                     Agreements requiring follow-up soon
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="space-y-4">
                     {agreements
                       .filter(a => {
@@ -791,13 +791,13 @@ const AgreementTrackingSystem = () => {
             </div>
 
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Agreement Progress</CardTitle>
                 <CardDescription>
                   Status of active agreements
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="space-y-4">
                   {agreements
                     .filter(a => a.status === 'active')
@@ -824,13 +824,13 @@ const AgreementTrackingSystem = () => {
           {/* Agreements Tab */}
           <TabsContent value="agreements" className="space-y-6">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>All Agreements</CardTitle>
                 <CardDescription>
                   View and manage all restorative agreements
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="flex flex-col space-y-4">
                   <div className="flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-4">
                     <div className="flex-1">
@@ -973,10 +973,10 @@ const AgreementTrackingSystem = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div className="md:col-span-2 space-y-6">
                     <Card>
-                      <CardHeader>
+                      <CardHeader className="pb-2">
                         <CardTitle>Agreement Details</CardTitle>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <div className="space-y-4">
                           <div>
                             <h3 className="text-sm font-medium text-muted-foreground">Description</h3>
@@ -1011,13 +1011,13 @@ const AgreementTrackingSystem = () => {
                     </Card>
 
                     <Card>
-                      <CardHeader>
+                      <CardHeader className="pb-2">
                         <CardTitle>Agreement Terms</CardTitle>
                         <CardDescription>
                           Progress: {selectedAgreement.progress}%
                         </CardDescription>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <Progress value={selectedAgreement.progress} className="h-2 mb-6" />
                         
                         <div className="space-y-4">
@@ -1114,10 +1114,10 @@ const AgreementTrackingSystem = () => {
 
                   <div className="space-y-6">
                     <Card>
-                      <CardHeader>
+                      <CardHeader className="pb-2">
                         <CardTitle>Follow-up</CardTitle>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <div className="space-y-4">
                           <div className="flex items-center justify-between">
                             <div>
@@ -1144,10 +1144,10 @@ const AgreementTrackingSystem = () => {
                     </Card>
 
                     <Card>
-                      <CardHeader>
+                      <CardHeader className="pb-2">
                         <CardTitle>Update History</CardTitle>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <div className="space-y-4">
                           {selectedAgreement.updates.map((update, index) => (
                             <div key={index} className="border-l-2 border-gray-200 pl-4 pb-4">
@@ -1167,10 +1167,10 @@ const AgreementTrackingSystem = () => {
                     </Card>
 
                     <Card>
-                      <CardHeader>
+                      <CardHeader className="pb-2">
                         <CardTitle>Related Resources</CardTitle>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <div className="space-y-2">
                           <Button variant="outline" className="w-full justify-start" onClick={() => router.push('/restorative-justice/reflection-prompts')}>
                             <MessageSquare className="h-4 w-4 mr-2" />
@@ -1196,13 +1196,13 @@ const AgreementTrackingSystem = () => {
           {/* Create New Tab */}
           <TabsContent value="create" className="space-y-6">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Create New Agreement</CardTitle>
                 <CardDescription>
                   Document a new restorative agreement
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="md:col-span-2">
@@ -1413,3 +1413,4 @@ const AgreementTrackingSystem = () => {
 };
 
 export default AgreementTrackingSystem;
+

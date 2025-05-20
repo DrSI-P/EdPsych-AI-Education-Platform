@@ -620,13 +620,13 @@ const EmotionalPatternRecognition = () => {
   return (
     <div className="space-y-6">
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle>Emotional Pattern Recognition</CardTitle>
           <CardDescription>
             Discover patterns in your emotional experiences to gain deeper insights
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-2">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid w-full grid-cols-4">
               <TabsTrigger value="overview">Overview</TabsTrigger>
@@ -769,7 +769,7 @@ const EmotionalPatternRecognition = () => {
                                 )}
                               </div>
                             </CardHeader>
-                            <CardContent>
+                            <CardContent className="pt-2">
                               <p>{insight.description}</p>
                             </CardContent>
                           </Card>
@@ -777,13 +777,13 @@ const EmotionalPatternRecognition = () => {
                       </div>
                       
                       <Card>
-                        <CardHeader>
+                        <CardHeader className="pb-2">
                           <CardTitle>Emotion Distribution</CardTitle>
                           <CardDescription>
                             Breakdown of your emotions during this period
                           </CardDescription>
                         </CardHeader>
-                        <CardContent>
+                        <CardContent className="pt-2">
                           <div className="h-[300px]">
                             <ResponsiveContainer width="100%" height="100%">
                               <PieChart>
@@ -820,7 +820,7 @@ const EmotionalPatternRecognition = () => {
                       </Card>
                       
                       <Card>
-                        <CardHeader>
+                        <CardHeader className="pb-2">
                           <CardTitle>Emotion Correlations</CardTitle>
                           <CardDescription>
                             Emotions that often occur together or in sequence
@@ -877,7 +877,7 @@ const EmotionalPatternRecognition = () => {
                 {/* Triggers Tab */}
                 <TabsContent value="triggers" className="space-y-6">
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle>Emotion Triggers Analysis</CardTitle>
                       <CardDescription>
                         See how different situations affect your emotions
@@ -926,13 +926,13 @@ const EmotionalPatternRecognition = () => {
                   
                   <div className="grid gap-4 md:grid-cols-2">
                     <Card>
-                      <CardHeader>
+                      <CardHeader className="pb-2">
                         <CardTitle>Common Triggers by Emotion</CardTitle>
                         <CardDescription>
                           What typically triggers each emotion
                         </CardDescription>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <ScrollArea className="h-[300px] pr-4">
                           {allEmotions.map(emotion => {
                             // Find triggers for this emotion
@@ -970,7 +970,7 @@ const EmotionalPatternRecognition = () => {
                     </Card>
                     
                     <Card>
-                      <CardHeader>
+                      <CardHeader className="pb-2">
                         <CardTitle>Trigger Intensity Analysis</CardTitle>
                         <CardDescription>
                           How intensely different triggers affect you
@@ -1024,7 +1024,7 @@ const EmotionalPatternRecognition = () => {
                 {/* Time Patterns Tab */}
                 <TabsContent value="time" className="space-y-6">
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle>Time of Day Patterns</CardTitle>
                       <CardDescription>
                         When you tend to experience different emotions
@@ -1064,7 +1064,7 @@ const EmotionalPatternRecognition = () => {
                   </Card>
                   
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle>Day of Week Patterns</CardTitle>
                       <CardDescription>
                         How your emotions vary throughout the week
@@ -1099,13 +1099,13 @@ const EmotionalPatternRecognition = () => {
                   </Card>
                   
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle>Emotion Calendar</CardTitle>
                       <CardDescription>
                         Your emotional journey over time
                       </CardDescription>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="pt-2">
                       <div className="space-y-4">
                         <div className="grid grid-cols-7 gap-1 text-center text-xs">
                           {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
@@ -1168,7 +1168,7 @@ const EmotionalPatternRecognition = () => {
                 {/* Trends Tab */}
                 <TabsContent value="trends" className="space-y-6">
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle>Emotion Trends Over Time</CardTitle>
                       <CardDescription>
                         How your emotions have changed over the selected period
@@ -1219,7 +1219,7 @@ const EmotionalPatternRecognition = () => {
                   
                   <div className="grid gap-4 md:grid-cols-2">
                     <Card>
-                      <CardHeader>
+                      <CardHeader className="pb-2">
                         <CardTitle>Emotion Intensity Trends</CardTitle>
                         <CardDescription>
                           How the intensity of your emotions has changed
@@ -1279,7 +1279,7 @@ const EmotionalPatternRecognition = () => {
                     </Card>
                     
                     <Card>
-                      <CardHeader>
+                      <CardHeader className="pb-2">
                         <CardTitle>Emotion Frequency</CardTitle>
                         <CardDescription>
                           How often you record different emotions
@@ -1355,3 +1355,4 @@ const EmotionalPatternRecognition = () => {
 };
 
 export default EmotionalPatternRecognition;
+

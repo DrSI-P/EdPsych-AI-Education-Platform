@@ -34,13 +34,13 @@ export default function MultiModalContentPage() {
             <div className="space-y-8">
               {!contentId && (
                 <Card className="mb-6">
-                  <CardHeader>
+                  <CardHeader className="pb-2">
                     <CardTitle>Select Content to Transform</CardTitle>
                     <CardDescription>
                       Choose existing content or create new multi-modal content
                     </CardDescription>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <Button 
                         variant="outline" 
@@ -90,7 +90,7 @@ export default function MultiModalContentPage() {
           
           <TabsContent value="about" className="pt-4">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>About Multi-Modal Content Presentation</CardTitle>
                 <CardDescription>
                   Understanding how this feature enhances learning through multiple sensory channels
@@ -174,3 +174,4 @@ export default function MultiModalContentPage() {
     </div>
   );
 }
+

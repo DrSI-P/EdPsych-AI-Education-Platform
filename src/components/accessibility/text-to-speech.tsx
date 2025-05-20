@@ -205,13 +205,13 @@ export default function TextToSpeechReader() {
       
       {!isSupported ? (
         <Card className="mb-6">
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle className="text-amber-600">Browser Not Supported</CardTitle>
             <CardDescription>
               Your browser does not support text-to-speech. Please try using Chrome, Edge, or Safari.
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <p>
               Text-to-speech requires a modern browser with Web Speech API support. 
               Please switch to a compatible browser to use this feature.
@@ -221,13 +221,13 @@ export default function TextToSpeechReader() {
       ) : (
         <>
           <Card className="mb-6">
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Text to Speech Reader</CardTitle>
               <CardDescription>
                 Enter text below to have it read aloud.
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="space-y-4">
                 <div className="flex flex-col space-y-2">
                   <Label htmlFor="text-input">Text Input</Label>
@@ -314,7 +314,7 @@ export default function TextToSpeechReader() {
             
             <TabsContent value="voice">
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Voice Settings</CardTitle>
                   <CardDescription>
                     Customize the voice used for text-to-speech.
@@ -451,7 +451,7 @@ export default function TextToSpeechReader() {
             
             <TabsContent value="reading">
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Reading Style</CardTitle>
                   <CardDescription>
                     Customize how text is read aloud.
@@ -487,7 +487,7 @@ export default function TextToSpeechReader() {
             
             <TabsContent value="special-needs">
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Special Educational Needs Settings</CardTitle>
                   <CardDescription>
                     Additional settings to support various reading and comprehension needs.
@@ -574,3 +574,4 @@ export default function TextToSpeechReader() {
     </div>
   );
 }
+

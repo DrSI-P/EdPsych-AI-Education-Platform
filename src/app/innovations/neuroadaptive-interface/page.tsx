@@ -564,7 +564,7 @@ export default function NeuroadaptiveInterfacePage() {
         <h2 className="text-3xl font-semibold mb-6 text-center">How It Works</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Card>
+          <Card className="w-full">
             <CardContent className="p-6 text-center">
               <div className="bg-primary/10 p-3 rounded-full w-fit mx-auto mb-4">
                 <Eye className="h-6 w-6 text-primary" />
@@ -576,7 +576,7 @@ export default function NeuroadaptiveInterfacePage() {
             </CardContent>
           </Card>
           
-          <Card>
+          <Card className="w-full">
             <CardContent className="p-6 text-center">
               <div className="bg-primary/10 p-3 rounded-full w-fit mx-auto mb-4">
                 <Brain className="h-6 w-6 text-primary" />
@@ -588,7 +588,7 @@ export default function NeuroadaptiveInterfacePage() {
             </CardContent>
           </Card>
           
-          <Card>
+          <Card className="w-full">
             <CardContent className="p-6 text-center">
               <div className="bg-primary/10 p-3 rounded-full w-fit mx-auto mb-4">
                 <Zap className="h-6 w-6 text-primary" />
@@ -611,7 +611,7 @@ export default function NeuroadaptiveInterfacePage() {
         <h2 className="text-3xl font-semibold mb-6 text-center">Benefits</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <Card>
+          <Card className="w-full">
             <CardContent className="p-6">
               <h3 className="text-xl font-semibold mb-4">For Learners</h3>
               <ul className="space-y-3">
@@ -655,7 +655,7 @@ export default function NeuroadaptiveInterfacePage() {
             </CardContent>
           </Card>
           
-          <Card>
+          <Card className="w-full">
             <CardContent className="p-6">
               <h3 className="text-xl font-semibold mb-4">For Educators</h3>
               <ul className="space-y-3">
@@ -703,3 +703,4 @@ export default function NeuroadaptiveInterfacePage() {
     </div>
   );
 }
+

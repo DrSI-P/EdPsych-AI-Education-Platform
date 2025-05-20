@@ -425,10 +425,10 @@ export default function CurriculumCollaboration() {
     return (
       <div className="container mx-auto px-4 py-8">
         <Card className="border-destructive">
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle className="text-destructive">Error</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <p>{error}</p>
           </CardContent>
           <CardFooter>
@@ -494,13 +494,13 @@ export default function CurriculumCollaboration() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="md:col-span-2">
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Plan Details</CardTitle>
                   <CardDescription>
                     {plan.subject} • {plan.keyStage}
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="space-y-4">
                     <div>
                       <h3 className="font-medium">Description</h3>
@@ -539,10 +539,10 @@ export default function CurriculumCollaboration() {
               </Card>
               
               <Card className="mt-6">
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Activity Summary</CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <div className="bg-muted rounded-lg p-4">
                       <p className="text-sm text-muted-foreground">Collaborators</p>
@@ -626,7 +626,7 @@ export default function CurriculumCollaboration() {
                     </Dialog>
                   )}
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="space-y-4">
                     {/* Owner */}
                     <div className="flex items-center justify-between">
@@ -684,13 +684,13 @@ export default function CurriculumCollaboration() {
         {/* Comments Tab */}
         <TabsContent value="comments" className="mt-6">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Comments</CardTitle>
               <CardDescription>
                 Discuss this curriculum plan with collaborators
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <form onSubmit={handleAddComment} className="mb-6">
                 <div className="space-y-4">
                   <Textarea
@@ -857,7 +857,7 @@ export default function CurriculumCollaboration() {
                 </Dialog>
               )}
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="space-y-6">
                 {tasks.length === 0 ? (
                   <div className="text-center py-8">
@@ -989,3 +989,4 @@ export default function CurriculumCollaboration() {
     </div>
   );
 }
+

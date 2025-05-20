@@ -172,13 +172,13 @@ export default function VoiceInput() {
       
       {!isSupported ? (
         <Card className="mb-6">
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle className="text-amber-600">Browser Not Supported</CardTitle>
             <CardDescription>
               Your browser does not support speech recognition. Please try using Chrome, Edge, or Safari.
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <p>
               Voice input requires a modern browser with Web Speech API support. 
               Please switch to a compatible browser to use this feature.
@@ -188,13 +188,13 @@ export default function VoiceInput() {
       ) : (
         <>
           <Card className="mb-6">
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Voice to Text</CardTitle>
               <CardDescription>
                 Speak clearly into your microphone to convert speech to text.
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="space-y-4">
                 <div className="flex flex-col space-y-2">
                   <Label htmlFor="voice-input">Voice Input</Label>
@@ -265,7 +265,7 @@ export default function VoiceInput() {
             
             <TabsContent value="settings">
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Voice Input Settings</CardTitle>
                   <CardDescription>
                     Configure voice recognition settings to improve accuracy.
@@ -338,7 +338,7 @@ export default function VoiceInput() {
             
             <TabsContent value="special-needs">
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Special Educational Needs Settings</CardTitle>
                   <CardDescription>
                     Additional settings to support various speech and language needs.
@@ -410,7 +410,7 @@ export default function VoiceInput() {
             
             <TabsContent value="help">
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Voice Input Help</CardTitle>
                   <CardDescription>
                     Tips for using voice input effectively.
@@ -457,3 +457,4 @@ export default function VoiceInput() {
     </div>
   );
 }
+

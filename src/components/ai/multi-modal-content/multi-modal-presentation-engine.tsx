@@ -442,7 +442,7 @@ export default function MultiModalPresentationEngine({
   return (
     <div className={className}>
       <Card className="mb-6">
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Sparkles className="h-5 w-5 text-primary" />
@@ -606,7 +606,7 @@ export default function MultiModalPresentationEngine({
       </Card>
       
       {isGenerating && (
-        <Card>
+        <Card className="w-full">
           <CardContent className="py-6">
             <div className="flex flex-col items-center justify-center space-y-4">
               <RefreshCw className="h-8 w-8 text-primary animate-spin" />
@@ -623,14 +623,14 @@ export default function MultiModalPresentationEngine({
       
       {multiModalContent && !isGenerating && (
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>{multiModalContent.title || 'Multi-Modal Content'}</CardTitle>
             <CardDescription>
               Content presented through multiple sensory channels
             </CardDescription>
           </CardHeader>
           
-          <CardContent>
+          <CardContent className="pt-2">
             <Tabs defaultValue="combined" value={activeTab} onValueChange={setActiveTab}>
               <TabsList className="grid w-full grid-cols-5">
                 <TabsTrigger value="combined">Combined</TabsTrigger>
@@ -693,3 +693,4 @@ export default function MultiModalPresentationEngine({
     </div>
   );
 }
+

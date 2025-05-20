@@ -196,7 +196,7 @@ export default function SearchableVoiceLibrary() {
   return (
     <div className="space-y-6">
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle className="flex items-center">
             <BookOpen className="mr-2 h-5 w-5" />
             Searchable Voice Library
@@ -205,7 +205,7 @@ export default function SearchableVoiceLibrary() {
             Discover, explore, and analyze student perspectives from across the school
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-2">
           <div className="space-y-6">
             {/* Search Bar */}
             <div className="flex flex-col space-y-4">
@@ -328,7 +328,7 @@ export default function SearchableVoiceLibrary() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div className="md:col-span-2 space-y-6">
                     <Card>
-                      <CardHeader>
+                      <CardHeader className="pb-2">
                         <CardTitle>Recent Entries</CardTitle>
                         <CardDescription>
                           Latest contributions to the voice library
@@ -401,13 +401,13 @@ export default function SearchableVoiceLibrary() {
                   
                   <div className="space-y-6">
                     <Card>
-                      <CardHeader>
+                      <CardHeader className="pb-2">
                         <CardTitle>Popular Topics</CardTitle>
                         <CardDescription>
                           Most discussed subjects in the library
                         </CardDescription>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <div className="space-y-2">
                           {voiceLibraryData.popularTopics.map((topic, index) => (
                             <div key={index} className="flex justify-between items-center p-2 hover:bg-muted/20 rounded-lg cursor-pointer">
@@ -423,13 +423,13 @@ export default function SearchableVoiceLibrary() {
                     </Card>
                     
                     <Card>
-                      <CardHeader>
+                      <CardHeader className="pb-2">
                         <CardTitle>Content Types</CardTitle>
                         <CardDescription>
                           Breakdown by format
                         </CardDescription>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <div className="space-y-2">
                           {voiceLibraryData.contentTypes.map((type, index) => (
                             <div key={index} className="flex justify-between items-center p-2 hover:bg-muted/20 rounded-lg cursor-pointer">
@@ -445,13 +445,13 @@ export default function SearchableVoiceLibrary() {
                     </Card>
                     
                     <Card>
-                      <CardHeader>
+                      <CardHeader className="pb-2">
                         <CardTitle>Categories</CardTitle>
                         <CardDescription>
                           Areas of impact
                         </CardDescription>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <div className="space-y-2">
                           {voiceLibraryData.categories.map((category, index) => (
                             <div key={index} className="flex justify-between items-center p-2 hover:bg-muted/20 rounded-lg cursor-pointer">
@@ -496,7 +496,7 @@ export default function SearchableVoiceLibrary() {
                               </Badge>
                             </div>
                           </CardHeader>
-                          <CardContent>
+                          <CardContent className="pt-2">
                             <p>{result.content}</p>
                             
                             <div className="flex flex-wrap gap-2 mt-4">
@@ -541,7 +541,7 @@ export default function SearchableVoiceLibrary() {
               <TabsContent value="saved" className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle>Saved Searches</CardTitle>
                       <CardDescription>
                         Your frequently used search queries
@@ -573,7 +573,7 @@ export default function SearchableVoiceLibrary() {
                   </Card>
                   
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle>Collections</CardTitle>
                       <CardDescription>
                         Organized groups of related voices
@@ -606,13 +606,13 @@ export default function SearchableVoiceLibrary() {
                 </div>
                 
                 <Card>
-                  <CardHeader>
+                  <CardHeader className="pb-2">
                     <CardTitle>Recently Viewed</CardTitle>
                     <CardDescription>
                       Entries you've recently accessed
                     </CardDescription>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <div className="space-y-4">
                       {voiceLibraryData.recentEntries.slice(0, 3).map((entry) => (
                         <div key={entry.id} className="flex justify-between items-center p-3 border rounded-lg">
@@ -641,13 +641,13 @@ export default function SearchableVoiceLibrary() {
               <TabsContent value="analytics" className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle>Content Distribution</CardTitle>
                       <CardDescription>
                         Breakdown of voice library by format and category
                       </CardDescription>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="pt-2">
                       <div className="h-64 w-full bg-muted/20 rounded-lg flex items-center justify-center">
                         <div className="text-center">
                           <BarChart className="h-10 w-10 mx-auto text-primary" />
@@ -684,13 +684,13 @@ export default function SearchableVoiceLibrary() {
                   </Card>
                   
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle>Sentiment Analysis</CardTitle>
                       <CardDescription>
                         Emotional tone of student contributions
                       </CardDescription>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="pt-2">
                       <div className="h-64 w-full bg-muted/20 rounded-lg flex items-center justify-center">
                         <div className="text-center">
                           <BarChart className="h-10 w-10 mx-auto text-primary" />
@@ -735,13 +735,13 @@ export default function SearchableVoiceLibrary() {
                 </div>
                 
                 <Card>
-                  <CardHeader>
+                  <CardHeader className="pb-2">
                     <CardTitle>Trending Topics Over Time</CardTitle>
                     <CardDescription>
                       How discussion topics have evolved
                     </CardDescription>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <div className="h-80 w-full bg-muted/20 rounded-lg flex items-center justify-center">
                       <div className="text-center">
                         <Layers className="h-10 w-10 mx-auto text-primary" />
@@ -791,3 +791,4 @@ export default function SearchableVoiceLibrary() {
     </div>
   );
 }
+

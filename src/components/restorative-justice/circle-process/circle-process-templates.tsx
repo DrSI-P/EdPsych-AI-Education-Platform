@@ -651,13 +651,13 @@ const CircleProcessTemplates = () => {
           {/* Templates Tab */}
           <TabsContent value="templates" className="space-y-6">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Circle Process Templates</CardTitle>
                 <CardDescription>
                   Select a template based on your needs and purpose
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="flex flex-col space-y-4">
                   <div className="flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-4">
                     <div className="flex-1">
@@ -777,13 +777,13 @@ const CircleProcessTemplates = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div className="md:col-span-2">
                     <Card>
-                      <CardHeader>
+                      <CardHeader className="pb-2">
                         <CardTitle>Circle Structure</CardTitle>
                         <CardDescription>
                           Follow this structure to guide your circle process
                         </CardDescription>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <div className="space-y-6">
                           <div className="relative p-4 border rounded-lg bg-blue-50 border-blue-200">
                             <h3 className="text-lg font-medium mb-2">Opening Ceremony</h3>
@@ -833,10 +833,10 @@ const CircleProcessTemplates = () => {
 
                   <div>
                     <Card>
-                      <CardHeader>
+                      <CardHeader className="pb-2">
                         <CardTitle>Circle Setup</CardTitle>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <div className="space-y-4">
                           <div>
                             <h3 className="text-sm font-medium mb-1">Time Required</h3>
@@ -896,10 +896,10 @@ const CircleProcessTemplates = () => {
                     </Card>
 
                     <Card className="mt-4">
-                      <CardHeader>
+                      <CardHeader className="pb-2">
                         <CardTitle>Facilitator Tips</CardTitle>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <div className="space-y-3">
                           <div className="flex items-start">
                             <Lightbulb className="h-4 w-4 mr-2 mt-0.5 text-amber-500" />
@@ -937,13 +937,13 @@ const CircleProcessTemplates = () => {
           {/* Create Custom Tab */}
           <TabsContent value="create" className="space-y-6">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Create Custom Circle Template</CardTitle>
                 <CardDescription>
                   Design your own circle process template
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
@@ -1181,13 +1181,13 @@ const CircleProcessTemplates = () => {
           <TabsContent value="resources" className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <Card className="md:col-span-2">
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Circle Process Resources</CardTitle>
                   <CardDescription>
                     Educational materials and guides for implementing circle processes
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="space-y-6">
                     <div>
                       <h3 className="text-lg font-medium mb-2">Key Elements of Circle Process</h3>
@@ -1199,7 +1199,7 @@ const CircleProcessTemplates = () => {
                           <CardHeader className="pb-2">
                             <CardTitle className="text-base">The Circle</CardTitle>
                           </CardHeader>
-                          <CardContent>
+                          <CardContent className="pt-2">
                             <p className="text-sm">
                               Participants sit in a circle with no tables or barriers between them. This arrangement 
                               symbolizes equality, connection, and the wholeness of the community. Everyone can see 
@@ -1211,7 +1211,7 @@ const CircleProcessTemplates = () => {
                           <CardHeader className="pb-2">
                             <CardTitle className="text-base">The Talking Piece</CardTitle>
                           </CardHeader>
-                          <CardContent>
+                          <CardContent className="pt-2">
                             <p className="text-sm">
                               A special object passed around the circle that gives the holder the right to speak while 
                               others listen. It regulates the dialogue, slows the pace, and ensures everyone has an 
@@ -1223,7 +1223,7 @@ const CircleProcessTemplates = () => {
                           <CardHeader className="pb-2">
                             <CardTitle className="text-base">The Keeper/Facilitator</CardTitle>
                           </CardHeader>
-                          <CardContent>
+                          <CardContent className="pt-2">
                             <p className="text-sm">
                               The person who guides the process, poses questions, and helps maintain the integrity of 
                               the circle. The keeper participates in the circle as well, sharing when the talking piece 
@@ -1235,7 +1235,7 @@ const CircleProcessTemplates = () => {
                           <CardHeader className="pb-2">
                             <CardTitle className="text-base">Ceremonies and Rituals</CardTitle>
                           </CardHeader>
-                          <CardContent>
+                          <CardContent className="pt-2">
                             <p className="text-sm">
                               Opening and closing ceremonies mark the circle as a special space distinct from ordinary 
                               interaction. These might include moments of silence, reading a poem, lighting a candle, 
@@ -1247,7 +1247,7 @@ const CircleProcessTemplates = () => {
                           <CardHeader className="pb-2">
                             <CardTitle className="text-base">Guidelines</CardTitle>
                           </CardHeader>
-                          <CardContent>
+                          <CardContent className="pt-2">
                             <p className="text-sm">
                               Agreed-upon principles that shape how participants interact in the circle. Common guidelines 
                               include speaking from the heart, listening from the heart, speaking with respect, and honoring 
@@ -1259,7 +1259,7 @@ const CircleProcessTemplates = () => {
                           <CardHeader className="pb-2">
                             <CardTitle className="text-base">Consensus Decision-Making</CardTitle>
                           </CardHeader>
-                          <CardContent>
+                          <CardContent className="pt-2">
                             <p className="text-sm">
                               When decisions need to be made, circles use a consensus process rather than majority rule. 
                               This means working toward solutions that everyone can accept, even if they're not everyone's 
@@ -1399,10 +1399,10 @@ const CircleProcessTemplates = () => {
 
               <div className="space-y-6">
                 <Card>
-                  <CardHeader>
+                  <CardHeader className="pb-2">
                     <CardTitle>Training Resources</CardTitle>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <div className="space-y-4">
                       <div>
                         <h3 className="text-sm font-medium mb-1">Video Tutorials</h3>
@@ -1462,10 +1462,10 @@ const CircleProcessTemplates = () => {
                 </Card>
 
                 <Card>
-                  <CardHeader>
+                  <CardHeader className="pb-2">
                     <CardTitle>Research and Evidence</CardTitle>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <div className="space-y-4">
                       <p className="text-sm text-muted-foreground">
                         Circle processes in schools are supported by research evidence showing multiple benefits:
@@ -1510,10 +1510,10 @@ const CircleProcessTemplates = () => {
                 </Card>
 
                 <Card>
-                  <CardHeader>
+                  <CardHeader className="pb-2">
                     <CardTitle>Talking Piece Ideas</CardTitle>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <div className="space-y-4">
                       <p className="text-sm text-muted-foreground">
                         The talking piece is a central element of circle process. Here are some ideas for meaningful talking pieces:
@@ -1572,3 +1572,4 @@ const CircleProcessTemplates = () => {
 };
 
 export default CircleProcessTemplates;
+

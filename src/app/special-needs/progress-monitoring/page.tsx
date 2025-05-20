@@ -49,7 +49,7 @@ export default function ProgressMonitoringPage() {
         
         <div className="lg:col-span-1">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle className="flex items-center">
                 <Target className="h-5 w-5 mr-2" />
                 About Progress Monitoring
@@ -58,7 +58,7 @@ export default function ProgressMonitoringPage() {
                 Understanding the benefits and applications
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <Tabs defaultValue="benefits">
                 <TabsList className="grid w-full grid-cols-3">
                   <TabsTrigger value="benefits">Benefits</TabsTrigger>
@@ -140,13 +140,13 @@ export default function ProgressMonitoringPage() {
           </Card>
           
           <Card className="mt-6">
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle className="flex items-center">
                 <FileText className="h-5 w-5 mr-2" />
                 Monitoring Resources
               </CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="text-sm space-y-4">
                 <div>
                   <h4 className="font-medium mb-1">Reading Progress</h4>
@@ -197,3 +197,4 @@ export default function ProgressMonitoringPage() {
     </div>
   );
 }
+

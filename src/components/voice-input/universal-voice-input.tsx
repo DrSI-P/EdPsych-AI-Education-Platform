@@ -137,10 +137,10 @@ export const UniversalVoiceInput: React.FC<UniversalVoiceInputProps> = ({
   if (!isAvailable) {
     return (
       <Card className={className}>
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle>Voice Input Not Available</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-2">
           <p>Voice input is not supported in your browser. Please try using Chrome, Edge, or Safari.</p>
         </CardContent>
       </Card>
@@ -559,3 +559,4 @@ const SecondaryVoiceUI: React.FC<AgeSpecificVoiceUIProps> = ({
 };
 
 export default UniversalVoiceInput;
+

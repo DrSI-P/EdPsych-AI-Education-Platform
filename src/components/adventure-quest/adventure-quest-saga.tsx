@@ -631,7 +631,7 @@ const CharacterCreation = ({ onCreateCharacter }) => {
                   </div>
                   <CardTitle className="mt-2">{type.name}</CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <p className="text-sm text-muted-foreground mb-4">{type.description}</p>
                   
                   <div className="space-y-2">
@@ -665,7 +665,7 @@ const CharacterCreation = ({ onCreateCharacter }) => {
           </div>
           
           <Card className="max-w-md mx-auto">
-            <CardHeader>
+            <CardHeader className="pb-2">
               <div className="flex items-center">
                 <div className="p-3 bg-primary/10 rounded-lg mr-4">
                   {characterTypes.find(type => type.id === selectedType)?.icon}
@@ -678,7 +678,7 @@ const CharacterCreation = ({ onCreateCharacter }) => {
                 </div>
               </div>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="space-y-4">
                 <div>
                   <h3 className="font-medium mb-2">Starting Stats</h3>
@@ -803,14 +803,14 @@ const CharacterDashboard = ({ character }) => {
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle className="flex items-center">
               <Brain className="h-5 w-5 mr-2" />
               Character Stats
             </CardTitle>
             <CardDescription>Your character's abilities and attributes</CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="space-y-3">
               {Object.entries(character.stats).map(([stat, value]) => (
                 <div key={stat} className="space-y-1">
@@ -837,14 +837,14 @@ const CharacterDashboard = ({ character }) => {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle className="flex items-center">
               <Zap className="h-5 w-5 mr-2" />
               Skills
             </CardTitle>
             <CardDescription>Skills you've developed through quests</CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="space-y-4">
               {character.skills.map((skill) => (
                 <div key={skill.id} className="space-y-1">
@@ -870,7 +870,7 @@ const CharacterDashboard = ({ character }) => {
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle className="flex items-center">
               <Backpack className="h-5 w-5 mr-2" />
               Inventory
@@ -903,7 +903,7 @@ const CharacterDashboard = ({ character }) => {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle className="flex items-center">
               <Award className="h-5 w-5 mr-2" />
               Badges
@@ -1057,14 +1057,14 @@ const QuestDetail = ({ quest, onBack, onStart }) => {
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle className="flex items-center">
               <Target className="h-5 w-5 mr-2" />
               Learning Objectives
             </CardTitle>
             <CardDescription>What you'll learn in this quest</CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <ul className="space-y-2">
               {quest.objectives.map((objective, index) => (
                 <li key={index} className="flex items-start">
@@ -1079,14 +1079,14 @@ const QuestDetail = ({ quest, onBack, onStart }) => {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle className="flex items-center">
               <Trophy className="h-5 w-5 mr-2" />
               Rewards
             </CardTitle>
             <CardDescription>What you'll earn by completing this quest</CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="flex items-center p-2 bg-amber-50 border border-amber-200 rounded-lg mb-4">
               <Star className="h-5 w-5 mr-2 text-amber-500" />
               <span className="font-medium">{quest.xpReward} XP</span>
@@ -1114,14 +1114,14 @@ const QuestDetail = ({ quest, onBack, onStart }) => {
       </div>
       
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle className="flex items-center">
             <Map className="h-5 w-5 mr-2" />
             Quest Journey
           </CardTitle>
           <CardDescription>The chapters and challenges you'll face</CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-2">
           <div className="space-y-6">
             {quest.chapters.map((chapter, index) => (
               <div key={chapter.id} className="relative">
@@ -1722,3 +1722,4 @@ const User = (props) => (
 );
 
 export default AdventureQuestSaga;
+

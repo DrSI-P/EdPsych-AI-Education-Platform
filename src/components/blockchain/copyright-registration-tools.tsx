@@ -468,7 +468,7 @@ const CopyrightRegistrationTools = () => {
             Registered on {new Date(registration.registeredAt).toLocaleDateString()}
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-2">
           <p className="text-sm text-muted-foreground mb-3">{registration.description}</p>
           
           <div className="flex items-center mt-2 justify-between">
@@ -626,13 +626,13 @@ const CopyrightRegistrationTools = () => {
         
         <TabsContent value="register" className="mt-0">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Register Copyright</CardTitle>
               <CardDescription>
                 Secure blockchain-verified copyright protection for your educational content
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="grid gap-4">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                   <div className="md:col-span-3">
@@ -808,13 +808,13 @@ const CopyrightRegistrationTools = () => {
         
         <TabsContent value="verify" className="mt-0">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Verify Copyright</CardTitle>
               <CardDescription>
                 Verify the authenticity of copyright registrations or check content for existing registrations
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <Tabs defaultValue="id" className="w-full">
                 <TabsList className="grid grid-cols-2 mb-4">
                   <TabsTrigger value="id">
@@ -1300,3 +1300,4 @@ export {
   AIContentCopyrightRegistration,
   LicenseInfo
 };
+

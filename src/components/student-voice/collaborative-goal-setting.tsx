@@ -142,13 +142,13 @@ export default function CollaborativeGoalSetting() {
   return (
     <div className="space-y-6">
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle>Collaborative Goal Setting</CardTitle>
           <CardDescription>
             Set, track, and achieve personalized learning goals with support from teachers and parents
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-2">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid w-full grid-cols-4 mb-6">
               <TabsTrigger value="active">Active Goals</TabsTrigger>
@@ -205,7 +205,7 @@ export default function CollaborativeGoalSetting() {
                             </Badge>
                           </div>
                         </CardHeader>
-                        <CardContent>
+                        <CardContent className="pt-2">
                           <div className="space-y-4">
                             <div>
                               <div className="flex justify-between text-sm mb-1">
@@ -376,7 +376,7 @@ export default function CollaborativeGoalSetting() {
       
       {/* Goal Details View */}
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-2">
           <div className="flex justify-between items-start">
             <div>
               <CardTitle>Goal Details: Improve my public speaking skills</CardTitle>
@@ -389,7 +389,7 @@ export default function CollaborativeGoalSetting() {
             </Badge>
           </div>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-2">
           <div className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <Card>
@@ -399,7 +399,7 @@ export default function CollaborativeGoalSetting() {
                     Progress
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="text-center">
                     <div className="text-3xl font-bold mb-2">40%</div>
                     <Progress value={40} className="h-2 mb-2" />
@@ -415,7 +415,7 @@ export default function CollaborativeGoalSetting() {
                     Timeline
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="text-center">
                     <div className="text-sm text-muted-foreground mb-1">Started</div>
                     <div className="font-medium mb-2">March 15, 2025</div>
@@ -432,7 +432,7 @@ export default function CollaborativeGoalSetting() {
                     Collaborators
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="space-y-2">
                     <div className="flex items-center">
                       <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center mr-2">JS</div>
@@ -535,7 +535,7 @@ export default function CollaborativeGoalSetting() {
                         <span className="text-sm text-muted-foreground">{reflection.date}</span>
                       </div>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="pt-2">
                       <p className="text-sm">{reflection.content}</p>
                     </CardContent>
                   </Card>
@@ -558,3 +558,4 @@ export default function CollaborativeGoalSetting() {
     </div>
   );
 }
+

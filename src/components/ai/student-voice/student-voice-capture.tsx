@@ -658,7 +658,7 @@ export default function StudentVoiceCapture() {
     
     return (
       <Card className="mt-6">
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle>Analysis Results</CardTitle>
           <CardDescription>
             AI-powered insights from your feedback
@@ -746,13 +746,13 @@ export default function StudentVoiceCapture() {
   return (
     <div className="container mx-auto py-8 px-4">
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle>Share Your Voice</CardTitle>
           <CardDescription>
             Your thoughts and feelings matter. Choose how you'd like to express yourself.
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-2">
           <div className="space-y-6">
             <div>
               <Label className="mb-2 block">I am in:</Label>
@@ -826,3 +826,4 @@ export default function StudentVoiceCapture() {
     </div>
   );
 }
+

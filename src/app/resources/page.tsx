@@ -174,7 +174,7 @@ export default function ResourceLibrary() {
         {/* Filters Sidebar */}
         <div className="lg:col-span-1">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle className="text-lg flex items-center">
                 <Filter className="mr-2 h-5 w-5" />
                 Filters
@@ -306,11 +306,11 @@ export default function ResourceLibrary() {
                   {[1, 2, 3, 4, 5, 6].map((i) => (
                     <Card key={i} className="animate-pulse">
                       <div className="h-40 bg-muted rounded-t-lg"></div>
-                      <CardHeader>
+                      <CardHeader className="pb-2">
                         <div className="h-6 bg-muted rounded w-3/4"></div>
                         <div className="h-4 bg-muted rounded w-1/2 mt-2"></div>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <div className="h-4 bg-muted rounded w-full"></div>
                         <div className="h-4 bg-muted rounded w-5/6 mt-2"></div>
                       </CardContent>
@@ -339,7 +339,7 @@ export default function ResourceLibrary() {
                               <Badge variant="secondary">{resource.keyStage}</Badge>
                             </div>
                           </div>
-                          <CardHeader>
+                          <CardHeader className="pb-2">
                             <CardTitle className="text-lg">
                               <Link href={`/resources/${resource.id}`} className="hover:underline">
                                 {resource.title}
@@ -484,3 +484,4 @@ export default function ResourceLibrary() {
     </div>
   );
 }
+

@@ -183,7 +183,7 @@ export function EducatorDashboard({
           ) : (
             <>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                <Card>
+                <Card className="w-full">
                   <CardContent className="p-4">
                     <div className="text-center">
                       <h3 className="text-lg font-semibold text-gray-700">Students</h3>
@@ -192,7 +192,7 @@ export function EducatorDashboard({
                   </CardContent>
                 </Card>
                 
-                <Card>
+                <Card className="w-full">
                   <CardContent className="p-4">
                     <div className="text-center">
                       <h3 className="text-lg font-semibold text-gray-700">Classes</h3>
@@ -201,7 +201,7 @@ export function EducatorDashboard({
                   </CardContent>
                 </Card>
                 
-                <Card>
+                <Card className="w-full">
                   <CardContent className="p-4">
                     <div className="text-center">
                       <h3 className="text-lg font-semibold text-gray-700">Assessments</h3>
@@ -210,7 +210,7 @@ export function EducatorDashboard({
                   </CardContent>
                 </Card>
                 
-                <Card>
+                <Card className="w-full">
                   <CardContent className="p-4">
                     <div className="text-center">
                       <h3 className="text-lg font-semibold text-gray-700">Resources</h3>
@@ -219,7 +219,7 @@ export function EducatorDashboard({
                   </CardContent>
                 </Card>
                 
-                <Card>
+                <Card className="w-full">
                   <CardContent className="p-4">
                     <div className="text-center">
                       <h3 className="text-lg font-semibold text-gray-700">Completion Rate</h3>
@@ -228,7 +228,7 @@ export function EducatorDashboard({
                   </CardContent>
                 </Card>
                 
-                <Card>
+                <Card className="w-full">
                   <CardContent className="p-4">
                     <div className="text-center">
                       <h3 className="text-lg font-semibold text-gray-700">Average Score</h3>
@@ -560,7 +560,7 @@ export function EducatorDashboard({
                   <CardHeader>
                     <h3 className="text-lg font-semibold">Assessment Performance</h3>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <div className="h-64 flex items-center justify-center bg-gray-100 rounded-md">
                       <p className="text-gray-500">Assessment performance chart would appear here</p>
                     </div>
@@ -585,7 +585,7 @@ export function EducatorDashboard({
                   <CardHeader>
                     <h3 className="text-lg font-semibold">Engagement Metrics</h3>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <div className="h-64 flex items-center justify-center bg-gray-100 rounded-md">
                       <p className="text-gray-500">Engagement metrics chart would appear here</p>
                     </div>
@@ -610,7 +610,7 @@ export function EducatorDashboard({
                   <CardHeader>
                     <h3 className="text-lg font-semibold">Progress Over Time</h3>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <div className="h-80 flex items-center justify-center bg-gray-100 rounded-md">
                       <p className="text-gray-500">Progress over time chart would appear here</p>
                     </div>
@@ -684,3 +684,4 @@ export function EducatorDashboard({
     </div>
   );
 }
+

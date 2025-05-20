@@ -165,7 +165,7 @@ export const TranslationTool: React.FC<TranslationToolProps> = ({
   
   return (
     <Card className={className}>
-      <CardHeader>
+      <CardHeader className="pb-2">
         <CardTitle className="flex items-center">
           <Languages className="h-5 w-5 mr-2" />
           {t('translation_tool', 'translation')}
@@ -319,3 +319,4 @@ export const TranslationTool: React.FC<TranslationToolProps> = ({
 };
 
 export default TranslationTool;
+

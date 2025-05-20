@@ -35,13 +35,13 @@ export default function SpeechRecognitionPage() {
             
             {transcript && (
               <Card className="mt-6">
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Recognized Text</CardTitle>
                   <CardDescription>
                     Your speech has been converted to text
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="bg-muted/30 p-4 rounded-md">
                     {transcript}
                   </div>
@@ -52,7 +52,7 @@ export default function SpeechRecognitionPage() {
           
           <TabsContent value="about" className="pt-4">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>About Advanced Speech Recognition</CardTitle>
                 <CardDescription>
                   Understanding how this feature supports accessibility and inclusion
@@ -165,3 +165,4 @@ export default function SpeechRecognitionPage() {
     </div>
   );
 }
+

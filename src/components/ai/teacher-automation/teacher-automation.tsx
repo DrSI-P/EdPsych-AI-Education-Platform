@@ -758,13 +758,13 @@ export default function TeacherAutomation() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div>
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Teacher Administrative Automation</CardTitle>
               <CardDescription>
                 Save time on administrative tasks with AI-powered document generation. All content is customizable and aligned with UK educational standards.
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <Tabs defaultValue="lesson-plans" onValueChange={setActiveTab}>
                 <TabsList className="grid w-full grid-cols-3">
                   <TabsTrigger value="lesson-plans">Lesson Plans</TabsTrigger>
@@ -811,7 +811,7 @@ export default function TeacherAutomation() {
         
         <div>
           <Card className="h-full flex flex-col">
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Generated Content</CardTitle>
               <CardDescription>
                 Review, edit, and use the AI-generated content. You can copy it to your clipboard or download it as a document.
@@ -851,3 +851,4 @@ export default function TeacherAutomation() {
     </div>
   );
 }
+

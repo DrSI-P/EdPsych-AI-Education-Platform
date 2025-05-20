@@ -933,7 +933,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
   return (
     <div className="space-y-6">
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle className="flex items-center">
             <FileText className="mr-2 h-5 w-5" />
             Meeting Note Transcription with Key Point Extraction
@@ -942,7 +942,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
             Automatically transcribe meetings, extract key points, and identify action items
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-2">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid w-full grid-cols-4">
               <TabsTrigger value="record">Record</TabsTrigger>
@@ -954,13 +954,13 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
             {/* Record Tab */}
             <TabsContent value="record" className="space-y-6">
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Meeting Information</CardTitle>
                   <CardDescription>
                     Enter details about the meeting you want to record
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-4">
                       <div>
@@ -1045,7 +1045,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <Card>
-                  <CardHeader>
+                  <CardHeader className="pb-2">
                     <CardTitle className="flex items-center">
                       <Mic className="mr-2 h-5 w-5" />
                       Record Meeting
@@ -1104,7 +1104,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
                 </Card>
                 
                 <Card>
-                  <CardHeader>
+                  <CardHeader className="pb-2">
                     <CardTitle className="flex items-center">
                       <Upload className="mr-2 h-5 w-5" />
                       Upload Audio
@@ -1166,13 +1166,13 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
             {/* Edit Tab */}
             <TabsContent value="edit" className="space-y-6">
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Edit Transcript</CardTitle>
                   <CardDescription>
                     Review and edit the automatically generated transcript
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="space-y-4">
                     <Textarea 
                       value={liveTranscript}
@@ -1268,7 +1268,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
                             </Button>
                           </div>
                         </CardHeader>
-                        <CardContent>
+                        <CardContent className="pt-2">
                           <div className="space-y-4">
                             <div className="bg-muted p-4 rounded-md max-h-[400px] overflow-y-auto">
                               <pre className="text-sm whitespace-pre-wrap font-sans">
@@ -1316,7 +1316,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
                             <Edit className="h-4 w-4" />
                           </Button>
                         </CardHeader>
-                        <CardContent>
+                        <CardContent className="pt-2">
                           <div className="space-y-2">
                             {currentMeeting.keyPoints.map((keyPoint: any, index: number) => (
                               <div 
@@ -1444,7 +1444,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
                             <Edit className="h-4 w-4" />
                           </Button>
                         </CardHeader>
-                        <CardContent>
+                        <CardContent className="pt-2">
                           <div className="space-y-2">
                             {currentMeeting.actionItems.map((actionItem: any, index: number) => (
                               <div 
@@ -1788,3 +1788,4 @@ function X(props: React.SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
+

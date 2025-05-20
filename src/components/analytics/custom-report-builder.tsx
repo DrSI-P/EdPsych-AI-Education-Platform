@@ -1353,7 +1353,7 @@ export function CustomReportBuilder() {
           {/* Sidebar */}
           <div className="md:col-span-1 space-y-6">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Components</CardTitle>
                 <CardDescription>
                   Drag and drop to add to your report
@@ -1365,7 +1365,7 @@ export function CustomReportBuilder() {
             </Card>
             
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Report Information</CardTitle>
               </CardHeader>
               <CardContent className="p-4 space-y-4">
@@ -1400,7 +1400,7 @@ export function CustomReportBuilder() {
           {/* Canvas */}
           <div className="md:col-span-3 space-y-6">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>{reportSettings.title}</CardTitle>
                 <CardDescription>
                   {reportSettings.description}
@@ -1463,3 +1463,4 @@ export function CustomReportBuilder() {
     </DndProvider>
   );
 }
+

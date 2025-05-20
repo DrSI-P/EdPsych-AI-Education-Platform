@@ -50,7 +50,7 @@ export default function ReducedMotionModePage() {
         
         <div className="lg:col-span-1">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle className="flex items-center">
                 <Activity className="h-5 w-5 mr-2" />
                 About Reduced Motion
@@ -59,7 +59,7 @@ export default function ReducedMotionModePage() {
                 Understanding the benefits and applications
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <Tabs defaultValue="benefits">
                 <TabsList className="grid w-full grid-cols-3">
                   <TabsTrigger value="benefits">Benefits</TabsTrigger>
@@ -143,13 +143,13 @@ export default function ReducedMotionModePage() {
           </Card>
           
           <Card className="mt-6">
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle className="flex items-center">
                 <AlertTriangle className="h-5 w-5 mr-2" />
                 Motion Sensitivity Information
               </CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <p className="text-sm">
                 Motion sensitivity can affect people with various conditions including vestibular disorders, migraines, autism spectrum conditions, ADHD, and certain types of visual processing disorders. Symptoms may include dizziness, nausea, headaches, eye strain, or difficulty focusing. If you experience these symptoms when using digital devices, try enabling reduced motion mode and adjusting the settings to find what works best for you.
               </p>
@@ -160,3 +160,4 @@ export default function ReducedMotionModePage() {
     </div>
   );
 }
+

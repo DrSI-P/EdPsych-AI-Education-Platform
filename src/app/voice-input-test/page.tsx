@@ -52,11 +52,11 @@ export default function VoiceInputTestPage() {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Age Group</CardTitle>
                 <CardDescription>Select the target age group for testing</CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <Select value={ageGroup} onValueChange={(value) => setAgeGroup(value as AgeGroup)}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select age group" />
@@ -72,11 +72,11 @@ export default function VoiceInputTestPage() {
             </Card>
             
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Component Type</CardTitle>
                 <CardDescription>Select the voice input component to test</CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <Tabs value={activeTab} onValueChange={setActiveTab}>
                   <TabsList className="grid grid-cols-3 w-full">
                     <TabsTrigger value="universal">Universal</TabsTrigger>
@@ -88,7 +88,7 @@ export default function VoiceInputTestPage() {
             </Card>
             
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Component Settings</CardTitle>
                 <CardDescription>Configure component-specific settings</CardDescription>
               </CardHeader>
@@ -171,7 +171,7 @@ export default function VoiceInputTestPage() {
               </TabsContent>
               
               <Card className="mt-4">
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Testing Instructions</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-2">
@@ -188,11 +188,11 @@ export default function VoiceInputTestPage() {
               <h2 className="text-xl font-bold mb-4">Voice Input Output</h2>
               
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Transcript</CardTitle>
                   <CardDescription>The text generated from your speech</CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <Textarea 
                     value={transcript}
                     onChange={(e) => setTranscript(e.target.value)}
@@ -209,10 +209,10 @@ export default function VoiceInputTestPage() {
               </Card>
               
               <Card className="mt-6">
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Test Results</CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="space-y-4">
                     <div>
                       <Label className="text-sm font-medium">Current Configuration</Label>
@@ -248,3 +248,4 @@ export default function VoiceInputTestPage() {
     </VoiceInputProvider>
   );
 }
+

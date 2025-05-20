@@ -131,7 +131,7 @@ export default function PreferenceTrackingSystem() {
   return (
     <div className="space-y-6">
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle className="flex items-center">
             <Settings className="mr-2 h-5 w-5" />
             Student Preference Tracking System
@@ -140,7 +140,7 @@ export default function PreferenceTrackingSystem() {
             Track, manage, and apply your learning preferences across the platform
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-2">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid w-full grid-cols-4 mb-6">
               <TabsTrigger value="dashboard">Preference Dashboard</TabsTrigger>
@@ -452,7 +452,7 @@ export default function PreferenceTrackingSystem() {
             {/* Preference Survey Tab */}
             <TabsContent value="survey" className="space-y-6">
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Content Format Preferences</CardTitle>
                   <CardDescription>
                     Rate how much you prefer each type of learning content
@@ -552,7 +552,7 @@ export default function PreferenceTrackingSystem() {
               </Card>
               
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Learning Environment Preferences</CardTitle>
                   <CardDescription>
                     Select your preferred settings for your learning environment
@@ -670,7 +670,7 @@ export default function PreferenceTrackingSystem() {
                           </Badge>
                         </div>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <div className="flex items-center text-sm text-muted-foreground mb-2">
                           {content.type === 'interactive' && <PenTool className="mr-1 h-4 w-4" />}
                           {content.type === 'video' && <Video className="mr-1 h-4 w-4" />}
@@ -767,7 +767,7 @@ export default function PreferenceTrackingSystem() {
                           </Badge>
                         </div>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <div className="space-y-3">
                           {entry.changes.map((change, changeIndex) => (
                             <div key={changeIndex} className="flex items-start">
@@ -811,3 +811,4 @@ export default function PreferenceTrackingSystem() {
     </div>
   );
 }
+

@@ -381,7 +381,7 @@ const SubscriptionManagement = () => {
                 {currentSubscription?.plan === plan.id && (
                   <Badge className="absolute top-4 left-4 bg-green-600">Current Plan</Badge>
                 )}
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>{plan.name}</CardTitle>
                   <CardDescription>{plan.description}</CardDescription>
                 </CardHeader>
@@ -521,13 +521,13 @@ const SubscriptionManagement = () => {
             <h3 className="text-xl font-semibold">Special Pricing Programs</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle className="flex items-center">
                     <Users className="h-5 w-5 mr-2" />
                     Educational Discount
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <p className="text-sm">25% discount for verified educational institutions.</p>
                   <ul className="mt-2 space-y-1 text-sm">
                     <li>• Available on Professional and Institution tiers</li>
@@ -541,13 +541,13 @@ const SubscriptionManagement = () => {
               </Card>
               
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle className="flex items-center">
                     <Gift className="h-5 w-5 mr-2" />
                     Non-Profit Program
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <p className="text-sm">40% discount for verified non-profit organizations.</p>
                   <ul className="mt-2 space-y-1 text-sm">
                     <li>• Available on all paid tiers</li>
@@ -561,13 +561,13 @@ const SubscriptionManagement = () => {
               </Card>
               
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle className="flex items-center">
                     <Zap className="h-5 w-5 mr-2" />
                     Startup Program
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <p className="text-sm">30% discount for EdTech startups under 3 years old.</p>
                   <ul className="mt-2 space-y-1 text-sm">
                     <li>• Available on Professional and Institution tiers</li>
@@ -589,7 +589,7 @@ const SubscriptionManagement = () => {
             <>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <Card>
-                  <CardHeader>
+                  <CardHeader className="pb-2">
                     <CardTitle>Current Plan</CardTitle>
                     <CardDescription>
                       {getCurrentPlan()?.name} ({currentSubscription.billingCycle})
@@ -614,7 +614,7 @@ const SubscriptionManagement = () => {
                 </Card>
                 
                 <Card>
-                  <CardHeader>
+                  <CardHeader className="pb-2">
                     <CardTitle>AI Credits</CardTitle>
                     <CardDescription>
                       Use credits for additional AI features beyond your plan limits
@@ -670,13 +670,13 @@ const SubscriptionManagement = () => {
               </div>
               
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Usage Limits</CardTitle>
                   <CardDescription>
                     Your current usage for this billing cycle
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-4">
                       <div>
@@ -785,7 +785,7 @@ const SubscriptionManagement = () => {
                   const isActive = addOns.some(a => a.id === addon.id);
                   return (
                     <Card key={addon.id} className={isActive ? 'border-primary' : ''}>
-                      <CardHeader>
+                      <CardHeader className="pb-2">
                         <CardTitle className="flex items-center">
                           <Package className="h-5 w-5 mr-2" />
                           {addon.name}
@@ -794,7 +794,7 @@ const SubscriptionManagement = () => {
                           <Badge className="ml-auto">Active</Badge>
                         )}
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <div className="text-2xl font-bold mb-4">
                           {formatCurrency(addon.price[billingCycle])}
                           <span className="text-sm font-normal text-muted-foreground">
@@ -838,7 +838,7 @@ const SubscriptionManagement = () => {
               </div>
               
               <Card className="mt-6">
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Your Add-Ons</CardTitle>
                   <CardDescription>
                     Currently active add-ons for your subscription
@@ -900,10 +900,10 @@ const SubscriptionManagement = () => {
           {currentSubscription ? (
             <>
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Payment Methods</CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <div className="flex items-center p-4 border rounded-lg mb-4">
                     <div className="mr-4">
                       <CreditCard className="h-8 w-8 text-primary" />
@@ -933,7 +933,7 @@ const SubscriptionManagement = () => {
                     Download All
                   </Button>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   <Table>
                     <TableHeader>
                       <TableRow>
@@ -1094,3 +1094,4 @@ const SubscriptionManagement = () => {
 };
 
 export default SubscriptionManagement;
+

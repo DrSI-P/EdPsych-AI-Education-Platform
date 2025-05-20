@@ -783,13 +783,13 @@ const GuidedMindfulnessActivities = () => {
   return (
     <div className="space-y-6">
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle>Guided Mindfulness Activities</CardTitle>
           <CardDescription>
             Discover and practice evidence-based mindfulness exercises to support emotional wellbeing
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-2">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid w-full grid-cols-4">
               <TabsTrigger value="discover">Discover</TabsTrigger>
@@ -812,7 +812,7 @@ const GuidedMindfulnessActivities = () => {
                         <CardTitle className="text-lg">Recommended For You</CardTitle>
                         <CardDescription>Based on your preferences and history</CardDescription>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <div className="space-y-2">
                           {favoriteActivities.length > 0 ? (
                             favoriteActivities.slice(0, 3).map(activityId => {
@@ -856,7 +856,7 @@ const GuidedMindfulnessActivities = () => {
                         <CardTitle className="text-lg">Quick Practices</CardTitle>
                         <CardDescription>Short mindfulness exercises (5 min or less)</CardDescription>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <div className="space-y-2">
                           {mindfulnessActivities
                             .filter(activity => activity.duration <= 300)
@@ -890,7 +890,7 @@ const GuidedMindfulnessActivities = () => {
                         <CardTitle className="text-lg">Recently Practiced</CardTitle>
                         <CardDescription>Activities you've done recently</CardDescription>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <div className="space-y-2">
                           {activityHistory.length > 0 ? (
                             activityHistory.slice(0, 3).map(historyItem => {
@@ -1159,13 +1159,13 @@ const GuidedMindfulnessActivities = () => {
                       </div>
                       
                       <Card>
-                        <CardHeader>
+                        <CardHeader className="pb-2">
                           <CardTitle>Audio Player</CardTitle>
                           <CardDescription>
                             Listen to the guided practice
                           </CardDescription>
                         </CardHeader>
-                        <CardContent>
+                        <CardContent className="pt-2">
                           <div className="space-y-4">
                             <audio 
                               ref={audioRef}
@@ -1277,13 +1277,13 @@ const GuidedMindfulnessActivities = () => {
                       </Card>
                       
                       <Card>
-                        <CardHeader>
+                        <CardHeader className="pb-2">
                           <CardTitle>Evidence Base</CardTitle>
                           <CardDescription>
                             Research and recommendations supporting this practice
                           </CardDescription>
                         </CardHeader>
-                        <CardContent>
+                        <CardContent className="pt-2">
                           <p>{currentActivity.evidenceBase}</p>
                         </CardContent>
                       </Card>
@@ -1304,13 +1304,13 @@ const GuidedMindfulnessActivities = () => {
                 {/* History Tab */}
                 <TabsContent value="history" className="space-y-6">
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle>Your Practice History</CardTitle>
                       <CardDescription>
                         Track your mindfulness journey
                       </CardDescription>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="pt-2">
                       <ScrollArea className="h-[500px] pr-4">
                         <div className="space-y-6">
                           {activityHistory.length > 0 ? (
@@ -1417,13 +1417,13 @@ const GuidedMindfulnessActivities = () => {
                 {/* Settings Tab */}
                 <TabsContent value="settings" className="space-y-6">
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle>Mindfulness Preferences</CardTitle>
                       <CardDescription>
                         Customize your mindfulness experience
                       </CardDescription>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="pt-2">
                       <div className="space-y-6">
                         <div className="space-y-2">
                           <Label htmlFor="preferred-duration">Preferred Practice Duration</Label>
@@ -1579,3 +1579,4 @@ const GuidedMindfulnessActivities = () => {
 };
 
 export default GuidedMindfulnessActivities;
+

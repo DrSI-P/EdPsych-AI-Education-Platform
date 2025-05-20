@@ -1244,13 +1244,13 @@ const EmotionalVocabularyDevelopment = () => {
   return (
     <div className="space-y-6">
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle>Emotional Vocabulary Development</CardTitle>
           <CardDescription>
             Explore, learn, and practice using words to identify and express emotions
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-2">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid w-full grid-cols-5">
               <TabsTrigger value="explore">Explore Emotions</TabsTrigger>
@@ -1624,7 +1624,7 @@ const EmotionalVocabularyDevelopment = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {getFilteredActivities().map(activity => (
                       <Card key={activity.id}>
-                        <CardHeader>
+                        <CardHeader className="pb-2">
                           <CardTitle>{activity.name}</CardTitle>
                           <CardDescription>{activity.description}</CardDescription>
                         </CardHeader>
@@ -1724,7 +1724,7 @@ const EmotionalVocabularyDevelopment = () => {
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {getFilteredQuizzes().map(quiz => (
                       <Card key={quiz.id}>
-                        <CardHeader>
+                        <CardHeader className="pb-2">
                           <CardTitle>{quiz.title}</CardTitle>
                           <CardDescription>{quiz.description}</CardDescription>
                         </CardHeader>
@@ -1818,7 +1818,7 @@ const EmotionalVocabularyDevelopment = () => {
                             <Image className="h-12 w-12 text-gray-400" />
                           </div>
                         </div>
-                        <CardHeader>
+                        <CardHeader className="pb-2">
                           <CardTitle>{resource.title}</CardTitle>
                           <CardDescription>{resource.description}</CardDescription>
                         </CardHeader>
@@ -1864,7 +1864,7 @@ const EmotionalVocabularyDevelopment = () => {
                       <CardHeader className="pb-2">
                         <CardTitle className="text-lg">Emotions Learned</CardTitle>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <div className="text-3xl font-bold">{userProgress.emotionsLearned}</div>
                         <p className="text-sm text-muted-foreground">
                           {Math.round((userProgress.emotionsLearned / emotions.length) * 100)}% of total
@@ -1880,7 +1880,7 @@ const EmotionalVocabularyDevelopment = () => {
                       <CardHeader className="pb-2">
                         <CardTitle className="text-lg">Activities Completed</CardTitle>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <div className="text-3xl font-bold">{userProgress.activitiesCompleted}</div>
                         <p className="text-sm text-muted-foreground">
                           {Math.round((userProgress.activitiesCompleted / activities.length) * 100)}% of total
@@ -1896,7 +1896,7 @@ const EmotionalVocabularyDevelopment = () => {
                       <CardHeader className="pb-2">
                         <CardTitle className="text-lg">Quizzes Completed</CardTitle>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <div className="text-3xl font-bold">{userProgress.quizzesCompleted}</div>
                         <p className="text-sm text-muted-foreground">
                           {Math.round((userProgress.quizzesCompleted / quizzes.length) * 100)}% of total
@@ -1912,7 +1912,7 @@ const EmotionalVocabularyDevelopment = () => {
                       <CardHeader className="pb-2">
                         <CardTitle className="text-lg">Mastery Level</CardTitle>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <div className="text-3xl font-bold capitalize">{userProgress.masteryLevel}</div>
                         <div className="mt-2">
                           {getMasteryLevelBadge(userProgress.masteryLevel)}
@@ -1923,13 +1923,13 @@ const EmotionalVocabularyDevelopment = () => {
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <Card>
-                      <CardHeader>
+                      <CardHeader className="pb-2">
                         <CardTitle>Recent Activity</CardTitle>
                         <CardDescription>
                           Your recent learning activities and progress
                         </CardDescription>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <ScrollArea className="h-[300px]">
                           <div className="space-y-4">
                             {activityHistory.map(activity => (
@@ -1964,13 +1964,13 @@ const EmotionalVocabularyDevelopment = () => {
                     </Card>
                     
                     <Card>
-                      <CardHeader>
+                      <CardHeader className="pb-2">
                         <CardTitle>Favorite Emotions</CardTitle>
                         <CardDescription>
                           Emotions you've saved for quick reference
                         </CardDescription>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <ScrollArea className="h-[300px]">
                           <div className="space-y-4">
                             {favoriteEmotions.map(emotionId => {
@@ -2021,13 +2021,13 @@ const EmotionalVocabularyDevelopment = () => {
                   </div>
                   
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-2">
                       <CardTitle>Preferences</CardTitle>
                       <CardDescription>
                         Customize your emotional vocabulary learning experience
                       </CardDescription>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="pt-2">
                       <div className="space-y-6">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                           <div className="space-y-4">
@@ -2146,3 +2146,4 @@ const EmotionalVocabularyDevelopment = () => {
 };
 
 export default EmotionalVocabularyDevelopment;
+

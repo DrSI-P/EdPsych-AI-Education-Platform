@@ -110,7 +110,7 @@ export function AIImageGenerator({
       <CardHeader>
         <h3 className="text-lg font-medium">AI Image Generator</h3>
       </CardHeader>
-      <CardContent>
+      <CardContent className="pt-2">
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="flex space-x-4">
             <Select
@@ -194,3 +194,4 @@ export function AIImageGenerator({
     </Card>
   );
 }
+

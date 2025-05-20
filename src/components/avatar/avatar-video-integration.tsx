@@ -166,7 +166,7 @@ export const AvatarVideoIntegration: React.FC<AvatarVideoIntegrationProps> = ({
   if (!video) {
     return (
       <Card className={className}>
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle>Avatar Video Integration</CardTitle>
           <CardDescription>
             Add an avatar video to enhance this {componentType} {position}
@@ -202,7 +202,7 @@ export const AvatarVideoIntegration: React.FC<AvatarVideoIntegrationProps> = ({
   // Render when video is available
   return (
     <Card className={className}>
-      <CardHeader>
+      <CardHeader className="pb-2">
         <div className="flex justify-between items-center">
           <div>
             <CardTitle>{video.title}</CardTitle>
@@ -228,7 +228,7 @@ export const AvatarVideoIntegration: React.FC<AvatarVideoIntegrationProps> = ({
         </div>
       </CardHeader>
       
-      <CardContent>
+      <CardContent className="pt-2">
         <VideoPlayer video={video} />
       </CardContent>
       
@@ -248,3 +248,4 @@ export const AvatarVideoIntegration: React.FC<AvatarVideoIntegrationProps> = ({
 };
 
 export default AvatarVideoIntegration;
+

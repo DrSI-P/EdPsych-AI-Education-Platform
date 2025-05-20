@@ -333,7 +333,7 @@ export function DataVisualisationDashboard() {
             </CardTitle>
             <TrendingUp className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold">+12.5%</div>
             <p className="text-xs text-muted-foreground">
               +2.1% from previous period
@@ -351,7 +351,7 @@ export function DataVisualisationDashboard() {
             </CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold">94.2%</div>
             <p className="text-xs text-muted-foreground">
               +0.8% from previous period
@@ -369,7 +369,7 @@ export function DataVisualisationDashboard() {
             </CardTitle>
             <BookOpenIcon className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold">78.3%</div>
             <p className="text-xs text-muted-foreground">
               +5.2% from previous period
@@ -387,7 +387,7 @@ export function DataVisualisationDashboard() {
             </CardTitle>
             <Activity className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold">67.8%</div>
             <p className="text-xs text-muted-foreground">
               +12.3% from previous period
@@ -402,13 +402,13 @@ export function DataVisualisationDashboard() {
       {/* Main charts */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Student Progress Trends</CardTitle>
             <CardDescription>
               Average progress scores across core subjects
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart
@@ -446,13 +446,13 @@ export function DataVisualisationDashboard() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Attendance Patterns</CardTitle>
             <CardDescription>
               Weekly attendance breakdown
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
@@ -489,13 +489,13 @@ export function DataVisualisationDashboard() {
       {/* Secondary charts */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Behaviour Incidents</CardTitle>
             <CardDescription>
               Positive vs. concern incidents
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[250px]">
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart
@@ -530,13 +530,13 @@ export function DataVisualisationDashboard() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Resource Usage</CardTitle>
             <CardDescription>
               Distribution by resource type
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[250px]">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
@@ -569,13 +569,13 @@ export function DataVisualisationDashboard() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Parent Engagement</CardTitle>
             <CardDescription>
               Levels of parent participation
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[250px]">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
@@ -606,13 +606,13 @@ export function DataVisualisationDashboard() {
       {/* Alerts and insights */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         <Card className="md:col-span-2">
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Recent Alerts & Insights</CardTitle>
             <CardDescription>
               Important notifications requiring attention
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="space-y-4">
               {alerts.map(alert => (
                 <div 
@@ -649,13 +649,13 @@ export function DataVisualisationDashboard() {
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Time Allocation</CardTitle>
             <CardDescription>
               How educator time is distributed
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="h-[250px]">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
@@ -702,7 +702,7 @@ export function DataVisualisationDashboard() {
             </CardTitle>
             <Award className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold">+14.2%</div>
             <p className="text-xs text-muted-foreground">
               +3.5% from previous term
@@ -720,7 +720,7 @@ export function DataVisualisationDashboard() {
             </CardTitle>
             <BookOpen className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold">96.5%</div>
             <p className="text-xs text-muted-foreground">
               +1.2% from previous term
@@ -738,7 +738,7 @@ export function DataVisualisationDashboard() {
             </CardTitle>
             <BookOpenIcon className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-2xl font-bold">87.3%</div>
             <p className="text-xs text-muted-foreground">
               On track for term completion
@@ -752,13 +752,13 @@ export function DataVisualisationDashboard() {
       
       {/* Learning styles distribution */}
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle>Learning Styles Distribution</CardTitle>
           <CardDescription>
             Student preferences across learning modalities
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-2">
           <div className="h-[300px]">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
@@ -783,13 +783,13 @@ export function DataVisualisationDashboard() {
       
       {/* Intervention effectiveness */}
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle>Intervention Effectiveness</CardTitle>
           <CardDescription>
             Before and after comparison of targeted interventions
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-2">
           <div className="h-[300px]">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
@@ -824,13 +824,13 @@ export function DataVisualisationDashboard() {
   // Render chart settings panel
   const renderChartSettings = () => (
     <Card>
-      <CardHeader>
+      <CardHeader className="pb-2">
         <CardTitle>Visualisation Settings</CardTitle>
         <CardDescription>
           Customise how charts and data are displayed
         </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="pt-2">
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <Label htmlFor="show-grid">Show grid lines</Label>
@@ -932,13 +932,13 @@ export function DataVisualisationDashboard() {
             {renderChartSettings()}
             
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Dashboard Configuration</CardTitle>
                 <CardDescription>
                   Manage your dashboard layouts and preferences
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="space-y-4">
                   <div>
                     <Label>Saved Dashboards</Label>
@@ -976,7 +976,7 @@ export function DataVisualisationDashboard() {
         
         <TabsContent value="help" className="mt-6">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Data Visualisation Dashboard Help</CardTitle>
               <CardDescription>
                 Learn how to get the most from your analytics
@@ -1036,3 +1036,4 @@ export function DataVisualisationDashboard() {
     </div>
   );
 }
+

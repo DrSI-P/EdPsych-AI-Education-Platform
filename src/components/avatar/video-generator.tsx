@@ -233,14 +233,14 @@ export const VideoGenerator: React.FC<VideoGeneratorProps> = ({
   return (
     <div className="video-generator">
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle>Generate Avatar Video</CardTitle>
           <CardDescription>
             Configure and generate an AI avatar video from your script
           </CardDescription>
         </CardHeader>
         
-        <CardContent>
+        <CardContent className="pt-2">
           <Tabs value={activeTab} onValueChange={setActiveTab}>
             <TabsList className="grid w-full grid-cols-3">
               <TabsTrigger value="script">Script</TabsTrigger>
@@ -593,3 +593,4 @@ export const VideoGenerator: React.FC<VideoGeneratorProps> = ({
 };
 
 export default VideoGenerator;
+

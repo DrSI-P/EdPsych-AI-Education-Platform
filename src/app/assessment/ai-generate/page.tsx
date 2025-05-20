@@ -196,7 +196,7 @@ export default function AIAssessmentGeneratorPage() {
             <CardHeader>
               <h3 className="text-lg font-medium">Assessment Details</h3>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <Form className="space-y-4">
                 <div className="space-y-2">
                   <label className="block text-sm font-medium text-gray-700">Subject</label>
@@ -264,7 +264,7 @@ export default function AIAssessmentGeneratorPage() {
             <CardHeader>
               <h3 className="text-lg font-medium">Question Types</h3>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="space-y-4">
                 <p className="text-sm text-gray-600">
                   Select the types of questions you want to include in your assessment.
@@ -301,7 +301,7 @@ export default function AIAssessmentGeneratorPage() {
           <CardHeader>
             <h3 className="text-lg font-medium">Detailed Prompt (Optional)</h3>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <p className="text-sm text-gray-600 mb-4">
               Provide additional details about the assessment you want to generate. The more specific you are, the better the results will be.
             </p>
@@ -355,7 +355,7 @@ export default function AIAssessmentGeneratorPage() {
           <CardHeader>
             <h3 className="text-xl font-semibold">{generatedAssessment.title}</h3>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <p className="text-gray-600 mb-4">{generatedAssessment.description}</p>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
@@ -515,3 +515,4 @@ export default function AIAssessmentGeneratorPage() {
     </div>
   );
 }
+

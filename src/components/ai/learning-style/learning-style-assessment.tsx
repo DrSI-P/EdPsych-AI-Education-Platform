@@ -303,13 +303,13 @@ export default function LearningStyleAssessment() {
     return (
       <div className="container mx-auto py-8 px-4 max-w-4xl">
         <Card className="mb-8">
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle className="text-2xl">Your Learning Style Profile</CardTitle>
             <CardDescription>
               Based on your responses, we've identified your primary and secondary learning styles.
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="mb-8">
               <h3 className="text-xl font-semibold mb-2">Primary Learning Style: {results.primaryStyle.name}</h3>
               <Progress value={results.primaryStyle.score} className="h-3 mb-2" />
@@ -377,14 +377,14 @@ export default function LearningStyleAssessment() {
   return (
     <div className="container mx-auto py-8 px-4 max-w-3xl">
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle>Learning Style Assessment</CardTitle>
           <CardDescription>
             Discover your unique learning style to personalize your educational experience.
             This assessment will help identify how you best process and retain information.
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-2">
           <div className="mb-6">
             <div className="flex justify-between mb-2 text-sm">
               <span>Question {currentStep + 1} of {questions.length}</span>
@@ -417,3 +417,4 @@ export default function LearningStyleAssessment() {
     </div>
   );
 }
+

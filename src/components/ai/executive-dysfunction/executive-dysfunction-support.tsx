@@ -341,7 +341,7 @@ export default function ExecutiveDysfunctionSupport({
     return (
       <div className="space-y-6">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Add New Task</CardTitle>
             <CardDescription>
               Break down complex tasks into manageable steps
@@ -449,7 +449,7 @@ export default function ExecutiveDysfunctionSupport({
           <h3 className="text-lg font-medium">Your Tasks</h3>
           
           {tasks.length === 0 ? (
-            <Card>
+            <Card className="w-full">
               <CardContent className="py-6 text-center text-muted-foreground">
                 <ListTodo className="mx-auto h-8 w-8 mb-2 opacity-50" />
                 <p>No tasks added yet. Add your first task above.</p>
@@ -556,7 +556,7 @@ export default function ExecutiveDysfunctionSupport({
     return (
       <div className="space-y-6">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Focus Timer</CardTitle>
             <CardDescription>
               Use the Pomodoro technique to maintain focus and manage time effectively
@@ -645,13 +645,13 @@ export default function ExecutiveDysfunctionSupport({
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Daily Schedule</CardTitle>
             <CardDescription>
               Visualize your day to manage time effectively
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="space-y-4">
               {/* This would be replaced with an actual calendar/schedule component */}
               <div className="text-center p-6 border border-dashed rounded-md">
@@ -671,7 +671,7 @@ export default function ExecutiveDysfunctionSupport({
     return (
       <div className="space-y-6">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Working Memory Support</CardTitle>
             <CardDescription>
               Tools to help manage and strengthen working memory
@@ -722,13 +722,13 @@ export default function ExecutiveDysfunctionSupport({
         </Card>
         
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Visual Reminders</CardTitle>
             <CardDescription>
               Create visual cues to support memory and task completion
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="space-y-4">
               {/* This would be replaced with an actual visual reminder component */}
               <div className="text-center p-6 border border-dashed rounded-md">
@@ -748,7 +748,7 @@ export default function ExecutiveDysfunctionSupport({
     return (
       <div className="space-y-6">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Emotional Regulation Tools</CardTitle>
             <CardDescription>
               Strategies to help manage emotions and reduce anxiety
@@ -846,7 +846,7 @@ export default function ExecutiveDysfunctionSupport({
     return (
       <div className="space-y-6">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Support Settings</CardTitle>
             <CardDescription>
               Customize executive function support tools to meet your needs
@@ -1027,7 +1027,7 @@ export default function ExecutiveDysfunctionSupport({
   return (
     <div className={className}>
       <Card className="mb-6">
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <BrainCircuit className="h-5 w-5 text-primary" />
@@ -1045,7 +1045,7 @@ export default function ExecutiveDysfunctionSupport({
           </CardDescription>
         </CardHeader>
         
-        <CardContent>
+        <CardContent className="pt-2">
           <Tabs defaultValue="task-management" value={activeTab} onValueChange={setActiveTab}>
             <TabsList className="grid grid-cols-2 md:grid-cols-5 mb-4">
               <TabsTrigger value="task-management" className="flex items-center gap-1">
@@ -1099,3 +1099,4 @@ export default function ExecutiveDysfunctionSupport({
     </div>
   );
 }
+

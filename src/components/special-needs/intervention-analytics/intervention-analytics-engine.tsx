@@ -50,7 +50,7 @@ export function InterventionAnalyticsEngine() {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-gray-500">Total Interventions</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-3xl font-bold">{analyticsData.interventions}</div>
           </CardContent>
         </Card>
@@ -59,7 +59,7 @@ export function InterventionAnalyticsEngine() {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-gray-500">Students Supported</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-3xl font-bold">{analyticsData.students}</div>
           </CardContent>
         </Card>
@@ -68,7 +68,7 @@ export function InterventionAnalyticsEngine() {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-gray-500">Average Progress</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-3xl font-bold">{analyticsData.averageProgress}%</div>
             <Progress value={analyticsData.averageProgress} className="mt-2" />
           </CardContent>
@@ -78,7 +78,7 @@ export function InterventionAnalyticsEngine() {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-gray-500">Success Rate</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="text-3xl font-bold">{analyticsData.successRate}%</div>
             <Progress value={analyticsData.successRate} className="mt-2" />
           </CardContent>
@@ -95,13 +95,13 @@ export function InterventionAnalyticsEngine() {
         
         <TabsContent value="overview" className="mt-4">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Recent Interventions</CardTitle>
               <CardDescription>
                 Track the progress of your most recent intervention strategies
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="space-y-4">
                 {analyticsData.recentInterventions.map((intervention) => (
                   <div key={intervention.id} className="border rounded-lg p-4">
@@ -133,13 +133,13 @@ export function InterventionAnalyticsEngine() {
         
         <TabsContent value="interventions" className="mt-4">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Intervention Analytics</CardTitle>
               <CardDescription>
                 Detailed analysis of all intervention strategies
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <p className="text-gray-500">Detailed intervention analytics would be displayed here.</p>
             </CardContent>
           </Card>
@@ -147,13 +147,13 @@ export function InterventionAnalyticsEngine() {
         
         <TabsContent value="students" className="mt-4">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Student Progress</CardTitle>
               <CardDescription>
                 Individual student progress across all interventions
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <p className="text-gray-500">Student progress analytics would be displayed here.</p>
             </CardContent>
           </Card>
@@ -161,13 +161,13 @@ export function InterventionAnalyticsEngine() {
         
         <TabsContent value="reports" className="mt-4">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Analytics Reports</CardTitle>
               <CardDescription>
                 Generate and download detailed reports
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <p className="text-gray-500">Report generation options would be displayed here.</p>
             </CardContent>
           </Card>
@@ -179,3 +179,4 @@ export function InterventionAnalyticsEngine() {
 
 // Also export as default to maintain compatibility
 export default InterventionAnalyticsEngine;
+

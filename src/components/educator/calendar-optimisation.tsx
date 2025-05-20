@@ -618,7 +618,7 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
   return (
     <div className={`calendar-optimisation ${className}`}>
       <Card className="mb-6">
-        <CardHeader>
+        <CardHeader className="pb-2">
           <div className="flex justify-between items-center">
             <div>
               <CardTitle>Calendar Optimisation</CardTitle>
@@ -745,7 +745,7 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
       {/* Activity Details Card (when activity is selected) */}
       {selectedActivity && (
         <Card className="mb-6">
-          <CardHeader>
+          <CardHeader className="pb-2">
             <div className="flex justify-between items-center">
               <div className="flex items-center">
                 <div 
@@ -767,7 +767,7 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
             </CardDescription>
           </CardHeader>
           
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <div className="flex items-center mb-2">
@@ -1423,3 +1423,4 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
     </div>
   );
 }
+

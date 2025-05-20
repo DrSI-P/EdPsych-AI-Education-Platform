@@ -112,7 +112,7 @@ export default function CreateAssessmentTemplatePage() {
           <CardHeader>
             <h3 className="text-lg font-medium">Template Details</h3>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <Form className="space-y-4">
               <div className="space-y-2">
                 <label className="block text-sm font-medium text-gray-700">Template Title</label>
@@ -306,3 +306,4 @@ export default function CreateAssessmentTemplatePage() {
     </div>
   );
 }
+

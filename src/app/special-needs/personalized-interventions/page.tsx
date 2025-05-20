@@ -51,7 +51,7 @@ export default function PersonalizedInterventionsPage() {
         
         <div className="lg:col-span-1">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle className="flex items-center">
                 <GraduationCap className="h-5 w-5 mr-2" />
                 About Personalized Interventions
@@ -60,7 +60,7 @@ export default function PersonalizedInterventionsPage() {
                 Understanding the benefits and applications
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <Tabs defaultValue="benefits">
                 <TabsList className="grid w-full grid-cols-3">
                   <TabsTrigger value="benefits">Benefits</TabsTrigger>
@@ -148,13 +148,13 @@ export default function PersonalizedInterventionsPage() {
           </Card>
           
           <Card className="mt-6">
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle className="flex items-center">
                 <FileText className="h-5 w-5 mr-2" />
                 Intervention Resources
               </CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="text-sm space-y-4">
                 <div>
                   <h4 className="font-medium mb-1">Dyslexia Support</h4>
@@ -205,3 +205,4 @@ export default function PersonalizedInterventionsPage() {
     </div>
   );
 }
+

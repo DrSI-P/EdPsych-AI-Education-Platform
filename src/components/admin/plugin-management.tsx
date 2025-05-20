@@ -479,13 +479,13 @@ export default function PluginManagement() {
         
         <TabsContent value="installed" className="space-y-6">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Installed Plugins</CardTitle>
               <CardDescription>
                 Manage your installed plugins, configure settings, and monitor status.
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="flex flex-col md:flex-row gap-4 mb-6">
                 <div className="flex-1">
                   <Label htmlFor="search-plugins" className="sr-only">Search</Label>
@@ -651,13 +651,13 @@ export default function PluginManagement() {
         
         <TabsContent value="marketplace" className="space-y-6">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Plugin Marketplace</CardTitle>
               <CardDescription>
                 Discover and install new plugins to enhance your platform.
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="flex flex-col items-center justify-center py-12 text-center">
                 <div className="rounded-full bg-gray-100 p-4 mb-4">
                   <Download className="h-8 w-8 text-gray-500" />
@@ -677,13 +677,13 @@ export default function PluginManagement() {
         
         <TabsContent value="settings" className="space-y-6">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Global Plugin Settings</CardTitle>
               <CardDescription>
                 Configure global settings for all plugins.
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="space-y-6">
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
@@ -971,3 +971,4 @@ function getPermissionDescription(permission: string): string {
   
   return descriptions[permission] || 'No description available.';
 }
+

@@ -32,7 +32,7 @@ export default function SensoryRegulationPage() {
           <SensoryRegulationEngine />
 
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle className="flex items-center">
                 <BookOpen className="mr-2 h-5 w-5" />
                 Evidence-Based Approach
@@ -66,7 +66,7 @@ export default function SensoryRegulationPage() {
 
         <div className="space-y-6">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle className="flex items-center">
                 <Info className="mr-2 h-5 w-5" />
                 About Sensory Regulation
@@ -90,13 +90,13 @@ export default function SensoryRegulationPage() {
           </Card>
 
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle className="flex items-center">
                 <Vibrate className="mr-2 h-5 w-5" />
                 Sensory Systems
               </CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <Tabs defaultValue="visual" className="w-full">
                 <TabsList className="grid w-full grid-cols-3">
                   <TabsTrigger value="visual">Visual</TabsTrigger>
@@ -141,3 +141,4 @@ export default function SensoryRegulationPage() {
     </div>
   );
 }
+

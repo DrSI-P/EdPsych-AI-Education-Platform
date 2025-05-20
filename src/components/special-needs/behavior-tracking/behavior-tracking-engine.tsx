@@ -546,13 +546,13 @@ const BehaviorTrackingEngine = () => {
         <TabsContent value="track" className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Record Behavior</CardTitle>
                 <CardDescription>
                   Track student behaviors to monitor progress and reinforce positive actions.
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <form onSubmit={handleTrackingSubmit} className="space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="behaviorId">Behavior</Label>
@@ -656,13 +656,13 @@ const BehaviorTrackingEngine = () => {
             </Card>
             
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Recent Activity</CardTitle>
                 <CardDescription>
                   View the most recent behavior tracking entries.
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <ScrollArea className="h-[400px]">
                   {trackingData.length > 0 ? (
                     <div className="space-y-4">
@@ -708,7 +708,7 @@ const BehaviorTrackingEngine = () => {
           </div>
           
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Behavior Trends</CardTitle>
               <CardDescription>
                 Visualize behavior patterns over time to identify trends and progress.
@@ -748,13 +748,13 @@ const BehaviorTrackingEngine = () => {
         <TabsContent value="behaviors" className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Create New Behavior</CardTitle>
                 <CardDescription>
                   Define behaviors you want to track and reinforce.
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <form onSubmit={handleBehaviorSubmit} className="space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="name">Behavior Name</Label>
@@ -851,13 +851,13 @@ const BehaviorTrackingEngine = () => {
             </Card>
             
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Defined Behaviors</CardTitle>
                 <CardDescription>
                   View and manage your defined behaviors.
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <ScrollArea className="h-[600px]">
                   {behaviors.length > 0 ? (
                     <div className="space-y-4">
@@ -899,13 +899,13 @@ const BehaviorTrackingEngine = () => {
         <TabsContent value="goals" className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Create New Goal</CardTitle>
                 <CardDescription>
                   Set behavior goals with rewards for achievement.
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <form onSubmit={handleGoalSubmit} className="space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="name">Goal Name</Label>
@@ -1026,13 +1026,13 @@ const BehaviorTrackingEngine = () => {
             </Card>
             
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Active Goals</CardTitle>
                 <CardDescription>
                   View and manage your behavior goals.
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <ScrollArea className="h-[600px]">
                   {goals.length > 0 ? (
                     <div className="space-y-4">
@@ -1109,13 +1109,13 @@ const BehaviorTrackingEngine = () => {
         <TabsContent value="rewards" className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Create New Reward</CardTitle>
                 <CardDescription>
                   Define rewards that can be earned through positive behavior.
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <form onSubmit={handleRewardSubmit} className="space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="name">Reward Name</Label>
@@ -1177,13 +1177,13 @@ const BehaviorTrackingEngine = () => {
             </Card>
             
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle>Available Rewards</CardTitle>
                 <CardDescription>
                   View and manage your defined rewards.
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <ScrollArea className="h-[400px]">
                   {rewards.length > 0 ? (
                     <div className="space-y-4">
@@ -1218,13 +1218,13 @@ const BehaviorTrackingEngine = () => {
           </div>
           
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Evidence-Based Reward Strategies</CardTitle>
               <CardDescription>
                 Research-backed approaches to effective positive reinforcement.
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="space-y-4">
                 <div>
                   <h4 className="font-medium">Immediate Reinforcement</h4>
@@ -1281,7 +1281,7 @@ const BehaviorTrackingEngine = () => {
         {/* Students Tab */}
         <TabsContent value="students" className="space-y-6">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Student Progress</CardTitle>
               <CardDescription>
                 View student behavior tracking data and point totals.
@@ -1376,13 +1376,13 @@ const BehaviorTrackingEngine = () => {
         {/* Settings Tab */}
         <TabsContent value="settings" className="space-y-6">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Behavior Tracking Settings</CardTitle>
               <CardDescription>
                 Configure your behavior tracking and positive reinforcement system.
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="space-y-6">
                 <div className="space-y-4">
                   <h3 className="text-lg font-medium">Core Features</h3>
@@ -1563,13 +1563,13 @@ const BehaviorTrackingEngine = () => {
           </Card>
           
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle>Evidence-Based Practices</CardTitle>
               <CardDescription>
                 Research-backed approaches to behavior tracking and positive reinforcement.
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <div className="space-y-4">
                 <div>
                   <h4 className="font-medium">Positive Behavioral Interventions and Supports (PBIS)</h4>
@@ -1628,3 +1628,4 @@ const BehaviorTrackingEngine = () => {
 };
 
 export default BehaviorTrackingEngine;
+
