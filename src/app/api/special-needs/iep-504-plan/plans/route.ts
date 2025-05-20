@@ -90,12 +90,6 @@ export async function GET(req: NextRequest) {
       where: {
         userId: userId
       },
-      include: {
-        goals: true,
-        accommodations: true,
-        services: true,
-        teamMembers: true
-      },
       orderBy: {
         updatedAt: 'desc'
       }
@@ -124,25 +118,48 @@ export async function POST(req: NextRequest) {
     const validatedData = planSchema.parse(data);
     
     // Create the plan with a transaction to ensure all related records are created
-    const result = await prisma.$transaction(async (prisma: TransactionPrismaClient) => {
+    const result = await prisma.$transaction(async (prisma: TransactionPrismaClient): Promise<any> => {
       // Create the main plan
+      // Prepare the initial presentLevels JSON data
+      const initialPresentLevels: any = {};
+      
+      // Add strengths and challenges to presentLevels if they exist
+      if (validatedData.strengths) {
+        initialPresentLevels.strengths = validatedData.strengths;
+      }
+      
+      if (validatedData.challenges) {
+        initialPresentLevels.challenges = validatedData.challenges;
+      }
+      
+      // If presentLevels is provided, merge it with our initial data
+      if (validatedData.presentLevels) {
+        Object.assign(initialPresentLevels,
+          typeof validatedData.presentLevels === 'string'
+            ? { description: validatedData.presentLevels }
+            : validatedData.presentLevels
+        );
+      }
+      
+      // Create the plan with the correct schema fields
       const plan = await prisma.iEP504Plan.create({
         data: {
           userId,
           title: validatedData.title,
           planType: validatedData.planType,
           studentName: validatedData.studentName,
-          studentId: validatedData.studentId,
-          dateOfBirth: validatedData.dateOfBirth,
+          dateOfBirth: validatedData.dateOfBirth || new Date(),
+          schoolYear: new Date().getFullYear().toString() + "-" + (new Date().getFullYear() + 1).toString(),
           startDate: validatedData.startDate,
           reviewDate: validatedData.reviewDate,
-          presentLevels: validatedData.presentLevels,
-          strengths: validatedData.strengths,
-          challenges: validatedData.challenges,
+          presentLevels: initialPresentLevels,
+          accommodations: {},
+          goals: {},
+          teamMembers: {},
+          evaluationMethods: [],
           parentInput: validatedData.parentInput,
           studentInput: validatedData.studentInput,
-          status: validatedData.status,
-          progress: 0
+          status: validatedData.status || "draft"
         }
       });
       
@@ -150,96 +167,122 @@ export async function POST(req: NextRequest) {
       if (validatedData.goals && validatedData.goals.length > 0) {
         // Use type assertion to tell TypeScript that goals is definitely an array at this point
         const goals = validatedData.goals as NonNullable<z.infer<typeof planSchema>['goals']>;
-        type GoalType = z.infer<typeof planSchema>['goals'][number];
-        await Promise.all(goals.map((goal: GoalType) =>
-          prisma.iEP504Goal.create({
-            data: {
-              planId: plan.id,
-              title: goal.title,
-              area: goal.area,
-              description: goal.description,
-              baselineData: goal.baselineData,
-              evaluationMethod: goal.evaluationMethod,
-              mastery: goal.mastery,
-              timeline: goal.timeline,
-              objectives: goal.objectives,
-              progress: goal.progress || 0
-            }
-          })
-        ));
+        
+        // Create a properly typed create function for each goal
+        // Use explicit type casting to avoid TypeScript errors
+        const goalsData = goals.map((goal: any) => {
+          // Create a new object with only the properties we need
+          return {
+            title: goal.title,
+            area: goal.area,
+            description: goal.description,
+            baselineData: goal.baselineData || null,
+            evaluationMethod: goal.evaluationMethod,
+            mastery: goal.mastery || null,
+            timeline: goal.timeline || null,
+            objectives: goal.objectives,
+            progress: goal.progress || 0
+          };
+        });
+        
+        // Update the goals JSON field in the plan
+        await prisma.iEP504Plan.update({
+          where: { id: plan.id },
+          data: {
+            goals: goalsData
+          }
+        });
       }
       
       // Create accommodations if provided
       if (validatedData.accommodations && validatedData.accommodations.length > 0) {
         // Use type assertion to tell TypeScript that accommodations is definitely an array at this point
         const accommodations = validatedData.accommodations as NonNullable<z.infer<typeof planSchema>['accommodations']>;
-        type AccommodationType = z.infer<typeof planSchema>['accommodations'][number];
-        await Promise.all(accommodations.map((accommodation: AccommodationType) =>
-          prisma.iEP504Accommodation.create({
-            data: {
-              planId: plan.id,
-              title: accommodation.title,
-              category: accommodation.category,
-              description: accommodation.description,
-              frequency: accommodation.frequency,
-              location: accommodation.location,
-              provider: accommodation.provider,
-              notes: accommodation.notes
-            }
-          })
-        ));
+        
+        // Create a properly typed accommodations object
+        const accommodationsData = accommodations.map((accommodation: any) => {
+          return {
+            title: accommodation.title,
+            category: accommodation.category,
+            description: accommodation.description,
+            frequency: accommodation.frequency || null,
+            location: accommodation.location || null,
+            provider: accommodation.provider || null,
+            notes: accommodation.notes || null
+          };
+        });
+        
+        // Update the accommodations JSON field in the plan
+        await prisma.iEP504Plan.update({
+          where: { id: plan.id },
+          data: {
+            accommodations: accommodationsData
+          }
+        });
       }
       
       // Create services if provided
       if (validatedData.services && validatedData.services.length > 0) {
         // Use type assertion to tell TypeScript that services is definitely an array at this point
         const services = validatedData.services as NonNullable<z.infer<typeof planSchema>['services']>;
-        type ServiceType = z.infer<typeof planSchema>['services'][number];
-        await Promise.all(services.map((service: ServiceType) =>
-          prisma.iEP504Service.create({
-            data: {
-              planId: plan.id,
-              title: service.title,
-              provider: service.provider,
-              frequency: service.frequency,
-              duration: service.duration,
-              location: service.location,
-              startDate: service.startDate,
-              endDate: service.endDate,
-              description: service.description
-            }
-          })
-        ));
+        
+        // Create a properly typed services object
+        const servicesData = services.map((service: any) => {
+          return {
+            title: service.title,
+            provider: service.provider,
+            frequency: service.frequency,
+            duration: service.duration,
+            location: service.location || null,
+            startDate: service.startDate,
+            endDate: service.endDate,
+            description: service.description || null
+          };
+        });
+        
+        // Store services in a JSON field
+        // Cast presentLevels to any to avoid TypeScript errors
+        const currentPresentLevels = plan.presentLevels as any;
+        const updatedPresentLevels = {
+          ...currentPresentLevels,
+          services: servicesData
+        };
+        
+        await prisma.iEP504Plan.update({
+          where: { id: plan.id },
+          data: {
+            presentLevels: updatedPresentLevels as any
+          }
+        });
       }
       
       // Create team members if provided
       if (validatedData.teamMembers && validatedData.teamMembers.length > 0) {
         // Use type assertion to tell TypeScript that teamMembers is definitely an array at this point
         const teamMembers = validatedData.teamMembers as NonNullable<z.infer<typeof planSchema>['teamMembers']>;
-        type TeamMemberType = z.infer<typeof planSchema>['teamMembers'][number];
-        await Promise.all(teamMembers.map((member: TeamMemberType) =>
-          prisma.iEP504TeamMember.create({
-            data: {
-              planId: plan.id,
-              name: member.name,
-              role: member.role,
-              email: member.email,
-              phone: member.phone,
-              notes: member.notes
-            }
-          })
-        ));
+        
+        // Create a properly typed team members object
+        const teamMembersData = teamMembers.map((member: any) => {
+          return {
+            name: member.name,
+            role: member.role,
+            email: member.email || null,
+            phone: member.phone || null,
+            notes: member.notes || null
+          };
+        });
+        
+        // Store team members as JSON in the plan
+        await prisma.iEP504Plan.update({
+          where: { id: plan.id },
+          data: {
+            teamMembers: teamMembersData
+          }
+        });
       }
       
-      // Log the creation
-      await prisma.iEP504PlanLog.create({
-        data: {
-          userId,
-          planId: plan.id,
-          action: 'create',
-          details: { message: `Created ${validatedData.planType.toUpperCase()} plan: ${validatedData.title}` }
-        }
-      });
+      // Since iEP504PlanLog doesn't exist in the schema, we'll skip this step
+      // We could add logging to a different table if needed
       
       return plan;
     });
