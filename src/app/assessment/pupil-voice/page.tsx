@@ -49,15 +49,15 @@ export default function PupilVoicePage() {
     // Filter by search query
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
-      filtered = filtered.filter(survey => 
-        survey.title.toLowerCase().includes(query) || 
+      filtered = filtered.filter((survey: PupilVoiceSurvey) =>
+        survey.title.toLowerCase().includes(query) ||
         survey.description?.toLowerCase().includes(query)
       );
     }
     
     // Filter by status
     if (selectedStatus !== 'all') {
-      filtered = filtered.filter(survey => survey.status === selectedStatus);
+      filtered = filtered.filter((survey: PupilVoiceSurvey) => survey.status === selectedStatus);
     }
     
     setFilteredSurveys(filtered);
@@ -67,15 +67,15 @@ export default function PupilVoicePage() {
     router.push('/assessment/pupil-voice/create');
   };
 
-  const handleViewResults = (surveyId) => {
+  const handleViewResults = (surveyId: string) => {
     router.push(`/assessment/pupil-voice/results/${surveyId}`);
   };
 
-  const handleEditSurvey = (surveyId) => {
+  const handleEditSurvey = (surveyId: string) => {
     router.push(`/assessment/pupil-voice/edit/${surveyId}`);
   };
 
-  const handlePreviewSurvey = (surveyId) => {
+  const handlePreviewSurvey = (surveyId: string) => {
     router.push(`/assessment/pupil-voice/preview/${surveyId}`);
   };
 
@@ -101,7 +101,7 @@ export default function PupilVoicePage() {
 
     return (
       <div className="space-y-4">
-        {filteredSurveys.map((survey) => (
+        {filteredSurveys.map((survey: PupilVoiceSurvey) => (
           <Card key={survey.id} className="overflow-hidden">
             <CardContent className="p-4">
               <div className="flex justify-between items-start">
