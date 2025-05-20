@@ -212,7 +212,7 @@ export default function AssessmentTemplatesPage() {
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <Spinner size="large" />
+        <Spinner size="lg" />
       </div>
     );
   }
@@ -232,7 +232,7 @@ export default function AssessmentTemplatesPage() {
       </div>
 
       {error && (
-        <Alert type="error" className="mb-6">
+        <Alert variant="error" className="mb-6">
           {error}
         </Alert>
       )}

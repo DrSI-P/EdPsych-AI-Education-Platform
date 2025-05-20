@@ -76,7 +76,7 @@ export default function SignInPage() {
         <Card className="shadow-lg border-0">
           <CardContent className="pt-6">
             {error && (
-              <Alert type="error" className="mb-4">
+              <Alert variant="error" className="mb-4">
                 {error}
               </Alert>
             )}

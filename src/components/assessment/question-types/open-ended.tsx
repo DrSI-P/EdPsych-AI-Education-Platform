@@ -82,7 +82,7 @@ export default function OpenEndedQuestion({
       </div>
 
       {Object.values(errors).some(error => error) && (
-        <Alert type="error">
+        <Alert variant="error">
           Please correct the errors below before saving.
         </Alert>
       )}
