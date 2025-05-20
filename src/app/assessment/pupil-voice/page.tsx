@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import type { PupilVoiceSurvey } from '@/types/assessment';
 import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Alert } from '@/components/ui/alert';
@@ -14,8 +15,8 @@ export default function PupilVoicePage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [activeTab, setActiveTab] = useState('surveys');
-  const [surveys, setSurveys] = useState([]);
-  const [filteredSurveys, setFilteredSurveys] = useState([]);
+  const [surveys, setSurveys] = useState<PupilVoiceSurvey[]>([]);
+  const [filteredSurveys, setFilteredSurveys] = useState<PupilVoiceSurvey[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState('all');
 
