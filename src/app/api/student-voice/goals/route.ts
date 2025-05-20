@@ -218,7 +218,7 @@ export async function POST(request: NextRequest) {
         const goalData = goalSchema.parse(body);
         
         // Create milestones with IDs
-        const milestones = goalData.milestones.map((milestone, index) => ({
+        const milestones = goalData.milestones.map((milestone: { title: string; description?: string }, index: number) => ({
           id: `new-${index + 1}`,
           title: milestone.title,
           description: milestone.description || null,
@@ -264,13 +264,19 @@ export async function POST(request: NextRequest) {
         
         // In a real implementation, we would look up user details
         // For now, we'll use mock data
-        const authorDetails = {
+        // Define the type for author details
+        type AuthorDetailsType = {
+          [key: string]: { name: string; role: string };
+        };
+        
+        const authorDetails: AuthorDetailsType = {
           "student123": { name: "Jamie Smith", role: "Student" },
           "teacher456": { name: "Ms. Johnson", role: "Teacher" },
           "parent789": { name: "Mr. Smith", role: "Parent" }
         };
         
-        const author = authorDetails[reflectionData.createdBy] || { name: "Unknown User", role: "Other" };
+        // Use type assertion to tell TypeScript that this is a valid key lookup
+        const author = authorDetails[reflectionData.createdBy as keyof typeof authorDetails] || { name: "Unknown User", role: "Other" };
         
         const newReflection = {
           id: Date.now().toString(),
@@ -294,10 +300,11 @@ export async function POST(request: NextRequest) {
     }
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return NextResponse.json({ 
-        success: false, 
-        message: "Validation error", 
-        errors: error.errors 
+      const zodError = error as z.ZodError;
+      return NextResponse.json({
+        success: false,
+        message: "Validation error",
+        errors: zodError.errors
       }, { status: 400 });
     }
     
@@ -370,10 +377,11 @@ export async function PUT(request: NextRequest) {
     }
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return NextResponse.json({ 
-        success: false, 
-        message: "Validation error", 
-        errors: error.errors 
+      const zodError = error as z.ZodError;
+      return NextResponse.json({
+        success: false,
+        message: "Validation error",
+        errors: zodError.errors
       }, { status: 400 });
     }
     
