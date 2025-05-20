@@ -29,10 +29,8 @@ export async function PUT(
     if (!assessment) {
       return NextResponse.json({ error: 'Assessment not found' }, { status: 404 });
     }
-    
-    // Check if user has permission to publish this assessment
-    const isCreator = assessment.creatorId === session.user.id;
-    const isAdmin = session.user.role === 'admin';
+        // Check if user has permission to publish this assessment
+    const isCreator = assessment.creatorId === session.user.id;    const isAdmin = session.user.role === 'admin';
     const isTeacher = session.user.role === 'teacher';
     const isProfessional = session.user.role === 'professional';
     
