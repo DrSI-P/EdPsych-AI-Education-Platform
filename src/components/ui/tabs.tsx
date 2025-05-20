@@ -4,9 +4,7 @@ import React, { useState } from 'react';
 import * as TabsPrimitive from '@radix-ui/react-tabs';
 import { cn } from '@/lib/utils';
 
-// Radix UI based components that are imported in other files
-export const Tabs = TabsPrimitive.Root;
-
+// Radix UI based components
 export const TabsList = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.List>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.List>
@@ -52,19 +50,76 @@ export const TabsContent = React.forwardRef<
 ));
 TabsContent.displayName = TabsPrimitive.Content.displayName;
 
-// Custom Tabs implementation - renamed to CustomTabs to avoid conflicts
-interface CustomTabsProps {
-  children: React.ReactNode;
-  defaultTab?: string;
-  className?: string;
+// Custom Tabs component that accepts a tabs prop
+interface TabItem {
+  id: string;
+  label: string;
+  content?: React.ReactNode;
 }
 
+interface TabsProps {
+  tabs: TabItem[];
+  activeTab?: string;
+  onChange?: (value: string) => void;
+  className?: string;
+  children?: React.ReactNode;
+}
+
+// Main Tabs component that supports both the tabs prop pattern and the Radix UI pattern
+export function Tabs({ tabs, activeTab, onChange, className, children }: TabsProps) {
+  const defaultTab = tabs.length > 0 ? tabs[0].id : '';
+  const [internalActiveTab, setInternalActiveTab] = useState(activeTab || defaultTab);
+  
+  const handleValueChange = (value: string) => {
+    setInternalActiveTab(value);
+    if (onChange) {
+      onChange(value);
+    }
+  };
+  
+  const currentActiveTab = activeTab || internalActiveTab;
+  
+  return (
+    <div className={className}>
+      <TabsPrimitive.Root value={currentActiveTab} onValueChange={handleValueChange}>
+        <TabsList className="w-full">
+          {tabs.map((tab) => (
+            <TabsTrigger key={tab.id} value={tab.id}>
+              {tab.label}
+            </TabsTrigger>
+          ))}
+        </TabsList>
+        
+        {/* If children are provided, render them (for conditional rendering) */}
+        {children}
+        
+        {/* If tab content is provided in the tabs prop, render it */}
+        {!children && tabs.map((tab) => (
+          tab.content && (
+            <TabsContent key={tab.id} value={tab.id}>
+              {tab.content}
+            </TabsContent>
+          )
+        ))}
+      </TabsPrimitive.Root>
+    </div>
+  );
+}
+
+// Context for custom tabs implementation
 interface TabsContextType {
   activeTab: string;
   setActiveTab: (id: string) => void;
 }
 
 const TabsContext = React.createContext<TabsContextType | undefined>(undefined);
+
+// Original CustomTabs implementation
+interface CustomTabsProps {
+  children: React.ReactNode;
+  defaultTab?: string;
+  className?: string;
+}
 
 export function CustomTabs({ children, defaultTab, className = '' }: CustomTabsProps) {
   // Find the first tab's id if no default is provided
