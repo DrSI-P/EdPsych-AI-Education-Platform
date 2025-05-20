@@ -53,6 +53,10 @@ export default function AssessmentPreviewPage() {
   useEffect(() => {
     const fetchAssessment = async () => {
       try {
+        if (!params || !params.id) {
+          throw new Error('Assessment ID is missing');
+        }
+        
         const response = await fetch(`/api/assessment/${params.id}`);
         
         if (!response.ok) {
@@ -69,10 +73,10 @@ export default function AssessmentPreviewPage() {
       }
     };
     
-    if (params.id) {
+    if (params && params.id) {
       fetchAssessment();
     }
-  }, [params.id]);
+  }, [params?.id]);
 
   const handlePublish = async () => {
     if (!assessment) return;
@@ -257,6 +261,7 @@ export default function AssessmentPreviewPage() {
     );
   }
 
+  // Main return statement
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
