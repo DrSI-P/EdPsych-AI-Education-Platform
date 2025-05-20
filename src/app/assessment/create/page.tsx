@@ -1,15 +1,14 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
+import { useRouter } from 'next/navigation';
+import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/form';
-import { Tabs } from '@/components/ui/tabs';
+import { Input } from '@/components/ui/input';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Alert } from '@/components/ui/alert';
 import { Spinner } from '@/components/ui/loading';
-import { Dropdown } from '@/components/ui/dropdown';
 import { Modal } from '@/components/ui/modal';
-import { useRouter } from 'next/navigation';
 
 // Define assessment types
 const assessmentTypes = [
@@ -45,6 +44,28 @@ const keyStages = [
   { id: 'ks5', name: 'Key Stage 5' },
 ];
 
+// Define interfaces
+interface ValidationErrors {
+  title: string;
+  description: string;
+  type: string;
+  subject: string;
+  keyStage: string;
+}
+
+interface AssessmentData {
+  title: string;
+  description: string;
+  type: string;
+  subject: string;
+  keyStage: string;
+  timeLimit: number;
+  passingScore: number;
+  showResults: boolean;
+  randomizeQuestions: boolean;
+  allowRetakes: boolean;
+}
+
 export default function CreateAssessmentPage() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState('details');
@@ -57,7 +78,7 @@ export default function CreateAssessmentPage() {
   const [aiError, setAiError] = useState('');
   
   // Form state
-  const [assessmentData, setAssessmentData] = useState({
+  const [assessmentData, setAssessmentData] = useState<AssessmentData>({
     title: '',
     description: '',
     type: '',
@@ -71,7 +92,7 @@ export default function CreateAssessmentPage() {
   });
   
   // Validation state
-  const [validationErrors, setValidationErrors] = useState({
+  const [validationErrors, setValidationErrors] = useState<ValidationErrors>({
     title: '',
     description: '',
     type: '',
@@ -101,7 +122,7 @@ export default function CreateAssessmentPage() {
     }
     
     // Clear validation error when field is edited
-    if (validationErrors[name as keyof typeof validationErrors]) {
+    if (validationErrors[name as keyof ValidationErrors]) {
       setValidationErrors({
         ...validationErrors,
         [name]: '',
@@ -239,13 +260,13 @@ export default function CreateAssessmentPage() {
       
       {error && (
         <Alert variant="error" className="mb-6">
-          {error}
+          <div>{error}</div>
         </Alert>
       )}
       
       {success && (
         <Alert variant="success" className="mb-6">
-          Assessment created successfully! Redirecting to editor...
+          <div>Assessment created successfully! Redirecting to editor...</div>
         </Alert>
       )}
       
@@ -262,223 +283,213 @@ export default function CreateAssessmentPage() {
         </Button>
       </div>
       
-      <Card className="mb-6">
-        <CardContent className="p-6">
-          <Tabs
-            tabs={[
-              { id: 'details', label: 'Assessment Details' },
-              { id: 'settings', label: 'Settings' },
-            ]}
-            activeTab={activeTab}
-            onChange={setActiveTab}
-            className="mb-6"
-          />
-          
-          <form onSubmit={handleSubmit}>
-            {activeTab === 'details' && (
-              <div className="space-y-6">
-                <div>
-                  <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
-                    Assessment Title <span className="text-red-500">*</span>
-                  </label>
-                  <Input
-                    id="title"
-                    name="title"
-                    value={assessmentData.title}
-                    onChange={handleInputChange}
-                    placeholder="Enter a title for your assessment"
-                    className={validationErrors.title ? 'border-red-500' : ''}
-                  />
-                  {validationErrors.title && (
-                    <p className="mt-1 text-sm text-red-600">{validationErrors.title}</p>
-                  )}
-                </div>
-                
-                <div>
-                  <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
-                    Description <span className="text-red-500">*</span>
-                  </label>
-                  <textarea
-                    id="description"
-                    name="description"
-                    value={assessmentData.description}
-                    onChange={handleInputChange}
-                    placeholder="Provide a description of the assessment"
-                    rows={4}
-                    className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                      validationErrors.description ? 'border-red-500' : 'border-gray-300'
-                    }`}
-                  />
-                  {validationErrors.description && (
-                    <p className="mt-1 text-sm text-red-600">{validationErrors.description}</p>
-                  )}
-                </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <form onSubmit={handleSubmit}>
+        <Card className="mb-6">
+          <CardContent className="p-6">
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-6">
+              <TabsList>
+                <TabsTrigger value="details">Assessment Details</TabsTrigger>
+                <TabsTrigger value="settings">Settings</TabsTrigger>
+              </TabsList>
+              
+              <TabsContent value="details">
+                <div className="space-y-6">
                   <div>
-                    <label htmlFor="type" className="block text-sm font-medium text-gray-700 mb-1">
-                      Assessment Type <span className="text-red-500">*</span>
+                    <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
+                      Assessment Title <span className="text-red-500">*</span>
                     </label>
-                    <select
-                      id="type"
-                      name="type"
-                      value={assessmentData.type}
+                    <Input
+                      name="title"
+                      value={assessmentData.title}
                       onChange={handleInputChange}
-                      className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                        validationErrors.type ? 'border-red-500' : 'border-gray-300'
-                      }`}
-                    >
-                      <option value="">Select an assessment type</option>
-                      {assessmentTypes.map(type => (
-                        <option key={type.id} value={type.id}>{type.name}</option>
-                      ))}
-                    </select>
-                    {validationErrors.type && (
-                      <p className="mt-1 text-sm text-red-600">{validationErrors.type}</p>
-                    )}
-                    {assessmentData.type && (
-                      <p className="mt-1 text-sm text-gray-500">
-                        {assessmentTypes.find(t => t.id === assessmentData.type)?.description}
-                      </p>
+                      placeholder="Enter a title for your assessment"
+                      className={validationErrors.title ? 'border-red-500' : ''}
+                    />
+                    {validationErrors.title && (
+                      <p className="mt-1 text-sm text-red-600">{validationErrors.title}</p>
                     )}
                   </div>
                   
                   <div>
-                    <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1">
-                      Subject <span className="text-red-500">*</span>
+                    <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
+                      Description <span className="text-red-500">*</span>
                     </label>
-                    <select
-                      id="subject"
-                      name="subject"
-                      value={assessmentData.subject}
+                    <textarea
+                      name="description"
+                      value={assessmentData.description}
                       onChange={handleInputChange}
+                      placeholder="Provide a description of the assessment"
+                      rows={4}
                       className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                        validationErrors.subject ? 'border-red-500' : 'border-gray-300'
+                        validationErrors.description ? 'border-red-500' : 'border-gray-300'
                       }`}
-                    >
-                      <option value="">Select a subject</option>
-                      {curriculumSubjects.map(subject => (
-                        <option key={subject.id} value={subject.id}>{subject.name}</option>
-                      ))}
-                    </select>
-                    {validationErrors.subject && (
-                      <p className="mt-1 text-sm text-red-600">{validationErrors.subject}</p>
+                    />
+                    {validationErrors.description && (
+                      <p className="mt-1 text-sm text-red-600">{validationErrors.description}</p>
                     )}
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <label htmlFor="type" className="block text-sm font-medium text-gray-700 mb-1">
+                        Assessment Type <span className="text-red-500">*</span>
+                      </label>
+                      <select
+                        name="type"
+                        value={assessmentData.type}
+                        onChange={handleInputChange}
+                        className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                          validationErrors.type ? 'border-red-500' : 'border-gray-300'
+                        }`}
+                      >
+                        <option value="">Select an assessment type</option>
+                        {assessmentTypes.map(type => (
+                          <option key={type.id} value={type.id}>{type.name}</option>
+                        ))}
+                      </select>
+                      {validationErrors.type && (
+                        <p className="mt-1 text-sm text-red-600">{validationErrors.type}</p>
+                      )}
+                      {assessmentData.type && (
+                        <p className="mt-1 text-sm text-gray-500">
+                          {assessmentTypes.find(t => t.id === assessmentData.type)?.description}
+                        </p>
+                      )}
+                    </div>
+                    
+                    <div>
+                      <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1">
+                        Subject <span className="text-red-500">*</span>
+                      </label>
+                      <select
+                        name="subject"
+                        value={assessmentData.subject}
+                        onChange={handleInputChange}
+                        className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                          validationErrors.subject ? 'border-red-500' : 'border-gray-300'
+                        }`}
+                      >
+                        <option value="">Select a subject</option>
+                        {curriculumSubjects.map(subject => (
+                          <option key={subject.id} value={subject.id}>{subject.name}</option>
+                        ))}
+                      </select>
+                      {validationErrors.subject && (
+                        <p className="mt-1 text-sm text-red-600">{validationErrors.subject}</p>
+                      )}
+                    </div>
+                    
+                    <div>
+                      <label htmlFor="keyStage" className="block text-sm font-medium text-gray-700 mb-1">
+                        Key Stage <span className="text-red-500">*</span>
+                      </label>
+                      <select
+                        name="keyStage"
+                        value={assessmentData.keyStage}
+                        onChange={handleInputChange}
+                        className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                          validationErrors.keyStage ? 'border-red-500' : 'border-gray-300'
+                        }`}
+                      >
+                        <option value="">Select a key stage</option>
+                        {keyStages.map(stage => (
+                          <option key={stage.id} value={stage.id}>{stage.name}</option>
+                        ))}
+                      </select>
+                      {validationErrors.keyStage && (
+                        <p className="mt-1 text-sm text-red-600">{validationErrors.keyStage}</p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </TabsContent>
+              
+              <TabsContent value="settings">
+                <div className="space-y-6">
+                  <div>
+                    <label htmlFor="timeLimit" className="block text-sm font-medium text-gray-700 mb-1">
+                      Time Limit (minutes, 0 for no limit)
+                    </label>
+                    <Input
+                      name="timeLimit"
+                      type="number"
+                      min="0"
+                      value={assessmentData.timeLimit}
+                      onChange={handleInputChange}
+                      placeholder="Enter time limit in minutes"
+                    />
                   </div>
                   
                   <div>
-                    <label htmlFor="keyStage" className="block text-sm font-medium text-gray-700 mb-1">
-                      Key Stage <span className="text-red-500">*</span>
+                    <label htmlFor="passingScore" className="block text-sm font-medium text-gray-700 mb-1">
+                      Passing Score (%)
                     </label>
-                    <select
-                      id="keyStage"
-                      name="keyStage"
-                      value={assessmentData.keyStage}
+                    <Input
+                      name="passingScore"
+                      type="number"
+                      min="0"
+                      max="100"
+                      value={assessmentData.passingScore}
                       onChange={handleInputChange}
-                      className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                        validationErrors.keyStage ? 'border-red-500' : 'border-gray-300'
-                      }`}
-                    >
-                      <option value="">Select a key stage</option>
-                      {keyStages.map(stage => (
-                        <option key={stage.id} value={stage.id}>{stage.name}</option>
-                      ))}
-                    </select>
-                    {validationErrors.keyStage && (
-                      <p className="mt-1 text-sm text-red-600">{validationErrors.keyStage}</p>
-                    )}
-                  </div>
-                </div>
-              </div>
-            )}
-            
-            {activeTab === 'settings' && (
-              <div className="space-y-6">
-                <div>
-                  <label htmlFor="timeLimit" className="block text-sm font-medium text-gray-700 mb-1">
-                    Time Limit (minutes, 0 for no limit)
-                  </label>
-                  <Input
-                    id="timeLimit"
-                    name="timeLimit"
-                    type="number"
-                    min="0"
-                    value={assessmentData.timeLimit}
-                    onChange={handleInputChange}
-                    placeholder="Enter time limit in minutes"
-                  />
-                </div>
-                
-                <div>
-                  <label htmlFor="passingScore" className="block text-sm font-medium text-gray-700 mb-1">
-                    Passing Score (%)
-                  </label>
-                  <Input
-                    id="passingScore"
-                    name="passingScore"
-                    type="number"
-                    min="0"
-                    max="100"
-                    value={assessmentData.passingScore}
-                    onChange={handleInputChange}
-                    placeholder="Enter passing score percentage"
-                  />
-                </div>
-                
-                <div className="space-y-4">
-                  <div className="flex items-center">
-                    <input
-                      id="showResults"
-                      name="showResults"
-                      type="checkbox"
-                      checked={assessmentData.showResults}
-                      onChange={(e) => setAssessmentData({
-                        ...assessmentData,
-                        showResults: e.target.checked,
-                      })}
-                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                      placeholder="Enter passing score percentage"
                     />
-                    <label htmlFor="showResults" className="ml-2 block text-sm text-gray-700">
-                      Show results to students immediately
-                    </label>
                   </div>
                   
-                  <div className="flex items-center">
-                    <input
-                      id="randomizeQuestions"
-                      name="randomizeQuestions"
-                      type="checkbox"
-                      checked={assessmentData.randomizeQuestions}
-                      onChange={(e) => setAssessmentData({
-                        ...assessmentData,
-                        randomizeQuestions: e.target.checked,
-                      })}
-                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                    />
-                    <label htmlFor="randomizeQuestions" className="ml-2 block text-sm text-gray-700">
-                      Randomize question order
-                    </label>
-                  </div>
-                  
-                  <div className="flex items-center">
-                    <input
-                      id="allowRetakes"
-                      name="allowRetakes"
-                      type="checkbox"
-                      checked={assessmentData.allowRetakes}
-                      onChange={(e) => setAssessmentData({
-                        ...assessmentData,
-                        allowRetakes: e.target.checked,
-                      })}
-                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                    />
-                    <label htmlFor="allowRetakes" className="ml-2 block text-sm text-gray-700">
-                      Allow students to retake assessment
-                    </label>
+                  <div className="space-y-4">
+                    <div className="flex items-center">
+                      <input
+                        id="showResults"
+                        name="showResults"
+                        type="checkbox"
+                        checked={assessmentData.showResults}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAssessmentData({
+                          ...assessmentData,
+                          showResults: e.target.checked,
+                        })}
+                        className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                      />
+                      <label htmlFor="showResults" className="ml-2 block text-sm text-gray-700">
+                        Show results to students immediately
+                      </label>
+                    </div>
+                    
+                    <div className="flex items-center">
+                      <input
+                        id="randomizeQuestions"
+                        name="randomizeQuestions"
+                        type="checkbox"
+                        checked={assessmentData.randomizeQuestions}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAssessmentData({
+                          ...assessmentData,
+                          randomizeQuestions: e.target.checked,
+                        })}
+                        className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                      />
+                      <label htmlFor="randomizeQuestions" className="ml-2 block text-sm text-gray-700">
+                        Randomize question order
+                      </label>
+                    </div>
+                    
+                    <div className="flex items-center">
+                      <input
+                        id="allowRetakes"
+                        name="allowRetakes"
+                        type="checkbox"
+                        checked={assessmentData.allowRetakes}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAssessmentData({
+                          ...assessmentData,
+                          allowRetakes: e.target.checked,
+                        })}
+                        className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                      />
+                      <label htmlFor="allowRetakes" className="ml-2 block text-sm text-gray-700">
+                        Allow students to retake assessment
+                      </label>
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
+              </TabsContent>
+            </Tabs>
             
             <div className="flex justify-between mt-8">
               <Button
@@ -507,9 +518,9 @@ export default function CreateAssessmentPage() {
                 </Button>
               )}
             </div>
-          </form>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      </form>
       
       {/* AI Generation Modal */}
       <Modal
@@ -525,7 +536,7 @@ export default function CreateAssessmentPage() {
           
           {aiError && (
             <Alert variant="error">
-              {aiError}
+              <div>{aiError}</div>
             </Alert>
           )}
           
@@ -536,7 +547,7 @@ export default function CreateAssessmentPage() {
             <textarea
               id="aiPrompt"
               value={aiPrompt}
-              onChange={(e) => setAiPrompt(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setAiPrompt(e.target.value)}
               placeholder="E.g., Create a Year 6 Mathematics quiz about fractions and decimals for Key Stage 2 students"
               rows={4}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
