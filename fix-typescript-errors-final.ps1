@@ -4,7 +4,7 @@ Write-Host "Starting TypeScript error fixes..." -ForegroundColor Green
 
 # 1. Fix Alert components - change type to variant
 Write-Host "Fixing Alert components..." -ForegroundColor Cyan
-Get-ChildItem -Path "src" -Recurse -Include "*.tsx", "*.ts" | 
+Get-ChildItem -Path "EdPsych-AI-Education-Platform/src" -Recurse -Include "*.tsx", "*.ts" |
     ForEach-Object {
         $content = Get-Content $_.FullName -Raw
         $updated = $content -replace '<Alert\s+type="(error|success|warning|info)"', '<Alert variant="$1"'
@@ -20,7 +20,7 @@ Get-ChildItem -Path "src" -Recurse -Include "*.tsx", "*.ts" |
 
 # 2. Fix Spinner components - change size="large" to size="lg"
 Write-Host "Fixing Spinner components..." -ForegroundColor Cyan
-Get-ChildItem -Path "src" -Recurse -Include "*.tsx", "*.ts" | 
+Get-ChildItem -Path "EdPsych-AI-Education-Platform/src" -Recurse -Include "*.tsx", "*.ts" |
     ForEach-Object {
         $content = Get-Content $_.FullName -Raw
         $updated = $content -replace '<Spinner\s+size="large"', '<Spinner size="lg"'
@@ -33,7 +33,7 @@ Get-ChildItem -Path "src" -Recurse -Include "*.tsx", "*.ts" |
 
 # 3. Fix Tabs components - change to Radix UI pattern
 Write-Host "Fixing Tabs components..." -ForegroundColor Cyan
-Get-ChildItem -Path "src" -Recurse -Include "*.tsx", "*.ts" | 
+Get-ChildItem -Path "EdPsych-AI-Education-Platform/src" -Recurse -Include "*.tsx", "*.ts" |
     ForEach-Object {
         $content = Get-Content $_.FullName -Raw
         
@@ -79,7 +79,7 @@ Get-ChildItem -Path "src" -Recurse -Include "*.tsx", "*.ts" |
 
 # 4. Fix Card components - add className props
 Write-Host "Fixing Card components..." -ForegroundColor Cyan
-Get-ChildItem -Path "src" -Recurse -Include "*.tsx", "*.ts" | 
+Get-ChildItem -Path "EdPsych-AI-Education-Platform/src" -Recurse -Include "*.tsx", "*.ts" |
     ForEach-Object {
         $content = Get-Content $_.FullName -Raw
         
@@ -96,7 +96,7 @@ Get-ChildItem -Path "src" -Recurse -Include "*.tsx", "*.ts" |
 
 # 5. Add React import if missing
 Write-Host "Adding React imports where missing..." -ForegroundColor Cyan
-Get-ChildItem -Path "src" -Recurse -Include "*.tsx", "*.ts" | 
+Get-ChildItem -Path "EdPsych-AI-Education-Platform/src" -Recurse -Include "*.tsx", "*.ts" |
     ForEach-Object {
         $content = Get-Content $_.FullName -Raw
         
@@ -110,7 +110,7 @@ Get-ChildItem -Path "src" -Recurse -Include "*.tsx", "*.ts" |
 
 # 6. Update import statements for Tabs components
 Write-Host "Updating Tabs import statements..." -ForegroundColor Cyan
-Get-ChildItem -Path "src" -Recurse -Include "*.tsx", "*.ts" | 
+Get-ChildItem -Path "EdPsych-AI-Education-Platform/src" -Recurse -Include "*.tsx", "*.ts" |
     ForEach-Object {
         $content = Get-Content $_.FullName -Raw
         
