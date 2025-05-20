@@ -65,20 +65,25 @@ interface TabsProps {
   activeTab?: string;
   defaultValue?: string;
   onChange?: (value: string) => void;
+  onValueChange?: (value: string) => void;  // Added for compatibility with Radix UI
   className?: string;
   children?: React.ReactNode;
 }
 
 // Main Tabs component that supports both the tabs prop pattern and the Radix UI pattern
-export function Tabs({ tabs = [], activeTab, defaultValue, onChange, className, children }: TabsProps) {
+export function Tabs({ tabs = [], activeTab, defaultValue, onChange, onValueChange, className, children }: TabsProps) {
   const defaultTab = tabs.length > 0 ? tabs[0].id : '';
   const initialValue = activeTab || defaultValue || defaultTab;
   const [internalActiveTab, setInternalActiveTab] = useState(initialValue);
   
   const handleValueChange = (value: string) => {
     setInternalActiveTab(value);
+    // Support both onChange and onValueChange props
     if (onChange) {
       onChange(value);
+    }
+    if (onValueChange) {
+      onValueChange(value);
     }
   };
   
