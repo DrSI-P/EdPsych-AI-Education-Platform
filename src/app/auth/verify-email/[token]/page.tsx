@@ -11,7 +11,7 @@ import Link from 'next/link';
 export default function VerifyEmailPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const token = searchParams.get('token');
+  const token = searchParams?.get('token') || null;
   
   const [loading, setLoading] = useState(true);
   const [success, setSuccess] = useState(false);

@@ -12,7 +12,7 @@ export default function MultiModalContentPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [content, setContent] = useState<any>(null);
-  const contentId = searchParams.get('contentId');
+  const contentId = searchParams?.get('contentId') || null;
 
   return (
     <div className="container mx-auto py-8 px-4">

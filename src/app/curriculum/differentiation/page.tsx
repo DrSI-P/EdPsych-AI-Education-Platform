@@ -13,7 +13,7 @@ export default function CurriculumDifferentiationPage() {
   const searchParams = useSearchParams();
   const [curriculumPlan, setCurriculumPlan] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const planId = searchParams.get('planId');
+  const planId = searchParams?.get('planId') || null;
   
   useEffect(() => {
     if (planId) {

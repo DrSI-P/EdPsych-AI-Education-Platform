@@ -23,7 +23,7 @@ export default function CurriculumCollaboration() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const planId = searchParams.get('planId');
+  const planId = searchParams?.get('planId') || null;
   
   const [activeTab, setActiveTab] = useState('overview');
   const [collaborationData, setCollaborationData] = useState(null);

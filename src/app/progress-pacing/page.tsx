@@ -11,8 +11,8 @@ import { useRouter, useSearchParams } from 'next/navigation';
 export default function ProgressPacingPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const studentId = searchParams.get('studentId');
-  const curriculumId = searchParams.get('curriculumId');
+  const studentId = searchParams?.get('studentId') || null;
+  const curriculumId = searchParams?.get('curriculumId') || null;
 
   return (
     <div className="container mx-auto py-8 px-4">
