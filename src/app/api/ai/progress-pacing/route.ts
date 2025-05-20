@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
     // Get student data if ID is provided
     let studentData = null;
     let curriculumData = null;
-    let learningStyleProfile = null;
+    let learningStyle = null;
     
     if (studentId) {
       // Get student data
@@ -44,9 +44,9 @@ export async function POST(req: NextRequest) {
           name: user.name
         };
         
-        // Get learning style profile if needed
+        // Get learning style if needed
         if (settings.considerLearningStyle) {
-          learningStyleProfile = await prisma.learningStyleProfile.findFirst({
+          learningStyle = await prisma.learningStyle.findFirst({
             where: { userId: studentId },
             orderBy: { createdAt: 'desc' }
           });
@@ -66,7 +66,8 @@ export async function POST(req: NextRequest) {
           id: curriculum.id,
           title: curriculum.title,
           subject: curriculum.subject,
-          gradeLevel: curriculum.gradeLevel,
+          // Use keyStage instead of gradeLevel which doesn't exist in the schema
+          keyStage: curriculum.keyStage || 'Not specified',
           objectives: curriculum.objectives
         };
       }
@@ -93,6 +94,33 @@ export async function POST(req: NextRequest) {
     // Get AI service
     const aiService = getAIService();
     
+    // Parse additional styles data if available
+    let primaryStyle = '';
+    let secondaryStyle = '';
+    let visualScore = 0;
+    let auditoryScore = 0;
+    let kinestheticScore = 0;
+    let readingWritingScore = 0;
+    
+    if (learningStyle) {
+      // Get scores directly from the model
+      visualScore = learningStyle.visual;
+      auditoryScore = learningStyle.auditory;
+      kinestheticScore = learningStyle.kinesthetic;
+      readingWritingScore = learningStyle.readWrite;
+      
+      // Parse additional styles data if available
+      if (learningStyle.additionalStyles) {
+        try {
+          const additionalData = JSON.parse(learningStyle.additionalStyles.toString());
+          primaryStyle = additionalData.primaryStyle || '';
+          secondaryStyle = additionalData.secondaryStyle || '';
+        } catch (e) {
+          console.error('Error parsing additional styles:', e);
+        }
+      }
+    }
+    
     // Create prompt for progress-adaptive pacing
     const prompt = `
       You are an expert educational designer specializing in personalized learning pacing based on individual student progress.
@@ -106,18 +134,18 @@ export async function POST(req: NextRequest) {
       ${curriculumData ? `Curriculum Information:
       - Title: ${curriculumData.title}
       - Subject: ${curriculumData.subject || 'Not specified'}
-      - Grade Level: ${curriculumData.gradeLevel || 'Not specified'}
+      - Key Stage: ${curriculumData.keyStage || 'Not specified'}
       - Objectives: ${JSON.stringify(curriculumData.objectives)}` : `
       Subject: ${subject || 'General'}
       Key Stage: ${keyStage || 'Not specified'}`}
       
-      ${learningStyleProfile ? `Learning Style Profile:
-      - Primary Style: ${learningStyleProfile.primaryStyle}
-      - Secondary Style: ${learningStyleProfile.secondaryStyle}
-      - Visual Score: ${learningStyleProfile.visualScore}
-      - Auditory Score: ${learningStyleProfile.auditoryScore}
-      - Kinesthetic Score: ${learningStyleProfile.kinestheticScore}
-      - Reading/Writing Score: ${learningStyleProfile.readingWritingScore}` : ''}
+      ${learningStyle ? `Learning Style Profile:
+      - Primary Style: ${primaryStyle}
+      - Secondary Style: ${secondaryStyle}
+      - Visual Score: ${visualScore}
+      - Auditory Score: ${auditoryScore}
+      - Kinesthetic Score: ${kinestheticScore}
+      - Reading/Writing Score: ${readingWritingScore}` : ''}
       
       Baseline Pace Level: ${baselinePace}% (${baselinePace < 30 ? 'Gradual' : baselinePace < 60 ? 'Moderate' : 'Accelerated'})
       Adaptation Type: ${adaptationType}
@@ -276,7 +304,7 @@ export async function POST(req: NextRequest) {
         settings: settings,
         subject: subject || null,
         keyStage: keyStage || null,
-        learningStyleUsed: learningStyleProfile ? true : false,
+        learningStyleUsed: learningStyle ? true : false,
         progressMetricsUsed: progressMetrics ? true : false
       }
     });

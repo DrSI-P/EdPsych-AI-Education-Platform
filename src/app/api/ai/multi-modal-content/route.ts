@@ -51,10 +51,12 @@ export async function POST(req: NextRequest) {
         });
         
         if (resource) {
-          contentToTransform = resource.content || '';
+          // Use description instead of content (which doesn't exist in the schema)
+          contentToTransform = resource.description || '';
           contentTitle = resource.title;
-          contentSubject = resource.tags.find(tag => tag.startsWith('subject:'))?.replace('subject:', '') || '';
-          contentKeyStage = resource.tags.find(tag => tag.startsWith('keyStage:'))?.replace('keyStage:', '') || '';
+          // Resource model doesn't have tags property, use default values
+          contentSubject = subject || '';
+          contentKeyStage = keyStage || '';
         } else {
           return NextResponse.json({ error: 'Content not found' }, { status: 404 });
         }

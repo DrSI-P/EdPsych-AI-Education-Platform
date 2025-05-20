@@ -33,18 +33,30 @@ export async function POST(req: NextRequest) {
     let userLearningStyle = null;
     if (!learningStylePreference) {
       try {
-        const learningStyleProfile = await prisma.learningStyleProfile.findUnique({
+        const learningStyle = await prisma.learningStyle.findFirst({
           where: {
             userId: session.user.id
+          },
+          orderBy: {
+            updatedAt: 'desc'
           }
         });
         
-        if (learningStyleProfile) {
-          userLearningStyle = learningStyleProfile.primaryStyle?.toLowerCase() || null;
+        if (learningStyle) {
+          // Determine primary style based on highest score
+          const scores = {
+            visual: learningStyle.visual,
+            auditory: learningStyle.auditory,
+            readWrite: learningStyle.readWrite,
+            kinesthetic: learningStyle.kinesthetic
+          };
+          
+          const primaryStyle = Object.entries(scores).reduce((a, b) => a[1] > b[1] ? a : b)[0];
+          userLearningStyle = primaryStyle.toLowerCase();
         }
       } catch (error) {
-        console.log('Learning style profile not found:', error);
-        // Continue without learning style profile
+        console.log('Learning style not found:', error);
+        // Continue without learning style
       }
     }
     
