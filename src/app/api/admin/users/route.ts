@@ -62,10 +62,9 @@ export async function GET(request: NextRequest) {
         email: true,
         role: true,
         emailVerified: true,
-        createdAt: true,
-        updatedAt: true,
+        // Removed non-existent fields: createdAt, updatedAt
       },
-      orderBy: { createdAt: 'desc' },
+      orderBy: { id: 'desc' }, // Changed from createdAt to id since createdAt doesn't exist
       skip: (page - 1) * limit,
       take: limit,
     });
@@ -148,8 +147,7 @@ export async function POST(request: NextRequest) {
         email: true,
         role: true,
         emailVerified: true,
-        createdAt: true,
-        updatedAt: true,
+        // Removed non-existent fields: createdAt, updatedAt
       },
     });
     
