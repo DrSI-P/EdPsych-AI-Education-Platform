@@ -6,7 +6,7 @@ import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card'
 import { Button } from '@/components/ui/button';
 import { Alert } from '@/components/ui/alert';
 import { Spinner } from '@/components/ui/loading';
-import { Tabs } from '@/components/ui/tabs';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Form } from '@/components/ui/form';
 
 interface AIAssessmentGeneratorProps {
@@ -496,23 +496,20 @@ export default function AIAssessmentGeneratorPage() {
 
       <Card className="mb-6">
         <CardContent className="p-6">
-          <Tabs
-            tabs={[
-              { id: 'prompt', label: 'Create' },
-              { id: 'preview', label: 'Preview' },
-            ]}
-            activeTab={activeTab}
-            onChange={(e) => {
-              // Extract the tab value from the event and update state
-              if (e && e.target && typeof (e.target as any).value === 'string') {
-                setActiveTab((e.target as any).value);
-              }
-            }}
-            className="mb-6"
-          />
-
-          {activeTab === 'prompt' && renderPromptTab()}
-          {activeTab === 'preview' && renderPreviewTab()}
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-6">
+            <TabsList>
+              <TabsTrigger value="prompt">Create</TabsTrigger>
+              <TabsTrigger value="preview">Preview</TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value="prompt">
+              {renderPromptTab()}
+            </TabsContent>
+            
+            <TabsContent value="preview">
+              {renderPreviewTab()}
+            </TabsContent>
+          </Tabs>
         </CardContent>
       </Card>
     </div>
