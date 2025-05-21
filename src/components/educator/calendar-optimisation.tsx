@@ -6,7 +6,7 @@ import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Dialogue, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialogue";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -138,18 +138,18 @@ const sampleActivities = [
     end: moment().add(2, 'days').hour(12).minute(0).toDate(),
     type: 'professional',
     priority: 'medium',
-    location: 'Training Centre',
+    location: 'Training Center',
     description: 'Professional development on inclusive teaching strategies',
     recurring: false,
     participants: ['All teaching staff']
   }
 ];
 
-interface CalendarOptimisationProps {
+interface CalendarOptimizationProps {
   className?: string;
 }
 
-export function CalendarOptimisation({ className = '' }: CalendarOptimisationProps) {
+export function CalendarOptimization({ className = '' }: CalendarOptimizationProps) {
   const { toast } = useToast();
   const aiService = useAIService();
   
@@ -159,7 +159,7 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-  const [isOptimiseDialogOpen, setIsOptimiseDialogOpen] = useState(false);
+  const [isOptimizeDialogOpen, setIsOptimizeDialogOpen] = useState(false);
   const [isAnalyticsDialogOpen, setIsAnalyticsDialogOpen] = useState(false);
   
   // State for new/edited activity
@@ -183,10 +183,10 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
     showPast: false
   });
   
-  // State for optimisation
-  const [isOptimising, setIsOptimising] = useState(false);
-  const [optimisationFocus, setOptimisationFocus] = useState('balance');
-  const [optimisationSuggestions, setOptimisationSuggestions] = useState<any[]>([]);
+  // State for optimization
+  const [isOptimizing, setIsOptimizing] = useState(false);
+  const [optimizationFocus, setOptimizationFocus] = useState('balance');
+  const [optimizationSuggestions, setOptimizationSuggestions] = useState<any[]>([]);
   
   // State for analytics
   const [analyticsData, setAnalyticsData] = useState<any>(null);
@@ -395,39 +395,39 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
     setSelectedActivity(null);
   };
   
-  // Optimise calendar
-  const handleOptimiseCalendar = async () => {
-    setIsOptimising(true);
+  // Optimize calendar
+  const handleOptimizeCalendar = async () => {
+    setIsOptimizing(true);
     
     try {
       // In a real implementation, this would call the API
-      // For now, we'll simulate the optimisation process
+      // For now, we'll simulate the optimization process
       
       // Simulate API delay
       await new Promise(resolve => setTimeout(resolve, 2000));
       
-      // Generate optimisation suggestions based on focus
-      const suggestions = generateOptimisationSuggestions(optimisationFocus);
-      setOptimisationSuggestions(suggestions);
+      // Generate optimization suggestions based on focus
+      const suggestions = generateOptimizationSuggestions(optimizationFocus);
+      setOptimizationSuggestions(suggestions);
       
       toast({
-        title: "Calendar optimised",
+        title: "Calendar optimized",
         description: `${suggestions.length} suggestions generated based on your preferences.`
       });
     } catch (error) {
-      console.error('Error optimising calendar:', error);
+      console.error('Error optimizing calendar:', error);
       toast({
-        title: "Optimisation failed",
-        description: "There was a problem optimising your calendar. Please try again.",
+        title: "Optimization failed",
+        description: "There was a problem optimizing your calendar. Please try again.",
         variant: "destructive"
       });
     } finally {
-      setIsOptimising(false);
+      setIsOptimizing(false);
     }
   };
   
-  // Generate mock optimisation suggestions
-  const generateOptimisationSuggestions = (focus: string) => {
+  // Generate mock optimization suggestions
+  const generateOptimizationSuggestions = (focus: string) => {
     const suggestions = [];
     
     if (focus === 'balance' || focus === 'efficiency') {
@@ -441,7 +441,7 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
       });
     }
     
-    if (focus === 'balance' || focus === 'wellbeing') {
+    if (focus === 'balance' || focus === 'well-being') {
       suggestions.push({
         id: 'sug-2',
         type: 'break',
@@ -466,7 +466,7 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
     return suggestions;
   };
   
-  // Apply optimisation suggestion
+  // Apply optimization suggestion
   const handleApplySuggestion = (suggestion: any) => {
     // In a real implementation, this would update the activities based on the suggestion
     // For now, we'll just show a toast
@@ -477,7 +477,7 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
     });
     
     // Remove the suggestion from the list
-    setOptimisationSuggestions(prev => prev.filter(s => s.id !== suggestion.id));
+    setOptimizationSuggestions(prev => prev.filter(s => s.id !== suggestion.id));
   };
   
   // Load analytics data
@@ -531,7 +531,7 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
   // Custom event styling
   const eventStyleGetter = (event: any) => {
     const type = event.type;
-    const backgroundColor = activityTypes[type as keyof typeof activityTypes]?.colour || '#3174ad';
+    const backgroundColor = activityTypes[type as keyof typeof activityTypes]?.color || '#3174ad';
     
     const style = {
       backgroundColor,
@@ -571,8 +571,8 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
     };
     
     return (
-      <div className="flex justify-between items-centre mb-4">
-        <div className="flex items-centre gap-2">
+      <div className="flex justify-between items-center mb-4">
+        <div className="flex items-center gap-2">
           <Button variant="outline" size="sm" onClick={goToBack}>
             Previous
           </Button>
@@ -584,11 +584,11 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
           </Button>
         </div>
         
-        <div className="text-centre">
+        <div className="text-center">
           {label()}
         </div>
         
-        <div className="flex items-centre gap-2">
+        <div className="flex items-center gap-2">
           <Select value={calendarView} onValueChange={setCalendarView}>
             <SelectTrigger className="w-[120px]">
               <SelectValue placeholder="View" />
@@ -601,9 +601,9 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
             </SelectContent>
           </Select>
           
-          <Button variant="outline" size="sm" onClick={() => setIsOptimiseDialogOpen(true)}>
+          <Button variant="outline" size="sm" onClick={() => setIsOptimizeDialogOpen(true)}>
             <RefreshCw className="h-4 w-4 mr-2" />
-            Optimise
+            Optimize
           </Button>
           
           <Button variant="outline" size="sm" onClick={() => setIsAnalyticsDialogOpen(true)}>
@@ -616,14 +616,14 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
   };
   
   return (
-    <div className={`calendar-optimisation ${className}`}>
+    <div className={`calendar-optimization ${className}`}>
       <Card className="mb-6">
         <CardHeader>
-          <div className="flex justify-between items-centre">
+          <div className="flex justify-between items-center">
             <div>
-              <CardTitle>Calendar Optimisation</CardTitle>
+              <CardTitle>Calendar Optimization</CardTitle>
               <CardDescription>
-                Efficiently manage and optimise your educational activities
+                Efficiently manage and optimize your educational activities
               </CardDescription>
             </div>
             <Button onClick={() => setIsAddDialogOpen(true)}>
@@ -636,8 +636,8 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
         <CardContent>
           {/* Filters */}
           <div className="mb-6 p-4 bg-muted/30 rounded-lg">
-            <div className="flex items-centre justify-between mb-4">
-              <h3 className="text-sm font-medium flex items-centre">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-sm font-medium flex items-center">
                 <Filter className="h-4 w-4 mr-2" />
                 Filters
               </h3>
@@ -659,14 +659,14 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
               <div>
                 <h4 className="text-xs font-medium mb-2">Activity Types</h4>
                 <div className="flex flex-wrap gap-2">
-                  {Object.entries(activityTypes).map(([key, { label, colour, icon }]) => (
-                    <Badge 
+                  {Object.entries(activityTypes).map(([key, { label, color, icon }]) => (
+                    <Badge
                       key={key}
                       variant={filters.types.includes(key) ? "default" : "outline"}
                       className="cursor-pointer"
-                      style={{ 
-                        backgroundColor: filters.types.includes(key) ? colour : 'transparent',
-                        borderColor: colour,
+                      style={{
+                        backgroundColor: filters.types.includes(key) ? color : 'transparent',
+                        borderColor: color,
                         color: filters.types.includes(key) ? 'white' : undefined
                       }}
                       onClick={() => handleFilterTypeToggle(key)}
@@ -682,14 +682,14 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
               <div>
                 <h4 className="text-xs font-medium mb-2">Priority Levels</h4>
                 <div className="flex flex-wrap gap-2">
-                  {Object.entries(priorityLevels).map(([key, { label, colour }]) => (
-                    <Badge 
+                  {Object.entries(priorityLevels).map(([key, { label, color }]) => (
+                    <Badge
                       key={key}
                       variant={filters.priorities.includes(key) ? "default" : "outline"}
                       className="cursor-pointer"
-                      style={{ 
-                        backgroundColor: filters.priorities.includes(key) ? colour : 'transparent',
-                        borderColor: colour,
+                      style={{
+                        backgroundColor: filters.priorities.includes(key) ? color : 'transparent',
+                        borderColor: color,
                         color: filters.priorities.includes(key) ? 'white' : undefined
                       }}
                       onClick={() => handleFilterPriorityToggle(key)}
@@ -703,13 +703,13 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
               {/* Other Filters */}
               <div>
                 <h4 className="text-xs font-medium mb-2">Other Filters</h4>
-                <div className="flex items-centre">
+                <div className="flex items-center">
                   <input 
                     type="checkbox" 
                     id="showPast" 
                     checked={filters.showPast} 
                     onChange={handleTogglePastEvents}
-                    className="h-4 w-4 rounded border-grey-300"
+                    className="h-4 w-4 rounded border-gray-300"
                   />
                   <Label htmlFor="showPast" className="ml-2 text-sm font-normal">
                     Show past events
@@ -746,17 +746,17 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
       {selectedActivity && (
         <Card className="mb-6">
           <CardHeader>
-            <div className="flex justify-between items-centre">
-              <div className="flex items-centre">
-                <div 
-                  className="w-4 h-4 rounded-full mr-2" 
-                  style={{ backgroundColor: activityTypes[selectedActivity.type as keyof typeof activityTypes]?.colour }}
+            <div className="flex justify-between items-center">
+              <div className="flex items-center">
+                <div
+                  className="w-4 h-4 rounded-full mr-2"
+                  style={{ backgroundColor: activityTypes[selectedActivity.type as keyof typeof activityTypes]?.color }}
                 />
                 <CardTitle>{selectedActivity.title}</CardTitle>
               </div>
               <Badge 
-                style={{ 
-                  backgroundColor: priorityLevels[selectedActivity.priority as keyof typeof priorityLevels]?.colour 
+                style={{
+                  backgroundColor: priorityLevels[selectedActivity.priority as keyof typeof priorityLevels]?.color
                 }}
               >
                 {priorityLevels[selectedActivity.priority as keyof typeof priorityLevels]?.label} Priority
@@ -770,14 +770,14 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <div className="flex items-centre mb-2">
+                <div className="flex items-center mb-2">
                   <CalendarIcon className="h-4 w-4 mr-2 text-muted-foreground" />
                   <span>
                     {moment(selectedActivity.start).format('dddd, MMMM D, YYYY')}
                   </span>
                 </div>
                 
-                <div className="flex items-centre mb-2">
+                <div className="flex items-center mb-2">
                   <Clock className="h-4 w-4 mr-2 text-muted-foreground" />
                   <span>
                     {moment(selectedActivity.start).format('h:mm A')} - {moment(selectedActivity.end).format('h:mm A')}
@@ -792,7 +792,7 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
                 )}
                 
                 {selectedActivity.recurring && (
-                  <div className="flex items-centre mb-2">
+                  <div className="flex items-center mb-2">
                     <RefreshCw className="h-4 w-4 mr-2 text-muted-foreground" />
                     <span>Recurring activity</span>
                   </div>
@@ -841,8 +841,8 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
         </Card>
       )}
       
-      {/* Add Activity Dialogue */}
-      <Dialogue open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
+      {/* Add Activity Dialog */}
+      <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
         <DialogContent className="sm:max-w-[550px]">
           <DialogHeader>
             <DialogTitle>Add New Activity</DialogTitle>
@@ -852,7 +852,7 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
           </DialogHeader>
           
           <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-centre gap-4">
+            <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="title" className="text-right">
                 Title
               </Label>
@@ -865,7 +865,7 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
               />
             </div>
             
-            <div className="grid grid-cols-4 items-centre gap-4">
+            <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="type" className="text-right">
                 Type
               </Label>
@@ -879,7 +879,7 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
                 <SelectContent>
                   {Object.entries(activityTypes).map(([key, { label, icon }]) => (
                     <SelectItem key={key} value={key}>
-                      <div className="flex items-centre">
+                      <div className="flex items-center">
                         <span className="mr-2">{icon}</span>
                         {label}
                       </div>
@@ -889,7 +889,7 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
               </Select>
             </div>
             
-            <div className="grid grid-cols-4 items-centre gap-4">
+            <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="priority" className="text-right">
                 Priority
               </Label>
@@ -908,7 +908,7 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
               </Select>
             </div>
             
-            <div className="grid grid-cols-4 items-centre gap-4">
+            <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="start" className="text-right">
                 Start
               </Label>
@@ -925,7 +925,7 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
               />
             </div>
             
-            <div className="grid grid-cols-4 items-centre gap-4">
+            <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="end" className="text-right">
                 End
               </Label>
@@ -942,7 +942,7 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
               />
             </div>
             
-            <div className="grid grid-cols-4 items-centre gap-4">
+            <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="location" className="text-right">
                 Location
               </Label>
@@ -955,7 +955,7 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
               />
             </div>
             
-            <div className="grid grid-cols-4 items-centre gap-4">
+            <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="description" className="text-right">
                 Description
               </Label>
@@ -968,18 +968,18 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
               />
             </div>
             
-            <div className="grid grid-cols-4 items-centre gap-4">
+            <div className="grid grid-cols-4 items-center gap-4">
               <div className="text-right">
                 <Label htmlFor="recurring">Recurring</Label>
               </div>
-              <div className="col-span-3 flex items-centre space-x-2">
+              <div className="col-span-3 flex items-center space-x-2">
                 <input
                   type="checkbox"
                   id="recurring"
                   name="recurring"
                   checked={activityForm.recurring}
                   onChange={handleCheckboxChange}
-                  className="h-4 w-4 rounded border-grey-300"
+                  className="h-4 w-4 rounded border-gray-300"
                 />
                 <Label htmlFor="recurring" className="font-normal">
                   This is a recurring activity
@@ -995,10 +995,10 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
             <Button onClick={handleSaveActivity}>Save Activity</Button>
           </DialogFooter>
         </DialogContent>
-      </Dialogue>
+      </Dialog>
       
-      {/* Edit Activity Dialogue */}
-      <Dialogue open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+      {/* Edit Activity Dialog */}
+      <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
         <DialogContent className="sm:max-w-[550px]">
           <DialogHeader>
             <DialogTitle>Edit Activity</DialogTitle>
@@ -1008,7 +1008,7 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
           </DialogHeader>
           
           <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-centre gap-4">
+            <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="edit-title" className="text-right">
                 Title
               </Label>
@@ -1021,7 +1021,7 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
               />
             </div>
             
-            <div className="grid grid-cols-4 items-centre gap-4">
+            <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="edit-type" className="text-right">
                 Type
               </Label>
@@ -1035,7 +1035,7 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
                 <SelectContent>
                   {Object.entries(activityTypes).map(([key, { label, icon }]) => (
                     <SelectItem key={key} value={key}>
-                      <div className="flex items-centre">
+                      <div className="flex items-center">
                         <span className="mr-2">{icon}</span>
                         {label}
                       </div>
@@ -1045,7 +1045,7 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
               </Select>
             </div>
             
-            <div className="grid grid-cols-4 items-centre gap-4">
+            <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="edit-priority" className="text-right">
                 Priority
               </Label>
@@ -1064,7 +1064,7 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
               </Select>
             </div>
             
-            <div className="grid grid-cols-4 items-centre gap-4">
+            <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="edit-start" className="text-right">
                 Start
               </Label>
@@ -1081,7 +1081,7 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
               />
             </div>
             
-            <div className="grid grid-cols-4 items-centre gap-4">
+            <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="edit-end" className="text-right">
                 End
               </Label>
@@ -1098,7 +1098,7 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
               />
             </div>
             
-            <div className="grid grid-cols-4 items-centre gap-4">
+            <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="edit-location" className="text-right">
                 Location
               </Label>
@@ -1111,7 +1111,7 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
               />
             </div>
             
-            <div className="grid grid-cols-4 items-centre gap-4">
+            <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="edit-description" className="text-right">
                 Description
               </Label>
@@ -1124,18 +1124,18 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
               />
             </div>
             
-            <div className="grid grid-cols-4 items-centre gap-4">
+            <div className="grid grid-cols-4 items-center gap-4">
               <div className="text-right">
                 <Label htmlFor="edit-recurring">Recurring</Label>
               </div>
-              <div className="col-span-3 flex items-centre space-x-2">
+              <div className="col-span-3 flex items-center space-x-2">
                 <input
                   type="checkbox"
                   id="edit-recurring"
                   name="recurring"
                   checked={activityForm.recurring}
                   onChange={handleCheckboxChange}
-                  className="h-4 w-4 rounded border-grey-300"
+                  className="h-4 w-4 rounded border-gray-300"
                 />
                 <Label htmlFor="edit-recurring" className="font-normal">
                   This is a recurring activity
@@ -1151,10 +1151,10 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
             <Button onClick={handleSaveActivity}>Update Activity</Button>
           </DialogFooter>
         </DialogContent>
-      </Dialogue>
+      </Dialog>
       
-      {/* Delete Confirmation Dialogue */}
-      <Dialogue open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+      {/* Delete Confirmation Dialog */}
+      <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle>Confirm Deletion</DialogTitle>
@@ -1181,53 +1181,53 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
             </Button>
           </DialogFooter>
         </DialogContent>
-      </Dialogue>
+      </Dialog>
       
-      {/* Optimise Calendar Dialogue */}
-      <Dialogue open={isOptimiseDialogOpen} onOpenChange={setIsOptimiseDialogOpen}>
+      {/* Optimize Calendar Dialog */}
+      <Dialog open={isOptimizeDialogOpen} onOpenChange={setIsOptimizeDialogOpen}>
         <DialogContent className="sm:max-w-[600px]">
           <DialogHeader>
-            <DialogTitle>Optimise Your Calendar</DialogTitle>
+            <DialogTitle>Optimize Your Calendar</DialogTitle>
             <DialogDescription>
-              Let AI help you optimise your schedule for better productivity and wellbeing.
+              Let AI help you optimize your schedule for better productivity and well-being.
             </DialogDescription>
           </DialogHeader>
           
           <div className="py-4">
             <div className="mb-4">
-              <Label htmlFor="optimisation-focus" className="mb-2 block">
-                Optimisation Focus
+              <Label htmlFor="optimization-focus" className="mb-2 block">
+                Optimization Focus
               </Label>
               <Select
-                value={optimisationFocus}
-                onValueChange={setOptimisationFocus}
+                value={optimizationFocus}
+                onValueChange={setOptimizationFocus}
               >
                 <SelectTrigger>
-                  <SelectValue placeholder="Select optimisation focus" />
+                  <SelectValue placeholder="Select optimization focus" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="balance">Balanced Schedule</SelectItem>
                   <SelectItem value="efficiency">Maximum Efficiency</SelectItem>
                   <SelectItem value="teaching">Teaching Quality</SelectItem>
-                  <SelectItem value="wellbeing">Educator Wellbeing</SelectItem>
+                  <SelectItem value="well-being">Educator Well-being</SelectItem>
                 </SelectContent>
               </Select>
               <p className="text-sm text-muted-foreground mt-2">
-                {optimisationFocus === 'balance' && 'Create a well-balanced schedule with appropriate time for all activity types.'}
-                {optimisationFocus === 'efficiency' && 'Optimise for maximum productivity and efficient use of time.'}
-                {optimisationFocus === 'teaching' && 'Prioritise teaching quality by optimising preparation and delivery time.'}
-                {optimisationFocus === 'wellbeing' && 'Focus on sustainable workload and preventing burnout.'}
+                {optimizationFocus === 'balance' && 'Create a well-balanced schedule with appropriate time for all activity types.'}
+                {optimizationFocus === 'efficiency' && 'Optimize for maximum productivity and efficient use of time.'}
+                {optimizationFocus === 'teaching' && 'Prioritize teaching quality by optimizing preparation and delivery time.'}
+                {optimizationFocus === 'well-being' && 'Focus on sustainable workload and preventing burnout.'}
               </p>
             </div>
             
-            {optimisationSuggestions.length > 0 ? (
+            {optimizationSuggestions.length > 0 ? (
               <div className="space-y-4">
-                <h3 className="text-sm font-medium">Optimisation Suggestions</h3>
+                <h3 className="text-sm font-medium">Optimization Suggestions</h3>
                 
-                {optimisationSuggestions.map(suggestion => (
+                {optimizationSuggestions.map(suggestion => (
                   <Card key={suggestion.id}>
                     <CardHeader className="py-3">
-                      <div className="flex justify-between items-centre">
+                      <div className="flex justify-between items-center">
                         <CardTitle className="text-base">{suggestion.title}</CardTitle>
                         <Badge variant="outline">
                           {suggestion.type === 'reschedule' && 'Reschedule'}
@@ -1254,7 +1254,7 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
                       <Button 
                         variant="ghost" 
                         size="sm"
-                        onClick={() => setOptimisationSuggestions(prev => 
+                        onClick={() => setOptimizationSuggestions(prev =>
                           prev.filter(s => s.id !== suggestion.id)
                         )}
                       >
@@ -1265,16 +1265,16 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
                 ))}
               </div>
             ) : (
-              <div className="text-centre py-8">
-                {isOptimising ? (
-                  <div className="flex flex-col items-centre">
+              <div className="text-center py-8">
+                {isOptimizing ? (
+                  <div className="flex flex-col items-center">
                     <Spinner size="lg" className="mb-4" />
-                    <p>Analysing your calendar and generating optimisation suggestions...</p>
+                    <p>Analyzing your calendar and generating optimization suggestions...</p>
                   </div>
                 ) : (
                   <div>
-                    <p className="mb-4">Click the button below to generate optimisation suggestions.</p>
-                    <Button onClick={handleOptimiseCalendar}>
+                    <p className="mb-4">Click the button below to generate optimization suggestions.</p>
+                    <Button onClick={handleOptimizeCalendar}>
                       <RefreshCw className="h-4 w-4 mr-2" />
                       Generate Suggestions
                     </Button>
@@ -1285,15 +1285,15 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
           </div>
           
           <DialogFooter>
-            <Button variant="outline" onClick={() => setIsOptimiseDialogOpen(false)}>
+            <Button variant="outline" onClick={() => setIsOptimizeDialogOpen(false)}>
               Close
             </Button>
           </DialogFooter>
         </DialogContent>
-      </Dialogue>
+      </Dialog>
       
-      {/* Analytics Dialogue */}
-      <Dialogue open={isAnalyticsDialogOpen} onOpenChange={setIsAnalyticsDialogOpen}>
+      {/* Analytics Dialog */}
+      <Dialog open={isAnalyticsDialogOpen} onOpenChange={setIsAnalyticsDialogOpen}>
         <DialogContent className="sm:max-w-[700px]">
           <DialogHeader>
             <DialogTitle>Calendar Analytics</DialogTitle>
@@ -1317,11 +1317,11 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
                   <div className="space-y-4">
                     {Object.entries(analyticsData.timeDistribution).map(([type, percentage]) => (
                       <div key={type}>
-                        <div className="flex justify-between items-centre mb-1">
-                          <div className="flex items-centre">
+                        <div className="flex justify-between items-center mb-1">
+                          <div className="flex items-center">
                             <div 
-                              className="w-3 h-3 rounded-full mr-2" 
-                              style={{ backgroundColor: activityTypes[type as keyof typeof activityTypes]?.colour }}
+                              className="w-3 h-3 rounded-full mr-2"
+                              style={{ backgroundColor: activityTypes[type as keyof typeof activityTypes]?.color }}
                             />
                             <span className="text-sm">
                               {activityTypes[type as keyof typeof activityTypes]?.label}
@@ -1332,9 +1332,9 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
                         <div className="w-full bg-muted rounded-full h-2">
                           <div 
                             className="h-2 rounded-full" 
-                            style={{ 
+                            style={{
                               width: `${percentage}%`,
-                              backgroundColor: activityTypes[type as keyof typeof activityTypes]?.colour
+                              backgroundColor: activityTypes[type as keyof typeof activityTypes]?.color
                             }}
                           />
                         </div>
@@ -1350,16 +1350,16 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
                     {Object.entries(analyticsData.weeklyTrends).map(([day, activities]) => (
                       <div key={day}>
                         <h4 className="text-sm font-medium mb-2 capitalize">{day}</h4>
-                        <div className="flex items-centre h-8">
+                        <div className="flex items-center h-8">
                           {Object.entries(activities).map(([type, hours]) => (
                             hours > 0 && (
                               <div 
                                 key={type}
-                                style={{ 
+                                style={{
                                   width: `${(hours / 12) * 100}%`,
-                                  backgroundColor: activityTypes[type as keyof typeof activityTypes]?.colour
+                                  backgroundColor: activityTypes[type as keyof typeof activityTypes]?.color
                                 }}
-                                className="h-full first:rounded-l-md last:rounded-r-md flex items-centre justify-centre text-white text-xs"
+                                className="h-full first:rounded-l-md last:rounded-r-md flex items-center justify-center text-white text-xs"
                                 title={`${activityTypes[type as keyof typeof activityTypes]?.label}: ${hours} hours`}
                               >
                                 {hours > 1 && activityTypes[type as keyof typeof activityTypes]?.icon}
@@ -1394,11 +1394,11 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
                 </TabsContent>
               </Tabs>
             ) : (
-              <div className="text-centre py-8">
+              <div className="text-center py-8">
                 {isLoadingAnalytics ? (
-                  <div className="flex flex-col items-centre">
+                  <div className="flex flex-col items-center">
                     <Spinner size="lg" className="mb-4" />
-                    <p>Analysing your calendar data...</p>
+                    <p>Analyzing your calendar data...</p>
                   </div>
                 ) : (
                   <div>
@@ -1419,7 +1419,7 @@ export function CalendarOptimisation({ className = '' }: CalendarOptimisationPro
             </Button>
           </DialogFooter>
         </DialogContent>
-      </Dialogue>
+      </Dialog>
     </div>
   );
 }

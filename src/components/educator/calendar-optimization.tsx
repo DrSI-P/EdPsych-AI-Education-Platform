@@ -6,7 +6,7 @@ import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Dialogue, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialogue";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -436,7 +436,7 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
       });
     }
     
-    if (focus === 'balance' || focus === 'wellbeing') {
+    if (focus === 'balance' || focus === 'well-being') {
       suggestions.push({
         id: 'sug-2',
         type: 'break',
@@ -834,7 +834,7 @@ return (
       )}
       
       {/* Add Activity Dialog */}
-      <Dialogue open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
+      <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
         <DialogContent className="sm:max-w-[550px]">
           <DialogHeader>
             <DialogTitle>Add New Activity</DialogTitle>
@@ -986,9 +986,9 @@ return (
             <Button onClick={handleSaveActivity}>Save Activity</Button>
           </DialogFooter>
         </DialogContent>
-      </Dialogue>
+      </Dialog>
 {/* Edit Activity Dialog */}
-      <Dialogue open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+      <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
         <DialogContent className="sm:max-w-[550px]">
           <DialogHeader>
             <DialogTitle>Edit Activity</DialogTitle>
@@ -1141,10 +1141,10 @@ return (
             <Button onClick={handleSaveActivity}>Update Activity</Button>
           </DialogFooter>
         </DialogContent>
-      </Dialogue>
+      </Dialog>
       
       {/* Delete Confirmation Dialog */}
-      <Dialogue open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+      <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle>Confirm Deletion</DialogTitle>
@@ -1171,14 +1171,14 @@ return (
             </Button>
           </DialogFooter>
         </DialogContent>
-      </Dialogue>
+      </Dialog>
 {/* Optimize Calendar Dialog */}
-      <Dialogue open={isOptimizeDialogOpen} onOpenChange={setIsOptimizeDialogOpen}>
+      <Dialog open={isOptimizeDialogOpen} onOpenChange={setIsOptimizeDialogOpen}>
         <DialogContent className="sm:max-w-[600px]">
           <DialogHeader>
             <DialogTitle>Optimize Your Calendar</DialogTitle>
             <DialogDescription>
-              Let AI help you optimize your schedule for better productivity and wellbeing.
+              Let AI help you optimize your schedule for better productivity and well-being.
             </DialogDescription>
           </DialogHeader>
           
@@ -1198,14 +1198,14 @@ return (
                   <SelectItem value="balance">Balanced Schedule</SelectItem>
                   <SelectItem value="efficiency">Maximum Efficiency</SelectItem>
                   <SelectItem value="teaching">Teaching Quality</SelectItem>
-                  <SelectItem value="wellbeing">Educator Wellbeing</SelectItem>
+                  <SelectItem value="well-being">Educator Well-being</SelectItem>
                 </SelectContent>
               </Select>
               <p className="text-sm text-muted-foreground mt-2">
                 {optimizationFocus === 'balance' && 'Create a well-balanced schedule with appropriate time for all activity types.'}
                 {optimizationFocus === 'efficiency' && 'Optimize for maximum productivity and efficient use of time.'}
                 {optimizationFocus === 'teaching' && 'Prioritize teaching quality by optimizing preparation and delivery time.'}
-                {optimizationFocus === 'wellbeing' && 'Focus on sustainable workload and preventing burnout.'}
+                {optimizationFocus === 'well-being' && 'Focus on sustainable workload and preventing burnout.'}
               </p>
             </div>
             
@@ -1279,10 +1279,10 @@ return (
             </Button>
           </DialogFooter>
         </DialogContent>
-      </Dialogue>
+      </Dialog>
       
       {/* Analytics Dialog */}
-      <Dialogue open={isAnalyticsDialogOpen} onOpenChange={setIsAnalyticsDialogOpen}>
+      <Dialog open={isAnalyticsDialogOpen} onOpenChange={setIsAnalyticsDialogOpen}>
         <DialogContent className="sm:max-w-[700px]">
           <DialogHeader>
             <DialogTitle>Calendar Analytics</DialogTitle>
@@ -1408,7 +1408,7 @@ return (
             </Button>
           </DialogFooter>
         </DialogContent>
-      </Dialogue>
+      </Dialog>
     </div>
   );
 }
