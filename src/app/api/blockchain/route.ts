@@ -38,8 +38,19 @@ const CopyrightRegistrationSchema = z.object({
   metadata: z.record(z.string(), z.any()).optional()
 });
 
+// Define types for the blockchain interaction
+type BlockchainAction = 'verify' | 'issue' | 'register';
+type BlockchainData = {
+  id?: string;
+  type?: string;
+  network?: string;
+  transactionId?: string;
+  verificationCode?: string;
+  [key: string]: any; // Allow for additional properties
+};
+
 // Mock blockchain interaction function
-const mockBlockchainInteraction = async (action, data) => {
+const mockBlockchainInteraction = async (action: BlockchainAction, data: BlockchainData) => {
   // Simulate blockchain delay
   await new Promise(resolve => setTimeout(resolve, 1500));
   
