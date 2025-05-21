@@ -12,6 +12,7 @@ The deployment was failing due to npm trying to download packages with UK spelli
 
 - `@zag-js/colour-picker` → `@zag-js/color-picker`
 - `@zag-js/colour-utils` → `@zag-js/color-utils`
+- `@zag-js/dialogue` → `@zag-js/dialog`
 - `colour-support` → `color-support`
 - `@radix-ui/react-dialogue` → `@radix-ui/react-dialog`
 - `@radix-ui/react-alert-dialogue` → `@radix-ui/react-alert-dialog`
