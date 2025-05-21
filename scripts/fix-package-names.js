@@ -13,6 +13,7 @@ const packageLockPath = path.join(rootDir, 'package-lock.json');
 // UK to US spelling mappings for package names
 const packageNameMap = {
   'colour': 'color',
+  'd3-colour': 'd3-color', // Special case for d3-color package
   'dialogue': 'dialog',
   'behaviour': 'behavior',
   'customise': 'customize',
@@ -63,8 +64,18 @@ function fixPackageLock() {
   let content = fs.readFileSync(packageLockPath, 'utf8');
   let updated = false;
   
+  // Special case for d3-colour
+  if (content.includes('"d3-colour"') || content.includes('@types/d3-colour')) {
+    console.log('  Found d3-colour package references');
+    content = content.replace(/d3-colour/g, 'd3-color');
+    console.log('  Replaced d3-colour with d3-color');
+    updated = true;
+  }
+  
   // Replace UK spellings with US spellings in package names
   for (const [uk, us] of Object.entries(packageNameMap)) {
+    // Skip d3-colour as it's handled separately
+    if (uk === 'd3-colour') continue;
     // Create regex patterns to match package names with UK spelling
     const patterns = [
       new RegExp(`"${uk}-name"`, 'g'),
