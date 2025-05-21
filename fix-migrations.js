@@ -18,11 +18,25 @@ console.log('Fixing migration history...');
 // Note: The migration 20250521020000_add_password_reset_model is already marked as applied in the database
 console.log('Note: Migration 20250521020000_add_password_reset_model is already marked as applied in the database');
 
-// Fix the problematic migration
+// Fix the first problematic migration
 try {
   // This command will mark the migration as applied without running it
   console.log('Resolving migration 20250521030000_add_password_field_to_user...');
   execSync('npx prisma migrate resolve --applied 20250521030000_add_password_field_to_user', {
+    stdio: 'inherit',
+    env: { ...process.env }
+  });
+  console.log('First migration marked as applied successfully');
+} catch (error) {
+  console.error('Error marking first migration as applied:', error);
+  // Continue to the next migration even if this one fails
+}
+
+// Fix the second problematic migration
+try {
+  // This command will mark the migration as applied without running it
+  console.log('Resolving migration 20250521040000_add_curriculum_collaboration_models...');
+  execSync('npx prisma migrate resolve --applied 20250521040000_add_curriculum_collaboration_models', {
     stdio: 'inherit',
     env: { ...process.env }
   });
