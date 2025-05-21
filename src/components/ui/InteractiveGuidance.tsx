@@ -130,16 +130,16 @@ const InteractiveGuidance: React.FC<InteractiveGuidanceProps> = ({
           exit="exit"
           variants={variants}
           transition={{ duration: 0.3 }}
-          className={`absolute pointer-events-auto max-w-sm bg-white rounded-lg shadow-xl border border-gray-200 p-4 ${getPositionClasses()}`}
+          className={`absolute pointer-events-auto max-w-sm bg-white rounded-lg shadow-xl border border-grey-200 p-4 ${getPositionClasses()}`}
         >
           {/* Progress indicator */}
           {showProgress && (
             <div className="mb-3">
-              <div className="flex justify-between text-xs text-gray-500 mb-1">
+              <div className="flex justify-between text-xs text-grey-500 mb-1">
                 <span>Progress</span>
                 <span>{currentStepIndex + 1} of {steps.length}</span>
               </div>
-              <div className="w-full bg-gray-200 rounded-full h-2">
+              <div className="w-full bg-grey-200 rounded-full h-2">
                 <div 
                   className="bg-blue-600 h-2 rounded-full" 
                   style={{ width: `${((currentStepIndex + 1) / steps.length) * 100}%` }}
@@ -149,29 +149,29 @@ const InteractiveGuidance: React.FC<InteractiveGuidanceProps> = ({
           )}
           
           {/* Step content */}
-          <h3 className="text-lg font-semibold text-gray-800 mb-2">{currentStep.title}</h3>
-          <div className="text-gray-600 mb-4">{currentStep.content}</div>
+          <h3 className="text-lg font-semibold text-grey-800 mb-2">{currentStep.title}</h3>
+          <div className="text-grey-600 mb-4">{currentStep.content}</div>
           
           {/* Anxiety support */}
           {supportAnxiety && getAnxietySupport()}
           
           {/* Controls */}
-          <div className="flex justify-between items-center mt-4">
+          <div className="flex justify-between items-centre mt-4">
             <div>
               {currentStepIndex > 0 && (
                 <button
                   onClick={handlePrevious}
-                  className="px-3 py-1 text-sm text-gray-600 hover:text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded"
+                  className="px-3 py-1 text-sm text-grey-600 hover:text-grey-800 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded"
                 >
                   Back
                 </button>
               )}
             </div>
             
-            <div className="flex items-center space-x-2">
+            <div className="flex items-centre space-x-2">
               {supportAnxiety && (
-                <div className="flex items-center mr-2">
-                  <span className="text-xs text-gray-500 mr-2">Feeling anxious?</span>
+                <div className="flex items-centre mr-2">
+                  <span className="text-xs text-grey-500 mr-2">Feeling anxious?</span>
                   <select
                     value={anxietyLevel}
                     onChange={(e) => setAnxietyLevel(e.target.value as 'low' | 'medium' | 'high')}
@@ -187,7 +187,7 @@ const InteractiveGuidance: React.FC<InteractiveGuidanceProps> = ({
               {allowSkip && (
                 <button
                   onClick={handleSkip}
-                  className="px-3 py-1 text-sm text-gray-500 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded"
+                  className="px-3 py-1 text-sm text-grey-500 hover:text-grey-700 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded"
                 >
                   Skip
                 </button>

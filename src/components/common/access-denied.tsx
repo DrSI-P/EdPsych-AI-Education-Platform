@@ -14,14 +14,14 @@ const AccessDenied: React.FC<AccessDeniedProps> = ({
 }) => {
   return (
     <Box 
-      className="flex flex-col items-center justify-center min-h-[50vh] p-8 text-center"
+      className="flex flex-col items-centre justify-centre min-h-[50vh] p-8 text-centre"
       data-testid="access-denied-component"
     >
       <Heading as="h1" size="xl" mb={4} className="text-red-600">
         Access Denied
       </Heading>
       
-      <Text mb={6} className="text-gray-700 max-w-md">
+      <Text mb={6} className="text-grey-700 max-w-md">
         {message}
       </Text>
       

@@ -402,7 +402,7 @@ const EmotionalPatternRecognition = () => {
       }
     });
     
-    // Convert to format for visualization
+    // Convert to format for visualisation
     const triggerPatternData = Object.entries(triggerEmotions).map(([trigger, emotions]) => {
       return {
         trigger,
@@ -563,7 +563,7 @@ const EmotionalPatternRecognition = () => {
     const emotion = 
       basicEmotions.find(e => e.name === emotionName) || 
       advancedEmotions.find(e => e.name === emotionName);
-    return emotion ? emotion.color : "#808080";
+    return emotion ? emotion.colour : "#808080";
   };
   
   const getEmotionIcon = (emotionName) => {
@@ -636,7 +636,7 @@ const EmotionalPatternRecognition = () => {
             </TabsList>
             
             {/* Controls for all tabs */}
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 my-6">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-centre gap-4 my-6">
               <div className="space-y-2 w-full md:w-auto">
                 <Label htmlFor="date-range">Time Period</Label>
                 <Select 
@@ -719,7 +719,7 @@ const EmotionalPatternRecognition = () => {
                     <SelectItem value="all">All Emotions</SelectItem>
                     {allEmotions.map((emotion) => (
                       <SelectItem key={emotion.name} value={emotion.name}>
-                        <div className="flex items-center">
+                        <div className="flex items-centre">
                           <span className="mr-2">{emotion.icon}</span>
                           <span>{emotion.name}</span>
                         </div>
@@ -740,7 +740,7 @@ const EmotionalPatternRecognition = () => {
             </div>
             
             {isLoading ? (
-              <div className="flex justify-center items-center py-12">
+              <div className="flex justify-centre items-centre py-12">
                 <p>Loading pattern analysis...</p>
               </div>
             ) : (
@@ -756,7 +756,7 @@ const EmotionalPatternRecognition = () => {
                           }}>
                             <CardHeader className="pb-2">
                               <div className="flex justify-between items-start">
-                                <CardTitle className="text-lg flex items-center gap-2">
+                                <CardTitle className="text-lg flex items-centre gap-2">
                                   <div className="bg-blue-100 p-1.5 rounded-full text-blue-700">
                                     {insight.icon}
                                   </div>
@@ -831,8 +831,8 @@ const EmotionalPatternRecognition = () => {
                             <div className="space-y-4">
                               {emotionCorrelations.slice(0, 5).map((correlation, index) => (
                                 <div key={index} className="space-y-2">
-                                  <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-2">
+                                  <div className="flex items-centre justify-between">
+                                    <div className="flex items-centre gap-2">
                                       <span className="text-xl">{getEmotionIcon(correlation.source)}</span>
                                       <span>{correlation.source}</span>
                                       <span className="mx-2">→</span>
@@ -843,7 +843,7 @@ const EmotionalPatternRecognition = () => {
                                       {correlation.count} times
                                     </Badge>
                                   </div>
-                                  <div className="w-full bg-gray-200 rounded-full h-2">
+                                  <div className="w-full bg-grey-200 rounded-full h-2">
                                     <div 
                                       className="bg-blue-600 h-2 rounded-full" 
                                       style={{ 
@@ -856,15 +856,15 @@ const EmotionalPatternRecognition = () => {
                               ))}
                             </div>
                           ) : (
-                            <p className="text-center py-4">Not enough data to identify correlations.</p>
+                            <p className="text-centre py-4">Not enough data to identify correlations.</p>
                           )}
                         </CardContent>
                       </Card>
                     </>
                   ) : (
-                    <div className="text-center py-12 border rounded-lg bg-gray-50">
+                    <div className="text-centre py-12 border rounded-lg bg-grey-50">
                       <p className="text-lg font-medium mb-2">No patterns detected yet</p>
-                      <p className="text-gray-500 mb-4">
+                      <p className="text-grey-500 mb-4">
                         Record more emotions to discover patterns and insights.
                       </p>
                       <Button onClick={() => router.push('/special-needs/emotional-regulation')}>
@@ -908,7 +908,7 @@ const EmotionalPatternRecognition = () => {
                                     key={emotion.name}
                                     dataKey={emotion.name} 
                                     stackId="a" 
-                                    fill={emotion.color} 
+                                    fill={emotion.colour} 
                                     name={emotion.name}
                                   />
                                 )
@@ -917,7 +917,7 @@ const EmotionalPatternRecognition = () => {
                           </ResponsiveContainer>
                         </div>
                       ) : (
-                        <p className="text-center py-8">
+                        <p className="text-centre py-8">
                           No trigger patterns found in the selected date range.
                         </p>
                       )}
@@ -951,14 +951,14 @@ const EmotionalPatternRecognition = () => {
                             
                             return (
                               <div key={emotion.name} className="mb-6">
-                                <h3 className="flex items-center gap-2 font-medium mb-2">
+                                <h3 className="flex items-centre gap-2 font-medium mb-2">
                                   <span className="text-xl">{emotion.icon}</span>
                                   <span>{emotion.name}</span>
                                 </h3>
                                 <ul className="space-y-1 pl-8 list-disc">
                                   {sortedTriggers.slice(0, 3).map(([trigger, count]) => (
                                     <li key={trigger} className="text-sm">
-                                      {trigger} <span className="text-gray-500">({count} times)</span>
+                                      {trigger} <span className="text-grey-500">({count} times)</span>
                                     </li>
                                   ))}
                                 </ul>
@@ -1012,7 +1012,7 @@ const EmotionalPatternRecognition = () => {
                             </ResponsiveContainer>
                           </div>
                         ) : (
-                          <p className="text-center py-8">
+                          <p className="text-centre py-8">
                             Not enough data for intensity analysis.
                           </p>
                         )}
@@ -1056,7 +1056,7 @@ const EmotionalPatternRecognition = () => {
                           </ResponsiveContainer>
                         </div>
                       ) : (
-                        <p className="text-center py-8">
+                        <p className="text-centre py-8">
                           No time of day patterns found in the selected date range.
                         </p>
                       )}
@@ -1091,7 +1091,7 @@ const EmotionalPatternRecognition = () => {
                           </ResponsiveContainer>
                         </div>
                       ) : (
-                        <p className="text-center py-8">
+                        <p className="text-centre py-8">
                           No day of week patterns found in the selected date range.
                         </p>
                       )}
@@ -1107,7 +1107,7 @@ const EmotionalPatternRecognition = () => {
                     </CardHeader>
                     <CardContent>
                       <div className="space-y-4">
-                        <div className="grid grid-cols-7 gap-1 text-center text-xs">
+                        <div className="grid grid-cols-7 gap-1 text-centre text-xs">
                           {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
                             <div key={day} className="font-medium py-1">
                               {day}
@@ -1140,10 +1140,10 @@ const EmotionalPatternRecognition = () => {
                             return (
                               <div 
                                 key={date.toISOString()} 
-                                className={`aspect-square flex flex-col items-center justify-center rounded-md text-xs ${
+                                className={`aspect-square flex flex-col items-centre justify-centre rounded-md text-xs ${
                                   dominantEmotion 
                                     ? 'border-2' 
-                                    : 'border bg-gray-50'
+                                    : 'border bg-grey-50'
                                 }`}
                                 style={{
                                   borderColor: dominantEmotion ? getEmotionColor(dominantEmotion) : undefined,
@@ -1198,7 +1198,7 @@ const EmotionalPatternRecognition = () => {
                                     key={emotion.name}
                                     type="monotone" 
                                     dataKey={emotion.name} 
-                                    stroke={emotion.color} 
+                                    stroke={emotion.colour} 
                                     name={emotion.name}
                                     strokeWidth={2}
                                     dot={{ r: 3 }}
@@ -1210,7 +1210,7 @@ const EmotionalPatternRecognition = () => {
                           </ResponsiveContainer>
                         </div>
                       ) : (
-                        <p className="text-center py-8">
+                        <p className="text-centre py-8">
                           No trend data available for the selected date range.
                         </p>
                       )}
@@ -1271,7 +1271,7 @@ const EmotionalPatternRecognition = () => {
                             </ResponsiveContainer>
                           </div>
                         ) : (
-                          <p className="text-center py-8">
+                          <p className="text-centre py-8">
                             No intensity data available for the selected date range.
                           </p>
                         )}
@@ -1329,7 +1329,7 @@ const EmotionalPatternRecognition = () => {
                             </ResponsiveContainer>
                           </div>
                         ) : (
-                          <p className="text-center py-8">
+                          <p className="text-centre py-8">
                             No frequency data available for the selected date range.
                           </p>
                         )}

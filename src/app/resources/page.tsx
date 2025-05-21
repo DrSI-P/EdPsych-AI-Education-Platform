@@ -152,7 +152,7 @@ export default function ResourceLibrary() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-centre mb-8">
         <div>
           <h1 className="text-3xl font-bold text-primary">Resource Library</h1>
           <p className="text-muted-foreground mt-2">
@@ -175,7 +175,7 @@ export default function ResourceLibrary() {
         <div className="lg:col-span-1">
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg flex items-center">
+              <CardTitle className="text-lg flex items-centre">
                 <Filter className="mr-2 h-5 w-5" />
                 Filters
               </CardTitle>
@@ -272,7 +272,7 @@ export default function ResourceLibrary() {
                 />
               </div>
             </form>
-            <div className="flex items-center space-x-2">
+            <div className="flex items-centre space-x-2">
               <Button 
                 variant={viewMode === 'grid' ? 'default' : 'outline'} 
                 size="icon"
@@ -323,7 +323,7 @@ export default function ResourceLibrary() {
               ) : (
                 <>
                   {filteredResources.length === 0 ? (
-                    <div className="text-center py-12">
+                    <div className="text-centre py-12">
                       <BookOpen className="mx-auto h-12 w-12 text-muted-foreground" />
                       <h3 className="mt-4 text-lg font-medium">No resources found</h3>
                       <p className="mt-2 text-muted-foreground">
@@ -360,7 +360,7 @@ export default function ResourceLibrary() {
                             </div>
                           </CardContent>
                           <CardFooter className="border-t pt-4">
-                            <div className="flex justify-between items-center w-full">
+                            <div className="flex justify-between items-centre w-full">
                               <span className="text-sm text-muted-foreground">
                                 {resource.downloads} downloads
                               </span>
@@ -399,7 +399,7 @@ export default function ResourceLibrary() {
                               <p className="mt-4 text-sm text-muted-foreground">
                                 {resource.description}
                               </p>
-                              <div className="mt-4 flex items-center justify-between">
+                              <div className="mt-4 flex items-centre justify-between">
                                 <div className="flex flex-wrap gap-2">
                                   {resource.tags.map((tag) => (
                                     <Badge key={tag} variant="outline" className="text-xs">
@@ -424,7 +424,7 @@ export default function ResourceLibrary() {
 
               {/* Pagination */}
               {!loading && filteredResources.length > 0 && (
-                <div className="flex justify-center mt-8">
+                <div className="flex justify-centre mt-8">
                   <Pagination>
                     <Button 
                       variant="outline" 
@@ -434,7 +434,7 @@ export default function ResourceLibrary() {
                     >
                       Previous
                     </Button>
-                    <div className="flex items-center mx-4">
+                    <div className="flex items-centre mx-4">
                       <span className="text-sm">
                         Page {currentPage} of {totalPages}
                       </span>
@@ -454,26 +454,26 @@ export default function ResourceLibrary() {
             
             {/* Other tab contents would be implemented similarly */}
             <TabsContent value="featured">
-              <div className="text-center py-12">
+              <div className="text-centre py-12">
                 <p>Featured resources will be displayed here.</p>
               </div>
             </TabsContent>
             
             <TabsContent value="recent">
-              <div className="text-center py-12">
+              <div className="text-centre py-12">
                 <p>Recently added resources will be displayed here.</p>
               </div>
             </TabsContent>
             
             <TabsContent value="popular">
-              <div className="text-center py-12">
+              <div className="text-centre py-12">
                 <p>Most popular resources will be displayed here.</p>
               </div>
             </TabsContent>
             
             {session && (
               <TabsContent value="saved">
-                <div className="text-center py-12">
+                <div className="text-centre py-12">
                   <p>Your saved resources will be displayed here.</p>
                 </div>
               </TabsContent>

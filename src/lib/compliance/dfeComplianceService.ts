@@ -149,13 +149,13 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
     const isAccessible = accessibilityScore >= 0.7; // Consider accessible if score is at least 70%
     
     const issues = [
-      'Color contrast ratio does not meet WCAG AA standards in some elements',
+      'Colour contrast ratio does not meet WCAG AA standards in some elements',
       'Alternative text missing for some images',
       'Navigation structure may be challenging for screen reader users'
     ];
     
     const recommendations = [
-      'Increase color contrast to meet WCAG AA standards (minimum 4.5:1)',
+      'Increase colour contrast to meet WCAG AA standards (minimum 4.5:1)',
       'Add descriptive alternative text to all images',
       'Improve heading structure for better screen reader navigation',
       'Ensure all interactive elements are keyboard accessible'
@@ -413,10 +413,10 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
     // Secondary Lower (11-14 years, KS3)
     this.ageAppropriatenessGuidelines.set(AgeAppropriatenessRating.SECONDARY_LOWER, [
       'More abstract concepts with supporting explanations',
-      'Expanded vocabulary with definitions for specialized terms',
+      'Expanded vocabulary with definitions for specialised terms',
       'More complex instructions and multi-step processes',
       'Visuals that challenge and extend understanding',
-      'Complex navigation with clear organization',
+      'Complex navigation with clear organisation',
       'Extended text entry appropriate for age',
       'Discussion of challenging themes in educational context',
       'Competitive elements with emphasis on improvement',
@@ -441,7 +441,7 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
     // Post-16 (16-18 years, KS5)
     this.ageAppropriatenessGuidelines.set(AgeAppropriatenessRating.POST_16, [
       'Highly abstract concepts with theoretical foundations',
-      'Specialized vocabulary at pre-university level',
+      'Specialised vocabulary at pre-university level',
       'Complex independent learning pathways',
       'Visuals that support advanced conceptual understanding',
       'Navigation supporting academic research',

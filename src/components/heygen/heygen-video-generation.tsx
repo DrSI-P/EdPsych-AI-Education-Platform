@@ -264,7 +264,7 @@ const HeyGenVideoGeneration = () => {
               
               <div className="space-y-2">
                 <Label htmlFor="avatar-image">Upload Image</Label>
-                <div className="flex items-center gap-4">
+                <div className="flex items-centre gap-4">
                   <Input 
                     id="avatar-image" 
                     type="file" 
@@ -272,7 +272,7 @@ const HeyGenVideoGeneration = () => {
                     onChange={handleImageUpload}
                   />
                   {uploadedImage && (
-                    <div className="h-12 w-12 rounded-full bg-gray-200 overflow-hidden">
+                    <div className="h-12 w-12 rounded-full bg-grey-200 overflow-hidden">
                       <img 
                         src={URL.createObjectURL(uploadedImage)} 
                         alt="Avatar preview" 
@@ -471,7 +471,7 @@ const HeyGenVideoGeneration = () => {
                 <div className="space-y-2">
                   <Label>Generation Progress</Label>
                   <Progress value={progress} className="w-full" />
-                  <p className="text-sm text-gray-500 text-center">{progress}% complete</p>
+                  <p className="text-sm text-grey-500 text-centre">{progress}% complete</p>
                 </div>
               )}
               

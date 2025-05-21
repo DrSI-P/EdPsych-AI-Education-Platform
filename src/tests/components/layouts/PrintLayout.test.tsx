@@ -53,7 +53,7 @@ describe('PrintLayout Component', () => {
     expect(screen.getByText(/Page/i)).toBeInTheDocument();
   });
 
-  it('renders print button that triggers print dialog', () => {
+  it('renders print button that triggers print dialogue', () => {
     // Mock window.print
     const originalPrint = window.print;
     window.print = jest.fn();

@@ -1,7 +1,7 @@
 # Emotional Pattern Recognition
 
 ## Overview
-The Emotional Pattern Recognition feature enhances the platform's emotional regulation support by providing sophisticated data analysis and visualization of emotional patterns over time. This evidence-based tool helps students identify trends, triggers, and correlations in their emotional experiences, supporting deeper self-awareness and more effective regulation strategies.
+The Emotional Pattern Recognition feature enhances the platform's emotional regulation support by providing sophisticated data analysis and visualisation of emotional patterns over time. This evidence-based tool helps students identify trends, triggers, and correlations in their emotional experiences, supporting deeper self-awareness and more effective regulation strategies.
 
 ## Key Features
 
@@ -28,7 +28,7 @@ The Emotional Pattern Recognition feature enhances the platform's emotional regu
 This feature is grounded in evidence-based approaches to emotional intelligence and regulation, including:
 
 - Emotional Intelligence frameworks (Mayer & Salovey)
-- Cognitive-Behavioral Therapy principles for emotional awareness
+- Cognitive-Behavioural Therapy principles for emotional awareness
 - UK Department for Education SEND guidance on emotional development
 - Self-monitoring and reflection techniques from positive psychology
 
@@ -36,12 +36,12 @@ This feature is grounded in evidence-based approaches to emotional intelligence 
 The Emotional Pattern Recognition feature integrates seamlessly with the existing Emotional Regulation Support module, providing deeper insights based on the emotion tracking data already collected through that system.
 
 ## Technical Implementation
-- Frontend: React component with Recharts for data visualization
+- Frontend: React component with Recharts for data visualisation
 - Backend: RESTful API endpoints for pattern analysis and data retrieval
 - Database: Leverages existing EmotionRecord and EmotionJournal models
 
 ## Accessibility Considerations
 - High contrast mode compatible
-- Screen reader optimized charts with appropriate ARIA labels
+- Screen reader optimised charts with appropriate ARIA labels
 - Keyboard navigation support for all interactive elements
 - Responsive design for all device sizes

@@ -48,7 +48,7 @@ export async function GET(req: NextRequest) {
         date: 'desc',
       },
       include: {
-        behavior: true,
+        behaviour: true,
       },
     });
     
@@ -74,19 +74,19 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
     
-    // Get the behavior to calculate points
-    const behavior = await prisma.behaviorDefinition.findUnique({
+    // Get the behaviour to calculate points
+    const behaviour = await prisma.behaviorDefinition.findUnique({
       where: {
         id: data.behaviorId,
       },
     });
     
-    if (!behavior) {
-      return NextResponse.json({ error: 'Behavior not found' }, { status: 404 });
+    if (!behaviour) {
+      return NextResponse.json({ error: 'Behaviour not found' }, { status: 404 });
     }
     
-    // Calculate points based on behavior point value and count
-    const pointsEarned = behavior.pointValue * (data.count || 1);
+    // Calculate points based on behaviour point value and count
+    const pointsEarned = behaviour.pointValue * (data.count || 1);
     
     // Create new tracking entry
     const tracking = await prisma.behaviorTracking.create({
@@ -128,7 +128,7 @@ export async function POST(req: NextRequest) {
     
     // For each active goal, check if it's been achieved
     for (const goal of activeGoals) {
-      // Get total count for this behavior in the goal's timeframe
+      // Get total count for this behaviour in the goal's timeframe
       const timeframeStart = new Date();
       switch (goal.timeframe) {
         case 'daily':
@@ -214,7 +214,7 @@ export async function POST(req: NextRequest) {
         details: JSON.stringify({
           trackingId: tracking.id,
           behaviorId: data.behaviorId,
-          behaviorName: behavior.name,
+          behaviorName: behaviour.name,
           count: data.count || 1,
           pointsEarned,
         }),
@@ -223,7 +223,7 @@ export async function POST(req: NextRequest) {
     
     return NextResponse.json(tracking);
   } catch (error) {
-    console.error('Error recording behavior:', error);
-    return NextResponse.json({ error: 'Failed to record behavior' }, { status: 500 });
+    console.error('Error recording behaviour:', error);
+    return NextResponse.json({ error: 'Failed to record behaviour' }, { status: 500 });
   }
 }

@@ -1,8 +1,8 @@
 /**
- * Data Visualization Dashboard Types
+ * Data Visualisation Dashboard Types
  * 
- * This file defines the types and interfaces used throughout the Data Visualization Dashboard.
- * It provides a structured approach to handling analytics data, visualization configurations,
+ * This file defines the types and interfaces used throughout the Data Visualisation Dashboard.
+ * It provides a structured approach to handling analytics data, visualisation configurations,
  * and dashboard components.
  */
 
@@ -92,7 +92,7 @@ export enum WidgetType {
 }
 
 /**
- * Data point interface for visualization
+ * Data point interface for visualisation
  */
 export interface DataPoint {
   label: string;
@@ -108,7 +108,7 @@ export interface Dataset {
   id: string;
   label: string;
   data: DataPoint[];
-  color?: string;
+  colour?: string;
   backgroundColor?: string | string[];
   borderColor?: string | string[];
   borderWidth?: number;
@@ -145,7 +145,7 @@ export interface MetricConfig {
   trend?: 'up' | 'down' | 'stable';
   trendPercentage?: number;
   icon?: string;
-  color?: string;
+  colour?: string;
   description?: string;
   goal?: number | string;
   format?: string; // e.g., 'percentage', 'currency', 'number'

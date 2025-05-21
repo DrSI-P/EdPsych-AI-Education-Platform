@@ -156,7 +156,7 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
             {t('language_settings_description', 'settings')}
           </CardDescription>
         </CardHeader>
-        <CardContent className="flex items-center justify-center p-6">
+        <CardContent className="flex items-centre justify-centre p-6">
           <Loader2 className="h-8 w-8 animate-spin mr-2" />
           <span>{t('loading', 'common')}</span>
         </CardContent>
@@ -174,7 +174,7 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
             {t('language_settings_description', 'settings')}
           </CardDescription>
         </CardHeader>
-        <CardContent className="flex items-center text-destructive p-6">
+        <CardContent className="flex items-centre text-destructive p-6">
           <AlertCircle className="h-6 w-6 mr-2" />
           <span>{error}</span>
         </CardContent>
@@ -243,7 +243,7 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
             <Separator />
             
             {/* Auto-detect */}
-            <div className="flex items-center justify-between">
+            <div className="flex items-centre justify-between">
               <div>
                 <Label htmlFor="autoDetect">
                   {t('auto_detect_language', 'settings')}
@@ -260,7 +260,7 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
             </div>
             
             {/* Translate Content */}
-            <div className="flex items-center justify-between">
+            <div className="flex items-centre justify-between">
               <div>
                 <Label htmlFor="translateContent">
                   {t('translate_platform_content', 'settings')}
@@ -277,7 +277,7 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
             </div>
             
             {/* Translate User Content */}
-            <div className="flex items-center justify-between">
+            <div className="flex items-centre justify-between">
               <div>
                 <Label htmlFor="translateUserContent">
                   {t('translate_user_content', 'settings')}
@@ -294,7 +294,7 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
             </div>
             
             {/* Translate Communications */}
-            <div className="flex items-center justify-between">
+            <div className="flex items-centre justify-between">
               <div>
                 <Label htmlFor="translateCommunications">
                   {t('translate_communications', 'settings')}
@@ -313,7 +313,7 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
           
           <TabsContent value="accessibility" className="space-y-6 pt-4">
             {/* Simplified Language */}
-            <div className="flex items-center justify-between">
+            <div className="flex items-centre justify-between">
               <div>
                 <Label htmlFor="simplifiedLanguage">
                   {t('simplified_language', 'accessibility')}
@@ -330,7 +330,7 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
             </div>
             
             {/* Glossary Terms */}
-            <div className="flex items-center justify-between">
+            <div className="flex items-centre justify-between">
               <div>
                 <Label htmlFor="glossaryTerms">
                   {t('glossary_terms', 'accessibility')}
@@ -347,7 +347,7 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
             </div>
             
             {/* Cultural Context Notes */}
-            <div className="flex items-center justify-between">
+            <div className="flex items-centre justify-between">
               <div>
                 <Label htmlFor="culturalContextNotes">
                   {t('cultural_context_notes', 'accessibility')}
@@ -387,7 +387,7 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
             </div>
             
             {/* Special Educational Needs Adaptations */}
-            <div className="flex items-center justify-between">
+            <div className="flex items-centre justify-between">
               <div>
                 <Label htmlFor="specialEducationalNeedsAdaptations">
                   {t('sen_adaptations', 'accessibility')}
@@ -407,7 +407,7 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
         
         {/* Error message */}
         {error && (
-          <div className="flex items-center text-destructive mt-4">
+          <div className="flex items-centre text-destructive mt-4">
             <AlertCircle className="h-4 w-4 mr-2" />
             <span className="text-sm">{error}</span>
           </div>
@@ -415,7 +415,7 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
         
         {/* Success message */}
         {successMessage && (
-          <div className="flex items-center text-green-600 mt-4">
+          <div className="flex items-centre text-green-600 mt-4">
             <Check className="h-4 w-4 mr-2" />
             <span className="text-sm">{successMessage}</span>
           </div>

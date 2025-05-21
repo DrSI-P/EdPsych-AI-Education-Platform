@@ -303,7 +303,7 @@ export const ScriptEditor: React.FC<ScriptEditorProps> = ({
                     </div>
                   )}
                   
-                  <div className="mt-4 flex items-center text-sm text-muted-foreground">
+                  <div className="mt-4 flex items-centre text-sm text-muted-foreground">
                     <Clock className="h-4 w-4 mr-1" />
                     <span>Estimated duration: {estimatedDuration}</span>
                   </div>

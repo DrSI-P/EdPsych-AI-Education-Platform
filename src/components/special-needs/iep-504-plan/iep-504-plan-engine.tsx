@@ -108,7 +108,7 @@ const IEP504PlanEngine = () => {
   const goalAreas = [
     { value: 'academic', label: 'Academic' },
     { value: 'social', label: 'Social/Emotional' },
-    { value: 'behavioral', label: 'Behavioural' },
+    { value: 'behavioural', label: 'Behavioural' },
     { value: 'communication', label: 'Communication' },
     { value: 'motor', label: 'Motor Skills' },
     { value: 'functional', label: 'Functional/Life Skills' },
@@ -130,7 +130,7 @@ const IEP504PlanEngine = () => {
     { value: 'instructional', label: 'Instructional' },
     { value: 'environmental', label: 'Environmental' },
     { value: 'assessment', label: 'Assessment/Testing' },
-    { value: 'behavioral', label: 'Behavioural Support' },
+    { value: 'behavioural', label: 'Behavioural Support' },
     { value: 'communication', label: 'Communication' },
     { value: 'physical', label: 'Physical/Motor' },
     { value: 'sensory', label: 'Sensory' }
@@ -452,7 +452,7 @@ const IEP504PlanEngine = () => {
   const getStatusBadgeColor = (status) => {
     switch (status) {
       case 'draft':
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-grey-100 text-grey-800';
       case 'active':
         return 'bg-green-100 text-green-800';
       case 'review':
@@ -460,7 +460,7 @@ const IEP504PlanEngine = () => {
       case 'completed':
         return 'bg-purple-100 text-purple-800';
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-grey-100 text-grey-800';
     }
   };
   
@@ -488,25 +488,25 @@ const IEP504PlanEngine = () => {
             
             {/* Dashboard Tab */}
             <TabsContent value="dashboard" className="space-y-6 py-4">
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <h3 className="text-lg font-medium">Your Plans</h3>
-                <Button onClick={handleCreateNewPlan} className="flex items-center gap-2">
+                <Button onClick={handleCreateNewPlan} className="flex items-centre gap-2">
                   <PlusCircle className="h-4 w-4" />
                   New Plan
                 </Button>
               </div>
               
               {isLoading ? (
-                <div className="text-center py-8">
+                <div className="text-centre py-8">
                   <p>Loading plans...</p>
                 </div>
               ) : plans.length === 0 ? (
-                <div className="text-center py-8 border rounded-md bg-gray-50">
+                <div className="text-centre py-8 border rounded-md bg-grey-50">
                   <h3 className="font-medium mb-2">No plans yet</h3>
-                  <p className="text-sm text-gray-500 mb-4">
+                  <p className="text-sm text-grey-500 mb-4">
                     Create your first IEP or 504 plan to support student success.
                   </p>
-                  <Button onClick={handleCreateNewPlan} variant="outline" className="flex items-center gap-2">
+                  <Button onClick={handleCreateNewPlan} variant="outline" className="flex items-centre gap-2">
                     <PlusCircle className="h-4 w-4" />
                     Create New Plan
                   </Button>
@@ -517,7 +517,7 @@ const IEP504PlanEngine = () => {
                     <Card key={p.id} className="overflow-hidden">
                       <CardHeader className="pb-2">
                         <div className="flex justify-between items-start">
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-centre gap-2">
                             {getPlanTypeIcon(p.planType)}
                             <CardTitle className="text-lg">{p.title}</CardTitle>
                           </div>
@@ -532,19 +532,19 @@ const IEP504PlanEngine = () => {
                       <CardContent className="pb-2">
                         <div className="space-y-2">
                           <div className="flex justify-between text-sm">
-                            <span className="text-gray-500">Start Date:</span>
+                            <span className="text-grey-500">Start Date:</span>
                             <span>{format(new Date(p.startDate), 'PPP')}</span>
                           </div>
                           <div className="flex justify-between text-sm">
-                            <span className="text-gray-500">Review Date:</span>
+                            <span className="text-grey-500">Review Date:</span>
                             <span>{format(new Date(p.reviewDate), 'PPP')}</span>
                           </div>
                           <div className="mt-2">
                             <div className="flex justify-between text-sm mb-1">
-                              <span className="text-gray-500">Progress:</span>
+                              <span className="text-grey-500">Progress:</span>
                               <span>{p.progress}%</span>
                             </div>
-                            <div className="w-full bg-gray-200 rounded-full h-2.5">
+                            <div className="w-full bg-grey-200 rounded-full h-2.5">
                               <div 
                                 className="bg-blue-600 h-2.5 rounded-full" 
                                 style={{ width: `${p.progress || 0}%` }}
@@ -618,7 +618,7 @@ const IEP504PlanEngine = () => {
                       <SelectContent>
                         {planTypes.map((type) => (
                           <SelectItem key={type.value} value={type.value}>
-                            <div className="flex items-center gap-2">
+                            <div className="flex items-centre gap-2">
                               {type.icon}
                               <span>{type.label}</span>
                             </div>
@@ -891,9 +891,9 @@ const IEP504PlanEngine = () => {
                       </div>
                       
                       <div className="space-y-2">
-                        <div className="flex items-center justify-between">
+                        <div className="flex items-centre justify-between">
                           <Label htmlFor="objectives">Short-term Objectives</Label>
-                          <div className="flex items-center space-x-2">
+                          <div className="flex items-centre space-x-2">
                             <Input
                               id="objectives"
                               placeholder="Add an objective"
@@ -915,7 +915,7 @@ const IEP504PlanEngine = () => {
                         {newGoal.objectives.length > 0 ? (
                           <ul className="space-y-2 mt-2">
                             {newGoal.objectives.map((objective, index) => (
-                              <li key={index} className="flex items-center justify-between bg-gray-50 p-2 rounded">
+                              <li key={index} className="flex items-centre justify-between bg-grey-50 p-2 rounded">
                                 <span>{index + 1}. {objective}</span>
                                 <Button 
                                   variant="ghost" 
@@ -929,7 +929,7 @@ const IEP504PlanEngine = () => {
                             ))}
                           </ul>
                         ) : (
-                          <p className="text-sm text-gray-500 mt-2">No objectives added yet</p>
+                          <p className="text-sm text-grey-500 mt-2">No objectives added yet</p>
                         )}
                       </div>
                     </CardContent>
@@ -963,21 +963,21 @@ const IEP504PlanEngine = () => {
                             <div className="grid gap-4 md:grid-cols-2 text-sm">
                               <div>
                                 <p className="font-medium">Baseline:</p>
-                                <p className="text-gray-600">{goal.baselineData || 'Not specified'}</p>
+                                <p className="text-grey-600">{goal.baselineData || 'Not specified'}</p>
                               </div>
                               <div>
                                 <p className="font-medium">Evaluation Method:</p>
-                                <p className="text-gray-600">
+                                <p className="text-grey-600">
                                   {evaluationMethods.find(m => m.value === goal.evaluationMethod)?.label || goal.evaluationMethod}
                                 </p>
                               </div>
                               <div>
                                 <p className="font-medium">Mastery Criteria:</p>
-                                <p className="text-gray-600">{goal.mastery || 'Not specified'}</p>
+                                <p className="text-grey-600">{goal.mastery || 'Not specified'}</p>
                               </div>
                               <div>
                                 <p className="font-medium">Timeline:</p>
-                                <p className="text-gray-600">{goal.timeline || 'Not specified'}</p>
+                                <p className="text-grey-600">{goal.timeline || 'Not specified'}</p>
                               </div>
                             </div>
                             
@@ -986,8 +986,8 @@ const IEP504PlanEngine = () => {
                                 <h5 className="text-sm font-medium">Short-term Objectives:</h5>
                                 <ul className="space-y-1">
                                   {goal.objectives.map((objective, index) => (
-                                    <li key={index} className="text-sm flex items-center gap-2">
-                                      <span className="flex-shrink-0 h-5 w-5 rounded-full bg-blue-100 text-blue-800 flex items-center justify-center text-xs">
+                                    <li key={index} className="text-sm flex items-centre gap-2">
+                                      <span className="flex-shrink-0 h-5 w-5 rounded-full bg-blue-100 text-blue-800 flex items-centre justify-centre text-xs">
                                         {index + 1}
                                       </span>
                                       {objective}
@@ -1002,7 +1002,7 @@ const IEP504PlanEngine = () => {
                                 <span className="font-medium">Progress:</span>
                                 <span>{goal.progress}%</span>
                               </div>
-                              <div className="w-full bg-gray-200 rounded-full h-2.5">
+                              <div className="w-full bg-grey-200 rounded-full h-2.5">
                                 <div 
                                   className="bg-blue-600 h-2.5 rounded-full" 
                                   style={{ width: `${goal.progress || 0}%` }}
@@ -1024,8 +1024,8 @@ const IEP504PlanEngine = () => {
                       ))}
                     </div>
                   ) : (
-                    <div className="text-center py-4 border rounded-md bg-gray-50">
-                      <p className="text-sm text-gray-500">No goals added yet</p>
+                    <div className="text-centre py-4 border rounded-md bg-grey-50">
+                      <p className="text-sm text-grey-500">No goals added yet</p>
                     </div>
                   )}
                 </div>
@@ -1185,8 +1185,8 @@ const IEP504PlanEngine = () => {
                       ))}
                     </div>
                   ) : (
-                    <div className="text-center py-4 border rounded-md bg-gray-50">
-                      <p className="text-sm text-gray-500">No accommodations added yet</p>
+                    <div className="text-centre py-4 border rounded-md bg-grey-50">
+                      <p className="text-sm text-grey-500">No accommodations added yet</p>
                     </div>
                   )}
                 </div>
@@ -1378,8 +1378,8 @@ const IEP504PlanEngine = () => {
                       ))}
                     </div>
                   ) : (
-                    <div className="text-center py-4 border rounded-md bg-gray-50">
-                      <p className="text-sm text-gray-500">No services added yet</p>
+                    <div className="text-centre py-4 border rounded-md bg-grey-50">
+                      <p className="text-sm text-grey-500">No services added yet</p>
                     </div>
                   )}
                 </div>
@@ -1511,8 +1511,8 @@ const IEP504PlanEngine = () => {
                       ))}
                     </div>
                   ) : (
-                    <div className="text-center py-4 border rounded-md bg-gray-50">
-                      <p className="text-sm text-gray-500">No team members added yet</p>
+                    <div className="text-centre py-4 border rounded-md bg-grey-50">
+                      <p className="text-sm text-grey-500">No team members added yet</p>
                     </div>
                   )}
                 </div>
@@ -1548,16 +1548,16 @@ const IEP504PlanEngine = () => {
                     <CardContent className="space-y-4">
                       <ul className="space-y-2">
                         <li className="text-sm">
-                          <a href="#" className="text-blue-600 hover:underline">SEND Code of Practice 0-25</a>
-                          <p className="text-gray-500">Statutory guidance for organisations working with children and young people with SEND</p>
+                          <a href="#" className="text-blue-600 hover:underline">SEND Code of Practise 0-25</a>
+                          <p className="text-grey-500">Statutory guidance for organisations working with children and young people with SEND</p>
                         </li>
                         <li className="text-sm">
                           <a href="#" className="text-blue-600 hover:underline">Education, Health and Care Plans</a>
-                          <p className="text-gray-500">Guidance on EHC plans and the assessment process</p>
+                          <p className="text-grey-500">Guidance on EHC plans and the assessment process</p>
                         </li>
                         <li className="text-sm">
                           <a href="#" className="text-blue-600 hover:underline">Equality Act 2010</a>
-                          <p className="text-gray-500">Legal framework for disability rights and reasonable adjustments</p>
+                          <p className="text-grey-500">Legal framework for disability rights and reasonable adjustments</p>
                         </li>
                       </ul>
                     </CardContent>
@@ -1572,15 +1572,15 @@ const IEP504PlanEngine = () => {
                       <ul className="space-y-2">
                         <li className="text-sm">
                           <a href="#" className="text-blue-600 hover:underline">NASEN (National Association for Special Educational Needs)</a>
-                          <p className="text-gray-500">Resources and guidance for SEND professionals</p>
+                          <p className="text-grey-500">Resources and guidance for SEND professionals</p>
                         </li>
                         <li className="text-sm">
                           <a href="#" className="text-blue-600 hover:underline">Council for Disabled Children</a>
-                          <p className="text-gray-500">Information and resources for supporting disabled children</p>
+                          <p className="text-grey-500">Information and resources for supporting disabled children</p>
                         </li>
                         <li className="text-sm">
                           <a href="#" className="text-blue-600 hover:underline">IPSEA (Independent Provider of Special Education Advice)</a>
-                          <p className="text-gray-500">Legal advice and resources for families</p>
+                          <p className="text-grey-500">Legal advice and resources for families</p>
                         </li>
                       </ul>
                     </CardContent>
@@ -1595,15 +1595,15 @@ const IEP504PlanEngine = () => {
                       <ul className="space-y-2">
                         <li className="text-sm">
                           <a href="#" className="text-blue-600 hover:underline">IEP Template (Word format)</a>
-                          <p className="text-gray-500">Customisable template for creating IEPs</p>
+                          <p className="text-grey-500">Customisable template for creating IEPs</p>
                         </li>
                         <li className="text-sm">
                           <a href="#" className="text-blue-600 hover:underline">504 Plan Template (Word format)</a>
-                          <p className="text-gray-500">Customisable template for creating 504 plans</p>
+                          <p className="text-grey-500">Customisable template for creating 504 plans</p>
                         </li>
                         <li className="text-sm">
                           <a href="#" className="text-blue-600 hover:underline">Goal Bank by Subject Area</a>
-                          <p className="text-gray-500">Sample goals and objectives for different areas</p>
+                          <p className="text-grey-500">Sample goals and objectives for different areas</p>
                         </li>
                       </ul>
                     </CardContent>
@@ -1618,15 +1618,15 @@ const IEP504PlanEngine = () => {
                       <ul className="space-y-2">
                         <li className="text-sm">
                           <a href="#" className="text-blue-600 hover:underline">Education Endowment Foundation</a>
-                          <p className="text-gray-500">Research on effective interventions for SEND</p>
+                          <p className="text-grey-500">Research on effective interventions for SEND</p>
                         </li>
                         <li className="text-sm">
                           <a href="#" className="text-blue-600 hover:underline">British Journal of Special Education</a>
-                          <p className="text-gray-500">Academic research on special education</p>
+                          <p className="text-grey-500">Academic research on special education</p>
                         </li>
                         <li className="text-sm">
                           <a href="#" className="text-blue-600 hover:underline">What Works Clearinghouse</a>
-                          <p className="text-gray-500">Evidence-based practices in education</p>
+                          <p className="text-grey-500">Evidence-based practices in education</p>
                         </li>
                       </ul>
                     </CardContent>

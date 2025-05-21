@@ -8,7 +8,7 @@ This guide provides a comprehensive, step-by-step walkthrough for implementing A
 2. [Setting Up HeyGen](#setting-up-heygen)
 3. [Creating Dr. Scott's Avatar](#creating-dr-scotts-avatar)
 4. [Generating Videos](#generating-videos)
-5. [Organizing and Integrating Videos](#organizing-and-integrating-videos)
+5. [Organising and Integrating Videos](#organising-and-integrating-videos)
 6. [Committing and Pushing to GitHub](#committing-and-pushing-to-github)
 7. [Troubleshooting](#troubleshooting)
 
@@ -24,7 +24,7 @@ The EdPsych-AI-Education-Platform has components that connect to HeyGen:
 
 1. **HeyGenService**: A service class that handles communication with the HeyGen API
 2. **Video Viewer Component**: A component that displays the generated videos
-3. **Directory Structure**: A place to store and organize the videos
+3. **Directory Structure**: A place to store and organise the videos
 
 ## Setting Up HeyGen
 
@@ -113,7 +113,7 @@ The EdPsych-AI-Education-Platform has components that connect to HeyGen:
 
 ### Step 1: Understand the Script Structure
 
-The scripts for all avatar videos are organized in the following files:
+The scripts for all avatar videos are organised in the following files:
 - `/docs/ai_avatar_assets/teacher_avatar_clips.md` - For Dr. Scott's teacher avatar
 - `/docs/ai_avatar_assets/student_peer_avatar_clips.md` - For student peer avatars
 - `/docs/ai_avatar_assets/special_needs_support_avatar_clips.md` - For special needs support avatars
@@ -162,9 +162,9 @@ After completing Dr. Scott's videos, follow the same process for:
 2. Special Needs Support Avatar videos
 3. Subject Specialist Avatar videos
 
-## Organizing and Integrating Videos
+## Organising and Integrating Videos
 
-### Step 1: Organize the Videos
+### Step 1: Organise the Videos
 
 1. Place the generated videos in the appropriate directories:
    - Dr. Scott's videos: `EdPsych-AI-Education-Platform/public/videos/avatars/teacher/`
@@ -172,7 +172,7 @@ After completing Dr. Scott's videos, follow the same process for:
    - Special needs videos: `EdPsych-AI-Education-Platform/public/videos/avatars/special_needs/`
    - Specialist videos: `EdPsych-AI-Education-Platform/public/videos/avatars/specialist/`
 
-2. Within each directory, you can further organize by category:
+2. Within each directory, you can further organise by category:
    - `introduction/`
    - `instructional/`
    - `emotional_support/`
@@ -210,7 +210,7 @@ After completing Dr. Scott's videos, follow the same process for:
 
 ### Step 2: Commit Generated Videos
 
-After generating and organizing the videos:
+After generating and organising the videos:
 
 1. Open a command prompt or terminal
 2. Navigate to the root directory of the EdPsych-AI-Education-Platform

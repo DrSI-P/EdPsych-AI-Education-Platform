@@ -77,7 +77,7 @@ const lessonPlanTemplates: LessonPlanTemplate[] = [
   {
     id: 'direct',
     name: 'Direct Instruction',
-    description: 'A teacher-led approach focused on explicit instruction and guided practice',
+    description: 'A teacher-led approach focused on explicit instruction and guided practise',
     structure: [
       'Learning Objectives',
       'Success Criteria',
@@ -85,8 +85,8 @@ const lessonPlanTemplates: LessonPlanTemplate[] = [
       'Materials and Resources',
       'Anticipatory Set (5 min)',
       'Teacher Presentation (15 min)',
-      'Guided Practice (15 min)',
-      'Independent Practice (15 min)',
+      'Guided Practise (15 min)',
+      'Independent Practise (15 min)',
       'Assessment',
       'Reteaching Strategies',
       'Extension Activities'
@@ -95,14 +95,14 @@ const lessonPlanTemplates: LessonPlanTemplate[] = [
   {
     id: 'station',
     name: 'Station Rotation',
-    description: 'A plan organizing learning through multiple activity stations',
+    description: 'A plan organising learning through multiple activity stations',
     structure: [
       'Learning Objectives',
       'Station Setup and Materials',
       'Introduction and Directions (10 min)',
       'Station 1: Teacher-Led (15-20 min)',
       'Station 2: Collaborative Work (15-20 min)',
-      'Station 3: Independent Practice (15-20 min)',
+      'Station 3: Independent Practise (15-20 min)',
       'Station 4: Digital Content (15-20 min)',
       'Rotation Schedule',
       'Wrap-Up and Reflection (10 min)',
@@ -421,7 +421,7 @@ export default function SmartLessonPlanning() {
         ${contentForAI}
         
         Please format this into a professional, comprehensive lesson plan following these guidelines:
-        1. Maintain all the content provided but enhance clarity, organization, and presentation
+        1. Maintain all the content provided but enhance clarity, organisation, and presentation
         2. Fill in any missing details or sections that would make the lesson plan more complete
         3. Ensure all activities and assessments align with the stated learning objectives
         4. Include appropriate differentiation strategies for the specified learning styles and special needs
@@ -614,7 +614,7 @@ export default function SmartLessonPlanning() {
             </div>
           ) : (
             <div className="space-y-6">
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <h2 className="text-xl font-semibold">{selectedTemplate.name}</h2>
                 <Button 
                   variant="outline" 
@@ -742,14 +742,14 @@ export default function SmartLessonPlanning() {
                   <Card>
                     <CardHeader>
                       <CardTitle>Differentiation</CardTitle>
-                      <CardDescription>Customize your lesson for diverse learners</CardDescription>
+                      <CardDescription>Customise your lesson for diverse learners</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
                       <div>
                         <Label className="block mb-2">Learning Styles to Address</Label>
                         <div className="grid grid-cols-2 gap-2">
                           {learningStyles.map(style => (
-                            <div key={style.id} className="flex items-center space-x-2">
+                            <div key={style.id} className="flex items-centre space-x-2">
                               <Checkbox 
                                 id={`style-${style.id}`} 
                                 checked={lessonPlanInput.selectedLearningStyles.includes(style.id)} 
@@ -767,7 +767,7 @@ export default function SmartLessonPlanning() {
                         <Label className="block mb-2">Special Educational Needs</Label>
                         <div className="grid grid-cols-2 gap-2">
                           {specialNeeds.map(need => (
-                            <div key={need.id} className="flex items-center space-x-2">
+                            <div key={need.id} className="flex items-centre space-x-2">
                               <Checkbox 
                                 id={`need-${need.id}`} 
                                 checked={lessonPlanInput.selectedSpecialNeeds.includes(need.id)} 
@@ -818,7 +818,7 @@ export default function SmartLessonPlanning() {
                         
                         <div className="space-y-2">
                           {customSections.map((section, index) => (
-                            <div key={index} className="flex justify-between items-center p-2 bg-muted rounded-md">
+                            <div key={index} className="flex justify-between items-centre p-2 bg-muted rounded-md">
                               <span>{section}</span>
                               <Button 
                                 variant="ghost" 
@@ -845,14 +845,14 @@ export default function SmartLessonPlanning() {
                 {/* Render sections based on template */}
                 {(selectedTemplate.id === 'custom' ? customSections : selectedTemplate.structure).map((section, index) => (
                   <div key={index} className="space-y-2">
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-centre">
                       <Label htmlFor={`section-${index}`}>{section}</Label>
                       <Button 
                         variant="outline" 
                         size="sm"
                         onClick={() => getAiSuggestion(section)}
                         disabled={isProcessing}
-                        className="flex items-center gap-1"
+                        className="flex items-centre gap-1"
                       >
                         {isProcessing && showingSuggestion === section ? (
                           <RefreshCw className="h-4 w-4 animate-spin" />
@@ -866,8 +866,8 @@ export default function SmartLessonPlanning() {
                     {showingSuggestion === section && aiSuggestions[section] && (
                       <Card className="bg-muted/50 border-dashed">
                         <CardHeader className="py-2 px-4">
-                          <div className="flex justify-between items-center">
-                            <CardTitle className="text-sm font-medium flex items-center">
+                          <div className="flex justify-between items-centre">
+                            <CardTitle className="text-sm font-medium flex items-centre">
                               <Lightbulb className="h-4 w-4 mr-2" />
                               AI Suggestion
                             </CardTitle>
@@ -936,7 +936,7 @@ export default function SmartLessonPlanning() {
         <TabsContent value="preview" className="space-y-6">
           {generatedLessonPlan ? (
             <div className="space-y-6">
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <h2 className="text-xl font-semibold">
                   {lessonPlanInput.title || 'Untitled Lesson Plan'}
                 </h2>
@@ -945,7 +945,7 @@ export default function SmartLessonPlanning() {
                     variant="outline" 
                     size="sm"
                     onClick={copyToClipboard}
-                    className="flex items-center gap-1"
+                    className="flex items-centre gap-1"
                   >
                     <Copy className="h-4 w-4" />
                     <span>Copy</span>
@@ -954,7 +954,7 @@ export default function SmartLessonPlanning() {
                     variant="outline" 
                     size="sm"
                     onClick={downloadLessonPlan}
-                    className="flex items-center gap-1"
+                    className="flex items-centre gap-1"
                   >
                     <Download className="h-4 w-4" />
                     <span>Download</span>
@@ -963,7 +963,7 @@ export default function SmartLessonPlanning() {
                     variant="outline" 
                     size="sm"
                     onClick={saveLessonPlan}
-                    className="flex items-center gap-1"
+                    className="flex items-centre gap-1"
                   >
                     <Save className="h-4 w-4" />
                     <span>Save</span>
@@ -994,7 +994,7 @@ export default function SmartLessonPlanning() {
               </div>
             </div>
           ) : (
-            <div className="text-center py-12">
+            <div className="text-centre py-12">
               <BookOpen className="mx-auto h-12 w-12 text-muted-foreground" />
               <h3 className="mt-4 text-lg font-medium">No lesson plan to preview</h3>
               <p className="mt-2 text-muted-foreground">
@@ -1051,7 +1051,7 @@ export default function SmartLessonPlanning() {
               ))}
             </div>
           ) : (
-            <div className="text-center py-12">
+            <div className="text-centre py-12">
               <BookOpen className="mx-auto h-12 w-12 text-muted-foreground" />
               <h3 className="mt-4 text-lg font-medium">No saved lesson plans</h3>
               <p className="mt-2 text-muted-foreground">

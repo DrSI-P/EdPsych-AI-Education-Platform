@@ -68,7 +68,7 @@ export async function POST(req: NextRequest) {
     
     // Create prompt for multi-modal content generation
     const prompt = `
-      You are an expert educational content designer specializing in multi-modal learning experiences.
+      You are an expert educational content designer specialising in multi-modal learning experiences.
       
       Task: Transform the following educational content into a multi-modal presentation that engages multiple sensory channels simultaneously.
       
@@ -101,7 +101,7 @@ export async function POST(req: NextRequest) {
         'Include additional accessibility features such as alternative text for images, transcripts for audio, and clear navigation cues.' : ''}
       
       ${settings.accessibilityLevel === 'maximum' ? 
-        'Provide comprehensive accessibility support including simplified language options, color contrast considerations, and keyboard navigation instructions.' : ''}
+        'Provide comprehensive accessibility support including simplified language options, colour contrast considerations, and keyboard navigation instructions.' : ''}
       
       Ensure all content is:
       - Evidence-based and pedagogically sound

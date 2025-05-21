@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Analytics and Reporting Module provides comprehensive data visualization, analysis, and reporting capabilities for the EdPsych Connect platform. This module enables educators, administrators, and other stakeholders to gain valuable insights from educational data, track student progress, evaluate resource effectiveness, and create custom reports tailored to specific needs.
+The Analytics and Reporting Module provides comprehensive data visualisation, analysis, and reporting capabilities for the EdPsych Connect platform. This module enables educators, administrators, and other stakeholders to gain valuable insights from educational data, track student progress, evaluate resource effectiveness, and create custom reports tailored to specific needs.
 
 ## Key Features
 
@@ -10,7 +10,7 @@ The Analytics and Reporting Module provides comprehensive data visualization, an
 
 The Student Progress Tracking component offers detailed visualizations and analytics for monitoring individual and group student progress across various dimensions:
 
-- **Academic Performance Tracking**: Visualize student achievement across subjects and over time
+- **Academic Performance Tracking**: Visualise student achievement across subjects and over time
 - **Progress Gap Analysis**: Identify achievement gaps and track closure efforts
 - **Intervention Impact Measurement**: Evaluate the effectiveness of educational interventions
 - **Goal Setting and Monitoring**: Track progress toward individual and class learning goals
@@ -21,10 +21,10 @@ The Student Progress Tracking component offers detailed visualizations and analy
 
 The Educator Performance Analytics component provides insights into teaching effectiveness and professional development:
 
-- **Teaching Impact Visualization**: Measure and visualize the impact of teaching strategies
+- **Teaching Impact Visualisation**: Measure and visualise the impact of teaching strategies
 - **Professional Growth Tracking**: Monitor progress in professional development goals
-- **Classroom Management Analytics**: Analyze classroom dynamics and management effectiveness
-- **Feedback Analysis**: Aggregate and analyze feedback from students, peers, and observations
+- **Classroom Management Analytics**: Analyse classroom dynamics and management effectiveness
+- **Feedback Analysis**: Aggregate and analyse feedback from students, peers, and observations
 - **Comparative Benchmarking**: Compare performance metrics against school or national standards
 - **Strength and Development Area Identification**: Highlight areas of excellence and opportunities for growth
 
@@ -34,7 +34,7 @@ The Resource and Assessment Analytics component evaluates the effectiveness and 
 
 - **Resource Usage Tracking**: Monitor how frequently different resources are accessed and used
 - **Effectiveness Measurement**: Evaluate the impact of resources on student outcomes
-- **Assessment Quality Analysis**: Analyze the effectiveness of different assessment approaches
+- **Assessment Quality Analysis**: Analyse the effectiveness of different assessment approaches
 - **Cost-Benefit Analysis**: Evaluate resource ROI and cost-effectiveness
 - **Usage Pattern Identification**: Identify when and how resources are being utilized
 - **Recommendation Engine**: Receive AI-powered suggestions for resource optimization
@@ -44,7 +44,7 @@ The Resource and Assessment Analytics component evaluates the effectiveness and 
 The Custom Report Builder provides a flexible, user-friendly interface for creating tailored reports:
 
 - **Drag-and-Drop Interface**: Easily build reports with an intuitive drag-and-drop interface
-- **Multiple Visualization Options**: Choose from various charts, tables, and data presentation formats
+- **Multiple Visualisation Options**: Choose from various charts, tables, and data presentation formats
 - **Template Library**: Access pre-built report templates for common reporting needs
 - **Export Capabilities**: Export reports in multiple formats (PDF, DOCX, XLSX, HTML)
 - **Sharing Options**: Share reports with colleagues, parents, or other stakeholders
@@ -86,7 +86,7 @@ Different user roles have tailored access to analytics features:
 - **Administrators**: Full access to all analytics and reporting features
 - **Teachers**: Access to classroom-level data and individual student progress
 - **Department Heads**: Access to department-level analytics and comparisons
-- **SENCOs**: Specialized views for SEN student progress and intervention impact
+- **SENCOs**: Specialised views for SEN student progress and intervention impact
 - **Parents**: Limited access to their child's progress reports and visualizations
 
 ## Best Practices for Use
@@ -115,4 +115,4 @@ Support resources include:
 - **Documentation Library**: Comprehensive written documentation
 - **Training Workshops**: Regular online and in-person training sessions
 - **Help Centre**: In-app assistance and troubleshooting
-- **Community Forum**: Peer support and best practice sharing
+- **Community Forum**: Peer support and best practise sharing

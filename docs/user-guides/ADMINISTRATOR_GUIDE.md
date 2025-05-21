@@ -440,7 +440,7 @@ Resources for administrator development:
 - Video tutorials
 - Training webinars
 - Certification paths
-- Best practice guides
+- Best practise guides
 - Case studies
 
 ### Community and Support

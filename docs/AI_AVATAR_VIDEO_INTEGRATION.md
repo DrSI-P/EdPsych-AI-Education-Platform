@@ -19,7 +19,7 @@ The AI Avatar Video Integration system enables the creation, management, and int
 - Quality and format options for different device requirements
 
 ### 3. Video Library Management
-- Comprehensive organization of videos and scripts
+- Comprehensive organisation of videos and scripts
 - Filtering by category, audience, and curriculum alignment
 - Search functionality for quick content discovery
 - Analytics on video usage and effectiveness
@@ -48,13 +48,13 @@ The AI Avatar Video Integration system enables the creation, management, and int
 2. **Service Layer**
    - Script creation and management
    - Video generation and processing
-   - Library organization and search
+   - Library organisation and search
    - Analytics and usage tracking
 
 3. **UI Components**
    - Script Editor: Create and edit educational scripts
    - Video Generator: Configure and generate avatar videos
-   - Video Library: Manage and organize video content
+   - Video Library: Manage and organise video content
    - Video Player: Accessible playback with learning features
    - Integration Component: Embed videos throughout platform
 
@@ -76,9 +76,9 @@ The AI Avatar Video Integration system meets WCAG 2.1 AA standards through:
 
 3. **Understandable Design**
    - Consistent interface across components
-   - Clear labeling and instructions
+   - Clear labelling and instructions
    - Error prevention and handling
-   - Predictable behavior for all interactions
+   - Predictable behaviour for all interactions
 
 4. **Robust Implementation**
    - Compatible with assistive technologies
@@ -97,7 +97,7 @@ The system supports UK educational standards through:
 
 2. **Subject Alignment**
    - Mapping to core and foundation subjects
-   - Support for specialized educational needs areas
+   - Support for specialised educational needs areas
    - Cross-curricular connections
 
 3. **Educational Psychology Principles**
@@ -117,7 +117,7 @@ The system supports UK educational standards through:
    - Integrate videos into lessons and resources
 
 2. **Managing Video Content**
-   - Organize videos by subject, topic, and audience
+   - Organise videos by subject, topic, and audience
    - Track usage and effectiveness
    - Update and improve based on feedback
    - Share with colleagues and students

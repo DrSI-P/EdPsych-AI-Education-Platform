@@ -68,16 +68,16 @@ export default function CollaborativeGoalSetting() {
     },
     {
       id: "4",
-      title: "Improve my organization skills",
-      description: "Keep my notes, assignments, and materials better organized",
-      category: "behavioral",
+      title: "Improve my organisation skills",
+      description: "Keep my notes, assignments, and materials better organised",
+      category: "behavioural",
       status: "achieved",
       progress: 100,
       dueDate: new Date("2025-03-30"),
       milestones: [
-        { id: "4-1", title: "Create an organization system for my notes", completed: true },
+        { id: "4-1", title: "Create an organisation system for my notes", completed: true },
         { id: "4-2", title: "Use a planner consistently for 2 weeks", completed: true },
-        { id: "4-3", title: "Organize my backpack daily", completed: true },
+        { id: "4-3", title: "Organise my backpack daily", completed: true },
         { id: "4-4", title: "Maintain system for one month", completed: true }
       ]
     }
@@ -94,14 +94,14 @@ export default function CollaborativeGoalSetting() {
   const categories = [
     { id: "academic", name: "Academic", color: "bg-blue-100 text-blue-800" },
     { id: "social", name: "Social", color: "bg-purple-100 text-purple-800" },
-    { id: "behavioral", name: "Behavioral", color: "bg-amber-100 text-amber-800" },
+    { id: "behavioural", name: "Behavioural", color: "bg-amber-100 text-amber-800" },
     { id: "personal", name: "Personal Growth", color: "bg-green-100 text-green-800" }
   ];
   
   // Get category badge style
   const getCategoryStyle = (categoryId) => {
     const category = categories.find(c => c.id === categoryId);
-    return category ? category.color : "bg-gray-100 text-gray-800";
+    return category ? category.colour : "bg-grey-100 text-grey-800";
   };
   
   // Get category name
@@ -160,7 +160,7 @@ export default function CollaborativeGoalSetting() {
             {/* Active, Achieved, and All Goals Tabs */}
             {(activeTab === "active" || activeTab === "achieved" || activeTab === "all") && (
               <TabsContent value={activeTab} className="space-y-6">
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-centre">
                   <h3 className="text-lg font-medium">
                     {activeTab === "active" ? "My Active Goals" : 
                      activeTab === "achieved" ? "My Achieved Goals" : "All My Goals"}
@@ -188,7 +188,7 @@ export default function CollaborativeGoalSetting() {
                 
                 <div className="space-y-4">
                   {filteredGoals.length === 0 ? (
-                    <div className="text-center py-8 text-muted-foreground">
+                    <div className="text-centre py-8 text-muted-foreground">
                       <p>No goals found in this category.</p>
                     </div>
                   ) : (
@@ -219,7 +219,7 @@ export default function CollaborativeGoalSetting() {
                               <p className="text-sm font-medium">Milestones:</p>
                               <div className="space-y-1">
                                 {goal.milestones.map((milestone) => (
-                                  <div key={milestone.id} className="flex items-center">
+                                  <div key={milestone.id} className="flex items-centre">
                                     <div className={`mr-2 ${milestone.completed ? "text-primary" : "text-muted-foreground"}`}>
                                       <CheckCircle2 className="h-4 w-4" />
                                     </div>
@@ -327,7 +327,7 @@ export default function CollaborativeGoalSetting() {
                   </div>
                   
                   <div>
-                    <div className="flex justify-between items-center mb-2">
+                    <div className="flex justify-between items-centre mb-2">
                       <Label>Milestones</Label>
                       <Button variant="ghost" size="sm">
                         <PlusCircle className="h-4 w-4 mr-1" />
@@ -336,25 +336,25 @@ export default function CollaborativeGoalSetting() {
                     </div>
                     
                     <div className="space-y-3 border rounded-md p-3">
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-centre gap-2">
                         <Input placeholder="Milestone 1" className="flex-1" defaultValue="Complete first step toward my goal" />
                         <Button variant="ghost" size="icon">
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-centre gap-2">
                         <Input placeholder="Milestone 2" className="flex-1" defaultValue="Reach halfway point" />
                         <Button variant="ghost" size="icon">
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>
-                      <div className="flex items-center gap-2">
-                        <Input placeholder="Milestone 3" className="flex-1" defaultValue="Practice consistently for two weeks" />
+                      <div className="flex items-centre gap-2">
+                        <Input placeholder="Milestone 3" className="flex-1" defaultValue="Practise consistently for two weeks" />
                         <Button variant="ghost" size="icon">
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-centre gap-2">
                         <Input placeholder="Milestone 4" className="flex-1" defaultValue="Achieve final goal" />
                         <Button variant="ghost" size="icon">
                           <Trash2 className="h-4 w-4" />
@@ -394,13 +394,13 @@ export default function CollaborativeGoalSetting() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <Card>
                 <CardHeader className="pb-2">
-                  <CardTitle className="text-base flex items-center">
+                  <CardTitle className="text-base flex items-centre">
                     <Target className="h-4 w-4 mr-2" />
                     Progress
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-center">
+                  <div className="text-centre">
                     <div className="text-3xl font-bold mb-2">40%</div>
                     <Progress value={40} className="h-2 mb-2" />
                     <p className="text-sm text-muted-foreground">2 of 4 milestones completed</p>
@@ -410,13 +410,13 @@ export default function CollaborativeGoalSetting() {
               
               <Card>
                 <CardHeader className="pb-2">
-                  <CardTitle className="text-base flex items-center">
+                  <CardTitle className="text-base flex items-centre">
                     <CalendarIcon2 className="h-4 w-4 mr-2" />
                     Timeline
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-center">
+                  <div className="text-centre">
                     <div className="text-sm text-muted-foreground mb-1">Started</div>
                     <div className="font-medium mb-2">March 15, 2025</div>
                     <div className="text-sm text-muted-foreground mb-1">Due Date</div>
@@ -427,29 +427,29 @@ export default function CollaborativeGoalSetting() {
               
               <Card>
                 <CardHeader className="pb-2">
-                  <CardTitle className="text-base flex items-center">
+                  <CardTitle className="text-base flex items-centre">
                     <Award className="h-4 w-4 mr-2" />
                     Collaborators
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2">
-                    <div className="flex items-center">
-                      <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center mr-2">JS</div>
+                    <div className="flex items-centre">
+                      <div className="w-8 h-8 rounded-full bg-primary/10 flex items-centre justify-centre mr-2">JS</div>
                       <div>
                         <div className="font-medium">Jamie Smith</div>
                         <div className="text-xs text-muted-foreground">Student</div>
                       </div>
                     </div>
-                    <div className="flex items-center">
-                      <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center mr-2">MJ</div>
+                    <div className="flex items-centre">
+                      <div className="w-8 h-8 rounded-full bg-primary/10 flex items-centre justify-centre mr-2">MJ</div>
                       <div>
                         <div className="font-medium">Ms. Johnson</div>
                         <div className="text-xs text-muted-foreground">Teacher</div>
                       </div>
                     </div>
-                    <div className="flex items-center">
-                      <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center mr-2">PS</div>
+                    <div className="flex items-centre">
+                      <div className="w-8 h-8 rounded-full bg-primary/10 flex items-centre justify-centre mr-2">PS</div>
                       <div>
                         <div className="font-medium">Mr. Smith</div>
                         <div className="text-xs text-muted-foreground">Parent</div>
@@ -510,7 +510,7 @@ export default function CollaborativeGoalSetting() {
             </div>
             
             <div className="space-y-4">
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <h3 className="text-lg font-medium">Reflections & Feedback</h3>
                 <Button>
                   <PlusCircle className="h-4 w-4 mr-2" />
@@ -523,8 +523,8 @@ export default function CollaborativeGoalSetting() {
                   <Card key={reflection.id}>
                     <CardHeader className="pb-2">
                       <div className="flex justify-between">
-                        <div className="flex items-center">
-                          <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center mr-2">
+                        <div className="flex items-centre">
+                          <div className="w-8 h-8 rounded-full bg-primary/10 flex items-centre justify-centre mr-2">
                             {reflection.author.split(' ').map(n => n[0]).join('')}
                           </div>
                           <div>

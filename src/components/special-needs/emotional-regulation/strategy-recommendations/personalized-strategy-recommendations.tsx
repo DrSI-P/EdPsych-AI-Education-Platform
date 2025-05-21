@@ -116,7 +116,7 @@ const PersonalizedStrategyRecommendations = () => {
       evidenceBase: "Recommended by the Royal College of Psychiatrists as a grounding technique."
     },
     {
-      id: "visualization",
+      id: "visualisation",
       name: "Peaceful Place Visualisation",
       description: "Imagine a calm, peaceful place to help you relax.",
       steps: [
@@ -193,7 +193,7 @@ const PersonalizedStrategyRecommendations = () => {
         "Identify what type of thinking trap it might be (e.g., catastrophizing, mind-reading)",
         "Look for evidence that supports and doesn't support the thought",
         "Consider a more balanced alternative thought",
-        "Practice replacing the unhelpful thought with the balanced one"
+        "Practise replacing the unhelpful thought with the balanced one"
       ],
       suitableFor: ["Anxious", "Sad", "Angry", "Disappointed", "Worried"],
       category: "cognitive",
@@ -210,7 +210,7 @@ const PersonalizedStrategyRecommendations = () => {
         "Pause and take a breath",
         "Think of what you would say to a friend in this situation",
         "Create a positive, realistic alternative",
-        "Practice saying it to yourself"
+        "Practise saying it to yourself"
       ],
       suitableFor: ["Sad", "Anxious", "Disappointed", "Embarrassed"],
       category: "cognitive",
@@ -219,11 +219,11 @@ const PersonalizedStrategyRecommendations = () => {
       evidenceBase: "Supported by research in positive psychology and recommended by the British Psychological Society."
     },
     {
-      id: "gratitude-practice",
-      name: "Gratitude Practice",
+      id: "gratitude-practise",
+      name: "Gratitude Practise",
       description: "Focus on things you're thankful for to shift perspective and improve mood.",
       steps: [
-        "Take a few deep breaths to center yourself",
+        "Take a few deep breaths to centre yourself",
         "Think of three things you're grateful for right now",
         "For each one, consider why you're grateful for it",
         "Notice how thinking about these things makes you feel",
@@ -270,8 +270,8 @@ const PersonalizedStrategyRecommendations = () => {
       evidenceBase: "Based on mindfulness practices recommended by the Oxford Mindfulness Centre and NICE guidelines."
     },
     {
-      id: "emotion-labeling",
-      name: "Emotion Labeling",
+      id: "emotion-labelling",
+      name: "Emotion Labelling",
       description: "Name your emotions specifically to help process and manage them.",
       steps: [
         "Pause and check in with yourself",
@@ -298,10 +298,10 @@ const PersonalizedStrategyRecommendations = () => {
         "Commit fully to the opposite action"
       ],
       suitableFor: ["Angry", "Anxious", "Sad", "Embarrassed"],
-      category: "behavioral",
+      category: "behavioural",
       complexity: "advanced",
       duration: "medium",
-      evidenceBase: "Core technique from Dialectical Behavior Therapy (DBT), supported by clinical research and NICE guidelines."
+      evidenceBase: "Core technique from Dialectical Behaviour Therapy (DBT), supported by clinical research and NICE guidelines."
     },
     {
       id: "creative-expression",
@@ -431,7 +431,7 @@ const PersonalizedStrategyRecommendations = () => {
           timestamp: new Date(Date.now() - 432000000).toISOString(),
           triggers: "Good grade on project",
           bodyFeelings: ["Chest"],
-          strategiesUsed: ["gratitude-practice"]
+          strategiesUsed: ["gratitude-practise"]
         }
       ];
       setEmotionHistory(mockHistory);
@@ -534,7 +534,7 @@ const PersonalizedStrategyRecommendations = () => {
     
     // For now, we'll generate recommendations based on local data
     
-    // Step 1: Analyze emotion patterns
+    // Step 1: Analyse emotion patterns
     const emotionFrequency = {};
     emotionHistory.forEach(record => {
       emotionFrequency[record.name] = (emotionFrequency[record.name] || 0) + 1;
@@ -545,7 +545,7 @@ const PersonalizedStrategyRecommendations = () => {
       .slice(0, 3)
       .map(entry => entry[0]);
     
-    // Step 2: Analyze strategy effectiveness
+    // Step 2: Analyse strategy effectiveness
     const effectiveStrategies = Object.entries(strategyEffectiveness)
       .filter(([_, data]) => data.average >= 3.5 && data.count >= 2)
       .map(([id, _]) => id);
@@ -798,7 +798,7 @@ const PersonalizedStrategyRecommendations = () => {
       title: updated.favoriteStrategies.includes(strategyId) 
         ? "Added to Favorites" 
         : "Removed from Favorites",
-      description: "Your favorite strategies have been updated.",
+      description: "Your favourite strategies have been updated.",
     });
   };
   
@@ -806,7 +806,7 @@ const PersonalizedStrategyRecommendations = () => {
     const emotion = 
       basicEmotions.find(e => e.name === emotionName) || 
       advancedEmotions.find(e => e.name === emotionName);
-    return emotion ? emotion.color : "#808080";
+    return emotion ? emotion.colour : "#808080";
   };
   
   const getEmotionIcon = (emotionName) => {
@@ -873,10 +873,10 @@ const PersonalizedStrategyRecommendations = () => {
                   <Button
                     key={emotion.name}
                     variant={currentMood?.name === emotion.name ? "default" : "outline"}
-                    className="h-20 flex flex-col items-center justify-center"
+                    className="h-20 flex flex-col items-centre justify-centre"
                     style={{
-                      borderColor: emotion.color,
-                      backgroundColor: currentMood?.name === emotion.name ? emotion.color : "transparent",
+                      borderColor: emotion.colour,
+                      backgroundColor: currentMood?.name === emotion.name ? emotion.colour : "transparent",
                       color: currentMood?.name === emotion.name ? "white" : "inherit"
                     }}
                     onClick={() => handleCurrentMoodSelect(emotion)}
@@ -889,7 +889,7 @@ const PersonalizedStrategyRecommendations = () => {
             </div>
             
             {isLoading ? (
-              <div className="flex justify-center items-center py-12">
+              <div className="flex justify-centre items-centre py-12">
                 <p>Loading your personalized recommendations...</p>
               </div>
             ) : (
@@ -900,20 +900,20 @@ const PersonalizedStrategyRecommendations = () => {
                     <div className="space-y-4">
                       {personalizedStrategies.map((strategy) => (
                         <Card key={strategy.id} className="overflow-hidden">
-                          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 px-6 py-4 flex justify-between items-center">
-                            <div className="flex items-center">
+                          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 px-6 py-4 flex justify-between items-centre">
+                            <div className="flex items-centre">
                               <div className="mr-4">
-                                <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-sm">
+                                <div className="w-12 h-12 rounded-full bg-white flex items-centre justify-centre shadow-sm">
                                   {strategy.category === 'physical' && <Heart className="h-6 w-6 text-pink-500" />}
                                   {strategy.category === 'cognitive' && <Brain className="h-6 w-6 text-purple-500" />}
                                   {strategy.category === 'social' && <Clock className="h-6 w-6 text-blue-500" />}
-                                  {strategy.category === 'behavioral' && <ArrowRight className="h-6 w-6 text-green-500" />}
+                                  {strategy.category === 'behavioural' && <ArrowRight className="h-6 w-6 text-green-500" />}
                                   {strategy.category === 'expressive' && <Sparkles className="h-6 w-6 text-amber-500" />}
                                 </div>
                               </div>
                               <div>
                                 <h3 className="font-medium text-lg">{strategy.name}</h3>
-                                <div className="flex items-center text-sm text-muted-foreground">
+                                <div className="flex items-centre text-sm text-muted-foreground">
                                   <Badge variant="outline" className="mr-2">
                                     {strategy.category}
                                   </Badge>
@@ -928,8 +928,8 @@ const PersonalizedStrategyRecommendations = () => {
                                 </div>
                               </div>
                             </div>
-                            <div className="flex items-center">
-                              <div className="w-16 h-16 rounded-full bg-white shadow-sm flex flex-col items-center justify-center mr-4">
+                            <div className="flex items-centre">
+                              <div className="w-16 h-16 rounded-full bg-white shadow-sm flex flex-col items-centre justify-centre mr-4">
                                 <div className="text-lg font-bold text-blue-600">
                                   {Math.round(strategy.score)}%
                                 </div>
@@ -947,8 +947,8 @@ const PersonalizedStrategyRecommendations = () => {
                           </div>
                           
                           <CardContent className="pt-6">
-                            <div className="flex items-center mb-4">
-                              <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-100 flex items-center gap-1">
+                            <div className="flex items-centre mb-4">
+                              <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-100 flex items-centre gap-1">
                                 {getReasonIcon(strategy.reasonType)}
                                 <span>{strategy.reason}</span>
                               </Badge>
@@ -1005,9 +1005,9 @@ const PersonalizedStrategyRecommendations = () => {
                       ))}
                     </div>
                   ) : (
-                    <div className="text-center py-12 border rounded-lg bg-gray-50">
+                    <div className="text-centre py-12 border rounded-lg bg-grey-50">
                       <p className="text-lg font-medium mb-2">No recommendations available yet</p>
-                      <p className="text-gray-500 mb-4">
+                      <p className="text-grey-500 mb-4">
                         Record more emotions and try different strategies to get personalized recommendations.
                       </p>
                       <Button onClick={() => router.push('/special-needs/emotional-regulation')}>
@@ -1029,7 +1029,7 @@ const PersonalizedStrategyRecommendations = () => {
                           <Card key={strategy.id}>
                             <CardHeader>
                               <div className="flex justify-between items-start">
-                                <CardTitle className="flex items-center gap-2">
+                                <CardTitle className="flex items-centre gap-2">
                                   {strategy.name}
                                   <Star className="h-4 w-4 fill-current text-amber-500" />
                                 </CardTitle>
@@ -1074,9 +1074,9 @@ const PersonalizedStrategyRecommendations = () => {
                       })}
                     </div>
                   ) : (
-                    <div className="text-center py-12 border rounded-lg bg-gray-50">
-                      <p className="text-lg font-medium mb-2">No favorite strategies yet</p>
-                      <p className="text-gray-500 mb-4">
+                    <div className="text-centre py-12 border rounded-lg bg-grey-50">
+                      <p className="text-lg font-medium mb-2">No favourite strategies yet</p>
+                      <p className="text-grey-500 mb-4">
                         Add strategies to your favorites for quick access.
                       </p>
                       <Button onClick={() => setActiveTab("recommendations")}>
@@ -1108,8 +1108,8 @@ const PersonalizedStrategyRecommendations = () => {
                                   borderLeftColor: record.emotion ? getEmotionColor(record.emotion) : "#808080" 
                                 }}>
                                   <CardHeader className="pb-2">
-                                    <div className="flex justify-between items-center">
-                                      <div className="flex items-center gap-2">
+                                    <div className="flex justify-between items-centre">
+                                      <div className="flex items-centre gap-2">
                                         {record.emotion && (
                                           <span className="text-2xl">{getEmotionIcon(record.emotion)}</span>
                                         )}
@@ -1121,7 +1121,7 @@ const PersonalizedStrategyRecommendations = () => {
                                     </div>
                                   </CardHeader>
                                   <CardContent className="pb-2">
-                                    <div className="flex justify-between items-center mb-2">
+                                    <div className="flex justify-between items-centre mb-2">
                                       <div>
                                         <Badge variant="outline" className="mr-2">
                                           {strategy.category}
@@ -1132,7 +1132,7 @@ const PersonalizedStrategyRecommendations = () => {
                                           </Badge>
                                         )}
                                       </div>
-                                      <div className="flex items-center">
+                                      <div className="flex items-centre">
                                         <span className="mr-2">Effectiveness:</span>
                                         <div className="flex">
                                           {[1, 2, 3, 4, 5].map((star) => (
@@ -1141,7 +1141,7 @@ const PersonalizedStrategyRecommendations = () => {
                                               className={`h-4 w-4 ${
                                                 star <= record.effectiveness 
                                                   ? "fill-current text-amber-500" 
-                                                  : "text-gray-300"
+                                                  : "text-grey-300"
                                               }`} 
                                             />
                                           ))}
@@ -1159,7 +1159,7 @@ const PersonalizedStrategyRecommendations = () => {
                               );
                             })
                           ) : (
-                            <div className="text-center py-8">
+                            <div className="text-centre py-8">
                               <p>No strategy history recorded yet.</p>
                               <Button className="mt-4" onClick={() => setActiveTab("recommendations")}>
                                 Try Your First Strategy
@@ -1178,7 +1178,7 @@ const PersonalizedStrategyRecommendations = () => {
                     <CardHeader>
                       <CardTitle>Strategy Preferences</CardTitle>
                       <CardDescription>
-                        Customize your strategy recommendations to match your needs
+                        Customise your strategy recommendations to match your needs
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
@@ -1186,8 +1186,8 @@ const PersonalizedStrategyRecommendations = () => {
                         <div className="space-y-2">
                           <Label htmlFor="strategy-types">Preferred Strategy Types</Label>
                           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                            {["physical", "cognitive", "social", "behavioral", "expressive"].map((type) => (
-                              <div key={type} className="flex items-center space-x-2">
+                            {["physical", "cognitive", "social", "behavioural", "expressive"].map((type) => (
+                              <div key={type} className="flex items-centre space-x-2">
                                 <Switch 
                                   id={`type-${type}`} 
                                   checked={userPreferences.preferredStrategyTypes.includes(type)}
@@ -1227,7 +1227,7 @@ const PersonalizedStrategyRecommendations = () => {
                             </SelectTrigger>
                             <SelectContent>
                               <SelectItem value="simple">Simple - Easy to remember and use</SelectItem>
-                              <SelectItem value="moderate">Moderate - Some practice needed</SelectItem>
+                              <SelectItem value="moderate">Moderate - Some practise needed</SelectItem>
                               <SelectItem value="advanced">Advanced - More complex techniques</SelectItem>
                             </SelectContent>
                           </Select>
@@ -1265,7 +1265,7 @@ const PersonalizedStrategyRecommendations = () => {
                         
                         <Separator />
                         
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-centre space-x-2">
                           <Switch 
                             id="auto-suggest" 
                             checked={userPreferences.autoSuggestEnabled}

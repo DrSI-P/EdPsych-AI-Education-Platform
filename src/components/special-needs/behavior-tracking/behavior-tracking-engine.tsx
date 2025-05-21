@@ -100,7 +100,7 @@ const BehaviorTrackingEngine = () => {
   // Fetch settings
   const fetchSettings = async () => {
     try {
-      const response = await fetch('/api/special-needs/behavior-tracking/settings');
+      const response = await fetch('/api/special-needs/behaviour-tracking/settings');
       if (response.ok) {
         const data = await response.json();
         if (data) {
@@ -115,7 +115,7 @@ const BehaviorTrackingEngine = () => {
   // Fetch behaviors
   const fetchBehaviors = async () => {
     try {
-      const response = await fetch('/api/special-needs/behavior-tracking/behaviors');
+      const response = await fetch('/api/special-needs/behaviour-tracking/behaviors');
       if (response.ok) {
         const data = await response.json();
         setBehaviors(data);
@@ -143,7 +143,7 @@ const BehaviorTrackingEngine = () => {
   // Fetch goals
   const fetchGoals = async () => {
     try {
-      const response = await fetch('/api/special-needs/behavior-tracking/goals');
+      const response = await fetch('/api/special-needs/behaviour-tracking/goals');
       if (response.ok) {
         const data = await response.json();
         setGoals(data);
@@ -156,7 +156,7 @@ const BehaviorTrackingEngine = () => {
   // Fetch rewards
   const fetchRewards = async () => {
     try {
-      const response = await fetch('/api/special-needs/behavior-tracking/rewards');
+      const response = await fetch('/api/special-needs/behaviour-tracking/rewards');
       if (response.ok) {
         const data = await response.json();
         setRewards(data);
@@ -169,7 +169,7 @@ const BehaviorTrackingEngine = () => {
   // Fetch tracking data
   const fetchTrackingData = async () => {
     try {
-      const response = await fetch('/api/special-needs/behavior-tracking/data');
+      const response = await fetch('/api/special-needs/behaviour-tracking/data');
       if (response.ok) {
         const data = await response.json();
         setTrackingData(data);
@@ -179,11 +179,11 @@ const BehaviorTrackingEngine = () => {
     }
   };
   
-  // Handle behavior form submission
+  // Handle behaviour form submission
   const handleBehaviorSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('/api/special-needs/behavior-tracking/behaviors', {
+      const response = await fetch('/api/special-needs/behaviour-tracking/behaviors', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -193,8 +193,8 @@ const BehaviorTrackingEngine = () => {
       
       if (response.ok) {
         toast({
-          title: "Behavior created",
-          description: `${newBehavior.name} has been added to your behavior definitions.`,
+          title: "Behaviour created",
+          description: `${newBehavior.name} has been added to your behaviour definitions.`,
         });
         setNewBehavior({
           name: "",
@@ -209,12 +209,12 @@ const BehaviorTrackingEngine = () => {
       } else {
         toast({
           title: "Error",
-          description: "Failed to create behavior. Please try again.",
+          description: "Failed to create behaviour. Please try again.",
           variant: "destructive",
         });
       }
     } catch (error) {
-      console.error('Error creating behavior:', error);
+      console.error('Error creating behaviour:', error);
       toast({
         title: "Error",
         description: "An unexpected error occurred. Please try again.",
@@ -227,7 +227,7 @@ const BehaviorTrackingEngine = () => {
   const handleGoalSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('/api/special-needs/behavior-tracking/goals', {
+      const response = await fetch('/api/special-needs/behaviour-tracking/goals', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -271,7 +271,7 @@ const BehaviorTrackingEngine = () => {
   const handleRewardSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('/api/special-needs/behavior-tracking/rewards', {
+      const response = await fetch('/api/special-needs/behaviour-tracking/rewards', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -312,7 +312,7 @@ const BehaviorTrackingEngine = () => {
   const handleTrackingSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('/api/special-needs/behavior-tracking/data', {
+      const response = await fetch('/api/special-needs/behaviour-tracking/data', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -325,8 +325,8 @@ const BehaviorTrackingEngine = () => {
       
       if (response.ok) {
         toast({
-          title: "Behavior tracked",
-          description: "Behavior has been successfully recorded.",
+          title: "Behaviour tracked",
+          description: "Behaviour has been successfully recorded.",
         });
         setTrackingForm({
           behaviorId: "",
@@ -341,12 +341,12 @@ const BehaviorTrackingEngine = () => {
       } else {
         toast({
           title: "Error",
-          description: "Failed to record behavior. Please try again.",
+          description: "Failed to record behaviour. Please try again.",
           variant: "destructive",
         });
       }
     } catch (error) {
-      console.error('Error recording behavior:', error);
+      console.error('Error recording behaviour:', error);
       toast({
         title: "Error",
         description: "An unexpected error occurred. Please try again.",
@@ -358,7 +358,7 @@ const BehaviorTrackingEngine = () => {
   // Handle settings update
   const handleSettingsUpdate = async () => {
     try {
-      const response = await fetch('/api/special-needs/behavior-tracking/settings', {
+      const response = await fetch('/api/special-needs/behaviour-tracking/settings', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -369,7 +369,7 @@ const BehaviorTrackingEngine = () => {
       if (response.ok) {
         toast({
           title: "Settings updated",
-          description: "Your behavior tracking settings have been updated.",
+          description: "Your behaviour tracking settings have been updated.",
         });
       } else {
         toast({
@@ -392,14 +392,14 @@ const BehaviorTrackingEngine = () => {
   const prepareChartData = () => {
     if (trackingData.length === 0) return [];
     
-    // Group by date and behavior
+    // Group by date and behaviour
     const groupedData = trackingData.reduce((acc, item) => {
       const date = format(new Date(item.date), 'yyyy-MM-dd');
       if (!acc[date]) {
         acc[date] = {};
       }
       
-      const behaviorName = item.behavior?.name || 'Unknown';
+      const behaviorName = item.behaviour?.name || 'Unknown';
       if (!acc[date][behaviorName]) {
         acc[date][behaviorName] = 0;
       }
@@ -417,7 +417,7 @@ const BehaviorTrackingEngine = () => {
     }).sort((a, b) => new Date(a.date) - new Date(b.date));
   };
   
-  // Get behavior category badge color
+  // Get behaviour category badge colour
   const getBehaviorCategoryColor = (category) => {
     switch (category) {
       case 'positive':
@@ -427,11 +427,11 @@ const BehaviorTrackingEngine = () => {
       case 'neutral':
         return 'bg-blue-100 text-blue-800';
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-grey-100 text-grey-800';
     }
   };
   
-  // Get goal status badge color
+  // Get goal status badge colour
   const getGoalStatusColor = (status) => {
     switch (status) {
       case 'active':
@@ -441,11 +441,11 @@ const BehaviorTrackingEngine = () => {
       case 'paused':
         return 'bg-amber-100 text-amber-800';
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-grey-100 text-grey-800';
     }
   };
   
-  // Get reward category badge color
+  // Get reward category badge colour
   const getRewardCategoryColor = (category) => {
     switch (category) {
       case 'privilege':
@@ -459,7 +459,7 @@ const BehaviorTrackingEngine = () => {
       case 'token':
         return 'bg-amber-100 text-amber-800';
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-grey-100 text-grey-800';
     }
   };
   
@@ -467,7 +467,7 @@ const BehaviorTrackingEngine = () => {
   const calculateGoalProgress = (goal) => {
     if (!goal || !trackingData.length) return 0;
     
-    // Filter tracking data for this goal's behavior and timeframe
+    // Filter tracking data for this goal's behaviour and timeframe
     const timeframeStart = new Date();
     switch (goal.timeframe) {
       case 'daily':
@@ -501,10 +501,10 @@ const BehaviorTrackingEngine = () => {
   // Render loading state
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center h-64">
-        <div className="text-center">
+      <div className="flex items-centre justify-centre h-64">
+        <div className="text-centre">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
-          <p className="mt-4 text-muted-foreground">Loading behavior tracking system...</p>
+          <p className="mt-4 text-muted-foreground">Loading behaviour tracking system...</p>
         </div>
       </div>
     );
@@ -512,31 +512,31 @@ const BehaviorTrackingEngine = () => {
   
   return (
     <div className="container mx-auto py-6">
-      <h1 className="text-3xl font-bold mb-6">Behavior Tracking & Positive Reinforcement</h1>
+      <h1 className="text-3xl font-bold mb-6">Behaviour Tracking & Positive Reinforcement</h1>
       
       <Tabs defaultValue="track" value={activeTab} onValueChange={setActiveTab} className="w-full">
         <TabsList className="grid grid-cols-6 mb-8">
-          <TabsTrigger value="track" className="flex items-center gap-2">
+          <TabsTrigger value="track" className="flex items-centre gap-2">
             <BarChart2 className="h-4 w-4" />
             <span>Track</span>
           </TabsTrigger>
-          <TabsTrigger value="behaviors" className="flex items-center gap-2">
+          <TabsTrigger value="behaviors" className="flex items-centre gap-2">
             <PlusCircle className="h-4 w-4" />
             <span>Behaviors</span>
           </TabsTrigger>
-          <TabsTrigger value="goals" className="flex items-center gap-2">
+          <TabsTrigger value="goals" className="flex items-centre gap-2">
             <Target className="h-4 w-4" />
             <span>Goals</span>
           </TabsTrigger>
-          <TabsTrigger value="rewards" className="flex items-center gap-2">
+          <TabsTrigger value="rewards" className="flex items-centre gap-2">
             <Award className="h-4 w-4" />
             <span>Rewards</span>
           </TabsTrigger>
-          <TabsTrigger value="students" className="flex items-center gap-2">
+          <TabsTrigger value="students" className="flex items-centre gap-2">
             <Users className="h-4 w-4" />
             <span>Students</span>
           </TabsTrigger>
-          <TabsTrigger value="settings" className="flex items-center gap-2">
+          <TabsTrigger value="settings" className="flex items-centre gap-2">
             <Settings className="h-4 w-4" />
             <span>Settings</span>
           </TabsTrigger>
@@ -547,7 +547,7 @@ const BehaviorTrackingEngine = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Card>
               <CardHeader>
-                <CardTitle>Record Behavior</CardTitle>
+                <CardTitle>Record Behaviour</CardTitle>
                 <CardDescription>
                   Track student behaviors to monitor progress and reinforce positive actions.
                 </CardDescription>
@@ -555,19 +555,19 @@ const BehaviorTrackingEngine = () => {
               <CardContent>
                 <form onSubmit={handleTrackingSubmit} className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="behaviorId">Behavior</Label>
+                    <Label htmlFor="behaviorId">Behaviour</Label>
                     <Select 
                       value={trackingForm.behaviorId} 
                       onValueChange={(value) => setTrackingForm({...trackingForm, behaviorId: value})}
                       required
                     >
                       <SelectTrigger>
-                        <SelectValue placeholder="Select behavior" />
+                        <SelectValue placeholder="Select behaviour" />
                       </SelectTrigger>
                       <SelectContent>
-                        {behaviors.map((behavior) => (
-                          <SelectItem key={behavior.id} value={behavior.id}>
-                            {behavior.name}
+                        {behaviors.map((behaviour) => (
+                          <SelectItem key={behaviour.id} value={behaviour.id}>
+                            {behaviour.name}
                           </SelectItem>
                         ))}
                       </SelectContent>
@@ -650,7 +650,7 @@ const BehaviorTrackingEngine = () => {
                     />
                   </div>
                   
-                  <Button type="submit" className="w-full">Record Behavior</Button>
+                  <Button type="submit" className="w-full">Record Behaviour</Button>
                 </form>
               </CardContent>
             </Card>
@@ -659,7 +659,7 @@ const BehaviorTrackingEngine = () => {
               <CardHeader>
                 <CardTitle>Recent Activity</CardTitle>
                 <CardDescription>
-                  View the most recent behavior tracking entries.
+                  View the most recent behaviour tracking entries.
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -670,7 +670,7 @@ const BehaviorTrackingEngine = () => {
                         <div key={entry.id} className="border rounded-lg p-4">
                           <div className="flex justify-between items-start">
                             <div>
-                              <h4 className="font-medium">{entry.behavior?.name || 'Unknown behavior'}</h4>
+                              <h4 className="font-medium">{entry.behaviour?.name || 'Unknown behaviour'}</h4>
                               <p className="text-sm text-muted-foreground">
                                 {format(new Date(entry.date), 'PPP')} • {entry.count} {entry.count === 1 ? 'occurrence' : 'occurrences'}
                               </p>
@@ -683,8 +683,8 @@ const BehaviorTrackingEngine = () => {
                                 <p className="text-sm mt-1">Context: {entry.context}</p>
                               )}
                             </div>
-                            <Badge className={getBehaviorCategoryColor(entry.behavior?.category || 'neutral')}>
-                              {entry.behavior?.category || 'neutral'}
+                            <Badge className={getBehaviorCategoryColor(entry.behaviour?.category || 'neutral')}>
+                              {entry.behaviour?.category || 'neutral'}
                             </Badge>
                           </div>
                           {entry.notes && (
@@ -697,7 +697,7 @@ const BehaviorTrackingEngine = () => {
                       ))}
                     </div>
                   ) : (
-                    <div className="text-center py-8">
+                    <div className="text-centre py-8">
                       <p className="text-muted-foreground">No tracking data available yet.</p>
                       <p className="text-sm mt-2">Start tracking behaviors to see them here.</p>
                     </div>
@@ -709,9 +709,9 @@ const BehaviorTrackingEngine = () => {
           
           <Card>
             <CardHeader>
-              <CardTitle>Behavior Trends</CardTitle>
+              <CardTitle>Behaviour Trends</CardTitle>
               <CardDescription>
-                Visualize behavior patterns over time to identify trends and progress.
+                Visualise behaviour patterns over time to identify trends and progress.
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -724,10 +724,10 @@ const BehaviorTrackingEngine = () => {
                       <YAxis />
                       <Tooltip />
                       <Legend />
-                      {behaviors.map((behavior, index) => (
+                      {behaviors.map((behaviour, index) => (
                         <Bar 
-                          key={behavior.id} 
-                          dataKey={behavior.name} 
+                          key={behaviour.id} 
+                          dataKey={behaviour.name} 
                           fill={['#4f46e5', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899'][index % 6]} 
                         />
                       ))}
@@ -735,8 +735,8 @@ const BehaviorTrackingEngine = () => {
                   </ResponsiveContainer>
                 </div>
               ) : (
-                <div className="text-center py-8">
-                  <p className="text-muted-foreground">No data available for visualization.</p>
+                <div className="text-centre py-8">
+                  <p className="text-muted-foreground">No data available for visualisation.</p>
                   <p className="text-sm mt-2">Start tracking behaviors to see trends over time.</p>
                 </div>
               )}
@@ -749,7 +749,7 @@ const BehaviorTrackingEngine = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Card>
               <CardHeader>
-                <CardTitle>Create New Behavior</CardTitle>
+                <CardTitle>Create New Behaviour</CardTitle>
                 <CardDescription>
                   Define behaviors you want to track and reinforce.
                 </CardDescription>
@@ -757,7 +757,7 @@ const BehaviorTrackingEngine = () => {
               <CardContent>
                 <form onSubmit={handleBehaviorSubmit} className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="name">Behavior Name</Label>
+                    <Label htmlFor="name">Behaviour Name</Label>
                     <Input 
                       type="text" 
                       id="name" 
@@ -772,7 +772,7 @@ const BehaviorTrackingEngine = () => {
                     <Label htmlFor="description">Description</Label>
                     <Textarea 
                       id="description" 
-                      placeholder="Detailed description of the behavior"
+                      placeholder="Detailed description of the behaviour"
                       value={newBehavior.description} 
                       onChange={(e) => setNewBehavior({...newBehavior, description: e.target.value})}
                       required
@@ -822,14 +822,14 @@ const BehaviorTrackingEngine = () => {
                       value={newBehavior.pointValue} 
                       onChange={(e) => setNewBehavior({...newBehavior, pointValue: parseInt(e.target.value)})}
                     />
-                    <p className="text-xs text-muted-foreground">Points earned each time this behavior is recorded</p>
+                    <p className="text-xs text-muted-foreground">Points earned each time this behaviour is recorded</p>
                   </div>
                   
                   <div className="space-y-2">
                     <Label htmlFor="evidenceBase">Evidence Base</Label>
                     <Textarea 
                       id="evidenceBase" 
-                      placeholder="Research or evidence supporting this behavior tracking approach"
+                      placeholder="Research or evidence supporting this behaviour tracking approach"
                       value={newBehavior.evidenceBase} 
                       onChange={(e) => setNewBehavior({...newBehavior, evidenceBase: e.target.value})}
                     />
@@ -839,13 +839,13 @@ const BehaviorTrackingEngine = () => {
                     <Label htmlFor="notes">Additional Notes</Label>
                     <Textarea 
                       id="notes" 
-                      placeholder="Any additional information about this behavior"
+                      placeholder="Any additional information about this behaviour"
                       value={newBehavior.notes} 
                       onChange={(e) => setNewBehavior({...newBehavior, notes: e.target.value})}
                     />
                   </div>
                   
-                  <Button type="submit" className="w-full">Create Behavior</Button>
+                  <Button type="submit" className="w-full">Create Behaviour</Button>
                 </form>
               </CardContent>
             </Card>
@@ -861,30 +861,30 @@ const BehaviorTrackingEngine = () => {
                 <ScrollArea className="h-[600px]">
                   {behaviors.length > 0 ? (
                     <div className="space-y-4">
-                      {behaviors.map((behavior) => (
-                        <div key={behavior.id} className="border rounded-lg p-4">
+                      {behaviors.map((behaviour) => (
+                        <div key={behaviour.id} className="border rounded-lg p-4">
                           <div className="flex justify-between items-start">
-                            <h4 className="font-medium">{behavior.name}</h4>
-                            <Badge className={getBehaviorCategoryColor(behavior.category)}>
-                              {behavior.category}
+                            <h4 className="font-medium">{behaviour.name}</h4>
+                            <Badge className={getBehaviorCategoryColor(behaviour.category)}>
+                              {behaviour.category}
                             </Badge>
                           </div>
-                          <p className="text-sm mt-2">{behavior.description}</p>
-                          <div className="flex items-center mt-2 text-sm text-muted-foreground">
-                            <span className="mr-4">Method: {behavior.trackingMethod}</span>
-                            <span>Points: {behavior.pointValue}</span>
+                          <p className="text-sm mt-2">{behaviour.description}</p>
+                          <div className="flex items-centre mt-2 text-sm text-muted-foreground">
+                            <span className="mr-4">Method: {behaviour.trackingMethod}</span>
+                            <span>Points: {behaviour.pointValue}</span>
                           </div>
-                          {behavior.evidenceBase && (
+                          {behaviour.evidenceBase && (
                             <div className="mt-3">
                               <p className="text-xs font-medium text-muted-foreground">Evidence Base:</p>
-                              <p className="text-xs mt-1">{behavior.evidenceBase}</p>
+                              <p className="text-xs mt-1">{behaviour.evidenceBase}</p>
                             </div>
                           )}
                         </div>
                       ))}
                     </div>
                   ) : (
-                    <div className="text-center py-8">
+                    <div className="text-centre py-8">
                       <p className="text-muted-foreground">No behaviors defined yet.</p>
                       <p className="text-sm mt-2">Create behaviors to start tracking.</p>
                     </div>
@@ -902,7 +902,7 @@ const BehaviorTrackingEngine = () => {
               <CardHeader>
                 <CardTitle>Create New Goal</CardTitle>
                 <CardDescription>
-                  Set behavior goals with rewards for achievement.
+                  Set behaviour goals with rewards for achievement.
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -930,19 +930,19 @@ const BehaviorTrackingEngine = () => {
                   </div>
                   
                   <div className="space-y-2">
-                    <Label htmlFor="targetBehavior">Target Behavior</Label>
+                    <Label htmlFor="targetBehavior">Target Behaviour</Label>
                     <Select 
                       value={newGoal.targetBehavior} 
                       onValueChange={(value) => setNewGoal({...newGoal, targetBehavior: value})}
                       required
                     >
                       <SelectTrigger>
-                        <SelectValue placeholder="Select behavior" />
+                        <SelectValue placeholder="Select behaviour" />
                       </SelectTrigger>
                       <SelectContent>
-                        {behaviors.map((behavior) => (
-                          <SelectItem key={behavior.id} value={behavior.id}>
-                            {behavior.name}
+                        {behaviors.map((behaviour) => (
+                          <SelectItem key={behaviour.id} value={behaviour.id}>
+                            {behaviour.name}
                           </SelectItem>
                         ))}
                       </SelectContent>
@@ -1029,7 +1029,7 @@ const BehaviorTrackingEngine = () => {
               <CardHeader>
                 <CardTitle>Active Goals</CardTitle>
                 <CardDescription>
-                  View and manage your behavior goals.
+                  View and manage your behaviour goals.
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -1063,7 +1063,7 @@ const BehaviorTrackingEngine = () => {
                             
                             <div className="mt-3 grid grid-cols-2 gap-2 text-sm">
                               <div>
-                                <p className="text-muted-foreground">Behavior:</p>
+                                <p className="text-muted-foreground">Behaviour:</p>
                                 <p>{targetBehavior?.name || 'Unknown'}</p>
                               </div>
                               <div>
@@ -1094,7 +1094,7 @@ const BehaviorTrackingEngine = () => {
                       })}
                     </div>
                   ) : (
-                    <div className="text-center py-8">
+                    <div className="text-centre py-8">
                       <p className="text-muted-foreground">No goals defined yet.</p>
                       <p className="text-sm mt-2">Create goals to start tracking progress.</p>
                     </div>
@@ -1112,7 +1112,7 @@ const BehaviorTrackingEngine = () => {
               <CardHeader>
                 <CardTitle>Create New Reward</CardTitle>
                 <CardDescription>
-                  Define rewards that can be earned through positive behavior.
+                  Define rewards that can be earned through positive behaviour.
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -1207,9 +1207,9 @@ const BehaviorTrackingEngine = () => {
                       ))}
                     </div>
                   ) : (
-                    <div className="text-center py-8">
+                    <div className="text-centre py-8">
                       <p className="text-muted-foreground">No rewards defined yet.</p>
-                      <p className="text-sm mt-2">Create rewards to motivate positive behavior.</p>
+                      <p className="text-sm mt-2">Create rewards to motivate positive behaviour.</p>
                     </div>
                   )}
                 </ScrollArea>
@@ -1229,7 +1229,7 @@ const BehaviorTrackingEngine = () => {
                 <div>
                   <h4 className="font-medium">Immediate Reinforcement</h4>
                   <p className="text-sm mt-1">
-                    Research shows that reinforcement is most effective when delivered immediately after the desired behavior. 
+                    Research shows that reinforcement is most effective when delivered immediately after the desired behaviour. 
                     Consider using immediate verbal praise alongside a token or point system.
                   </p>
                 </div>
@@ -1250,7 +1250,7 @@ const BehaviorTrackingEngine = () => {
                   <h4 className="font-medium">Token Economies</h4>
                   <p className="text-sm mt-1">
                     Token economies (point systems with exchangeable rewards) have strong empirical support across various 
-                    settings and populations. They are particularly effective when combined with clear behavioral expectations.
+                    settings and populations. They are particularly effective when combined with clear behavioural expectations.
                   </p>
                 </div>
                 
@@ -1270,7 +1270,7 @@ const BehaviorTrackingEngine = () => {
                   <h4 className="font-medium">Reinforcement Schedules</h4>
                   <p className="text-sm mt-1">
                     Variable ratio schedules (reinforcing after an unpredictable number of responses) lead to more durable 
-                    behavior change than fixed schedules. Consider mixing predictable and surprise reinforcement.
+                    behaviour change than fixed schedules. Consider mixing predictable and surprise reinforcement.
                   </p>
                 </div>
               </div>
@@ -1284,7 +1284,7 @@ const BehaviorTrackingEngine = () => {
             <CardHeader>
               <CardTitle>Student Progress</CardTitle>
               <CardDescription>
-                View student behavior tracking data and point totals.
+                View student behaviour tracking data and point totals.
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -1298,7 +1298,7 @@ const BehaviorTrackingEngine = () => {
                     
                     return (
                       <div key={student.id} className="border rounded-lg p-6">
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-centre gap-4">
                           <Avatar className="h-12 w-12">
                             <AvatarFallback>{student.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
                           </Avatar>
@@ -1344,9 +1344,9 @@ const BehaviorTrackingEngine = () => {
                             <h4 className="text-sm font-medium mb-2">Recent Behaviors</h4>
                             <div className="space-y-2">
                               {studentData.slice(0, 3).map(entry => (
-                                <div key={entry.id} className="flex justify-between items-center border-b pb-2">
+                                <div key={entry.id} className="flex justify-between items-centre border-b pb-2">
                                   <div>
-                                    <p className="text-sm">{entry.behavior?.name}</p>
+                                    <p className="text-sm">{entry.behaviour?.name}</p>
                                     <p className="text-xs text-muted-foreground">
                                       {format(new Date(entry.date), 'PPP')}
                                     </p>
@@ -1357,16 +1357,16 @@ const BehaviorTrackingEngine = () => {
                             </div>
                           </div>
                         ) : (
-                          <p className="text-sm text-muted-foreground mt-4">No behavior data recorded yet.</p>
+                          <p className="text-sm text-muted-foreground mt-4">No behaviour data recorded yet.</p>
                         )}
                       </div>
                     );
                   })}
                 </div>
               ) : (
-                <div className="text-center py-8">
+                <div className="text-centre py-8">
                   <p className="text-muted-foreground">No students available.</p>
-                  <p className="text-sm mt-2">Add students to track their behavior and progress.</p>
+                  <p className="text-sm mt-2">Add students to track their behaviour and progress.</p>
                 </div>
               )}
             </CardContent>
@@ -1377,16 +1377,16 @@ const BehaviorTrackingEngine = () => {
         <TabsContent value="settings" className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle>Behavior Tracking Settings</CardTitle>
+              <CardTitle>Behaviour Tracking Settings</CardTitle>
               <CardDescription>
-                Configure your behavior tracking and positive reinforcement system.
+                Configure your behaviour tracking and positive reinforcement system.
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-6">
                 <div className="space-y-4">
                   <h3 className="text-lg font-medium">Core Features</h3>
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <div className="space-y-0.5">
                       <Label htmlFor="enablePositiveReinforcement">Positive Reinforcement</Label>
                       <p className="text-sm text-muted-foreground">Enable positive reinforcement system</p>
@@ -1398,10 +1398,10 @@ const BehaviorTrackingEngine = () => {
                     />
                   </div>
                   
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <div className="space-y-0.5">
-                      <Label htmlFor="enableBehaviorTracking">Behavior Tracking</Label>
-                      <p className="text-sm text-muted-foreground">Enable behavior tracking system</p>
+                      <Label htmlFor="enableBehaviorTracking">Behaviour Tracking</Label>
+                      <p className="text-sm text-muted-foreground">Enable behaviour tracking system</p>
                     </div>
                     <Switch 
                       id="enableBehaviorTracking" 
@@ -1410,10 +1410,10 @@ const BehaviorTrackingEngine = () => {
                     />
                   </div>
                   
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <div className="space-y-0.5">
                       <Label htmlFor="enableRewards">Rewards System</Label>
-                      <p className="text-sm text-muted-foreground">Enable rewards for positive behavior</p>
+                      <p className="text-sm text-muted-foreground">Enable rewards for positive behaviour</p>
                     </div>
                     <Switch 
                       id="enableRewards" 
@@ -1422,10 +1422,10 @@ const BehaviorTrackingEngine = () => {
                     />
                   </div>
                   
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <div className="space-y-0.5">
                       <Label htmlFor="enableGoals">Goals System</Label>
-                      <p className="text-sm text-muted-foreground">Enable behavior goals</p>
+                      <p className="text-sm text-muted-foreground">Enable behaviour goals</p>
                     </div>
                     <Switch 
                       id="enableGoals" 
@@ -1439,10 +1439,10 @@ const BehaviorTrackingEngine = () => {
                 
                 <div className="space-y-4">
                   <h3 className="text-lg font-medium">Access Settings</h3>
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <div className="space-y-0.5">
                       <Label htmlFor="enableParentAccess">Parent Access</Label>
-                      <p className="text-sm text-muted-foreground">Allow parents to view behavior data</p>
+                      <p className="text-sm text-muted-foreground">Allow parents to view behaviour data</p>
                     </div>
                     <Switch 
                       id="enableParentAccess" 
@@ -1451,7 +1451,7 @@ const BehaviorTrackingEngine = () => {
                     />
                   </div>
                   
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <div className="space-y-0.5">
                       <Label htmlFor="enableStudentAccess">Student Access</Label>
                       <p className="text-sm text-muted-foreground">Allow students to view their own data</p>
@@ -1463,7 +1463,7 @@ const BehaviorTrackingEngine = () => {
                     />
                   </div>
                   
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <div className="space-y-0.5">
                       <Label htmlFor="notifyParentsOnAchievements">Achievement Notifications</Label>
                       <p className="text-sm text-muted-foreground">Notify parents when goals are achieved</p>
@@ -1475,10 +1475,10 @@ const BehaviorTrackingEngine = () => {
                     />
                   </div>
                   
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <div className="space-y-0.5">
                       <Label htmlFor="notifyParentsOnChallenges">Challenge Notifications</Label>
-                      <p className="text-sm text-muted-foreground">Notify parents about behavioral challenges</p>
+                      <p className="text-sm text-muted-foreground">Notify parents about behavioural challenges</p>
                     </div>
                     <Switch 
                       id="notifyParentsOnChallenges" 
@@ -1544,7 +1544,7 @@ const BehaviorTrackingEngine = () => {
                     </Select>
                   </div>
                   
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <div className="space-y-0.5">
                       <Label htmlFor="customizableRewards">Customizable Rewards</Label>
                       <p className="text-sm text-muted-foreground">Allow students to suggest custom rewards</p>
@@ -1566,13 +1566,13 @@ const BehaviorTrackingEngine = () => {
             <CardHeader>
               <CardTitle>Evidence-Based Practices</CardTitle>
               <CardDescription>
-                Research-backed approaches to behavior tracking and positive reinforcement.
+                Research-backed approaches to behaviour tracking and positive reinforcement.
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 <div>
-                  <h4 className="font-medium">Positive Behavioral Interventions and Supports (PBIS)</h4>
+                  <h4 className="font-medium">Positive Behavioural Interventions and Supports (PBIS)</h4>
                   <p className="text-sm mt-1">
                     This system is aligned with PBIS framework principles, which have been shown to improve social, 
                     emotional, and academic outcomes for all students, including those with disabilities.
@@ -1582,7 +1582,7 @@ const BehaviorTrackingEngine = () => {
                 <Separator />
                 
                 <div>
-                  <h4 className="font-medium">Applied Behavior Analysis (ABA)</h4>
+                  <h4 className="font-medium">Applied Behaviour Analysis (ABA)</h4>
                   <p className="text-sm mt-1">
                     The tracking and reinforcement systems incorporate principles from ABA, which has extensive 
                     empirical support for improving behaviors across various settings and populations.

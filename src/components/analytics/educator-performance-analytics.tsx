@@ -147,14 +147,14 @@ export function EducatorPerformanceAnalytics() {
   
   // Render component header with controls
   const renderHeader = () => (
-    <div className="flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0 mb-6">
+    <div className="flex flex-col space-y-4 md:flex-row md:items-centre md:justify-between md:space-y-0 mb-6">
       <div>
         <h1 className="text-3xl font-bold tracking-tight">Educator Performance Analytics</h1>
         <p className="text-muted-foreground">
           Comprehensive insights to support professional growth and teaching excellence
         </p>
       </div>
-      <div className="flex flex-col space-y-2 md:flex-row md:items-center md:space-x-2 md:space-y-0">
+      <div className="flex flex-col space-y-2 md:flex-row md:items-centre md:space-x-2 md:space-y-0">
         <Button variant="outline">
           <RefreshCw className="mr-2 h-4 w-4" />
           Refresh Data
@@ -173,9 +173,9 @@ export function EducatorPerformanceAnalytics() {
   
   // Render filter bar
   const renderFilterBar = () => (
-    <div className="bg-muted/50 p-4 rounded-lg flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0 mb-6">
-      <div className="flex flex-col space-y-2 md:flex-row md:items-center md:space-x-2 md:space-y-0">
-        <div className="flex items-center space-x-2">
+    <div className="bg-muted/50 p-4 rounded-lg flex flex-col space-y-4 md:flex-row md:items-centre md:justify-between md:space-y-0 mb-6">
+      <div className="flex flex-col space-y-2 md:flex-row md:items-centre md:space-x-2 md:space-y-0">
+        <div className="flex items-centre space-x-2">
           <Filter className="h-4 w-4 text-muted-foreground" />
           <span className="text-sm font-medium">Filters:</span>
         </div>
@@ -193,7 +193,7 @@ export function EducatorPerformanceAnalytics() {
         </Select>
         
         {showCustomDateRange && (
-          <div className="flex items-center space-x-2">
+          <div className="flex items-centre space-x-2">
             <Popover>
               <PopoverTrigger asChild>
                 <Button
@@ -256,7 +256,7 @@ export function EducatorPerformanceAnalytics() {
         </Select>
       </div>
       
-      <div className="flex items-center space-x-2">
+      <div className="flex items-centre space-x-2">
         <Button variant="outline" size="sm">
           <Save className="mr-2 h-4 w-4" />
           Save View
@@ -313,7 +313,7 @@ export function EducatorPerformanceAnalytics() {
       {/* Key metrics */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Teaching Effectiveness
             </CardTitle>
@@ -331,7 +331,7 @@ export function EducatorPerformanceAnalytics() {
         </Card>
         
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Student Progress Impact
             </CardTitle>
@@ -349,7 +349,7 @@ export function EducatorPerformanceAnalytics() {
         </Card>
         
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               CPD Completion
             </CardTitle>
@@ -367,7 +367,7 @@ export function EducatorPerformanceAnalytics() {
         </Card>
         
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Student Satisfaction
             </CardTitle>
@@ -544,9 +544,9 @@ export function EducatorPerformanceAnalytics() {
           <CardContent className="px-2">
             <div className="space-y-4">
               {observationScoresData.map((observation, index) => (
-                <div key={index} className="flex items-center justify-between rounded-md bg-muted p-3">
-                  <div className="flex items-center space-x-3">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/10">
+                <div key={index} className="flex items-centre justify-between rounded-md bg-muted p-3">
+                  <div className="flex items-centre space-x-3">
+                    <div className="flex h-9 w-9 items-centre justify-centre rounded-full bg-primary/10">
                       <span className="text-sm font-medium">{observation.score}</span>
                     </div>
                     <div>
@@ -793,8 +793,8 @@ export function EducatorPerformanceAnalytics() {
           </CardHeader>
           <CardContent className="px-2">
             <div className="space-y-4">
-              <div className="flex items-center justify-between rounded-md bg-muted p-3">
-                <div className="flex items-center space-x-3">
+              <div className="flex items-centre justify-between rounded-md bg-muted p-3">
+                <div className="flex items-centre space-x-3">
                   <Star className="h-5 w-5 text-yellow-500" />
                   <div>
                     <p className="text-sm font-medium">Explanations & Modelling</p>
@@ -804,8 +804,8 @@ export function EducatorPerformanceAnalytics() {
                 <Badge>Outstanding</Badge>
               </div>
               
-              <div className="flex items-center justify-between rounded-md bg-muted p-3">
-                <div className="flex items-center space-x-3">
+              <div className="flex items-centre justify-between rounded-md bg-muted p-3">
+                <div className="flex items-centre space-x-3">
                   <Star className="h-5 w-5 text-yellow-500" />
                   <div>
                     <p className="text-sm font-medium">Questioning Techniques</p>
@@ -815,8 +815,8 @@ export function EducatorPerformanceAnalytics() {
                 <Badge>Outstanding</Badge>
               </div>
               
-              <div className="flex items-center justify-between rounded-md bg-muted p-3">
-                <div className="flex items-center space-x-3">
+              <div className="flex items-centre justify-between rounded-md bg-muted p-3">
+                <div className="flex items-centre space-x-3">
                   <Star className="h-5 w-5 text-yellow-500" />
                   <div>
                     <p className="text-sm font-medium">Feedback Quality</p>
@@ -826,8 +826,8 @@ export function EducatorPerformanceAnalytics() {
                 <Badge>Outstanding</Badge>
               </div>
               
-              <div className="flex items-center justify-between rounded-md bg-muted p-3">
-                <div className="flex items-center space-x-3">
+              <div className="flex items-centre justify-between rounded-md bg-muted p-3">
+                <div className="flex items-centre space-x-3">
                   <Star className="h-5 w-5 text-yellow-500" />
                   <div>
                     <p className="text-sm font-medium">Subject Knowledge</p>
@@ -960,8 +960,8 @@ export function EducatorPerformanceAnalytics() {
                     nameKey="name"
                     label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
                   >
-                    {({ name, value, color }) => (
-                      <Cell key={`cell-${name}`} fill={color} />
+                    {({ name, value, colour }) => (
+                      <Cell key={`cell-${name}`} fill={colour} />
                     )}
                   </Pie>
                   <Tooltip formatter={(value) => [`${value}%`, 'Percentage']} />
@@ -1013,8 +1013,8 @@ export function EducatorPerformanceAnalytics() {
           </CardHeader>
           <CardContent className="px-2">
             <div className="space-y-4">
-              <div className="flex items-center justify-between rounded-md bg-muted p-3">
-                <div className="flex items-center space-x-3">
+              <div className="flex items-centre justify-between rounded-md bg-muted p-3">
+                <div className="flex items-centre space-x-3">
                   <GraduationCap className="h-5 w-5 text-blue-500" />
                   <div>
                     <p className="text-sm font-medium">Advanced Questioning Techniques</p>
@@ -1024,8 +1024,8 @@ export function EducatorPerformanceAnalytics() {
                 <Badge variant="outline">High Impact</Badge>
               </div>
               
-              <div className="flex items-center justify-between rounded-md bg-muted p-3">
-                <div className="flex items-center space-x-3">
+              <div className="flex items-centre justify-between rounded-md bg-muted p-3">
+                <div className="flex items-centre space-x-3">
                   <GraduationCap className="h-5 w-5 text-blue-500" />
                   <div>
                     <p className="text-sm font-medium">Digital Assessment Tools</p>
@@ -1035,8 +1035,8 @@ export function EducatorPerformanceAnalytics() {
                 <Badge variant="outline">Medium Impact</Badge>
               </div>
               
-              <div className="flex items-center justify-between rounded-md bg-muted p-3">
-                <div className="flex items-center space-x-3">
+              <div className="flex items-centre justify-between rounded-md bg-muted p-3">
+                <div className="flex items-centre space-x-3">
                   <GraduationCap className="h-5 w-5 text-blue-500" />
                   <div>
                     <p className="text-sm font-medium">SEND Inclusive Strategies</p>
@@ -1046,8 +1046,8 @@ export function EducatorPerformanceAnalytics() {
                 <Badge variant="outline">High Impact</Badge>
               </div>
               
-              <div className="flex items-center justify-between rounded-md bg-muted p-3">
-                <div className="flex items-center space-x-3">
+              <div className="flex items-centre justify-between rounded-md bg-muted p-3">
+                <div className="flex items-centre space-x-3">
                   <GraduationCap className="h-5 w-5 text-blue-500" />
                   <div>
                     <p className="text-sm font-medium">Subject Knowledge Enhancement</p>
@@ -1190,12 +1190,12 @@ export function EducatorPerformanceAnalytics() {
           <CardContent className="px-2">
             <div className="space-y-4">
               <div className="rounded-md border p-4">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2">
+                <div className="flex items-centre justify-between">
+                  <div className="flex items-centre space-x-2">
                     <User className="h-5 w-5 text-muted-foreground" />
                     <span className="text-sm font-medium">Mathematics Lead</span>
                   </div>
-                  <div className="flex items-center">
+                  <div className="flex items-centre">
                     <Star className="h-4 w-4 fill-current text-yellow-500" />
                     <Star className="h-4 w-4 fill-current text-yellow-500" />
                     <Star className="h-4 w-4 fill-current text-yellow-500" />
@@ -1211,12 +1211,12 @@ export function EducatorPerformanceAnalytics() {
               </div>
               
               <div className="rounded-md border p-4">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2">
+                <div className="flex items-centre justify-between">
+                  <div className="flex items-centre space-x-2">
                     <User className="h-5 w-5 text-muted-foreground" />
                     <span className="text-sm font-medium">Deputy Head</span>
                   </div>
-                  <div className="flex items-center">
+                  <div className="flex items-centre">
                     <Star className="h-4 w-4 fill-current text-yellow-500" />
                     <Star className="h-4 w-4 fill-current text-yellow-500" />
                     <Star className="h-4 w-4 fill-current text-yellow-500" />
@@ -1232,12 +1232,12 @@ export function EducatorPerformanceAnalytics() {
               </div>
               
               <div className="rounded-md border p-4">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2">
+                <div className="flex items-centre justify-between">
+                  <div className="flex items-centre space-x-2">
                     <User className="h-5 w-5 text-muted-foreground" />
                     <span className="text-sm font-medium">English Lead</span>
                   </div>
-                  <div className="flex items-center">
+                  <div className="flex items-centre">
                     <Star className="h-4 w-4 fill-current text-yellow-500" />
                     <Star className="h-4 w-4 fill-current text-yellow-500" />
                     <Star className="h-4 w-4 fill-current text-yellow-500" />
@@ -1284,8 +1284,8 @@ export function EducatorPerformanceAnalytics() {
                     nameKey="name"
                     label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
                   >
-                    {({ name, value, color }) => (
-                      <Cell key={`cell-${name}`} fill={color} />
+                    {({ name, value, colour }) => (
+                      <Cell key={`cell-${name}`} fill={colour} />
                     )}
                   </Pie>
                   <Tooltip formatter={(value) => [`${value}%`, 'Percentage']} />
@@ -1304,7 +1304,7 @@ export function EducatorPerformanceAnalytics() {
           </CardHeader>
           <CardContent className="px-2">
             <div className="space-y-4">
-              <div className="flex items-center space-x-2 rounded-md bg-muted p-3">
+              <div className="flex items-centre space-x-2 rounded-md bg-muted p-3">
                 <ArrowUp className="h-4 w-4 text-amber-500" />
                 <div>
                   <p className="text-sm font-medium">Digital Resource Integration</p>
@@ -1314,7 +1314,7 @@ export function EducatorPerformanceAnalytics() {
                 </div>
               </div>
               
-              <div className="flex items-center space-x-2 rounded-md bg-muted p-3">
+              <div className="flex items-centre space-x-2 rounded-md bg-muted p-3">
                 <ArrowUp className="h-4 w-4 text-amber-500" />
                 <div>
                   <p className="text-sm font-medium">Advanced Differentiation</p>
@@ -1324,7 +1324,7 @@ export function EducatorPerformanceAnalytics() {
                 </div>
               </div>
               
-              <div className="flex items-center space-x-2 rounded-md bg-muted p-3">
+              <div className="flex items-centre space-x-2 rounded-md bg-muted p-3">
                 <ArrowUp className="h-4 w-4 text-green-500" />
                 <div>
                   <p className="text-sm font-medium">Metacognitive Strategies</p>
@@ -1354,9 +1354,9 @@ export function EducatorPerformanceAnalytics() {
           <CardContent className="px-2">
             <div className="space-y-4">
               {observationScoresData.map((observation, index) => (
-                <div key={index} className="flex items-center justify-between rounded-md bg-muted p-3">
-                  <div className="flex items-center space-x-3">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/10">
+                <div key={index} className="flex items-centre justify-between rounded-md bg-muted p-3">
+                  <div className="flex items-centre space-x-3">
+                    <div className="flex h-9 w-9 items-centre justify-centre rounded-full bg-primary/10">
                       <span className="text-sm font-medium">{observation.score}</span>
                     </div>
                     <div>
@@ -1561,7 +1561,7 @@ export function EducatorPerformanceAnalytics() {
           </CardHeader>
           <CardContent className="px-2">
             <div className="space-y-4">
-              <div className="flex items-center space-x-2 rounded-md bg-muted p-3">
+              <div className="flex items-centre space-x-2 rounded-md bg-muted p-3">
                 <Lightbulb className="h-5 w-5 text-yellow-500" />
                 <div>
                   <p className="text-sm font-medium">Batch similar tasks together</p>
@@ -1569,7 +1569,7 @@ export function EducatorPerformanceAnalytics() {
                 </div>
               </div>
               
-              <div className="flex items-center space-x-2 rounded-md bg-muted p-3">
+              <div className="flex items-centre space-x-2 rounded-md bg-muted p-3">
                 <Lightbulb className="h-5 w-5 text-yellow-500" />
                 <div>
                   <p className="text-sm font-medium">Use whole-class feedback approaches</p>
@@ -1577,7 +1577,7 @@ export function EducatorPerformanceAnalytics() {
                 </div>
               </div>
               
-              <div className="flex items-center space-x-2 rounded-md bg-muted p-3">
+              <div className="flex items-centre space-x-2 rounded-md bg-muted p-3">
                 <Lightbulb className="h-5 w-5 text-yellow-500" />
                 <div>
                   <p className="text-sm font-medium">Implement digital marking tools</p>
@@ -1585,7 +1585,7 @@ export function EducatorPerformanceAnalytics() {
                 </div>
               </div>
               
-              <div className="flex items-center space-x-2 rounded-md bg-muted p-3">
+              <div className="flex items-centre space-x-2 rounded-md bg-muted p-3">
                 <Lightbulb className="h-5 w-5 text-yellow-500" />
                 <div>
                   <p className="text-sm font-medium">Collaborative planning with colleagues</p>
@@ -1678,7 +1678,7 @@ export function EducatorPerformanceAnalytics() {
           <CardHeader>
             <CardTitle>Teaching Approach Comparison</CardTitle>
             <CardDescription>
-              Your teaching approach compared to best practice benchmarks
+              Your teaching approach compared to best practise benchmarks
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -1697,7 +1697,7 @@ export function EducatorPerformanceAnalytics() {
                   <PolarAngleAxis dataKey="approach" />
                   <PolarRadiusAxis angle={30} domain={[0, 100]} />
                   <Radar name="Your Approach" dataKey="you" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
-                  <Radar name="Best Practice Benchmark" dataKey="benchmark" stroke="#82ca9d" fill="#82ca9d" fillOpacity={0.6} />
+                  <Radar name="Best Practise Benchmark" dataKey="benchmark" stroke="#82ca9d" fill="#82ca9d" fillOpacity={0.6} />
                   <Legend />
                 </RadarChart>
               </ResponsiveContainer>
@@ -1769,11 +1769,11 @@ export function EducatorPerformanceAnalytics() {
           </CardHeader>
           <CardContent className="px-2">
             <div className="space-y-4">
-              <div className="flex items-center space-x-2 rounded-md bg-muted p-3">
+              <div className="flex items-centre space-x-2 rounded-md bg-muted p-3">
                 <ArrowUp className="h-4 w-4 text-green-500" />
                 <div>
                   <p className="text-sm font-medium">Questioning Techniques</p>
-                  <div className="mt-1 flex items-center space-x-2">
+                  <div className="mt-1 flex items-centre space-x-2">
                     <div className="h-2 w-full rounded-full bg-primary/10">
                       <div className="h-2 rounded-full bg-green-500" style={{ width: "92%" }} />
                     </div>
@@ -1782,11 +1782,11 @@ export function EducatorPerformanceAnalytics() {
                 </div>
               </div>
               
-              <div className="flex items-center space-x-2 rounded-md bg-muted p-3">
+              <div className="flex items-centre space-x-2 rounded-md bg-muted p-3">
                 <ArrowUp className="h-4 w-4 text-green-500" />
                 <div>
                   <p className="text-sm font-medium">Student Engagement</p>
-                  <div className="mt-1 flex items-center space-x-2">
+                  <div className="mt-1 flex items-centre space-x-2">
                     <div className="h-2 w-full rounded-full bg-primary/10">
                       <div className="h-2 rounded-full bg-green-500" style={{ width: "93%" }} />
                     </div>
@@ -1795,11 +1795,11 @@ export function EducatorPerformanceAnalytics() {
                 </div>
               </div>
               
-              <div className="flex items-center space-x-2 rounded-md bg-muted p-3">
+              <div className="flex items-centre space-x-2 rounded-md bg-muted p-3">
                 <ArrowUp className="h-4 w-4 text-green-500" />
                 <div>
                   <p className="text-sm font-medium">Feedback Quality</p>
-                  <div className="mt-1 flex items-center space-x-2">
+                  <div className="mt-1 flex items-centre space-x-2">
                     <div className="h-2 w-full rounded-full bg-primary/10">
                       <div className="h-2 rounded-full bg-green-500" style={{ width: "94%" }} />
                     </div>
@@ -1859,7 +1859,7 @@ export function EducatorPerformanceAnalytics() {
             <div className="space-y-4">
               <div className="rounded-md border p-4">
                 <h4 className="text-sm font-medium">Leadership Readiness</h4>
-                <div className="mt-2 flex items-center justify-between">
+                <div className="mt-2 flex items-centre justify-between">
                   <div className="w-full max-w-xs">
                     <div className="h-2 w-full rounded-full bg-primary/10">
                       <div className="h-2 rounded-full bg-primary" style={{ width: "85%" }} />
@@ -1874,7 +1874,7 @@ export function EducatorPerformanceAnalytics() {
               
               <div className="rounded-md border p-4">
                 <h4 className="text-sm font-medium">Specialist Teacher Readiness</h4>
-                <div className="mt-2 flex items-center justify-between">
+                <div className="mt-2 flex items-centre justify-between">
                   <div className="w-full max-w-xs">
                     <div className="h-2 w-full rounded-full bg-primary/10">
                       <div className="h-2 rounded-full bg-primary" style={{ width: "92%" }} />
@@ -1889,7 +1889,7 @@ export function EducatorPerformanceAnalytics() {
               
               <div className="rounded-md border p-4">
                 <h4 className="text-sm font-medium">Mentoring Readiness</h4>
-                <div className="mt-2 flex items-center justify-between">
+                <div className="mt-2 flex items-centre justify-between">
                   <div className="w-full max-w-xs">
                     <div className="h-2 w-full rounded-full bg-primary/10">
                       <div className="h-2 rounded-full bg-primary" style={{ width: "90%" }} />

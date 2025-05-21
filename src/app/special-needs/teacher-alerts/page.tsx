@@ -4,7 +4,7 @@ import TeacherAlertSystem from '@/components/special-needs/teacher-alerts/teache
 
 export const metadata: Metadata = {
   title: 'Teacher Alert System for Concerning Patterns | EdPsych Connect',
-  description: 'Monitor student behavior patterns, create ABCC charts, and receive alerts for potential concerns.',
+  description: 'Monitor student behaviour patterns, create ABCC charts, and receive alerts for potential concerns.',
 };
 
 export default function TeacherAlertsPage() {

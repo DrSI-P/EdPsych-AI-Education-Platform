@@ -53,10 +53,10 @@ export function EmotionalCheckin() {
     { name: 'Worried', color: 'bg-purple-400', description: 'Feeling anxious, nervous, or concerned' },
     { name: 'Frustrated', color: 'bg-orange-500', description: 'Feeling annoyed, irritated, or stuck' },
     { name: 'Angry', color: 'bg-red-500', description: 'Feeling mad, upset, or furious' },
-    { name: 'Confused', color: 'bg-gray-400', description: 'Feeling uncertain, puzzled, or mixed up' },
-    { name: 'Tired', color: 'bg-gray-600', description: 'Feeling exhausted, sleepy, or low energy' },
+    { name: 'Confused', color: 'bg-grey-400', description: 'Feeling uncertain, puzzled, or mixed up' },
+    { name: 'Tired', color: 'bg-grey-600', description: 'Feeling exhausted, sleepy, or low energy' },
     { name: 'Proud', color: 'bg-indigo-500', description: 'Feeling accomplished, confident, or satisfied' },
-    { name: 'Bored', color: 'bg-gray-500', description: 'Feeling uninterested, restless, or disengaged' },
+    { name: 'Bored', color: 'bg-grey-500', description: 'Feeling uninterested, restless, or disengaged' },
     { name: 'Hopeful', color: 'bg-teal-400', description: 'Feeling optimistic, positive, or encouraged' }
   ];
 
@@ -143,7 +143,7 @@ export function EmotionalCheckin() {
         triggers: selectedTriggers
       }));
 
-      // In a real implementation, this would call the AI service to analyze the emotional check-in
+      // In a real implementation, this would call the AI service to analyse the emotional check-in
       // and suggest personalized strategies
       const prompt = `
         Based on the following emotional check-in data, suggest 5 personalized strategies to help the student regulate their emotions:
@@ -198,7 +198,7 @@ export function EmotionalCheckin() {
     } catch (error) {
       toast({
         title: "Error processing check-in",
-        description: "There was a problem analyzing your emotional check-in. Please try again.",
+        description: "There was a problem analysing your emotional check-in. Please try again.",
         variant: "destructive"
       });
       console.error(error);
@@ -239,8 +239,8 @@ export function EmotionalCheckin() {
                   onClick={() => selectEmotion(emotion.name)}
                 >
                   <div className="flex flex-col items-start text-left">
-                    <div className="flex items-center mb-1">
-                      <div className={`w-3 h-3 rounded-full ${emotion.color} mr-2`}></div>
+                    <div className="flex items-centre mb-1">
+                      <div className={`w-3 h-3 rounded-full ${emotion.colour} mr-2`}></div>
                       <span>{emotion.name}</span>
                     </div>
                     <span className="text-xs text-muted-foreground">{emotion.description}</span>
@@ -274,13 +274,13 @@ export function EmotionalCheckin() {
             </div>
             
             <div className="mt-8">
-              <div className="flex justify-between items-center mb-2">
+              <div className="flex justify-between items-centre mb-2">
                 <h3 className="text-lg font-medium">Would you like to share more?</h3>
                 <Button 
                   variant="outline" 
                   size="sm" 
                   onClick={toggleVoiceInput}
-                  className="flex items-center gap-1"
+                  className="flex items-centre gap-1"
                 >
                   <span className="h-4 w-4">{voiceInput ? '🎤' : '⌨️'}</span>
                   <span>{voiceInput ? 'Voice Input' : 'Text Input'}</span>
@@ -288,7 +288,7 @@ export function EmotionalCheckin() {
               </div>
               
               {voiceInput ? (
-                <div className="flex flex-col items-center space-y-4">
+                <div className="flex flex-col items-centre space-y-4">
                   <Button 
                     variant={isRecording ? "destructive" : "default"}
                     size="lg"
@@ -297,7 +297,7 @@ export function EmotionalCheckin() {
                   >
                     {isRecording ? '■' : '🎤'}
                   </Button>
-                  <p className="text-sm text-center text-muted-foreground">
+                  <p className="text-sm text-centre text-muted-foreground">
                     {isRecording 
                       ? "Recording... Click to stop" 
                       : "Click to start speaking about how you're feeling"}
@@ -345,7 +345,7 @@ export function EmotionalCheckin() {
               ))}
             </div>
             
-            <div className="flex items-center gap-2">
+            <div className="flex items-centre gap-2">
               <Textarea
                 placeholder="Add your own reason..."
                 value={customTrigger}
@@ -423,7 +423,7 @@ export function EmotionalCheckin() {
               <div className="space-y-2">
                 {suggestedStrategies.map((strategy, index) => (
                   <div key={index} className="flex items-start p-3 border rounded-md">
-                    <div className="h-6 w-6 rounded-full bg-primary/10 text-primary flex items-center justify-center mr-3 mt-0.5">
+                    <div className="h-6 w-6 rounded-full bg-primary/10 text-primary flex items-centre justify-centre mr-3 mt-0.5">
                       {index + 1}
                     </div>
                     <p>{strategy}</p>
@@ -444,7 +444,7 @@ export function EmotionalCheckin() {
       case 5:
         return (
           <div className="space-y-6">
-            <div className="text-center py-4">
+            <div className="text-centre py-4">
               <h3 className="text-xl font-medium mb-2">Check-in Complete!</h3>
               <p className="text-muted-foreground mb-6">
                 Thank you for sharing how you're feeling. Your check-in has been saved.
@@ -492,10 +492,10 @@ export function EmotionalCheckin() {
                     <h4 className="font-medium mb-3">Strategies That Helped You</h4>
                     <div className="space-y-3">
                       {historicalPatterns.effectiveStrategies.map((item, index) => (
-                        <div key={index} className="flex items-center justify-between p-3 border rounded-md">
+                        <div key={index} className="flex items-centre justify-between p-3 border rounded-md">
                           <span>{item.strategy}</span>
-                          <div className="flex items-center">
-                            <div className="w-24 h-2 bg-gray-200 rounded-full mr-2">
+                          <div className="flex items-centre">
+                            <div className="w-24 h-2 bg-grey-200 rounded-full mr-2">
                               <div 
                                 className="h-full bg-primary rounded-full" 
                                 style={{ width: `${item.effectiveness}%` }}

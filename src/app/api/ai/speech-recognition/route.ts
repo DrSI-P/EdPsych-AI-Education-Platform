@@ -30,13 +30,13 @@ export async function POST(req: NextRequest) {
     
     // Create prompt for speech recognition enhancement
     const prompt = `
-      Enhance the following speech-to-text transcription, focusing on optimizing for children's voices.
+      Enhance the following speech-to-text transcription, focusing on optimising for children's voices.
       
       Original Transcription:
       ${audioData.transcript}
       
       Apply the following enhancements:
-      ${childVoiceOptimization ? '- Optimize for children\'s speech patterns and pronunciation' : ''}
+      ${childVoiceOptimization ? '- Optimise for children\'s speech patterns and pronunciation' : ''}
       - Correct common speech-to-text errors
       - Apply appropriate punctuation and capitalization
       - Maintain the original meaning and intent

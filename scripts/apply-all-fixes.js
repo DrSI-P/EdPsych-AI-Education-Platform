@@ -16,6 +16,16 @@ const fixScripts = [
   // Targeted fix for the specific file causing the build failure
   'fix-curriculum-collaboration-route.js',
   
+  // Fix TypeScript syntax errors
+  'fix-apostrophes.js',
+  'fix-template-literals.js',
+  'fix-import-statements.js',
+  'fix-uk-spelling.js',
+  'fix-seed-file.js',
+  'fix-remaining-typescript-errors.js',
+  'fix-enhanced-typescript-errors.js',
+  'fix-tabs-component.js',
+  
   // Fix for the Plugin model
   'fix-plugin-model-migration.js',
   

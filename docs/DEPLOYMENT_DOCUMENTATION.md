@@ -24,7 +24,7 @@ The platform uses two primary environments:
 
 ### Infrastructure Components
 
-- **Hosting**: Vercel (Next.js optimized hosting)
+- **Hosting**: Vercel (Next.js optimised hosting)
 - **CI/CD**: GitHub Actions
 - **Database**: PostgreSQL (managed by Vercel or external provider)
 - **Domain Management**: Custom domain (edpsychconnect.com)
@@ -211,7 +211,7 @@ In case of deployment issues or data corruption:
 
 2. **Deployment Timeouts**:
    - Check for long-running build steps
-   - Optimize large dependencies or assets
+   - Optimise large dependencies or assets
    - Consider increasing build timeout in Vercel settings
 
 3. **Database Connection Issues**:

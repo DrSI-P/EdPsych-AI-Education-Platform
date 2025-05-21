@@ -22,7 +22,7 @@ export default function TextToSpeechPage() {
   
   return (
     <div className="container mx-auto py-8 px-4">
-      <h1 className="text-3xl font-bold mb-6 flex items-center">
+      <h1 className="text-3xl font-bold mb-6 flex items-centre">
         <Image 
           src="/images/text-to-speech-icon.png" 
           alt="Text-to-Speech Icon" 
@@ -51,7 +51,7 @@ export default function TextToSpeechPage() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <Button 
                   variant="outline" 
-                  className="flex items-center justify-start h-auto py-4"
+                  className="flex items-centre justify-start h-auto py-4"
                   onClick={() => setSampleText(sampleTexts.primary)}
                 >
                   <BookOpen className="h-5 w-5 mr-2" />
@@ -63,7 +63,7 @@ export default function TextToSpeechPage() {
                 
                 <Button 
                   variant="outline" 
-                  className="flex items-center justify-start h-auto py-4"
+                  className="flex items-centre justify-start h-auto py-4"
                   onClick={() => setSampleText(sampleTexts.secondary)}
                 >
                   <FileText className="h-5 w-5 mr-2" />
@@ -75,7 +75,7 @@ export default function TextToSpeechPage() {
                 
                 <Button 
                   variant="outline" 
-                  className="flex items-center justify-start h-auto py-4"
+                  className="flex items-centre justify-start h-auto py-4"
                   onClick={() => setSampleText(sampleTexts.story)}
                 >
                   <BookMarked className="h-5 w-5 mr-2" />
@@ -99,7 +99,7 @@ export default function TextToSpeechPage() {
         <div className="lg:col-span-1">
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center">
+              <CardTitle className="flex items-centre">
                 <Headphones className="h-5 w-5 mr-2" />
                 About Text-to-Speech
               </CardTitle>

@@ -59,7 +59,7 @@ const VideoViewPage = () => {
       </Button>
       
       {loading ? (
-        <div className="flex justify-center items-center h-64">
+        <div className="flex justify-centre items-centre h-64">
           <Loader2 className="h-8 w-8 animate-spin text-primary" />
           <span className="ml-2">Loading video...</span>
         </div>
@@ -68,7 +68,7 @@ const VideoViewPage = () => {
           {error}
         </div>
       ) : !video ? (
-        <div className="text-center p-8 border border-dashed rounded-lg">
+        <div className="text-centre p-8 border border-dashed rounded-lg">
           <h3 className="text-xl font-medium mb-2">Video not found</h3>
           <p className="text-muted-foreground mb-4">
             The requested video could not be found.
@@ -91,9 +91,9 @@ const VideoViewPage = () => {
                   Your browser does not support the video tag.
                 </video>
               ) : (
-                <div className="w-full h-full flex items-center justify-center">
+                <div className="w-full h-full flex items-centre justify-centre">
                   {video.status === 'pending' || video.status === 'processing' ? (
-                    <div className="text-center">
+                    <div className="text-centre">
                       <Loader2 className="h-8 w-8 animate-spin text-primary mx-auto mb-2" />
                       <p>Video is still processing...</p>
                     </div>

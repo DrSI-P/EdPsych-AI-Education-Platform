@@ -39,7 +39,7 @@ export function Accordion({
 
   return (
     <AccordionContext.Provider value={{ expandedItems, toggleItem, allowMultiple }}>
-      <div className={`divide-y divide-gray-200 border border-gray-200 rounded-md ${className}`}>
+      <div className={`divide-y divide-grey-200 border border-grey-200 rounded-md ${className}`}>
         {children}
       </div>
     </AccordionContext.Provider>
@@ -88,7 +88,7 @@ export function AccordionTrigger({ children, id, className = '' }: AccordionTrig
       aria-expanded={isExpanded}
       aria-controls={`accordion-content-${id}`}
       id={`accordion-trigger-${id}`}
-      className={`flex justify-between items-center w-full px-4 py-3 text-left text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${className}`}
+      className={`flex justify-between items-centre w-full px-4 py-3 text-left text-grey-700 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${className}`}
       onClick={() => toggleItem(id)}
     >
       {children}
@@ -150,7 +150,7 @@ export function Disclosure({ children, defaultOpen = false, className = '' }: Di
   };
 
   return (
-    <div className={`border border-gray-200 rounded-md ${className}`}>
+    <div className={`border border-grey-200 rounded-md ${className}`}>
       {React.Children.map(children, (child) => {
         if (React.isValidElement(child)) {
           return React.cloneElement(child as React.ReactElement<any>, {
@@ -181,7 +181,7 @@ export function DisclosureTrigger({
     <button
       type="button"
       aria-expanded={isOpen}
-      className={`flex justify-between items-center w-full px-4 py-3 text-left text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${className}`}
+      className={`flex justify-between items-centre w-full px-4 py-3 text-left text-grey-700 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${className}`}
       onClick={toggle}
     >
       {children}

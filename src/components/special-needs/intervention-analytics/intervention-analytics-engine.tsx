@@ -36,9 +36,9 @@ export function InterventionAnalyticsEngine() {
 
   if (isLoading) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[400px]">
+      <div className="flex flex-col items-centre justify-centre min-h-[400px]">
         <div className="w-16 h-16 border-4 border-t-blue-500 border-b-blue-700 border-l-blue-500 border-r-blue-700 rounded-full animate-spin"></div>
-        <p className="mt-4 text-lg text-gray-600">Loading analytics data...</p>
+        <p className="mt-4 text-lg text-grey-600">Loading analytics data...</p>
       </div>
     );
   }
@@ -48,7 +48,7 @@ export function InterventionAnalyticsEngine() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-500">Total Interventions</CardTitle>
+            <CardTitle className="text-sm font-medium text-grey-500">Total Interventions</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">{analyticsData.interventions}</div>
@@ -57,7 +57,7 @@ export function InterventionAnalyticsEngine() {
         
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-500">Students Supported</CardTitle>
+            <CardTitle className="text-sm font-medium text-grey-500">Students Supported</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">{analyticsData.students}</div>
@@ -66,7 +66,7 @@ export function InterventionAnalyticsEngine() {
         
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-500">Average Progress</CardTitle>
+            <CardTitle className="text-sm font-medium text-grey-500">Average Progress</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">{analyticsData.averageProgress}%</div>
@@ -76,7 +76,7 @@ export function InterventionAnalyticsEngine() {
         
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-500">Success Rate</CardTitle>
+            <CardTitle className="text-sm font-medium text-grey-500">Success Rate</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">{analyticsData.successRate}%</div>
@@ -108,7 +108,7 @@ export function InterventionAnalyticsEngine() {
                     <div className="flex justify-between items-start mb-2">
                       <div>
                         <h3 className="font-medium">{intervention.name}</h3>
-                        <p className="text-sm text-gray-500">Student: {intervention.student}</p>
+                        <p className="text-sm text-grey-500">Student: {intervention.student}</p>
                       </div>
                       <Badge variant={intervention.status === 'active' ? 'default' : 'outline'}>
                         {intervention.status}
@@ -140,7 +140,7 @@ export function InterventionAnalyticsEngine() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="text-gray-500">Detailed intervention analytics would be displayed here.</p>
+              <p className="text-grey-500">Detailed intervention analytics would be displayed here.</p>
             </CardContent>
           </Card>
         </TabsContent>
@@ -154,7 +154,7 @@ export function InterventionAnalyticsEngine() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="text-gray-500">Student progress analytics would be displayed here.</p>
+              <p className="text-grey-500">Student progress analytics would be displayed here.</p>
             </CardContent>
           </Card>
         </TabsContent>
@@ -168,7 +168,7 @@ export function InterventionAnalyticsEngine() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="text-gray-500">Report generation options would be displayed here.</p>
+              <p className="text-grey-500">Report generation options would be displayed here.</p>
             </CardContent>
           </Card>
         </TabsContent>

@@ -8,9 +8,9 @@ The Parent-Teacher Communication Portal is a comprehensive communication system 
 
 ### 1. Secure Messaging System
 
-The secure messaging system provides a private, organized communication channel between parents and educators:
+The secure messaging system provides a private, organised communication channel between parents and educators:
 
-- **Conversation Threading**: Messages are organized into conversations for easy tracking and reference
+- **Conversation Threading**: Messages are organised into conversations for easy tracking and reference
 - **Priority Levels**: Support for normal, high, and urgent message priorities
 - **File Attachments**: Secure sharing of documents, images, and other files
 - **Read Receipts**: Confirmation when messages have been delivered and read
@@ -41,7 +41,7 @@ The shared goal tracking system enables collaborative goal setting and monitorin
 
 ### 4. Meeting Scheduling
 
-The meeting scheduling system streamlines the organization of parent-teacher conferences:
+The meeting scheduling system streamlines the organisation of parent-teacher conferences:
 
 - **Calendar Integration**: Synchronization with school and personal calendars
 - **Virtual Meeting Support**: Links to video conferencing for remote meetings
@@ -74,7 +74,7 @@ The celebration sharing system acknowledges and reinforces student achievements:
 
 - **Screen Reader Compatibility**: All components tested with popular screen readers
 - **Keyboard Navigation**: Complete keyboard access for all functionality
-- **Color Contrast**: WCAG 2.1 AA compliant contrast ratios throughout
+- **Colour Contrast**: WCAG 2.1 AA compliant contrast ratios throughout
 - **Text Alternatives**: All non-text content has appropriate text alternatives
 - **Responsive Design**: Adapts to different screen sizes and orientations
 - **Reading Level**: Content written at an appropriate reading level
@@ -85,7 +85,7 @@ The celebration sharing system acknowledges and reinforces student achievements:
 - **GDPR Compliance**: Strict data protection measures for all communications
 - **Safeguarding Considerations**: Appropriate monitoring and reporting capabilities
 - **UK Curriculum References**: Progress reporting aligned with national curriculum
-- **SEN Code of Practice**: Support for Education, Health and Care Plan (EHCP) processes
+- **SEN Code of Practise**: Support for Education, Health and Care Plan (EHCP) processes
 - **Educational Terminology**: Consistent use of UK educational terms and concepts
 
 ## User Benefits
@@ -100,7 +100,7 @@ The celebration sharing system acknowledges and reinforces student achievements:
 
 ### For Educators
 
-- **Streamlined Communication**: Organized, efficient parent communication
+- **Streamlined Communication**: Organised, efficient parent communication
 - **Documentation**: Automatic record-keeping of all interactions
 - **Workload Management**: Templates and structured formats to save time
 - **Parental Engagement**: Tools to encourage meaningful parent participation

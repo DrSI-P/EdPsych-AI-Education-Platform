@@ -120,7 +120,7 @@ export default function PreferenceTrackingSystem() {
     return "text-red-600";
   };
   
-  // Get match badge color
+  // Get match badge colour
   const getMatchBadgeColor = (match) => {
     if (match >= 90) return "bg-green-100 text-green-800";
     if (match >= 75) return "bg-blue-100 text-blue-800";
@@ -132,7 +132,7 @@ export default function PreferenceTrackingSystem() {
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center">
+          <CardTitle className="flex items-centre">
             <Settings className="mr-2 h-5 w-5" />
             Student Preference Tracking System
           </CardTitle>
@@ -155,7 +155,7 @@ export default function PreferenceTrackingSystem() {
                 {/* Content Preferences */}
                 <Card>
                   <CardHeader className="pb-2">
-                    <CardTitle className="text-lg flex items-center">
+                    <CardTitle className="text-lg flex items-centre">
                       <BookOpen className="mr-2 h-4 w-4" />
                       Content Preferences
                     </CardTitle>
@@ -225,7 +225,7 @@ export default function PreferenceTrackingSystem() {
                 {/* Learning Approach Preferences */}
                 <Card>
                   <CardHeader className="pb-2">
-                    <CardTitle className="text-lg flex items-center">
+                    <CardTitle className="text-lg flex items-centre">
                       <PenTool className="mr-2 h-4 w-4" />
                       Learning Approach Preferences
                     </CardTitle>
@@ -295,7 +295,7 @@ export default function PreferenceTrackingSystem() {
                 {/* Environmental Preferences */}
                 <Card>
                   <CardHeader className="pb-2">
-                    <CardTitle className="text-lg flex items-center">
+                    <CardTitle className="text-lg flex items-centre">
                       <Layout className="mr-2 h-4 w-4" />
                       Environmental Preferences
                     </CardTitle>
@@ -304,8 +304,8 @@ export default function PreferenceTrackingSystem() {
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
+                    <div className="flex items-centre justify-between">
+                      <div className="flex items-centre space-x-2">
                         <Sun className="h-4 w-4" />
                         <Label>Theme</Label>
                       </div>
@@ -321,16 +321,16 @@ export default function PreferenceTrackingSystem() {
                       </Select>
                     </div>
                     
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
+                    <div className="flex items-centre justify-between">
+                      <div className="flex items-centre space-x-2">
                         <Volume2 className="h-4 w-4" />
                         <Label>Sound Enabled</Label>
                       </div>
                       <Switch checked={preferences.environment.soundEnabled} />
                     </div>
                     
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
+                    <div className="flex items-centre justify-between">
+                      <div className="flex items-centre space-x-2">
                         <Bell className="h-4 w-4" />
                         <Label>Notification Level</Label>
                       </div>
@@ -347,8 +347,8 @@ export default function PreferenceTrackingSystem() {
                       </Select>
                     </div>
                     
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
+                    <div className="flex items-centre justify-between">
+                      <div className="flex items-centre space-x-2">
                         <LayoutGrid className="h-4 w-4" />
                         <Label>Layout Density</Label>
                       </div>
@@ -374,7 +374,7 @@ export default function PreferenceTrackingSystem() {
                 {/* Social Preferences */}
                 <Card>
                   <CardHeader className="pb-2">
-                    <CardTitle className="text-lg flex items-center">
+                    <CardTitle className="text-lg flex items-centre">
                       <Users className="mr-2 h-4 w-4" />
                       Social Preferences
                     </CardTitle>
@@ -438,11 +438,11 @@ export default function PreferenceTrackingSystem() {
               </div>
               
               <div className="flex justify-between">
-                <Button variant="outline" className="flex items-center">
+                <Button variant="outline" className="flex items-centre">
                   <RefreshCw className="mr-2 h-4 w-4" />
                   Refresh Preferences
                 </Button>
-                <Button className="flex items-center">
+                <Button className="flex items-centre">
                   <Save className="mr-2 h-4 w-4" />
                   Save All Preferences
                 </Button>
@@ -461,8 +461,8 @@ export default function PreferenceTrackingSystem() {
                 <CardContent className="space-y-6">
                   <div className="space-y-4">
                     <div className="space-y-2">
-                      <div className="flex items-center justify-between">
-                        <Label htmlFor="text-preference" className="flex items-center">
+                      <div className="flex items-centre justify-between">
+                        <Label htmlFor="text-preference" className="flex items-centre">
                           <BookOpen className="mr-2 h-4 w-4" />
                           Text-based content
                         </Label>
@@ -483,8 +483,8 @@ export default function PreferenceTrackingSystem() {
                     </div>
                     
                     <div className="space-y-2">
-                      <div className="flex items-center justify-between">
-                        <Label htmlFor="video-preference" className="flex items-center">
+                      <div className="flex items-centre justify-between">
+                        <Label htmlFor="video-preference" className="flex items-centre">
                           <Video className="mr-2 h-4 w-4" />
                           Video content
                         </Label>
@@ -505,8 +505,8 @@ export default function PreferenceTrackingSystem() {
                     </div>
                     
                     <div className="space-y-2">
-                      <div className="flex items-center justify-between">
-                        <Label htmlFor="audio-preference" className="flex items-center">
+                      <div className="flex items-centre justify-between">
+                        <Label htmlFor="audio-preference" className="flex items-centre">
                           <Headphones className="mr-2 h-4 w-4" />
                           Audio content
                         </Label>
@@ -527,8 +527,8 @@ export default function PreferenceTrackingSystem() {
                     </div>
                     
                     <div className="space-y-2">
-                      <div className="flex items-center justify-between">
-                        <Label htmlFor="interactive-preference" className="flex items-center">
+                      <div className="flex items-centre justify-between">
+                        <Label htmlFor="interactive-preference" className="flex items-centre">
                           <PenTool className="mr-2 h-4 w-4" />
                           Interactive content
                         </Label>
@@ -563,21 +563,21 @@ export default function PreferenceTrackingSystem() {
                     <div className="space-y-2">
                       <Label>Visual Theme</Label>
                       <RadioGroup defaultValue={preferences.environment.theme} className="flex space-x-4">
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-centre space-x-2">
                           <RadioGroupItem value="light" id="theme-light" />
-                          <Label htmlFor="theme-light" className="flex items-center">
+                          <Label htmlFor="theme-light" className="flex items-centre">
                             <Sun className="mr-1 h-4 w-4" />
                             Light
                           </Label>
                         </div>
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-centre space-x-2">
                           <RadioGroupItem value="dark" id="theme-dark" />
-                          <Label htmlFor="theme-dark" className="flex items-center">
+                          <Label htmlFor="theme-dark" className="flex items-centre">
                             <Moon className="mr-1 h-4 w-4" />
                             Dark
                           </Label>
                         </div>
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-centre space-x-2">
                           <RadioGroupItem value="system" id="theme-system" />
                           <Label htmlFor="theme-system">System</Label>
                         </div>
@@ -586,12 +586,12 @@ export default function PreferenceTrackingSystem() {
                     
                     <div className="space-y-2">
                       <Label>Sound Settings</Label>
-                      <div className="flex items-center space-x-2">
+                      <div className="flex items-centre space-x-2">
                         <Checkbox 
                           id="sound-enabled" 
                           checked={preferences.environment.soundEnabled}
                         />
-                        <Label htmlFor="sound-enabled" className="flex items-center">
+                        <Label htmlFor="sound-enabled" className="flex items-centre">
                           <Volume2 className="mr-1 h-4 w-4" />
                           Enable sounds and audio feedback
                         </Label>
@@ -616,23 +616,23 @@ export default function PreferenceTrackingSystem() {
                     <div className="space-y-2">
                       <Label>Layout Density</Label>
                       <RadioGroup defaultValue={preferences.environment.layoutDensity} className="flex space-x-4">
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-centre space-x-2">
                           <RadioGroupItem value="compact" id="layout-compact" />
-                          <Label htmlFor="layout-compact" className="flex items-center">
+                          <Label htmlFor="layout-compact" className="flex items-centre">
                             <LayoutList className="mr-1 h-4 w-4" />
                             Compact
                           </Label>
                         </div>
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-centre space-x-2">
                           <RadioGroupItem value="comfortable" id="layout-comfortable" />
-                          <Label htmlFor="layout-comfortable" className="flex items-center">
+                          <Label htmlFor="layout-comfortable" className="flex items-centre">
                             <LayoutGrid className="mr-1 h-4 w-4" />
                             Comfortable
                           </Label>
                         </div>
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-centre space-x-2">
                           <RadioGroupItem value="spacious" id="layout-spacious" />
-                          <Label htmlFor="layout-spacious" className="flex items-center">
+                          <Label htmlFor="layout-spacious" className="flex items-centre">
                             <Layout className="mr-1 h-4 w-4" />
                             Spacious
                           </Label>
@@ -651,9 +651,9 @@ export default function PreferenceTrackingSystem() {
             {/* Recommendations Tab */}
             <TabsContent value="recommendations" className="space-y-6">
               <div className="space-y-4">
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-centre">
                   <h3 className="text-lg font-medium">Recommended Content</h3>
-                  <Badge variant="outline" className="flex items-center">
+                  <Badge variant="outline" className="flex items-centre">
                     <RefreshCw className="mr-1 h-3 w-3" />
                     Updated today
                   </Badge>
@@ -671,7 +671,7 @@ export default function PreferenceTrackingSystem() {
                         </div>
                       </CardHeader>
                       <CardContent>
-                        <div className="flex items-center text-sm text-muted-foreground mb-2">
+                        <div className="flex items-centre text-sm text-muted-foreground mb-2">
                           {content.type === 'interactive' && <PenTool className="mr-1 h-4 w-4" />}
                           {content.type === 'video' && <Video className="mr-1 h-4 w-4" />}
                           {content.type === 'project' && <Users className="mr-1 h-4 w-4" />}
@@ -722,12 +722,12 @@ export default function PreferenceTrackingSystem() {
                 </div>
               </div>
               
-              <div className="flex justify-between items-center pt-4">
-                <Button variant="outline" className="flex items-center">
+              <div className="flex justify-between items-centre pt-4">
+                <Button variant="outline" className="flex items-centre">
                   <RefreshCw className="mr-2 h-4 w-4" />
                   Refresh Recommendations
                 </Button>
-                <div className="flex items-center text-sm text-muted-foreground">
+                <div className="flex items-centre text-sm text-muted-foreground">
                   <Info className="mr-1 h-4 w-4" />
                   Recommendations are based on your current preferences
                 </div>
@@ -737,7 +737,7 @@ export default function PreferenceTrackingSystem() {
             {/* Preference History Tab */}
             <TabsContent value="history" className="space-y-6">
               <div className="space-y-4">
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-centre">
                   <h3 className="text-lg font-medium">Preference History</h3>
                   <Select defaultValue="recent">
                     <SelectTrigger className="w-[180px]">
@@ -757,8 +757,8 @@ export default function PreferenceTrackingSystem() {
                   {preferenceHistory.map((entry, index) => (
                     <Card key={index}>
                       <CardHeader className="pb-2">
-                        <div className="flex justify-between items-center">
-                          <CardTitle className="text-base flex items-center">
+                        <div className="flex justify-between items-centre">
+                          <CardTitle className="text-base flex items-centre">
                             <Clock className="mr-2 h-4 w-4" />
                             {entry.date}
                           </CardTitle>
@@ -776,7 +776,7 @@ export default function PreferenceTrackingSystem() {
                               </div>
                               <div>
                                 <div className="font-medium">{change.preference}</div>
-                                <div className="text-sm text-muted-foreground flex items-center">
+                                <div className="text-sm text-muted-foreground flex items-centre">
                                   Changed from 
                                   <Badge variant="outline" className="mx-1 px-1 py-0 h-5">
                                     {typeof change.from === 'number' ? `${change.from}%` : change.from}
@@ -799,7 +799,7 @@ export default function PreferenceTrackingSystem() {
                 </div>
               </div>
               
-              <div className="flex justify-center">
+              <div className="flex justify-centre">
                 <Button variant="outline">
                   Load More History
                 </Button>

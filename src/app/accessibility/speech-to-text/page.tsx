@@ -13,14 +13,14 @@ export default function SpeechToTextPage() {
   const [sampleText, setSampleText] = useState('');
   
   const samplePrompts = {
-    primary: "Tell me about your favorite animal",
+    primary: "Tell me about your favourite animal",
     secondary: "Explain what you learned in science class today",
     story: "Create a short story about a magical adventure"
   };
   
   return (
     <div className="container mx-auto py-8 px-4">
-      <h1 className="text-3xl font-bold mb-6 flex items-center">
+      <h1 className="text-3xl font-bold mb-6 flex items-centre">
         <Image 
           src="/images/speech-to-text-icon.png" 
           alt="Speech-to-Text Icon" 
@@ -43,14 +43,14 @@ export default function SpeechToTextPage() {
             <CardHeader>
               <CardTitle>Speaking Prompts</CardTitle>
               <CardDescription>
-                Try these prompts to practice using speech-to-text
+                Try these prompts to practise using speech-to-text
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <Button 
                   variant="outline" 
-                  className="flex items-center justify-start h-auto py-4"
+                  className="flex items-centre justify-start h-auto py-4"
                   onClick={() => setSampleText(samplePrompts.primary)}
                 >
                   <BookOpen className="h-5 w-5 mr-2" />
@@ -62,7 +62,7 @@ export default function SpeechToTextPage() {
                 
                 <Button 
                   variant="outline" 
-                  className="flex items-center justify-start h-auto py-4"
+                  className="flex items-centre justify-start h-auto py-4"
                   onClick={() => setSampleText(samplePrompts.secondary)}
                 >
                   <FileText className="h-5 w-5 mr-2" />
@@ -74,7 +74,7 @@ export default function SpeechToTextPage() {
                 
                 <Button 
                   variant="outline" 
-                  className="flex items-center justify-start h-auto py-4"
+                  className="flex items-centre justify-start h-auto py-4"
                   onClick={() => setSampleText(samplePrompts.story)}
                 >
                   <BookMarked className="h-5 w-5 mr-2" />
@@ -98,7 +98,7 @@ export default function SpeechToTextPage() {
         <div className="lg:col-span-1">
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center">
+              <CardTitle className="flex items-centre">
                 <Mic className="h-5 w-5 mr-2" />
                 About Speech-to-Text
               </CardTitle>
@@ -167,7 +167,7 @@ export default function SpeechToTextPage() {
                       <li>Take notes during lectures or while reading</li>
                       <li>Brainstorm ideas for projects</li>
                       <li>Complete written assignments when typing is challenging</li>
-                      <li>Practice oral language skills while seeing text output</li>
+                      <li>Practise oral language skills while seeing text output</li>
                     </ul>
                     
                     <h4>For Teachers:</h4>

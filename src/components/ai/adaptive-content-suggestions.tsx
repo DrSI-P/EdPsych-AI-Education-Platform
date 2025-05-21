@@ -80,7 +80,7 @@ const mockLearningPath: LearningPath = {
   id: 'path-1',
   learnerId: 'learner-1',
   title: 'Personalised Science Learning Path',
-  description: 'A customized learning journey for Science tailored to your Visual learning style.',
+  description: 'A customised learning journey for Science tailored to your Visual learning style.',
   subject: SubjectArea.SCIENCE,
   keyStage: KeyStage.KS3,
   objectives: [
@@ -194,7 +194,7 @@ export default function AdaptiveContentSuggestions() {
       case 'article': return <FileText className="h-4 w-4" />;
       case 'interactive': return <Zap className="h-4 w-4" />;
       case 'assessment': return <BookOpen className="h-4 w-4" />;
-      case 'practice': return <RefreshCw className="h-4 w-4" />;
+      case 'practise': return <RefreshCw className="h-4 w-4" />;
       default: return <Lightbulb className="h-4 w-4" />;
     }
   };
@@ -249,7 +249,7 @@ export default function AdaptiveContentSuggestions() {
     <div className="container mx-auto py-6">
       <h1 className="text-3xl font-bold mb-6">Adaptive Content Suggestions</h1>
       
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between items-centre mb-6">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-[400px]">
           <TabsList>
             <TabsTrigger value="for-you">For You</TabsTrigger>
@@ -286,13 +286,13 @@ export default function AdaptiveContentSuggestions() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-centre">
               <div>
                 <h3 className="font-medium">{currentLearningPath.title}</h3>
                 <p className="text-sm text-muted-foreground">{getSubjectName(currentLearningPath.subject)} • Key Stage {currentLearningPath.keyStage.replace('ks', '')}</p>
               </div>
               <div className="text-right">
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <span className="text-sm font-medium">Progress:</span>
                   <Progress value={currentLearningPath.completionStatus} className="h-2 w-20" />
                   <span className="text-sm">{currentLearningPath.completionStatus}%</span>
@@ -341,19 +341,19 @@ export default function AdaptiveContentSuggestions() {
                 </CardHeader>
                 <CardContent className="pb-2">
                   <div className="flex flex-wrap gap-2 mb-3">
-                    <Badge variant="secondary" className="flex items-center gap-1">
+                    <Badge variant="secondary" className="flex items-centre gap-1">
                       {getContentTypeIcon(suggestion.contentType)}
                       {suggestion.contentType.charAt(0).toUpperCase() + suggestion.contentType.slice(1)}
                     </Badge>
                     
-                    <Badge variant="outline" className="flex items-center gap-1">
+                    <Badge variant="outline" className="flex items-centre gap-1">
                       {getLearningStyleIcon(getDominantLearningStyle(suggestion))}
                       {getLearningStyleName(getDominantLearningStyle(suggestion))}
                     </Badge>
                   </div>
                   
-                  <div className="flex items-center justify-between text-sm">
-                    <div className="flex items-center">
+                  <div className="flex items-centre justify-between text-sm">
+                    <div className="flex items-centre">
                       <Star className="h-4 w-4 text-yellow-500 mr-1" />
                       <span>{suggestion.relevanceScore}% match</span>
                     </div>
@@ -406,10 +406,10 @@ export default function AdaptiveContentSuggestions() {
               </Card>
             ))
           ) : (
-            <div className="col-span-3 flex flex-col items-center justify-center py-12">
+            <div className="col-span-3 flex flex-col items-centre justify-centre py-12">
               <Lightbulb className="h-12 w-12 text-muted-foreground mb-4" />
               <h3 className="text-lg font-medium mb-2">No Suggestions Yet</h3>
-              <p className="text-muted-foreground text-center max-w-md">
+              <p className="text-muted-foreground text-centre max-w-md">
                 We're still learning about your preferences. Complete more activities or refresh to get personalized content suggestions.
               </p>
               <Button 
@@ -427,10 +427,10 @@ export default function AdaptiveContentSuggestions() {
       <TabsContent value="by-subject" className="mt-0">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Filter by subject UI would go here */}
-          <div className="col-span-3 flex flex-col items-center justify-center py-12">
+          <div className="col-span-3 flex flex-col items-centre justify-centre py-12">
             <Filter className="h-12 w-12 text-muted-foreground mb-4" />
             <h3 className="text-lg font-medium mb-2">Subject Filtering</h3>
-            <p className="text-muted-foreground text-center max-w-md">
+            <p className="text-muted-foreground text-centre max-w-md">
               In the full implementation, this tab would allow filtering content suggestions by subject area.
             </p>
           </div>
@@ -440,10 +440,10 @@ export default function AdaptiveContentSuggestions() {
       <TabsContent value="by-style" className="mt-0">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Filter by learning style UI would go here */}
-          <div className="col-span-3 flex flex-col items-center justify-center py-12">
+          <div className="col-span-3 flex flex-col items-centre justify-centre py-12">
             <Filter className="h-12 w-12 text-muted-foreground mb-4" />
             <h3 className="text-lg font-medium mb-2">Learning Style Filtering</h3>
-            <p className="text-muted-foreground text-center max-w-md">
+            <p className="text-muted-foreground text-centre max-w-md">
               In the full implementation, this tab would allow filtering content suggestions by learning style.
             </p>
           </div>

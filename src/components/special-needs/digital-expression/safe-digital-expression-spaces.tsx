@@ -104,7 +104,7 @@ const SafeDigitalExpressionSpaces = () => {
     {
       id: "j3",
       title: "Made the football team!",
-      content: "I got the news today that I made the school football team! All that practice paid off. I'm so excited to start training with the team next week. Dad was really proud and said we'd go shopping for new boots this weekend. I can't wait to tell my friends from my old school.",
+      content: "I got the news today that I made the school football team! All that practise paid off. I'm so excited to start training with the team next week. Dad was really proud and said we'd go shopping for new boots this weekend. I can't wait to tell my friends from my old school.",
       date: "2025-05-14T16:20:00Z",
       mood: "happy",
       tags: ["sports", "achievement", "football"],
@@ -122,7 +122,7 @@ const SafeDigitalExpressionSpaces = () => {
           id: "r2",
           author: "Jamie",
           role: "peer",
-          content: "That\'s awesome! I\'m on the team too, so I\'ll see you at practice!",
+          content: "That\'s awesome! I\'m on the team too, so I\'ll see you at practise!",
           date: "2025-05-14T18:30:00Z"
         }
       ]
@@ -139,11 +139,11 @@ const SafeDigitalExpressionSpaces = () => {
     },
     {
       id: "j5",
-      title: "Mindfulness practice reflection",
+      title: "Mindfulness practise reflection",
       content: "I tried the 10-minute mindfulness exercise from class today. It was hard to sit still at first, but by the end I felt calmer. I noticed that my thoughts kept drifting to my upcoming science test, but I practiced bringing my attention back to my breathing like we learned. I think I\'ll try to do this every morning before school.",
       date: "2025-05-16T08:15:00Z",
       mood: "calm",
-      tags: ["mindfulness", "wellbeing", "practice"],
+      tags: ["mindfulness", "wellbeing", "practise"],
       isPrivate: false,
       hasResponses: true,
       responses: [
@@ -151,7 +151,7 @@ const SafeDigitalExpressionSpaces = () => {
           id: "r3",
           author: "Dr. Martinez",
           role: "counselor",
-          content: "This is excellent reflection, and I'm glad you're finding the mindfulness exercises helpful. It's completely normal for your mind to wander during practice - the important part is noticing it and gently bringing your attention back, just as you did. Keep up the great work!",
+          content: "This is excellent reflection, and I'm glad you're finding the mindfulness exercises helpful. It's completely normal for your mind to wander during practise - the important part is noticing it and gently bringing your attention back, just as you did. Keep up the great work!",
           date: "2025-05-16T14:20:00Z"
         }
       ]
@@ -162,8 +162,8 @@ const SafeDigitalExpressionSpaces = () => {
   const mockArtGallery = [
     {
       id: "a1",
-      title: "My emotions color wheel",
-      description: "I created this color wheel to show different emotions I\'ve been feeling this month. Each color represents a different feeling, and the size shows how often I felt that way.",
+      title: "My emotions colour wheel",
+      description: "I created this colour wheel to show different emotions I\'ve been feeling this month. Each colour represents a different feeling, and the size shows how often I felt that way.",
       date: "2025-05-08T15:30:00Z",
       medium: "digital",
       imageUrl: "/art/emotions-wheel.png",
@@ -175,19 +175,19 @@ const SafeDigitalExpressionSpaces = () => {
           id: "ar1",
           author: "Ms. Williams",
           role: "art teacher",
-          content: "I love how you've used color symbolism here. The way you've made 'calm' flow into 'happy' shows great insight into how our emotions connect.",
+          content: "I love how you've used colour symbolism here. The way you've made 'calm' flow into 'happy' shows great insight into how our emotions connect.",
           date: "2025-05-09T10:15:00Z"
         }
       ]
     },
     {
       id: "a2",
-      title: "Safe place visualization",
+      title: "Safe place visualisation",
       description: "This is a drawing of my 'safe place' that I imagine when I'm feeling stressed or anxious. It's a treehouse by the ocean where I can hear the waves and feel the breeze.",
       date: "2025-05-11T16:45:00Z",
-      medium: "colored pencil",
+      medium: "coloured pencil",
       imageUrl: "/art/safe-place.png",
-      tags: ["anxiety", "coping strategies", "visualization"],
+      tags: ["anxiety", "coping strategies", "visualisation"],
       isPrivate: true,
       hasResponses: false
     },
@@ -206,7 +206,7 @@ const SafeDigitalExpressionSpaces = () => {
           id: "ar2",
           author: "Dr. Martinez",
           role: "counselor",
-          content: "This is a powerful visualization of your anger. Externalizing emotions like this can be very helpful in learning to manage them. Have you noticed any changes in how you relate to your anger since creating this?",
+          content: "This is a powerful visualisation of your anger. Externalizing emotions like this can be very helpful in learning to manage them. Have you noticed any changes in how you relate to your anger since creating this?",
           date: "2025-05-14T11:30:00Z"
         }
       ]
@@ -319,14 +319,14 @@ const SafeDigitalExpressionSpaces = () => {
           id: "gm2",
           author: "Sam",
           role: "peer",
-          content: "I had my history exam today and used the visualization technique we discussed last week. It really helped! I imagined myself successfully completing the test before I started, and I felt much more confident.",
+          content: "I had my history exam today and used the visualisation technique we discussed last week. It really helped! I imagined myself successfully completing the test before I started, and I felt much more confident.",
           date: "2025-05-16T15:20:00Z",
           responses: [
             {
               id: "gmr3",
               author: "Dr. Martinez",
               role: "facilitator",
-              content: "That's wonderful to hear, Sam! Positive visualization can be a powerful tool. Would you be willing to share more about how you prepared for this in our next group meeting?",
+              content: "That's wonderful to hear, Sam! Positive visualisation can be a powerful tool. Would you be willing to share more about how you prepared for this in our next group meeting?",
               date: "2025-05-16T16:00:00Z"
             }
           ]
@@ -354,7 +354,7 @@ const SafeDigitalExpressionSpaces = () => {
               id: "gmr4",
               author: "Taylor",
               role: "peer",
-              content: "I\'ve been here for two weeks now and still get lost sometimes! I found that taking a photo of the school map helped. Also, the color-coded hallways make more sense after a few days.",
+              content: "I\'ve been here for two weeks now and still get lost sometimes! I found that taking a photo of the school map helped. Also, the colour-coded hallways make more sense after a few days.",
               date: "2025-05-15T16:25:00Z"
             },
             {
@@ -370,7 +370,7 @@ const SafeDigitalExpressionSpaces = () => {
     },
     {
       id: "g3",
-      name: "Mindfulness Practice",
+      name: "Mindfulness Practise",
       description: "A group focused on practicing and discussing mindfulness techniques for stress management and emotional regulation.",
       members: 15,
       facilitator: "Dr. Martinez",
@@ -389,7 +389,7 @@ const SafeDigitalExpressionSpaces = () => {
               id: "gmr6",
               author: "Dr. Martinez",
               role: "facilitator",
-              content: "That's completely normal, Riley! In fact, the body scan can be a great tool for helping with sleep. If your goal is relaxation before bed, falling asleep is a sign it's working. If you want to practice staying present through the whole exercise, you might try it earlier in the day when you're more alert.",
+              content: "That's completely normal, Riley! In fact, the body scan can be a great tool for helping with sleep. If your goal is relaxation before bed, falling asleep is a sign it's working. If you want to practise staying present through the whole exercise, you might try it earlier in the day when you're more alert.",
               date: "2025-05-16T20:30:00Z"
             }
           ]
@@ -694,14 +694,14 @@ const SafeDigitalExpressionSpaces = () => {
   const getPrivacyBadge = (isPrivate) => {
     if (isPrivate) {
       return (
-        <Badge variant="outline" className="bg-amber-50 text-amber-700 flex items-center gap-1">
+        <Badge variant="outline" className="bg-amber-50 text-amber-700 flex items-centre gap-1">
           <Lock className="h-3 w-3" />
           Private
         </Badge>
       );
     } else {
       return (
-        <Badge variant="outline" className="bg-green-50 text-green-700 flex items-center gap-1">
+        <Badge variant="outline" className="bg-green-50 text-green-700 flex items-centre gap-1">
           <Users className="h-3 w-3" />
           Shared
         </Badge>
@@ -728,7 +728,7 @@ const SafeDigitalExpressionSpaces = () => {
             </TabsList>
             
             {isLoading ? (
-              <div className="flex justify-center items-center py-12">
+              <div className="flex justify-centre items-centre py-12">
                 <p>Loading content...</p>
               </div>
             ) : (
@@ -791,7 +791,7 @@ const SafeDigitalExpressionSpaces = () => {
                         
                         <div className="space-y-2">
                           <Label htmlFor="entry-privacy">Privacy Setting</Label>
-                          <div className="flex items-center justify-between rounded-md border p-4">
+                          <div className="flex items-centre justify-between rounded-md border p-4">
                             <div className="space-y-0.5">
                               <Label htmlFor="entry-privacy">
                                 {newJournalEntry.isPrivate ? "Private Entry" : "Shared Entry"}
@@ -817,7 +817,7 @@ const SafeDigitalExpressionSpaces = () => {
                         <Label>Tags</Label>
                         <div className="flex flex-wrap gap-2 mb-2">
                           {newJournalEntry.tags.map((tag, index) => (
-                            <Badge key={index} variant="secondary" className="flex items-center gap-1">
+                            <Badge key={index} variant="secondary" className="flex items-centre gap-1">
                               {tag}
                               <Button 
                                 variant="ghost" 
@@ -893,7 +893,7 @@ const SafeDigitalExpressionSpaces = () => {
                       <CardHeader className="pb-2">
                         <div className="flex justify-between items-start">
                           <div>
-                            <div className="flex items-center gap-2">
+                            <div className="flex items-centre gap-2">
                               <CardTitle>{selectedEntry.title}</CardTitle>
                               <span className="text-2xl">{getMoodEmoji(selectedEntry.mood)}</span>
                             </div>
@@ -931,7 +931,7 @@ const SafeDigitalExpressionSpaces = () => {
                                 {selectedEntry.responses.map(response => (
                                   <div key={response.id} className="rounded-lg border p-4 bg-muted/50">
                                     <div className="flex justify-between items-start mb-2">
-                                      <div className="flex items-center gap-2">
+                                      <div className="flex items-centre gap-2">
                                         <Badge variant="outline">{response.role}</Badge>
                                         <span className="font-medium">{response.author}</span>
                                       </div>
@@ -971,14 +971,14 @@ const SafeDigitalExpressionSpaces = () => {
                         >
                           <CardHeader className="pb-2">
                             <div className="flex justify-between items-start">
-                              <div className="flex items-center gap-2">
+                              <div className="flex items-centre gap-2">
                                 <CardTitle className="text-lg">{entry.title}</CardTitle>
                                 <span className="text-xl">{getMoodEmoji(entry.mood)}</span>
                               </div>
-                              <div className="flex items-center gap-2">
+                              <div className="flex items-centre gap-2">
                                 {getPrivacyBadge(entry.isPrivate)}
                                 {entry.hasResponses && (
-                                  <Badge variant="secondary" className="flex items-center gap-1">
+                                  <Badge variant="secondary" className="flex items-centre gap-1">
                                     <MessageCircle className="h-3 w-3" />
                                     Responses
                                   </Badge>
@@ -1010,7 +1010,7 @@ const SafeDigitalExpressionSpaces = () => {
                       ))}
                       
                       {getFilteredJournalEntries().length === 0 && (
-                        <div className="text-center py-12">
+                        <div className="text-centre py-12">
                           <p className="text-muted-foreground">
                             No journal entries found matching your filters. Try adjusting your search criteria or create a new entry.
                           </p>
@@ -1030,13 +1030,13 @@ const SafeDigitalExpressionSpaces = () => {
                       </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
-                      <div className="flex justify-between items-center">
+                      <div className="flex justify-between items-centre">
                         <Button>
                           <Plus className="mr-2 h-4 w-4" />
                           Upload New Artwork
                         </Button>
                         
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-centre gap-2">
                           <Select 
                             value={privacyLevel}
                             onValueChange={setPrivacyLevel}
@@ -1068,8 +1068,8 @@ const SafeDigitalExpressionSpaces = () => {
                         <Card>
                           <div className="aspect-video relative overflow-hidden rounded-t-lg">
                             {/* In a real implementation, this would be an actual image */}
-                            <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">
-                              <ImageIcon className="h-12 w-12 text-gray-400" />
+                            <div className="absolute inset-0 bg-grey-200 flex items-centre justify-centre">
+                              <ImageIcon className="h-12 w-12 text-grey-400" />
                             </div>
                           </div>
                           <CardHeader className="pb-2">
@@ -1110,7 +1110,7 @@ const SafeDigitalExpressionSpaces = () => {
                                     {selectedArtwork.responses.map(response => (
                                       <div key={response.id} className="rounded-lg border p-4 bg-muted/50">
                                         <div className="flex justify-between items-start mb-2">
-                                          <div className="flex items-center gap-2">
+                                          <div className="flex items-centre gap-2">
                                             <Badge variant="outline">{response.role}</Badge>
                                             <span className="font-medium">{response.author}</span>
                                           </div>
@@ -1150,14 +1150,14 @@ const SafeDigitalExpressionSpaces = () => {
                             >
                               <div className="aspect-video relative overflow-hidden rounded-t-lg">
                                 {/* In a real implementation, this would be an actual image */}
-                                <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">
-                                  <ImageIcon className="h-8 w-8 text-gray-400" />
+                                <div className="absolute inset-0 bg-grey-200 flex items-centre justify-centre">
+                                  <ImageIcon className="h-8 w-8 text-grey-400" />
                                 </div>
                               </div>
                               <CardHeader className="pb-2">
                                 <div className="flex justify-between items-start">
                                   <CardTitle className="text-lg">{artwork.title}</CardTitle>
-                                  <div className="flex items-center gap-2">
+                                  <div className="flex items-centre gap-2">
                                     {getPrivacyBadge(artwork.isPrivate)}
                                   </div>
                                 </div>
@@ -1186,7 +1186,7 @@ const SafeDigitalExpressionSpaces = () => {
                           ))}
                           
                           {getFilteredArtworks().length === 0 && (
-                            <div className="col-span-full text-center py-12">
+                            <div className="col-span-full text-centre py-12">
                               <p className="text-muted-foreground">
                                 No artwork found matching your filters. Try adjusting your search criteria or upload new artwork.
                               </p>
@@ -1208,13 +1208,13 @@ const SafeDigitalExpressionSpaces = () => {
                       </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
-                      <div className="flex justify-between items-center">
+                      <div className="flex justify-between items-centre">
                         <Button>
                           <Plus className="mr-2 h-4 w-4" />
                           Create New Project
                         </Button>
                         
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-centre gap-2">
                           <Select 
                             value={expressionType}
                             onValueChange={setExpressionType}
@@ -1262,15 +1262,15 @@ const SafeDigitalExpressionSpaces = () => {
                         <Card>
                           <div className="aspect-video relative overflow-hidden rounded-t-lg">
                             {/* In a real implementation, this would be an actual media player */}
-                            <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">
+                            <div className="absolute inset-0 bg-grey-200 flex items-centre justify-centre">
                               {getMediaTypeIcon(selectedProject.type)}
-                              <Play className="h-12 w-12 text-gray-400 ml-2" />
+                              <Play className="h-12 w-12 text-grey-400 ml-2" />
                             </div>
                           </div>
                           <CardHeader className="pb-2">
                             <div className="flex justify-between items-start">
                               <div>
-                                <div className="flex items-center gap-2">
+                                <div className="flex items-centre gap-2">
                                   <CardTitle>{selectedProject.title}</CardTitle>
                                   {getMediaTypeIcon(selectedProject.type)}
                                 </div>
@@ -1308,7 +1308,7 @@ const SafeDigitalExpressionSpaces = () => {
                                     {selectedProject.responses.map(response => (
                                       <div key={response.id} className="rounded-lg border p-4 bg-muted/50">
                                         <div className="flex justify-between items-start mb-2">
-                                          <div className="flex items-center gap-2">
+                                          <div className="flex items-centre gap-2">
                                             <Badge variant="outline">{response.role}</Badge>
                                             <span className="font-medium">{response.author}</span>
                                           </div>
@@ -1348,7 +1348,7 @@ const SafeDigitalExpressionSpaces = () => {
                             >
                               <div className="aspect-video relative overflow-hidden rounded-t-lg">
                                 {/* In a real implementation, this would be an actual thumbnail */}
-                                <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">
+                                <div className="absolute inset-0 bg-grey-200 flex items-centre justify-centre">
                                   {getMediaTypeIcon(project.type)}
                                 </div>
                                 <div className="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
@@ -1358,7 +1358,7 @@ const SafeDigitalExpressionSpaces = () => {
                               <CardHeader className="pb-2">
                                 <div className="flex justify-between items-start">
                                   <CardTitle className="text-lg">{project.title}</CardTitle>
-                                  <div className="flex items-center gap-2">
+                                  <div className="flex items-centre gap-2">
                                     {getPrivacyBadge(project.isPrivate)}
                                   </div>
                                 </div>
@@ -1387,7 +1387,7 @@ const SafeDigitalExpressionSpaces = () => {
                           ))}
                           
                           {getFilteredMediaProjects().length === 0 && (
-                            <div className="col-span-full text-center py-12">
+                            <div className="col-span-full text-centre py-12">
                               <p className="text-muted-foreground">
                                 No media projects found matching your filters. Try adjusting your search criteria or create a new project.
                               </p>
@@ -1409,8 +1409,8 @@ const SafeDigitalExpressionSpaces = () => {
                       </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
-                      <div className="flex justify-between items-center">
-                        <div className="flex items-center gap-2">
+                      <div className="flex justify-between items-centre">
+                        <div className="flex items-centre gap-2">
                           <Badge variant="outline" className="bg-blue-50 text-blue-700">
                             <Shield className="mr-1 h-3 w-3" />
                             All groups are supervised by trained staff
@@ -1474,7 +1474,7 @@ const SafeDigitalExpressionSpaces = () => {
                                       <div key={message.id} className="space-y-4">
                                         <div className="rounded-lg border p-4">
                                           <div className="flex justify-between items-start mb-2">
-                                            <div className="flex items-center gap-2">
+                                            <div className="flex items-centre gap-2">
                                               <Badge variant="outline">{message.role}</Badge>
                                               <span className="font-medium">{message.author}</span>
                                             </div>
@@ -1490,7 +1490,7 @@ const SafeDigitalExpressionSpaces = () => {
                                             {message.responses.map(response => (
                                               <div key={response.id} className="rounded-lg border p-4 bg-muted/50">
                                                 <div className="flex justify-between items-start mb-2">
-                                                  <div className="flex items-center gap-2">
+                                                  <div className="flex items-centre gap-2">
                                                     <Badge variant="outline">{response.role}</Badge>
                                                     <span className="font-medium">{response.author}</span>
                                                   </div>
@@ -1584,7 +1584,7 @@ const SafeDigitalExpressionSpaces = () => {
                           ))}
                           
                           {getFilteredPeerGroups().length === 0 && (
-                            <div className="col-span-full text-center py-12">
+                            <div className="col-span-full text-centre py-12">
                               <p className="text-muted-foreground">
                                 No peer support groups found matching your search. Try adjusting your search criteria.
                               </p>

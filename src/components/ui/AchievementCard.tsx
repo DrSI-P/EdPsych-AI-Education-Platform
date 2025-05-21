@@ -191,9 +191,9 @@ const AchievementCard: React.FC<AchievementCardProps> = ({
   // Render badge
   const renderBadge = () => {
     return (
-      <div className="flex justify-center my-4">
+      <div className="flex justify-centre my-4">
         <div className={cn(
-          'rounded-full flex items-center justify-center',
+          'rounded-full flex items-centre justify-centre',
           `bg-gradient-to-br ${levelStyles.gradient}`,
           styles.badge
         )}>
@@ -255,7 +255,7 @@ const AchievementCard: React.FC<AchievementCardProps> = ({
           )}
           
           {completed && date && (
-            <div className="mt-4 text-center text-sm text-muted-foreground">
+            <div className="mt-4 text-centre text-sm text-muted-foreground">
               <Clock className="inline-block h-4 w-4 mr-1" />
               Achieved on {date}
             </div>
@@ -326,7 +326,7 @@ export const AchievementGallery: React.FC<{
           </div>
           
           {filteredAchievements.length === 0 && (
-            <div className="text-center py-12">
+            <div className="text-centre py-12">
               <p className="text-muted-foreground">No achievements found in this category.</p>
             </div>
           )}

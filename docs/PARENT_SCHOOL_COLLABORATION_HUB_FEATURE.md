@@ -41,7 +41,7 @@ The goal tracking system enables collaborative goal setting and monitoring betwe
 #### Technical Implementation:
 - Integrated within main component: `src/components/parent-school/parent-school-collaboration.tsx`
 - API endpoint: `src/app/api/parent-school/goals/route.ts`
-- Progress visualization with interactive charts
+- Progress visualisation with interactive charts
 - Evidence management system
 
 ### 3. Home Strategy Library
@@ -133,11 +133,11 @@ The celebration system enables sharing and celebrating student achievements and 
 
 The Parent-School Collaboration Hub is grounded in established educational psychology principles:
 
-- **Ecological Systems Theory**: Recognizing the importance of connections between home and school environments
+- **Ecological Systems Theory**: Recognising the importance of connections between home and school environments
 - **Growth Mindset**: Fostering belief in development through effort and collaboration
 - **Self-Determination Theory**: Supporting autonomy, competence, and relatedness
 - **Family Systems Theory**: Understanding family dynamics in educational support
-- **Social Learning Theory**: Leveraging modeling and guided practice across contexts
+- **Social Learning Theory**: Leveraging modelling and guided practise across contexts
 - **Positive Psychology**: Emphasizing strengths and celebrating progress
 
 ## UK Educational Framework Alignment
@@ -145,8 +145,8 @@ The Parent-School Collaboration Hub is grounded in established educational psych
 The feature aligns with key UK educational frameworks and priorities:
 
 - **Ofsted Framework**: Supporting parental engagement as part of quality education
-- **SEND Code of Practice**: Ensuring parent partnership in support planning
-- **Early Years Foundation Stage**: Recognizing parents as children's first educators
+- **SEND Code of Practise**: Ensuring parent partnership in support planning
+- **Early Years Foundation Stage**: Recognising parents as children's first educators
 - **Pupil Premium Strategy**: Enhancing support for disadvantaged students
 - **DfE Parental Engagement Guidance**: Following best practices for home-school collaboration
 
@@ -155,7 +155,7 @@ The feature aligns with key UK educational frameworks and priorities:
 ### Accessibility Features
 - Screen reader compatibility throughout
 - Keyboard navigation for all functions
-- Color contrast ratios exceeding minimum requirements
+- Colour contrast ratios exceeding minimum requirements
 - Voice input and output options
 - Text resizing and high contrast mode
 - Mobile responsiveness for access on any device

@@ -30,7 +30,7 @@ The content suggestion engine recommends educational resources that:
 - **Complement Current Learning**: Supporting active learning paths
 - **Adapt Based on Feedback**: Refining suggestions based on learner responses
 
-Content suggestions include diverse formats (videos, articles, interactive activities, assessments, practice exercises) with clear explanations of why each resource is recommended.
+Content suggestions include diverse formats (videos, articles, interactive activities, assessments, practise exercises) with clear explanations of why each resource is recommended.
 
 ### 3. Progress Monitoring and Intervention Alerts
 
@@ -90,7 +90,7 @@ The system ensures alignment with:
 
 - **National Curriculum for England**: Content mapped to Key Stage requirements
 - **Department for Education (DfE) Guidelines**: Following official educational standards
-- **SEND Code of Practice**: Supporting learners with special educational needs and disabilities
+- **SEND Code of Practise**: Supporting learners with special educational needs and disabilities
 - **Ofsted Framework**: Promoting quality education principles
 
 All content uses UK English spelling and terminology, with references to UK educational contexts and examples.

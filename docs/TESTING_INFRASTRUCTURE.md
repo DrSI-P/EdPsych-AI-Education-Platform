@@ -503,7 +503,7 @@ Tests are run automatically on pull requests and pushes to main branches, ensuri
 
 ### Writing Effective Tests
 
-1. **Test Behavior, Not Implementation**: Focus on what the code does, not how it does it
+1. **Test Behaviour, Not Implementation**: Focus on what the code does, not how it does it
 2. **Keep Tests Independent**: Each test should run in isolation
 3. **Use Descriptive Test Names**: Names should clearly describe what is being tested
 4. **Follow the AAA Pattern**: Arrange, Act, Assert

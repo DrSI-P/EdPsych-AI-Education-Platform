@@ -81,7 +81,7 @@ export default function LearningStyleAssessment() {
         'Make lists and follow step-by-step procedures',
         'Talk through the problem out loud',
         'Use trial and error and physical manipulation',
-        'Draw diagrams or visualize the solution'
+        'Draw diagrams or visualise the solution'
       ]
     },
     {
@@ -170,11 +170,11 @@ export default function LearningStyleAssessment() {
   const processResults = async () => {
     setIsProcessing(true);
     try {
-      // In a real implementation, this would call the AI service to analyze the answers
+      // In a real implementation, this would call the AI service to analyse the answers
       // For now, we'll simulate the AI analysis with a timeout
       
       const prompt = `
-        Analyze the following learning style assessment answers and determine the primary and secondary learning styles.
+        Analyse the following learning style assessment answers and determine the primary and secondary learning styles.
         Provide detailed descriptions and personalized learning strategies for each style.
         
         Answers:
@@ -198,13 +198,13 @@ export default function LearningStyleAssessment() {
         primaryStyle: {
           name: 'Visual',
           score: 42,
-          description: 'You learn best through seeing information presented visually. You benefit from diagrams, charts, videos, and written instructions. You often visualize concepts to understand them better and may create mental pictures when trying to remember information.',
+          description: 'You learn best through seeing information presented visually. You benefit from diagrams, charts, videos, and written instructions. You often visualise concepts to understand them better and may create mental pictures when trying to remember information.',
           strategies: [
-            'Use color-coding for notes and materials',
+            'Use colour-coding for notes and materials',
             'Create mind maps and diagrams',
             'Watch educational videos',
             'Use flashcards with images',
-            'Visualize concepts and processes'
+            'Visualise concepts and processes'
           ]
         },
         secondaryStyle: {
@@ -224,7 +224,7 @@ export default function LearningStyleAssessment() {
             name: 'Visual',
             score: 42,
             description: 'Learning through seeing information presented visually.',
-            strategies: ['Use color-coding', 'Create mind maps', 'Watch videos']
+            strategies: ['Use colour-coding', 'Create mind maps', 'Watch videos']
           },
           {
             name: 'Kinesthetic',
@@ -247,7 +247,7 @@ export default function LearningStyleAssessment() {
         ],
         personalizedRecommendations: [
           'Combine visual aids with hands-on activities for optimal learning',
-          'Request visual demonstrations followed by opportunities to practice',
+          'Request visual demonstrations followed by opportunities to practise',
           'Create illustrated notes with diagrams and symbols',
           'Use movement to reinforce visual learning (e.g., tracing diagrams in the air)',
           'Take frequent short breaks to move around during study sessions',
@@ -259,7 +259,7 @@ export default function LearningStyleAssessment() {
     } catch (error) {
       toast({
         title: "Error processing results",
-        description: "There was a problem analyzing your answers. Please try again.",
+        description: "There was a problem analysing your answers. Please try again.",
         variant: "destructive"
       });
       console.error(error);
@@ -277,7 +277,7 @@ export default function LearningStyleAssessment() {
             onValueChange={(value) => handleAnswerChange(question.id, value)}
           >
             {question.options?.map((option, index) => (
-              <div key={index} className="flex items-center space-x-2 mb-3">
+              <div key={index} className="flex items-centre space-x-2 mb-3">
                 <RadioGroupItem value={option} id={`${question.id}-${index}`} />
                 <Label htmlFor={`${question.id}-${index}`} className="text-base">{option}</Label>
               </div>
@@ -352,7 +352,7 @@ export default function LearningStyleAssessment() {
                 <div className="space-y-6">
                   {results.allStyles.map((style, index) => (
                     <div key={index} className="mb-4">
-                      <div className="flex items-center justify-between mb-1">
+                      <div className="flex items-centre justify-between mb-1">
                         <h4 className="font-medium">{style.name}</h4>
                         <span>{style.score}%</span>
                       </div>

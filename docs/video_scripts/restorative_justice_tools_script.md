@@ -39,7 +39,7 @@ Circle processes are powerful tools for building community, addressing concerns,
 
 Check-in and check-out circle templates for daily classroom use
 Problem-solving circle structures for addressing group challenges
-Celebration circle formats for recognizing achievements and growth
+Celebration circle formats for recognising achievements and growth
 Healing circle frameworks for addressing more significant harms
 
 These templates include suggested questions, facilitation guides, and adaptations for different age groups and contexts, making it easy for educators to implement effective circle practices.
@@ -47,7 +47,7 @@ These templates include suggested questions, facilitation guides, and adaptation
 ### Age-Appropriate Reflection Prompts (2:00-2:15)
 [Screen transitions to show reflection prompts]
 
-Meaningful reflection is central to restorative practice. Our platform provides developmentally appropriate reflection prompts that help pupils:
+Meaningful reflection is central to restorative practise. Our platform provides developmentally appropriate reflection prompts that help pupils:
 
 Identify and express emotions
 Understand the impact of their actions on others
@@ -64,7 +64,7 @@ When restorative conversations lead to agreements, our tracking system helps ens
 Digital agreement templates capture commitments from all parties
 Reminder systems support pupils in fulfilling their agreements
 Check-in schedules help monitor progress and provide support
-Celebration mechanisms recognize successful completion
+Celebration mechanisms recognise successful completion
 
 This system transforms agreements from one-time conversations to ongoing processes of growth and relationship building.
 

@@ -94,14 +94,14 @@ export default function PreviewPupilVoiceSurveyPage() {
         <div className="bg-white p-6 rounded-lg shadow-sm">
           <h2 className="text-xl font-semibold mb-2">{survey.title}</h2>
           {survey.description && (
-            <p className="text-gray-600 mb-4">{survey.description}</p>
+            <p className="text-grey-600 mb-4">{survey.description}</p>
           )}
           
           <div className="space-y-8 mt-6">
             {survey.questions.map((question: any, index: number) => (
-              <div key={question.id} className="border border-gray-200 rounded-md p-4">
+              <div key={question.id} className="border border-grey-200 rounded-md p-4">
                 <div className="flex items-start">
-                  <span className="bg-indigo-100 text-indigo-800 rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">
+                  <span className="bg-indigo-100 text-indigo-800 rounded-full w-6 h-6 flex items-centre justify-centre mr-3 flex-shrink-0">
                     {index + 1}
                   </span>
                   <div className="flex-grow">
@@ -110,15 +110,15 @@ export default function PreviewPupilVoiceSurveyPage() {
                     {question.type === 'multiple_choice' && (
                       <div className="space-y-2 mt-3">
                         {question.options.map((option: string, optionIndex: number) => (
-                          <div key={optionIndex} className="flex items-center">
+                          <div key={optionIndex} className="flex items-centre">
                             <input
                               type="radio"
                               name={`question_${question.id}`}
                               id={`option_${question.id}_${optionIndex}`}
-                              className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300"
+                              className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-grey-300"
                               disabled
                             />
-                            <label htmlFor={`option_${question.id}_${optionIndex}`} className="ml-2 block text-sm text-gray-900">
+                            <label htmlFor={`option_${question.id}_${optionIndex}`} className="ml-2 block text-sm text-grey-900">
                               {option}
                             </label>
                           </div>
@@ -128,18 +128,18 @@ export default function PreviewPupilVoiceSurveyPage() {
                     
                     {question.type === 'likert_scale' && (
                       <div className="mt-3">
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-between items-centre">
                           {question.options.map((option: string, optionIndex: number) => (
-                            <div key={optionIndex} className="text-center">
-                              <div className="flex flex-col items-center">
+                            <div key={optionIndex} className="text-centre">
+                              <div className="flex flex-col items-centre">
                                 <input
                                   type="radio"
                                   name={`question_${question.id}`}
                                   id={`option_${question.id}_${optionIndex}`}
-                                  className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300"
+                                  className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-grey-300"
                                   disabled
                                 />
-                                <label htmlFor={`option_${question.id}_${optionIndex}`} className="mt-1 block text-xs text-gray-500">
+                                <label htmlFor={`option_${question.id}_${optionIndex}`} className="mt-1 block text-xs text-grey-500">
                                   {option}
                                 </label>
                               </div>
@@ -151,15 +151,15 @@ export default function PreviewPupilVoiceSurveyPage() {
                     
                     {question.type === 'emoji_scale' && (
                       <div className="mt-3">
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-between items-centre">
                           {question.options.map((emoji: string, optionIndex: number) => (
-                            <div key={optionIndex} className="text-center">
-                              <div className="flex flex-col items-center">
+                            <div key={optionIndex} className="text-centre">
+                              <div className="flex flex-col items-centre">
                                 <input
                                   type="radio"
                                   name={`question_${question.id}`}
                                   id={`option_${question.id}_${optionIndex}`}
-                                  className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300"
+                                  className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-grey-300"
                                   disabled
                                 />
                                 <label htmlFor={`option_${question.id}_${optionIndex}`} className="mt-1 block text-2xl">
@@ -174,27 +174,27 @@ export default function PreviewPupilVoiceSurveyPage() {
                     
                     {question.type === 'yes_no' && (
                       <div className="flex space-x-4 mt-3">
-                        <div className="flex items-center">
+                        <div className="flex items-centre">
                           <input
                             type="radio"
                             name={`question_${question.id}`}
                             id={`option_${question.id}_yes`}
-                            className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300"
+                            className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-grey-300"
                             disabled
                           />
-                          <label htmlFor={`option_${question.id}_yes`} className="ml-2 block text-sm text-gray-900">
+                          <label htmlFor={`option_${question.id}_yes`} className="ml-2 block text-sm text-grey-900">
                             Yes
                           </label>
                         </div>
-                        <div className="flex items-center">
+                        <div className="flex items-centre">
                           <input
                             type="radio"
                             name={`question_${question.id}`}
                             id={`option_${question.id}_no`}
-                            className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300"
+                            className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-grey-300"
                             disabled
                           />
-                          <label htmlFor={`option_${question.id}_no`} className="ml-2 block text-sm text-gray-900">
+                          <label htmlFor={`option_${question.id}_no`} className="ml-2 block text-sm text-grey-900">
                             No
                           </label>
                         </div>
@@ -204,7 +204,7 @@ export default function PreviewPupilVoiceSurveyPage() {
                     {question.type === 'open_ended' && (
                       <div className="mt-3">
                         <textarea
-                          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                          className="mt-1 block w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                           rows={3}
                           placeholder="Type your answer here..."
                           disabled
@@ -241,11 +241,11 @@ export default function PreviewPupilVoiceSurveyPage() {
           <CardContent>
             <div className="space-y-4">
               <div>
-                <h4 className="text-sm font-medium text-gray-700">Status</h4>
+                <h4 className="text-sm font-medium text-grey-700">Status</h4>
                 <p className="mt-1">
                   <span className={`inline-block px-2 py-1 text-xs rounded-full ${
                     survey.status === 'draft' 
-                      ? 'bg-gray-100 text-gray-800' 
+                      ? 'bg-grey-100 text-grey-800' 
                       : survey.status === 'active' 
                       ? 'bg-green-100 text-green-800' 
                       : 'bg-blue-100 text-blue-800'
@@ -260,30 +260,30 @@ export default function PreviewPupilVoiceSurveyPage() {
               </div>
               
               <div>
-                <h4 className="text-sm font-medium text-gray-700">Created</h4>
-                <p className="mt-1 text-sm text-gray-600">
+                <h4 className="text-sm font-medium text-grey-700">Created</h4>
+                <p className="mt-1 text-sm text-grey-600">
                   {new Date(survey.createdAt).toLocaleString()}
                 </p>
               </div>
               
               <div>
-                <h4 className="text-sm font-medium text-gray-700">Last Updated</h4>
-                <p className="mt-1 text-sm text-gray-600">
+                <h4 className="text-sm font-medium text-grey-700">Last Updated</h4>
+                <p className="mt-1 text-sm text-grey-600">
                   {new Date(survey.updatedAt).toLocaleString()}
                 </p>
               </div>
               
               <div>
-                <h4 className="text-sm font-medium text-gray-700">Questions</h4>
-                <p className="mt-1 text-sm text-gray-600">
+                <h4 className="text-sm font-medium text-grey-700">Questions</h4>
+                <p className="mt-1 text-sm text-grey-600">
                   {survey.questions.length} questions ({survey.questions.filter((q: any) => q.required).length} required)
                 </p>
               </div>
               
               {survey.status !== 'draft' && (
                 <div>
-                  <h4 className="text-sm font-medium text-gray-700">Responses</h4>
-                  <p className="mt-1 text-sm text-gray-600">
+                  <h4 className="text-sm font-medium text-grey-700">Responses</h4>
+                  <p className="mt-1 text-sm text-grey-600">
                     {responses.length} responses received
                   </p>
                 </div>
@@ -345,8 +345,8 @@ export default function PreviewPupilVoiceSurveyPage() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
-        <Spinner size="large" />
+      <div className="flex justify-centre items-centre min-h-screen">
+        <Spinner size="lg" />
       </div>
     );
   }
@@ -384,8 +384,8 @@ export default function PreviewPupilVoiceSurveyPage() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-6">
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-gray-900">{survey.title}</h1>
+        <div className="flex items-centre justify-between">
+          <h1 className="text-2xl font-bold text-grey-900">{survey.title}</h1>
           <Button
             variant="outline"
             onClick={() => router.push('/assessment/pupil-voice')}
@@ -394,7 +394,7 @@ export default function PreviewPupilVoiceSurveyPage() {
           </Button>
         </div>
         {survey.description && (
-          <p className="mt-2 text-gray-600">
+          <p className="mt-2 text-grey-600">
             {survey.description}
           </p>
         )}

@@ -3,7 +3,7 @@
  * 
  * This service implements GDPR (General Data Protection Regulation) compliance features
  * for the EdPsych-AI-Education-Platform, ensuring proper data handling, consent management,
- * and subject rights fulfillment.
+ * and subject rights fulfilment.
  */
 
 import {

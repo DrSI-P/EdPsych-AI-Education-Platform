@@ -279,7 +279,7 @@ function generatePersonalizedRecommendations(
       evidenceBase: "Recommended by the Royal College of Psychiatrists as a grounding technique."
     },
     {
-      id: "visualization",
+      id: "visualisation",
       name: "Peaceful Place Visualisation",
       description: "Imagine a calm, peaceful place to help you relax.",
       steps: [
@@ -299,7 +299,7 @@ function generatePersonalizedRecommendations(
     // Additional strategies would be defined here
   ];
   
-  // Step 1: Analyze emotion patterns
+  // Step 1: Analyse emotion patterns
   const emotionFrequency: Record<string, number> = {};
   emotionRecords.forEach(record => {
     emotionFrequency[record.emotion] = (emotionFrequency[record.emotion] || 0) + 1;
@@ -310,7 +310,7 @@ function generatePersonalizedRecommendations(
     .slice(0, 3)
     .map(entry => entry[0]);
   
-  // Step 2: Analyze strategy effectiveness
+  // Step 2: Analyse strategy effectiveness
   const strategyEffectiveness: Record<string, { totalRating: number; count: number; average: number }> = {};
   strategyHistory.forEach(record => {
     if (record.details.strategyId) {

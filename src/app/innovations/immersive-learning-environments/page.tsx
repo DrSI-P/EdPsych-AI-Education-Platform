@@ -48,13 +48,13 @@ export default function ImmersiveLearningEnvironmentsPage() {
       learningObjectives: [
         "Understand rainforest ecosystem dynamics and biodiversity",
         "Identify key species and their ecological roles",
-        "Analyze human impact on rainforest environments",
+        "Analyse human impact on rainforest environments",
         "Explore conservation strategies and sustainable practices"
       ],
       interactiveElements: [
         "3D species identification",
         "Ecosystem simulation",
-        "Weather pattern visualization",
+        "Weather pattern visualisation",
         "Indigenous knowledge integration"
       ],
       guidedActivities: [
@@ -70,7 +70,7 @@ export default function ImmersiveLearningEnvironmentsPage() {
       learningObjectives: [
         "Understand Roman political structures and governance",
         "Explore daily life and social hierarchies in Ancient Rome",
-        "Analyze architectural and engineering achievements",
+        "Analyse architectural and engineering achievements",
         "Examine the cultural and religious practices of the era"
       ],
       interactiveElements: [
@@ -91,13 +91,13 @@ export default function ImmersiveLearningEnvironmentsPage() {
       description: "Shrink down to explore the microscopic world inside a human cell, witnessing cellular processes in real-time.",
       learningObjectives: [
         "Identify and understand cellular structures and organelles",
-        "Visualize key cellular processes like protein synthesis",
-        "Analyze energy production and utilization in cells",
+        "Visualise key cellular processes like protein synthesis",
+        "Analyse energy production and utilization in cells",
         "Explore cell communication and response mechanisms"
       ],
       interactiveElements: [
         "Organelle function simulation",
-        "Protein synthesis visualization",
+        "Protein synthesis visualisation",
         "Cellular respiration process",
         "Membrane transport mechanisms"
       ],
@@ -173,7 +173,7 @@ export default function ImmersiveLearningEnvironmentsPage() {
       particles.forEach(particle => {
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
-        ctx.fillStyle = particle.color;
+        ctx.fillStyle = particle.colour;
         ctx.globalAlpha = 0.6;
         ctx.fill();
         
@@ -245,7 +245,7 @@ export default function ImmersiveLearningEnvironmentsPage() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-center mb-12"
+        className="text-centre mb-12"
       >
         <h1 className="text-4xl font-bold tracking-tight">Immersive Learning Environments</h1>
         <p className="mt-4 text-xl text-muted-foreground max-w-3xl mx-auto">
@@ -263,7 +263,7 @@ export default function ImmersiveLearningEnvironmentsPage() {
         >
           <Card className="h-full">
             <CardContent className="p-6">
-              <h2 className="text-2xl font-semibold mb-6 flex items-center">
+              <h2 className="text-2xl font-semibold mb-6 flex items-centre">
                 <Globe className="mr-2 h-5 w-5 text-primary" />
                 Environments
               </h2>
@@ -331,9 +331,9 @@ export default function ImmersiveLearningEnvironmentsPage() {
                     />
                   </div>
                   
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <Label htmlFor="audio-toggle">
-                      <div className="flex items-center">
+                      <div className="flex items-centre">
                         <Headphones className="mr-2 h-4 w-4" />
                         Ambient Audio
                       </div>
@@ -345,9 +345,9 @@ export default function ImmersiveLearningEnvironmentsPage() {
                     />
                   </div>
                   
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <Label htmlFor="narration-toggle">
-                      <div className="flex items-center">
+                      <div className="flex items-centre">
                         <Headphones className="mr-2 h-4 w-4" />
                         Narration
                       </div>
@@ -359,9 +359,9 @@ export default function ImmersiveLearningEnvironmentsPage() {
                     />
                   </div>
                   
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <Label htmlFor="guide-toggle">
-                      <div className="flex items-center">
+                      <div className="flex items-centre">
                         <Compass className="mr-2 h-4 w-4" />
                         Learning Guide
                       </div>
@@ -387,11 +387,11 @@ export default function ImmersiveLearningEnvironmentsPage() {
         >
           <Card className="h-full">
             <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-6">
+              <div className="flex items-centre justify-between mb-6">
                 <h2 className="text-2xl font-semibold">
                   {currentEnvironment.title}
                 </h2>
-                <div className="flex items-center gap-2">
+                <div className="flex items-centre gap-2">
                   <Button 
                     variant="outline" 
                     size="sm"
@@ -406,7 +406,7 @@ export default function ImmersiveLearningEnvironmentsPage() {
               </div>
               
               <div className="relative mb-6 bg-muted rounded-lg overflow-hidden" style={{ height: '400px' }}>
-                {/* Canvas for immersive environment visualization */}
+                {/* Canvas for immersive environment visualisation */}
                 <canvas 
                   ref={canvasRef} 
                   className="absolute inset-0 w-full h-full"
@@ -414,14 +414,14 @@ export default function ImmersiveLearningEnvironmentsPage() {
                 />
                 
                 {/* Overlay elements */}
-                <div className="absolute inset-0 flex items-center justify-center">
+                <div className="absolute inset-0 flex items-centre justify-centre">
                   {isRotating ? (
-                    <div className="flex flex-col items-center">
+                    <div className="flex flex-col items-centre">
                       <RotateCw className="h-12 w-12 text-primary animate-spin" />
                       <p className="mt-4 text-lg font-medium">Loading Environment...</p>
                     </div>
                   ) : (
-                    <div className="text-center p-6 bg-black/30 backdrop-blur-sm rounded-lg">
+                    <div className="text-centre p-6 bg-black/30 backdrop-blur-sm rounded-lg">
                       <h3 className="text-2xl font-bold text-white mb-2">{currentEnvironment.title}</h3>
                       <p className="text-white/80">{currentEnvironment.description}</p>
                     </div>
@@ -432,19 +432,19 @@ export default function ImmersiveLearningEnvironmentsPage() {
                 {!isRotating && interactivityLevel > 30 && (
                   <>
                     <div className="absolute top-1/4 left-1/4 transform -translate-x-1/2 -translate-y-1/2">
-                      <div className="w-8 h-8 rounded-full bg-primary/20 backdrop-blur-sm flex items-center justify-center cursor-pointer hover:bg-primary/40 transition-colors">
+                      <div className="w-8 h-8 rounded-full bg-primary/20 backdrop-blur-sm flex items-centre justify-centre cursor-pointer hover:bg-primary/40 transition-colors">
                         <Sparkles className="h-4 w-4 text-primary" />
                       </div>
                     </div>
                     
                     <div className="absolute top-2/3 right-1/3 transform -translate-x-1/2 -translate-y-1/2">
-                      <div className="w-8 h-8 rounded-full bg-primary/20 backdrop-blur-sm flex items-center justify-center cursor-pointer hover:bg-primary/40 transition-colors">
+                      <div className="w-8 h-8 rounded-full bg-primary/20 backdrop-blur-sm flex items-centre justify-centre cursor-pointer hover:bg-primary/40 transition-colors">
                         <Lightbulb className="h-4 w-4 text-primary" />
                       </div>
                     </div>
                     
                     <div className="absolute bottom-1/4 right-1/4 transform -translate-x-1/2 -translate-y-1/2">
-                      <div className="w-8 h-8 rounded-full bg-primary/20 backdrop-blur-sm flex items-center justify-center cursor-pointer hover:bg-primary/40 transition-colors">
+                      <div className="w-8 h-8 rounded-full bg-primary/20 backdrop-blur-sm flex items-centre justify-centre cursor-pointer hover:bg-primary/40 transition-colors">
                         <Users className="h-4 w-4 text-primary" />
                       </div>
                     </div>
@@ -454,7 +454,7 @@ export default function ImmersiveLearningEnvironmentsPage() {
                 {/* Learning guide panel */}
                 {showGuide && !isRotating && (
                   <div className="absolute top-4 right-4 w-64 bg-background/90 backdrop-blur-sm p-4 rounded-lg border shadow-lg">
-                    <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-centre justify-between mb-2">
                       <h4 className="font-medium">Learning Guide</h4>
                       <Button variant="ghost" size="sm" className="h-6 w-6 p-0">
                         <PanelRight className="h-4 w-4" />
@@ -466,10 +466,10 @@ export default function ImmersiveLearningEnvironmentsPage() {
                                    'cellular structures'} to discover key learning points.
                     </p>
                     <div className="text-xs">
-                      <div className="flex items-center gap-1 text-primary">
+                      <div className="flex items-centre gap-1 text-primary">
                         <Map className="h-3 w-3" />
                         <span>Current location: {activeTab === 'rainforest' ? 'Canopy Level' : 
-                                               activeTab === 'ancient_rome' ? 'Forum Center' : 
+                                               activeTab === 'ancient_rome' ? 'Forum Centre' : 
                                                'Cytoplasm'}</span>
                       </div>
                     </div>
@@ -504,7 +504,7 @@ export default function ImmersiveLearningEnvironmentsPage() {
                     
                     <p>
                       {activeTab === 'rainforest' ? (
-                        "This environment integrates biology, ecology, geography, and environmental science concepts, allowing for cross-disciplinary learning experiences. Students can conduct virtual field research, collect data, and analyze ecosystem relationships through hands-on interaction."
+                        "This environment integrates biology, ecology, geography, and environmental science concepts, allowing for cross-disciplinary learning experiences. Students can conduct virtual field research, collect data, and analyse ecosystem relationships through hands-on interaction."
                       ) : activeTab === 'ancient_rome' ? (
                         "This environment brings together history, politics, architecture, and cultural studies in an integrated learning experience. Students can participate in historical events, examine artifacts, and engage with the social structures and daily practices of Ancient Roman society."
                       ) : (
@@ -515,7 +515,7 @@ export default function ImmersiveLearningEnvironmentsPage() {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
                       <Card>
                         <CardContent className="p-4">
-                          <h4 className="font-medium mb-2 flex items-center">
+                          <h4 className="font-medium mb-2 flex items-centre">
                             <Users className="mr-2 h-4 w-4 text-primary" />
                             Target Age Groups
                           </h4>
@@ -545,7 +545,7 @@ export default function ImmersiveLearningEnvironmentsPage() {
                       
                       <Card>
                         <CardContent className="p-4">
-                          <h4 className="font-medium mb-2 flex items-center">
+                          <h4 className="font-medium mb-2 flex items-centre">
                             <BookOpen className="mr-2 h-4 w-4 text-primary" />
                             Curriculum Links
                           </h4>
@@ -575,7 +575,7 @@ export default function ImmersiveLearningEnvironmentsPage() {
                       
                       <Card>
                         <CardContent className="p-4">
-                          <h4 className="font-medium mb-2 flex items-center">
+                          <h4 className="font-medium mb-2 flex items-centre">
                             <Layers className="mr-2 h-4 w-4 text-primary" />
                             Experience Type
                           </h4>
@@ -636,7 +636,7 @@ export default function ImmersiveLearningEnvironmentsPage() {
                       {currentEnvironment.interactiveElements.map((element, index) => (
                         <Card key={index}>
                           <CardContent className="p-4">
-                            <h4 className="font-medium mb-2 flex items-center">
+                            <h4 className="font-medium mb-2 flex items-centre">
                               <div className="mr-2 bg-primary/10 p-1 rounded-full">
                                 <Sparkles className="h-4 w-4 text-primary" />
                               </div>
@@ -668,37 +668,37 @@ export default function ImmersiveLearningEnvironmentsPage() {
                     <div className="bg-muted/50 p-4 rounded-lg mt-6">
                       <h4 className="font-medium mb-2">Interaction Methods</h4>
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-centre gap-2">
                           <div className="bg-primary/10 p-1 rounded-full">
                             <Sparkles className="h-4 w-4 text-primary" />
                           </div>
                           <span>Direct manipulation</span>
                         </div>
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-centre gap-2">
                           <div className="bg-primary/10 p-1 rounded-full">
                             <Sparkles className="h-4 w-4 text-primary" />
                           </div>
                           <span>Voice commands</span>
                         </div>
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-centre gap-2">
                           <div className="bg-primary/10 p-1 rounded-full">
                             <Sparkles className="h-4 w-4 text-primary" />
                           </div>
                           <span>Gesture controls</span>
                         </div>
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-centre gap-2">
                           <div className="bg-primary/10 p-1 rounded-full">
                             <Sparkles className="h-4 w-4 text-primary" />
                           </div>
                           <span>Data collection tools</span>
                         </div>
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-centre gap-2">
                           <div className="bg-primary/10 p-1 rounded-full">
                             <Sparkles className="h-4 w-4 text-primary" />
                           </div>
                           <span>Simulation controls</span>
                         </div>
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-centre gap-2">
                           <div className="bg-primary/10 p-1 rounded-full">
                             <Sparkles className="h-4 w-4 text-primary" />
                           </div>
@@ -719,7 +719,7 @@ export default function ImmersiveLearningEnvironmentsPage() {
                       {currentEnvironment.guidedActivities.map((activity, index) => (
                         <Card key={index}>
                           <CardContent className="p-4">
-                            <h4 className="font-medium mb-2 flex items-center">
+                            <h4 className="font-medium mb-2 flex items-centre">
                               <div className="mr-2 bg-primary/10 p-1 rounded-full">
                                 <Compass className="h-4 w-4 text-primary" />
                               </div>
@@ -728,7 +728,7 @@ export default function ImmersiveLearningEnvironmentsPage() {
                             <p className="text-sm text-muted-foreground mb-3">
                               {activeTab === 'rainforest' ? (
                                 index === 0 ? "Guide students through the different layers of the rainforest canopy, from understory to emergent layer, exploring biodiversity at each level." :
-                                index === 1 ? "Investigate the Amazon River system and its role in the rainforest ecosystem, collecting and analyzing water samples and observing aquatic life." :
+                                index === 1 ? "Investigate the Amazon River system and its role in the rainforest ecosystem, collecting and analysing water samples and observing aquatic life." :
                                 index === 2 ? "Create a detailed map of species interactions, including predator-prey relationships, symbiosis, and competition for resources." :
                                 "Engage students in a conservation challenge where they must develop and test strategies to protect endangered species and habitats."
                               ) : activeTab === 'ancient_rome' ? (
@@ -782,11 +782,11 @@ export default function ImmersiveLearningEnvironmentsPage() {
         transition={{ delay: 0.6, duration: 0.5 }}
         className="mb-12"
       >
-        <h2 className="text-3xl font-semibold mb-6 text-center">How It Works</h2>
+        <h2 className="text-3xl font-semibold mb-6 text-centre">How It Works</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <Card>
-            <CardContent className="p-6 text-center">
+            <CardContent className="p-6 text-centre">
               <div className="bg-primary/10 p-3 rounded-full w-fit mx-auto mb-4">
                 <Layers className="h-6 w-6 text-primary" />
               </div>
@@ -798,7 +798,7 @@ export default function ImmersiveLearningEnvironmentsPage() {
           </Card>
           
           <Card>
-            <CardContent className="p-6 text-center">
+            <CardContent className="p-6 text-centre">
               <div className="bg-primary/10 p-3 rounded-full w-fit mx-auto mb-4">
                 <Globe className="h-6 w-6 text-primary" />
               </div>
@@ -810,7 +810,7 @@ export default function ImmersiveLearningEnvironmentsPage() {
           </Card>
           
           <Card>
-            <CardContent className="p-6 text-center">
+            <CardContent className="p-6 text-centre">
               <div className="bg-primary/10 p-3 rounded-full w-fit mx-auto mb-4">
                 <Users className="h-6 w-6 text-primary" />
               </div>
@@ -829,7 +829,7 @@ export default function ImmersiveLearningEnvironmentsPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.8, duration: 0.5 }}
       >
-        <h2 className="text-3xl font-semibold mb-6 text-center">Benefits</h2>
+        <h2 className="text-3xl font-semibold mb-6 text-centre">Benefits</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Card>

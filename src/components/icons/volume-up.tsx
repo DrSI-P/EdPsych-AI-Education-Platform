@@ -5,13 +5,13 @@ import React from 'react';
 // Create a stub VolumeUp icon component to fix build warnings
 export const VolumeUp = ({ 
   size = 24, 
-  color = 'currentColor', 
+  colour = 'currentColor', 
   strokeWidth = 2,
   className = '',
   ...props 
 }: {
   size?: number;
-  color?: string;
+  colour?: string;
   strokeWidth?: number;
   className?: string;
   [key: string]: any;
@@ -23,7 +23,7 @@ export const VolumeUp = ({
       height={size}
       viewBox="0 0 24 24"
       fill="none"
-      stroke={color}
+      stroke={colour}
       strokeWidth={strokeWidth}
       strokeLinecap="round"
       strokeLinejoin="round"

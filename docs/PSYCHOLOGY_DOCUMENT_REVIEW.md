@@ -17,7 +17,7 @@ These documents provide the evidence-based foundation for the platform's feature
 
 - **Affects and Scripts**: Affects are automatic biological responses to stimuli, while scripts are learned patterns of emotional responses developed over time.
 - **Affective Resonance**: How one emotional script can trigger a cascade of related emotions, reinforcing negative beliefs and behaviors.
-- **Tomkins' Theory of Affect Script**: Nine affect scripts categorized into positive, neutral, and negative groups that guide behavior.
+- **Tomkins' Theory of Affect Script**: Nine affect scripts categorized into positive, neutral, and negative groups that guide behaviour.
 - **Central Blueprint Rules**: Four fundamental rules for emotional regulation:
   1. Maximize positive affect
   2. Minimize negative affect
@@ -42,14 +42,14 @@ These documents provide the evidence-based foundation for the platform's feature
 
 - **School Connectedness**: Implementation of Restorative Justice Practices (RJP) leads to increased sense of school connectedness for children and young people.
 - **School Community**: RJP implementation strengthens sense of school community and belonging.
-- **Psychological Adjustment**: Students report improved psychological and behavioral adjustment after RJP implementation.
+- **Psychological Adjustment**: Students report improved psychological and behavioural adjustment after RJP implementation.
 - **Differential Impact**: Initial perception of school connectedness affects how students respond to RJP implementation.
 
 ### Measurement Frameworks
 
 - **School Connectedness Scale (SCS)**: Measures students' sense of connection to their school environment.
 - **Sense of School Community Scale (SSCS)**: Assesses students' perception of community within the school.
-- **Strengths and Difficulties Questionnaire (SDQ)**: Evaluates psychological and behavioral adjustment.
+- **Strengths and Difficulties Questionnaire (SDQ)**: Evaluates psychological and behavioural adjustment.
 - **Longitudinal Assessment**: Recommends measuring outcomes at baseline and 6+ months after implementation.
 
 ### Integration Opportunities
@@ -76,7 +76,7 @@ The manuscript outlines six key impact areas for holistic education:
 3. **Inclusion and Equity**: Measuring participation rates, achievement gaps, and support access.
 4. **Student Engagement and Agency**: Evaluating student ownership over learning through surveys and observations.
 5. **Creativity and Innovation**: Tracking creative outputs and engagement in project-based learning.
-6. **School Climate and Culture**: Measuring collaboration, respect, and belonging through surveys and behavioral data.
+6. **School Climate and Culture**: Measuring collaboration, respect, and belonging through surveys and behavioural data.
 
 ### Measurement Tools
 
@@ -90,7 +90,7 @@ The manuscript outlines six key impact areas for holistic education:
 
 - **Comprehensive Measurement System**: Implement the six-dimension framework for assessing restorative justice outcomes.
 - **Multi-method Approach**: Combine quantitative metrics with qualitative feedback mechanisms.
-- **Visualization Tools**: Create dashboards showing progress across multiple dimensions.
+- **Visualisation Tools**: Create dashboards showing progress across multiple dimensions.
 - **Long-term Tracking**: Design systems for following student outcomes beyond immediate intervention period.
 
 ## 4. Supporting Children with Attachment Needs
@@ -117,7 +117,7 @@ The manuscript outlines six key impact areas for holistic education:
 
 Based on the reviewed documents, the outcome measurement tools for restorative justice should:
 
-1. **Be Multi-dimensional**: Measure academic, social-emotional, behavioral, and relational outcomes.
+1. **Be Multi-dimensional**: Measure academic, social-emotional, behavioural, and relational outcomes.
 2. **Include Multiple Perspectives**: Gather data from students, teachers, parents, and other stakeholders.
 3. **Combine Quantitative and Qualitative Methods**: Use validated scales alongside qualitative feedback.
 4. **Track Short and Long-term Outcomes**: Immediate impacts and sustained changes over time.

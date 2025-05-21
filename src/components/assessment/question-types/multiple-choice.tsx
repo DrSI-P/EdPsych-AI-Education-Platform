@@ -131,12 +131,12 @@ export default function MultipleChoiceQuestion({
 
   return (
     <div className="space-y-6 p-4 bg-white rounded-lg border">
-      <div className="flex justify-between items-center">
-        <h3 className="text-lg font-medium text-gray-900">
+      <div className="flex justify-between items-centre">
+        <h3 className="text-lg font-medium text-grey-900">
           {isEditing ? 'Edit Multiple Choice Question' : 'Add Multiple Choice Question'}
         </h3>
-        <div className="flex items-center space-x-2">
-          <label className="text-sm text-gray-600">Points:</label>
+        <div className="flex items-centre space-x-2">
+          <label className="text-sm text-grey-600">Points:</label>
           <input
             type="number"
             min="1"
@@ -154,7 +154,7 @@ export default function MultipleChoiceQuestion({
       )}
 
       <div>
-        <label htmlFor="question-content" className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor="question-content" className="block text-sm font-medium text-grey-700 mb-1">
           Question <span className="text-red-500">*</span>
         </label>
         <textarea
@@ -164,7 +164,7 @@ export default function MultipleChoiceQuestion({
           placeholder="Enter your question here"
           rows={3}
           className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-            errors.content ? 'border-red-500' : 'border-gray-300'
+            errors.content ? 'border-red-500' : 'border-grey-300'
           }`}
         />
         {errors.content && (
@@ -173,19 +173,19 @@ export default function MultipleChoiceQuestion({
       </div>
 
       <div>
-        <div className="flex justify-between items-center mb-2">
-          <label className="block text-sm font-medium text-gray-700">
+        <div className="flex justify-between items-centre mb-2">
+          <label className="block text-sm font-medium text-grey-700">
             Options <span className="text-red-500">*</span>
           </label>
-          <div className="flex items-center">
+          <div className="flex items-centre">
             <input
               type="checkbox"
               id="allow-multiple"
               checked={allowMultiple}
               onChange={() => setAllowMultiple(!allowMultiple)}
-              className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+              className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-grey-300 rounded"
             />
-            <label htmlFor="allow-multiple" className="ml-2 text-sm text-gray-600">
+            <label htmlFor="allow-multiple" className="ml-2 text-sm text-grey-600">
               Allow multiple correct answers
             </label>
           </div>
@@ -201,13 +201,13 @@ export default function MultipleChoiceQuestion({
 
         <div className="space-y-3">
           {options.map((option) => (
-            <div key={option.id} className="flex items-center space-x-3">
+            <div key={option.id} className="flex items-centre space-x-3">
               <div className="flex-shrink-0">
                 <input
                   type={allowMultiple ? 'checkbox' : 'radio'}
                   checked={option.isCorrect}
                   onChange={() => handleCorrectChange(option.id)}
-                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
+                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-grey-300"
                 />
               </div>
               <div className="flex-grow">
@@ -216,14 +216,14 @@ export default function MultipleChoiceQuestion({
                   value={option.text}
                   onChange={(e) => handleOptionChange(option.id, e.target.value)}
                   placeholder={`Option ${option.id}`}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
               <div>
                 <button
                   type="button"
                   onClick={() => removeOption(option.id)}
-                  className="text-gray-400 hover:text-gray-600"
+                  className="text-grey-400 hover:text-grey-600"
                   aria-label="Remove option"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -238,7 +238,7 @@ export default function MultipleChoiceQuestion({
         <button
           type="button"
           onClick={addOption}
-          className="mt-3 inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="mt-3 inline-flex items-centre px-3 py-1.5 border border-grey-300 shadow-sm text-sm font-medium rounded-md text-grey-700 bg-white hover:bg-grey-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />

@@ -13,7 +13,7 @@ The School_Platform repository appears to be a Next.js-based educational platfor
 - **Database**: SQLite (version 5.1.7)
 
 ## Key Dependencies
-- **UI Components**: Radix UI components for dialog, popover, tabs, etc.
+- **UI Components**: Radix UI components for dialogue, popover, tabs, etc.
 - **Code Editor**: Monaco Editor for React
 - **Authentication**: NextAuth with Prisma adapter
 - **Security**: bcrypt for password hashing

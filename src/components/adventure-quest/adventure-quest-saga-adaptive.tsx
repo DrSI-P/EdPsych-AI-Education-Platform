@@ -11,14 +11,14 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Progress } from "@/components/ui/progress";
 import { 
-  Dialog, 
+  Dialogue, 
   DialogContent, 
   DialogDescription, 
   DialogFooter, 
   DialogHeader, 
   DialogTitle, 
   DialogTrigger 
-} from "@/components/ui/dialog";
+} from "@/components/ui/dialogue";
 import { 
   Sword, 
   Map, 
@@ -387,12 +387,12 @@ const AdaptiveQuestGenerator = ({
       'Mathematics': [
         'Understand and apply mathematical concepts',
         'Develop problem-solving strategies',
-        'Recognize patterns and relationships',
+        'Recognise patterns and relationships',
         'Use mathematical language precisely',
         'Apply mathematics to real-world situations'
       ],
       'English': [
-        'Analyze different types of texts',
+        'Analyse different types of texts',
         'Develop vocabulary and language skills',
         'Create original written content',
         'Understand literary devices and techniques',
@@ -401,7 +401,7 @@ const AdaptiveQuestGenerator = ({
       'Science': [
         'Understand scientific method',
         'Conduct experiments and investigations',
-        'Analyze and interpret data',
+        'Analyse and interpret data',
         'Make connections between scientific concepts',
         'Apply scientific knowledge to solve problems'
       ]
@@ -411,7 +411,7 @@ const AdaptiveQuestGenerator = ({
     const defaultObjectives = [
       'Develop critical thinking skills',
       'Apply knowledge to solve problems',
-      'Analyze information effectively',
+      'Analyse information effectively',
       'Communicate ideas clearly',
       'Make connections between concepts'
     ];
@@ -506,7 +506,7 @@ const AdaptiveQuestGenerator = ({
         },
         {
           title: 'The Communication Courtyard',
-          description: 'Practice in the Communication Courtyard to refine your ability to express ideas clearly.'
+          description: 'Practise in the Communication Courtyard to refine your ability to express ideas clearly.'
         }
       ],
       'Science': [
@@ -520,11 +520,11 @@ const AdaptiveQuestGenerator = ({
         },
         {
           title: 'The Discovery Domain',
-          description: 'Reach the Discovery Domain to analyze your findings and draw meaningful conclusions.'
+          description: 'Reach the Discovery Domain to analyse your findings and draw meaningful conclusions.'
         },
         {
-          title: 'The Theory Theater',
-          description: 'Visit the Theory Theater to understand how scientific ideas explain natural phenomena.'
+          title: 'The Theory Theatre',
+          description: 'Visit the Theory Theatre to understand how scientific ideas explain natural phenomena.'
         },
         {
           title: 'The Application Archipelago',
@@ -743,7 +743,7 @@ const AdaptiveQuestGenerator = ({
   
   return (
     <div className="space-y-6">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-centre">
         <div>
           <h2 className="text-2xl font-bold">Adaptive Quest Generator</h2>
           <p className="text-muted-foreground">Create personalized quests tailored to your learning needs</p>
@@ -752,11 +752,11 @@ const AdaptiveQuestGenerator = ({
       
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center">
+          <CardTitle className="flex items-centre">
             <Sparkles className="h-5 w-5 mr-2" />
             Quest Parameters
           </CardTitle>
-          <CardDescription>Customize your quest or let the system adapt to your needs</CardDescription>
+          <CardDescription>Customise your quest or let the system adapt to your needs</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -831,7 +831,7 @@ const AdaptiveQuestGenerator = ({
                     <Badge
                       key={style.id}
                       variant={generationParams.learningStyles.includes(style.id) ? "default" : "outline"}
-                      className="cursor-pointer flex items-center"
+                      className="cursor-pointer flex items-centre"
                       onClick={() => toggleLearningStyle(style.id)}
                     >
                       {style.icon}
@@ -890,7 +890,7 @@ const AdaptiveQuestGenerator = ({
         </CardFooter>
       </Card>
       
-      {/* Credit purchase dialog from fair usage hook */}
+      {/* Credit purchase dialogue from fair usage hook */}
       <CreditPurchaseDialog />
     </div>
   );
@@ -1161,7 +1161,7 @@ const ProgressTrackingDashboard = ({
   
   return (
     <div className="space-y-6">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-centre">
         <div>
           <h2 className="text-2xl font-bold">Learning Progress</h2>
           <p className="text-muted-foreground">Track your educational journey and achievements</p>
@@ -1171,7 +1171,7 @@ const ProgressTrackingDashboard = ({
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card>
           <CardContent className="pt-6">
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-centre">
               <div className="text-2xl font-bold">{completedQuests?.length || 0}</div>
               <p className="text-muted-foreground">Quests Completed</p>
             </div>
@@ -1180,7 +1180,7 @@ const ProgressTrackingDashboard = ({
         
         <Card>
           <CardContent className="pt-6">
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-centre">
               <div className="text-2xl font-bold">{Math.round(overallProgress.averageScore)}%</div>
               <p className="text-muted-foreground">Average Score</p>
             </div>
@@ -1189,7 +1189,7 @@ const ProgressTrackingDashboard = ({
         
         <Card>
           <CardContent className="pt-6">
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-centre">
               <div className="text-2xl font-bold">{overallProgress.totalXP}</div>
               <p className="text-muted-foreground">Total XP Earned</p>
             </div>
@@ -1198,7 +1198,7 @@ const ProgressTrackingDashboard = ({
         
         <Card>
           <CardContent className="pt-6">
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-centre">
               <div className="text-2xl font-bold">{character?.level || 1}</div>
               <p className="text-muted-foreground">Current Level</p>
             </div>
@@ -1229,7 +1229,7 @@ const ProgressTrackingDashboard = ({
         <TabsContent value="overview" className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center">
+              <CardTitle className="flex items-centre">
                 <Activity className="h-5 w-5 mr-2" />
                 Overall Progress
               </CardTitle>
@@ -1238,7 +1238,7 @@ const ProgressTrackingDashboard = ({
             <CardContent>
               <div className="space-y-6">
                 <div>
-                  <div className="flex justify-between items-center mb-2">
+                  <div className="flex justify-between items-centre mb-2">
                     <span className="text-sm font-medium">Quest Completion</span>
                     <span className="text-sm font-medium">{Math.round(overallProgress.completionRate)}%</span>
                   </div>
@@ -1246,7 +1246,7 @@ const ProgressTrackingDashboard = ({
                 </div>
                 
                 <div>
-                  <div className="flex justify-between items-center mb-2">
+                  <div className="flex justify-between items-centre mb-2">
                     <span className="text-sm font-medium">Average Assessment Score</span>
                     <span className="text-sm font-medium">{Math.round(overallProgress.averageScore)}%</span>
                   </div>
@@ -1258,8 +1258,8 @@ const ProgressTrackingDashboard = ({
                   <div className="space-y-3">
                     {character?.skills?.map((skill) => (
                       <div key={skill.id} className="space-y-1">
-                        <div className="flex justify-between items-center">
-                          <div className="flex items-center">
+                        <div className="flex justify-between items-centre">
+                          <div className="flex items-centre">
                             {skill.icon}
                             <span className="text-sm ml-2">{skill.name}</span>
                           </div>
@@ -1282,7 +1282,7 @@ const ProgressTrackingDashboard = ({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center">
+                <CardTitle className="flex items-centre">
                   <Trophy className="h-5 w-5 mr-2" />
                   Recent Achievements
                 </CardTitle>
@@ -1304,7 +1304,7 @@ const ProgressTrackingDashboard = ({
                     ))}
                   </div>
                 ) : (
-                  <div className="text-center py-6 text-muted-foreground">
+                  <div className="text-centre py-6 text-muted-foreground">
                     <Trophy className="h-8 w-8 mx-auto mb-2 opacity-50" />
                     <p>No achievements yet</p>
                     <p className="text-xs mt-1">Complete quests to earn badges</p>
@@ -1315,7 +1315,7 @@ const ProgressTrackingDashboard = ({
             
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center">
+                <CardTitle className="flex items-centre">
                   <Sword className="h-5 w-5 mr-2" />
                   Active Quests
                 </CardTitle>
@@ -1333,7 +1333,7 @@ const ProgressTrackingDashboard = ({
                           </Badge>
                         </div>
                         <div className="mt-2">
-                          <div className="flex justify-between items-center text-xs text-muted-foreground mb-1">
+                          <div className="flex justify-between items-centre text-xs text-muted-foreground mb-1">
                             <span>Progress</span>
                             <span>{quest.progress}%</span>
                           </div>
@@ -1343,7 +1343,7 @@ const ProgressTrackingDashboard = ({
                     ))}
                   </div>
                 ) : (
-                  <div className="text-center py-6 text-muted-foreground">
+                  <div className="text-centre py-6 text-muted-foreground">
                     <Sword className="h-8 w-8 mx-auto mb-2 opacity-50" />
                     <p>No active quests</p>
                     <p className="text-xs mt-1">Start a quest to begin your adventure</p>
@@ -1357,7 +1357,7 @@ const ProgressTrackingDashboard = ({
         <TabsContent value="subjects" className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center">
+              <CardTitle className="flex items-centre">
                 <BookOpen className="h-5 w-5 mr-2" />
                 Subject Performance
               </CardTitle>
@@ -1368,7 +1368,7 @@ const ProgressTrackingDashboard = ({
                 <div className="space-y-6">
                   {subjectProgress.map((progress) => (
                     <div key={progress.subject} className="space-y-2">
-                      <div className="flex justify-between items-center">
+                      <div className="flex justify-between items-centre">
                         <h3 className="font-medium">{progress.subject}</h3>
                         <Badge variant="outline">
                           {progress.completed} {progress.completed === 1 ? 'Quest' : 'Quests'}
@@ -1376,23 +1376,23 @@ const ProgressTrackingDashboard = ({
                       </div>
                       
                       <div>
-                        <div className="flex justify-between items-center text-xs text-muted-foreground mb-1">
+                        <div className="flex justify-between items-centre text-xs text-muted-foreground mb-1">
                           <span>Average Score</span>
                           <span>{Math.round(progress.averageScore)}%</span>
                         </div>
                         <Progress 
                           value={progress.averageScore} 
                           className="h-2"
-                          // Color based on score
+                          // Colour based on score
                           style={{
                             backgroundColor: 'hsl(var(--muted))',
-                            '--progress-color': progress.averageScore < 50 
+                            '--progress-colour': progress.averageScore < 50 
                               ? 'hsl(var(--destructive))' 
                               : progress.averageScore < 70
                                 ? 'hsl(var(--warning))' 
                                 : 'hsl(var(--success))',
                             '--progress-value': `${progress.averageScore}%`,
-                            background: 'linear-gradient(to right, var(--progress-color) var(--progress-value), hsl(var(--muted)) var(--progress-value))'
+                            background: 'linear-gradient(to right, var(--progress-colour) var(--progress-value), hsl(var(--muted)) var(--progress-value))'
                           }}
                         />
                       </div>
@@ -1407,7 +1407,7 @@ const ProgressTrackingDashboard = ({
                   ))}
                 </div>
               ) : (
-                <div className="text-center py-6 text-muted-foreground">
+                <div className="text-centre py-6 text-muted-foreground">
                   <BookOpen className="h-8 w-8 mx-auto mb-2 opacity-50" />
                   <p>No subject data available</p>
                   <p className="text-xs mt-1">Complete quests to see your subject performance</p>
@@ -1418,7 +1418,7 @@ const ProgressTrackingDashboard = ({
           
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center">
+              <CardTitle className="flex items-centre">
                 <PieChart className="h-5 w-5 mr-2" />
                 Subject Distribution
               </CardTitle>
@@ -1426,17 +1426,17 @@ const ProgressTrackingDashboard = ({
             </CardHeader>
             <CardContent>
               {subjectProgress.length > 0 ? (
-                <div className="h-64 flex items-center justify-center">
+                <div className="h-64 flex items-centre justify-centre">
                   {/* In a real implementation, this would be a pie chart */}
-                  <div className="text-center">
+                  <div className="text-centre">
                     <PieChart className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
                     <p className="text-muted-foreground">
-                      Subject distribution visualization would appear here
+                      Subject distribution visualisation would appear here
                     </p>
                   </div>
                 </div>
               ) : (
-                <div className="text-center py-6 text-muted-foreground">
+                <div className="text-centre py-6 text-muted-foreground">
                   <PieChart className="h-8 w-8 mx-auto mb-2 opacity-50" />
                   <p>No subject data available</p>
                   <p className="text-xs mt-1">Complete quests to see your subject distribution</p>
@@ -1449,7 +1449,7 @@ const ProgressTrackingDashboard = ({
         <TabsContent value="learning-styles" className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center">
+              <CardTitle className="flex items-centre">
                 <Brain className="h-5 w-5 mr-2" />
                 Learning Style Effectiveness
               </CardTitle>
@@ -1460,8 +1460,8 @@ const ProgressTrackingDashboard = ({
                 <div className="space-y-6">
                   {learningStyleEffectiveness.map((style) => (
                     <div key={style.style} className="space-y-2">
-                      <div className="flex justify-between items-center">
-                        <h3 className="font-medium flex items-center">
+                      <div className="flex justify-between items-centre">
+                        <h3 className="font-medium flex items-centre">
                           {style.style === 'Visual' ? <Eye className="h-4 w-4 mr-2" /> :
                            style.style === 'Auditory' ? <EarIcon className="h-4 w-4 mr-2" /> :
                            style.style === 'Reading/Writing' ? <BookOpen className="h-4 w-4 mr-2" /> :
@@ -1474,23 +1474,23 @@ const ProgressTrackingDashboard = ({
                       </div>
                       
                       <div>
-                        <div className="flex justify-between items-center text-xs text-muted-foreground mb-1">
+                        <div className="flex justify-between items-centre text-xs text-muted-foreground mb-1">
                           <span>Effectiveness Score</span>
                           <span>{Math.round(style.averageScore)}%</span>
                         </div>
                         <Progress 
                           value={style.averageScore} 
                           className="h-2"
-                          // Color based on effectiveness
+                          // Colour based on effectiveness
                           style={{
                             backgroundColor: 'hsl(var(--muted))',
-                            '--progress-color': style.averageScore < 50 
+                            '--progress-colour': style.averageScore < 50 
                               ? 'hsl(var(--destructive))' 
                               : style.averageScore < 70
                                 ? 'hsl(var(--warning))' 
                                 : 'hsl(var(--success))',
                             '--progress-value': `${style.averageScore}%`,
-                            background: 'linear-gradient(to right, var(--progress-color) var(--progress-value), hsl(var(--muted)) var(--progress-value))'
+                            background: 'linear-gradient(to right, var(--progress-colour) var(--progress-value), hsl(var(--muted)) var(--progress-value))'
                           }}
                         />
                       </div>
@@ -1500,7 +1500,7 @@ const ProgressTrackingDashboard = ({
                   ))}
                   
                   <div className="p-3 bg-muted rounded-lg">
-                    <h4 className="font-medium flex items-center">
+                    <h4 className="font-medium flex items-centre">
                       <Lightbulb className="h-4 w-4 mr-2" />
                       Learning Style Insights
                     </h4>
@@ -1511,7 +1511,7 @@ const ProgressTrackingDashboard = ({
                   </div>
                 </div>
               ) : (
-                <div className="text-center py-6 text-muted-foreground">
+                <div className="text-centre py-6 text-muted-foreground">
                   <Brain className="h-8 w-8 mx-auto mb-2 opacity-50" />
                   <p>No learning style data available</p>
                   <p className="text-xs mt-1">Complete quests with different learning styles to see your effectiveness</p>
@@ -1522,7 +1522,7 @@ const ProgressTrackingDashboard = ({
           
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center">
+              <CardTitle className="flex items-centre">
                 <Puzzle className="h-5 w-5 mr-2" />
                 Recommended Learning Approaches
               </CardTitle>
@@ -1532,7 +1532,7 @@ const ProgressTrackingDashboard = ({
               {learningStyleEffectiveness.length > 0 ? (
                 <div className="space-y-4">
                   <div className="p-3 border rounded-lg">
-                    <h4 className="font-medium flex items-center">
+                    <h4 className="font-medium flex items-centre">
                       <Star className="h-4 w-4 mr-2 text-amber-500" />
                       Primary Approach
                     </h4>
@@ -1550,7 +1550,7 @@ const ProgressTrackingDashboard = ({
                   
                   {learningStyleEffectiveness.length > 1 && (
                     <div className="p-3 border rounded-lg">
-                      <h4 className="font-medium flex items-center">
+                      <h4 className="font-medium flex items-centre">
                         <Zap className="h-4 w-4 mr-2 text-blue-500" />
                         Secondary Approach
                       </h4>
@@ -1568,7 +1568,7 @@ const ProgressTrackingDashboard = ({
                   )}
                   
                   <div className="p-3 border rounded-lg">
-                    <h4 className="font-medium flex items-center">
+                    <h4 className="font-medium flex items-centre">
                       <Sparkles className="h-4 w-4 mr-2 text-purple-500" />
                       Multimodal Strategy
                     </h4>
@@ -1579,7 +1579,7 @@ const ProgressTrackingDashboard = ({
                   </div>
                 </div>
               ) : (
-                <div className="text-center py-6 text-muted-foreground">
+                <div className="text-centre py-6 text-muted-foreground">
                   <Puzzle className="h-8 w-8 mx-auto mb-2 opacity-50" />
                   <p>No recommendations available</p>
                   <p className="text-xs mt-1">Complete more quests to receive personalized learning recommendations</p>
@@ -1592,7 +1592,7 @@ const ProgressTrackingDashboard = ({
         <TabsContent value="trends" className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center">
+              <CardTitle className="flex items-centre">
                 <LineChart className="h-5 w-5 mr-2" />
                 Progress Over Time
               </CardTitle>
@@ -1603,9 +1603,9 @@ const ProgressTrackingDashboard = ({
                 <div className="space-y-6">
                   <div>
                     <h3 className="text-sm font-medium mb-4">Weekly Progress</h3>
-                    <div className="h-64 flex items-center justify-center">
+                    <div className="h-64 flex items-centre justify-centre">
                       {/* In a real implementation, this would be a line chart */}
-                      <div className="text-center">
+                      <div className="text-centre">
                         <LineChart className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
                         <p className="text-muted-foreground">
                           Weekly progress chart would appear here
@@ -1618,9 +1618,9 @@ const ProgressTrackingDashboard = ({
                   
                   <div>
                     <h3 className="text-sm font-medium mb-4">Monthly Progress</h3>
-                    <div className="h-64 flex items-center justify-center">
+                    <div className="h-64 flex items-centre justify-centre">
                       {/* In a real implementation, this would be a line chart */}
-                      <div className="text-center">
+                      <div className="text-centre">
                         <BarChart className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
                         <p className="text-muted-foreground">
                           Monthly progress chart would appear here
@@ -1630,7 +1630,7 @@ const ProgressTrackingDashboard = ({
                   </div>
                 </div>
               ) : (
-                <div className="text-center py-6 text-muted-foreground">
+                <div className="text-centre py-6 text-muted-foreground">
                   <LineChart className="h-8 w-8 mx-auto mb-2 opacity-50" />
                   <p>No trend data available</p>
                   <p className="text-xs mt-1">Complete quests over time to see your progress trends</p>
@@ -1641,7 +1641,7 @@ const ProgressTrackingDashboard = ({
           
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center">
+              <CardTitle className="flex items-centre">
                 <Milestone className="h-5 w-5 mr-2" />
                 Learning Milestones
               </CardTitle>
@@ -1656,7 +1656,7 @@ const ProgressTrackingDashboard = ({
                         <div className="absolute left-6 top-12 bottom-0 w-0.5 bg-muted"></div>
                       )}
                       <div className="flex items-start">
-                        <div className="flex-shrink-0 h-12 w-12 flex items-center justify-center bg-primary/10 rounded-full text-primary font-bold">
+                        <div className="flex-shrink-0 h-12 w-12 flex items-centre justify-centre bg-primary/10 rounded-full text-primary font-bold">
                           {index + 1}
                         </div>
                         <div className="ml-4">
@@ -1666,7 +1666,7 @@ const ProgressTrackingDashboard = ({
                               ? new Date(quest.completedAt).toLocaleDateString() 
                               : 'Date unknown'}
                           </p>
-                          <Badge variant="outline" className="flex items-center w-fit">
+                          <Badge variant="outline" className="flex items-centre w-fit">
                             <Trophy className="h-3 w-3 mr-1 text-amber-500" />
                             {quest.xpReward} XP Earned
                           </Badge>
@@ -1676,7 +1676,7 @@ const ProgressTrackingDashboard = ({
                   ))}
                 </div>
               ) : (
-                <div className="text-center py-6 text-muted-foreground">
+                <div className="text-centre py-6 text-muted-foreground">
                   <Milestone className="h-8 w-8 mx-auto mb-2 opacity-50" />
                   <p>No milestones yet</p>
                   <p className="text-xs mt-1">Complete quests to create your learning timeline</p>
@@ -2044,7 +2044,7 @@ const AdventureQuestSagaAdaptive = () => {
         </TabsContent>
       </Tabs>
       
-      {/* Credit purchase dialog from fair usage hook */}
+      {/* Credit purchase dialogue from fair usage hook */}
       <CreditPurchaseDialog />
     </div>
   );

@@ -8,7 +8,7 @@ import prisma from '@/lib/prisma';
 const AgreementSchema = z.object({
   title: z.string().min(3, "Title must be at least 3 characters"),
   description: z.string().optional(),
-  type: z.enum(["behavioral", "interpersonal", "reparative", "academic", "attendance"]),
+  type: z.enum(["behavioural", "interpersonal", "reparative", "academic", "attendance"]),
   participants: z.array(z.string()),
   facilitator: z.string().optional(),
   terms: z.array(z.object({

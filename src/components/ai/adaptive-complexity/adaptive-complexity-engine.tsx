@@ -169,8 +169,8 @@ export default function AdaptiveComplexityEngine({
     
     return (
       <div className="space-y-4 border rounded-md p-4 bg-slate-50 dark:bg-slate-900">
-        <div className="flex items-center justify-between">
-          <h3 className="text-sm font-medium flex items-center gap-2">
+        <div className="flex items-centre justify-between">
+          <h3 className="text-sm font-medium flex items-centre gap-2">
             <LineChart className="h-4 w-4 text-blue-600" />
             Student Performance Metrics
           </h3>
@@ -182,7 +182,7 @@ export default function AdaptiveComplexityEngine({
         <div className="grid grid-cols-2 gap-4">
           <div>
             <p className="text-xs text-muted-foreground mb-1">Comprehension Level</p>
-            <div className="flex items-center gap-2">
+            <div className="flex items-centre gap-2">
               <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
                 <div 
                   className="bg-blue-600 h-2 rounded-full" 
@@ -195,7 +195,7 @@ export default function AdaptiveComplexityEngine({
           
           <div>
             <p className="text-xs text-muted-foreground mb-1">Engagement Level</p>
-            <div className="flex items-center gap-2">
+            <div className="flex items-centre gap-2">
               <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
                 <div 
                   className="bg-green-600 h-2 rounded-full" 
@@ -208,7 +208,7 @@ export default function AdaptiveComplexityEngine({
           
           <div>
             <p className="text-xs text-muted-foreground mb-1">Completion Rate</p>
-            <div className="flex items-center gap-2">
+            <div className="flex items-centre gap-2">
               <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
                 <div 
                   className="bg-purple-600 h-2 rounded-full" 
@@ -221,7 +221,7 @@ export default function AdaptiveComplexityEngine({
           
           <div>
             <p className="text-xs text-muted-foreground mb-1">Assessment Score</p>
-            <div className="flex items-center gap-2">
+            <div className="flex items-centre gap-2">
               <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
                 <div 
                   className="bg-amber-600 h-2 rounded-full" 
@@ -233,8 +233,8 @@ export default function AdaptiveComplexityEngine({
           </div>
         </div>
         
-        <div className="flex items-center justify-between pt-2 border-t">
-          <div className="flex items-center gap-2">
+        <div className="flex items-centre justify-between pt-2 border-t">
+          <div className="flex items-centre gap-2">
             <Lightbulb className="h-4 w-4 text-amber-600" />
             <span className="text-sm font-medium">Recommended Complexity</span>
           </div>
@@ -250,8 +250,8 @@ export default function AdaptiveComplexityEngine({
     <div className={className}>
       <Card className="mb-6">
         <CardHeader>
-          <CardTitle className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
+          <CardTitle className="flex items-centre justify-between">
+            <div className="flex items-centre gap-2">
               <ArrowUpDown className="h-5 w-5 text-primary" />
               Adaptive Complexity Adjustment
             </div>
@@ -266,7 +266,7 @@ export default function AdaptiveComplexityEngine({
           
           <div className="space-y-4 pt-4">
             <div className="space-y-2">
-              <div className="flex items-center justify-between">
+              <div className="flex items-centre justify-between">
                 <label className="text-sm font-medium">Target Complexity Level</label>
                 <span className="text-xs text-muted-foreground">
                   {settings.targetComplexityLevel}% - {getComplexityLevelDescription(settings.targetComplexityLevel)}
@@ -284,7 +284,7 @@ export default function AdaptiveComplexityEngine({
               </p>
             </div>
             
-            <div className="flex items-center justify-between">
+            <div className="flex items-centre justify-between">
               <div className="space-y-0.5">
                 <label className="text-sm font-medium">Adapt to Performance Data</label>
                 <p className="text-xs text-muted-foreground">
@@ -297,7 +297,7 @@ export default function AdaptiveComplexityEngine({
               />
             </div>
             
-            <div className="flex items-center justify-between">
+            <div className="flex items-centre justify-between">
               <div className="space-y-0.5">
                 <label className="text-sm font-medium">Include Scaffolding</label>
                 <p className="text-xs text-muted-foreground">
@@ -310,7 +310,7 @@ export default function AdaptiveComplexityEngine({
               />
             </div>
             
-            <div className="flex items-center justify-between">
+            <div className="flex items-centre justify-between">
               <div className="space-y-0.5">
                 <label className="text-sm font-medium">Include Extensions</label>
                 <p className="text-xs text-muted-foreground">
@@ -323,7 +323,7 @@ export default function AdaptiveComplexityEngine({
               />
             </div>
             
-            <div className="flex items-center justify-between">
+            <div className="flex items-centre justify-between">
               <div className="space-y-0.5">
                 <label className="text-sm font-medium">Preserve Multi-Modal Elements</label>
                 <p className="text-xs text-muted-foreground">
@@ -337,7 +337,7 @@ export default function AdaptiveComplexityEngine({
             </div>
             
             <div className="space-y-2">
-              <div className="flex items-center justify-between">
+              <div className="flex items-centre justify-between">
                 <label className="text-sm font-medium">Adaptation Strength</label>
                 <span className="text-xs text-muted-foreground">
                   {settings.adaptationStrength}%
@@ -355,7 +355,7 @@ export default function AdaptiveComplexityEngine({
               </p>
             </div>
             
-            <div className="flex items-center justify-between">
+            <div className="flex items-centre justify-between">
               <div className="space-y-0.5">
                 <label className="text-sm font-medium">Auto-Assess Comprehension</label>
                 <p className="text-xs text-muted-foreground">
@@ -371,14 +371,14 @@ export default function AdaptiveComplexityEngine({
         </CardContent>
         
         <CardFooter className="flex justify-between border-t pt-4">
-          <div className="flex items-center text-xs text-muted-foreground">
+          <div className="flex items-centre text-xs text-muted-foreground">
             <CheckCircle2 className="h-3 w-3 mr-1" /> 
             Evidence-based complexity adjustment
           </div>
           <Button 
             onClick={adjustComplexity} 
             disabled={isAdjusting}
-            className="flex items-center gap-1"
+            className="flex items-centre gap-1"
           >
             {isAdjusting ? (
               <>
@@ -398,9 +398,9 @@ export default function AdaptiveComplexityEngine({
       {isAdjusting && (
         <Card>
           <CardContent className="py-6">
-            <div className="flex flex-col items-center justify-center space-y-4">
+            <div className="flex flex-col items-centre justify-centre space-y-4">
               <RefreshCw className="h-8 w-8 text-primary animate-spin" />
-              <div className="text-center">
+              <div className="text-centre">
                 <h3 className="text-lg font-medium">Adjusting Content Complexity</h3>
                 <p className="text-sm text-muted-foreground">
                   Adapting content to the appropriate complexity level...
@@ -423,13 +423,13 @@ export default function AdaptiveComplexityEngine({
           <CardContent>
             <Tabs defaultValue="original" value={activeTab} onValueChange={setActiveTab}>
               <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="original" className="flex items-center gap-1">
+                <TabsTrigger value="original" className="flex items-centre gap-1">
                   Original Content
                   <Badge variant="outline" className={getComplexityBadgeColor(adjustedContent.originalComplexity)}>
                     {adjustedContent.originalComplexity}%
                   </Badge>
                 </TabsTrigger>
-                <TabsTrigger value="adjusted" className="flex items-center gap-1">
+                <TabsTrigger value="adjusted" className="flex items-centre gap-1">
                   Adjusted Content
                   <Badge variant="outline" className={getComplexityBadgeColor(adjustedContent.adjustedComplexity)}>
                     {adjustedContent.adjustedComplexity}%
@@ -452,7 +452,7 @@ export default function AdaptiveComplexityEngine({
                     
                     {adjustedContent.scaffolding && settings.includeScaffolding && (
                       <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900/30 rounded-md">
-                        <h4 className="text-sm font-medium flex items-center gap-2 text-blue-700 dark:text-blue-300">
+                        <h4 className="text-sm font-medium flex items-centre gap-2 text-blue-700 dark:text-blue-300">
                           <Lightbulb className="h-4 w-4" />
                           Scaffolding Support
                         </h4>
@@ -462,7 +462,7 @@ export default function AdaptiveComplexityEngine({
                     
                     {adjustedContent.extensions && settings.includeExtensions && (
                       <div className="mt-4 p-3 bg-purple-50 dark:bg-purple-900/30 rounded-md">
-                        <h4 className="text-sm font-medium flex items-center gap-2 text-purple-700 dark:text-purple-300">
+                        <h4 className="text-sm font-medium flex items-centre gap-2 text-purple-700 dark:text-purple-300">
                           <Zap className="h-4 w-4" />
                           Extension Activities
                         </h4>
@@ -472,7 +472,7 @@ export default function AdaptiveComplexityEngine({
                     
                     {adjustedContent.comprehensionChecks && settings.autoAssessComprehension && (
                       <div className="mt-4 p-3 bg-amber-50 dark:bg-amber-900/30 rounded-md">
-                        <h4 className="text-sm font-medium flex items-center gap-2 text-amber-700 dark:text-amber-300">
+                        <h4 className="text-sm font-medium flex items-centre gap-2 text-amber-700 dark:text-amber-300">
                           <AlertCircle className="h-4 w-4" />
                           Comprehension Checks
                         </h4>
@@ -487,19 +487,19 @@ export default function AdaptiveComplexityEngine({
             <div className="mt-4 bg-slate-50 dark:bg-slate-900 p-4 rounded-md">
               <h4 className="text-sm font-medium mb-2">Complexity Adjustment Summary</h4>
               <div className="space-y-2">
-                <div className="flex items-center justify-between text-sm">
+                <div className="flex items-centre justify-between text-sm">
                   <span>Original Complexity:</span>
                   <Badge variant="outline" className={getComplexityBadgeColor(adjustedContent.originalComplexity)}>
                     {adjustedContent.originalComplexity}% - {getComplexityLevelDescription(adjustedContent.originalComplexity)}
                   </Badge>
                 </div>
-                <div className="flex items-center justify-between text-sm">
+                <div className="flex items-centre justify-between text-sm">
                   <span>Adjusted Complexity:</span>
                   <Badge variant="outline" className={getComplexityBadgeColor(adjustedContent.adjustedComplexity)}>
                     {adjustedContent.adjustedComplexity}% - {getComplexityLevelDescription(adjustedContent.adjustedComplexity)}
                   </Badge>
                 </div>
-                <div className="flex items-center justify-between text-sm">
+                <div className="flex items-centre justify-between text-sm">
                   <span>Adaptation Type:</span>
                   <Badge variant="outline">
                     {adjustedContent.adaptationType}
@@ -514,7 +514,7 @@ export default function AdaptiveComplexityEngine({
               variant="outline" 
               size="sm" 
               onClick={() => setAdjustedContent(null)}
-              className="flex items-center gap-1"
+              className="flex items-centre gap-1"
             >
               Reset
             </Button>
@@ -527,7 +527,7 @@ export default function AdaptiveComplexityEngine({
                   description: "The adjusted content has been saved to your account.",
                 });
               }}
-              className="flex items-center gap-1"
+              className="flex items-centre gap-1"
             >
               Save Adjusted Content
             </Button>

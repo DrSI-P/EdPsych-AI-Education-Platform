@@ -98,7 +98,7 @@ The Learning Communities feature is a comprehensive system designed to facilitat
   - Personalized engagement feeds
   - Trending topics and resources
   - Community contribution metrics
-  - Impact visualization tools
+  - Impact visualisation tools
 
 - **Gamification Elements**:
   - Contribution recognition badges
@@ -114,7 +114,7 @@ The Learning Communities feature is a comprehensive system designed to facilitat
 
 - **Impact Measurement**:
   - Knowledge transfer tracking
-  - Practice change indicators
+  - Practise change indicators
   - Student outcome correlations
   - Return on investment calculations
 
@@ -127,7 +127,7 @@ The Learning Communities feature is a comprehensive system designed to facilitat
 3. **Collaboration**: Connect with colleagues across schools for joint initiatives
 4. **Growth**: Track professional development through community participation
 5. **Recognition**: Receive acknowledgment for valuable contributions
-6. **Impact**: Measure how community engagement influences practice
+6. **Impact**: Measure how community engagement influences practise
 
 ### For School Leaders
 
@@ -154,7 +154,7 @@ The Learning Communities feature is a comprehensive system designed to facilitat
 - **Community Directory**: Searchable listing of available communities
 - **Community Workspace**: Central hub for each learning community
 - **Discussion Forums**: Threaded conversation spaces with rich media support
-- **Resource Library**: Organized collection of shared materials
+- **Resource Library**: Organised collection of shared materials
 - **Collaboration Tools**: Real-time and asynchronous co-creation interfaces
 - **Privacy Controls**: Intuitive permission management interfaces
 - **Analytics Dashboards**: Visual representations of community activity and impact
@@ -170,7 +170,7 @@ The Learning Communities feature is a comprehensive system designed to facilitat
 
 ### Data Models
 
-- **Community Structure**: Hierarchical organization of learning spaces
+- **Community Structure**: Hierarchical organisation of learning spaces
 - **Permission Rules**: Complex conditions for content access
 - **Resource Metadata**: Comprehensive tagging for discovery and relevance
 - **User Participation**: Engagement tracking across communities
@@ -181,9 +181,9 @@ The Learning Communities feature is a comprehensive system designed to facilitat
 
 The Learning Communities feature is grounded in established educational psychology principles:
 
-- **Communities of Practice**: Leverages Wenger's theory of learning through participation in shared practices
+- **Communities of Practise**: Leverages Wenger's theory of learning through participation in shared practices
 - **Social Constructivism**: Facilitates knowledge building through social interaction and collaboration
-- **Reflective Practice**: Encourages critical reflection on teaching approaches through peer dialogue
+- **Reflective Practise**: Encourages critical reflection on teaching approaches through peer dialogue
 - **Distributed Cognition**: Harnesses collective intelligence across institutional boundaries
 - **Professional Agency**: Empowers educators to direct their own learning and development
 - **Transfer of Learning**: Supports application of insights across different educational contexts
@@ -194,7 +194,7 @@ The feature aligns with key UK educational frameworks and priorities:
 
 - **DfE Standards for Teachers' Professional Development**: Supports all five standards, particularly collaboration and expert challenge
 - **Early Career Framework**: Provides additional support structures for newly qualified teachers
-- **Chartered College of Teaching Principles**: Aligns with evidence-informed practice and collaborative professionalism
+- **Chartered College of Teaching Principles**: Aligns with evidence-informed practise and collaborative professionalism
 - **Ofsted Framework**: Supports staff development and school improvement priorities
 - **Regional School Improvement Initiatives**: Facilitates formal school-to-school support mechanisms
 
@@ -218,10 +218,10 @@ The feature aligns with key UK educational frameworks and priorities:
 
 - **Virtual Collaboration Spaces**: Immersive environments for synchronous collaboration
 - **Cross-Border Communities**: International expansion with multi-language support
-- **Research-Practice Partnerships**: Formal connections with academic institutions
+- **Research-Practise Partnerships**: Formal connections with academic institutions
 - **Community Health Monitoring**: AI-powered detection of community dynamics
 - **Impact Prediction**: Forecasting potential outcomes of community initiatives
 
 ## Conclusion
 
-The Learning Communities feature transforms professional development by creating secure, engaging spaces for cross-school collaboration while maintaining appropriate privacy and confidentiality. By combining sophisticated permission controls with powerful collaboration tools and intelligent automation, it creates a robust ecosystem for professional growth that aligns with UK educational standards and evidence-based practice.
+The Learning Communities feature transforms professional development by creating secure, engaging spaces for cross-school collaboration while maintaining appropriate privacy and confidentiality. By combining sophisticated permission controls with powerful collaboration tools and intelligent automation, it creates a robust ecosystem for professional growth that aligns with UK educational standards and evidence-based practise.

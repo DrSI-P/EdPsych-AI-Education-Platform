@@ -27,7 +27,7 @@ export default function KeyboardNavigationPage() {
 
   return (
     <div className="container mx-auto py-8 px-4">
-      <h1 className="text-3xl font-bold mb-6 flex items-center">
+      <h1 className="text-3xl font-bold mb-6 flex items-centre">
         <Image 
           src="/images/keyboard-navigation-icon.png" 
           alt="Keyboard Navigation Icon" 
@@ -57,7 +57,7 @@ export default function KeyboardNavigationPage() {
         <div className="lg:col-span-1">
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center">
+              <CardTitle className="flex items-centre">
                 <Keyboard className="h-5 w-5 mr-2" />
                 About Keyboard Navigation
               </CardTitle>
@@ -106,7 +106,7 @@ export default function KeyboardNavigationPage() {
                       Research from the Web Accessibility Initiative (WAI) shows that approximately 5% of users rely exclusively on keyboard navigation, with an additional 15% using it as their primary navigation method.
                     </p>
                     <p>
-                      A 2022 study in the International Journal of Human-Computer Interaction found that optimized keyboard navigation reduced task completion time by 42% for users with motor impairments.
+                      A 2022 study in the International Journal of Human-Computer Interaction found that optimised keyboard navigation reduced task completion time by 42% for users with motor impairments.
                     </p>
                     <p>
                       The Royal National Institute of Blind People (RNIB) reports that keyboard navigation is essential for screen reader users, who represent approximately 2% of the UK population.
@@ -126,7 +126,7 @@ export default function KeyboardNavigationPage() {
                       <li>Use Shift+Tab to navigate backward</li>
                       <li>Press Enter or Space to activate buttons, links, and controls</li>
                       <li>Use arrow keys for additional navigation within components</li>
-                      <li>Adjust focus indicator size and color for your visual needs</li>
+                      <li>Adjust focus indicator size and colour for your visual needs</li>
                     </ul>
                     
                     <h4>For Teachers:</h4>
@@ -153,7 +153,7 @@ export default function KeyboardNavigationPage() {
           
           <Card className="mt-6">
             <CardHeader>
-              <CardTitle className="flex items-center">
+              <CardTitle className="flex items-centre">
                 <KeyRound className="h-5 w-5 mr-2" />
                 Keyboard Shortcuts
               </CardTitle>

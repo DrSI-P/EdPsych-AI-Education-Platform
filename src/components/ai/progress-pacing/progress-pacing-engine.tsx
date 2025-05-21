@@ -166,8 +166,8 @@ export default function ProgressPacingEngine({
     
     return (
       <div className="space-y-4 border rounded-md p-4 bg-slate-50 dark:bg-slate-900">
-        <div className="flex items-center justify-between">
-          <h3 className="text-sm font-medium flex items-center gap-2">
+        <div className="flex items-centre justify-between">
+          <h3 className="text-sm font-medium flex items-centre gap-2">
             <LineChart className="h-4 w-4 text-blue-600" />
             Student Progress Metrics
           </h3>
@@ -179,7 +179,7 @@ export default function ProgressPacingEngine({
         <div className="grid grid-cols-2 gap-4">
           <div>
             <p className="text-xs text-muted-foreground mb-1">Learning Velocity</p>
-            <div className="flex items-center gap-2">
+            <div className="flex items-centre gap-2">
               <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
                 <div 
                   className="bg-blue-600 h-2 rounded-full" 
@@ -192,7 +192,7 @@ export default function ProgressPacingEngine({
           
           <div>
             <p className="text-xs text-muted-foreground mb-1">Mastery Level</p>
-            <div className="flex items-center gap-2">
+            <div className="flex items-centre gap-2">
               <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
                 <div 
                   className="bg-green-600 h-2 rounded-full" 
@@ -205,7 +205,7 @@ export default function ProgressPacingEngine({
           
           <div>
             <p className="text-xs text-muted-foreground mb-1">Engagement Consistency</p>
-            <div className="flex items-center gap-2">
+            <div className="flex items-centre gap-2">
               <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
                 <div 
                   className="bg-purple-600 h-2 rounded-full" 
@@ -218,7 +218,7 @@ export default function ProgressPacingEngine({
           
           <div>
             <p className="text-xs text-muted-foreground mb-1">Knowledge Retention</p>
-            <div className="flex items-center gap-2">
+            <div className="flex items-centre gap-2">
               <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
                 <div 
                   className="bg-amber-600 h-2 rounded-full" 
@@ -230,8 +230,8 @@ export default function ProgressPacingEngine({
           </div>
         </div>
         
-        <div className="flex items-center justify-between pt-2 border-t">
-          <div className="flex items-center gap-2">
+        <div className="flex items-centre justify-between pt-2 border-t">
+          <div className="flex items-centre gap-2">
             <Gauge className="h-4 w-4 text-amber-600" />
             <span className="text-sm font-medium">Recommended Pace</span>
           </div>
@@ -247,8 +247,8 @@ export default function ProgressPacingEngine({
     <div className={className}>
       <Card className="mb-6">
         <CardHeader>
-          <CardTitle className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
+          <CardTitle className="flex items-centre justify-between">
+            <div className="flex items-centre gap-2">
               <Clock className="h-5 w-5 text-primary" />
               Progress-Adaptive Pacing
             </div>
@@ -263,7 +263,7 @@ export default function ProgressPacingEngine({
           
           <div className="space-y-4 pt-4">
             <div className="space-y-2">
-              <div className="flex items-center justify-between">
+              <div className="flex items-centre justify-between">
                 <label className="text-sm font-medium">Baseline Pace Level</label>
                 <span className="text-xs text-muted-foreground">
                   {settings.baselinePace}% - {getPaceLevelDescription(settings.baselinePace)}
@@ -281,7 +281,7 @@ export default function ProgressPacingEngine({
               </p>
             </div>
             
-            <div className="flex items-center justify-between">
+            <div className="flex items-centre justify-between">
               <div className="space-y-0.5">
                 <label className="text-sm font-medium">Adapt to Progress Data</label>
                 <p className="text-xs text-muted-foreground">
@@ -294,7 +294,7 @@ export default function ProgressPacingEngine({
               />
             </div>
             
-            <div className="flex items-center justify-between">
+            <div className="flex items-centre justify-between">
               <div className="space-y-0.5">
                 <label className="text-sm font-medium">Include Reinforcement Activities</label>
                 <p className="text-xs text-muted-foreground">
@@ -307,7 +307,7 @@ export default function ProgressPacingEngine({
               />
             </div>
             
-            <div className="flex items-center justify-between">
+            <div className="flex items-centre justify-between">
               <div className="space-y-0.5">
                 <label className="text-sm font-medium">Include Acceleration Options</label>
                 <p className="text-xs text-muted-foreground">
@@ -320,7 +320,7 @@ export default function ProgressPacingEngine({
               />
             </div>
             
-            <div className="flex items-center justify-between">
+            <div className="flex items-centre justify-between">
               <div className="space-y-0.5">
                 <label className="text-sm font-medium">Consider Learning Style</label>
                 <p className="text-xs text-muted-foreground">
@@ -334,7 +334,7 @@ export default function ProgressPacingEngine({
             </div>
             
             <div className="space-y-2">
-              <div className="flex items-center justify-between">
+              <div className="flex items-centre justify-between">
                 <label className="text-sm font-medium">Adaptation Strength</label>
                 <span className="text-xs text-muted-foreground">
                   {settings.adaptationStrength}%
@@ -352,7 +352,7 @@ export default function ProgressPacingEngine({
               </p>
             </div>
             
-            <div className="flex items-center justify-between">
+            <div className="flex items-centre justify-between">
               <div className="space-y-0.5">
                 <label className="text-sm font-medium">Auto-Assess Mastery</label>
                 <p className="text-xs text-muted-foreground">
@@ -365,7 +365,7 @@ export default function ProgressPacingEngine({
               />
             </div>
             
-            <div className="flex items-center justify-between">
+            <div className="flex items-centre justify-between">
               <div className="space-y-0.5">
                 <label className="text-sm font-medium">Enable Breakpoints</label>
                 <p className="text-xs text-muted-foreground">
@@ -381,14 +381,14 @@ export default function ProgressPacingEngine({
         </CardContent>
         
         <CardFooter className="flex justify-between border-t pt-4">
-          <div className="flex items-center text-xs text-muted-foreground">
+          <div className="flex items-centre text-xs text-muted-foreground">
             <CheckCircle2 className="h-3 w-3 mr-1" /> 
             Evidence-based pacing adjustment
           </div>
           <Button 
             onClick={adjustPacing} 
             disabled={isAdjusting}
-            className="flex items-center gap-1"
+            className="flex items-centre gap-1"
           >
             {isAdjusting ? (
               <>
@@ -408,9 +408,9 @@ export default function ProgressPacingEngine({
       {isAdjusting && (
         <Card>
           <CardContent className="py-6">
-            <div className="flex flex-col items-center justify-center space-y-4">
+            <div className="flex flex-col items-centre justify-centre space-y-4">
               <RefreshCw className="h-8 w-8 text-primary animate-spin" />
-              <div className="text-center">
+              <div className="text-centre">
                 <h3 className="text-lg font-medium">Adjusting Learning Pace</h3>
                 <p className="text-sm text-muted-foreground">
                   Adapting learning pace to the student's progress...
@@ -433,13 +433,13 @@ export default function ProgressPacingEngine({
           <CardContent>
             <Tabs defaultValue="current" value={activeTab} onValueChange={setActiveTab}>
               <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="current" className="flex items-center gap-1">
+                <TabsTrigger value="current" className="flex items-centre gap-1">
                   Standard Pace
                   <Badge variant="outline" className={getPaceBadgeColor(pacingData.standardPace)}>
                     {pacingData.standardPace}%
                   </Badge>
                 </TabsTrigger>
-                <TabsTrigger value="adjusted" className="flex items-center gap-1">
+                <TabsTrigger value="adjusted" className="flex items-centre gap-1">
                   Adjusted Pace
                   <Badge variant="outline" className={getPaceBadgeColor(pacingData.adjustedPace)}>
                     {pacingData.adjustedPace}%
@@ -496,7 +496,7 @@ export default function ProgressPacingEngine({
                     
                     {pacingData.reinforcementActivities && settings.includeReinforcementActivities && (
                       <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900/30 rounded-md">
-                        <h4 className="text-sm font-medium flex items-center gap-2 text-blue-700 dark:text-blue-300">
+                        <h4 className="text-sm font-medium flex items-centre gap-2 text-blue-700 dark:text-blue-300">
                           <BookOpen className="h-4 w-4" />
                           Reinforcement Activities
                         </h4>
@@ -513,7 +513,7 @@ export default function ProgressPacingEngine({
                     
                     {pacingData.accelerationOptions && settings.includeAccelerationOptions && (
                       <div className="mt-4 p-3 bg-purple-50 dark:bg-purple-900/30 rounded-md">
-                        <h4 className="text-sm font-medium flex items-center gap-2 text-purple-700 dark:text-purple-300">
+                        <h4 className="text-sm font-medium flex items-centre gap-2 text-purple-700 dark:text-purple-300">
                           <FastForward className="h-4 w-4" />
                           Acceleration Options
                         </h4>
@@ -530,7 +530,7 @@ export default function ProgressPacingEngine({
                     
                     {pacingData.masteryCheckpoints && settings.autoAssessMastery && (
                       <div className="mt-4 p-3 bg-amber-50 dark:bg-amber-900/30 rounded-md">
-                        <h4 className="text-sm font-medium flex items-center gap-2 text-amber-700 dark:text-amber-300">
+                        <h4 className="text-sm font-medium flex items-centre gap-2 text-amber-700 dark:text-amber-300">
                           <Award className="h-4 w-4" />
                           Mastery Checkpoints
                         </h4>
@@ -547,7 +547,7 @@ export default function ProgressPacingEngine({
                     
                     {pacingData.breakpoints && settings.enableBreakpoints && (
                       <div className="mt-4 p-3 bg-green-50 dark:bg-green-900/30 rounded-md">
-                        <h4 className="text-sm font-medium flex items-center gap-2 text-green-700 dark:text-green-300">
+                        <h4 className="text-sm font-medium flex items-centre gap-2 text-green-700 dark:text-green-300">
                           <AlertCircle className="h-4 w-4" />
                           Strategic Breakpoints
                         </h4>
@@ -569,27 +569,27 @@ export default function ProgressPacingEngine({
             <div className="mt-4 bg-slate-50 dark:bg-slate-900 p-4 rounded-md">
               <h4 className="text-sm font-medium mb-2">Pacing Adjustment Summary</h4>
               <div className="space-y-2">
-                <div className="flex items-center justify-between text-sm">
+                <div className="flex items-centre justify-between text-sm">
                   <span>Standard Pace:</span>
                   <Badge variant="outline" className={getPaceBadgeColor(pacingData.standardPace)}>
                     {pacingData.standardPace}% - {getPaceLevelDescription(pacingData.standardPace)}
                   </Badge>
                 </div>
-                <div className="flex items-center justify-between text-sm">
+                <div className="flex items-centre justify-between text-sm">
                   <span>Adjusted Pace:</span>
                   <Badge variant="outline" className={getPaceBadgeColor(pacingData.adjustedPace)}>
                     {pacingData.adjustedPace}% - {getPaceLevelDescription(pacingData.adjustedPace)}
                   </Badge>
                 </div>
-                <div className="flex items-center justify-between text-sm">
+                <div className="flex items-centre justify-between text-sm">
                   <span>Adaptation Type:</span>
                   <Badge variant="outline">
                     {pacingData.adaptationType}
                   </Badge>
                 </div>
-                <div className="flex items-center justify-between text-sm">
+                <div className="flex items-centre justify-between text-sm">
                   <span>Estimated Completion:</span>
-                  <Badge variant="outline" className="flex items-center gap-1">
+                  <Badge variant="outline" className="flex items-centre gap-1">
                     <Calendar className="h-3 w-3" />
                     {pacingData.estimatedCompletion}
                   </Badge>
@@ -603,7 +603,7 @@ export default function ProgressPacingEngine({
               variant="outline" 
               size="sm" 
               onClick={() => setPacingData(null)}
-              className="flex items-center gap-1"
+              className="flex items-centre gap-1"
             >
               Reset
             </Button>
@@ -616,7 +616,7 @@ export default function ProgressPacingEngine({
                   description: "The personalized pacing plan has been saved to your account.",
                 });
               }}
-              className="flex items-center gap-1"
+              className="flex items-centre gap-1"
             >
               Save Pacing Plan
             </Button>

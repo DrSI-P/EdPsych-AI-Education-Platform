@@ -117,7 +117,7 @@ const CircleProcessTemplates = () => {
             "If you could have any superpower, what would it be and why?",
             "What's something that made you smile recently?",
             "Who is someone you look up to and why?",
-            "What's your favorite place to be and why?"
+            "What's your favourite place to be and why?"
           ]
         },
         {
@@ -706,10 +706,10 @@ const CircleProcessTemplates = () => {
                         <CardHeader className="pb-2">
                           <CardTitle className="text-lg">{template.title}</CardTitle>
                           <div className="flex space-x-2">
-                            <span className="inline-flex items-center rounded-full bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
+                            <span className="inline-flex items-centre rounded-full bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
                               {template.ageGroup === 'all' ? 'All ages' : template.ageGroup === 'primary' ? 'Primary' : 'Secondary'}
                             </span>
-                            <span className="inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
+                            <span className="inline-flex items-centre rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
                               {template.purpose.replace('-', ' ')}
                             </span>
                           </div>
@@ -741,7 +741,7 @@ const CircleProcessTemplates = () => {
                     ))}
 
                     {filteredTemplates.length === 0 && (
-                      <div className="col-span-full flex flex-col items-center justify-center p-6 text-center">
+                      <div className="col-span-full flex flex-col items-centre justify-centre p-6 text-centre">
                         <AlertCircle className="h-10 w-10 text-muted-foreground mb-2" />
                         <h3 className="text-lg font-medium">No templates found</h3>
                         <p className="text-sm text-muted-foreground mt-1">
@@ -759,7 +759,7 @@ const CircleProcessTemplates = () => {
           <TabsContent value="designer" className="space-y-6">
             {selectedTemplate && (
               <>
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-centre">
                   <h2 className="text-2xl font-bold">{selectedTemplate.title}</h2>
                   <div className="flex space-x-2">
                     <Button variant="outline" onClick={() => setActiveTab("templates")}>
@@ -862,9 +862,9 @@ const CircleProcessTemplates = () => {
 
                           <div className="mt-6">
                             <h3 className="text-sm font-medium mb-3">Visual Circle Arrangement</h3>
-                            <div className="relative w-full aspect-square bg-gray-100 rounded-full flex items-center justify-center border border-gray-300">
-                              <div className="absolute w-1/3 aspect-square bg-white rounded-full flex items-center justify-center border border-gray-300">
-                                <span className="text-xs text-center text-gray-500">Centerpiece</span>
+                            <div className="relative w-full aspect-square bg-grey-100 rounded-full flex items-centre justify-centre border border-grey-300">
+                              <div className="absolute w-1/3 aspect-square bg-white rounded-full flex items-centre justify-centre border border-grey-300">
+                                <span className="text-xs text-centre text-grey-500">Centerpiece</span>
                               </div>
                               
                               {/* Participant chairs */}
@@ -887,7 +887,7 @@ const CircleProcessTemplates = () => {
                                 );
                               })}
                             </div>
-                            <p className="text-xs text-center mt-2 text-muted-foreground">
+                            <p className="text-xs text-centre mt-2 text-muted-foreground">
                               Chairs arranged in a circle with equal spacing
                             </p>
                           </div>
@@ -911,7 +911,7 @@ const CircleProcessTemplates = () => {
                           </div>
                           <div className="flex items-start">
                             <Lightbulb className="h-4 w-4 mr-2 mt-0.5 text-amber-500" />
-                            <span className="text-sm">Honor the talking piece and remind others to do the same</span>
+                            <span className="text-sm">Honour the talking piece and remind others to do the same</span>
                           </div>
                           <div className="flex items-start">
                             <Lightbulb className="h-4 w-4 mr-2 mt-0.5 text-amber-500" />
@@ -1074,7 +1074,7 @@ const CircleProcessTemplates = () => {
                   </div>
 
                   <div className="space-y-4">
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-centre justify-between">
                       <h3 className="text-lg font-medium">Question Categories</h3>
                       <Button variant="outline" size="sm" onClick={addQuestionCategory}>
                         <Plus className="h-4 w-4 mr-1" />
@@ -1085,7 +1085,7 @@ const CircleProcessTemplates = () => {
                     {customTemplate.questions.map((category, categoryIndex) => (
                       <Card key={categoryIndex}>
                         <CardHeader className="pb-2">
-                          <div className="flex items-center justify-between">
+                          <div className="flex items-centre justify-between">
                             <Label htmlFor={`category-${categoryIndex}`}>Category Name</Label>
                             <Button 
                               variant="ghost" 
@@ -1103,7 +1103,7 @@ const CircleProcessTemplates = () => {
                           />
                         </CardHeader>
                         <CardContent className="space-y-2">
-                          <div className="flex items-center justify-between">
+                          <div className="flex items-centre justify-between">
                             <Label>Questions</Label>
                             <Button 
                               variant="ghost" 
@@ -1115,7 +1115,7 @@ const CircleProcessTemplates = () => {
                             </Button>
                           </div>
                           {category.items.map((question, questionIndex) => (
-                            <div key={questionIndex} className="flex items-center space-x-2">
+                            <div key={questionIndex} className="flex items-centre space-x-2">
                               <Input
                                 placeholder="Enter question"
                                 value={question}
@@ -1138,7 +1138,7 @@ const CircleProcessTemplates = () => {
                   </div>
 
                   <div className="space-y-4">
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-centre justify-between">
                       <h3 className="text-lg font-medium">Materials Needed</h3>
                       <Button variant="outline" size="sm" onClick={addMaterial}>
                         <Plus className="h-4 w-4 mr-1" />
@@ -1147,7 +1147,7 @@ const CircleProcessTemplates = () => {
                     </div>
 
                     {customTemplate.materials.map((material, index) => (
-                      <div key={index} className="flex items-center space-x-2">
+                      <div key={index} className="flex items-centre space-x-2">
                         <Input
                           placeholder="e.g., Talking piece"
                           value={material}
@@ -1227,7 +1227,7 @@ const CircleProcessTemplates = () => {
                             <p className="text-sm">
                               The person who guides the process, poses questions, and helps maintain the integrity of 
                               the circle. The keeper participates in the circle as well, sharing when the talking piece 
-                              comes to them and modeling the depth of sharing invited.
+                              comes to them and modelling the depth of sharing invited.
                             </p>
                           </CardContent>
                         </Card>
@@ -1314,7 +1314,7 @@ const CircleProcessTemplates = () => {
                             <h4 className="text-base font-medium">Celebration Circles</h4>
                             <p className="text-sm text-muted-foreground">
                               Acknowledge achievements, mark transitions, and celebrate successes. These circles help 
-                              build a positive community culture by recognizing growth, effort, and accomplishment.
+                              build a positive community culture by recognising growth, effort, and accomplishment.
                             </p>
                           </div>
                         </div>
@@ -1341,7 +1341,7 @@ const CircleProcessTemplates = () => {
                         <div className="h-2 bg-gradient-to-r from-blue-500 via-purple-500 to-red-500 rounded-full mb-4"></div>
                         <div className="space-y-4">
                           <div className="flex items-start">
-                            <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white font-medium">1</div>
+                            <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-500 flex items-centre justify-centre text-white font-medium">1</div>
                             <div className="ml-4">
                               <h4 className="text-base font-medium">Opening Ceremony</h4>
                               <p className="text-sm text-muted-foreground">
@@ -1351,7 +1351,7 @@ const CircleProcessTemplates = () => {
                             </div>
                           </div>
                           <div className="flex items-start">
-                            <div className="flex-shrink-0 w-8 h-8 rounded-full bg-indigo-500 flex items-center justify-center text-white font-medium">2</div>
+                            <div className="flex-shrink-0 w-8 h-8 rounded-full bg-indigo-500 flex items-centre justify-centre text-white font-medium">2</div>
                             <div className="ml-4">
                               <h4 className="text-base font-medium">Check-In Round</h4>
                               <p className="text-sm text-muted-foreground">
@@ -1361,7 +1361,7 @@ const CircleProcessTemplates = () => {
                             </div>
                           </div>
                           <div className="flex items-start">
-                            <div className="flex-shrink-0 w-8 h-8 rounded-full bg-purple-500 flex items-center justify-center text-white font-medium">3</div>
+                            <div className="flex-shrink-0 w-8 h-8 rounded-full bg-purple-500 flex items-centre justify-centre text-white font-medium">3</div>
                             <div className="ml-4">
                               <h4 className="text-base font-medium">Main Activity</h4>
                               <p className="text-sm text-muted-foreground">
@@ -1371,7 +1371,7 @@ const CircleProcessTemplates = () => {
                             </div>
                           </div>
                           <div className="flex items-start">
-                            <div className="flex-shrink-0 w-8 h-8 rounded-full bg-pink-500 flex items-center justify-center text-white font-medium">4</div>
+                            <div className="flex-shrink-0 w-8 h-8 rounded-full bg-pink-500 flex items-centre justify-centre text-white font-medium">4</div>
                             <div className="ml-4">
                               <h4 className="text-base font-medium">Check-Out Round</h4>
                               <p className="text-sm text-muted-foreground">
@@ -1381,7 +1381,7 @@ const CircleProcessTemplates = () => {
                             </div>
                           </div>
                           <div className="flex items-start">
-                            <div className="flex-shrink-0 w-8 h-8 rounded-full bg-red-500 flex items-center justify-center text-white font-medium">5</div>
+                            <div className="flex-shrink-0 w-8 h-8 rounded-full bg-red-500 flex items-centre justify-centre text-white font-medium">5</div>
                             <div className="ml-4">
                               <h4 className="text-base font-medium">Closing Ceremony</h4>
                               <p className="text-sm text-muted-foreground">
@@ -1441,7 +1441,7 @@ const CircleProcessTemplates = () => {
                       </div>
 
                       <div>
-                        <h3 className="text-sm font-medium mb-1">Practice Scenarios</h3>
+                        <h3 className="text-sm font-medium mb-1">Practise Scenarios</h3>
                         <ul className="text-sm space-y-2">
                           <li className="flex items-start">
                             <FileText className="h-4 w-4 mr-2 mt-0.5 text-purple-500" />
@@ -1492,7 +1492,7 @@ const CircleProcessTemplates = () => {
                         <div>
                           <h3 className="text-sm font-medium">Reduced Disciplinary Issues</h3>
                           <p className="text-sm text-muted-foreground">
-                            Schools implementing regular circles often see reductions in behavior incidents and exclusionary discipline.
+                            Schools implementing regular circles often see reductions in behaviour incidents and exclusionary discipline.
                           </p>
                         </div>
                       </div>

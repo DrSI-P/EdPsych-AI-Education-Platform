@@ -90,7 +90,7 @@ The Adventure Quest Saga is grounded in established educational psychology princ
 1. **Onboarding**: Character creation and introduction to the quest world
 2. **Quest Selection**: Choosing adventures aligned with learning goals
 3. **Adventure Progression**: Navigating challenges and building knowledge
-4. **Skill Development**: Visualizing growth through skill trees and achievements
+4. **Skill Development**: Visualising growth through skill trees and achievements
 5. **Social Interaction**: Optional collaboration with peers on shared quests
 
 ### Teacher Experience
@@ -98,7 +98,7 @@ The Adventure Quest Saga is grounded in established educational psychology princ
 1. **Quest Management**: Assigning and monitoring student adventures
 2. **Progress Review**: Tracking individual and class advancement
 3. **Intervention**: Providing support for struggling students
-4. **Custom Creation**: Designing specialized quests for specific learning needs
+4. **Custom Creation**: Designing specialised quests for specific learning needs
 5. **Outcome Analysis**: Reviewing learning data and adjusting approaches
 
 ## Accessibility Considerations

@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Contextual Resource Recommendation Engine is an AI-powered system that intelligently suggests relevant educational resources based on the specific context of an educator's work. By analyzing content from lesson plans, meeting notes, student profiles, and other educational documents, the engine identifies key topics, learning objectives, and student needs, then matches these contextual elements with appropriate resources from the platform's library.
+The Contextual Resource Recommendation Engine is an AI-powered system that intelligently suggests relevant educational resources based on the specific context of an educator's work. By analysing content from lesson plans, meeting notes, student profiles, and other educational documents, the engine identifies key topics, learning objectives, and student needs, then matches these contextual elements with appropriate resources from the platform's library.
 
 This feature significantly reduces the administrative burden on educators by eliminating the need for manual resource searches and ensuring that recommended materials are precisely tailored to the educational context and student needs.
 
@@ -77,7 +77,7 @@ The Contextual Resource Recommendation Engine is built on solid educational psyc
 1. **Differentiated Instruction**: Recommends resources that support various learning styles and needs
 2. **Zone of Proximal Development**: Suggests materials at appropriate challenge levels
 3. **Constructivist Learning**: Offers resources that build on existing knowledge and context
-4. **Evidence-Based Practice**: Prioritizes resources with demonstrated effectiveness
+4. **Evidence-Based Practise**: Prioritizes resources with demonstrated effectiveness
 5. **Universal Design for Learning**: Ensures recommendations include multiple means of engagement, representation, and expression
 
 ## Technical Architecture
@@ -108,7 +108,7 @@ The Contextual Resource Recommendation Engine is built on solid educational psyc
 - Subtle, non-intrusive recommendation panels that appear when relevant
 - Clear explanations of why resources are being recommended
 - Easy access to preview, save, or dismiss recommendations
-- Ability to customize recommendation frequency and types
+- Ability to customise recommendation frequency and types
 - Option to explicitly request recommendations for specific contexts
 
 ### Administrator Experience
@@ -143,7 +143,7 @@ The Contextual Resource Recommendation Engine is built on solid educational psyc
 2. **Contextual Relevance**: Ensures resources match the specific educational context
 3. **Personalization**: Adapts to individual teaching styles and student needs
 4. **Discovery**: Introduces educators to valuable resources they might not find otherwise
-5. **Evidence-Based Practice**: Promotes use of effective, curriculum-aligned materials
+5. **Evidence-Based Practise**: Promotes use of effective, curriculum-aligned materials
 6. **Reduced Cognitive Load**: Decreases decision fatigue from excessive resource options
 
 ## Future Enhancements

@@ -377,7 +377,7 @@ export const VoiceInputProvider: React.FC<{
       
       toast({
         title: "Calibration complete",
-        description: "Voice recognition has been optimized for your voice.",
+        description: "Voice recognition has been optimised for your voice.",
         variant: "success"
       });
       

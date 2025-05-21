@@ -63,7 +63,7 @@ const TeacherAlertSystem = () => {
     time: new Date().toTimeString().split(' ')[0].substring(0, 5),
     setting: "",
     antecedent: "",
-    behavior: "",
+    behaviour: "",
     consequence: "",
     communication: "",
     intensity: "medium",
@@ -84,7 +84,7 @@ const TeacherAlertSystem = () => {
     { id: "s1", name: "Alex Thompson", year: "Year 5", class: "5A", supportPlan: "IEP", concerns: ["emotional regulation", "attention"] },
     { id: "s2", name: "Jamie Wilson", year: "Year 3", class: "3B", supportPlan: "None", concerns: ["social skills"] },
     { id: "s3", name: "Sam Roberts", year: "Year 6", class: "6C", supportPlan: "504", concerns: ["anxiety", "attendance"] },
-    { id: "s4", name: "Casey Morgan", year: "Year 4", class: "4A", supportPlan: "IEP", concerns: ["behavioral", "academic"] },
+    { id: "s4", name: "Casey Morgan", year: "Year 4", class: "4A", supportPlan: "IEP", concerns: ["behavioural", "academic"] },
     { id: "s5", name: "Jordan Taylor", year: "Year 2", class: "2B", supportPlan: "None", concerns: [] },
     { id: "s6", name: "Riley Johnson", year: "Year 5", class: "5B", supportPlan: "504", concerns: ["emotional regulation"] },
     { id: "s7", name: "Avery Williams", year: "Year 3", class: "3A", supportPlan: "IEP", concerns: ["attention", "academic"] },
@@ -120,8 +120,8 @@ const TeacherAlertSystem = () => {
     { 
       id: "a3", 
       studentId: "s4", 
-      type: "behavioral", 
-      description: "Disruptive behavior during transition periods", 
+      type: "behavioural", 
+      description: "Disruptive behaviour during transition periods", 
       date: "2025-05-16", 
       time: "11:45", 
       severity: "medium", 
@@ -188,7 +188,7 @@ const TeacherAlertSystem = () => {
       time: "10:25",
       setting: "Mathematics class, group work activity",
       antecedent: "Asked to explain solution to group members",
-      behavior: "Put head down on desk, refused to participate, said 'I can't do this'",
+      behaviour: "Put head down on desk, refused to participate, said 'I can't do this'",
       consequence: "Teacher provided one-on-one support, allowed to work independently",
       communication: "Spoke with student after class, identified fear of being wrong in front of peers",
       intensity: "medium",
@@ -202,7 +202,7 @@ const TeacherAlertSystem = () => {
       time: "11:40",
       setting: "Transition from reading to lunch",
       antecedent: "Class asked to put away materials and line up",
-      behavior: "Knocked books off desk, refused to line up, raised voice",
+      behaviour: "Knocked books off desk, refused to line up, raised voice",
       consequence: "Given time to calm down, joined lunch line last",
       communication: "Visual schedule reviewed, reminder of expectations provided",
       intensity: "high",
@@ -216,7 +216,7 @@ const TeacherAlertSystem = () => {
       time: "08:55",
       setting: "Morning arrival",
       antecedent: "Parent drop-off, saying goodbye",
-      behavior: "Complained of stomachache, asked to go to nurse",
+      behaviour: "Complained of stomachache, asked to go to nurse",
       consequence: "Visited nurse, no temperature, returned to class after 20 minutes",
       communication: "Gentle encouragement to join morning activities, reminder of day's schedule",
       intensity: "medium",
@@ -230,7 +230,7 @@ const TeacherAlertSystem = () => {
       time: "09:40",
       setting: "English class, presentation preparation",
       antecedent: "Reminder that presentations would begin in 5 minutes",
-      behavior: "Asked to use restroom, returned after 10 minutes, requested to present last",
+      behaviour: "Asked to use restroom, returned after 10 minutes, requested to present last",
       consequence: "Allowed to present last, provided written notes option",
       communication: "Discussed anxiety management strategies from 504 plan",
       intensity: "medium",
@@ -244,7 +244,7 @@ const TeacherAlertSystem = () => {
       time: "12:25",
       setting: "Playground, free play time",
       antecedent: "Approached group playing football, asked to join",
-      behavior: "After being told to wait for next game, walked away and sat alone for remainder of break",
+      behaviour: "After being told to wait for next game, walked away and sat alone for remainder of break",
       consequence: "Teaching assistant checked in, student declined support",
       communication: "Brief discussion about friendship skills, encouraged to try again tomorrow",
       intensity: "low",
@@ -323,7 +323,7 @@ const TeacherAlertSystem = () => {
       setIsLoading(true);
       
       // Validate required fields
-      if (!newAbccRecord.studentId || !newAbccRecord.antecedent || !newAbccRecord.behavior || !newAbccRecord.consequence) {
+      if (!newAbccRecord.studentId || !newAbccRecord.antecedent || !newAbccRecord.behaviour || !newAbccRecord.consequence) {
         toast({
           title: "Validation Error",
           description: "Please fill in all required fields.",
@@ -361,7 +361,7 @@ const TeacherAlertSystem = () => {
           time: new Date().toTimeString().split(' ')[0].substring(0, 5),
           setting: "",
           antecedent: "",
-          behavior: "",
+          behaviour: "",
           consequence: "",
           communication: "",
           intensity: "medium",
@@ -486,7 +486,7 @@ const TeacherAlertSystem = () => {
         setIsLoading(false);
         toast({
           title: "Report Generated",
-          description: "The behavior pattern report has been generated and is available for download.",
+          description: "The behaviour pattern report has been generated and is available for download.",
         });
       }, 1500);
       
@@ -509,7 +509,7 @@ const TeacherAlertSystem = () => {
     switch (type) {
       case 'emotional':
         return <span className="bg-purple-100 text-purple-800 p-1 rounded-full"><AlertTriangle className="h-4 w-4" /></span>;
-      case 'behavioral':
+      case 'behavioural':
         return <span className="bg-red-100 text-red-800 p-1 rounded-full"><AlertTriangle className="h-4 w-4" /></span>;
       case 'academic':
         return <span className="bg-blue-100 text-blue-800 p-1 rounded-full"><AlertTriangle className="h-4 w-4" /></span>;
@@ -637,7 +637,7 @@ const TeacherAlertSystem = () => {
         return (
           student.name.toLowerCase().includes(query) ||
           record.antecedent.toLowerCase().includes(query) ||
-          record.behavior.toLowerCase().includes(query) ||
+          record.behaviour.toLowerCase().includes(query) ||
           record.consequence.toLowerCase().includes(query) ||
           record.communication.toLowerCase().includes(query) ||
           record.setting.toLowerCase().includes(query)
@@ -709,7 +709,7 @@ const TeacherAlertSystem = () => {
   const getAlertsByType = () => {
     const counts = {
       emotional: 0,
-      behavioral: 0,
+      behavioural: 0,
       academic: 0,
       attendance: 0,
       social: 0
@@ -775,7 +775,7 @@ const TeacherAlertSystem = () => {
         <CardHeader>
           <CardTitle>Teacher Alert System for Concerning Patterns</CardTitle>
           <CardDescription>
-            Monitor student behavior patterns and receive alerts for potential concerns
+            Monitor student behaviour patterns and receive alerts for potential concerns
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -789,7 +789,7 @@ const TeacherAlertSystem = () => {
             </TabsList>
             
             {isLoading ? (
-              <div className="flex justify-center items-center py-12">
+              <div className="flex justify-centre items-centre py-12">
                 <p>Loading data...</p>
               </div>
             ) : (
@@ -862,14 +862,14 @@ const TeacherAlertSystem = () => {
                         <ScrollArea className="h-[300px]">
                           <div className="space-y-4">
                             {getRecentAlerts().map(alert => (
-                              <div key={alert.id} className="flex items-start space-x-4 p-2 rounded-md hover:bg-gray-50">
+                              <div key={alert.id} className="flex items-start space-x-4 p-2 rounded-md hover:bg-grey-50">
                                 <div className="mt-0.5">
                                   {getAlertTypeIcon(alert.type)}
                                 </div>
                                 <div className="flex-1 space-y-1">
-                                  <div className="flex items-center justify-between">
+                                  <div className="flex items-centre justify-between">
                                     <p className="font-medium">{getStudentById(alert.studentId).name}</p>
-                                    <div className="flex items-center space-x-2">
+                                    <div className="flex items-centre space-x-2">
                                       {getStatusBadge(alert.status)}
                                       {getSeverityBadge(alert.severity)}
                                     </div>
@@ -906,8 +906,8 @@ const TeacherAlertSystem = () => {
                         <ScrollArea className="h-[300px]">
                           <div className="space-y-4">
                             {getStudentsWithMostAlerts().map(({ student, count }) => (
-                              <div key={student.id} className="flex items-center justify-between p-2 rounded-md hover:bg-gray-50">
-                                <div className="flex items-center space-x-4">
+                              <div key={student.id} className="flex items-centre justify-between p-2 rounded-md hover:bg-grey-50">
+                                <div className="flex items-centre space-x-4">
                                   <div className="bg-blue-100 text-blue-800 p-2 rounded-full">
                                     <User className="h-5 w-5" />
                                   </div>
@@ -918,7 +918,7 @@ const TeacherAlertSystem = () => {
                                     </p>
                                   </div>
                                 </div>
-                                <div className="flex items-center space-x-2">
+                                <div className="flex items-centre space-x-2">
                                   <Badge variant="outline" className="bg-red-50 text-red-700">
                                     {count} alerts
                                   </Badge>
@@ -964,7 +964,7 @@ const TeacherAlertSystem = () => {
                           <div className="space-y-4">
                             {Object.entries(getAlertsByType()).map(([type, count]) => (
                               <div key={type} className="space-y-2">
-                                <div className="flex justify-between items-center">
+                                <div className="flex justify-between items-centre">
                                   <span className="capitalize">{type}</span>
                                   <span>{count}</span>
                                 </div>
@@ -979,7 +979,7 @@ const TeacherAlertSystem = () => {
                           <div className="space-y-4">
                             {Object.entries(getAlertsBySeverity()).map(([severity, count]) => (
                               <div key={severity} className="space-y-2">
-                                <div className="flex justify-between items-center">
+                                <div className="flex justify-between items-centre">
                                   <span className="capitalize">{severity}</span>
                                   <span>{count}</span>
                                 </div>
@@ -1061,7 +1061,7 @@ const TeacherAlertSystem = () => {
                         <SelectContent>
                           <SelectItem value="all">All Types</SelectItem>
                           <SelectItem value="emotional">Emotional</SelectItem>
-                          <SelectItem value="behavioral">Behavioral</SelectItem>
+                          <SelectItem value="behavioural">Behavioural</SelectItem>
                           <SelectItem value="academic">Academic</SelectItem>
                           <SelectItem value="attendance">Attendance</SelectItem>
                           <SelectItem value="social">Social</SelectItem>
@@ -1106,7 +1106,7 @@ const TeacherAlertSystem = () => {
                     <CardHeader>
                       <CardTitle>Alert List</CardTitle>
                       <CardDescription>
-                        Alerts for concerning patterns in student behavior
+                        Alerts for concerning patterns in student behaviour
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
@@ -1133,7 +1133,7 @@ const TeacherAlertSystem = () => {
                                   </div>
                                 </TableCell>
                                 <TableCell>
-                                  <div className="flex items-center">
+                                  <div className="flex items-centre">
                                     {getAlertTypeIcon(alert.type)}
                                     <span className="ml-2 capitalize">{alert.type}</span>
                                   </div>
@@ -1174,7 +1174,7 @@ const TeacherAlertSystem = () => {
                             ))
                           ) : (
                             <TableRow>
-                              <TableCell colSpan={7} className="text-center py-4">
+                              <TableCell colSpan={7} className="text-centre py-4">
                                 No alerts found matching the current filters.
                               </TableCell>
                             </TableRow>
@@ -1192,7 +1192,7 @@ const TeacherAlertSystem = () => {
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
-                      <div className="text-center py-8">
+                      <div className="text-centre py-8">
                         <p className="text-muted-foreground">
                           Click on an alert to view detailed information, including identified patterns and recommendations.
                         </p>
@@ -1208,7 +1208,7 @@ const TeacherAlertSystem = () => {
                       <CardHeader>
                         <CardTitle>Create ABCC Record</CardTitle>
                         <CardDescription>
-                          Document behavior using the Antecedent-Behavior-Consequence-Communication framework
+                          Document behaviour using the Antecedent-Behaviour-Consequence-Communication framework
                         </CardDescription>
                       </CardHeader>
                       <CardContent>
@@ -1287,7 +1287,7 @@ const TeacherAlertSystem = () => {
                             <Label htmlFor="setting-input">Setting</Label>
                             <Input 
                               id="setting-input"
-                              placeholder="Where did the behavior occur?"
+                              placeholder="Where did the behaviour occur?"
                               value={newAbccRecord.setting}
                               onChange={(e) => setNewAbccRecord({...newAbccRecord, setting: e.target.value})}
                             />
@@ -1297,7 +1297,7 @@ const TeacherAlertSystem = () => {
                             <Label htmlFor="antecedent-input">Antecedent *</Label>
                             <Textarea 
                               id="antecedent-input"
-                              placeholder="What happened immediately before the behavior?"
+                              placeholder="What happened immediately before the behaviour?"
                               value={newAbccRecord.antecedent}
                               onChange={(e) => setNewAbccRecord({...newAbccRecord, antecedent: e.target.value})}
                               className="min-h-[80px]"
@@ -1305,12 +1305,12 @@ const TeacherAlertSystem = () => {
                           </div>
                           
                           <div className="space-y-2">
-                            <Label htmlFor="behavior-input">Behavior *</Label>
+                            <Label htmlFor="behaviour-input">Behaviour *</Label>
                             <Textarea 
-                              id="behavior-input"
+                              id="behaviour-input"
                               placeholder="What did the student do or say?"
-                              value={newAbccRecord.behavior}
-                              onChange={(e) => setNewAbccRecord({...newAbccRecord, behavior: e.target.value})}
+                              value={newAbccRecord.behaviour}
+                              onChange={(e) => setNewAbccRecord({...newAbccRecord, behaviour: e.target.value})}
                               className="min-h-[80px]"
                             />
                           </div>
@@ -1319,7 +1319,7 @@ const TeacherAlertSystem = () => {
                             <Label htmlFor="consequence-input">Consequence *</Label>
                             <Textarea 
                               id="consequence-input"
-                              placeholder="What happened immediately after the behavior?"
+                              placeholder="What happened immediately after the behaviour?"
                               value={newAbccRecord.consequence}
                               onChange={(e) => setNewAbccRecord({...newAbccRecord, consequence: e.target.value})}
                               className="min-h-[80px]"
@@ -1364,14 +1364,14 @@ const TeacherAlertSystem = () => {
                       <CardHeader>
                         <CardTitle>About ABCC Charts</CardTitle>
                         <CardDescription>
-                          Understanding the ABCC framework for behavior analysis
+                          Understanding the ABCC framework for behaviour analysis
                         </CardDescription>
                       </CardHeader>
                       <CardContent className="space-y-4">
                         <div>
                           <h3 className="text-lg font-medium mb-2">What is an ABCC Chart?</h3>
                           <p>
-                            The ABCC Chart is an evidence-based tool used in educational psychology to document and analyze behavior patterns. It helps identify triggers, understand behaviors, and develop effective interventions.
+                            The ABCC Chart is an evidence-based tool used in educational psychology to document and analyse behaviour patterns. It helps identify triggers, understand behaviors, and develop effective interventions.
                           </p>
                         </div>
                         
@@ -1379,28 +1379,28 @@ const TeacherAlertSystem = () => {
                           <div className="space-y-2">
                             <h4 className="font-medium">A - Antecedent</h4>
                             <p className="text-sm">
-                              What happened immediately before the behavior? This includes environmental factors, interactions, demands, or changes that may have triggered the behavior.
+                              What happened immediately before the behaviour? This includes environmental factors, interactions, demands, or changes that may have triggered the behaviour.
                             </p>
                           </div>
                           
                           <div className="space-y-2">
-                            <h4 className="font-medium">B - Behavior</h4>
+                            <h4 className="font-medium">B - Behaviour</h4>
                             <p className="text-sm">
-                              The specific, observable behavior that occurred. Describe what the student did or said in objective, measurable terms.
+                              The specific, observable behaviour that occurred. Describe what the student did or said in objective, measurable terms.
                             </p>
                           </div>
                           
                           <div className="space-y-2">
                             <h4 className="font-medium">C - Consequence</h4>
                             <p className="text-sm">
-                              What happened immediately after the behavior? This includes responses from teachers, peers, or changes in the environment that may reinforce or discourage the behavior.
+                              What happened immediately after the behaviour? This includes responses from teachers, peers, or changes in the environment that may reinforce or discourage the behaviour.
                             </p>
                           </div>
                           
                           <div className="space-y-2">
                             <h4 className="font-medium">C - Communication</h4>
                             <p className="text-sm">
-                              How the situation was communicated with the student. This includes discussions, feedback, or strategies used to address the behavior.
+                              How the situation was communicated with the student. This includes discussions, feedback, or strategies used to address the behaviour.
                             </p>
                           </div>
                         </div>
@@ -1410,10 +1410,10 @@ const TeacherAlertSystem = () => {
                         <div>
                           <h3 className="text-lg font-medium mb-2">Benefits of ABCC Charts</h3>
                           <ul className="list-disc pl-5 space-y-1">
-                            <li>Identifies patterns and triggers of behavior</li>
+                            <li>Identifies patterns and triggers of behaviour</li>
                             <li>Provides objective documentation for team meetings</li>
                             <li>Helps develop targeted, evidence-based interventions</li>
-                            <li>Measures effectiveness of behavior support strategies</li>
+                            <li>Measures effectiveness of behaviour support strategies</li>
                             <li>Facilitates communication between school and home</li>
                           </ul>
                         </div>
@@ -1435,14 +1435,14 @@ const TeacherAlertSystem = () => {
                   </div>
                   
                   <Card>
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
                       <div>
                         <CardTitle>ABCC Records</CardTitle>
                         <CardDescription>
-                          View and analyze behavior documentation
+                          View and analyse behaviour documentation
                         </CardDescription>
                       </div>
-                      <div className="flex items-center space-x-2">
+                      <div className="flex items-centre space-x-2">
                         <div className="relative w-[250px]">
                           <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
                           <Input
@@ -1501,7 +1501,7 @@ const TeacherAlertSystem = () => {
                                 <CardHeader className="pb-2">
                                   <div className="flex justify-between items-start">
                                     <div>
-                                      <CardTitle className="flex items-center">
+                                      <CardTitle className="flex items-centre">
                                         <User className="h-5 w-5 mr-2" />
                                         {getStudentById(record.studentId).name}
                                       </CardTitle>
@@ -1509,10 +1509,10 @@ const TeacherAlertSystem = () => {
                                         {formatDate(record.date)} at {record.time} • {record.setting}
                                       </CardDescription>
                                     </div>
-                                    <div className="flex items-center space-x-2">
+                                    <div className="flex items-centre space-x-2">
                                       {getIntensityBadge(record.intensity)}
                                       {record.duration && (
-                                        <Badge variant="outline" className="flex items-center">
+                                        <Badge variant="outline" className="flex items-centre">
                                           <Clock className="h-3 w-3 mr-1" />
                                           {record.duration}
                                         </Badge>
@@ -1523,7 +1523,7 @@ const TeacherAlertSystem = () => {
                                 <CardContent className="pb-2">
                                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div className="space-y-2">
-                                      <h4 className="font-medium flex items-center">
+                                      <h4 className="font-medium flex items-centre">
                                         <span className="bg-blue-100 text-blue-800 p-1 rounded-full mr-2">A</span>
                                         Antecedent
                                       </h4>
@@ -1531,15 +1531,15 @@ const TeacherAlertSystem = () => {
                                     </div>
                                     
                                     <div className="space-y-2">
-                                      <h4 className="font-medium flex items-center">
+                                      <h4 className="font-medium flex items-centre">
                                         <span className="bg-purple-100 text-purple-800 p-1 rounded-full mr-2">B</span>
-                                        Behavior
+                                        Behaviour
                                       </h4>
-                                      <p className="text-sm">{record.behavior}</p>
+                                      <p className="text-sm">{record.behaviour}</p>
                                     </div>
                                     
                                     <div className="space-y-2">
-                                      <h4 className="font-medium flex items-center">
+                                      <h4 className="font-medium flex items-centre">
                                         <span className="bg-amber-100 text-amber-800 p-1 rounded-full mr-2">C</span>
                                         Consequence
                                       </h4>
@@ -1547,7 +1547,7 @@ const TeacherAlertSystem = () => {
                                     </div>
                                     
                                     <div className="space-y-2">
-                                      <h4 className="font-medium flex items-center">
+                                      <h4 className="font-medium flex items-centre">
                                         <span className="bg-green-100 text-green-800 p-1 rounded-full mr-2">C</span>
                                         Communication
                                       </h4>
@@ -1574,7 +1574,7 @@ const TeacherAlertSystem = () => {
                               </Card>
                             ))
                           ) : (
-                            <div className="text-center py-8">
+                            <div className="text-centre py-8">
                               <p className="text-muted-foreground">
                                 No ABCC records found matching the current filters.
                               </p>
@@ -1606,7 +1606,7 @@ const TeacherAlertSystem = () => {
                     <CardHeader>
                       <CardTitle>Student List</CardTitle>
                       <CardDescription>
-                        Students being monitored for behavioral patterns
+                        Students being monitored for behavioural patterns
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
@@ -1705,7 +1705,7 @@ const TeacherAlertSystem = () => {
                     <CardHeader>
                       <CardTitle>Student Profile</CardTitle>
                       <CardDescription>
-                        Select a student to view detailed information and behavior patterns
+                        Select a student to view detailed information and behaviour patterns
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
@@ -1719,7 +1719,7 @@ const TeacherAlertSystem = () => {
                               </p>
                               
                               <div className="mt-4 space-y-2">
-                                <div className="flex items-center">
+                                <div className="flex items-centre">
                                   <span className="font-medium w-32">Support Plan:</span>
                                   {selectedStudent.supportPlan === "None" ? (
                                     <span className="text-muted-foreground">None</span>
@@ -1728,7 +1728,7 @@ const TeacherAlertSystem = () => {
                                   )}
                                 </div>
                                 
-                                <div className="flex items-center">
+                                <div className="flex items-centre">
                                   <span className="font-medium w-32">Areas of Concern:</span>
                                   <div className="flex flex-wrap">
                                     {selectedStudent.concerns.length > 0 ? (
@@ -1739,14 +1739,14 @@ const TeacherAlertSystem = () => {
                                   </div>
                                 </div>
                                 
-                                <div className="flex items-center">
+                                <div className="flex items-centre">
                                   <span className="font-medium w-32">Active Alerts:</span>
                                   <Badge variant={getStudentAlertCount(selectedStudent.id) > 0 ? "default" : "outline"}>
                                     {getStudentAlertCount(selectedStudent.id)}
                                   </Badge>
                                 </div>
                                 
-                                <div className="flex items-center">
+                                <div className="flex items-centre">
                                   <span className="font-medium w-32">ABCC Records:</span>
                                   <Badge variant="outline">
                                     {getStudentAbccCount(selectedStudent.id)}
@@ -1803,14 +1803,14 @@ const TeacherAlertSystem = () => {
                                 })
                                 .slice(0, 3)
                                 .map(alert => (
-                                  <div key={alert.id} className="flex items-start space-x-4 p-2 rounded-md hover:bg-gray-50">
+                                  <div key={alert.id} className="flex items-start space-x-4 p-2 rounded-md hover:bg-grey-50">
                                     <div className="mt-0.5">
                                       {getAlertTypeIcon(alert.type)}
                                     </div>
                                     <div className="flex-1 space-y-1">
-                                      <div className="flex items-center justify-between">
+                                      <div className="flex items-centre justify-between">
                                         <p className="font-medium capitalize">{alert.type} Alert</p>
-                                        <div className="flex items-center space-x-2">
+                                        <div className="flex items-centre space-x-2">
                                           {getStatusBadge(alert.status)}
                                           {getSeverityBadge(alert.severity)}
                                         </div>
@@ -1824,7 +1824,7 @@ const TeacherAlertSystem = () => {
                                 ))}
                               
                               {alerts.filter(alert => alert.studentId === selectedStudent.id).length === 0 && (
-                                <p className="text-muted-foreground text-center py-4">
+                                <p className="text-muted-foreground text-centre py-4">
                                   No alerts recorded for this student.
                                 </p>
                               )}
@@ -1855,10 +1855,10 @@ const TeacherAlertSystem = () => {
                                         <CardDescription>
                                           {formatDate(record.date)} at {record.time} • {record.setting}
                                         </CardDescription>
-                                        <div className="flex items-center space-x-2">
+                                        <div className="flex items-centre space-x-2">
                                           {getIntensityBadge(record.intensity)}
                                           {record.duration && (
-                                            <Badge variant="outline" className="flex items-center">
+                                            <Badge variant="outline" className="flex items-centre">
                                               <Clock className="h-3 w-3 mr-1" />
                                               {record.duration}
                                             </Badge>
@@ -1869,7 +1869,7 @@ const TeacherAlertSystem = () => {
                                     <CardContent className="pb-2">
                                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div className="space-y-2">
-                                          <h4 className="font-medium flex items-center">
+                                          <h4 className="font-medium flex items-centre">
                                             <span className="bg-blue-100 text-blue-800 p-1 rounded-full mr-2">A</span>
                                             Antecedent
                                           </h4>
@@ -1877,11 +1877,11 @@ const TeacherAlertSystem = () => {
                                         </div>
                                         
                                         <div className="space-y-2">
-                                          <h4 className="font-medium flex items-center">
+                                          <h4 className="font-medium flex items-centre">
                                             <span className="bg-purple-100 text-purple-800 p-1 rounded-full mr-2">B</span>
-                                            Behavior
+                                            Behaviour
                                           </h4>
-                                          <p className="text-sm">{record.behavior}</p>
+                                          <p className="text-sm">{record.behaviour}</p>
                                         </div>
                                       </div>
                                     </CardContent>
@@ -1889,7 +1889,7 @@ const TeacherAlertSystem = () => {
                                 ))}
                               
                               {abccRecords.filter(record => record.studentId === selectedStudent.id).length === 0 && (
-                                <p className="text-muted-foreground text-center py-4">
+                                <p className="text-muted-foreground text-centre py-4">
                                   No ABCC records for this student.
                                 </p>
                               )}
@@ -1897,9 +1897,9 @@ const TeacherAlertSystem = () => {
                           </div>
                         </div>
                       ) : (
-                        <div className="text-center py-8">
+                        <div className="text-centre py-8">
                           <p className="text-muted-foreground">
-                            Select a student from the list to view their profile and behavior patterns.
+                            Select a student from the list to view their profile and behaviour patterns.
                           </p>
                         </div>
                       )}
@@ -1922,7 +1922,7 @@ const TeacherAlertSystem = () => {
                           <h3 className="text-lg font-medium mb-4">Alert Thresholds</h3>
                           <div className="space-y-4">
                             <div className="space-y-2">
-                              <div className="flex justify-between items-center">
+                              <div className="flex justify-between items-centre">
                                 <Label htmlFor="emotional-threshold">Emotional Concerns</Label>
                                 <span className="text-sm">{alertSettings.emotionalThreshold}</span>
                               </div>
@@ -1940,12 +1940,12 @@ const TeacherAlertSystem = () => {
                             </div>
                             
                             <div className="space-y-2">
-                              <div className="flex justify-between items-center">
-                                <Label htmlFor="behavioral-threshold">Behavioral Concerns</Label>
+                              <div className="flex justify-between items-centre">
+                                <Label htmlFor="behavioural-threshold">Behavioural Concerns</Label>
                                 <span className="text-sm">{alertSettings.behavioralThreshold}</span>
                               </div>
                               <Slider 
-                                id="behavioral-threshold"
+                                id="behavioural-threshold"
                                 min={1}
                                 max={5}
                                 step={1}
@@ -1953,12 +1953,12 @@ const TeacherAlertSystem = () => {
                                 onValueChange={(value) => setAlertSettings({...alertSettings, behavioralThreshold: value[0]})}
                               />
                               <p className="text-sm text-muted-foreground">
-                                Number of behavioral incidents before generating an alert
+                                Number of behavioural incidents before generating an alert
                               </p>
                             </div>
                             
                             <div className="space-y-2">
-                              <div className="flex justify-between items-center">
+                              <div className="flex justify-between items-centre">
                                 <Label htmlFor="academic-threshold">Academic Concerns</Label>
                                 <span className="text-sm">{alertSettings.academicThreshold}</span>
                               </div>
@@ -1976,7 +1976,7 @@ const TeacherAlertSystem = () => {
                             </div>
                             
                             <div className="space-y-2">
-                              <div className="flex justify-between items-center">
+                              <div className="flex justify-between items-centre">
                                 <Label htmlFor="attendance-threshold">Attendance Concerns</Label>
                                 <span className="text-sm">{alertSettings.attendanceThreshold}</span>
                               </div>
@@ -2003,7 +2003,7 @@ const TeacherAlertSystem = () => {
                             <div className="space-y-2">
                               <Label>Notification Methods</Label>
                               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div className="flex items-center space-x-2">
+                                <div className="flex items-centre space-x-2">
                                   <Switch 
                                     id="email-notifications" 
                                     checked={alertSettings.notificationMethods.includes("email")}
@@ -2019,13 +2019,13 @@ const TeacherAlertSystem = () => {
                                       });
                                     }}
                                   />
-                                  <Label htmlFor="email-notifications" className="flex items-center">
+                                  <Label htmlFor="email-notifications" className="flex items-centre">
                                     <Mail className="h-4 w-4 mr-2" />
                                     Email Notifications
                                   </Label>
                                 </div>
                                 
-                                <div className="flex items-center space-x-2">
+                                <div className="flex items-centre space-x-2">
                                   <Switch 
                                     id="dashboard-notifications" 
                                     checked={alertSettings.notificationMethods.includes("dashboard")}
@@ -2041,7 +2041,7 @@ const TeacherAlertSystem = () => {
                                       });
                                     }}
                                   />
-                                  <Label htmlFor="dashboard-notifications" className="flex items-center">
+                                  <Label htmlFor="dashboard-notifications" className="flex items-centre">
                                     <Bell className="h-4 w-4 mr-2" />
                                     Dashboard Notifications
                                   </Label>
@@ -2069,7 +2069,7 @@ const TeacherAlertSystem = () => {
                               </p>
                             </div>
                             
-                            <div className="flex items-center space-x-2">
+                            <div className="flex items-centre space-x-2">
                               <Switch 
                                 id="auto-generate-reports" 
                                 checked={alertSettings.autoGenerateReports}
@@ -2080,7 +2080,7 @@ const TeacherAlertSystem = () => {
                               <div>
                                 <Label htmlFor="auto-generate-reports">Auto-generate Reports</Label>
                                 <p className="text-sm text-muted-foreground">
-                                  Automatically generate behavior pattern reports for students with multiple alerts
+                                  Automatically generate behaviour pattern reports for students with multiple alerts
                                 </p>
                               </div>
                             </div>

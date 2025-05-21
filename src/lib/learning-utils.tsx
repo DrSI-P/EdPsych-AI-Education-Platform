@@ -252,7 +252,7 @@ const LEARNING_STYLE_QUESTIONS: LearningStyleQuestion[] = [
       { text: 'Watch a demonstration or video', style: LearningStyle.VISUAL },
       { text: 'Listen to detailed instructions', style: LearningStyle.AUDITORY },
       { text: 'Read step-by-step instructions', style: LearningStyle.READING_WRITING },
-      { text: 'Try it out and learn through practice', style: LearningStyle.KINESTHETIC }
+      { text: 'Try it out and learn through practise', style: LearningStyle.KINESTHETIC }
     ]
   },
   {
@@ -279,9 +279,9 @@ const LEARNING_STYLE_QUESTIONS: LearningStyleQuestion[] = [
     id: 'q4',
     question: 'When solving a problem, I prefer to:',
     options: [
-      { text: 'Visualize the problem and possible solutions', style: LearningStyle.VISUAL },
+      { text: 'Visualise the problem and possible solutions', style: LearningStyle.VISUAL },
       { text: 'Talk through the problem and solutions out loud', style: LearningStyle.AUDITORY },
-      { text: 'Write down the problem and organize my thoughts in writing', style: LearningStyle.READING_WRITING },
+      { text: 'Write down the problem and organise my thoughts in writing', style: LearningStyle.READING_WRITING },
       { text: 'Use a trial-and-error approach and physical manipulation', style: LearningStyle.KINESTHETIC }
     ]
   },
@@ -312,7 +312,7 @@ const LEARNING_STYLE_QUESTIONS: LearningStyleQuestion[] = [
       { text: 'Visual layouts with images, videos, and diagrams', style: LearningStyle.VISUAL },
       { text: 'Audio explanations, podcasts, or narrated content', style: LearningStyle.AUDITORY },
       { text: 'Text-based content with clear written explanations', style: LearningStyle.READING_WRITING },
-      { text: 'Interactive elements that let me practice and apply concepts', style: LearningStyle.KINESTHETIC }
+      { text: 'Interactive elements that let me practise and apply concepts', style: LearningStyle.KINESTHETIC }
     ]
   },
   {
@@ -594,8 +594,8 @@ export const getAdaptedContent = (
                 Your browser does not support the video tag.
               </video>
             </div>
-            <h3>Color-Coded Summary</h3>
-            <ul class="color-coded">
+            <h3>Colour-Coded Summary</h3>
+            <ul class="colour-coded">
               <li class="primary">Primary concept: Educational Psychology Foundations</li>
               <li class="secondary">Secondary concept: Cognitive Development Stages</li>
               <li class="tertiary">Tertiary concept: Learning Environment Design</li>
@@ -625,7 +625,7 @@ export const getAdaptedContent = (
               <p>Consider these questions as you listen:</p>
               <ul>
                 <li>How do the different theories of cognitive development compare?</li>
-                <li>What implications do these theories have for educational practice?</li>
+                <li>What implications do these theories have for educational practise?</li>
                 <li>How might you apply these concepts in a classroom setting?</li>
               </ul>
             </div>
@@ -636,7 +636,7 @@ export const getAdaptedContent = (
             <h2>Detailed Text Explanation of Key Concepts</h2>
             <article>
               <h3>Introduction to Educational Psychology</h3>
-              <p>Educational psychology is the branch of psychology concerned with the scientific study of human learning. The study of learning processes, from both cognitive and behavioral perspectives, allows researchers to understand individual differences in intelligence, cognitive development, affect, motivation, self-regulation, and self-concept, as well as their role in learning.</p>
+              <p>Educational psychology is the branch of psychology concerned with the scientific study of human learning. The study of learning processes, from both cognitive and behavioural perspectives, allows researchers to understand individual differences in intelligence, cognitive development, affect, motivation, self-regulation, and self-concept, as well as their role in learning.</p>
               <p>The field of educational psychology relies heavily on quantitative methods, including testing and measurement, to enhance educational activities related to instructional design, classroom management, and assessment, which serve to facilitate learning processes in various educational settings across the lifespan.</p>
               
               <h3>Key Theories in Educational Psychology</h3>
@@ -672,7 +672,7 @@ export const getAdaptedContent = (
                 <button class="start-activity" data-activity="cognitive_mapping">Start Cognitive Mapping Exercise</button>
                 <div class="activity-description">
                   <p>In this exercise, you'll create a physical or digital mind map of key educational psychology concepts and their relationships.</p>
-                  <p>Materials needed: Paper and colored pens, or a digital mind mapping tool.</p>
+                  <p>Materials needed: Paper and coloured pens, or a digital mind mapping tool.</p>
                 </div>
               </div>
               <div class="activity-container">
@@ -718,7 +718,7 @@ export const getAdaptedContent = (
             
             <div class="reading-section">
               <h3>Text Explanation</h3>
-              <p>Educational psychology is the branch of psychology concerned with the scientific study of human learning. The study of learning processes, from both cognitive and behavioral perspectives, allows researchers to understand individual differences in intelligence, cognitive development, affect, motivation, self-regulation, and self-concept, as well as their role in learning.</p>
+              <p>Educational psychology is the branch of psychology concerned with the scientific study of human learning. The study of learning processes, from both cognitive and behavioural perspectives, allows researchers to understand individual differences in intelligence, cognitive development, affect, motivation, self-regulation, and self-concept, as well as their role in learning.</p>
             </div>
             
             <div class="kinesthetic-section">

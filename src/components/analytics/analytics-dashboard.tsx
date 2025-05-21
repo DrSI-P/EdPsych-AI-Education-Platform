@@ -229,7 +229,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
   // Render time period selector
   const renderTimePeriodSelector = () => {
     return (
-      <div className="flex items-center space-x-2">
+      <div className="flex items-centre space-x-2">
         <Select
           value={filter.timePeriod}
           onValueChange={(value) => handleTimePeriodChange(value as TimePeriod)}
@@ -248,7 +248,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
         </Select>
         
         {filter.timePeriod === TimePeriod.CUSTOM && (
-          <div className="flex items-center space-x-2">
+          <div className="flex items-centre space-x-2">
             <Popover>
               <PopoverTrigger asChild>
                 <Button
@@ -290,7 +290,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
   // Render granularity selector
   const renderGranularitySelector = () => {
     return (
-      <div className="flex items-center space-x-2">
+      <div className="flex items-centre space-x-2">
         <Label htmlFor="granularity" className="mr-2">Granularity:</Label>
         <Select
           value={filter.granularity}
@@ -424,7 +424,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
   // Render dashboard selector
   const renderDashboardSelector = () => {
     return (
-      <div className="flex items-center space-x-2">
+      <div className="flex items-centre space-x-2">
         <Select
           value={currentDashboard?.id}
           onValueChange={handleDashboardChange}
@@ -513,7 +513,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
   const renderDashboardContent = () => {
     if (isLoading) {
       return (
-        <div className="flex items-center justify-center h-64">
+        <div className="flex items-centre justify-centre h-64">
           <Loader2 className="h-8 w-8 animate-spin text-primary" />
           <span className="ml-2">Loading dashboard...</span>
         </div>
@@ -522,7 +522,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
     
     if (!currentDashboard) {
       return (
-        <div className="flex flex-col items-center justify-center h-64">
+        <div className="flex flex-col items-centre justify-centre h-64">
           <p className="text-muted-foreground mb-4">No dashboard selected or available.</p>
           <Button>
             <Plus className="h-4 w-4 mr-2" />
@@ -570,10 +570,10 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
   return (
     <div className="analytics-dashboard space-y-4">
       <div className="flex flex-col space-y-4">
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-centre">
           <h1 className="text-2xl font-bold">Analytics Dashboard</h1>
           
-          <div className="flex items-center space-x-2">
+          <div className="flex items-centre space-x-2">
             <Button variant="outline">
               <Save className="h-4 w-4 mr-2" />
               Save
@@ -586,10 +586,10 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
           </div>
         </div>
         
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-centre">
           {renderDashboardSelector()}
           
-          <div className="flex items-center space-x-4">
+          <div className="flex items-centre space-x-4">
             {renderTimePeriodSelector()}
             {renderGranularitySelector()}
             {renderFilterPanel()}
@@ -611,25 +611,25 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
         </TabsContent>
         
         <TabsContent value="student-performance" className="pt-4">
-          <div className="flex items-center justify-center h-64 border border-dashed rounded-md">
+          <div className="flex items-centre justify-centre h-64 border border-dashed rounded-md">
             <p className="text-muted-foreground">Student Performance view will be available in a future update.</p>
           </div>
         </TabsContent>
         
         <TabsContent value="curriculum-coverage" className="pt-4">
-          <div className="flex items-center justify-center h-64 border border-dashed rounded-md">
+          <div className="flex items-centre justify-centre h-64 border border-dashed rounded-md">
             <p className="text-muted-foreground">Curriculum Coverage view will be available in a future update.</p>
           </div>
         </TabsContent>
         
         <TabsContent value="engagement" className="pt-4">
-          <div className="flex items-center justify-center h-64 border border-dashed rounded-md">
+          <div className="flex items-centre justify-centre h-64 border border-dashed rounded-md">
             <p className="text-muted-foreground">Engagement view will be available in a future update.</p>
           </div>
         </TabsContent>
         
         <TabsContent value="special-needs" className="pt-4">
-          <div className="flex items-center justify-center h-64 border border-dashed rounded-md">
+          <div className="flex items-centre justify-centre h-64 border border-dashed rounded-md">
             <p className="text-muted-foreground">Special Needs view will be available in a future update.</p>
           </div>
         </TabsContent>

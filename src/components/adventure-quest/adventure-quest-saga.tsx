@@ -11,14 +11,14 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Progress } from "@/components/ui/progress";
 import { 
-  Dialog, 
+  Dialogue, 
   DialogContent, 
   DialogDescription, 
   DialogFooter, 
   DialogHeader, 
   DialogTitle, 
   DialogTrigger 
-} from "@/components/ui/dialog";
+} from "@/components/ui/dialogue";
 import { 
   Sword, 
   Map, 
@@ -230,7 +230,7 @@ const mockQuests = [
     xpReward: 200,
     learningStyles: ['reading_writing', 'auditory'],
     objectives: [
-      'Analyze different types of texts',
+      'Analyse different types of texts',
       'Identify and use literary devices',
       'Develop creative writing skills'
     ],
@@ -278,7 +278,7 @@ const mockQuests = [
     objectives: [
       'Understand scientific method',
       'Conduct simple experiments',
-      'Analyze and interpret results'
+      'Analyse and interpret results'
     ],
     chapters: [
       {
@@ -298,7 +298,7 @@ const mockQuests = [
       {
         id: 'c3',
         title: 'The Discovery Domain',
-        description: 'Reach the Discovery Domain to analyze your findings and draw meaningful conclusions.',
+        description: 'Reach the Discovery Domain to analyse your findings and draw meaningful conclusions.',
         challenges: 4,
         completed: false
       }
@@ -323,7 +323,7 @@ const mockQuests = [
     learningStyles: ['visual', 'reading_writing'],
     objectives: [
       'Understand chronology and historical periods',
-      'Analyze historical sources',
+      'Analyse historical sources',
       'Make connections between historical events'
     ],
     chapters: [
@@ -350,7 +350,7 @@ const mockQuests = [
       }
     ],
     rewards: [
-      { type: 'badge', name: 'Time Traveler', icon: <Hourglass className="h-4 w-4" /> },
+      { type: 'badge', name: 'Time Traveller', icon: <Hourglass className="h-4 w-4" /> },
       { type: 'item', name: 'Historical Compass', icon: <Compass className="h-4 w-4" /> },
       { type: 'skill', name: 'Chronological Thinking +1', icon: <Brain className="h-4 w-4" /> }
     ],
@@ -443,7 +443,7 @@ const mockCharacter = {
     { id: 'i3', name: 'Resilience Shield', description: 'Provides protection against challenging problems', icon: <Shield className="h-4 w-4" /> }
   ],
   badges: [
-    { id: 'b1', name: 'Pattern Spotter', description: 'Awarded for excellence in recognizing mathematical patterns', icon: <Puzzle className="h-4 w-4" /> },
+    { id: 'b1', name: 'Pattern Spotter', description: 'Awarded for excellence in recognising mathematical patterns', icon: <Puzzle className="h-4 w-4" /> },
     { id: 'b2', name: 'First Steps', description: 'Completed your first quest', icon: <Milestone className="h-4 w-4" /> },
     { id: 'b3', name: 'Team Player', description: 'Successfully completed a collaborative challenge', icon: <Users className="h-4 w-4" /> }
   ],
@@ -548,16 +548,16 @@ const CharacterCreation = ({ onCreateCharacter }) => {
   
   return (
     <div className="max-w-4xl mx-auto">
-      <div className="text-center mb-8">
+      <div className="text-centre mb-8">
         <h1 className="text-3xl font-bold">Begin Your Adventure</h1>
         <p className="text-muted-foreground mt-2">Create your character and embark on an educational journey</p>
       </div>
       
       <div className="mb-8">
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-centre">
           {[1, 2, 3].map((s) => (
-            <div key={s} className="flex flex-col items-center">
-              <div className={`w-10 h-10 rounded-full flex items-center justify-center ${step >= s ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground'}`}>
+            <div key={s} className="flex flex-col items-centre">
+              <div className={`w-10 h-10 rounded-full flex items-centre justify-centre ${step >= s ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground'}`}>
                 {s}
               </div>
               <span className="text-xs mt-1">
@@ -576,7 +576,7 @@ const CharacterCreation = ({ onCreateCharacter }) => {
       
       {step === 1 && (
         <div className="space-y-6">
-          <div className="text-center">
+          <div className="text-centre">
             <h2 className="text-2xl font-semibold">Choose Your Name</h2>
             <p className="text-muted-foreground mt-1">What shall we call you on your adventure?</p>
           </div>
@@ -593,7 +593,7 @@ const CharacterCreation = ({ onCreateCharacter }) => {
           </div>
           
           <div className="bg-muted p-4 rounded-lg max-w-md mx-auto">
-            <h3 className="font-medium flex items-center">
+            <h3 className="font-medium flex items-centre">
               <Info className="h-4 w-4 mr-2" />
               Name Guidelines
             </h3>
@@ -608,7 +608,7 @@ const CharacterCreation = ({ onCreateCharacter }) => {
       
       {step === 2 && (
         <div className="space-y-6">
-          <div className="text-center">
+          <div className="text-centre">
             <h2 className="text-2xl font-semibold">Choose Your Character Type</h2>
             <p className="text-muted-foreground mt-1">Each type offers different strengths and abilities</p>
           </div>
@@ -636,7 +636,7 @@ const CharacterCreation = ({ onCreateCharacter }) => {
                   
                   <div className="space-y-2">
                     {Object.entries(type.startingStats).map(([stat, value]) => (
-                      <div key={stat} className="flex items-center justify-between">
+                      <div key={stat} className="flex items-centre justify-between">
                         <span className="text-xs capitalize">{stat}</span>
                         <div className="flex-1 mx-2">
                           <div className="h-2 bg-muted rounded-full">
@@ -659,14 +659,14 @@ const CharacterCreation = ({ onCreateCharacter }) => {
       
       {step === 3 && selectedType && (
         <div className="space-y-6">
-          <div className="text-center">
+          <div className="text-centre">
             <h2 className="text-2xl font-semibold">Confirm Your Character</h2>
             <p className="text-muted-foreground mt-1">Review your choices before beginning your adventure</p>
           </div>
           
           <Card className="max-w-md mx-auto">
             <CardHeader>
-              <div className="flex items-center">
+              <div className="flex items-centre">
                 <div className="p-3 bg-primary/10 rounded-lg mr-4">
                   {characterTypes.find(type => type.id === selectedType)?.icon}
                 </div>
@@ -684,7 +684,7 @@ const CharacterCreation = ({ onCreateCharacter }) => {
                   <h3 className="font-medium mb-2">Starting Stats</h3>
                   <div className="space-y-2">
                     {Object.entries(characterTypes.find(type => type.id === selectedType)?.startingStats || {}).map(([stat, value]) => (
-                      <div key={stat} className="flex items-center justify-between">
+                      <div key={stat} className="flex items-centre justify-between">
                         <span className="text-sm capitalize">{stat}</span>
                         <div className="flex-1 mx-2">
                           <div className="h-2 bg-muted rounded-full">
@@ -738,14 +738,14 @@ const CharacterCreation = ({ onCreateCharacter }) => {
 const CharacterDashboard = ({ character }) => {
   return (
     <div className="space-y-6">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
-        <div className="flex items-center">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-centre">
+        <div className="flex items-centre">
           <div className="p-3 bg-primary/10 rounded-lg mr-4">
             {characterTypes.find(type => type.id === character.type)?.icon}
           </div>
           <div>
             <h2 className="text-2xl font-bold">{character.name}</h2>
-            <div className="flex items-center">
+            <div className="flex items-centre">
               <Badge variant="outline" className="mr-2">
                 Level {character.level}
               </Badge>
@@ -756,26 +756,26 @@ const CharacterDashboard = ({ character }) => {
           </div>
         </div>
         
-        <div className="mt-4 md:mt-0 flex items-center space-x-4">
-          <div className="text-center">
+        <div className="mt-4 md:mt-0 flex items-centre space-x-4">
+          <div className="text-centre">
             <span className="text-sm text-muted-foreground">Completed Quests</span>
-            <div className="flex items-center mt-1">
+            <div className="flex items-centre mt-1">
               <Trophy className="h-4 w-4 mr-1 text-amber-500" />
               <span className="font-bold">{character.completedQuests}</span>
             </div>
           </div>
           
-          <div className="text-center">
+          <div className="text-centre">
             <span className="text-sm text-muted-foreground">Active Quests</span>
-            <div className="flex items-center mt-1">
+            <div className="flex items-centre mt-1">
               <Sword className="h-4 w-4 mr-1 text-blue-500" />
               <span className="font-bold">{character.activeQuests}</span>
             </div>
           </div>
           
-          <div className="text-center">
+          <div className="text-centre">
             <span className="text-sm text-muted-foreground">Badges</span>
-            <div className="flex items-center mt-1">
+            <div className="flex items-centre mt-1">
               <Award className="h-4 w-4 mr-1 text-purple-500" />
               <span className="font-bold">{character.badges.length}</span>
             </div>
@@ -784,10 +784,10 @@ const CharacterDashboard = ({ character }) => {
       </div>
       
       <div className="bg-muted p-4 rounded-lg">
-        <div className="flex justify-between items-center mb-2">
+        <div className="flex justify-between items-centre mb-2">
           <div>
             <span className="text-sm font-medium">Level Progress</span>
-            <div className="flex items-center text-xs text-muted-foreground">
+            <div className="flex items-centre text-xs text-muted-foreground">
               <span>{character.xp} / {character.xpToNextLevel} XP</span>
               <span className="mx-1">•</span>
               <span>{Math.round((character.xp / character.xpToNextLevel) * 100)}%</span>
@@ -804,7 +804,7 @@ const CharacterDashboard = ({ character }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center">
+            <CardTitle className="flex items-centre">
               <Brain className="h-5 w-5 mr-2" />
               Character Stats
             </CardTitle>
@@ -814,7 +814,7 @@ const CharacterDashboard = ({ character }) => {
             <div className="space-y-3">
               {Object.entries(character.stats).map(([stat, value]) => (
                 <div key={stat} className="space-y-1">
-                  <div className="flex justify-between items-center">
+                  <div className="flex justify-between items-centre">
                     <span className="text-sm capitalize">{stat}</span>
                     <span className="text-sm font-medium">{value}/10</span>
                   </div>
@@ -838,7 +838,7 @@ const CharacterDashboard = ({ character }) => {
         
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center">
+            <CardTitle className="flex items-centre">
               <Zap className="h-5 w-5 mr-2" />
               Skills
             </CardTitle>
@@ -848,8 +848,8 @@ const CharacterDashboard = ({ character }) => {
             <div className="space-y-4">
               {character.skills.map((skill) => (
                 <div key={skill.id} className="space-y-1">
-                  <div className="flex justify-between items-center">
-                    <div className="flex items-center">
+                  <div className="flex justify-between items-centre">
+                    <div className="flex items-centre">
                       {skill.icon}
                       <span className="text-sm ml-2">{skill.name}</span>
                     </div>
@@ -871,7 +871,7 @@ const CharacterDashboard = ({ character }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center">
+            <CardTitle className="flex items-centre">
               <Backpack className="h-5 w-5 mr-2" />
               Inventory
             </CardTitle>
@@ -893,7 +893,7 @@ const CharacterDashboard = ({ character }) => {
                 ))}
               </div>
             ) : (
-              <div className="text-center py-6 text-muted-foreground">
+              <div className="text-centre py-6 text-muted-foreground">
                 <Backpack className="h-8 w-8 mx-auto mb-2 opacity-50" />
                 <p>Your inventory is empty</p>
                 <p className="text-xs mt-1">Complete quests to earn items</p>
@@ -904,7 +904,7 @@ const CharacterDashboard = ({ character }) => {
         
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center">
+            <CardTitle className="flex items-centre">
               <Award className="h-5 w-5 mr-2" />
               Badges
             </CardTitle>
@@ -926,7 +926,7 @@ const CharacterDashboard = ({ character }) => {
                 ))}
               </div>
             ) : (
-              <div className="text-center py-6 text-muted-foreground">
+              <div className="text-centre py-6 text-muted-foreground">
                 <Award className="h-8 w-8 mx-auto mb-2 opacity-50" />
                 <p>No badges earned yet</p>
                 <p className="text-xs mt-1">Complete quests to earn badges</p>
@@ -950,7 +950,7 @@ const QuestCard = ({ quest, onSelect }) => {
           <Badge variant="outline" className="capitalize">
             {quest.subject}
           </Badge>
-          <Badge className={`${difficultyInfo?.color} text-white`}>
+          <Badge className={`${difficultyInfo?.colour} text-white`}>
             {difficultyInfo?.name}
           </Badge>
         </div>
@@ -968,7 +968,7 @@ const QuestCard = ({ quest, onSelect }) => {
             <ul className="text-xs text-muted-foreground space-y-1">
               {quest.objectives.map((objective, index) => (
                 <li key={index} className="flex items-start">
-                  <div className="h-4 w-4 mr-2 flex items-center justify-center">•</div>
+                  <div className="h-4 w-4 mr-2 flex items-centre justify-centre">•</div>
                   <span>{objective}</span>
                 </li>
               ))}
@@ -981,7 +981,7 @@ const QuestCard = ({ quest, onSelect }) => {
               {quest.learningStyles.map((style) => {
                 const styleInfo = learningStyles.find(s => s.id === style);
                 return (
-                  <Badge key={style} variant="outline" className="flex items-center">
+                  <Badge key={style} variant="outline" className="flex items-centre">
                     {styleInfo?.icon}
                     <span className="ml-1">{styleInfo?.name}</span>
                   </Badge>
@@ -993,11 +993,11 @@ const QuestCard = ({ quest, onSelect }) => {
           <div>
             <h4 className="text-sm font-medium mb-1">Rewards</h4>
             <div className="flex space-x-2">
-              <Badge variant="secondary" className="flex items-center">
+              <Badge variant="secondary" className="flex items-centre">
                 <Star className="h-3 w-3 mr-1 text-amber-500" />
                 <span>{quest.xpReward} XP</span>
               </Badge>
-              <Badge variant="secondary" className="flex items-center">
+              <Badge variant="secondary" className="flex items-centre">
                 <Award className="h-3 w-3 mr-1" />
                 <span>{quest.rewards.length} Items</span>
               </Badge>
@@ -1034,7 +1034,7 @@ const QuestDetail = ({ quest, onBack, onStart }) => {
   
   return (
     <div className="space-y-6">
-      <div className="flex items-center">
+      <div className="flex items-centre">
         <Button variant="ghost" size="sm" onClick={onBack} className="mr-2">
           <ChevronLeft className="h-4 w-4 mr-1" />
           Back
@@ -1046,7 +1046,7 @@ const QuestDetail = ({ quest, onBack, onStart }) => {
         <Badge variant="outline" className="capitalize">
           {quest.subject}
         </Badge>
-        <Badge className={`${difficultyInfo?.color} text-white`}>
+        <Badge className={`${difficultyInfo?.colour} text-white`}>
           {difficultyInfo?.name}
         </Badge>
         <Badge variant="outline">{quest.keyStage}</Badge>
@@ -1058,7 +1058,7 @@ const QuestDetail = ({ quest, onBack, onStart }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center">
+            <CardTitle className="flex items-centre">
               <Target className="h-5 w-5 mr-2" />
               Learning Objectives
             </CardTitle>
@@ -1068,7 +1068,7 @@ const QuestDetail = ({ quest, onBack, onStart }) => {
             <ul className="space-y-2">
               {quest.objectives.map((objective, index) => (
                 <li key={index} className="flex items-start">
-                  <div className="h-5 w-5 mr-2 flex items-center justify-center bg-primary/10 rounded-full text-primary">
+                  <div className="h-5 w-5 mr-2 flex items-centre justify-centre bg-primary/10 rounded-full text-primary">
                     {index + 1}
                   </div>
                   <span>{objective}</span>
@@ -1080,14 +1080,14 @@ const QuestDetail = ({ quest, onBack, onStart }) => {
         
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center">
+            <CardTitle className="flex items-centre">
               <Trophy className="h-5 w-5 mr-2" />
               Rewards
             </CardTitle>
             <CardDescription>What you'll earn by completing this quest</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="flex items-center p-2 bg-amber-50 border border-amber-200 rounded-lg mb-4">
+            <div className="flex items-centre p-2 bg-amber-50 border border-amber-200 rounded-lg mb-4">
               <Star className="h-5 w-5 mr-2 text-amber-500" />
               <span className="font-medium">{quest.xpReward} XP</span>
             </div>
@@ -1115,7 +1115,7 @@ const QuestDetail = ({ quest, onBack, onStart }) => {
       
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center">
+          <CardTitle className="flex items-centre">
             <Map className="h-5 w-5 mr-2" />
             Quest Journey
           </CardTitle>
@@ -1129,13 +1129,13 @@ const QuestDetail = ({ quest, onBack, onStart }) => {
                   <div className="absolute left-6 top-12 bottom-0 w-0.5 bg-muted"></div>
                 )}
                 <div className="flex items-start">
-                  <div className="flex-shrink-0 h-12 w-12 flex items-center justify-center bg-primary/10 rounded-full text-primary font-bold">
+                  <div className="flex-shrink-0 h-12 w-12 flex items-centre justify-centre bg-primary/10 rounded-full text-primary font-bold">
                     {index + 1}
                   </div>
                   <div className="ml-4">
                     <h3 className="font-medium">{chapter.title}</h3>
                     <p className="text-sm text-muted-foreground mb-2">{chapter.description}</p>
-                    <Badge variant="outline" className="flex items-center w-fit">
+                    <Badge variant="outline" className="flex items-centre w-fit">
                       <Puzzle className="h-3 w-3 mr-1" />
                       {chapter.challenges} Challenges
                     </Badge>
@@ -1345,13 +1345,13 @@ const QuestHub = ({ quests, onSelectQuest }) => {
   
   return (
     <div className="space-y-6">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-centre">
         <div>
           <h2 className="text-2xl font-bold">Quest Hub</h2>
           <p className="text-muted-foreground">Discover adventures that await you</p>
         </div>
         
-        <div className="mt-4 md:mt-0 flex items-center space-x-2">
+        <div className="mt-4 md:mt-0 flex items-centre space-x-2">
           <Input
             placeholder="Search quests..."
             value={searchTerm}
@@ -1359,7 +1359,7 @@ const QuestHub = ({ quests, onSelectQuest }) => {
             className="w-full md:w-auto"
           />
           
-          <Dialog>
+          <Dialogue>
             <DialogTrigger asChild>
               <Button variant="outline" size="icon">
                 <Filter className="h-4 w-4" />
@@ -1435,7 +1435,7 @@ const QuestHub = ({ quests, onSelectQuest }) => {
                       <Badge
                         key={style.id}
                         variant={filters.learningStyle.includes(style.id) ? "default" : "outline"}
-                        className="cursor-pointer flex items-center"
+                        className="cursor-pointer flex items-centre"
                         onClick={() => toggleFilter('learningStyle', style.id)}
                       >
                         {style.icon}
@@ -1455,18 +1455,18 @@ const QuestHub = ({ quests, onSelectQuest }) => {
                 </DialogClose>
               </DialogFooter>
             </DialogContent>
-          </Dialog>
+          </Dialogue>
         </div>
       </div>
       
       {/* Active filters */}
       {(filters.difficulty.length > 0 || filters.subject.length > 0 || 
         filters.keyStage.length > 0 || filters.learningStyle.length > 0 || searchTerm) && (
-        <div className="flex flex-wrap items-center gap-2 p-3 bg-muted rounded-lg">
+        <div className="flex flex-wrap items-centre gap-2 p-3 bg-muted rounded-lg">
           <span className="text-sm font-medium mr-2">Active Filters:</span>
           
           {searchTerm && (
-            <Badge variant="secondary" className="flex items-center">
+            <Badge variant="secondary" className="flex items-centre">
               <Search className="h-3 w-3 mr-1" />
               {searchTerm}
               <X 
@@ -1477,7 +1477,7 @@ const QuestHub = ({ quests, onSelectQuest }) => {
           )}
           
           {filters.difficulty.map(difficulty => (
-            <Badge key={difficulty} variant="secondary" className="flex items-center">
+            <Badge key={difficulty} variant="secondary" className="flex items-centre">
               {difficultyLevels.find(d => d.id === difficulty)?.name}
               <X 
                 className="h-3 w-3 ml-1 cursor-pointer" 
@@ -1487,7 +1487,7 @@ const QuestHub = ({ quests, onSelectQuest }) => {
           ))}
           
           {filters.subject.map(subject => (
-            <Badge key={subject} variant="secondary" className="flex items-center capitalize">
+            <Badge key={subject} variant="secondary" className="flex items-centre capitalize">
               {subject}
               <X 
                 className="h-3 w-3 ml-1 cursor-pointer" 
@@ -1497,7 +1497,7 @@ const QuestHub = ({ quests, onSelectQuest }) => {
           ))}
           
           {filters.keyStage.map(keyStage => (
-            <Badge key={keyStage} variant="secondary" className="flex items-center">
+            <Badge key={keyStage} variant="secondary" className="flex items-centre">
               {keyStage}
               <X 
                 className="h-3 w-3 ml-1 cursor-pointer" 
@@ -1507,7 +1507,7 @@ const QuestHub = ({ quests, onSelectQuest }) => {
           ))}
           
           {filters.learningStyle.map(style => (
-            <Badge key={style} variant="secondary" className="flex items-center">
+            <Badge key={style} variant="secondary" className="flex items-centre">
               {learningStyles.find(s => s.id === style)?.name}
               <X 
                 className="h-3 w-3 ml-1 cursor-pointer" 
@@ -1533,7 +1533,7 @@ const QuestHub = ({ quests, onSelectQuest }) => {
           ))}
         </div>
       ) : (
-        <div className="text-center py-12 border rounded-lg">
+        <div className="text-centre py-12 border rounded-lg">
           <Map className="h-12 w-12 mx-auto text-muted-foreground" />
           <h3 className="mt-4 text-lg font-medium">No Quests Found</h3>
           <p className="text-muted-foreground mt-1">
@@ -1696,7 +1696,7 @@ const AdventureQuestSaga = () => {
         </TabsContent>
       </Tabs>
       
-      {/* Credit purchase dialog from fair usage hook */}
+      {/* Credit purchase dialogue from fair usage hook */}
       <CreditPurchaseDialog />
     </div>
   );

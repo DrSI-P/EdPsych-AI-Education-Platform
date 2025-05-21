@@ -26,14 +26,14 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Separator } from "@/components/ui/separator";
 import { 
-  Dialog, 
+  Dialogue, 
   DialogContent, 
   DialogDescription, 
   DialogFooter, 
   DialogHeader, 
   DialogTitle, 
   DialogTrigger 
-} from "@/components/ui/dialog";
+} from "@/components/ui/dialogue";
 import { 
   Tooltip, 
   TooltipContent, 
@@ -163,7 +163,7 @@ export default function PortfolioExport() {
 
   return (
     <div className="container mx-auto py-6 space-y-8">
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-centre">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Portfolio Showcase & Export</h1>
           <p className="text-muted-foreground">
@@ -195,15 +195,15 @@ export default function PortfolioExport() {
                   className="flex flex-col space-y-1"
                   onValueChange={(value) => setExportType(value)}
                 >
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <RadioGroupItem value="pdf" id="pdf" />
                     <Label htmlFor="pdf" className="font-normal">PDF Document</Label>
                   </div>
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <RadioGroupItem value="docx" id="docx" />
                     <Label htmlFor="docx" className="font-normal">Word Document (DOCX)</Label>
                   </div>
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <RadioGroupItem value="html" id="html" />
                     <Label htmlFor="html" className="font-normal">Web Page (HTML)</Label>
                   </div>
@@ -215,7 +215,7 @@ export default function PortfolioExport() {
               <div className="space-y-2">
                 <Label>Sections to Include</Label>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <Checkbox 
                       id="profile" 
                       checked={sections.profile}
@@ -223,7 +223,7 @@ export default function PortfolioExport() {
                     />
                     <Label htmlFor="profile" className="font-normal">Professional Profile</Label>
                   </div>
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <Checkbox 
                       id="qualifications" 
                       checked={sections.qualifications}
@@ -231,7 +231,7 @@ export default function PortfolioExport() {
                     />
                     <Label htmlFor="qualifications" className="font-normal">Qualifications</Label>
                   </div>
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <Checkbox 
                       id="achievements" 
                       checked={sections.achievements}
@@ -239,7 +239,7 @@ export default function PortfolioExport() {
                     />
                     <Label htmlFor="achievements" className="font-normal">Achievements</Label>
                   </div>
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <Checkbox 
                       id="evidence" 
                       checked={sections.evidence}
@@ -247,7 +247,7 @@ export default function PortfolioExport() {
                     />
                     <Label htmlFor="evidence" className="font-normal">Evidence & Artefacts</Label>
                   </div>
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <Checkbox 
                       id="reflections" 
                       checked={sections.reflections}
@@ -255,7 +255,7 @@ export default function PortfolioExport() {
                     />
                     <Label htmlFor="reflections" className="font-normal">Professional Reflections</Label>
                   </div>
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <Checkbox 
                       id="cpdActivities" 
                       checked={sections.cpdActivities}
@@ -269,9 +269,9 @@ export default function PortfolioExport() {
               <Separator />
 
               <div className="space-y-4">
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-centre">
                   <Label>Customisation Options</Label>
-                  <Dialog>
+                  <Dialogue>
                     <DialogTrigger asChild>
                       <Button variant="outline" size="sm">
                         <Settings className="h-4 w-4 mr-2" />
@@ -304,10 +304,10 @@ export default function PortfolioExport() {
                           </Select>
                         </div>
                         <div className="space-y-2">
-                          <Label htmlFor="color">Colour Scheme</Label>
+                          <Label htmlFor="colour">Colour Scheme</Label>
                           <Select 
-                            defaultValue={customization.color}
-                            onValueChange={(value) => handleCustomizationChange('color', value)}
+                            defaultValue={customization.colour}
+                            onValueChange={(value) => handleCustomizationChange('colour', value)}
                           >
                             <SelectTrigger>
                               <SelectValue placeholder="Select colour scheme" />
@@ -317,14 +317,14 @@ export default function PortfolioExport() {
                               <SelectItem value="green">Green</SelectItem>
                               <SelectItem value="purple">Purple</SelectItem>
                               <SelectItem value="red">Red</SelectItem>
-                              <SelectItem value="gray">Grey</SelectItem>
+                              <SelectItem value="grey">Grey</SelectItem>
                             </SelectContent>
                           </Select>
                         </div>
                         <div className="space-y-2">
                           <Label>Document Elements</Label>
                           <div className="space-y-2">
-                            <div className="flex items-center justify-between">
+                            <div className="flex items-centre justify-between">
                               <Label htmlFor="includeCover" className="font-normal">Include Cover Page</Label>
                               <Switch 
                                 id="includeCover" 
@@ -332,7 +332,7 @@ export default function PortfolioExport() {
                                 onCheckedChange={(checked) => handleCustomizationChange('includeCover', checked)}
                               />
                             </div>
-                            <div className="flex items-center justify-between">
+                            <div className="flex items-centre justify-between">
                               <Label htmlFor="includeHeader" className="font-normal">Include Header/Footer</Label>
                               <Switch 
                                 id="includeHeader" 
@@ -340,7 +340,7 @@ export default function PortfolioExport() {
                                 onCheckedChange={(checked) => handleCustomizationChange('includeHeader', checked)}
                               />
                             </div>
-                            <div className="flex items-center justify-between">
+                            <div className="flex items-centre justify-between">
                               <Label htmlFor="includeTableOfContents" className="font-normal">Include Table of Contents</Label>
                               <Switch 
                                 id="includeTableOfContents" 
@@ -348,7 +348,7 @@ export default function PortfolioExport() {
                                 onCheckedChange={(checked) => handleCustomizationChange('includeTableOfContents', checked)}
                               />
                             </div>
-                            <div className="flex items-center justify-between">
+                            <div className="flex items-centre justify-between">
                               <Label htmlFor="includePageNumbers" className="font-normal">Include Page Numbers</Label>
                               <Switch 
                                 id="includePageNumbers" 
@@ -363,37 +363,37 @@ export default function PortfolioExport() {
                         <Button type="submit">Save Changes</Button>
                       </DialogFooter>
                     </DialogContent>
-                  </Dialog>
+                  </Dialogue>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   <Card className={`border-2 cursor-pointer ${customization.theme === 'professional' ? 'border-primary' : 'border-transparent'}`} onClick={() => handleCustomizationChange('theme', 'professional')}>
-                    <CardContent className="p-4 flex flex-col items-center justify-center">
-                      <div className="w-full h-24 bg-blue-100 rounded-md mb-2 flex items-center justify-center">
+                    <CardContent className="p-4 flex flex-col items-centre justify-centre">
+                      <div className="w-full h-24 bg-blue-100 rounded-md mb-2 flex items-centre justify-centre">
                         <div className="w-16 h-16 rounded-full bg-blue-500"></div>
                       </div>
                       <p className="text-sm font-medium">Professional</p>
                     </CardContent>
                   </Card>
                   <Card className={`border-2 cursor-pointer ${customization.theme === 'modern' ? 'border-primary' : 'border-transparent'}`} onClick={() => handleCustomizationChange('theme', 'modern')}>
-                    <CardContent className="p-4 flex flex-col items-center justify-center">
-                      <div className="w-full h-24 bg-purple-100 rounded-md mb-2 flex items-center justify-center">
+                    <CardContent className="p-4 flex flex-col items-centre justify-centre">
+                      <div className="w-full h-24 bg-purple-100 rounded-md mb-2 flex items-centre justify-centre">
                         <div className="w-16 h-8 rounded-md bg-purple-500"></div>
                       </div>
                       <p className="text-sm font-medium">Modern</p>
                     </CardContent>
                   </Card>
                   <Card className={`border-2 cursor-pointer ${customization.theme === 'classic' ? 'border-primary' : 'border-transparent'}`} onClick={() => handleCustomizationChange('theme', 'classic')}>
-                    <CardContent className="p-4 flex flex-col items-center justify-center">
-                      <div className="w-full h-24 bg-amber-100 rounded-md mb-2 flex items-center justify-center">
+                    <CardContent className="p-4 flex flex-col items-centre justify-centre">
+                      <div className="w-full h-24 bg-amber-100 rounded-md mb-2 flex items-centre justify-centre">
                         <div className="w-16 h-16 rounded-md bg-amber-500"></div>
                       </div>
                       <p className="text-sm font-medium">Classic</p>
                     </CardContent>
                   </Card>
                   <Card className={`border-2 cursor-pointer ${customization.theme === 'minimal' ? 'border-primary' : 'border-transparent'}`} onClick={() => handleCustomizationChange('theme', 'minimal')}>
-                    <CardContent className="p-4 flex flex-col items-center justify-center">
-                      <div className="w-full h-24 bg-gray-100 rounded-md mb-2 flex items-center justify-center">
-                        <div className="w-16 h-4 rounded-md bg-gray-500"></div>
+                    <CardContent className="p-4 flex flex-col items-centre justify-centre">
+                      <div className="w-full h-24 bg-grey-100 rounded-md mb-2 flex items-centre justify-centre">
+                        <div className="w-16 h-4 rounded-md bg-grey-500"></div>
                       </div>
                       <p className="text-sm font-medium">Minimal</p>
                     </CardContent>
@@ -421,8 +421,8 @@ export default function PortfolioExport() {
 
           {showExportSuccess && (
             <Card className="bg-green-50 border-green-200">
-              <CardContent className="p-4 flex items-center justify-between">
-                <div className="flex items-center">
+              <CardContent className="p-4 flex items-centre justify-between">
+                <div className="flex items-centre">
                   <Check className="h-5 w-5 text-green-500 mr-2" />
                   <p>Your portfolio has been successfully exported. Check your downloads folder.</p>
                 </div>
@@ -442,8 +442,8 @@ export default function PortfolioExport() {
             </CardHeader>
             <CardContent>
               <div className="space-y-2">
-                <div className="flex items-center justify-between p-2 border rounded-md">
-                  <div className="flex items-center">
+                <div className="flex items-centre justify-between p-2 border rounded-md">
+                  <div className="flex items-centre">
                     <FileText className="h-5 w-5 mr-2 text-blue-500" />
                     <div>
                       <p className="font-medium">Complete Portfolio.pdf</p>
@@ -454,8 +454,8 @@ export default function PortfolioExport() {
                     <Download className="h-4 w-4" />
                   </Button>
                 </div>
-                <div className="flex items-center justify-between p-2 border rounded-md">
-                  <div className="flex items-center">
+                <div className="flex items-centre justify-between p-2 border rounded-md">
+                  <div className="flex items-centre">
                     <FileText className="h-5 w-5 mr-2 text-green-500" />
                     <div>
                       <p className="font-medium">Teaching Evidence Portfolio.docx</p>
@@ -466,8 +466,8 @@ export default function PortfolioExport() {
                     <Download className="h-4 w-4" />
                   </Button>
                 </div>
-                <div className="flex items-center justify-between p-2 border rounded-md">
-                  <div className="flex items-center">
+                <div className="flex items-centre justify-between p-2 border rounded-md">
+                  <div className="flex items-centre">
                     <FileText className="h-5 w-5 mr-2 text-purple-500" />
                     <div>
                       <p className="font-medium">Leadership Portfolio.pdf</p>
@@ -497,8 +497,8 @@ export default function PortfolioExport() {
                 <Label>Sections to Share</Label>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
+                    <div className="flex items-centre justify-between">
+                      <div className="flex items-centre space-x-2">
                         <Checkbox 
                           id="share-profile" 
                           checked={sections.profile}
@@ -516,13 +516,13 @@ export default function PortfolioExport() {
                           </SelectTrigger>
                           <SelectContent>
                             <SelectItem value="public">
-                              <div className="flex items-center">
+                              <div className="flex items-centre">
                                 <Eye className="h-4 w-4 mr-2" />
                                 Public
                               </div>
                             </SelectItem>
                             <SelectItem value="private">
-                              <div className="flex items-center">
+                              <div className="flex items-centre">
                                 <EyeOff className="h-4 w-4 mr-2" />
                                 Private
                               </div>
@@ -531,8 +531,8 @@ export default function PortfolioExport() {
                         </Select>
                       )}
                     </div>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
+                    <div className="flex items-centre justify-between">
+                      <div className="flex items-centre space-x-2">
                         <Checkbox 
                           id="share-qualifications" 
                           checked={sections.qualifications}
@@ -550,13 +550,13 @@ export default function PortfolioExport() {
                           </SelectTrigger>
                           <SelectContent>
                             <SelectItem value="public">
-                              <div className="flex items-center">
+                              <div className="flex items-centre">
                                 <Eye className="h-4 w-4 mr-2" />
                                 Public
                               </div>
                             </SelectItem>
                             <SelectItem value="private">
-                              <div className="flex items-center">
+                              <div className="flex items-centre">
                                 <EyeOff className="h-4 w-4 mr-2" />
                                 Private
                               </div>
@@ -565,8 +565,8 @@ export default function PortfolioExport() {
                         </Select>
                       )}
                     </div>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
+                    <div className="flex items-centre justify-between">
+                      <div className="flex items-centre space-x-2">
                         <Checkbox 
                           id="share-achievements" 
                           checked={sections.achievements}
@@ -584,13 +584,13 @@ export default function PortfolioExport() {
                           </SelectTrigger>
                           <SelectContent>
                             <SelectItem value="public">
-                              <div className="flex items-center">
+                              <div className="flex items-centre">
                                 <Eye className="h-4 w-4 mr-2" />
                                 Public
                               </div>
                             </SelectItem>
                             <SelectItem value="private">
-                              <div className="flex items-center">
+                              <div className="flex items-centre">
                                 <EyeOff className="h-4 w-4 mr-2" />
                                 Private
                               </div>
@@ -601,8 +601,8 @@ export default function PortfolioExport() {
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
+                    <div className="flex items-centre justify-between">
+                      <div className="flex items-centre space-x-2">
                         <Checkbox 
                           id="share-evidence" 
                           checked={sections.evidence}
@@ -620,13 +620,13 @@ export default function PortfolioExport() {
                           </SelectTrigger>
                           <SelectContent>
                             <SelectItem value="public">
-                              <div className="flex items-center">
+                              <div className="flex items-centre">
                                 <Eye className="h-4 w-4 mr-2" />
                                 Public
                               </div>
                             </SelectItem>
                             <SelectItem value="private">
-                              <div className="flex items-center">
+                              <div className="flex items-centre">
                                 <EyeOff className="h-4 w-4 mr-2" />
                                 Private
                               </div>
@@ -635,8 +635,8 @@ export default function PortfolioExport() {
                         </Select>
                       )}
                     </div>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
+                    <div className="flex items-centre justify-between">
+                      <div className="flex items-centre space-x-2">
                         <Checkbox 
                           id="share-reflections" 
                           checked={sections.reflections}
@@ -654,13 +654,13 @@ export default function PortfolioExport() {
                           </SelectTrigger>
                           <SelectContent>
                             <SelectItem value="public">
-                              <div className="flex items-center">
+                              <div className="flex items-centre">
                                 <Eye className="h-4 w-4 mr-2" />
                                 Public
                               </div>
                             </SelectItem>
                             <SelectItem value="private">
-                              <div className="flex items-center">
+                              <div className="flex items-centre">
                                 <EyeOff className="h-4 w-4 mr-2" />
                                 Private
                               </div>
@@ -669,8 +669,8 @@ export default function PortfolioExport() {
                         </Select>
                       )}
                     </div>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
+                    <div className="flex items-centre justify-between">
+                      <div className="flex items-centre space-x-2">
                         <Checkbox 
                           id="share-cpdActivities" 
                           checked={sections.cpdActivities}
@@ -688,13 +688,13 @@ export default function PortfolioExport() {
                           </SelectTrigger>
                           <SelectContent>
                             <SelectItem value="public">
-                              <div className="flex items-center">
+                              <div className="flex items-centre">
                                 <Eye className="h-4 w-4 mr-2" />
                                 Public
                               </div>
                             </SelectItem>
                             <SelectItem value="private">
-                              <div className="flex items-center">
+                              <div className="flex items-centre">
                                 <EyeOff className="h-4 w-4 mr-2" />
                                 Private
                               </div>
@@ -731,7 +731,7 @@ export default function PortfolioExport() {
                     </Select>
                   </div>
                   <div className="space-y-2">
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-centre justify-between">
                       <Label htmlFor="requireAccessCode">Require Access Code</Label>
                       <Switch 
                         id="requireAccessCode" 
@@ -773,8 +773,8 @@ export default function PortfolioExport() {
           {showShareSuccess && (
             <Card className="bg-green-50 border-green-200">
               <CardContent className="p-4">
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center">
+                <div className="flex items-centre justify-between mb-2">
+                  <div className="flex items-centre">
                     <Check className="h-5 w-5 text-green-500 mr-2" />
                     <p className="font-medium">Your portfolio has been shared successfully!</p>
                   </div>
@@ -782,14 +782,14 @@ export default function PortfolioExport() {
                     <X className="h-4 w-4" />
                   </Button>
                 </div>
-                <div className="flex items-center space-x-2 bg-white p-2 rounded-md border">
+                <div className="flex items-centre space-x-2 bg-white p-2 rounded-md border">
                   <Input value={generatedLink} readOnly className="flex-1" />
                   <Button variant="outline" size="sm" onClick={handleCopyLink}>
                     <Copy className="h-4 w-4 mr-2" />
                     Copy
                   </Button>
                 </div>
-                <div className="mt-2 text-sm text-muted-foreground flex items-center">
+                <div className="mt-2 text-sm text-muted-foreground flex items-centre">
                   <Info className="h-4 w-4 mr-1" />
                   {shareSettings.expiryDays > 0 ? (
                     <span>This link will expire in {shareSettings.expiryDays} days.</span>
@@ -833,19 +833,19 @@ export default function PortfolioExport() {
                     </TooltipProvider>
                   </div>
                   <div className="flex flex-wrap gap-2 text-xs">
-                    <div className="flex items-center">
+                    <div className="flex items-centre">
                       <Calendar className="h-3 w-3 mr-1" />
                       <span>Created: 10 May 2025</span>
                     </div>
-                    <div className="flex items-center">
+                    <div className="flex items-centre">
                       <Clock className="h-3 w-3 mr-1" />
                       <span>Expires: 9 June 2025</span>
                     </div>
-                    <div className="flex items-center">
+                    <div className="flex items-centre">
                       <Eye className="h-3 w-3 mr-1" />
                       <span>Views: 12</span>
                     </div>
-                    <div className="flex items-center">
+                    <div className="flex items-centre">
                       <Lock className="h-3 w-3 mr-1" />
                       <span>Access Code: Yes</span>
                     </div>
@@ -876,19 +876,19 @@ export default function PortfolioExport() {
                     </TooltipProvider>
                   </div>
                   <div className="flex flex-wrap gap-2 text-xs">
-                    <div className="flex items-center">
+                    <div className="flex items-centre">
                       <Calendar className="h-3 w-3 mr-1" />
                       <span>Created: 1 April 2025</span>
                     </div>
-                    <div className="flex items-center">
+                    <div className="flex items-centre">
                       <Clock className="h-3 w-3 mr-1" />
                       <span>Expires: Never</span>
                     </div>
-                    <div className="flex items-center">
+                    <div className="flex items-centre">
                       <Eye className="h-3 w-3 mr-1" />
                       <span>Views: 27</span>
                     </div>
-                    <div className="flex items-center">
+                    <div className="flex items-centre">
                       <Unlock className="h-3 w-3 mr-1" />
                       <span>Access Code: No</span>
                     </div>

@@ -82,7 +82,7 @@ The AI Lab feature creates an innovative, hands-on environment within the EdPsyc
 - **Interactive Tutorials**: Multimedia explanations of AI concepts
 - **Simulation Framework**: Visualizations of AI processes
 - **Scaffolded Programming**: Progressive complexity in AI development
-- **Model Visualization**: Tools for understanding AI decision-making
+- **Model Visualisation**: Tools for understanding AI decision-making
 - **Performance Metrics**: Measurements of AI model effectiveness
 
 ### Development Tools
@@ -98,7 +98,7 @@ The AI Lab feature creates an innovative, hands-on environment within the EdPsyc
 - **Experiment Design**: Templates for educational AI research
 - **Data Management**: Secure, ethical handling of research data
 - **Analysis Tools**: Statistical and qualitative evaluation methods
-- **Visualization Suite**: Graphical representation of research findings
+- **Visualisation Suite**: Graphical representation of research findings
 - **Publication Platform**: Sharing research with the community
 
 ## Educational Psychology Foundations

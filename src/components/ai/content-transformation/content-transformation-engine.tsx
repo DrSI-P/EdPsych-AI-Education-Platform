@@ -109,8 +109,8 @@ export default function ContentTransformationEngine({
     
     try {
       const prompt = `
-        Transform the following educational content to optimize it for different learning styles.
-        Create versions optimized for visual, auditory, kinesthetic, and reading/writing learning styles,
+        Transform the following educational content to optimise it for different learning styles.
+        Create versions optimised for visual, auditory, kinesthetic, and reading/writing learning styles,
         as well as a multimodal version that combines elements from all styles.
         
         Content Type: ${contentType}
@@ -123,7 +123,7 @@ export default function ContentTransformationEngine({
         
         For each learning style, adapt the content while preserving the educational objectives:
         
-        1. Visual: Emphasize diagrams, charts, color-coding, spatial organization, and visual metaphors.
+        1. Visual: Emphasize diagrams, charts, colour-coding, spatial organisation, and visual metaphors.
         2. Auditory: Emphasize dialogue, discussion points, mnemonics, rhythm, and spoken explanations.
         3. Kinesthetic: Emphasize hands-on activities, physical movements, tactile examples, and experiential learning.
         4. Reading/Writing: Emphasize lists, definitions, structured text, note-taking opportunities, and written exercises.
@@ -138,11 +138,11 @@ export default function ContentTransformationEngine({
         
         Format the response as JSON with the following structure:
         {
-          "visual": "content optimized for visual learners",
-          "auditory": "content optimized for auditory learners",
-          "kinesthetic": "content optimized for kinesthetic learners",
-          "readingWriting": "content optimized for reading/writing learners",
-          "multimodal": "content optimized for multimodal learning"
+          "visual": "content optimised for visual learners",
+          "auditory": "content optimised for auditory learners",
+          "kinesthetic": "content optimised for kinesthetic learners",
+          "readingWriting": "content optimised for reading/writing learners",
+          "multimodal": "content optimised for multimodal learning"
         }
       `;
       
@@ -265,7 +265,7 @@ export default function ContentTransformationEngine({
   
   const renderStyleBadge = (style: LearningStyle) => {
     return (
-      <Badge variant="outline" className="flex items-center gap-1">
+      <Badge variant="outline" className="flex items-centre gap-1">
         {getStyleIcon(style)}
         <span>{style.charAt(0).toUpperCase() + style.slice(1).replace('-', '/')}</span>
       </Badge>
@@ -287,7 +287,7 @@ export default function ContentTransformationEngine({
     
     if (!transformedContent) {
       return (
-        <div className="text-center py-8">
+        <div className="text-centre py-8">
           <p className="text-muted-foreground">
             No transformed content available. Click "Transform Content" to begin.
           </p>
@@ -305,22 +305,22 @@ export default function ContentTransformationEngine({
     
     return (
       <div className="space-y-4">
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-centre">
           {renderStyleBadge(selectedStyle)}
           
-          <div className="flex items-center gap-2">
+          <div className="flex items-centre gap-2">
             <Button
               size="sm"
               variant="outline"
               onClick={handleTextToSpeech}
-              className="flex items-center gap-1"
+              className="flex items-centre gap-1"
             >
               {isPlayingAudio ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
               {isPlayingAudio ? 'Pause' : 'Read Aloud'}
             </Button>
             
             {isPlayingAudio && (
-              <div className="flex items-center gap-2 w-32">
+              <div className="flex items-centre gap-2 w-32">
                 <Volume2 className="h-4 w-4 text-muted-foreground" />
                 <Slider
                   value={[audioVolume]}
@@ -356,7 +356,7 @@ export default function ContentTransformationEngine({
           <div className="space-y-6">
             {/* Custom Content Input */}
             <div className="space-y-4">
-              <div className="flex items-center justify-between">
+              <div className="flex items-centre justify-between">
                 <Label htmlFor="use-custom-content">Use custom content</Label>
                 <Switch
                   id="use-custom-content"
@@ -367,13 +367,13 @@ export default function ContentTransformationEngine({
               
               {useCustomContent && (
                 <div className="space-y-2">
-                  <div className="flex justify-between items-center">
+                  <div className="flex justify-between items-centre">
                     <Label htmlFor="custom-content">Enter content to transform</Label>
                     <Button
                       size="sm"
                       variant="ghost"
                       onClick={handleVoiceInput}
-                      className={`flex items-center gap-1 ${isVoiceInputActive ? 'text-red-500' : ''}`}
+                      className={`flex items-centre gap-1 ${isVoiceInputActive ? 'text-red-500' : ''}`}
                     >
                       <Mic className="h-4 w-4" />
                       {isVoiceInputActive ? 'Recording...' : 'Voice Input'}
@@ -393,7 +393,7 @@ export default function ContentTransformationEngine({
             
             {/* Complexity Slider */}
             <div className="space-y-2">
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <Label htmlFor="complexity">Content Complexity</Label>
                 <span className="text-sm text-muted-foreground">{complexity}%</span>
               </div>
@@ -419,27 +419,27 @@ export default function ContentTransformationEngine({
                 onValueChange={(value) => setSelectedStyle(value as LearningStyle)}
                 className="grid grid-cols-2 gap-2"
               >
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <RadioGroupItem value="visual" id="visual" />
-                  <Label htmlFor="visual" className="flex items-center gap-1">
+                  <Label htmlFor="visual" className="flex items-centre gap-1">
                     <Eye className="h-4 w-4" /> Visual
                   </Label>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <RadioGroupItem value="auditory" id="auditory" />
-                  <Label htmlFor="auditory" className="flex items-center gap-1">
+                  <Label htmlFor="auditory" className="flex items-centre gap-1">
                     <Ear className="h-4 w-4" /> Auditory
                   </Label>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <RadioGroupItem value="kinesthetic" id="kinesthetic" />
-                  <Label htmlFor="kinesthetic" className="flex items-center gap-1">
+                  <Label htmlFor="kinesthetic" className="flex items-centre gap-1">
                     <Hand className="h-4 w-4" /> Kinesthetic
                   </Label>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <RadioGroupItem value="reading-writing" id="reading-writing" />
-                  <Label htmlFor="reading-writing" className="flex items-center gap-1">
+                  <Label htmlFor="reading-writing" className="flex items-centre gap-1">
                     <BookOpen className="h-4 w-4" /> Reading/Writing
                   </Label>
                 </div>
@@ -488,16 +488,16 @@ export default function ContentTransformationEngine({
           <CardContent>
             <Tabs defaultValue={selectedStyle}>
               <TabsList className="grid grid-cols-5 mb-4">
-                <TabsTrigger value="visual" className="flex items-center gap-1">
+                <TabsTrigger value="visual" className="flex items-centre gap-1">
                   <Eye className="h-4 w-4" /> Visual
                 </TabsTrigger>
-                <TabsTrigger value="auditory" className="flex items-center gap-1">
+                <TabsTrigger value="auditory" className="flex items-centre gap-1">
                   <Ear className="h-4 w-4" /> Auditory
                 </TabsTrigger>
-                <TabsTrigger value="kinesthetic" className="flex items-center gap-1">
+                <TabsTrigger value="kinesthetic" className="flex items-centre gap-1">
                   <Hand className="h-4 w-4" /> Kinesthetic
                 </TabsTrigger>
-                <TabsTrigger value="reading-writing" className="flex items-center gap-1">
+                <TabsTrigger value="reading-writing" className="flex items-centre gap-1">
                   <BookOpen className="h-4 w-4" /> Reading/Writing
                 </TabsTrigger>
                 <TabsTrigger value="multimodal">Multimodal</TabsTrigger>

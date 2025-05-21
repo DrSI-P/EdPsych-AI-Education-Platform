@@ -64,7 +64,7 @@ export default function SignUpForm() {
 
   return (
     <div className="w-full max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
-      <h1 className="text-2xl font-bold mb-6 text-center">Create an Account</h1>
+      <h1 className="text-2xl font-bold mb-6 text-centre">Create an Account</h1>
       
       {error && (
         <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
@@ -74,7 +74,7 @@ export default function SignUpForm() {
       
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="name" className="block text-sm font-medium text-grey-700 mb-1">
             Full Name
           </label>
           <input
@@ -84,12 +84,12 @@ export default function SignUpForm() {
             required
             value={formData.name}
             onChange={handleChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
         
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="email" className="block text-sm font-medium text-grey-700 mb-1">
             Email Address
           </label>
           <input
@@ -99,12 +99,12 @@ export default function SignUpForm() {
             required
             value={formData.email}
             onChange={handleChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
         
         <div>
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="password" className="block text-sm font-medium text-grey-700 mb-1">
             Password
           </label>
           <input
@@ -114,15 +114,15 @@ export default function SignUpForm() {
             required
             value={formData.password}
             onChange={handleChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          <p className="mt-1 text-xs text-gray-500">
+          <p className="mt-1 text-xs text-grey-500">
             Password must be at least 8 characters and include uppercase, lowercase, and numbers.
           </p>
         </div>
         
         <div>
-          <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="confirmPassword" className="block text-sm font-medium text-grey-700 mb-1">
             Confirm Password
           </label>
           <input
@@ -132,12 +132,12 @@ export default function SignUpForm() {
             required
             value={formData.confirmPassword}
             onChange={handleChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
         
         <div>
-          <label htmlFor="role" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="role" className="block text-sm font-medium text-grey-700 mb-1">
             I am a
           </label>
           <select
@@ -145,7 +145,7 @@ export default function SignUpForm() {
             name="role"
             value={formData.role}
             onChange={handleChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value="STUDENT">Student</option>
             <option value="PARENT">Parent</option>
@@ -163,8 +163,8 @@ export default function SignUpForm() {
         </button>
       </form>
       
-      <div className="mt-6 text-center">
-        <p className="text-sm text-gray-600">
+      <div className="mt-6 text-centre">
+        <p className="text-sm text-grey-600">
           Already have an account?{' '}
           <Link href="/auth/signin" className="text-blue-600 hover:underline">
             Sign in

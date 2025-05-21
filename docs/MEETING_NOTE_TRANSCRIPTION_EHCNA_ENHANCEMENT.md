@@ -31,7 +31,7 @@ The Meeting Note Transcription with EHCNA-Aligned Key Point Extraction feature e
   - EHCNA Meeting
   - Annual Review
 - Automatic enabling of EHCNA categorization for relevant meeting types
-- Specialized templates for different meeting purposes
+- Specialised templates for different meeting purposes
 
 ### 4. Intelligent Extraction and Analysis
 - AI-powered identification of key information from transcripts
@@ -45,8 +45,8 @@ The EHCNA-aligned meeting note transcription feature is built on solid education
 
 1. **Holistic Assessment**: Ensures all aspects of a student's development and needs are considered
 2. **Strengths-Based Approach**: Identifies and builds upon student strengths alongside addressing needs
-3. **Evidence-Based Practice**: Structures information gathering to support effective interventions
-4. **Person-Centered Planning**: Focuses on the individual student's unique profile and requirements
+3. **Evidence-Based Practise**: Structures information gathering to support effective interventions
+4. **Person-Centred Planning**: Focuses on the individual student's unique profile and requirements
 5. **Developmental Appropriateness**: Adapts focus based on age and developmental stage
 
 ## Implementation Details
@@ -73,7 +73,7 @@ The EHCNA-aligned meeting note transcription feature is built on solid education
 
 1. **Time Efficiency**: Automatically structures meeting notes according to EHCNA requirements
 2. **Comprehensive Documentation**: Ensures all key areas are addressed in meetings
-3. **Consistency**: Provides standardized approach to information gathering and categorization
+3. **Consistency**: Provides standardised approach to information gathering and categorization
 4. **Preparation for Adulthood**: Automatically highlights and structures transition planning for older students
 5. **Evidence Collection**: Creates structured records to support EHCNA applications and reviews
 

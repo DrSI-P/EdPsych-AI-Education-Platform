@@ -167,7 +167,7 @@ const MOCK_STRATEGIES = [
   },
   {
     id: '6',
-    title: 'Phonics Practice at Home',
+    title: 'Phonics Practise at Home',
     description: 'Structured phonics activities to reinforce school learning at home.',
     category: 'Literacy',
     subject: 'English',
@@ -189,7 +189,7 @@ const MOCK_STRATEGIES = [
   {
     id: '7',
     title: 'Emotional Regulation Techniques',
-    description: 'Strategies to help children recognize and manage their emotions effectively.',
+    description: 'Strategies to help children recognise and manage their emotions effectively.',
     category: 'Emotional Development',
     subject: 'Personal Development',
     ageRange: '5-11',
@@ -237,7 +237,7 @@ const MOCK_FEEDBACK = [
     strategyId: '1',
     author: 'Parent',
     rating: 5,
-    comment: 'These strategies have made a huge difference to my son\'s reading comprehension. The visualization techniques are particularly effective.',
+    comment: 'These strategies have made a huge difference to my son\'s reading comprehension. The visualisation techniques are particularly effective.',
     date: '2025-06-20',
     helpful: 8
   },
@@ -311,7 +311,7 @@ export default function HomeStrategyLibrary() {
   
   return (
     <div className="container mx-auto py-6">
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between items-centre mb-6">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Home Strategy Library</h1>
           <p className="text-muted-foreground">
@@ -401,7 +401,7 @@ export default function HomeStrategyLibrary() {
                       onClick={() => setSelectedStrategy(strategy)}
                     >
                       <div className="flex items-start">
-                        <div className="h-16 w-16 rounded-md overflow-hidden mr-3 bg-muted flex items-center justify-center">
+                        <div className="h-16 w-16 rounded-md overflow-hidden mr-3 bg-muted flex items-centre justify-centre">
                           {strategy.thumbnail ? (
                             <img src={strategy.thumbnail} alt={strategy.title} className="h-full w-full object-cover" />
                           ) : (
@@ -428,13 +428,13 @@ export default function HomeStrategyLibrary() {
                           <p className="text-xs text-muted-foreground line-clamp-2 mt-1">
                             {strategy.description}
                           </p>
-                          <div className="flex items-center mt-2 text-xs text-muted-foreground">
-                            <div className="flex items-center">
+                          <div className="flex items-centre mt-2 text-xs text-muted-foreground">
+                            <div className="flex items-centre">
                               <Star className="h-3 w-3 text-amber-500 mr-1" />
                               <span>{strategy.rating}</span>
                             </div>
                             <span className="mx-2">•</span>
-                            <div className="flex items-center">
+                            <div className="flex items-centre">
                               {strategy.source === 'school' ? (
                                 <BookOpen className="h-3 w-3 mr-1" />
                               ) : (
@@ -445,7 +445,7 @@ export default function HomeStrategyLibrary() {
                               </span>
                             </div>
                             <span className="mx-2">•</span>
-                            <div className="flex items-center">
+                            <div className="flex items-centre">
                               <Tag className="h-3 w-3 mr-1" />
                               <span>{strategy.subject}</span>
                             </div>
@@ -455,7 +455,7 @@ export default function HomeStrategyLibrary() {
                     </div>
                   ))
                 ) : (
-                  <div className="p-4 text-center text-muted-foreground">
+                  <div className="p-4 text-centre text-muted-foreground">
                     No strategies found matching your criteria
                   </div>
                 )}
@@ -504,7 +504,7 @@ export default function HomeStrategyLibrary() {
             </CardHeader>
             <CardContent>
               <div className="space-y-6">
-                <div className="aspect-video bg-muted rounded-lg overflow-hidden flex items-center justify-center">
+                <div className="aspect-video bg-muted rounded-lg overflow-hidden flex items-centre justify-centre">
                   {selectedStrategy.thumbnail ? (
                     <div className="relative w-full h-full">
                       <img 
@@ -513,7 +513,7 @@ export default function HomeStrategyLibrary() {
                         className="w-full h-full object-cover" 
                       />
                       {selectedStrategy.format === 'video' && (
-                        <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="absolute inset-0 flex items-centre justify-centre">
                           <Button size="icon" className="h-12 w-12 rounded-full bg-primary/90 hover:bg-primary">
                             <Play className="h-6 w-6" />
                           </Button>
@@ -521,7 +521,7 @@ export default function HomeStrategyLibrary() {
                       )}
                     </div>
                   ) : (
-                    <div className="text-center p-6">
+                    <div className="text-centre p-6">
                       {selectedStrategy.format === 'document' ? (
                         <FileText className="h-16 w-16 text-muted-foreground mx-auto mb-2" />
                       ) : selectedStrategy.format === 'video' ? (
@@ -558,8 +558,8 @@ export default function HomeStrategyLibrary() {
                   </div>
                 </div>
                 
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center">
+                <div className="flex items-centre justify-between">
+                  <div className="flex items-centre">
                     <Avatar className="h-10 w-10 mr-2">
                       <AvatarImage src={`/avatars/${selectedStrategy.source === 'school' ? 'teacher' : 'parent'}.png`} />
                       <AvatarFallback>{selectedStrategy.author.charAt(0)}</AvatarFallback>
@@ -570,19 +570,19 @@ export default function HomeStrategyLibrary() {
                     </div>
                   </div>
                   
-                  <div className="flex items-center space-x-4">
-                    <div className="flex items-center">
+                  <div className="flex items-centre space-x-4">
+                    <div className="flex items-centre">
                       <Star className="h-4 w-4 text-amber-500 mr-1" />
                       <span className="font-medium">{selectedStrategy.rating}</span>
                       <span className="text-xs text-muted-foreground ml-1">({selectedStrategy.reviewCount})</span>
                     </div>
                     
-                    <div className="flex items-center">
+                    <div className="flex items-centre">
                       <Eye className="h-4 w-4 mr-1 text-muted-foreground" />
                       <span className="text-sm text-muted-foreground">{selectedStrategy.usageCount}</span>
                     </div>
                     
-                    <div className="flex items-center">
+                    <div className="flex items-centre">
                       <Calendar className="h-4 w-4 mr-1 text-muted-foreground" />
                       <span className="text-sm text-muted-foreground">
                         {new Date(selectedStrategy.dateAdded).toLocaleDateString()}
@@ -598,7 +598,7 @@ export default function HomeStrategyLibrary() {
                   {selectedStrategy.relatedGoals.length > 0 ? (
                     <div className="space-y-2">
                       {selectedStrategy.relatedGoals.map((goal, index) => (
-                        <div key={index} className="flex items-center p-3 bg-muted rounded-lg">
+                        <div key={index} className="flex items-centre p-3 bg-muted rounded-lg">
                           <Target className="h-5 w-5 mr-2 text-primary" />
                           <p className="text-sm">{goal}</p>
                         </div>
@@ -612,7 +612,7 @@ export default function HomeStrategyLibrary() {
                 <Separator />
                 
                 <div>
-                  <div className="flex justify-between items-center mb-2">
+                  <div className="flex justify-between items-centre mb-2">
                     <h3 className="text-sm font-medium">Tags</h3>
                   </div>
                   
@@ -649,7 +649,7 @@ export default function HomeStrategyLibrary() {
                     <h4 className="text-sm font-medium mb-2">Share Your Experience</h4>
                     <div className="mb-3">
                       <Label htmlFor="rating" className="text-xs">Rating</Label>
-                      <div className="flex items-center mt-1">
+                      <div className="flex items-centre mt-1">
                         {[1, 2, 3, 4, 5].map((star) => (
                           <button
                             key={star}
@@ -688,7 +688,7 @@ export default function HomeStrategyLibrary() {
                 <Separator />
                 
                 <div>
-                  <div className="flex justify-between items-center mb-2">
+                  <div className="flex justify-between items-centre mb-2">
                     <h3 className="text-sm font-medium">Parent Feedback</h3>
                   </div>
                   
@@ -697,7 +697,7 @@ export default function HomeStrategyLibrary() {
                       {strategyFeedback.map((feedback) => (
                         <div key={feedback.id} className="p-4 bg-muted rounded-lg">
                           <div className="flex justify-between items-start">
-                            <div className="flex items-center">
+                            <div className="flex items-centre">
                               <Avatar className="h-8 w-8 mr-2">
                                 <AvatarFallback>P</AvatarFallback>
                               </Avatar>
@@ -713,9 +713,9 @@ export default function HomeStrategyLibrary() {
                             </div>
                           </div>
                           <p className="text-sm mt-2">{feedback.comment}</p>
-                          <div className="flex justify-between items-center mt-2 text-xs text-muted-foreground">
+                          <div className="flex justify-between items-centre mt-2 text-xs text-muted-foreground">
                             <span>{new Date(feedback.date).toLocaleDateString()}</span>
-                            <div className="flex items-center">
+                            <div className="flex items-centre">
                               <Button variant="ghost" size="icon" className="h-6 w-6">
                                 <ThumbsUp className="h-3 w-3" />
                               </Button>

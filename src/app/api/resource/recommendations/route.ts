@@ -66,7 +66,7 @@ function generateMockRecommendations(data: z.infer<typeof resourceRecommendation
     {
       id: 'rec-2',
       title: 'Equivalent Fractions Interactive Game',
-      description: 'An engaging digital game that helps students practice identifying equivalent fractions through visual comparisons.',
+      description: 'An engaging digital game that helps students practise identifying equivalent fractions through visual comparisons.',
       type: 'link',
       url: 'https://example.com/games/equivalent-fractions',
       tags: ['mathematics', 'fractions', 'interactive', 'game', 'primary'],
@@ -87,7 +87,7 @@ function generateMockRecommendations(data: z.infer<typeof resourceRecommendation
       tags: ['SEND', 'communication', 'strategies', 'inclusion'],
       ageRange: 'all',
       subject: 'special educational needs',
-      curriculum: 'UK SEND Code of Practice',
+      curriculum: 'UK SEND Code of Practise',
       relevanceScore: 0.94,
       relevanceReason: 'Directly addresses communication difficulties mentioned in EHCNA meeting',
       createdAt: '2025-01-15T12:00:00Z',

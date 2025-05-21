@@ -21,7 +21,7 @@ export default function ReducedMotionModePage() {
   
   return (
     <div className="container mx-auto py-8 px-4">
-      <h1 className="text-3xl font-bold mb-6 flex items-center">
+      <h1 className="text-3xl font-bold mb-6 flex items-centre">
         <Image 
           src="/images/reduced-motion-icon.png" 
           alt="Reduced Motion Mode Icon" 
@@ -51,7 +51,7 @@ export default function ReducedMotionModePage() {
         <div className="lg:col-span-1">
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center">
+              <CardTitle className="flex items-centre">
                 <Activity className="h-5 w-5 mr-2" />
                 About Reduced Motion
               </CardTitle>
@@ -144,7 +144,7 @@ export default function ReducedMotionModePage() {
           
           <Card className="mt-6">
             <CardHeader>
-              <CardTitle className="flex items-center">
+              <CardTitle className="flex items-centre">
                 <AlertTriangle className="h-5 w-5 mr-2" />
                 Motion Sensitivity Information
               </CardTitle>

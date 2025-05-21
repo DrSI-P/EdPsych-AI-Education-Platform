@@ -50,7 +50,7 @@ This report documents the testing and validation of the HeyGen AI video generati
 | Select avatar from library | ✅ Pass | Shows available avatars |
 | Select voice from library | ✅ Pass | Shows available voices |
 | Select script from library | ✅ Pass | Shows all 25 available scripts |
-| Customize outfit and background | ✅ Pass | All options work correctly |
+| Customise outfit and background | ✅ Pass | All options work correctly |
 | Generate video | ✅ Pass | Simulated generation process works |
 | Progress tracking | ✅ Pass | Shows accurate progress updates |
 | Error handling | ✅ Pass | Handles API errors gracefully |
@@ -88,7 +88,7 @@ The HeyGen integration connects with the following platform components:
 |-------------|--------|-------|
 | Keyboard navigation | ✅ Compliant | All interactive elements are keyboard accessible |
 | Screen reader support | ✅ Compliant | All elements have appropriate ARIA labels |
-| Color contrast | ✅ Compliant | Meets WCAG AA standards |
+| Colour contrast | ✅ Compliant | Meets WCAG AA standards |
 | Text alternatives | ✅ Compliant | All images and videos have appropriate alt text |
 
 ## Security Considerations

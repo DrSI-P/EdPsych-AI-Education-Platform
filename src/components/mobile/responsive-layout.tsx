@@ -88,7 +88,7 @@ export const MobileContainer: React.FC<ResponsiveLayoutProps> = ({
   }
   
   return (
-    <div className={`mobile-container touch-optimized ${className}`}>
+    <div className={`mobile-container touch-optimised ${className}`}>
       {children}
     </div>
   );
@@ -144,7 +144,7 @@ export const TabletLayout: React.FC<ResponsiveLayoutProps> = ({
   const orientationClass = `tablet-${orientation}`;
   
   return (
-    <div className={`tablet-container touch-optimized ${orientationClass} ${className}`}>
+    <div className={`tablet-container touch-optimised ${orientationClass} ${className}`}>
       {children}
     </div>
   );
@@ -153,7 +153,7 @@ export const TabletLayout: React.FC<ResponsiveLayoutProps> = ({
 /**
  * TouchOptimizedButton Component
  * 
- * A button component optimized for touch interactions on mobile devices.
+ * A button component optimised for touch interactions on mobile devices.
  * It provides larger touch targets and appropriate feedback.
  */
 interface TouchOptimizedButtonProps {
@@ -202,7 +202,7 @@ export const TouchOptimizedButton: React.FC<TouchOptimizedButtonProps> = ({
   
   return (
     <button
-      className={`touch-optimized-button ${variantClass} ${sizeClass} ${widthClass} ${touchingClass} ${disabledClass} ${className}`}
+      className={`touch-optimised-button ${variantClass} ${sizeClass} ${widthClass} ${touchingClass} ${disabledClass} ${className}`}
       onClick={disabled ? undefined : onClick}
       disabled={disabled}
       onTouchStart={handleTouchStart}
@@ -290,7 +290,7 @@ export const SwipeableContainer: React.FC<SwipeableContainerProps> = ({
 /**
  * MobileNavigation Component
  * 
- * A navigation component optimized for mobile devices.
+ * A navigation component optimised for mobile devices.
  * It provides a bottom navigation bar for easy thumb access.
  */
 interface NavigationItem {
@@ -343,7 +343,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
 /**
  * MobileHeader Component
  * 
- * A header component optimized for mobile devices.
+ * A header component optimised for mobile devices.
  * It provides a fixed header with appropriate navigation controls.
  */
 interface MobileHeaderProps {
@@ -439,7 +439,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
 /**
  * MobileTabView Component
  * 
- * A tab view component optimized for mobile devices.
+ * A tab view component optimised for mobile devices.
  * It provides swipeable tabs for easy navigation.
  */
 interface TabItem {
@@ -512,7 +512,7 @@ interface MobileFABProps {
   label?: string;
   position?: 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left';
   className?: string;
-  color?: 'primary' | 'secondary' | 'success' | 'danger';
+  colour?: 'primary' | 'secondary' | 'success' | 'danger';
 }
 
 export const MobileFAB: React.FC<MobileFABProps> = ({
@@ -521,7 +521,7 @@ export const MobileFAB: React.FC<MobileFABProps> = ({
   label,
   position = 'bottom-right',
   className = '',
-  color = 'primary'
+  colour = 'primary'
 }) => {
   const [isMobile, setIsMobile] = useState(false);
   
@@ -540,7 +540,7 @@ export const MobileFAB: React.FC<MobileFABProps> = ({
   
   return (
     <button
-      className={`mobile-fab fab-${position} fab-${color} ${className}`}
+      className={`mobile-fab fab-${position} fab-${colour} ${className}`}
       onClick={onClick}
       aria-label={label || 'Action button'}
     >
@@ -553,7 +553,7 @@ export const MobileFAB: React.FC<MobileFABProps> = ({
 /**
  * MobileList Component
  * 
- * A list component optimized for mobile devices.
+ * A list component optimised for mobile devices.
  * It provides touch-friendly list items with appropriate spacing and feedback.
  */
 interface ListItem {
@@ -597,7 +597,7 @@ export const MobileList: React.FC<MobileListProps> = ({
 /**
  * MobileCard Component
  * 
- * A card component optimized for mobile devices.
+ * A card component optimised for mobile devices.
  * It provides a touch-friendly card with appropriate spacing and feedback.
  */
 interface MobileCardProps {
@@ -624,7 +624,7 @@ export const MobileCard: React.FC<MobileCardProps> = ({
 /**
  * MobileSearchBar Component
  * 
- * A search bar component optimized for mobile devices.
+ * A search bar component optimised for mobile devices.
  * It provides a touch-friendly search input with appropriate feedback.
  */
 interface MobileSearchBarProps {
@@ -826,7 +826,7 @@ export const MobilePullToRefresh: React.FC<MobilePullToRefreshProps> = ({
       const resistance = 0.4;
       setPullDistance(diff * resistance);
       
-      // Prevent default scrolling behavior
+      // Prevent default scrolling behaviour
       e.preventDefault();
     }
   };

@@ -121,7 +121,7 @@ export function ImmersiveLayout({
       </div>
       
       {/* Toolbar */}
-      <div className="absolute top-4 right-4 z-20 flex items-center space-x-2">
+      <div className="absolute top-4 right-4 z-20 flex items-centre space-x-2">
         {/* Accessibility menu toggle */}
         <Button
           variant="outline"
@@ -180,11 +180,11 @@ export function ImmersiveLayout({
             transition={{ duration: 0.2 }}
             className="absolute top-16 right-4 z-20 bg-white rounded-lg shadow-lg p-4 w-64"
           >
-            <div className="flex justify-between items-center mb-4">
+            <div className="flex justify-between items-centre mb-4">
               <h3 className="font-semibold">Accessibility Options</h3>
               <button
                 onClick={toggleAccessibilityMenu}
-                className="text-gray-500 hover:text-gray-700"
+                className="text-grey-500 hover:text-grey-700"
                 aria-label="Close accessibility menu"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -195,7 +195,7 @@ export function ImmersiveLayout({
             
             <div className="space-y-4">
               {/* High contrast mode */}
-              <div className="flex items-center justify-between">
+              <div className="flex items-centre justify-between">
                 <label htmlFor="high-contrast" className="text-sm">
                   High Contrast Mode
                 </label>
@@ -207,13 +207,13 @@ export function ImmersiveLayout({
                     onChange={handleToggleHighContrast}
                     className="sr-only"
                   />
-                  <div className={`block h-6 rounded-full w-10 ${isHighContrast ? 'bg-blue-600' : 'bg-gray-300'}`}></div>
+                  <div className={`block h-6 rounded-full w-10 ${isHighContrast ? 'bg-blue-600' : 'bg-grey-300'}`}></div>
                   <div className={`dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform ${isHighContrast ? 'transform translate-x-4' : ''}`}></div>
                 </div>
               </div>
               
               {/* Reduced motion */}
-              <div className="flex items-center justify-between">
+              <div className="flex items-centre justify-between">
                 <label htmlFor="reduced-motion" className="text-sm">
                   Reduced Motion
                 </label>
@@ -225,21 +225,21 @@ export function ImmersiveLayout({
                     onChange={handleToggleReducedMotion}
                     className="sr-only"
                   />
-                  <div className={`block h-6 rounded-full w-10 ${isReducedMotion ? 'bg-blue-600' : 'bg-gray-300'}`}></div>
+                  <div className={`block h-6 rounded-full w-10 ${isReducedMotion ? 'bg-blue-600' : 'bg-grey-300'}`}></div>
                   <div className={`dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform ${isReducedMotion ? 'transform translate-x-4' : ''}`}></div>
                 </div>
               </div>
               
               {/* Keyboard shortcuts */}
-              <div className="pt-2 border-t border-gray-200">
+              <div className="pt-2 border-t border-grey-200">
                 <h4 className="text-sm font-medium mb-2">Keyboard Shortcuts</h4>
-                <ul className="text-xs space-y-1 text-gray-600">
-                  <li><span className="font-mono bg-gray-100 px-1 rounded">F</span> - Toggle fullscreen</li>
-                  <li><span className="font-mono bg-gray-100 px-1 rounded">Esc</span> - Exit fullscreen or go back</li>
-                  <li><span className="font-mono bg-gray-100 px-1 rounded">+</span> / <span className="font-mono bg-gray-100 px-1 rounded">-</span> - Zoom in/out</li>
-                  <li><span className="font-mono bg-gray-100 px-1 rounded">R</span> - Reset view</li>
-                  <li><span className="font-mono bg-gray-100 px-1 rounded">A</span> - Toggle accessibility menu</li>
-                  {isVR && <li><span className="font-mono bg-gray-100 px-1 rounded">V</span> - Toggle VR mode</li>}
+                <ul className="text-xs space-y-1 text-grey-600">
+                  <li><span className="font-mono bg-grey-100 px-1 rounded">F</span> - Toggle fullscreen</li>
+                  <li><span className="font-mono bg-grey-100 px-1 rounded">Esc</span> - Exit fullscreen or go back</li>
+                  <li><span className="font-mono bg-grey-100 px-1 rounded">+</span> / <span className="font-mono bg-grey-100 px-1 rounded">-</span> - Zoom in/out</li>
+                  <li><span className="font-mono bg-grey-100 px-1 rounded">R</span> - Reset view</li>
+                  <li><span className="font-mono bg-grey-100 px-1 rounded">A</span> - Toggle accessibility menu</li>
+                  {isVR && <li><span className="font-mono bg-grey-100 px-1 rounded">V</span> - Toggle VR mode</li>}
                 </ul>
               </div>
             </div>

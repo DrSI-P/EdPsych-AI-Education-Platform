@@ -29,7 +29,7 @@ The AI avatar assets have been designed to provide a comprehensive set of educat
 3. **Special Needs Support Avatars**
    - Focused on emotional regulation and support
    - Designed for students with special educational needs
-   - Provides specialized guidance and reassurance
+   - Provides specialised guidance and reassurance
 
 4. **Subject Specialist Avatars**
    - Expertise in specific academic subjects
@@ -42,7 +42,7 @@ The AI avatar assets have been designed to provide a comprehensive set of educat
 
 1. Review the script files to understand the content and tone for each avatar type
 2. Follow the implementation guide to generate videos using HeyGen
-3. Use the metadata file to organize and track the generated videos
+3. Use the metadata file to organise and track the generated videos
 4. Use the commit script to regularly push changes to GitHub
 
 ### For Developers

@@ -301,10 +301,10 @@ export default function CPDTracking() {
     return category ? category.name : "";
   };
 
-  // Get category color by ID
+  // Get category colour by ID
   const getCategoryColor = (id) => {
     const category = cpdCategories.find(cat => cat.id === id);
-    return category ? category.color : "#cccccc";
+    return category ? category.colour : "#cccccc";
   };
 
   // Get standard code by ID
@@ -322,7 +322,7 @@ export default function CPDTracking() {
 
   return (
     <div className="container mx-auto py-6 space-y-8">
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-centre">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">CPD Tracking</h1>
           <p className="text-muted-foreground">
@@ -353,7 +353,7 @@ export default function CPDTracking() {
         <TabsContent value="dashboard" className="space-y-4">
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
                   Total CPD Points
                 </CardTitle>
@@ -371,7 +371,7 @@ export default function CPDTracking() {
               </CardContent>
             </Card>
             <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
                   Activities Completed
                 </CardTitle>
@@ -387,7 +387,7 @@ export default function CPDTracking() {
               </CardContent>
             </Card>
             <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
                   Hours Invested
                 </CardTitle>
@@ -414,7 +414,7 @@ export default function CPDTracking() {
               </CardHeader>
               <CardContent className="space-y-2">
                 {activities.slice(0, 3).map(activity => (
-                  <div key={activity.id} className="flex items-center p-2 border rounded-md">
+                  <div key={activity.id} className="flex items-centre p-2 border rounded-md">
                     <div className="flex-1">
                       <p className="font-medium">{activity.title}</p>
                       <p className="text-sm text-muted-foreground">
@@ -462,7 +462,7 @@ export default function CPDTracking() {
                         {categoryData.map((entry, index) => (
                           <Cell 
                             key={`cell-${index}`} 
-                            fill={cpdCategories[index].color} 
+                            fill={cpdCategories[index].colour} 
                           />
                         ))}
                       </Pie>
@@ -707,7 +707,7 @@ export default function CPDTracking() {
                   <div className="grid gap-4 md:grid-cols-2 mt-4">
                     <div className="space-y-2">
                       <Label htmlFor="yearly-target">Yearly CPD Points Target</Label>
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-centre gap-2">
                         <Input 
                           id="yearly-target" 
                           type="number" 
@@ -739,7 +739,7 @@ export default function CPDTracking() {
                       <Card key={category.id} className="overflow-hidden">
                         <div 
                           className="h-2" 
-                          style={{ backgroundColor: category.color }}
+                          style={{ backgroundColor: category.colour }}
                         ></div>
                         <CardHeader className="py-3">
                           <CardTitle className="text-base">{category.name}</CardTitle>
@@ -814,7 +814,7 @@ export default function CPDTracking() {
 
       {/* Add CPD Activity Form */}
       {showAddForm && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-black/50 flex items-centre justify-centre z-50">
           <Card className="w-full max-w-3xl max-h-[90vh] overflow-y-auto">
             <CardHeader>
               <CardTitle>Add CPD Activity</CardTitle>
@@ -919,7 +919,7 @@ export default function CPDTracking() {
                       <Badge
                         key={category.id}
                         variant={selectedCategories.includes(category.id) ? "default" : "outline"}
-                        style={selectedCategories.includes(category.id) ? {backgroundColor: category.color} : {}}
+                        style={selectedCategories.includes(category.id) ? {backgroundColor: category.colour} : {}}
                         className="cursor-pointer"
                         onClick={() => handleCategoryToggle(category.id)}
                       >

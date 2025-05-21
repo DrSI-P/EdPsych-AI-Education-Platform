@@ -8,20 +8,20 @@ This document summarizes key insights from the "ABA Manual_August_2023_F.pdf" an
 
 ### 1. Evolution of ABA Approaches
 
-- **Traditional ABA**: Structured behavioral intervention focused on skill acquisition and behavior reduction
-- **Modern NDBIs (Naturalistic Developmental Behavioral Interventions)**: Blend of behavioral and developmental approaches with greater emphasis on child-led activities and natural environments
+- **Traditional ABA**: Structured behavioural intervention focused on skill acquisition and behaviour reduction
+- **Modern NDBIs (Naturalistic Developmental Behavioural Interventions)**: Blend of behavioural and developmental approaches with greater emphasis on child-led activities and natural environments
 - **Neurodiversity Movement**: Recognition of autism as a difference rather than deficit, emphasizing strengths and accommodations over "normalization"
 
 ### 2. Alternative Therapeutic Approaches
 
-- **TEACCH**: Structured teaching with visual supports and environmental organization
+- **TEACCH**: Structured teaching with visual supports and environmental organisation
 - **DIR/Floortime**: Relationship-based approach focusing on emotional development and individual differences
 - **PRT (Pivotal Response Treatment)**: Targets "pivotal" areas of development through naturalistic teaching
 - **SCERTS**: Integrated framework addressing Social Communication, Emotional Regulation, and Transactional Support
 
 ### 3. Assessment and Implementation Strategies
 
-- **Individualized Assessment**: Person-centered evaluation of needs, strengths, and preferences
+- **Individualized Assessment**: Person-centred evaluation of needs, strengths, and preferences
 - **Progress Evaluation**: Multi-dimensional measurement of outcomes across developmental domains
 - **Implementation Challenges**: Recognition of barriers and mitigation strategies
 - **Interdisciplinary Collaboration**: Importance of team-based approaches across disciplines
@@ -32,7 +32,7 @@ This document summarizes key insights from the "ABA Manual_August_2023_F.pdf" an
 
 #### Assessment Framework Enhancement
 - Incorporate multi-dimensional assessment approaches from ABA manual into the outcome measurement tools
-- Add specific metrics for tracking behavioral changes alongside emotional and relational outcomes
+- Add specific metrics for tracking behavioural changes alongside emotional and relational outcomes
 - Include progress monitoring tools that balance quantitative data with qualitative observations
 
 #### Implementation Fidelity Measures
@@ -40,14 +40,14 @@ This document summarizes key insights from the "ABA Manual_August_2023_F.pdf" an
 - Develop tools to assess the quality of implementation across different settings and contexts
 
 #### Interdisciplinary Collaboration Tools
-- Create features that facilitate collaboration between different professionals (teachers, psychologists, behavior specialists)
+- Create features that facilitate collaboration between different professionals (teachers, psychologists, behaviour specialists)
 - Implement shared documentation and progress tracking across team members
 
 ### 2. For Special Educational Needs Support
 
 #### Integrated Intervention Approach
 - Incorporate principles from NDBIs into existing special needs support features
-- Develop tools that balance behavioral, developmental, and relationship-based approaches
+- Develop tools that balance behavioural, developmental, and relationship-based approaches
 - Create resources that respect neurodiversity while providing effective support
 
 #### Environmental Adaptations
@@ -60,7 +60,7 @@ This document summarizes key insights from the "ABA Manual_August_2023_F.pdf" an
 
 ### 3. For Restorative Justice Features
 
-#### Person-Centered Approaches
+#### Person-Centred Approaches
 - Incorporate humanistic perspectives from modern ABA approaches into restorative justice practices
 - Develop tools that balance accountability with understanding of individual differences
 
@@ -70,9 +70,9 @@ This document summarizes key insights from the "ABA Manual_August_2023_F.pdf" an
 
 ## Implementation Recommendations
 
-1. **Create an Integrated Assessment Framework**: Develop a comprehensive assessment system that incorporates behavioral, developmental, and relational measures
+1. **Create an Integrated Assessment Framework**: Develop a comprehensive assessment system that incorporates behavioural, developmental, and relational measures
 
-2. **Enhance Data Visualization**: Implement multi-dimensional progress tracking visualizations that show development across domains
+2. **Enhance Data Visualisation**: Implement multi-dimensional progress tracking visualizations that show development across domains
 
 3. **Develop Collaborative Planning Tools**: Create features that support interdisciplinary collaboration and shared goal-setting
 
@@ -86,4 +86,4 @@ This document summarizes key insights from the "ABA Manual_August_2023_F.pdf" an
 - TEACCH (Treatment and Education of Autistic and Related Communication Handicapped Children)
 - DIR/Floortime (Developmental, Individual-Difference, Relationship-Based Model)
 - SCERTS (Social Communication, Emotional Regulation, and Transactional Support)
-- Naturalistic Developmental Behavioral Interventions (NDBIs)
+- Naturalistic Developmental Behavioural Interventions (NDBIs)

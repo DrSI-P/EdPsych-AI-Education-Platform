@@ -60,7 +60,7 @@ This report documents the validation of production-ready formats, visual assets,
 ### UK-Specific Accessibility Requirements
 - ✅ Compliance with Equality Act 2010 considerations
 - ✅ Alignment with UK Government accessibility requirements
-- ✅ Consideration of SEND Code of Practice guidelines
+- ✅ Consideration of SEND Code of Practise guidelines
 
 ## Technical Implementation Readiness
 

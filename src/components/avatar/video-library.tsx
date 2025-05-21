@@ -100,7 +100,7 @@ export const VideoLibrary: React.FC<VideoLibraryProps> = ({
           {
             id: 'video2',
             title: 'Understanding Anxiety in the Classroom',
-            description: 'Guidance for teachers on recognizing and supporting students with anxiety',
+            description: 'Guidance for teachers on recognising and supporting students with anxiety',
             durationSeconds: 360,
             createdAt: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000), // 14 days ago
             updatedAt: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000),
@@ -119,8 +119,8 @@ export const VideoLibrary: React.FC<VideoLibraryProps> = ({
           },
           {
             id: 'video3',
-            title: 'Phonics Practice: Short Vowel Sounds',
-            description: 'Interactive phonics practice focusing on short vowel sounds',
+            title: 'Phonics Practise: Short Vowel Sounds',
+            description: 'Interactive phonics practise focusing on short vowel sounds',
             durationSeconds: 180,
             createdAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000), // 3 days ago
             updatedAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
@@ -162,7 +162,7 @@ export const VideoLibrary: React.FC<VideoLibraryProps> = ({
           {
             id: 'script2',
             title: 'Understanding Anxiety in the Classroom',
-            content: 'Welcome to this professional development session on understanding anxiety in the classroom. Anxiety is one of the most common mental health challenges that students face, and it can significantly impact their learning and wellbeing. In this video, we'll discuss how to recognize signs of anxiety, strategies to support anxious students, and when to seek additional help from specialists.',
+            content: 'Welcome to this professional development session on understanding anxiety in the classroom. Anxiety is one of the most common mental health challenges that students face, and it can significantly impact their learning and wellbeing. In this video, we'll discuss how to recognise signs of anxiety, strategies to support anxious students, and when to seek additional help from specialists.',
             notes: 'Maintain a calm, supportive tone throughout. Include practical examples that teachers can implement immediately.',
             visualCues: [],
             emotionMarkers: [],
@@ -178,8 +178,8 @@ export const VideoLibrary: React.FC<VideoLibraryProps> = ({
           },
           {
             id: 'script3',
-            title: 'Phonics Practice: Short Vowel Sounds',
-            content: 'Hi there! Today we're going to practice our short vowel sounds. These are the sounds that the vowels a, e, i, o, and u make in words like "cat," "pet," "sit," "hot," and "sun." Let's start with the short "a" sound. Can you say "a" as in "apple"? Great job! Now, let's try some words with the short "a" sound: cat, hat, map, tap, and bag.',
+            title: 'Phonics Practise: Short Vowel Sounds',
+            content: 'Hi there! Today we're going to practise our short vowel sounds. These are the sounds that the vowels a, e, i, o, and u make in words like "cat," "pet," "sit," "hot," and "sun." Let's start with the short "a" sound. Can you say "a" as in "apple"? Great job! Now, let's try some words with the short "a" sound: cat, hat, map, tap, and bag.',
             visualCues: [],
             emotionMarkers: [],
             pauseMarkers: [],
@@ -277,7 +277,7 @@ export const VideoLibrary: React.FC<VideoLibraryProps> = ({
     return (
       <Card key={video.id} className="overflow-hidden">
         <div className="aspect-video bg-muted relative">
-          <div className="absolute inset-0 flex items-center justify-center">
+          <div className="absolute inset-0 flex items-centre justify-centre">
             <Video className="h-12 w-12 text-muted-foreground" />
           </div>
           <div className="absolute bottom-2 right-2 bg-background/80 px-2 py-1 rounded text-xs font-medium">
@@ -287,7 +287,7 @@ export const VideoLibrary: React.FC<VideoLibraryProps> = ({
         
         <CardHeader className="pb-2">
           <CardTitle className="text-lg">{video.title}</CardTitle>
-          <CardDescription className="flex items-center">
+          <CardDescription className="flex items-centre">
             <Clock className="h-3 w-3 mr-1" />
             {formatDate(video.createdAt)}
           </CardDescription>
@@ -329,7 +329,7 @@ export const VideoLibrary: React.FC<VideoLibraryProps> = ({
       <Card key={script.id} className="overflow-hidden">
         <CardHeader className="pb-2">
           <CardTitle className="text-lg">{script.title}</CardTitle>
-          <CardDescription className="flex items-center">
+          <CardDescription className="flex items-centre">
             <Clock className="h-3 w-3 mr-1" />
             {formatDate(script.createdAt)}
           </CardDescription>
@@ -349,7 +349,7 @@ export const VideoLibrary: React.FC<VideoLibraryProps> = ({
             {script.content}
           </p>
           
-          <div className="mt-2 flex items-center text-xs text-muted-foreground">
+          <div className="mt-2 flex items-centre text-xs text-muted-foreground">
             <Clock className="h-3 w-3 mr-1" />
             <span>
               Estimated duration: {formatDuration(script.estimatedDurationSeconds)}
@@ -429,7 +429,7 @@ export const VideoLibrary: React.FC<VideoLibraryProps> = ({
   
   return (
     <div className="video-library">
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between items-centre mb-6">
         <div>
           <h2 className="text-2xl font-bold">Avatar Video Library</h2>
           <p className="text-muted-foreground">
@@ -498,15 +498,15 @@ export const VideoLibrary: React.FC<VideoLibraryProps> = ({
           
           <TabsContent value="videos" className="pt-4">
             {isLoading ? (
-              <div className="flex items-center justify-center p-8">
+              <div className="flex items-centre justify-centre p-8">
                 <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent"></div>
                 <span className="ml-2">Loading videos...</span>
               </div>
             ) : filteredVideos.length === 0 ? (
-              <div className="flex flex-col items-center justify-center p-12 border rounded-lg bg-muted/50">
+              <div className="flex flex-col items-centre justify-centre p-12 border rounded-lg bg-muted/50">
                 <Film className="h-12 w-12 text-muted-foreground mb-4" />
                 <h3 className="text-xl font-medium mb-2">No videos found</h3>
-                <p className="text-muted-foreground text-center mb-6">
+                <p className="text-muted-foreground text-centre mb-6">
                   {searchQuery || categoryFilter !== 'all' || audienceFilter !== 'all' ? 
                     "No videos match your search criteria. Try adjusting your filters." : 
                     "You haven't created any videos yet. Start by creating a script."}
@@ -525,15 +525,15 @@ export const VideoLibrary: React.FC<VideoLibraryProps> = ({
           
           <TabsContent value="scripts" className="pt-4">
             {isLoading ? (
-              <div className="flex items-center justify-center p-8">
+              <div className="flex items-centre justify-centre p-8">
                 <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent"></div>
                 <span className="ml-2">Loading scripts...</span>
               </div>
             ) : filteredScripts.length === 0 ? (
-              <div className="flex flex-col items-center justify-center p-12 border rounded-lg bg-muted/50">
+              <div className="flex flex-col items-centre justify-centre p-12 border rounded-lg bg-muted/50">
                 <Edit className="h-12 w-12 text-muted-foreground mb-4" />
                 <h3 className="text-xl font-medium mb-2">No scripts found</h3>
-                <p className="text-muted-foreground text-center mb-6">
+                <p className="text-muted-foreground text-centre mb-6">
                   {searchQuery || categoryFilter !== 'all' || audienceFilter !== 'all' ? 
                     "No scripts match your search criteria. Try adjusting your filters." : 
                     "You haven't created any scripts yet."}

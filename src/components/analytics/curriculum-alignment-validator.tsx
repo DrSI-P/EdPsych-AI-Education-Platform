@@ -156,7 +156,7 @@ export const CurriculumAlignmentValidator: React.FC<CurriculumAlignmentValidator
     }, 2000);
   };
 
-  // Get score color based on value
+  // Get score colour based on value
   const getScoreColor = (score: number) => {
     if (score >= 90) return 'text-green-500';
     if (score >= 70) return 'text-amber-500';
@@ -183,9 +183,9 @@ export const CurriculumAlignmentValidator: React.FC<CurriculumAlignmentValidator
   const renderResults = () => {
     if (!validationComplete) {
       return (
-        <div className="flex flex-col items-center justify-center p-8">
+        <div className="flex flex-col items-centre justify-centre p-8">
           <HelpCircle className="h-16 w-16 text-muted-foreground mb-4" />
-          <p className="text-center text-muted-foreground">
+          <p className="text-centre text-muted-foreground">
             Click the "Validate Curriculum Alignment" button to check this dashboard against UK curriculum standards.
           </p>
         </div>
@@ -209,7 +209,7 @@ export const CurriculumAlignmentValidator: React.FC<CurriculumAlignmentValidator
                 <CardDescription>Based on UK National Curriculum standards</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="flex items-center justify-center">
+                <div className="flex items-centre justify-centre">
                   <div className={`text-6xl font-bold ${getScoreColor(alignmentScore)}`}>
                     {alignmentScore}
                   </div>
@@ -219,17 +219,17 @@ export const CurriculumAlignmentValidator: React.FC<CurriculumAlignmentValidator
               </CardContent>
               <CardFooter>
                 {alignmentScore >= 90 ? (
-                  <div className="flex items-center text-green-500">
+                  <div className="flex items-centre text-green-500">
                     <CheckCircle2 className="h-4 w-4 mr-2" />
                     Well aligned with UK curriculum standards
                   </div>
                 ) : alignmentScore >= 70 ? (
-                  <div className="flex items-center text-amber-500">
+                  <div className="flex items-centre text-amber-500">
                     <AlertTriangle className="h-4 w-4 mr-2" />
                     Partially aligned with UK curriculum standards
                   </div>
                 ) : (
-                  <div className="flex items-center text-red-500">
+                  <div className="flex items-centre text-red-500">
                     <AlertCircle className="h-4 w-4 mr-2" />
                     Limited alignment with UK curriculum standards
                   </div>
@@ -293,25 +293,25 @@ export const CurriculumAlignmentValidator: React.FC<CurriculumAlignmentValidator
             <CardContent>
               <div className="space-y-4">
                 <div className="grid grid-cols-3 gap-4">
-                  <div className="flex flex-col items-center p-4 border rounded-md">
+                  <div className="flex flex-col items-centre p-4 border rounded-md">
                     <div className="text-3xl font-bold text-red-500 mb-2">
                       {issues.filter(issue => issue.impact === 'critical').length}
                     </div>
-                    <div className="text-sm text-center">Critical Issues</div>
+                    <div className="text-sm text-centre">Critical Issues</div>
                   </div>
                   
-                  <div className="flex flex-col items-center p-4 border rounded-md">
+                  <div className="flex flex-col items-centre p-4 border rounded-md">
                     <div className="text-3xl font-bold text-orange-500 mb-2">
                       {issues.filter(issue => issue.impact === 'serious').length}
                     </div>
-                    <div className="text-sm text-center">Serious Issues</div>
+                    <div className="text-sm text-centre">Serious Issues</div>
                   </div>
                   
-                  <div className="flex flex-col items-center p-4 border rounded-md">
+                  <div className="flex flex-col items-centre p-4 border rounded-md">
                     <div className="text-3xl font-bold text-amber-500 mb-2">
                       {issues.filter(issue => issue.impact === 'moderate' || issue.impact === 'minor').length}
                     </div>
-                    <div className="text-sm text-center">Moderate/Minor Issues</div>
+                    <div className="text-sm text-centre">Moderate/Minor Issues</div>
                   </div>
                 </div>
                 
@@ -346,9 +346,9 @@ export const CurriculumAlignmentValidator: React.FC<CurriculumAlignmentValidator
         <TabsContent value="issues" className="pt-4">
           {issues.length === 0 ? (
             <Card>
-              <CardContent className="flex flex-col items-center justify-center p-8">
+              <CardContent className="flex flex-col items-centre justify-centre p-8">
                 <CheckCircle2 className="h-16 w-16 text-green-500 mb-4" />
-                <p className="text-center text-muted-foreground">
+                <p className="text-centre text-muted-foreground">
                   No curriculum alignment issues detected. The dashboard is well aligned with UK curriculum standards.
                 </p>
               </CardContent>
@@ -398,11 +398,11 @@ export const CurriculumAlignmentValidator: React.FC<CurriculumAlignmentValidator
                 <div className="border rounded-md">
                   <div className="bg-muted p-3 font-medium">Key Stage Coverage</div>
                   <div className="p-3 space-y-2">
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-centre">
                       <span>Early Years Foundation Stage</span>
                       <Badge variant="outline" className="border-amber-500 text-amber-500">Partial</Badge>
                     </div>
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-centre">
                       <span>Key Stage 1 (Years 1-2)</span>
                       {validationResults.keyStageAlignment > 70 ? (
                         <Badge variant="outline" className="border-green-500 text-green-500">Good</Badge>
@@ -410,7 +410,7 @@ export const CurriculumAlignmentValidator: React.FC<CurriculumAlignmentValidator
                         <Badge variant="outline" className="border-amber-500 text-amber-500">Partial</Badge>
                       )}
                     </div>
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-centre">
                       <span>Key Stage 2 (Years 3-6)</span>
                       {validationResults.keyStageAlignment > 70 ? (
                         <Badge variant="outline" className="border-green-500 text-green-500">Good</Badge>
@@ -418,7 +418,7 @@ export const CurriculumAlignmentValidator: React.FC<CurriculumAlignmentValidator
                         <Badge variant="outline" className="border-amber-500 text-amber-500">Partial</Badge>
                       )}
                     </div>
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-centre">
                       <span>Key Stage 3 (Years 7-9)</span>
                       {validationResults.keyStageAlignment > 70 ? (
                         <Badge variant="outline" className="border-green-500 text-green-500">Good</Badge>
@@ -426,11 +426,11 @@ export const CurriculumAlignmentValidator: React.FC<CurriculumAlignmentValidator
                         <Badge variant="outline" className="border-amber-500 text-amber-500">Partial</Badge>
                       )}
                     </div>
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-centre">
                       <span>Key Stage 4 (Years 10-11)</span>
                       <Badge variant="outline" className="border-amber-500 text-amber-500">Partial</Badge>
                     </div>
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-centre">
                       <span>Key Stage 5 (Years 12-13)</span>
                       <Badge variant="outline" className="border-red-500 text-red-500">Limited</Badge>
                     </div>
@@ -440,7 +440,7 @@ export const CurriculumAlignmentValidator: React.FC<CurriculumAlignmentValidator
                 <div className="border rounded-md">
                   <div className="bg-muted p-3 font-medium">Core Subject Coverage</div>
                   <div className="p-3 space-y-2">
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-centre">
                       <span>English</span>
                       {validationResults.subjectCoverage > 80 ? (
                         <Badge variant="outline" className="border-green-500 text-green-500">Good</Badge>
@@ -448,7 +448,7 @@ export const CurriculumAlignmentValidator: React.FC<CurriculumAlignmentValidator
                         <Badge variant="outline" className="border-amber-500 text-amber-500">Partial</Badge>
                       )}
                     </div>
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-centre">
                       <span>Mathematics</span>
                       {validationResults.subjectCoverage > 80 ? (
                         <Badge variant="outline" className="border-green-500 text-green-500">Good</Badge>
@@ -456,7 +456,7 @@ export const CurriculumAlignmentValidator: React.FC<CurriculumAlignmentValidator
                         <Badge variant="outline" className="border-amber-500 text-amber-500">Partial</Badge>
                       )}
                     </div>
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-centre">
                       <span>Science</span>
                       {validationResults.subjectCoverage > 80 ? (
                         <Badge variant="outline" className="border-green-500 text-green-500">Good</Badge>
@@ -470,35 +470,35 @@ export const CurriculumAlignmentValidator: React.FC<CurriculumAlignmentValidator
                 <div className="border rounded-md">
                   <div className="bg-muted p-3 font-medium">Foundation Subject Coverage</div>
                   <div className="p-3 space-y-2">
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-centre">
                       <span>Art and Design</span>
                       <Badge variant="outline" className="border-red-500 text-red-500">Limited</Badge>
                     </div>
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-centre">
                       <span>Computing</span>
                       <Badge variant="outline" className="border-amber-500 text-amber-500">Partial</Badge>
                     </div>
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-centre">
                       <span>Design and Technology</span>
                       <Badge variant="outline" className="border-red-500 text-red-500">Limited</Badge>
                     </div>
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-centre">
                       <span>Geography</span>
                       <Badge variant="outline" className="border-amber-500 text-amber-500">Partial</Badge>
                     </div>
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-centre">
                       <span>History</span>
                       <Badge variant="outline" className="border-amber-500 text-amber-500">Partial</Badge>
                     </div>
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-centre">
                       <span>Languages</span>
                       <Badge variant="outline" className="border-red-500 text-red-500">Limited</Badge>
                     </div>
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-centre">
                       <span>Music</span>
                       <Badge variant="outline" className="border-red-500 text-red-500">Limited</Badge>
                     </div>
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-centre">
                       <span>Physical Education</span>
                       <Badge variant="outline" className="border-red-500 text-red-500">Limited</Badge>
                     </div>
@@ -568,7 +568,7 @@ export const CurriculumAlignmentValidator: React.FC<CurriculumAlignmentValidator
 
   return (
     <div className="curriculum-alignment-validator space-y-4">
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-centre">
         <h2 className="text-xl font-bold">Curriculum Alignment Validation</h2>
         
         <Button 

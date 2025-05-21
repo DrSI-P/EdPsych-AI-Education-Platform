@@ -58,7 +58,7 @@ const HeyGenVideoLibrary = () => {
 
   return (
     <div className="container mx-auto py-8">
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between items-centre mb-6">
         <h1 className="text-3xl font-bold">AI Avatar Video Library</h1>
         <Button asChild>
           <a href="/ai-avatar-videos/generate">Create New Video</a>
@@ -75,7 +75,7 @@ const HeyGenVideoLibrary = () => {
       </Tabs>
       
       {loading ? (
-        <div className="flex justify-center items-center h-64">
+        <div className="flex justify-centre items-centre h-64">
           <Loader2 className="h-8 w-8 animate-spin text-primary" />
           <span className="ml-2">Loading videos...</span>
         </div>
@@ -84,7 +84,7 @@ const HeyGenVideoLibrary = () => {
           {error}
         </div>
       ) : getFilteredVideos().length === 0 ? (
-        <div className="text-center p-8 border border-dashed rounded-lg">
+        <div className="text-centre p-8 border border-dashed rounded-lg">
           <h3 className="text-xl font-medium mb-2">No videos found</h3>
           <p className="text-muted-foreground mb-4">
             {activeTab === 'all' 
@@ -107,7 +107,7 @@ const HeyGenVideoLibrary = () => {
                     className="w-full h-full object-cover"
                   />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center bg-secondary/20">
+                  <div className="w-full h-full flex items-centre justify-centre bg-secondary/20">
                     {video.status === 'pending' || video.status === 'processing' ? (
                       <Loader2 className="h-8 w-8 animate-spin text-primary" />
                     ) : (
@@ -116,7 +116,7 @@ const HeyGenVideoLibrary = () => {
                   </div>
                 )}
                 {video.status === 'completed' && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 hover:opacity-100 transition-opacity">
+                  <div className="absolute inset-0 flex items-centre justify-centre bg-black/30 opacity-0 hover:opacity-100 transition-opacity">
                     <Button asChild variant="secondary" size="icon">
                       <a href={`/ai-avatar-videos/view/${video.id}`}>
                         <Play className="h-6 w-6" />

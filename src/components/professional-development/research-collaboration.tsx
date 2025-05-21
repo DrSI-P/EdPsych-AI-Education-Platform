@@ -463,7 +463,7 @@ const MOCK_RESEARCH_PROJECTS = [
   },
   {
     id: 'proj5',
-    title: 'Restorative Practice Implementation Study',
+    title: 'Restorative Practise Implementation Study',
     status: 'In Progress',
     lead: 'Priya Patel',
     school: 'Meadowview School',
@@ -475,7 +475,7 @@ const MOCK_RESEARCH_PROJECTS = [
     methodology: 'Action Research',
     participants: 200,
     ethics: 'Approved',
-    tags: ['Behaviour', 'Restorative Practice', 'Whole School', 'Wellbeing'],
+    tags: ['Behaviour', 'Restorative Practise', 'Whole School', 'Wellbeing'],
     description: 'A collaborative action research project examining the implementation and impact of restorative practices across multiple school settings.'
   }
 ];
@@ -528,18 +528,18 @@ const MOCK_RESEARCH_OUTPUTS = [
     downloads: 68,
     citations: 3,
     tags: ['Mathematics', 'Anxiety', 'Intervention', 'Primary'],
-    abstract: 'This paper presents preliminary findings from an intervention study addressing mathematics anxiety in primary school pupils, with implications for classroom practice.'
+    abstract: 'This paper presents preliminary findings from an intervention study addressing mathematics anxiety in primary school pupils, with implications for classroom practise.'
   },
   {
     id: 'out5',
     title: 'Restorative Approaches in UK Schools: Implementation Guide',
-    type: 'Practice Guide',
+    type: 'Practise Guide',
     authors: ['Priya Patel', 'Sarah Johnson', 'James Smith'],
     schools: ['Meadowview School', 'Oakwood Primary', 'St. Mary\'s Primary'],
     date: '2025-04-05',
     downloads: 112,
     citations: 7,
-    tags: ['Behaviour', 'Restorative Practice', 'Implementation', 'Guide'],
+    tags: ['Behaviour', 'Restorative Practise', 'Implementation', 'Guide'],
     abstract: 'A comprehensive guide to implementing restorative approaches in UK school settings, based on findings from a multi-school action research project.'
   }
 ];
@@ -599,7 +599,7 @@ const MOCK_RESEARCH_METHODS = [
     downloads: 76,
     rating: 4.4,
     tags: ['Behaviour', 'Analysis', 'Incidents', 'Patterns'],
-    description: 'A systematic approach to analyzing behaviour incidents, identifying patterns, and developing targeted interventions based on data.'
+    description: 'A systematic approach to analysing behaviour incidents, identifying patterns, and developing targeted interventions based on data.'
   }
 ];
 
@@ -652,7 +652,7 @@ const MOCK_RESEARCH_NETWORKS = [
     schools: 28,
     projects: 9,
     outputs: 14,
-    focus: ['Behaviour', 'Wellbeing', 'Mental Health', 'Restorative Practice'],
+    focus: ['Behaviour', 'Wellbeing', 'Mental Health', 'Restorative Practise'],
     description: 'A collaborative network researching approaches to supporting positive behaviour and wellbeing in educational settings.'
   }
 ];
@@ -662,7 +662,7 @@ const MOCK_RESEARCH_IMPACT = [
   {
     id: 'impact1',
     project: 'Synthetic Phonics Implementation Study',
-    type: 'Practice Change',
+    type: 'Practise Change',
     schools: 18,
     students: 4500,
     description: 'Implementation of revised synthetic phonics approach based on research findings, resulting in 15% improvement in early reading outcomes.',
@@ -701,7 +701,7 @@ const MOCK_RESEARCH_IMPACT = [
   },
   {
     id: 'impact5',
-    project: 'Restorative Practice Implementation Study',
+    project: 'Restorative Practise Implementation Study',
     type: 'School Culture',
     schools: 10,
     students: 6500,
@@ -761,7 +761,7 @@ export default function ResearchCollaboration() {
   
   return (
     <div className="container mx-auto py-6 space-y-8">
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-centre">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Research Collaboration</h1>
           <p className="text-muted-foreground">
@@ -769,7 +769,7 @@ export default function ResearchCollaboration() {
           </p>
         </div>
         <div className="flex space-x-2">
-          <Button onClick={handleCreateProject} className="flex items-center">
+          <Button onClick={handleCreateProject} className="flex items-centre">
             <Plus className="mr-2 h-4 w-4" /> New Research Project
           </Button>
         </div>
@@ -787,7 +787,7 @@ export default function ResearchCollaboration() {
                 <FileText className="h-6 w-6 text-primary" />
               </div>
             </div>
-            <div className="mt-4 flex items-center text-xs text-muted-foreground">
+            <div className="mt-4 flex items-centre text-xs text-muted-foreground">
               <TrendingUp className="h-3 w-3 mr-1 text-green-500" />
               <span className="text-green-500 font-medium">+3</span>
               <span className="ml-1">from last month</span>
@@ -806,7 +806,7 @@ export default function ResearchCollaboration() {
                 <BookOpen className="h-6 w-6 text-primary" />
               </div>
             </div>
-            <div className="mt-4 flex items-center text-xs text-muted-foreground">
+            <div className="mt-4 flex items-centre text-xs text-muted-foreground">
               <TrendingUp className="h-3 w-3 mr-1 text-green-500" />
               <span className="text-green-500 font-medium">+5</span>
               <span className="ml-1">from last month</span>
@@ -825,7 +825,7 @@ export default function ResearchCollaboration() {
                 <School className="h-6 w-6 text-primary" />
               </div>
             </div>
-            <div className="mt-4 flex items-center text-xs text-muted-foreground">
+            <div className="mt-4 flex items-centre text-xs text-muted-foreground">
               <TrendingUp className="h-3 w-3 mr-1 text-green-500" />
               <span className="text-green-500 font-medium">+2</span>
               <span className="ml-1">from last month</span>
@@ -844,7 +844,7 @@ export default function ResearchCollaboration() {
                 <Users className="h-6 w-6 text-primary" />
               </div>
             </div>
-            <div className="mt-4 flex items-center text-xs text-muted-foreground">
+            <div className="mt-4 flex items-centre text-xs text-muted-foreground">
               <TrendingUp className="h-3 w-3 mr-1 text-green-500" />
               <span className="text-green-500 font-medium">+1</span>
               <span className="ml-1">from last month</span>
@@ -853,7 +853,7 @@ export default function ResearchCollaboration() {
         </Card>
       </div>
       
-      <div className="flex items-center space-x-4">
+      <div className="flex items-centre space-x-4">
         <div className="relative flex-1">
           <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
           <Input
@@ -922,7 +922,7 @@ export default function ResearchCollaboration() {
           {selectedProject || isCreatingProject ? (
             <Card>
               <CardHeader>
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-centre">
                   <div>
                     {isCreatingProject ? (
                       <CardTitle>Create New Research Project</CardTitle>
@@ -1009,7 +1009,7 @@ export default function ResearchCollaboration() {
                     
                     <div className="space-y-2">
                       <Label>Ethics Approval</Label>
-                      <div className="flex items-center space-x-2">
+                      <div className="flex items-centre space-x-2">
                         <Checkbox id="ethics-required" />
                         <label
                           htmlFor="ethics-required"
@@ -1139,47 +1139,47 @@ export default function ResearchCollaboration() {
                               </CardHeader>
                               <CardContent className="p-4 pt-0">
                                 <ul className="space-y-2 text-sm">
-                                  <li className="flex items-center">
+                                  <li className="flex items-centre">
                                     <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
                                     <span>Research question formulation</span>
                                   </li>
-                                  <li className="flex items-center">
+                                  <li className="flex items-centre">
                                     <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
                                     <span>Ethics approval</span>
                                   </li>
-                                  <li className="flex items-center">
+                                  <li className="flex items-centre">
                                     <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
                                     <span>Data collection tools development</span>
                                   </li>
                                   {selectedProject.progress >= 50 ? (
-                                    <li className="flex items-center">
+                                    <li className="flex items-centre">
                                       <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
                                       <span>Initial data collection</span>
                                     </li>
                                   ) : (
-                                    <li className="flex items-center">
+                                    <li className="flex items-centre">
                                       <Circle className="h-4 w-4 text-muted-foreground mr-2" />
                                       <span className="text-muted-foreground">Initial data collection</span>
                                     </li>
                                   )}
                                   {selectedProject.progress >= 75 ? (
-                                    <li className="flex items-center">
+                                    <li className="flex items-centre">
                                       <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
                                       <span>Data analysis</span>
                                     </li>
                                   ) : (
-                                    <li className="flex items-center">
+                                    <li className="flex items-centre">
                                       <Circle className="h-4 w-4 text-muted-foreground mr-2" />
                                       <span className="text-muted-foreground">Data analysis</span>
                                     </li>
                                   )}
                                   {selectedProject.progress === 100 ? (
-                                    <li className="flex items-center">
+                                    <li className="flex items-centre">
                                       <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
                                       <span>Final report</span>
                                     </li>
                                   ) : (
-                                    <li className="flex items-center">
+                                    <li className="flex items-centre">
                                       <Circle className="h-4 w-4 text-muted-foreground mr-2" />
                                       <span className="text-muted-foreground">Final report</span>
                                     </li>
@@ -1197,35 +1197,35 @@ export default function ResearchCollaboration() {
                                   {selectedProject.progress < 100 && (
                                     <>
                                       {selectedProject.progress < 50 && (
-                                        <li className="flex items-center">
+                                        <li className="flex items-centre">
                                           <Clock className="h-4 w-4 text-amber-500 mr-2" />
                                           <span>Complete initial data collection (Due: {new Date(selectedProject.startDate).toLocaleDateString('en-GB', { month: 'short', day: 'numeric' })})</span>
                                         </li>
                                       )}
                                       {selectedProject.progress >= 50 && selectedProject.progress < 75 && (
-                                        <li className="flex items-center">
+                                        <li className="flex items-centre">
                                           <Clock className="h-4 w-4 text-amber-500 mr-2" />
                                           <span>Begin data analysis (Due: {new Date(selectedProject.startDate).toLocaleDateString('en-GB', { month: 'short', day: 'numeric' })})</span>
                                         </li>
                                       )}
                                       {selectedProject.progress >= 75 && selectedProject.progress < 100 && (
-                                        <li className="flex items-center">
+                                        <li className="flex items-centre">
                                           <Clock className="h-4 w-4 text-amber-500 mr-2" />
                                           <span>Draft final report (Due: {new Date(selectedProject.endDate).toLocaleDateString('en-GB', { month: 'short', day: 'numeric' })})</span>
                                         </li>
                                       )}
-                                      <li className="flex items-center">
+                                      <li className="flex items-centre">
                                         <Clock className="h-4 w-4 text-blue-500 mr-2" />
                                         <span>Collaborator meeting (Due: {new Date().toLocaleDateString('en-GB', { month: 'short', day: 'numeric' })})</span>
                                       </li>
-                                      <li className="flex items-center">
+                                      <li className="flex items-centre">
                                         <Clock className="h-4 w-4 text-blue-500 mr-2" />
                                         <span>Progress update (Due: {new Date().toLocaleDateString('en-GB', { month: 'short', day: 'numeric' })})</span>
                                       </li>
                                     </>
                                   )}
                                   {selectedProject.progress === 100 && (
-                                    <li className="flex items-center">
+                                    <li className="flex items-centre">
                                       <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
                                       <span>All tasks completed</span>
                                     </li>
@@ -1282,8 +1282,8 @@ export default function ResearchCollaboration() {
                         <p className="text-xs text-muted-foreground mt-1">{project.methodology}</p>
                       </div>
                     </div>
-                    <div className="mt-4 flex justify-between items-center">
-                      <div className="flex items-center">
+                    <div className="mt-4 flex justify-between items-centre">
+                      <div className="flex items-centre">
                         <Avatar className="h-6 w-6 mr-2">
                           <AvatarFallback>{project.lead.split(' ').map(n => n[0]).join('')}</AvatarFallback>
                         </Avatar>
@@ -1292,12 +1292,12 @@ export default function ResearchCollaboration() {
                         <School className="h-4 w-4 mr-1 text-muted-foreground" />
                         <span className="text-sm text-muted-foreground">{project.school}</span>
                       </div>
-                      <div className="flex items-center space-x-4">
-                        <div className="flex items-center">
+                      <div className="flex items-centre space-x-4">
+                        <div className="flex items-centre">
                           <Users className="h-4 w-4 mr-1 text-muted-foreground" />
                           <span className="text-sm text-muted-foreground">{project.collaborators}</span>
                         </div>
-                        <div className="flex items-center">
+                        <div className="flex items-centre">
                           <School className="h-4 w-4 mr-1 text-muted-foreground" />
                           <span className="text-sm text-muted-foreground">{project.schools}</span>
                         </div>
@@ -1316,10 +1316,10 @@ export default function ResearchCollaboration() {
               
               {filteredProjects.length === 0 && (
                 <Card>
-                  <CardContent className="p-6 flex flex-col items-center justify-center">
+                  <CardContent className="p-6 flex flex-col items-centre justify-centre">
                     <FileQuestion className="h-12 w-12 text-muted-foreground mb-4" />
-                    <h3 className="font-medium text-center">No projects found</h3>
-                    <p className="text-sm text-muted-foreground text-center mt-1">Try adjusting your search or filters</p>
+                    <h3 className="font-medium text-centre">No projects found</h3>
+                    <p className="text-sm text-muted-foreground text-centre mt-1">Try adjusting your search or filters</p>
                     <Button className="mt-4" onClick={handleCreateProject}>
                       <Plus className="mr-2 h-4 w-4" /> Create New Project
                     </Button>
@@ -1359,13 +1359,13 @@ export default function ResearchCollaboration() {
                       <Badge key={index} variant="secondary">{tag}</Badge>
                     ))}
                   </div>
-                  <div className="mt-4 flex justify-between items-center">
-                    <div className="flex items-center space-x-4">
-                      <div className="flex items-center">
+                  <div className="mt-4 flex justify-between items-centre">
+                    <div className="flex items-centre space-x-4">
+                      <div className="flex items-centre">
                         <Download className="h-4 w-4 mr-1 text-muted-foreground" />
                         <span className="text-sm text-muted-foreground">{output.downloads}</span>
                       </div>
-                      <div className="flex items-center">
+                      <div className="flex items-centre">
                         <BookOpen className="h-4 w-4 mr-1 text-muted-foreground" />
                         <span className="text-sm text-muted-foreground">{output.citations} citations</span>
                       </div>
@@ -1385,10 +1385,10 @@ export default function ResearchCollaboration() {
             
             {filteredOutputs.length === 0 && (
               <Card className="md:col-span-2">
-                <CardContent className="p-6 flex flex-col items-center justify-center">
+                <CardContent className="p-6 flex flex-col items-centre justify-centre">
                   <FileQuestion className="h-12 w-12 text-muted-foreground mb-4" />
-                  <h3 className="font-medium text-center">No research outputs found</h3>
-                  <p className="text-sm text-muted-foreground text-center mt-1">Try adjusting your search criteria</p>
+                  <h3 className="font-medium text-centre">No research outputs found</h3>
+                  <p className="text-sm text-muted-foreground text-centre mt-1">Try adjusting your search criteria</p>
                 </CardContent>
               </Card>
             )}
@@ -1421,13 +1421,13 @@ export default function ResearchCollaboration() {
                       <Badge key={index} variant="secondary">{tag}</Badge>
                     ))}
                   </div>
-                  <div className="mt-4 flex justify-between items-center">
-                    <div className="flex items-center space-x-4">
-                      <div className="flex items-center">
+                  <div className="mt-4 flex justify-between items-centre">
+                    <div className="flex items-centre space-x-4">
+                      <div className="flex items-centre">
                         <Download className="h-4 w-4 mr-1 text-muted-foreground" />
                         <span className="text-sm text-muted-foreground">{method.downloads}</span>
                       </div>
-                      <div className="flex items-center">
+                      <div className="flex items-centre">
                         <Star className="h-4 w-4 mr-1 text-yellow-400 fill-yellow-400" />
                         <span className="text-sm text-muted-foreground">{method.rating}</span>
                       </div>
@@ -1463,19 +1463,19 @@ export default function ResearchCollaboration() {
                     </Button>
                   </div>
                   <div className="mt-4 grid grid-cols-1 md:grid-cols-4 gap-4">
-                    <div className="bg-muted/50 p-3 rounded-md flex flex-col items-center justify-center">
+                    <div className="bg-muted/50 p-3 rounded-md flex flex-col items-centre justify-centre">
                       <p className="text-2xl font-bold">{network.members}</p>
                       <p className="text-sm text-muted-foreground">Members</p>
                     </div>
-                    <div className="bg-muted/50 p-3 rounded-md flex flex-col items-center justify-center">
+                    <div className="bg-muted/50 p-3 rounded-md flex flex-col items-centre justify-centre">
                       <p className="text-2xl font-bold">{network.schools}</p>
                       <p className="text-sm text-muted-foreground">Schools</p>
                     </div>
-                    <div className="bg-muted/50 p-3 rounded-md flex flex-col items-center justify-center">
+                    <div className="bg-muted/50 p-3 rounded-md flex flex-col items-centre justify-centre">
                       <p className="text-2xl font-bold">{network.projects}</p>
                       <p className="text-sm text-muted-foreground">Projects</p>
                     </div>
-                    <div className="bg-muted/50 p-3 rounded-md flex flex-col items-center justify-center">
+                    <div className="bg-muted/50 p-3 rounded-md flex flex-col items-centre justify-centre">
                       <p className="text-2xl font-bold">{network.outputs}</p>
                       <p className="text-sm text-muted-foreground">Outputs</p>
                     </div>
@@ -1510,7 +1510,7 @@ export default function ResearchCollaboration() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center">
+                <CardTitle className="flex items-centre">
                   <BarChart2 className="mr-2 h-5 w-5" /> Impact by Type
                 </CardTitle>
                 <CardDescription>
@@ -1522,7 +1522,7 @@ export default function ResearchCollaboration() {
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart
                       data={[
-                        { name: 'Practice Change', value: 18 },
+                        { name: 'Practise Change', value: 18 },
                         { name: 'Policy Change', value: 12 },
                         { name: 'Curriculum Development', value: 15 },
                         { name: 'Student Outcomes', value: 22 },
@@ -1543,7 +1543,7 @@ export default function ResearchCollaboration() {
             
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center">
+                <CardTitle className="flex items-centre">
                   <PieChartIcon className="mr-2 h-5 w-5" /> Schools Impacted
                 </CardTitle>
                 <CardDescription>

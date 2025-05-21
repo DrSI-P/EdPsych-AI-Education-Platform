@@ -166,7 +166,7 @@ describe('HeygenVideoLibrary Component', () => {
     const deleteButtons = screen.getAllByRole('button', { name: /Delete/i });
     fireEvent.click(deleteButtons[0]);
     
-    // Check for confirmation dialog
+    // Check for confirmation dialogue
     expect(screen.getByText(/Are you sure you want to delete this video/i)).toBeInTheDocument();
     
     // Confirm deletion

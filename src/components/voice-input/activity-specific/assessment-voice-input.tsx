@@ -26,7 +26,7 @@ interface AssessmentVoiceInputProps {
 /**
  * Assessment Voice Input Component
  * 
- * Specialized voice input component for assessment activities,
+ * Specialised voice input component for assessment activities,
  * with optimizations for different question types.
  */
 export const AssessmentVoiceInput: React.FC<AssessmentVoiceInputProps> = ({
@@ -53,7 +53,7 @@ export const AssessmentVoiceInput: React.FC<AssessmentVoiceInputProps> = ({
   const getInputMode = () => {
     switch (questionType) {
       case 'multiple-choice':
-        return 'command'; // Optimized for short commands like "A", "B", "C", etc.
+        return 'command'; // Optimised for short commands like "A", "B", "C", etc.
       case 'short-answer':
         return 'standard'; // Standard mode for short answers
       case 'essay':
@@ -121,7 +121,7 @@ export const AssessmentVoiceInput: React.FC<AssessmentVoiceInputProps> = ({
         </div>
         
         <div className="space-y-2">
-          <div className="flex items-center justify-between">
+          <div className="flex items-centre justify-between">
             <Label htmlFor="child-voice-optimization">Child Voice Optimization</Label>
             <Switch 
               id="child-voice-optimization"
@@ -129,13 +129,13 @@ export const AssessmentVoiceInput: React.FC<AssessmentVoiceInputProps> = ({
               onCheckedChange={(checked) => updateSettings({ childVoiceOptimization: checked })}
             />
           </div>
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-grey-500">
             Improves recognition accuracy for children's voices
           </p>
         </div>
         
         <div className="space-y-2">
-          <div className="flex items-center justify-between">
+          <div className="flex items-centre justify-between">
             <Label htmlFor="noise-reduction">Background Noise Reduction</Label>
             <Switch 
               id="noise-reduction"
@@ -143,7 +143,7 @@ export const AssessmentVoiceInput: React.FC<AssessmentVoiceInputProps> = ({
               onCheckedChange={(checked) => updateSettings({ noiseReduction: checked })}
             />
           </div>
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-grey-500">
             Reduces impact of background classroom noise
           </p>
         </div>
@@ -158,7 +158,7 @@ export const AssessmentVoiceInput: React.FC<AssessmentVoiceInputProps> = ({
             value={[settings.confidenceThreshold]}
             onValueChange={(value) => updateSettings({ confidenceThreshold: value[0] })}
           />
-          <div className="flex justify-between text-xs text-gray-500">
+          <div className="flex justify-between text-xs text-grey-500">
             <span>More Forgiving</span>
             <span>More Strict</span>
           </div>
@@ -167,7 +167,7 @@ export const AssessmentVoiceInput: React.FC<AssessmentVoiceInputProps> = ({
         <div className="space-y-2">
           <Label>Special Educational Needs</Label>
           <div className="grid grid-cols-1 gap-2">
-            <div className="flex items-center justify-between">
+            <div className="flex items-centre justify-between">
               <Label htmlFor="articulation" className="text-sm">Articulation Support</Label>
               <Switch 
                 id="articulation"
@@ -181,7 +181,7 @@ export const AssessmentVoiceInput: React.FC<AssessmentVoiceInputProps> = ({
               />
             </div>
             
-            <div className="flex items-center justify-between">
+            <div className="flex items-centre justify-between">
               <Label htmlFor="fluency" className="text-sm">Fluency Support</Label>
               <Switch 
                 id="fluency"
@@ -195,7 +195,7 @@ export const AssessmentVoiceInput: React.FC<AssessmentVoiceInputProps> = ({
               />
             </div>
             
-            <div className="flex items-center justify-between">
+            <div className="flex items-centre justify-between">
               <Label htmlFor="processing" className="text-sm">Processing Support</Label>
               <Switch 
                 id="processing"
@@ -214,7 +214,7 @@ export const AssessmentVoiceInput: React.FC<AssessmentVoiceInputProps> = ({
         <Button 
           onClick={handleCalibrate}
           disabled={isCalibrating}
-          className="w-full flex items-center justify-center gap-2"
+          className="w-full flex items-centre justify-centre gap-2"
         >
           {isCalibrating ? (
             <>
@@ -248,7 +248,7 @@ export const AssessmentVoiceInput: React.FC<AssessmentVoiceInputProps> = ({
   return (
     <Card className={className}>
       <CardHeader className="pb-2">
-        <CardTitle className="flex items-center justify-between">
+        <CardTitle className="flex items-centre justify-between">
           <span>Assessment Voice Input</span>
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-[200px]">
             <TabsList className="grid w-full grid-cols-2">
@@ -279,7 +279,7 @@ export const AssessmentVoiceInput: React.FC<AssessmentVoiceInputProps> = ({
               <ul className="text-xs text-blue-700 space-y-1 list-disc pl-4">
                 <li>Say the letter or number clearly (e.g., "A", "B", "Option 1")</li>
                 <li>You can also say "Select A" or "Choose option 1"</li>
-                <li>If it doesn't recognize your choice, try again more slowly</li>
+                <li>If it doesn't recognise your choice, try again more slowly</li>
               </ul>
             </motion.div>
           )}

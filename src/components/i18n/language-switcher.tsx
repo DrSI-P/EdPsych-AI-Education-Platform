@@ -118,10 +118,10 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
         {languages.map(language => (
           <DropdownMenuItem
             key={language.code}
-            className={`flex items-center justify-between ${language.code === currentLanguage ? 'bg-accent' : ''}`}
+            className={`flex items-centre justify-between ${language.code === currentLanguage ? 'bg-accent' : ''}`}
             onClick={() => handleLanguageChange(language.code)}
           >
-            <div className="flex items-center">
+            <div className="flex items-centre">
               {renderFlag(language)}
               <span>{language.nativeName}</span>
               <span className="text-muted-foreground ml-2 text-xs">

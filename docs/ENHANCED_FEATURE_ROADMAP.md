@@ -2,14 +2,14 @@
 
 ## Overview
 
-This enhanced feature roadmap integrates insights from Dr. Scott Ighavongbe-Patrick's educational vision, doctoral research, and psychological practice. It outlines a comprehensive plan for developing the EdPsych Connect platform into a revolutionary educational tool that addresses the real needs of students, teachers, and educational psychologists.
+This enhanced feature roadmap integrates insights from Dr. Scott Ighavongbe-Patrick's educational vision, doctoral research, and psychological practise. It outlines a comprehensive plan for developing the EdPsych Connect platform into a revolutionary educational tool that addresses the real needs of students, teachers, and educational psychologists.
 
 ## Core Platform Philosophy
 
 All features must align with these foundational principles:
 
-1. **Child-Centered Design**: Every feature must prioritize children's needs and voices
-2. **Evidence-Based Practice**: All functionality must be grounded in research and proven approaches
+1. **Child-Centred Design**: Every feature must prioritize children's needs and voices
+2. **Evidence-Based Practise**: All functionality must be grounded in research and proven approaches
 3. **Relationship Enhancement**: Technology should strengthen, not replace, human connections
 4. **Administrative Reduction**: Features should minimize paperwork and maximize meaningful interaction
 5. **Differentiated Learning**: Content must adapt to individual learning styles and needs
@@ -37,12 +37,12 @@ All features must align with these foundational principles:
 **Vision**: Ensure all platform features are accessible to children with diverse needs, particularly those who struggle with typing or written expression.
 
 **Key Features**:
-- **Advanced Speech Recognition**: Optimized for children's voices and various accents
+- **Advanced Speech Recognition**: Optimised for children's voices and various accents
 - **Voice-to-Text for Assignments**: Allow spoken responses to all assessment types
 - **Voice Navigation**: Complete platform control through voice commands
 - **Text-to-Speech**: High-quality reading of all platform content
 - **Simplified Interface Options**: Reduced complexity views for students with cognitive needs
-- **Customizable Visual Settings**: Adjustments for color sensitivity, font size, and contrast
+- **Customizable Visual Settings**: Adjustments for colour sensitivity, font size, and contrast
 - **Alternative Input Methods**: Support for switches, eye-tracking, and other assistive technologies
 
 **Implementation Priority**: High - Critical for ensuring platform accessibility for all students
@@ -54,7 +54,7 @@ All features must align with these foundational principles:
 **Key Features**:
 - **Emotional Check-In System**: Brief, engaging daily emotional status updates
 - **Pattern Recognition**: AI analysis of emotional trends over time
-- **Personalized Regulation Strategies**: Customized tools based on individual needs
+- **Personalized Regulation Strategies**: Customised tools based on individual needs
 - **Guided Mindfulness Activities**: Age-appropriate exercises integrated into learning
 - **Teacher Alert System**: Notification of concerning patterns requiring intervention
 - **Emotional Vocabulary Development**: Tools to expand emotional literacy
@@ -74,7 +74,7 @@ All features must align with these foundational principles:
 - **Agreement Tracking**: Tools to monitor follow-through on restorative agreements
 - **Community-Building Activities**: Digital resources for strengthening relationships
 - **Staff Training Modules**: Professional development on restorative approaches
-- **Outcome Measurement**: Data collection on restorative practice effectiveness
+- **Outcome Measurement**: Data collection on restorative practise effectiveness
 - **Parent Education Resources**: Materials explaining restorative approaches
 
 **Implementation Priority**: Medium-High - Essential for creating emotionally safe environments
@@ -91,22 +91,22 @@ All features must align with these foundational principles:
 - **Resource Recommendation Engine**: Contextual suggestions based on student needs
 - **Calendar Optimization**: Smart scheduling of activities and interventions
 - **Parent Communication Management**: Templates and tracking for family engagement
-- **Data Visualization Dashboard**: At-a-glance views of student and class progress
+- **Data Visualisation Dashboard**: At-a-glance views of student and class progress
 
 **Implementation Priority**: High - Direct impact on teacher capacity for relationship-building
 
 ### 6. Student Voice Amplification System
 
-**Vision**: Create structured mechanisms for gathering, analyzing, and acting on student perspectives.
+**Vision**: Create structured mechanisms for gathering, analysing, and acting on student perspectives.
 
 **Key Features**:
 - **Multi-Modal Feedback Collection**: Options for text, audio, video, or drawing responses
 - **Anonymous Suggestion System**: Safe channels for sharing concerns
 - **Student-Led Conference Tools**: Frameworks for student-directed meetings
 - **Collaborative Goal Setting**: Shared teacher-student planning interfaces
-- **Preference Tracking**: Systems to record and honor student preferences
+- **Preference Tracking**: Systems to record and honour student preferences
 - **Student Council Portal**: Digital support for student leadership groups
-- **Impact Visualization**: Show students how their input creates change
+- **Impact Visualisation**: Show students how their input creates change
 - **Voice Library**: Searchable repository of student perspectives on educational topics
 
 **Implementation Priority**: Medium-High - Essential for honoring student agency
@@ -118,7 +118,7 @@ All features must align with these foundational principles:
 **Key Features**:
 - **Multi-Domain Assessment**: Tools for academic, social, emotional, and physical development
 - **Strengths-Based Profiling**: Identification and documentation of capabilities
-- **Dynamic Progress Visualization**: Interactive displays of growth over time
+- **Dynamic Progress Visualisation**: Interactive displays of growth over time
 - **Peer and Self-Assessment**: Structured frameworks for reflection
 - **Portfolio Development**: Digital collection of work demonstrating growth
 - **Real-World Application Tasks**: Authentic assessment opportunities
@@ -148,14 +148,14 @@ All features must align with these foundational principles:
 **Vision**: Provide comprehensive training and support for educators implementing holistic approaches.
 
 **Key Features**:
-- **Personalized Learning Pathways**: Customized professional development sequences
+- **Personalized Learning Pathways**: Customised professional development sequences
 - **Just-in-Time Training**: Contextual guidance when implementing new strategies
 - **Peer Coaching Network**: Connections with experienced practitioners
 - **Implementation Tracking**: Tools to monitor fidelity and progress
 - **Resource Library**: Searchable collection of evidence-based practices
 - **Reflection Frameworks**: Structured approaches to professional growth
-- **Community of Practice**: Shared learning spaces for educators
-- **Expert Consultation Access**: Connection to specialized knowledge
+- **Community of Practise**: Shared learning spaces for educators
+- **Expert Consultation Access**: Connection to specialised knowledge
 
 **Implementation Priority**: Medium - Supports effective implementation of other features
 
@@ -192,7 +192,7 @@ All features must align with these foundational principles:
 ### Phase 3: Ecosystem Completion (6-12 months)
 - Implement Professional Development and Support features
 - Develop Research and Impact Measurement tools
-- Refine and optimize all previous features based on user feedback
+- Refine and optimise all previous features based on user feedback
 - Ensure seamless integration across all platform components
 
 ## Conclusion

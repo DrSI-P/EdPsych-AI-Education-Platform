@@ -24,7 +24,7 @@ The navigation menu on the left gives you access to all the different parts of t
 ### Learning Resources and Activities (1:00-1:30)
 [Screen transitions to show learning resources]
 
-When you click on a subject, you'll find all your learning materials organised into units and lessons. These include interactive activities, videos, reading materials, and practice exercises.
+When you click on a subject, you'll find all your learning materials organised into units and lessons. These include interactive activities, videos, reading materials, and practise exercises.
 
 What makes EdPsych Connect special is that it learns how you learn best. As you use the platform, it will begin to present information in ways that work better for you – whether that's through visual materials, interactive exercises, or other approaches.
 

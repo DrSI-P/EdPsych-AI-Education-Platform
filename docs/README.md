@@ -18,7 +18,7 @@ The EdPsych-AI-Education-Platform unifies four existing repositories into a sing
 
 1. **School_Platform**: A Next.js-based educational platform with OpenAI integration
 2. **EdPsych-Pupil-Voice-Tool**: A Flask/Next.js application for collecting pupil voice data
-3. **edpsych-connect-platform-f**: A comprehensive modular platform with multiple specialized modules
+3. **edpsych-connect-platform-f**: A comprehensive modular platform with multiple specialised modules
 4. **Ai-Educational-Platform**: A Node.js/Express platform with immersive learning features
 
 ## Technology Stack
@@ -31,7 +31,7 @@ The EdPsych-AI-Education-Platform unifies four existing repositories into a sing
 
 ### Backend
 - Next.js API routes
-- Express.js for specialized services
+- Express.js for specialised services
 - Socket.io for real-time features
 
 ### Database
@@ -80,9 +80,9 @@ This repository currently contains planning and documentation. Implementation wi
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## License
+## Licence
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT Licence - see the LICENSE file for details.
 
 ## Contact
 

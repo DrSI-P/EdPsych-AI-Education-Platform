@@ -93,7 +93,7 @@ const MultilingualSupport: React.FC<MultilingualContentProps> = ({
           <div className="relative">
             <button
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-              className="flex items-center space-x-2 px-3 py-2 border border-gray-300 rounded-md bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="flex items-centre space-x-2 px-3 py-2 border border-grey-300 rounded-md bg-white hover:bg-grey-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
               aria-expanded={isDropdownOpen}
               aria-haspopup="true"
             >
@@ -117,13 +117,13 @@ const MultilingualSupport: React.FC<MultilingualContentProps> = ({
                   animate="visible"
                   exit="exit"
                   variants={dropdownVariants}
-                  className="absolute z-10 mt-1 w-full bg-white shadow-lg rounded-md border border-gray-200 py-1"
+                  className="absolute z-10 mt-1 w-full bg-white shadow-lg rounded-md border border-grey-200 py-1"
                 >
                   {filteredLanguages.map((language) => (
                     <button
                       key={language.code}
                       onClick={() => handleLanguageChange(language.code)}
-                      className={`w-full text-left px-4 py-2 hover:bg-gray-100 flex items-center ${
+                      className={`w-full text-left px-4 py-2 hover:bg-grey-100 flex items-centre ${
                         activeLanguage === language.code ? 'bg-blue-50 text-blue-600' : ''
                       }`}
                     >

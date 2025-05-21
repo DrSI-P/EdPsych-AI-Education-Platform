@@ -142,14 +142,14 @@ const dimensions: Dimension[] = [
   },
   {
     id: 'psychological',
-    name: 'Psychological & Behavioral Adjustment',
-    description: 'Assesses emotional regulation, behavior patterns, and conflict resolution skills',
+    name: 'Psychological & Behavioural Adjustment',
+    description: 'Assesses emotional regulation, behaviour patterns, and conflict resolution skills',
     icon: <FiBarChart2 />,
     tools: [
       {
         id: 'sdq',
         name: 'Strengths and Difficulties Questionnaire (SDQ)',
-        description: 'Widely used tool for assessing psychological and behavioral adjustment',
+        description: 'Widely used tool for assessing psychological and behavioural adjustment',
         type: 'survey',
         targetAudience: ['students', 'teachers', 'parents'],
         timeRequired: '5-10 minutes'
@@ -157,14 +157,14 @@ const dimensions: Dimension[] = [
       {
         id: 'emotional-regulation',
         name: 'Emotional Regulation Assessment',
-        description: 'Measures students' ability to recognize and manage emotions',
+        description: 'Measures students' ability to recognise and manage emotions',
         type: 'survey',
         targetAudience: ['students', 'teachers'],
         timeRequired: '10-15 minutes'
       },
       {
-        id: 'behavior-tracking',
-        name: 'Restorative Behavior Tracking',
+        id: 'behaviour-tracking',
+        name: 'Restorative Behaviour Tracking',
         description: 'System for recording incidents and restorative outcomes',
         type: 'data-analysis',
         targetAudience: ['staff'],
@@ -174,14 +174,14 @@ const dimensions: Dimension[] = [
   },
   {
     id: 'implementation',
-    name: 'Restorative Practice Implementation',
+    name: 'Restorative Practise Implementation',
     description: 'Evaluates the quality and consistency of restorative approaches',
     icon: <FiCheckCircle />,
     tools: [
       {
         id: 'implementation-checklist',
         name: 'Implementation Fidelity Checklist',
-        description: 'Structured assessment of restorative practice implementation',
+        description: 'Structured assessment of restorative practise implementation',
         type: 'observation',
         targetAudience: ['staff'],
         timeRequired: '20-30 minutes'
@@ -461,13 +461,13 @@ export default function OutcomeMeasurementTools() {
     setActiveTab(1); // Switch to Assessment tab
   };
 
-  // Get status color
+  // Get status colour
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'draft': return 'gray';
+      case 'draft': return 'grey';
       case 'in-progress': return 'blue';
       case 'completed': return 'green';
-      default: return 'gray';
+      default: return 'grey';
     }
   };
 
@@ -515,7 +515,7 @@ export default function OutcomeMeasurementTools() {
           {/* Dashboard Tab */}
           <TabPanel>
             <Box mb={8}>
-              <Flex justifyContent="space-between" alignItems="center" mb={6}>
+              <Flex justifyContent="space-between" alignItems="centre" mb={6}>
                 <Heading as="h2" size="lg">Assessment Dashboard</Heading>
                 <Button leftIcon={<FiPlusCircle />} colorScheme="blue" onClick={onOpen}>
                   New Assessment
@@ -526,23 +526,23 @@ export default function OutcomeMeasurementTools() {
                 {assessments.map(assessment => (
                   <Card key={assessment.id} variant="outline" cursor="pointer" onClick={() => handleViewAssessment(assessment)}>
                     <CardHeader pb={2}>
-                      <Flex justifyContent="space-between" alignItems="center">
+                      <Flex justifyContent="space-between" alignItems="centre">
                         <Heading size="md" noOfLines={1}>{assessment.title}</Heading>
                         <Badge colorScheme={getStatusColor(assessment.status)}>{assessment.status}</Badge>
                       </Flex>
                     </CardHeader>
                     <CardBody pt={0}>
-                      <Text color="gray.600" fontSize="sm" mb={2}>
+                      <Text colour="grey.600" fontSize="sm" mb={2}>
                         {getAssessmentTypeLabel(assessment.type)} • {getSettingTypeLabel(assessment.setting)}
                       </Text>
                       <Text mb={2}>Target: {assessment.targetGroup}</Text>
                       <Text mb={2}>Dimensions: {assessment.dimensions.length}</Text>
-                      <Text fontSize="sm" color="gray.600">
+                      <Text fontSize="sm" colour="grey.600">
                         Created: {new Date(assessment.createdAt).toLocaleDateString()}
                       </Text>
                     </CardBody>
                     <CardFooter pt={0}>
-                      <Flex width="100%" justifyContent="space-between" alignItems="center">
+                      <Flex width="100%" justifyContent="space-between" alignItems="centre">
                         <Text>{assessment.respondents} respondents</Text>
                         <Button size="sm" rightIcon={<FiEdit />} variant="ghost">
                           View
@@ -554,7 +554,7 @@ export default function OutcomeMeasurementTools() {
               </Grid>
 
               {assessments.length === 0 && (
-                <Box textAlign="center" py={10} px={6}>
+                <Box textAlign="centre" py={10} px={6}>
                   <Text fontSize="lg" mb={3}>No assessments created yet</Text>
                   <Button colorScheme="blue" onClick={onOpen}>Create your first assessment</Button>
                 </Box>
@@ -565,7 +565,7 @@ export default function OutcomeMeasurementTools() {
 
             <Box mb={8}>
               <Heading as="h2" size="lg" mb={6}>Recent Activity</Heading>
-              <Text color="gray.600">No recent activity to display.</Text>
+              <Text colour="grey.600">No recent activity to display.</Text>
             </Box>
           </TabPanel>
 
@@ -577,7 +577,7 @@ export default function OutcomeMeasurementTools() {
                   Back to All Assessments
                 </Button>
                 
-                <Flex justifyContent="space-between" alignItems="center" mb={6}>
+                <Flex justifyContent="space-between" alignItems="centre" mb={6}>
                   <Heading as="h2" size="lg">{selectedAssessment.title}</Heading>
                   <Badge colorScheme={getStatusColor(selectedAssessment.status)} fontSize="md" px={3} py={1}>
                     {selectedAssessment.status}
@@ -624,7 +624,7 @@ export default function OutcomeMeasurementTools() {
                         {selectedAssessment.dimensions.map(dimId => {
                           const dimension = dimensions.find(d => d.id === dimId);
                           return dimension ? (
-                            <Flex key={dimension.id} align="center">
+                            <Flex key={dimension.id} align="centre">
                               <Box mr={3}>{dimension.icon}</Box>
                               <Text>{dimension.name}</Text>
                             </Flex>
@@ -684,7 +684,7 @@ export default function OutcomeMeasurementTools() {
                 <Box mb={8}>
                   <Heading as="h3" size="md" mb={4}>Progress Tracking</Heading>
                   {selectedAssessment.status === 'draft' ? (
-                    <Text color="gray.600">This assessment has not been started yet.</Text>
+                    <Text colour="grey.600">This assessment has not been started yet.</Text>
                   ) : (
                     <Box>
                       <Text mb={2}>Overall Progress</Text>
@@ -736,7 +736,7 @@ export default function OutcomeMeasurementTools() {
               </Box>
             ) : (
               <Box>
-                <Flex justifyContent="space-between" alignItems="center" mb={6}>
+                <Flex justifyContent="space-between" alignItems="centre" mb={6}>
                   <Heading as="h2" size="lg">All Assessments</Heading>
                   <Button leftIcon={<FiPlusCircle />} colorScheme="blue" onClick={onOpen}>
                     New Assessment
@@ -747,7 +747,7 @@ export default function OutcomeMeasurementTools() {
                   {assessments.map(assessment => (
                     <Card key={assessment.id} variant="outline">
                       <CardBody>
-                        <Flex justifyContent="space-between" alignItems="center">
+                        <Flex justifyContent="space-between" alignItems="centre">
                           <Box>
                             <Heading size="md" mb={1}>{assessment.title}</Heading>
                             <HStack spacing={4} mb={2}>
@@ -755,7 +755,7 @@ export default function OutcomeMeasurementTools() {
                               <Text fontSize="sm">{getAssessmentTypeLabel(assessment.type)}</Text>
                               <Text fontSize="sm">{getSettingTypeLabel(assessment.setting)}</Text>
                             </HStack>
-                            <Text fontSize="sm" color="gray.600">
+                            <Text fontSize="sm" colour="grey.600">
                               Created: {new Date(assessment.createdAt).toLocaleDateString()} • 
                               Target: {assessment.targetGroup} • 
                               Respondents: {assessment.respondents}
@@ -776,7 +776,7 @@ export default function OutcomeMeasurementTools() {
                 </VStack>
                 
                 {assessments.length === 0 && (
-                  <Box textAlign="center" py={10} px={6}>
+                  <Box textAlign="centre" py={10} px={6}>
                     <Text fontSize="lg" mb={3}>No assessments created yet</Text>
                     <Button colorScheme="blue" onClick={onOpen}>Create your first assessment</Button>
                   </Box>
@@ -789,7 +789,7 @@ export default function OutcomeMeasurementTools() {
           <TabPanel>
             <Heading as="h2" size="lg" mb={6}>Measurement Dimensions</Heading>
             <Text mb={8}>
-              Outcome measurement for restorative justice is organized into six key dimensions, 
+              Outcome measurement for restorative justice is organised into six key dimensions, 
               each with specific tools and metrics to provide a comprehensive assessment framework.
             </Text>
             
@@ -868,7 +868,7 @@ export default function OutcomeMeasurementTools() {
                     <CardBody>
                       <Heading size="sm" mb={2}>Guide for Educational Psychologists</Heading>
                       <Text mb={3}>
-                        Specialized guidance for educational psychologists on interpreting and applying measurement data.
+                        Specialised guidance for educational psychologists on interpreting and applying measurement data.
                       </Text>
                       <Button rightIcon={<FiDownload />} size="sm">Download PDF</Button>
                     </CardBody>
@@ -918,7 +918,7 @@ export default function OutcomeMeasurementTools() {
                 <Card variant="outline">
                   <CardBody>
                     <Heading size="sm" mb={2}>Data Analysis Templates</Heading>
-                    <Text>Spreadsheet templates for analyzing assessment data.</Text>
+                    <Text>Spreadsheet templates for analysing assessment data.</Text>
                   </CardBody>
                 </Card>
                 
@@ -988,21 +988,21 @@ export default function OutcomeMeasurementTools() {
               </CardHeader>
               <CardBody>
                 <VStack spacing={4} align="stretch">
-                  <FormControl display="flex" alignItems="center">
+                  <FormControl display="flex" alignItems="centre">
                     <FormLabel mb="0">
                       Email notifications for assessment completion
                     </FormLabel>
                     <Switch colorScheme="blue" defaultChecked />
                   </FormControl>
                   
-                  <FormControl display="flex" alignItems="center">
+                  <FormControl display="flex" alignItems="centre">
                     <FormLabel mb="0">
                       Reminder notifications for in-progress assessments
                     </FormLabel>
                     <Switch colorScheme="blue" defaultChecked />
                   </FormControl>
                   
-                  <FormControl display="flex" alignItems="center">
+                  <FormControl display="flex" alignItems="centre">
                     <FormLabel mb="0">
                       Notifications for new assessment tools
                     </FormLabel>
@@ -1018,21 +1018,21 @@ export default function OutcomeMeasurementTools() {
               </CardHeader>
               <CardBody>
                 <VStack spacing={4} align="stretch">
-                  <FormControl display="flex" alignItems="center">
+                  <FormControl display="flex" alignItems="centre">
                     <FormLabel mb="0">
                       Allow anonymized data for research purposes
                     </FormLabel>
                     <Switch colorScheme="blue" />
                   </FormControl>
                   
-                  <FormControl display="flex" alignItems="center">
+                  <FormControl display="flex" alignItems="centre">
                     <FormLabel mb="0">
                       Share assessment templates with other schools
                     </FormLabel>
                     <Switch colorScheme="blue" />
                   </FormControl>
                   
-                  <Text fontSize="sm" color="gray.600" mt={2}>
+                  <Text fontSize="sm" colour="grey.600" mt={2}>
                     All data is processed in accordance with UK GDPR requirements and the Department for Education guidelines.
                   </Text>
                 </VStack>
@@ -1059,7 +1059,7 @@ export default function OutcomeMeasurementTools() {
                   placeholder="e.g., Baseline Assessment - Oakwood Secondary"
                 />
                 {validationErrors.title && (
-                  <Text color="red.500" fontSize="sm">{validationErrors.title}</Text>
+                  <Text colour="red.500" fontSize="sm">{validationErrors.title}</Text>
                 )}
               </FormControl>
               
@@ -1093,7 +1093,7 @@ export default function OutcomeMeasurementTools() {
               
               <FormControl isRequired isInvalid={!!validationErrors.dimensions}>
                 <FormLabel>Measurement Dimensions</FormLabel>
-                <Text fontSize="sm" color="gray.600" mb={2}>
+                <Text fontSize="sm" colour="grey.600" mb={2}>
                   Select the dimensions you want to include in this assessment
                 </Text>
                 <VStack align="start" spacing={2}>
@@ -1112,7 +1112,7 @@ export default function OutcomeMeasurementTools() {
                   ))}
                 </VStack>
                 {validationErrors.dimensions && (
-                  <Text color="red.500" fontSize="sm">{validationErrors.dimensions}</Text>
+                  <Text colour="red.500" fontSize="sm">{validationErrors.dimensions}</Text>
                 )}
               </FormControl>
               
@@ -1125,7 +1125,7 @@ export default function OutcomeMeasurementTools() {
                   placeholder="e.g., Year 8 Students, All Staff, etc."
                 />
                 {validationErrors.targetGroup && (
-                  <Text color="red.500" fontSize="sm">{validationErrors.targetGroup}</Text>
+                  <Text colour="red.500" fontSize="sm">{validationErrors.targetGroup}</Text>
                 )}
               </FormControl>
             </VStack>

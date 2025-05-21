@@ -1496,7 +1496,7 @@ export class MobileSettingsService {
   private applyTheme(theme: 'light' | 'dark' | 'system'): void {
     if (theme === 'system') {
       // Use system preference
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const prefersDark = window.matchMedia('(prefers-colour-scheme: dark)').matches;
       document.documentElement.classList.toggle('dark', prefersDark);
     } else {
       // Use explicit theme
@@ -1579,10 +1579,10 @@ export class MobileSettingsService {
     document.documentElement.classList.toggle('large-targets', settings.largeTargets);
     
     // Apply screen reader optimizations
-    document.documentElement.classList.toggle('screen-reader-optimized', settings.screenReader);
+    document.documentElement.classList.toggle('screen-reader-optimised', settings.screenReader);
     
     // Apply voice control optimizations
-    document.documentElement.classList.toggle('voice-control-optimized', settings.voiceControl);
+    document.documentElement.classList.toggle('voice-control-optimised', settings.voiceControl);
   }
   
   /**

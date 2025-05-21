@@ -16,7 +16,7 @@ export enum ResearchDomain {
   ACADEMIC_ACHIEVEMENT = 'academic_achievement',
   COGNITIVE_DEVELOPMENT = 'cognitive_development',
   SOCIAL_EMOTIONAL = 'social_emotional',
-  BEHAVIORAL = 'behavioral',
+  Behavioural = 'behavioural',
   ENGAGEMENT = 'engagement',
   INCLUSION = 'inclusion',
   TEACHING_PRACTICE = 'teaching_practice',
@@ -140,7 +140,7 @@ export const ResearchProjectSchema = z.object({
   collaborators: z.array(z.object({
     id: z.string(),
     role: z.string(),
-    organization: z.string().optional()
+    organisation: z.string().optional()
   })),
   status: z.nativeEnum(ResearchProjectStatus),
   createdBy: z.string(),
@@ -465,7 +465,7 @@ export interface ResearchProjectService {
   addCollaborator: (projectId: string, collaborator: {
     id: string;
     role: string;
-    organization?: string;
+    organisation?: string;
   }) => Promise<boolean>;
   
   updateProjectStatus: (projectId: string, status: ResearchProjectStatus) => Promise<boolean>;
@@ -711,7 +711,7 @@ export interface ResearchPartnershipService {
     organizationTypes?: string[];
   }) => Promise<ResearchPartnership[]>;
   
-  addPartnerOrganization: (partnershipId: string, organization: {
+  addPartnerOrganization: (partnershipId: string, organisation: {
     id: string;
     name: string;
     type: 'academic' | 'school' | 'government' | 'non_profit' | 'commercial' | 'community';

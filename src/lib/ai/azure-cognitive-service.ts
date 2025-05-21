@@ -24,14 +24,14 @@ export class AzureCognitiveService {
   }
   
   /**
-   * Analyze sentiment of text
+   * Analyse sentiment of text
    */
   async analyzeSentiment(text: string, language: string = 'en') {
     try {
       const results = await this.textAnalyticsClient.analyzeSentiment([text], { language });
       
       if (!results[0] || results[0].error) {
-        throw new Error(results[0]?.error?.message || 'Failed to analyze sentiment');
+        throw new Error(results[0]?.error?.message || 'Failed to analyse sentiment');
       }
       
       return {
@@ -45,7 +45,7 @@ export class AzureCognitiveService {
       };
     } catch (error) {
       console.error('Azure sentiment analysis error:', error);
-      throw new Error(`Failed to analyze sentiment: ${error.message}`);
+      throw new Error(`Failed to analyse sentiment: ${error.message}`);
     }
   }
   
@@ -97,7 +97,7 @@ export class AzureCognitiveService {
   }
   
   /**
-   * Analyze image and extract information
+   * Analyse image and extract information
    */
   async analyzeImage(imageUrl: string, options: {
     visualFeatures?: string[];
@@ -138,7 +138,7 @@ export class AzureCognitiveService {
       };
     } catch (error) {
       console.error('Azure image analysis error:', error);
-      throw new Error(`Failed to analyze image: ${error.message}`);
+      throw new Error(`Failed to analyse image: ${error.message}`);
     }
   }
   
@@ -236,15 +236,15 @@ export class AzureCognitiveService {
   }
   
   /**
-   * Analyze educational content for readability and complexity
+   * Analyse educational content for readability and complexity
    */
   async analyzeEducationalContent(text: string, targetAgeGroup: string) {
     try {
-      // First, analyze the text's language
+      // First, analyse the text's language
       const languageResult = await this.detectLanguage(text);
       const language = languageResult.primaryLanguage.iso6391Name;
       
-      // Then analyze key phrases to understand main concepts
+      // Then analyse key phrases to understand main concepts
       const keyPhrases = await this.extractKeyPhrases(text, language);
       
       // Calculate readability metrics (simplified implementation)
@@ -290,7 +290,7 @@ export class AzureCognitiveService {
       };
     } catch (error) {
       console.error('Azure educational content analysis error:', error);
-      throw new Error(`Failed to analyze educational content: ${error.message}`);
+      throw new Error(`Failed to analyse educational content: ${error.message}`);
     }
   }
   

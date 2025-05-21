@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Emotional Vocabulary Development Tools feature provides a comprehensive system for students to explore, learn, and practice using words to identify and express emotions. This evidence-based feature enhances emotional literacy, which is a fundamental component of emotional intelligence and self-regulation.
+The Emotional Vocabulary Development Tools feature provides a comprehensive system for students to explore, learn, and practise using words to identify and express emotions. This evidence-based feature enhances emotional literacy, which is a fundamental component of emotional intelligence and self-regulation.
 
 ## Key Features
 
@@ -19,7 +19,7 @@ The Emotional Vocabulary Development Tools feature provides a comprehensive syst
 - **Emotion Vocabulary Tree**: Create visual displays of emotion words and relationships
 - **Emotion Detective**: Identify emotions in stories, videos, and scenarios
 - **Emotion Word Wall**: Build collaborative displays of emotion vocabulary
-- **Emotion Scenarios**: Analyze emotional responses in various situations
+- **Emotion Scenarios**: Analyse emotional responses in various situations
 - **Emotion Intensity Scale**: Develop awareness of emotion intensity levels
 - **Vocabulary Games**: Reinforce learning through interactive games
 
@@ -28,10 +28,10 @@ The Emotional Vocabulary Development Tools feature provides a comprehensive syst
 - **Progress Monitoring**: Track emotions learned and activities completed
 - **Mastery Levels**: Progress through beginner to advanced levels
 - **Activity History**: Review past learning activities and achievements
-- **Favorite Emotions**: Save frequently referenced emotions for quick access
+- **Favourite Emotions**: Save frequently referenced emotions for quick access
 
 ### Personalization
-- **Accessibility Options**: Customize voice narration, animations, text size, and contrast
+- **Accessibility Options**: Customise voice narration, animations, text size, and contrast
 - **Age-appropriate Filtering**: Filter content by age group (early years, primary, secondary)
 - **Category and Intensity Filtering**: Focus on specific emotion categories or intensity levels
 - **Search Functionality**: Find specific emotions, activities, or resources
@@ -40,7 +40,7 @@ The Emotional Vocabulary Development Tools feature provides a comprehensive syst
 - **Printable Materials**: Access emotion vocabulary cards and posters
 - **Parent and Teacher Guides**: Support emotional vocabulary development at home and school
 - **Book Recommendations**: Explore literature that supports emotional literacy
-- **Daily Practice Tools**: Implement emotion word of the day calendars
+- **Daily Practise Tools**: Implement emotion word of the day calendars
 
 ## Evidence Base
 
@@ -48,7 +48,7 @@ The Emotional Vocabulary Development Tools feature is grounded in established ed
 
 1. **Emotional Literacy Research**: Based on studies showing that children with larger emotional vocabularies demonstrate better emotional regulation, social skills, and academic performance.
 
-2. **Developmental Appropriateness**: Content is tailored to different developmental stages, recognizing that emotional understanding evolves from basic to complex throughout childhood and adolescence.
+2. **Developmental Appropriateness**: Content is tailored to different developmental stages, recognising that emotional understanding evolves from basic to complex throughout childhood and adolescence.
 
 3. **Multi-modal Learning**: Incorporates visual, auditory, and kinesthetic learning approaches to support diverse learning styles and maximize retention.
 
@@ -80,7 +80,7 @@ The feature extends the Prisma schema with several new models:
 - High contrast mode for visual impairments
 - Adjustable text size for readability
 - Simplified view option for reduced cognitive load
-- Screen reader optimized content structure
+- Screen reader optimised content structure
 
 ## Educational Impact
 
@@ -92,9 +92,9 @@ The Emotional Vocabulary Development Tools feature supports several key educatio
 
 3. **Better Emotional Regulation**: Understanding emotions is the first step in developing strategies to manage them effectively.
 
-4. **Increased Empathy**: Recognizing emotions in others supports the development of empathy and social skills.
+4. **Increased Empathy**: Recognising emotions in others supports the development of empathy and social skills.
 
-5. **Academic Benefits**: Emotional literacy has been linked to improved academic performance and classroom behavior.
+5. **Academic Benefits**: Emotional literacy has been linked to improved academic performance and classroom behaviour.
 
 ## References
 

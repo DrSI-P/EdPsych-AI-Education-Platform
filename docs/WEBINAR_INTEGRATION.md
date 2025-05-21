@@ -43,7 +43,7 @@ The Webinar Integration feature enhances the Professional Development section of
 ## Educational Psychology Foundations
 - **Social Learning Theory**: Leveraging group dynamics for enhanced learning
 - **Synchronous Learning Benefits**: Immediate feedback and real-time clarification
-- **Community of Practice**: Building professional learning communities
+- **Community of Practise**: Building professional learning communities
 - **Multimodal Learning**: Combining visual, auditory, and interactive elements
 - **Spaced Learning**: Integration of live sessions with asynchronous follow-up
 

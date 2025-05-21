@@ -43,8 +43,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
     
-    // Create new behavior
-    const behavior = await prisma.behaviorDefinition.create({
+    // Create new behaviour
+    const behaviour = await prisma.behaviorDefinition.create({
       data: {
         userId: session.user.id,
         name: data.name,
@@ -57,18 +57,18 @@ export async function POST(req: NextRequest) {
       },
     });
     
-    // Log the behavior creation
+    // Log the behaviour creation
     await prisma.behaviorTrackingLog.create({
       data: {
         userId: session.user.id,
         action: 'BEHAVIOR_CREATED',
-        details: JSON.stringify(behavior),
+        details: JSON.stringify(behaviour),
       },
     });
     
-    return NextResponse.json(behavior);
+    return NextResponse.json(behaviour);
   } catch (error) {
-    console.error('Error creating behavior:', error);
-    return NextResponse.json({ error: 'Failed to create behavior' }, { status: 500 });
+    console.error('Error creating behaviour:', error);
+    return NextResponse.json({ error: 'Failed to create behaviour' }, { status: 500 });
   }
 }

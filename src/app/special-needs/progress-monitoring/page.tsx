@@ -20,7 +20,7 @@ export default function ProgressMonitoringPage() {
   
   return (
     <div className="container mx-auto py-8 px-4">
-      <h1 className="text-3xl font-bold mb-6 flex items-center">
+      <h1 className="text-3xl font-bold mb-6 flex items-centre">
         <Image 
           src="/images/progress-monitoring-icon.png" 
           alt="Progress Monitoring Icon" 
@@ -42,7 +42,7 @@ export default function ProgressMonitoringPage() {
             <Info className="h-4 w-4" />
             <AlertTitle>Evidence-Based Approach</AlertTitle>
             <AlertDescription>
-              Regular progress monitoring is a key component of the graduated approach to SEN support (Assess, Plan, Do, Review) as outlined in the SEND Code of Practice. Consistent data collection enables informed decision-making about intervention effectiveness.
+              Regular progress monitoring is a key component of the graduated approach to SEN support (Assess, Plan, Do, Review) as outlined in the SEND Code of Practise. Consistent data collection enables informed decision-making about intervention effectiveness.
             </AlertDescription>
           </Alert>
         </div>
@@ -50,7 +50,7 @@ export default function ProgressMonitoringPage() {
         <div className="lg:col-span-1">
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center">
+              <CardTitle className="flex items-centre">
                 <Target className="h-5 w-5 mr-2" />
                 About Progress Monitoring
               </CardTitle>
@@ -77,7 +77,7 @@ export default function ProgressMonitoringPage() {
                         <strong>Early Identification:</strong> Quickly identifies when interventions are not working, allowing for timely adjustments
                       </li>
                       <li>
-                        <strong>Motivation:</strong> Visualizing progress helps motivate students and teachers
+                        <strong>Motivation:</strong> Visualising progress helps motivate students and teachers
                       </li>
                       <li>
                         <strong>Communication:</strong> Facilitates clear communication with parents and other professionals
@@ -102,10 +102,10 @@ export default function ProgressMonitoringPage() {
                       A 2022 meta-analysis in the Journal of Special Education found that interventions with systematic progress monitoring were 37% more effective than those without regular data collection.
                     </p>
                     <p>
-                      The Department for Education's SEND Code of Practice emphasizes the importance of regular assessment and review as part of the graduated approach to supporting pupils with SEN.
+                      The Department for Education's SEND Code of Practise emphasizes the importance of regular assessment and review as part of the graduated approach to supporting pupils with SEN.
                     </p>
                     <p>
-                      Research from the National Center on Intensive Intervention demonstrates that progress monitoring should occur at least weekly for students receiving intensive interventions to maximize effectiveness.
+                      Research from the National Centre on Intensive Intervention demonstrates that progress monitoring should occur at least weekly for students receiving intensive interventions to maximize effectiveness.
                     </p>
                   </div>
                 </TabsContent>
@@ -130,7 +130,7 @@ export default function ProgressMonitoringPage() {
                       <li><strong>Collect Baseline:</strong> Determine starting point</li>
                       <li><strong>Implement Intervention:</strong> Apply strategies consistently</li>
                       <li><strong>Monitor Progress:</strong> Collect data at regular intervals</li>
-                      <li><strong>Analyze Data:</strong> Review trends and patterns</li>
+                      <li><strong>Analyse Data:</strong> Review trends and patterns</li>
                       <li><strong>Make Decisions:</strong> Continue, modify, or change approach</li>
                     </ol>
                   </div>
@@ -141,7 +141,7 @@ export default function ProgressMonitoringPage() {
           
           <Card className="mt-6">
             <CardHeader>
-              <CardTitle className="flex items-center">
+              <CardTitle className="flex items-centre">
                 <FileText className="h-5 w-5 mr-2" />
                 Monitoring Resources
               </CardTitle>
@@ -167,9 +167,9 @@ export default function ProgressMonitoringPage() {
                 </div>
                 
                 <div>
-                  <h4 className="font-medium mb-1">Behavioral Progress</h4>
+                  <h4 className="font-medium mb-1">Behavioural Progress</h4>
                   <ul className="list-disc pl-5 space-y-1 text-muted-foreground">
-                    <li>On-task behavior frequency charts</li>
+                    <li>On-task behaviour frequency charts</li>
                     <li>Social skills observation forms</li>
                     <li>Self-regulation rating scales</li>
                   </ul>

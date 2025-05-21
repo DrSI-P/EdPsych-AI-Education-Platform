@@ -153,7 +153,7 @@ export const useTouchGestures = (options = {}) => {
       
       options.onPinch({
         scale,
-        center: {
+        centre: {
           x: (touch1.clientX + touch2.clientX) / 2,
           y: (touch1.clientY + touch2.clientY) / 2
         }
@@ -463,7 +463,7 @@ export const useMobileNavigation = () => {
 };
 
 /**
- * Custom hook for implementing mobile-optimized images
+ * Custom hook for implementing mobile-optimised images
  * @param {string} desktopSrc - Desktop image source
  * @param {string} tabletSrc - Tablet image source
  * @param {string} mobileSrc - Mobile image source

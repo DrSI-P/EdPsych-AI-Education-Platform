@@ -22,7 +22,7 @@ interface CardHeaderProps {
 
 export function CardHeader({ children, className = '' }: CardHeaderProps) {
   return (
-    <div className={`px-4 py-5 sm:px-6 border-b border-gray-200 ${className}`}>
+    <div className={`px-4 py-5 sm:px-6 border-b border-grey-200 ${className}`}>
       {children}
     </div>
   );
@@ -48,7 +48,7 @@ interface CardFooterProps {
 
 export function CardFooter({ children, className = '' }: CardFooterProps) {
   return (
-    <div className={`px-4 py-4 sm:px-6 border-t border-gray-200 ${className}`}>
+    <div className={`px-4 py-4 sm:px-6 border-t border-grey-200 ${className}`}>
       {children}
     </div>
   );
@@ -61,7 +61,7 @@ interface CardTitleProps {
 
 export function CardTitle({ children, className = '' }: CardTitleProps) {
   return (
-    <h3 className={`text-lg leading-6 font-medium text-gray-900 ${className}`}>
+    <h3 className={`text-lg leading-6 font-medium text-grey-900 ${className}`}>
       {children}
     </h3>
   );
@@ -74,7 +74,7 @@ interface CardDescriptionProps {
 
 export function CardDescription({ children, className = '' }: CardDescriptionProps) {
   return (
-    <p className={`mt-1 max-w-2xl text-sm text-gray-500 ${className}`}>
+    <p className={`mt-1 max-w-2xl text-sm text-grey-500 ${className}`}>
       {children}
     </p>
   );
@@ -101,7 +101,7 @@ interface CardActionsProps {
 
 export function CardActions({ children, className = '' }: CardActionsProps) {
   return (
-    <div className={`flex items-center justify-end space-x-3 ${className}`}>
+    <div className={`flex items-centre justify-end space-x-3 ${className}`}>
       {children}
     </div>
   );

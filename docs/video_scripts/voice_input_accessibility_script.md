@@ -19,7 +19,7 @@ These features benefit not just pupils with identified special educational needs
 
 One of our most powerful accessibility tools is our advanced voice input system. This feature is particularly valuable for pupils who struggle with typing due to dyslexia, motor control challenges, or simply developing keyboard skills.
 
-Our voice recognition is specifically optimized for children's voices across different age groups:
+Our voice recognition is specifically optimised for children's voices across different age groups:
 - For early years and Key Stage 1, it's calibrated for developing speech patterns and pronunciation
 - For Key Stage 2, it adapts to more complex vocabulary and sentence structures
 - For secondary pupils, it supports academic terminology and longer responses
@@ -31,7 +31,7 @@ The system also accommodates regional accents and speech differences, ensuring a
 
 Let's see the voice input system in action across different learning activities:
 
-For assessments, pupils can dictate answers to open-ended questions, with the system automatically formatting and organizing their responses.
+For assessments, pupils can dictate answers to open-ended questions, with the system automatically formatting and organising their responses.
 
 In the immersive learning environments, voice commands allow navigation and interaction without requiring keyboard or mouse skills.
 

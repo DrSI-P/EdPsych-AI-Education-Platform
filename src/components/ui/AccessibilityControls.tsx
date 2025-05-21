@@ -109,7 +109,7 @@ const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({
           >
             <Card className="w-72 shadow-lg border-primary/20">
               <CardHeader className="pb-3">
-                <CardTitle className="text-lg flex items-center justify-between">
+                <CardTitle className="text-lg flex items-centre justify-between">
                   <span>Accessibility</span>
                   <Button 
                     variant="ghost" 
@@ -125,7 +125,7 @@ const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({
                 {/* Theme Selection */}
                 <div className="space-y-2">
                   <Label>Theme</Label>
-                  <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-centre justify-between gap-2">
                     <Button
                       variant={theme === 'light' ? 'default' : 'outline'}
                       size="sm"
@@ -158,11 +158,11 @@ const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({
                 
                 {/* Font Size */}
                 <div className="space-y-2">
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <Label>Font Size</Label>
                     <span className="text-sm text-muted-foreground">{fontSize}px</span>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-centre gap-2">
                     <ZoomOut className="h-4 w-4 text-muted-foreground" />
                     <Slider
                       value={[fontSize]}
@@ -176,8 +176,8 @@ const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({
                 </div>
                 
                 {/* High Contrast */}
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
+                <div className="flex items-centre justify-between">
+                  <div className="flex items-centre gap-2">
                     <Eye className="h-4 w-4 text-muted-foreground" />
                     <Label htmlFor="high-contrast">High Contrast</Label>
                   </div>
@@ -189,8 +189,8 @@ const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({
                 </div>
                 
                 {/* Reduce Motion */}
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
+                <div className="flex items-centre justify-between">
+                  <div className="flex items-centre gap-2">
                     <Move className="h-4 w-4 text-muted-foreground" />
                     <Label htmlFor="reduce-motion">Reduce Motion</Label>
                   </div>
@@ -202,8 +202,8 @@ const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({
                 </div>
                 
                 {/* Dyslexic Font */}
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
+                <div className="flex items-centre justify-between">
+                  <div className="flex items-centre gap-2">
                     <Type className="h-4 w-4 text-muted-foreground" />
                     <Label htmlFor="dyslexic-font">Dyslexic Font</Label>
                   </div>

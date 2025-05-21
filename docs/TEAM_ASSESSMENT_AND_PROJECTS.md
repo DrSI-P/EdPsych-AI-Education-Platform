@@ -41,7 +41,7 @@ The Team Assessment and Projects functionality transforms collaborative learning
 ### 5. Collaboration Analytics
 
 - **Contribution Tracking**: Insights into individual participation
-- **Interaction Patterns**: Visualization of team communication and collaboration
+- **Interaction Patterns**: Visualisation of team communication and collaboration
 - **Progress Monitoring**: Real-time updates on project advancement
 - **Skill Development Metrics**: Measurement of teamwork and collaboration growth
 - **Outcome Evaluation**: Assessment of final project quality and impact
@@ -64,13 +64,13 @@ The Team Assessment and Projects functionality transforms collaborative learning
 3. **Monitoring**: Track progress and identify teams needing intervention
 4. **Assessment**: Evaluate both process and outcomes using flexible frameworks
 5. **Feedback**: Provide timely guidance to enhance learning
-6. **Evaluation**: Analyze effectiveness of collaborative learning approaches
+6. **Evaluation**: Analyse effectiveness of collaborative learning approaches
 
 ### For Parents
 
 1. **Awareness**: Understand their child's role in team projects
 2. **Support**: Provide appropriate encouragement without overinvolvement
-3. **Celebration**: Recognize team achievements and growth
+3. **Celebration**: Recognise team achievements and growth
 4. **Insight**: Gain perspective on their child's collaborative skills
 5. **Connection**: Engage with project showcases and presentations
 
@@ -80,7 +80,7 @@ The Team Assessment and Projects functionality transforms collaborative learning
 
 - **Task Management**: Assignment and tracking of project components
 - **Gantt Charts**: Visual timeline representation
-- **Kanban Boards**: Flexible task organization and workflow
+- **Kanban Boards**: Flexible task organisation and workflow
 - **Resource Allocation**: Tools for managing project materials
 - **Notification System**: Alerts for deadlines and updates
 

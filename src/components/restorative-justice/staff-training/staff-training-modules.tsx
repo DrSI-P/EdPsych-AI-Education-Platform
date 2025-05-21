@@ -41,16 +41,16 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+} from "@/components/ui/alert-dialogue";
 import {
-  Dialog,
+  Dialogue,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@/components/ui/dialogue";
 import { Separator } from "@/components/ui/separator";
 import { toast } from "@/components/ui/use-toast";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -440,7 +440,7 @@ const StaffTrainingModules: React.FC = () => {
           {modules.map((module) => (
             <Card key={module.id} variant="outline" borderRadius="lg" overflow="hidden" boxShadow="md">
               <CardHeader bg="blue.50" pb={2}>
-                <Flex justify="space-between" align="center">
+                <Flex justify="space-between" align="centre">
                   <Heading size="md">{module.title}</Heading>
                   <Badge colorScheme={module.level === 'Beginner' ? 'green' : module.level === 'Intermediate' ? 'blue' : 'purple'}>
                     {module.level}
@@ -449,12 +449,12 @@ const StaffTrainingModules: React.FC = () => {
               </CardHeader>
               <CardBody>
                 <Text mb={4}>{module.description}</Text>
-                <Flex justify="space-between" align="center" mb={4}>
-                  <Text fontSize="sm" color="gray.600">
+                <Flex justify="space-between" align="centre" mb={4}>
+                  <Text fontSize="sm" colour="grey.600">
                     <Icon as={FaChalkboardTeacher} mr={1} />
                     {module.duration}
                   </Text>
-                  <Text fontSize="sm" color="gray.600">
+                  <Text fontSize="sm" colour="grey.600">
                     <Icon as={FaBookOpen} mr={1} />
                     {module.sections.length} sections
                   </Text>
@@ -487,7 +487,7 @@ const StaffTrainingModules: React.FC = () => {
     
     return (
       <Box>
-        <Flex justify="space-between" align="center" mb={6}>
+        <Flex justify="space-between" align="centre" mb={6}>
           <Button leftIcon={<FaChalkboardTeacher />} onClick={handleBackToModules} variant="outline">
             Back to Modules
           </Button>
@@ -497,7 +497,7 @@ const StaffTrainingModules: React.FC = () => {
         </Flex>
         
         <Heading as="h1" size="xl" mb={2}>{currentModule.title}</Heading>
-        <Text fontSize="md" color="gray.600" mb={6}>
+        <Text fontSize="md" colour="grey.600" mb={6}>
           {currentModule.duration} • {currentModule.sections.length} sections
         </Text>
         
@@ -505,7 +505,7 @@ const StaffTrainingModules: React.FC = () => {
         
         <Flex mb={8}>
           <Tabs orientation="vertical" variant="line" flex={1}>
-            <TabList minW="250px" borderRight="1px" borderColor="gray.200">
+            <TabList minW="250px" borderRight="1px" borderColor="grey.200">
               {currentModule.sections.map((section, index) => {
                 const isCompleted = userProgress.some(p => 
                   p.moduleId === currentModule.id && 
@@ -520,26 +520,26 @@ const StaffTrainingModules: React.FC = () => {
                     _selected={{ color: 'blue.500', borderLeft: '4px solid', borderLeftColor: 'blue.500', bg: 'blue.50' }}
                     onClick={() => setCurrentSection(section)}
                   >
-                    <Flex align="center" width="100%">
+                    <Flex align="centre" width="100%">
                       <Box mr={3}>
                         {isCompleted ? (
-                          <Icon as={FaCheck} color="green.500" />
+                          <Icon as={FaCheck} colour="green.500" />
                         ) : (
                           <Box w={4} h={4} borderRadius="full" bg={index === 0 || userProgress.some(p => 
                             p.moduleId === currentModule.id && 
                             p.completedSections.includes(currentModule.sections[index-1]?.id)
-                          ) ? "blue.500" : "gray.300"} />
+                          ) ? "blue.500" : "grey.300"} />
                         )}
                       </Box>
                       <Box flex={1}>
                         <Text fontSize="sm" fontWeight="medium" textAlign="left">{section.title}</Text>
-                        <Flex align="center" mt={1}>
-                          {section.type === 'video' && <Icon as={FaVideo} color="gray.500" mr={1} size="xs" />}
-                          {section.type === 'text' && <Icon as={FaFileAlt} color="gray.500" mr={1} size="xs" />}
-                          {section.type === 'quiz' && <Icon as={FaQuestionCircle} color="gray.500" mr={1} size="xs" />}
-                          {section.type === 'activity' && <Icon as={FaUserFriends} color="gray.500" mr={1} size="xs" />}
-                          {section.type === 'reflection' && <Icon as={FaBookOpen} color="gray.500" mr={1} size="xs" />}
-                          <Text fontSize="xs" color="gray.500">{section.duration}</Text>
+                        <Flex align="centre" mt={1}>
+                          {section.type === 'video' && <Icon as={FaVideo} colour="grey.500" mr={1} size="xs" />}
+                          {section.type === 'text' && <Icon as={FaFileAlt} colour="grey.500" mr={1} size="xs" />}
+                          {section.type === 'quiz' && <Icon as={FaQuestionCircle} colour="grey.500" mr={1} size="xs" />}
+                          {section.type === 'activity' && <Icon as={FaUserFriends} colour="grey.500" mr={1} size="xs" />}
+                          {section.type === 'reflection' && <Icon as={FaBookOpen} colour="grey.500" mr={1} size="xs" />}
+                          <Text fontSize="xs" colour="grey.500">{section.duration}</Text>
                         </Flex>
                       </Box>
                     </Flex>
@@ -556,12 +556,12 @@ const StaffTrainingModules: React.FC = () => {
                   {currentSection.type === 'video' && (
                     <Box mb={6}>
                       <Box 
-                        bg="gray.100" 
+                        bg="grey.100" 
                         borderRadius="md" 
                         height="400px" 
                         display="flex" 
-                        alignItems="center" 
-                        justifyContent="center"
+                        alignItems="centre" 
+                        justifyContent="centre"
                         mb={4}
                       >
                         <Text>Video content would be embedded here</Text>
@@ -632,11 +632,11 @@ const StaffTrainingModules: React.FC = () => {
             {currentModule.resources.map((resource) => (
               <Card key={resource.id} variant="outline">
                 <CardBody>
-                  <Flex align="center" mb={2}>
-                    {resource.type === 'pdf' && <Icon as={FaFileAlt} color="red.500" mr={2} />}
-                    {resource.type === 'video' && <Icon as={FaVideo} color="blue.500" mr={2} />}
-                    {resource.type === 'link' && <Icon as={FaBookOpen} color="green.500" mr={2} />}
-                    {resource.type === 'template' && <Icon as={FaClipboardCheck} color="purple.500" mr={2} />}
+                  <Flex align="centre" mb={2}>
+                    {resource.type === 'pdf' && <Icon as={FaFileAlt} colour="red.500" mr={2} />}
+                    {resource.type === 'video' && <Icon as={FaVideo} colour="blue.500" mr={2} />}
+                    {resource.type === 'link' && <Icon as={FaBookOpen} colour="green.500" mr={2} />}
+                    {resource.type === 'template' && <Icon as={FaClipboardCheck} colour="purple.500" mr={2} />}
                     <Heading size="sm">{resource.title}</Heading>
                   </Flex>
                   <Text fontSize="sm" mb={3}>{resource.description}</Text>
@@ -669,13 +669,13 @@ const StaffTrainingModules: React.FC = () => {
           <ModalHeader>Module Completion Certificate</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Box textAlign="center" py={6}>
-              <Icon as={FaCertificate} w={24} h={24} color="gold" mb={4} />
+            <Box textAlign="centre" py={6}>
+              <Icon as={FaCertificate} w={24} h={24} colour="gold" mb={4} />
               <Heading size="lg" mb={2}>Congratulations!</Heading>
               <Text fontSize="lg" mb={6}>
                 You have successfully completed the module:
               </Text>
-              <Heading size="md" mb={6} color="blue.600">
+              <Heading size="md" mb={6} colour="blue.600">
                 {certificateModule.title}
               </Heading>
               <Text mb={8}>
@@ -699,7 +699,7 @@ const StaffTrainingModules: React.FC = () => {
   return (
     <Box maxW="1200px" mx="auto" px={4} py={8}>
       {isLoading ? (
-        <Flex justify="center" align="center" height="400px">
+        <Flex justify="centre" align="centre" height="400px">
           <Text>Loading training modules...</Text>
         </Flex>
       ) : (

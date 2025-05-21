@@ -38,7 +38,7 @@ const verificationResult = await mockBlockchainInteraction('verify', {
 
 ## Root Cause
 
-TypeScript is configured to not allow implicit `any` types, which is a good practice for type safety. When function parameters don't have explicit type annotations, TypeScript infers them as `any`, but with the `noImplicitAny` compiler option enabled, this results in an error.
+TypeScript is configured to not allow implicit `any` types, which is a good practise for type safety. When function parameters don't have explicit type annotations, TypeScript infers them as `any`, but with the `noImplicitAny` compiler option enabled, this results in an error.
 
 The function was using parameters without type annotations, which is not allowed with the current TypeScript configuration.
 
@@ -89,7 +89,7 @@ This ensures that we're passing `undefined` instead of `null` when the search pa
 
 1. **Type Safety**: TypeScript's strict type checking helps catch potential issues early, but requires explicit type annotations for function parameters.
 
-2. **noImplicitAny**: The `noImplicitAny` compiler option is a good practice for ensuring type safety, but requires more explicit type annotations.
+2. **noImplicitAny**: The `noImplicitAny` compiler option is a good practise for ensuring type safety, but requires more explicit type annotations.
 
 3. **Union Types**: Using union types like `'verify' | 'issue' | 'register'` provides more specific type information than generic types like `string`.
 

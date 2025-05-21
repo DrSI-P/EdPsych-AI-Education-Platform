@@ -35,7 +35,7 @@ The Age-Appropriate Reflection Prompts feature is grounded in established resear
 - **Developmental Psychology**: Aligns with cognitive and social-emotional development stages
 - **Restorative Justice Research**: Incorporates key restorative questions adapted for different age groups
 - **Educational Psychology**: Follows best practices for scaffolding reflection based on developmental readiness
-- **UK Educational Context**: Aligned with UK educational standards and the SEND Code of Practice
+- **UK Educational Context**: Aligned with UK educational standards and the SEND Code of Practise
 
 ## Implementation Details
 
@@ -61,7 +61,7 @@ The Age-Appropriate Reflection Prompts feature is grounded in established resear
 
 ## Accessibility Considerations
 - All components are keyboard navigable
-- Color contrast meets WCAG standards
+- Colour contrast meets WCAG standards
 - Screen reader optimizations
 - Visual supports for younger students
 - Simplified language options

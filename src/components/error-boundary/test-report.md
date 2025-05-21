@@ -13,7 +13,7 @@ This document provides a comprehensive test report for the error boundary compon
 
 2. **Age-Adaptive Error Boundary (`AgeAdaptiveErrorBoundary.tsx`)**
    - Age-appropriate error messages for different developmental stages
-   - Customized visual design for each age group
+   - Customised visual design for each age group
    - Simplified interfaces for younger users
 
 3. **Root Error Boundary (`RootErrorBoundary.tsx`)**
@@ -75,7 +75,7 @@ This document provides a comprehensive test report for the error boundary compon
 |-----------|-------------|--------|-------|
 | Keyboard Navigation | Tab focus on action buttons | ✅ Passed | All interactive elements are focusable |
 | Screen Reader | Error message announcement | ✅ Passed | Error state properly announced |
-| Color Contrast | Text readability | ✅ Passed | All text meets WCAG AA standards |
+| Colour Contrast | Text readability | ✅ Passed | All text meets WCAG AA standards |
 | Focus Management | Focus handling after error | ✅ Passed | Focus moved to error message on failure |
 
 ## Performance Impact

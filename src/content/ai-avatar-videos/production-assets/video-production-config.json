@@ -24,7 +24,7 @@
         "type": "intro",
         "duration": 10,
         "background": "office_with_branding",
-        "avatarPosition": "center",
+        "avatarPosition": "centre",
         "text": "Welcome to the EdPsych-AI-Education-Platform administrator training series. I'm Dr. Scott, and in this video, I'll guide you through the system configuration process to ensure your platform is optimally set up for your educational institution."
       },
       {
@@ -78,7 +78,7 @@
         "type": "intro",
         "duration": 10,
         "background": "classroom_with_branding",
-        "avatarPosition": "center",
+        "avatarPosition": "centre",
         "text": "Welcome to the EdPsych-AI-Education-Platform teacher training series. I'm Dr. Scott, and in this video, I'll show you how to create engaging, curriculum-aligned content for your students."
       },
       {
@@ -134,7 +134,7 @@
         "type": "intro",
         "duration": 10,
         "background": "friendly_classroom",
-        "avatarPosition": "center",
+        "avatarPosition": "centre",
         "text": "Hello there! I'm Dr. Scott, and I'm going to show you how to use the EdPsych-AI-Education-Platform. This amazing learning tool is designed especially for you, and we're going to explore how it works together."
       },
       {
@@ -191,7 +191,7 @@
         "type": "intro",
         "duration": 10,
         "background": "home_setting",
-        "avatarPosition": "center",
+        "avatarPosition": "centre",
         "text": "Welcome to the EdPsych-AI-Education-Platform parent guidance series. I'm Dr. Scott, and in this video, I'll show you how to effectively monitor your child's educational progress using the platform's parent portal."
       },
       {

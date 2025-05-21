@@ -275,7 +275,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
       
       {/* Buffering indicator */}
       {isBuffering && (
-        <div className="absolute inset-0 flex items-center justify-center bg-black/30">
+        <div className="absolute inset-0 flex items-centre justify-centre bg-black/30">
           <div className="h-12 w-12 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
         </div>
       )}
@@ -291,7 +291,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
       >
         <div className="flex flex-col space-y-2">
           {/* Progress bar */}
-          <div className="flex items-center space-x-2">
+          <div className="flex items-centre space-x-2">
             <span className="text-xs">{formatTime(currentTime)}</span>
             <Slider
               value={[currentTime]}
@@ -305,8 +305,8 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
           </div>
           
           {/* Control buttons */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
+          <div className="flex items-centre justify-between">
+            <div className="flex items-centre space-x-2">
               <Button 
                 variant="ghost" 
                 size="sm" 
@@ -338,7 +338,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
                 <SkipForward className="h-5 w-5" />
               </Button>
               
-              <div className="flex items-center space-x-2">
+              <div className="flex items-centre space-x-2">
                 <Button 
                   variant="ghost" 
                   size="sm" 
@@ -363,7 +363,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
               </div>
             </div>
             
-            <div className="flex items-center space-x-2">
+            <div className="flex items-centre space-x-2">
               {video.accessibilityFeatures.hasCaptions && (
                 <Button 
                   variant="ghost" 

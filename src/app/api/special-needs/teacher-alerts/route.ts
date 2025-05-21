@@ -7,7 +7,7 @@ import prisma from '@/lib/prisma';
 // Schema for alert creation/update
 const AlertSchema = z.object({
   studentId: z.string(),
-  type: z.enum(['emotional', 'behavioral', 'academic', 'attendance', 'social']),
+  type: z.enum(['emotional', 'behavioural', 'academic', 'attendance', 'social']),
   description: z.string().min(5),
   date: z.string(),
   time: z.string(),
@@ -24,7 +24,7 @@ const ABCCRecordSchema = z.object({
   time: z.string(),
   setting: z.string().optional(),
   antecedent: z.string().min(5),
-  behavior: z.string().min(5),
+  behaviour: z.string().min(5),
   consequence: z.string().min(5),
   communication: z.string().optional(),
   intensity: z.enum(['low', 'medium', 'high']),
@@ -113,7 +113,7 @@ export async function POST(req) {
     const body = await req.json();
     
     // Determine if this is an alert or ABCC record based on the payload
-    if (body.antecedent && body.behavior && body.consequence) {
+    if (body.antecedent && body.behaviour && body.consequence) {
       // This is an ABCC record
       const validatedData = ABCCRecordSchema.parse(body);
       

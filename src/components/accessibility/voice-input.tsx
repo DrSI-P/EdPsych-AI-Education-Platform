@@ -223,7 +223,7 @@ export default function VoiceInput() {
                   </div>
                   
                   {isListening && (
-                    <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                    <div className="flex items-centre space-x-2 text-sm text-muted-foreground">
                       <span className="animate-pulse text-red-500">●</span>
                       <span>Listening...</span>
                       {confidence > 0 && (
@@ -291,11 +291,11 @@ export default function VoiceInput() {
                     </Select>
                   </div>
                   
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <div>
                       <Label htmlFor="child-voice" className="block mb-1">Child Voice Optimization</Label>
                       <p className="text-sm text-muted-foreground">
-                        Optimize recognition for children's voices and speech patterns
+                        Optimise recognition for children's voices and speech patterns
                       </p>
                     </div>
                     <Switch
@@ -305,7 +305,7 @@ export default function VoiceInput() {
                     />
                   </div>
                   
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <div>
                       <Label htmlFor="continuous" className="block mb-1">Continuous Listening</Label>
                       <p className="text-sm text-muted-foreground">
@@ -319,7 +319,7 @@ export default function VoiceInput() {
                     />
                   </div>
                   
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <div>
                       <Label htmlFor="profanity" className="block mb-1">Profanity Filter</Label>
                       <p className="text-sm text-muted-foreground">
@@ -345,7 +345,7 @@ export default function VoiceInput() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <div>
                       <Label htmlFor="articulation" className="block mb-1">Articulation Support</Label>
                       <p className="text-sm text-muted-foreground">
@@ -359,7 +359,7 @@ export default function VoiceInput() {
                     />
                   </div>
                   
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <div>
                       <Label htmlFor="fluency" className="block mb-1">Fluency Support</Label>
                       <p className="text-sm text-muted-foreground">
@@ -373,7 +373,7 @@ export default function VoiceInput() {
                     />
                   </div>
                   
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <div>
                       <Label htmlFor="processing" className="block mb-1">Processing Support</Label>
                       <p className="text-sm text-muted-foreground">
@@ -390,15 +390,15 @@ export default function VoiceInput() {
                   <div className="bg-muted p-4 rounded-md">
                     <h4 className="font-medium mb-2">Recommended Settings</h4>
                     <div className="space-y-2">
-                      <div className="flex items-center space-x-2">
+                      <div className="flex items-centre space-x-2">
                         <Badge variant="outline">Dyspraxia</Badge>
                         <span className="text-sm">Enable Articulation Support</span>
                       </div>
-                      <div className="flex items-center space-x-2">
+                      <div className="flex items-centre space-x-2">
                         <Badge variant="outline">Stuttering</Badge>
                         <span className="text-sm">Enable Fluency Support</span>
                       </div>
-                      <div className="flex items-center space-x-2">
+                      <div className="flex items-centre space-x-2">
                         <Badge variant="outline">Auditory Processing</Badge>
                         <span className="text-sm">Enable Processing Support</span>
                       </div>

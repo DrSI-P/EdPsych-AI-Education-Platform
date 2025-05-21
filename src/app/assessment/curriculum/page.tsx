@@ -148,7 +148,7 @@ export default function CurriculumAlignmentPage() {
   const renderBrowseTab = () => {
     if (loading) {
       return (
-        <div className="flex justify-center items-center py-12">
+        <div className="flex justify-centre items-centre py-12">
           <Spinner size="large" />
         </div>
       );
@@ -156,8 +156,8 @@ export default function CurriculumAlignmentPage() {
 
     if (filteredStandards.length === 0) {
       return (
-        <div className="text-center py-12">
-          <p className="text-gray-500 mb-4">No curriculum standards found matching your criteria.</p>
+        <div className="text-centre py-12">
+          <p className="text-grey-500 mb-4">No curriculum standards found matching your criteria.</p>
         </div>
       );
     }
@@ -169,11 +169,11 @@ export default function CurriculumAlignmentPage() {
             <CardContent className="p-4">
               <div className="flex justify-between items-start">
                 <div className="flex-grow">
-                  <div className="flex items-center mb-2">
-                    <span className="font-mono text-sm bg-gray-100 px-2 py-1 rounded mr-2">
+                  <div className="flex items-centre mb-2">
+                    <span className="font-mono text-sm bg-grey-100 px-2 py-1 rounded mr-2">
                       {standard.code}
                     </span>
-                    <span className="text-sm text-gray-500">
+                    <span className="text-sm text-grey-500">
                       {subjects.find(s => s.value === standard.subject)?.label || standard.subject} | 
                       {keyStages.find(k => k.value === standard.keyStage)?.label || standard.keyStage} | 
                       {years.find(y => y.value === standard.year)?.label || standard.year}
@@ -181,7 +181,7 @@ export default function CurriculumAlignmentPage() {
                   </div>
                   <p className="text-base">{standard.description}</p>
                   <div className="mt-2">
-                    <span className="inline-block px-2 py-1 text-xs rounded-full bg-gray-100 text-gray-800">
+                    <span className="inline-block px-2 py-1 text-xs rounded-full bg-grey-100 text-grey-800">
                       {categories.find(c => c.value === standard.category)?.label || standard.category}
                     </span>
                   </div>
@@ -206,13 +206,13 @@ export default function CurriculumAlignmentPage() {
       <div className="space-y-6">
         <div className="mb-6">
           <h2 className="text-xl font-semibold mb-2">Aligned Assessments</h2>
-          <p className="text-gray-600">
+          <p className="text-grey-600">
             View assessments that have been aligned to UK curriculum standards.
           </p>
         </div>
 
-        <div className="text-center py-12">
-          <p className="text-gray-500 mb-4">This feature is coming soon.</p>
+        <div className="text-centre py-12">
+          <p className="text-grey-500 mb-4">This feature is coming soon.</p>
           <Button onClick={() => setActiveTab('browse')}>
             Browse Curriculum Standards
           </Button>
@@ -224,8 +224,8 @@ export default function CurriculumAlignmentPage() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-6">
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-gray-900">UK Curriculum Alignment</h1>
+        <div className="flex items-centre justify-between">
+          <h1 className="text-2xl font-bold text-grey-900">UK Curriculum Alignment</h1>
           <Button
             variant="outline"
             onClick={() => router.push('/assessment')}
@@ -233,7 +233,7 @@ export default function CurriculumAlignmentPage() {
             Back to Assessments
           </Button>
         </div>
-        <p className="mt-2 text-gray-600">
+        <p className="mt-2 text-grey-600">
           Align your assessments with UK curriculum standards to ensure educational relevance and compliance.
         </p>
       </div>
@@ -262,14 +262,14 @@ export default function CurriculumAlignmentPage() {
                 <input
                   type="text"
                   placeholder="Search standards..."
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                  className="w-full px-4 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
               </div>
               <div>
                 <select
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                  className="w-full px-4 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                   value={selectedSubject}
                   onChange={(e) => setSelectedSubject(e.target.value)}
                 >
@@ -282,7 +282,7 @@ export default function CurriculumAlignmentPage() {
               </div>
               <div>
                 <select
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                  className="w-full px-4 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                   value={selectedKeyStage}
                   onChange={(e) => setSelectedKeyStage(e.target.value)}
                 >
@@ -295,7 +295,7 @@ export default function CurriculumAlignmentPage() {
               </div>
               <div>
                 <select
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                  className="w-full px-4 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                   value={selectedYear}
                   onChange={(e) => setSelectedYear(e.target.value)}
                 >
@@ -308,7 +308,7 @@ export default function CurriculumAlignmentPage() {
               </div>
               <div>
                 <select
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                  className="w-full px-4 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                   value={selectedCategory}
                   onChange={(e) => setSelectedCategory(e.target.value)}
                 >

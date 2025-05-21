@@ -14,7 +14,7 @@ The Community Building Activities feature provides educators with evidence-based
 ### 2. Interactive User Interface
 - **Advanced Filtering**: Search and filter by activity type, age group, time required, and group size
 - **Detailed Activity Views**: Comprehensive information including steps, variations, and facilitation tips
-- **Favorites System**: Ability to save and organize preferred activities
+- **Favorites System**: Ability to save and organise preferred activities
 - **Print Functionality**: Printer-friendly formatting for offline use
 
 ### 3. Educational Resources
@@ -28,7 +28,7 @@ The Community Building Activities feature is grounded in established research an
 
 - **Restorative Justice Principles**: Activities build the relational foundation necessary for restorative approaches
 - **Social-Emotional Learning**: Supports development of key competencies including empathy, communication, and cooperation
-- **Positive Behavior Interventions**: Proactive approach to creating positive school climate
+- **Positive Behaviour Interventions**: Proactive approach to creating positive school climate
 - **Trauma-Informed Practices**: Activities designed with sensitivity to diverse student experiences
 - **UK Educational Context**: Aligned with UK educational standards and approaches
 
@@ -40,7 +40,7 @@ The Community Building Activities feature is grounded in established research an
 - Interactive elements for filtering, viewing, and managing activities
 
 ### Backend API
-- RESTful endpoints for activity retrieval and favorite management
+- RESTful endpoints for activity retrieval and favourite management
 - Secure validation and error handling
 - Integration with user authentication and database
 
@@ -55,9 +55,9 @@ The Community Building Activities feature is grounded in established research an
 
 ## Accessibility Considerations
 - All components are keyboard navigable
-- Color contrast meets WCAG standards
+- Colour contrast meets WCAG standards
 - Screen reader optimizations
-- Clear visual indicators using both color and text
+- Clear visual indicators using both colour and text
 - Responsive design for all device sizes
 
 ## Integration with Other Features

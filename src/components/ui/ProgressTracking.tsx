@@ -89,11 +89,11 @@ const ProgressTracking: React.FC<ProgressTrackingProps> = ({
     <div className="progress-tracking">
       {/* Overall progress */}
       <div className="overall-progress mb-6">
-        <div className="flex justify-between items-center mb-2">
-          <h3 className="text-lg font-semibold text-gray-800">Overall Progress</h3>
+        <div className="flex justify-between items-centre mb-2">
+          <h3 className="text-lg font-semibold text-grey-800">Overall Progress</h3>
           <span className="text-lg font-bold text-blue-600">{Math.round(overallProgress)}%</span>
         </div>
-        <div className="w-full h-4 bg-gray-200 rounded-full overflow-hidden">
+        <div className="w-full h-4 bg-grey-200 rounded-full overflow-hidden">
           <motion.div
             className="h-full bg-blue-600"
             initial={{ width: 0 }}
@@ -105,7 +105,7 @@ const ProgressTracking: React.FC<ProgressTrackingProps> = ({
       
       {/* Learning objectives */}
       <div className="learning-objectives space-y-4">
-        <h3 className="text-lg font-semibold text-gray-800 mb-3">Learning Objectives</h3>
+        <h3 className="text-lg font-semibold text-grey-800 mb-3">Learning Objectives</h3>
         
         {objectives.map((objective) => (
           <div 
@@ -113,19 +113,19 @@ const ProgressTracking: React.FC<ProgressTrackingProps> = ({
             className={`p-4 border rounded-lg ${
               objective.completed 
                 ? 'border-green-200 bg-green-50' 
-                : 'border-gray-200 hover:border-blue-200 hover:bg-blue-50'
+                : 'border-grey-200 hover:border-blue-200 hover:bg-blue-50'
             } transition-colors duration-200`}
           >
             <div className="flex justify-between items-start">
               <div>
-                <h4 className="font-medium text-gray-800">{objective.title}</h4>
+                <h4 className="font-medium text-grey-800">{objective.title}</h4>
                 {objective.description && (
-                  <p className="text-sm text-gray-600 mt-1">{objective.description}</p>
+                  <p className="text-sm text-grey-600 mt-1">{objective.description}</p>
                 )}
               </div>
               
               {objective.completed ? (
-                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                <span className="inline-flex items-centre px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
                   <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
@@ -145,11 +145,11 @@ const ProgressTracking: React.FC<ProgressTrackingProps> = ({
             
             {/* Progress bar */}
             <div className="mt-3">
-              <div className="flex justify-between text-xs text-gray-500 mb-1">
+              <div className="flex justify-between text-xs text-grey-500 mb-1">
                 <span>Progress</span>
                 <span>{objective.progress || 0}%</span>
               </div>
-              <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+              <div className="w-full h-2 bg-grey-200 rounded-full overflow-hidden">
                 <motion.div
                   className={`h-full ${objective.completed ? 'bg-green-500' : 'bg-blue-600'}`}
                   initial={{ width: 0 }}
@@ -162,7 +162,7 @@ const ProgressTracking: React.FC<ProgressTrackingProps> = ({
             {/* Self-assessment slider */}
             {allowSelfAssessment && !objective.completed && (
               <div className="mt-3">
-                <label htmlFor={`progress-${objective.id}`} className="text-xs text-gray-500">
+                <label htmlFor={`progress-${objective.id}`} className="text-xs text-grey-500">
                   Update your progress:
                 </label>
                 <input
@@ -173,7 +173,7 @@ const ProgressTracking: React.FC<ProgressTrackingProps> = ({
                   step="5"
                   value={objective.progress || 0}
                   onChange={(e) => handleProgressUpdate(objective.id, parseInt(e.target.value))}
-                  className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer mt-1"
+                  className="w-full h-2 bg-grey-200 rounded-lg appearance-none cursor-pointer mt-1"
                 />
               </div>
             )}
@@ -183,18 +183,18 @@ const ProgressTracking: React.FC<ProgressTrackingProps> = ({
       
       {/* Celebration animation */}
       {showingCelebration && (
-        <div className="fixed inset-0 flex items-center justify-center pointer-events-none z-50">
+        <div className="fixed inset-0 flex items-centre justify-centre pointer-events-none z-50">
           <motion.div
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
-            className="bg-white rounded-lg shadow-xl p-6 max-w-md text-center"
+            className="bg-white rounded-lg shadow-xl p-6 max-w-md text-centre"
           >
             <div className="text-4xl mb-2">🎉</div>
-            <h3 className="text-xl font-bold text-gray-800 mb-2">
+            <h3 className="text-xl font-bold text-grey-800 mb-2">
               Congratulations{userProfile?.name ? `, ${userProfile.name}` : ''}!
             </h3>
-            <p className="text-gray-600">
+            <p className="text-grey-600">
               You've completed: <span className="font-medium text-blue-600">
                 {objectives.find(obj => obj.id === recentlyCompleted)?.title}
               </span>

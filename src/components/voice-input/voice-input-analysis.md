@@ -5,13 +5,13 @@
 The EdPsych-AI-Education-Platform already has a robust foundation for voice input with several key components:
 
 1. **Core Speech Recognition Service** (`/src/lib/voice/speechRecognition.ts`)
-   - Provides advanced speech recognition optimized for children's voices
+   - Provides advanced speech recognition optimised for children's voices
    - Includes special educational needs support (articulation, fluency, processing)
    - Implements child voice pattern correction
    - Offers configurable options for different use cases
 
 2. **Advanced Speech Recognition Component** (`/src/components/ai/speech-recognition/advanced-speech-recognition.tsx`)
-   - Full-featured UI component with volume visualization
+   - Full-featured UI component with volume visualisation
    - Calibration system for voice profile optimization
    - Settings for child voice optimization, noise reduction, etc.
    - Support for different modes (standard, continuous, command)
@@ -63,7 +63,7 @@ The EdPsych-AI-Education-Platform already has a robust foundation for voice inpu
 4. **Usability for Children Who Struggle with Typing**
    - Current focus is on general speech recognition rather than specifically addressing typing difficulties
    - Limited guidance for children on how to effectively use voice input
-   - Opportunity for specialized modes for different learning activities
+   - Opportunity for specialised modes for different learning activities
 
 5. **Platform-Wide Integration**
    - Voice input components exist but aren't consistently available across all platform areas
@@ -82,7 +82,7 @@ The EdPsych-AI-Education-Platform already has a robust foundation for voice inpu
    - Implement more engaging visual feedback for voice detection
    - Create age-appropriate UI elements for different user groups
 
-3. **Specialized Modes for Different Learning Activities**
+3. **Specialised Modes for Different Learning Activities**
    - Develop assessment-specific voice input mode
    - Create immersive learning voice commands
    - Implement adaptive complexity voice controls
@@ -95,11 +95,11 @@ The EdPsych-AI-Education-Platform already has a robust foundation for voice inpu
 5. **Improved Accessibility**
    - Enhance support for speech impediments and language development disorders
    - Implement multi-modal input options (voice + simplified keyboard/buttons)
-   - Create specialized calibration for different speech challenges
+   - Create specialised calibration for different speech challenges
 
 6. **Educational Support Features**
    - Develop voice input tutorials and guidance
-   - Create practice activities for effective voice input usage
+   - Create practise activities for effective voice input usage
    - Implement progress tracking for voice input proficiency
 
 These enhancements would significantly improve the platform's support for children who struggle with typing, while maintaining the educational psychology principles at the core of the EdPsych-AI-Education-Platform.

@@ -24,7 +24,7 @@ The script also acknowledges areas for improvement identified in the audit by po
 
 2. **Internationalization**: While starting in the UK context, the script articulates a vision for global expansion and adaptation.
 
-3. **Analytics and Reporting**: The script highlights the platform's data visualization and reporting capabilities while acknowledging ongoing enhancement.
+3. **Analytics and Reporting**: The script highlights the platform's data visualisation and reporting capabilities while acknowledging ongoing enhancement.
 
 ## Script Alignment with Enhancement Recommendations
 
@@ -43,7 +43,7 @@ The AI Avatar Script strategically incorporates the enhancement priorities ident
 
 ### Long-Term Enhancements (6-12 months)
 - Advanced AI features are positioned as part of the platform's evolution
-- Data visualization is presented as an area of ongoing development
+- Data visualisation is presented as an area of ongoing development
 - Content creation tools are highlighted as empowering educators
 - Blockchain for credentials is subtly referenced in discussions of future capabilities
 

@@ -8,7 +8,7 @@ The Data Visualisation Dashboard is a comprehensive analytics solution designed 
 
 This dashboard is grounded in established educational psychology principles:
 
-- **Data-Informed Practice**: Supporting evidence-based educational approaches through accessible analytics
+- **Data-Informed Practise**: Supporting evidence-based educational approaches through accessible analytics
 - **Growth Mindset**: Focusing on progress and improvement rather than fixed outcomes
 - **Metacognitive Awareness**: Enhancing educator understanding of teaching and learning patterns
 - **Differentiated Instruction**: Providing insights to tailor approaches to diverse student needs
@@ -43,7 +43,7 @@ This dashboard is grounded in established educational psychology principles:
 - Behavioural pattern identification
 - Emotional regulation progress tracking
 - Social interaction network analysis
-- Restorative practice effectiveness visualisation
+- Restorative practise effectiveness visualisation
 - Well-being indicator monitoring
 - Engagement pattern analysis
 

@@ -22,7 +22,7 @@ async function main() {
       name: 'Admin User',
       role: 'ADMIN',
       image: '/avatars/admin-avatar.png',
-      // password field removed as it's not in the schema
+      password: await hash('password123', 10), // Added password field
       accounts: {
         create: {
           type: 'credentials',
@@ -45,7 +45,7 @@ async function main() {
       name: 'Emma Richards',
       role: 'EDUCATIONAL_PSYCHOLOGIST',
       image: '/avatars/edpsych-avatar.png',
-      // password field removed as it's not in the schema
+      password: await hash('password123', 10), // Added password field
       accounts: {
         create: {
           type: 'credentials',
@@ -68,7 +68,7 @@ async function main() {
       name: 'Sarah Williams',
       role: 'TEACHER',
       image: '/avatars/teacher1-avatar.png',
-      // password field removed as it's not in the schema
+      password: await hash('password123', 10), // Added password field
       accounts: {
         create: {
           type: 'credentials',
@@ -90,7 +90,7 @@ async function main() {
       name: 'James Thompson',
       role: 'TEACHER',
       image: '/avatars/teacher2-avatar.png',
-      // password field removed as it's not in the schema
+      password: await hash('password123', 10), // Added password field
       accounts: {
         create: {
           type: 'credentials',
@@ -113,7 +113,7 @@ async function main() {
       name: 'Emily Johnson',
       role: 'STUDENT',
       image: '/avatars/student1-avatar.png',
-      // password field removed as it's not in the schema
+      password: await hash('password123', 10), // Added password field
       accounts: {
         create: {
           type: 'credentials',
@@ -135,7 +135,7 @@ async function main() {
       name: 'James Johnson',
       role: 'STUDENT',
       image: '/avatars/student2-avatar.png',
-      // password field removed as it's not in the schema
+      password: await hash('password123', 10), // Added password field
       accounts: {
         create: {
           type: 'credentials',
@@ -158,14 +158,14 @@ async function main() {
       name: 'Robert Johnson',
       role: 'PARENT',
       image: '/avatars/parent1-avatar.png',
-      // password field removed as it's not in the schema
+      password: await hash('password123', 10), // Added password field
       accounts: {
         create: {
           type: 'credentials',
           provider: 'credentials',
           providerAccountId: 'parent1@edpsychconnect.com',
           // Store hashed password in a proper field
-          id_token: parentPassword
+          id_token: 'parentPassword'
         }
       }
       // profile field removed as it's not in the schema
@@ -180,14 +180,14 @@ async function main() {
       name: 'Mary Johnson',
       role: 'PARENT',
       image: '/avatars/parent2-avatar.png',
-      // password field removed as it's not in the schema
+      password: await hash('password123', 10), // Added password field
       accounts: {
         create: {
           type: 'credentials',
           provider: 'credentials',
           providerAccountId: 'parent2@edpsychconnect.com',
           // Store hashed password in a proper field
-          id_token: parentPassword
+          id_token: 'parentPassword'
         }
       }
       // profile field removed as it's not in the schema
@@ -209,7 +209,7 @@ async function main() {
             options: {
               score: 3,
               maxScore: 5,
-              observations: 'Emily can identify basic emotions but struggles with more complex feelings. She is beginning to recognize physical signs of anxiety.',
+              observations: 'Emily can identify basic emotions but struggles with more complex feelings. She is beginning to recognise physical signs of anxiety.',
               recommendations: 'Use emotion cards and body mapping activities to develop emotional vocabulary and awareness of physiological responses.'
             }
           },
@@ -229,7 +229,7 @@ async function main() {
             options: {
               score: 4,
               maxScore: 5,
-              observations: 'Emily shows good empathy and can recognize how others are feeling. She is sensitive to classroom atmosphere.',
+              observations: 'Emily shows good empathy and can recognise how others are feeling. She is sensitive to classroom atmosphere.',
               recommendations: 'Build on this strength through peer mentoring opportunities and collaborative projects.'
             }
           }
@@ -253,7 +253,7 @@ async function main() {
               score: 4,
               maxScore: 5,
               observations: 'James communicates clearly and can express his thoughts well. He sometimes uses overly formal language with peers.',
-              recommendations: 'Role-play activities to practice casual conversation. Provide feedback on social language appropriate for different contexts.'
+              recommendations: 'Role-play activities to practise casual conversation. Provide feedback on social language appropriate for different contexts.'
             }
           },
           {
@@ -263,7 +263,7 @@ async function main() {
               score: 3,
               maxScore: 5,
               observations: 'James has limited facial expression and sometimes stands too close to others. He misses some social cues.',
-              recommendations: 'Explicit teaching of non-verbal cues through video modeling and social stories. Practice appropriate personal space.'
+              recommendations: 'Explicit teaching of non-verbal cues through video modelling and social stories. Practise appropriate personal space.'
             }
           },
           {

@@ -96,7 +96,7 @@ This document outlines the subscription model for the EdPsych-AI-Education-Platf
 - Professional development certification
 - Premium support with dedicated account manager
 - API access for custom integrations
-- White-labeling options for resources
+- White-labelling options for resources
 
 **Limitations:**
 - Limited institution-wide management features
@@ -110,7 +110,7 @@ This document outlines the subscription model for the EdPsych-AI-Education-Platf
 - Unlimited user accounts with role-based access
 - Institution-wide analytics and reporting
 - Advanced administration and management tools
-- Custom branding and white-labeling
+- Custom branding and white-labelling
 - Bulk resource and assessment management
 - Integration with existing school management systems
 - Dedicated account manager and premium support
@@ -125,19 +125,19 @@ This document outlines the subscription model for the EdPsych-AI-Education-Platf
 
 ## Special Programs
 
-### Disadvantaged Schools Program
+### Disadvantaged Schools Programme
 - Significantly discounted Institution tier access
 - Based on percentage of students on free school meals or similar metrics
 - Application-based process with annual renewal
 - Full feature access with limited support options
 
-### Research Partnership Program
+### Research Partnership Programme
 - Discounted access for educational research institutions
 - Data sharing agreements for platform improvement
 - Collaborative research opportunities
 - Custom feature development possibilities
 
-### Teacher Training Program
+### Teacher Training Programme
 - Special pricing for teacher training institutions
 - Bulk student-teacher accounts
 - Training materials and certification
@@ -170,10 +170,10 @@ This document outlines the subscription model for the EdPsych-AI-Education-Platf
 - 60-day pilot program for institutions
 - Feature-limited perpetual free tier
 
-### Referral Program
+### Referral Programme
 - Reward system for user referrals
 - Special incentives for institutional referrals
-- Educational community ambassador program
+- Educational community ambassador programme
 
 ### Seasonal Promotions
 - Back-to-school discounts
@@ -198,9 +198,9 @@ This document outlines the subscription model for the EdPsych-AI-Education-Platf
 - Develop advanced administration features
 
 ### Phase 3: Special Programs
-- Launch Disadvantaged Schools Program
-- Implement Research Partnership Program
-- Develop Teacher Training Program
+- Launch Disadvantaged Schools Programme
+- Implement Research Partnership Programme
+- Develop Teacher Training Programme
 
 ### Phase 4: Advanced Billing and Integration
 - Add additional payment methods

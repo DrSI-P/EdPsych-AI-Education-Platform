@@ -43,7 +43,7 @@ export const spacing = {
 // Define typography scale
 export const typography = {
   fontFamily: {
-    sans: 'var(--font-sans, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji")',
+    sans: 'var(--font-sans, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Colour Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Colour Emoji")',
     serif: 'var(--font-serif, ui-serif, Georgia, Cambria, "Times New Roman", Times, serif)',
     mono: 'var(--font-mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace)',
   },
@@ -129,10 +129,10 @@ export const headingStyles = {
 
 // Define consistent text styles
 export const textStyles = {
-  lead: 'text-lg md:text-xl text-gray-600 leading-relaxed',
-  body: 'text-base text-gray-700 leading-normal',
-  small: 'text-sm text-gray-500 leading-normal',
-  tiny: 'text-xs text-gray-400 leading-tight',
+  lead: 'text-lg md:text-xl text-grey-600 leading-relaxed',
+  body: 'text-base text-grey-700 leading-normal',
+  small: 'text-sm text-grey-500 leading-normal',
+  tiny: 'text-xs text-grey-400 leading-tight',
 };
 
 // Define consistent button sizes
@@ -198,12 +198,12 @@ export const gridLayouts = {
 
 // Define consistent flex layouts
 export const flexLayouts = {
-  center: 'flex items-center justify-center',
-  between: 'flex items-center justify-between',
+  centre: 'flex items-centre justify-centre',
+  between: 'flex items-centre justify-between',
   start: 'flex items-start justify-start',
   end: 'flex items-end justify-end',
   column: 'flex flex-col',
-  columnCenter: 'flex flex-col items-center',
+  columnCenter: 'flex flex-col items-centre',
 };
 
 // Define consistent spacing utilities
@@ -214,7 +214,7 @@ export const spacingUtilities = {
   listItem: 'mb-2',
 };
 
-// Define consistent color palette
+// Define consistent colour palette
 export const colorPalette = {
   primary: {
     50: '#f0f9ff',
@@ -242,7 +242,7 @@ export const colorPalette = {
     900: '#4c1d95',
     950: '#2e1065',
   },
-  gray: {
+  grey: {
     50: '#f9fafb',
     100: '#f3f4f6',
     200: '#e5e7eb',
@@ -399,7 +399,7 @@ interface FlexProps {
 }
 
 export function Flex({ 
-  variant = 'center', 
+  variant = 'centre', 
   className = '', 
   children 
 }: FlexProps) {

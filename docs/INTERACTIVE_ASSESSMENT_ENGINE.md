@@ -33,7 +33,7 @@ The Adaptive Difficulty Engine implements evidence-based approaches to personali
 - Item Response Theory (IRT) for estimating student ability
 - Zone of Proximal Development principles for optimal challenge
 - Dynamic difficulty adjustment based on performance
-- Varied practice to enhance learning and retention
+- Varied practise to enhance learning and retention
 
 ### 4. Feedback Generator
 
@@ -58,7 +58,7 @@ The assessment engine supports third-party assessment tools through a plugin arc
 The Interactive Assessment Engine is built on established educational psychology principles:
 
 ### 1. Cognitive Load Theory
-- Questions are designed to optimize cognitive load
+- Questions are designed to optimise cognitive load
 - Adaptive difficulty ensures appropriate challenge
 - Special educational needs adaptations prevent cognitive overload
 
@@ -190,7 +190,7 @@ const template: AssessmentTemplate = {
     { domain: CognitiveDomain.REMEMBER, percentage: 20 },
     { domain: CognitiveDomain.UNDERSTAND, percentage: 30 },
     { domain: CognitiveDomain.APPLY, percentage: 30 },
-    { domain: CognitiveDomain.ANALYZE, percentage: 20 }
+    { domain: CognitiveDomain.Analyse, percentage: 20 }
   ],
   settings: {
     randomizeQuestions: true,

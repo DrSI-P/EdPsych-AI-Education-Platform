@@ -185,7 +185,7 @@ export default function CommunityDashboard() {
   
   return (
     <div className="container mx-auto py-6 space-y-8">
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-centre">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Community Dashboard</h1>
           <p className="text-muted-foreground">
@@ -220,7 +220,7 @@ export default function CommunityDashboard() {
             </SelectContent>
           </Select>
           
-          <Button variant="outline" className="flex items-center">
+          <Button variant="outline" className="flex items-centre">
             <Download className="mr-2 h-4 w-4" /> Export
           </Button>
           
@@ -242,7 +242,7 @@ export default function CommunityDashboard() {
                 <Users className="h-6 w-6 text-primary" />
               </div>
             </div>
-            <div className="mt-4 flex items-center text-xs text-muted-foreground">
+            <div className="mt-4 flex items-centre text-xs text-muted-foreground">
               <TrendingUp className="h-3 w-3 mr-1 text-green-500" />
               <span className="text-green-500 font-medium">+12%</span>
               <span className="ml-1">from last month</span>
@@ -261,7 +261,7 @@ export default function CommunityDashboard() {
                 <School className="h-6 w-6 text-primary" />
               </div>
             </div>
-            <div className="mt-4 flex items-center text-xs text-muted-foreground">
+            <div className="mt-4 flex items-centre text-xs text-muted-foreground">
               <TrendingUp className="h-3 w-3 mr-1 text-green-500" />
               <span className="text-green-500 font-medium">+8%</span>
               <span className="ml-1">from last month</span>
@@ -280,7 +280,7 @@ export default function CommunityDashboard() {
                 <Users className="h-6 w-6 text-primary" />
               </div>
             </div>
-            <div className="mt-4 flex items-center text-xs text-muted-foreground">
+            <div className="mt-4 flex items-centre text-xs text-muted-foreground">
               <TrendingUp className="h-3 w-3 mr-1 text-green-500" />
               <span className="text-green-500 font-medium">+2</span>
               <span className="ml-1">from last month</span>
@@ -299,7 +299,7 @@ export default function CommunityDashboard() {
                 <FileText className="h-6 w-6 text-primary" />
               </div>
             </div>
-            <div className="mt-4 flex items-center text-xs text-muted-foreground">
+            <div className="mt-4 flex items-centre text-xs text-muted-foreground">
               <TrendingUp className="h-3 w-3 mr-1 text-green-500" />
               <span className="text-green-500 font-medium">+42</span>
               <span className="ml-1">from last month</span>
@@ -322,7 +322,7 @@ export default function CommunityDashboard() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center">
+                <CardTitle className="flex items-centre">
                   <TrendingUp className="mr-2 h-5 w-5" /> Community Growth
                 </CardTitle>
                 <CardDescription>
@@ -365,7 +365,7 @@ export default function CommunityDashboard() {
             
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center">
+                <CardTitle className="flex items-centre">
                   <Activity className="mr-2 h-5 w-5" /> Activity Trends
                 </CardTitle>
                 <CardDescription>
@@ -426,7 +426,7 @@ export default function CommunityDashboard() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center">
+                <CardTitle className="flex items-centre">
                   <PieChartIcon className="mr-2 h-5 w-5" /> Category Distribution
                 </CardTitle>
                 <CardDescription>
@@ -460,7 +460,7 @@ export default function CommunityDashboard() {
             
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center">
+                <CardTitle className="flex items-centre">
                   <Award className="mr-2 h-5 w-5" /> Top Contributors
                 </CardTitle>
                 <CardDescription>
@@ -470,8 +470,8 @@ export default function CommunityDashboard() {
               <CardContent>
                 <div className="space-y-4">
                   {MOCK_TOP_CONTRIBUTORS.slice(0, 5).map((contributor, index) => (
-                    <div key={index} className="flex items-center justify-between">
-                      <div className="flex items-center space-x-3">
+                    <div key={index} className="flex items-centre justify-between">
+                      <div className="flex items-centre space-x-3">
                         <div className="flex-shrink-0">
                           <Avatar>
                             <AvatarFallback>{contributor.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
@@ -494,7 +494,7 @@ export default function CommunityDashboard() {
             
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center">
+                <CardTitle className="flex items-centre">
                   <Target className="mr-2 h-5 w-5" /> Expertise Distribution
                 </CardTitle>
                 <CardDescription>
@@ -529,7 +529,7 @@ export default function CommunityDashboard() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center">
+                <CardTitle className="flex items-centre">
                   <BarChart2 className="mr-2 h-5 w-5" /> Engagement Metrics
                 </CardTitle>
                 <CardDescription>
@@ -540,7 +540,7 @@ export default function CommunityDashboard() {
                 <div className="space-y-4">
                   {MOCK_ENGAGEMENT_METRICS.map((metric, index) => (
                     <div key={index} className="space-y-2">
-                      <div className="flex justify-between items-center">
+                      <div className="flex justify-between items-centre">
                         <span className="text-sm font-medium">{metric.name}</span>
                         <span className="text-sm text-muted-foreground">
                           {metric.value} / {metric.total} ({formatPercentage(metric.value, metric.total)})
@@ -549,7 +549,7 @@ export default function CommunityDashboard() {
                       <div className="w-full bg-muted rounded-full h-2.5">
                         <div
                           className="h-2.5 rounded-full"
-                          style={{ width: `${(metric.value / metric.total) * 100}%`, backgroundColor: metric.color }}
+                          style={{ width: `${(metric.value / metric.total) * 100}%`, backgroundColor: metric.colour }}
                         ></div>
                       </div>
                     </div>
@@ -560,7 +560,7 @@ export default function CommunityDashboard() {
             
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center">
+                <CardTitle className="flex items-centre">
                   <MessageSquare className="mr-2 h-5 w-5" /> Discussion Activity
                 </CardTitle>
                 <CardDescription>
@@ -591,7 +591,7 @@ export default function CommunityDashboard() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center">
+                <CardTitle className="flex items-centre">
                   <Clock className="mr-2 h-5 w-5" /> Time of Day Activity
                 </CardTitle>
                 <CardDescription>
@@ -628,7 +628,7 @@ export default function CommunityDashboard() {
             
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center">
+                <CardTitle className="flex items-centre">
                   <Calendar className="mr-2 h-5 w-5" /> Event Participation
                 </CardTitle>
                 <CardDescription>
@@ -637,7 +637,7 @@ export default function CommunityDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <div>
                       <p className="font-medium">Phonics Teaching Masterclass</p>
                       <p className="text-sm text-muted-foreground">15 June 2025</p>
@@ -645,7 +645,7 @@ export default function CommunityDashboard() {
                     <Badge className="bg-green-500">42/50</Badge>
                   </div>
                   <Separator />
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <div>
                       <p className="font-medium">Early Reading Research Discussion</p>
                       <p className="text-sm text-muted-foreground">22 June 2025</p>
@@ -653,7 +653,7 @@ export default function CommunityDashboard() {
                     <Badge className="bg-amber-500">28/40</Badge>
                   </div>
                   <Separator />
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <div>
                       <p className="font-medium">Phonics Resources Showcase</p>
                       <p className="text-sm text-muted-foreground">5 July 2025</p>
@@ -661,7 +661,7 @@ export default function CommunityDashboard() {
                     <Badge className="bg-blue-500">35/60</Badge>
                   </div>
                   <Separator />
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <div>
                       <p className="font-medium">EAL Support Strategies Workshop</p>
                       <p className="text-sm text-muted-foreground">18 July 2025</p>
@@ -674,7 +674,7 @@ export default function CommunityDashboard() {
             
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center">
+                <CardTitle className="flex items-centre">
                   <Share2 className="mr-2 h-5 w-5" /> Resource Sharing
                 </CardTitle>
                 <CardDescription>
@@ -687,13 +687,13 @@ export default function CommunityDashboard() {
                     <div key={index} className="space-y-1">
                       <p className="font-medium">{resource.name}</p>
                       <div className="flex justify-between text-sm text-muted-foreground">
-                        <span className="flex items-center">
+                        <span className="flex items-centre">
                           <Download className="h-3 w-3 mr-1" /> {resource.downloads}
                         </span>
-                        <span className="flex items-center">
+                        <span className="flex items-centre">
                           <Star className="h-3 w-3 mr-1 fill-yellow-400 text-yellow-400" /> {resource.ratings}
                         </span>
-                        <span className="flex items-center">
+                        <span className="flex items-centre">
                           <CheckCircle className="h-3 w-3 mr-1 text-green-500" /> {resource.implementations}
                         </span>
                       </div>
@@ -711,7 +711,7 @@ export default function CommunityDashboard() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center">
+                <CardTitle className="flex items-centre">
                   <TrendingUp className="mr-2 h-5 w-5" /> Before/After Impact
                 </CardTitle>
                 <CardDescription>
@@ -741,7 +741,7 @@ export default function CommunityDashboard() {
             
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center">
+                <CardTitle className="flex items-centre">
                   <Target className="mr-2 h-5 w-5" /> Collaboration Outcomes
                 </CardTitle>
                 <CardDescription>
@@ -773,7 +773,7 @@ export default function CommunityDashboard() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center">
+                <CardTitle className="flex items-centre">
                   <BookOpen className="mr-2 h-5 w-5" /> Knowledge Transfer
                 </CardTitle>
                 <CardDescription>
@@ -782,9 +782,9 @@ export default function CommunityDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  <div className="flex items-center justify-center">
+                  <div className="flex items-centre justify-centre">
                     <div className="relative w-40 h-40">
-                      <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="absolute inset-0 flex items-centre justify-centre">
                         <p className="text-4xl font-bold">86%</p>
                       </div>
                       <ResponsiveContainer width="100%" height="100%">
@@ -806,9 +806,9 @@ export default function CommunityDashboard() {
                       </ResponsiveContainer>
                     </div>
                   </div>
-                  <div className="text-center">
+                  <div className="text-centre">
                     <p className="text-sm text-muted-foreground">
-                      86% of members report applying knowledge gained from communities in their practice
+                      86% of members report applying knowledge gained from communities in their practise
                     </p>
                   </div>
                   <Separator />
@@ -832,7 +832,7 @@ export default function CommunityDashboard() {
             
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center">
+                <CardTitle className="flex items-centre">
                   <Lightbulb className="mr-2 h-5 w-5" /> Innovation Impact
                 </CardTitle>
                 <CardDescription>
@@ -875,9 +875,9 @@ export default function CommunityDashboard() {
                         <Zap className="h-5 w-5 text-primary" />
                       </div>
                       <div>
-                        <p className="font-medium">Restorative Practice Toolkit</p>
+                        <p className="font-medium">Restorative Practise Toolkit</p>
                         <p className="text-sm text-muted-foreground mt-1">
-                          Developed through community collaboration, now featured in DfE best practice guidance
+                          Developed through community collaboration, now featured in DfE best practise guidance
                         </p>
                       </div>
                     </div>
@@ -888,7 +888,7 @@ export default function CommunityDashboard() {
             
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center">
+                <CardTitle className="flex items-centre">
                   <ThumbsUp className="mr-2 h-5 w-5" /> Satisfaction Metrics
                 </CardTitle>
                 <CardDescription>
@@ -897,8 +897,8 @@ export default function CommunityDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center">
+                  <div className="flex items-centre justify-between">
+                    <div className="flex items-centre">
                       <Heart className="h-5 w-5 text-red-500 mr-2" />
                       <span>Overall Satisfaction</span>
                     </div>
@@ -906,60 +906,60 @@ export default function CommunityDashboard() {
                       {[1, 2, 3, 4, 5].map((star) => (
                         <Star
                           key={star}
-                          className={`h-5 w-5 ${star <= 4 ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}`}
+                          className={`h-5 w-5 ${star <= 4 ? 'text-yellow-400 fill-yellow-400' : 'text-grey-300'}`}
                         />
                       ))}
                     </div>
                   </div>
                   <Separator />
                   <div className="space-y-3">
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-centre">
                       <span className="text-sm">Resource Quality</span>
                       <div className="flex">
                         {[1, 2, 3, 4, 5].map((star) => (
                           <Star
                             key={star}
-                            className={`h-4 w-4 ${star <= 5 ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}`}
+                            className={`h-4 w-4 ${star <= 5 ? 'text-yellow-400 fill-yellow-400' : 'text-grey-300'}`}
                           />
                         ))}
                       </div>
                     </div>
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-centre">
                       <span className="text-sm">Discussion Value</span>
                       <div className="flex">
                         {[1, 2, 3, 4, 5].map((star) => (
                           <Star
                             key={star}
-                            className={`h-4 w-4 ${star <= 4 ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}`}
+                            className={`h-4 w-4 ${star <= 4 ? 'text-yellow-400 fill-yellow-400' : 'text-grey-300'}`}
                           />
                         ))}
                       </div>
                     </div>
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-centre">
                       <span className="text-sm">Collaboration Quality</span>
                       <div className="flex">
                         {[1, 2, 3, 4, 5].map((star) => (
                           <Star
                             key={star}
-                            className={`h-4 w-4 ${star <= 5 ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}`}
+                            className={`h-4 w-4 ${star <= 5 ? 'text-yellow-400 fill-yellow-400' : 'text-grey-300'}`}
                           />
                         ))}
                       </div>
                     </div>
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-centre">
                       <span className="text-sm">Event Usefulness</span>
                       <div className="flex">
                         {[1, 2, 3, 4, 5].map((star) => (
                           <Star
                             key={star}
-                            className={`h-4 w-4 ${star <= 4 ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}`}
+                            className={`h-4 w-4 ${star <= 4 ? 'text-yellow-400 fill-yellow-400' : 'text-grey-300'}`}
                           />
                         ))}
                       </div>
                     </div>
                   </div>
                   <Separator />
-                  <div className="text-center">
+                  <div className="text-centre">
                     <p className="text-sm font-medium">Net Promoter Score</p>
                     <p className="text-3xl font-bold text-green-500 mt-1">+68</p>
                   </div>
@@ -974,7 +974,7 @@ export default function CommunityDashboard() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center">
+                <CardTitle className="flex items-centre">
                   <School className="mr-2 h-5 w-5" /> School Participation
                 </CardTitle>
                 <CardDescription>
@@ -1006,7 +1006,7 @@ export default function CommunityDashboard() {
             
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center">
+                <CardTitle className="flex items-centre">
                   <Map className="mr-2 h-5 w-5" /> Geographical Distribution
                 </CardTitle>
                 <CardDescription>
@@ -1048,7 +1048,7 @@ export default function CommunityDashboard() {
           
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center">
+              <CardTitle className="flex items-centre">
                 <UserCheck className="mr-2 h-5 w-5" /> School Engagement Leaderboard
               </CardTitle>
               <CardDescription>
@@ -1136,7 +1136,7 @@ export default function CommunityDashboard() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center">
+                <CardTitle className="flex items-centre">
                   <Globe className="mr-2 h-5 w-5" /> Cross-School Connections
                 </CardTitle>
                 <CardDescription>
@@ -1145,9 +1145,9 @@ export default function CommunityDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  <div className="flex items-center justify-center">
+                  <div className="flex items-centre justify-centre">
                     <div className="relative w-40 h-40">
-                      <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="absolute inset-0 flex items-centre justify-centre">
                         <p className="text-4xl font-bold">78%</p>
                       </div>
                       <ResponsiveContainer width="100%" height="100%">
@@ -1169,7 +1169,7 @@ export default function CommunityDashboard() {
                       </ResponsiveContainer>
                     </div>
                   </div>
-                  <div className="text-center">
+                  <div className="text-centre">
                     <p className="text-sm text-muted-foreground">
                       78% of schools have active collaborations with at least 3 other schools
                     </p>
@@ -1195,7 +1195,7 @@ export default function CommunityDashboard() {
             
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center">
+                <CardTitle className="flex items-centre">
                   <Flag className="mr-2 h-5 w-5" /> School Type Distribution
                 </CardTitle>
                 <CardDescription>
@@ -1235,7 +1235,7 @@ export default function CommunityDashboard() {
             
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center">
+                <CardTitle className="flex items-centre">
                   <AlertTriangle className="mr-2 h-5 w-5" /> Engagement Gaps
                 </CardTitle>
                 <CardDescription>
@@ -1294,7 +1294,7 @@ export default function CommunityDashboard() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center">
+                <CardTitle className="flex items-centre">
                   <Activity className="mr-2 h-5 w-5" /> Community Health Trends
                 </CardTitle>
                 <CardDescription>
@@ -1345,7 +1345,7 @@ export default function CommunityDashboard() {
             
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center">
+                <CardTitle className="flex items-centre">
                   <MessageSquare className="mr-2 h-5 w-5" /> Discussion Health
                 </CardTitle>
                 <CardDescription>
@@ -1392,7 +1392,7 @@ export default function CommunityDashboard() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center">
+                <CardTitle className="flex items-centre">
                   <HelpCircle className="mr-2 h-5 w-5" /> Support Requests
                 </CardTitle>
                 <CardDescription>
@@ -1401,22 +1401,22 @@ export default function CommunityDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center">
+                  <div className="flex items-centre justify-between">
+                    <div className="flex items-centre">
                       <div className="w-3 h-3 rounded-full bg-green-500 mr-2"></div>
                       <span>Resolved</span>
                     </div>
                     <span className="font-medium">24</span>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center">
+                  <div className="flex items-centre justify-between">
+                    <div className="flex items-centre">
                       <div className="w-3 h-3 rounded-full bg-amber-500 mr-2"></div>
                       <span>In Progress</span>
                     </div>
                     <span className="font-medium">8</span>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center">
+                  <div className="flex items-centre justify-between">
+                    <div className="flex items-centre">
                       <div className="w-3 h-3 rounded-full bg-red-500 mr-2"></div>
                       <span>Pending</span>
                     </div>
@@ -1448,7 +1448,7 @@ export default function CommunityDashboard() {
             
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center">
+                <CardTitle className="flex items-centre">
                   <Info className="mr-2 h-5 w-5" /> Content Quality
                 </CardTitle>
                 <CardDescription>
@@ -1457,9 +1457,9 @@ export default function CommunityDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  <div className="flex items-center justify-center">
+                  <div className="flex items-centre justify-centre">
                     <div className="relative w-40 h-40">
-                      <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="absolute inset-0 flex items-centre justify-centre">
                         <p className="text-4xl font-bold">92%</p>
                       </div>
                       <ResponsiveContainer width="100%" height="100%">
@@ -1481,7 +1481,7 @@ export default function CommunityDashboard() {
                       </ResponsiveContainer>
                     </div>
                   </div>
-                  <div className="text-center">
+                  <div className="text-centre">
                     <p className="text-sm text-muted-foreground">
                       92% of shared content meets quality standards
                     </p>
@@ -1511,7 +1511,7 @@ export default function CommunityDashboard() {
             
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center">
+                <CardTitle className="flex items-centre">
                   <CheckCircle className="mr-2 h-5 w-5" /> Privacy Compliance
                 </CardTitle>
                 <CardDescription>

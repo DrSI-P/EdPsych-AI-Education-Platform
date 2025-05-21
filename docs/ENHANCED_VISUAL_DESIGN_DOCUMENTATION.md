@@ -31,20 +31,20 @@ Every visual element is informed by educational psychology principles, with part
 The design system prioritizes accessibility from the ground up, with high contrast options, reduced motion alternatives, and support for assistive technologies built into the core experience rather than added as afterthoughts.
 
 ### 5. Emotional Engagement
-The visual design creates emotional connections through thoughtful use of color, animation, and celebration moments that reinforce learning achievements and progress.
+The visual design creates emotional connections through thoughtful use of colour, animation, and celebration moments that reinforce learning achievements and progress.
 
 ## Enhanced Brand System
 
-### Color System Enhancement
+### Colour System Enhancement
 
-The enhanced color system builds on the existing brand palette with refined color relationships and improved accessibility:
+The enhanced colour system builds on the existing brand palette with refined colour relationships and improved accessibility:
 
 - **Primary Colors**: Enhanced saturation and contrast for better visual hierarchy and emotional impact
   - Primary Purple (Educational Psychology): HSL 260 85% 50%
   - Primary Blue (Knowledge): HSL 220 90% 45%
   - Primary Teal (Growth): HSL 175 80% 40%
 
-- **Secondary Colors**: Optimized for better contrast and visual harmony
+- **Secondary Colors**: Optimised for better contrast and visual harmony
   - Secondary Coral (Engagement): HSL 15 90% 60%
   - Secondary Amber (Positivity): HSL 40 95% 55%
   - Secondary Green (Progress): HSL 145 70% 40%
@@ -106,7 +106,7 @@ The platform now features comprehensive age-appropriate theming that adapts the 
 ### Late Primary Theme (Ages 8-11)
 - **Visual Characteristics**:
   - Slightly rounded elements (border-radius: 12px)
-  - Balanced color palette with moderate saturation
+  - Balanced colour palette with moderate saturation
   - Standard text sizes (base size 16px)
   - Subtle animations that support understanding
   - More abstract visual representations
@@ -114,12 +114,12 @@ The platform now features comprehensive age-appropriate theming that adapts the 
   - Standard touch targets (min 44px)
   - Feedback focused on progress and achievement
   - More independent exploration
-  - Feature-rich but clearly organized interfaces
+  - Feature-rich but clearly organised interfaces
 
 ### Secondary Theme (Ages 11+)
 - **Visual Characteristics**:
   - Minimal rounding (border-radius: 8px)
-  - Sophisticated color palette with lower saturation
+  - Sophisticated colour palette with lower saturation
   - Standard text sizes with density options
   - Subtle, professional animations
   - Abstract, data-driven visualizations
@@ -132,7 +132,7 @@ The platform now features comprehensive age-appropriate theming that adapts the 
 ### Professional Theme (Educators & Parents)
 - **Visual Characteristics**:
   - Clean, minimal interface elements
-  - Professional color palette with accent colors
+  - Professional colour palette with accent colors
   - Compact text with good readability
   - Minimal animations focused on functionality
   - Data-rich visualizations and dashboards
@@ -149,9 +149,9 @@ The enhanced visual system adapts to different learning styles based on the VARK
 ### Visual Learners
 - **Enhanced Features**:
   - Prominent imagery and diagrams
-  - Color-coding for information categorization
+  - Colour-coding for information categorization
   - Visual progress indicators
-  - Spatial organization of content
+  - Spatial organisation of content
   - Visual cues and highlights for important information
 - **Visual Indicators**: Blue left border and subtle background tint
 
@@ -179,7 +179,7 @@ The enhanced visual system adapts to different learning styles based on the VARK
   - Hands-on activity indicators
   - Progress through action emphasis
   - Step-by-step guides
-  - Practice-based learning indicators
+  - Practise-based learning indicators
 - **Visual Indicators**: Amber left border and subtle background tint
 
 ## Animation and Micro-interactions
@@ -224,7 +224,7 @@ The enhanced visual system includes a comprehensive animation system that balanc
 The enhanced visual system prioritizes accessibility through several key enhancements:
 
 ### High Contrast Mode
-- **Enhanced Color Contrast**: Exceeds WCAG AAA requirements (7:1 ratio)
+- **Enhanced Colour Contrast**: Exceeds WCAG AAA requirements (7:1 ratio)
 - **Simplified Visual Elements**: Removes non-essential decorative elements
 - **Stronger Focus Indicators**: More prominent focus states
 - **Text Enhancement**: Improved text legibility with stronger contrast
@@ -265,19 +265,19 @@ The platform features several enhanced UI components that showcase the new visua
 
 ### Enhanced Celebration Overlay
 - **Age-Appropriate Celebrations**: Different celebration styles for each age group
-- **Achievement Types**: Specialized celebrations for different achievement types
+- **Achievement Types**: Specialised celebrations for different achievement types
 - **Accessibility Awareness**: Respects reduced motion preferences
 - **Engagement Balance**: Balances celebration impact with learning focus
 
 ### Enhanced Learning Card
 - **Age-Adaptive Design**: Visual styling adapts to user age group
 - **Learning Style Indicators**: Visual cues for different learning styles
-- **Progress Visualization**: Clear progress indicators
+- **Progress Visualisation**: Clear progress indicators
 - **Engagement Features**: Subtle animations and interactive elements
 
 ### Enhanced Achievement Card
 - **Achievement Levels**: Visual distinction between achievement levels
-- **Progress Tracking**: Clear visualization of progress toward locked achievements
+- **Progress Tracking**: Clear visualisation of progress toward locked achievements
 - **Age-Appropriate Styling**: Visual presentation adapts to age group
 - **Celebration Integration**: Coordinates with celebration system
 
@@ -293,7 +293,7 @@ The enhanced visual design system is implemented through several key files:
 
 ### CSS Implementation
 - **enhanced-brand.css**: Comprehensive CSS file with all visual enhancements
-  - Enhanced color system with HSL variables
+  - Enhanced colour system with HSL variables
   - Typography improvements with better readability
   - Animation system with reduced motion support
   - Component-specific styling with age adaptations
@@ -314,7 +314,7 @@ The enhanced visual design system is implemented through several key files:
 - **enhanced-learning-card.tsx**: Learning resource card
   - Age-adaptive styling
   - Learning style indicators
-  - Progress visualization
+  - Progress visualisation
 
 - **enhanced-achievement-card.tsx**: Achievement display
   - Level-based styling
@@ -337,13 +337,13 @@ The enhanced visual design system is implemented through several key files:
 The enhanced visual design system has been validated against several key criteria:
 
 ### Visual Consistency
-- **Color Application**: Consistent use of color palette across components
+- **Colour Application**: Consistent use of colour palette across components
 - **Typography Hierarchy**: Consistent type scale and hierarchy
 - **Spacing System**: Consistent spacing using the defined spacing scale
 - **Component Patterns**: Consistent interaction patterns across similar components
 
 ### Accessibility Compliance
-- **Color Contrast**: All text meets WCAG AA standards (4.5:1 for normal text, 3:1 for large text)
+- **Colour Contrast**: All text meets WCAG AA standards (4.5:1 for normal text, 3:1 for large text)
 - **Keyboard Navigation**: All interactive elements are keyboard accessible
 - **Screen Reader Support**: All content is properly structured for screen readers
 - **Reduced Motion**: All animations respect the reduced motion preference
@@ -361,7 +361,7 @@ The enhanced visual design system has been validated against several key criteri
 - **Universal Metaphors**: Uses universally understood visual metaphors
 
 ### Brand Alignment
-- **Brand Colors**: Proper use of brand color palette
+- **Brand Colors**: Proper use of brand colour palette
 - **Visual Identity**: Consistent with established visual identity guidelines
 - **Educational Focus**: Maintains focus on educational purpose
 - **Professional Quality**: Achieves professional, award-worthy visual quality

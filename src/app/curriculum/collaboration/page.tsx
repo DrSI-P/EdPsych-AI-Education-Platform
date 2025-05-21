@@ -11,7 +11,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialogue, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialogue';
 import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { format } from 'date-fns';
@@ -411,8 +411,8 @@ export default function CurriculumCollaboration() {
   if (loading) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <div className="flex justify-center items-center h-64">
-          <div className="text-center">
+        <div className="flex justify-centre items-centre h-64">
+          <div className="text-centre">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
             <p className="mt-4 text-muted-foreground">Loading collaboration data...</p>
           </div>
@@ -449,7 +449,7 @@ export default function CurriculumCollaboration() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-centre mb-8">
         <div>
           <h1 className="text-3xl font-bold text-primary">{plan.title}</h1>
           <p className="text-muted-foreground mt-2">
@@ -457,7 +457,7 @@ export default function CurriculumCollaboration() {
           </p>
         </div>
         
-        <div className="mt-4 md:mt-0 flex items-center space-x-2">
+        <div className="mt-4 md:mt-0 flex items-centre space-x-2">
           <Button variant="outline" asChild>
             <Link href={`/curriculum/plans/${plan.id}`}>
               View Plan
@@ -475,15 +475,15 @@ export default function CurriculumCollaboration() {
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-6">
         <TabsList className="w-full sm:w-auto">
-          <TabsTrigger value="overview" className="flex items-center">
+          <TabsTrigger value="overview" className="flex items-centre">
             <Users className="mr-2 h-4 w-4" />
             Overview
           </TabsTrigger>
-          <TabsTrigger value="comments" className="flex items-center">
+          <TabsTrigger value="comments" className="flex items-centre">
             <MessageSquare className="mr-2 h-4 w-4" />
             Comments
           </TabsTrigger>
-          <TabsTrigger value="tasks" className="flex items-center">
+          <TabsTrigger value="tasks" className="flex items-centre">
             <Check className="mr-2 h-4 w-4" />
             Tasks
           </TabsTrigger>
@@ -509,7 +509,7 @@ export default function CurriculumCollaboration() {
                     
                     <div>
                       <h3 className="font-medium">Owner</h3>
-                      <div className="flex items-center mt-2">
+                      <div className="flex items-centre mt-2">
                         <Avatar className="h-8 w-8 mr-2">
                           <AvatarImage src={plan.author.image} alt={plan.author.name} />
                           <AvatarFallback>{plan.author.name?.charAt(0) || 'U'}</AvatarFallback>
@@ -563,13 +563,13 @@ export default function CurriculumCollaboration() {
             
             <div>
               <Card>
-                <CardHeader className="flex flex-row items-center justify-between">
+                <CardHeader className="flex flex-row items-centre justify-between">
                   <div>
                     <CardTitle>Collaborators</CardTitle>
                     <CardDescription>People with access to this plan</CardDescription>
                   </div>
                   {canManageCollaborators && (
-                    <Dialog open={isAddingCollaborator} onOpenChange={setIsAddingCollaborator}>
+                    <Dialogue open={isAddingCollaborator} onOpenChange={setIsAddingCollaborator}>
                       <DialogTrigger asChild>
                         <Button size="sm" variant="outline">
                           <UserPlus className="h-4 w-4 mr-1" />
@@ -623,14 +623,14 @@ export default function CurriculumCollaboration() {
                           </DialogFooter>
                         </form>
                       </DialogContent>
-                    </Dialog>
+                    </Dialogue>
                   )}
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
                     {/* Owner */}
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center">
+                    <div className="flex items-centre justify-between">
+                      <div className="flex items-centre">
                         <Avatar className="h-8 w-8 mr-2">
                           <AvatarImage src={plan.author.image} alt={plan.author.name} />
                           <AvatarFallback>{plan.author.name?.charAt(0) || 'U'}</AvatarFallback>
@@ -644,8 +644,8 @@ export default function CurriculumCollaboration() {
                     
                     {/* Collaborators */}
                     {collaborators.map((collaborator) => (
-                      <div key={collaborator.id} className="flex items-center justify-between">
-                        <div className="flex items-center">
+                      <div key={collaborator.id} className="flex items-centre justify-between">
+                        <div className="flex items-centre">
                           <Avatar className="h-8 w-8 mr-2">
                             <AvatarImage src={collaborator.user.image} alt={collaborator.user.name} />
                             <AvatarFallback>{collaborator.user.name?.charAt(0) || 'U'}</AvatarFallback>
@@ -670,7 +670,7 @@ export default function CurriculumCollaboration() {
                     ))}
                     
                     {collaborators.length === 0 && (
-                      <p className="text-sm text-muted-foreground text-center py-2">
+                      <p className="text-sm text-muted-foreground text-centre py-2">
                         No additional collaborators yet
                       </p>
                     )}
@@ -707,7 +707,7 @@ export default function CurriculumCollaboration() {
               
               <div className="space-y-6">
                 {comments.length === 0 ? (
-                  <div className="text-center py-8">
+                  <div className="text-centre py-8">
                     <MessageSquare className="mx-auto h-12 w-12 text-muted-foreground" />
                     <h3 className="mt-4 text-lg font-medium">No comments yet</h3>
                     <p className="mt-2 text-muted-foreground">
@@ -718,7 +718,7 @@ export default function CurriculumCollaboration() {
                   comments.map((comment) => (
                     <div key={comment.id} className="border rounded-lg p-4">
                       <div className="flex justify-between items-start">
-                        <div className="flex items-center">
+                        <div className="flex items-centre">
                           <Avatar className="h-8 w-8 mr-2">
                             <AvatarImage src={comment.user.image} alt={comment.user.name} />
                             <AvatarFallback>{comment.user.name?.charAt(0) || 'U'}</AvatarFallback>
@@ -754,7 +754,7 @@ export default function CurriculumCollaboration() {
         {/* Tasks Tab */}
         <TabsContent value="tasks" className="mt-6">
           <Card>
-            <CardHeader className="flex flex-row items-center justify-between">
+            <CardHeader className="flex flex-row items-centre justify-between">
               <div>
                 <CardTitle>Tasks</CardTitle>
                 <CardDescription>
@@ -762,7 +762,7 @@ export default function CurriculumCollaboration() {
                 </CardDescription>
               </div>
               {canEdit && (
-                <Dialog open={isAddingTask} onOpenChange={setIsAddingTask}>
+                <Dialogue open={isAddingTask} onOpenChange={setIsAddingTask}>
                   <DialogTrigger asChild>
                     <Button size="sm">
                       <Plus className="h-4 w-4 mr-1" />
@@ -854,13 +854,13 @@ export default function CurriculumCollaboration() {
                       </DialogFooter>
                     </form>
                   </DialogContent>
-                </Dialog>
+                </Dialogue>
               )}
             </CardHeader>
             <CardContent>
               <div className="space-y-6">
                 {tasks.length === 0 ? (
-                  <div className="text-center py-8">
+                  <div className="text-centre py-8">
                     <Check className="mx-auto h-12 w-12 text-muted-foreground" />
                     <h3 className="mt-4 text-lg font-medium">No tasks yet</h3>
                     <p className="mt-2 text-muted-foreground">
@@ -894,9 +894,9 @@ export default function CurriculumCollaboration() {
                                   </Button>
                                 )}
                               </div>
-                              <div className="flex flex-wrap items-center gap-2 mt-4">
+                              <div className="flex flex-wrap items-centre gap-2 mt-4">
                                 {task.assignedTo && (
-                                  <div className="flex items-center">
+                                  <div className="flex items-centre">
                                     <Avatar className="h-6 w-6 mr-1">
                                       <AvatarImage src={task.assignedTo.image} alt={task.assignedTo.name} />
                                       <AvatarFallback>{task.assignedTo.name?.charAt(0) || 'U'}</AvatarFallback>
@@ -905,7 +905,7 @@ export default function CurriculumCollaboration() {
                                   </div>
                                 )}
                                 {task.dueDate && (
-                                  <Badge variant="outline" className="flex items-center">
+                                  <Badge variant="outline" className="flex items-centre">
                                     <Clock className="h-3 w-3 mr-1" />
                                     <span className="text-xs">
                                       Due {new Date(task.dueDate).toLocaleDateString()}
@@ -953,9 +953,9 @@ export default function CurriculumCollaboration() {
                                   </Button>
                                 )}
                               </div>
-                              <div className="flex flex-wrap items-center gap-2 mt-4">
+                              <div className="flex flex-wrap items-centre gap-2 mt-4">
                                 {task.assignedTo && (
-                                  <div className="flex items-center">
+                                  <div className="flex items-centre">
                                     <Avatar className="h-6 w-6 mr-1">
                                       <AvatarImage src={task.assignedTo.image} alt={task.assignedTo.name} />
                                       <AvatarFallback>{task.assignedTo.name?.charAt(0) || 'U'}</AvatarFallback>

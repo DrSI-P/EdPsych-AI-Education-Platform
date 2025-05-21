@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Analytics and Reporting Module extends the existing data visualization capabilities of the EdPsych-AI-Education-Platform to provide comprehensive insights, custom reporting, and advanced analytics across all platform features. This module will serve as a central hub for data-driven decision making, enabling educators, administrators, and other stakeholders to track progress, measure impact, and identify areas for improvement.
+The Analytics and Reporting Module extends the existing data visualisation capabilities of the EdPsych-AI-Education-Platform to provide comprehensive insights, custom reporting, and advanced analytics across all platform features. This module will serve as a central hub for data-driven decision making, enabling educators, administrators, and other stakeholders to track progress, measure impact, and identify areas for improvement.
 
 ## Design Principles
 
@@ -17,12 +17,12 @@ The Analytics and Reporting Module extends the existing data visualization capab
 
 ### 1. Enhanced Student Progress Tracking
 
-Building on the existing student progress visualization, this component will:
+Building on the existing student progress visualisation, this component will:
 
 - Implement longitudinal tracking across academic years
 - Create comparative analysis between student cohorts
 - Develop predictive analytics for identifying at-risk students
-- Build goal-based progress visualization connected to IEPs and learning plans
+- Build goal-based progress visualisation connected to IEPs and learning plans
 - Create subject-specific detailed analytics with curriculum mapping
 
 ### 2. Educator Performance Analytics
@@ -65,14 +65,14 @@ A flexible system for creating personalized reports:
 - Build multi-format export options (PDF, Excel, interactive HTML)
 - Create stakeholder-specific report templates (governors, parents, inspectors)
 
-### 6. Data Visualization Toolkit
+### 6. Data Visualisation Toolkit
 
-An expanded set of visualization options:
+An expanded set of visualisation options:
 
 - Implement advanced chart types (radar, bubble, sankey diagrams)
 - Create interactive filtering and drill-down capabilities
 - Develop annotation and insight highlighting tools
-- Build comparative visualization tools
+- Build comparative visualisation tools
 - Create accessible alternative representations for all visualizations
 
 ### 7. Analytics Dashboard Hub
@@ -90,7 +90,7 @@ A central navigation system for all analytics components:
 ### Frontend Components
 
 1. **Student Progress Analytics**
-   - `student-progress-tracking.tsx`: Enhanced progress visualization
+   - `student-progress-tracking.tsx`: Enhanced progress visualisation
    - `cohort-comparison.tsx`: Comparative analysis component
    - `predictive-alerts.tsx`: At-risk student identification
 
@@ -101,7 +101,7 @@ A central navigation system for all analytics components:
 
 3. **Resource Analytics**
    - `resource-impact-analysis.tsx`: Content effectiveness component
-   - `curriculum-coverage-map.tsx`: Gap analysis visualization
+   - `curriculum-coverage-map.tsx`: Gap analysis visualisation
    - `resource-optimization.tsx`: Usage optimization suggestions
 
 4. **Assessment Analytics**
@@ -114,10 +114,10 @@ A central navigation system for all analytics components:
    - `report-template-library.tsx`: Template selection component
    - `report-scheduler.tsx`: Automated report configuration
 
-6. **Visualization Components**
-   - `advanced-chart-library.tsx`: Extended visualization options
+6. **Visualisation Components**
+   - `advanced-chart-library.tsx`: Extended visualisation options
    - `interactive-filter-controls.tsx`: Enhanced filtering interface
-   - `accessible-visualization-alternatives.tsx`: Alternative representations
+   - `accessible-visualisation-alternatives.tsx`: Alternative representations
 
 7. **Dashboard Hub**
    - `analytics-hub.tsx`: Central navigation component
@@ -160,7 +160,7 @@ A central navigation system for all analytics components:
 
 1. **Analytics Configuration**
    - Dashboard layouts and preferences
-   - Visualization settings
+   - Visualisation settings
    - Filter configurations
 
 2. **Report Templates**
@@ -200,7 +200,7 @@ The Analytics and Reporting Module will integrate with:
 
 1. **Screen Reader Compatibility**: All charts will include appropriate ARIA labels and text alternatives
 2. **Keyboard Navigation**: Full keyboard control for all interactive elements
-3. **Color Considerations**: All visualizations will use accessible color schemes with sufficient contrast
+3. **Colour Considerations**: All visualizations will use accessible colour schemes with sufficient contrast
 4. **Alternative Representations**: Text and tabular alternatives for all graphical data
 5. **Cognitive Load Management**: Progressive disclosure of complex data
 6. **Customizable Interfaces**: User control over information density and presentation
@@ -218,7 +218,7 @@ The Analytics and Reporting Module will integrate with:
 
 1. **Ofsted Framework**: Alignment with inspection data requirements
 2. **DfE Data Standards**: Compliance with Department for Education standards
-3. **SEND Code of Practice**: Support for tracking SEND provision effectiveness
+3. **SEND Code of Practise**: Support for tracking SEND provision effectiveness
 4. **Pupil Premium**: Specific analytics for disadvantaged pupil tracking
 5. **National Curriculum**: Alignment with curriculum assessment frameworks
 6. **Progress 8 and Attainment 8**: Secondary education performance metrics
@@ -228,7 +228,7 @@ The Analytics and Reporting Module will integrate with:
 ### Phase 1: Core Infrastructure Enhancement
 - Extend existing dashboard architecture
 - Implement advanced data processing pipeline
-- Create expanded visualization library
+- Create expanded visualisation library
 - Develop report template framework
 
 ### Phase 2: Student and Educator Analytics

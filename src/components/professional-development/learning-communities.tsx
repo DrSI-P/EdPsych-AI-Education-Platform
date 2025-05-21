@@ -19,7 +19,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialogue, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialogue";
 import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { 
@@ -139,11 +139,11 @@ const MOCK_COMMUNITIES = [
   {
     id: 5,
     name: "Behaviour Management Strategies",
-    description: "Sharing effective approaches to positive behaviour management, restorative practice, and creating supportive learning environments.",
+    description: "Sharing effective approaches to positive behaviour management, restorative practise, and creating supportive learning environments.",
     members: 112,
     schools: 38,
     privacy: "open",
-    categories: ["Behaviour", "Restorative Practice", "Classroom Management"],
+    categories: ["Behaviour", "Restorative Practise", "Classroom Management"],
     activity: "high",
     featured: true,
     image: ""
@@ -415,7 +415,7 @@ const MOCK_EVENTS = [
     },
     attendees: 28,
     capacity: 40,
-    description: "A discussion of recent research findings on early reading development and implications for classroom practice."
+    description: "A discussion of recent research findings on early reading development and implications for classroom practise."
   },
   {
     id: 3,
@@ -527,7 +527,7 @@ export default function LearningCommunities() {
   
   return (
     <div className="container mx-auto py-6 space-y-8">
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-centre">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Learning Communities</h1>
           <p className="text-muted-foreground">
@@ -553,7 +553,7 @@ export default function LearningCommunities() {
               <div className="md:w-3/4">
                 <Card>
                   <CardHeader>
-                    <div className="flex flex-col md:flex-row justify-between md:items-center gap-4">
+                    <div className="flex flex-col md:flex-row justify-between md:items-centre gap-4">
                       <CardTitle>Discover Communities</CardTitle>
                       <div className="relative w-full md:w-64">
                         <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
@@ -610,7 +610,7 @@ export default function LearningCommunities() {
                           <Card key={community.id} className="cursor-pointer hover:bg-muted/50 transition-colors" onClick={() => handleCommunitySelect(community)}>
                             <CardContent className="p-4">
                               <div className="flex justify-between items-start">
-                                <div className="flex items-center space-x-4">
+                                <div className="flex items-centre space-x-4">
                                   <div className="bg-primary/10 rounded-md p-3">
                                     <Users className="h-6 w-6 text-primary" />
                                   </div>
@@ -619,13 +619,13 @@ export default function LearningCommunities() {
                                     <p className="text-sm text-muted-foreground line-clamp-1">{community.description}</p>
                                   </div>
                                 </div>
-                                <div className="flex items-center space-x-2">
+                                <div className="flex items-centre space-x-2">
                                   {community.privacy === 'restricted' ? (
-                                    <Badge variant="outline" className="flex items-center">
+                                    <Badge variant="outline" className="flex items-centre">
                                       <Lock className="h-3 w-3 mr-1" /> Restricted
                                     </Badge>
                                   ) : (
-                                    <Badge variant="outline" className="flex items-center">
+                                    <Badge variant="outline" className="flex items-centre">
                                       <Globe className="h-3 w-3 mr-1" /> Open
                                     </Badge>
                                   )}
@@ -641,12 +641,12 @@ export default function LearningCommunities() {
                                   </Badge>
                                 ))}
                               </div>
-                              <div className="mt-4 flex justify-between items-center">
+                              <div className="mt-4 flex justify-between items-centre">
                                 <div className="flex space-x-4 text-sm text-muted-foreground">
-                                  <span className="flex items-center">
+                                  <span className="flex items-centre">
                                     <Users className="h-4 w-4 mr-1" /> {community.members} members
                                   </span>
-                                  <span className="flex items-center">
+                                  <span className="flex items-centre">
                                     <School className="h-4 w-4 mr-1" /> {community.schools} schools
                                   </span>
                                 </div>
@@ -656,7 +656,7 @@ export default function LearningCommunities() {
                           </Card>
                         ))
                       ) : (
-                        <div className="text-center py-12">
+                        <div className="text-centre py-12">
                           <AlertCircle className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
                           <h3 className="text-lg font-medium">No communities found</h3>
                           <p className="text-muted-foreground mt-2">
@@ -773,12 +773,12 @@ export default function LearningCommunities() {
                 );
               })}
               
-              <Card className="border-dashed border-2 flex flex-col items-center justify-center p-6 cursor-pointer hover:bg-muted/50 transition-colors" onClick={() => setActiveTab('discover')}>
+              <Card className="border-dashed border-2 flex flex-col items-centre justify-centre p-6 cursor-pointer hover:bg-muted/50 transition-colors" onClick={() => setActiveTab('discover')}>
                 <div className="rounded-full bg-primary/10 p-3 mb-4">
                   <Plus className="h-6 w-6 text-primary" />
                 </div>
                 <h3 className="font-medium text-lg mb-2">Join New Communities</h3>
-                <p className="text-center text-muted-foreground text-sm mb-4">
+                <p className="text-centre text-muted-foreground text-sm mb-4">
                   Discover and join communities aligned with your professional interests
                 </p>
                 <Button variant="outline">Browse Communities</Button>
@@ -811,7 +811,7 @@ export default function LearningCommunities() {
                     <Calendar className="h-5 w-5 text-purple-500 mt-0.5" />
                     <div>
                       <p className="font-medium">Upcoming event in Behaviour Management Strategies</p>
-                      <p className="text-sm text-muted-foreground">Restorative Practice Workshop • 15 June 2025, 16:00-17:30</p>
+                      <p className="text-sm text-muted-foreground">Restorative Practise Workshop • 15 June 2025, 16:00-17:30</p>
                     </div>
                   </div>
                   
@@ -1016,7 +1016,7 @@ export default function LearningCommunities() {
       ) : (
         // Community View
         <div className="space-y-6">
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-centre">
             <Button variant="outline" onClick={handleBackToCommunities}>
               <ChevronUp className="mr-2 h-4 w-4" /> Back to Communities
             </Button>
@@ -1039,7 +1039,7 @@ export default function LearningCommunities() {
                       <CardTitle className="text-2xl">{selectedCommunity.name}</CardTitle>
                       <CardDescription className="mt-2">{selectedCommunity.description}</CardDescription>
                     </div>
-                    <Badge variant={selectedCommunity.privacy === 'restricted' ? 'outline' : 'secondary'} className="flex items-center">
+                    <Badge variant={selectedCommunity.privacy === 'restricted' ? 'outline' : 'secondary'} className="flex items-centre">
                       {selectedCommunity.privacy === 'restricted' ? (
                         <><Lock className="h-3 w-3 mr-1" /> Restricted</>
                       ) : (
@@ -1066,7 +1066,7 @@ export default function LearningCommunities() {
                     
                     {/* Discussions Tab */}
                     <TabsContent value="discussions" className="space-y-4">
-                      <div className="flex justify-between items-center">
+                      <div className="flex justify-between items-centre">
                         <div className="relative w-full md:w-64">
                           <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
                           <Input
@@ -1086,14 +1086,14 @@ export default function LearningCommunities() {
                             <CardContent className="p-4">
                               <div className="flex justify-between items-start">
                                 <div>
-                                  <div className="flex items-center space-x-2 mb-1">
+                                  <div className="flex items-centre space-x-2 mb-1">
                                     {discussion.pinned && (
                                       <Badge variant="outline" className="text-xs">Pinned</Badge>
                                     )}
                                     <h3 className="font-medium">{discussion.title}</h3>
                                   </div>
-                                  <div className="flex items-center space-x-3 text-sm text-muted-foreground">
-                                    <div className="flex items-center">
+                                  <div className="flex items-centre space-x-3 text-sm text-muted-foreground">
+                                    <div className="flex items-centre">
                                       <Avatar className="h-5 w-5 mr-1">
                                         <AvatarFallback>{discussion.author.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
                                       </Avatar>
@@ -1103,11 +1103,11 @@ export default function LearningCommunities() {
                                     <span>{discussion.date}</span>
                                   </div>
                                 </div>
-                                <div className="flex items-center space-x-4 text-sm text-muted-foreground">
-                                  <span className="flex items-center">
+                                <div className="flex items-centre space-x-4 text-sm text-muted-foreground">
+                                  <span className="flex items-centre">
                                     <MessageSquare className="h-4 w-4 mr-1" /> {discussion.replies}
                                   </span>
-                                  <span className="flex items-center">
+                                  <span className="flex items-centre">
                                     <Eye className="h-4 w-4 mr-1" /> {discussion.views}
                                   </span>
                                 </div>
@@ -1130,7 +1130,7 @@ export default function LearningCommunities() {
                     
                     {/* Resources Tab */}
                     <TabsContent value="resources" className="space-y-4">
-                      <div className="flex justify-between items-center">
+                      <div className="flex justify-between items-centre">
                         <div className="relative w-full md:w-64">
                           <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
                           <Input
@@ -1160,7 +1160,7 @@ export default function LearningCommunities() {
                                     )}
                                   </div>
                                   <p className="text-sm text-muted-foreground">{resource.type}</p>
-                                  <div className="flex items-center space-x-3 text-sm text-muted-foreground mt-1">
+                                  <div className="flex items-centre space-x-3 text-sm text-muted-foreground mt-1">
                                     <span>{resource.author.name}</span>
                                     <span>•</span>
                                     <span>{resource.date}</span>
@@ -1172,12 +1172,12 @@ export default function LearningCommunities() {
                                       </Badge>
                                     ))}
                                   </div>
-                                  <div className="mt-3 flex justify-between items-center">
-                                    <div className="flex items-center space-x-4 text-sm text-muted-foreground">
-                                      <span className="flex items-center">
+                                  <div className="mt-3 flex justify-between items-centre">
+                                    <div className="flex items-centre space-x-4 text-sm text-muted-foreground">
+                                      <span className="flex items-centre">
                                         <Download className="h-4 w-4 mr-1" /> {resource.downloads}
                                       </span>
-                                      <span className="flex items-center">
+                                      <span className="flex items-centre">
                                         <Star className="h-4 w-4 mr-1 fill-yellow-400 text-yellow-400" /> {resource.rating} ({resource.reviews})
                                       </span>
                                     </div>
@@ -1193,7 +1193,7 @@ export default function LearningCommunities() {
                     
                     {/* Events Tab */}
                     <TabsContent value="events" className="space-y-4">
-                      <div className="flex justify-between items-center">
+                      <div className="flex justify-between items-centre">
                         <div className="relative w-full md:w-64">
                           <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
                           <Input
@@ -1227,12 +1227,12 @@ export default function LearningCommunities() {
                                     </div>
                                   </div>
                                   <p className="text-sm mt-2">{event.description}</p>
-                                  <div className="flex items-center space-x-3 text-sm text-muted-foreground mt-2">
+                                  <div className="flex items-centre space-x-3 text-sm text-muted-foreground mt-2">
                                     <span>Hosted by: {event.host.name}</span>
                                     <span>•</span>
                                     <span>{event.location}</span>
                                   </div>
-                                  <div className="mt-3 flex justify-between items-center">
+                                  <div className="mt-3 flex justify-between items-centre">
                                     <div className="text-sm text-muted-foreground">
                                       {event.attendees} attendees ({Math.round((event.attendees / event.capacity) * 100)}% full)
                                     </div>
@@ -1248,7 +1248,7 @@ export default function LearningCommunities() {
                     
                     {/* Collaborations Tab */}
                     <TabsContent value="collaborations" className="space-y-4">
-                      <div className="flex justify-between items-center">
+                      <div className="flex justify-between items-centre">
                         <div className="relative w-full md:w-64">
                           <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
                           <Input
@@ -1307,12 +1307,12 @@ export default function LearningCommunities() {
                                       ></div>
                                     </div>
                                   </div>
-                                  <div className="mt-3 flex justify-between items-center">
-                                    <div className="flex items-center space-x-4 text-sm text-muted-foreground">
-                                      <span className="flex items-center">
+                                  <div className="mt-3 flex justify-between items-centre">
+                                    <div className="flex items-centre space-x-4 text-sm text-muted-foreground">
+                                      <span className="flex items-centre">
                                         <Users className="h-4 w-4 mr-1" /> {collab.members} members
                                       </span>
-                                      <span className="flex items-center">
+                                      <span className="flex items-centre">
                                         <Calendar className="h-4 w-4 mr-1" /> Due: {collab.dueDate}
                                       </span>
                                     </div>
@@ -1337,19 +1337,19 @@ export default function LearningCommunities() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-centre">
                       <span className="text-sm text-muted-foreground">Members</span>
                       <span className="font-medium">{selectedCommunity.members}</span>
                     </div>
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-centre">
                       <span className="text-sm text-muted-foreground">Schools</span>
                       <span className="font-medium">{selectedCommunity.schools}</span>
                     </div>
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-centre">
                       <span className="text-sm text-muted-foreground">Created</span>
                       <span className="font-medium">March 2025</span>
                     </div>
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-centre">
                       <span className="text-sm text-muted-foreground">Activity Level</span>
                       <Badge variant={
                         selectedCommunity.activity === 'high' ? 'default' : 
@@ -1363,13 +1363,13 @@ export default function LearningCommunities() {
                     <div>
                       <h4 className="text-sm font-medium mb-2">Facilitators</h4>
                       <div className="space-y-2">
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-centre space-x-2">
                           <Avatar className="h-6 w-6">
                             <AvatarFallback>SJ</AvatarFallback>
                           </Avatar>
                           <span className="text-sm">Sarah Johnson</span>
                         </div>
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-centre space-x-2">
                           <Avatar className="h-6 w-6">
                             <AvatarFallback>DW</AvatarFallback>
                           </Avatar>
@@ -1387,7 +1387,7 @@ export default function LearningCommunities() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-centre justify-between">
                       <div className="space-y-0.5">
                         <Label className="text-base">Community Visibility</Label>
                         <p className="text-sm text-muted-foreground">
@@ -1404,20 +1404,20 @@ export default function LearningCommunities() {
                     <div className="space-y-2">
                       <Label className="text-base">Content Sharing</Label>
                       <div className="space-y-2">
-                        <div className="flex items-center space-x-2">
-                          <Badge variant="outline" className="flex items-center">
+                        <div className="flex items-centre space-x-2">
+                          <Badge variant="outline" className="flex items-centre">
                             <MessageSquare className="h-3 w-3 mr-1" /> Discussions
                           </Badge>
                           <span className="text-sm text-muted-foreground">Community members only</span>
                         </div>
-                        <div className="flex items-center space-x-2">
-                          <Badge variant="outline" className="flex items-center">
+                        <div className="flex items-centre space-x-2">
+                          <Badge variant="outline" className="flex items-centre">
                             <FileText className="h-3 w-3 mr-1" /> Resources
                           </Badge>
                           <span className="text-sm text-muted-foreground">Controlled sharing</span>
                         </div>
-                        <div className="flex items-center space-x-2">
-                          <Badge variant="outline" className="flex items-center">
+                        <div className="flex items-centre space-x-2">
+                          <Badge variant="outline" className="flex items-centre">
                             <Calendar className="h-3 w-3 mr-1" /> Events
                           </Badge>
                           <span className="text-sm text-muted-foreground">Public registration</span>
@@ -1434,8 +1434,8 @@ export default function LearningCommunities() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-3">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
+                    <div className="flex items-centre justify-between">
+                      <div className="flex items-centre space-x-2">
                         <Avatar className="h-8 w-8">
                           <AvatarFallback>SJ</AvatarFallback>
                         </Avatar>
@@ -1447,8 +1447,8 @@ export default function LearningCommunities() {
                       <Badge>Facilitator</Badge>
                     </div>
                     
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
+                    <div className="flex items-centre justify-between">
+                      <div className="flex items-centre space-x-2">
                         <Avatar className="h-8 w-8">
                           <AvatarFallback>MC</AvatarFallback>
                         </Avatar>
@@ -1460,8 +1460,8 @@ export default function LearningCommunities() {
                       <Badge variant="outline">Member</Badge>
                     </div>
                     
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
+                    <div className="flex items-centre justify-between">
+                      <div className="flex items-centre space-x-2">
                         <Avatar className="h-8 w-8">
                           <AvatarFallback>ET</AvatarFallback>
                         </Avatar>
@@ -1473,8 +1473,8 @@ export default function LearningCommunities() {
                       <Badge variant="outline">Member</Badge>
                     </div>
                     
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
+                    <div className="flex items-centre justify-between">
+                      <div className="flex items-centre space-x-2">
                         <Avatar className="h-8 w-8">
                           <AvatarFallback>DW</AvatarFallback>
                         </Avatar>
@@ -1498,8 +1498,8 @@ export default function LearningCommunities() {
         </div>
       )}
       
-      {/* Create Community Dialog */}
-      <Dialog open={showCreateCommunityDialog} onOpenChange={setShowCreateCommunityDialog}>
+      {/* Create Community Dialogue */}
+      <Dialogue open={showCreateCommunityDialog} onOpenChange={setShowCreateCommunityDialog}>
         <DialogContent className="sm:max-w-[600px]">
           <DialogHeader>
             <DialogTitle>Create New Learning Community</DialogTitle>
@@ -1537,9 +1537,9 @@ export default function LearningCommunities() {
             <div className="space-y-2">
               <Label>Privacy Settings</Label>
               <RadioGroup defaultValue="open">
-                <div className="flex items-center space-x-2 mt-2">
+                <div className="flex items-centre space-x-2 mt-2">
                   <RadioGroupItem value="open" id="open" />
-                  <Label htmlFor="open" className="flex items-center">
+                  <Label htmlFor="open" className="flex items-centre">
                     <Globe className="h-4 w-4 mr-2" />
                     Open Community
                   </Label>
@@ -1548,9 +1548,9 @@ export default function LearningCommunities() {
                   Visible to all platform users. Anyone can join and participate.
                 </p>
                 
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <RadioGroupItem value="restricted" id="restricted" />
-                  <Label htmlFor="restricted" className="flex items-center">
+                  <Label htmlFor="restricted" className="flex items-centre">
                     <Lock className="h-4 w-4 mr-2" />
                     Restricted Community
                   </Label>
@@ -1563,15 +1563,15 @@ export default function LearningCommunities() {
             <div className="space-y-2">
               <Label>Advanced Privacy Controls</Label>
               <div className="space-y-2 mt-2">
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <Checkbox id="anonymize" />
                   <Label htmlFor="anonymize" className="text-sm">Enable AI-assisted anonymization for shared resources</Label>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <Checkbox id="approval" />
                   <Label htmlFor="approval" className="text-sm">Require facilitator approval for all shared content</Label>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <Checkbox id="attribution" />
                   <Label htmlFor="attribution" className="text-sm">Maintain school attribution for all shared resources</Label>
                 </div>
@@ -1583,10 +1583,10 @@ export default function LearningCommunities() {
             <Button onClick={() => setShowCreateCommunityDialog(false)}>Create Community</Button>
           </DialogFooter>
         </DialogContent>
-      </Dialog>
+      </Dialogue>
       
-      {/* Share Resource Dialog */}
-      <Dialog open={showResourceDialog} onOpenChange={setShowResourceDialog}>
+      {/* Share Resource Dialogue */}
+      <Dialogue open={showResourceDialog} onOpenChange={setShowResourceDialog}>
         <DialogContent className="sm:max-w-[600px]">
           <DialogHeader>
             <DialogTitle>Share Resource</DialogTitle>
@@ -1632,7 +1632,7 @@ export default function LearningCommunities() {
             </div>
             <div className="space-y-2">
               <Label>Upload File</Label>
-              <div className="border-2 border-dashed rounded-md p-6 text-center cursor-pointer hover:bg-muted/50 transition-colors">
+              <div className="border-2 border-dashed rounded-md p-6 text-centre cursor-pointer hover:bg-muted/50 transition-colors">
                 <Paperclip className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
                 <p className="text-sm text-muted-foreground">
                   Drag and drop a file here, or click to browse
@@ -1645,8 +1645,8 @@ export default function LearningCommunities() {
             <div className="space-y-2">
               <Label>Privacy Settings</Label>
               <div className="space-y-2 mt-2">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2">
+                <div className="flex items-centre justify-between">
+                  <div className="flex items-centre space-x-2">
                     <Checkbox id="anonymize-resource" defaultChecked />
                     <Label htmlFor="anonymize-resource" className="text-sm">Apply AI anonymization</Label>
                   </div>
@@ -1656,11 +1656,11 @@ export default function LearningCommunities() {
                   Automatically detect and remove sensitive information while preserving educational value
                 </p>
                 
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <Checkbox id="attribution-resource" defaultChecked />
                   <Label htmlFor="attribution-resource" className="text-sm">Include school attribution</Label>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <Checkbox id="review-resource" defaultChecked />
                   <Label htmlFor="review-resource" className="text-sm">Request review before publishing</Label>
                 </div>
@@ -1669,15 +1669,15 @@ export default function LearningCommunities() {
             <div className="space-y-2">
               <Label>Sharing Scope</Label>
               <RadioGroup defaultValue="community">
-                <div className="flex items-center space-x-2 mt-2">
+                <div className="flex items-centre space-x-2 mt-2">
                   <RadioGroupItem value="community" id="community" />
                   <Label htmlFor="community">This community only</Label>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <RadioGroupItem value="selected" id="selected" />
                   <Label htmlFor="selected">Selected schools only</Label>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <RadioGroupItem value="platform" id="platform" />
                   <Label htmlFor="platform">All platform users</Label>
                 </div>
@@ -1689,10 +1689,10 @@ export default function LearningCommunities() {
             <Button onClick={() => setShowResourceDialog(false)}>Share Resource</Button>
           </DialogFooter>
         </DialogContent>
-      </Dialog>
+      </Dialogue>
       
-      {/* Privacy Settings Dialog */}
-      <Dialog open={showPrivacySettingsDialog} onOpenChange={setShowPrivacySettingsDialog}>
+      {/* Privacy Settings Dialogue */}
+      <Dialogue open={showPrivacySettingsDialog} onOpenChange={setShowPrivacySettingsDialog}>
         <DialogContent className="sm:max-w-[600px]">
           <DialogHeader>
             <DialogTitle>Community Privacy Settings</DialogTitle>
@@ -1704,9 +1704,9 @@ export default function LearningCommunities() {
             <div className="space-y-3">
               <h3 className="font-medium">Community Visibility</h3>
               <RadioGroup defaultValue={selectedCommunity?.privacy || 'open'}>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <RadioGroupItem value="open" id="open-privacy" />
-                  <Label htmlFor="open-privacy" className="flex items-center">
+                  <Label htmlFor="open-privacy" className="flex items-centre">
                     <Globe className="h-4 w-4 mr-2" />
                     Open Community
                   </Label>
@@ -1715,9 +1715,9 @@ export default function LearningCommunities() {
                   Visible to all platform users. Anyone can join and participate.
                 </p>
                 
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <RadioGroupItem value="restricted" id="restricted-privacy" />
-                  <Label htmlFor="restricted-privacy" className="flex items-center">
+                  <Label htmlFor="restricted-privacy" className="flex items-centre">
                     <Lock className="h-4 w-4 mr-2" />
                     Restricted Community
                   </Label>
@@ -1733,7 +1733,7 @@ export default function LearningCommunities() {
             <div className="space-y-3">
               <h3 className="font-medium">Content Sharing Permissions</h3>
               <div className="space-y-4">
-                <div className="flex items-center justify-between">
+                <div className="flex items-centre justify-between">
                   <div className="space-y-0.5">
                     <Label className="text-base">Discussions</Label>
                     <p className="text-sm text-muted-foreground">
@@ -1752,7 +1752,7 @@ export default function LearningCommunities() {
                   </Select>
                 </div>
                 
-                <div className="flex items-center justify-between">
+                <div className="flex items-centre justify-between">
                   <div className="space-y-0.5">
                     <Label className="text-base">Resources</Label>
                     <p className="text-sm text-muted-foreground">
@@ -1771,7 +1771,7 @@ export default function LearningCommunities() {
                   </Select>
                 </div>
                 
-                <div className="flex items-center justify-between">
+                <div className="flex items-centre justify-between">
                   <div className="space-y-0.5">
                     <Label className="text-base">Events</Label>
                     <p className="text-sm text-muted-foreground">
@@ -1790,7 +1790,7 @@ export default function LearningCommunities() {
                   </Select>
                 </div>
                 
-                <div className="flex items-center justify-between">
+                <div className="flex items-centre justify-between">
                   <div className="space-y-0.5">
                     <Label className="text-base">Collaborations</Label>
                     <p className="text-sm text-muted-foreground">
@@ -1816,7 +1816,7 @@ export default function LearningCommunities() {
             <div className="space-y-3">
               <h3 className="font-medium">Privacy Protection</h3>
               <div className="space-y-2">
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <Switch id="anonymize-switch" defaultChecked />
                   <Label htmlFor="anonymize-switch">Enable AI-assisted anonymization</Label>
                 </div>
@@ -1824,7 +1824,7 @@ export default function LearningCommunities() {
                   Automatically detect and anonymize sensitive information in shared content
                 </p>
                 
-                <div className="flex items-center space-x-2 mt-4">
+                <div className="flex items-centre space-x-2 mt-4">
                   <Switch id="approval-switch" defaultChecked />
                   <Label htmlFor="approval-switch">Require content approval</Label>
                 </div>
@@ -1832,7 +1832,7 @@ export default function LearningCommunities() {
                   All shared resources must be approved by a facilitator before publishing
                 </p>
                 
-                <div className="flex items-center space-x-2 mt-4">
+                <div className="flex items-centre space-x-2 mt-4">
                   <Switch id="attribution-switch" defaultChecked />
                   <Label htmlFor="attribution-switch">Maintain school attribution</Label>
                 </div>
@@ -1851,35 +1851,35 @@ export default function LearningCommunities() {
               </p>
               <div className="h-[150px] overflow-y-auto border rounded-md p-2">
                 <div className="space-y-2">
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <Checkbox id="school1" defaultChecked />
                     <Label htmlFor="school1" className="text-sm">Oakwood Primary</Label>
                   </div>
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <Checkbox id="school2" defaultChecked />
                     <Label htmlFor="school2" className="text-sm">St. Mary's Primary</Label>
                   </div>
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <Checkbox id="school3" defaultChecked />
                     <Label htmlFor="school3" className="text-sm">Riverside Academy</Label>
                   </div>
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <Checkbox id="school4" defaultChecked />
                     <Label htmlFor="school4" className="text-sm">Meadowview School</Label>
                   </div>
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <Checkbox id="school5" />
                     <Label htmlFor="school5" className="text-sm">Highfield Primary</Label>
                   </div>
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <Checkbox id="school6" />
                     <Label htmlFor="school6" className="text-sm">Westside Academy</Label>
                   </div>
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <Checkbox id="school7" />
                     <Label htmlFor="school7" className="text-sm">Northgate School</Label>
                   </div>
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <Checkbox id="school8" />
                     <Label htmlFor="school8" className="text-sm">Southview Primary</Label>
                   </div>
@@ -1892,7 +1892,7 @@ export default function LearningCommunities() {
             <Button onClick={() => setShowPrivacySettingsDialog(false)}>Save Settings</Button>
           </DialogFooter>
         </DialogContent>
-      </Dialog>
+      </Dialogue>
     </div>
   );
 }

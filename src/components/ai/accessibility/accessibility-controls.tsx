@@ -264,7 +264,7 @@ export default function AccessibilityControls() {
         <CardHeader>
           <CardTitle>Accessibility Controls</CardTitle>
           <CardDescription>
-            Customize your experience to meet your individual needs and preferences.
+            Customise your experience to meet your individual needs and preferences.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -279,9 +279,9 @@ export default function AccessibilityControls() {
             <TabsContent value="visual" className="space-y-6 pt-4">
               <div className="space-y-4">
                 <div>
-                  <div className="flex justify-between items-center mb-2">
+                  <div className="flex justify-between items-centre mb-2">
                     <Label htmlFor="text-size">Text Size ({textSize}%)</Label>
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-centre space-x-2">
                       <Button 
                         variant="outline" 
                         size="sm"
@@ -309,7 +309,7 @@ export default function AccessibilityControls() {
                 </div>
                 
                 <div>
-                  <div className="flex justify-between items-center mb-2">
+                  <div className="flex justify-between items-centre mb-2">
                     <Label htmlFor="line-spacing">Line Spacing ({lineSpacing}%)</Label>
                   </div>
                   <Slider
@@ -322,7 +322,7 @@ export default function AccessibilityControls() {
                   />
                 </div>
                 
-                <div className="flex items-center justify-between">
+                <div className="flex items-centre justify-between">
                   <div className="space-y-0.5">
                     <Label htmlFor="high-contrast">High Contrast Mode</Label>
                     <p className="text-sm text-muted-foreground">
@@ -336,7 +336,7 @@ export default function AccessibilityControls() {
                   />
                 </div>
                 
-                <div className="flex items-center justify-between">
+                <div className="flex items-centre justify-between">
                   <div className="space-y-0.5">
                     <Label htmlFor="reduced-motion">Reduced Motion</Label>
                     <p className="text-sm text-muted-foreground">
@@ -354,7 +354,7 @@ export default function AccessibilityControls() {
             
             <TabsContent value="reading" className="space-y-6 pt-4">
               <div className="space-y-4">
-                <div className="flex items-center justify-between">
+                <div className="flex items-centre justify-between">
                   <div className="space-y-0.5">
                     <Label htmlFor="dyslexia-font">Dyslexia-Friendly Font</Label>
                     <p className="text-sm text-muted-foreground">
@@ -368,7 +368,7 @@ export default function AccessibilityControls() {
                   />
                 </div>
                 
-                <div className="flex items-center justify-between">
+                <div className="flex items-centre justify-between">
                   <div className="space-y-0.5">
                     <Label htmlFor="text-to-speech">Text-to-Speech</Label>
                     <p className="text-sm text-muted-foreground">
@@ -385,7 +385,7 @@ export default function AccessibilityControls() {
                 {textToSpeechActive && (
                   <>
                     <div>
-                      <div className="flex justify-between items-center mb-2">
+                      <div className="flex justify-between items-centre mb-2">
                         <Label htmlFor="speech-rate">Speech Rate ({speechRate.toFixed(1)}x)</Label>
                       </div>
                       <Slider
@@ -399,7 +399,7 @@ export default function AccessibilityControls() {
                     </div>
                     
                     <div>
-                      <div className="flex justify-between items-center mb-2">
+                      <div className="flex justify-between items-centre mb-2">
                         <Label htmlFor="speech-pitch">Speech Pitch ({speechPitch.toFixed(1)})</Label>
                       </div>
                       <Slider
@@ -427,7 +427,7 @@ export default function AccessibilityControls() {
             
             <TabsContent value="voice" className="space-y-6 pt-4">
               <div className="space-y-4">
-                <div className="flex items-center justify-between">
+                <div className="flex items-centre justify-between">
                   <div className="space-y-0.5">
                     <Label htmlFor="voice-recognition">Voice Recognition</Label>
                     <p className="text-sm text-muted-foreground">
@@ -475,7 +475,7 @@ export default function AccessibilityControls() {
                     
                     {isListening && (
                       <div className="bg-primary/10 p-4 rounded-md">
-                        <div className="flex items-center mb-2">
+                        <div className="flex items-centre mb-2">
                           <div className="h-3 w-3 rounded-full bg-primary animate-pulse mr-2"></div>
                           <span className="font-medium">Listening...</span>
                         </div>
@@ -515,7 +515,7 @@ export default function AccessibilityControls() {
                   </ul>
                 </div>
                 
-                <div className="flex items-center justify-between">
+                <div className="flex items-centre justify-between">
                   <div className="space-y-0.5">
                     <Label htmlFor="extended-timeout">Extended Timeout</Label>
                     <p className="text-sm text-muted-foreground">
@@ -529,7 +529,7 @@ export default function AccessibilityControls() {
                   />
                 </div>
                 
-                <div className="flex items-center justify-between">
+                <div className="flex items-centre justify-between">
                   <div className="space-y-0.5">
                     <Label htmlFor="sticky-keys">Sticky Keys</Label>
                     <p className="text-sm text-muted-foreground">

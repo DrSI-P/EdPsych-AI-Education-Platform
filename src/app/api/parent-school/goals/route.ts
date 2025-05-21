@@ -46,7 +46,7 @@ const MOCK_GOALS = [
       year: 'Year 4'
     },
     title: 'Improve reading comprehension',
-    description: 'Work on understanding and analyzing more complex texts, focusing on inference and prediction skills.',
+    description: 'Work on understanding and analysing more complex texts, focusing on inference and prediction skills.',
     category: 'Academic',
     subject: 'English',
     startDate: '2025-04-01',

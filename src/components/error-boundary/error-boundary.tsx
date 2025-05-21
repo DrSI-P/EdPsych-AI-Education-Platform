@@ -100,7 +100,7 @@ class ErrorBoundary extends Component<Props, State> {
       return (
         <Card className="w-full max-w-md mx-auto my-8 shadow-lg border-red-100">
           <CardHeader className="bg-red-50 border-b border-red-100">
-            <CardTitle className="text-red-800 flex items-center gap-2">
+            <CardTitle className="text-red-800 flex items-centre gap-2">
               <AlertTriangle className="h-5 w-5" />
               Something went wrong
             </CardTitle>
@@ -118,21 +118,21 @@ class ErrorBoundary extends Component<Props, State> {
             {process.env.NODE_ENV === 'development' && this.state.errorInfo && (
               <div className="mt-4">
                 <h4 className="text-sm font-medium mb-2">Error Details:</h4>
-                <pre className="bg-gray-100 p-3 rounded text-xs overflow-auto max-h-[200px]">
+                <pre className="bg-grey-100 p-3 rounded text-xs overflow-auto max-h-[200px]">
                   {this.state.error?.stack}
                 </pre>
                 <h4 className="text-sm font-medium mt-4 mb-2">Component Stack:</h4>
-                <pre className="bg-gray-100 p-3 rounded text-xs overflow-auto max-h-[200px]">
+                <pre className="bg-grey-100 p-3 rounded text-xs overflow-auto max-h-[200px]">
                   {this.state.errorInfo.componentStack}
                 </pre>
               </div>
             )}
           </CardContent>
-          <CardFooter className="flex justify-between bg-gray-50 border-t">
+          <CardFooter className="flex justify-between bg-grey-50 border-t">
             <Button 
               variant="outline" 
               onClick={this.reset}
-              className="flex items-center gap-2"
+              className="flex items-centre gap-2"
             >
               <RefreshCw className="h-4 w-4" />
               Try Again
@@ -140,7 +140,7 @@ class ErrorBoundary extends Component<Props, State> {
             <Button 
               variant="default"
               onClick={() => window.location.href = '/'}
-              className="flex items-center gap-2"
+              className="flex items-centre gap-2"
             >
               <Home className="h-4 w-4" />
               Go Home

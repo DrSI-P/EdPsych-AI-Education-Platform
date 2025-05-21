@@ -272,7 +272,7 @@ export const VideoGenerator: React.FC<VideoGeneratorProps> = ({
                   </div>
                 )}
                 
-                <div className="mt-4 flex items-center text-sm text-muted-foreground">
+                <div className="mt-4 flex items-centre text-sm text-muted-foreground">
                   <Clock className="h-4 w-4 mr-1" />
                   <span>
                     Estimated duration: {Math.floor(script.estimatedDurationSeconds / 60)}:
@@ -413,26 +413,26 @@ export const VideoGenerator: React.FC<VideoGeneratorProps> = ({
                 <h3 className="font-medium mb-3">Accessibility Options</h3>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <input
                       type="checkbox"
                       id="showCaptions"
                       checked={showCaptions}
                       onChange={(e) => setShowCaptions(e.target.checked)}
-                      className="h-4 w-4 rounded border-gray-300"
+                      className="h-4 w-4 rounded border-grey-300"
                     />
                     <label htmlFor="showCaptions">
                       Show Captions
                     </label>
                   </div>
                   
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <input
                       type="checkbox"
                       id="visualAids"
                       checked={visualAids}
                       onChange={(e) => setVisualAids(e.target.checked)}
-                      className="h-4 w-4 rounded border-gray-300"
+                      className="h-4 w-4 rounded border-grey-300"
                     />
                     <label htmlFor="visualAids">
                       Include Visual Aids
@@ -466,8 +466,8 @@ export const VideoGenerator: React.FC<VideoGeneratorProps> = ({
             <TabsContent value="preview" className="pt-4">
               {generatedVideo ? (
                 <div className="space-y-4">
-                  <div className="aspect-video bg-black rounded-md flex items-center justify-center">
-                    <div className="text-center">
+                  <div className="aspect-video bg-black rounded-md flex items-centre justify-centre">
+                    <div className="text-centre">
                       <Video className="h-12 w-12 mx-auto mb-2 text-muted-foreground" />
                       <p className="text-muted-foreground">
                         Video preview would appear here
@@ -479,7 +479,7 @@ export const VideoGenerator: React.FC<VideoGeneratorProps> = ({
                     </div>
                   </div>
                   
-                  <div className="flex justify-between items-center">
+                  <div className="flex justify-between items-centre">
                     <div>
                       <h3 className="font-medium">{generatedVideo.title}</h3>
                       <p className="text-sm text-muted-foreground">
@@ -519,12 +519,12 @@ export const VideoGenerator: React.FC<VideoGeneratorProps> = ({
                   </div>
                 </div>
               ) : isGenerating ? (
-                <div className="flex flex-col items-center justify-center p-12">
+                <div className="flex flex-col items-centre justify-centre p-12">
                   <div className="mb-4">
                     <Loader2 className="h-12 w-12 animate-spin text-primary" />
                   </div>
                   <h3 className="text-xl font-medium mb-2">Generating Video</h3>
-                  <p className="text-muted-foreground text-center mb-6">
+                  <p className="text-muted-foreground text-centre mb-6">
                     Please wait while we generate your avatar video. This may take a few minutes.
                   </p>
                   
@@ -539,10 +539,10 @@ export const VideoGenerator: React.FC<VideoGeneratorProps> = ({
                   )}
                 </div>
               ) : (
-                <div className="flex flex-col items-center justify-center p-12 border rounded-lg bg-muted/50">
+                <div className="flex flex-col items-centre justify-centre p-12 border rounded-lg bg-muted/50">
                   <Film className="h-12 w-12 text-muted-foreground mb-4" />
                   <h3 className="text-xl font-medium mb-2">No Video Generated Yet</h3>
-                  <p className="text-muted-foreground text-center mb-6">
+                  <p className="text-muted-foreground text-centre mb-6">
                     Configure your avatar settings and generate a video to preview it here.
                   </p>
                   <Button onClick={() => setActiveTab('settings')}>

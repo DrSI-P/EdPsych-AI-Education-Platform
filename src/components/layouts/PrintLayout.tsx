@@ -52,7 +52,7 @@ const PrintLayout: React.FC<PrintLayoutProps> = ({
           
           .print-header {
             position: running(header);
-            text-align: center;
+            text-align: centre;
             border-bottom: 1px solid #ccc;
             padding-bottom: 0.5cm;
             margin-bottom: 1cm;
@@ -60,7 +60,7 @@ const PrintLayout: React.FC<PrintLayoutProps> = ({
           
           .print-footer {
             position: running(footer);
-            text-align: center;
+            text-align: centre;
             border-top: 1px solid #ccc;
             padding-top: 0.5cm;
             margin-top: 1cm;
@@ -95,11 +95,11 @@ const PrintLayout: React.FC<PrintLayoutProps> = ({
           }
           
           @page {
-            @top-center {
+            @top-centre {
               content: element(header);
             }
             
-            @bottom-center {
+            @bottom-centre {
               content: element(footer);
               ${includePageNumbers ? 'content: "Page " counter(page) " of " counter(pages);' : ''}
             }
@@ -122,14 +122,14 @@ const PrintLayout: React.FC<PrintLayoutProps> = ({
           }
           
           .print-header {
-            text-align: center;
+            text-align: centre;
             border-bottom: 1px solid #ccc;
             padding-bottom: 0.5cm;
             margin-bottom: 1cm;
           }
           
           .print-footer {
-            text-align: center;
+            text-align: centre;
             border-top: 1px solid #ccc;
             padding-top: 0.5cm;
             margin-top: 1cm;

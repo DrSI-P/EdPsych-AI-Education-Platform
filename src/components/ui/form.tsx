@@ -33,7 +33,7 @@ export function Input({
   ...props
 }: InputProps) {
   const inputClasses = `
-    ${error ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'}
+    ${error ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-grey-300 focus:ring-blue-500 focus:border-blue-500'}
     ${leftIcon ? 'pl-10' : ''}
     ${rightIcon ? 'pr-10' : ''}
     ${fullWidth ? 'w-full' : ''}
@@ -50,18 +50,18 @@ export function Input({
       )}
       <div className="relative">
         {leftIcon && (
-          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+          <div className="absolute inset-y-0 left-0 pl-3 flex items-centre pointer-events-none">
             {leftIcon}
           </div>
         )}
         <input className={inputClasses} {...props} />
         {rightIcon && (
-          <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+          <div className="absolute inset-y-0 right-0 pr-3 flex items-centre pointer-events-none">
             {rightIcon}
           </div>
         )}
       </div>
-      {hint && !error && <p className="mt-1 text-sm text-gray-500">{hint}</p>}
+      {hint && !error && <p className="mt-1 text-sm text-grey-500">{hint}</p>}
       {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
     </div>
   );
@@ -84,7 +84,7 @@ export function Textarea({
   ...props
 }: TextareaProps) {
   const textareaClasses = `
-    ${error ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'}
+    ${error ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-grey-300 focus:ring-blue-500 focus:border-blue-500'}
     ${fullWidth ? 'w-full' : ''}
     block rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-opacity-50 sm:text-sm
     ${className}
@@ -98,7 +98,7 @@ export function Textarea({
         </Label>
       )}
       <textarea className={textareaClasses} {...props} />
-      {hint && !error && <p className="mt-1 text-sm text-gray-500">{hint}</p>}
+      {hint && !error && <p className="mt-1 text-sm text-grey-500">{hint}</p>}
       {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
     </div>
   );
@@ -131,9 +131,9 @@ export function Select({
   ...props
 }: SelectProps) {
   const selectClasses = `
-    ${error ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'}
+    ${error ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-grey-300 focus:ring-blue-500 focus:border-blue-500'}
     ${fullWidth ? 'w-full' : ''}
-    ${disabled ? 'bg-gray-100 cursor-not-allowed' : ''}
+    ${disabled ? 'bg-grey-100 cursor-not-allowed' : ''}
     block rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-opacity-50 sm:text-sm
     ${className}
   `;
@@ -163,7 +163,7 @@ export function Select({
           </option>
         ))}
       </select>
-      {hint && !error && <p className="mt-1 text-sm text-gray-500">{hint}</p>}
+      {hint && !error && <p className="mt-1 text-sm text-grey-500">{hint}</p>}
       {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
     </div>
   );
@@ -189,25 +189,25 @@ export function Checkbox({
 }: CheckboxProps) {
   return (
     <div className={`flex items-start ${className}`}>
-      <div className="flex items-center h-5">
+      <div className="flex items-centre h-5">
         <input
           type="checkbox"
           checked={checked}
           onChange={(e) => onChange(e.target.checked)}
           disabled={disabled}
           className={`
-            h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500
+            h-4 w-4 rounded border-grey-300 text-blue-600 focus:ring-blue-500
             ${disabled ? 'opacity-50 cursor-not-allowed' : ''}
           `}
           {...props}
         />
       </div>
       <div className="ml-3 text-sm">
-        <label className={`font-medium text-gray-700 ${disabled ? 'opacity-50' : ''}`}>
+        <label className={`font-medium text-grey-700 ${disabled ? 'opacity-50' : ''}`}>
           {label}
         </label>
         {description && (
-          <p className={`text-gray-500 ${disabled ? 'opacity-50' : ''}`}>{description}</p>
+          <p className={`text-grey-500 ${disabled ? 'opacity-50' : ''}`}>{description}</p>
         )}
       </div>
     </div>
@@ -240,7 +240,7 @@ export function Radio({
       <div className="space-y-2">
         {options.map((option) => (
           <div key={option.value} className="flex items-start">
-            <div className="flex items-center h-5">
+            <div className="flex items-centre h-5">
               <input
                 type="radio"
                 name={name}
@@ -249,18 +249,18 @@ export function Radio({
                 onChange={() => onChange(option.value)}
                 disabled={disabled}
                 className={`
-                  h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-500
+                  h-4 w-4 border-grey-300 text-blue-600 focus:ring-blue-500
                   ${disabled ? 'opacity-50 cursor-not-allowed' : ''}
                 `}
                 {...props}
               />
             </div>
             <div className="ml-3 text-sm">
-              <label className={`font-medium text-gray-700 ${disabled ? 'opacity-50' : ''}`}>
+              <label className={`font-medium text-grey-700 ${disabled ? 'opacity-50' : ''}`}>
                 {option.label}
               </label>
               {option.description && (
-                <p className={`text-gray-500 ${disabled ? 'opacity-50' : ''}`}>
+                <p className={`text-grey-500 ${disabled ? 'opacity-50' : ''}`}>
                   {option.description}
                 </p>
               )}
@@ -281,7 +281,7 @@ export function FormLabel({
   return (
     <label
       htmlFor={htmlFor}
-      className={`block text-sm font-medium text-gray-700 ${className}`}
+      className={`block text-sm font-medium text-grey-700 ${className}`}
       {...props}
     >
       {children}

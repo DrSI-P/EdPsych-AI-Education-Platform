@@ -203,7 +203,7 @@ export const memoize = (fn) => {
 };
 
 /**
- * Utility for optimizing animations with requestAnimationFrame
+ * Utility for optimising animations with requestAnimationFrame
  * @param {Function} callback - Animation callback
  * @returns {Object} - Animation control functions
  */
@@ -247,7 +247,7 @@ export const useAnimationFrame = (callback) => {
 };
 
 /**
- * Utility for optimizing resource loading based on network conditions
+ * Utility for optimising resource loading based on network conditions
  * @returns {Object} - Network condition information
  */
 export const useNetworkAwareness = () => {

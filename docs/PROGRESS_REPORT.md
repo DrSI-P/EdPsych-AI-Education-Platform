@@ -39,7 +39,7 @@ This document provides a comprehensive overview of the current implementation st
   - Curriculum planning tools
   - Assessment management
   - Classroom management
-  - Data visualization for student performance
+  - Data visualisation for student performance
   - Intervention recommendations
   - Resource management
 

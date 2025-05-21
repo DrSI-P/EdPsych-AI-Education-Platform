@@ -102,7 +102,7 @@ The platform offers different ways to learn:
 
 - **Lessons**: Step-by-step learning content
 - **Videos**: Watch and learn with visual explanations
-- **Interactive Activities**: Games and exercises that help you practice
+- **Interactive Activities**: Games and exercises that help you practise
 - **Reading Materials**: Articles and texts to explore
 - **AI Avatar Videos**: Special videos where a digital teacher explains concepts
 - **Quizzes**: Quick checks to see what you've learned
@@ -136,7 +136,7 @@ Follow guided journeys through topics:
 Different ways to show what you know:
 
 - **Quick Checks**: Short quizzes to test understanding
-- **Practice Tests**: Longer assessments to prepare for exams
+- **Practise Tests**: Longer assessments to prepare for exams
 - **Assignments**: Work to complete and submit
 - **Projects**: Creative tasks to demonstrate your knowledge
 - **Self-Assessments**: Reflect on your own learning

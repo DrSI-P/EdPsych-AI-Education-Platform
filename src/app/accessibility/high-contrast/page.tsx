@@ -19,7 +19,7 @@ export default function HighContrastModePage() {
   
   return (
     <div className="container mx-auto py-8 px-4">
-      <h1 className="text-3xl font-bold mb-6 flex items-center">
+      <h1 className="text-3xl font-bold mb-6 flex items-centre">
         <Image 
           src="/images/high-contrast-icon.png" 
           alt="High Contrast Mode Icon" 
@@ -49,7 +49,7 @@ export default function HighContrastModePage() {
         <div className="lg:col-span-1">
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center">
+              <CardTitle className="flex items-centre">
                 <Eye className="h-5 w-5 mr-2" />
                 About High Contrast Mode
               </CardTitle>
@@ -70,7 +70,7 @@ export default function HighContrastModePage() {
                     <h3>Key Benefits</h3>
                     <ul>
                       <li>
-                        <strong>Visual Clarity:</strong> Enhances readability for users with low vision, color blindness, or visual processing disorders
+                        <strong>Visual Clarity:</strong> Enhances readability for users with low vision, colour blindness, or visual processing disorders
                       </li>
                       <li>
                         <strong>Reduced Eye Strain:</strong> Minimizes fatigue during extended reading or screen time
@@ -101,7 +101,7 @@ export default function HighContrastModePage() {
                       A 2022 study in the British Journal of Ophthalmology found that customizable contrast settings significantly improved content accessibility for users with age-related macular degeneration.
                     </p>
                     <p>
-                      The Web Accessibility Initiative (WAI) reports that proper contrast is one of the most important factors in digital accessibility, with an estimated 1 in 12 men and 1 in 200 women experiencing some form of color vision deficiency.
+                      The Web Accessibility Initiative (WAI) reports that proper contrast is one of the most important factors in digital accessibility, with an estimated 1 in 12 men and 1 in 200 women experiencing some form of colour vision deficiency.
                     </p>
                     <p>
                       Research from the Department for Education indicates that appropriate visual adjustments can increase engagement and reduce cognitive load for students with specific learning differences.
@@ -117,7 +117,7 @@ export default function HighContrastModePage() {
                       <li>Select a contrast mode that works best for your specific visual needs</li>
                       <li>Increase text size for improved readability during extended reading</li>
                       <li>Enable reduced animations if you experience visual tracking difficulties</li>
-                      <li>Use custom color settings if you have specific color sensitivity</li>
+                      <li>Use custom colour settings if you have specific colour sensitivity</li>
                     </ul>
                     
                     <h4>For Teachers:</h4>
@@ -142,7 +142,7 @@ export default function HighContrastModePage() {
           
           <Card className="mt-6">
             <CardHeader>
-              <CardTitle className="flex items-center">
+              <CardTitle className="flex items-centre">
                 <AlertTriangle className="h-5 w-5 mr-2" />
                 Visual Sensitivity Warning
               </CardTitle>

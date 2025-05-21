@@ -87,7 +87,7 @@ export function FocusHighlight({ children, className }: MicroInteractionProps) {
  */
 export function SuccessAnimation({ className }: { className?: string }) {
   return (
-    <div className={cn("flex items-center justify-center", className)}>
+    <div className={cn("flex items-centre justify-centre", className)}>
       <motion.div
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
@@ -127,7 +127,7 @@ export function SuccessAnimation({ className }: { className?: string }) {
  */
 export function ErrorAnimation({ className }: { className?: string }) {
   return (
-    <div className={cn("flex items-center justify-center", className)}>
+    <div className={cn("flex items-centre justify-centre", className)}>
       <motion.div
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
@@ -187,7 +187,7 @@ export function LoadingSpinner({ className, size = "md" }: { className?: string,
   };
   
   return (
-    <div className={cn("flex items-center justify-center", className)}>
+    <div className={cn("flex items-centre justify-centre", className)}>
       <motion.div
         className={cn("border-t-transparent rounded-full border-4", sizeClasses[size])}
         style={{ borderTopColor: "transparent" }}
@@ -255,7 +255,7 @@ export function NotificationToast({
       exit={{ opacity: 0, y: -20, scale: 0.95 }}
       transition={{ duration: 0.3 }}
       className={cn(
-        "flex items-center p-4 rounded-md border shadow-sm",
+        "flex items-centre p-4 rounded-md border shadow-sm",
         typeClasses[type],
         className
       )}
@@ -269,7 +269,7 @@ export function NotificationToast({
       {onClose && (
         <button 
           onClick={onClose}
-          className="ml-3 flex-shrink-0 text-gray-400 hover:text-gray-600 focus:outline-none"
+          className="ml-3 flex-shrink-0 text-grey-400 hover:text-grey-600 focus:outline-none"
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
             <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
@@ -358,9 +358,9 @@ export function HoverInfo({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
             transition={{ duration: 0.2 }}
-            className="absolute z-10 bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-sm rounded-md px-3 py-2 shadow-lg"
+            className="absolute z-10 bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-grey-900 text-white text-sm rounded-md px-3 py-2 shadow-lg"
           >
-            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 rotate-45 w-2 h-2 bg-gray-900" />
+            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 rotate-45 w-2 h-2 bg-grey-900" />
             {info}
           </motion.div>
         )}

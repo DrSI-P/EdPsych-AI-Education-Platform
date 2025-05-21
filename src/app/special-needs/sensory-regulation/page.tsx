@@ -33,7 +33,7 @@ export default function SensoryRegulationPage() {
 
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center">
+              <CardTitle className="flex items-centre">
                 <BookOpen className="mr-2 h-5 w-5" />
                 Evidence-Based Approach
               </CardTitle>
@@ -45,13 +45,13 @@ export default function SensoryRegulationPage() {
               <div className="space-y-2">
                 <h3 className="text-sm font-medium">Sensory Integration Theory</h3>
                 <p className="text-sm text-muted-foreground">
-                  Based on the work of Dr. A. Jean Ayres, sensory integration theory explains how the brain processes sensory information and how sensory processing affects behavior and learning.
+                  Based on the work of Dr. A. Jean Ayres, sensory integration theory explains how the brain processes sensory information and how sensory processing affects behaviour and learning.
                 </p>
               </div>
               <div className="space-y-2">
-                <h3 className="text-sm font-medium">Alert Program®</h3>
+                <h3 className="text-sm font-medium">Alert Programme®</h3>
                 <p className="text-sm text-muted-foreground">
-                  Incorporates principles from the Alert Program® ("How Does Your Engine Run?") to help students recognize and regulate their alertness levels for optimal learning.
+                  Incorporates principles from the Alert Programme® ("How Does Your Engine Run?") to help students recognise and regulate their alertness levels for optimal learning.
                 </p>
               </div>
               <div className="space-y-2">
@@ -67,7 +67,7 @@ export default function SensoryRegulationPage() {
         <div className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center">
+              <CardTitle className="flex items-centre">
                 <Info className="mr-2 h-5 w-5" />
                 About Sensory Regulation
               </CardTitle>
@@ -83,7 +83,7 @@ export default function SensoryRegulationPage() {
                 <Lightbulb className="h-4 w-4" />
                 <AlertTitle>Did you know?</AlertTitle>
                 <AlertDescription>
-                  Up to 16% of children have sensory processing differences that can impact their learning and behavior in the classroom.
+                  Up to 16% of children have sensory processing differences that can impact their learning and behaviour in the classroom.
                 </AlertDescription>
               </Alert>
             </CardContent>
@@ -91,7 +91,7 @@ export default function SensoryRegulationPage() {
 
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center">
+              <CardTitle className="flex items-centre">
                 <Vibrate className="mr-2 h-5 w-5" />
                 Sensory Systems
               </CardTitle>
@@ -126,7 +126,7 @@ export default function SensoryRegulationPage() {
                 <TabsContent value="tactile" className="space-y-2 pt-4">
                   <h3 className="text-sm font-medium">Tactile System</h3>
                   <p className="text-xs text-muted-foreground">
-                    Processes touch sensations including pressure, texture, and temperature. Tactile input can be grounding and organizing.
+                    Processes touch sensations including pressure, texture, and temperature. Tactile input can be grounding and organising.
                   </p>
                   <div className="text-xs space-y-1 mt-2">
                     <p><strong>Signs of sensitivity:</strong> Avoiding certain textures, disliking light touch</p>

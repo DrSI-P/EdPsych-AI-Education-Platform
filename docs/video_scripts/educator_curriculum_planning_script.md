@@ -29,7 +29,7 @@ The unit planning features support detailed design of learning sequences:
 
 The backward design framework guides you through establishing learning outcomes, assessment evidence, and learning experiences.
 
-The engagement optimization tool suggests hooks, real-world connections, and pupil-centered activities to increase motivation.
+The engagement optimization tool suggests hooks, real-world connections, and pupil-centred activities to increase motivation.
 
 The differentiation planner helps you build in appropriate challenge and support for diverse learners from the outset.
 
@@ -91,7 +91,7 @@ The engagement metrics show which units and lessons generate the highest pupil i
 
 The mastery patterns reveal which curriculum elements lead to strongest learning outcomes.
 
-The pacing analysis helps optimize the time allocation for different topics and skills.
+The pacing analysis helps optimise the time allocation for different topics and skills.
 
 The impact comparison allows you to evaluate curriculum changes against previous versions.
 

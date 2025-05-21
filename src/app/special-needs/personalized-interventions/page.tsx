@@ -22,7 +22,7 @@ export default function PersonalizedInterventionsPage() {
   
   return (
     <div className="container mx-auto py-8 px-4">
-      <h1 className="text-3xl font-bold mb-6 flex items-center">
+      <h1 className="text-3xl font-bold mb-6 flex items-centre">
         <Image 
           src="/images/personalized-interventions-icon.png" 
           alt="Personalized Interventions Icon" 
@@ -52,7 +52,7 @@ export default function PersonalizedInterventionsPage() {
         <div className="lg:col-span-1">
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center">
+              <CardTitle className="flex items-centre">
                 <GraduationCap className="h-5 w-5 mr-2" />
                 About Personalized Interventions
               </CardTitle>
@@ -104,10 +104,10 @@ export default function PersonalizedInterventionsPage() {
                       A 2023 meta-analysis in the Journal of Learning Disabilities found that interventions tailored to specific learning profiles were 42% more effective than generic support approaches.
                     </p>
                     <p>
-                      The Department for Education's SEN Code of Practice emphasizes the importance of targeted, evidence-based interventions as part of the graduated approach to supporting pupils with SEN.
+                      The Department for Education's SEN Code of Practise emphasizes the importance of targeted, evidence-based interventions as part of the graduated approach to supporting pupils with SEN.
                     </p>
                     <p>
-                      Research from the National Center on Intensive Intervention demonstrates that systematic data collection and analysis is essential for optimizing intervention effectiveness.
+                      Research from the National Centre on Intensive Intervention demonstrates that systematic data collection and analysis is essential for optimising intervention effectiveness.
                     </p>
                   </div>
                 </TabsContent>
@@ -138,7 +138,7 @@ export default function PersonalizedInterventionsPage() {
                       <li><strong>Assess:</strong> Identify specific needs and strengths</li>
                       <li><strong>Plan:</strong> Select evidence-based interventions</li>
                       <li><strong>Do:</strong> Implement interventions consistently</li>
-                      <li><strong>Review:</strong> Collect and analyze progress data</li>
+                      <li><strong>Review:</strong> Collect and analyse progress data</li>
                       <li><strong>Adjust:</strong> Modify approach based on response</li>
                     </ol>
                   </div>
@@ -149,7 +149,7 @@ export default function PersonalizedInterventionsPage() {
           
           <Card className="mt-6">
             <CardHeader>
-              <CardTitle className="flex items-center">
+              <CardTitle className="flex items-centre">
                 <FileText className="h-5 w-5 mr-2" />
                 Intervention Resources
               </CardTitle>
@@ -160,7 +160,7 @@ export default function PersonalizedInterventionsPage() {
                   <h4 className="font-medium mb-1">Dyslexia Support</h4>
                   <ul className="list-disc pl-5 space-y-1 text-muted-foreground">
                     <li>Structured literacy programs (Orton-Gillingham, Wilson Reading)</li>
-                    <li>Decodable texts for reading practice</li>
+                    <li>Decodable texts for reading practise</li>
                     <li>Multisensory phonics activities</li>
                   </ul>
                 </div>

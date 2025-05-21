@@ -28,7 +28,7 @@ const researchProjectSchema = z.object({
 // Schema for research output creation/update
 const researchOutputSchema = z.object({
   title: z.string().min(5, "Title must be at least 5 characters"),
-  type: z.enum(["Report", "Journal Article", "Conference Paper", "Toolkit", "Practice Guide", "Case Study", "Presentation", "Dataset", "Other"]),
+  type: z.enum(["Report", "Journal Article", "Conference Paper", "Toolkit", "Practise Guide", "Case Study", "Presentation", "Dataset", "Other"]),
   abstract: z.string().min(10, "Abstract must be at least 10 characters"),
   authors: z.array(z.string()),
   schools: z.array(z.string()),
@@ -76,7 +76,7 @@ const researchNetworkSchema = z.object({
 // Schema for research impact creation/update
 const researchImpactSchema = z.object({
   project: z.string(),
-  type: z.enum(["Practice Change", "Policy Change", "Curriculum Development", "Student Outcomes", "School Culture", "Professional Development", "Resource Development", "Other"]),
+  type: z.enum(["Practise Change", "Policy Change", "Curriculum Development", "Student Outcomes", "School Culture", "Professional Development", "Resource Development", "Other"]),
   schools: z.number().int().positive(),
   students: z.number().int().positive(),
   description: z.string().min(10, "Description must be at least 10 characters"),
@@ -136,8 +136,8 @@ const mockProjects = [
     ethicsRequired: true,
     ethicsStatus: 'Approved',
     collaborators: [
-      { id: 'user1', email: 'sarah.johnson@oakwood.edu', role: 'Lead Researcher', permissions: ['edit', 'invite', 'analyze'] },
-      { id: 'user2', email: 'james.smith@stmarys.edu', role: 'Co-Investigator', permissions: ['edit', 'analyze'] }
+      { id: 'user1', email: 'sarah.johnson@oakwood.edu', role: 'Lead Researcher', permissions: ['edit', 'invite', 'analyse'] },
+      { id: 'user2', email: 'james.smith@stmarys.edu', role: 'Co-Investigator', permissions: ['edit', 'analyse'] }
     ],
     schoolId: 'school1',
     privacy: {

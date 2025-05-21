@@ -43,14 +43,14 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import {
-  Dialog,
+  Dialogue,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
+} from '@/components/ui/dialogue';
 import {
   Table,
   TableBody,
@@ -410,9 +410,9 @@ export default function PluginManagement() {
 
   return (
     <div className="container mx-auto py-6">
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between items-centre mb-6">
         <h1 className="text-3xl font-bold">Plugin Management</h1>
-        <div className="flex items-center space-x-2">
+        <div className="flex items-centre space-x-2">
           <Button 
             variant="outline" 
             size="sm" 
@@ -423,7 +423,7 @@ export default function PluginManagement() {
             Refresh
           </Button>
           
-          <Dialog>
+          <Dialogue>
             <DialogTrigger asChild>
               <Button size="sm">
                 <Upload className="h-4 w-4 mr-2" />
@@ -444,9 +444,9 @@ export default function PluginManagement() {
                 </div>
                 <div className="space-y-2">
                   <Label>Or upload plugin package</Label>
-                  <div className="border-2 border-dashed rounded-md p-6 text-center">
-                    <Download className="h-8 w-8 mx-auto mb-2 text-gray-400" />
-                    <p className="text-sm text-gray-500">
+                  <div className="border-2 border-dashed rounded-md p-6 text-centre">
+                    <Download className="h-8 w-8 mx-auto mb-2 text-grey-400" />
+                    <p className="text-sm text-grey-500">
                       Drag and drop your plugin package here, or click to browse
                     </p>
                     <input type="file" className="hidden" />
@@ -466,7 +466,7 @@ export default function PluginManagement() {
                 </Button>
               </DialogFooter>
             </DialogContent>
-          </Dialog>
+          </Dialogue>
         </div>
       </div>
       
@@ -490,7 +490,7 @@ export default function PluginManagement() {
                 <div className="flex-1">
                   <Label htmlFor="search-plugins" className="sr-only">Search</Label>
                   <div className="relative">
-                    <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500" />
+                    <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-grey-500" />
                     <Input
                       id="search-plugins"
                       placeholder="Search plugins..."
@@ -560,19 +560,19 @@ export default function PluginManagement() {
                   <TableBody>
                     {isLoading ? (
                       <TableRow>
-                        <TableCell colSpan={5} className="text-center py-8">
-                          <div className="flex flex-col items-center justify-center">
-                            <RefreshCw className="h-8 w-8 animate-spin text-gray-400 mb-2" />
-                            <p className="text-sm text-gray-500">Loading plugins...</p>
+                        <TableCell colSpan={5} className="text-centre py-8">
+                          <div className="flex flex-col items-centre justify-centre">
+                            <RefreshCw className="h-8 w-8 animate-spin text-grey-400 mb-2" />
+                            <p className="text-sm text-grey-500">Loading plugins...</p>
                           </div>
                         </TableCell>
                       </TableRow>
                     ) : filteredPlugins.length === 0 ? (
                       <TableRow>
-                        <TableCell colSpan={5} className="text-center py-8">
-                          <div className="flex flex-col items-center justify-center">
-                            <Info className="h-8 w-8 text-gray-400 mb-2" />
-                            <p className="text-sm text-gray-500">No plugins found matching your filters.</p>
+                        <TableCell colSpan={5} className="text-centre py-8">
+                          <div className="flex flex-col items-centre justify-centre">
+                            <Info className="h-8 w-8 text-grey-400 mb-2" />
+                            <p className="text-sm text-grey-500">No plugins found matching your filters.</p>
                           </div>
                         </TableCell>
                       </TableRow>
@@ -580,9 +580,9 @@ export default function PluginManagement() {
                       filteredPlugins.map(plugin => (
                         <TableRow key={plugin.id}>
                           <TableCell>
-                            <div className="flex items-center space-x-3">
+                            <div className="flex items-centre space-x-3">
                               {plugin.icon ? (
-                                <div className="h-10 w-10 rounded bg-gray-100 flex items-center justify-center">
+                                <div className="h-10 w-10 rounded bg-grey-100 flex items-centre justify-centre">
                                   <img 
                                     src={plugin.icon} 
                                     alt={plugin.name} 
@@ -593,13 +593,13 @@ export default function PluginManagement() {
                                   />
                                 </div>
                               ) : (
-                                <div className="h-10 w-10 rounded bg-gray-100 flex items-center justify-center">
-                                  <Settings className="h-5 w-5 text-gray-500" />
+                                <div className="h-10 w-10 rounded bg-grey-100 flex items-centre justify-centre">
+                                  <Settings className="h-5 w-5 text-grey-500" />
                                 </div>
                               )}
                               <div>
                                 <p className="font-medium">{plugin.name}</p>
-                                <p className="text-sm text-gray-500 truncate max-w-xs">
+                                <p className="text-sm text-grey-500 truncate max-w-xs">
                                   {plugin.description}
                                 </p>
                               </div>
@@ -658,12 +658,12 @@ export default function PluginManagement() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="flex flex-col items-center justify-center py-12 text-center">
-                <div className="rounded-full bg-gray-100 p-4 mb-4">
-                  <Download className="h-8 w-8 text-gray-500" />
+              <div className="flex flex-col items-centre justify-centre py-12 text-centre">
+                <div className="rounded-full bg-grey-100 p-4 mb-4">
+                  <Download className="h-8 w-8 text-grey-500" />
                 </div>
                 <h3 className="text-lg font-medium mb-2">Plugin Marketplace Coming Soon</h3>
-                <p className="text-gray-500 max-w-md mb-6">
+                <p className="text-grey-500 max-w-md mb-6">
                   The plugin marketplace is currently under development. Soon you'll be able to discover and install plugins from our curated collection.
                 </p>
                 <Button variant="outline">
@@ -686,41 +686,41 @@ export default function PluginManagement() {
             <CardContent>
               <div className="space-y-6">
                 <div className="space-y-2">
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <Label htmlFor="auto-updates">Automatic Updates</Label>
                     <Switch id="auto-updates" defaultChecked />
                   </div>
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm text-grey-500">
                     Automatically update plugins when new versions are available.
                   </p>
                 </div>
                 <Separator />
                 <div className="space-y-2">
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <Label htmlFor="plugin-isolation">Plugin Isolation</Label>
                     <Switch id="plugin-isolation" defaultChecked />
                   </div>
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm text-grey-500">
                     Run plugins in isolated environments for enhanced security.
                   </p>
                 </div>
                 <Separator />
                 <div className="space-y-2">
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <Label htmlFor="auto-approval">Automatic Approval</Label>
                     <Switch id="auto-approval" />
                   </div>
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm text-grey-500">
                     Automatically approve new plugins without admin review (not recommended).
                   </p>
                 </div>
                 <Separator />
                 <div className="space-y-2">
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <Label htmlFor="telemetry">Plugin Telemetry</Label>
                     <Switch id="telemetry" defaultChecked />
                   </div>
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm text-grey-500">
                     Allow plugins to send anonymous usage data for improvement.
                   </p>
                 </div>
@@ -739,7 +739,7 @@ export default function PluginManagement() {
                       <SelectItem value="unlimited">Unlimited</SelectItem>
                     </SelectContent>
                   </Select>
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm text-grey-500">
                     Maximum storage space allocated to each plugin.
                   </p>
                 </div>
@@ -753,9 +753,9 @@ export default function PluginManagement() {
         </TabsContent>
       </Tabs>
       
-      {/* Plugin Settings Dialog */}
+      {/* Plugin Settings Dialogue */}
       {selectedPlugin && (
-        <Dialog open={isSettingsOpen} onOpenChange={setIsSettingsOpen}>
+        <Dialogue open={isSettingsOpen} onOpenChange={setIsSettingsOpen}>
           <DialogContent className="max-w-2xl">
             <DialogHeader>
               <DialogTitle>Plugin Settings: {selectedPlugin.name}</DialogTitle>
@@ -780,7 +780,7 @@ export default function PluginManagement() {
                         placeholder="API Key" 
                         defaultValue={selectedPlugin.configuredSettings?.apiKey || ''} 
                       />
-                      <p className="text-xs text-gray-500">
+                      <p className="text-xs text-grey-500">
                         Enter the API key for this plugin. This will be securely stored.
                       </p>
                     </div>
@@ -796,7 +796,7 @@ export default function PluginManagement() {
                     </div>
                     
                     <div className="space-y-2">
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-centre justify-between">
                         <Label htmlFor="plugin-enabled">Enable Plugin</Label>
                         <Switch 
                           id="plugin-enabled" 
@@ -808,14 +808,14 @@ export default function PluginManagement() {
                     </div>
                     
                     <div className="space-y-2">
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-centre justify-between">
                         <Label htmlFor="plugin-notifications">Notifications</Label>
                         <Switch 
                           id="plugin-notifications" 
                           defaultChecked={selectedPlugin.configuredSettings?.notifications !== false}
                         />
                       </div>
-                      <p className="text-xs text-gray-500">
+                      <p className="text-xs text-grey-500">
                         Receive notifications about plugin activities and updates.
                       </p>
                     </div>
@@ -824,7 +824,7 @@ export default function PluginManagement() {
                 
                 <TabsContent value="permissions" className="space-y-4">
                   <div className="space-y-4">
-                    <p className="text-sm text-gray-500">
+                    <p className="text-sm text-grey-500">
                       This plugin requires the following permissions:
                     </p>
                     
@@ -836,7 +836,7 @@ export default function PluginManagement() {
                           </div>
                           <div>
                             <p className="font-medium">{permission.replace(/_/g, ' ')}</p>
-                            <p className="text-xs text-gray-500">
+                            <p className="text-xs text-grey-500">
                               {getPermissionDescription(permission)}
                             </p>
                           </div>
@@ -864,21 +864,21 @@ export default function PluginManagement() {
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <p className="text-sm font-medium">Version</p>
-                      <p className="text-sm text-gray-500">{selectedPlugin.version}</p>
+                      <p className="text-sm text-grey-500">{selectedPlugin.version}</p>
                     </div>
                     <div>
                       <p className="text-sm font-medium">Author</p>
-                      <p className="text-sm text-gray-500">{selectedPlugin.author}</p>
+                      <p className="text-sm text-grey-500">{selectedPlugin.author}</p>
                     </div>
                     <div>
                       <p className="text-sm font-medium">Installed On</p>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-grey-500">
                         {new Date(selectedPlugin.installedAt).toLocaleDateString()}
                       </p>
                     </div>
                     <div>
                       <p className="text-sm font-medium">Last Updated</p>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-grey-500">
                         {new Date(selectedPlugin.updatedAt).toLocaleDateString()}
                       </p>
                     </div>
@@ -892,7 +892,7 @@ export default function PluginManagement() {
                     </div>
                     <div className="col-span-2">
                       <p className="text-sm font-medium">Description</p>
-                      <p className="text-sm text-gray-500">{selectedPlugin.description}</p>
+                      <p className="text-sm text-grey-500">{selectedPlugin.description}</p>
                     </div>
                     <div className="col-span-2">
                       <p className="text-sm font-medium">Features</p>
@@ -950,7 +950,7 @@ export default function PluginManagement() {
               </div>
             </DialogFooter>
           </DialogContent>
-        </Dialog>
+        </Dialogue>
       )}
     </div>
   );

@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
     
     if (previousCheckins.length > 0) {
       patternAnalysisPrompt = `
-        Analyze the following emotional check-in history and identify patterns:
+        Analyse the following emotional check-in history and identify patterns:
         
         Current check-in:
         Mood: ${mood}
@@ -75,7 +75,7 @@ export async function POST(req: NextRequest) {
       }
     });
     
-    // If we have previous check-ins, analyze patterns
+    // If we have previous check-ins, analyse patterns
     let patternAnalysis = null;
     
     if (previousCheckins.length > 0) {
@@ -89,7 +89,7 @@ export async function POST(req: NextRequest) {
         
         patternAnalysis = JSON.parse(aiResponse.text);
       } catch (error) {
-        console.error('Error analyzing emotional patterns:', error);
+        console.error('Error analysing emotional patterns:', error);
         // Continue without pattern analysis if it fails
       }
     }

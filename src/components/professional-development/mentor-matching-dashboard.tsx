@@ -90,7 +90,7 @@ const EXPERTISE_AREAS = [
   { id: 8, name: "Secondary Mathematics", category: "Subject Specific" },
   { id: 9, name: "Leadership Development", category: "Leadership" },
   { id: 10, name: "Wellbeing & Mental Health", category: "Pastoral" },
-  { id: 11, name: "Restorative Practice", category: "Behaviour" },
+  { id: 11, name: "Restorative Practise", category: "Behaviour" },
   { id: 12, name: "Literacy Across Curriculum", category: "Literacy" },
   { id: 13, name: "STEM Integration", category: "Cross-Curricular" },
   { id: 14, name: "Educational Research", category: "Professional Learning" },
@@ -351,7 +351,7 @@ const MOCK_RECOMMENDED_RESOURCES = [
   },
   {
     id: 2,
-    title: "Differentiation in Practice",
+    title: "Differentiation in Practise",
     type: "Video",
     category: "Inclusion",
     relevance: "Recommended based on your mentee's development needs",
@@ -370,7 +370,7 @@ const MOCK_RECOMMENDED_RESOURCES = [
 const MOCK_RECOMMENDED_PROGRAMS = [
   {
     id: 1,
-    title: "Early Career Teacher Mentorship Program",
+    title: "Early Career Teacher Mentorship Programme",
     description: "Structured 6-month program for supporting newly qualified teachers",
     participants: 24,
     rating: 4.8,
@@ -436,15 +436,15 @@ export default function MentorMatchingDashboard() {
 
   return (
     <div className="container mx-auto py-6 space-y-8">
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-centre">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Mentor Matching Dashboard</h1>
           <p className="text-muted-foreground">
             Analytics, recommendations, and insights for your mentorship journey
           </p>
         </div>
-        <div className="flex items-center space-x-2">
-          <div className="flex items-center space-x-2 bg-muted p-2 rounded-md">
+        <div className="flex items-centre space-x-2">
+          <div className="flex items-centre space-x-2 bg-muted p-2 rounded-md">
             <Label htmlFor="profileType" className="text-sm">View as:</Label>
             <select 
               id="profileType"
@@ -476,7 +476,7 @@ export default function MentorMatchingDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <div>
                       <p className="text-sm text-muted-foreground">Active Mentorships</p>
                       <p className="text-2xl font-bold">3</p>
@@ -515,21 +515,21 @@ export default function MentorMatchingDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  <div className="flex items-center space-x-3 p-2 border rounded-md">
+                  <div className="flex items-centre space-x-3 p-2 border rounded-md">
                     <Calendar className="h-5 w-5 text-blue-500" />
                     <div>
                       <p className="font-medium">Meeting Completed</p>
                       <p className="text-sm text-muted-foreground">With {profileType === 'mentee' ? 'Dr. Sarah Johnson' : 'Alex Taylor'} • 2 days ago</p>
                     </div>
                   </div>
-                  <div className="flex items-center space-x-3 p-2 border rounded-md">
+                  <div className="flex items-centre space-x-3 p-2 border rounded-md">
                     <FileText className="h-5 w-5 text-green-500" />
                     <div>
                       <p className="font-medium">Resource Shared</p>
                       <p className="text-sm text-muted-foreground">Differentiation Strategies • 3 days ago</p>
                     </div>
                   </div>
-                  <div className="flex items-center space-x-3 p-2 border rounded-md">
+                  <div className="flex items-centre space-x-3 p-2 border rounded-md">
                     <CheckCircle className="h-5 w-5 text-purple-500" />
                     <div>
                       <p className="font-medium">Goal Completed</p>
@@ -546,21 +546,21 @@ export default function MentorMatchingDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  <div className="flex items-center space-x-3 p-2 border rounded-md">
+                  <div className="flex items-centre space-x-3 p-2 border rounded-md">
                     <Calendar className="h-5 w-5 text-primary" />
                     <div>
                       <p className="font-medium">Mentorship Meeting</p>
                       <p className="text-sm text-muted-foreground">With {profileType === 'mentee' ? 'Dr. Sarah Johnson' : 'Alex Taylor'} • Tomorrow, 15:00</p>
                     </div>
                   </div>
-                  <div className="flex items-center space-x-3 p-2 border rounded-md">
+                  <div className="flex items-centre space-x-3 p-2 border rounded-md">
                     <Target className="h-5 w-5 text-amber-500" />
                     <div>
                       <p className="font-medium">Goal Due</p>
                       <p className="text-sm text-muted-foreground">Create differentiated resources • 3 days</p>
                     </div>
                   </div>
-                  <div className="flex items-center space-x-3 p-2 border rounded-md">
+                  <div className="flex items-centre space-x-3 p-2 border rounded-md">
                     <Users className="h-5 w-5 text-indigo-500" />
                     <div>
                       <p className="font-medium">Group Mentorship Session</p>
@@ -647,7 +647,7 @@ export default function MentorMatchingDashboard() {
                     </div>
                   </CardHeader>
                   <CardContent className="pt-0">
-                    <div className="flex items-center space-x-3 mb-3">
+                    <div className="flex items-centre space-x-3 mb-3">
                       <Avatar className="h-10 w-10">
                         <AvatarFallback>
                           {profileType === 'mentee' ? 'SJ' : 'AT'}
@@ -671,7 +671,7 @@ export default function MentorMatchingDashboard() {
                     <CardTitle className="text-base">Recommended Resource</CardTitle>
                   </CardHeader>
                   <CardContent className="pt-0">
-                    <div className="flex items-center space-x-3 mb-3">
+                    <div className="flex items-centre space-x-3 mb-3">
                       <FileText className="h-10 w-10 text-blue-500" />
                       <div>
                         <p className="font-medium">Effective Questioning Techniques</p>
@@ -684,16 +684,16 @@ export default function MentorMatchingDashboard() {
 
                 <Card>
                   <CardHeader className="pb-2">
-                    <CardTitle className="text-base">Recommended Program</CardTitle>
+                    <CardTitle className="text-base">Recommended Programme</CardTitle>
                   </CardHeader>
                   <CardContent className="pt-0">
-                    <div className="flex items-center space-x-3 mb-3">
+                    <div className="flex items-centre space-x-3 mb-3">
                       <Award className="h-10 w-10 text-amber-500" />
                       <div>
                         <p className="font-medium">
                           {profileType === 'mentee' ? 'Early Career Teacher Mentorship' : 'SEN Specialist Mentorship'}
                         </p>
-                        <p className="text-sm text-muted-foreground">6-month structured program</p>
+                        <p className="text-sm text-muted-foreground">6-month structured programme</p>
                       </div>
                     </div>
                     <Button className="w-full" size="sm">Learn More</Button>
@@ -710,7 +710,7 @@ export default function MentorMatchingDashboard() {
             <div className="md:col-span-2">
               <Card>
                 <CardHeader>
-                  <div className="flex justify-between items-center">
+                  <div className="flex justify-between items-centre">
                     <div>
                       <CardTitle>
                         Recommended {profileType === 'mentee' ? 'Mentors' : 'Mentees'}
@@ -737,7 +737,7 @@ export default function MentorMatchingDashboard() {
                       <Card key={recommendation.id} className="overflow-hidden">
                         <CardContent className="p-4">
                           <div className="flex items-start justify-between">
-                            <div className="flex items-center space-x-4">
+                            <div className="flex items-centre space-x-4">
                               <Avatar className="h-12 w-12">
                                 <AvatarImage src={recommendation.avatarUrl} alt={recommendation.name} />
                                 <AvatarFallback>{recommendation.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
@@ -785,7 +785,7 @@ export default function MentorMatchingDashboard() {
                     ))}
 
                     {filteredRecommendations.length === 0 && (
-                      <div className="text-center py-12">
+                      <div className="text-centre py-12">
                         <AlertCircle className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
                         <h3 className="text-lg font-medium">No matches found</h3>
                         <p className="text-muted-foreground mt-2">
@@ -805,21 +805,21 @@ export default function MentorMatchingDashboard() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    <div className="flex items-center space-x-3 p-3 bg-muted rounded-md">
+                    <div className="flex items-centre space-x-3 p-3 bg-muted rounded-md">
                       <Zap className="h-5 w-5 text-amber-500" />
                       <div>
                         <p className="font-medium">Match Quality</p>
                         <p className="text-sm text-muted-foreground">Your top matches are 85%+ compatible with your profile</p>
                       </div>
                     </div>
-                    <div className="flex items-center space-x-3 p-3 bg-muted rounded-md">
+                    <div className="flex items-centre space-x-3 p-3 bg-muted rounded-md">
                       <Target className="h-5 w-5 text-blue-500" />
                       <div>
                         <p className="font-medium">Goal Alignment</p>
                         <p className="text-sm text-muted-foreground">Recommendations focus on your development priorities</p>
                       </div>
                     </div>
-                    <div className="flex items-center space-x-3 p-3 bg-muted rounded-md">
+                    <div className="flex items-centre space-x-3 p-3 bg-muted rounded-md">
                       <TrendingUp className="h-5 w-5 text-green-500" />
                       <div>
                         <p className="font-medium">Growth Potential</p>
@@ -837,8 +837,8 @@ export default function MentorMatchingDashboard() {
                 <CardContent>
                   <div className="space-y-3">
                     {MOCK_RECOMMENDED_RESOURCES.map((resource) => (
-                      <div key={resource.id} className="flex items-center justify-between p-3 border rounded-md">
-                        <div className="flex items-center space-x-3">
+                      <div key={resource.id} className="flex items-centre justify-between p-3 border rounded-md">
+                        <div className="flex items-centre space-x-3">
                           <FileText className="h-5 w-5 text-blue-500" />
                           <div>
                             <p className="font-medium">{resource.title}</p>
@@ -860,17 +860,17 @@ export default function MentorMatchingDashboard() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-3">
-                    {MOCK_RECOMMENDED_PROGRAMS.map((program) => (
+                    {MOCK_RECOMMENDED_PROGRAMS.map((programme) => (
                       <div key={program.id} className="p-3 border rounded-md">
                         <div className="flex justify-between items-start mb-2">
                           <h3 className="font-medium">{program.title}</h3>
-                          <div className="flex items-center">
+                          <div className="flex items-centre">
                             <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                             <span className="text-sm ml-1">{program.rating}</span>
                           </div>
                         </div>
                         <p className="text-sm text-muted-foreground mb-2">{program.description}</p>
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-between items-centre">
                           <span className="text-xs text-muted-foreground">{program.participants} participants</span>
                           <Button size="sm" variant="outline">Learn More</Button>
                         </div>
@@ -888,7 +888,7 @@ export default function MentorMatchingDashboard() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <Card>
               <CardContent className="pt-6">
-                <div className="text-center">
+                <div className="text-centre">
                   <Users className="h-8 w-8 text-primary mx-auto mb-2" />
                   <p className="text-2xl font-bold">
                     {profileType === 'mentee' ? '3' : '12'}
@@ -901,7 +901,7 @@ export default function MentorMatchingDashboard() {
             </Card>
             <Card>
               <CardContent className="pt-6">
-                <div className="text-center">
+                <div className="text-centre">
                   <Clock className="h-8 w-8 text-blue-500 mx-auto mb-2" />
                   <p className="text-2xl font-bold">24</p>
                   <p className="text-sm text-muted-foreground">Hours of Mentorship</p>
@@ -910,7 +910,7 @@ export default function MentorMatchingDashboard() {
             </Card>
             <Card>
               <CardContent className="pt-6">
-                <div className="text-center">
+                <div className="text-centre">
                   <CheckCircle className="h-8 w-8 text-green-500 mx-auto mb-2" />
                   <p className="text-2xl font-bold">18</p>
                   <p className="text-sm text-muted-foreground">Goals Completed</p>
@@ -919,7 +919,7 @@ export default function MentorMatchingDashboard() {
             </Card>
             <Card>
               <CardContent className="pt-6">
-                <div className="text-center">
+                <div className="text-centre">
                   <Award className="h-8 w-8 text-amber-500 mx-auto mb-2" />
                   <p className="text-2xl font-bold">36</p>
                   <p className="text-sm text-muted-foreground">CPD Points Earned</p>
@@ -1028,9 +1028,9 @@ export default function MentorMatchingDashboard() {
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="space-y-4">
-                  <h3 className="font-medium text-center">Engagement</h3>
+                  <h3 className="font-medium text-centre">Engagement</h3>
                   <div className="relative pt-1">
-                    <div className="flex mb-2 items-center justify-between">
+                    <div className="flex mb-2 items-centre justify-between">
                       <div>
                         <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full bg-blue-200 text-blue-800">
                           Meeting Attendance
@@ -1043,10 +1043,10 @@ export default function MentorMatchingDashboard() {
                       </div>
                     </div>
                     <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-blue-200">
-                      <div style={{ width: "92%" }} className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-500"></div>
+                      <div style={{ width: "92%" }} className="shadow-none flex flex-col text-centre whitespace-nowrap text-white justify-centre bg-blue-500"></div>
                     </div>
                     
-                    <div className="flex mb-2 items-center justify-between">
+                    <div className="flex mb-2 items-centre justify-between">
                       <div>
                         <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full bg-green-200 text-green-800">
                           Resource Utilization
@@ -1059,10 +1059,10 @@ export default function MentorMatchingDashboard() {
                       </div>
                     </div>
                     <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-green-200">
-                      <div style={{ width: "78%" }} className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-green-500"></div>
+                      <div style={{ width: "78%" }} className="shadow-none flex flex-col text-centre whitespace-nowrap text-white justify-centre bg-green-500"></div>
                     </div>
                     
-                    <div className="flex mb-2 items-center justify-between">
+                    <div className="flex mb-2 items-centre justify-between">
                       <div>
                         <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full bg-purple-200 text-purple-800">
                           Communication Frequency
@@ -1075,13 +1075,13 @@ export default function MentorMatchingDashboard() {
                       </div>
                     </div>
                     <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-purple-200">
-                      <div style={{ width: "85%" }} className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-purple-500"></div>
+                      <div style={{ width: "85%" }} className="shadow-none flex flex-col text-centre whitespace-nowrap text-white justify-centre bg-purple-500"></div>
                     </div>
                   </div>
                 </div>
                 
                 <div className="space-y-4">
-                  <h3 className="font-medium text-center">Satisfaction</h3>
+                  <h3 className="font-medium text-centre">Satisfaction</h3>
                   <div className="h-[200px]">
                     <ResponsiveContainer width="100%" height="100%">
                       <BarChart
@@ -1104,7 +1104,7 @@ export default function MentorMatchingDashboard() {
                 </div>
                 
                 <div className="space-y-4">
-                  <h3 className="font-medium text-center">Growth Areas</h3>
+                  <h3 className="font-medium text-centre">Growth Areas</h3>
                   <div className="h-[200px]">
                     <ResponsiveContainer width="100%" height="100%">
                       <RadarChart outerRadius={90} data={[
@@ -1138,7 +1138,7 @@ export default function MentorMatchingDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <div>
                       <p className="text-sm text-muted-foreground">Overall Growth</p>
                       <p className="text-2xl font-bold">78%</p>
@@ -1214,7 +1214,7 @@ export default function MentorMatchingDashboard() {
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
-                      <div className="flex items-center space-x-3">
+                      <div className="flex items-centre space-x-3">
                         <Award className="h-8 w-8 text-amber-500" />
                         <div>
                           <p className="font-medium">8 New Achievements</p>
@@ -1223,15 +1223,15 @@ export default function MentorMatchingDashboard() {
                       </div>
                       <Separator />
                       <div className="space-y-2">
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-centre space-x-2">
                           <CheckCircle className="h-4 w-4 text-green-500" />
                           <span className="text-sm">Curriculum design project</span>
                         </div>
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-centre space-x-2">
                           <CheckCircle className="h-4 w-4 text-green-500" />
                           <span className="text-sm">Behaviour management training</span>
                         </div>
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-centre space-x-2">
                           <CheckCircle className="h-4 w-4 text-green-500" />
                           <span className="text-sm">Assessment framework development</span>
                         </div>
@@ -1249,7 +1249,7 @@ export default function MentorMatchingDashboard() {
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
-                      <div className="flex items-center space-x-3">
+                      <div className="flex items-centre space-x-3">
                         <FileText className="h-8 w-8 text-blue-500" />
                         <div>
                           <p className="font-medium">12 Evidence Items</p>
@@ -1258,15 +1258,15 @@ export default function MentorMatchingDashboard() {
                       </div>
                       <Separator />
                       <div className="space-y-2">
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-centre space-x-2">
                           <CheckCircle className="h-4 w-4 text-green-500" />
                           <span className="text-sm">Lesson observation feedback</span>
                         </div>
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-centre space-x-2">
                           <CheckCircle className="h-4 w-4 text-green-500" />
                           <span className="text-sm">Student progress data</span>
                         </div>
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-centre space-x-2">
                           <CheckCircle className="h-4 w-4 text-green-500" />
                           <span className="text-sm">Resource development examples</span>
                         </div>
@@ -1284,7 +1284,7 @@ export default function MentorMatchingDashboard() {
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
-                      <div className="flex items-center space-x-3">
+                      <div className="flex items-centre space-x-3">
                         <BookOpen className="h-8 w-8 text-purple-500" />
                         <div>
                           <p className="font-medium">6 Reflective Entries</p>
@@ -1293,15 +1293,15 @@ export default function MentorMatchingDashboard() {
                       </div>
                       <Separator />
                       <div className="space-y-2">
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-centre space-x-2">
                           <CheckCircle className="h-4 w-4 text-green-500" />
                           <span className="text-sm">Mentorship impact reflection</span>
                         </div>
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-centre space-x-2">
                           <CheckCircle className="h-4 w-4 text-green-500" />
-                          <span className="text-sm">Teaching practice development</span>
+                          <span className="text-sm">Teaching practise development</span>
                         </div>
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-centre space-x-2">
                           <CheckCircle className="h-4 w-4 text-green-500" />
                           <span className="text-sm">Professional growth journey</span>
                         </div>
@@ -1334,7 +1334,7 @@ export default function MentorMatchingDashboard() {
                           { category: 'Mentorship Meetings', points: 18 },
                           { category: 'Goal Completion', points: 12 },
                           { category: 'Resource Creation', points: 8 },
-                          { category: 'Reflective Practice', points: 6 },
+                          { category: 'Reflective Practise', points: 6 },
                           { category: 'Peer Observation', points: 4 }
                         ]}
                       >
@@ -1352,7 +1352,7 @@ export default function MentorMatchingDashboard() {
                   <h3 className="font-medium mb-4">CPD Framework Alignment</h3>
                   <div className="space-y-3">
                     <div className="p-3 border rounded-md">
-                      <div className="flex items-center space-x-3 mb-2">
+                      <div className="flex items-centre space-x-3 mb-2">
                         <UserCheck className="h-5 w-5 text-blue-500" />
                         <h4 className="font-medium">Teachers' Standards</h4>
                       </div>
@@ -1361,7 +1361,7 @@ export default function MentorMatchingDashboard() {
                     </div>
                     
                     <div className="p-3 border rounded-md">
-                      <div className="flex items-center space-x-3 mb-2">
+                      <div className="flex items-centre space-x-3 mb-2">
                         <Lightbulb className="h-5 w-5 text-amber-500" />
                         <h4 className="font-medium">Early Career Framework</h4>
                       </div>
@@ -1370,7 +1370,7 @@ export default function MentorMatchingDashboard() {
                     </div>
                     
                     <div className="p-3 border rounded-md">
-                      <div className="flex items-center space-x-3 mb-2">
+                      <div className="flex items-centre space-x-3 mb-2">
                         <Sparkles className="h-5 w-5 text-purple-500" />
                         <h4 className="font-medium">Chartered College Pathway</h4>
                       </div>
@@ -1393,7 +1393,7 @@ export default function MentorMatchingDashboard() {
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="p-4 border rounded-md bg-muted">
-                  <div className="flex items-center space-x-2 mb-3">
+                  <div className="flex items-centre space-x-2 mb-3">
                     <Avatar className="h-8 w-8">
                       <AvatarFallback>
                         {profileType === 'mentee' ? 'SJ' : 'AT'}
@@ -1411,12 +1411,12 @@ export default function MentorMatchingDashboard() {
                     </div>
                   </div>
                   <p className="text-sm italic">
-                    "This mentorship has been transformative for my professional practice. The structured approach and targeted feedback have helped me develop skills I use every day in the classroom."
+                    "This mentorship has been transformative for my professional practise. The structured approach and targeted feedback have helped me develop skills I use every day in the classroom."
                   </p>
                 </div>
                 
                 <div className="p-4 border rounded-md bg-muted">
-                  <div className="flex items-center space-x-2 mb-3">
+                  <div className="flex items-centre space-x-2 mb-3">
                     <Avatar className="h-8 w-8">
                       <AvatarFallback>
                         {profileType === 'mentee' ? 'MC' : 'OG'}
@@ -1439,7 +1439,7 @@ export default function MentorMatchingDashboard() {
                 </div>
                 
                 <div className="p-4 border rounded-md bg-muted">
-                  <div className="flex items-center space-x-2 mb-3">
+                  <div className="flex items-centre space-x-2 mb-3">
                     <Avatar className="h-8 w-8">
                       <AvatarFallback>
                         {profileType === 'mentee' ? 'PP' : 'DA'}
@@ -1458,7 +1458,7 @@ export default function MentorMatchingDashboard() {
                     </div>
                   </div>
                   <p className="text-sm italic">
-                    "I've seen significant improvement in my practice through this mentorship. The goal-setting process helped me focus on specific areas for development with measurable outcomes."
+                    "I've seen significant improvement in my practise through this mentorship. The goal-setting process helped me focus on specific areas for development with measurable outcomes."
                   </p>
                 </div>
               </div>

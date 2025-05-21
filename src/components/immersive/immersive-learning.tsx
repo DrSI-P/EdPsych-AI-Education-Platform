@@ -347,7 +347,7 @@ export function ImmersiveLearning({
           </div>
           
           {loading ? (
-            <div className="flex justify-center py-8">
+            <div className="flex justify-centre py-8">
               <Spinner size="lg" />
             </div>
           ) : error ? (
@@ -355,7 +355,7 @@ export function ImmersiveLearning({
               {error}
             </Alert>
           ) : filteredEnvironments.length === 0 ? (
-            <div className="text-center py-8 text-gray-500">
+            <div className="text-centre py-8 text-grey-500">
               No immersive environments found matching your criteria.
             </div>
           ) : (
@@ -370,8 +370,8 @@ export function ImmersiveLearning({
                         className="w-full h-full object-cover"
                       />
                     ) : (
-                      <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                        <span className="text-gray-500">No preview available</span>
+                      <div className="w-full h-full bg-grey-200 flex items-centre justify-centre">
+                        <span className="text-grey-500">No preview available</span>
                       </div>
                     )}
                     <div className="absolute top-2 right-2 px-2 py-1 text-xs rounded-full bg-blue-500 text-white">
@@ -384,20 +384,20 @@ export function ImmersiveLearning({
                     <h3 className="text-lg font-semibold">{environment.title}</h3>
                   </CardHeader>
                   <CardContent className="flex-grow">
-                    <p className="text-sm text-gray-600 mb-4">{environment.description}</p>
-                    <div className="text-xs text-gray-500 space-y-1">
+                    <p className="text-sm text-grey-600 mb-4">{environment.description}</p>
+                    <div className="text-xs text-grey-500 space-y-1">
                       <div><span className="font-medium">Subject:</span> {environment.subject.charAt(0).toUpperCase() + environment.subject.slice(1)}</div>
                       <div><span className="font-medium">Age Range:</span> {environment.ageRange.charAt(0).toUpperCase() + environment.ageRange.slice(1)}</div>
                       <div><span className="font-medium">Curriculum:</span> {environment.curriculum}</div>
                     </div>
                     <div className="mt-4">
                       <h4 className="text-sm font-medium">Learning Objectives:</h4>
-                      <ul className="text-xs text-gray-600 list-disc pl-5 mt-1">
+                      <ul className="text-xs text-grey-600 list-disc pl-5 mt-1">
                         {environment.objectives.slice(0, 2).map((objective, index) => (
                           <li key={index}>{objective}</li>
                         ))}
                         {environment.objectives.length > 2 && (
-                          <li className="text-gray-500">+ {environment.objectives.length - 2} more</li>
+                          <li className="text-grey-500">+ {environment.objectives.length - 2} more</li>
                         )}
                       </ul>
                     </div>
@@ -523,7 +523,7 @@ export function ImmersiveLearning({
             </div>
             
             <div className="space-y-2">
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <h3 className="text-lg font-medium">Learning Objectives</h3>
                 <Button
                   type="button"
@@ -537,7 +537,7 @@ export function ImmersiveLearning({
               
               <div className="space-y-2">
                 {createForm.objectives.map((objective, index) => (
-                  <div key={index} className="flex items-center gap-2">
+                  <div key={index} className="flex items-centre gap-2">
                     <Input
                       value={objective}
                       onChange={(e) => handleObjectiveChange(index, e.target.value)}
@@ -563,7 +563,7 @@ export function ImmersiveLearning({
                 <h4 className="text-sm font-medium mb-2">Generate Objectives with AI</h4>
                 <AIPrompt
                   placeholder="Describe the immersive environment and learning goals..."
-                  systemPrompt={`You are an educational expert specializing in immersive learning environments. Generate 4-6 clear, measurable learning objectives for a ${createForm.type} environment about the topic described. Format each objective on a new line with a bullet point. Focus on specific, achievable outcomes that align with UK curriculum standards for ${createForm.ageRange} students. Use UK English spelling.`}
+                  systemPrompt={`You are an educational expert specialising in immersive learning environments. Generate 4-6 clear, measurable learning objectives for a ${createForm.type} environment about the topic described. Format each objective on a new line with a bullet point. Focus on specific, achievable outcomes that align with UK curriculum standards for ${createForm.ageRange} students. Use UK English spelling.`}
                   onCompletion={handleAIObjectives}
                 />
               </div>

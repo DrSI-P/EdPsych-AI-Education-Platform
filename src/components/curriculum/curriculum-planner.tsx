@@ -76,7 +76,7 @@ export function CurriculumPlanner({
             resources: [
               'Textbook: Mathematics for Key Stage 3',
               'Interactive whiteboard resources',
-              'Online practice exercises'
+              'Online practise exercises'
             ],
             assessments: [
               'Weekly formative quizzes',
@@ -345,7 +345,7 @@ export function CurriculumPlanner({
           </div>
           
           {loading ? (
-            <div className="flex justify-center py-8">
+            <div className="flex justify-centre py-8">
               <Spinner size="lg" />
             </div>
           ) : error ? (
@@ -353,7 +353,7 @@ export function CurriculumPlanner({
               {error}
             </Alert>
           ) : filteredPlans.length === 0 ? (
-            <div className="text-center py-8 text-gray-500">
+            <div className="text-centre py-8 text-grey-500">
               No curriculum plans found matching your criteria.
             </div>
           ) : (
@@ -363,26 +363,26 @@ export function CurriculumPlanner({
                   <CardHeader>
                     <div className="flex items-start justify-between">
                       <h3 className="text-lg font-semibold">{plan.title}</h3>
-                      <span className="px-2 py-1 text-xs rounded-full bg-gray-100 text-gray-800">
+                      <span className="px-2 py-1 text-xs rounded-full bg-grey-100 text-grey-800">
                         {plan.duration}
                       </span>
                     </div>
                   </CardHeader>
                   <CardContent className="flex-grow">
-                    <p className="text-sm text-gray-600 mb-4">{plan.description}</p>
-                    <div className="text-xs text-gray-500 space-y-1">
+                    <p className="text-sm text-grey-600 mb-4">{plan.description}</p>
+                    <div className="text-xs text-grey-500 space-y-1">
                       <div><span className="font-medium">Subject:</span> {plan.subject.charAt(0).toUpperCase() + plan.subject.slice(1)}</div>
                       <div><span className="font-medium">Age Range:</span> {plan.ageRange.charAt(0).toUpperCase() + plan.ageRange.slice(1)}</div>
                       <div><span className="font-medium">Curriculum:</span> {plan.curriculum}</div>
                     </div>
                     <div className="mt-4">
                       <h4 className="text-sm font-medium">Learning Objectives:</h4>
-                      <ul className="text-xs text-gray-600 list-disc pl-5 mt-1">
+                      <ul className="text-xs text-grey-600 list-disc pl-5 mt-1">
                         {plan.objectives.slice(0, 3).map((objective, index) => (
                           <li key={index}>{objective}</li>
                         ))}
                         {plan.objectives.length > 3 && (
-                          <li className="text-gray-500">+ {plan.objectives.length - 3} more</li>
+                          <li className="text-grey-500">+ {plan.objectives.length - 3} more</li>
                         )}
                       </ul>
                     </div>
@@ -482,7 +482,7 @@ export function CurriculumPlanner({
             </div>
             
             <div className="space-y-2">
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <h3 className="text-lg font-medium">Learning Objectives</h3>
                 <Button
                   type="button"
@@ -496,7 +496,7 @@ export function CurriculumPlanner({
               
               <div className="space-y-2">
                 {createForm.objectives.map((objective, index) => (
-                  <div key={index} className="flex items-center gap-2">
+                  <div key={index} className="flex items-centre gap-2">
                     <Input
                       value={objective}
                       onChange={(e) => handleArrayFieldChange('objectives', index, e.target.value)}
@@ -529,7 +529,7 @@ export function CurriculumPlanner({
             </div>
             
             <div className="space-y-2">
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <h3 className="text-lg font-medium">Resources</h3>
                 <Button
                   type="button"
@@ -543,7 +543,7 @@ export function CurriculumPlanner({
               
               <div className="space-y-2">
                 {createForm.resources.map((resource, index) => (
-                  <div key={index} className="flex items-center gap-2">
+                  <div key={index} className="flex items-centre gap-2">
                     <Input
                       value={resource}
                       onChange={(e) => handleArrayFieldChange('resources', index, e.target.value)}
@@ -567,7 +567,7 @@ export function CurriculumPlanner({
             </div>
             
             <div className="space-y-2">
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <h3 className="text-lg font-medium">Assessments</h3>
                 <Button
                   type="button"
@@ -581,7 +581,7 @@ export function CurriculumPlanner({
               
               <div className="space-y-2">
                 {createForm.assessments.map((assessment, index) => (
-                  <div key={index} className="flex items-center gap-2">
+                  <div key={index} className="flex items-centre gap-2">
                     <Input
                       value={assessment}
                       onChange={(e) => handleArrayFieldChange('assessments', index, e.target.value)}

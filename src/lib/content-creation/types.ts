@@ -148,8 +148,8 @@ export interface TextElement extends ContentElement {
     fontSize?: string;
     fontWeight?: string;
     fontStyle?: string;
-    textAlign?: 'left' | 'center' | 'right' | 'justify';
-    color?: string;
+    textAlign?: 'left' | 'centre' | 'right' | 'justify';
+    colour?: string;
     backgroundColor?: string;
   };
 }
@@ -164,7 +164,7 @@ export interface ImageElement extends ContentElement {
   caption?: string;
   width?: number | string;
   height?: number | string;
-  alignment?: 'left' | 'center' | 'right';
+  alignment?: 'left' | 'centre' | 'right';
 }
 
 /**

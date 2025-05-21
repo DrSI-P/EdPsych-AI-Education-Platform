@@ -13,7 +13,7 @@ The Automated Documentation feature helps teachers quickly create structured doc
 - **Multiple Documentation Types**:
   - Classroom Observations
   - Student Conferences
-  - Behavior Incidents
+  - Behaviour Incidents
   - Parent Meetings
   - Lesson Reflections
   - IEP/504 Meetings
@@ -21,7 +21,7 @@ The Automated Documentation feature helps teachers quickly create structured doc
 - **Template-Based Structure**:
   - Pre-defined templates for different documentation types
   - Customizable sections and fields
-  - Consistent formatting and organization
+  - Consistent formatting and organisation
 
 - **AI-Powered Assistance**:
   - Suggestions for objective language
@@ -34,7 +34,7 @@ The Automated Documentation feature helps teachers quickly create structured doc
   - Automatic transcription and formatting
   - Support for UK English accents and educational terminology
 
-- **Organization and Retrieval**:
+- **Organisation and Retrieval**:
   - Tagging system for easy categorization
   - Advanced search functionality
   - Filtering by date, type, student, subject, etc.
@@ -72,8 +72,8 @@ The Smart Lesson Planning feature helps teachers create comprehensive, different
   - Challenge levels for different ability groups
   - Cultural relevance considerations
 
-- **Organization and Management**:
-  - Save and organize lesson plans
+- **Organisation and Management**:
+  - Save and organise lesson plans
   - Copy and adapt previous plans
   - Export in multiple formats
   - Share with colleagues
@@ -104,7 +104,7 @@ The Teacher Administrative Automation module is designed with a focus on:
 - **Consistency**: Ensuring documentation and planning follow best practices
 - **Accessibility**: Supporting multiple input methods including voice
 - **Integration**: Connecting with other platform features
-- **Evidence-Based Practice**: Aligning with UK educational standards and research
+- **Evidence-Based Practise**: Aligning with UK educational standards and research
 
 ## Future Enhancements
 
@@ -115,11 +115,11 @@ Planned enhancements for future iterations include:
 - Contextual resource recommendation engine
 - Calendar optimization for activities
 - Parent communication management system
-- Data visualization dashboard
+- Data visualisation dashboard
 
 ## Educational Psychology Foundation
 
-This module is grounded in educational psychology principles that recognize:
+This module is grounded in educational psychology principles that recognise:
 
 - Teacher time is best spent on direct student interaction and instruction
 - Administrative tasks can contribute to teacher burnout

@@ -14,7 +14,7 @@ The Adaptive Complexity feature dynamically adjusts content difficulty based on 
 ### UI Components
 
 - **AdaptiveComplexityControls**: Component for displaying and controlling adaptive complexity settings, allowing users to view their current complexity level, see recommendations, and manually override the adaptive system if needed.
-- **AdaptiveComplexityDashboard**: Comprehensive dashboard for visualizing and managing adaptive complexity settings, including subject preferences, skill areas, and complexity recommendations.
+- **AdaptiveComplexityDashboard**: Comprehensive dashboard for visualising and managing adaptive complexity settings, including subject preferences, skill areas, and complexity recommendations.
 
 ### Integration
 
@@ -71,7 +71,7 @@ The adaptive complexity feature is built on several key educational psychology p
 1. **AI-Powered Recommendations**: Enhance recommendations with machine learning algorithms.
 2. **Expanded Skill Taxonomy**: Develop a more detailed skill taxonomy for finer-grained adaptation.
 3. **Peer Comparison**: Add optional peer comparison features for motivation.
-4. **Parent/Guardian Insights**: Provide specialized views for parents and guardians.
+4. **Parent/Guardian Insights**: Provide specialised views for parents and guardians.
 5. **Integration with Immersive Learning**: Connect adaptive complexity with immersive learning experiences.
 
 ## Usage Guidelines

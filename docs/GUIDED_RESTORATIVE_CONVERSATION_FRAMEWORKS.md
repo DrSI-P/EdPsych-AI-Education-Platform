@@ -6,7 +6,7 @@ This document outlines the implementation of the Guided Restorative Conversation
 ## Evidence Base
 The implementation is grounded in established restorative justice frameworks and principles, including:
 
-1. **The Social Discipline Window** (McCold & Wachtel) - A framework that distinguishes between four approaches to behavior management:
+1. **The Social Discipline Window** (McCold & Wachtel) - A framework that distinguishes between four approaches to behaviour management:
    - Punitive (TO): High control, low support
    - Neglectful (NOT): Low control, low support
    - Permissive (FOR): Low control, high support
@@ -47,7 +47,7 @@ The implementation is grounded in established restorative justice frameworks and
 
 ### 5. Educational Resources
 - Comprehensive explanation of restorative justice principles
-- Training materials and practice scenarios
+- Training materials and practise scenarios
 - Research evidence supporting restorative approaches
 
 ## Implementation Details
@@ -80,16 +80,16 @@ The feature includes API endpoints for:
 
 ## UK Educational Alignment
 The implementation aligns with UK educational standards and practices:
-- Compatible with SEND Code of Practice approaches to behavior management
-- Supports whole-school approaches to positive behavior
+- Compatible with SEND Code of Practise approaches to behaviour management
+- Supports whole-school approaches to positive behaviour
 - Complements existing pastoral care systems
 - Provides alternatives to exclusionary discipline practices
 
 ## Future Enhancements
 Potential future enhancements could include:
-- Integration with behavior tracking systems
+- Integration with behaviour tracking systems
 - Advanced analytics for identifying patterns and measuring outcomes
-- Additional frameworks for specific contexts (e.g., online behavior)
+- Additional frameworks for specific contexts (e.g., online behaviour)
 - Enhanced collaboration tools for multi-professional involvement
 
 ## References

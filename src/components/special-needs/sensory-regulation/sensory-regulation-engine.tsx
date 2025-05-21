@@ -392,17 +392,17 @@ export function SensoryRegulationEngine() {
     }
   };
 
-  // Get color for activity category
+  // Get colour for activity category
   const getCategoryColor = (category) => {
     switch (category) {
       case 'calming':
         return 'bg-blue-100 text-blue-800';
       case 'alerting':
         return 'bg-red-100 text-red-800';
-      case 'organizing':
+      case 'organising':
         return 'bg-green-100 text-green-800';
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-grey-100 text-grey-800';
     }
   };
 
@@ -420,19 +420,19 @@ export function SensoryRegulationEngine() {
         <TabsContent value="profile" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center">
+              <CardTitle className="flex items-centre">
                 <Brain className="mr-2 h-5 w-5" />
                 Sensory Regulation Profile
               </CardTitle>
               <CardDescription>
-                Customize your sensory preferences to maintain an optimal state for learning
+                Customise your sensory preferences to maintain an optimal state for learning
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="space-y-4">
                 <div>
-                  <div className="flex justify-between items-center mb-2">
-                    <Label htmlFor="visualStimulation" className="flex items-center">
+                  <div className="flex justify-between items-centre mb-2">
+                    <Label htmlFor="visualStimulation" className="flex items-centre">
                       <Eye className="mr-2 h-4 w-4" />
                       Visual Stimulation
                     </Label>
@@ -454,8 +454,8 @@ export function SensoryRegulationEngine() {
                 </div>
 
                 <div>
-                  <div className="flex justify-between items-center mb-2">
-                    <Label htmlFor="auditoryStimulation" className="flex items-center">
+                  <div className="flex justify-between items-centre mb-2">
+                    <Label htmlFor="auditoryStimulation" className="flex items-centre">
                       <Ear className="mr-2 h-4 w-4" />
                       Auditory Stimulation
                     </Label>
@@ -477,8 +477,8 @@ export function SensoryRegulationEngine() {
                 </div>
 
                 <div>
-                  <div className="flex justify-between items-center mb-2">
-                    <Label htmlFor="tactileStimulation" className="flex items-center">
+                  <div className="flex justify-between items-centre mb-2">
+                    <Label htmlFor="tactileStimulation" className="flex items-centre">
                       <Hand className="mr-2 h-4 w-4" />
                       Tactile Stimulation
                     </Label>
@@ -500,8 +500,8 @@ export function SensoryRegulationEngine() {
                 </div>
 
                 <div>
-                  <div className="flex justify-between items-center mb-2">
-                    <Label htmlFor="vestibularStimulation" className="flex items-center">
+                  <div className="flex justify-between items-centre mb-2">
+                    <Label htmlFor="vestibularStimulation" className="flex items-centre">
                       <Activity className="mr-2 h-4 w-4" />
                       Vestibular Stimulation (Movement)
                     </Label>
@@ -523,8 +523,8 @@ export function SensoryRegulationEngine() {
                 </div>
 
                 <div>
-                  <div className="flex justify-between items-center mb-2">
-                    <Label htmlFor="proprioceptiveStimulation" className="flex items-center">
+                  <div className="flex justify-between items-centre mb-2">
+                    <Label htmlFor="proprioceptiveStimulation" className="flex items-centre">
                       <Compass className="mr-2 h-4 w-4" />
                       Proprioceptive Stimulation (Body Awareness)
                     </Label>
@@ -589,7 +589,7 @@ export function SensoryRegulationEngine() {
               <Separator />
 
               <div className="flex flex-col space-y-4">
-                <div className="flex items-center justify-between">
+                <div className="flex items-centre justify-between">
                   <div className="space-y-0.5">
                     <Label htmlFor="environmentalControls">Environmental Controls</Label>
                     <p className="text-sm text-muted-foreground">
@@ -603,7 +603,7 @@ export function SensoryRegulationEngine() {
                   />
                 </div>
 
-                <div className="flex items-center justify-between">
+                <div className="flex items-centre justify-between">
                   <div className="space-y-0.5">
                     <Label htmlFor="sensoryBreaks">Sensory Breaks</Label>
                     <p className="text-sm text-muted-foreground">
@@ -646,7 +646,7 @@ export function SensoryRegulationEngine() {
                         <Badge className={getCategoryColor(activity.category)}>
                           {activity.category.charAt(0).toUpperCase() + activity.category.slice(1)}
                         </Badge>
-                        <Badge variant="outline" className="flex items-center">
+                        <Badge variant="outline" className="flex items-centre">
                           <Clock className="mr-1 h-3 w-3" />
                           {activity.duration} min
                         </Badge>
@@ -656,7 +656,7 @@ export function SensoryRegulationEngine() {
                       <p className="text-sm text-muted-foreground line-clamp-2">{activity.description}</p>
                       <div className="flex flex-wrap gap-1 mt-2">
                         {activity.sensorySystems.map((system) => (
-                          <Badge key={system} variant="secondary" className="flex items-center">
+                          <Badge key={system} variant="secondary" className="flex items-centre">
                             {getSensorySystemIcon(system)}
                             <span className="ml-1">{system.charAt(0).toUpperCase() + system.slice(1)}</span>
                           </Badge>
@@ -703,7 +703,7 @@ export function SensoryRegulationEngine() {
                       <SelectContent>
                         <SelectItem value="calming">Calming</SelectItem>
                         <SelectItem value="alerting">Alerting</SelectItem>
-                        <SelectItem value="organizing">Organizing</SelectItem>
+                        <SelectItem value="organising">Organising</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -727,7 +727,7 @@ export function SensoryRegulationEngine() {
                       <Badge
                         key={system}
                         variant={newActivity.sensorySystems.includes(system) ? "default" : "outline"}
-                        className="cursor-pointer flex items-center"
+                        className="cursor-pointer flex items-centre"
                         onClick={() => toggleSensorySystem(system)}
                       >
                         {getSensorySystemIcon(system)}
@@ -813,7 +813,7 @@ export function SensoryRegulationEngine() {
                     }}
                   >
                     <CardHeader className="p-4">
-                      <CardTitle className="text-base flex items-center justify-between">
+                      <CardTitle className="text-base flex items-centre justify-between">
                         {diet.name}
                         {diet.isActive && (
                           <Badge variant="default" className="ml-2">Active</Badge>
@@ -840,7 +840,7 @@ export function SensoryRegulationEngine() {
                   <Separator />
                   
                   <div className="space-y-4">
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-centre justify-between">
                       <h3 className="text-lg font-medium">Schedule for {selectedDiet.name}</h3>
                       <Badge variant={selectedDiet.isActive ? "default" : "outline"}>
                         {selectedDiet.isActive ? "Active" : "Inactive"}
@@ -890,7 +890,7 @@ export function SensoryRegulationEngine() {
                           </table>
                         </div>
                       ) : (
-                        <div className="text-center p-4 border rounded-md">
+                        <div className="text-centre p-4 border rounded-md">
                           <p className="text-muted-foreground">No scheduled activities yet.</p>
                         </div>
                       )}
@@ -987,7 +987,7 @@ export function SensoryRegulationEngine() {
                   </div>
                 </div>
 
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <Checkbox
                     id="dietActive"
                     checked={newDiet.isActive}
@@ -1009,16 +1009,16 @@ export function SensoryRegulationEngine() {
         <TabsContent value="analytics" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center">
+              <CardTitle className="flex items-centre">
                 <BarChart className="mr-2 h-5 w-5" />
                 Sensory Regulation Analytics
               </CardTitle>
               <CardDescription>
-                Track and analyze sensory regulation patterns and effectiveness
+                Track and analyse sensory regulation patterns and effectiveness
               </CardDescription>
             </CardHeader>
-            <CardContent className="h-[400px] flex items-center justify-center">
-              <div className="text-center">
+            <CardContent className="h-[400px] flex items-centre justify-centre">
+              <div className="text-centre">
                 <Settings className="mx-auto h-12 w-12 text-muted-foreground" />
                 <h3 className="mt-4 text-lg font-medium">Analytics Coming Soon</h3>
                 <p className="mt-2 text-sm text-muted-foreground">

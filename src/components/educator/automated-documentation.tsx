@@ -110,9 +110,9 @@ const documentationTemplates: DocumentationTemplate[] = [
     ]
   },
   {
-    id: 'behavior-incident',
-    name: 'Behavior Incident',
-    description: 'Document behavioral incidents for record-keeping and pattern identification',
+    id: 'behaviour-incident',
+    name: 'Behaviour Incident',
+    description: 'Document behavioural incidents for record-keeping and pattern identification',
     sections: [
       {
         id: 'incident-details',
@@ -167,7 +167,7 @@ const documentationTemplates: DocumentationTemplate[] = [
         id: 'discussion-points',
         name: 'Discussion Points',
         description: 'Main topics discussed during the meeting',
-        placeholder: 'Academic progress, behavior, social development, concerns raised'
+        placeholder: 'Academic progress, behaviour, social development, concerns raised'
       },
       {
         id: 'parent-perspective',
@@ -216,7 +216,7 @@ const documentationTemplates: DocumentationTemplate[] = [
         id: 'challenges',
         name: 'Challenges',
         description: 'Difficulties or unexpected issues',
-        placeholder: 'Misconceptions, timing issues, resource problems, behavior management'
+        placeholder: 'Misconceptions, timing issues, resource problems, behaviour management'
       },
       {
         id: 'student-learning',
@@ -351,7 +351,7 @@ export default function AutomatedDocumentation() {
             'next-steps': 'Plan additional activities on equivalent fractions for next lesson. Provide extra support for Group 3. Create extension activities for Group 1. Rearrange seating to better support off-task students.',
             'student-info': 'Emma Thompson, Year 8, meeting held on 15 May 2025 to discuss recent English assessment results and set goals for the upcoming term.',
             'discussion-points': 'We discussed Emma\'s recent English assessment where she scored 78%. We reviewed her strengths in creative writing and areas for improvement in analytical responses. Emma expressed interest in developing her essay writing skills.',
-            'student-perspective': 'Emma feels confident about her creative writing but acknowledges she struggles with analyzing texts in depth. She mentioned feeling rushed during timed assessments and would like strategies to manage her time better.',
+            'student-perspective': 'Emma feels confident about her creative writing but acknowledges she struggles with analysing texts in depth. She mentioned feeling rushed during timed assessments and would like strategies to manage her time better.',
             'agreed-goals': '1. Improve analytical writing skills by practicing one analytical paragraph per week. 2. Develop time management strategies for assessments. 3. Read at least one book from the recommended literature list by the end of term.',
             'support-strategies': 'Provide Emma with analytical writing frameworks. Schedule a 10-minute check-in every two weeks. Share time management techniques for exams. Recommend specific books based on her interests.',
             'follow-up': 'Schedule follow-up meeting for June 12th to review progress. Weekly quick checks on analytical writing samples. Email parents with update on goals and support strategies.',
@@ -427,10 +427,10 @@ export default function AutomatedDocumentation() {
       });
       
       const prompt = `
-        You are an educational documentation assistant helping a teacher organize their notes into a professional document.
+        You are an educational documentation assistant helping a teacher organise their notes into a professional document.
         
         Please format and enhance the following teacher notes into a well-structured, professional document.
-        Maintain all the factual information but improve clarity, organization, and presentation.
+        Maintain all the factual information but improve clarity, organisation, and presentation.
         Use appropriate educational terminology and UK English spelling.
         
         Here are the teacher's notes:
@@ -628,7 +628,7 @@ export default function AutomatedDocumentation() {
             </div>
           ) : (
             <div className="space-y-6">
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <h2 className="text-xl font-semibold">{selectedTemplate.name}</h2>
                 <Button 
                   variant="outline" 
@@ -651,7 +651,7 @@ export default function AutomatedDocumentation() {
                 
                 {selectedTemplate.sections.map(section => (
                   <div key={section.id} className="space-y-2">
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-centre">
                       <Label htmlFor={section.id}>{section.name}</Label>
                       <div className="flex gap-2">
                         <input
@@ -666,7 +666,7 @@ export default function AutomatedDocumentation() {
                           size="sm"
                           onClick={() => document.getElementById(`audio-upload-${section.id}`)?.click()}
                           disabled={isRecording || isProcessing}
-                          className="flex items-center gap-1 h-8"
+                          className="flex items-centre gap-1 h-8"
                         >
                           <Upload className="h-4 w-4" />
                           <span>Upload Audio</span>
@@ -677,7 +677,7 @@ export default function AutomatedDocumentation() {
                             variant="destructive" 
                             size="sm"
                             onClick={stopRecording}
-                            className="flex items-center gap-1 h-8"
+                            className="flex items-centre gap-1 h-8"
                           >
                             <MicOff className="h-4 w-4" />
                             <span>{formatRecordingTime(recordingTime)}</span>
@@ -688,7 +688,7 @@ export default function AutomatedDocumentation() {
                             size="sm"
                             onClick={() => startRecording(section.id)}
                             disabled={isRecording || isProcessing}
-                            className="flex items-center gap-1 h-8"
+                            className="flex items-centre gap-1 h-8"
                           >
                             <Mic className="h-4 w-4" />
                             <span>Record</span>
@@ -732,14 +732,14 @@ export default function AutomatedDocumentation() {
         <TabsContent value="preview" className="space-y-6">
           {generatedDocument ? (
             <div className="space-y-6">
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <h2 className="text-xl font-semibold">{documentTitle}</h2>
                 <div className="flex gap-2">
                   <Button 
                     variant="outline" 
                     size="sm"
                     onClick={copyToClipboard}
-                    className="flex items-center gap-1"
+                    className="flex items-centre gap-1"
                   >
                     <Copy className="h-4 w-4" />
                     <span>Copy</span>
@@ -748,7 +748,7 @@ export default function AutomatedDocumentation() {
                     variant="outline" 
                     size="sm"
                     onClick={downloadDocument}
-                    className="flex items-center gap-1"
+                    className="flex items-centre gap-1"
                   >
                     <Download className="h-4 w-4" />
                     <span>Download</span>
@@ -757,7 +757,7 @@ export default function AutomatedDocumentation() {
                     variant="outline" 
                     size="sm"
                     onClick={saveDocument}
-                    className="flex items-center gap-1"
+                    className="flex items-centre gap-1"
                   >
                     <Save className="h-4 w-4" />
                     <span>Save</span>
@@ -788,7 +788,7 @@ export default function AutomatedDocumentation() {
               </div>
             </div>
           ) : (
-            <div className="text-center py-12">
+            <div className="text-centre py-12">
               <FileText className="mx-auto h-12 w-12 text-muted-foreground" />
               <h3 className="mt-4 text-lg font-medium">No document to preview</h3>
               <p className="mt-2 text-muted-foreground">
@@ -849,7 +849,7 @@ export default function AutomatedDocumentation() {
               ))}
             </div>
           ) : (
-            <div className="text-center py-12">
+            <div className="text-centre py-12">
               <FileText className="mx-auto h-12 w-12 text-muted-foreground" />
               <h3 className="mt-4 text-lg font-medium">No saved documents</h3>
               <p className="mt-2 text-muted-foreground">

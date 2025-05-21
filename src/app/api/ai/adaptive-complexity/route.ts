@@ -98,7 +98,7 @@ export async function POST(req: NextRequest) {
     
     // Create prompt for adaptive complexity adjustment
     const prompt = `
-      You are an expert educational content designer specializing in adapting content complexity to meet individual student needs.
+      You are an expert educational content designer specialising in adapting content complexity to meet individual student needs.
       
       Task: Adjust the complexity of the following educational content to match the target complexity level.
       

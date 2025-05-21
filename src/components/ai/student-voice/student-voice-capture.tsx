@@ -265,7 +265,7 @@ export default function StudentVoiceCapture() {
     if (!textInput.trim()) {
       toast({
         title: "Input Required",
-        description: "Please enter some text or record your voice before analyzing.",
+        description: "Please enter some text or record your voice before analysing.",
         variant: "destructive"
       });
       return;
@@ -339,7 +339,7 @@ export default function StudentVoiceCapture() {
     } catch (error) {
       toast({
         title: "Analysis Error",
-        description: "There was a problem analyzing your input. Please try again.",
+        description: "There was a problem analysing your input. Please try again.",
         variant: "destructive"
       });
       console.error(error);
@@ -352,7 +352,7 @@ export default function StudentVoiceCapture() {
     setIsProcessing(true);
     
     try {
-      // In a real implementation, this would analyze the drawing using AI
+      // In a real implementation, this would analyse the drawing using AI
       // For now, we'll simulate the response
       
       // Simulate API call delay
@@ -411,7 +411,7 @@ export default function StudentVoiceCapture() {
     } catch (error) {
       toast({
         title: "Analysis Error",
-        description: "There was a problem analyzing your drawing. Please try again.",
+        description: "There was a problem analysing your drawing. Please try again.",
         variant: "destructive"
       });
       console.error(error);
@@ -445,7 +445,7 @@ export default function StudentVoiceCapture() {
   const renderTextInput = () => (
     <div className="space-y-4">
       <div>
-        <div className="flex justify-between items-center mb-2">
+        <div className="flex justify-between items-centre mb-2">
           <Label htmlFor="topic">What would you like to give feedback about?</Label>
         </div>
         <Input 
@@ -457,7 +457,7 @@ export default function StudentVoiceCapture() {
       </div>
       
       <div>
-        <div className="flex justify-between items-center mb-2">
+        <div className="flex justify-between items-centre mb-2">
           <Label htmlFor="feedback-text">Your thoughts</Label>
           <div className="flex space-x-2">
             <Button 
@@ -465,7 +465,7 @@ export default function StudentVoiceCapture() {
               size="sm" 
               onClick={startSpeechRecognition}
               disabled={isRecording}
-              className="flex items-center gap-1 h-8"
+              className="flex items-centre gap-1 h-8"
             >
               <span className="h-4 w-4">🎤</span>
               <span>Voice Input</span>
@@ -483,7 +483,7 @@ export default function StudentVoiceCapture() {
       
       {isRecording && (
         <div className="bg-primary/10 p-4 rounded-md">
-          <div className="flex items-center mb-2">
+          <div className="flex items-centre mb-2">
             <div className="h-3 w-3 rounded-full bg-primary animate-pulse mr-2"></div>
             <span className="font-medium">Listening...</span>
           </div>
@@ -510,7 +510,7 @@ export default function StudentVoiceCapture() {
           disabled={isProcessing || !textInput.trim()}
           className="w-full"
         >
-          {isProcessing ? 'Analyzing...' : 'Analyze My Feedback'}
+          {isProcessing ? 'Analysing...' : 'Analyse My Feedback'}
         </Button>
       </div>
     </div>
@@ -519,7 +519,7 @@ export default function StudentVoiceCapture() {
   const renderVoiceInput = () => (
     <div className="space-y-4">
       <div>
-        <div className="flex justify-between items-center mb-2">
+        <div className="flex justify-between items-centre mb-2">
           <Label htmlFor="topic-voice">What would you like to give feedback about?</Label>
         </div>
         <Input 
@@ -530,10 +530,10 @@ export default function StudentVoiceCapture() {
         />
       </div>
       
-      <div className="bg-muted p-6 rounded-md flex flex-col items-center justify-center min-h-[200px]">
+      <div className="bg-muted p-6 rounded-md flex flex-col items-centre justify-centre min-h-[200px]">
         {!audioURL ? (
           <>
-            <div className="mb-4 text-center">
+            <div className="mb-4 text-centre">
               <p className="font-medium mb-2">Record your voice to share your thoughts</p>
               <p className="text-sm text-muted-foreground">
                 Speak clearly and take your time. You can listen to your recording before submitting.
@@ -541,8 +541,8 @@ export default function StudentVoiceCapture() {
             </div>
             
             {audioRecording ? (
-              <div className="flex flex-col items-center">
-                <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mb-4 relative">
+              <div className="flex flex-col items-centre">
+                <div className="h-16 w-16 rounded-full bg-primary/10 flex items-centre justify-centre mb-4 relative">
                   <div className="h-4 w-4 rounded-full bg-primary animate-pulse"></div>
                   <div className="absolute inset-0 rounded-full border-2 border-primary animate-ping opacity-25"></div>
                 </div>
@@ -550,7 +550,7 @@ export default function StudentVoiceCapture() {
                   variant="outline" 
                   size="lg" 
                   onClick={stopVoiceRecording}
-                  className="rounded-full h-12 w-12 p-0 flex items-center justify-center"
+                  className="rounded-full h-12 w-12 p-0 flex items-centre justify-centre"
                 >
                   <span className="text-xl">⏹️</span>
                 </Button>
@@ -561,7 +561,7 @@ export default function StudentVoiceCapture() {
                 variant="outline" 
                 size="lg" 
                 onClick={startVoiceRecording}
-                className="rounded-full h-16 w-16 p-0 flex items-center justify-center"
+                className="rounded-full h-16 w-16 p-0 flex items-centre justify-centre"
               >
                 <span className="text-2xl">🎤</span>
               </Button>
@@ -597,7 +597,7 @@ export default function StudentVoiceCapture() {
                 onClick={analyzeInput} 
                 disabled={isProcessing}
               >
-                {isProcessing ? 'Analyzing...' : 'Analyze Recording'}
+                {isProcessing ? 'Analysing...' : 'Analyse Recording'}
               </Button>
             </div>
           </div>
@@ -609,19 +609,19 @@ export default function StudentVoiceCapture() {
   const renderDrawingInput = () => (
     <div className="space-y-4">
       <div>
-        <div className="flex justify-between items-center mb-2">
+        <div className="flex justify-between items-centre mb-2">
           <Label htmlFor="topic-drawing">What are you drawing about?</Label>
         </div>
         <Input 
           id="topic-drawing" 
           value={topic} 
           onChange={(e) => setTopic(e.target.value)} 
-          placeholder="e.g., My classroom, How school makes me feel, My favorite lesson"
+          placeholder="e.g., My classroom, How school makes me feel, My favourite lesson"
         />
       </div>
       
       <div className="border rounded-md p-2">
-        <div className="flex justify-between items-center mb-2">
+        <div className="flex justify-between items-centre mb-2">
           <p className="text-sm font-medium">Draw your thoughts and feelings</p>
           <div className="flex space-x-2">
             <Button 
@@ -645,7 +645,7 @@ export default function StudentVoiceCapture() {
           disabled={isProcessing}
           className="w-full"
         >
-          {isProcessing ? 'Analyzing...' : 'Save & Analyze Drawing'}
+          {isProcessing ? 'Analysing...' : 'Save & Analyse Drawing'}
         </Button>
       </div>
     </div>
@@ -668,7 +668,7 @@ export default function StudentVoiceCapture() {
           {emotionDetected && (
             <div>
               <h4 className="font-medium mb-2">Emotion Detected</h4>
-              <div className="flex items-center space-x-2">
+              <div className="flex items-centre space-x-2">
                 <div className="text-2xl">
                   {emotionDetected === 'Joy' && '😊'}
                   {emotionDetected === 'Frustration' && '😣'}
@@ -690,10 +690,10 @@ export default function StudentVoiceCapture() {
             <div>
               <h4 className="font-medium mb-2">Overall Sentiment</h4>
               <div className={`
-                inline-flex items-center px-3 py-1 rounded-full text-sm font-medium
+                inline-flex items-centre px-3 py-1 rounded-full text-sm font-medium
                 ${sentiment === 'positive' ? 'bg-green-100 text-green-800' : ''}
                 ${sentiment === 'negative' ? 'bg-red-100 text-red-800' : ''}
-                ${sentiment === 'neutral' ? 'bg-gray-100 text-gray-800' : ''}
+                ${sentiment === 'neutral' ? 'bg-grey-100 text-grey-800' : ''}
                 ${sentiment === 'mixed' ? 'bg-yellow-100 text-yellow-800' : ''}
               `}>
                 {sentiment === 'positive' && '👍 Positive'}
@@ -711,7 +711,7 @@ export default function StudentVoiceCapture() {
                 {themes.map((theme, index) => (
                   <span 
                     key={index} 
-                    className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary/10 text-primary"
+                    className="inline-flex items-centre px-3 py-1 rounded-full text-sm font-medium bg-primary/10 text-primary"
                   >
                     {theme}
                   </span>
@@ -761,15 +761,15 @@ export default function StudentVoiceCapture() {
                 onValueChange={setAgeGroup}
                 className="flex flex-wrap gap-4"
               >
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <RadioGroupItem value="primary" id="primary" />
                   <Label htmlFor="primary">Primary School</Label>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <RadioGroupItem value="secondary" id="secondary" />
                   <Label htmlFor="secondary">Secondary School</Label>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <RadioGroupItem value="college" id="college" />
                   <Label htmlFor="college">College/Sixth Form</Label>
                 </div>
@@ -783,19 +783,19 @@ export default function StudentVoiceCapture() {
                 onValueChange={setFeedbackType}
                 className="flex flex-wrap gap-4"
               >
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <RadioGroupItem value="general" id="general" />
                   <Label htmlFor="general">General Thoughts</Label>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <RadioGroupItem value="suggestion" id="suggestion" />
                   <Label htmlFor="suggestion">Suggestion</Label>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <RadioGroupItem value="concern" id="concern" />
                   <Label htmlFor="concern">Concern</Label>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <RadioGroupItem value="appreciation" id="appreciation" />
                   <Label htmlFor="appreciation">Appreciation</Label>
                 </div>

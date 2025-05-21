@@ -106,7 +106,7 @@ export default function StudentLedConferenceTool() {
     {
       id: "2",
       prompt: "What has been your biggest challenge?",
-      response: "My biggest challenge was staying organized with all my assignments. I've been using a planner more consistently now, which has helped me keep track of deadlines.",
+      response: "My biggest challenge was staying organised with all my assignments. I've been using a planner more consistently now, which has helped me keep track of deadlines.",
       date: "2025-04-20"
     },
     {
@@ -121,7 +121,7 @@ export default function StudentLedConferenceTool() {
   const prepSteps = [
     { id: "1", title: "Select Portfolio Items", completed: true },
     { id: "2", title: "Complete Reflection Questions", completed: true },
-    { id: "3", title: "Practice Presentation", completed: false },
+    { id: "3", title: "Practise Presentation", completed: false },
     { id: "4", title: "Prepare Questions for Discussion", completed: false },
     { id: "5", title: "Review Goals and Progress", completed: true }
   ];
@@ -161,7 +161,7 @@ export default function StudentLedConferenceTool() {
             
             {/* Digital Portfolio Tab */}
             <TabsContent value="portfolio" className="space-y-6">
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <h3 className="text-lg font-medium">My Portfolios</h3>
                 <Button>
                   <PlusCircle className="h-4 w-4 mr-2" />
@@ -201,7 +201,7 @@ export default function StudentLedConferenceTool() {
                   </TabsList>
                   
                   <TabsContent value="artifacts" className="space-y-4">
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-centre">
                       <h4 className="font-medium">My Learning Artifacts</h4>
                       <Button>
                         <PlusCircle className="h-4 w-4 mr-2" />
@@ -229,7 +229,7 @@ export default function StudentLedConferenceTool() {
                   </TabsContent>
                   
                   <TabsContent value="reflections" className="space-y-4">
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-centre">
                       <h4 className="font-medium">My Reflections</h4>
                       <Button>
                         <PlusCircle className="h-4 w-4 mr-2" />
@@ -262,7 +262,7 @@ export default function StudentLedConferenceTool() {
             
             {/* Conference Preparation Tab */}
             <TabsContent value="conference" className="space-y-6">
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <h3 className="text-lg font-medium">My Conferences</h3>
                 <Button>
                   <PlusCircle className="h-4 w-4 mr-2" />
@@ -377,7 +377,7 @@ export default function StudentLedConferenceTool() {
                     <h4 className="font-medium mb-2">Preparation Checklist</h4>
                     <div className="space-y-2">
                       {prepSteps.map((step) => (
-                        <div key={step.id} className="flex items-center space-x-2">
+                        <div key={step.id} className="flex items-centre space-x-2">
                           <Checkbox id={`step-${step.id}`} checked={step.completed} />
                           <label
                             htmlFor={`step-${step.id}`}
@@ -415,7 +415,7 @@ export default function StudentLedConferenceTool() {
             {/* Presentation Mode Tab */}
             <TabsContent value="presentation" className="space-y-6">
               <div className="bg-primary-foreground p-6 rounded-lg border">
-                <div className="text-center mb-8">
+                <div className="text-centre mb-8">
                   <h2 className="text-2xl font-bold">My Learning Journey 2024-2025</h2>
                   <p className="text-muted-foreground">Presented by Jamie Smith</p>
                 </div>
@@ -436,19 +436,19 @@ export default function StudentLedConferenceTool() {
                     <ul className="space-y-2 list-disc pl-5">
                       <li>Time management with longer projects</li>
                       <li>Participating more in class discussions</li>
-                      <li>Organizing my notes more effectively</li>
+                      <li>Organising my notes more effectively</li>
                     </ul>
                   </div>
                   
                   <div>
-                    <h3 className="text-xl font-semibold mb-4">My Favorite Work This Year</h3>
+                    <h3 className="text-xl font-semibold mb-4">My Favourite Work This Year</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <Card>
                         <CardHeader className="pb-2">
                           <CardTitle className="text-base">Science Experiment Results</CardTitle>
                         </CardHeader>
                         <CardContent>
-                          <div className="bg-muted h-40 flex items-center justify-center">
+                          <div className="bg-muted h-40 flex items-centre justify-centre">
                             <Image className="h-10 w-10 text-muted-foreground" />
                           </div>
                           <p className="mt-2 text-sm">Photos and data from my plant growth experiment</p>
@@ -460,7 +460,7 @@ export default function StudentLedConferenceTool() {
                           <CardTitle className="text-base">Book Report Presentation</CardTitle>
                         </CardHeader>
                         <CardContent>
-                          <div className="bg-muted h-40 flex items-center justify-center">
+                          <div className="bg-muted h-40 flex items-centre justify-centre">
                             <Video className="h-10 w-10 text-muted-foreground" />
                           </div>
                           <p className="mt-2 text-sm">My video presentation on 'The Giver'</p>
@@ -480,7 +480,7 @@ export default function StudentLedConferenceTool() {
                   </div>
                 </div>
                 
-                <div className="mt-8 text-center">
+                <div className="mt-8 text-centre">
                   <p className="font-medium mb-2">Questions or Comments?</p>
                   <p className="text-sm text-muted-foreground">I'd be happy to discuss any aspect of my learning in more detail.</p>
                 </div>

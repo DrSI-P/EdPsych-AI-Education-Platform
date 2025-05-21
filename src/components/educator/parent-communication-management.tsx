@@ -249,7 +249,7 @@ export function ParentCommunicationManagement() {
       </CardHeader>
       <CardContent>
         <div className="mb-4">
-          <div className="flex items-center space-x-2 mb-4">
+          <div className="flex items-centre space-x-2 mb-4">
             <Search className="h-4 w-4 text-muted-foreground" />
             <Input 
               placeholder="Search templates..." 
@@ -290,7 +290,7 @@ export function ParentCommunicationManagement() {
               </div>
             ))}
             {filteredTemplates.length === 0 && (
-              <div className="text-center py-4 text-muted-foreground">
+              <div className="text-centre py-4 text-muted-foreground">
                 No templates match your search criteria
               </div>
             )}
@@ -398,7 +398,7 @@ export function ParentCommunicationManagement() {
                 {filteredStudents.map(student => (
                   <div 
                     key={student.id}
-                    className="flex items-center p-2 hover:bg-accent cursor-pointer"
+                    className="flex items-centre p-2 hover:bg-accent cursor-pointer"
                     onClick={() => handleStudentSelect(student.id)}
                   >
                     <input 
@@ -414,7 +414,7 @@ export function ParentCommunicationManagement() {
                   </div>
                 ))}
                 {filteredStudents.length === 0 && (
-                  <div className="p-4 text-center text-muted-foreground">
+                  <div className="p-4 text-centre text-muted-foreground">
                     No students match your search
                   </div>
                 )}
@@ -552,13 +552,13 @@ export function ParentCommunicationManagement() {
                   ))}
                 </div>
               ) : (
-                <div className="text-center py-8 text-muted-foreground">
+                <div className="text-centre py-8 text-muted-foreground">
                   No communication history found
                 </div>
               )}
             </div>
           ) : (
-            <div className="text-center py-12 text-muted-foreground">
+            <div className="text-centre py-12 text-muted-foreground">
               Select a student to view their communication history
             </div>
           )}
@@ -621,7 +621,7 @@ export function ParentCommunicationManagement() {
           <CardContent>
             <div className="text-2xl font-bold">83%</div>
             <p className="text-xs text-muted-foreground">+12% from last term</p>
-            <div className="mt-4 flex items-center">
+            <div className="mt-4 flex items-centre">
               <span className="text-xs text-muted-foreground w-20">High</span>
               <div className="flex-1 h-2 bg-green-500 rounded-l-full"></div>
               <div className="flex-1 h-2 bg-yellow-500"></div>
@@ -643,7 +643,7 @@ export function ParentCommunicationManagement() {
               <h4 className="text-sm font-medium mb-2">Communication by Category</h4>
               <div className="space-y-2">
                 {templateCategories.map((category, index) => (
-                  <div key={category.id} className="flex items-center">
+                  <div key={category.id} className="flex items-centre">
                     <span className="text-sm w-40">{category.name}</span>
                     <div className="flex-1 h-2 bg-muted rounded-full overflow-hidden">
                       <div 
@@ -662,19 +662,19 @@ export function ParentCommunicationManagement() {
             <div>
               <h4 className="text-sm font-medium mb-2">Response Time Analysis</h4>
               <div className="grid grid-cols-4 gap-2">
-                <div className="p-3 bg-muted rounded-md text-center">
+                <div className="p-3 bg-muted rounded-md text-centre">
                   <div className="text-2xl font-bold">4.2h</div>
                   <div className="text-xs text-muted-foreground">Average Response Time</div>
                 </div>
-                <div className="p-3 bg-muted rounded-md text-center">
+                <div className="p-3 bg-muted rounded-md text-centre">
                   <div className="text-2xl font-bold">83%</div>
                   <div className="text-xs text-muted-foreground">Same-Day Response</div>
                 </div>
-                <div className="p-3 bg-muted rounded-md text-center">
+                <div className="p-3 bg-muted rounded-md text-centre">
                   <div className="text-2xl font-bold">12%</div>
                   <div className="text-xs text-muted-foreground">Next-Day Response</div>
                 </div>
-                <div className="p-3 bg-muted rounded-md text-center">
+                <div className="p-3 bg-muted rounded-md text-centre">
                   <div className="text-2xl font-bold">5%</div>
                   <div className="text-xs text-muted-foreground">Delayed Response</div>
                 </div>
@@ -718,14 +718,14 @@ export function ParentCommunicationManagement() {
   
   return (
     <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-centre sm:justify-between gap-4">
         <div>
           <h2 className="text-3xl font-bold tracking-tight">Parent Communication</h2>
           <p className="text-muted-foreground">
             Manage and streamline communications with parents and guardians
           </p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-centre gap-2">
           <Button variant="outline" size="sm">
             <Download className="h-4 w-4 mr-2" />
             Export

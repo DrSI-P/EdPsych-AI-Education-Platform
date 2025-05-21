@@ -116,7 +116,7 @@ export default function DigitalTwinCompanionPage() {
       if (inputMessage.toLowerCase().includes('planet')) {
         response = "The planetary motion concepts are fascinating! Johannes Kepler's laws describe how planets move in elliptical orbits. Would you like me to explain more about elliptical orbits or move on to gravitational forces?";
       } else if (inputMessage.toLowerCase().includes('math') || inputMessage.toLowerCase().includes('formula')) {
-        response = "I've noticed mathematical formulas are sometimes challenging for you. Let's try a visual approach to understand them. For example, we can visualize the formula for gravitational force as two objects pulling on each other with invisible strings.";
+        response = "I've noticed mathematical formulas are sometimes challenging for you. Let's try a visual approach to understand them. For example, we can visualise the formula for gravitational force as two objects pulling on each other with invisible strings.";
       } else if (inputMessage.toLowerCase().includes('help') || inputMessage.toLowerCase().includes('stuck')) {
         response = "I'm here to help! Based on your learning profile, you learn best with visual examples. Let me create a diagram to explain this concept. Also, remember that you excel at pattern recognition - try to connect this with patterns you've seen before.";
       } else if (inputMessage.toLowerCase().includes('robot') || inputMessage.toLowerCase().includes('code')) {
@@ -220,7 +220,7 @@ export default function DigitalTwinCompanionPage() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-center mb-12"
+        className="text-centre mb-12"
       >
         <h1 className="text-4xl font-bold tracking-tight">Digital Twin Learning Companion</h1>
         <p className="mt-4 text-xl text-muted-foreground max-w-3xl mx-auto">
@@ -238,7 +238,7 @@ export default function DigitalTwinCompanionPage() {
         >
           <Card className="h-full">
             <CardContent className="p-6">
-              <div className="flex flex-col items-center mb-6">
+              <div className="flex flex-col items-centre mb-6">
                 <div className="relative">
                   <Avatar className="h-32 w-32 mb-4">
                     <AvatarImage src={companionAvatar} alt={companion.name} />
@@ -249,7 +249,7 @@ export default function DigitalTwinCompanionPage() {
                   </div>
                 </div>
                 <h2 className="text-2xl font-semibold">{companion.name}</h2>
-                <div className="flex items-center gap-1 text-muted-foreground">
+                <div className="flex items-centre gap-1 text-muted-foreground">
                   <span>Level {companion.level}</span>
                   <span>•</span>
                   <span>{companion.mood.charAt(0).toUpperCase() + companion.mood.slice(1)}</span>
@@ -265,7 +265,7 @@ export default function DigitalTwinCompanionPage() {
                   <Progress value={companion.experience} className="h-2" />
                 </div>
                 
-                <div className="grid grid-cols-2 gap-4 text-center">
+                <div className="grid grid-cols-2 gap-4 text-centre">
                   <div className="bg-primary/10 rounded-lg p-3">
                     <div className="text-2xl font-semibold">{companion.insightCount}</div>
                     <div className="text-xs text-muted-foreground">Insights</div>
@@ -277,11 +277,11 @@ export default function DigitalTwinCompanionPage() {
                 </div>
                 
                 <div className="bg-muted/50 rounded-lg p-4">
-                  <div className="flex items-center gap-2 mb-2">
+                  <div className="flex items-centre gap-2 mb-2">
                     <Clock className="h-4 w-4 text-muted-foreground" />
                     <span className="text-sm font-medium">Learning Streak</span>
                   </div>
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <span className="text-2xl font-bold">{companion.streak} days</span>
                     <Badge variant="outline" className="text-xs">
                       {companion.streak >= 7 ? 'On Fire! 🔥' : 'Keep Going!'}
@@ -302,7 +302,7 @@ export default function DigitalTwinCompanionPage() {
                     </Button>
                     <Button variant="outline" className="w-full justify-start">
                       <Layers className="mr-2 h-4 w-4" />
-                      Customize Appearance
+                      Customise Appearance
                     </Button>
                   </div>
                 </div>
@@ -328,7 +328,7 @@ export default function DigitalTwinCompanionPage() {
             <TabsContent value="dashboard" className="mt-6">
               <Card>
                 <CardContent className="p-6">
-                  <h2 className="text-2xl font-semibold mb-6 flex items-center">
+                  <h2 className="text-2xl font-semibold mb-6 flex items-centre">
                     <BarChart4 className="mr-2 h-5 w-5 text-primary" />
                     Learning Dashboard
                   </h2>
@@ -432,7 +432,7 @@ export default function DigitalTwinCompanionPage() {
             <TabsContent value="conversation" className="mt-6">
               <Card className="h-[600px] flex flex-col">
                 <CardContent className="p-6 flex-grow overflow-hidden flex flex-col">
-                  <h2 className="text-2xl font-semibold mb-6 flex items-center">
+                  <h2 className="text-2xl font-semibold mb-6 flex items-centre">
                     <MessageSquare className="mr-2 h-5 w-5 text-primary" />
                     Conversation with {companion.name}
                   </h2>
@@ -492,7 +492,7 @@ export default function DigitalTwinCompanionPage() {
             <TabsContent value="learning-profile" className="mt-6">
               <Card>
                 <CardContent className="p-6">
-                  <h2 className="text-2xl font-semibold mb-6 flex items-center">
+                  <h2 className="text-2xl font-semibold mb-6 flex items-centre">
                     <User className="mr-2 h-5 w-5 text-primary" />
                     Your Learning Profile
                   </h2>
@@ -563,7 +563,7 @@ export default function DigitalTwinCompanionPage() {
                         <h3 className="text-lg font-medium mb-3">Motivation Factors</h3>
                         <ul className="space-y-2">
                           {learningProfile.motivationFactors.map((factor, index) => (
-                            <li key={index} className="flex items-center gap-2">
+                            <li key={index} className="flex items-centre gap-2">
                               <div className="bg-primary/10 p-1 rounded-full">
                                 <Zap className="h-3 w-3 text-primary" />
                               </div>
@@ -623,35 +623,35 @@ export default function DigitalTwinCompanionPage() {
         transition={{ delay: 0.6, duration: 0.5 }}
         className="mb-12"
       >
-        <h2 className="text-3xl font-semibold mb-6 text-center">How It Works</h2>
+        <h2 className="text-3xl font-semibold mb-6 text-centre">How It Works</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <Card>
-            <CardContent className="p-6 text-center">
+            <CardContent className="p-6 text-centre">
               <div className="bg-primary/10 p-3 rounded-full w-fit mx-auto mb-4">
                 <Brain className="h-6 w-6 text-primary" />
               </div>
               <h3 className="text-xl font-semibold mb-2">Learning Profile Analysis</h3>
               <p className="text-muted-foreground">
-                Your digital twin builds a sophisticated learning profile by analyzing your interactions, preferences, strengths, challenges, and learning patterns over time.
+                Your digital twin builds a sophisticated learning profile by analysing your interactions, preferences, strengths, challenges, and learning patterns over time.
               </p>
             </CardContent>
           </Card>
           
           <Card>
-            <CardContent className="p-6 text-center">
+            <CardContent className="p-6 text-centre">
               <div className="bg-primary/10 p-3 rounded-full w-fit mx-auto mb-4">
                 <Sparkles className="h-6 w-6 text-primary" />
               </div>
               <h3 className="text-xl font-semibold mb-2">Personalized Guidance</h3>
               <p className="text-muted-foreground">
-                Using your unique learning profile, your companion provides tailored recommendations, explanations, and support strategies optimized for your specific learning needs.
+                Using your unique learning profile, your companion provides tailored recommendations, explanations, and support strategies optimised for your specific learning needs.
               </p>
             </CardContent>
           </Card>
           
           <Card>
-            <CardContent className="p-6 text-center">
+            <CardContent className="p-6 text-centre">
               <div className="bg-primary/10 p-3 rounded-full w-fit mx-auto mb-4">
                 <LineChart className="h-6 w-6 text-primary" />
               </div>
@@ -670,7 +670,7 @@ export default function DigitalTwinCompanionPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.8, duration: 0.5 }}
       >
-        <h2 className="text-3xl font-semibold mb-6 text-center">Benefits</h2>
+        <h2 className="text-3xl font-semibold mb-6 text-centre">Benefits</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Card>

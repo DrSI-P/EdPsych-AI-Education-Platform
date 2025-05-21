@@ -8,7 +8,7 @@ The Student-Led Conference and Goal Setting Tools expand the Student Voice Ampli
 
 ### 1. Student-Led Conference Tools
 
-Student-led conferences shift the traditional parent-teacher conference model to place students at the center of the conversation about their learning. These tools provide digital support for this evidence-based practice.
+Student-led conferences shift the traditional parent-teacher conference model to place students at the centre of the conversation about their learning. These tools provide digital support for this evidence-based practise.
 
 #### Features:
 
@@ -30,7 +30,7 @@ The goal setting tools facilitate meaningful collaboration between students, tea
 - **Progress Tracking**: Visual indicators of advancement toward goals
 - **Milestone Celebration**: Recognition of achievements along the journey
 - **Reflection and Adjustment**: Tools to review and modify goals as needed
-- **Goal Categories**: Academic, social-emotional, behavioral, and personal growth areas
+- **Goal Categories**: Academic, social-emotional, behavioural, and personal growth areas
 
 ## Technical Implementation
 
@@ -146,7 +146,7 @@ model Goal {
   id          String   @id @default(cuid())
   title       String
   description String   @db.Text
-  category    String   // "academic", "social", "behavioral", "personal"
+  category    String   // "academic", "social", "behavioural", "personal"
   status      String   // "active", "achieved", "abandoned"
   dueDate     DateTime?
   studentId   String
@@ -206,7 +206,7 @@ The Student-Led Conference and Goal Setting Tools are grounded in several eviden
 
 ### 4. Home-School Partnership
 
-- **Ecological Systems Theory**: Recognizing the importance of alignment between home and school
+- **Ecological Systems Theory**: Recognising the importance of alignment between home and school
 - **Family Engagement**: Structured involvement of parents/guardians in educational process
 - **Communication Bridges**: Creating shared understanding of student progress
 
@@ -255,7 +255,7 @@ The tools prioritize accessibility and inclusivity through:
 
 4. **Universal Design**:
    - Keyboard navigation and screen reader compatibility
-   - Color contrast and text sizing considerations
+   - Colour contrast and text sizing considerations
    - Consistent, predictable interface patterns
 
 ## User Experience Considerations
@@ -272,7 +272,7 @@ The tools are designed with careful attention to user experience:
    - Clear instructions and examples
    - Preview options before sharing or finalizing
 
-3. **Progress Visualization**:
+3. **Progress Visualisation**:
    - Visual indicators of completion status
    - Celebration of achievements
    - Timeline views of growth over time
@@ -286,7 +286,7 @@ The tools are designed with careful attention to user experience:
 
 Planned future enhancements include:
 
-1. **Impact Visualization Tools**:
+1. **Impact Visualisation Tools**:
    - Analytics showing connections between goals and outcomes
    - Visual representations of growth over time
    - Evidence-based impact of student voice on learning

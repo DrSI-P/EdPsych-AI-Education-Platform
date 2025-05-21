@@ -226,7 +226,7 @@ export const AIAvatarVideoPlayer: React.FC<AIAvatarVideoPlayerProps> = ({
           {/* Progress bar */}
           <div 
             ref={progressBarRef}
-            className="progress-bar h-1 bg-gray-500 rounded-full mb-2 cursor-pointer"
+            className="progress-bar h-1 bg-grey-500 rounded-full mb-2 cursor-pointer"
             onClick={handleProgressBarClick}
           >
             <div 
@@ -235,8 +235,8 @@ export const AIAvatarVideoPlayer: React.FC<AIAvatarVideoPlayerProps> = ({
             />
           </div>
           
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
+          <div className="flex items-centre justify-between">
+            <div className="flex items-centre space-x-2">
               {/* Play/Pause button */}
               <Button 
                 variant="ghost" 
@@ -286,7 +286,7 @@ export const AIAvatarVideoPlayer: React.FC<AIAvatarVideoPlayerProps> = ({
               </span>
             </div>
             
-            <div className="flex items-center space-x-2">
+            <div className="flex items-centre space-x-2">
               {/* Settings button */}
               <Button 
                 variant="ghost" 

@@ -150,7 +150,7 @@ export function ContextualResourceRecommendation({
       {
         id: 'rec-2',
         title: 'Equivalent Fractions Interactive Game',
-        description: 'An engaging digital game that helps students practice identifying equivalent fractions through visual comparisons.',
+        description: 'An engaging digital game that helps students practise identifying equivalent fractions through visual comparisons.',
         type: 'link',
         url: 'https://example.com/games/equivalent-fractions',
         tags: ['mathematics', 'fractions', 'interactive', 'game', 'primary'],
@@ -211,7 +211,7 @@ export function ContextualResourceRecommendation({
         tags: ['SEND', 'communication', 'strategies', 'inclusion'],
         ageRange: 'all',
         subject: 'special educational needs',
-        curriculum: 'UK SEND Code of Practice',
+        curriculum: 'UK SEND Code of Practise',
         relevanceScore: 0.94,
         relevanceReason: 'Directly addresses communication difficulties mentioned in EHCNA meeting',
         createdAt: '2025-01-15T12:00:00Z',
@@ -226,7 +226,7 @@ export function ContextualResourceRecommendation({
         tags: ['social skills', 'SEMH', 'activities', 'inclusion'],
         ageRange: 'all',
         subject: 'special educational needs',
-        curriculum: 'UK SEND Code of Practice',
+        curriculum: 'UK SEND Code of Practise',
         relevanceScore: 0.91,
         relevanceReason: 'Provides practical activities to address social interaction challenges',
         createdAt: '2025-02-10T14:30:00Z',
@@ -241,7 +241,7 @@ export function ContextualResourceRecommendation({
         tags: ['visual supports', 'communication', 'SEND', 'classroom strategies'],
         ageRange: 'all',
         subject: 'special educational needs',
-        curriculum: 'UK SEND Code of Practice',
+        curriculum: 'UK SEND Code of Practise',
         relevanceScore: 0.85,
         relevanceReason: 'Visual supports can help address communication difficulties',
         createdAt: '2025-03-05T09:15:00Z',
@@ -447,7 +447,7 @@ export function ContextualResourceRecommendation({
     <div className={`contextual-resource-recommendation ${className}`}>
       <Card>
         <CardHeader>
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-centre">
             <div>
               <CardTitle>Resource Recommendations</CardTitle>
               <CardDescription>
@@ -457,7 +457,7 @@ export function ContextualResourceRecommendation({
                 {contextSource === 'manual' && 'Custom resource recommendations'}
               </CardDescription>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-centre gap-2">
               <Button 
                 variant="outline" 
                 size="sm"
@@ -533,7 +533,7 @@ export function ContextualResourceRecommendation({
               </div>
               
               {isLoading ? (
-                <div className="flex justify-center py-8">
+                <div className="flex justify-centre py-8">
                   <Spinner size="lg" />
                 </div>
               ) : error ? (
@@ -541,7 +541,7 @@ export function ContextualResourceRecommendation({
                   {error}
                 </div>
               ) : sortedResources.length === 0 ? (
-                <div className="text-center py-8 text-gray-500">
+                <div className="text-centre py-8 text-grey-500">
                   <p>No recommendations available.</p>
                   <p className="text-sm mt-2">Try changing your context or using manual search.</p>
                 </div>
@@ -549,8 +549,8 @@ export function ContextualResourceRecommendation({
                 <div className="space-y-4">
                   {sortedResources.map(resource => (
                     <Card key={resource.id} className="overflow-hidden">
-                      <div className="flex items-center justify-between p-4 bg-muted/30">
-                        <div className="flex items-center gap-2">
+                      <div className="flex items-centre justify-between p-4 bg-muted/30">
+                        <div className="flex items-centre gap-2">
                           <div className="bg-primary/10 p-2 rounded-full">
                             {resourceTypeIcons[resource.type]}
                           </div>
@@ -559,8 +559,8 @@ export function ContextualResourceRecommendation({
                             <p className="text-sm text-muted-foreground">{resource.subject} | {resource.ageRange}</p>
                           </div>
                         </div>
-                        <div className="flex items-center gap-1">
-                          <Badge variant="outline" className="flex items-center gap-1">
+                        <div className="flex items-centre gap-1">
+                          <Badge variant="outline" className="flex items-centre gap-1">
                             <Star className="h-3 w-3 fill-yellow-400 stroke-yellow-400" />
                             {(resource.relevanceScore || 0) * 100}%
                           </Badge>
@@ -678,7 +678,7 @@ export function ContextualResourceRecommendation({
                               <CardTitle className="text-base">{resource.title}</CardTitle>
                               <CardDescription>{resource.subject} | {resource.ageRange}</CardDescription>
                             </div>
-                            <div className="flex items-center">
+                            <div className="flex items-centre">
                               {resourceTypeIcons[resource.type]}
                             </div>
                           </div>

@@ -54,21 +54,21 @@ export default function SignInPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="flex min-h-screen items-centre justify-centre bg-grey-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <div className="flex justify-center mb-4">
+        <div className="text-centre mb-8">
+          <div className="flex justify-centre mb-4">
             <div className="w-20 h-20 relative">
               <div className="absolute inset-0 bg-blue-600 rounded-full opacity-10"></div>
-              <div className="absolute inset-0 flex items-center justify-center">
+              <div className="absolute inset-0 flex items-centre justify-centre">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4" />
                 </svg>
               </div>
             </div>
           </div>
-          <h1 className="text-3xl font-bold text-gray-900">Sign in to EdPsych</h1>
-          <p className="mt-2 text-gray-600">
+          <h1 className="text-3xl font-bold text-grey-900">Sign in to EdPsych</h1>
+          <p className="mt-2 text-grey-600">
             Access your personalised learning experience
           </p>
         </div>
@@ -85,7 +85,7 @@ export default function SignInPage() {
               <Button
                 type="button"
                 variant="outline"
-                className="w-full flex items-center justify-center gap-3"
+                className="w-full flex items-centre justify-centre gap-3"
                 onClick={() => handleSocialSignIn('google')}
                 disabled={loading}
               >
@@ -101,7 +101,7 @@ export default function SignInPage() {
               <Button
                 type="button"
                 variant="outline"
-                className="w-full flex items-center justify-center gap-3"
+                className="w-full flex items-centre justify-centre gap-3"
                 onClick={() => handleSocialSignIn('github')}
                 disabled={loading}
               >
@@ -112,17 +112,17 @@ export default function SignInPage() {
               </Button>
               
               <div className="relative">
-                <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-gray-300"></div>
+                <div className="absolute inset-0 flex items-centre">
+                  <div className="w-full border-t border-grey-300"></div>
                 </div>
-                <div className="relative flex justify-center text-sm">
-                  <span className="px-2 bg-white text-gray-500">Or continue with</span>
+                <div className="relative flex justify-centre text-sm">
+                  <span className="px-2 bg-white text-grey-500">Or continue with</span>
                 </div>
               </div>
               
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label htmlFor="email" className="block text-sm font-medium text-grey-700 mb-1">
                     Email Address
                   </label>
                   <Input
@@ -137,8 +137,8 @@ export default function SignInPage() {
                 </div>
                 
                 <div>
-                  <div className="flex items-center justify-between mb-1">
-                    <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                  <div className="flex items-centre justify-between mb-1">
+                    <label htmlFor="password" className="block text-sm font-medium text-grey-700">
                       Password
                     </label>
                     <Link href="/auth/reset-password" className="text-sm text-blue-600 hover:text-blue-500">
@@ -169,8 +169,8 @@ export default function SignInPage() {
               </form>
             </div>
           </CardContent>
-          <CardFooter className="flex justify-center border-t pt-6">
-            <p className="text-sm text-gray-600">
+          <CardFooter className="flex justify-centre border-t pt-6">
+            <p className="text-sm text-grey-600">
               Don't have an account?{' '}
               <Link href="/auth/signup" className="font-medium text-blue-600 hover:text-blue-500">
                 Sign up
@@ -179,7 +179,7 @@ export default function SignInPage() {
           </CardFooter>
         </Card>
         
-        <div className="mt-6 text-center text-sm text-gray-500">
+        <div className="mt-6 text-centre text-sm text-grey-500">
           <p>
             By signing in, you agree to our{' '}
             <a href="#" className="font-medium text-blue-600 hover:text-blue-500">Terms of Service</a>{' '}

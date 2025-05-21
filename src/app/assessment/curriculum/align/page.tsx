@@ -151,7 +151,7 @@ export default function AlignAssessmentPage() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
+      <div className="flex justify-centre items-centre min-h-screen">
         <Spinner size="large" />
       </div>
     );
@@ -175,8 +175,8 @@ export default function AlignAssessmentPage() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-6">
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-gray-900">Align Assessments to Curriculum Standard</h1>
+        <div className="flex items-centre justify-between">
+          <h1 className="text-2xl font-bold text-grey-900">Align Assessments to Curriculum Standard</h1>
           <Button
             variant="outline"
             onClick={() => router.push('/assessment/curriculum')}
@@ -194,8 +194,8 @@ export default function AlignAssessmentPage() {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <div className="flex items-center mb-2">
-                  <span className="font-mono text-sm bg-gray-100 px-2 py-1 rounded mr-2">
+                <div className="flex items-centre mb-2">
+                  <span className="font-mono text-sm bg-grey-100 px-2 py-1 rounded mr-2">
                     {standard.code}
                   </span>
                 </div>
@@ -204,21 +204,21 @@ export default function AlignAssessmentPage() {
                 
                 <div className="grid grid-cols-1 gap-2 text-sm">
                   <div>
-                    <span className="text-gray-500">Subject:</span>{' '}
+                    <span className="text-grey-500">Subject:</span>{' '}
                     <span className="font-medium">{standard.subject}</span>
                   </div>
                   <div>
-                    <span className="text-gray-500">Key Stage:</span>{' '}
+                    <span className="text-grey-500">Key Stage:</span>{' '}
                     <span className="font-medium">{standard.keyStage}</span>
                   </div>
                   {standard.year && (
                     <div>
-                      <span className="text-gray-500">Year:</span>{' '}
+                      <span className="text-grey-500">Year:</span>{' '}
                       <span className="font-medium">{standard.year}</span>
                     </div>
                   )}
                   <div>
-                    <span className="text-gray-500">Category:</span>{' '}
+                    <span className="text-grey-500">Category:</span>{' '}
                     <span className="font-medium">{standard.category}</span>
                   </div>
                 </div>
@@ -231,7 +231,7 @@ export default function AlignAssessmentPage() {
           <Card>
             <CardHeader>
               <h2 className="text-xl font-semibold">Select Assessments</h2>
-              <p className="text-gray-600">
+              <p className="text-grey-600">
                 Choose assessments to align with this curriculum standard.
               </p>
             </CardHeader>
@@ -240,15 +240,15 @@ export default function AlignAssessmentPage() {
                 <input
                   type="text"
                   placeholder="Search assessments..."
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                  className="w-full px-4 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
               </div>
               
               {filteredAssessments.length === 0 ? (
-                <div className="text-center py-6">
-                  <p className="text-gray-500">
+                <div className="text-centre py-6">
+                  <p className="text-grey-500">
                     No assessments found matching this subject and key stage.
                   </p>
                 </div>
@@ -260,7 +260,7 @@ export default function AlignAssessmentPage() {
                       className={`border rounded-md p-4 cursor-pointer transition-all ${
                         selectedAssessments.includes(assessment.id) 
                           ? 'border-indigo-500 bg-indigo-50' 
-                          : 'hover:border-gray-300'
+                          : 'hover:border-grey-300'
                       }`}
                       onClick={() => handleToggleAssessment(assessment.id)}
                     >
@@ -268,22 +268,22 @@ export default function AlignAssessmentPage() {
                         <div>
                           <h3 className="font-medium">{assessment.title}</h3>
                           {assessment.description && (
-                            <p className="text-sm text-gray-600 mt-1">{assessment.description}</p>
+                            <p className="text-sm text-grey-600 mt-1">{assessment.description}</p>
                           )}
-                          <div className="flex items-center mt-2 text-xs text-gray-500">
+                          <div className="flex items-centre mt-2 text-xs text-grey-500">
                             <span className="mr-2">{assessment.type}</span>
                             <span className="mr-2">•</span>
                             <span>{assessment.questionCount} questions</span>
                           </div>
                         </div>
                         
-                        <div className="flex items-center">
+                        <div className="flex items-centre">
                           <input
                             type="checkbox"
                             checked={selectedAssessments.includes(assessment.id)}
                             onChange={() => {}} // Handled by the div click
                             onClick={(e) => e.stopPropagation()}
-                            className="h-5 w-5 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                            className="h-5 w-5 text-indigo-600 focus:ring-indigo-500 border-grey-300 rounded"
                           />
                         </div>
                       </div>
@@ -293,8 +293,8 @@ export default function AlignAssessmentPage() {
               )}
             </CardContent>
             <CardFooter>
-              <div className="flex justify-between items-center w-full">
-                <div className="text-sm text-gray-500">
+              <div className="flex justify-between items-centre w-full">
+                <div className="text-sm text-grey-500">
                   {selectedAssessments.length} assessment(s) selected
                 </div>
                 <div className="flex space-x-3">

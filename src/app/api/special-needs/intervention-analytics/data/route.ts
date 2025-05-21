@@ -98,7 +98,7 @@ export async function POST(req: NextRequest) {
       if (userData) {
         // Process intervention data
         // This would be more complex in a real implementation,
-        // analyzing the effectiveness of interventions based on monitoring data
+        // analysing the effectiveness of interventions based on monitoring data
         
         // For now, we'll return a simplified analytics response
         // In a real implementation, this would involve statistical analysis

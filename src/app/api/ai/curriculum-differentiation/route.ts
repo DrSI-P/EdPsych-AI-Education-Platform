@@ -69,7 +69,7 @@ export async function POST(req: NextRequest) {
     
     // Create prompt for curriculum differentiation
     const prompt = `
-      You are an expert educational psychologist specializing in curriculum differentiation and personalized learning.
+      You are an expert educational psychologist specialising in curriculum differentiation and personalized learning.
       
       Task: Create differentiated curriculum content based on the following curriculum and settings.
       

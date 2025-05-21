@@ -31,7 +31,7 @@ export default function DataVisualisationPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <p>
-                The Data Visualisation Dashboard transforms complex educational data into intuitive, interactive visualisations that support evidence-based decision-making. This comprehensive analytics solution provides educators, administrators, and other stakeholders with powerful insights across all aspects of educational practice.
+                The Data Visualisation Dashboard transforms complex educational data into intuitive, interactive visualisations that support evidence-based decision-making. This comprehensive analytics solution provides educators, administrators, and other stakeholders with powerful insights across all aspects of educational practise.
               </p>
               
               <h3 className="text-lg font-medium mt-4">Key Benefits</h3>
@@ -64,7 +64,7 @@ export default function DataVisualisationPage() {
               
               <h3 className="text-lg font-medium mt-4">Educational Psychology Foundations</h3>
               <p>
-                This dashboard is grounded in established educational psychology principles including data-informed practice, growth mindset, metacognitive awareness, differentiated instruction, and ecological systems perspective. By making complex data accessible and actionable, the dashboard supports educators in implementing evidence-based approaches tailored to diverse student needs.
+                This dashboard is grounded in established educational psychology principles including data-informed practise, growth mindset, metacognitive awareness, differentiated instruction, and ecological systems perspective. By making complex data accessible and actionable, the dashboard supports educators in implementing evidence-based approaches tailored to diverse student needs.
               </p>
               
               <p className="mt-4">

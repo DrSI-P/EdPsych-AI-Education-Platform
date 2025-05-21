@@ -15,7 +15,7 @@ interface AdaptiveComplexityDashboardProps {
 }
 
 /**
- * Dashboard component for visualizing and managing adaptive complexity settings
+ * Dashboard component for visualising and managing adaptive complexity settings
  * 
  * This component provides a comprehensive view of a user's learning profile,
  * including subject preferences, skill areas, and complexity recommendations.
@@ -92,7 +92,7 @@ export const AdaptiveComplexityDashboard: React.FC<AdaptiveComplexityDashboardPr
                   confidenceScore: 0.75,
                   performanceHistory: [],
                   strengths: ['Sentence structure', 'Creativity'],
-                  areasForImprovement: ['Grammar', 'Organization']
+                  areasForImprovement: ['Grammar', 'Organisation']
                 }
               }
             },
@@ -188,11 +188,11 @@ export const AdaptiveComplexityDashboard: React.FC<AdaptiveComplexityDashboardPr
     return (
       <div className={`p-6 border rounded-lg shadow-sm ${className}`}>
         <div className="animate-pulse">
-          <div className="h-6 bg-gray-200 rounded w-1/4 mb-4"></div>
-          <div className="h-10 bg-gray-200 rounded mb-6"></div>
+          <div className="h-6 bg-grey-200 rounded w-1/4 mb-4"></div>
+          <div className="h-10 bg-grey-200 rounded mb-6"></div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="h-40 bg-gray-200 rounded"></div>
-            <div className="h-40 bg-gray-200 rounded"></div>
+            <div className="h-40 bg-grey-200 rounded"></div>
+            <div className="h-40 bg-grey-200 rounded"></div>
           </div>
         </div>
       </div>
@@ -217,15 +217,15 @@ export const AdaptiveComplexityDashboard: React.FC<AdaptiveComplexityDashboardPr
 
   return (
     <div className={`p-6 border rounded-lg shadow-sm ${className}`}>
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between items-centre mb-6">
         <h2 className="text-2xl font-bold">Learning Complexity Dashboard</h2>
-        <div className="flex items-center space-x-2">
+        <div className="flex items-centre space-x-2">
           <button
             onClick={() => setViewMode('student')}
             className={`px-3 py-1 rounded-md ${
               viewMode === 'student' 
                 ? 'bg-blue-500 text-white' 
-                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                : 'bg-grey-200 text-grey-700 hover:bg-grey-300'
             }`}
           >
             Student View
@@ -235,7 +235,7 @@ export const AdaptiveComplexityDashboard: React.FC<AdaptiveComplexityDashboardPr
             className={`px-3 py-1 rounded-md ${
               viewMode === 'educator' 
                 ? 'bg-blue-500 text-white' 
-                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                : 'bg-grey-200 text-grey-700 hover:bg-grey-300'
             }`}
           >
             Educator View
@@ -308,10 +308,10 @@ export const AdaptiveComplexityDashboard: React.FC<AdaptiveComplexityDashboardPr
               </h3>
 
               {/* Current Status */}
-              <div className="bg-gray-50 p-4 rounded-lg mb-4">
+              <div className="bg-grey-50 p-4 rounded-lg mb-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <p className="text-sm text-gray-500">Current Level</p>
+                    <p className="text-sm text-grey-500">Current Level</p>
                     <p className="text-lg font-medium">
                       {formatComplexityLevel(
                         currentSkillProfile 
@@ -321,7 +321,7 @@ export const AdaptiveComplexityDashboard: React.FC<AdaptiveComplexityDashboardPr
                     </p>
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500">Recommended Level</p>
+                    <p className="text-sm text-grey-500">Recommended Level</p>
                     <p className="text-lg font-medium">
                       {formatComplexityLevel(
                         currentSkillProfile 
@@ -331,9 +331,9 @@ export const AdaptiveComplexityDashboard: React.FC<AdaptiveComplexityDashboardPr
                     </p>
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500">Confidence Score</p>
-                    <div className="flex items-center">
-                      <div className="w-full bg-gray-200 rounded-full h-2 mr-2">
+                    <p className="text-sm text-grey-500">Confidence Score</p>
+                    <div className="flex items-centre">
+                      <div className="w-full bg-grey-200 rounded-full h-2 mr-2">
                         <div
                           className="bg-blue-600 h-2 rounded-full"
                           style={{ 
@@ -351,7 +351,7 @@ export const AdaptiveComplexityDashboard: React.FC<AdaptiveComplexityDashboardPr
                     </div>
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500">Last Updated</p>
+                    <p className="text-sm text-grey-500">Last Updated</p>
                     <p className="text-sm">
                       {profile.lastUpdated.toLocaleDateString()}
                     </p>
@@ -391,7 +391,7 @@ export const AdaptiveComplexityDashboard: React.FC<AdaptiveComplexityDashboardPr
                     <ul className="list-disc pl-5 text-sm">
                       {currentSkillProfile ? (
                         <>
-                          <li>Provide additional practice in {currentSkillProfile.areasForImprovement[0] || 'relevant skills'}</li>
+                          <li>Provide additional practise in {currentSkillProfile.areasForImprovement[0] || 'relevant skills'}</li>
                           <li>Consider peer learning opportunities to leverage strengths in {currentSkillProfile.strengths[0] || 'core areas'}</li>
                           <li>Implement scaffolded activities that gradually increase in complexity</li>
                         </>
@@ -426,7 +426,7 @@ export const AdaptiveComplexityDashboard: React.FC<AdaptiveComplexityDashboardPr
                     <ul className="list-disc pl-5 text-sm">
                       {currentSkillProfile ? (
                         <>
-                          <li>Practice {currentSkillProfile.areasForImprovement[0] || 'key skills'} with interactive activities</li>
+                          <li>Practise {currentSkillProfile.areasForImprovement[0] || 'key skills'} with interactive activities</li>
                           <li>Build on your strengths in {currentSkillProfile.strengths[0] || 'core areas'}</li>
                           <li>Try the recommended complexity level for new challenges</li>
                         </>

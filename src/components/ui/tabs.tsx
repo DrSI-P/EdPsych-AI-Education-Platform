@@ -4,6 +4,44 @@ import React, { useState } from 'react';
 import * as TabsPrimitive from '@radix-ui/react-tabs';
 import { cn } from '@/lib/utils';
 
+// Custom SimpleTabs component that accepts tabs, activeTab, and onChange props
+interface SimpleTabsProps {
+  tabs: Array<{
+    id: string;
+    label: string;
+  }>;
+  activeTab: string;
+  onChange: (value: string) => void;
+  className?: string;
+}
+
+export function SimpleTabs({ tabs, activeTab, onChange, className }: SimpleTabsProps) {
+  return (
+    <TabsPrimitive.Root
+      value={activeTab}
+      onValueChange={onChange}
+      className={className}
+    >
+      <TabsPrimitive.List className="flex border-b border-gray-200">
+        {tabs.map((tab) => (
+          <TabsPrimitive.Trigger
+            key={tab.id}
+            value={tab.id}
+            className={cn(
+              "px-4 py-2 text-sm font-medium border-b-2 -mb-px",
+              activeTab === tab.id
+                ? "border-blue-600 text-blue-600"
+                : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+            )}
+          >
+            {tab.label}
+          </TabsPrimitive.Trigger>
+        ))}
+      </TabsPrimitive.List>
+    </TabsPrimitive.Root>
+  );
+}
+
 // Radix UI based components that are imported in other files
 export const Tabs = TabsPrimitive.Root;
 
@@ -14,7 +52,7 @@ export const TabsList = React.forwardRef<
   <TabsPrimitive.List
     ref={ref}
     className={cn(
-      "inline-flex h-10 items-center justify-center rounded-md bg-muted p-1 text-muted-foreground",
+      "inline-flex h-10 items-centre justify-centre rounded-md bg-muted p-1 text-muted-foreground",
       className
     )}
     {...props}
@@ -29,7 +67,7 @@ export const TabsTrigger = React.forwardRef<
   <TabsPrimitive.Trigger
     ref={ref}
     className={cn(
-      "inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm",
+      "inline-flex items-centre justify-centre whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm",
       className
     )}
     {...props}
@@ -98,7 +136,7 @@ interface TabListProps {
 
 export function TabList({ children, className = '' }: TabListProps) {
   return (
-    <div className={`flex border-b border-gray-200 ${className}`} role="tablist">
+    <div className={`flex border-b border-grey-200 ${className}`} role="tablist">
       {children}
     </div>
   );
@@ -131,7 +169,7 @@ export function CustomTab({ children, id, className = '' }: CustomTabProps) {
         py-2 px-4 text-sm font-medium border-b-2 -mb-px
         ${isActive 
           ? 'text-blue-600 border-blue-600' 
-          : 'text-gray-500 border-transparent hover:text-gray-700 hover:border-gray-300'}
+          : 'text-grey-500 border-transparent hover:text-grey-700 hover:border-grey-300'}
         ${className}
       `}
       onClick={() => setActiveTab(id)}
@@ -210,7 +248,7 @@ interface VerticalTabListProps {
 
 export function VerticalTabList({ children, className = '' }: VerticalTabListProps) {
   return (
-    <div className={`flex flex-col border-r border-gray-200 ${className}`} role="tablist">
+    <div className={`flex flex-col border-r border-grey-200 ${className}`} role="tablist">
       {children}
     </div>
   );
@@ -243,7 +281,7 @@ export function VerticalTab({ children, id, className = '' }: VerticalTabProps) 
         py-2 px-4 text-sm font-medium text-left border-l-2 -ml-px
         ${isActive 
           ? 'text-blue-600 border-blue-600 bg-blue-50' 
-          : 'text-gray-500 border-transparent hover:text-gray-700 hover:border-gray-300'}
+          : 'text-grey-500 border-transparent hover:text-grey-700 hover:border-grey-300'}
         ${className}
       `}
       onClick={() => setActiveTab(id)}

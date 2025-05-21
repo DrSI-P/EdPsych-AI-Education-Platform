@@ -171,14 +171,14 @@ export default function AnalyticsAndReporting() {
   
   // Render dashboard header with controls
   const renderDashboardHeader = () => (
-    <div className="flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0 mb-6">
+    <div className="flex flex-col space-y-4 md:flex-row md:items-centre md:justify-between md:space-y-0 mb-6">
       <div>
         <h1 className="text-3xl font-bold tracking-tight">Analytics & Reporting</h1>
         <p className="text-muted-foreground">
           Comprehensive data insights and custom reporting tools
         </p>
       </div>
-      <div className="flex flex-col space-y-2 md:flex-row md:items-center md:space-x-2 md:space-y-0">
+      <div className="flex flex-col space-y-2 md:flex-row md:items-centre md:space-x-2 md:space-y-0">
         <Button variant="outline">
           <RefreshCw className="mr-2 h-4 w-4" />
           Refresh Data
@@ -197,9 +197,9 @@ export default function AnalyticsAndReporting() {
   
   // Render filter bar
   const renderFilterBar = () => (
-    <div className="bg-muted/50 p-4 rounded-lg flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0 mb-6">
-      <div className="flex flex-col space-y-2 md:flex-row md:items-center md:space-x-2 md:space-y-0">
-        <div className="flex items-center space-x-2">
+    <div className="bg-muted/50 p-4 rounded-lg flex flex-col space-y-4 md:flex-row md:items-centre md:justify-between md:space-y-0 mb-6">
+      <div className="flex flex-col space-y-2 md:flex-row md:items-centre md:space-x-2 md:space-y-0">
+        <div className="flex items-centre space-x-2">
           <Filter className="h-4 w-4 text-muted-foreground" />
           <span className="text-sm font-medium">Filters:</span>
         </div>
@@ -218,7 +218,7 @@ export default function AnalyticsAndReporting() {
         </Select>
         
         {showCustomDateRange && (
-          <div className="flex items-center space-x-2">
+          <div className="flex items-centre space-x-2">
             <Popover>
               <PopoverTrigger asChild>
                 <Button
@@ -270,7 +270,7 @@ export default function AnalyticsAndReporting() {
         </Select>
       </div>
       
-      <div className="flex items-center space-x-2">
+      <div className="flex items-centre space-x-2">
         <Button variant="outline" size="sm">
           <Save className="mr-2 h-4 w-4" />
           Save View
@@ -332,7 +332,7 @@ export default function AnalyticsAndReporting() {
       {/* Key metrics */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Average Progress
             </CardTitle>
@@ -350,7 +350,7 @@ export default function AnalyticsAndReporting() {
         </Card>
         
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Students Above Target
             </CardTitle>
@@ -368,7 +368,7 @@ export default function AnalyticsAndReporting() {
         </Card>
         
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Attainment Gap (PP)
             </CardTitle>
@@ -386,7 +386,7 @@ export default function AnalyticsAndReporting() {
         </Card>
         
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Intervention Impact
             </CardTitle>
@@ -561,8 +561,8 @@ export default function AnalyticsAndReporting() {
           </CardHeader>
           <CardContent className="px-2">
             <div className="space-y-4">
-              <div className="flex items-center justify-between rounded-md bg-muted p-3">
-                <div className="flex items-center space-x-3">
+              <div className="flex items-centre justify-between rounded-md bg-muted p-3">
+                <div className="flex items-centre space-x-3">
                   <AlertTriangle className="h-5 w-5 text-amber-500" />
                   <div>
                     <p className="text-sm font-medium">Alex Thompson</p>
@@ -572,8 +572,8 @@ export default function AnalyticsAndReporting() {
                 <Button variant="ghost" size="sm">View</Button>
               </div>
               
-              <div className="flex items-center justify-between rounded-md bg-muted p-3">
-                <div className="flex items-center space-x-3">
+              <div className="flex items-centre justify-between rounded-md bg-muted p-3">
+                <div className="flex items-centre space-x-3">
                   <AlertTriangle className="h-5 w-5 text-amber-500" />
                   <div>
                     <p className="text-sm font-medium">Samira Khan</p>
@@ -583,8 +583,8 @@ export default function AnalyticsAndReporting() {
                 <Button variant="ghost" size="sm">View</Button>
               </div>
               
-              <div className="flex items-center justify-between rounded-md bg-muted p-3">
-                <div className="flex items-center space-x-3">
+              <div className="flex items-centre justify-between rounded-md bg-muted p-3">
+                <div className="flex items-centre space-x-3">
                   <AlertTriangle className="h-5 w-5 text-red-500" />
                   <div>
                     <p className="text-sm font-medium">Jamie Wilson</p>
@@ -594,8 +594,8 @@ export default function AnalyticsAndReporting() {
                 <Button variant="ghost" size="sm">View</Button>
               </div>
               
-              <div className="flex items-center justify-between rounded-md bg-muted p-3">
-                <div className="flex items-center space-x-3">
+              <div className="flex items-centre justify-between rounded-md bg-muted p-3">
+                <div className="flex items-centre space-x-3">
                   <AlertTriangle className="h-5 w-5 text-amber-500" />
                   <div>
                     <p className="text-sm font-medium">Olivia Chen</p>
@@ -617,7 +617,7 @@ export default function AnalyticsAndReporting() {
       {/* Key metrics */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Teaching Effectiveness
             </CardTitle>
@@ -635,7 +635,7 @@ export default function AnalyticsAndReporting() {
         </Card>
         
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Resource Utilization
             </CardTitle>
@@ -653,7 +653,7 @@ export default function AnalyticsAndReporting() {
         </Card>
         
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Time Efficiency
             </CardTitle>
@@ -671,7 +671,7 @@ export default function AnalyticsAndReporting() {
         </Card>
         
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Professional Development
             </CardTitle>
@@ -805,8 +805,8 @@ export default function AnalyticsAndReporting() {
           </CardHeader>
           <CardContent className="px-2">
             <div className="space-y-4">
-              <div className="flex items-center justify-between rounded-md bg-muted p-3">
-                <div className="flex items-center space-x-3">
+              <div className="flex items-centre justify-between rounded-md bg-muted p-3">
+                <div className="flex items-centre space-x-3">
                   <TrendingUp className="h-5 w-5 text-blue-500" />
                   <div>
                     <p className="text-sm font-medium">Differentiation Strategies</p>
@@ -816,8 +816,8 @@ export default function AnalyticsAndReporting() {
                 <Button variant="ghost" size="sm">Explore</Button>
               </div>
               
-              <div className="flex items-center justify-between rounded-md bg-muted p-3">
-                <div className="flex items-center space-x-3">
+              <div className="flex items-centre justify-between rounded-md bg-muted p-3">
+                <div className="flex items-centre space-x-3">
                   <TrendingUp className="h-5 w-5 text-blue-500" />
                   <div>
                     <p className="text-sm font-medium">Assessment for Learning</p>
@@ -827,8 +827,8 @@ export default function AnalyticsAndReporting() {
                 <Button variant="ghost" size="sm">Explore</Button>
               </div>
               
-              <div className="flex items-center justify-between rounded-md bg-muted p-3">
-                <div className="flex items-center space-x-3">
+              <div className="flex items-centre justify-between rounded-md bg-muted p-3">
+                <div className="flex items-centre space-x-3">
                   <TrendingUp className="h-5 w-5 text-blue-500" />
                   <div>
                     <p className="text-sm font-medium">Digital Learning Tools</p>
@@ -838,8 +838,8 @@ export default function AnalyticsAndReporting() {
                 <Button variant="ghost" size="sm">Explore</Button>
               </div>
               
-              <div className="flex items-center justify-between rounded-md bg-muted p-3">
-                <div className="flex items-center space-x-3">
+              <div className="flex items-centre justify-between rounded-md bg-muted p-3">
+                <div className="flex items-centre space-x-3">
                   <TrendingUp className="h-5 w-5 text-blue-500" />
                   <div>
                     <p className="text-sm font-medium">Behaviour Management</p>
@@ -861,7 +861,7 @@ export default function AnalyticsAndReporting() {
       {/* Key metrics */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Total Resources
             </CardTitle>
@@ -879,7 +879,7 @@ export default function AnalyticsAndReporting() {
         </Card>
         
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Resource Usage
             </CardTitle>
@@ -897,7 +897,7 @@ export default function AnalyticsAndReporting() {
         </Card>
         
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Average Effectiveness
             </CardTitle>
@@ -915,7 +915,7 @@ export default function AnalyticsAndReporting() {
         </Card>
         
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Curriculum Coverage
             </CardTitle>
@@ -1052,8 +1052,8 @@ export default function AnalyticsAndReporting() {
           </CardHeader>
           <CardContent className="px-2">
             <div className="space-y-4">
-              <div className="flex items-center justify-between rounded-md bg-muted p-3">
-                <div className="flex items-center space-x-3">
+              <div className="flex items-centre justify-between rounded-md bg-muted p-3">
+                <div className="flex items-centre space-x-3">
                   <BookOpenIcon className="h-5 w-5 text-blue-500" />
                   <div>
                     <p className="text-sm font-medium">Interactive Fractions Tool</p>
@@ -1063,8 +1063,8 @@ export default function AnalyticsAndReporting() {
                 <Button variant="ghost" size="sm">View</Button>
               </div>
               
-              <div className="flex items-center justify-between rounded-md bg-muted p-3">
-                <div className="flex items-center space-x-3">
+              <div className="flex items-centre justify-between rounded-md bg-muted p-3">
+                <div className="flex items-centre space-x-3">
                   <BookOpenIcon className="h-5 w-5 text-blue-500" />
                   <div>
                     <p className="text-sm font-medium">Scientific Method Simulation</p>
@@ -1074,8 +1074,8 @@ export default function AnalyticsAndReporting() {
                 <Button variant="ghost" size="sm">View</Button>
               </div>
               
-              <div className="flex items-center justify-between rounded-md bg-muted p-3">
-                <div className="flex items-center space-x-3">
+              <div className="flex items-centre justify-between rounded-md bg-muted p-3">
+                <div className="flex items-centre space-x-3">
                   <BookOpenIcon className="h-5 w-5 text-blue-500" />
                   <div>
                     <p className="text-sm font-medium">Persuasive Writing Framework</p>
@@ -1085,8 +1085,8 @@ export default function AnalyticsAndReporting() {
                 <Button variant="ghost" size="sm">View</Button>
               </div>
               
-              <div className="flex items-center justify-between rounded-md bg-muted p-3">
-                <div className="flex items-center space-x-3">
+              <div className="flex items-centre justify-between rounded-md bg-muted p-3">
+                <div className="flex items-centre space-x-3">
                   <BookOpenIcon className="h-5 w-5 text-blue-500" />
                   <div>
                     <p className="text-sm font-medium">Historical Sources Database</p>
@@ -1108,7 +1108,7 @@ export default function AnalyticsAndReporting() {
       {/* Key metrics */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Total Assessments
             </CardTitle>
@@ -1126,7 +1126,7 @@ export default function AnalyticsAndReporting() {
         </Card>
         
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Average Reliability
             </CardTitle>
@@ -1144,7 +1144,7 @@ export default function AnalyticsAndReporting() {
         </Card>
         
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Completion Rate
             </CardTitle>
@@ -1162,7 +1162,7 @@ export default function AnalyticsAndReporting() {
         </Card>
         
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Average Score
             </CardTitle>
@@ -1272,8 +1272,8 @@ export default function AnalyticsAndReporting() {
           </CardHeader>
           <CardContent className="px-2">
             <div className="space-y-4">
-              <div className="flex items-center justify-between rounded-md bg-muted p-3">
-                <div className="flex items-center space-x-3">
+              <div className="flex items-centre justify-between rounded-md bg-muted p-3">
+                <div className="flex items-centre space-x-3">
                   <AlertTriangle className="h-5 w-5 text-amber-500" />
                   <div>
                     <p className="text-sm font-medium">Place Value in Decimals</p>
@@ -1283,8 +1283,8 @@ export default function AnalyticsAndReporting() {
                 <Button variant="ghost" size="sm">Resources</Button>
               </div>
               
-              <div className="flex items-center justify-between rounded-md bg-muted p-3">
-                <div className="flex items-center space-x-3">
+              <div className="flex items-centre justify-between rounded-md bg-muted p-3">
+                <div className="flex items-centre space-x-3">
                   <AlertTriangle className="h-5 w-5 text-amber-500" />
                   <div>
                     <p className="text-sm font-medium">Subject-Verb Agreement</p>
@@ -1294,8 +1294,8 @@ export default function AnalyticsAndReporting() {
                 <Button variant="ghost" size="sm">Resources</Button>
               </div>
               
-              <div className="flex items-center justify-between rounded-md bg-muted p-3">
-                <div className="flex items-center space-x-3">
+              <div className="flex items-centre justify-between rounded-md bg-muted p-3">
+                <div className="flex items-centre space-x-3">
                   <AlertTriangle className="h-5 w-5 text-amber-500" />
                   <div>
                     <p className="text-sm font-medium">States of Matter</p>
@@ -1305,8 +1305,8 @@ export default function AnalyticsAndReporting() {
                 <Button variant="ghost" size="sm">Resources</Button>
               </div>
               
-              <div className="flex items-center justify-between rounded-md bg-muted p-3">
-                <div className="flex items-center space-x-3">
+              <div className="flex items-centre justify-between rounded-md bg-muted p-3">
+                <div className="flex items-centre space-x-3">
                   <AlertTriangle className="h-5 w-5 text-amber-500" />
                   <div>
                     <p className="text-sm font-medium">Fraction Equivalence</p>
@@ -1328,8 +1328,8 @@ export default function AnalyticsAndReporting() {
           </CardHeader>
           <CardContent className="px-2">
             <div className="space-y-4">
-              <div className="flex items-center justify-between rounded-md bg-muted p-3">
-                <div className="flex items-center space-x-3">
+              <div className="flex items-centre justify-between rounded-md bg-muted p-3">
+                <div className="flex items-centre space-x-3">
                   <Info className="h-5 w-5 text-blue-500" />
                   <div>
                     <p className="text-sm font-medium">Increase Open-Ended Questions</p>
@@ -1339,8 +1339,8 @@ export default function AnalyticsAndReporting() {
                 <Button variant="ghost" size="sm">Apply</Button>
               </div>
               
-              <div className="flex items-center justify-between rounded-md bg-muted p-3">
-                <div className="flex items-center space-x-3">
+              <div className="flex items-centre justify-between rounded-md bg-muted p-3">
+                <div className="flex items-centre space-x-3">
                   <Info className="h-5 w-5 text-blue-500" />
                   <div>
                     <p className="text-sm font-medium">Add Visual Elements</p>
@@ -1350,8 +1350,8 @@ export default function AnalyticsAndReporting() {
                 <Button variant="ghost" size="sm">Apply</Button>
               </div>
               
-              <div className="flex items-center justify-between rounded-md bg-muted p-3">
-                <div className="flex items-center space-x-3">
+              <div className="flex items-centre justify-between rounded-md bg-muted p-3">
+                <div className="flex items-centre space-x-3">
                   <Info className="h-5 w-5 text-blue-500" />
                   <div>
                     <p className="text-sm font-medium">Revise Question 5 Wording</p>
@@ -1361,8 +1361,8 @@ export default function AnalyticsAndReporting() {
                 <Button variant="ghost" size="sm">Apply</Button>
               </div>
               
-              <div className="flex items-center justify-between rounded-md bg-muted p-3">
-                <div className="flex items-center space-x-3">
+              <div className="flex items-centre justify-between rounded-md bg-muted p-3">
+                <div className="flex items-centre space-x-3">
                   <Info className="h-5 w-5 text-blue-500" />
                   <div>
                     <p className="text-sm font-medium">Add Formative Checkpoints</p>
@@ -1389,7 +1389,7 @@ export default function AnalyticsAndReporting() {
         </TabsList>
         
         <TabsContent value="templates" className="mt-6 space-y-6">
-          <div className="flex items-center justify-between">
+          <div className="flex items-centre justify-between">
             <div className="space-y-1">
               <h3 className="text-2xl font-semibold tracking-tight">Report Templates</h3>
               <p className="text-sm text-muted-foreground">
@@ -1420,7 +1420,7 @@ export default function AnalyticsAndReporting() {
                       <td className="p-4 align-middle">{template.category}</td>
                       <td className="p-4 align-middle">{template.lastUsed}</td>
                       <td className="p-4 align-middle">
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-centre space-x-2">
                           <Button variant="ghost" size="sm">
                             <Edit className="h-4 w-4 mr-1" />
                             Edit
@@ -1440,14 +1440,14 @@ export default function AnalyticsAndReporting() {
         </TabsContent>
         
         <TabsContent value="builder" className="mt-6 space-y-6">
-          <div className="flex items-center justify-between">
+          <div className="flex items-centre justify-between">
             <div className="space-y-1">
               <h3 className="text-2xl font-semibold tracking-tight">Custom Report Builder</h3>
               <p className="text-sm text-muted-foreground">
-                Create customized reports with drag-and-drop components
+                Create customised reports with drag-and-drop components
               </p>
             </div>
-            <div className="flex items-center space-x-2">
+            <div className="flex items-centre space-x-2">
               <Button variant="outline">
                 <Save className="mr-2 h-4 w-4" />
                 Save Draft
@@ -1469,43 +1469,43 @@ export default function AnalyticsAndReporting() {
               </CardHeader>
               <CardContent className="px-2">
                 <div className="space-y-2">
-                  <div className="flex items-center justify-between rounded-md border border-dashed p-3 cursor-move">
-                    <div className="flex items-center space-x-3">
+                  <div className="flex items-centre justify-between rounded-md border border-dashed p-3 cursor-move">
+                    <div className="flex items-centre space-x-3">
                       <BarChartIcon className="h-5 w-5 text-muted-foreground" />
                       <span className="text-sm">Bar Chart</span>
                     </div>
                   </div>
                   
-                  <div className="flex items-center justify-between rounded-md border border-dashed p-3 cursor-move">
-                    <div className="flex items-center space-x-3">
+                  <div className="flex items-centre justify-between rounded-md border border-dashed p-3 cursor-move">
+                    <div className="flex items-centre space-x-3">
                       <LineChartIcon className="h-5 w-5 text-muted-foreground" />
                       <span className="text-sm">Line Chart</span>
                     </div>
                   </div>
                   
-                  <div className="flex items-center justify-between rounded-md border border-dashed p-3 cursor-move">
-                    <div className="flex items-center space-x-3">
+                  <div className="flex items-centre justify-between rounded-md border border-dashed p-3 cursor-move">
+                    <div className="flex items-centre space-x-3">
                       <PieChartIcon className="h-5 w-5 text-muted-foreground" />
                       <span className="text-sm">Pie Chart</span>
                     </div>
                   </div>
                   
-                  <div className="flex items-center justify-between rounded-md border border-dashed p-3 cursor-move">
-                    <div className="flex items-center space-x-3">
+                  <div className="flex items-centre justify-between rounded-md border border-dashed p-3 cursor-move">
+                    <div className="flex items-centre space-x-3">
                       <FileText className="h-5 w-5 text-muted-foreground" />
                       <span className="text-sm">Data Table</span>
                     </div>
                   </div>
                   
-                  <div className="flex items-center justify-between rounded-md border border-dashed p-3 cursor-move">
-                    <div className="flex items-center space-x-3">
+                  <div className="flex items-centre justify-between rounded-md border border-dashed p-3 cursor-move">
+                    <div className="flex items-centre space-x-3">
                       <Layers className="h-5 w-5 text-muted-foreground" />
                       <span className="text-sm">Text Block</span>
                     </div>
                   </div>
                   
-                  <div className="flex items-center justify-between rounded-md border border-dashed p-3 cursor-move">
-                    <div className="flex items-center space-x-3">
+                  <div className="flex items-centre justify-between rounded-md border border-dashed p-3 cursor-move">
+                    <div className="flex items-centre space-x-3">
                       <Award className="h-5 w-5 text-muted-foreground" />
                       <span className="text-sm">KPI Card</span>
                     </div>
@@ -1522,8 +1522,8 @@ export default function AnalyticsAndReporting() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="min-h-[500px] rounded-md border border-dashed border-muted-foreground/50 p-6 text-center">
-                  <div className="flex flex-col items-center justify-center space-y-2 h-full">
+                <div className="min-h-[500px] rounded-md border border-dashed border-muted-foreground/50 p-6 text-centre">
+                  <div className="flex flex-col items-centre justify-centre space-y-2 h-full">
                     <FileText className="h-8 w-8 text-muted-foreground" />
                     <h3 className="text-lg font-medium">Report Canvas</h3>
                     <p className="text-sm text-muted-foreground">
@@ -1537,7 +1537,7 @@ export default function AnalyticsAndReporting() {
         </TabsContent>
         
         <TabsContent value="scheduled" className="mt-6 space-y-6">
-          <div className="flex items-center justify-between">
+          <div className="flex items-centre justify-between">
             <div className="space-y-1">
               <h3 className="text-2xl font-semibold tracking-tight">Scheduled Reports</h3>
               <p className="text-sm text-muted-foreground">
@@ -1574,7 +1574,7 @@ export default function AnalyticsAndReporting() {
                       <td className="p-4 align-middle">{report.recipients}</td>
                       <td className="p-4 align-middle">{report.format}</td>
                       <td className="p-4 align-middle">
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-centre space-x-2">
                           <Button variant="ghost" size="sm">
                             <Edit className="h-4 w-4 mr-1" />
                             Edit
@@ -1599,7 +1599,7 @@ export default function AnalyticsAndReporting() {
   // Render scheduled reports
   const renderScheduledReports = () => (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex items-centre justify-between">
         <div className="space-y-1">
           <h3 className="text-2xl font-semibold tracking-tight">Scheduled Reports</h3>
           <p className="text-sm text-muted-foreground">
@@ -1636,7 +1636,7 @@ export default function AnalyticsAndReporting() {
                   <td className="p-4 align-middle">{report.recipients}</td>
                   <td className="p-4 align-middle">{report.format}</td>
                   <td className="p-4 align-middle">
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-centre space-x-2">
                       <Button variant="ghost" size="sm">
                         <Edit className="h-4 w-4 mr-1" />
                         Edit
@@ -1659,7 +1659,7 @@ export default function AnalyticsAndReporting() {
   // Render data export
   const renderDataExport = () => (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex items-centre justify-between">
         <div className="space-y-1">
           <h3 className="text-2xl font-semibold tracking-tight">Data Export</h3>
           <p className="text-sm text-muted-foreground">
@@ -1741,7 +1741,7 @@ export default function AnalyticsAndReporting() {
               </Select>
             </div>
             
-            <div className="flex items-center space-x-2 pt-2">
+            <div className="flex items-centre space-x-2 pt-2">
               <Switch id="anonymize" />
               <Label htmlFor="anonymize">Anonymize Personal Data</Label>
             </div>
@@ -1778,7 +1778,7 @@ export default function AnalyticsAndReporting() {
             <div className="space-y-2 pt-4">
               <Label>Bulk Export Options</Label>
               <div className="space-y-2">
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <Checkbox id="terms-all-students" />
                   <label
                     htmlFor="terms-all-students"
@@ -1787,7 +1787,7 @@ export default function AnalyticsAndReporting() {
                     All Student Data
                   </label>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <Checkbox id="terms-all-assessments" />
                   <label
                     htmlFor="terms-all-assessments"
@@ -1796,7 +1796,7 @@ export default function AnalyticsAndReporting() {
                     All Assessment Data
                   </label>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <Checkbox id="terms-all-resources" />
                   <label
                     htmlFor="terms-all-resources"
@@ -1805,7 +1805,7 @@ export default function AnalyticsAndReporting() {
                     All Resource Usage Data
                   </label>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <Checkbox id="terms-all-behaviour" />
                   <label
                     htmlFor="terms-all-behaviour"

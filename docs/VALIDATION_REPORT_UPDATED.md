@@ -39,7 +39,7 @@ The validation process included:
 |---------|--------|-------|
 | Immersive Learning Layout | ✅ Implemented | Created themed environments with interactive elements |
 | Responsive Mobile Layouts | ✅ Implemented | Ensured proper rendering across all device sizes |
-| Print Layouts for Reports | ✅ Implemented | Optimized layouts for printed reports with proper page breaks |
+| Print Layouts for Reports | ✅ Implemented | Optimised layouts for printed reports with proper page breaks |
 
 ### UI Components
 
@@ -50,7 +50,7 @@ The validation process included:
 | Interactive Guidance | ✅ Implemented | Created step-by-step guidance with anxiety support |
 | Learning Style Adaptive Content | ✅ Implemented | Added content adaptation based on VARK learning styles |
 | Multilingual Support | ✅ Implemented | Implemented content in multiple languages with easy switching |
-| Progress Tracking | ✅ Implemented | Created visualization of learning progress with celebrations |
+| Progress Tracking | ✅ Implemented | Created visualisation of learning progress with celebrations |
 | Biofeedback Learning | ✅ Implemented | Implemented adaptation based on focus and stress levels |
 
 ### Deployment and DevOps
@@ -133,7 +133,7 @@ During validation, the following issues were identified and resolved:
    **Resolution**: Fixed localStorage implementation for language preferences
 
 4. **Issue**: Progress tracking animations causing performance issues on low-end devices  
-   **Resolution**: Optimized animations and added reduced motion option
+   **Resolution**: Optimised animations and added reduced motion option
 
 ## Recommendations
 

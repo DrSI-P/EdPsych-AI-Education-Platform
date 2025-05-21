@@ -134,7 +134,7 @@ describe('InteractiveGuidance Component', () => {
     const anxietyButton = screen.getByRole('button', { name: /Need Support/i });
     fireEvent.click(anxietyButton);
     
-    // Check that anxiety support dialog is displayed
+    // Check that anxiety support dialogue is displayed
     await waitFor(() => {
       expect(screen.getByText(/Anxiety Support/i)).toBeInTheDocument();
       expect(screen.getByText(/Take a deep breath/i)).toBeInTheDocument();

@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Analytics and Reporting module provides comprehensive data analysis, visualization, and reporting capabilities across the EdPsych-AI-Education-Platform. This feature enables educators, administrators, and other stakeholders to gain valuable insights into student progress, teaching effectiveness, resource utilization, and overall educational outcomes.
+The Analytics and Reporting module provides comprehensive data analysis, visualisation, and reporting capabilities across the EdPsych-AI-Education-Platform. This feature enables educators, administrators, and other stakeholders to gain valuable insights into student progress, teaching effectiveness, resource utilization, and overall educational outcomes.
 
 ## Key Components
 
@@ -11,7 +11,7 @@ The Analytics and Reporting module provides comprehensive data analysis, visuali
 The Analytics Dashboard serves as the central hub for accessing all analytics and reporting features. It provides a high-level overview of key metrics and performance indicators, with intuitive navigation to more detailed analysis tools.
 
 **Key Features:**
-- Real-time data visualization with interactive charts and graphs
+- Real-time data visualisation with interactive charts and graphs
 - Customizable dashboard views for different user roles
 - Trend analysis with historical data comparison
 - Alert indicators for metrics requiring attention
@@ -23,7 +23,7 @@ The Student Progress Tracking component enables detailed monitoring and analysis
 
 **Key Features:**
 - Comprehensive student performance metrics across subjects
-- Progress visualization with trend analysis
+- Progress visualisation with trend analysis
 - Cohort comparison and benchmarking
 - Gap analysis and intervention tracking
 - Learning style and preference insights
@@ -45,13 +45,13 @@ The Educator Analytics component provides insights into teaching effectiveness, 
 
 ### 4. Custom Report Builder
 
-The Custom Report Builder enables users to create tailored reports with flexible data selection, visualization options, and delivery methods.
+The Custom Report Builder enables users to create tailored reports with flexible data selection, visualisation options, and delivery methods.
 
 **Key Features:**
 - Intuitive drag-and-drop report design interface
 - Pre-configured report templates for common use cases
 - Flexible data source selection and filtering
-- Multiple visualization options (charts, tables, metrics)
+- Multiple visualisation options (charts, tables, metrics)
 - Scheduled report generation and distribution
 - Export in multiple formats (PDF, Excel, Word, HTML)
 - Report sharing with configurable permissions
@@ -73,7 +73,7 @@ The Analytics Integration component ensures seamless data flow between all platf
 The Analytics and Reporting feature is implemented using the following technologies:
 
 - **Frontend**: React with Next.js, utilizing the Shadcn UI component library
-- **Data Visualization**: Recharts library for interactive and responsive charts
+- **Data Visualisation**: Recharts library for interactive and responsive charts
 - **State Management**: React hooks for local state, context API for shared state
 - **API Integration**: RESTful API endpoints with Zod schema validation
 - **Data Processing**: Server-side data aggregation and processing
@@ -122,7 +122,7 @@ The Analytics and Reporting feature integrates with all other platform modules:
 
 ### For Educators:
 - Monitor student progress to identify early intervention opportunities
-- Analyze teaching effectiveness across different subjects and student groups
+- Analyse teaching effectiveness across different subjects and student groups
 - Use insights to inform lesson planning and resource development
 - Share relevant reports with parents during conferences
 
@@ -137,7 +137,7 @@ The Analytics and Reporting feature is designed to be accessible to all users:
 
 - **Screen Reader Compatibility**: All charts include appropriate ARIA labels and text alternatives
 - **Keyboard Navigation**: Full keyboard accessibility for all interactive elements
-- **Color Contrast**: High contrast options for all visualizations
+- **Colour Contrast**: High contrast options for all visualizations
 - **Text Scaling**: Support for browser text scaling without loss of functionality
 - **Alternative Formats**: Reports available in multiple formats for different accessibility needs
 
@@ -148,6 +148,6 @@ Planned future enhancements for the Analytics and Reporting feature include:
 - Advanced predictive analytics using machine learning
 - Natural language query interface for data exploration
 - Enhanced mobile reporting experience
-- Additional visualization types and customization options
+- Additional visualisation types and customization options
 - Expanded integration with external assessment systems
 - Voice-controlled analytics for accessibility

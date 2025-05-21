@@ -27,7 +27,7 @@ This document outlines the comprehensive plan for merging the four existing repo
 
 ### Backend
 - **Primary API**: Next.js API routes for standard functionality
-- **Specialized Services**: Express.js microservices for specific features (immersive, real-time)
+- **Specialised Services**: Express.js microservices for specific features (immersive, real-time)
 - **Authentication**: NextAuth.js with Prisma adapter
 - **Real-time Communication**: Socket.io for collaborative features
 
@@ -38,7 +38,7 @@ This document outlines the comprehensive plan for merging the four existing repo
 
 ### AI and Machine Learning
 - **Primary AI**: OpenAI API
-- **Specialized AI**: Azure Cognitive Services for analytics and multilingual support
+- **Specialised AI**: Azure Cognitive Services for analytics and multilingual support
 - **Educational Models**: Hugging Face for UK curriculum-specific tasks
 
 ### DevOps and Deployment
@@ -75,7 +75,7 @@ edpsych-connect-platform/
 │   └── helpers/              # Helper functions
 ├── prisma/                   # Prisma schema and migrations
 ├── public/                   # Static assets
-├── services/                 # Specialized services
+├── services/                 # Specialised services
 │   ├── immersive-server/     # A-Frame and WebXR server
 │   ├── socket-server/        # Socket.io server
 │   └── ai-processor/         # AI processing service
@@ -112,7 +112,7 @@ edpsych-connect-platform/
 - Base: edpsych-connect-platform-f Assessment Portal
 - Integrate pupil voice collection from EdPsych-Pupil-Voice-Tool
 - Add AI-generated assessments from Ai-Educational-Platform
-- Implement comprehensive results analysis and visualization
+- Implement comprehensive results analysis and visualisation
 
 #### Curriculum Module
 - Base: edpsych-connect-platform-f Curriculum Planner
@@ -122,7 +122,7 @@ edpsych-connect-platform/
 
 #### Resources Module
 - Base: edpsych-connect-platform-f Resources module
-- Integrate resource organization from School_Platform
+- Integrate resource organisation from School_Platform
 - Add API endpoints from Ai-Educational-Platform
 - Implement comprehensive search and filtering
 
@@ -144,7 +144,7 @@ edpsych-connect-platform/
 - Implement certification process
 - Add community features
 
-#### Additional Specialized Modules
+#### Additional Specialised Modules
 - Implement all unique modules from edpsych-connect-platform-f:
   - Blockchain Credentials
   - Copyright Protection
@@ -163,7 +163,7 @@ edpsych-connect-platform/
 - Specific UI components from Radix UI
 
 #### From EdPsych-Pupil-Voice-Tool
-- Specialized pupil voice collection workflow
+- Specialised pupil voice collection workflow
 - Secure file handling for child responses
 - Age-appropriate interface design
 
@@ -205,11 +205,11 @@ edpsych-connect-platform/
 - Implement AI Personalization module
 - Integrate core modules
 
-### Phase 3: Specialized Modules (Weeks 5-8)
+### Phase 3: Specialised Modules (Weeks 5-8)
 - Implement Immersive Learning module
 - Implement Special Educational Needs modules
 - Implement Professional Development module
-- Implement remaining specialized modules
+- Implement remaining specialised modules
 - Integrate all modules
 
 ### Phase 4: Integration and Testing (Weeks 9-10)

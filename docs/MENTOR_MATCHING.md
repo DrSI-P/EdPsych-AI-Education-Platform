@@ -35,7 +35,7 @@ The Mentor Matching feature provides educators with a personalized system to con
 ### 4. Community Features
 - Mentor/mentee discovery directory
 - Group mentorship opportunities
-- Community of practice formation
+- Community of practise formation
 - Expertise showcasing and knowledge sharing
 - Peer learning networks
 - Success story highlighting
@@ -45,16 +45,16 @@ The Mentor Matching feature provides educators with a personalized system to con
 - Mentorship effectiveness measurement
 - Professional growth tracking
 - Engagement analytics
-- Skill development visualization
+- Skill development visualisation
 - Impact assessment
-- Program improvement recommendations
+- Programme improvement recommendations
 - Institutional mentorship program reporting
 
 ## User Experience
 
 ### For Mentees
 - Intuitive mentor discovery based on specific needs
-- Clear visualization of mentor expertise and availability
+- Clear visualisation of mentor expertise and availability
 - Structured approach to mentorship relationships
 - Goal-driven development with progress tracking
 - Evidence collection for professional growth
@@ -66,7 +66,7 @@ The Mentor Matching feature provides educators with a personalized system to con
 - Mentee matching based on capacity and strengths
 - Structured guidance for effective mentorship
 - Resource recommendations for mentee development
-- Impact visualization of mentorship efforts
+- Impact visualisation of mentorship efforts
 - Professional development through teaching others
 - Mentorship certification for career advancement
 
@@ -146,8 +146,8 @@ The Mentor Matching feature provides educators with a personalized system to con
 - Social learning theory application in mentorship design
 - Zone of proximal development framework for matching
 - Growth mindset cultivation through structured feedback
-- Communities of practice principles for group mentorship
-- Reflective practice integration throughout the process
+- Communities of practise principles for group mentorship
+- Reflective practise integration throughout the process
 - Self-determination theory application in goal setting
 - Cognitive apprenticeship model for skill development
 
@@ -188,7 +188,7 @@ The Mentor Matching feature provides educators with a personalized system to con
 ### Phase 3: Community Features
 - Discovery directory
 - Group mentorship tools
-- Community of practice formation
+- Community of practise formation
 - Knowledge sharing platform
 - Success story showcase
 

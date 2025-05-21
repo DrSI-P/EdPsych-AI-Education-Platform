@@ -7,9 +7,9 @@ This document provides comprehensive documentation for the AI Avatar Video Creat
 The AI Avatar Video Creation and Generation Workflow enables educators, administrators, and content creators to produce high-quality educational videos featuring AI-generated avatars. This feature addresses the critical need for efficient video content creation without requiring professional recording equipment or video production expertise.
 
 The workflow allows users to:
-1. Create customized AI avatars with specific visual characteristics and voice preferences
+1. Create customised AI avatars with specific visual characteristics and voice preferences
 2. Generate educational videos by providing scripts
-3. Customize video settings including background, resolution, and subtitles
+3. Customise video settings including background, resolution, and subtitles
 4. Adapt content for different age groups automatically
 
 ## Architecture
@@ -22,7 +22,7 @@ The implementation follows a modular architecture with clear separation of conce
 - Age-appropriate content adaptation for different student groups
 
 ### UI Components
-- `avatar-creator.tsx`: Component for creating and customizing AI avatars
+- `avatar-creator.tsx`: Component for creating and customising AI avatars
 - `video-generator.tsx`: Component for generating videos with selected avatars
 - `page.tsx`: Main page integrating the workflow components
 
@@ -71,7 +71,7 @@ The system automatically adapts content based on the target age group:
 
 The components integrate with the platform's enhanced visual design system:
 - Age-appropriate styling for different user groups
-- Consistent use of color, typography, and spacing
+- Consistent use of colour, typography, and spacing
 - Smooth animations and transitions (with reduced motion support)
 - Responsive design for different screen sizes
 
@@ -86,7 +86,7 @@ The system is designed to work with multiple AI avatar providers:
 
 ### Performance Optimization
 
-- Image uploads are validated and optimized
+- Image uploads are validated and optimised
 - Video generation is handled asynchronously
 - Status polling uses appropriate intervals to reduce server load
 - Appropriate caching strategies for generated videos
@@ -127,4 +127,4 @@ Planned enhancements for future iterations:
 
 ## Conclusion
 
-The AI Avatar Video Creation and Generation Workflow provides a powerful tool for creating educational content efficiently. By leveraging AI technology, educators can produce professional-quality videos without specialized equipment or expertise, allowing them to focus on content quality and educational outcomes.
+The AI Avatar Video Creation and Generation Workflow provides a powerful tool for creating educational content efficiently. By leveraging AI technology, educators can produce professional-quality videos without specialised equipment or expertise, allowing them to focus on content quality and educational outcomes.

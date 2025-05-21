@@ -70,7 +70,7 @@ This document provides a comprehensive validation report for the EdPsych-AI-Educ
 ### Lower Priority Tasks
 1. Implement Platform Analytics
 2. Add Community Features
-3. Optimize for Mobile
+3. Optimise for Mobile
 4. Expand Content Areas
 
 ## Recommendations
@@ -78,7 +78,7 @@ This document provides a comprehensive validation report for the EdPsych-AI-Educ
 1. **Continue with Educator Dashboard**: Complete the implementation of the Educator Dashboard as the next priority task.
 2. **Regular Testing**: Implement a regular testing schedule for all features to ensure continued functionality.
 3. **Documentation Updates**: Keep documentation current with all new implementations.
-4. **GitHub Workflow**: Standardize on using the main branch for all future development to avoid branch confusion.
+4. **GitHub Workflow**: Standardise on using the main branch for all future development to avoid branch confusion.
 
 ## Conclusion
 

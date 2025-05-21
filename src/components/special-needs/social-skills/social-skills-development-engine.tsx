@@ -468,7 +468,7 @@ const SocialSkillsDevelopmentEngine = () => {
     }
   };
   
-  // Prepare chart data for progress visualization
+  // Prepare chart data for progress visualisation
   const prepareProgressChartData = () => {
     if (assessmentResults.length === 0) return [];
     
@@ -497,7 +497,7 @@ const SocialSkillsDevelopmentEngine = () => {
     }).sort((a, b) => new Date(a.date) - new Date(b.date));
   };
   
-  // Get skill category badge color
+  // Get skill category badge colour
   const getSkillCategoryColor = (category) => {
     switch (category) {
       case 'communication':
@@ -511,11 +511,11 @@ const SocialSkillsDevelopmentEngine = () => {
       case 'self-awareness':
         return 'bg-green-100 text-green-800';
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-grey-100 text-grey-800';
     }
   };
   
-  // Get difficulty level badge color
+  // Get difficulty level badge colour
   const getDifficultyLevelColor = (level) => {
     switch (level) {
       case 'beginner':
@@ -525,11 +525,11 @@ const SocialSkillsDevelopmentEngine = () => {
       case 'advanced':
         return 'bg-red-100 text-red-800';
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-grey-100 text-grey-800';
     }
   };
   
-  // Get activity type badge color
+  // Get activity type badge colour
   const getActivityTypeColor = (type) => {
     switch (type) {
       case 'group':
@@ -543,7 +543,7 @@ const SocialSkillsDevelopmentEngine = () => {
       case 'game':
         return 'bg-pink-100 text-pink-800';
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-grey-100 text-grey-800';
     }
   };
   
@@ -593,8 +593,8 @@ const SocialSkillsDevelopmentEngine = () => {
   // Render loading state
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center h-64">
-        <div className="text-center">
+      <div className="flex items-centre justify-centre h-64">
+        <div className="text-centre">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
           <p className="mt-4 text-muted-foreground">Loading social skills development system...</p>
         </div>
@@ -608,27 +608,27 @@ const SocialSkillsDevelopmentEngine = () => {
       
       <Tabs defaultValue="skills" value={activeTab} onValueChange={setActiveTab} className="w-full">
         <TabsList className="grid grid-cols-6 mb-8">
-          <TabsTrigger value="skills" className="flex items-center gap-2">
+          <TabsTrigger value="skills" className="flex items-centre gap-2">
             <BookOpen className="h-4 w-4" />
             <span>Skills</span>
           </TabsTrigger>
-          <TabsTrigger value="scenarios" className="flex items-center gap-2">
+          <TabsTrigger value="scenarios" className="flex items-centre gap-2">
             <MessageSquare className="h-4 w-4" />
             <span>Scenarios</span>
           </TabsTrigger>
-          <TabsTrigger value="activities" className="flex items-center gap-2">
+          <TabsTrigger value="activities" className="flex items-centre gap-2">
             <Activity className="h-4 w-4" />
             <span>Activities</span>
           </TabsTrigger>
-          <TabsTrigger value="goals" className="flex items-center gap-2">
+          <TabsTrigger value="goals" className="flex items-centre gap-2">
             <Target className="h-4 w-4" />
             <span>Goals</span>
           </TabsTrigger>
-          <TabsTrigger value="students" className="flex items-center gap-2">
+          <TabsTrigger value="students" className="flex items-centre gap-2">
             <Users className="h-4 w-4" />
             <span>Students</span>
           </TabsTrigger>
-          <TabsTrigger value="settings" className="flex items-center gap-2">
+          <TabsTrigger value="settings" className="flex items-centre gap-2">
             <Settings className="h-4 w-4" />
             <span>Settings</span>
           </TabsTrigger>
@@ -736,10 +736,10 @@ const SocialSkillsDevelopmentEngine = () => {
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="direct">Direct Instruction</SelectItem>
-                        <SelectItem value="modeling">Modeling</SelectItem>
+                        <SelectItem value="modelling">Modelling</SelectItem>
                         <SelectItem value="role-play">Role Play</SelectItem>
                         <SelectItem value="social-stories">Social Stories</SelectItem>
-                        <SelectItem value="video-modeling">Video Modeling</SelectItem>
+                        <SelectItem value="video-modelling">Video Modelling</SelectItem>
                         <SelectItem value="peer-mediated">Peer-Mediated Instruction</SelectItem>
                       </SelectContent>
                     </Select>
@@ -790,7 +790,7 @@ const SocialSkillsDevelopmentEngine = () => {
                             </Badge>
                           </div>
                           <p className="text-sm mt-2">{skill.description}</p>
-                          <div className="flex items-center mt-2 text-sm text-muted-foreground">
+                          <div className="flex items-centre mt-2 text-sm text-muted-foreground">
                             <span className="mr-4">Age: {skill.ageRange}</span>
                             <Badge variant="outline" className={getDifficultyLevelColor(skill.difficultyLevel)}>
                               {skill.difficultyLevel}
@@ -807,7 +807,7 @@ const SocialSkillsDevelopmentEngine = () => {
                       ))}
                     </div>
                   ) : (
-                    <div className="text-center py-8">
+                    <div className="text-centre py-8">
                       <p className="text-muted-foreground">No social skills defined yet.</p>
                       <p className="text-sm mt-2">Create social skills to start teaching.</p>
                     </div>
@@ -904,7 +904,7 @@ const SocialSkillsDevelopmentEngine = () => {
                 
                 <div className="space-y-2">
                   <Label htmlFor="rating">Skill Rating (1-5)</Label>
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <span className="text-sm text-muted-foreground">Emerging (1)</span>
                     <span className="text-sm text-muted-foreground">Mastered (5)</span>
                   </div>
@@ -913,23 +913,23 @@ const SocialSkillsDevelopmentEngine = () => {
                     onValueChange={(value) => setAssessmentForm({...assessmentForm, rating: parseInt(value)})}
                     className="flex justify-between"
                   >
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-centre space-x-2">
                       <RadioGroupItem value="1" id="r1" />
                       <Label htmlFor="r1">1</Label>
                     </div>
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-centre space-x-2">
                       <RadioGroupItem value="2" id="r2" />
                       <Label htmlFor="r2">2</Label>
                     </div>
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-centre space-x-2">
                       <RadioGroupItem value="3" id="r3" />
                       <Label htmlFor="r3">3</Label>
                     </div>
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-centre space-x-2">
                       <RadioGroupItem value="4" id="r4" />
                       <Label htmlFor="r4">4</Label>
                     </div>
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-centre space-x-2">
                       <RadioGroupItem value="5" id="r5" />
                       <Label htmlFor="r5">5</Label>
                     </div>
@@ -1089,7 +1089,7 @@ const SocialSkillsDevelopmentEngine = () => {
                     </Select>
                   </div>
                   
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <Switch 
                       id="visualSupport" 
                       checked={newScenario.visualSupport}
@@ -1123,7 +1123,7 @@ const SocialSkillsDevelopmentEngine = () => {
                             </Badge>
                           </div>
                           <p className="text-sm mt-2">{scenario.description}</p>
-                          <div className="flex items-center mt-2 text-sm text-muted-foreground">
+                          <div className="flex items-centre mt-2 text-sm text-muted-foreground">
                             <Badge className={getDifficultyLevelColor(scenario.difficultyLevel)} variant="secondary">
                               {scenario.difficultyLevel}
                             </Badge>
@@ -1155,9 +1155,9 @@ const SocialSkillsDevelopmentEngine = () => {
                       ))}
                     </div>
                   ) : (
-                    <div className="text-center py-8">
+                    <div className="text-centre py-8">
                       <p className="text-muted-foreground">No social scenarios defined yet.</p>
-                      <p className="text-sm mt-2">Create scenarios to practice social skills.</p>
+                      <p className="text-sm mt-2">Create scenarios to practise social skills.</p>
                     </div>
                   )}
                 </ScrollArea>
@@ -1178,13 +1178,13 @@ const SocialSkillsDevelopmentEngine = () => {
                   <AccordionTrigger>What are Social Stories?</AccordionTrigger>
                   <AccordionContent>
                     <p className="text-sm">
-                      Social Stories™ were developed by Carol Gray in 1991 and are short descriptions of a particular 
+                      Social Stories™ were developed by Carol Grey in 1991 and are short descriptions of a particular 
                       situation, event or activity, which include specific information about what to expect in that 
                       situation and why. They are particularly beneficial for children with autism spectrum conditions 
                       but can be helpful for any child who struggles with social understanding.
                     </p>
                     <p className="text-sm mt-2">
-                      Research has shown that Social Stories™ can improve social understanding and behavior when they:
+                      Research has shown that Social Stories™ can improve social understanding and behaviour when they:
                     </p>
                     <ul className="list-disc list-inside text-sm mt-2 space-y-1">
                       <li>Are written from the child's perspective</li>
@@ -1216,7 +1216,7 @@ const SocialSkillsDevelopmentEngine = () => {
                     <p className="text-sm mt-2">
                       Research from the National Autistic Society and the American Speech-Language-Hearing Association 
                       supports the use of scripts to develop conversational skills, particularly when combined with 
-                      visual supports and regular practice opportunities.
+                      visual supports and regular practise opportunities.
                     </p>
                   </AccordionContent>
                 </AccordionItem>
@@ -1245,7 +1245,7 @@ const SocialSkillsDevelopmentEngine = () => {
                         If the children say "no" or "not now," I can say "okay" and find something else to do. I can try again another time.
                       </p>
                       <p className="text-sm mt-2">
-                        Joining in games with other children can be fun. Sometimes it takes practice to learn how to join in.
+                        Joining in games with other children can be fun. Sometimes it takes practise to learn how to join in.
                       </p>
                     </div>
                   </AccordionContent>
@@ -1442,7 +1442,7 @@ const SocialSkillsDevelopmentEngine = () => {
                             </Badge>
                           </div>
                           <p className="text-sm mt-2">{activity.description}</p>
-                          <div className="flex items-center mt-2 text-sm text-muted-foreground">
+                          <div className="flex items-centre mt-2 text-sm text-muted-foreground">
                             <span>{activity.duration} minutes</span>
                           </div>
                           {activity.skillsAddressed.length > 0 && (
@@ -1476,9 +1476,9 @@ const SocialSkillsDevelopmentEngine = () => {
                       ))}
                     </div>
                   ) : (
-                    <div className="text-center py-8">
+                    <div className="text-centre py-8">
                       <p className="text-muted-foreground">No social activities defined yet.</p>
-                      <p className="text-sm mt-2">Create activities to practice social skills.</p>
+                      <p className="text-sm mt-2">Create activities to practise social skills.</p>
                     </div>
                   )}
                 </ScrollArea>
@@ -1496,19 +1496,19 @@ const SocialSkillsDevelopmentEngine = () => {
             <CardContent>
               <Accordion type="single" collapsible className="w-full">
                 <AccordionItem value="item-1">
-                  <AccordionTrigger>Video Modeling</AccordionTrigger>
+                  <AccordionTrigger>Video Modelling</AccordionTrigger>
                   <AccordionContent>
                     <p className="text-sm">
-                      Video modeling involves showing students videos of individuals demonstrating appropriate social behaviors. 
-                      Research from the National Professional Development Center on Autism Spectrum Disorders identifies video 
-                      modeling as an evidence-based practice for teaching social skills.
+                      Video modelling involves showing students videos of individuals demonstrating appropriate social behaviors. 
+                      Research from the National Professional Development Centre on Autism Spectrum Disorders identifies video 
+                      modelling as an evidence-based practise for teaching social skills.
                     </p>
                     <p className="text-sm mt-2 font-medium">Implementation Tips:</p>
                     <ul className="list-disc list-inside text-sm mt-1 space-y-1">
                       <li>Select videos that clearly demonstrate the target skill</li>
                       <li>Keep videos short (2-5 minutes) and focused on one skill</li>
                       <li>Include peers or age-appropriate models when possible</li>
-                      <li>Provide opportunities to practice the skill after watching</li>
+                      <li>Provide opportunities to practise the skill after watching</li>
                       <li>Review and discuss the video, highlighting key behaviors</li>
                     </ul>
                   </AccordionContent>
@@ -1518,7 +1518,7 @@ const SocialSkillsDevelopmentEngine = () => {
                   <AccordionTrigger>Social Skills Groups</AccordionTrigger>
                   <AccordionContent>
                     <p className="text-sm">
-                      Social skills groups provide structured opportunities for children to learn and practice social skills 
+                      Social skills groups provide structured opportunities for children to learn and practise social skills 
                       with peers. A meta-analysis published in the Journal of Child Psychology and Psychiatry found that social 
                       skills groups are effective for improving social competence in children with social difficulties.
                     </p>
@@ -1527,7 +1527,7 @@ const SocialSkillsDevelopmentEngine = () => {
                       <li>Small group size (4-6 children)</li>
                       <li>Inclusion of typically developing peers when appropriate</li>
                       <li>Structured activities with clear objectives</li>
-                      <li>Direct instruction followed by practice opportunities</li>
+                      <li>Direct instruction followed by practise opportunities</li>
                       <li>Positive reinforcement for appropriate social behaviors</li>
                       <li>Regular sessions (weekly) over an extended period (10+ weeks)</li>
                     </ul>
@@ -1538,7 +1538,7 @@ const SocialSkillsDevelopmentEngine = () => {
                   <AccordionTrigger>Role Play Activities</AccordionTrigger>
                   <AccordionContent>
                     <p className="text-sm">
-                      Role play provides opportunities for children to practice social skills in a structured, supportive 
+                      Role play provides opportunities for children to practise social skills in a structured, supportive 
                       environment. Research from the American Psychological Association supports role play as an effective 
                       strategy for developing social competence.
                     </p>
@@ -1573,7 +1573,7 @@ const SocialSkillsDevelopmentEngine = () => {
                       <li>Provide training to peer buddies on specific strategies (e.g., initiating interactions, providing prompts)</li>
                       <li>Create structured activities that encourage interaction</li>
                       <li>Provide adult supervision and support</li>
-                      <li>Recognize and reinforce peer buddies' efforts</li>
+                      <li>Recognise and reinforce peer buddies' efforts</li>
                       <li>Gradually fade adult support as interactions become more natural</li>
                     </ul>
                   </AccordionContent>
@@ -1786,7 +1786,7 @@ const SocialSkillsDevelopmentEngine = () => {
                       })}
                     </div>
                   ) : (
-                    <div className="text-center py-8">
+                    <div className="text-centre py-8">
                       <p className="text-muted-foreground">No social goals defined yet.</p>
                       <p className="text-sm mt-2">Create goals to track social skill development.</p>
                     </div>
@@ -1800,7 +1800,7 @@ const SocialSkillsDevelopmentEngine = () => {
             <CardHeader>
               <CardTitle>Social Skills Progress</CardTitle>
               <CardDescription>
-                Visualize progress in social skill development over time.
+                Visualise progress in social skill development over time.
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -1826,8 +1826,8 @@ const SocialSkillsDevelopmentEngine = () => {
                   </ResponsiveContainer>
                 </div>
               ) : (
-                <div className="text-center py-8">
-                  <p className="text-muted-foreground">No assessment data available for visualization.</p>
+                <div className="text-centre py-8">
+                  <p className="text-muted-foreground">No assessment data available for visualisation.</p>
                   <p className="text-sm mt-2">Record skill assessments to see progress over time.</p>
                 </div>
               )}
@@ -1855,7 +1855,7 @@ const SocialSkillsDevelopmentEngine = () => {
                     
                     return (
                       <div key={student.id} className="border rounded-lg p-6">
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-centre gap-4">
                           <Avatar className="h-12 w-12">
                             <AvatarFallback>{student.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
                           </Avatar>
@@ -1907,7 +1907,7 @@ const SocialSkillsDevelopmentEngine = () => {
                               {studentResults.slice(0, 3).map(result => {
                                 const skill = socialSkills.find(s => s.id === result.skillId);
                                 return (
-                                  <div key={result.id} className="flex justify-between items-center border-b pb-2">
+                                  <div key={result.id} className="flex justify-between items-centre border-b pb-2">
                                     <div>
                                       <p className="text-sm">{skill?.name || 'Unknown skill'}</p>
                                       <p className="text-xs text-muted-foreground">
@@ -1979,7 +1979,7 @@ const SocialSkillsDevelopmentEngine = () => {
                   })}
                 </div>
               ) : (
-                <div className="text-center py-8">
+                <div className="text-centre py-8">
                   <p className="text-muted-foreground">No students available.</p>
                   <p className="text-sm mt-2">Add students to track their social skill development.</p>
                 </div>
@@ -2020,10 +2020,10 @@ const SocialSkillsDevelopmentEngine = () => {
               <div className="space-y-6">
                 <div className="space-y-4">
                   <h3 className="text-lg font-medium">Teaching Methods</h3>
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <div className="space-y-0.5">
-                      <Label htmlFor="enablePeerModeling">Peer Modeling</Label>
-                      <p className="text-sm text-muted-foreground">Enable peer modeling approach</p>
+                      <Label htmlFor="enablePeerModeling">Peer Modelling</Label>
+                      <p className="text-sm text-muted-foreground">Enable peer modelling approach</p>
                     </div>
                     <Switch 
                       id="enablePeerModeling" 
@@ -2032,7 +2032,7 @@ const SocialSkillsDevelopmentEngine = () => {
                     />
                   </div>
                   
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <div className="space-y-0.5">
                       <Label htmlFor="enableSocialStories">Social Stories</Label>
                       <p className="text-sm text-muted-foreground">Enable social stories approach</p>
@@ -2044,7 +2044,7 @@ const SocialSkillsDevelopmentEngine = () => {
                     />
                   </div>
                   
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <div className="space-y-0.5">
                       <Label htmlFor="enableRolePlay">Role Play</Label>
                       <p className="text-sm text-muted-foreground">Enable role play activities</p>
@@ -2056,10 +2056,10 @@ const SocialSkillsDevelopmentEngine = () => {
                     />
                   </div>
                   
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <div className="space-y-0.5">
-                      <Label htmlFor="enableVideoModeling">Video Modeling</Label>
-                      <p className="text-sm text-muted-foreground">Enable video modeling approach</p>
+                      <Label htmlFor="enableVideoModeling">Video Modelling</Label>
+                      <p className="text-sm text-muted-foreground">Enable video modelling approach</p>
                     </div>
                     <Switch 
                       id="enableVideoModeling" 
@@ -2068,7 +2068,7 @@ const SocialSkillsDevelopmentEngine = () => {
                     />
                   </div>
                   
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <div className="space-y-0.5">
                       <Label htmlFor="enableSocialScripts">Social Scripts</Label>
                       <p className="text-sm text-muted-foreground">Enable social scripts approach</p>
@@ -2080,7 +2080,7 @@ const SocialSkillsDevelopmentEngine = () => {
                     />
                   </div>
                   
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <div className="space-y-0.5">
                       <Label htmlFor="enableGroupActivities">Group Activities</Label>
                       <p className="text-sm text-muted-foreground">Enable group-based activities</p>
@@ -2097,7 +2097,7 @@ const SocialSkillsDevelopmentEngine = () => {
                 
                 <div className="space-y-4">
                   <h3 className="text-lg font-medium">Access Settings</h3>
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <div className="space-y-0.5">
                       <Label htmlFor="enableParentAccess">Parent Access</Label>
                       <p className="text-sm text-muted-foreground">Allow parents to view social skills data</p>
@@ -2109,7 +2109,7 @@ const SocialSkillsDevelopmentEngine = () => {
                     />
                   </div>
                   
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <div className="space-y-0.5">
                       <Label htmlFor="enableStudentAccess">Student Access</Label>
                       <p className="text-sm text-muted-foreground">Allow students to view their own data</p>
@@ -2121,7 +2121,7 @@ const SocialSkillsDevelopmentEngine = () => {
                     />
                   </div>
                   
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <div className="space-y-0.5">
                       <Label htmlFor="notifyParentsOnProgress">Progress Notifications</Label>
                       <p className="text-sm text-muted-foreground">Notify parents about social skills progress</p>
@@ -2175,7 +2175,7 @@ const SocialSkillsDevelopmentEngine = () => {
                     </Select>
                   </div>
                   
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <div className="space-y-0.5">
                       <Label htmlFor="customizableGoals">Customizable Goals</Label>
                       <p className="text-sm text-muted-foreground">Allow students to suggest custom goals</p>
@@ -2207,7 +2207,7 @@ const SocialSkillsDevelopmentEngine = () => {
                   <p className="text-sm mt-1">
                     This system is aligned with evidence-based social skills interventions that have been shown to improve 
                     social competence in children with and without social difficulties. A meta-analysis by Reichow and 
-                    Volkmar (2010) found that social skills groups, video modeling, and peer-mediated interventions have 
+                    Volkmar (2010) found that social skills groups, video modelling, and peer-mediated interventions have 
                     strong empirical support.
                   </p>
                 </div>
@@ -2217,7 +2217,7 @@ const SocialSkillsDevelopmentEngine = () => {
                 <div>
                   <h4 className="font-medium">Social Stories™</h4>
                   <p className="text-sm mt-1">
-                    Social Stories™, developed by Carol Gray, have been shown to be effective for teaching social understanding 
+                    Social Stories™, developed by Carol Grey, have been shown to be effective for teaching social understanding 
                     and skills. Research by Kokina and Kern (2010) found that Social Stories™ are most effective when they 
                     include descriptive, perspective, directive, and affirmative sentences, and when they are implemented 
                     with visual supports.
@@ -2227,10 +2227,10 @@ const SocialSkillsDevelopmentEngine = () => {
                 <Separator />
                 
                 <div>
-                  <h4 className="font-medium">Video Modeling</h4>
+                  <h4 className="font-medium">Video Modelling</h4>
                   <p className="text-sm mt-1">
-                    Video modeling is an evidence-based practice identified by the National Professional Development Center 
-                    on Autism Spectrum Disorders. Research by Bellini and Akullian (2007) found that video modeling leads to 
+                    Video modelling is an evidence-based practise identified by the National Professional Development Centre 
+                    on Autism Spectrum Disorders. Research by Bellini and Akullian (2007) found that video modelling leads to 
                     rapid skill acquisition, maintenance of skills over time, and generalization across settings.
                   </p>
                 </div>
@@ -2250,11 +2250,11 @@ const SocialSkillsDevelopmentEngine = () => {
                 <Separator />
                 
                 <div>
-                  <h4 className="font-medium">Cognitive-Behavioral Approaches</h4>
+                  <h4 className="font-medium">Cognitive-Behavioural Approaches</h4>
                   <p className="text-sm mt-1">
-                    This system incorporates cognitive-behavioral approaches to social skills development, which focus on 
+                    This system incorporates cognitive-behavioural approaches to social skills development, which focus on 
                     teaching children to identify and modify thoughts, feelings, and behaviors that affect social interactions. 
-                    Research by Bauminger (2007) found that cognitive-behavioral social skills training leads to improvements 
+                    Research by Bauminger (2007) found that cognitive-behavioural social skills training leads to improvements 
                     in social cognition, social problem-solving, and social interaction.
                   </p>
                 </div>

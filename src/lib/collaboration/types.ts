@@ -201,7 +201,7 @@ export interface WhiteboardElement {
     opacity?: number;
     fontSize?: number;
     fontFamily?: string;
-    textAlign?: 'left' | 'center' | 'right';
+    textAlign?: 'left' | 'centre' | 'right';
     [key: string]: any;
   };
   content?: {
