@@ -61,11 +61,6 @@ export async function GET(req: NextRequest) {
             id: true,
           },
         },
-        resources: {
-          select: {
-            id: true,
-          },
-        },
         assessments: {
           select: {
             id: true,
@@ -90,11 +85,10 @@ export async function GET(req: NextRequest) {
     const transformedPlans = plans.map(plan => ({
       ...plan,
       objectivesCount: plan.objectives.length,
-      resourcesCount: plan.resources.length,
+      resourcesCount: 0, // Set to 0 since resources relation doesn't exist
       assessmentsCount: plan.assessments.length,
       collaboratorsCount: plan.collaborators.length,
       objectives: undefined,
-      resources: undefined,
       assessments: undefined,
       collaborators: plan.collaborators.map(c => c.user),
     }));
