@@ -18,16 +18,16 @@ import {
   XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell, RadarChart, 
   Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ComposedChart, Treemap
 } from 'recharts';
-import { 
-  Download, Filter, RefreshCw, Settings, Share2, Calendar as CalendarIcon, 
+import {
+  Download, Filter, RefreshCw, Settings, Share2, Calendar as CalendarIcon,
   ChevronDown, Maximize2, HelpCircle, BookOpen, BarChart2, PieChart as PieChartIcon,
-  LineChart as LineChartIcon, Activity, Users, BookOpen as BookOpenIcon, Clock, 
-  Award, TrendingUp, AlertTriangle, CheckCircle, Info, FileText, Sliders, 
+  LineChart as LineChartIcon, Activity, Users, BookOpen as BookOpenIcon, Clock,
+  Award, TrendingUp, AlertTriangle, CheckCircle, Info, FileText, Sliders,
   BarChart as BarChartIcon, Layers, Save, Plus, Edit, Trash2, ArrowUp, ArrowDown,
   ArrowRight, Target, Eye, EyeOff, Zap, Flag, User, UserPlus, UserCheck, Star,
   Lightbulb, Clipboard, Briefcase, Heart, ThumbsUp, MessageSquare, School, GraduationCap,
   FileQuestion, BookMarked, Laptop, Tablet, Smartphone, Printer, Database, Search,
-  Library, Book, Video, Music, Image, File, FilePlus, FileText, FileCheck
+  Library, Book, Video, Music, Image, File, FilePlus, FileCheck
 } from 'lucide-react';
 import { cn } from "@/lib/utils";
 
@@ -51,7 +51,7 @@ const resourceEffectivenessData = [
   { name: 'Digital Textbooks', effectiveness: 85, usage: 420, cost: 2500 },
   { name: 'Interactive Simulations', effectiveness: 92, usage: 175, cost: 1800 },
   { name: 'Educational Videos', effectiveness: 88, usage: 320, cost: 2200 },
-  { name: 'Practise Worksheets', effectiveness: 75, usage: 280, cost: 1200 },
+  { name: 'Practice Worksheets', effectiveness: 75, usage: 280, cost: 1200 },
   { name: 'Assessment Tools', effectiveness: 90, usage: 210, cost: 1900 },
   { name: 'Learning Games', effectiveness: 86, usage: 150, cost: 1600 },
   { name: 'Reference Materials', effectiveness: 78, usage: 190, cost: 1400 },
@@ -117,7 +117,7 @@ const popularResourcesData = [
   { name: 'Science Experiment Videos', downloads: 980, rating: 4.7, type: 'Digital' },
   { name: 'Reading Comprehension Worksheets', downloads: 850, rating: 4.5, type: 'Print' },
   { name: 'Historical Timeline Interactive', downloads: 780, rating: 4.6, type: 'Interactive' },
-  { name: 'Grammar Practise Activities', downloads: 720, rating: 4.4, type: 'Digital' },
+  { name: 'Grammar Practice Activities', downloads: 720, rating: 4.4, type: 'Digital' },
   { name: 'Physics Simulation Lab', downloads: 680, rating: 4.9, type: 'Interactive' },
   { name: 'Creative Writing Prompts', downloads: 650, rating: 4.3, type: 'Print' },
   { name: 'Geography Map Quizzes', downloads: 620, rating: 4.5, type: 'Digital' },
@@ -954,7 +954,7 @@ export function ResourceAndAssessmentAnalytics() {
                     { type: 'Digital Textbooks', roi: 2.8 },
                     { type: 'Interactive Simulations', roi: 3.5 },
                     { type: 'Educational Videos', roi: 3.2 },
-                    { type: 'Practise Worksheets', roi: 2.5 },
+                    { type: 'Practice Worksheets', roi: 2.5 },
                     { type: 'Assessment Tools', roi: 3.8 },
                     { type: 'Learning Games', roi: 3.0 },
                     { type: 'Reference Materials', roi: 2.2 },
@@ -1730,7 +1730,7 @@ export function ResourceAndAssessmentAnalytics() {
           <CardHeader>
             <CardTitle>Resource Optimization Recommendations</CardTitle>
             <CardDescription>
-              AI-powered suggestions to optimise resource usage
+              AI-powered suggestions to optimize resource usage
             </CardDescription>
           </CardHeader>
           <CardContent className="px-2">
