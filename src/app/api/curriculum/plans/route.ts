@@ -123,7 +123,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     
     // Validate required fields
-    const { title, subject, keyStage, year, term } = body;
+    const { title, subject, keyStage, year } = body;
     
     if (!title || !subject || !keyStage) {
       return NextResponse.json(
@@ -139,7 +139,6 @@ export async function POST(req: NextRequest) {
         subject,
         keyStage,
         year: year || '',
-        term: term || '',
         status: 'draft',
         user: {
           connect: { id: session.user.id },
