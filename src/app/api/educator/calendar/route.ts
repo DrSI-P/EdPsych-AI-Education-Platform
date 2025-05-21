@@ -88,8 +88,8 @@ export async function GET(request: NextRequest) {
       {
         id: '4',
         title: 'Progress Reports',
-        start: new Date(new Date().setDate(new Date().getDate() + 1)).setHours(13, 0, 0, 0).toISOString(),
-        end: new Date(new Date().setDate(new Date().getDate() + 1)).setHours(15, 0, 0, 0).toISOString(),
+        start: new Date(new Date(new Date().setDate(new Date().getDate() + 1)).setHours(13, 0, 0, 0)).toISOString(),
+        end: new Date(new Date(new Date().setDate(new Date().getDate() + 1)).setHours(15, 0, 0, 0)).toISOString(),
         type: 'administrative',
         priority: 'high',
         location: 'Office',
@@ -100,8 +100,8 @@ export async function GET(request: NextRequest) {
       {
         id: '5',
         title: 'Inclusive Teaching Workshop',
-        start: new Date(new Date().setDate(new Date().getDate() + 2)).setHours(9, 0, 0, 0).toISOString(),
-        end: new Date(new Date().setDate(new Date().getDate() + 2)).setHours(12, 0, 0, 0).toISOString(),
+        start: new Date(new Date(new Date().setDate(new Date().getDate() + 2)).setHours(9, 0, 0, 0)).toISOString(),
+        end: new Date(new Date(new Date().setDate(new Date().getDate() + 2)).setHours(12, 0, 0, 0)).toISOString(),
         type: 'professional',
         priority: 'medium',
         location: 'Training Centre',
