@@ -277,7 +277,7 @@ async function handleRespondToRequest(body: any) {
       });
       
       // Create CPD activity for both mentor and mentee
-      await prisma.cpdActivity.create({
+      await prisma.cPDActivity.create({
         data: {
           userId: request.mentorId,
           title: `Mentorship with ${request.menteeId}`,
@@ -293,7 +293,7 @@ async function handleRespondToRequest(body: any) {
         }
       });
       
-      await prisma.cpdActivity.create({
+      await prisma.cPDActivity.create({
         data: {
           userId: request.menteeId,
           title: `Mentorship with ${request.mentorId}`,
@@ -448,7 +448,7 @@ async function handleUpdateMeeting(body: any) {
       
       if (mentorship) {
         // Update mentor's CPD record
-        const mentorCpd = await prisma.cpdActivity.findFirst({
+        const mentorCpd = await prisma.cPDActivity.findFirst({
           where: {
             userId: mentorship.mentorId,
             type: 'Mentorship',
@@ -457,7 +457,7 @@ async function handleUpdateMeeting(body: any) {
         });
         
         if (mentorCpd) {
-          await prisma.cpdActivity.update({
+          await prisma.cPDActivity.update({
             where: { id: mentorCpd.id },
             data: {
               duration: mentorCpd.duration + meetingData.duration,
@@ -468,7 +468,7 @@ async function handleUpdateMeeting(body: any) {
         }
         
         // Update mentee's CPD record
-        const menteeCpd = await prisma.cpdActivity.findFirst({
+        const menteeCpd = await prisma.cPDActivity.findFirst({
           where: {
             userId: mentorship.menteeId,
             type: 'Mentorship',
@@ -477,7 +477,7 @@ async function handleUpdateMeeting(body: any) {
         });
         
         if (menteeCpd) {
-          await prisma.cpdActivity.update({
+          await prisma.cPDActivity.update({
             where: { id: menteeCpd.id },
             data: {
               duration: menteeCpd.duration + meetingData.duration,
@@ -680,7 +680,7 @@ async function handleCompleteMentorship(body: any) {
     });
     
     // Update CPD records
-    const mentorCpd = await prisma.cpdActivity.findFirst({
+    const mentorCpd = await prisma.cPDActivity.findFirst({
       where: {
         userId: mentorship.mentorId,
         type: 'Mentorship',
@@ -689,7 +689,7 @@ async function handleCompleteMentorship(body: any) {
     });
     
     if (mentorCpd) {
-      await prisma.cpdActivity.update({
+      await prisma.cPDActivity.update({
         where: { id: mentorCpd.id },
         data: {
           status: 'Completed',
@@ -699,7 +699,7 @@ async function handleCompleteMentorship(body: any) {
       });
     }
     
-    const menteeCpd = await prisma.cpdActivity.findFirst({
+    const menteeCpd = await prisma.cPDActivity.findFirst({
       where: {
         userId: mentorship.menteeId,
         type: 'Mentorship',
@@ -708,7 +708,7 @@ async function handleCompleteMentorship(body: any) {
     });
     
     if (menteeCpd) {
-      await prisma.cpdActivity.update({
+      await prisma.cPDActivity.update({
         where: { id: menteeCpd.id },
         data: {
           status: 'Completed',
@@ -1015,7 +1015,7 @@ async function getMentorshipAnalytics(userId: string) {
   const inProgressGoals = allGoals.filter(g => g.status === 'in_progress').length;
   
   // Get CPD points from mentorship
-  const cpdActivities = await prisma.cpdActivity.findMany({
+  const cpdActivities = await prisma.cPDActivity.findMany({
     where: {
       userId,
       type: 'Mentorship'
