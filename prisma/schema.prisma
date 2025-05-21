@@ -93,6 +93,10 @@ model User {
   pluginCredentials     PluginCredential[]         // Relation to plugin credentials
   courseDiscussions     CourseDiscussion[]         // Relation to course discussions
   discussionReplies     DiscussionReply[]          // Relation to discussion replies
+  cpdActivities         CPDActivity[]              // Relation to CPD activities
+  cpdGoals              CPDGoal[]                  // Relation to CPD goals
+  cpdReflections        CPDReflection[]            // Relation to CPD reflections
+  cpdEvidence           CPDEvidence[]              // Relation to CPD evidence
 }
 
 model VerificationToken {
@@ -922,5 +926,66 @@ model ImmersiveToolReview {
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
   tool              ImmersiveTool @relation(fields: [toolId], references: [id], onDelete: Cascade)
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// CPD (Continuing Professional Development) Models
+model CPDActivity {
+  id                String   @id @default(cuid())
+  userId            String
+  title             String
+  type              String
+  provider          String?
+  date              DateTime
+  duration          Int      // Duration in minutes
+  points            Int
+  categories        Int[]    // Array of category IDs
+  standards         Int[]    // Array of standard IDs
+  status            String   // Planned, In Progress, Completed
+  evidence          String?  // URL or reference to evidence
+  reflection        String?  @db.Text
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @default(now())
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  reflections       CPDReflection[]
+  evidenceItems     CPDEvidence[]
+}
+
+model CPDGoal {
+  id                String   @id @default(cuid())
+  userId            String
+  title             String
+  description       String?  @db.Text
+  targetPoints      Int
+  categories        Int[]    // Array of category IDs
+  standards         Int[]    // Array of standard IDs
+  deadline          DateTime
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @default(now())
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model CPDReflection {
+  id                String   @id @default(cuid())
+  activityId        String
+  userId            String
+  content           String   @db.Text
+  impactRating      Int?     // 1-5 scale
+  nextSteps         String?  @db.Text
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @default(now())
+  activity          CPDActivity @relation(fields: [activityId], references: [id], onDelete: Cascade)
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model CPDEvidence {
+  id                String   @id @default(cuid())
+  activityId        String
+  userId            String
+  title             String
+  fileUrl           String
+  fileType          String
+  createdAt         DateTime @default(now())
+  activity          CPDActivity @relation(fields: [activityId], references: [id], onDelete: Cascade)
   user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
