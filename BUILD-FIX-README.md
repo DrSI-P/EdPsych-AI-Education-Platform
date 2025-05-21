@@ -11,6 +11,7 @@ This document provides instructions to fix the build issues identified in the Ed
 2. **Failed Migrations**: Created a script to fix the following failed migrations:
    - `20250521020000_add_password_reset_model`
    - `20250521030000_add_password_field_to_user` (fails because the password field already exists in the User table)
+   - `20250521040000_add_curriculum_collaboration_models` (fails because it references a table "CurriculumPlan" that doesn't exist)
 
 ## How to Apply the Fixes
 
@@ -100,6 +101,7 @@ After applying these fixes and pushing to GitHub, you should be able to build an
 - The migration issues occurred because:
   - The migration `20250521020000_add_password_reset_model` was an empty migration intended to fix the migration history, but it failed.
   - The migration `20250521030000_add_password_field_to_user` failed because the password field already exists in the User table.
+  - The migration `20250521040000_add_curriculum_collaboration_models` failed because it references a table "CurriculumPlan" that doesn't exist.
 - The type error occurred because the field names used in the code didn't match the field names in the Prisma schema.
 - The fix-build-issues.js script creates a .env file with the Supabase database URL. You need to replace `[YOUR-PASSWORD]` in the DATABASE_URL with your actual Supabase database password.
 
@@ -111,7 +113,7 @@ To ensure successful builds on Vercel, update your build command in the Vercel p
 2. Navigate to Settings > General > Build & Development Settings
 3. Update the build command to:
    ```
-   npx prisma migrate resolve --applied 20250521030000_add_password_field_to_user && npx prisma migrate deploy && npm run build
+   npx prisma migrate resolve --applied 20250521030000_add_password_field_to_user && npx prisma migrate resolve --applied 20250521040000_add_curriculum_collaboration_models && npx prisma migrate deploy && npm run build
    ```
    
    Note: The migration `20250521020000_add_password_reset_model` is already marked as applied in the database, so we don't need to resolve it again.
