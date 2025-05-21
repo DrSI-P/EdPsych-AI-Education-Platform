@@ -1,8 +1,10 @@
-# TypeScript Implicit Any Fix
+# TypeScript Type Fixes
 
-## Issue
+## Issues
 
-During the Vercel deployment process, we encountered a TypeScript error:
+During the Vercel deployment process, we encountered multiple TypeScript errors:
+
+### 1. Implicit Any Type
 
 ```
 Type error: Parameter 'action' implicitly has an 'any' type.
@@ -16,13 +18,33 @@ const mockBlockchainInteraction = async (action, data) => {
 };
 ```
 
+### 2. Null vs Undefined Type Mismatch
+
+```
+Type error: Type 'string | null' is not assignable to type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+```
+
+This error occurred in `src/app/api/blockchain/route.ts` on line 90, where we were passing potentially null values from `searchParams.get()` to a function that expected either string or undefined:
+
+```typescript
+const verificationResult = await mockBlockchainInteraction('verify', {
+  id: id || 'unknown',
+  type,
+  transactionId,  // searchParams.get() returns string | null
+  verificationCode
+});
+```
+
 ## Root Cause
 
 TypeScript is configured to not allow implicit `any` types, which is a good practice for type safety. When function parameters don't have explicit type annotations, TypeScript infers them as `any`, but with the `noImplicitAny` compiler option enabled, this results in an error.
 
 The function was using parameters without type annotations, which is not allowed with the current TypeScript configuration.
 
-## Solution
+## Solutions
+
+### 1. Adding Type Annotations for Function Parameters
 
 We added explicit type annotations to the function parameters:
 
@@ -48,6 +70,21 @@ const mockBlockchainInteraction = async (action: BlockchainAction, data: Blockch
 };
 ```
 
+### 2. Handling Null vs Undefined Type Mismatch
+
+We fixed the null vs undefined type mismatch by explicitly converting null values to undefined:
+
+```typescript
+const verificationResult = await mockBlockchainInteraction('verify', {
+  id: id || 'unknown',
+  type,
+  transactionId: transactionId || undefined,
+  verificationCode: verificationCode || undefined
+});
+```
+
+This ensures that we're passing `undefined` instead of `null` when the search parameters don't exist, which matches the expected type in our `BlockchainData` interface.
+
 ## Lessons Learned
 
 1. **Type Safety**: TypeScript's strict type checking helps catch potential issues early, but requires explicit type annotations for function parameters.
@@ -57,6 +94,10 @@ const mockBlockchainInteraction = async (action: BlockchainAction, data: Blockch
 3. **Union Types**: Using union types like `'verify' | 'issue' | 'register'` provides more specific type information than generic types like `string`.
 
 4. **Index Signatures**: Using index signatures like `[key: string]: any` allows for flexibility while still providing some type safety.
+
+5. **Null vs Undefined**: In TypeScript, `null` and `undefined` are distinct types and are not interchangeable. When working with APIs that return `null` (like `URLSearchParams.get()`), you may need to explicitly convert `null` to `undefined` to match your type definitions.
+
+6. **Nullish Coalescing**: The `||` operator can be used to convert `null` to `undefined` (or any other default value) in a concise way: `value || undefined`.
 
 ## Related Issues
 
