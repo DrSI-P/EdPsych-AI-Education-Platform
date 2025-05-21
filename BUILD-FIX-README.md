@@ -111,8 +111,10 @@ To ensure successful builds on Vercel, update your build command in the Vercel p
 2. Navigate to Settings > General > Build & Development Settings
 3. Update the build command to:
    ```
-   npx prisma migrate resolve --applied 20250521020000_add_password_reset_model && npx prisma migrate resolve --applied 20250521030000_add_password_field_to_user && npx prisma migrate deploy && npm run build
+   npx prisma migrate resolve --applied 20250521030000_add_password_field_to_user && npx prisma migrate deploy && npm run build
    ```
+   
+   Note: The migration `20250521020000_add_password_reset_model` is already marked as applied in the database, so we don't need to resolve it again.
 4. Make sure your environment variables include the correct DATABASE_URL for Supabase:
    ```
    DATABASE_URL=postgresql://postgres:[YOUR-PASSWORD]@db.wxwcvqnbjorztzjwfi.supabase.co:5432/postgres
