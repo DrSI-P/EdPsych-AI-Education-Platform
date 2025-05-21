@@ -33,6 +33,9 @@ const fixResults = [
   runScript(path.join(scriptsDir, 'fix-template-literals.js'), 'Template Literals Fix'),
   runScript(path.join(scriptsDir, 'fix-import-statements.js'), 'Import Statements Fix'),
   runScript(path.join(scriptsDir, 'fix-tabs-component.js'), 'Tabs Component Fix'),
+  runScript(path.join(scriptsDir, 'fix-dialog-imports.js'), 'Dialog Imports Fix (UK to US spelling)'),
+  runScript(path.join(scriptsDir, 'fix-calendar-component-imports.js'), 'Calendar Component Imports Fix (UK to US spelling)'),
+  runScript(path.join(scriptsDir, 'fix-calendar-optimization-path.js'), 'Calendar Optimization Path Fix (UK to US spelling)'),
   runScript(path.join(scriptsDir, 'fix-enhanced-typescript-errors.js'), 'Enhanced TypeScript Errors Fix'),
   runScript(path.join(scriptsDir, 'fix-remaining-typescript-errors.js'), 'Remaining TypeScript Errors Fix')
 ];

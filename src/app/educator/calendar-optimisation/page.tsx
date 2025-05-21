@@ -1,14 +1,14 @@
 'use client';
 
 import React from 'react';
-import { CalendarOptimisation } from '@/components/educator/calendar-optimisation';
+import { CalendarOptimization } from '@/components/educator/calendar-optimization';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-export default function CalendarOptimisationPage() {
+export default function CalendarOptimizationPage() {
   return (
     <div className="container mx-auto py-8">
-      <h1 className="text-3xl font-bold mb-6">Calendar Optimisation</h1>
+      <h1 className="text-3xl font-bold mb-6">Calendar Optimization</h1>
       
       <Tabs defaultValue="calendar" className="mb-8">
         <TabsList className="grid w-full grid-cols-3">
@@ -18,20 +18,20 @@ export default function CalendarOptimisationPage() {
         </TabsList>
         
         <TabsContent value="calendar">
-          <CalendarOptimisation />
+          <CalendarOptimization />
         </TabsContent>
         
         <TabsContent value="about">
           <Card>
             <CardHeader>
-              <CardTitle>About Calendar Optimisation</CardTitle>
+              <CardTitle>About Calendar Optimization</CardTitle>
               <CardDescription>
                 Understanding how this feature helps educators manage their time effectively
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <p>
-                The Calendar Optimisation feature is designed to help educators efficiently plan, organise, and optimise their professional activities while balancing teaching responsibilities, administrative tasks, meetings, and professional development.
+                The Calendar Optimization feature is designed to help educators efficiently plan, organize, and optimize their professional activities while balancing teaching responsibilities, administrative tasks, meetings, and professional development.
               </p>
               
               <h3 className="text-lg font-medium mt-4">Key Benefits</h3>
@@ -40,10 +40,10 @@ export default function CalendarOptimisationPage() {
                   <strong>Intelligent Activity Scheduling:</strong> Smart scheduling algorithms that consider activity type, priority, duration, and dependencies to create optimal timetables.
                 </li>
                 <li>
-                  <strong>Activity Categorisation and Prioritisation:</strong> Automatic categorisation of activities with priority scoring based on urgency, importance, and educational impact.
+                  <strong>Activity Categorization and Prioritization:</strong> Automatic categorization of activities with priority scoring based on urgency, importance, and educational impact.
                 </li>
                 <li>
-                  <strong>Time Allocation Optimisation:</strong> Analysis of time spent across different activity categories with recommendations for optimal time distribution.
+                  <strong>Time Allocation Optimization:</strong> Analysis of time spent across different activity categories with recommendations for optimal time distribution.
                 </li>
                 <li>
                   <strong>Collaborative Scheduling:</strong> Tools for coordinating shared calendars, meeting times, and resource booking.
@@ -55,11 +55,11 @@ export default function CalendarOptimisationPage() {
               
               <h3 className="text-lg font-medium mt-4">Educational Psychology Foundations</h3>
               <p>
-                This feature is built on solid educational psychology principles including cognitive load management, spaced practise, attention restoration, and work-life balance considerations.
+                This feature is built on solid educational psychology principles including cognitive load management, spaced practice, attention restoration, and work-life balance considerations.
               </p>
               
               <p className="mt-4">
-                By intelligently optimising how educators allocate their time and schedule their activities, this feature significantly reduces administrative burden while ensuring that high-impact educational activities receive appropriate focus and resources.
+                By intelligently optimizing how educators allocate their time and schedule their activities, this feature significantly reduces administrative burden while ensuring that high-impact educational activities receive appropriate focus and resources.
               </p>
             </CardContent>
           </Card>
@@ -70,16 +70,16 @@ export default function CalendarOptimisationPage() {
             <CardHeader>
               <CardTitle>Help & Tips</CardTitle>
               <CardDescription>
-                Guidance on getting the most from the Calendar Optimisation feature
+                Guidance on getting the most from the Calendar Optimization feature
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <h3 className="text-lg font-medium">Getting Started</h3>
               <ol className="list-decimal pl-6 space-y-2">
                 <li>Begin by adding your regular teaching schedule and recurring meetings</li>
-                <li>Use the activity types to categorise different kinds of work</li>
+                <li>Use the activity types to categorize different kinds of work</li>
                 <li>Set appropriate priorities for each activity</li>
-                <li>Use the optimisation feature to receive suggestions for improving your schedule</li>
+                <li>Use the optimization feature to receive suggestions for improving your schedule</li>
                 <li>Review the analytics regularly to understand your time allocation patterns</li>
               </ol>
               
