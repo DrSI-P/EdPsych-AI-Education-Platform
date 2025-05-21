@@ -3,7 +3,7 @@
 
 export * from './accordion';
 export * from './alert';
-export * from './alert-dialogue';
+export * from './alert-dialog';
 export * from './avatar';
 export * from './badge';
 export * from './button';
@@ -11,7 +11,7 @@ export * from './calendar';
 export * from './card';
 export * from './checkbox';
 
-// Export dialogue components with explicit names to avoid conflicts with modal
+// Export dialog components with explicit names to avoid conflicts with modal
 export {
   Dialog,
   DialogContent,
@@ -20,7 +20,7 @@ export {
   DialogHeader,
   DialogTitle,
   DialogTrigger
-} from './dialogue';
+} from './dialog';
 
 // Export dropdown components with explicit names to avoid conflicts
 export { 
