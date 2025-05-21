@@ -186,8 +186,8 @@ export async function GET(request: NextRequest) {
     
     // Apply pagination
     const paginatedPlans = filteredPlans.slice(
-      validatedParams.offset, 
-      validatedParams.offset + validatedParams.limit
+      validatedParams.offset ?? 0,
+      (validatedParams.offset ?? 0) + (validatedParams.limit ?? 10)
     );
     
     return NextResponse.json({ 
