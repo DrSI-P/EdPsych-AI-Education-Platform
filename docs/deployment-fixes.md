@@ -6,10 +6,11 @@ This document outlines the fixes implemented to resolve Vercel deployment issues
 
 ## Issues Fixed
 
-### 1. UK to US Spelling in Package Names
+### 1. UK to US Spelling in Package Names and Components
 
-The deployment was failing due to npm trying to download packages with UK spelling that don't exist in the npm registry. We fixed:
+The deployment was failing due to inconsistent use of UK vs US spelling in package names and component imports. We fixed:
 
+#### Package Names
 - `@zag-js/colour-picker` → `@zag-js/color-picker`
 - `@zag-js/colour-utils` → `@zag-js/color-utils`
 - `@zag-js/dialogue` → `@zag-js/dialog`
@@ -17,6 +18,20 @@ The deployment was failing due to npm trying to download packages with UK spelli
 - `@radix-ui/react-dialogue` → `@radix-ui/react-dialog`
 - `@radix-ui/react-alert-dialogue` → `@radix-ui/react-alert-dialog`
 - Fixed package URLs in package-lock.json that were still using UK spelling
+
+#### Component Imports
+- Fixed imports from `@/components/ui/dialogue` to `@/components/ui/dialog`
+- Fixed imports from `@/components/ui/alert-dialogue` to `@/components/ui/alert-dialog`
+- Fixed imports from `@radix-ui/react-dialogue` to `@radix-ui/react-dialog`
+- Fixed imports from `@radix-ui/react-alert-dialogue` to `@radix-ui/react-alert-dialog`
+
+#### Calendar Optimization Component
+- Fixed imports from `@/components/educator/calendar-optimisation` to `@/components/educator/calendar-optimization`
+- Updated component usage from `<CalendarOptimisation />` to `<CalendarOptimization />`
+- Standardized text content from UK to US spelling (e.g., "optimisation" to "optimization")
+- Created scripts to automate the renaming of files and fixing of imports:
+  - `fix-calendar-component-imports.js`: Fixes imports in all files that use the component
+  - `fix-calendar-optimization-path.js`: Renames the directory from UK to US spelling
 
 ### 2. Previous Fixes
 
@@ -27,6 +42,8 @@ We've also consolidated previous fixes:
 - Fixed import statements
 - Created SimpleTabs component to handle custom props
 - Fixed TypeScript errors
+- Fixed dialog/dialogue component imports
+- Fixed calendar optimization component imports and file paths
 
 ## How to Apply the Fixes
 
@@ -37,6 +54,10 @@ cd EdPsych-AI-Education-Platform
 node scripts/apply-all-fixes.js
 npm install
 ```
+
+For detailed information about specific fixes:
+- [UK Spelling Package Fix](uk-spelling-package-fix.md)
+- [Calendar Optimization Fix](calendar-optimization-fix.md)
 
 ## Deployment Process
 
@@ -85,3 +106,10 @@ If deployment issues persist:
    - Project settings
    - Git Integration
    - Disconnect and reconnect the repository
+
+## Additional Resources
+
+For more detailed information about specific fixes:
+
+- [UK Spelling Package Fix](uk-spelling-package-fix.md) - Details about fixing UK spelling in package names
+- [Calendar Optimization Fix](calendar-optimization-fix.md) - Details about fixing UK spelling in calendar optimization components
