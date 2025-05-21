@@ -10,6 +10,7 @@ git add src/app/api/curriculum/collaboration/route.ts
 git add fix-migrations.js
 git add fix-build-issues.js
 git add BUILD-FIX-README.md
+git add UPDATE-BUILD-COMMAND.md
 git add commit-and-push.sh
 
 # Commit the changes

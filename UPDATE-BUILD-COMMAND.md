@@ -1,0 +1,43 @@
+# Update Build Command Instructions
+
+To fix the build issues on Vercel, you need to update the build command in your `package.json` file to include the migration resolution step.
+
+## Current Build Command
+
+The current build command in your `package.json` file is:
+
+```json
+"build": "prisma migrate deploy || true && next build"
+```
+
+## Updated Build Command
+
+Update the build command to include the migration resolution step:
+
+```json
+"build": "npx prisma migrate resolve --applied 20250521020000_add_password_reset_model && npx prisma migrate deploy && next build"
+```
+
+This updated command will:
+
+1. Mark the problematic migration `20250521020000_add_password_reset_model` as applied without running it
+2. Deploy any pending migrations
+3. Build the Next.js application
+
+## Steps to Update
+
+1. Open your `package.json` file
+2. Find the `"scripts"` section
+3. Update the `"build"` command as shown above
+4. Save the file
+5. Commit and push the changes to GitHub
+
+## Verifying the Fix
+
+After updating the build command and pushing the changes to GitHub, Vercel should be able to build the project successfully. The build will:
+
+1. Resolve the failed migration
+2. Apply any pending migrations
+3. Build the Next.js application
+
+If you've also updated the DATABASE_URL environment variable in Vercel to point to the correct Supabase database, the build should complete without errors.
