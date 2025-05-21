@@ -88,6 +88,8 @@ model User {
   assignedTasks         CurriculumPlanTask[]       @relation("TaskAssignee")
   immersiveExperiences  ImmersiveExperience[]      // Relation to created immersive experiences
   immersiveExperienceReviews ImmersiveExperienceReview[] // Relation to immersive experience reviews
+  immersiveTools        ImmersiveTool[]            // Relation to created immersive tools
+  immersiveToolReviews  ImmersiveToolReview[]      // Relation to immersive tool reviews
 }
 
 model VerificationToken {
@@ -852,5 +854,35 @@ model ImmersiveExperienceReview {
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
   experience        ImmersiveExperience @relation(fields: [experienceId], references: [id], onDelete: Cascade)
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// Immersive Learning Tools Models
+model ImmersiveTool {
+  id                String   @id @default(cuid())
+  title             String
+  description       String   @db.Text
+  subject           String
+  keyStage          String
+  type              String   // web, mobile, desktop, hardware, etc.
+  features          String[] // Array of features/capabilities
+  toolUrl           String
+  thumbnailUrl      String?
+  authorId          String
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  author            User     @relation(fields: [authorId], references: [id])
+  reviews           ImmersiveToolReview[]
+}
+
+model ImmersiveToolReview {
+  id                String   @id @default(cuid())
+  toolId            String
+  userId            String
+  rating            Int      // 1-5 scale
+  comment           String?  @db.Text
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  tool              ImmersiveTool @relation(fields: [toolId], references: [id], onDelete: Cascade)
   user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
