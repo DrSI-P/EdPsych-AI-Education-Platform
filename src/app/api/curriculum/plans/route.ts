@@ -61,11 +61,6 @@ export async function GET(req: NextRequest) {
             id: true,
           },
         },
-        assessments: {
-          select: {
-            id: true,
-          },
-        },
         collaborators: {
           select: {
             id: true,
@@ -86,10 +81,9 @@ export async function GET(req: NextRequest) {
       ...plan,
       objectivesCount: plan.objectives.length,
       resourcesCount: 0, // Set to 0 since resources relation doesn't exist
-      assessmentsCount: plan.assessments.length,
+      assessmentsCount: 0, // Set to 0 since assessments relation doesn't exist
       collaboratorsCount: plan.collaborators.length,
       objectives: undefined,
-      assessments: undefined,
       collaborators: plan.collaborators.map(c => c.user),
     }));
 
