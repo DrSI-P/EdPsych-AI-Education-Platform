@@ -800,3 +800,24 @@ model CurriculumPlanTask {
   createdBy    User     @relation("TaskCreator", fields: [creatorId], references: [id], onDelete: Cascade)
   assignedTo   User?    @relation("TaskAssignee", fields: [assignedToId], references: [id])
 }
+
+// Plugin System Models
+model Plugin {
+  id                 String   @id
+  name               String
+  description        String
+  version            String
+  author             String
+  website            String
+  icon               String
+  tags               String[]
+  supportedFeatures  String[]
+  requiredPermissions String[]
+  settings           Json
+  compatibilityVersion String
+  status             String
+  installedAt        DateTime
+  updatedAt          DateTime
+  errorMessage       String?
+  configuredSettings Json
+}
