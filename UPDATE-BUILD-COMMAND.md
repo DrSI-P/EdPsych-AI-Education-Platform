@@ -15,14 +15,15 @@ The current build command in your `package.json` file is:
 Update the build command to include the migration resolution step:
 
 ```json
-"build": "npx prisma migrate resolve --applied 20250521020000_add_password_reset_model && npx prisma migrate deploy && next build"
+"build": "npx prisma migrate resolve --applied 20250521020000_add_password_reset_model && npx prisma migrate resolve --applied 20250521030000_add_password_field_to_user && npx prisma migrate deploy && next build"
 ```
 
 This updated command will:
 
 1. Mark the problematic migration `20250521020000_add_password_reset_model` as applied without running it
-2. Deploy any pending migrations
-3. Build the Next.js application
+2. Mark the problematic migration `20250521030000_add_password_field_to_user` as applied without running it (this migration fails because the password field already exists in the User table)
+3. Deploy any pending migrations
+4. Build the Next.js application
 
 ## Steps to Update
 

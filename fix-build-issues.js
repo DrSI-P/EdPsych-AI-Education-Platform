@@ -80,7 +80,7 @@ try {
 
 console.log('Skipping migration resolution as it needs to be done on Vercel...');
 console.log('Add the following to your Vercel build command:');
-console.log('npx prisma migrate resolve --applied 20250521020000_add_password_reset_model && npx prisma migrate deploy && npm run build');
+console.log('npx prisma migrate resolve --applied 20250521020000_add_password_reset_model && npx prisma migrate resolve --applied 20250521030000_add_password_field_to_user && npx prisma migrate deploy && npm run build');
 
 console.log('Build fix completed successfully!');
 console.log('You can now run "npx prisma migrate deploy" to apply any pending migrations.');

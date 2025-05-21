@@ -13,7 +13,7 @@ git add commit-and-push.sh
 git add commit-and-push.bat
 
 REM Commit the changes
-git commit -m "Fix build issues: type error in plans route and migration failure"
+git commit -m "Fix build issues: type error in plans route and multiple migration failures"
 
 REM Push to GitHub
 git push origin main
