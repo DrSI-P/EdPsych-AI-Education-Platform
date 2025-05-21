@@ -1,0 +1,414 @@
+{
+  "avatars": [
+    {
+      "id": "teacher_avatar_dr_scott",
+      "name": "Dr. Scott Ighavongbe-Patrick",
+      "type": "teacher",
+      "description": "Main teacher avatar with professional, approachable appearance",
+      "useRealPerson": true,
+      "personDetails": {
+        "name": "Dr. Scott Ighavongbe-Patrick",
+        "role": "Educational Psychologist",
+        "imageProvided": true,
+        "voiceSampleProvided": true
+      },
+      "clips": [
+        {
+          "id": "welcome_introduction",
+          "title": "Welcome Introduction",
+          "duration": 30,
+          "category": "introduction",
+          "scriptPath": "/docs/ai_avatar_assets/teacher_avatar_clips.md#welcome-introduction"
+        },
+        {
+          "id": "platform_introduction",
+          "title": "Platform Introduction",
+          "duration": 45,
+          "category": "introduction",
+          "scriptPath": "/docs/ai_avatar_assets/teacher_avatar_clips.md#platform-introduction"
+        },
+        {
+          "id": "using_assessment_module",
+          "title": "Using the Assessment Module",
+          "duration": 60,
+          "category": "instructional",
+          "scriptPath": "/docs/ai_avatar_assets/teacher_avatar_clips.md#using-the-assessment-module"
+        },
+        {
+          "id": "curriculum_planning_guide",
+          "title": "Curriculum Planning Guide",
+          "duration": 60,
+          "category": "instructional",
+          "scriptPath": "/docs/ai_avatar_assets/teacher_avatar_clips.md#curriculum-planning-guide"
+        },
+        {
+          "id": "celebrating_achievement",
+          "title": "Celebrating Achievement",
+          "duration": 30,
+          "category": "emotional_support",
+          "scriptPath": "/docs/ai_avatar_assets/teacher_avatar_clips.md#celebrating-achievement"
+        },
+        {
+          "id": "providing_reassurance",
+          "title": "Providing Reassurance",
+          "duration": 30,
+          "category": "emotional_support",
+          "scriptPath": "/docs/ai_avatar_assets/teacher_avatar_clips.md#providing-reassurance"
+        },
+        {
+          "id": "starting_session",
+          "title": "Starting a Session",
+          "duration": 15,
+          "category": "transition",
+          "scriptPath": "/docs/ai_avatar_assets/teacher_avatar_clips.md#starting-a-session"
+        },
+        {
+          "id": "ending_session",
+          "title": "Ending a Session",
+          "duration": 15,
+          "category": "transition",
+          "scriptPath": "/docs/ai_avatar_assets/teacher_avatar_clips.md#ending-a-session"
+        },
+        {
+          "id": "executive_summary",
+          "title": "Executive Summary Video",
+          "duration": 165,
+          "category": "full_length",
+          "scriptPath": "/docs/video_scripts/executive_summary_script.md"
+        },
+        {
+          "id": "platform_features_overview",
+          "title": "Platform Features Overview Video",
+          "duration": 420,
+          "category": "full_length",
+          "scriptPath": "/docs/video_scripts/platform_features_overview_script.md"
+        },
+        {
+          "id": "educational_psychology_foundations",
+          "title": "Educational Psychology Foundations Video",
+          "duration": 240,
+          "category": "full_length",
+          "scriptPath": "/docs/video_scripts/educational_psychology_foundations_script.md"
+        }
+      ]
+    },
+    {
+      "id": "student_peer_avatar",
+      "name": "Student Peer",
+      "type": "student",
+      "description": "Relatable student avatar for peer-to-peer learning",
+      "useRealPerson": false,
+      "variants": [
+        {
+          "id": "alex",
+          "name": "Alex",
+          "ageGroup": "secondary",
+          "description": "Year 10 student, approachable and relatable"
+        },
+        {
+          "id": "jamie",
+          "name": "Jamie",
+          "ageGroup": "secondary",
+          "description": "Student guide with enthusiasm for the platform"
+        }
+      ],
+      "clips": [
+        {
+          "id": "welcome_introduction",
+          "title": "Welcome Introduction",
+          "duration": 30,
+          "category": "introduction",
+          "scriptPath": "/docs/ai_avatar_assets/student_peer_avatar_clips.md#welcome-introduction"
+        },
+        {
+          "id": "platform_tour_introduction",
+          "title": "Platform Tour Introduction",
+          "duration": 30,
+          "category": "introduction",
+          "scriptPath": "/docs/ai_avatar_assets/student_peer_avatar_clips.md#platform-tour-introduction"
+        },
+        {
+          "id": "using_assessment_tools",
+          "title": "Using the Assessment Tools",
+          "duration": 45,
+          "category": "instructional",
+          "scriptPath": "/docs/ai_avatar_assets/student_peer_avatar_clips.md#using-the-assessment-tools"
+        },
+        {
+          "id": "study_strategies",
+          "title": "Study Strategies",
+          "duration": 60,
+          "category": "instructional",
+          "scriptPath": "/docs/ai_avatar_assets/student_peer_avatar_clips.md#study-strategies"
+        },
+        {
+          "id": "dealing_with_study_stress",
+          "title": "Dealing with Study Stress",
+          "duration": 45,
+          "category": "emotional_support",
+          "scriptPath": "/docs/ai_avatar_assets/student_peer_avatar_clips.md#dealing-with-study-stress"
+        },
+        {
+          "id": "celebrating_progress",
+          "title": "Celebrating Progress",
+          "duration": 30,
+          "category": "emotional_support",
+          "scriptPath": "/docs/ai_avatar_assets/student_peer_avatar_clips.md#celebrating-progress"
+        },
+        {
+          "id": "starting_study_session",
+          "title": "Starting a Study Session",
+          "duration": 15,
+          "category": "transition",
+          "scriptPath": "/docs/ai_avatar_assets/student_peer_avatar_clips.md#starting-a-study-session"
+        },
+        {
+          "id": "ending_study_session",
+          "title": "Ending a Study Session",
+          "duration": 15,
+          "category": "transition",
+          "scriptPath": "/docs/ai_avatar_assets/student_peer_avatar_clips.md#ending-a-study-session"
+        },
+        {
+          "id": "explaining_learning_styles",
+          "title": "Explaining the Learning Styles Feature",
+          "duration": 45,
+          "category": "peer_explanation",
+          "scriptPath": "/docs/ai_avatar_assets/student_peer_avatar_clips.md#explaining-the-learning-styles-feature"
+        },
+        {
+          "id": "navigating_group_projects",
+          "title": "Navigating Group Projects",
+          "duration": 45,
+          "category": "peer_explanation",
+          "scriptPath": "/docs/ai_avatar_assets/student_peer_avatar_clips.md#navigating-group-projects"
+        }
+      ]
+    },
+    {
+      "id": "special_needs_support_avatar",
+      "name": "Special Needs Support",
+      "type": "support",
+      "description": "Supportive avatar focused on emotional regulation and special educational needs",
+      "useRealPerson": false,
+      "variants": [
+        {
+          "id": "sam",
+          "name": "Sam",
+          "description": "Calm, supportive guide for learning journey"
+        },
+        {
+          "id": "jordan",
+          "name": "Jordan",
+          "description": "Supportive guide for platform features"
+        }
+      ],
+      "clips": [
+        {
+          "id": "welcome_introduction",
+          "title": "Welcome Introduction",
+          "duration": 30,
+          "category": "introduction",
+          "scriptPath": "/docs/ai_avatar_assets/special_needs_support_avatar_clips.md#welcome-introduction"
+        },
+        {
+          "id": "platform_introduction_special_needs",
+          "title": "Platform Introduction for Special Needs",
+          "duration": 45,
+          "category": "introduction",
+          "scriptPath": "/docs/ai_avatar_assets/special_needs_support_avatar_clips.md#platform-introduction-for-special-needs"
+        },
+        {
+          "id": "executive_function_support",
+          "title": "Executive Function Support",
+          "duration": 60,
+          "category": "instructional",
+          "scriptPath": "/docs/ai_avatar_assets/special_needs_support_avatar_clips.md#executive-function-support"
+        },
+        {
+          "id": "sensory_regulation_strategies",
+          "title": "Sensory Regulation Strategies",
+          "duration": 60,
+          "category": "instructional",
+          "scriptPath": "/docs/ai_avatar_assets/special_needs_support_avatar_clips.md#sensory-regulation-strategies"
+        },
+        {
+          "id": "managing_frustration",
+          "title": "Managing Frustration",
+          "duration": 45,
+          "category": "emotional_support",
+          "scriptPath": "/docs/ai_avatar_assets/special_needs_support_avatar_clips.md#managing-frustration"
+        },
+        {
+          "id": "celebrating_small_wins",
+          "title": "Celebrating Small Wins",
+          "duration": 30,
+          "category": "emotional_support",
+          "scriptPath": "/docs/ai_avatar_assets/special_needs_support_avatar_clips.md#celebrating-small-wins"
+        },
+        {
+          "id": "preparing_for_transition",
+          "title": "Preparing for a Transition",
+          "duration": 30,
+          "category": "transition",
+          "scriptPath": "/docs/ai_avatar_assets/special_needs_support_avatar_clips.md#preparing-for-a-transition"
+        },
+        {
+          "id": "ending_session_special_needs",
+          "title": "Ending a Session",
+          "duration": 30,
+          "category": "transition",
+          "scriptPath": "/docs/ai_avatar_assets/special_needs_support_avatar_clips.md#ending-a-session"
+        },
+        {
+          "id": "emotional_regulation_guide",
+          "title": "Emotional Regulation Guide",
+          "duration": 60,
+          "category": "specialized_support",
+          "scriptPath": "/docs/ai_avatar_assets/special_needs_support_avatar_clips.md#emotional-regulation-guide"
+        },
+        {
+          "id": "social_skills_support",
+          "title": "Social Skills Support",
+          "duration": 60,
+          "category": "specialized_support",
+          "scriptPath": "/docs/ai_avatar_assets/special_needs_support_avatar_clips.md#social-skills-support"
+        }
+      ]
+    },
+    {
+      "id": "subject_specialist_avatar",
+      "name": "Subject Specialist",
+      "type": "specialist",
+      "description": "Academic specialists for specific subject areas",
+      "useRealPerson": false,
+      "variants": [
+        {
+          "id": "dr_maya_patel",
+          "name": "Dr. Maya Patel",
+          "subject": "Mathematics",
+          "description": "Mathematics education specialist"
+        },
+        {
+          "id": "dr_james_chen",
+          "name": "Dr. James Chen",
+          "subject": "Science",
+          "description": "Science education specialist"
+        }
+      ],
+      "clips": [
+        {
+          "id": "mathematics_specialist_introduction",
+          "title": "Mathematics Specialist Introduction",
+          "duration": 30,
+          "category": "introduction",
+          "scriptPath": "/docs/ai_avatar_assets/subject_specialist_avatar_clips.md#mathematics-specialist-introduction"
+        },
+        {
+          "id": "science_specialist_introduction",
+          "title": "Science Specialist Introduction",
+          "duration": 30,
+          "category": "introduction",
+          "scriptPath": "/docs/ai_avatar_assets/subject_specialist_avatar_clips.md#science-specialist-introduction"
+        },
+        {
+          "id": "mathematical_problem_solving",
+          "title": "Mathematical Problem-Solving Strategies",
+          "duration": 60,
+          "category": "instructional",
+          "scriptPath": "/docs/ai_avatar_assets/subject_specialist_avatar_clips.md#mathematical-problem-solving-strategies"
+        },
+        {
+          "id": "scientific_method_application",
+          "title": "Scientific Method Application",
+          "duration": 60,
+          "category": "instructional",
+          "scriptPath": "/docs/ai_avatar_assets/subject_specialist_avatar_clips.md#scientific-method-application"
+        },
+        {
+          "id": "understanding_fractions",
+          "title": "Understanding Fractions",
+          "duration": 45,
+          "category": "subject_specific",
+          "scriptPath": "/docs/ai_avatar_assets/subject_specialist_avatar_clips.md#understanding-fractions"
+        },
+        {
+          "id": "understanding_photosynthesis",
+          "title": "Understanding Photosynthesis",
+          "duration": 45,
+          "category": "subject_specific",
+          "scriptPath": "/docs/ai_avatar_assets/subject_specialist_avatar_clips.md#understanding-photosynthesis"
+        },
+        {
+          "id": "calculus_concepts",
+          "title": "Introduction to Calculus Concepts",
+          "duration": 60,
+          "category": "advanced_topic",
+          "scriptPath": "/docs/ai_avatar_assets/subject_specialist_avatar_clips.md#introduction-to-calculus-concepts"
+        },
+        {
+          "id": "genetics_inheritance",
+          "title": "Genetics and Inheritance",
+          "duration": 60,
+          "category": "advanced_topic",
+          "scriptPath": "/docs/ai_avatar_assets/subject_specialist_avatar_clips.md#genetics-and-inheritance"
+        },
+        {
+          "id": "mathematics_in_music",
+          "title": "Mathematics in Music",
+          "duration": 45,
+          "category": "interdisciplinary",
+          "scriptPath": "/docs/ai_avatar_assets/subject_specialist_avatar_clips.md#mathematics-in-music"
+        },
+        {
+          "id": "science_and_ethics",
+          "title": "Science and Ethics",
+          "duration": 45,
+          "category": "interdisciplinary",
+          "scriptPath": "/docs/ai_avatar_assets/subject_specialist_avatar_clips.md#science-and-ethics"
+        },
+        {
+          "id": "uk_curriculum_mathematics",
+          "title": "Connecting to UK National Curriculum (Mathematics)",
+          "duration": 30,
+          "category": "curriculum_connection",
+          "scriptPath": "/docs/ai_avatar_assets/subject_specialist_avatar_clips.md#connecting-to-uk-national-curriculum-mathematics"
+        },
+        {
+          "id": "uk_curriculum_science",
+          "title": "Connecting to UK National Curriculum (Science)",
+          "duration": 30,
+          "category": "curriculum_connection",
+          "scriptPath": "/docs/ai_avatar_assets/subject_specialist_avatar_clips.md#connecting-to-uk-national-curriculum-science"
+        }
+      ]
+    }
+  ],
+  "generationSettings": {
+    "preferredProvider": "HeyGen",
+    "fallbackProviders": ["D-ID", "Synthesia"],
+    "videoFormat": "MP4",
+    "resolution": "1080p",
+    "aspectRatio": "16:9",
+    "frameRate": 30,
+    "audioQuality": "44.1kHz stereo",
+    "backgroundOptions": [
+      "neutral",
+      "office",
+      "classroom",
+      "digital_classroom",
+      "academic",
+      "laboratory"
+    ]
+  },
+  "drScottSettings": {
+    "name": "Dr. Scott Ighavongbe-Patrick",
+    "role": "Educational Psychologist",
+    "imageProvided": true,
+    "voiceSampleProvided": true,
+    "preferredBackground": "office",
+    "preferredOutfit": "professional",
+    "voiceCharacteristics": "clear, warm, professional",
+    "presentationStyle": "engaging, authoritative, supportive"
+  }
+}
