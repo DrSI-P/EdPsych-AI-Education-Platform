@@ -55,6 +55,7 @@ export async function POST(req: NextRequest) {
         details: JSON.stringify(speechOptions)
         // timestamp and textLength fields removed as they're not in the schema
         // createdAt is automatically set by Prisma
+        // Adding this comment to force a rebuild
       }
     });
 
