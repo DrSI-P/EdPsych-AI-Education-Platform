@@ -104,7 +104,7 @@ async function handleGetData(body: any, session: any) {
     // 4. Return the formatted data
     
     // For now, we'll return mock data based on the requested type
-    let mockData;
+    let mockData: any[];
     
     switch (dataType) {
       case "student_progress":
