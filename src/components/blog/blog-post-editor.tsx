@@ -58,7 +58,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialogue";
+} from "@/components/ui/dialog";
 import { 
   ArrowLeft, 
   BookOpen, 

@@ -26,14 +26,14 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Separator } from "@/components/ui/separator";
 import { 
-  Dialogue, 
+  Dialog, 
   DialogContent, 
   DialogDescription, 
   DialogFooter, 
   DialogHeader, 
   DialogTitle, 
   DialogTrigger 
-} from "@/components/ui/dialogue";
+} from "@/components/ui/dialog";
 import { 
   Tooltip, 
   TooltipContent, 
@@ -271,7 +271,7 @@ export default function PortfolioExport() {
               <div className="space-y-4">
                 <div className="flex justify-between items-centre">
                   <Label>Customisation Options</Label>
-                  <Dialogue>
+                  <Dialog>
                     <DialogTrigger asChild>
                       <Button variant="outline" size="sm">
                         <Settings className="h-4 w-4 mr-2" />
@@ -363,7 +363,7 @@ export default function PortfolioExport() {
                         <Button type="submit">Save Changes</Button>
                       </DialogFooter>
                     </DialogContent>
-                  </Dialogue>
+                  </Dialog>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   <Card className={`border-2 cursor-pointer ${customization.theme === 'professional' ? 'border-primary' : 'border-transparent'}`} onClick={() => handleCustomizationChange('theme', 'professional')}>

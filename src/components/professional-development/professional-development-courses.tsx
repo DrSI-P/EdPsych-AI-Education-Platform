@@ -52,14 +52,14 @@ import {
   AvatarImage 
 } from "@/components/ui/avatar";
 import { 
-  Dialogue, 
+  Dialog, 
   DialogContent, 
   DialogDescription, 
   DialogFooter, 
   DialogHeader, 
   DialogTitle, 
   DialogTrigger 
-} from "@/components/ui/dialogue";
+} from "@/components/ui/dialog";
 import { 
   BarChart, 
   BookOpen, 

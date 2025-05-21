@@ -19,14 +19,14 @@ import {
   Button 
 } from "@/components/ui/button";
 import {
-  Dialogue,
+  Dialog,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialogue";
+} from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
@@ -280,7 +280,7 @@ export default function WebinarIntegration() {
       <div className="flex flex-col md:flex-row justify-between items-start md:items-centre mb-6 gap-4">
         <h1 className="text-3xl font-bold">Professional Development Webinars</h1>
         
-        <Dialogue>
+        <Dialog>
           <DialogTrigger asChild>
             <Button className="flex items-centre gap-2">
               <Plus className="h-4 w-4" />
@@ -397,7 +397,7 @@ export default function WebinarIntegration() {
               }}>Schedule Webinar</Button>
             </DialogFooter>
           </DialogContent>
-        </Dialogue>
+        </Dialog>
       </div>
       
       <div className="flex flex-col md:flex-row gap-4 mb-6">

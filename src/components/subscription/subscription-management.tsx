@@ -37,14 +37,14 @@ import {
   TableRow 
 } from "@/components/ui/table";
 import { 
-  Dialogue, 
+  Dialog, 
   DialogContent, 
   DialogDescription, 
   DialogFooter, 
   DialogHeader, 
   DialogTitle, 
   DialogTrigger 
-} from "@/components/ui/dialogue";
+} from "@/components/ui/dialog";
 import { 
   Accordion, 
   AccordionContent, 
@@ -636,7 +636,7 @@ const SubscriptionManagement = () => {
                     </div>
                   </CardContent>
                   <CardFooter>
-                    <Dialogue>
+                    <Dialog>
                       <DialogTrigger asChild>
                         <Button className="w-full">Buy More Credits</Button>
                       </DialogTrigger>
@@ -664,7 +664,7 @@ const SubscriptionManagement = () => {
                           ))}
                         </div>
                       </DialogContent>
-                    </Dialogue>
+                    </Dialog>
                   </CardFooter>
                 </Card>
               </div>
@@ -1020,8 +1020,8 @@ const SubscriptionManagement = () => {
         </TabsContent>
       </Tabs>
       
-      {/* Payment Dialogue */}
-      <Dialogue open={paymentDialogOpen} onOpenChange={setPaymentDialogOpen}>
+      {/* Payment Dialog */}
+      <Dialog open={paymentDialogOpen} onOpenChange={setPaymentDialogOpen}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Complete Your Subscription</DialogTitle>
@@ -1088,7 +1088,7 @@ const SubscriptionManagement = () => {
             </Button>
           </DialogFooter>
         </DialogContent>
-      </Dialogue>
+      </Dialog>
     </div>
   );
 };
