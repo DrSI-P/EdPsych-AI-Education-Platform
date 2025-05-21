@@ -122,7 +122,6 @@ export async function POST(request: NextRequest) {
         text: "Student expresses interest in pursuing a career in technology",
         category: "interest",
         ehcnaArea: "Preparation for Adulthood - Employment",
-        preparationForAdulthood: true,
         highlighted: true,
       });
       
@@ -130,7 +129,6 @@ export async function POST(request: NextRequest) {
         text: "Student needs support with independent travel planning",
         category: "development",
         ehcnaArea: "Preparation for Adulthood - Independent Living",
-        preparationForAdulthood: true,
         highlighted: true,
       });
       
