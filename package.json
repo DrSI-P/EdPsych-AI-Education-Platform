@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma migrate deploy || true && next build",
+    "build": "npx prisma migrate resolve --applied 20250521020000_add_password_reset_model && npx prisma migrate deploy && next build",
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
