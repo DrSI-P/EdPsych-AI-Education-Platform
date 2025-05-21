@@ -1087,7 +1087,7 @@ async function getPortfolioAnalytics(userId: string) {
   });
 
   // Get CPD activities
-  const cpdActivities = await prisma.cpdActivity.findMany({
+  const cpdActivities = await prisma.cPDActivity.findMany({
     where: {
       userId,
       status: 'Completed'
@@ -1193,7 +1193,7 @@ async function getCompletePortfolio(userId: string, visibility: string | null) {
   });
 
   // Get CPD activities
-  const cpdActivities = await prisma.cpdActivity.findMany({
+  const cpdActivities = await prisma.cPDActivity.findMany({
     where: {
       userId,
       status: 'Completed'
