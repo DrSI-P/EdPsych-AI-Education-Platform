@@ -44,7 +44,7 @@ EdPsych Connect offers sophisticated tools for communicating with your child's s
 
 The teacher communication system allows for structured, topic-specific conversations about your child's progress.
 
-The meeting preparation tools help you organize thoughts and questions before parent-teacher conferences.
+The meeting preparation tools help you organise thoughts and questions before parent-teacher conferences.
 
 The shared goal-setting features allow you, your child, and their teachers to collaboratively establish and track learning objectives.
 
@@ -61,7 +61,7 @@ The personalized accommodation tracker helps you understand which approaches are
 
 The progress monitoring tools show development in specific skill areas related to your child's learning plan.
 
-The resource library provides specialized materials and guidance for different learning differences.
+The resource library provides specialised materials and guidance for different learning differences.
 
 The professional collaboration tools facilitate communication between you, teachers, and specialists supporting your child.
 
@@ -85,7 +85,7 @@ These tools help foster a healthy relationship with educational technology as pa
 ### Supporting Transitions (3:45-4:15)
 [Screen transitions to show transition support tools]
 
-The platform provides specialized support for educational transitions:
+The platform provides specialised support for educational transitions:
 
 The year group transition guides explain changes in curriculum expectations and teaching approaches.
 

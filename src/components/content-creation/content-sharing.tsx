@@ -273,7 +273,7 @@ export const ContentSharing: React.FC<ContentSharingProps> = ({
   
   if (isLoading && !collaborators.length && !invitations.length) {
     return (
-      <div className="flex items-center justify-center h-64">
+      <div className="flex items-centre justify-centre h-64">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
       </div>
     );
@@ -363,7 +363,7 @@ export const ContentSharing: React.FC<ContentSharingProps> = ({
                 <h3 className="text-lg font-medium mb-2">Pending Invitations</h3>
                 <div className="space-y-2">
                   {invitations.map((invitation) => (
-                    <div key={invitation.id} className="flex justify-between items-center p-3 border rounded-md">
+                    <div key={invitation.id} className="flex justify-between items-centre p-3 border rounded-md">
                       <div>
                         <p className="font-medium">{invitation.inviteeEmail}</p>
                         <p className="text-sm text-muted-foreground">
@@ -425,8 +425,8 @@ export const ContentSharing: React.FC<ContentSharingProps> = ({
               <h3 className="text-lg font-medium mb-2">People with Access</h3>
               
               {/* Owner (current user) */}
-              <div className="flex justify-between items-center p-3 border rounded-md mb-2">
-                <div className="flex items-center gap-3">
+              <div className="flex justify-between items-centre p-3 border rounded-md mb-2">
+                <div className="flex items-centre gap-3">
                   <Avatar>
                     <AvatarImage src="https://api.dicebear.com/7.x/avataaars/svg?seed=Owner" />
                     <AvatarFallback>OU</AvatarFallback>
@@ -441,8 +441,8 @@ export const ContentSharing: React.FC<ContentSharingProps> = ({
               
               {/* Collaborators */}
               {collaborators.map((collaborator) => (
-                <div key={collaborator.id} className="flex justify-between items-center p-3 border rounded-md mb-2">
-                  <div className="flex items-center gap-3">
+                <div key={collaborator.id} className="flex justify-between items-centre p-3 border rounded-md mb-2">
+                  <div className="flex items-centre gap-3">
                     <Avatar>
                       <AvatarImage src={collaborator.avatarUrl} />
                       <AvatarFallback>{collaborator.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
@@ -452,7 +452,7 @@ export const ContentSharing: React.FC<ContentSharingProps> = ({
                       <p className="text-sm text-muted-foreground">{collaborator.email}</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-centre gap-2">
                     <Select 
                       value={collaborator.permission} 
                       onValueChange={(value) => handleChangePermission(collaborator.id, value as ContentPermission)}
@@ -478,7 +478,7 @@ export const ContentSharing: React.FC<ContentSharingProps> = ({
               ))}
               
               {collaborators.length === 0 && (
-                <p className="text-center text-muted-foreground py-4">
+                <p className="text-centre text-muted-foreground py-4">
                   No collaborators yet. Invite people to collaborate.
                 </p>
               )}

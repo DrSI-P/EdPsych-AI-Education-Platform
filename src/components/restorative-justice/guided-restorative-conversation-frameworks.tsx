@@ -190,7 +190,7 @@ const GuidedRestorativeConversationFrameworks = () => {
           description: "Brainstorm ways to resolve the issue and prevent future occurrences",
           questions: [
             "What could we do differently next time?",
-            "How can we help each other remember to [desired behavior]?",
+            "How can we help each other remember to [desired behaviour]?",
             "What would make our classroom feel safer/happier for everyone?"
           ]
         },
@@ -679,10 +679,10 @@ const GuidedRestorativeConversationFrameworks = () => {
                         <CardHeader className="pb-2">
                           <CardTitle className="text-lg">{framework.title}</CardTitle>
                           <div className="flex space-x-2">
-                            <span className="inline-flex items-center rounded-full bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
+                            <span className="inline-flex items-centre rounded-full bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
                               {framework.ageGroup === 'all' ? 'All ages' : framework.ageGroup === 'primary' ? 'Primary' : 'Secondary'}
                             </span>
-                            <span className="inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
+                            <span className="inline-flex items-centre rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
                               {framework.scenario.replace('-', ' ')}
                             </span>
                           </div>
@@ -706,7 +706,7 @@ const GuidedRestorativeConversationFrameworks = () => {
                     ))}
 
                     {filteredFrameworks.length === 0 && (
-                      <div className="col-span-full flex flex-col items-center justify-center p-6 text-center">
+                      <div className="col-span-full flex flex-col items-centre justify-centre p-6 text-centre">
                         <AlertCircle className="h-10 w-10 text-muted-foreground mb-2" />
                         <h3 className="text-lg font-medium">No frameworks found</h3>
                         <p className="text-sm text-muted-foreground mt-1">
@@ -724,7 +724,7 @@ const GuidedRestorativeConversationFrameworks = () => {
           <TabsContent value="conversation" className="space-y-6">
             {selectedFramework && (
               <>
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-centre">
                   <h2 className="text-2xl font-bold">{selectedFramework.title}</h2>
                   <div className="flex space-x-2">
                     <Button variant="outline" onClick={() => setActiveTab("frameworks")}>
@@ -752,7 +752,7 @@ const GuidedRestorativeConversationFrameworks = () => {
                         <div className="space-y-8">
                           {selectedFramework.steps.map((step, index) => (
                             <div key={index} className="relative pl-8 pb-6 border-l-2 border-primary/20 last:border-l-0">
-                              <div className="absolute left-[-9px] top-0 rounded-full bg-primary text-white w-4 h-4 flex items-center justify-center text-xs">
+                              <div className="absolute left-[-9px] top-0 rounded-full bg-primary text-white w-4 h-4 flex items-centre justify-centre text-xs">
                                 {index + 1}
                               </div>
                               <h3 className="text-lg font-medium mb-2">{step.title}</h3>
@@ -966,7 +966,7 @@ const GuidedRestorativeConversationFrameworks = () => {
                   </div>
 
                   <div className="space-y-6">
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-centre justify-between">
                       <h3 className="text-lg font-medium">Conversation Steps</h3>
                       <Button variant="outline" onClick={addStep}>
                         Add Step
@@ -1008,7 +1008,7 @@ const GuidedRestorativeConversationFrameworks = () => {
                             />
                           </div>
                           <div>
-                            <div className="flex items-center justify-between mb-2">
+                            <div className="flex items-centre justify-between mb-2">
                               <Label>Questions/Prompts</Label>
                               <Button 
                                 variant="ghost" 
@@ -1019,7 +1019,7 @@ const GuidedRestorativeConversationFrameworks = () => {
                               </Button>
                             </div>
                             {step.questions.map((question, questionIndex) => (
-                              <div key={questionIndex} className="flex items-center space-x-2 mb-2">
+                              <div key={questionIndex} className="flex items-centre space-x-2 mb-2">
                                 <Input
                                   placeholder="Enter question or prompt"
                                   value={question}
@@ -1123,7 +1123,7 @@ const GuidedRestorativeConversationFrameworks = () => {
                       <h3 className="text-lg font-medium mb-2">The Social Discipline Window</h3>
                       <p className="text-muted-foreground mb-4">
                         The Social Discipline Window, developed by Paul McCold and Ted Wachtel, provides a framework 
-                        for understanding different approaches to behavior management:
+                        for understanding different approaches to behaviour management:
                       </p>
                       <div className="grid grid-cols-2 gap-4 mb-4">
                         <Card className="bg-red-50">
@@ -1263,7 +1263,7 @@ const GuidedRestorativeConversationFrameworks = () => {
                       </div>
 
                       <div>
-                        <h3 className="text-sm font-medium mb-1">Practice Scenarios</h3>
+                        <h3 className="text-sm font-medium mb-1">Practise Scenarios</h3>
                         <ul className="text-sm space-y-2">
                           <li className="flex items-start">
                             <FileText className="h-4 w-4 mr-2 mt-0.5 text-purple-500" />

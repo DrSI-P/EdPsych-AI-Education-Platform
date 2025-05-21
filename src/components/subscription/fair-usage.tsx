@@ -7,14 +7,14 @@ import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AlertCircle, CreditCard, Zap } from 'lucide-react';
 import { 
-  Dialog, 
+  Dialogue, 
   DialogContent, 
   DialogDescription, 
   DialogFooter, 
   DialogHeader, 
   DialogTitle, 
   DialogTrigger 
-} from "@/components/ui/dialog";
+} from "@/components/ui/dialogue";
 
 // This hook can be used in any component that needs to check usage limits
 export const useFairUsage = () => {
@@ -155,7 +155,7 @@ export const useFairUsage = () => {
           
           return { ...data, usedCredits: true };
         } else {
-          // Not enough credits, show dialog to purchase more
+          // Not enough credits, show dialogue to purchase more
           setCurrentFeature(feature);
           setFeatureQuantity(quantity);
           setCreditInfo({
@@ -274,9 +274,9 @@ export const useFairUsage = () => {
     }
   };
   
-  // Credit purchase dialog component
+  // Credit purchase dialogue component
   const CreditPurchaseDialog = () => (
-    <Dialog open={showCreditDialog} onOpenChange={setShowCreditDialog}>
+    <Dialogue open={showCreditDialog} onOpenChange={setShowCreditDialog}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Additional Credits Required</DialogTitle>
@@ -295,33 +295,33 @@ export const useFairUsage = () => {
         
         <div className="grid grid-cols-2 gap-4 py-4">
           <div 
-            className="flex flex-col items-center justify-between p-4 border rounded-lg cursor-pointer hover:border-primary"
+            className="flex flex-col items-centre justify-between p-4 border rounded-lg cursor-pointer hover:border-primary"
             onClick={() => purchaseCredits(100)}
           >
-            <div className="text-center">
+            <div className="text-centre">
               <h4 className="font-medium">100 Credits</h4>
               <Badge className="mt-1">Basic</Badge>
             </div>
-            <div className="mt-2 text-center">
+            <div className="mt-2 text-centre">
               <span className="font-bold">£9.99</span>
             </div>
           </div>
           
           <div 
-            className="flex flex-col items-center justify-between p-4 border rounded-lg cursor-pointer hover:border-primary"
+            className="flex flex-col items-centre justify-between p-4 border rounded-lg cursor-pointer hover:border-primary"
             onClick={() => purchaseCredits(500)}
           >
-            <div className="text-center">
+            <div className="text-centre">
               <h4 className="font-medium">500 Credits</h4>
               <Badge variant="secondary" className="mt-1">Save 10%</Badge>
             </div>
-            <div className="mt-2 text-center">
+            <div className="mt-2 text-centre">
               <span className="font-bold">£44.99</span>
             </div>
           </div>
         </div>
         
-        <DialogFooter className="flex justify-between items-center">
+        <DialogFooter className="flex justify-between items-centre">
           <Button variant="outline" onClick={() => setShowCreditDialog(false)}>
             Cancel
           </Button>
@@ -330,7 +330,7 @@ export const useFairUsage = () => {
           </Button>
         </DialogFooter>
       </DialogContent>
-    </Dialog>
+    </Dialogue>
   );
   
   return {
@@ -400,9 +400,9 @@ const FairUsageExample = () => {
       <h1 className="text-3xl font-bold mb-6">Fair Usage Example</h1>
       
       <div className="bg-muted p-6 rounded-lg mb-6">
-        <div className="flex justify-between items-center mb-4">
+        <div className="flex justify-between items-centre mb-4">
           <h2 className="text-xl font-semibold">Your AI Credits</h2>
-          <div className="flex items-center">
+          <div className="flex items-centre">
             <Zap className="h-5 w-5 mr-2 text-amber-500" />
             <span className="text-2xl font-bold">{credits}</span>
           </div>
@@ -516,7 +516,7 @@ const FairUsageExample = () => {
         </div>
       </div>
       
-      {/* Credit purchase dialog */}
+      {/* Credit purchase dialogue */}
       <CreditPurchaseDialog />
     </div>
   );

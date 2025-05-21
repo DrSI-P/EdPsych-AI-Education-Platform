@@ -23,7 +23,7 @@ export default function AdaptiveLearningPage() {
     >
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-2">Adaptive Learning</h1>
-        <p className="text-gray-600">
+        <p className="text-grey-600">
           Your personalized learning experience that adapts to your needs and progress.
           Content complexity is automatically adjusted based on your performance to provide
           the right level of challenge.
@@ -69,7 +69,7 @@ export default function AdaptiveLearningPage() {
           <div className="space-y-4">
             <div>
               <h3 className="font-medium text-lg mb-1">Can I override the automatic complexity settings?</h3>
-              <p className="text-gray-600">
+              <p className="text-grey-600">
                 Yes, you can switch to manual mode at any time to select your preferred complexity level.
                 The system will continue to provide recommendations based on your performance.
               </p>
@@ -77,7 +77,7 @@ export default function AdaptiveLearningPage() {
             
             <div>
               <h3 className="font-medium text-lg mb-1">How is my performance measured?</h3>
-              <p className="text-gray-600">
+              <p className="text-grey-600">
                 Performance is measured through various factors including assessment scores,
                 completion rates, time spent, and number of attempts. These metrics are combined
                 to create a comprehensive picture of your learning progress.
@@ -86,7 +86,7 @@ export default function AdaptiveLearningPage() {
             
             <div>
               <h3 className="font-medium text-lg mb-1">Will content become too difficult?</h3>
-              <p className="text-gray-600">
+              <p className="text-grey-600">
                 The system is designed to provide an appropriate level of challenge without
                 becoming overwhelming. Complexity increases gradually and only when you've
                 demonstrated readiness for more advanced content.
@@ -95,7 +95,7 @@ export default function AdaptiveLearningPage() {
             
             <div>
               <h3 className="font-medium text-lg mb-1">How do educators use this system?</h3>
-              <p className="text-gray-600">
+              <p className="text-grey-600">
                 Educators can view detailed information about student progress and complexity levels,
                 receive recommendations for interventions, and generate personalized resources
                 tailored to each student's needs.

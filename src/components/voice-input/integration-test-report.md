@@ -22,7 +22,7 @@ This document provides a comprehensive validation report for the enhanced voice 
 ### 3. Adaptive Complexity Integration
 
 - **Complexity Level Adaptation**: Voice input adjusts sensitivity based on complexity level
-- **Vocabulary Recognition**: More advanced vocabulary recognized at higher complexity levels
+- **Vocabulary Recognition**: More advanced vocabulary recognised at higher complexity levels
 - **Guidance Presentation**: Age-appropriate guidance displayed for different complexity levels
 - **Performance Tracking**: Voice input success rates tracked for adaptive adjustments
 
@@ -30,7 +30,7 @@ This document provides a comprehensive validation report for the enhanced voice 
 
 - **Navigation Commands**: Voice commands correctly control 3D navigation
 - **Interaction Commands**: Object selection and interaction works via voice
-- **Command Visualization**: Visual feedback appears when commands are recognized
+- **Command Visualisation**: Visual feedback appears when commands are recognised
 - **Age-Specific Command Sets**: Simplified commands for younger users, more advanced for older users
 
 ## Accessibility Validation
@@ -51,7 +51,7 @@ This document provides a comprehensive validation report for the enhanced voice 
 
 ### 3. Visual Accessibility
 
-- **Color Contrast**: All UI elements meet WCAG AA standards for contrast
+- **Colour Contrast**: All UI elements meet WCAG AA standards for contrast
 - **Visual Feedback**: Clear visual indicators for listening state and volume levels
 - **Error Messaging**: Accessible error messages with clear remediation instructions
 - **Keyboard Navigation**: All voice input controls accessible via keyboard
@@ -67,7 +67,7 @@ This document provides a comprehensive validation report for the enhanced voice 
 ### 2. Engagement
 
 - **Visual Feedback**: Engaging animations and character guides maintain interest
-- **Success Indicators**: Positive reinforcement when voice commands are recognized
+- **Success Indicators**: Positive reinforcement when voice commands are recognised
 - **Confidence Building**: Forgiving recognition at early stages builds confidence
 
 ### 3. Differentiation
@@ -89,7 +89,7 @@ This document provides a comprehensive validation report for the enhanced voice 
 2. **Voice Authentication**: Implement voice profile authentication for secure access
 3. **Emotion Recognition**: Add capability to detect frustration or confusion in voice
 4. **Expanded Command Vocabulary**: Develop domain-specific command sets for different subjects
-5. **Teacher Controls**: Add ability for educators to customize voice settings for groups
+5. **Teacher Controls**: Add ability for educators to customise voice settings for groups
 
 ## Conclusion
 

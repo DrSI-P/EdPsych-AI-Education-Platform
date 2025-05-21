@@ -100,7 +100,7 @@ const mockReflections = [
   {
     id: "2",
     prompt: "What has been your biggest challenge?",
-    response: "My biggest challenge was staying organized with all my assignments. I've been using a planner more consistently now, which has helped me keep track of deadlines.",
+    response: "My biggest challenge was staying organised with all my assignments. I've been using a planner more consistently now, which has helped me keep track of deadlines.",
     portfolioId: "1",
     createdAt: "2025-04-20T11:20:00Z",
   },

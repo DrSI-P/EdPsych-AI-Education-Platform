@@ -24,23 +24,23 @@
 |---------|-----------------|------------------------------|
 | Assessment Creation | All repositories implement this feature | **Consolidate to the Assessment Portal module** from edpsych-connect-platform-f, enhanced with the AI-generation capabilities from Ai-Educational-Platform |
 | Response Collection | All repositories implement this with different approaches | **Adopt the most robust implementation** from EdPsych-Pupil-Voice-Tool, which is specifically designed for this purpose, and enhance it with features from other repositories |
-| Results Analysis | All repositories implement this | **Combine the AI analysis capabilities** from Ai-Educational-Platform with the visualization tools from edpsych-connect-platform-f |
-| EP Assessment Portal | Present in three repositories | **Adopt the specialized implementation** from edpsych-connect-platform-f, enhanced with pupil voice collection from EdPsych-Pupil-Voice-Tool |
+| Results Analysis | All repositories implement this | **Combine the AI analysis capabilities** from Ai-Educational-Platform with the visualisation tools from edpsych-connect-platform-f |
+| EP Assessment Portal | Present in three repositories | **Adopt the specialised implementation** from edpsych-connect-platform-f, enhanced with pupil voice collection from EdPsych-Pupil-Voice-Tool |
 
 ### Curriculum and Resources
 
 | Feature | Overlap Analysis | Consolidation Recommendation |
 |---------|-----------------|------------------------------|
 | Curriculum Planning | Present in three repositories | **Consolidate to the Curriculum Planner module** from edpsych-connect-platform-f, enhanced with AI generation from Ai-Educational-Platform |
-| Resource Library | All repositories implement this feature | **Adopt the Resources module** from edpsych-connect-platform-f, incorporating the organization features from School_Platform and the API endpoints from Ai-Educational-Platform |
-| UK Curriculum Alignment | All repositories implement this | **Standardize on the UK spelling and curriculum alignment** approach from edpsych-connect-platform-f, which has specific tooling for this purpose |
+| Resource Library | All repositories implement this feature | **Adopt the Resources module** from edpsych-connect-platform-f, incorporating the organisation features from School_Platform and the API endpoints from Ai-Educational-Platform |
+| UK Curriculum Alignment | All repositories implement this | **Standardise on the UK spelling and curriculum alignment** approach from edpsych-connect-platform-f, which has specific tooling for this purpose |
 
 ### Immersive and Interactive Learning
 
 | Feature | Overlap Analysis | Consolidation Recommendation |
 |---------|-----------------|------------------------------|
 | VR/AR Learning | Present in edpsych-connect-platform-f and Ai-Educational-Platform | **Adopt the A-Frame and WebXR implementation** from Ai-Educational-Platform and integrate it with the Immersive Learning module structure from edpsych-connect-platform-f |
-| Interactive Elements | All repositories implement this with varying approaches | **Standardize on the React component library** from School_Platform, enhanced with the immersive elements from Ai-Educational-Platform |
+| Interactive Elements | All repositories implement this with varying approaches | **Standardise on the React component library** from School_Platform, enhanced with the immersive elements from Ai-Educational-Platform |
 | Collaborative Work | Present in edpsych-connect-platform-f and Ai-Educational-Platform | **Combine the Collaborative Work module** from edpsych-connect-platform-f with the real-time capabilities (Socket.io) from Ai-Educational-Platform |
 
 ## Unique Features to Preserve
@@ -50,7 +50,7 @@
 - Specific UI components from Radix UI
 
 ### EdPsych-Pupil-Voice-Tool
-- Specialized pupil voice collection workflow
+- Specialised pupil voice collection workflow
 - Secure file handling for child responses
 - Age-appropriate interface design
 
@@ -70,7 +70,7 @@
 ### Ai-Educational-Platform
 - Networked virtual spaces with Networked A-Frame
 - Azure Cognitive Services integration
-- Hugging Face models for specialized educational tasks
+- Hugging Face models for specialised educational tasks
 - Comprehensive logging with Winston/Morgan
 
 ## Technology Stack Consolidation
@@ -84,7 +84,7 @@
 - **Rationale**: Used across multiple repositories and provides flexibility for both standard and immersive interfaces
 
 ### Backend
-- **Recommendation**: Next.js API routes with specialized Express services where needed
+- **Recommendation**: Next.js API routes with specialised Express services where needed
 - **Rationale**: Allows for a unified codebase while leveraging the strengths of Express for specific features
 
 ### Database
@@ -114,7 +114,7 @@
 
 ### External Dependencies
 1. **OpenAI API**: Critical for AI personalization and content generation
-2. **Azure Cognitive Services**: Important for specialized analytics and multilingual support
+2. **Azure Cognitive Services**: Important for specialised analytics and multilingual support
 3. **Firebase Admin**: Could be replaced by NextAuth.js and Prisma
 4. **Vercel**: Recommended for deployment due to Next.js optimization
 

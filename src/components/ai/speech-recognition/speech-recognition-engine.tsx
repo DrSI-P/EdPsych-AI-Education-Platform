@@ -159,7 +159,7 @@ export default function SpeechRecognitionEngine({
     try {
       setIsListening(true);
       
-      // Set up audio context for volume visualization
+      // Set up audio context for volume visualisation
       if (!audioContextRef.current) {
         audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)();
         
@@ -232,7 +232,7 @@ export default function SpeechRecognitionEngine({
     if (!text) return text;
     
     // Common child speech patterns and corrections
-    let optimized = text
+    let optimised = text
       // Fix common child pronunciation issues
       .replace(/(\b)fing(\b)/gi, '$1thing$2')
       .replace(/(\b)wiv(\b)/gi, '$1with$2')
@@ -255,7 +255,7 @@ export default function SpeechRecognitionEngine({
       .replace(/(\b)going (go|play|see)(\b)/gi, '$1going to $2$3')
       .replace(/(\b)have (go|play|see)(\b)/gi, '$1have to $2$3');
     
-    return optimized;
+    return optimised;
   };
   
   const autoPunctuate = (text: string): string => {
@@ -283,8 +283,8 @@ export default function SpeechRecognitionEngine({
   return (
     <Card className={cn("w-full", className)}>
       <CardHeader>
-        <CardTitle className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
+        <CardTitle className="flex items-centre justify-between">
+          <div className="flex items-centre gap-2">
             {isListening ? (
               <Mic className="h-5 w-5 text-green-500 animate-pulse" />
             ) : (
@@ -309,7 +309,7 @@ export default function SpeechRecognitionEngine({
       <TabsContent value="main" className="mt-0">
         <CardContent className="space-y-4 pt-4">
           {!isSupported ? (
-            <div className="flex items-center justify-center p-6 border border-red-200 bg-red-50 dark:bg-red-950 dark:border-red-800 rounded-md">
+            <div className="flex items-centre justify-centre p-6 border border-red-200 bg-red-50 dark:bg-red-950 dark:border-red-800 rounded-md">
               <AlertCircle className="h-5 w-5 text-red-500 mr-2" />
               <p className="text-red-600 dark:text-red-400">
                 Speech recognition is not supported in your browser. Please try Chrome, Edge, or Safari.
@@ -330,7 +330,7 @@ export default function SpeechRecognitionEngine({
                 </div>
                 
                 {isListening && (
-                  <div className="absolute bottom-2 right-2 flex items-center gap-1">
+                  <div className="absolute bottom-2 right-2 flex items-centre gap-1">
                     <div className="relative w-16 h-1 bg-muted rounded-full overflow-hidden">
                       <div 
                         className="absolute top-0 left-0 h-full bg-green-500 transition-all duration-100"
@@ -347,7 +347,7 @@ export default function SpeechRecognitionEngine({
                     variant="destructive" 
                     size="sm" 
                     onClick={stopListening}
-                    className="flex items-center gap-1"
+                    className="flex items-centre gap-1"
                   >
                     <MicOff className="h-4 w-4" />
                     Stop Listening
@@ -357,7 +357,7 @@ export default function SpeechRecognitionEngine({
                     variant="default" 
                     size="sm" 
                     onClick={startListening}
-                    className="flex items-center gap-1"
+                    className="flex items-centre gap-1"
                   >
                     <Mic className="h-4 w-4" />
                     Start Listening
@@ -368,7 +368,7 @@ export default function SpeechRecognitionEngine({
                   variant="outline" 
                   size="sm" 
                   onClick={clearTranscript}
-                  className="flex items-center gap-1"
+                  className="flex items-centre gap-1"
                 >
                   Clear
                 </Button>
@@ -385,7 +385,7 @@ export default function SpeechRecognitionEngine({
                       });
                       navigator.clipboard.writeText(transcript);
                     }}
-                    className="flex items-center gap-1"
+                    className="flex items-centre gap-1"
                   >
                     Copy Text
                   </Button>
@@ -399,7 +399,7 @@ export default function SpeechRecognitionEngine({
       <TabsContent value="settings" className="mt-0">
         <CardContent className="space-y-4 pt-4">
           <div className="space-y-4">
-            <div className="flex items-center justify-between">
+            <div className="flex items-centre justify-between">
               <div className="space-y-0.5">
                 <label className="text-sm font-medium">Child Voice Optimization</label>
                 <p className="text-xs text-muted-foreground">
@@ -412,7 +412,7 @@ export default function SpeechRecognitionEngine({
               />
             </div>
             
-            <div className="flex items-center justify-between">
+            <div className="flex items-centre justify-between">
               <div className="space-y-0.5">
                 <label className="text-sm font-medium">Auto-Punctuation</label>
                 <p className="text-xs text-muted-foreground">
@@ -425,7 +425,7 @@ export default function SpeechRecognitionEngine({
               />
             </div>
             
-            <div className="flex items-center justify-between">
+            <div className="flex items-centre justify-between">
               <div className="space-y-0.5">
                 <label className="text-sm font-medium">Background Noise Reduction</label>
                 <p className="text-xs text-muted-foreground">
@@ -439,7 +439,7 @@ export default function SpeechRecognitionEngine({
             </div>
             
             <div className="space-y-2">
-              <div className="flex items-center justify-between">
+              <div className="flex items-centre justify-between">
                 <label className="text-sm font-medium">Recognition Confidence</label>
                 <span className="text-xs text-muted-foreground">
                   {Math.round(settings.confidenceThreshold * 100)}%
@@ -479,14 +479,14 @@ export default function SpeechRecognitionEngine({
         <p className="text-xs text-muted-foreground">
           {isListening ? 'Listening...' : 'Ready to listen'}
         </p>
-        <div className="flex items-center text-xs text-muted-foreground">
+        <div className="flex items-centre text-xs text-muted-foreground">
           {settings.childVoiceOptimization && (
-            <span className="flex items-center mr-2">
-              <Wand2 className="h-3 w-3 mr-1" /> Child-optimized
+            <span className="flex items-centre mr-2">
+              <Wand2 className="h-3 w-3 mr-1" /> Child-optimised
             </span>
           )}
           {settings.backgroundNoiseReduction && (
-            <span className="flex items-center">
+            <span className="flex items-centre">
               <VolumeX className="h-3 w-3 mr-1" /> Noise reduction
             </span>
           )}

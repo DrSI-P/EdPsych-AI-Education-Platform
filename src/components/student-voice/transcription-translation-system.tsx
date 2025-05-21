@@ -258,7 +258,7 @@ export default function TranscriptionTranslationSystem() {
       const mockTranscriptions = [
         "Today we will be learning about the water cycle and how it affects our environment.",
         "Please turn to page 42 in your textbooks and complete exercises 3 through 7.",
-        "For homework, I would like you to write a short essay about your favorite scientific discovery.",
+        "For homework, I would like you to write a short essay about your favourite scientific discovery.",
         "Let's review what we learned yesterday about the structure of plant cells.",
         "Can anyone tell me what photosynthesis means and why it's important?"
       ];
@@ -650,16 +650,16 @@ export default function TranscriptionTranslationSystem() {
                 </div>
                 
                 <div className="space-y-2">
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <Label htmlFor="originalText">Text to Translate</Label>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-centre gap-2">
                       <Button
                         type="button"
                         variant="outline"
                         size="sm"
                         onClick={startRecording}
                         disabled={isRecording || isTranscribing}
-                        className="flex items-center gap-1"
+                        className="flex items-centre gap-1"
                       >
                         <Mic className="h-4 w-4" />
                         <span>Record</span>
@@ -671,7 +671,7 @@ export default function TranscriptionTranslationSystem() {
                           variant="destructive"
                           size="sm"
                           onClick={stopRecording}
-                          className="flex items-center gap-1"
+                          className="flex items-centre gap-1"
                         >
                           <MicOff className="h-4 w-4" />
                           <span>Stop ({formatTime(recordingTime)})</span>
@@ -681,8 +681,8 @@ export default function TranscriptionTranslationSystem() {
                   </div>
                   
                   {isTranscribing ? (
-                    <div className="min-h-[150px] flex items-center justify-center border rounded-md bg-muted/20">
-                      <div className="flex flex-col items-center gap-2">
+                    <div className="min-h-[150px] flex items-centre justify-centre border rounded-md bg-muted/20">
+                      <div className="flex flex-col items-centre gap-2">
                         <RefreshCw className="h-8 w-8 animate-spin text-muted-foreground" />
                         <span className="text-sm text-muted-foreground">Transcribing audio...</span>
                       </div>
@@ -763,7 +763,7 @@ export default function TranscriptionTranslationSystem() {
             <CardContent>
               <div className="space-y-4">
                 {transcriptionHistory.length === 0 ? (
-                  <div className="text-center py-8 text-muted-foreground">
+                  <div className="text-centre py-8 text-muted-foreground">
                     No translation history available.
                   </div>
                 ) : (
@@ -886,21 +886,21 @@ export default function TranscriptionTranslationSystem() {
                   </div>
                   
                   <div className="space-y-3">
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-centre justify-between">
                       <Label>Translations</Label>
                       <Button
                         type="button"
                         variant="outline"
                         size="sm"
                         onClick={addTranslation}
-                        className="flex items-center gap-1"
+                        className="flex items-centre gap-1"
                       >
                         <span>Add Language</span>
                       </Button>
                     </div>
                     
                     {vocabularyForm.translations.map((translation, index) => (
-                      <div key={index} className="flex items-center gap-2">
+                      <div key={index} className="flex items-centre gap-2">
                         <Select 
                           value={translation.language} 
                           onValueChange={(value) => handleTranslationChange(index, 'language', value)}
@@ -975,7 +975,7 @@ export default function TranscriptionTranslationSystem() {
               <CardContent>
                 <div className="space-y-4">
                   {vocabularyList.length === 0 ? (
-                    <div className="text-center py-8 text-muted-foreground">
+                    <div className="text-centre py-8 text-muted-foreground">
                       No vocabulary items available.
                     </div>
                   ) : (
@@ -984,7 +984,7 @@ export default function TranscriptionTranslationSystem() {
                         <CardHeader className="pb-2">
                           <div className="flex justify-between items-start">
                             <div>
-                              <CardTitle className="text-base flex items-center gap-2">
+                              <CardTitle className="text-base flex items-centre gap-2">
                                 {item.term}
                                 <Badge variant="outline">{item.subject}</Badge>
                               </CardTitle>
@@ -1016,8 +1016,8 @@ export default function TranscriptionTranslationSystem() {
                               <Label className="text-xs text-muted-foreground">Translations</Label>
                               <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-1">
                                 {item.translations.map((translation, index) => (
-                                  <div key={index} className="flex items-center gap-2 text-sm">
-                                    <Badge variant="outline" className="min-w-[80px] justify-center">
+                                  <div key={index} className="flex items-centre gap-2 text-sm">
+                                    <Badge variant="outline" className="min-w-[80px] justify-centre">
                                       {languageOptions.find(l => l.code === translation.language)?.name || translation.language}
                                     </Badge>
                                     <span>{translation.translation}</span>
@@ -1046,7 +1046,7 @@ export default function TranscriptionTranslationSystem() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <div className="space-y-1">
                   <h3 className="text-lg font-medium">Current Lesson</h3>
                   <p className="text-sm text-muted-foreground">Science - The Water Cycle</p>
@@ -1055,7 +1055,7 @@ export default function TranscriptionTranslationSystem() {
                 {!isLiveTranscribing ? (
                   <Button
                     onClick={startLiveTranscription}
-                    className="flex items-center gap-2"
+                    className="flex items-centre gap-2"
                   >
                     <VolumeUp className="h-4 w-4" />
                     Start Transcription
@@ -1064,7 +1064,7 @@ export default function TranscriptionTranslationSystem() {
                   <Button
                     onClick={stopLiveTranscription}
                     variant="destructive"
-                    className="flex items-center gap-2"
+                    className="flex items-centre gap-2"
                   >
                     <MicOff className="h-4 w-4" />
                     Stop Transcription
@@ -1074,8 +1074,8 @@ export default function TranscriptionTranslationSystem() {
               
               <div className="border rounded-md p-4 min-h-[200px] bg-muted/20">
                 {isLiveTranscribing && !liveTranscription && (
-                  <div className="flex items-center justify-center h-full">
-                    <div className="flex flex-col items-center gap-2">
+                  <div className="flex items-centre justify-centre h-full">
+                    <div className="flex flex-col items-centre gap-2">
                       <RefreshCw className="h-8 w-8 animate-spin text-muted-foreground" />
                       <span className="text-sm text-muted-foreground">Waiting for speech...</span>
                     </div>
@@ -1084,8 +1084,8 @@ export default function TranscriptionTranslationSystem() {
                 
                 {liveTranscription && (
                   <div className="space-y-2">
-                    <div className="flex justify-between items-center">
-                      <Badge variant="outline" className="flex items-center gap-1">
+                    <div className="flex justify-between items-centre">
+                      <Badge variant="outline" className="flex items-centre gap-1">
                         <Volume2 className="h-3 w-3" />
                         Live Transcription
                       </Badge>
@@ -1110,7 +1110,7 @@ export default function TranscriptionTranslationSystem() {
                 )}
                 
                 {!isLiveTranscribing && !liveTranscription && (
-                  <div className="flex items-center justify-center h-full text-muted-foreground">
+                  <div className="flex items-centre justify-centre h-full text-muted-foreground">
                     Click "Start Transcription" to begin capturing classroom speech
                   </div>
                 )}
@@ -1123,7 +1123,7 @@ export default function TranscriptionTranslationSystem() {
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-3">
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-centre justify-between">
                         <Label htmlFor="targetLanguage">Target Language</Label>
                         <Select disabled={!liveTranscription || isLiveTranscribing}>
                           <SelectTrigger className="w-[180px]">
@@ -1154,7 +1154,7 @@ export default function TranscriptionTranslationSystem() {
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-3">
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-centre justify-between">
                         <Label>Format</Label>
                         <Select disabled={!liveTranscription || isLiveTranscribing}>
                           <SelectTrigger className="w-[180px]">

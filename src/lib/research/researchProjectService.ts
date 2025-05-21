@@ -17,7 +17,7 @@ import {
 /**
  * Implementation of the Research Project Service
  * 
- * This class provides methods for creating, managing, and analyzing
+ * This class provides methods for creating, managing, and analysing
  * research projects within the platform.
  */
 export class ResearchProjectServiceImpl implements ResearchProjectService {
@@ -156,7 +156,7 @@ export class ResearchProjectServiceImpl implements ResearchProjectService {
   async addCollaborator(projectId: string, collaborator: {
     id: string;
     role: string;
-    organization?: string;
+    organisation?: string;
   }): Promise<boolean> {
     console.log(`Adding collaborator to project ${projectId}: ${collaborator.id}`);
     

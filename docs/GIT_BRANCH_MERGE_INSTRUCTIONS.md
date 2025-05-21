@@ -4,7 +4,7 @@ This document provides step-by-step instructions for merging the `master` branch
 
 ## Background
 
-In modern Git practices, `main` is the preferred default branch name, while `master` is the legacy name. GitHub and many other platforms have moved away from using `master` as the default branch name. Having both branches can cause confusion and maintenance overhead, so it's recommended to standardize on `main`.
+In modern Git practices, `main` is the preferred default branch name, while `master` is the legacy name. GitHub and many other platforms have moved away from using `master` as the default branch name. Having both branches can cause confusion and maintenance overhead, so it's recommended to standardise on `main`.
 
 ## Prerequisites
 

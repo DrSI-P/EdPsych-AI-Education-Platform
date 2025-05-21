@@ -10,14 +10,14 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { 
-  Dialog, 
+  Dialogue, 
   DialogContent, 
   DialogDescription, 
   DialogFooter, 
   DialogHeader, 
   DialogTitle, 
   DialogTrigger 
-} from "@/components/ui/dialog";
+} from "@/components/ui/dialogue";
 import { 
   Shield, 
   Award, 
@@ -87,13 +87,13 @@ const PortfolioIntegration = ({ credential, onAddToPortfolio }) => {
         </select>
       </div>
       
-      <div className="flex items-center space-x-2">
-        <input type="checkbox" id="featured" className="rounded border-gray-300" />
+      <div className="flex items-centre space-x-2">
+        <input type="checkbox" id="featured" className="rounded border-grey-300" />
         <Label htmlFor="featured">Feature this credential on portfolio homepage</Label>
       </div>
       
-      <div className="flex items-center space-x-2">
-        <input type="checkbox" id="public" className="rounded border-gray-300" defaultChecked />
+      <div className="flex items-centre space-x-2">
+        <input type="checkbox" id="public" className="rounded border-grey-300" defaultChecked />
         <Label htmlFor="public">Make this credential publicly visible</Label>
       </div>
       
@@ -179,13 +179,13 @@ const CPDIntegration = ({ credential, onLinkToCPD }) => {
         </select>
       </div>
       
-      <div className="flex items-center space-x-2">
-        <input type="checkbox" id="evidence" className="rounded border-gray-300" defaultChecked />
+      <div className="flex items-centre space-x-2">
+        <input type="checkbox" id="evidence" className="rounded border-grey-300" defaultChecked />
         <Label htmlFor="evidence">Use as evidence of completion</Label>
       </div>
       
-      <div className="flex items-center space-x-2">
-        <input type="checkbox" id="hours" className="rounded border-gray-300" defaultChecked />
+      <div className="flex items-centre space-x-2">
+        <input type="checkbox" id="hours" className="rounded border-grey-300" defaultChecked />
         <Label htmlFor="hours">Include hours in CPD total</Label>
       </div>
       

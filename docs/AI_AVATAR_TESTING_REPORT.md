@@ -10,7 +10,7 @@ This document outlines the testing and validation results for the newly implemen
    - Age-appropriate script adaptation
 
 2. **Avatar Creator Component (`avatar-creator.tsx`)**
-   - User interface for creating and customizing AI avatars
+   - User interface for creating and customising AI avatars
    - Form validation and error handling
    - Age-appropriate styling
 
@@ -58,7 +58,7 @@ This document outlines the testing and validation results for the newly implemen
 |-----------|--------|-------|
 | Keyboard navigation | ✅ Pass | All interactive elements are keyboard accessible |
 | Screen reader compatibility | ✅ Pass | Proper labels and ARIA attributes |
-| Color contrast | ✅ Pass | Meets WCAG AA standards |
+| Colour contrast | ✅ Pass | Meets WCAG AA standards |
 | Reduced motion support | ✅ Pass | Respects user preferences for reduced motion |
 
 ### Visual Integration Testing
@@ -101,7 +101,7 @@ This document outlines the testing and validation results for the newly implemen
    - Support for generating multiple videos with the same avatar
 
 4. **Advanced Customization**
-   - More detailed control over avatar appearance and behavior
+   - More detailed control over avatar appearance and behaviour
    - Support for multiple avatars in a single video
 
 5. **Integration with Learning Management Systems**

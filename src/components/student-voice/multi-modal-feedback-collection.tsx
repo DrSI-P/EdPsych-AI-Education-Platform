@@ -698,7 +698,7 @@ export default function MultiModalFeedbackCollection() {
                   />
                 </div>
                 
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <Checkbox
                     id="anonymous"
                     checked={feedbackForm.anonymous}
@@ -717,7 +717,7 @@ export default function MultiModalFeedbackCollection() {
                       variant={feedbackForm.contentType === 'text' ? "default" : "outline"}
                       size="sm"
                       onClick={() => setFeedbackForm(prev => ({ ...prev, contentType: 'text' }))}
-                      className="flex items-center gap-1"
+                      className="flex items-centre gap-1"
                     >
                       <MessageSquare className="h-4 w-4" />
                       <span>Text</span>
@@ -728,7 +728,7 @@ export default function MultiModalFeedbackCollection() {
                       variant={feedbackForm.contentType === 'voice' ? "default" : "outline"}
                       size="sm"
                       onClick={() => setFeedbackForm(prev => ({ ...prev, contentType: 'voice' }))}
-                      className="flex items-center gap-1"
+                      className="flex items-centre gap-1"
                     >
                       <Volume2 className="h-4 w-4" />
                       <span>Voice</span>
@@ -739,7 +739,7 @@ export default function MultiModalFeedbackCollection() {
                       variant={feedbackForm.contentType === 'image' ? "default" : "outline"}
                       size="sm"
                       onClick={() => setFeedbackForm(prev => ({ ...prev, contentType: 'image' }))}
-                      className="flex items-center gap-1"
+                      className="flex items-centre gap-1"
                       disabled={true} // Disabled for this demo
                     >
                       <Image className="h-4 w-4" />
@@ -751,7 +751,7 @@ export default function MultiModalFeedbackCollection() {
                       variant={feedbackForm.contentType === 'video' ? "default" : "outline"}
                       size="sm"
                       onClick={() => setFeedbackForm(prev => ({ ...prev, contentType: 'video' }))}
-                      className="flex items-center gap-1"
+                      className="flex items-centre gap-1"
                       disabled={true} // Disabled for this demo
                     >
                       <Video className="h-4 w-4" />
@@ -776,7 +776,7 @@ export default function MultiModalFeedbackCollection() {
                 
                 {feedbackForm.contentType === 'voice' && (
                   <div className="space-y-4">
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-centre justify-between">
                       <Label>Voice Recording</Label>
                       {isRecording && (
                         <Badge variant="outline" className="text-red-500 animate-pulse">
@@ -785,12 +785,12 @@ export default function MultiModalFeedbackCollection() {
                       )}
                     </div>
                     
-                    <div className="flex flex-col items-center gap-4 p-6 border rounded-md bg-muted/20">
+                    <div className="flex flex-col items-centre gap-4 p-6 border rounded-md bg-muted/20">
                       {!isRecording ? (
                         <Button
                           type="button"
                           onClick={startRecording}
-                          className="flex items-center gap-2"
+                          className="flex items-centre gap-2"
                           disabled={isTranscribing}
                         >
                           <Mic className="h-5 w-5" />
@@ -801,7 +801,7 @@ export default function MultiModalFeedbackCollection() {
                           type="button"
                           onClick={stopRecording}
                           variant="destructive"
-                          className="flex items-center gap-2"
+                          className="flex items-centre gap-2"
                         >
                           <MicOff className="h-5 w-5" />
                           Stop Recording
@@ -809,7 +809,7 @@ export default function MultiModalFeedbackCollection() {
                       )}
                       
                       {isTranscribing && (
-                        <div className="flex items-center gap-2 text-muted-foreground">
+                        <div className="flex items-centre gap-2 text-muted-foreground">
                           <RefreshCw className="h-4 w-4 animate-spin" />
                           <span>Transcribing your audio...</span>
                         </div>
@@ -834,7 +834,7 @@ export default function MultiModalFeedbackCollection() {
                 
                 {feedbackForm.language !== 'en' && feedbackForm.content && (
                   <div className="space-y-2">
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-centre justify-between">
                       <Label>Translation to English</Label>
                       <Button
                         type="button"
@@ -842,7 +842,7 @@ export default function MultiModalFeedbackCollection() {
                         size="sm"
                         onClick={() => translateText(feedbackForm.content, feedbackForm.language, 'en')}
                         disabled={isTranslating || !feedbackForm.content.trim()}
-                        className="flex items-center gap-1"
+                        className="flex items-centre gap-1"
                       >
                         {isTranslating ? (
                           <RefreshCw className="h-4 w-4 animate-spin" />
@@ -854,7 +854,7 @@ export default function MultiModalFeedbackCollection() {
                     </div>
                     
                     {isTranslating ? (
-                      <div className="p-4 border rounded-md bg-muted/20 flex items-center justify-center">
+                      <div className="p-4 border rounded-md bg-muted/20 flex items-centre justify-centre">
                         <RefreshCw className="h-4 w-4 animate-spin mr-2" />
                         <span>Translating...</span>
                       </div>
@@ -906,7 +906,7 @@ export default function MultiModalFeedbackCollection() {
                   <Button
                     key={reaction.label}
                     variant="outline"
-                    className="h-auto py-6 flex flex-col items-center gap-2"
+                    className="h-auto py-6 flex flex-col items-centre gap-2"
                     onClick={() => {
                       toast({
                         title: "Reaction recorded",
@@ -935,7 +935,7 @@ export default function MultiModalFeedbackCollection() {
             <CardContent>
               <div className="space-y-6">
                 {feedbackEntries.length === 0 ? (
-                  <div className="text-center py-8 text-muted-foreground">
+                  <div className="text-centre py-8 text-muted-foreground">
                     No feedback entries available.
                   </div>
                 ) : (
@@ -954,9 +954,9 @@ export default function MultiModalFeedbackCollection() {
                               {feedbackCategories.find(c => c.id === entry.category)?.label || entry.category}
                             </CardDescription>
                           </div>
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-centre gap-2">
                             {entry.language !== 'en' && (
-                              <Badge variant="outline" className="flex items-center gap-1">
+                              <Badge variant="outline" className="flex items-centre gap-1">
                                 <Globe className="h-3 w-3" />
                                 {languageOptions.find(l => l.code === entry.language)?.name || entry.language}
                               </Badge>
@@ -965,7 +965,7 @@ export default function MultiModalFeedbackCollection() {
                               <Badge className={
                                 entry.sentiment === 'positive' ? 'bg-green-100 text-green-800 hover:bg-green-100' :
                                 entry.sentiment === 'negative' ? 'bg-red-100 text-red-800 hover:bg-red-100' :
-                                'bg-gray-100 text-gray-800 hover:bg-gray-100'
+                                'bg-grey-100 text-grey-800 hover:bg-grey-100'
                               }>
                                 {entry.sentiment.charAt(0).toUpperCase() + entry.sentiment.slice(1)}
                               </Badge>
@@ -981,7 +981,7 @@ export default function MultiModalFeedbackCollection() {
                           
                           {entry.translation && (
                             <div className="pt-2">
-                              <div className="flex items-center justify-between mb-1">
+                              <div className="flex items-centre justify-between mb-1">
                                 <Label className="text-xs text-muted-foreground">Translation</Label>
                                 <Button
                                   variant="ghost"
@@ -1009,7 +1009,7 @@ export default function MultiModalFeedbackCollection() {
                       <CardFooter className="pt-0 flex-wrap gap-2">
                         <div className="flex flex-wrap gap-1 mr-auto">
                           {entry.reactions && entry.reactions.map((reaction, index) => (
-                            <Badge key={index} variant="outline" className="flex items-center gap-1">
+                            <Badge key={index} variant="outline" className="flex items-centre gap-1">
                               <span>{reaction.emoji}</span>
                               <span>{reaction.count}</span>
                             </Badge>
@@ -1143,7 +1143,7 @@ export default function MultiModalFeedbackCollection() {
               <CardContent>
                 <div className="space-y-4">
                   {transcriptionHistory.length === 0 ? (
-                    <div className="text-center py-8 text-muted-foreground">
+                    <div className="text-centre py-8 text-muted-foreground">
                       No translation history available.
                     </div>
                   ) : (

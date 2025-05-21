@@ -166,7 +166,7 @@ export const TranslationTool: React.FC<TranslationToolProps> = ({
   return (
     <Card className={className}>
       <CardHeader>
-        <CardTitle className="flex items-center">
+        <CardTitle className="flex items-centre">
           <Languages className="h-5 w-5 mr-2" />
           {t('translation_tool', 'translation')}
         </CardTitle>
@@ -177,7 +177,7 @@ export const TranslationTool: React.FC<TranslationToolProps> = ({
       
       <CardContent className="space-y-6">
         {/* Language selection */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-centre gap-2">
           <div className="flex-1">
             <Label htmlFor="sourceLanguage" className="mb-2 block">
               {t('source_language', 'translation')}
@@ -199,7 +199,7 @@ export const TranslationTool: React.FC<TranslationToolProps> = ({
             </Select>
           </div>
           
-          <div className="flex items-center justify-center pt-6">
+          <div className="flex items-centre justify-centre pt-6">
             <Button 
               variant="ghost" 
               size="icon" 
@@ -235,11 +235,11 @@ export const TranslationTool: React.FC<TranslationToolProps> = ({
         
         {/* Source text */}
         <div>
-          <div className="flex items-center justify-between mb-2">
+          <div className="flex items-centre justify-between mb-2">
             <Label htmlFor="sourceText">
               {t('source_text', 'translation')}
             </Label>
-            <div className="flex items-center">
+            <div className="flex items-centre">
               {detectedLanguage && (
                 <span className="text-xs text-muted-foreground mr-2">
                   {t('detected', 'translation')}: {getLanguageName(detectedLanguage)}
@@ -286,7 +286,7 @@ export const TranslationTool: React.FC<TranslationToolProps> = ({
         
         {/* Error message */}
         {error && (
-          <div className="flex items-center text-destructive">
+          <div className="flex items-centre text-destructive">
             <AlertCircle className="h-4 w-4 mr-2" />
             <span className="text-sm">{error}</span>
           </div>

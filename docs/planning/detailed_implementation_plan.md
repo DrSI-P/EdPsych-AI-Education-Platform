@@ -98,7 +98,7 @@ edpsych-ai-education-platform/
 
 1. **Provider Integration**
    - Implement adapters for each AI provider
-   - Create standardized interfaces
+   - Create standardised interfaces
    - Set up authentication and rate limiting
    - Implement response normalization
 
@@ -122,7 +122,7 @@ edpsych-ai-education-platform/
 - Core assessment creation interface
 - Assessment types (multiple choice, open-ended, etc.)
 - Basic response collection
-- Result visualization
+- Result visualisation
 
 **Week 6-7**
 - AI-assisted assessment generation
@@ -191,7 +191,7 @@ edpsych-ai-education-platform/
 ### 4.1 Module Integration
 
 - Implement consistent state management
-- Create standardized data flow patterns
+- Create standardised data flow patterns
 - Develop cross-module communication
 - Implement event-driven architecture for module interactions
 
@@ -279,7 +279,7 @@ edpsych-ai-education-platform/
 - Fallback AI providers for critical features
 - Simplified UI modes for performance issues
 - Manual data repair procedures
-- Cost-optimized AI usage patterns
+- Cost-optimised AI usage patterns
 - Feature flags for problematic integrations
 
 ## 8. Technical Debt Management

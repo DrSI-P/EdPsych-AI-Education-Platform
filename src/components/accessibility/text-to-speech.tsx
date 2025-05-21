@@ -242,7 +242,7 @@ export default function TextToSpeechReader() {
                 
                 {isReading && (
                   <div className="space-y-2">
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-centre justify-between">
                       <Label>Reading Progress</Label>
                       <span className="text-sm text-muted-foreground">{progress}%</span>
                     </div>
@@ -317,7 +317,7 @@ export default function TextToSpeechReader() {
                 <CardHeader>
                   <CardTitle>Voice Settings</CardTitle>
                   <CardDescription>
-                    Customize the voice used for text-to-speech.
+                    Customise the voice used for text-to-speech.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
@@ -356,7 +356,7 @@ export default function TextToSpeechReader() {
                     </Select>
                   </div>
                   
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <div>
                       <Label htmlFor="child-voice" className="block mb-1">Child-Friendly Voice</Label>
                       <p className="text-sm text-muted-foreground">
@@ -371,9 +371,9 @@ export default function TextToSpeechReader() {
                   </div>
                   
                   <div className="space-y-2">
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-centre justify-between">
                       <Label htmlFor="rate">Rate ({rate}x)</Label>
-                      <div className="flex items-center space-x-2">
+                      <div className="flex items-centre space-x-2">
                         <Button
                           variant="outline"
                           size="sm"
@@ -415,9 +415,9 @@ export default function TextToSpeechReader() {
                   </div>
                   
                   <div className="space-y-2">
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-centre justify-between">
                       <Label htmlFor="volume">Volume ({Math.round(volume * 100)}%)</Label>
-                      <div className="flex items-center">
+                      <div className="flex items-centre">
                         <Button
                           variant="ghost"
                           size="sm"
@@ -454,11 +454,11 @@ export default function TextToSpeechReader() {
                 <CardHeader>
                   <CardTitle>Reading Style</CardTitle>
                   <CardDescription>
-                    Customize how text is read aloud.
+                    Customise how text is read aloud.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <div>
                       <Label htmlFor="highlight-text" className="block mb-1">Highlight Text</Label>
                       <p className="text-sm text-muted-foreground">
@@ -494,7 +494,7 @@ export default function TextToSpeechReader() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <div>
                       <Label htmlFor="simplified-language" className="block mb-1">Simplified Language</Label>
                       <p className="text-sm text-muted-foreground">
@@ -508,7 +508,7 @@ export default function TextToSpeechReader() {
                     />
                   </div>
                   
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <div>
                       <Label htmlFor="extended-pauses" className="block mb-1">Extended Pauses</Label>
                       <p className="text-sm text-muted-foreground">
@@ -522,7 +522,7 @@ export default function TextToSpeechReader() {
                     />
                   </div>
                   
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <div>
                       <Label htmlFor="emphasize-keywords" className="block mb-1">Emphasize Keywords</Label>
                       <p className="text-sm text-muted-foreground">

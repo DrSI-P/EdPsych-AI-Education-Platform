@@ -1,7 +1,7 @@
 /**
  * Speech Recognition Service
  * 
- * This service provides advanced speech recognition optimized for children's voices
+ * This service provides advanced speech recognition optimised for children's voices
  * and supports voice input across the platform.
  */
 
@@ -85,11 +85,11 @@ export class SpeechRecognitionService {
   }
   
   /**
-   * Load optimized model for children's voices
+   * Load optimised model for children's voices
    */
   private async loadChildVoiceModel(): Promise<void> {
     try {
-      // In a real implementation, this would load a specialized model
+      // In a real implementation, this would load a specialised model
       // For now, we'll simulate loading a model
       console.log('Loading child voice optimization model...');
       
@@ -173,7 +173,7 @@ export class SpeechRecognitionService {
    * Process speech with child voice optimizations
    */
   private processChildSpeech(text: string): string {
-    // In a real implementation, this would use a specialized model for children's speech
+    // In a real implementation, this would use a specialised model for children's speech
     // For now, we'll implement some basic processing
     
     // Common child speech patterns and corrections

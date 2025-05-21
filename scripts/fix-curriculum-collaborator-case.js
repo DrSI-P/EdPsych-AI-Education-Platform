@@ -1,6 +1,6 @@
 /**
  * This script fixes the case sensitivity issue with the CurriculumPlanCollaborator model.
- * It searches for all instances of "curriculumPlanCollaborator" in the codebase and
+ * It searches for all instances of "CurriculumPlanCollaborator" in the codebase and
  * replaces them with "CurriculumPlanCollaborator" to match the schema definition.
  */
 

@@ -106,7 +106,7 @@ export function ImmersiveControls({
       <motion.button
         variants={toggleButtonVariants}
         onClick={handleToggleExpand}
-        className={`w-12 h-12 flex items-center justify-center ${isExpanded ? 'absolute top-2 right-2' : 'w-full h-full'}`}
+        className={`w-12 h-12 flex items-centre justify-centre ${isExpanded ? 'absolute top-2 right-2' : 'w-full h-full'}`}
         aria-label={isExpanded ? "Collapse controls" : "Expand controls"}
       >
         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -117,16 +117,16 @@ export function ImmersiveControls({
       {/* Control panel content */}
       <div className={`p-4 pt-14 space-y-4 ${isExpanded ? 'block' : 'hidden'}`}>
         <motion.div variants={controlItemVariants} className="space-y-2">
-          <div className="flex items-center justify-between">
+          <div className="flex items-centre justify-between">
             <span className="text-sm font-medium">Zoom</span>
-            <span className="text-xs text-gray-500">{Math.round(zoomLevel * 100)}%</span>
+            <span className="text-xs text-grey-500">{Math.round(zoomLevel * 100)}%</span>
           </div>
-          <div className="flex items-center space-x-2">
+          <div className="flex items-centre space-x-2">
             <Button
               variant="outline"
               size="sm"
               onClick={onZoomOut}
-              className="h-8 w-8 p-0 flex items-center justify-center"
+              className="h-8 w-8 p-0 flex items-centre justify-centre"
               aria-label="Zoom out"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -149,7 +149,7 @@ export function ImmersiveControls({
               variant="outline"
               size="sm"
               onClick={onZoomIn}
-              className="h-8 w-8 p-0 flex items-center justify-center"
+              className="h-8 w-8 p-0 flex items-centre justify-centre"
               aria-label="Zoom in"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -160,15 +160,15 @@ export function ImmersiveControls({
         </motion.div>
         
         <motion.div variants={controlItemVariants} className="space-y-2">
-          <div className="flex items-center justify-between">
+          <div className="flex items-centre justify-between">
             <span className="text-sm font-medium">Rotation</span>
           </div>
-          <div className="flex items-center justify-between space-x-2">
+          <div className="flex items-centre justify-between space-x-2">
             <Button
               variant="outline"
               size="sm"
               onClick={() => onRotate && onRotate(-90)}
-              className="h-8 flex-1 flex items-center justify-center"
+              className="h-8 flex-1 flex items-centre justify-centre"
               aria-label="Rotate left"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -181,7 +181,7 @@ export function ImmersiveControls({
               variant="outline"
               size="sm"
               onClick={() => onRotate && onRotate(90)}
-              className="h-8 flex-1 flex items-center justify-center"
+              className="h-8 flex-1 flex items-centre justify-centre"
               aria-label="Rotate right"
             >
               Right
@@ -204,13 +204,13 @@ export function ImmersiveControls({
           </Button>
         </motion.div>
         
-        <motion.div variants={controlItemVariants} className="pt-2 border-t border-gray-200">
-          <div className="text-xs text-gray-500">
+        <motion.div variants={controlItemVariants} className="pt-2 border-t border-grey-200">
+          <div className="text-xs text-grey-500">
             <p className="mb-1">Keyboard shortcuts:</p>
             <ul className="space-y-1">
-              <li><span className="font-mono bg-gray-100 px-1 rounded">+</span> / <span className="font-mono bg-gray-100 px-1 rounded">-</span> - Zoom in/out</li>
-              <li><span className="font-mono bg-gray-100 px-1 rounded">R</span> - Reset view</li>
-              <li><span className="font-mono bg-gray-100 px-1 rounded">←</span> / <span className="font-mono bg-gray-100 px-1 rounded">→</span> - Rotate</li>
+              <li><span className="font-mono bg-grey-100 px-1 rounded">+</span> / <span className="font-mono bg-grey-100 px-1 rounded">-</span> - Zoom in/out</li>
+              <li><span className="font-mono bg-grey-100 px-1 rounded">R</span> - Reset view</li>
+              <li><span className="font-mono bg-grey-100 px-1 rounded">←</span> / <span className="font-mono bg-grey-100 px-1 rounded">→</span> - Rotate</li>
             </ul>
           </div>
         </motion.div>

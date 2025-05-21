@@ -30,7 +30,7 @@ The Multilingual Support Expansion feature enhances the EdPsych-AI-Education-Pla
 - **Reading Level Selection**: Content adaptation for different reading abilities
 - **Glossary Terms**: Explanation of complex terms in simpler language
 - **Cultural Context Notes**: Additional information for cultural references
-- **Special Educational Needs Adaptations**: Specialized modifications for diverse needs
+- **Special Educational Needs Adaptations**: Specialised modifications for diverse needs
 
 ### 5. UK Curriculum Alignment
 - **Curriculum Terminology**: Consistent translation of UK educational terms

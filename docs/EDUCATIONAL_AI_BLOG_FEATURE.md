@@ -27,7 +27,7 @@ The Educational AI Blog feature provides a comprehensive platform for sharing ed
 ### 4. Educational Context Integration
 - **Curriculum Alignment**: Tagging system for UK curriculum areas
 - **Age/Phase Appropriateness**: Indicators for target educational phases
-- **Evidence-Based Practice**: Highlighting of research-backed approaches
+- **Evidence-Based Practise**: Highlighting of research-backed approaches
 - **Professional Development Integration**: Connection to CPD tracking
 
 ## Technical Implementation
@@ -54,9 +54,9 @@ The Educational AI Blog feature provides a comprehensive platform for sharing ed
 
 The Educational AI Blog is grounded in established educational psychology principles:
 
-- **Evidence-Based Practice**: Facilitating the sharing of research-informed approaches
-- **Communities of Practice**: Creating spaces for professional knowledge exchange
-- **Reflective Practice**: Encouraging critical reflection on teaching approaches
+- **Evidence-Based Practise**: Facilitating the sharing of research-informed approaches
+- **Communities of Practise**: Creating spaces for professional knowledge exchange
+- **Reflective Practise**: Encouraging critical reflection on teaching approaches
 - **Knowledge Building**: Supporting collective construction of educational understanding
 - **Professional Agency**: Empowering educators to direct their own learning
 

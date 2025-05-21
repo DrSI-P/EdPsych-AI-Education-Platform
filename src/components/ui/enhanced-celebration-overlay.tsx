@@ -298,7 +298,7 @@ const EnhancedCelebrationOverlay: React.FC<CelebrationOverlayProps> = ({
       <AnimatePresence>
         {isVisible && (
           <motion.div
-            className={`fixed inset-0 flex items-center justify-center z-50 ${isReducedMotion ? '' : 'overflow-hidden'}`}
+            className={`fixed inset-0 flex items-centre justify-centre z-50 ${isReducedMotion ? '' : 'overflow-hidden'}`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -310,7 +310,7 @@ const EnhancedCelebrationOverlay: React.FC<CelebrationOverlayProps> = ({
               className={`relative z-10 rounded-xl p-6 shadow-lg max-w-md mx-4 ${typeStyles.bgClass} ${ageStyles.containerClass}`}
               {...(isReducedMotion ? {} : ageStyles.animation)}
             >
-              <div className="flex flex-col items-center text-center">
+              <div className="flex flex-col items-centre text-centre">
                 {getCelebrationIcon()}
                 
                 <motion.h2

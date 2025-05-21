@@ -56,7 +56,7 @@ This document outlines best practices for deploying the EdPsych-AI-Education-Pla
 2. **Build Performance**
    - Enable SWC minification for faster builds
    - Implement code splitting for better performance
-   - Optimize image assets using Next.js Image component
+   - Optimise image assets using Next.js Image component
    - Consider using Next.js static export for purely static pages
 
 3. **Incremental Deployment**
@@ -127,9 +127,9 @@ This document outlines best practices for deploying the EdPsych-AI-Education-Pla
    - Check for client-side vs. server-side code issues
 
 3. **Performance Issues**
-   - Analyze bundle size
+   - Analyse bundle size
    - Check for memory leaks
-   - Optimize database queries and API calls
+   - Optimise database queries and API calls
 
 ## Documentation and Knowledge Sharing
 

@@ -46,7 +46,7 @@ The Parent-Teacher-Student Emotional Communication feature is grounded in establ
 
 3. **Emotional Development Theory**: Recognizes the importance of consistent approaches across home and school environments for emotional skill development.
 
-4. **UK SEND Code of Practice**: Aligns with requirements for parent-professional partnerships and student voice in educational planning.
+4. **UK SEND Code of Practise**: Aligns with requirements for parent-professional partnerships and student voice in educational planning.
 
 5. **Safeguarding Best Practices**: Implements secure, documented communication channels that support child protection requirements.
 
@@ -72,7 +72,7 @@ The feature extends the Prisma schema with several new models:
 ### Accessibility Considerations
 - Clear visual indicators for message priority and emotional focus
 - Consistent navigation patterns across communication types
-- Screen reader optimized content structure
+- Screen reader optimised content structure
 - Keyboard navigation support
 - Clear feedback for all user actions
 
@@ -94,10 +94,10 @@ The Parent-Teacher-Student Emotional Communication feature supports several key 
 
 1. Christenson, S. L., & Reschly, A. L. (2010). Handbook of school-family partnerships. Routledge.
 
-2. Department for Education. (2015). Special educational needs and disability code of practice: 0 to 25 years. UK Government.
+2. Department for Education. (2015). Special educational needs and disability code of practise: 0 to 25 years. UK Government.
 
 3. Durlak, J. A., Weissberg, R. P., Dymnicki, A. B., Taylor, R. D., & Schellinger, K. B. (2011). The impact of enhancing students' social and emotional learning: A meta-analysis of school-based universal interventions. Child Development, 82(1), 405-432.
 
 4. Epstein, J. L. (2018). School, family, and community partnerships: Preparing educators and improving schools. Routledge.
 
-5. Information Commissioner's Office. (2020). Age appropriate design: A code of practice for online services. UK Government.
+5. Information Commissioner's Office. (2020). Age appropriate design: A code of practise for online services. UK Government.

@@ -326,8 +326,8 @@ export default function ReducedMotionModeEngine({
   return (
     <Card className={className}>
       <CardHeader>
-        <CardTitle className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
+        <CardTitle className="flex items-centre justify-between">
+          <div className="flex items-centre gap-2">
             <Activity className="h-5 w-5" />
             Reduced Motion Mode
           </div>
@@ -359,28 +359,28 @@ export default function ReducedMotionModeEngine({
                   }
                   className="grid grid-cols-2 gap-4"
                 >
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <RadioGroupItem value="minimal" id="minimal" />
-                    <Label htmlFor="minimal" className="flex items-center gap-2">
+                    <Label htmlFor="minimal" className="flex items-centre gap-2">
                       Minimal
                     </Label>
                   </div>
                   
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <RadioGroupItem value="moderate" id="moderate" />
-                    <Label htmlFor="moderate" className="flex items-center gap-2">
+                    <Label htmlFor="moderate" className="flex items-centre gap-2">
                       Moderate
                     </Label>
                   </div>
                   
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <RadioGroupItem value="strict" id="strict" />
-                    <Label htmlFor="strict" className="flex items-center gap-2">
+                    <Label htmlFor="strict" className="flex items-centre gap-2">
                       Strict
                     </Label>
                   </div>
                   
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <RadioGroupItem value="custom" id="custom" />
                     <Label htmlFor="custom">Custom</Label>
                   </div>
@@ -389,7 +389,7 @@ export default function ReducedMotionModeEngine({
               
               {settings.level === 'custom' && (
                 <div className="space-y-4 p-4 border rounded-md">
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <div className="space-y-0.5">
                       <Label htmlFor="essential-animations">Allow Essential Animations</Label>
                       <p className="text-xs text-muted-foreground">
@@ -405,7 +405,7 @@ export default function ReducedMotionModeEngine({
                     />
                   </div>
                   
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <div className="space-y-0.5">
                       <Label htmlFor="hover-effects">Allow Hover Effects</Label>
                       <p className="text-xs text-muted-foreground">
@@ -421,7 +421,7 @@ export default function ReducedMotionModeEngine({
                     />
                   </div>
                   
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <div className="space-y-0.5">
                       <Label htmlFor="transitions">Allow Transitions</Label>
                       <p className="text-xs text-muted-foreground">
@@ -437,7 +437,7 @@ export default function ReducedMotionModeEngine({
                     />
                   </div>
                   
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <div className="space-y-0.5">
                       <Label htmlFor="autoplay">Allow Autoplay</Label>
                       <p className="text-xs text-muted-foreground">
@@ -490,13 +490,13 @@ export default function ReducedMotionModeEngine({
           
           <TabsContent value="preview" className="pt-4">
             <div className="space-y-6">
-              <div className="flex justify-between items-center mb-4">
+              <div className="flex justify-between items-centre mb-4">
                 <Label>Animation Preview</Label>
                 <Button 
                   variant="outline" 
                   size="sm"
                   onClick={toggleAnimation}
-                  className="flex items-center gap-1"
+                  className="flex items-centre gap-1"
                 >
                   {isAnimationPlaying ? (
                     <>
@@ -520,7 +520,7 @@ export default function ReducedMotionModeEngine({
                     <Label className="mb-2 block">Transition Effect</Label>
                     <div 
                       className={`
-                        h-16 w-full bg-primary/20 rounded-md flex items-center justify-center
+                        h-16 w-full bg-primary/20 rounded-md flex items-centre justify-centre
                         transition-all duration-1000
                         ${isAnimationPlaying ? 'bg-primary/60' : 'bg-primary/20'}
                       `}
@@ -530,7 +530,7 @@ export default function ReducedMotionModeEngine({
                           '1000ms'
                       }}
                     >
-                      <span>Color Transition</span>
+                      <span>Colour Transition</span>
                     </div>
                   </div>
                   
@@ -588,7 +588,7 @@ export default function ReducedMotionModeEngine({
         <Button 
           variant="outline" 
           onClick={handleResetSettings}
-          className="flex items-center gap-2"
+          className="flex items-centre gap-2"
         >
           <RefreshCw className="h-4 w-4" />
           Reset
@@ -596,7 +596,7 @@ export default function ReducedMotionModeEngine({
         
         <Button 
           onClick={handleApplySettings}
-          className="flex items-center gap-2"
+          className="flex items-centre gap-2"
           disabled={isApplied && JSON.stringify(settings) === JSON.stringify({
             enabled: document.documentElement.classList.contains('reduce-motion-minimal') || 
                     document.documentElement.classList.contains('reduce-motion-moderate') ||

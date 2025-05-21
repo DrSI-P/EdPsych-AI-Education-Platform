@@ -6,7 +6,7 @@ import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card'
 import { Button } from '@/components/ui/button';
 import { Alert } from '@/components/ui/alert';
 import { Spinner } from '@/components/ui/loading';
-import { Tabs } from '@/components/ui/tabs';
+import { SimpleTabs } from '@/components/ui/tabs';
 import { aiService } from '@/lib/ai/ai-service';
 
 interface Question {
@@ -290,7 +290,7 @@ export default function ManualGradingPage() {
             {question.expectedAnswer && (
               <div className="mb-4">
                 <p className="font-medium mb-2">Expected Answer:</p>
-                <p className="p-3 bg-gray-50 rounded-md">{question.expectedAnswer}</p>
+                <p className="p-3 bg-grey-50 rounded-md">{question.expectedAnswer}</p>
               </div>
             )}
           </div>
@@ -345,13 +345,13 @@ export default function ManualGradingPage() {
 
   const renderStudentAnswer = (question: Question, answer: Answer | undefined) => {
     if (!answer) {
-      return <p className="text-gray-500">No answer provided</p>;
+      return <p className="text-grey-500">No answer provided</p>;
     }
     
     switch (question.type) {
       case 'multiple-choice':
         if (!Array.isArray(answer.content) || answer.content.length === 0) {
-          return <p className="text-gray-500">No option selected</p>;
+          return <p className="text-grey-500">No option selected</p>;
         }
         
         return (
@@ -369,16 +369,16 @@ export default function ManualGradingPage() {
         
       case 'open-ended':
         return typeof answer.content === 'string' ? (
-          <div className="p-3 bg-gray-50 rounded-md whitespace-pre-wrap">
-            {answer.content || <span className="text-gray-500">No answer provided</span>}
+          <div className="p-3 bg-grey-50 rounded-md whitespace-pre-wrap">
+            {answer.content || <span className="text-grey-500">No answer provided</span>}
           </div>
         ) : (
-          <p className="text-gray-500">Invalid answer format</p>
+          <p className="text-grey-500">Invalid answer format</p>
         );
         
       case 'matching':
         if (!answer.content || Object.keys(answer.content).length === 0) {
-          return <p className="text-gray-500">No matches provided</p>;
+          return <p className="text-grey-500">No matches provided</p>;
         }
         
         return (
@@ -400,12 +400,12 @@ export default function ManualGradingPage() {
         
       case 'file-upload':
         if (!answer.content) {
-          return <p className="text-gray-500">No file uploaded</p>;
+          return <p className="text-grey-500">No file uploaded</p>;
         }
         
         if (typeof answer.content === 'object' && answer.content.filename) {
           return (
-            <div className="flex items-center">
+            <div className="flex items-centre">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
@@ -424,17 +424,17 @@ export default function ManualGradingPage() {
           );
         }
         
-        return <p className="text-gray-500">File information not available</p>;
+        return <p className="text-grey-500">File information not available</p>;
         
       default:
-        return <p className="text-gray-500">Unsupported answer format</p>;
+        return <p className="text-grey-500">Unsupported answer format</p>;
     }
   };
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
-        <Spinner size="large" />
+      <div className="flex justify-centre items-centre min-h-screen">
+        <Spinner size="lg" />
       </div>
     );
   }
@@ -442,7 +442,7 @@ export default function ManualGradingPage() {
   if (error) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <Alert type="error" className="mb-6">
+        <Alert variant="error" className="mb-6">
           {error}
         </Alert>
         <Button onClick={() => router.back()}>
@@ -455,7 +455,7 @@ export default function ManualGradingPage() {
   if (!assessment || !response) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <Alert type="error" className="mb-6">
+        <Alert variant="error" className="mb-6">
           Assessment response not found
         </Alert>
         <Button onClick={() => router.push('/assessment')}>
@@ -475,9 +475,9 @@ export default function ManualGradingPage() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-6">
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-gray-900">Grade Assessment Response</h1>
-          <div className="flex items-center space-x-2">
+        <div className="flex items-centre justify-between">
+          <h1 className="text-2xl font-bold text-grey-900">Grade Assessment Response</h1>
+          <div className="flex items-centre space-x-2">
             <span className={`px-2 py-1 text-xs font-semibold rounded-full ${
               isPassing ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
             }`}>
@@ -485,20 +485,20 @@ export default function ManualGradingPage() {
             </span>
           </div>
         </div>
-        <p className="mt-2 text-gray-600">
+        <p className="mt-2 text-grey-600">
           {assessment.title} - Submitted by {response.user.name}
         </p>
       </div>
 
       {saveSuccess && (
-        <Alert type="success" className="mb-6">
+        <Alert variant="success" className="mb-6">
           Grades saved successfully!
         </Alert>
       )}
 
       <Card className="mb-6">
         <CardContent className="p-6">
-          <Tabs
+          <SimpleTabs
             tabs={[
               { id: 'overview', label: 'Overview' },
               { id: 'question-by-question', label: 'Question by Question' },
@@ -510,21 +510,21 @@ export default function ManualGradingPage() {
 
           {activeTab === 'overview' && (
             <div className="space-y-6">
-              <div className="bg-gray-50 p-4 rounded-md mb-6">
+              <div className="bg-grey-50 p-4 rounded-md mb-6">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div>
-                    <p className="text-sm font-medium text-gray-500">Student</p>
-                    <p className="text-base font-medium text-gray-900">{response.user.name}</p>
+                    <p className="text-sm font-medium text-grey-500">Student</p>
+                    <p className="text-base font-medium text-grey-900">{response.user.name}</p>
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-gray-500">Submitted</p>
-                    <p className="text-base font-medium text-gray-900">
+                    <p className="text-sm font-medium text-grey-500">Submitted</p>
+                    <p className="text-base font-medium text-grey-900">
                       {new Date(response.completedAt).toLocaleString()}
                     </p>
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-gray-500">Current Score</p>
-                    <p className="text-base font-medium text-gray-900">
+                    <p className="text-sm font-medium text-grey-500">Current Score</p>
+                    <p className="text-base font-medium text-grey-900">
                       {currentTotalScore}/{totalPoints} ({scorePercentage}%)
                     </p>
                   </div>
@@ -542,8 +542,8 @@ export default function ManualGradingPage() {
                     <div key={question.id} className="p-4 border rounded-md">
                       <div className="flex justify-between mb-2">
                         <h3 className="font-medium">Question {index + 1}</h3>
-                        <div className="flex items-center space-x-2">
-                          <span className="text-sm text-gray-500">
+                        <div className="flex items-centre space-x-2">
+                          <span className="text-sm text-grey-500">
                             {grade?.score || 0}/{question.points} points
                           </span>
                           <Button
@@ -561,7 +561,7 @@ export default function ManualGradingPage() {
                       
                       <p className="mb-2 line-clamp-1">{question.content}</p>
                       
-                      <div className="text-sm text-gray-600">
+                      <div className="text-sm text-grey-600">
                         <span className="font-medium">Type:</span> {question.type.replace('-', ' ')}
                       </div>
                     </div>
@@ -571,13 +571,13 @@ export default function ManualGradingPage() {
 
               <div className="pt-4 border-t">
                 <div className="mb-4">
-                  <label htmlFor="overall-feedback" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label htmlFor="overall-feedback" className="block text-sm font-medium text-grey-700 mb-1">
                     Overall Feedback
                   </label>
                   <textarea
                     id="overall-feedback"
                     rows={4}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="Provide overall feedback for the student"
                     value={response.feedback || ''}
                     onChange={(e) => {
@@ -612,8 +612,8 @@ export default function ManualGradingPage() {
 
           {activeTab === 'question-by-question' && currentQuestion && (
             <div className="space-y-6">
-              <div className="flex justify-between items-center">
-                <div className="flex items-center space-x-2">
+              <div className="flex justify-between items-centre">
+                <div className="flex items-centre space-x-2">
                   <Button
                     variant="outline"
                     onClick={() => setCurrentQuestionIndex(Math.max(0, currentQuestionIndex - 1))}
@@ -632,7 +632,7 @@ export default function ManualGradingPage() {
                     Next
                   </Button>
                 </div>
-                <div className="text-sm text-gray-600">
+                <div className="text-sm text-grey-600">
                   <span className="font-medium">Type:</span> {currentQuestion.type.replace('-', ' ')}
                 </div>
               </div>
@@ -640,14 +640,14 @@ export default function ManualGradingPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-4">
                   <h3 className="text-lg font-medium">Question</h3>
-                  <div className="p-4 bg-gray-50 rounded-md">
+                  <div className="p-4 bg-grey-50 rounded-md">
                     {renderQuestionContent(currentQuestion)}
                   </div>
                 </div>
                 
                 <div className="space-y-4">
                   <h3 className="text-lg font-medium">Student's Answer</h3>
-                  <div className="p-4 bg-gray-50 rounded-md">
+                  <div className="p-4 bg-grey-50 rounded-md">
                     {renderStudentAnswer(currentQuestion, currentAnswer)}
                   </div>
                 </div>
@@ -657,7 +657,7 @@ export default function ManualGradingPage() {
                 <h3 className="text-lg font-medium mb-4">Grading</h3>
                 
                 <div className="mb-4">
-                  <label htmlFor="question-score" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label htmlFor="question-score" className="block text-sm font-medium text-grey-700 mb-1">
                     Score (out of {currentQuestion.points})
                   </label>
                   <input
@@ -667,18 +667,18 @@ export default function ManualGradingPage() {
                     max={currentQuestion.points}
                     value={grades[currentQuestion.id]?.score || 0}
                     onChange={(e) => handleScoreChange(currentQuestion.id, parseInt(e.target.value) || 0)}
-                    className="w-24 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-24 px-3 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
                 
                 <div className="mb-4">
-                  <label htmlFor="question-feedback" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label htmlFor="question-feedback" className="block text-sm font-medium text-grey-700 mb-1">
                     Feedback
                   </label>
                   <textarea
                     id="question-feedback"
                     rows={4}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="Provide feedback for this answer"
                     value={grades[currentQuestion.id]?.feedback || ''}
                     onChange={(e) => handleFeedbackChange(currentQuestion.id, e.target.value)}
@@ -687,7 +687,7 @@ export default function ManualGradingPage() {
                 
                 {currentQuestion.type === 'open-ended' && (
                   <div className="mt-4 p-4 bg-blue-50 rounded-md">
-                    <div className="flex justify-between items-center mb-2">
+                    <div className="flex justify-between items-centre mb-2">
                       <h4 className="font-medium text-blue-800">AI Grading Assistance</h4>
                       <Button
                         variant="outline"

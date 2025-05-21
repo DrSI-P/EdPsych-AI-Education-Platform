@@ -407,14 +407,14 @@ export default function TeacherAutomation() {
       </div>
       
       <div className="relative">
-        <div className="flex justify-between items-center mb-2">
+        <div className="flex justify-between items-centre mb-2">
           <Label htmlFor="objectives">Learning Objectives</Label>
           <Button 
             variant="outline" 
             size="sm" 
             onClick={() => startVoiceInput('objectives')}
             disabled={isRecording}
-            className="flex items-center gap-1 h-8"
+            className="flex items-centre gap-1 h-8"
           >
             <span className="h-4 w-4">🎤</span>
             <span>Voice Input</span>
@@ -447,13 +447,13 @@ export default function TeacherAutomation() {
         <Label className="block mb-2">Learning Styles to Address</Label>
         <div className="grid grid-cols-2 gap-2">
           {['Visual', 'Auditory', 'Kinesthetic', 'Reading/Writing'].map(style => (
-            <div key={style} className="flex items-center space-x-2">
+            <div key={style} className="flex items-centre space-x-2">
               <input 
                 type="checkbox" 
                 id={`style-${style}`} 
                 checked={lessonPlanInput.learningStyles.includes(style)} 
                 onChange={() => handleLearningStyleToggle(style)}
-                className="h-4 w-4 rounded border-gray-300"
+                className="h-4 w-4 rounded border-grey-300"
               />
               <Label htmlFor={`style-${style}`} className="text-sm font-normal">{style}</Label>
             </div>
@@ -465,13 +465,13 @@ export default function TeacherAutomation() {
         <Label className="block mb-2">Special Educational Needs Accommodations</Label>
         <div className="grid grid-cols-2 gap-2">
           {['ADHD', 'Dyslexia', 'Autism', 'Hearing Impairment', 'Visual Impairment', 'EAL'].map(need => (
-            <div key={need} className="flex items-center space-x-2">
+            <div key={need} className="flex items-centre space-x-2">
               <input 
                 type="checkbox" 
                 id={`need-${need}`} 
                 checked={lessonPlanInput.specialNeeds.includes(need)} 
                 onChange={() => handleSpecialNeedsToggle(need)}
-                className="h-4 w-4 rounded border-gray-300"
+                className="h-4 w-4 rounded border-grey-300"
               />
               <Label htmlFor={`need-${need}`} className="text-sm font-normal">{need}</Label>
             </div>
@@ -532,14 +532,14 @@ export default function TeacherAutomation() {
       </div>
       
       <div className="relative">
-        <div className="flex justify-between items-center mb-2">
+        <div className="flex justify-between items-centre mb-2">
           <Label htmlFor="strengths">Strengths</Label>
           <Button 
             variant="outline" 
             size="sm" 
             onClick={() => startVoiceInput('strengths')}
             disabled={isRecording}
-            className="flex items-center gap-1 h-8"
+            className="flex items-centre gap-1 h-8"
           >
             <span className="h-4 w-4">🎤</span>
             <span>Voice Input</span>
@@ -556,14 +556,14 @@ export default function TeacherAutomation() {
       </div>
       
       <div className="relative">
-        <div className="flex justify-between items-center mb-2">
+        <div className="flex justify-between items-centre mb-2">
           <Label htmlFor="areasForImprovement">Areas for Improvement</Label>
           <Button 
             variant="outline" 
             size="sm" 
             onClick={() => startVoiceInput('areasForImprovement')}
             disabled={isRecording}
-            className="flex items-center gap-1 h-8"
+            className="flex items-centre gap-1 h-8"
           >
             <span className="h-4 w-4">🎤</span>
             <span>Voice Input</span>
@@ -598,7 +598,7 @@ export default function TeacherAutomation() {
           name="socialEmotional" 
           value={reportInput.socialEmotional} 
           onChange={handleReportChange} 
-          placeholder="Comments on social skills, emotional regulation, behavior, etc."
+          placeholder="Comments on social skills, emotional regulation, behaviour, etc."
           className="min-h-[80px]"
         />
       </div>
@@ -670,14 +670,14 @@ export default function TeacherAutomation() {
       </div>
       
       <div className="relative">
-        <div className="flex justify-between items-center mb-2">
+        <div className="flex justify-between items-centre mb-2">
           <Label htmlFor="strengths">Strengths</Label>
           <Button 
             variant="outline" 
             size="sm" 
             onClick={() => startVoiceInput('strengths')}
             disabled={isRecording}
-            className="flex items-center gap-1 h-8"
+            className="flex items-centre gap-1 h-8"
           >
             <span className="h-4 w-4">🎤</span>
             <span>Voice Input</span>
@@ -694,14 +694,14 @@ export default function TeacherAutomation() {
       </div>
       
       <div className="relative">
-        <div className="flex justify-between items-center mb-2">
+        <div className="flex justify-between items-centre mb-2">
           <Label htmlFor="improvements">Areas for Improvement</Label>
           <Button 
             variant="outline" 
             size="sm" 
             onClick={() => startVoiceInput('improvements')}
             disabled={isRecording}
-            className="flex items-center gap-1 h-8"
+            className="flex items-centre gap-1 h-8"
           >
             <span className="h-4 w-4">🎤</span>
             <span>Voice Input</span>
@@ -784,8 +784,8 @@ export default function TeacherAutomation() {
           {isRecording && (
             <Card className="mt-4 border-primary">
               <CardContent className="pt-6">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center">
+                <div className="flex items-centre justify-between mb-4">
+                  <div className="flex items-centre">
                     <div className="h-3 w-3 rounded-full bg-red-500 animate-pulse mr-2"></div>
                     <span className="font-medium">Recording in progress...</span>
                   </div>
@@ -824,8 +824,8 @@ export default function TeacherAutomation() {
                   />
                 </div>
               ) : (
-                <div className="flex items-center justify-center h-[500px] border-2 border-dashed rounded-md">
-                  <div className="text-center text-muted-foreground">
+                <div className="flex items-centre justify-centre h-[500px] border-2 border-dashed rounded-md">
+                  <div className="text-centre text-muted-foreground">
                     <p>Complete the form and generate content</p>
                     <p className="text-sm">Your AI-generated content will appear here</p>
                   </div>

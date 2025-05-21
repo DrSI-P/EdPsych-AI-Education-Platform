@@ -135,7 +135,7 @@ Mrs. Thompson: Yes, thank you both for your time and support.
     keyPoints: [
       { text: 'Emma shows strengths in creative writing and reading comprehension', category: 'strength', highlighted: true },
       { text: 'Emma needs support with analytical writing for non-fiction texts', category: 'development', highlighted: true },
-      { text: 'Parents should practice using newspaper articles with Emma', category: 'action', highlighted: true },
+      { text: 'Parents should practise using newspaper articles with Emma', category: 'action', highlighted: true },
       { text: 'Resources added to Emma\'s online learning portal', category: 'resource', highlighted: false },
       { text: 'Emma has made progress in Mathematics with number operations', category: 'strength', highlighted: false },
       { text: 'Algebra remains an area for development', category: 'development', highlighted: true },
@@ -144,7 +144,7 @@ Mrs. Thompson: Yes, thank you both for your time and support.
       { text: 'Mathematics support club available on Wednesdays', category: 'resource', highlighted: true }
     ],
     actionItems: [
-      { text: 'Parents to practice analytical writing using newspaper articles', assignedTo: 'Parents', dueDate: '2025-05-31', completed: false },
+      { text: 'Parents to practise analytical writing using newspaper articles', assignedTo: 'Parents', dueDate: '2025-05-31', completed: false },
       { text: 'Emma to access online resources for analytical writing', assignedTo: 'Emma', dueDate: '2025-05-22', completed: false },
       { text: 'Emma to watch Khan Academy videos on algebra', assignedTo: 'Emma', dueDate: '2025-05-20', completed: true },
       { text: 'Arrange for Emma to attend Wednesday mathematics support club', assignedTo: 'Parents', dueDate: '2025-05-17', completed: true }
@@ -167,7 +167,7 @@ Ms. Johnson: Agreed. What about assessment strategies?
 Mr. Roberts: I've been researching more formative assessment approaches. I'd like to propose we reduce the number of formal written assessments and increase the use of portfolio-based assessment.
 Ms. Thomas: That aligns well with the school's overall direction on assessment. I'd support that change.
 Ms. Johnson: Let's discuss the practical implementation. How would we ensure consistency across different classes?
-Mr. Roberts: I've prepared some standardized rubrics and exemplars that we could all use. I can share those after the meeting.
+Mr. Roberts: I've prepared some standardised rubrics and exemplars that we could all use. I can share those after the meeting.
 Ms. Johnson: Excellent. Let's move on to Year 8 curriculum.
 Mrs. Davies: For Year 8, we need to address the gap in grammar and punctuation skills we've noticed this year.
 Mr. Williams: I suggest we integrate more explicit grammar teaching into the existing units rather than creating separate grammar lessons.
@@ -193,7 +193,7 @@ Ms. Johnson: Let\'s say Tuesday at 3:30 pm. I\'ll send a calendar invitation. Th
       { text: 'Year 7 curriculum to include more diverse texts', category: 'decision', highlighted: true },
       { text: 'Stronger focus on speaking and listening skills for Year 7', category: 'decision', highlighted: true },
       { text: 'Reduce formal written assessments, increase portfolio-based assessment', category: 'decision', highlighted: true },
-      { text: 'Standardized rubrics and exemplars to be shared', category: 'resource', highlighted: false },
+      { text: 'Standardised rubrics and exemplars to be shared', category: 'resource', highlighted: false },
       { text: 'Address grammar and punctuation skills gap in Year 8', category: 'issue', highlighted: true },
       { text: 'Integrate grammar teaching into existing units', category: 'approach', highlighted: false },
       { text: 'Year 9 to include more 19th-century texts to prepare for GCSE', category: 'decision', highlighted: true },
@@ -202,7 +202,7 @@ Ms. Johnson: Let\'s say Tuesday at 3:30 pm. I\'ll send a calendar invitation. Th
       { text: 'Literacy intervention program needs reviewing', category: 'issue', highlighted: false }
     ],
     actionItems: [
-      { text: 'Share standardized rubrics and exemplars for portfolio assessment', assignedTo: 'Mr. Roberts', dueDate: '2025-05-14', completed: true },
+      { text: 'Share standardised rubrics and exemplars for portfolio assessment', assignedTo: 'Mr. Roberts', dueDate: '2025-05-14', completed: true },
       { text: 'Identify grammar focus points for each Year 8 unit', assignedTo: 'Mrs. Davies & Mr. Williams', dueDate: '2025-05-19', completed: false },
       { text: 'Share accessible extracts of 19th-century texts', assignedTo: 'Ms. Thomas', dueDate: '2025-05-15', completed: false },
       { text: 'Speak with Head of History about cross-curricular project', assignedTo: 'Ms. Johnson', dueDate: '2025-05-16', completed: false },
@@ -336,7 +336,7 @@ Head Teacher: Perfect. Let's move on to our next agenda item: [Next Topic].
         } else {
           sampleText = `
 Speaker 1: Welcome everyone. Today we're here to discuss [Meeting Purpose].
-Speaker 2: Thank you for organizing this. I think the main issues we need to address are [Key Issues].
+Speaker 2: Thank you for organising this. I think the main issues we need to address are [Key Issues].
 Speaker 3: I agree, and I'd also like to add [Additional Concern] to our discussion.
 Speaker 1: Those are all important points. Let's start by looking at [First Topic].
 Speaker 2: From my perspective, the situation is [Description of Current State].
@@ -797,7 +797,7 @@ Speaker 1: Let's develop an action plan. Who can take responsibility for [Action
       // Generate a sample transcript
       const sampleText = `
 Speaker 1: Welcome everyone. Today we're here to discuss the upcoming curriculum changes.
-Speaker 2: Thank you for organizing this. I think we need to focus on how these changes will affect our assessment strategies.
+Speaker 2: Thank you for organising this. I think we need to focus on how these changes will affect our assessment strategies.
 Speaker 3: I agree, and I'd also like to discuss the implications for students with special educational needs.
 Speaker 1: Those are all important points. Let's start by reviewing the key changes.
 Speaker 2: From what I understand, the main shift is towards more project-based learning and less emphasis on final examinations.
@@ -895,7 +895,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
     });
   };
   
-  // Get category badge color
+  // Get category badge colour
   const getCategoryBadgeColor = (category: string) => {
     switch (category) {
       case 'strength':
@@ -909,7 +909,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
       case 'resource':
         return "bg-purple-100 text-purple-800";
       default:
-        return "bg-gray-100 text-gray-800";
+        return "bg-grey-100 text-grey-800";
     }
   };
   
@@ -934,7 +934,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center">
+          <CardTitle className="flex items-centre">
             <FileText className="mr-2 h-5 w-5" />
             Meeting Note Transcription with Key Point Extraction
           </CardTitle>
@@ -1046,7 +1046,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <Card>
                   <CardHeader>
-                    <CardTitle className="flex items-center">
+                    <CardTitle className="flex items-centre">
                       <Mic className="mr-2 h-5 w-5" />
                       Record Meeting
                     </CardTitle>
@@ -1055,7 +1055,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    <div className="flex justify-center">
+                    <div className="flex justify-centre">
                       <Button 
                         variant={isRecording ? "destructive" : "default"}
                         size="lg"
@@ -1071,7 +1071,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
                       </Button>
                     </div>
                     
-                    <div className="text-center">
+                    <div className="text-centre">
                       <div className="text-2xl font-bold">
                         {formatTime(recordingTime)}
                       </div>
@@ -1081,15 +1081,15 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
                     </div>
                     
                     {isRecording && (
-                      <div className="text-center text-sm">
+                      <div className="text-centre text-sm">
                         <p>Speaking detected. Transcription in progress...</p>
                       </div>
                     )}
                   </CardContent>
-                  <CardFooter className="flex justify-center">
+                  <CardFooter className="flex justify-centre">
                     <div className="text-sm text-muted-foreground">
                       {isRecording ? (
-                        <span className="flex items-center">
+                        <span className="flex items-centre">
                           <span className="relative flex h-3 w-3 mr-2">
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
                             <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
@@ -1105,7 +1105,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
                 
                 <Card>
                   <CardHeader>
-                    <CardTitle className="flex items-center">
+                    <CardTitle className="flex items-centre">
                       <Upload className="mr-2 h-5 w-5" />
                       Upload Audio
                     </CardTitle>
@@ -1115,7 +1115,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div 
-                      className="border-2 border-dashed rounded-lg p-6 text-center cursor-pointer hover:border-primary/50 transition-colors"
+                      className="border-2 border-dashed rounded-lg p-6 text-centre cursor-pointer hover:border-primary/50 transition-colors"
                       onClick={() => fileInputRef.current?.click()}
                     >
                       <input 
@@ -1134,8 +1134,8 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
                     </div>
                     
                     {uploadedAudioFile && (
-                      <div className="flex items-center justify-between p-2 border rounded-lg">
-                        <div className="flex items-center">
+                      <div className="flex items-centre justify-between p-2 border rounded-lg">
+                        <div className="flex items-centre">
                           <FileAudio className="h-5 w-5 mr-2 text-muted-foreground" />
                           <span className="text-sm font-medium truncate max-w-[200px]">
                             {uploadedAudioFile.name}
@@ -1151,7 +1151,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
                       </div>
                     )}
                   </CardContent>
-                  <CardFooter className="flex justify-center">
+                  <CardFooter className="flex justify-centre">
                     <Button 
                       onClick={processUploadedFile}
                       disabled={!uploadedAudioFile || isProcessing}
@@ -1210,7 +1210,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
             <TabsContent value="review" className="space-y-6">
               {currentMeeting ? (
                 <>
-                  <div className="flex justify-between items-center">
+                  <div className="flex justify-between items-centre">
                     <div>
                       <h2 className="text-2xl font-bold">{currentMeeting.title}</h2>
                       <p className="text-muted-foreground">
@@ -1239,9 +1239,9 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div className="md:col-span-2">
                       <Card>
-                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
                           <CardTitle className="text-md font-medium">Transcript</CardTitle>
-                          <div className="flex items-center space-x-2">
+                          <div className="flex items-centre space-x-2">
                             <Select 
                               value={translationLanguage} 
                               onValueChange={setTranslationLanguage}
@@ -1288,7 +1288,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
                               </div>
                             )}
                             
-                            <div className="flex items-center space-x-2">
+                            <div className="flex items-centre space-x-2">
                               <Badge variant="outline" className="text-xs">
                                 {languages.find(lang => lang.id === currentMeeting.language)?.name || currentMeeting.language}
                               </Badge>
@@ -1306,7 +1306,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
                     
                     <div className="space-y-6">
                       <Card>
-                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
                           <CardTitle className="text-md font-medium">Key Points</CardTitle>
                           <Button 
                             variant="ghost" 
@@ -1396,7 +1396,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
                                     </Select>
                                   </div>
                                   <div className="flex items-end">
-                                    <div className="flex items-center space-x-2">
+                                    <div className="flex items-centre space-x-2">
                                       <Checkbox 
                                         id="highlight-key-point" 
                                         checked={newKeyPoint.highlighted}
@@ -1417,7 +1417,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
                             )}
                             
                             {currentMeeting.keyPoints.length === 0 && !editingKeyPoints && (
-                              <div className="text-center py-4">
+                              <div className="text-centre py-4">
                                 <p className="text-sm text-muted-foreground">No key points extracted</p>
                                 <Button 
                                   variant="outline" 
@@ -1434,7 +1434,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
                       </Card>
                       
                       <Card>
-                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
                           <CardTitle className="text-md font-medium">Action Items</CardTitle>
                           <Button 
                             variant="ghost" 
@@ -1530,7 +1530,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
                             )}
                             
                             {currentMeeting.actionItems.length === 0 && !editingActionItems && (
-                              <div className="text-center py-4">
+                              <div className="text-centre py-4">
                                 <p className="text-sm text-muted-foreground">No action items extracted</p>
                                 <Button 
                                   variant="outline" 
@@ -1549,7 +1549,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
                   </div>
                 </>
               ) : (
-                <div className="text-center py-12">
+                <div className="text-centre py-12">
                   <FileText className="h-12 w-12 mx-auto text-muted-foreground" />
                   <h3 className="mt-4 text-lg font-medium">No meeting to review</h3>
                   <p className="mt-2 text-muted-foreground">
@@ -1568,7 +1568,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
             
             {/* Saved Tab */}
             <TabsContent value="saved" className="space-y-6">
-              <div className="flex items-center space-x-2">
+              <div className="flex items-centre space-x-2">
                 <Search className="h-5 w-5 text-muted-foreground" />
                 <Input 
                   placeholder="Search meetings by title, content, or tags..." 
@@ -1671,7 +1671,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
                   ))}
                 </div>
               ) : (
-                <div className="text-center py-12">
+                <div className="text-centre py-12">
                   <Save className="h-12 w-12 mx-auto text-muted-foreground" />
                   <h3 className="mt-4 text-lg font-medium">No saved meetings</h3>
                   <p className="mt-2 text-muted-foreground">

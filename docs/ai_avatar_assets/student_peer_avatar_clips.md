@@ -46,7 +46,7 @@ And don't forget to use the built-in tools like the calculator or the highlighte
 
 ### Study Strategies
 **Duration:** 60 seconds
-**Background:** Organized study space
+**Background:** Organised study space
 **Script:**
 ```
 Hey there! Today I want to share some study strategies that have really worked for me on EdPsych Connect.
@@ -98,7 +98,7 @@ You're doing great, and every step forward counts. Keep going!
 
 ### Starting a Study Session
 **Duration:** 15 seconds
-**Background:** Organized desk space
+**Background:** Organised desk space
 **Script:**
 ```
 Alright, let's get ready to study! I always start by clearing my workspace and putting my phone on silent to avoid distractions.

@@ -134,14 +134,14 @@ export default function KeyboardNavigationEngine({
         'tab-size-normal',
         'tab-size-large',
         'tab-size-extra-large',
-        'focus-color-blue',
-        'focus-color-yellow',
-        'focus-color-green',
-        'focus-color-purple',
-        'focus-color-custom'
+        'focus-colour-blue',
+        'focus-colour-yellow',
+        'focus-colour-green',
+        'focus-colour-purple',
+        'focus-colour-custom'
       );
       document.documentElement.style.removeProperty('--focus-indicator-size');
-      document.documentElement.style.removeProperty('--custom-focus-color');
+      document.documentElement.style.removeProperty('--custom-focus-colour');
       
       // Remove skip links if they exist
       const skipLink = document.getElementById('skip-to-content');
@@ -163,15 +163,15 @@ export default function KeyboardNavigationEngine({
     );
     document.documentElement.classList.add(`tab-size-${settingsToApply.tabSize}`);
     
-    // Apply focus indicator color
+    // Apply focus indicator colour
     document.documentElement.classList.remove(
-      'focus-color-blue',
-      'focus-color-yellow',
-      'focus-color-green',
-      'focus-color-purple',
-      'focus-color-custom'
+      'focus-colour-blue',
+      'focus-colour-yellow',
+      'focus-colour-green',
+      'focus-colour-purple',
+      'focus-colour-custom'
     );
-    document.documentElement.classList.add(`focus-color-${settingsToApply.focusIndicatorColor}`);
+    document.documentElement.classList.add(`focus-colour-${settingsToApply.focusIndicatorColor}`);
     
     // Set CSS variables for focus indicator size
     document.documentElement.style.setProperty(
@@ -179,10 +179,10 @@ export default function KeyboardNavigationEngine({
       `${settingsToApply.focusIndicatorSize}px`
     );
     
-    // Set custom focus color if in custom mode
+    // Set custom focus colour if in custom mode
     if (settingsToApply.focusIndicatorColor === 'custom') {
       document.documentElement.style.setProperty(
-        '--custom-focus-color', 
+        '--custom-focus-colour', 
         settingsToApply.customFocusColor || '#0066cc'
       );
     }
@@ -354,8 +354,8 @@ export default function KeyboardNavigationEngine({
   return (
     <Card className={className}>
       <CardHeader>
-        <CardTitle className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
+        <CardTitle className="flex items-centre justify-between">
+          <div className="flex items-centre gap-2">
             <Keyboard className="h-5 w-5" />
             Keyboard Navigation
           </div>
@@ -365,7 +365,7 @@ export default function KeyboardNavigationEngine({
           />
         </CardTitle>
         <CardDescription>
-          Optimize navigation for keyboard-only users
+          Optimise navigation for keyboard-only users
         </CardDescription>
       </CardHeader>
       
@@ -378,7 +378,7 @@ export default function KeyboardNavigationEngine({
           
           <TabsContent value="settings" className="space-y-6 pt-4">
             <div className="space-y-4">
-              <div className="flex items-center justify-between">
+              <div className="flex items-centre justify-between">
                 <div className="space-y-0.5">
                   <Label htmlFor="highlight-focus">Highlight Focus</Label>
                   <p className="text-xs text-muted-foreground">
@@ -394,7 +394,7 @@ export default function KeyboardNavigationEngine({
                 />
               </div>
               
-              <div className="flex items-center justify-between">
+              <div className="flex items-centre justify-between">
                 <div className="space-y-0.5">
                   <Label htmlFor="skip-links">Skip Navigation Links</Label>
                   <p className="text-xs text-muted-foreground">
@@ -410,7 +410,7 @@ export default function KeyboardNavigationEngine({
                 />
               </div>
               
-              <div className="flex items-center justify-between">
+              <div className="flex items-centre justify-between">
                 <div className="space-y-0.5">
                   <Label htmlFor="keyboard-shortcuts">Keyboard Shortcuts</Label>
                   <p className="text-xs text-muted-foreground">
@@ -435,17 +435,17 @@ export default function KeyboardNavigationEngine({
                   }
                   className="grid grid-cols-3 gap-4"
                 >
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <RadioGroupItem value="normal" id="normal" />
                     <Label htmlFor="normal">Normal</Label>
                   </div>
                   
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <RadioGroupItem value="large" id="large" />
                     <Label htmlFor="large">Large</Label>
                   </div>
                   
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <RadioGroupItem value="extra-large" id="extra-large" />
                     <Label htmlFor="extra-large">Extra Large</Label>
                   </div>
@@ -471,7 +471,7 @@ export default function KeyboardNavigationEngine({
               </div>
               
               <div className="space-y-2">
-                <Label>Focus Indicator Color</Label>
+                <Label>Focus Indicator Colour</Label>
                 <RadioGroup 
                   value={settings.focusIndicatorColor}
                   onValueChange={(value: 'blue' | 'yellow' | 'green' | 'purple' | 'custom') => 
@@ -479,39 +479,39 @@ export default function KeyboardNavigationEngine({
                   }
                   className="grid grid-cols-3 gap-4"
                 >
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <RadioGroupItem value="blue" id="blue" />
-                    <Label htmlFor="blue" className="flex items-center gap-2">
+                    <Label htmlFor="blue" className="flex items-centre gap-2">
                       <div className="w-4 h-4 rounded-full bg-blue-500"></div>
                       Blue
                     </Label>
                   </div>
                   
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <RadioGroupItem value="yellow" id="yellow" />
-                    <Label htmlFor="yellow" className="flex items-center gap-2">
+                    <Label htmlFor="yellow" className="flex items-centre gap-2">
                       <div className="w-4 h-4 rounded-full bg-yellow-500"></div>
                       Yellow
                     </Label>
                   </div>
                   
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <RadioGroupItem value="green" id="green" />
-                    <Label htmlFor="green" className="flex items-center gap-2">
+                    <Label htmlFor="green" className="flex items-centre gap-2">
                       <div className="w-4 h-4 rounded-full bg-green-500"></div>
                       Green
                     </Label>
                   </div>
                   
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <RadioGroupItem value="purple" id="purple" />
-                    <Label htmlFor="purple" className="flex items-center gap-2">
+                    <Label htmlFor="purple" className="flex items-centre gap-2">
                       <div className="w-4 h-4 rounded-full bg-purple-500"></div>
                       Purple
                     </Label>
                   </div>
                   
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <RadioGroupItem value="custom" id="custom" />
                     <Label htmlFor="custom">Custom</Label>
                   </div>
@@ -520,11 +520,11 @@ export default function KeyboardNavigationEngine({
               
               {settings.focusIndicatorColor === 'custom' && (
                 <div className="space-y-2">
-                  <Label htmlFor="custom-focus-color">Custom Focus Color</Label>
-                  <div className="flex items-center gap-2">
+                  <Label htmlFor="custom-focus-colour">Custom Focus Colour</Label>
+                  <div className="flex items-centre gap-2">
                     <input 
-                      type="color" 
-                      id="custom-focus-color"
+                      type="colour" 
+                      id="custom-focus-colour"
                       value={settings.customFocusColor}
                       onChange={(e) => handleSettingsChange('customFocusColor', e.target.value)}
                       className="w-10 h-10 rounded-md cursor-pointer"
@@ -538,14 +538,14 @@ export default function KeyboardNavigationEngine({
           
           <TabsContent value="preview" className="pt-4">
             <div className="space-y-6">
-              <div className="flex justify-between items-center mb-4">
+              <div className="flex justify-between items-centre mb-4">
                 <Label>Focus Navigation Demo</Label>
                 <div className="flex gap-2">
                   <Button 
                     variant="outline" 
                     size="sm"
                     onClick={() => handleDemoFocusNavigation('prev')}
-                    className="flex items-center gap-1"
+                    className="flex items-centre gap-1"
                   >
                     <ArrowLeft className="h-4 w-4" />
                     Previous
@@ -554,7 +554,7 @@ export default function KeyboardNavigationEngine({
                     variant="outline" 
                     size="sm"
                     onClick={() => handleDemoFocusNavigation('next')}
-                    className="flex items-center gap-1"
+                    className="flex items-centre gap-1"
                   >
                     Next
                     <ArrowRight className="h-4 w-4" />
@@ -589,7 +589,7 @@ export default function KeyboardNavigationEngine({
                       Primary Button
                     </Button>
                     
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-centre space-x-2">
                       <Switch 
                         id="demo-switch" 
                         checked={currentFocusDemo === 1}
@@ -694,7 +694,7 @@ export default function KeyboardNavigationEngine({
               
               {settings.skipLinks && (
                 <div className="mt-4 p-4 bg-muted rounded-md">
-                  <div className="flex items-center gap-2 mb-2">
+                  <div className="flex items-centre gap-2 mb-2">
                     <Info className="h-4 w-4" />
                     <h4 className="font-medium">Skip Links Preview</h4>
                   </div>
@@ -703,7 +703,7 @@ export default function KeyboardNavigationEngine({
                     tab into a page. This allows keyboard users to bypass navigation menus and jump 
                     directly to the main content.
                   </p>
-                  <div className="mt-2 p-2 border border-dashed rounded flex items-center justify-center">
+                  <div className="mt-2 p-2 border border-dashed rounded flex items-centre justify-centre">
                     <a 
                       href="#" 
                       className="px-3 py-1 bg-primary text-primary-foreground text-sm rounded"
@@ -722,7 +722,7 @@ export default function KeyboardNavigationEngine({
         <Button 
           variant="outline" 
           onClick={handleResetSettings}
-          className="flex items-center gap-2"
+          className="flex items-centre gap-2"
         >
           <RefreshCw className="h-4 w-4" />
           Reset
@@ -730,7 +730,7 @@ export default function KeyboardNavigationEngine({
         
         <Button 
           onClick={handleApplySettings}
-          className="flex items-center gap-2"
+          className="flex items-centre gap-2"
           disabled={isApplied && JSON.stringify(settings) === JSON.stringify({
             enabled: document.documentElement.classList.contains('keyboard-navigation'),
             highlightFocus: true, // This would need a more complex check in a real implementation
@@ -740,12 +740,12 @@ export default function KeyboardNavigationEngine({
                     document.documentElement.classList.contains('tab-size-extra-large') ? 'extra-large' :
                     'normal',
             focusIndicatorSize: parseInt(document.documentElement.style.getPropertyValue('--focus-indicator-size') || '3'),
-            focusIndicatorColor: document.documentElement.classList.contains('focus-color-yellow') ? 'yellow' :
-                                document.documentElement.classList.contains('focus-color-green') ? 'green' :
-                                document.documentElement.classList.contains('focus-color-purple') ? 'purple' :
-                                document.documentElement.classList.contains('focus-color-custom') ? 'custom' :
+            focusIndicatorColor: document.documentElement.classList.contains('focus-colour-yellow') ? 'yellow' :
+                                document.documentElement.classList.contains('focus-colour-green') ? 'green' :
+                                document.documentElement.classList.contains('focus-colour-purple') ? 'purple' :
+                                document.documentElement.classList.contains('focus-colour-custom') ? 'custom' :
                                 'blue',
-            customFocusColor: document.documentElement.style.getPropertyValue('--custom-focus-color') || '#0066cc',
+            customFocusColor: document.documentElement.style.getPropertyValue('--custom-focus-colour') || '#0066cc',
           })}
         >
           <Check className="h-4 w-4" />

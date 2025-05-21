@@ -490,7 +490,7 @@ const MOCK_MESSAGES = [
       name: 'Emma Smith',
       year: 'Year 4'
     },
-    content: 'Absolutely! I\'ve attached a few additional resources you might want to try at home. These games make multiplication practice fun and engaging.',
+    content: 'Absolutely! I\'ve attached a few additional resources you might want to try at home. These games make multiplication practise fun and engaging.',
     timestamp: '2025-05-16T16:20:00Z',
     read: true,
     attachments: [
@@ -525,7 +525,7 @@ const MOCK_MESSAGES = [
       name: 'Emma Smith',
       year: 'Year 4'
     },
-    content: 'Just wanted to let you know that Emma showed great teamwork during PE today. She helped organize her team and encouraged everyone to participate.',
+    content: 'Just wanted to let you know that Emma showed great teamwork during PE today. She helped organise her team and encouraged everyone to participate.',
     timestamp: '2025-05-17T10:15:00Z',
     read: false,
     attachments: [],
@@ -568,7 +568,7 @@ const MOCK_GOALS = [
       year: 'Year 4'
     },
     title: 'Improve reading comprehension',
-    description: 'Work on understanding and analyzing more complex texts, focusing on inference and prediction skills.',
+    description: 'Work on understanding and analysing more complex texts, focusing on inference and prediction skills.',
     category: 'Academic',
     subject: 'English',
     startDate: '2025-04-01',
@@ -635,12 +635,12 @@ const MOCK_GOALS = [
     status: 'In Progress',
     progress: 40,
     schoolActions: [
-      'Regular practice with varied problem types',
+      'Regular practise with varied problem types',
       'Small group work for collaborative learning',
       'Positive reinforcement of effort and strategies'
     ],
     homeActions: [
-      'Practice multiplication tables 3 times weekly',
+      'Practise multiplication tables 3 times weekly',
       'Use of recommended math games and apps',
       'Apply math to everyday situations (shopping, cooking)'
     ],
@@ -682,12 +682,12 @@ const MOCK_GOALS = [
     status: 'Completed',
     progress: 100,
     schoolActions: [
-      'Daily handwriting practice',
+      'Daily handwriting practise',
       'Regular feedback on written work',
       'Use of handwriting guides and templates'
     ],
     homeActions: [
-      'Practice with provided handwriting sheets',
+      'Practise with provided handwriting sheets',
       'Encourage neat writing in all home activities',
       'Use of pencil grips if needed'
     ],
@@ -755,7 +755,7 @@ const MOCK_STRATEGIES = [
   {
     id: 'strat2',
     title: 'Multiplication Games for Home',
-    description: 'Fun and engaging games to practice multiplication facts at home.',
+    description: 'Fun and engaging games to practise multiplication facts at home.',
     category: 'Numeracy',
     ageRange: '7-11 years',
     format: 'PDF Guide',
@@ -809,7 +809,7 @@ const MOCK_STRATEGIES = [
   {
     id: 'strat5',
     title: 'Supporting Emotional Regulation',
-    description: 'Strategies to help children recognize and manage their emotions effectively.',
+    description: 'Strategies to help children recognise and manage their emotions effectively.',
     category: 'Social-Emotional',
     ageRange: '5-11 years',
     format: 'PDF Guide with Printables',
@@ -1055,7 +1055,7 @@ const MOCK_CELEBRATIONS = [
           role: 'PE Teacher',
           avatar: '/avatars/teacher2.png'
         },
-        content: 'The practice is definitely paying off! Emma showed great endurance and sportsmanship.',
+        content: 'The practise is definitely paying off! Emma showed great endurance and sportsmanship.',
         timestamp: '2025-05-01T16:30:00Z'
       }
     ]
@@ -1161,14 +1161,14 @@ export default function ParentSchoolCollaboration() {
   
   return (
     <div className="container mx-auto py-6 space-y-8">
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-centre">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Parent-School Collaboration</h1>
           <p className="text-muted-foreground">
             Strengthen the home-school partnership for student success
           </p>
         </div>
-        <div className="flex items-center space-x-4">
+        <div className="flex items-centre space-x-4">
           <Select value={selectedStudent} onValueChange={setSelectedStudent}>
             <SelectTrigger className="w-[200px]">
               <SelectValue placeholder="Select Student" />
@@ -1210,7 +1210,7 @@ export default function ParentSchoolCollaboration() {
                 <MessageSquare className="h-6 w-6 text-primary" />
               </div>
             </div>
-            <div className="mt-4 flex items-center text-xs text-muted-foreground">
+            <div className="mt-4 flex items-centre text-xs text-muted-foreground">
               <span>Last message received 2 hours ago</span>
             </div>
           </CardContent>
@@ -1227,7 +1227,7 @@ export default function ParentSchoolCollaboration() {
                 <Target className="h-6 w-6 text-primary" />
               </div>
             </div>
-            <div className="mt-4 flex items-center text-xs text-muted-foreground">
+            <div className="mt-4 flex items-centre text-xs text-muted-foreground">
               <span>1 goal recently updated</span>
             </div>
           </CardContent>
@@ -1244,7 +1244,7 @@ export default function ParentSchoolCollaboration() {
                 <Calendar className="h-6 w-6 text-primary" />
               </div>
             </div>
-            <div className="mt-4 flex items-center text-xs text-muted-foreground">
+            <div className="mt-4 flex items-centre text-xs text-muted-foreground">
               <span>Next meeting in 8 days</span>
             </div>
           </CardContent>
@@ -1261,14 +1261,14 @@ export default function ParentSchoolCollaboration() {
                 <Award className="h-6 w-6 text-primary" />
               </div>
             </div>
-            <div className="mt-4 flex items-center text-xs text-muted-foreground">
+            <div className="mt-4 flex items-centre text-xs text-muted-foreground">
               <span>Latest celebration 2 days ago</span>
             </div>
           </CardContent>
         </Card>
       </div>
       
-      <div className="flex items-center space-x-4">
+      <div className="flex items-centre space-x-4">
         <div className="relative flex-1">
           <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
           <Input
@@ -1295,8 +1295,8 @@ export default function ParentSchoolCollaboration() {
           {selectedMessage ? (
             <Card>
               <CardHeader>
-                <div className="flex justify-between items-center">
-                  <div className="flex items-center">
+                <div className="flex justify-between items-centre">
+                  <div className="flex items-centre">
                     <Avatar className="h-10 w-10 mr-2">
                       <AvatarFallback>{selectedMessage.sender.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
                     </Avatar>
@@ -1313,7 +1313,7 @@ export default function ParentSchoolCollaboration() {
               <CardContent>
                 <div className="space-y-4">
                   <div>
-                    <div className="flex justify-between items-center mb-2">
+                    <div className="flex justify-between items-centre mb-2">
                       <div>
                         <p className="text-sm font-medium">
                           {selectedMessage.student ? `Re: ${selectedMessage.student.name} (${selectedMessage.student.year})` : 'School Announcement'}
@@ -1336,7 +1336,7 @@ export default function ParentSchoolCollaboration() {
                       <p>{selectedMessage.content}</p>
                       {selectedMessage.translated && (
                         <div className="mt-2 pt-2 border-t border-border">
-                          <p className="text-xs text-muted-foreground flex items-center">
+                          <p className="text-xs text-muted-foreground flex items-centre">
                             <Globe className="h-3 w-3 mr-1" /> Translated from {selectedMessage.originalLanguage}
                           </p>
                         </div>
@@ -1349,7 +1349,7 @@ export default function ParentSchoolCollaboration() {
                       <p className="text-sm font-medium mb-2">Attachments</p>
                       <div className="space-y-2">
                         {selectedMessage.attachments.map(attachment => (
-                          <div key={attachment.id} className="flex items-center bg-muted/30 p-2 rounded-md">
+                          <div key={attachment.id} className="flex items-centre bg-muted/30 p-2 rounded-md">
                             <FileText className="h-4 w-4 mr-2 text-muted-foreground" />
                             <span className="text-sm">{attachment.name}</span>
                             <span className="text-xs text-muted-foreground ml-2">({attachment.size})</span>
@@ -1371,7 +1371,7 @@ export default function ParentSchoolCollaboration() {
                         value={newMessage}
                         onChange={(e) => setNewMessage(e.target.value)}
                       />
-                      <div className="flex justify-between items-center">
+                      <div className="flex justify-between items-centre">
                         <div className="flex space-x-2">
                           <Button variant="outline" size="sm">
                             <Paperclip className="h-4 w-4 mr-1" /> Attach
@@ -1413,7 +1413,7 @@ export default function ParentSchoolCollaboration() {
                             })}
                           </div>
                         </div>
-                        <div className="text-xs text-muted-foreground flex items-center">
+                        <div className="text-xs text-muted-foreground flex items-centre">
                           {message.sender.role}
                           {message.student && (
                             <>
@@ -1423,9 +1423,9 @@ export default function ParentSchoolCollaboration() {
                           )}
                         </div>
                         <p className="text-sm line-clamp-2">{message.content}</p>
-                        <div className="flex items-center pt-1">
+                        <div className="flex items-centre pt-1">
                           {message.attachments.length > 0 && (
-                            <span className="text-xs flex items-center text-muted-foreground">
+                            <span className="text-xs flex items-centre text-muted-foreground">
                               <Paperclip className="h-3 w-3 mr-1" />
                               {message.attachments.length} attachment{message.attachments.length !== 1 ? 's' : ''}
                             </span>
@@ -1445,10 +1445,10 @@ export default function ParentSchoolCollaboration() {
               
               {filteredMessages.length === 0 && (
                 <Card>
-                  <CardContent className="p-8 flex flex-col items-center justify-center">
+                  <CardContent className="p-8 flex flex-col items-centre justify-centre">
                     <MessageSquare className="h-12 w-12 text-muted-foreground mb-4" />
-                    <h3 className="font-medium text-center">No messages found</h3>
-                    <p className="text-sm text-muted-foreground text-center mt-1">Try adjusting your search or filters</p>
+                    <h3 className="font-medium text-centre">No messages found</h3>
+                    <p className="text-sm text-muted-foreground text-centre mt-1">Try adjusting your search or filters</p>
                     <Button className="mt-4">
                       <Plus className="mr-2 h-4 w-4" /> New Message
                     </Button>
@@ -1464,7 +1464,7 @@ export default function ParentSchoolCollaboration() {
           {selectedGoal ? (
             <Card>
               <CardHeader>
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-centre">
                   <div>
                     <CardTitle>{selectedGoal.title}</CardTitle>
                     <CardDescription>
@@ -1554,7 +1554,7 @@ export default function ParentSchoolCollaboration() {
                           <div className="flex justify-between items-start">
                             <p>{update.content}</p>
                           </div>
-                          <div className="flex justify-between items-center mt-2 text-xs text-muted-foreground">
+                          <div className="flex justify-between items-centre mt-2 text-xs text-muted-foreground">
                             <span>{update.author}</span>
                             <span>{update.date}</span>
                           </div>
@@ -1577,7 +1577,7 @@ export default function ParentSchoolCollaboration() {
                       <h3 className="text-lg font-medium mb-2">Evidence</h3>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {selectedGoal.evidence.map((item) => (
-                          <div key={item.id} className="bg-muted/30 p-4 rounded-lg flex items-center">
+                          <div key={item.id} className="bg-muted/30 p-4 rounded-lg flex items-centre">
                             {item.type === 'document' ? (
                               <FileText className="h-8 w-8 mr-3 text-primary" />
                             ) : (
@@ -1610,7 +1610,7 @@ export default function ParentSchoolCollaboration() {
             </Card>
           ) : (
             <div className="grid grid-cols-1 gap-4">
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <h2 className="text-xl font-semibold">Student Goals</h2>
                 <Button>
                   <Plus className="mr-2 h-4 w-4" /> New Goal
@@ -1645,8 +1645,8 @@ export default function ParentSchoolCollaboration() {
                         ></div>
                       </div>
                     </div>
-                    <div className="mt-4 flex justify-between items-center">
-                      <div className="flex items-center">
+                    <div className="mt-4 flex justify-between items-centre">
+                      <div className="flex items-centre">
                         <Badge variant="outline" className="mr-2">{goal.category}</Badge>
                         <Badge variant="outline">{goal.subject}</Badge>
                       </div>
@@ -1660,10 +1660,10 @@ export default function ParentSchoolCollaboration() {
               
               {filteredGoals.length === 0 && (
                 <Card>
-                  <CardContent className="p-8 flex flex-col items-center justify-center">
+                  <CardContent className="p-8 flex flex-col items-centre justify-centre">
                     <Target className="h-12 w-12 text-muted-foreground mb-4" />
-                    <h3 className="font-medium text-center">No goals found</h3>
-                    <p className="text-sm text-muted-foreground text-center mt-1">Try adjusting your search or filters</p>
+                    <h3 className="font-medium text-centre">No goals found</h3>
+                    <p className="text-sm text-muted-foreground text-centre mt-1">Try adjusting your search or filters</p>
                     <Button className="mt-4">
                       <Plus className="mr-2 h-4 w-4" /> Create New Goal
                     </Button>
@@ -1679,7 +1679,7 @@ export default function ParentSchoolCollaboration() {
           {selectedStrategy ? (
             <Card>
               <CardHeader>
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-centre">
                   <div>
                     <CardTitle>{selectedStrategy.title}</CardTitle>
                     <CardDescription>
@@ -1693,7 +1693,7 @@ export default function ParentSchoolCollaboration() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-6">
-                  <div className="aspect-video bg-muted rounded-lg flex items-center justify-center">
+                  <div className="aspect-video bg-muted rounded-lg flex items-centre justify-centre">
                     <img 
                       src={selectedStrategy.thumbnail} 
                       alt={selectedStrategy.title}
@@ -1709,7 +1709,7 @@ export default function ParentSchoolCollaboration() {
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="space-y-1">
                       <p className="text-sm text-muted-foreground">Rating</p>
-                      <div className="flex items-center">
+                      <div className="flex items-centre">
                         <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                         <span className="ml-1 font-medium">{selectedStrategy.rating}</span>
                         <span className="text-xs text-muted-foreground ml-1">({selectedStrategy.downloads} downloads)</span>
@@ -1734,7 +1734,7 @@ export default function ParentSchoolCollaboration() {
                     </div>
                   </div>
                   
-                  <div className="bg-muted/30 p-4 rounded-lg flex items-center">
+                  <div className="bg-muted/30 p-4 rounded-lg flex items-centre">
                     <FileText className="h-8 w-8 mr-3 text-primary" />
                     <div className="flex-1">
                       <p className="font-medium">{selectedStrategy.file.name}</p>
@@ -1748,8 +1748,8 @@ export default function ParentSchoolCollaboration() {
                   <div>
                     <h3 className="text-lg font-medium mb-2">Feedback</h3>
                     <Textarea placeholder="Share your experience with this strategy..." className="min-h-[100px]" />
-                    <div className="flex items-center justify-between mt-2">
-                      <div className="flex items-center">
+                    <div className="flex items-centre justify-between mt-2">
+                      <div className="flex items-centre">
                         <p className="text-sm mr-2">Rate this resource:</p>
                         <div className="flex">
                           {[1, 2, 3, 4, 5].map((star) => (
@@ -1767,7 +1767,7 @@ export default function ParentSchoolCollaboration() {
             </Card>
           ) : (
             <div className="space-y-4">
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <h2 className="text-xl font-semibold">Home Learning Strategies</h2>
                 <div className="flex space-x-2">
                   <Select defaultValue="all">
@@ -1812,14 +1812,14 @@ export default function ParentSchoolCollaboration() {
                       <div className="space-y-2">
                         <h3 className="font-medium">{strategy.title}</h3>
                         <p className="text-sm text-muted-foreground line-clamp-2">{strategy.description}</p>
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-between items-centre">
                           <Badge variant="outline">{strategy.category}</Badge>
-                          <div className="flex items-center">
+                          <div className="flex items-centre">
                             <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                             <span className="ml-1 text-sm">{strategy.rating}</span>
                           </div>
                         </div>
-                        <div className="flex justify-between items-center text-xs text-muted-foreground">
+                        <div className="flex justify-between items-centre text-xs text-muted-foreground">
                           <span>{strategy.ageRange}</span>
                           <span>{strategy.downloads} downloads</span>
                         </div>
@@ -1831,10 +1831,10 @@ export default function ParentSchoolCollaboration() {
               
               {filteredStrategies.length === 0 && (
                 <Card>
-                  <CardContent className="p-8 flex flex-col items-center justify-center">
+                  <CardContent className="p-8 flex flex-col items-centre justify-centre">
                     <BookOpen className="h-12 w-12 text-muted-foreground mb-4" />
-                    <h3 className="font-medium text-center">No strategies found</h3>
-                    <p className="text-sm text-muted-foreground text-center mt-1">Try adjusting your search or filters</p>
+                    <h3 className="font-medium text-centre">No strategies found</h3>
+                    <p className="text-sm text-muted-foreground text-centre mt-1">Try adjusting your search or filters</p>
                   </CardContent>
                 </Card>
               )}
@@ -1847,7 +1847,7 @@ export default function ParentSchoolCollaboration() {
           {selectedMeeting ? (
             <Card>
               <CardHeader>
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-centre">
                   <div>
                     <CardTitle>{selectedMeeting.title}</CardTitle>
                     <CardDescription>
@@ -1864,7 +1864,7 @@ export default function ParentSchoolCollaboration() {
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="space-y-1">
                       <p className="text-sm text-muted-foreground">Teacher</p>
-                      <div className="flex items-center">
+                      <div className="flex items-centre">
                         <Avatar className="h-6 w-6 mr-2">
                           <AvatarFallback>{selectedMeeting.teacher.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
                         </Avatar>
@@ -1899,7 +1899,7 @@ export default function ParentSchoolCollaboration() {
                     <ul className="space-y-2">
                       {selectedMeeting.agenda.map((item, index) => (
                         <li key={index} className="flex items-start">
-                          <div className="h-5 w-5 rounded-full bg-primary/10 text-primary flex items-center justify-center mr-2 mt-0.5 text-xs font-medium">
+                          <div className="h-5 w-5 rounded-full bg-primary/10 text-primary flex items-centre justify-centre mr-2 mt-0.5 text-xs font-medium">
                             {index + 1}
                           </div>
                           <span>{item}</span>
@@ -1913,7 +1913,7 @@ export default function ParentSchoolCollaboration() {
                       <h3 className="text-lg font-medium mb-2">Documents</h3>
                       <div className="space-y-2">
                         {selectedMeeting.documents.map((doc) => (
-                          <div key={doc.id} className="bg-muted/30 p-3 rounded-lg flex items-center">
+                          <div key={doc.id} className="bg-muted/30 p-3 rounded-lg flex items-centre">
                             <FileText className="h-6 w-6 mr-2 text-primary" />
                             <span className="flex-1">{doc.name}</span>
                             <Button variant="ghost" size="sm">
@@ -1944,7 +1944,7 @@ export default function ParentSchoolCollaboration() {
             </Card>
           ) : (
             <div className="space-y-4">
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <h2 className="text-xl font-semibold">Upcoming Meetings</h2>
                 <Button>
                   <Plus className="mr-2 h-4 w-4" /> Schedule Meeting
@@ -1969,21 +1969,21 @@ export default function ParentSchoolCollaboration() {
                         </Badge>
                       </div>
                       <div className="mt-4 flex flex-wrap gap-4">
-                        <div className="flex items-center">
+                        <div className="flex items-centre">
                           <Calendar className="h-4 w-4 mr-1 text-muted-foreground" />
                           <span className="text-sm">{meeting.date}</span>
                         </div>
-                        <div className="flex items-center">
+                        <div className="flex items-centre">
                           <Clock className="h-4 w-4 mr-1 text-muted-foreground" />
                           <span className="text-sm">{meeting.time}</span>
                         </div>
-                        <div className="flex items-center">
+                        <div className="flex items-centre">
                           <MapPin className="h-4 w-4 mr-1 text-muted-foreground" />
                           <span className="text-sm">{meeting.location}</span>
                         </div>
                       </div>
-                      <div className="mt-4 flex justify-between items-center">
-                        <div className="flex items-center">
+                      <div className="mt-4 flex justify-between items-centre">
+                        <div className="flex items-centre">
                           <Avatar className="h-6 w-6 mr-2">
                             <AvatarFallback>{meeting.teacher.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
                           </Avatar>
@@ -1992,7 +1992,7 @@ export default function ParentSchoolCollaboration() {
                             <p className="text-xs text-muted-foreground">{meeting.teacher.role}</p>
                           </div>
                         </div>
-                        <div className="flex items-center">
+                        <div className="flex items-centre">
                           <p className="text-sm mr-2">{meeting.student.name}</p>
                           <p className="text-xs text-muted-foreground">({meeting.student.year})</p>
                         </div>
@@ -2003,10 +2003,10 @@ export default function ParentSchoolCollaboration() {
                 
                 {filteredMeetings.length === 0 && (
                   <Card>
-                    <CardContent className="p-8 flex flex-col items-center justify-center">
+                    <CardContent className="p-8 flex flex-col items-centre justify-centre">
                       <Calendar className="h-12 w-12 text-muted-foreground mb-4" />
-                      <h3 className="font-medium text-center">No meetings found</h3>
-                      <p className="text-sm text-muted-foreground text-center mt-1">Try adjusting your search or filters</p>
+                      <h3 className="font-medium text-centre">No meetings found</h3>
+                      <p className="text-sm text-muted-foreground text-centre mt-1">Try adjusting your search or filters</p>
                       <Button className="mt-4">
                         <Plus className="mr-2 h-4 w-4" /> Schedule Meeting
                       </Button>
@@ -2023,7 +2023,7 @@ export default function ParentSchoolCollaboration() {
           {selectedCelebration ? (
             <Card>
               <CardHeader>
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-centre">
                   <div>
                     <CardTitle>{selectedCelebration.title}</CardTitle>
                     <CardDescription>
@@ -2046,12 +2046,12 @@ export default function ParentSchoolCollaboration() {
                           className="w-full h-full object-cover"
                         />
                       ) : (
-                        <div className="w-full h-full flex items-center justify-center">
+                        <div className="w-full h-full flex items-centre justify-centre">
                           <FileText className="h-12 w-12 text-muted-foreground" />
                         </div>
                       )}
                       {item.caption && (
-                        <div className="p-2 text-sm text-center text-muted-foreground">
+                        <div className="p-2 text-sm text-centre text-muted-foreground">
                           {item.caption}
                         </div>
                       )}
@@ -2059,7 +2059,7 @@ export default function ParentSchoolCollaboration() {
                   ))}
                   
                   <div>
-                    <div className="flex items-center mb-2">
+                    <div className="flex items-centre mb-2">
                       <Avatar className="h-8 w-8 mr-2">
                         <AvatarFallback>{selectedCelebration.postedBy.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
                       </Avatar>
@@ -2072,21 +2072,21 @@ export default function ParentSchoolCollaboration() {
                   </div>
                   
                   <div className="flex space-x-4">
-                    <Button variant="outline" size="sm" className="flex items-center">
+                    <Button variant="outline" size="sm" className="flex items-centre">
                       <ThumbsUp className="h-4 w-4 mr-1" />
                       <span>Like</span>
                       {selectedCelebration.reactions.likes > 0 && (
                         <span className="ml-1 text-xs bg-muted rounded-full px-1.5">{selectedCelebration.reactions.likes}</span>
                       )}
                     </Button>
-                    <Button variant="outline" size="sm" className="flex items-center">
+                    <Button variant="outline" size="sm" className="flex items-centre">
                       <Heart className="h-4 w-4 mr-1" />
                       <span>Love</span>
                       {selectedCelebration.reactions.hearts > 0 && (
                         <span className="ml-1 text-xs bg-muted rounded-full px-1.5">{selectedCelebration.reactions.hearts}</span>
                       )}
                     </Button>
-                    <Button variant="outline" size="sm" className="flex items-center">
+                    <Button variant="outline" size="sm" className="flex items-centre">
                       <Award className="h-4 w-4 mr-1" />
                       <span>Celebrate</span>
                       {selectedCelebration.reactions.celebrations > 0 && (
@@ -2100,7 +2100,7 @@ export default function ParentSchoolCollaboration() {
                     <div className="space-y-4">
                       {selectedCelebration.comments.map((comment) => (
                         <div key={comment.id} className="bg-muted/50 p-4 rounded-lg">
-                          <div className="flex items-center mb-2">
+                          <div className="flex items-centre mb-2">
                             <Avatar className="h-6 w-6 mr-2">
                               <AvatarFallback>{comment.author.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
                             </Avatar>
@@ -2136,7 +2136,7 @@ export default function ParentSchoolCollaboration() {
             </Card>
           ) : (
             <div className="space-y-4">
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <h2 className="text-xl font-semibold">Student Celebrations</h2>
                 <Button>
                   <Plus className="mr-2 h-4 w-4" /> Add Celebration
@@ -2163,8 +2163,8 @@ export default function ParentSchoolCollaboration() {
                             <Badge variant="outline">{celebration.category}</Badge>
                           </div>
                           <p className="text-sm text-muted-foreground line-clamp-2">{celebration.description}</p>
-                          <div className="flex justify-between items-center">
-                            <div className="flex items-center">
+                          <div className="flex justify-between items-centre">
+                            <div className="flex items-centre">
                               <Avatar className="h-6 w-6 mr-2">
                                 <AvatarFallback>{celebration.postedBy.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
                               </Avatar>
@@ -2178,19 +2178,19 @@ export default function ParentSchoolCollaboration() {
                             </div>
                           </div>
                           <div className="flex space-x-4">
-                            <div className="flex items-center text-xs text-muted-foreground">
+                            <div className="flex items-centre text-xs text-muted-foreground">
                               <ThumbsUp className="h-3 w-3 mr-1" />
                               <span>{celebration.reactions.likes}</span>
                             </div>
-                            <div className="flex items-center text-xs text-muted-foreground">
+                            <div className="flex items-centre text-xs text-muted-foreground">
                               <Heart className="h-3 w-3 mr-1" />
                               <span>{celebration.reactions.hearts}</span>
                             </div>
-                            <div className="flex items-center text-xs text-muted-foreground">
+                            <div className="flex items-centre text-xs text-muted-foreground">
                               <Award className="h-3 w-3 mr-1" />
                               <span>{celebration.reactions.celebrations}</span>
                             </div>
-                            <div className="flex items-center text-xs text-muted-foreground">
+                            <div className="flex items-centre text-xs text-muted-foreground">
                               <MessageSquare className="h-3 w-3 mr-1" />
                               <span>{celebration.comments.length}</span>
                             </div>
@@ -2203,10 +2203,10 @@ export default function ParentSchoolCollaboration() {
                 
                 {filteredCelebrations.length === 0 && (
                   <Card>
-                    <CardContent className="p-8 flex flex-col items-center justify-center">
+                    <CardContent className="p-8 flex flex-col items-centre justify-centre">
                       <Award className="h-12 w-12 text-muted-foreground mb-4" />
-                      <h3 className="font-medium text-center">No celebrations found</h3>
-                      <p className="text-sm text-muted-foreground text-center mt-1">Try adjusting your search or filters</p>
+                      <h3 className="font-medium text-centre">No celebrations found</h3>
+                      <p className="text-sm text-muted-foreground text-centre mt-1">Try adjusting your search or filters</p>
                       <Button className="mt-4">
                         <Plus className="mr-2 h-4 w-4" /> Add Celebration
                       </Button>

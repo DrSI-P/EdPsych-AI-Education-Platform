@@ -2,12 +2,12 @@
 
 ## Overview
 
-The Automated Progress Report Generation feature provides educators with a powerful tool to create comprehensive, data-driven student progress reports with minimal manual effort. This feature leverages AI to analyze student data, identify patterns, and generate personalized, professional reports that can be shared with students, parents, and other educators.
+The Automated Progress Report Generation feature provides educators with a powerful tool to create comprehensive, data-driven student progress reports with minimal manual effort. This feature leverages AI to analyse student data, identify patterns, and generate personalized, professional reports that can be shared with students, parents, and other educators.
 
 ## Key Features
 
 ### 1. Data Integration and Analysis
-- Automatically pulls data from multiple sources (assessments, attendance, behavior records, etc.)
+- Automatically pulls data from multiple sources (assessments, attendance, behaviour records, etc.)
 - Analyzes trends and patterns in student performance
 - Identifies areas of strength and areas for development
 - Compares current performance to previous periods
@@ -28,7 +28,7 @@ The Automated Progress Report Generation feature provides educators with a power
 - PDF generation for formal reports
 - Digital formats for online sharing
 - Accessible versions for screen readers and assistive technologies
-- Print-optimized layouts
+- Print-optimised layouts
 
 ### 5. Batch Processing
 - Generate reports for individual students, groups, or entire classes
@@ -49,13 +49,13 @@ The Automated Progress Report Generation feature is built on solid educational p
 2. **Formative Assessment**: Provides actionable feedback that supports ongoing learning
 3. **Metacognition**: Encourages student reflection on their learning journey
 4. **Parental Engagement**: Facilitates meaningful home-school communication about learning
-5. **Evidence-Based Practice**: Uses data to inform educational decision-making
+5. **Evidence-Based Practise**: Uses data to inform educational decision-making
 
 ## Implementation Considerations
 
 ### Accessibility
 - All reports must be fully accessible to screen readers
-- Color schemes must meet contrast requirements
+- Colour schemes must meet contrast requirements
 - Alternative formats available for different needs
 
 ### Data Privacy
@@ -75,7 +75,7 @@ The Automated Progress Report Generation feature is built on solid educational p
 2. Choose student(s) or group(s)
 3. Select time period and data sources
 4. Preview AI-generated content
-5. Edit and customize as needed
+5. Edit and customise as needed
 6. Generate final reports in desired format
 7. Share with appropriate stakeholders
 

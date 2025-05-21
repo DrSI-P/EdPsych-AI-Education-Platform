@@ -306,14 +306,14 @@ export default function ParentCommunicationManagement() {
   
   return (
     <div className="container mx-auto py-6">
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between items-centre mb-6">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Parent-School Communication</h1>
           <p className="text-muted-foreground">
             Connect with teachers and staff to support your child's education
           </p>
         </div>
-        <div className="flex items-center space-x-2">
+        <div className="flex items-centre space-x-2">
           <Select value={preferredLanguage} onValueChange={handleLanguageChange}>
             <SelectTrigger className="w-[180px]">
               <Globe className="mr-2 h-4 w-4" />
@@ -338,7 +338,7 @@ export default function ParentCommunicationManagement() {
               <DropdownMenuLabel>Communication Settings</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <div className="p-2">
-                <div className="flex items-center justify-between mb-2">
+                <div className="flex items-centre justify-between mb-2">
                   <Label htmlFor="notifications" className="flex-1">Notifications</Label>
                   <Switch 
                     id="notifications" 
@@ -346,7 +346,7 @@ export default function ParentCommunicationManagement() {
                     onCheckedChange={setNotificationsEnabled}
                   />
                 </div>
-                <div className="flex items-center justify-between mb-2">
+                <div className="flex items-centre justify-between mb-2">
                   <Label htmlFor="auto-translate" className="flex-1">Auto-translate messages</Label>
                   <Switch 
                     id="auto-translate" 
@@ -354,7 +354,7 @@ export default function ParentCommunicationManagement() {
                     onCheckedChange={setAutoTranslateEnabled}
                   />
                 </div>
-                <div className="flex items-center justify-between">
+                <div className="flex items-centre justify-between">
                   <Label htmlFor="read-receipts" className="flex-1">Send read receipts</Label>
                   <Switch 
                     id="read-receipts" 
@@ -417,14 +417,14 @@ export default function ParentCommunicationManagement() {
                           <p className="text-sm text-muted-foreground truncate">{conversation.lastMessage}</p>
                         </div>
                         {conversation.unread > 0 && (
-                          <Badge variant="default" className="ml-2 h-5 w-5 rounded-full p-0 flex items-center justify-center">
+                          <Badge variant="default" className="ml-2 h-5 w-5 rounded-full p-0 flex items-centre justify-centre">
                             {conversation.unread}
                           </Badge>
                         )}
                       </div>
                     ))
                   ) : (
-                    <div className="p-4 text-center text-muted-foreground">
+                    <div className="p-4 text-centre text-muted-foreground">
                       No conversations found
                     </div>
                   )}
@@ -435,8 +435,8 @@ export default function ParentCommunicationManagement() {
             {/* Conversation Messages */}
             <Card className="col-span-8">
               <CardHeader className="p-4 border-b">
-                <div className="flex justify-between items-center">
-                  <div className="flex items-center">
+                <div className="flex justify-between items-centre">
+                  <div className="flex items-centre">
                     <Avatar className="h-10 w-10 mr-2">
                       <AvatarImage src={selectedConversation.avatar} alt={selectedConversation.name} />
                       <AvatarFallback>{selectedConversation.name.charAt(0)}</AvatarFallback>
@@ -492,7 +492,7 @@ export default function ParentCommunicationManagement() {
                                   {message.attachments.map(attachment => (
                                     <div 
                                       key={attachment.id}
-                                      className={`flex items-center p-2 rounded ${message.sender === 'parent' ? 'bg-primary-foreground/20' : 'bg-background'}`}
+                                      className={`flex items-centre p-2 rounded ${message.sender === 'parent' ? 'bg-primary-foreground/20' : 'bg-background'}`}
                                     >
                                       {attachment.type === 'image' ? (
                                         <Image className="h-4 w-4 mr-2" />
@@ -507,7 +507,7 @@ export default function ParentCommunicationManagement() {
                                 </div>
                               )}
                             </div>
-                            <div className={`flex items-center mt-1 text-xs text-muted-foreground ${message.sender === 'parent' ? 'justify-end' : 'justify-start'}`}>
+                            <div className={`flex items-centre mt-1 text-xs text-muted-foreground ${message.sender === 'parent' ? 'justify-end' : 'justify-start'}`}>
                               <span>{message.time}</span>
                               {preferredLanguage !== 'en' && (
                                 <Button 
@@ -549,7 +549,7 @@ export default function ParentCommunicationManagement() {
                     </div>
                   )}
                   
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <Button 
                       variant="outline" 
                       size="icon"
@@ -634,8 +634,8 @@ export default function ParentCommunicationManagement() {
                     </div>
                     <span className="text-xs text-muted-foreground">10 July 2025</span>
                   </div>
-                  <div className="mt-4 flex justify-between items-center">
-                    <div className="flex items-center text-xs text-muted-foreground">
+                  <div className="mt-4 flex justify-between items-centre">
+                    <div className="flex items-centre text-xs text-muted-foreground">
                       <CheckCircle2 className="h-3 w-3 mr-1 text-green-500" />
                       <span>Read</span>
                     </div>
@@ -686,8 +686,8 @@ export default function ParentCommunicationManagement() {
                     </div>
                     <span className="text-xs text-muted-foreground">5 July 2025</span>
                   </div>
-                  <div className="mt-4 flex justify-between items-center">
-                    <div className="flex items-center text-xs text-muted-foreground">
+                  <div className="mt-4 flex justify-between items-centre">
+                    <div className="flex items-centre text-xs text-muted-foreground">
                       <CheckCircle2 className="h-3 w-3 mr-1 text-green-500" />
                       <span>Read</span>
                     </div>
@@ -721,7 +721,7 @@ export default function ParentCommunicationManagement() {
                 <div className="bg-muted rounded-lg p-4">
                   <div className="flex justify-between items-start">
                     <div className="flex items-start">
-                      <div className="bg-primary/10 p-3 rounded-lg mr-3 text-center">
+                      <div className="bg-primary/10 p-3 rounded-lg mr-3 text-centre">
                         <p className="text-sm font-medium">JUL</p>
                         <p className="text-xl font-bold">15</p>
                       </div>
@@ -735,8 +735,8 @@ export default function ParentCommunicationManagement() {
                     </div>
                     <Badge>Confirmed</Badge>
                   </div>
-                  <div className="mt-4 flex justify-between items-center">
-                    <div className="flex items-center">
+                  <div className="mt-4 flex justify-between items-centre">
+                    <div className="flex items-centre">
                       <Avatar className="h-6 w-6 mr-2">
                         <AvatarImage src="/avatars/teacher1.png" alt="Ms. Johnson" />
                         <AvatarFallback>MJ</AvatarFallback>
@@ -759,7 +759,7 @@ export default function ParentCommunicationManagement() {
                 <div className="bg-muted rounded-lg p-4">
                   <div className="flex justify-between items-start">
                     <div className="flex items-start">
-                      <div className="bg-primary/10 p-3 rounded-lg mr-3 text-center">
+                      <div className="bg-primary/10 p-3 rounded-lg mr-3 text-centre">
                         <p className="text-sm font-medium">JUL</p>
                         <p className="text-xl font-bold">20</p>
                       </div>
@@ -773,8 +773,8 @@ export default function ParentCommunicationManagement() {
                     </div>
                     <Badge variant="outline">Pending</Badge>
                   </div>
-                  <div className="mt-4 flex justify-between items-center">
-                    <div className="flex items-center">
+                  <div className="mt-4 flex justify-between items-centre">
+                    <div className="flex items-centre">
                       <Avatar className="h-6 w-6 mr-2">
                         <AvatarImage src="/avatars/teacher3.png" alt="Mrs. Patel" />
                         <AvatarFallback>MP</AvatarFallback>
@@ -815,12 +815,12 @@ export default function ParentCommunicationManagement() {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-centre">
                   <div className="relative w-full max-w-sm">
                     <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
                     <Input placeholder="Search resources..." className="pl-8" />
                   </div>
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <Select defaultValue="all">
                       <SelectTrigger className="w-[150px]">
                         <Filter className="mr-2 h-4 w-4" />
@@ -846,7 +846,7 @@ export default function ParentCommunicationManagement() {
                   <div className="bg-muted rounded-lg p-4">
                     <div className="flex justify-between items-start">
                       <div className="flex items-start">
-                        <div className="bg-blue-100 p-3 rounded-lg mr-3 flex items-center justify-center">
+                        <div className="bg-blue-100 p-3 rounded-lg mr-3 flex items-centre justify-centre">
                           <FileText className="h-6 w-6 text-blue-600" />
                         </div>
                         <div>
@@ -859,8 +859,8 @@ export default function ParentCommunicationManagement() {
                       </div>
                       <Badge>PDF</Badge>
                     </div>
-                    <div className="mt-4 flex justify-between items-center">
-                      <div className="flex items-center text-xs text-muted-foreground">
+                    <div className="mt-4 flex justify-between items-centre">
+                      <div className="flex items-centre text-xs text-muted-foreground">
                         <Eye className="h-3 w-3 mr-1" />
                         <span>Viewed 3 days ago</span>
                       </div>
@@ -876,7 +876,7 @@ export default function ParentCommunicationManagement() {
                   <div className="bg-muted rounded-lg p-4">
                     <div className="flex justify-between items-start">
                       <div className="flex items-start">
-                        <div className="bg-purple-100 p-3 rounded-lg mr-3 flex items-center justify-center">
+                        <div className="bg-purple-100 p-3 rounded-lg mr-3 flex items-centre justify-centre">
                           <Image className="h-6 w-6 text-purple-600" />
                         </div>
                         <div>
@@ -889,8 +889,8 @@ export default function ParentCommunicationManagement() {
                       </div>
                       <Badge>Images</Badge>
                     </div>
-                    <div className="mt-4 flex justify-between items-center">
-                      <div className="flex items-center text-xs text-muted-foreground">
+                    <div className="mt-4 flex justify-between items-centre">
+                      <div className="flex items-centre text-xs text-muted-foreground">
                         <MessageSquare className="h-3 w-3 mr-1" />
                         <span>2 comments</span>
                       </div>
@@ -906,7 +906,7 @@ export default function ParentCommunicationManagement() {
                   <div className="bg-muted rounded-lg p-4">
                     <div className="flex justify-between items-start">
                       <div className="flex items-start">
-                        <div className="bg-green-100 p-3 rounded-lg mr-3 flex items-center justify-center">
+                        <div className="bg-green-100 p-3 rounded-lg mr-3 flex items-centre justify-centre">
                           <FileText className="h-6 w-6 text-green-600" />
                         </div>
                         <div>
@@ -919,8 +919,8 @@ export default function ParentCommunicationManagement() {
                       </div>
                       <Badge>PDF</Badge>
                     </div>
-                    <div className="mt-4 flex justify-between items-center">
-                      <div className="flex items-center text-xs text-muted-foreground">
+                    <div className="mt-4 flex justify-between items-centre">
+                      <div className="flex items-centre text-xs text-muted-foreground">
                         <Clock className="h-3 w-3 mr-1" />
                         <span>Shared yesterday</span>
                       </div>
@@ -936,21 +936,21 @@ export default function ParentCommunicationManagement() {
                   <div className="bg-muted rounded-lg p-4">
                     <div className="flex justify-between items-start">
                       <div className="flex items-start">
-                        <div className="bg-amber-100 p-3 rounded-lg mr-3 flex items-center justify-center">
+                        <div className="bg-amber-100 p-3 rounded-lg mr-3 flex items-centre justify-centre">
                           <Video className="h-6 w-6 text-amber-600" />
                         </div>
                         <div>
-                          <h3 className="font-medium">Phonics Practice Video</h3>
+                          <h3 className="font-medium">Phonics Practise Video</h3>
                           <p className="text-sm text-muted-foreground">Shared by Ms. Johnson on 8 July 2025</p>
                           <p className="text-sm mt-2">
-                            A video demonstrating phonics techniques used in class, to help with consistent practice at home.
+                            A video demonstrating phonics techniques used in class, to help with consistent practise at home.
                           </p>
                         </div>
                       </div>
                       <Badge>Video</Badge>
                     </div>
-                    <div className="mt-4 flex justify-between items-center">
-                      <div className="flex items-center text-xs text-muted-foreground">
+                    <div className="mt-4 flex justify-between items-centre">
+                      <div className="flex items-centre text-xs text-muted-foreground">
                         <Eye className="h-3 w-3 mr-1" />
                         <span>Viewed 5 days ago</span>
                       </div>

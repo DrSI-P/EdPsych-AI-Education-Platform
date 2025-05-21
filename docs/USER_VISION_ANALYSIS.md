@@ -8,9 +8,9 @@ This document captures the core philosophy, values, and educational approach of 
 
 Dr. Scott's educational philosophy centers on "Restoring Genius" - creating an educational environment where every child can thrive regardless of their background or abilities. His approach challenges traditional assumptions about education and advocates for a model that values:
 
-1. **Creativity** - Moving beyond standardized testing and rote memorization to foster innovative thinking
+1. **Creativity** - Moving beyond standardised testing and rote memorization to foster innovative thinking
 2. **Inclusion** - Ensuring all students feel valued and supported regardless of background or abilities
-3. **Emotional Well-Being** - Recognizing emotional needs as equally important to academic performance
+3. **Emotional Well-Being** - Recognising emotional needs as equally important to academic performance
 4. **Student Agency** - Empowering students to take ownership of their educational journey
 
 ## Personal Journey and Motivation
@@ -69,12 +69,12 @@ Dr. Scott advocates for a holistic education model that:
 
 The EdPsych-AI-Education-Platform must:
 
-1. Center student voices and needs in all features
+1. Centre student voices and needs in all features
 2. Provide tools that reduce teacher administrative burden
 3. Enable curriculum differentiation based on learning styles
 4. Support emotional well-being alongside academic achievement
 5. Incorporate restorative practices and social-emotional learning
-6. Maintain the highest standards of evidence-based practice
+6. Maintain the highest standards of evidence-based practise
 7. Create seamless, intuitive workflows that enhance teacher-student relationships
 8. Measure impact across multiple dimensions, not just academic performance
 

@@ -157,7 +157,7 @@ describe('MobileLayout Component', () => {
     });
   });
 
-  it('renders mobile-optimized form controls', () => {
+  it('renders mobile-optimised form controls', () => {
     render(
       <MobileLayout>
         <form data-testid="test-form">
@@ -167,7 +167,7 @@ describe('MobileLayout Component', () => {
       </MobileLayout>
     );
     
-    // Check that form elements have mobile-optimized classes
+    // Check that form elements have mobile-optimised classes
     expect(screen.getByTestId('test-form')).toHaveClass('mobile-form');
     expect(screen.getByTestId('test-input')).toHaveClass('mobile-input');
     expect(screen.getByTestId('test-button')).toHaveClass('mobile-button');

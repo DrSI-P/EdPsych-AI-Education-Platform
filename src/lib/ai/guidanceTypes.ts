@@ -178,7 +178,7 @@ export interface LearningActivity {
   id: string;
   title: string;
   description: string;
-  activityType: 'video' | 'reading' | 'interactive' | 'discussion' | 'practice' | 'reflection';
+  activityType: 'video' | 'reading' | 'interactive' | 'discussion' | 'practise' | 'reflection';
   content: {
     url?: string;
     text?: string;
@@ -255,7 +255,7 @@ export interface ContentSuggestion {
   id: string;
   title: string;
   description: string;
-  contentType: 'video' | 'article' | 'interactive' | 'assessment' | 'practice';
+  contentType: 'video' | 'article' | 'interactive' | 'assessment' | 'practise';
   subject: SubjectArea;
   keyStage: KeyStage;
   url?: string;

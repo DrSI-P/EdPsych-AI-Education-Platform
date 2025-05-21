@@ -40,14 +40,14 @@ export default function EducatorDashboard() {
   
   return (
     <div className="container mx-auto py-8">
-      <div className="flex justify-between items-center mb-8">
+      <div className="flex justify-between items-centre mb-8">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Educator Dashboard</h1>
           <p className="text-muted-foreground">
             Manage your classroom, track student progress, and plan your curriculum
           </p>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-centre gap-4">
           <div className="relative">
             <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input
@@ -77,7 +77,7 @@ export default function EducatorDashboard() {
         <TabsContent value="overview" className="space-y-4">
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
                   Total Students
                 </CardTitle>
@@ -91,7 +91,7 @@ export default function EducatorDashboard() {
               </CardContent>
             </Card>
             <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
                   Average Attendance
                 </CardTitle>
@@ -105,7 +105,7 @@ export default function EducatorDashboard() {
               </CardContent>
             </Card>
             <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
                   Curriculum Progress
                 </CardTitle>
@@ -119,7 +119,7 @@ export default function EducatorDashboard() {
               </CardContent>
             </Card>
             <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
                   Assessment Completion
                 </CardTitle>
@@ -210,7 +210,7 @@ export default function EducatorDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  <div className="flex items-center">
+                  <div className="flex items-centre">
                     <div className="w-2 h-2 rounded-full bg-red-500 mr-2"></div>
                     <div className="flex-1">
                       <p className="font-medium">Parent-Teacher Conferences</p>
@@ -219,7 +219,7 @@ export default function EducatorDashboard() {
                     <Button variant="outline" size="sm">View</Button>
                   </div>
                   <Separator />
-                  <div className="flex items-center">
+                  <div className="flex items-centre">
                     <div className="w-2 h-2 rounded-full bg-blue-500 mr-2"></div>
                     <div className="flex-1">
                       <p className="font-medium">End of Term Assessment</p>
@@ -228,7 +228,7 @@ export default function EducatorDashboard() {
                     <Button variant="outline" size="sm">View</Button>
                   </div>
                   <Separator />
-                  <div className="flex items-center">
+                  <div className="flex items-centre">
                     <div className="w-2 h-2 rounded-full bg-green-500 mr-2"></div>
                     <div className="flex-1">
                       <p className="font-medium">Field Trip - Science Museum</p>
@@ -237,7 +237,7 @@ export default function EducatorDashboard() {
                     <Button variant="outline" size="sm">View</Button>
                   </div>
                   <Separator />
-                  <div className="flex items-center">
+                  <div className="flex items-centre">
                     <div className="w-2 h-2 rounded-full bg-purple-500 mr-2"></div>
                     <div className="flex-1">
                       <p className="font-medium">Professional Development Day</p>
@@ -261,7 +261,7 @@ export default function EducatorDashboard() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="flex justify-center">
+                <div className="flex justify-centre">
                   <Calendar
                     mode="single"
                     selected={date}
@@ -307,7 +307,7 @@ export default function EducatorDashboard() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="flex justify-between items-center mb-4">
+              <div className="flex justify-between items-centre mb-4">
                 <div className="flex gap-2">
                   <Input placeholder="Search students..." className="w-[300px]" />
                   <Button variant="outline">Search</Button>
@@ -345,7 +345,7 @@ export default function EducatorDashboard() {
                     { name: "Mohammed Ali", id: "S2025-004", group: "Group B", attendance: "92%", progress: "Needs Support" },
                     { name: "Olivia Johnson", id: "S2025-005", group: "SEN", attendance: "94%", progress: "Improving" },
                   ].map((student, i) => (
-                    <div key={i} className="grid grid-cols-6 p-3 items-center">
+                    <div key={i} className="grid grid-cols-6 p-3 items-centre">
                       <div>{student.name}</div>
                       <div>{student.id}</div>
                       <div>{student.group}</div>
@@ -382,7 +382,7 @@ export default function EducatorDashboard() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="flex justify-between items-center mb-4">
+              <div className="flex justify-between items-centre mb-4">
                 <div className="flex gap-2">
                   <Select defaultValue="current">
                     <SelectTrigger className="w-[180px]">
@@ -426,7 +426,7 @@ export default function EducatorDashboard() {
                     { subject: "History", unit: "Industrial Revolution", progress: "90%", status: "Ahead of Schedule" },
                     { subject: "Geography", unit: "Climate Patterns", progress: "70%", status: "On Track" },
                   ].map((plan, i) => (
-                    <div key={i} className="grid grid-cols-5 p-3 items-center">
+                    <div key={i} className="grid grid-cols-5 p-3 items-centre">
                       <div>{plan.subject}</div>
                       <div>{plan.unit}</div>
                       <div>{plan.progress}</div>
@@ -457,7 +457,7 @@ export default function EducatorDashboard() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="flex justify-between items-center mb-4">
+              <div className="flex justify-between items-centre mb-4">
                 <div className="flex gap-2">
                   <Select defaultValue="all-types">
                     <SelectTrigger className="w-[180px]">
@@ -502,7 +502,7 @@ export default function EducatorDashboard() {
                     { title: "Vocabulary Assessment", subject: "English", type: "Diagnostic", date: "May 15, 2025", status: "Completed" },
                     { title: "Geometry Concepts", subject: "Mathematics", type: "Summative", date: "May 10, 2025", status: "Graded" },
                   ].map((assessment, i) => (
-                    <div key={i} className="grid grid-cols-6 p-3 items-center">
+                    <div key={i} className="grid grid-cols-6 p-3 items-centre">
                       <div>{assessment.title}</div>
                       <div>{assessment.subject}</div>
                       <div>{assessment.type}</div>
@@ -534,7 +534,7 @@ export default function EducatorDashboard() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="flex justify-between items-center mb-4">
+              <div className="flex justify-between items-centre mb-4">
                 <div className="flex gap-2">
                   <Input placeholder="Search resources..." className="w-[300px]" />
                   <Button variant="outline">Search</Button>
@@ -572,7 +572,7 @@ export default function EducatorDashboard() {
                     { title: "Historical Timeline Activity", type: "Activity", subject: "History", date: "May 8, 2025" },
                     { title: "Grammar Rules Reference", type: "Worksheet", subject: "English", date: "May 5, 2025" },
                   ].map((resource, i) => (
-                    <div key={i} className="grid grid-cols-5 p-3 items-center">
+                    <div key={i} className="grid grid-cols-5 p-3 items-centre">
                       <div>{resource.title}</div>
                       <div>{resource.type}</div>
                       <div>{resource.subject}</div>

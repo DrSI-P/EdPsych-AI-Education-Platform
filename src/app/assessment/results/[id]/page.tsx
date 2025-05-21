@@ -320,19 +320,19 @@ export default function AssessmentResultsPage() {
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
-                <p className="text-sm font-medium text-gray-500">Highest Score</p>
+                <p className="text-sm font-medium text-grey-500">Highest Score</p>
                 <p className="text-xl font-medium">
                   {stats.highestScore}/{totalPoints} ({((stats.highestScore / totalPoints) * 100).toFixed(1)}%)
                 </p>
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-500">Lowest Score</p>
+                <p className="text-sm font-medium text-grey-500">Lowest Score</p>
                 <p className="text-xl font-medium">
                   {stats.lowestScore}/{totalPoints} ({((stats.lowestScore / totalPoints) * 100).toFixed(1)}%)
                 </p>
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-500">Median Score</p>
+                <p className="text-sm font-medium text-grey-500">Median Score</p>
                 <p className="text-xl font-medium">
                   {stats.medianScore}/{totalPoints} ({((stats.medianScore / totalPoints) * 100).toFixed(1)}%)
                 </p>
@@ -363,27 +363,27 @@ export default function AssessmentResultsPage() {
     return (
       <div className="space-y-6">
         <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+          <table className="min-w-full divide-y divide-grey-200">
+            <thead className="bg-grey-50">
               <tr>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">
                   Student
                 </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">
                   Submitted
                 </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">
                   Score
                 </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">
                   Status
                 </th>
-                <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-grey-500 uppercase tracking-wider">
                   Actions
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="bg-white divide-y divide-grey-200">
               {assessment.responses.map((response) => {
                 const score = response.score || 0;
                 const percentage = (score / totalPoints) * 100;
@@ -392,19 +392,19 @@ export default function AssessmentResultsPage() {
                 return (
                   <tr key={response.id}>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">{response.user.name}</div>
-                      <div className="text-sm text-gray-500">{response.user.email}</div>
+                      <div className="text-sm font-medium text-grey-900">{response.user.name}</div>
+                      <div className="text-sm text-grey-500">{response.user.email}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">
+                      <div className="text-sm text-grey-900">
                         {new Date(response.completedAt).toLocaleDateString()}
                       </div>
-                      <div className="text-sm text-gray-500">
+                      <div className="text-sm text-grey-500">
                         {new Date(response.completedAt).toLocaleTimeString()}
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">
+                      <div className="text-sm text-grey-900">
                         {score}/{totalPoints} ({percentage.toFixed(1)}%)
                       </div>
                     </td>
@@ -435,7 +435,7 @@ export default function AssessmentResultsPage() {
           <div className="mt-6">
             <Card>
               <CardHeader>
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-centre">
                   <h3 className="text-lg font-medium">Response Details</h3>
                   <Button
                     variant="outline"
@@ -448,25 +448,25 @@ export default function AssessmentResultsPage() {
               </CardHeader>
               <CardContent>
                 {responseLoading ? (
-                  <div className="flex justify-center py-8">
+                  <div className="flex justify-centre py-8">
                     <Spinner size="large" />
                   </div>
                 ) : responseDetails ? (
                   <div className="space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-gray-50 p-4 rounded-md">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-grey-50 p-4 rounded-md">
                       <div>
-                        <p className="text-sm font-medium text-gray-500">Student</p>
-                        <p className="text-base font-medium text-gray-900">{responseDetails.user.name}</p>
+                        <p className="text-sm font-medium text-grey-500">Student</p>
+                        <p className="text-base font-medium text-grey-900">{responseDetails.user.name}</p>
                       </div>
                       <div>
-                        <p className="text-sm font-medium text-gray-500">Submitted</p>
-                        <p className="text-base font-medium text-gray-900">
+                        <p className="text-sm font-medium text-grey-500">Submitted</p>
+                        <p className="text-base font-medium text-grey-900">
                           {new Date(responseDetails.completedAt).toLocaleString()}
                         </p>
                       </div>
                       <div>
-                        <p className="text-sm font-medium text-gray-500">Score</p>
-                        <p className="text-base font-medium text-gray-900">
+                        <p className="text-sm font-medium text-grey-500">Score</p>
+                        <p className="text-base font-medium text-grey-900">
                           {responseDetails.score}/{totalPoints} ({((responseDetails.score || 0) / totalPoints * 100).toFixed(1)}%)
                         </p>
                       </div>
@@ -489,7 +489,7 @@ export default function AssessmentResultsPage() {
                           <div key={question.id} className="border rounded-md p-4">
                             <div className="flex justify-between mb-2">
                               <h5 className="font-medium">Question {index + 1}</h5>
-                              <div className="flex items-center">
+                              <div className="flex items-centre">
                                 {answer?.isCorrect === true && (
                                   <span className="px-2 py-0.5 text-xs font-semibold rounded-full bg-green-100 text-green-800">
                                     Correct
@@ -512,8 +512,8 @@ export default function AssessmentResultsPage() {
                             
                             {answer && (
                               <div className="mt-2">
-                                <p className="text-sm font-medium text-gray-500 mb-1">Student's Answer:</p>
-                                <div className="p-2 bg-gray-50 rounded-md text-sm">
+                                <p className="text-sm font-medium text-grey-500 mb-1">Student's Answer:</p>
+                                <div className="p-2 bg-grey-50 rounded-md text-sm">
                                   {typeof answer.content === 'string' ? (
                                     answer.content
                                   ) : (
@@ -523,7 +523,7 @@ export default function AssessmentResultsPage() {
                                 
                                 {answer.feedback && (
                                   <div className="mt-2">
-                                    <p className="text-sm font-medium text-gray-500 mb-1">Feedback:</p>
+                                    <p className="text-sm font-medium text-grey-500 mb-1">Feedback:</p>
                                     <p className="text-sm p-2 bg-blue-50 rounded-md">{answer.feedback}</p>
                                   </div>
                                 )}
@@ -552,7 +552,7 @@ export default function AssessmentResultsPage() {
                     </div>
                   </div>
                 ) : (
-                  <p className="text-gray-500">No response details available</p>
+                  <p className="text-grey-500">No response details available</p>
                 )}
               </CardContent>
             </Card>
@@ -568,47 +568,47 @@ export default function AssessmentResultsPage() {
     return (
       <div className="space-y-6">
         <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+          <table className="min-w-full divide-y divide-grey-200">
+            <thead className="bg-grey-50">
               <tr>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">
                   #
                 </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">
                   Question
                 </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">
                   Type
                 </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">
                   Points
                 </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">
                   Success Rate
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="bg-white divide-y divide-grey-200">
               {assessment.questions.map((question, index) => {
                 const successRate = stats.questionSuccessRates[index]?.rate || 0;
                 
                 return (
                   <tr key={question.id}>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-grey-900">
                       {index + 1}
                     </td>
-                    <td className="px-6 py-4 text-sm text-gray-900">
+                    <td className="px-6 py-4 text-sm text-grey-900">
                       <div className="line-clamp-2">{question.content}</div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-grey-900">
                       {question.type.replace('-', ' ')}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-grey-900">
                       {question.points}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="flex items-center">
-                        <div className="w-full bg-gray-200 rounded-full h-2.5">
+                      <div className="flex items-centre">
+                        <div className="w-full bg-grey-200 rounded-full h-2.5">
                           <div 
                             className={`h-2.5 rounded-full ${
                               successRate >= 70 ? 'bg-green-600' : 
@@ -618,7 +618,7 @@ export default function AssessmentResultsPage() {
                             style={{ width: `${successRate}%` }}
                           ></div>
                         </div>
-                        <span className="ml-2 text-sm text-gray-900">{successRate.toFixed(1)}%</span>
+                        <span className="ml-2 text-sm text-grey-900">{successRate.toFixed(1)}%</span>
                       </div>
                     </td>
                   </tr>
@@ -680,7 +680,7 @@ export default function AssessmentResultsPage() {
               <Card key={index}>
                 <CardContent className="p-4">
                   <h4 className="font-medium text-red-600 mb-2">Low Success Rate: {q.question}</h4>
-                  <p className="text-sm text-gray-700">
+                  <p className="text-sm text-grey-700">
                     This question has a low success rate of {q.rate.toFixed(1)}%. Consider reviewing the question for clarity, 
                     difficulty level, or providing additional teaching materials on this topic.
                   </p>
@@ -692,7 +692,7 @@ export default function AssessmentResultsPage() {
               <Card key={index}>
                 <CardContent className="p-4">
                   <h4 className="font-medium text-green-600 mb-2">High Success Rate: {q.question}</h4>
-                  <p className="text-sm text-gray-700">
+                  <p className="text-sm text-grey-700">
                     This question has a high success rate of {q.rate.toFixed(1)}%. This indicates students have a strong 
                     understanding of this concept. Consider increasing difficulty or expanding on this topic.
                   </p>
@@ -707,7 +707,7 @@ export default function AssessmentResultsPage() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
+      <div className="flex justify-centre items-centre min-h-screen">
         <Spinner size="large" />
       </div>
     );
@@ -742,8 +742,8 @@ export default function AssessmentResultsPage() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-6">
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-gray-900">Assessment Results</h1>
+        <div className="flex items-centre justify-between">
+          <h1 className="text-2xl font-bold text-grey-900">Assessment Results</h1>
           <Button
             variant="outline"
             onClick={() => router.back()}
@@ -751,7 +751,7 @@ export default function AssessmentResultsPage() {
             Back
           </Button>
         </div>
-        <p className="mt-2 text-gray-600">
+        <p className="mt-2 text-grey-600">
           {assessment.title}
         </p>
       </div>

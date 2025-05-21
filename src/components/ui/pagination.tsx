@@ -72,15 +72,15 @@ export function Pagination({
   const pageNumbers = getPageNumbers();
   
   return (
-    <nav className={`flex items-center justify-between border-t border-gray-200 px-4 sm:px-0 ${className}`}>
+    <nav className={`flex items-centre justify-between border-t border-grey-200 px-4 sm:px-0 ${className}`}>
       <div className="flex w-0 flex-1">
         <button
           onClick={() => onPageChange(currentPage - 1)}
           disabled={currentPage === 1}
-          className={`inline-flex items-center border-t-2 border-transparent pr-1 pt-4 text-sm font-medium ${
+          className={`inline-flex items-centre border-t-2 border-transparent pr-1 pt-4 text-sm font-medium ${
             currentPage === 1
-              ? 'cursor-not-allowed text-gray-300'
-              : 'text-gray-500 hover:border-gray-300 hover:text-gray-700'
+              ? 'cursor-not-allowed text-grey-300'
+              : 'text-grey-500 hover:border-grey-300 hover:text-grey-700'
           }`}
         >
           <svg
@@ -105,7 +105,7 @@ export function Pagination({
             return (
               <span
                 key={`ellipsis-${index}`}
-                className="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500"
+                className="inline-flex items-centre border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-grey-500"
               >
                 ...
               </span>
@@ -116,10 +116,10 @@ export function Pagination({
             <button
               key={`page-${page}`}
               onClick={() => typeof page === 'number' && onPageChange(page)}
-              className={`inline-flex items-center border-t-2 px-4 pt-4 text-sm font-medium ${
+              className={`inline-flex items-centre border-t-2 px-4 pt-4 text-sm font-medium ${
                 currentPage === page
                   ? 'border-blue-500 text-blue-600'
-                  : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
+                  : 'border-transparent text-grey-500 hover:border-grey-300 hover:text-grey-700'
               }`}
               aria-current={currentPage === page ? 'page' : undefined}
             >
@@ -132,10 +132,10 @@ export function Pagination({
         <button
           onClick={() => onPageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
-          className={`inline-flex items-center border-t-2 border-transparent pl-1 pt-4 text-sm font-medium ${
+          className={`inline-flex items-centre border-t-2 border-transparent pl-1 pt-4 text-sm font-medium ${
             currentPage === totalPages
-              ? 'cursor-not-allowed text-gray-300'
-              : 'text-gray-500 hover:border-gray-300 hover:text-gray-700'
+              ? 'cursor-not-allowed text-grey-300'
+              : 'text-grey-500 hover:border-grey-300 hover:text-grey-700'
           }`}
         >
           Next
@@ -172,30 +172,30 @@ export function SimplePagination({
   className = '',
 }: SimplePaginationProps) {
   return (
-    <nav className={`flex items-center justify-between ${className}`}>
+    <nav className={`flex items-centre justify-between ${className}`}>
       <div className="flex-1 flex justify-between">
         <button
           onClick={() => onPageChange(currentPage - 1)}
           disabled={currentPage === 1}
-          className={`relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md ${
+          className={`relative inline-flex items-centre px-4 py-2 border border-grey-300 text-sm font-medium rounded-md ${
             currentPage === 1
-              ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-              : 'bg-white text-gray-700 hover:bg-gray-50'
+              ? 'bg-grey-100 text-grey-400 cursor-not-allowed'
+              : 'bg-white text-grey-700 hover:bg-grey-50'
           }`}
         >
           Previous
         </button>
-        <span className="text-sm text-gray-700">
+        <span className="text-sm text-grey-700">
           Page <span className="font-medium">{currentPage}</span> of{' '}
           <span className="font-medium">{totalPages}</span>
         </span>
         <button
           onClick={() => onPageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
-          className={`relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md ${
+          className={`relative inline-flex items-centre px-4 py-2 border border-grey-300 text-sm font-medium rounded-md ${
             currentPage === totalPages
-              ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-              : 'bg-white text-gray-700 hover:bg-gray-50'
+              ? 'bg-grey-100 text-grey-400 cursor-not-allowed'
+              : 'bg-white text-grey-700 hover:bg-grey-50'
           }`}
         >
           Next

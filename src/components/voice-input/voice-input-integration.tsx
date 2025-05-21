@@ -34,7 +34,7 @@ export const VoiceInputIntegration: React.FC<{
             <Button
               variant="outline"
               size="icon"
-              className="h-10 w-10 rounded-full bg-white shadow-md border-gray-200"
+              className="h-10 w-10 rounded-full bg-white shadow-md border-grey-200"
               onClick={() => setShowControls(!showControls)}
             >
               <Mic className="h-5 w-5 text-blue-600" />
@@ -68,10 +68,10 @@ const VoiceControlPanel: React.FC<{
   const [activeTab, setActiveTab] = React.useState('controls');
   
   return (
-    <Card className="shadow-lg border-gray-200">
+    <Card className="shadow-lg border-grey-200">
       <CardHeader className="pb-2">
-        <CardTitle className="text-base flex items-center justify-between">
-          <span className="flex items-center gap-2">
+        <CardTitle className="text-base flex items-centre justify-between">
+          <span className="flex items-centre gap-2">
             <Mic className="h-4 w-4 text-blue-600" />
             Voice Controls
           </span>
@@ -112,13 +112,13 @@ const VoiceControlsContent: React.FC<{
   
   return (
     <>
-      <div className="flex justify-center">
+      <div className="flex justify-centre">
         {isListening ? (
           <Button 
             variant="destructive"
             size="sm"
             onClick={stopListening}
-            className="flex items-center gap-2"
+            className="flex items-centre gap-2"
           >
             <MicOff className="h-4 w-4" />
             Stop Voice Input
@@ -128,7 +128,7 @@ const VoiceControlsContent: React.FC<{
             variant="default"
             size="sm"
             onClick={startListening}
-            className="flex items-center gap-2"
+            className="flex items-centre gap-2"
           >
             <Mic className="h-4 w-4" />
             Start Voice Input
@@ -157,7 +157,7 @@ const VoiceControlsContent: React.FC<{
         <Button 
           variant="outline" 
           size="sm"
-          className="text-xs flex items-center gap-1"
+          className="text-xs flex items-centre gap-1"
         >
           <Settings className="h-3 w-3" />
           Settings

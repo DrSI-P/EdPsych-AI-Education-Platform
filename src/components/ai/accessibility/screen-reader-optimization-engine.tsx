@@ -130,7 +130,7 @@ export default function ScreenReaderOptimizationEngine({
     if (!settingsToApply.enabled) {
       // Remove screen reader optimization classes
       document.documentElement.classList.remove(
-        'screen-reader-optimized',
+        'screen-reader-optimised',
         'announcement-minimal',
         'announcement-moderate',
         'announcement-verbose'
@@ -139,7 +139,7 @@ export default function ScreenReaderOptimizationEngine({
     }
     
     // Apply screen reader optimization mode
-    document.documentElement.classList.add('screen-reader-optimized');
+    document.documentElement.classList.add('screen-reader-optimised');
     
     // Apply announcement level
     document.documentElement.classList.remove(
@@ -372,8 +372,8 @@ export default function ScreenReaderOptimizationEngine({
   return (
     <Card className={className}>
       <CardHeader>
-        <CardTitle className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
+        <CardTitle className="flex items-centre justify-between">
+          <div className="flex items-centre gap-2">
             <Eye className="h-5 w-5" />
             Screen Reader Optimization
           </div>
@@ -396,7 +396,7 @@ export default function ScreenReaderOptimizationEngine({
           
           <TabsContent value="settings" className="space-y-6 pt-4">
             <div className="space-y-4">
-              <div className="flex items-center justify-between">
+              <div className="flex items-centre justify-between">
                 <div className="space-y-0.5">
                   <Label htmlFor="enhanced-aria">Enhanced ARIA Landmarks</Label>
                   <p className="text-xs text-muted-foreground">
@@ -412,7 +412,7 @@ export default function ScreenReaderOptimizationEngine({
                 />
               </div>
               
-              <div className="flex items-center justify-between">
+              <div className="flex items-centre justify-between">
                 <div className="space-y-0.5">
                   <Label htmlFor="improved-alt-text">Improved Image Descriptions</Label>
                   <p className="text-xs text-muted-foreground">
@@ -428,7 +428,7 @@ export default function ScreenReaderOptimizationEngine({
                 />
               </div>
               
-              <div className="flex items-center justify-between">
+              <div className="flex items-centre justify-between">
                 <div className="space-y-0.5">
                   <Label htmlFor="semantic-headings">Semantic Heading Structure</Label>
                   <p className="text-xs text-muted-foreground">
@@ -444,7 +444,7 @@ export default function ScreenReaderOptimizationEngine({
                 />
               </div>
               
-              <div className="flex items-center justify-between">
+              <div className="flex items-centre justify-between">
                 <div className="space-y-0.5">
                   <Label htmlFor="table-accessibility">Table Accessibility</Label>
                   <p className="text-xs text-muted-foreground">
@@ -460,7 +460,7 @@ export default function ScreenReaderOptimizationEngine({
                 />
               </div>
               
-              <div className="flex items-center justify-between">
+              <div className="flex items-centre justify-between">
                 <div className="space-y-0.5">
                   <Label htmlFor="form-labels">Form Field Labels</Label>
                   <p className="text-xs text-muted-foreground">
@@ -476,7 +476,7 @@ export default function ScreenReaderOptimizationEngine({
                 />
               </div>
               
-              <div className="flex items-center justify-between">
+              <div className="flex items-centre justify-between">
                 <div className="space-y-0.5">
                   <Label htmlFor="reading-order">Logical Reading Order</Label>
                   <p className="text-xs text-muted-foreground">
@@ -501,17 +501,17 @@ export default function ScreenReaderOptimizationEngine({
                   }
                   className="grid grid-cols-3 gap-4"
                 >
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <RadioGroupItem value="minimal" id="minimal" />
                     <Label htmlFor="minimal">Minimal</Label>
                   </div>
                   
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <RadioGroupItem value="moderate" id="moderate" />
                     <Label htmlFor="moderate">Moderate</Label>
                   </div>
                   
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <RadioGroupItem value="verbose" id="verbose" />
                     <Label htmlFor="verbose">Verbose</Label>
                   </div>
@@ -525,14 +525,14 @@ export default function ScreenReaderOptimizationEngine({
           
           <TabsContent value="preview" className="pt-4">
             <div className="space-y-6">
-              <div className="flex justify-between items-center mb-4">
+              <div className="flex justify-between items-centre mb-4">
                 <Label>Preview Content Type</Label>
                 <div className="flex gap-2">
                   <Button 
                     variant={previewContent === 'text' ? "default" : "outline"} 
                     size="sm"
                     onClick={() => setPreviewContent('text')}
-                    className="flex items-center gap-1"
+                    className="flex items-centre gap-1"
                   >
                     <FileText className="h-4 w-4" />
                     Text
@@ -541,7 +541,7 @@ export default function ScreenReaderOptimizationEngine({
                     variant={previewContent === 'form' ? "default" : "outline"} 
                     size="sm"
                     onClick={() => setPreviewContent('form')}
-                    className="flex items-center gap-1"
+                    className="flex items-centre gap-1"
                   >
                     Form
                   </Button>
@@ -549,7 +549,7 @@ export default function ScreenReaderOptimizationEngine({
                     variant={previewContent === 'table' ? "default" : "outline"} 
                     size="sm"
                     onClick={() => setPreviewContent('table')}
-                    className="flex items-center gap-1"
+                    className="flex items-centre gap-1"
                   >
                     Table
                   </Button>
@@ -590,11 +590,11 @@ export default function ScreenReaderOptimizationEngine({
                     <div className="space-y-2">
                       <h4 className="text-md font-medium">Image Description</h4>
                       <div className="p-3 bg-muted rounded-md">
-                        <div className="flex flex-col items-center space-y-2">
-                          <div className="w-full h-32 bg-gray-200 dark:bg-gray-700 rounded-md flex items-center justify-center">
-                            <span className="text-gray-500 dark:text-gray-400">Image Placeholder</span>
+                        <div className="flex flex-col items-centre space-y-2">
+                          <div className="w-full h-32 bg-grey-200 dark:bg-grey-700 rounded-md flex items-centre justify-centre">
+                            <span className="text-grey-500 dark:text-grey-400">Image Placeholder</span>
                           </div>
-                          <p className="text-sm text-center">A sample image with alt text</p>
+                          <p className="text-sm text-centre">A sample image with alt text</p>
                           
                           {settings.enabled && (
                             <div className="mt-2 p-2 bg-blue-50 dark:bg-blue-900 rounded-md text-xs w-full">
@@ -681,7 +681,7 @@ export default function ScreenReaderOptimizationEngine({
                             Student Assessment Results
                           </caption>
                           <thead>
-                            <tr className="bg-gray-100 dark:bg-gray-800">
+                            <tr className="bg-grey-100 dark:bg-grey-800">
                               <th className="border px-4 py-2 text-left">Student</th>
                               <th className="border px-4 py-2 text-left">Math</th>
                               <th className="border px-4 py-2 text-left">Science</th>
@@ -751,7 +751,7 @@ export default function ScreenReaderOptimizationEngine({
         <Button 
           variant="outline" 
           onClick={handleResetSettings}
-          className="flex items-center gap-2"
+          className="flex items-centre gap-2"
         >
           <RefreshCw className="h-4 w-4" />
           Reset
@@ -759,9 +759,9 @@ export default function ScreenReaderOptimizationEngine({
         
         <Button 
           onClick={handleApplySettings}
-          className="flex items-center gap-2"
+          className="flex items-centre gap-2"
           disabled={isApplied && JSON.stringify(settings) === JSON.stringify({
-            enabled: document.documentElement.classList.contains('screen-reader-optimized'),
+            enabled: document.documentElement.classList.contains('screen-reader-optimised'),
             enhancedAria: true, // This would need a more complex check in a real implementation
             improvedAltText: true, // This would need a more complex check in a real implementation
             semanticHeadings: true, // This would need a more complex check in a real implementation

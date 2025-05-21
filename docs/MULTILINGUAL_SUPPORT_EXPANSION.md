@@ -16,7 +16,7 @@ The Multilingual Support Expansion feature enhances the EdPsych-AI-Education-Pla
 - **Multi-format Support**: Implemented translation for various document formats (PDF, Word, PowerPoint, Excel, etc.)
 - **Batch Translation**: Added capability to translate multiple documents simultaneously
 - **Format Preservation**: Ensured document structure and formatting is maintained during translation
-- **Educational Terminology**: Specialized handling of UK educational terminology and curriculum references
+- **Educational Terminology**: Specialised handling of UK educational terminology and curriculum references
 
 ### 3. Culturally Responsive Content
 - **Cultural Context Service**: Created a dedicated service for providing cultural context and adaptations
@@ -27,14 +27,14 @@ The Multilingual Support Expansion feature enhances the EdPsych-AI-Education-Pla
 ### 4. Enhanced Translation Tools
 - **Improved Translation Memory**: Added domain-specific translation memory for educational terminology
 - **Quality Feedback System**: Implemented translation quality rating and feedback collection
-- **Glossary Management**: Created specialized glossaries for educational terminology
+- **Glossary Management**: Created specialised glossaries for educational terminology
 - **Batch Processing**: Added support for translating large volumes of content
 
 ### 5. Voice System Integration
 - **Multilingual Speech Recognition**: Enhanced voice input to support all platform languages
 - **Culturally Appropriate TTS**: Implemented text-to-speech with cultural considerations
 - **Accent and Dialect Support**: Added recognition for various accents and dialects
-- **Educational Terminology Pronunciation**: Ensured correct pronunciation of specialized terms
+- **Educational Terminology Pronunciation**: Ensured correct pronunciation of specialised terms
 
 ### 6. Accessibility Enhancements
 - **WCAG 2.1 AA Compliance**: Ensured all multilingual features meet accessibility standards

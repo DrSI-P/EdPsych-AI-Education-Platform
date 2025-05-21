@@ -604,10 +604,10 @@ const AgeAppropriateReflectionPrompts = () => {
                         <CardHeader className="pb-2">
                           <CardTitle className="text-lg">{prompt.title}</CardTitle>
                           <div className="flex space-x-2">
-                            <span className="inline-flex items-center rounded-full bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
+                            <span className="inline-flex items-centre rounded-full bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
                               {getAgeGroupDisplay(prompt.ageGroup)}
                             </span>
-                            <span className="inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
+                            <span className="inline-flex items-centre rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
                               {getCategoryDisplay(prompt.category)}
                             </span>
                           </div>
@@ -639,7 +639,7 @@ const AgeAppropriateReflectionPrompts = () => {
                     ))}
 
                     {filteredPrompts.length === 0 && (
-                      <div className="col-span-full flex flex-col items-center justify-center p-6 text-center">
+                      <div className="col-span-full flex flex-col items-centre justify-centre p-6 text-centre">
                         <AlertCircle className="h-10 w-10 text-muted-foreground mb-2" />
                         <h3 className="text-lg font-medium">No prompts found</h3>
                         <p className="text-sm text-muted-foreground mt-1">
@@ -657,7 +657,7 @@ const AgeAppropriateReflectionPrompts = () => {
           <TabsContent value="view" className="space-y-6">
             {selectedPrompt && (
               <>
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-centre">
                   <h2 className="text-2xl font-bold">{selectedPrompt.title}</h2>
                   <div className="flex space-x-2">
                     <Button variant="outline" onClick={() => setActiveTab("browse")}>
@@ -679,10 +679,10 @@ const AgeAppropriateReflectionPrompts = () => {
                           {selectedPrompt.description}
                         </CardDescription>
                         <div className="flex space-x-2 mt-2">
-                          <span className="inline-flex items-center rounded-full bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
+                          <span className="inline-flex items-centre rounded-full bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
                             {getAgeGroupDisplay(selectedPrompt.ageGroup)}
                           </span>
-                          <span className="inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
+                          <span className="inline-flex items-centre rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
                             {getCategoryDisplay(selectedPrompt.category)}
                           </span>
                         </div>
@@ -711,12 +711,12 @@ const AgeAppropriateReflectionPrompts = () => {
                               <h3 className="text-lg font-medium mb-2">Visual Supports</h3>
                               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                                 {selectedPrompt.visualAids.map((aid, index) => (
-                                  <div key={index} className="border rounded-lg p-2 flex items-center justify-center bg-gray-50">
-                                    <div className="text-center">
-                                      <div className="w-16 h-16 mx-auto bg-gray-200 rounded-full flex items-center justify-center">
-                                        <span className="text-xs text-gray-500">Image</span>
+                                  <div key={index} className="border rounded-lg p-2 flex items-centre justify-centre bg-grey-50">
+                                    <div className="text-centre">
+                                      <div className="w-16 h-16 mx-auto bg-grey-200 rounded-full flex items-centre justify-centre">
+                                        <span className="text-xs text-grey-500">Image</span>
                                       </div>
-                                      <p className="text-xs mt-1 text-gray-500">Visual Aid {index + 1}</p>
+                                      <p className="text-xs mt-1 text-grey-500">Visual Aid {index + 1}</p>
                                     </div>
                                   </div>
                                 ))}
@@ -754,20 +754,20 @@ const AgeAppropriateReflectionPrompts = () => {
                               {selectedPrompt.category === 'values' && 'Connecting actions to personal values'}
                               {selectedPrompt.category === 'relationships' && 'Examining effects on relationships'}
                               {selectedPrompt.category === 'future-planning' && 'Planning for similar situations in the future'}
-                              {selectedPrompt.category === 'facilitation' && 'Reflecting on restorative facilitation practice'}
+                              {selectedPrompt.category === 'facilitation' && 'Reflecting on restorative facilitation practise'}
                             </p>
                           </div>
 
                           <div>
                             <h3 className="text-sm font-medium mb-1">Adaptations</h3>
                             <div className="space-y-2">
-                              <div className="flex items-center">
+                              <div className="flex items-centre">
                                 <Checkbox id="simplified" checked={selectedPrompt.simplifiedLanguage} disabled />
                                 <label htmlFor="simplified" className="ml-2 text-sm">
                                   Simplified language
                                 </label>
                               </div>
-                              <div className="flex items-center">
+                              <div className="flex items-centre">
                                 <Checkbox id="visual" checked={selectedPrompt.visualSupports} disabled />
                                 <label htmlFor="visual" className="ml-2 text-sm">
                                   Visual supports available
@@ -897,7 +897,7 @@ const AgeAppropriateReflectionPrompts = () => {
                   </div>
 
                   <div className="space-y-4">
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-centre justify-between">
                       <Label>Supporting Questions</Label>
                       <Button variant="outline" size="sm" onClick={addSupportingQuestion}>
                         <Plus className="h-4 w-4 mr-1" />
@@ -906,7 +906,7 @@ const AgeAppropriateReflectionPrompts = () => {
                     </div>
 
                     {customPrompt.supportingQuestions.map((question, index) => (
-                      <div key={index} className="flex items-center space-x-2">
+                      <div key={index} className="flex items-centre space-x-2">
                         <Input
                           placeholder="Enter supporting question"
                           value={question}
@@ -933,7 +933,7 @@ const AgeAppropriateReflectionPrompts = () => {
                   <div className="space-y-4">
                     <Label>Adaptations</Label>
                     <div className="space-y-2">
-                      <div className="flex items-center">
+                      <div className="flex items-centre">
                         <Checkbox 
                           id="custom-simplified" 
                           checked={customPrompt.simplifiedLanguage}
@@ -945,7 +945,7 @@ const AgeAppropriateReflectionPrompts = () => {
                           Simplified language for younger students
                         </label>
                       </div>
-                      <div className="flex items-center">
+                      <div className="flex items-centre">
                         <Checkbox 
                           id="custom-visual" 
                           checked={customPrompt.visualSupports}

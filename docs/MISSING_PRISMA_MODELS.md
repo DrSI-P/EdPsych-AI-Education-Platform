@@ -4,7 +4,7 @@
 
 This document lists all models that are referenced in the codebase but not defined in the Prisma schema. These models need to be added to the schema to resolve TypeScript errors and ensure proper functionality of the application.
 
-The models are organized by category to make it easier to understand their purpose and relationships.
+The models are organised by category to make it easier to understand their purpose and relationships.
 
 ## Immediate Issues
 
@@ -83,7 +83,7 @@ model EmotionalPatternRecord {
   student   User      @relation("StudentEmotionalPatternRecords", fields: [studentId], references: [id])
 }
 ```
-### Behavior Tracking
+### Behaviour Tracking
 
 ```prisma
 model BehaviorDefinition {
@@ -108,7 +108,7 @@ model BehaviorTracking {
   notes       String?   @db.Text
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
-  behavior    BehaviorDefinition @relation(fields: [behaviorId], references: [id])
+  behaviour    BehaviorDefinition @relation(fields: [behaviorId], references: [id])
   user        User      @relation("UserBehaviorTrackings", fields: [userId], references: [id])
   student     User?     @relation("StudentBehaviorTrackings", fields: [studentId], references: [id])
 }
@@ -125,7 +125,7 @@ model BehaviorGoal {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   user        User      @relation(fields: [userId], references: [id])
-  behavior    BehaviorDefinition @relation(fields: [behaviorId], references: [id])
+  behaviour    BehaviorDefinition @relation(fields: [behaviorId], references: [id])
 }
 
 model BehaviorReward {
@@ -461,7 +461,7 @@ model TeacherAlert {
   id          String    @id @default(cuid())
   userId      String
   studentId   String
-  type        String    // behavior, academic, emotional, social
+  type        String    // behaviour, academic, emotional, social
   severity    String    // low, medium, high
   description String    @db.Text
   status      String    @default("active") // active, resolved
@@ -488,7 +488,7 @@ model ABCCRecord {
   userId      String
   studentId   String
   antecedent  String    @db.Text
-  behavior    String    @db.Text
+  behaviour    String    @db.Text
   consequence String    @db.Text
   context     String    @db.Text
   date        DateTime
@@ -671,7 +671,7 @@ model IEP504Goal {
   id          String    @id @default(cuid())
   planId      String
   description String    @db.Text
-  area        String    // academic, behavioral, social, etc.
+  area        String    // academic, behavioural, social, etc.
   progress    String    @default("not-started") // not-started, in-progress, achieved
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
@@ -682,7 +682,7 @@ model IEP504Accommodation {
   id          String    @id @default(cuid())
   planId      String
   description String    @db.Text
-  area        String    // academic, behavioral, environmental, etc.
+  area        String    // academic, behavioural, environmental, etc.
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   plan        IEP504Plan @relation(fields: [planId], references: [id], onDelete: Cascade)
@@ -791,7 +791,7 @@ model CommunicationReportRequest {
   id                String    @id @default(cuid())
   requesterId       String
   studentId         String
-  type              String    // progress, behavior, attendance, etc.
+  type              String    // progress, behaviour, attendance, etc.
   status            String    @default("pending") // pending, completed
   createdAt         DateTime  @default(now())
   updatedAt         DateTime  @updatedAt

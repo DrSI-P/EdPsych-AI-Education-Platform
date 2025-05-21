@@ -68,7 +68,7 @@ const GuidedMindfulnessActivities = () => {
     {
       id: "breathing-awareness",
       title: "Breathing Awareness",
-      description: "A simple practice focusing on the breath to anchor attention to the present moment.",
+      description: "A simple practise focusing on the breath to anchor attention to the present moment.",
       duration: 300, // 5 minutes in seconds
       category: "breathing",
       ageRange: "all",
@@ -83,14 +83,14 @@ const GuidedMindfulnessActivities = () => {
         "Bring attention to your natural breathing",
         "Notice the sensation of breath entering and leaving your body",
         "When your mind wanders, gently return focus to your breath",
-        "Continue for the duration of the practice"
+        "Continue for the duration of the practise"
       ],
       evidenceBase: "Supported by research from Oxford Mindfulness Centre and recommended in NICE guidelines for stress management."
     },
     {
       id: "body-scan",
       title: "Body Scan Meditation",
-      description: "A practice that involves systematically bringing attention to different parts of the body.",
+      description: "A practise that involves systematically bringing attention to different parts of the body.",
       duration: 600, // 10 minutes in seconds
       category: "body-scan",
       ageRange: "all",
@@ -112,7 +112,7 @@ const GuidedMindfulnessActivities = () => {
     {
       id: "loving-kindness",
       title: "Loving-Kindness Meditation",
-      description: "A practice that cultivates feelings of goodwill, kindness, and warmth towards oneself and others.",
+      description: "A practise that cultivates feelings of goodwill, kindness, and warmth towards oneself and others.",
       duration: 480, // 8 minutes in seconds
       category: "compassion",
       ageRange: "secondary",
@@ -134,7 +134,7 @@ const GuidedMindfulnessActivities = () => {
     {
       id: "mindful-listening",
       title: "Mindful Listening",
-      description: "A practice that involves paying full attention to sounds in the environment.",
+      description: "A practise that involves paying full attention to sounds in the environment.",
       duration: 240, // 4 minutes in seconds
       category: "sensory",
       ageRange: "all",
@@ -146,7 +146,7 @@ const GuidedMindfulnessActivities = () => {
       instructions: [
         "Sit comfortably with eyes closed",
         "Bring attention to the sounds around you",
-        "Notice sounds without labeling or judging them",
+        "Notice sounds without labelling or judging them",
         "Observe how sounds arise and fade away",
         "When your mind wanders, gently return to listening",
         "Notice the quality, pitch, and volume of different sounds"
@@ -156,9 +156,9 @@ const GuidedMindfulnessActivities = () => {
     {
       id: "mountain-meditation",
       title: "Mountain Meditation",
-      description: "A visualization practice using the image of a mountain to cultivate stability and strength.",
+      description: "A visualisation practise using the image of a mountain to cultivate stability and strength.",
       duration: 540, // 9 minutes in seconds
-      category: "visualization",
+      category: "visualisation",
       ageRange: "secondary",
       difficulty: "intermediate",
       benefits: ["Emotional stability", "Inner strength", "Resilience"],
@@ -167,7 +167,7 @@ const GuidedMindfulnessActivities = () => {
       transcript: "Begin by finding a comfortable seated position...",
       instructions: [
         "Sit comfortably with a straight back",
-        "Visualize a majestic mountain in your mind's eye",
+        "Visualise a majestic mountain in your mind's eye",
         "Imagine the mountain as solid, stable, and unmoving",
         "Connect with the qualities of the mountain - strength, stability, dignity",
         "Imagine yourself embodying these qualities",
@@ -178,7 +178,7 @@ const GuidedMindfulnessActivities = () => {
     {
       id: "mindful-movement",
       title: "Mindful Movement",
-      description: "A practice that brings awareness to gentle, deliberate movements of the body.",
+      description: "A practise that brings awareness to gentle, deliberate movements of the body.",
       duration: 360, // 6 minutes in seconds
       category: "movement",
       ageRange: "all",
@@ -201,9 +201,9 @@ const GuidedMindfulnessActivities = () => {
     {
       id: "cloud-watching",
       title: "Cloud Watching Meditation",
-      description: "A practice that uses the metaphor of watching clouds to observe thoughts without attachment.",
+      description: "A practise that uses the metaphor of watching clouds to observe thoughts without attachment.",
       duration: 420, // 7 minutes in seconds
-      category: "visualization",
+      category: "visualisation",
       ageRange: "primary",
       difficulty: "beginner",
       benefits: ["Reduced rumination", "Emotional regulation", "Mental clarity"],
@@ -216,14 +216,14 @@ const GuidedMindfulnessActivities = () => {
         "As thoughts arise, imagine placing them on clouds",
         "Watch the clouds float by without holding onto them",
         "Return to watching the sky when you notice yourself getting caught in thoughts",
-        "Practice observing thoughts without judgment or attachment"
+        "Practise observing thoughts without judgment or attachment"
       ],
       evidenceBase: "Used in child-friendly mindfulness programmes in UK schools. Effective for teaching thought observation without attachment."
     },
     {
       id: "five-senses",
       title: "Five Senses Grounding",
-      description: "A practice that uses the five senses to anchor attention to the present moment.",
+      description: "A practise that uses the five senses to anchor attention to the present moment.",
       duration: 300, // 5 minutes in seconds
       category: "sensory",
       ageRange: "all",
@@ -239,14 +239,14 @@ const GuidedMindfulnessActivities = () => {
         "Notice 3 things you can hear",
         "Notice 2 things you can smell",
         "Notice 1 thing you can taste",
-        "Take a deep breath to complete the practice"
+        "Take a deep breath to complete the practise"
       ],
       evidenceBase: "Recommended by NHS mental health services as an effective grounding technique for anxiety and panic."
     },
     {
       id: "gratitude-meditation",
       title: "Gratitude Meditation",
-      description: "A practice that cultivates appreciation and thankfulness for aspects of life.",
+      description: "A practise that cultivates appreciation and thankfulness for aspects of life.",
       duration: 360, // 6 minutes in seconds
       category: "compassion",
       ageRange: "all",
@@ -263,12 +263,12 @@ const GuidedMindfulnessActivities = () => {
         "Consider aspects of yourself you're grateful for",
         "End by setting an intention to notice moments of gratitude throughout your day"
       ],
-      evidenceBase: "Research shows regular gratitude practice improves wellbeing and reduces symptoms of depression and anxiety."
+      evidenceBase: "Research shows regular gratitude practise improves wellbeing and reduces symptoms of depression and anxiety."
     },
     {
       id: "mindful-eating",
-      title: "Mindful Eating Practice",
-      description: "A practice that brings full attention to the experience of eating.",
+      title: "Mindful Eating Practise",
+      description: "A practise that brings full attention to the experience of eating.",
       duration: 480, // 8 minutes in seconds
       category: "sensory",
       ageRange: "all",
@@ -280,7 +280,7 @@ const GuidedMindfulnessActivities = () => {
       instructions: [
         "Choose a small piece of food (like a raisin or slice of fruit)",
         "Observe it as if seeing it for the first time",
-        "Notice its color, texture, and smell",
+        "Notice its colour, texture, and smell",
         "Place it in your mouth without chewing at first",
         "Notice the sensations, taste, and texture",
         "Chew slowly and mindfully",
@@ -291,9 +291,9 @@ const GuidedMindfulnessActivities = () => {
     {
       id: "rainbow-meditation",
       title: "Rainbow Meditation",
-      description: "A colorful visualization practice especially suitable for children.",
+      description: "A colorful visualisation practise especially suitable for children.",
       duration: 240, // 4 minutes in seconds
-      category: "visualization",
+      category: "visualisation",
       ageRange: "primary",
       difficulty: "beginner",
       benefits: ["Creativity", "Relaxation", "Emotional awareness"],
@@ -303,17 +303,17 @@ const GuidedMindfulnessActivities = () => {
       instructions: [
         "Sit comfortably with eyes closed",
         "Imagine a beautiful rainbow appearing in your mind",
-        "Notice each color - red, orange, yellow, green, blue, indigo, violet",
-        "Connect each color with a feeling or quality",
+        "Notice each colour - red, orange, yellow, green, blue, indigo, violet",
+        "Connect each colour with a feeling or quality",
         "Imagine being surrounded by the colors and their positive qualities",
-        "Take a deep breath with each color"
+        "Take a deep breath with each colour"
       ],
       evidenceBase: "Used in primary schools across the UK. Effective for introducing mindfulness concepts to young children."
     },
     {
       id: "mindful-walking",
       title: "Mindful Walking",
-      description: "A practice that brings awareness to the experience of walking.",
+      description: "A practise that brings awareness to the experience of walking.",
       duration: 600, // 10 minutes in seconds
       category: "movement",
       ageRange: "all",
@@ -329,7 +329,7 @@ const GuidedMindfulnessActivities = () => {
         "Pay attention to the lifting, moving, and placing of each foot",
         "Notice how your weight shifts with each step",
         "When your mind wanders, gently return focus to the walking",
-        "Continue for the duration of the practice"
+        "Continue for the duration of the practise"
       ],
       evidenceBase: "Recommended by physiotherapists and mental health professionals. Research shows effectiveness for reducing rumination."
     }
@@ -421,8 +421,8 @@ const GuidedMindfulnessActivities = () => {
     }
     
     toast({
-      title: "Practice Complete",
-      description: "Well done! You've completed your mindfulness practice.",
+      title: "Practise Complete",
+      description: "Well done! You've completed your mindfulness practise.",
     });
   };
   
@@ -512,10 +512,10 @@ const GuidedMindfulnessActivities = () => {
       const mockFavorites = ["breathing-awareness", "body-scan", "mindful-walking"];
       setFavoriteActivities(mockFavorites);
     } catch (error) {
-      console.error('Error fetching favorite activities:', error);
+      console.error('Error fetching favourite activities:', error);
       toast({
         title: "Error",
-        description: "Failed to load your favorite activities. Please try again.",
+        description: "Failed to load your favourite activities. Please try again.",
         variant: "destructive"
       });
     }
@@ -568,7 +568,7 @@ const GuidedMindfulnessActivities = () => {
       }
     }, 100);
     
-    setActiveTab("practice");
+    setActiveTab("practise");
   };
   
   const handleTogglePlay = () => {
@@ -736,7 +736,7 @@ const GuidedMindfulnessActivities = () => {
         return <Wind className="h-6 w-6 text-blue-500" />;
       case 'body-scan':
         return <Heart className="h-6 w-6 text-pink-500" />;
-      case 'visualization':
+      case 'visualisation':
         return <Sparkles className="h-6 w-6 text-purple-500" />;
       case 'movement':
         return <Activity className="h-6 w-6 text-green-500" />;
@@ -786,20 +786,20 @@ const GuidedMindfulnessActivities = () => {
         <CardHeader>
           <CardTitle>Guided Mindfulness Activities</CardTitle>
           <CardDescription>
-            Discover and practice evidence-based mindfulness exercises to support emotional wellbeing
+            Discover and practise evidence-based mindfulness exercises to support emotional wellbeing
           </CardDescription>
         </CardHeader>
         <CardContent>
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid w-full grid-cols-4">
               <TabsTrigger value="discover">Discover</TabsTrigger>
-              <TabsTrigger value="practice">Practice</TabsTrigger>
+              <TabsTrigger value="practise">Practise</TabsTrigger>
               <TabsTrigger value="history">History</TabsTrigger>
               <TabsTrigger value="settings">Settings</TabsTrigger>
             </TabsList>
             
             {isLoading ? (
-              <div className="flex justify-center items-center py-12">
+              <div className="flex justify-centre items-centre py-12">
                 <p>Loading mindfulness activities...</p>
               </div>
             ) : (
@@ -826,7 +826,7 @@ const GuidedMindfulnessActivities = () => {
                                   className="w-full justify-start"
                                   onClick={() => handleActivitySelection(activity)}
                                 >
-                                  <div className="flex items-center">
+                                  <div className="flex items-centre">
                                     <div className="mr-2">
                                       {getCategoryIcon(activity.category)}
                                     </div>
@@ -841,7 +841,7 @@ const GuidedMindfulnessActivities = () => {
                               );
                             })
                           ) : (
-                            <div className="text-center py-4">
+                            <div className="text-centre py-4">
                               <p className="text-sm text-muted-foreground">
                                 Add favorites to see recommendations
                               </p>
@@ -868,7 +868,7 @@ const GuidedMindfulnessActivities = () => {
                                 className="w-full justify-start"
                                 onClick={() => handleActivitySelection(activity)}
                               >
-                                <div className="flex items-center">
+                                <div className="flex items-centre">
                                   <div className="mr-2">
                                     {getCategoryIcon(activity.category)}
                                   </div>
@@ -904,7 +904,7 @@ const GuidedMindfulnessActivities = () => {
                                   className="w-full justify-start"
                                   onClick={() => handleActivitySelection(activity)}
                                 >
-                                  <div className="flex items-center">
+                                  <div className="flex items-centre">
                                     <div className="mr-2">
                                       {getCategoryIcon(activity.category)}
                                     </div>
@@ -919,9 +919,9 @@ const GuidedMindfulnessActivities = () => {
                               );
                             })
                           ) : (
-                            <div className="text-center py-4">
+                            <div className="text-centre py-4">
                               <p className="text-sm text-muted-foreground">
-                                No practice history yet
+                                No practise history yet
                               </p>
                             </div>
                           )}
@@ -940,7 +940,7 @@ const GuidedMindfulnessActivities = () => {
                         <TabsTrigger value="all">All</TabsTrigger>
                         <TabsTrigger value="breathing">Breathing</TabsTrigger>
                         <TabsTrigger value="body-scan">Body Scan</TabsTrigger>
-                        <TabsTrigger value="visualization">Visualization</TabsTrigger>
+                        <TabsTrigger value="visualisation">Visualisation</TabsTrigger>
                         <TabsTrigger value="movement">Movement</TabsTrigger>
                         <TabsTrigger value="sensory">Sensory</TabsTrigger>
                         <TabsTrigger value="compassion">Compassion</TabsTrigger>
@@ -959,7 +959,7 @@ const GuidedMindfulnessActivities = () => {
                                     className="object-cover"
                                   />
                                 ) : (
-                                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-50">
+                                  <div className="w-full h-full flex items-centre justify-centre bg-gradient-to-br from-blue-50 to-indigo-50">
                                     {getCategoryIcon(activity.category)}
                                   </div>
                                 )}
@@ -983,7 +983,7 @@ const GuidedMindfulnessActivities = () => {
                               </CardHeader>
                               <CardContent className="pb-2">
                                 <div className="flex flex-wrap gap-2 mb-4">
-                                  <Badge variant="secondary" className="flex items-center gap-1">
+                                  <Badge variant="secondary" className="flex items-centre gap-1">
                                     <Clock className="h-3 w-3" />
                                     {getDurationLabel(activity.duration)}
                                   </Badge>
@@ -1011,7 +1011,7 @@ const GuidedMindfulnessActivities = () => {
                                   className="w-full"
                                   onClick={() => handleActivitySelection(activity)}
                                 >
-                                  Start Practice
+                                  Start Practise
                                 </Button>
                               </CardFooter>
                             </Card>
@@ -1019,7 +1019,7 @@ const GuidedMindfulnessActivities = () => {
                         </div>
                       </TabsContent>
                       
-                      {['breathing', 'body-scan', 'visualization', 'movement', 'sensory', 'compassion'].map(category => (
+                      {['breathing', 'body-scan', 'visualisation', 'movement', 'sensory', 'compassion'].map(category => (
                         <TabsContent key={category} value={category} className="mt-4">
                           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                             {mindfulnessActivities
@@ -1035,7 +1035,7 @@ const GuidedMindfulnessActivities = () => {
                                         className="object-cover"
                                       />
                                     ) : (
-                                      <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-50">
+                                      <div className="w-full h-full flex items-centre justify-centre bg-gradient-to-br from-blue-50 to-indigo-50">
                                         {getCategoryIcon(activity.category)}
                                       </div>
                                     )}
@@ -1054,7 +1054,7 @@ const GuidedMindfulnessActivities = () => {
                                   </CardHeader>
                                   <CardContent className="pb-2">
                                     <div className="flex flex-wrap gap-2 mb-4">
-                                      <Badge variant="secondary" className="flex items-center gap-1">
+                                      <Badge variant="secondary" className="flex items-centre gap-1">
                                         <Clock className="h-3 w-3" />
                                         {getDurationLabel(activity.duration)}
                                       </Badge>
@@ -1082,7 +1082,7 @@ const GuidedMindfulnessActivities = () => {
                                       className="w-full"
                                       onClick={() => handleActivitySelection(activity)}
                                     >
-                                      Start Practice
+                                      Start Practise
                                     </Button>
                                   </CardFooter>
                                 </Card>
@@ -1094,8 +1094,8 @@ const GuidedMindfulnessActivities = () => {
                   </div>
                 </TabsContent>
                 
-                {/* Practice Tab */}
-                <TabsContent value="practice" className="space-y-6">
+                {/* Practise Tab */}
+                <TabsContent value="practise" className="space-y-6">
                   {currentActivity ? (
                     <div className="space-y-6">
                       <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-6">
@@ -1109,7 +1109,7 @@ const GuidedMindfulnessActivities = () => {
                                 className="object-cover"
                               />
                             ) : (
-                              <div className="w-full h-full flex items-center justify-center bg-white">
+                              <div className="w-full h-full flex items-centre justify-centre bg-white">
                                 {getCategoryIcon(currentActivity.category)}
                               </div>
                             )}
@@ -1120,7 +1120,7 @@ const GuidedMindfulnessActivities = () => {
                             <p className="text-muted-foreground mb-4">{currentActivity.description}</p>
                             
                             <div className="flex flex-wrap gap-2 mb-4">
-                              <Badge variant="secondary" className="flex items-center gap-1">
+                              <Badge variant="secondary" className="flex items-centre gap-1">
                                 <Clock className="h-3 w-3" />
                                 {getDurationLabel(currentActivity.duration)}
                               </Badge>
@@ -1162,7 +1162,7 @@ const GuidedMindfulnessActivities = () => {
                         <CardHeader>
                           <CardTitle>Audio Player</CardTitle>
                           <CardDescription>
-                            Listen to the guided practice
+                            Listen to the guided practise
                           </CardDescription>
                         </CardHeader>
                         <CardContent>
@@ -1174,7 +1174,7 @@ const GuidedMindfulnessActivities = () => {
                               src={currentActivity.audioSrc || "#"}
                             />
                             
-                            <div className="flex items-center justify-center space-x-4">
+                            <div className="flex items-centre justify-centre space-x-4">
                               <Button
                                 variant="outline"
                                 size="icon"
@@ -1225,7 +1225,7 @@ const GuidedMindfulnessActivities = () => {
                               />
                             </div>
                             
-                            <div className="flex items-center space-x-2">
+                            <div className="flex items-centre space-x-2">
                               <Button
                                 variant="ghost"
                                 size="icon"
@@ -1280,7 +1280,7 @@ const GuidedMindfulnessActivities = () => {
                         <CardHeader>
                           <CardTitle>Evidence Base</CardTitle>
                           <CardDescription>
-                            Research and recommendations supporting this practice
+                            Research and recommendations supporting this practise
                           </CardDescription>
                         </CardHeader>
                         <CardContent>
@@ -1289,10 +1289,10 @@ const GuidedMindfulnessActivities = () => {
                       </Card>
                     </div>
                   ) : (
-                    <div className="text-center py-12 border rounded-lg bg-gray-50">
+                    <div className="text-centre py-12 border rounded-lg bg-grey-50">
                       <p className="text-lg font-medium mb-2">No activity selected</p>
-                      <p className="text-gray-500 mb-4">
-                        Select a mindfulness activity to begin your practice.
+                      <p className="text-grey-500 mb-4">
+                        Select a mindfulness activity to begin your practise.
                       </p>
                       <Button onClick={() => setActiveTab("discover")}>
                         Browse Activities
@@ -1305,7 +1305,7 @@ const GuidedMindfulnessActivities = () => {
                 <TabsContent value="history" className="space-y-6">
                   <Card>
                     <CardHeader>
-                      <CardTitle>Your Practice History</CardTitle>
+                      <CardTitle>Your Practise History</CardTitle>
                       <CardDescription>
                         Track your mindfulness journey
                       </CardDescription>
@@ -1322,14 +1322,14 @@ const GuidedMindfulnessActivities = () => {
                                 <Card key={historyItem.id} className="border-l-4" style={{ 
                                   borderLeftColor: activity.category === 'breathing' ? '#3B82F6' : 
                                                   activity.category === 'body-scan' ? '#EC4899' :
-                                                  activity.category === 'visualization' ? '#8B5CF6' :
+                                                  activity.category === 'visualisation' ? '#8B5CF6' :
                                                   activity.category === 'movement' ? '#10B981' :
                                                   activity.category === 'sensory' ? '#F59E0B' :
                                                   '#6366F1'
                                 }}>
                                   <CardHeader className="pb-2">
-                                    <div className="flex justify-between items-center">
-                                      <CardTitle className="flex items-center gap-2">
+                                    <div className="flex justify-between items-centre">
+                                      <CardTitle className="flex items-centre gap-2">
                                         {getCategoryIcon(activity.category)}
                                         {activity.title}
                                       </CardTitle>
@@ -1339,7 +1339,7 @@ const GuidedMindfulnessActivities = () => {
                                     </div>
                                   </CardHeader>
                                   <CardContent className="pb-2">
-                                    <div className="flex justify-between items-center mb-2">
+                                    <div className="flex justify-between items-centre mb-2">
                                       <div>
                                         <Badge variant="outline" className="mr-2">
                                           {activity.category}
@@ -1350,7 +1350,7 @@ const GuidedMindfulnessActivities = () => {
                                       </div>
                                       
                                       {historyItem.feedback ? (
-                                        <div className="flex items-center">
+                                        <div className="flex items-centre">
                                           <span className="mr-2">Rating:</span>
                                           <div className="flex">
                                             {[1, 2, 3, 4, 5].map((star) => (
@@ -1359,7 +1359,7 @@ const GuidedMindfulnessActivities = () => {
                                                 className={`h-4 w-4 ${
                                                   star <= historyItem.feedback.rating 
                                                     ? "fill-current text-amber-500" 
-                                                    : "text-gray-300"
+                                                    : "text-grey-300"
                                                 }`} 
                                               />
                                             ))}
@@ -1370,14 +1370,14 @@ const GuidedMindfulnessActivities = () => {
                                           variant="outline" 
                                           size="sm"
                                           onClick={() => {
-                                            const rating = prompt("How was this practice? Rate from 1-5 (5 being excellent)");
+                                            const rating = prompt("How was this practise? Rate from 1-5 (5 being excellent)");
                                             if (rating && !isNaN(parseInt(rating)) && parseInt(rating) >= 1 && parseInt(rating) <= 5) {
                                               const notes = prompt("Any notes about your experience? (optional)");
                                               handleActivityFeedback(historyItem.activityId, parseInt(rating), notes || "");
                                             }
                                           }}
                                         >
-                                          Rate Practice
+                                          Rate Practise
                                         </Button>
                                       )}
                                     </div>
@@ -1394,17 +1394,17 @@ const GuidedMindfulnessActivities = () => {
                                       onClick={() => handleActivitySelection(activity)}
                                       className="w-full"
                                     >
-                                      Practice Again
+                                      Practise Again
                                     </Button>
                                   </CardFooter>
                                 </Card>
                               );
                             })
                           ) : (
-                            <div className="text-center py-8">
-                              <p>No practice history recorded yet.</p>
+                            <div className="text-centre py-8">
+                              <p>No practise history recorded yet.</p>
                               <Button className="mt-4" onClick={() => setActiveTab("discover")}>
-                                Start Your First Practice
+                                Start Your First Practise
                               </Button>
                             </div>
                           )}
@@ -1420,13 +1420,13 @@ const GuidedMindfulnessActivities = () => {
                     <CardHeader>
                       <CardTitle>Mindfulness Preferences</CardTitle>
                       <CardDescription>
-                        Customize your mindfulness experience
+                        Customise your mindfulness experience
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
                       <div className="space-y-6">
                         <div className="space-y-2">
-                          <Label htmlFor="preferred-duration">Preferred Practice Duration</Label>
+                          <Label htmlFor="preferred-duration">Preferred Practise Duration</Label>
                           <Select 
                             value={userPreferences.preferredDuration}
                             onValueChange={(value) => {
@@ -1446,17 +1446,17 @@ const GuidedMindfulnessActivities = () => {
                             </SelectContent>
                           </Select>
                           <p className="text-sm text-muted-foreground mt-1">
-                            Choose your preferred practice length
+                            Choose your preferred practise length
                           </p>
                         </div>
                         
                         <Separator />
                         
                         <div className="space-y-2">
-                          <Label htmlFor="preferred-themes">Preferred Practice Themes</Label>
+                          <Label htmlFor="preferred-themes">Preferred Practise Themes</Label>
                           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                            {["breathing", "body-scan", "visualization", "movement", "sensory", "compassion"].map((type) => (
-                              <div key={type} className="flex items-center space-x-2">
+                            {["breathing", "body-scan", "visualisation", "movement", "sensory", "compassion"].map((type) => (
+                              <div key={type} className="flex items-centre space-x-2">
                                 <Switch 
                                   id={`type-${type}`} 
                                   checked={userPreferences.preferredThemes.includes(type)}
@@ -1505,7 +1505,7 @@ const GuidedMindfulnessActivities = () => {
                         <Separator />
                         
                         <div className="space-y-2">
-                          <Label htmlFor="reminder-frequency">Practice Reminders</Label>
+                          <Label htmlFor="reminder-frequency">Practise Reminders</Label>
                           <Select 
                             value={userPreferences.reminderFrequency}
                             onValueChange={(value) => {
@@ -1525,13 +1525,13 @@ const GuidedMindfulnessActivities = () => {
                             </SelectContent>
                           </Select>
                           <p className="text-sm text-muted-foreground mt-1">
-                            How often would you like to be reminded to practice?
+                            How often would you like to be reminded to practise?
                           </p>
                         </div>
                         
                         <Separator />
                         
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-centre space-x-2">
                           <Switch 
                             id="background-sounds" 
                             checked={userPreferences.backgroundSounds}

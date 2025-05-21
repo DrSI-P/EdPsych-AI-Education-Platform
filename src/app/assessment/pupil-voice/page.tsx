@@ -83,7 +83,7 @@ export default function PupilVoicePage() {
   const renderSurveysTab = () => {
     if (loading) {
       return (
-        <div className="flex justify-center items-center py-12">
+        <div className="flex justify-centre items-centre py-12">
           <Spinner size="lg" />
         </div>
       );
@@ -91,8 +91,8 @@ export default function PupilVoicePage() {
 
     if (filteredSurveys.length === 0) {
       return (
-        <div className="text-center py-12">
-          <p className="text-gray-500 mb-4">No pupil voice surveys found matching your criteria.</p>
+        <div className="text-centre py-12">
+          <p className="text-grey-500 mb-4">No pupil voice surveys found matching your criteria.</p>
           <Button onClick={handleCreateSurvey}>
             Create New Survey
           </Button>
@@ -109,9 +109,9 @@ export default function PupilVoicePage() {
                 <div className="flex-grow">
                   <h3 className="text-lg font-medium">{survey.title}</h3>
                   {survey.description && (
-                    <p className="text-sm text-gray-600 mt-1">{survey.description}</p>
+                    <p className="text-sm text-grey-600 mt-1">{survey.description}</p>
                   )}
-                  <div className="flex items-center mt-2 text-xs text-gray-500">
+                  <div className="flex items-centre mt-2 text-xs text-grey-500">
                     <span className="mr-2">{survey.questionCount} questions</span>
                     <span className="mr-2">•</span>
                     <span>{survey.responseCount} responses</span>
@@ -121,7 +121,7 @@ export default function PupilVoicePage() {
                   <div className="mt-2">
                     <span className={`inline-block px-2 py-1 text-xs rounded-full ${
                       survey.status === 'draft' 
-                        ? 'bg-gray-100 text-gray-800' 
+                        ? 'bg-grey-100 text-grey-800' 
                         : survey.status === 'active' 
                         ? 'bg-green-100 text-green-800' 
                         : 'bg-blue-100 text-blue-800'
@@ -173,7 +173,7 @@ export default function PupilVoicePage() {
       <div className="space-y-6">
         <div className="mb-6">
           <h2 className="text-xl font-semibold mb-2">Pupil Voice Templates</h2>
-          <p className="text-gray-600">
+          <p className="text-grey-600">
             Use pre-designed templates to quickly create pupil voice surveys for common scenarios.
           </p>
         </div>
@@ -182,7 +182,7 @@ export default function PupilVoicePage() {
           <Card className="cursor-pointer hover:shadow-md transition-shadow">
             <CardContent className="p-4">
               <h3 className="text-lg font-medium">Classroom Environment</h3>
-              <p className="text-sm text-gray-600 mt-1">
+              <p className="text-sm text-grey-600 mt-1">
                 Gather feedback about the classroom environment, teaching methods, and learning experience.
               </p>
               <div className="mt-4">
@@ -200,7 +200,7 @@ export default function PupilVoicePage() {
           <Card className="cursor-pointer hover:shadow-md transition-shadow">
             <CardContent className="p-4">
               <h3 className="text-lg font-medium">Wellbeing Check-in</h3>
-              <p className="text-sm text-gray-600 mt-1">
+              <p className="text-sm text-grey-600 mt-1">
                 Monitor student wellbeing, emotional health, and identify potential support needs.
               </p>
               <div className="mt-4">
@@ -218,7 +218,7 @@ export default function PupilVoicePage() {
           <Card className="cursor-pointer hover:shadow-md transition-shadow">
             <CardContent className="p-4">
               <h3 className="text-lg font-medium">Subject Feedback</h3>
-              <p className="text-sm text-gray-600 mt-1">
+              <p className="text-sm text-grey-600 mt-1">
                 Collect subject-specific feedback to improve curriculum delivery and student engagement.
               </p>
               <div className="mt-4">
@@ -242,13 +242,13 @@ export default function PupilVoicePage() {
       <div className="space-y-6">
         <div className="mb-6">
           <h2 className="text-xl font-semibold mb-2">Pupil Voice Insights</h2>
-          <p className="text-gray-600">
-            Analyze trends and patterns across multiple pupil voice surveys to gain deeper insights.
+          <p className="text-grey-600">
+            Analyse trends and patterns across multiple pupil voice surveys to gain deeper insights.
           </p>
         </div>
 
-        <div className="text-center py-12">
-          <p className="text-gray-500 mb-4">This feature is coming soon.</p>
+        <div className="text-centre py-12">
+          <p className="text-grey-500 mb-4">This feature is coming soon.</p>
           <Button onClick={() => setActiveTab('surveys')}>
             View Surveys
           </Button>
@@ -260,15 +260,15 @@ export default function PupilVoicePage() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-6">
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-gray-900">Pupil Voice</h1>
+        <div className="flex items-centre justify-between">
+          <h1 className="text-2xl font-bold text-grey-900">Pupil Voice</h1>
           <Button
             onClick={handleCreateSurvey}
           >
             Create New Survey
           </Button>
         </div>
-        <p className="mt-2 text-gray-600">
+        <p className="mt-2 text-grey-600">
           Create and manage pupil voice surveys to gather valuable feedback from students.
         </p>
       </div>
@@ -290,19 +290,19 @@ export default function PupilVoicePage() {
 
         {activeTab === 'surveys' && (
           <div className="space-y-6">
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div className="flex flex-col md:flex-row md:items-centre md:justify-between gap-4">
               <div className="w-full md:w-1/2">
                 <input
                   type="text"
                   placeholder="Search surveys..."
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                  className="w-full px-4 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
               </div>
               <div className="w-full md:w-1/4">
                 <select
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                  className="w-full px-4 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                   value={selectedStatus}
                   onChange={(e) => setSelectedStatus(e.target.value)}
                 >

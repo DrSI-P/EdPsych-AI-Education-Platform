@@ -34,7 +34,7 @@ This document provides a comprehensive test report for the AI Avatar Video featu
 - **Status**: ✅ Complete
 - **Details**: Library provides:
   - Searchable, filterable interface for all videos
-  - Organization by category and audience
+  - Organisation by category and audience
   - Video details and metadata display
   - Responsive design for all device sizes
 
@@ -58,7 +58,7 @@ This document provides a comprehensive test report for the AI Avatar Video featu
 - **Keyboard Navigation**: All components are fully keyboard accessible
 - **Screen Reader Compatibility**: Components include appropriate ARIA labels
 - **Captions**: Video player supports captions for all videos
-- **Color Contrast**: All text meets WCAG AA contrast requirements
+- **Colour Contrast**: All text meets WCAG AA contrast requirements
 
 ### Responsive Design Testing
 - **Desktop**: Layout and functionality work correctly on large screens

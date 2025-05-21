@@ -175,14 +175,14 @@ EdPsych Connect is built with cutting-edge technology to ensure performance, rel
 
 ## Evidence-Based Integrity
 
-Every aspect of EdPsych Connect is grounded in educational research and evidence-based practice:
+Every aspect of EdPsych Connect is grounded in educational research and evidence-based practise:
 
 - **UK Curriculum Alignment** with Department for Education standards
 - **Educational Psychology Principles** informing all features
 - **Rigorous Fact-Checking** of all educational content
 - **Regular Content Reviews** to ensure accuracy and relevance
 - **Transparent Documentation** of all sources and methodologies
-- **SEND Code of Practice** compliance for inclusive education
+- **SEND Code of Practise** compliance for inclusive education
 
 ## Award-Winning Design Standards
 

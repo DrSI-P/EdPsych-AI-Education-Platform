@@ -77,7 +77,7 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
               onValueChange={(value) => onUpdate({ 
                 style: { 
                   ...textElement.style, 
-                  textAlign: value as 'left' | 'center' | 'right' | 'justify' 
+                  textAlign: value as 'left' | 'centre' | 'right' | 'justify' 
                 } 
               })}
             >
@@ -86,7 +86,7 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="left">Left</SelectItem>
-                <SelectItem value="center">Center</SelectItem>
+                <SelectItem value="centre">Centre</SelectItem>
                 <SelectItem value="right">Right</SelectItem>
                 <SelectItem value="justify">Justify</SelectItem>
               </SelectContent>
@@ -157,12 +157,12 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
         
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="textColor">Text Color</Label>
+            <Label htmlFor="textColor">Text Colour</Label>
             <div className="flex gap-2">
               <Input 
                 id="textColor" 
-                type="color"
-                value={textElement.style?.color || '#000000'} 
+                type="colour"
+                value={textElement.style?.colour || '#000000'} 
                 onChange={(e) => onUpdate({ 
                   style: { 
                     ...textElement.style, 
@@ -172,7 +172,7 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
                 className="w-12 p-1 h-10"
               />
               <Input 
-                value={textElement.style?.color || ''} 
+                value={textElement.style?.colour || ''} 
                 onChange={(e) => onUpdate({ 
                   style: { 
                     ...textElement.style, 
@@ -186,11 +186,11 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
           </div>
           
           <div className="space-y-2">
-            <Label htmlFor="bgColor">Background Color</Label>
+            <Label htmlFor="bgColor">Background Colour</Label>
             <div className="flex gap-2">
               <Input 
                 id="bgColor" 
-                type="color"
+                type="colour"
                 value={textElement.style?.backgroundColor || '#ffffff'} 
                 onChange={(e) => onUpdate({ 
                   style: { 
@@ -278,15 +278,15 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
           <div className="space-y-2">
             <Label htmlFor="imageAlignment">Alignment</Label>
             <Select 
-              value={imageElement.alignment || 'center'} 
-              onValueChange={(value) => onUpdate({ alignment: value as 'left' | 'center' | 'right' })}
+              value={imageElement.alignment || 'centre'} 
+              onValueChange={(value) => onUpdate({ alignment: value as 'left' | 'centre' | 'right' })}
             >
               <SelectTrigger id="imageAlignment">
                 <SelectValue placeholder="Select alignment" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="left">Left</SelectItem>
-                <SelectItem value="center">Center</SelectItem>
+                <SelectItem value="centre">Centre</SelectItem>
                 <SelectItem value="right">Right</SelectItem>
               </SelectContent>
             </Select>
@@ -296,7 +296,7 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
         {imageElement.src && (
           <div className="mt-4 p-4 border rounded-md">
             <p className="text-sm text-muted-foreground mb-2">Image Preview:</p>
-            <div className={`flex justify-${imageElement.alignment || 'center'}`}>
+            <div className={`flex justify-${imageElement.alignment || 'centre'}`}>
               <img 
                 src={imageElement.src} 
                 alt={imageElement.alt || 'Preview'} 
@@ -308,7 +308,7 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
               />
             </div>
             {imageElement.caption && (
-              <p className="text-sm text-center mt-2">{imageElement.caption}</p>
+              <p className="text-sm text-centre mt-2">{imageElement.caption}</p>
             )}
           </div>
         )}
@@ -397,8 +397,8 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
           </div>
           
           <div className="space-y-2">
-            <div className="flex items-center h-full pt-8">
-              <div className="flex items-center space-x-2">
+            <div className="flex items-centre h-full pt-8">
+              <div className="flex items-centre space-x-2">
                 <input 
                   type="checkbox" 
                   id="videoControls" 
@@ -414,7 +414,7 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
         <div className="space-y-2">
           <Label>Captions/Subtitles</Label>
           {videoElement.captions?.map((caption, index) => (
-            <div key={index} className="flex gap-2 items-center">
+            <div key={index} className="flex gap-2 items-centre">
               <Input 
                 value={caption.src} 
                 onChange={(e) => {
@@ -515,7 +515,7 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
           <div className="space-y-2">
             <Label>Options</Label>
             {questionElement.options?.map((option, index) => (
-              <div key={index} className="flex gap-2 items-center">
+              <div key={index} className="flex gap-2 items-centre">
                 <Input 
                   value={option} 
                   onChange={(e) => {
@@ -711,7 +711,7 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
         return renderQuestionEditor();
       default:
         return (
-          <div className="p-4 text-center">
+          <div className="p-4 text-centre">
             <p>Editor for {element.type} elements is not yet implemented.</p>
             <p className="text-sm text-muted-foreground mt-2">This element type will be supported in a future update.</p>
           </div>

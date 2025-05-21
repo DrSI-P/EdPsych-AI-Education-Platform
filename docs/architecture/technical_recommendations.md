@@ -107,7 +107,7 @@ This document provides technical recommendations and best practices for the impl
 - Use progressive loading for immersive environments
 - Implement device capability detection
 - Create fallback 2D experiences for limited devices
-- Optimize asset compression for educational content
+- Optimise asset compression for educational content
 
 ## 3. Security Recommendations
 
@@ -276,7 +276,7 @@ This document provides technical recommendations and best practices for the impl
 
 **Rationale:**
 - Educational platforms require high reliability
-- Testing must accurately reflect production behavior
+- Testing must accurately reflect production behaviour
 - Reduces "works on my machine" issues
 - Facilitates confident deployment
 
@@ -325,7 +325,7 @@ This document provides technical recommendations and best practices for the impl
 
 ### 7.1 Initial Load Performance
 
-**Recommendation:** Optimize initial load performance for educational contexts.
+**Recommendation:** Optimise initial load performance for educational contexts.
 
 **Rationale:**
 - Educational sessions have limited time windows
@@ -342,7 +342,7 @@ This document provides technical recommendations and best practices for the impl
 
 ### 7.2 Interaction Responsiveness
 
-**Recommendation:** Optimize interaction responsiveness for educational engagement.
+**Recommendation:** Optimise interaction responsiveness for educational engagement.
 
 **Rationale:**
 - Educational software requires high engagement
@@ -359,7 +359,7 @@ This document provides technical recommendations and best practices for the impl
 
 ### 7.3 AI Response Optimization
 
-**Recommendation:** Optimize AI response times for educational contexts.
+**Recommendation:** Optimise AI response times for educational contexts.
 
 **Rationale:**
 - AI response times impact educational flow

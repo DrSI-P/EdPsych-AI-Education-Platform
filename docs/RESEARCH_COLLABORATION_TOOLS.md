@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Research Collaboration Tools feature provides a comprehensive platform for educators to conduct, share, and collaborate on educational research projects across schools. This feature enables evidence-based practice by facilitating rigorous research methodologies, data collection, analysis, and dissemination within a secure and collaborative environment.
+The Research Collaboration Tools feature provides a comprehensive platform for educators to conduct, share, and collaborate on educational research projects across schools. This feature enables evidence-based practise by facilitating rigorous research methodologies, data collection, analysis, and dissemination within a secure and collaborative environment.
 
 ## Key Features
 
@@ -26,7 +26,7 @@ The Research Collaboration Tools feature provides a comprehensive platform for e
   - Progress monitoring dashboards
   - Milestone completion tracking
   - Task assignment and management
-  - Timeline visualization
+  - Timeline visualisation
   - Risk and issue management
 
 ### 2. Data Collection and Analysis
@@ -42,7 +42,7 @@ The Research Collaboration Tools feature provides a comprehensive platform for e
   - Qualitative coding workspace
   - Quantitative analysis integration
   - Mixed methods analysis support
-  - Data visualization tools
+  - Data visualisation tools
   - AI-assisted pattern identification
 
 - **Data Security and Privacy**:
@@ -70,7 +70,7 @@ The Research Collaboration Tools feature provides a comprehensive platform for e
 
 - **Impact Tracking**:
   - Citation and usage analytics
-  - Practice change monitoring
+  - Practise change monitoring
   - Implementation tracking
   - Outcome measurement tools
   - Impact case study builder
@@ -87,7 +87,7 @@ The Research Collaboration Tools feature provides a comprehensive platform for e
 - **Knowledge Exchange**:
   - Research seminars and webinars
   - Journal clubs and discussion forums
-  - Research-to-practice workshops
+  - Research-to-practise workshops
   - Expert consultation scheduling
   - Practitioner inquiry networks
 
@@ -98,10 +98,10 @@ The Research Collaboration Tools feature provides a comprehensive platform for e
   - Budget management tools
   - Impact reporting for funders
 
-### 5. Research-to-Practice Integration
+### 5. Research-to-Practise Integration
 
 - **Evidence Implementation**:
-  - Practice recommendation generation
+  - Practise recommendation generation
   - Implementation planning tools
   - Adaptation frameworks for local contexts
   - Fidelity monitoring instruments
@@ -118,7 +118,7 @@ The Research Collaboration Tools feature provides a comprehensive platform for e
   - Policy brief creation tools
   - Stakeholder mapping and engagement
   - Evidence synthesis for decision-makers
-  - Impact visualization for advocacy
+  - Impact visualisation for advocacy
   - Policy change tracking
 
 ## User Experience
@@ -129,7 +129,7 @@ The Research Collaboration Tools feature provides a comprehensive platform for e
 2. **Participation**: Join existing projects or initiate new investigations
 3. **Collaboration**: Work with colleagues across schools on shared research questions
 4. **Analysis**: Use accessible tools to make sense of collected data
-5. **Implementation**: Apply findings to improve classroom practice
+5. **Implementation**: Apply findings to improve classroom practise
 6. **Sharing**: Disseminate insights to benefit the wider educational community
 
 ### For Research Leaders
@@ -139,7 +139,7 @@ The Research Collaboration Tools feature provides a comprehensive platform for e
 3. **Capacity Building**: Develop research skills among participating educators
 4. **Analysis**: Conduct sophisticated cross-site data analysis
 5. **Dissemination**: Share findings through appropriate channels
-6. **Impact**: Track how research influences practice and policy
+6. **Impact**: Track how research influences practise and policy
 
 ### For School Leaders
 
@@ -166,7 +166,7 @@ The Research Collaboration Tools feature provides a comprehensive platform for e
 
 - **Project Management System**: Workflow and progress tracking for research activities
 - **Data Collection Engine**: Secure gathering and storage of research data
-- **Analysis Service**: Processing and visualization of qualitative and quantitative data
+- **Analysis Service**: Processing and visualisation of qualitative and quantitative data
 - **Repository Management**: Indexing and retrieval of research outputs
 - **Collaboration Service**: Real-time co-editing and communication
 - **Recommendation System**: Intelligent matching of research interests and opportunities
@@ -179,13 +179,13 @@ The Research Collaboration Tools feature provides a comprehensive platform for e
 - **Research Data**: Secure storage with appropriate access controls
 - **Research Outputs**: Publications, reports, and other dissemination formats
 - **Research Networks**: Connections between researchers and institutions
-- **Research Impact**: Measurements of influence on practice and policy
+- **Research Impact**: Measurements of influence on practise and policy
 
 ## Integration with Other Platform Features
 
 ### Learning Communities Integration
 
-- **Research Interest Groups**: Creating specialized communities around research topics
+- **Research Interest Groups**: Creating specialised communities around research topics
 - **Cross-School Projects**: Leveraging community connections for research recruitment
 - **Knowledge Dissemination**: Sharing research findings through community channels
 - **Discussion Forums**: Debating research implications in community spaces
@@ -197,11 +197,11 @@ The Research Collaboration Tools feature provides a comprehensive platform for e
 - **Professional Portfolio**: Showcasing research contributions in professional portfolios
 - **Mentor Matching**: Connecting research expertise with mentorship opportunities
 - **Webinar Integration**: Presenting research findings through webinar platform
-- **Certificate Generation**: Recognizing significant research contributions
+- **Certificate Generation**: Recognising significant research contributions
 
 ### Teacher Administrative Automation Integration
 
-- **Data Visualization**: Incorporating research findings into school dashboards
+- **Data Visualisation**: Incorporating research findings into school dashboards
 - **Meeting Notes**: Linking meeting discussions to relevant research evidence
 - **Progress Reports**: Including research-based insights in student reports
 - **Resource Recommendations**: Suggesting evidence-based resources for specific needs
@@ -210,8 +210,8 @@ The Research Collaboration Tools feature provides a comprehensive platform for e
 
 The Research Collaboration Tools feature is grounded in established educational psychology principles:
 
-- **Evidence-Based Practice**: Facilitates the systematic use of research evidence in educational decision-making
-- **Action Research**: Supports practitioners in investigating their own practice through structured inquiry
+- **Evidence-Based Practise**: Facilitates the systematic use of research evidence in educational decision-making
+- **Action Research**: Supports practitioners in investigating their own practise through structured inquiry
 - **Communities of Inquiry**: Creates collaborative spaces for critical examination of educational questions
 - **Knowledge Building**: Enables collective construction of understanding through collaborative research
 - **Implementation Science**: Supports the translation of research findings into practical applications
@@ -271,10 +271,10 @@ The feature aligns with key UK educational frameworks and priorities:
 - **Engagement Metrics**: Number of active research projects, participating educators
 - **Collaboration Metrics**: Cross-school research initiatives, collaborative publications
 - **Output Metrics**: Completed research projects, publications, presentations
-- **Implementation Metrics**: Practice changes based on research findings
+- **Implementation Metrics**: Practise changes based on research findings
 - **Impact Metrics**: Citations, policy influence, student outcome improvements
 - **Quality Metrics**: Methodological rigor, ethical compliance, peer review ratings
 
 ## Conclusion
 
-The Research Collaboration Tools feature transforms professional development by enabling educators to engage in rigorous, collaborative research that informs practice and policy. By combining sophisticated project management, data collection, analysis, and dissemination tools with powerful collaboration capabilities, it creates a comprehensive ecosystem for educational research that aligns with UK educational standards and evidence-based practice.
+The Research Collaboration Tools feature transforms professional development by enabling educators to engage in rigorous, collaborative research that informs practise and policy. By combining sophisticated project management, data collection, analysis, and dissemination tools with powerful collaboration capabilities, it creates a comprehensive ecosystem for educational research that aligns with UK educational standards and evidence-based practise.

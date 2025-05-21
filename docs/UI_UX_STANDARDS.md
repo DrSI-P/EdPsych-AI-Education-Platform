@@ -29,7 +29,7 @@ This document outlines the UI/UX standards for the EdPsych-AI-Education-Platform
 
 ### 5. Responsive and Adaptive
 - Fully responsive design that works across all device sizes
-- Adaptive layouts that optimize for different screen dimensions
+- Adaptive layouts that optimise for different screen dimensions
 - Touch-friendly interfaces for mobile and tablet users
 - Print-friendly layouts for reports and resources
 
@@ -67,7 +67,7 @@ This document outlines the UI/UX standards for the EdPsych-AI-Education-Platform
 ### Iconography
 - Consistent icon set throughout the platform
 - Line icons with occasional filled variants for emphasis
-- Educational-themed custom icons for specialized features
+- Educational-themed custom icons for specialised features
 
 ## Component Standards
 

@@ -1,9 +1,9 @@
 /**
  * Analytics Service
  * 
- * This service provides methods for fetching, processing, and analyzing educational data
- * for the Data Visualization Dashboard. It handles data retrieval, transformation,
- * and preparation for visualization components.
+ * This service provides methods for fetching, processing, and analysing educational data
+ * for the Data Visualisation Dashboard. It handles data retrieval, transformation,
+ * and preparation for visualisation components.
  */
 
 import {
@@ -27,7 +27,7 @@ import {
 } from './types';
 
 /**
- * Analytics Service class for handling all data visualization operations
+ * Analytics Service class for handling all data visualisation operations
  */
 export class AnalyticsService {
   private apiBaseUrl: string;
@@ -307,7 +307,7 @@ export class AnalyticsService {
   }
 
   /**
-   * Generate color palette for datasets
+   * Generate colour palette for datasets
    */
   generateColorPalette(datasets: Dataset[]): Dataset[] {
     const baseColors = [

@@ -231,8 +231,8 @@ export default function CreateAssessmentPage() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Create New Assessment</h1>
-        <p className="text-gray-600">
+        <h1 className="text-3xl font-bold text-grey-900 mb-2">Create New Assessment</h1>
+        <p className="text-grey-600">
           Design a new assessment for your students. Fill in the details below to get started.
         </p>
       </div>
@@ -253,7 +253,7 @@ export default function CreateAssessmentPage() {
         <Button
           onClick={() => setShowAIModal(true)}
           variant="outline"
-          className="flex items-center gap-2"
+          className="flex items-centre gap-2"
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -278,7 +278,7 @@ export default function CreateAssessmentPage() {
             {activeTab === 'details' && (
               <div className="space-y-6">
                 <div>
-                  <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label htmlFor="title" className="block text-sm font-medium text-grey-700 mb-1">
                     Assessment Title <span className="text-red-500">*</span>
                   </label>
                   <Input
@@ -295,7 +295,7 @@ export default function CreateAssessmentPage() {
                 </div>
                 
                 <div>
-                  <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label htmlFor="description" className="block text-sm font-medium text-grey-700 mb-1">
                     Description <span className="text-red-500">*</span>
                   </label>
                   <textarea
@@ -306,7 +306,7 @@ export default function CreateAssessmentPage() {
                     placeholder="Provide a description of the assessment"
                     rows={4}
                     className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                      validationErrors.description ? 'border-red-500' : 'border-gray-300'
+                      validationErrors.description ? 'border-red-500' : 'border-grey-300'
                     }`}
                   />
                   {validationErrors.description && (
@@ -316,7 +316,7 @@ export default function CreateAssessmentPage() {
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="type" className="block text-sm font-medium text-gray-700 mb-1">
+                    <label htmlFor="type" className="block text-sm font-medium text-grey-700 mb-1">
                       Assessment Type <span className="text-red-500">*</span>
                     </label>
                     <select
@@ -325,7 +325,7 @@ export default function CreateAssessmentPage() {
                       value={assessmentData.type}
                       onChange={handleInputChange}
                       className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                        validationErrors.type ? 'border-red-500' : 'border-gray-300'
+                        validationErrors.type ? 'border-red-500' : 'border-grey-300'
                       }`}
                     >
                       <option value="">Select an assessment type</option>
@@ -337,14 +337,14 @@ export default function CreateAssessmentPage() {
                       <p className="mt-1 text-sm text-red-600">{validationErrors.type}</p>
                     )}
                     {assessmentData.type && (
-                      <p className="mt-1 text-sm text-gray-500">
+                      <p className="mt-1 text-sm text-grey-500">
                         {assessmentTypes.find(t => t.id === assessmentData.type)?.description}
                       </p>
                     )}
                   </div>
                   
                   <div>
-                    <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1">
+                    <label htmlFor="subject" className="block text-sm font-medium text-grey-700 mb-1">
                       Subject <span className="text-red-500">*</span>
                     </label>
                     <select
@@ -353,7 +353,7 @@ export default function CreateAssessmentPage() {
                       value={assessmentData.subject}
                       onChange={handleInputChange}
                       className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                        validationErrors.subject ? 'border-red-500' : 'border-gray-300'
+                        validationErrors.subject ? 'border-red-500' : 'border-grey-300'
                       }`}
                     >
                       <option value="">Select a subject</option>
@@ -367,7 +367,7 @@ export default function CreateAssessmentPage() {
                   </div>
                   
                   <div>
-                    <label htmlFor="keyStage" className="block text-sm font-medium text-gray-700 mb-1">
+                    <label htmlFor="keyStage" className="block text-sm font-medium text-grey-700 mb-1">
                       Key Stage <span className="text-red-500">*</span>
                     </label>
                     <select
@@ -376,7 +376,7 @@ export default function CreateAssessmentPage() {
                       value={assessmentData.keyStage}
                       onChange={handleInputChange}
                       className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                        validationErrors.keyStage ? 'border-red-500' : 'border-gray-300'
+                        validationErrors.keyStage ? 'border-red-500' : 'border-grey-300'
                       }`}
                     >
                       <option value="">Select a key stage</option>
@@ -395,7 +395,7 @@ export default function CreateAssessmentPage() {
             {activeTab === 'settings' && (
               <div className="space-y-6">
                 <div>
-                  <label htmlFor="timeLimit" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label htmlFor="timeLimit" className="block text-sm font-medium text-grey-700 mb-1">
                     Time Limit (minutes, 0 for no limit)
                   </label>
                   <Input
@@ -410,7 +410,7 @@ export default function CreateAssessmentPage() {
                 </div>
                 
                 <div>
-                  <label htmlFor="passingScore" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label htmlFor="passingScore" className="block text-sm font-medium text-grey-700 mb-1">
                     Passing Score (%)
                   </label>
                   <Input
@@ -426,7 +426,7 @@ export default function CreateAssessmentPage() {
                 </div>
                 
                 <div className="space-y-4">
-                  <div className="flex items-center">
+                  <div className="flex items-centre">
                     <input
                       id="showResults"
                       name="showResults"
@@ -436,14 +436,14 @@ export default function CreateAssessmentPage() {
                         ...assessmentData,
                         showResults: e.target.checked,
                       })}
-                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-grey-300 rounded"
                     />
-                    <label htmlFor="showResults" className="ml-2 block text-sm text-gray-700">
+                    <label htmlFor="showResults" className="ml-2 block text-sm text-grey-700">
                       Show results to students immediately
                     </label>
                   </div>
                   
-                  <div className="flex items-center">
+                  <div className="flex items-centre">
                     <input
                       id="randomizeQuestions"
                       name="randomizeQuestions"
@@ -453,14 +453,14 @@ export default function CreateAssessmentPage() {
                         ...assessmentData,
                         randomizeQuestions: e.target.checked,
                       })}
-                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-grey-300 rounded"
                     />
-                    <label htmlFor="randomizeQuestions" className="ml-2 block text-sm text-gray-700">
+                    <label htmlFor="randomizeQuestions" className="ml-2 block text-sm text-grey-700">
                       Randomize question order
                     </label>
                   </div>
                   
-                  <div className="flex items-center">
+                  <div className="flex items-centre">
                     <input
                       id="allowRetakes"
                       name="allowRetakes"
@@ -470,9 +470,9 @@ export default function CreateAssessmentPage() {
                         ...assessmentData,
                         allowRetakes: e.target.checked,
                       })}
-                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-grey-300 rounded"
                     />
-                    <label htmlFor="allowRetakes" className="ml-2 block text-sm text-gray-700">
+                    <label htmlFor="allowRetakes" className="ml-2 block text-sm text-grey-700">
                       Allow students to retake assessment
                     </label>
                   </div>
@@ -518,7 +518,7 @@ export default function CreateAssessmentPage() {
         title="Generate Assessment with AI"
       >
         <div className="space-y-4">
-          <p className="text-gray-700">
+          <p className="text-grey-700">
             Describe the assessment you want to create, and our AI will generate a starting point for you.
             Be specific about the subject, key stage, and type of assessment you need.
           </p>
@@ -530,7 +530,7 @@ export default function CreateAssessmentPage() {
           )}
           
           <div>
-            <label htmlFor="aiPrompt" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="aiPrompt" className="block text-sm font-medium text-grey-700 mb-1">
               Your Description
             </label>
             <textarea
@@ -539,7 +539,7 @@ export default function CreateAssessmentPage() {
               onChange={(e) => setAiPrompt(e.target.value)}
               placeholder="E.g., Create a Year 6 Mathematics quiz about fractions and decimals for Key Stage 2 students"
               rows={4}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
           

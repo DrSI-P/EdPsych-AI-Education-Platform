@@ -575,8 +575,8 @@ export default function ProgressMonitoringEngine({
   return (
     <Card className={className}>
       <CardHeader>
-        <CardTitle className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
+        <CardTitle className="flex items-centre justify-between">
+          <div className="flex items-centre gap-2">
             <BarChart3 className="h-5 w-5" />
             Progress Monitoring
           </div>
@@ -647,7 +647,7 @@ export default function ProgressMonitoringEngine({
                 </p>
               </div>
               
-              <div className="flex items-center justify-between">
+              <div className="flex items-centre justify-between">
                 <div className="space-y-0.5">
                   <Label htmlFor="automatic-reminders">Automatic Reminders</Label>
                   <p className="text-xs text-muted-foreground">
@@ -663,15 +663,15 @@ export default function ProgressMonitoringEngine({
                 />
               </div>
               
-              <div className="flex items-center justify-between">
+              <div className="flex items-centre justify-between">
                 <div className="space-y-0.5">
-                  <Label htmlFor="data-visualization">Data Visualization</Label>
+                  <Label htmlFor="data-visualisation">Data Visualisation</Label>
                   <p className="text-xs text-muted-foreground">
                     Show charts and graphs of progress data
                   </p>
                 </div>
                 <Switch 
-                  id="data-visualization"
+                  id="data-visualisation"
                   checked={settings.dataVisualization}
                   onCheckedChange={(checked) => 
                     handleSettingsChange('dataVisualization', checked)
@@ -679,7 +679,7 @@ export default function ProgressMonitoringEngine({
                 />
               </div>
               
-              <div className="flex items-center justify-between">
+              <div className="flex items-centre justify-between">
                 <div className="space-y-0.5">
                   <Label htmlFor="progress-reports">Progress Reports</Label>
                   <p className="text-xs text-muted-foreground">
@@ -695,7 +695,7 @@ export default function ProgressMonitoringEngine({
                 />
               </div>
               
-              <div className="flex items-center justify-between">
+              <div className="flex items-centre justify-between">
                 <div className="space-y-0.5">
                   <Label htmlFor="goal-tracking">Goal Tracking</Label>
                   <p className="text-xs text-muted-foreground">
@@ -908,7 +908,7 @@ export default function ProgressMonitoringEngine({
               </div>
             ) : (
               <div className="space-y-4">
-                <div className="p-8 text-center">
+                <div className="p-8 text-centre">
                   <Target className="mx-auto h-12 w-12 text-muted-foreground" />
                   <h3 className="mt-4 text-lg font-medium">No Goals Yet</h3>
                   <p className="mt-2 text-sm text-muted-foreground">
@@ -1084,7 +1084,7 @@ export default function ProgressMonitoringEngine({
                       </ResponsiveContainer>
                     </div>
                   ) : dataPoints.length === 0 ? (
-                    <div className="p-8 text-center bg-muted rounded-md">
+                    <div className="p-8 text-centre bg-muted rounded-md">
                       <BarChart3 className="mx-auto h-12 w-12 text-muted-foreground" />
                       <h3 className="mt-4 text-lg font-medium">No Data Points Yet</h3>
                       <p className="mt-2 text-sm text-muted-foreground">
@@ -1180,7 +1180,7 @@ export default function ProgressMonitoringEngine({
                 </div>
               </div>
             ) : (
-              <div className="p-8 text-center">
+              <div className="p-8 text-centre">
                 <Target className="mx-auto h-12 w-12 text-muted-foreground" />
                 <h3 className="mt-4 text-lg font-medium">No Goal Selected</h3>
                 <p className="mt-2 text-sm text-muted-foreground">
@@ -1203,7 +1203,7 @@ export default function ProgressMonitoringEngine({
         <Button 
           variant="outline" 
           onClick={handleResetSettings}
-          className="flex items-center gap-2"
+          className="flex items-centre gap-2"
         >
           <RefreshCw className="h-4 w-4" />
           Reset
@@ -1211,7 +1211,7 @@ export default function ProgressMonitoringEngine({
         
         <Button 
           onClick={handleApplySettings}
-          className="flex items-center gap-2"
+          className="flex items-centre gap-2"
         >
           <Check className="h-4 w-4" />
           {isApplied ? "Update Settings" : "Apply Settings"}

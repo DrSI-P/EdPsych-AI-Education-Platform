@@ -7,7 +7,7 @@ This document verifies that the AI Avatar Script and all related platform docume
 
 The following UK-specific spelling and terminology standards have been applied throughout all documentation:
 
-- **UK Spelling Conventions**: All content uses British English spelling (e.g., "personalised" not "personalized", "behaviour" not "behavior", "organisation" not "organization")
+- **UK Spelling Conventions**: All content uses British English spelling (e.g., "personalised" not "personalized", "behaviour" not "behaviour", "organisation" not "organisation")
 - **Educational Terminology**: Terms align with UK educational vocabulary (e.g., "Year 5" not "5th Grade", "SEND" not "Special Ed", "marking" not "grading")
 - **Qualification References**: References to educational qualifications use UK frameworks (GCSEs, A-Levels, etc.)
 - **School Structure References**: Content reflects UK school structures (primary/secondary, Key Stages, etc.)
@@ -22,9 +22,9 @@ The platform content and features align with the following DFE curriculum framew
 - Assessment approaches align with national curriculum assessment principles
 - Subject-specific content reflects current DFE curriculum guidance
 
-### SEND Code of Practice Alignment
+### SEND Code of Practise Alignment
 - Platform features support the graduated approach (Assess, Plan, Do, Review)
-- Content accommodates needs across all four areas of SEND as defined in the Code of Practice:
+- Content accommodates needs across all four areas of SEND as defined in the Code of Practise:
   - Communication and interaction
   - Cognition and learning
   - Social, emotional and mental health
@@ -39,9 +39,9 @@ The platform content and features align with the following DFE curriculum framew
 
 ## Educational Psychology Principles Alignment
 
-The platform incorporates educational psychology principles recognized and endorsed within UK educational contexts:
+The platform incorporates educational psychology principles recognised and endorsed within UK educational contexts:
 
-- **Evidence-Based Approaches**: All features are grounded in research recognized by UK educational psychology practice
+- **Evidence-Based Approaches**: All features are grounded in research recognised by UK educational psychology practise
 - **Inclusive Education**: Content supports the UK's commitment to inclusive educational practices
 - **Restorative Approaches**: Behaviour management features align with UK-endorsed restorative practices
 - **Metacognitive Development**: Learning approaches support metacognitive skill development as emphasized in UK educational guidance
@@ -61,7 +61,7 @@ All content has undergone the following verification process:
 
 1. Comprehensive review against UK spelling and terminology standards
 2. Cross-reference with current DFE curriculum guidance documents
-3. Evaluation against SEND Code of Practice requirements
+3. Evaluation against SEND Code of Practise requirements
 4. Assessment of cultural relevance and inclusivity for UK contexts
 5. Review by educational professionals familiar with UK educational standards
 

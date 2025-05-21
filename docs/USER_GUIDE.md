@@ -58,12 +58,12 @@ The Student Dashboard is your central hub for all learning activities:
 - **Achievements**: View badges and rewards you've earned
 - **Notifications**: Stay updated on important information
 
-### Customizing Your Dashboard
+### Customising Your Dashboard
 
-1. Click the "Customize" button in the top-right corner
+1. Click the "Customise" button in the top-right corner
 2. Drag and drop widgets to rearrange them
 3. Add or remove widgets based on your preferences
-4. Change the color theme and layout
+4. Change the colour theme and layout
 5. Save your changes
 
 ## Personalized Learning Pathways
@@ -245,12 +245,12 @@ If you have multiple children using the platform:
 
 ## Educator Dashboard
 
-Teachers and educational professionals have specialized tools:
+Teachers and educational professionals have specialised tools:
 
 ### Class Management
 
 - Create and manage virtual classrooms
-- Add students and organize them into groups
+- Add students and organise them into groups
 - Assign learning pathways and modules
 - Monitor class-wide progress
 - Identify students who may need additional support
@@ -261,7 +261,7 @@ Teachers and educational professionals have specialized tools:
 2. Modify content to suit your teaching approach
 3. Add supplementary materials and resources
 4. Create custom assessments
-5. Share your customized content with colleagues
+5. Share your customised content with colleagues
 
 ### Analytics and Reporting
 
@@ -282,7 +282,7 @@ Create personalized educational videos with AI avatars:
 3. Select an avatar character
 4. Choose a background setting
 5. Enter your script or select from templates
-6. Customize voice, tone, and pacing
+6. Customise voice, tone, and pacing
 7. Preview and generate the final video
 
 ### Using Avatar Videos
@@ -299,7 +299,7 @@ Access your created videos in the Video Library:
 1. Go to "AI Avatar Videos" > "My Library"
 2. Browse, search, or filter your videos
 3. Play, share, edit, or delete videos
-4. Organize videos into collections
+4. Organise videos into collections
 
 ## Frequently Asked Questions
 

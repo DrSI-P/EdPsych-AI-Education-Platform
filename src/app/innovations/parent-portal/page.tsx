@@ -52,7 +52,7 @@ interface ChildProfile {
 interface ActivityUpdate {
   id: string;
   childId: string;
-  type: 'achievement' | 'assessment' | 'behavior' | 'attendance' | 'homework';
+  type: 'achievement' | 'assessment' | 'behaviour' | 'attendance' | 'homework';
   title: string;
   description: string;
   date: string;
@@ -176,8 +176,8 @@ export default function ParentPortalPage() {
     {
       id: 'act4',
       childId: 'child2',
-      type: 'behavior',
-      title: 'Positive Behavior Note',
+      type: 'behaviour',
+      title: 'Positive Behaviour Note',
       description: 'James helped a classmate who was struggling with their work.',
       date: '2025-05-17',
       status: 'positive',
@@ -315,7 +315,7 @@ export default function ParentPortalPage() {
       id: 'hw6',
       childId: 'child2',
       subject: 'Mathematics',
-      title: 'Algebra Practice',
+      title: 'Algebra Practise',
       description: 'Complete exercises 5-10 on page 78 of the textbook.',
       dueDate: '2025-05-18',
       status: 'late'
@@ -419,7 +419,7 @@ export default function ParentPortalPage() {
     return homeworkItems.filter(item => item.childId === selectedChildId);
   };
   
-  // Get status color
+  // Get status colour
   const getStatusColor = (status: string) => {
     switch(status) {
       case 'positive':
@@ -431,7 +431,7 @@ export default function ParentPortalPage() {
     }
   };
   
-  // Get homework status color and icon
+  // Get homework status colour and icon
   const getHomeworkStatusInfo = (status: string) => {
     switch(status) {
       case 'not-started':
@@ -511,7 +511,7 @@ export default function ParentPortalPage() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-center mb-12"
+        className="text-centre mb-12"
       >
         <h1 className="text-4xl font-bold tracking-tight">Parent Portal</h1>
         <p className="mt-4 text-xl text-muted-foreground max-w-3xl mx-auto">
@@ -533,7 +533,7 @@ export default function ParentPortalPage() {
                 <h2 className="text-xl font-semibold mb-4">Parent Dashboard</h2>
                 
                 <div className="space-y-4">
-                  <div className="flex justify-between items-center">
+                  <div className="flex justify-between items-centre">
                     <h3 className="font-medium">Your Children</h3>
                     <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
                       <PlusCircle className="h-4 w-4" />
@@ -544,7 +544,7 @@ export default function ParentPortalPage() {
                     {children.map((child) => (
                       <div 
                         key={child.id}
-                        className={`p-3 rounded-lg cursor-pointer flex items-center ${
+                        className={`p-3 rounded-lg cursor-pointer flex items-centre ${
                           selectedChildId === child.id ? 'bg-primary/10' : 'hover:bg-muted'
                         }`}
                         onClick={() => setSelectedChildId(child.id)}
@@ -638,7 +638,7 @@ export default function ParentPortalPage() {
                 <CardContent>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="p-4 bg-primary/10 rounded-lg">
-                      <div className="flex items-center mb-2">
+                      <div className="flex items-centre mb-2">
                         <Award className="h-5 w-5 mr-2 text-primary" />
                         <h3 className="font-medium">Achievements</h3>
                       </div>
@@ -652,7 +652,7 @@ export default function ParentPortalPage() {
                     </div>
                     
                     <div className="p-4 bg-primary/10 rounded-lg">
-                      <div className="flex items-center mb-2">
+                      <div className="flex items-centre mb-2">
                         <FileText className="h-5 w-5 mr-2 text-primary" />
                         <h3 className="font-medium">Homework</h3>
                       </div>
@@ -666,7 +666,7 @@ export default function ParentPortalPage() {
                     </div>
                     
                     <div className="p-4 bg-primary/10 rounded-lg">
-                      <div className="flex items-center mb-2">
+                      <div className="flex items-centre mb-2">
                         <Calendar className="h-5 w-5 mr-2 text-primary" />
                         <h3 className="font-medium">Upcoming</h3>
                       </div>
@@ -683,7 +683,7 @@ export default function ParentPortalPage() {
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <Card>
-                  <CardHeader className="flex flex-row items-center justify-between">
+                  <CardHeader className="flex flex-row items-centre justify-between">
                     <CardTitle>Recent Activity</CardTitle>
                     <Tabs 
                       value={notificationFilter} 
@@ -695,7 +695,7 @@ export default function ParentPortalPage() {
                         <TabsTrigger value="achievement">Awards</TabsTrigger>
                         <TabsTrigger value="assessment">Tests</TabsTrigger>
                         <TabsTrigger value="homework">Homework</TabsTrigger>
-                        <TabsTrigger value="behavior">Behavior</TabsTrigger>
+                        <TabsTrigger value="behaviour">Behaviour</TabsTrigger>
                       </TabsList>
                     </Tabs>
                   </CardHeader>
@@ -706,7 +706,7 @@ export default function ParentPortalPage() {
                           <div className={`mt-0.5 ${getStatusColor(update.status || 'neutral')}`}>
                             {update.type === 'achievement' && <Award className="h-5 w-5" />}
                             {update.type === 'assessment' && <FileText className="h-5 w-5" />}
-                            {update.type === 'behavior' && <User className="h-5 w-5" />}
+                            {update.type === 'behaviour' && <User className="h-5 w-5" />}
                             {update.type === 'attendance' && <Clock className="h-5 w-5" />}
                             {update.type === 'homework' && <BookOpen className="h-5 w-5" />}
                           </div>
@@ -737,7 +737,7 @@ export default function ParentPortalPage() {
                       ))}
                       
                       {getFilteredActivityUpdates().length === 0 && (
-                        <div className="text-center py-6">
+                        <div className="text-centre py-6">
                           <p className="text-muted-foreground">No activities found</p>
                         </div>
                       )}
@@ -762,7 +762,7 @@ export default function ParentPortalPage() {
                             <h4 className="font-medium">{event.title}</h4>
                             {getEventTypeBadge(event.type)}
                           </div>
-                          <div className="mt-2 flex items-center text-sm text-muted-foreground">
+                          <div className="mt-2 flex items-centre text-sm text-muted-foreground">
                             <Calendar className="h-4 w-4 mr-1" />
                             <span>{event.date} • {event.time}</span>
                           </div>
@@ -774,7 +774,7 @@ export default function ParentPortalPage() {
                       ))}
                       
                       {getChildEvents().length === 0 && (
-                        <div className="text-center py-6">
+                        <div className="text-centre py-6">
                           <p className="text-muted-foreground">No upcoming events</p>
                         </div>
                       )}
@@ -803,13 +803,13 @@ export default function ParentPortalPage() {
                               <h4 className="font-medium">{item.title}</h4>
                               <p className="text-sm text-muted-foreground">{item.subject}</p>
                             </div>
-                            <div className={`flex items-center ${statusInfo.color}`}>
+                            <div className={`flex items-centre ${statusInfo.colour}`}>
                               {statusInfo.icon}
                               <span className="ml-1 text-sm capitalize">{item.status.replace('-', ' ')}</span>
                             </div>
                           </div>
                           <p className="mt-2 text-sm">{item.description}</p>
-                          <div className="mt-3 flex justify-between items-center">
+                          <div className="mt-3 flex justify-between items-centre">
                             <p className="text-sm text-muted-foreground">Due: {item.dueDate}</p>
                             {item.status === 'not-started' || item.status === 'in-progress' ? (
                               <Button size="sm">
@@ -822,7 +822,7 @@ export default function ParentPortalPage() {
                     })}
                     
                     {getChildHomework().length === 0 && (
-                      <div className="text-center py-6">
+                      <div className="text-centre py-6">
                         <p className="text-muted-foreground">No homework assigned</p>
                       </div>
                     )}
@@ -865,8 +865,8 @@ export default function ParentPortalPage() {
                         }`}
                         onClick={() => setSelectedThreadId(thread.id)}
                       >
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center">
+                        <div className="flex items-centre justify-between">
+                          <div className="flex items-centre">
                             <div className="mr-3 text-2xl">{thread.avatar}</div>
                             <div>
                               <h4 className="font-medium">{thread.with}</h4>
@@ -887,7 +887,7 @@ export default function ParentPortalPage() {
                 {/* Message Thread */}
                 {selectedThreadId ? (
                   <div className="flex flex-col h-full">
-                    <div className="p-4 border-b flex items-center">
+                    <div className="p-4 border-b flex items-centre">
                       <div className="mr-3 text-2xl">{getSelectedThread()?.avatar}</div>
                       <div>
                         <h3 className="font-medium">{getSelectedThread()?.with}</h3>
@@ -923,8 +923,8 @@ export default function ParentPortalPage() {
                     </div>
                   </div>
                 ) : (
-                  <div className="flex items-center justify-center h-full">
-                    <div className="text-center">
+                  <div className="flex items-centre justify-centre h-full">
+                    <div className="text-centre">
                       <MessageSquare className="h-12 w-12 mx-auto text-muted-foreground" />
                       <h3 className="mt-4 text-lg font-medium">Select a conversation</h3>
                       <p className="mt-2 text-sm text-muted-foreground">
@@ -976,7 +976,7 @@ export default function ParentPortalPage() {
                   <h3 className="text-lg font-medium">Notification Preferences</h3>
                   
                   <div className="space-y-3">
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-centre justify-between">
                       <div>
                         <p className="font-medium">Email Notifications</p>
                         <p className="text-sm text-muted-foreground">Receive updates via email</p>
@@ -984,7 +984,7 @@ export default function ParentPortalPage() {
                       <Switch defaultChecked />
                     </div>
                     
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-centre justify-between">
                       <div>
                         <p className="font-medium">SMS Notifications</p>
                         <p className="text-sm text-muted-foreground">Receive urgent updates via SMS</p>
@@ -992,7 +992,7 @@ export default function ParentPortalPage() {
                       <Switch defaultChecked />
                     </div>
                     
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-centre justify-between">
                       <div>
                         <p className="font-medium">In-App Notifications</p>
                         <p className="text-sm text-muted-foreground">Receive notifications within the app</p>

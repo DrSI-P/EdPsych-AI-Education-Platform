@@ -222,14 +222,14 @@ export default function LearningDifferencesAccommodation() {
             <CardHeader>
               <CardTitle>Learning Difference Accommodations</CardTitle>
               <CardDescription>
-                Customize your learning experience based on your specific needs.
+                Customise your learning experience based on your specific needs.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="space-y-4">
                 <h3 className="text-lg font-medium">Learning Differences</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <Switch 
                       id="dyslexia" 
                       checked={settings.dyslexiaSupport}
@@ -237,7 +237,7 @@ export default function LearningDifferencesAccommodation() {
                     />
                     <Label htmlFor="dyslexia">Dyslexia Support</Label>
                   </div>
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <Switch 
                       id="dyscalculia" 
                       checked={settings.dyscalculiaSupport}
@@ -245,7 +245,7 @@ export default function LearningDifferencesAccommodation() {
                     />
                     <Label htmlFor="dyscalculia">Dyscalculia Support</Label>
                   </div>
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <Switch 
                       id="adhd" 
                       checked={settings.adhdSupport}
@@ -253,7 +253,7 @@ export default function LearningDifferencesAccommodation() {
                     />
                     <Label htmlFor="adhd">ADHD Support</Label>
                   </div>
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <Switch 
                       id="autism" 
                       checked={settings.autismSupport}
@@ -269,7 +269,7 @@ export default function LearningDifferencesAccommodation() {
               <div className="space-y-4">
                 <h3 className="text-lg font-medium">Accommodation Features</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <Switch 
                       id="text-to-speech" 
                       checked={settings.textToSpeech}
@@ -277,7 +277,7 @@ export default function LearningDifferencesAccommodation() {
                     />
                     <Label htmlFor="text-to-speech">Text-to-Speech</Label>
                   </div>
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <Switch 
                       id="font-adjustments" 
                       checked={settings.fontAdjustments}
@@ -285,15 +285,15 @@ export default function LearningDifferencesAccommodation() {
                     />
                     <Label htmlFor="font-adjustments">Font Adjustments</Label>
                   </div>
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <Switch 
-                      id="color-overlays" 
+                      id="colour-overlays" 
                       checked={settings.colorOverlays}
                       onCheckedChange={(checked) => handleSettingChange('colorOverlays', checked)}
                     />
-                    <Label htmlFor="color-overlays">Color Overlays</Label>
+                    <Label htmlFor="colour-overlays">Colour Overlays</Label>
                   </div>
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <Switch 
                       id="math-supports" 
                       checked={settings.mathSupports}
@@ -301,7 +301,7 @@ export default function LearningDifferencesAccommodation() {
                     />
                     <Label htmlFor="math-supports">Math Supports</Label>
                   </div>
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <Switch 
                       id="focus-tools" 
                       checked={settings.focusTools}
@@ -309,7 +309,7 @@ export default function LearningDifferencesAccommodation() {
                     />
                     <Label htmlFor="focus-tools">Focus Tools</Label>
                   </div>
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <Switch 
                       id="sensory-considerations" 
                       checked={settings.sensoryConsiderations}
@@ -334,15 +334,15 @@ export default function LearningDifferencesAccommodation() {
                       onValueChange={(value) => handleSettingChange('fontType', value)}
                       className="flex flex-col space-y-1"
                     >
-                      <div className="flex items-center space-x-2">
+                      <div className="flex items-centre space-x-2">
                         <RadioGroupItem value="standard" id="standard-font" />
                         <Label htmlFor="standard-font">Standard</Label>
                       </div>
-                      <div className="flex items-center space-x-2">
+                      <div className="flex items-centre space-x-2">
                         <RadioGroupItem value="dyslexic" id="dyslexic-font" />
                         <Label htmlFor="dyslexic-font">Dyslexia-Friendly</Label>
                       </div>
-                      <div className="flex items-center space-x-2">
+                      <div className="flex items-centre space-x-2">
                         <RadioGroupItem value="simplified" id="simplified-font" />
                         <Label htmlFor="simplified-font">Simplified</Label>
                       </div>
@@ -362,26 +362,26 @@ export default function LearningDifferencesAccommodation() {
                   </div>
                   
                   <div>
-                    <Label htmlFor="color-scheme" className="block mb-2">Color Scheme</Label>
+                    <Label htmlFor="colour-scheme" className="block mb-2">Colour Scheme</Label>
                     <RadioGroup 
-                      id="color-scheme" 
+                      id="colour-scheme" 
                       value={settings.colorScheme}
                       onValueChange={(value) => handleSettingChange('colorScheme', value)}
                       className="flex flex-col space-y-1"
                     >
-                      <div className="flex items-center space-x-2">
+                      <div className="flex items-centre space-x-2">
                         <RadioGroupItem value="standard" id="standard-colors" />
                         <Label htmlFor="standard-colors">Standard</Label>
                       </div>
-                      <div className="flex items-center space-x-2">
+                      <div className="flex items-centre space-x-2">
                         <RadioGroupItem value="high-contrast" id="high-contrast" />
                         <Label htmlFor="high-contrast">High Contrast</Label>
                       </div>
-                      <div className="flex items-center space-x-2">
+                      <div className="flex items-centre space-x-2">
                         <RadioGroupItem value="dark" id="dark-mode" />
                         <Label htmlFor="dark-mode">Dark Mode</Label>
                       </div>
-                      <div className="flex items-center space-x-2">
+                      <div className="flex items-centre space-x-2">
                         <RadioGroupItem value="pastel" id="pastel" />
                         <Label htmlFor="pastel">Pastel</Label>
                       </div>
@@ -423,7 +423,7 @@ export default function LearningDifferencesAccommodation() {
                   <AlertCircle className="h-4 w-4" />
                   <AlertTitle>Personalized Recommendations Available</AlertTitle>
                   <AlertDescription>
-                    We've analyzed your assessment results and have personalized recommendations ready.
+                    We've analysed your assessment results and have personalized recommendations ready.
                   </AlertDescription>
                 </Alert>
               </CardContent>
@@ -465,7 +465,7 @@ export default function LearningDifferencesAccommodation() {
                         <CardTitle className="text-base">Dyslexia Indicators</CardTitle>
                       </CardHeader>
                       <CardContent>
-                        <div className="h-2 w-full bg-gray-200 rounded-full">
+                        <div className="h-2 w-full bg-grey-200 rounded-full">
                           <div 
                             className="h-2 bg-blue-600 rounded-full" 
                             style={{ width: `${assessmentResults.dyslexia * 100}%` }}
@@ -483,7 +483,7 @@ export default function LearningDifferencesAccommodation() {
                         <CardTitle className="text-base">Dyscalculia Indicators</CardTitle>
                       </CardHeader>
                       <CardContent>
-                        <div className="h-2 w-full bg-gray-200 rounded-full">
+                        <div className="h-2 w-full bg-grey-200 rounded-full">
                           <div 
                             className="h-2 bg-blue-600 rounded-full" 
                             style={{ width: `${assessmentResults.dyscalculia * 100}%` }}
@@ -501,7 +501,7 @@ export default function LearningDifferencesAccommodation() {
                         <CardTitle className="text-base">ADHD Indicators</CardTitle>
                       </CardHeader>
                       <CardContent>
-                        <div className="h-2 w-full bg-gray-200 rounded-full">
+                        <div className="h-2 w-full bg-grey-200 rounded-full">
                           <div 
                             className="h-2 bg-blue-600 rounded-full" 
                             style={{ width: `${assessmentResults.adhd * 100}%` }}
@@ -519,7 +519,7 @@ export default function LearningDifferencesAccommodation() {
                         <CardTitle className="text-base">Autism Spectrum Indicators</CardTitle>
                       </CardHeader>
                       <CardContent>
-                        <div className="h-2 w-full bg-gray-200 rounded-full">
+                        <div className="h-2 w-full bg-grey-200 rounded-full">
                           <div 
                             className="h-2 bg-blue-600 rounded-full" 
                             style={{ width: `${assessmentResults.autism * 100}%` }}
@@ -563,7 +563,7 @@ export default function LearningDifferencesAccommodation() {
             <CardContent>
               <div 
                 className={`p-6 border rounded-md ${
-                  settings.colorScheme === 'dark' ? 'bg-gray-900 text-white' : 
+                  settings.colorScheme === 'dark' ? 'bg-grey-900 text-white' : 
                   settings.colorScheme === 'high-contrast' ? 'bg-black text-white' :
                   settings.colorScheme === 'pastel' ? 'bg-blue-50' : 'bg-white'
                 }`}
@@ -628,7 +628,7 @@ export default function LearningDifferencesAccommodation() {
                 <p>
                   Learning differences (also called learning disabilities or learning disorders) are
                   neurologically-based processing problems that can interfere with learning basic skills
-                  such as reading, writing, or math. They can also affect higher-level skills like organization,
+                  such as reading, writing, or math. They can also affect higher-level skills like organisation,
                   time planning, abstract reasoning, and attention.
                 </p>
               </div>
@@ -666,7 +666,7 @@ export default function LearningDifferencesAccommodation() {
                     </CardHeader>
                     <CardContent>
                       <p className="text-sm">
-                        Includes specialized fonts, text-to-speech, adjusted spacing, color overlays,
+                        Includes specialised fonts, text-to-speech, adjusted spacing, colour overlays,
                         and structured phonics-based approaches to reading.
                       </p>
                     </CardContent>
@@ -679,7 +679,7 @@ export default function LearningDifferencesAccommodation() {
                     <CardContent>
                       <p className="text-sm">
                         Provides visual representations of mathematical concepts, step-by-step breakdowns,
-                        concrete examples, and additional practice opportunities.
+                        concrete examples, and additional practise opportunities.
                       </p>
                     </CardContent>
                   </Card>
@@ -691,7 +691,7 @@ export default function LearningDifferencesAccommodation() {
                     <CardContent>
                       <p className="text-sm">
                         Offers focus tools, chunked content, frequent breaks, reduced distractions,
-                        and clear visual organization of information.
+                        and clear visual organisation of information.
                       </p>
                     </CardContent>
                   </Card>

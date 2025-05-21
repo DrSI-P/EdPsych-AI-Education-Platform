@@ -62,8 +62,8 @@ export async function POST(req: NextRequest) {
     
     // Create prompt for content transformation
     const prompt = `
-      Transform the following educational content to optimize it for different learning styles.
-      Create versions optimized for visual, auditory, kinesthetic, and reading/writing learning styles,
+      Transform the following educational content to optimise it for different learning styles.
+      Create versions optimised for visual, auditory, kinesthetic, and reading/writing learning styles,
       as well as a multimodal version that combines elements from all styles.
       
       Content Type: ${contentType}
@@ -77,7 +77,7 @@ export async function POST(req: NextRequest) {
       
       For each learning style, adapt the content while preserving the educational objectives:
       
-      1. Visual: Emphasize diagrams, charts, color-coding, spatial organization, and visual metaphors.
+      1. Visual: Emphasize diagrams, charts, colour-coding, spatial organisation, and visual metaphors.
       2. Auditory: Emphasize dialogue, discussion points, mnemonics, rhythm, and spoken explanations.
       3. Kinesthetic: Emphasize hands-on activities, physical movements, tactile examples, and experiential learning.
       4. Reading/Writing: Emphasize lists, definitions, structured text, note-taking opportunities, and written exercises.
@@ -92,11 +92,11 @@ export async function POST(req: NextRequest) {
       
       Format the response as JSON with the following structure:
       {
-        "visual": "content optimized for visual learners",
-        "auditory": "content optimized for auditory learners",
-        "kinesthetic": "content optimized for kinesthetic learners",
-        "readingWriting": "content optimized for reading/writing learners",
-        "multimodal": "content optimized for multimodal learning"
+        "visual": "content optimised for visual learners",
+        "auditory": "content optimised for auditory learners",
+        "kinesthetic": "content optimised for kinesthetic learners",
+        "readingWriting": "content optimised for reading/writing learners",
+        "multimodal": "content optimised for multimodal learning"
       }
     `;
     

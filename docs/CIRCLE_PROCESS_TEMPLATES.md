@@ -9,7 +9,7 @@ The Circle Process Templates feature provides educators with evidence-based tool
 - Multiple pre-defined templates for different purposes (community building, problem-solving, celebration, conflict resolution, academic)
 - Age-appropriate content for different educational stages (primary, secondary, all ages)
 - Detailed structure for each template including opening ceremonies, check-in questions, main activities, and closing ceremonies
-- Curated question banks organized by category and purpose
+- Curated question banks organised by category and purpose
 
 ### 2. Interactive Template Designer
 - Visual representation of circle structure and flow
@@ -26,16 +26,16 @@ The Circle Process Templates feature provides educators with evidence-based tool
 ### 4. Educational Resources
 - Comprehensive explanation of circle process principles and elements
 - Research evidence supporting restorative approaches
-- Training materials and practice scenarios
+- Training materials and practise scenarios
 - Visual guides and facilitator tips
 
 ## Evidence Base
-The Circle Process Templates feature is grounded in established restorative justice research and practice, including:
+The Circle Process Templates feature is grounded in established restorative justice research and practise, including:
 
 - **Social Discipline Window**: Incorporates the "with" approach (high support, high expectations) that characterizes restorative practices
 - **Indigenous Circle Traditions**: Honors the origins of circle processes in Indigenous practices while adapting them for educational settings
 - **Restorative Justice Research**: Draws on studies showing the effectiveness of circles for building community, addressing harm, and improving school climate
-- **UK Educational Context**: Aligned with UK educational standards and the SEND Code of Practice
+- **UK Educational Context**: Aligned with UK educational standards and the SEND Code of Practise
 
 ## Implementation Details
 
@@ -61,12 +61,12 @@ The Circle Process Templates feature is grounded in established restorative just
 
 ## Accessibility Considerations
 - All components are keyboard navigable
-- Color contrast meets WCAG standards
+- Colour contrast meets WCAG standards
 - Screen reader optimizations
 - Responsive design for all device sizes
 
 ## Future Enhancements
 - Template sharing between users
 - Analytics on circle effectiveness
-- Integration with behavior tracking and emotional regulation features
-- Additional specialized templates for specific educational contexts
+- Integration with behaviour tracking and emotional regulation features
+- Additional specialised templates for specific educational contexts

@@ -49,7 +49,7 @@ The implementation successfully integrates with the existing video scripts in th
 5. Parent Onboarding
 6. Student Onboarding
 
-## User Requirements Fulfillment
+## User Requirements Fulfilment
 
 | Requirement | Status | Implementation |
 |-------------|--------|----------------|

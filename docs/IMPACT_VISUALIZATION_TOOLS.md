@@ -1,8 +1,8 @@
-# Impact Visualization Tools
+# Impact Visualisation Tools
 
 ## Overview
 
-The Impact Visualization Tools provide a sophisticated system for measuring, analyzing, and visually representing the impact of student voice initiatives within educational settings. This feature enables students, educators, and administrators to track how student feedback and participation influence school policies, practices, and culture, creating a transparent feedback loop that demonstrates the value of student contributions.
+The Impact Visualisation Tools provide a sophisticated system for measuring, analysing, and visually representing the impact of student voice initiatives within educational settings. This feature enables students, educators, and administrators to track how student feedback and participation influence school policies, practices, and culture, creating a transparent feedback loop that demonstrates the value of student contributions.
 
 ## Key Features
 
@@ -12,10 +12,10 @@ The Impact Visualization Tools provide a sophisticated system for measuring, ana
 - **Customizable metrics**: Flexible framework for defining and measuring different types of impact
 - **Automated data processing**: Regular collection and processing of impact data with minimal manual intervention
 
-### Visualization Components
+### Visualisation Components
 - **Interactive dashboards**: Dynamic displays of key impact metrics with filtering and drill-down capabilities
 - **Progress trackers**: Visual representations of implementation status for student-initiated changes
-- **Comparative analysis**: Side-by-side visualization of before/after states to highlight changes
+- **Comparative analysis**: Side-by-side visualisation of before/after states to highlight changes
 - **Trend analysis**: Graphical representation of changes over time to identify patterns and progress
 
 ### Impact Categories
@@ -29,7 +29,7 @@ The Impact Visualization Tools provide a sophisticated system for measuring, ana
 
 ### User Interface
 - **Dashboard design**: Clean, intuitive layout with key metrics prominently displayed
-- **Visualization variety**: Multiple chart types (bar, line, pie, radar, etc.) for different data types
+- **Visualisation variety**: Multiple chart types (bar, line, pie, radar, etc.) for different data types
 - **Responsive layout**: Adaptable design for various device sizes and screen orientations
 - **Accessibility features**: High contrast options, screen reader compatibility, and keyboard navigation
 
@@ -41,9 +41,9 @@ The Impact Visualization Tools provide a sophisticated system for measuring, ana
 
 ### Customization Options
 - **School-specific metrics**: Ability to define custom impact categories relevant to specific contexts
-- **Visualization preferences**: User control over chart types, colors, and display options
+- **Visualisation preferences**: User control over chart types, colors, and display options
 - **Reporting templates**: Customizable templates for generating impact reports
-- **Goal setting**: Capability to set targets and visualize progress toward goals
+- **Goal setting**: Capability to set targets and visualise progress toward goals
 
 ## Educational Benefits
 
@@ -63,7 +63,7 @@ The Impact Visualization Tools provide a sophisticated system for measuring, ana
 - **Targeted interventions**: Identification of high-impact areas for focused improvement
 - **Progress monitoring**: Tracking of implementation and outcomes for accountability
 - **Success celebration**: Recognition and highlighting of positive changes
-- **Stakeholder communication**: Clear visualization of improvements for the wider community
+- **Stakeholder communication**: Clear visualisation of improvements for the wider community
 
 ## Implementation Guidelines
 
@@ -71,7 +71,7 @@ The Impact Visualization Tools provide a sophisticated system for measuring, ana
 - **Metric definition**: Collaborative process for determining what impacts to measure
 - **Baseline establishment**: Collection of initial data to serve as comparison points
 - **Integration configuration**: Connection with existing data sources and systems
-- **User training**: Guidance for interpreting and utilizing visualization tools
+- **User training**: Guidance for interpreting and utilizing visualisation tools
 
 ### Best Practices
 - **Regular updates**: Scheduled refreshes of data to maintain current visualizations
@@ -88,7 +88,7 @@ The Impact Visualization Tools provide a sophisticated system for measuring, ana
 ## Evaluation Framework
 
 ### Usability Metrics
-- **User engagement**: Tracking how frequently visualization tools are accessed and used
+- **User engagement**: Tracking how frequently visualisation tools are accessed and used
 - **Comprehension testing**: Assessment of how well users understand the visualizations
 - **Navigation efficiency**: Measurement of how easily users find relevant information
 - **User satisfaction**: Feedback on the utility and clarity of impact visualizations
@@ -97,11 +97,11 @@ The Impact Visualization Tools provide a sophisticated system for measuring, ana
 - **Decision influence**: Assessment of how visualizations inform school decisions
 - **Awareness increase**: Measurement of stakeholder awareness of student impact
 - **Participation motivation**: Evaluation of how impact visibility affects engagement
-- **Implementation acceleration**: Analysis of whether visualization speeds up change
+- **Implementation acceleration**: Analysis of whether visualisation speeds up change
 
 ### Continuous Improvement
 - **Feature enhancement**: Regular updates based on user feedback and needs
-- **Visualization refinement**: Ongoing improvement of clarity and effectiveness
+- **Visualisation refinement**: Ongoing improvement of clarity and effectiveness
 - **New metric development**: Addition of new impact categories as needed
 - **Integration expansion**: Increased connections with other data sources
 
@@ -121,23 +121,23 @@ The Impact Visualization Tools provide a sophisticated system for measuring, ana
 
 ### Educational Research
 - **Evidence collection**: Systematic documentation of student voice outcomes
-- **Practice improvement**: Identification of effective strategies for replication
+- **Practise improvement**: Identification of effective strategies for replication
 - **Knowledge contribution**: Addition to the field's understanding of student voice impact
 - **Methodology refinement**: Improvement of impact measurement approaches
 
 ## Future Enhancements
 
 ### Advanced Analytics
-- **Predictive modeling**: Forecasting potential impacts of proposed initiatives
+- **Predictive modelling**: Forecasting potential impacts of proposed initiatives
 - **Correlation analysis**: Identifying relationships between different types of impact
 - **Sentiment tracking**: Measuring changes in attitudes and perceptions over time
 - **Impact attribution**: More sophisticated analysis of cause-effect relationships
 
-### Expanded Visualization
-- **3D visualization**: More complex representation of multi-dimensional impact data
+### Expanded Visualisation
+- **3D visualisation**: More complex representation of multi-dimensional impact data
 - **Geographic mapping**: Spatial representation of impacts across school spaces
-- **Network analysis**: Visualization of how impacts spread through school community
-- **Augmented reality**: Immersive visualization experiences for deeper understanding
+- **Network analysis**: Visualisation of how impacts spread through school community
+- **Augmented reality**: Immersive visualisation experiences for deeper understanding
 
 ### Integration Opportunities
 - **External benchmarking**: Comparison with similar schools or national standards

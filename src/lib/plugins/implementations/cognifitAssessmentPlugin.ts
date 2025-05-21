@@ -398,7 +398,7 @@ class MockCognifitApiClient implements CognifitApiClient {
     };
   }): CognifitResult['recommendations'] {
     const recommendations: CognifitResult['recommendations'] = {
-      overall: 'Based on your assessment results, we recommend focusing on improving your cognitive skills through regular practice and targeted exercises.',
+      overall: 'Based on your assessment results, we recommend focusing on improving your cognitive skills through regular practise and targeted exercises.',
       byDomain: {},
       activities: [
         'Daily memory exercises',
@@ -418,13 +418,13 @@ class MockCognifitApiClient implements CognifitApiClient {
           recommendations.byDomain[domain] = `Your ${domain} skills are excellent. Continue challenging yourself with advanced exercises.`;
           break;
         case 'Above Average':
-          recommendations.byDomain[domain] = `Your ${domain} skills are strong. Regular practice will help maintain and further improve these abilities.`;
+          recommendations.byDomain[domain] = `Your ${domain} skills are strong. Regular practise will help maintain and further improve these abilities.`;
           break;
         case 'Average':
-          recommendations.byDomain[domain] = `Your ${domain} skills are at an average level. Consistent practice will help strengthen these abilities.`;
+          recommendations.byDomain[domain] = `Your ${domain} skills are at an average level. Consistent practise will help strengthen these abilities.`;
           break;
         case 'Below Average':
-          recommendations.byDomain[domain] = `Your ${domain} skills could benefit from targeted practice. We recommend focusing on exercises specifically designed to improve this area.`;
+          recommendations.byDomain[domain] = `Your ${domain} skills could benefit from targeted practise. We recommend focusing on exercises specifically designed to improve this area.`;
           break;
         case 'Low':
           recommendations.byDomain[domain] = `Your ${domain} skills need significant improvement. We recommend a structured program of daily exercises focused on this area.`;

@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
     
     // Create prompt for learning style analysis
     const prompt = `
-      Analyze the following learning style assessment answers and determine the primary and secondary learning styles.
+      Analyse the following learning style assessment answers and determine the primary and secondary learning styles.
       Provide detailed descriptions and personalized learning strategies for each style.
       
       The learning styles to consider are:
@@ -85,7 +85,7 @@ export async function POST(req: NextRequest) {
       results = JSON.parse(aiResponse.text);
     } catch (error) {
       console.error('Failed to parse AI response:', error);
-      return NextResponse.json({ error: 'Failed to analyze learning style' }, { status: 500 });
+      return NextResponse.json({ error: 'Failed to analyse learning style' }, { status: 500 });
     }
     
     // Save results to database

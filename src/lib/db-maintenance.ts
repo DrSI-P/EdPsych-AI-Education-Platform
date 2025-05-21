@@ -139,7 +139,7 @@ export async function checkDatabaseHealth(): Promise<DatabaseHealthCheckResult> 
     // Check query performance
     const queryTime = Date.now() - startTime;
     
-    // Simulate checking for slow queries (in a real implementation, this would analyze query logs)
+    // Simulate checking for slow queries (in a real implementation, this would analyse query logs)
     const slowQueries = 0;
     const averageResponseTimeMs = queryTime / 5; // Approximate based on operations performed
     
@@ -280,7 +280,7 @@ export interface DatabaseOptimizationResult {
   timestamp: string;
   operations?: {
     vacuum?: boolean;
-    analyze?: boolean;
+    analyse?: boolean;
     reindex?: boolean;
     cleanup?: boolean;
   };
@@ -296,18 +296,18 @@ export async function optimizeDatabase(): Promise<DatabaseOptimizationResult> {
   try {
     const operations = {
       vacuum: false,
-      analyze: false,
+      analyse: false,
       reindex: false,
       cleanup: false
     };
     
-    // For PostgreSQL, run VACUUM ANALYZE
+    // For PostgreSQL, run VACUUM Analyse
     try {
-      await prisma.$executeRawUnsafe('VACUUM ANALYZE');
+      await prisma.$executeRawUnsafe('VACUUM Analyse');
       operations.vacuum = true;
-      operations.analyze = true;
+      operations.analyse = true;
     } catch (error) {
-      console.error('VACUUM ANALYZE failed:', error);
+      console.error('VACUUM Analyse failed:', error);
       // Continue with other operations
     }
     
@@ -751,7 +751,7 @@ export async function collectDatabaseUsageStatistics(
   period: 'daily' | 'weekly' | 'monthly' = 'daily'
 ): Promise<DatabaseUsageStatistics> {
   try {
-    // In a real implementation, this would analyze database logs or metrics
+    // In a real implementation, this would analyse database logs or metrics
     // For this example, we'll return simulated statistics
     
     // Get date range based on period
@@ -929,7 +929,7 @@ export function getDatabaseMaintenanceSchedule(): DatabaseMaintenanceSchedule {
       day: 'Sunday',
       time: '03:00',
       tasks: [
-        'VACUUM ANALYZE',
+        'VACUUM Analyse',
         'Check data integrity',
         'Collect usage statistics'
       ]

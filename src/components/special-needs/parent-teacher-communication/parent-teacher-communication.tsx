@@ -178,7 +178,7 @@ const ParentTeacherCommunication = () => {
       recipient: "All Staff",
       recipientRole: "teacher",
       subject: "New emotional wellbeing resources available",
-      content: "Dear Staff,\n\nI'm pleased to announce that we've added several new resources to support student emotional wellbeing:\n\n1. The mindfulness corner in the library has been expanded with new books and guided practice cards\n2. Each classroom will receive a set of emotion regulation visual supports next week\n3. The staff resource drive now includes a folder of parent handouts on supporting emotional development at home\n4. We've scheduled additional training on trauma-informed practices for next month\n\nPlease take some time to explore these resources and consider how they might support your students. Dr. Martinez is available to help you implement any of these tools in your classroom.\n\nThank you for your continued dedication to our students' emotional wellbeing.\n\nBest regards,\nPrincipal Chen",
+      content: "Dear Staff,\n\nI'm pleased to announce that we've added several new resources to support student emotional wellbeing:\n\n1. The mindfulness corner in the library has been expanded with new books and guided practise cards\n2. Each classroom will receive a set of emotion regulation visual supports next week\n3. The staff resource drive now includes a folder of parent handouts on supporting emotional development at home\n4. We've scheduled additional training on trauma-informed practices for next month\n\nPlease take some time to explore these resources and consider how they might support your students. Dr. Martinez is available to help you implement any of these tools in your classroom.\n\nThank you for your continued dedication to our students' emotional wellbeing.\n\nBest regards,\nPrincipal Chen",
       date: "2025-05-12T09:30:00Z",
       emotionalFocus: "resources",
       priority: "normal",
@@ -342,7 +342,7 @@ const ParentTeacherCommunication = () => {
       student: "All Students",
       period: "Term 3 2025",
       emotionalFocus: "literacy",
-      content: "## Curriculum Focus\nThis document outlines our emotional literacy focus for Term 3, including learning objectives, key activities, and home connection opportunities.\n\n## Learning Objectives\nStudents will be able to:\n- Identify and name at least 15 distinct emotions\n- Recognize emotional cues in facial expressions, body language, and tone of voice\n- Express their own emotions using specific vocabulary\n- Identify emotions in literature and relate to character experiences\n- Understand how emotions influence behavior and decision-making\n\n## Weekly Focus\n### Week 1: Emotion Vocabulary Expansion\n- Introduction to emotion families (mad, sad, glad, scared)\n- Emotion intensity scales\n- Creating personal emotion dictionaries\n\n### Week 2: Emotional Body Awareness\n- Where do we feel emotions in our bodies?\n- Body mapping activities\n- Somatic awareness practices\n\n### Week 3: Emotions in Literature\n- Character emotion analysis\n- Perspective-taking exercises\n- Emotion prediction in stories\n\n### Week 4: Emotional Expression\n- Appropriate ways to express different emotions\n- Creative arts for emotional expression\n- Emotion communication role-plays\n\n## Assessment Approaches\n- Emotion vocabulary assessments\n- Observation of emotional identification in contexts\n- Self-reflection journals\n- Creative projects demonstrating understanding\n\n## Home Connection\nWeekly activities will be sent home to reinforce classroom learning. Parents are encouraged to use specific emotion vocabulary and discuss characters' feelings in books and media.",
+      content: "## Curriculum Focus\nThis document outlines our emotional literacy focus for Term 3, including learning objectives, key activities, and home connection opportunities.\n\n## Learning Objectives\nStudents will be able to:\n- Identify and name at least 15 distinct emotions\n- Recognise emotional cues in facial expressions, body language, and tone of voice\n- Express their own emotions using specific vocabulary\n- Identify emotions in literature and relate to character experiences\n- Understand how emotions influence behaviour and decision-making\n\n## Weekly Focus\n### Week 1: Emotion Vocabulary Expansion\n- Introduction to emotion families (mad, sad, glad, scared)\n- Emotion intensity scales\n- Creating personal emotion dictionaries\n\n### Week 2: Emotional Body Awareness\n- Where do we feel emotions in our bodies?\n- Body mapping activities\n- Somatic awareness practices\n\n### Week 3: Emotions in Literature\n- Character emotion analysis\n- Perspective-taking exercises\n- Emotion prediction in stories\n\n### Week 4: Emotional Expression\n- Appropriate ways to express different emotions\n- Creative arts for emotional expression\n- Emotion communication role-plays\n\n## Assessment Approaches\n- Emotion vocabulary assessments\n- Observation of emotional identification in contexts\n- Self-reflection journals\n- Creative projects demonstrating understanding\n\n## Home Connection\nWeekly activities will be sent home to reinforce classroom learning. Parents are encouraged to use specific emotion vocabulary and discuss characters' feelings in books and media.",
       hasAttachments: true,
       attachments: [
         {
@@ -387,7 +387,7 @@ const ParentTeacherCommunication = () => {
       student: "All Students",
       period: "Spring 2025",
       emotionalFocus: "general",
-      content: "## Survey Overview\nThis report summarizes the results of our Spring 2025 Emotional Wellbeing Survey, which was completed by 245 students across all year groups.\n\n## Key Findings\n\n### Emotional Awareness\n- 78% of students could identify their emotions using specific vocabulary\n- 65% reported understanding how emotions affect their behavior\n- 82% could recognize when they need emotional support\n\n### Regulation Strategies\n- Most commonly used strategies: deep breathing, taking a break, talking to someone\n- 70% of students reported having at least 3 effective regulation strategies\n- 58% felt confident in their ability to manage strong emotions\n\n### School Climate\n- 85% of students feel there is an adult at school they can talk to about feelings\n- 73% report feeling emotionally safe in their classroom\n- 62% feel comfortable expressing emotions at school\n\n### Areas for Growth\n- Managing emotions during peer conflicts (only 45% confidence)\n- Handling academic disappointment (53% confidence)\n- Expressing needs to adults (60% confidence)\n\n## Comparison to Previous Survey\n- 12% increase in emotional vocabulary\n- 8% increase in regulation strategy use\n- 15% increase in identifying trusted adults at school\n\n## Recommendations\n1. Continue focus on emotional vocabulary across curriculum\n2. Increase teaching of strategies for peer conflict resolution\n3. Develop additional supports for managing academic disappointment\n4. Enhance opportunities for student-teacher emotional check-ins\n\n## Next Steps\nThese results will inform our emotional wellbeing action plan for the coming term. Grade-level teams will receive specific data for their students to support targeted interventions.",
+      content: "## Survey Overview\nThis report summarizes the results of our Spring 2025 Emotional Wellbeing Survey, which was completed by 245 students across all year groups.\n\n## Key Findings\n\n### Emotional Awareness\n- 78% of students could identify their emotions using specific vocabulary\n- 65% reported understanding how emotions affect their behaviour\n- 82% could recognise when they need emotional support\n\n### Regulation Strategies\n- Most commonly used strategies: deep breathing, taking a break, talking to someone\n- 70% of students reported having at least 3 effective regulation strategies\n- 58% felt confident in their ability to manage strong emotions\n\n### School Climate\n- 85% of students feel there is an adult at school they can talk to about feelings\n- 73% report feeling emotionally safe in their classroom\n- 62% feel comfortable expressing emotions at school\n\n### Areas for Growth\n- Managing emotions during peer conflicts (only 45% confidence)\n- Handling academic disappointment (53% confidence)\n- Expressing needs to adults (60% confidence)\n\n## Comparison to Previous Survey\n- 12% increase in emotional vocabulary\n- 8% increase in regulation strategy use\n- 15% increase in identifying trusted adults at school\n\n## Recommendations\n1. Continue focus on emotional vocabulary across curriculum\n2. Increase teaching of strategies for peer conflict resolution\n3. Develop additional supports for managing academic disappointment\n4. Enhance opportunities for student-teacher emotional check-ins\n\n## Next Steps\nThese results will inform our emotional wellbeing action plan for the coming term. Grade-level teams will receive specific data for their students to support targeted interventions.",
       hasAttachments: true,
       attachments: [
         {
@@ -723,28 +723,28 @@ const ParentTeacherCommunication = () => {
     switch (priority) {
       case "high":
         return (
-          <Badge variant="destructive" className="flex items-center gap-1">
+          <Badge variant="destructive" className="flex items-centre gap-1">
             <AlertCircle className="h-3 w-3" />
             High Priority
           </Badge>
         );
       case "normal":
         return (
-          <Badge variant="secondary" className="flex items-center gap-1">
+          <Badge variant="secondary" className="flex items-centre gap-1">
             <Info className="h-3 w-3" />
             Normal
           </Badge>
         );
       case "low":
         return (
-          <Badge variant="outline" className="flex items-center gap-1">
+          <Badge variant="outline" className="flex items-centre gap-1">
             <Info className="h-3 w-3" />
             Low Priority
           </Badge>
         );
       default:
         return (
-          <Badge variant="secondary" className="flex items-center gap-1">
+          <Badge variant="secondary" className="flex items-centre gap-1">
             <Info className="h-3 w-3" />
             Normal
           </Badge>
@@ -756,37 +756,37 @@ const ParentTeacherCommunication = () => {
     switch (focus) {
       case "regulation":
         return (
-          <Badge variant="outline" className="bg-blue-50 text-blue-700 flex items-center gap-1">
+          <Badge variant="outline" className="bg-blue-50 text-blue-700 flex items-centre gap-1">
             Emotional Regulation
           </Badge>
         );
       case "anxiety":
         return (
-          <Badge variant="outline" className="bg-purple-50 text-purple-700 flex items-center gap-1">
+          <Badge variant="outline" className="bg-purple-50 text-purple-700 flex items-centre gap-1">
             Anxiety
           </Badge>
         );
       case "literacy":
         return (
-          <Badge variant="outline" className="bg-green-50 text-green-700 flex items-center gap-1">
+          <Badge variant="outline" className="bg-green-50 text-green-700 flex items-centre gap-1">
             Emotional Literacy
           </Badge>
         );
       case "transitions":
         return (
-          <Badge variant="outline" className="bg-amber-50 text-amber-700 flex items-center gap-1">
+          <Badge variant="outline" className="bg-amber-50 text-amber-700 flex items-centre gap-1">
             Transitions
           </Badge>
         );
       case "resources":
         return (
-          <Badge variant="outline" className="bg-indigo-50 text-indigo-700 flex items-center gap-1">
+          <Badge variant="outline" className="bg-indigo-50 text-indigo-700 flex items-centre gap-1">
             Resources
           </Badge>
         );
       default:
         return (
-          <Badge variant="outline" className="bg-gray-50 text-gray-700 flex items-center gap-1">
+          <Badge variant="outline" className="bg-grey-50 text-grey-700 flex items-centre gap-1">
             General
           </Badge>
         );
@@ -827,7 +827,7 @@ const ParentTeacherCommunication = () => {
         );
       default:
         return (
-          <Badge variant="outline" className="bg-gray-50 text-gray-700">
+          <Badge variant="outline" className="bg-grey-50 text-grey-700">
             {role}
           </Badge>
         );
@@ -866,35 +866,35 @@ const ParentTeacherCommunication = () => {
     switch (type) {
       case "progress":
         return (
-          <Badge variant="outline" className="bg-green-50 text-green-700 flex items-center gap-1">
+          <Badge variant="outline" className="bg-green-50 text-green-700 flex items-centre gap-1">
             <FileText className="h-3 w-3" />
             Progress Report
           </Badge>
         );
       case "plan":
         return (
-          <Badge variant="outline" className="bg-blue-50 text-blue-700 flex items-center gap-1">
+          <Badge variant="outline" className="bg-blue-50 text-blue-700 flex items-centre gap-1">
             <FileText className="h-3 w-3" />
             Support Plan
           </Badge>
         );
       case "curriculum":
         return (
-          <Badge variant="outline" className="bg-purple-50 text-purple-700 flex items-center gap-1">
+          <Badge variant="outline" className="bg-purple-50 text-purple-700 flex items-centre gap-1">
             <FileText className="h-3 w-3" />
             Curriculum
           </Badge>
         );
       case "survey":
         return (
-          <Badge variant="outline" className="bg-amber-50 text-amber-700 flex items-center gap-1">
+          <Badge variant="outline" className="bg-amber-50 text-amber-700 flex items-centre gap-1">
             <FileText className="h-3 w-3" />
             Survey Results
           </Badge>
         );
       default:
         return (
-          <Badge variant="outline" className="bg-gray-50 text-gray-700 flex items-center gap-1">
+          <Badge variant="outline" className="bg-grey-50 text-grey-700 flex items-centre gap-1">
             <FileText className="h-3 w-3" />
             Report
           </Badge>
@@ -920,7 +920,7 @@ const ParentTeacherCommunication = () => {
             </TabsList>
             
             {isLoading ? (
-              <div className="flex justify-center items-center py-12">
+              <div className="flex justify-centre items-centre py-12">
                 <p>Loading content...</p>
               </div>
             ) : (
@@ -1023,7 +1023,7 @@ const ParentTeacherCommunication = () => {
                       
                       <div className="space-y-2">
                         <Label>Attachments</Label>
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-centre gap-2">
                           <Button variant="outline" type="button">
                             <Plus className="mr-2 h-4 w-4" />
                             Add Attachment
@@ -1098,7 +1098,7 @@ const ParentTeacherCommunication = () => {
                       <CardHeader className="pb-2">
                         <div className="flex justify-between items-start">
                           <div>
-                            <div className="flex items-center gap-2">
+                            <div className="flex items-centre gap-2">
                               <CardTitle>{selectedMessage.subject}</CardTitle>
                               {getPriorityBadge(selectedMessage.priority)}
                             </div>
@@ -1140,8 +1140,8 @@ const ParentTeacherCommunication = () => {
                               <h3 className="text-sm font-medium">Attachments</h3>
                               <div className="space-y-2">
                                 {selectedMessage.attachments.map((attachment, index) => (
-                                  <div key={index} className="flex items-center justify-between rounded-md border p-2">
-                                    <div className="flex items-center gap-2">
+                                  <div key={index} className="flex items-centre justify-between rounded-md border p-2">
+                                    <div className="flex items-centre gap-2">
                                       <FileText className="h-4 w-4 text-muted-foreground" />
                                       <span>{attachment.name}</span>
                                       <Badge variant="outline" className="text-xs">{attachment.size}</Badge>
@@ -1178,7 +1178,7 @@ const ParentTeacherCommunication = () => {
                         >
                           <CardHeader className="pb-2">
                             <div className="flex justify-between items-start">
-                              <div className="flex items-center gap-2">
+                              <div className="flex items-centre gap-2">
                                 <CardTitle className="text-lg">{message.subject}</CardTitle>
                                 {!message.isRead && (
                                   <Badge variant="secondary" className="bg-primary text-primary-foreground">
@@ -1186,10 +1186,10 @@ const ParentTeacherCommunication = () => {
                                   </Badge>
                                 )}
                               </div>
-                              <div className="flex items-center gap-2">
+                              <div className="flex items-centre gap-2">
                                 {getPriorityBadge(message.priority)}
                                 {message.hasAttachments && (
-                                  <Badge variant="outline" className="flex items-center gap-1">
+                                  <Badge variant="outline" className="flex items-centre gap-1">
                                     <FileText className="h-3 w-3" />
                                     Attachment
                                   </Badge>
@@ -1216,7 +1216,7 @@ const ParentTeacherCommunication = () => {
                             <p className="line-clamp-2">{message.content}</p>
                           </CardContent>
                           <CardFooter>
-                            <div className="flex items-center justify-between w-full">
+                            <div className="flex items-centre justify-between w-full">
                               <div>
                                 {getEmotionalFocusBadge(message.emotionalFocus)}
                               </div>
@@ -1230,7 +1230,7 @@ const ParentTeacherCommunication = () => {
                       ))}
                       
                       {getFilteredMessages().length === 0 && (
-                        <div className="text-center py-12">
+                        <div className="text-centre py-12">
                           <p className="text-muted-foreground">
                             No messages found matching your filters. Try adjusting your search criteria or compose a new message.
                           </p>
@@ -1389,7 +1389,7 @@ const ParentTeacherCommunication = () => {
                         <Label>Participants</Label>
                         <div className="flex flex-wrap gap-2 mb-2">
                           {newMeeting.participants.map((participant, index) => (
-                            <Badge key={index} variant="secondary" className="flex items-center gap-1">
+                            <Badge key={index} variant="secondary" className="flex items-centre gap-1">
                               {participant}
                               <Button 
                                 variant="ghost" 
@@ -1480,7 +1480,7 @@ const ParentTeacherCommunication = () => {
                       <CardHeader className="pb-2">
                         <div className="flex justify-between items-start">
                           <div>
-                            <div className="flex items-center gap-2">
+                            <div className="flex items-centre gap-2">
                               <CardTitle>{selectedMeeting.title}</CardTitle>
                               <Badge variant="outline" className="bg-blue-50 text-blue-700">
                                 {selectedMeeting.status}
@@ -1505,7 +1505,7 @@ const ParentTeacherCommunication = () => {
                         <div className="space-y-4">
                           <div className="flex justify-between">
                             <div>
-                              <p className="text-sm text-muted-foreground">Organized by: <span className="font-medium text-foreground">{selectedMeeting.organizer}</span> {getRoleBadge(selectedMeeting.organizerRole)}</p>
+                              <p className="text-sm text-muted-foreground">Organised by: <span className="font-medium text-foreground">{selectedMeeting.organizer}</span> {getRoleBadge(selectedMeeting.organizerRole)}</p>
                             </div>
                             <div>
                               {getEmotionalFocusBadge(selectedMeeting.emotionalFocus)}
@@ -1571,13 +1571,13 @@ const ParentTeacherCommunication = () => {
                         >
                           <CardHeader className="pb-2">
                             <div className="flex justify-between items-start">
-                              <div className="flex items-center gap-2">
+                              <div className="flex items-centre gap-2">
                                 <CardTitle className="text-lg">{meeting.title}</CardTitle>
                                 <Badge variant="outline" className="bg-blue-50 text-blue-700">
                                   {meeting.status}
                                 </Badge>
                               </div>
-                              <div className="flex items-center gap-2">
+                              <div className="flex items-centre gap-2">
                                 {getEmotionalFocusBadge(meeting.emotionalFocus)}
                               </div>
                             </div>
@@ -1614,7 +1614,7 @@ const ParentTeacherCommunication = () => {
                             </div>
                           </CardContent>
                           <CardFooter>
-                            <div className="flex items-center justify-between w-full">
+                            <div className="flex items-centre justify-between w-full">
                               <Button variant="ghost" size="sm">
                                 <Calendar className="h-4 w-4 mr-1" />
                                 Add to Calendar
@@ -1629,7 +1629,7 @@ const ParentTeacherCommunication = () => {
                       ))}
                       
                       {getFilteredMeetings().length === 0 && (
-                        <div className="text-center py-12">
+                        <div className="text-centre py-12">
                           <p className="text-muted-foreground">
                             No meetings found matching your filters. Try adjusting your search criteria or schedule a new meeting.
                           </p>
@@ -1689,7 +1689,7 @@ const ParentTeacherCommunication = () => {
                           <CardHeader className="pb-2">
                             <div className="flex justify-between items-start">
                               <div>
-                                <div className="flex items-center gap-2">
+                                <div className="flex items-centre gap-2">
                                   <CardTitle>{selectedReport.title}</CardTitle>
                                   {getReportTypeBadge(selectedReport.type)}
                                 </div>
@@ -1732,8 +1732,8 @@ const ParentTeacherCommunication = () => {
                                   <h3 className="text-sm font-medium">Attachments</h3>
                                   <div className="space-y-2">
                                     {selectedReport.attachments.map((attachment, index) => (
-                                      <div key={index} className="flex items-center justify-between rounded-md border p-2">
-                                        <div className="flex items-center gap-2">
+                                      <div key={index} className="flex items-centre justify-between rounded-md border p-2">
+                                        <div className="flex items-centre gap-2">
                                           <FileText className="h-4 w-4 text-muted-foreground" />
                                           <span>{attachment.name}</span>
                                           <Badge variant="outline" className="text-xs">{attachment.size}</Badge>
@@ -1777,11 +1777,11 @@ const ParentTeacherCommunication = () => {
                             >
                               <CardHeader className="pb-2">
                                 <div className="flex justify-between items-start">
-                                  <div className="flex items-center gap-2">
+                                  <div className="flex items-centre gap-2">
                                     <CardTitle className="text-lg">{report.title}</CardTitle>
                                     {getReportTypeBadge(report.type)}
                                   </div>
-                                  <div className="flex items-center gap-2">
+                                  <div className="flex items-centre gap-2">
                                     {getEmotionalFocusBadge(report.emotionalFocus)}
                                   </div>
                                 </div>
@@ -1804,9 +1804,9 @@ const ParentTeacherCommunication = () => {
                                 <p className="line-clamp-2 text-sm">{report.content.substring(0, 200)}...</p>
                               </CardContent>
                               <CardFooter>
-                                <div className="flex items-center justify-between w-full">
+                                <div className="flex items-centre justify-between w-full">
                                   {report.hasAttachments && (
-                                    <Badge variant="outline" className="flex items-center gap-1">
+                                    <Badge variant="outline" className="flex items-centre gap-1">
                                       <FileText className="h-3 w-3" />
                                       {report.attachments.length} attachment{report.attachments.length !== 1 ? 's' : ''}
                                     </Badge>
@@ -1821,7 +1821,7 @@ const ParentTeacherCommunication = () => {
                           ))}
                           
                           {getFilteredReports().length === 0 && (
-                            <div className="text-center py-12">
+                            <div className="text-centre py-12">
                               <p className="text-muted-foreground">
                                 No reports found matching your filters. Try adjusting your search criteria.
                               </p>

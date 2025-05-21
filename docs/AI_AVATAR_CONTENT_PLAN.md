@@ -140,7 +140,7 @@ All content will adhere to the following standards:
 1. Complete full training series for all user types
 2. Develop comprehensive curriculum content for priority subjects
 3. Expand educational psychology concept library
-4. Create specialized content for diverse learning needs
+4. Create specialised content for diverse learning needs
 
 ## Measurement of Success
 

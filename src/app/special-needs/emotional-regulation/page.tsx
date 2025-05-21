@@ -33,7 +33,7 @@ export default function EmotionalRegulationPage() {
               <h3 className="text-xl font-semibold">What is Emotional Regulation?</h3>
               <p>
                 Emotional regulation refers to the ability to effectively manage and respond to emotional experiences. 
-                It involves recognizing emotions, understanding their intensity and impact, and developing strategies 
+                It involves recognising emotions, understanding their intensity and impact, and developing strategies 
                 to manage them appropriately. This skill is crucial for academic success, social relationships, and 
                 overall wellbeing.
               </p>
@@ -66,7 +66,7 @@ export default function EmotionalRegulationPage() {
               
               <h3 className="text-xl font-semibold mt-6">Features of Our Emotional Regulation Support</h3>
               <ul className="list-disc pl-6 space-y-2 mt-2">
-                <li><strong>Emotion Identification:</strong> Tools to help students recognize and name their emotions</li>
+                <li><strong>Emotion Identification:</strong> Tools to help students recognise and name their emotions</li>
                 <li><strong>Intensity Tracking:</strong> Visual scales to gauge emotion intensity</li>
                 <li><strong>Body Awareness:</strong> Activities to connect emotions with physical sensations</li>
                 <li><strong>Strategy Library:</strong> Evidence-based techniques for managing different emotions</li>
@@ -81,7 +81,7 @@ export default function EmotionalRegulationPage() {
               <ul className="list-disc pl-6 space-y-2 mt-2">
                 <li><strong>Proactive Support:</strong> Regular check-ins to build emotional vocabulary and awareness</li>
                 <li><strong>In-the-Moment Intervention:</strong> When a student is experiencing emotional challenges</li>
-                <li><strong>Reflective Practice:</strong> After emotional events to build understanding</li>
+                <li><strong>Reflective Practise:</strong> After emotional events to build understanding</li>
                 <li><strong>Skill Building:</strong> As part of a structured social-emotional learning curriculum</li>
               </ul>
             </CardContent>
@@ -126,7 +126,7 @@ export default function EmotionalRegulationPage() {
                   <h4 className="font-semibold">Zones of Regulation®</h4>
                   <p>
                     Our approach is influenced by the Zones of Regulation framework, a systematic, cognitive-behavioural 
-                    approach used to teach self-regulation by categorizing emotions into four colored zones.
+                    approach used to teach self-regulation by categorizing emotions into four coloured zones.
                   </p>
                 </div>
                 
@@ -183,14 +183,14 @@ export default function EmotionalRegulationPage() {
                   <strong>Department for Education's</strong> guidance on mental health and behaviour in schools
                 </li>
                 <li>
-                  <strong>SEND Code of Practice</strong> recommendations for supporting social, emotional and mental health needs
+                  <strong>SEND Code of Practise</strong> recommendations for supporting social, emotional and mental health needs
                 </li>
                 <li>
                   <strong>Ofsted's</strong> personal development framework, which emphasizes resilience and emotional wellbeing
                 </li>
               </ul>
               
-              <div className="bg-gray-100 p-4 rounded-md mt-6">
+              <div className="bg-grey-100 p-4 rounded-md mt-6">
                 <h3 className="text-lg font-semibold">References</h3>
                 <ul className="list-disc pl-6 space-y-2 mt-2 text-sm">
                   <li>Department for Education (2018). Mental health and behaviour in schools. London: DfE.</li>

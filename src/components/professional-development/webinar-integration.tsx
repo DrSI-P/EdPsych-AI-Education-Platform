@@ -19,14 +19,14 @@ import {
   Button 
 } from "@/components/ui/button";
 import {
-  Dialog,
+  Dialogue,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@/components/ui/dialogue";
 import {
   Form,
   FormControl,
@@ -85,7 +85,7 @@ const SAMPLE_UPCOMING_WEBINARS = [
     duration: 90, // minutes
     capacity: 100,
     registered: 78,
-    topics: ['Trauma-Informed Practice', 'Classroom Management', 'Student Wellbeing'],
+    topics: ['Trauma-Informed Practise', 'Classroom Management', 'Student Wellbeing'],
     level: 'Intermediate'
   },
   {
@@ -110,7 +110,7 @@ const SAMPLE_UPCOMING_WEBINARS = [
     description: 'Discover how to successfully implement and sustain restorative approaches in your educational setting.',
     presenter: {
       name: 'Dr. James Wilson',
-      role: 'Restorative Practice Consultant',
+      role: 'Restorative Practise Consultant',
       image: '/avatars/james-wilson.jpg'
     },
     date: new Date(2025, 6, 5, 14, 0), // July 5, 2025, 2:00 PM
@@ -277,12 +277,12 @@ export default function WebinarIntegration() {
   
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-centre mb-6 gap-4">
         <h1 className="text-3xl font-bold">Professional Development Webinars</h1>
         
-        <Dialog>
+        <Dialogue>
           <DialogTrigger asChild>
-            <Button className="flex items-center gap-2">
+            <Button className="flex items-centre gap-2">
               <Plus className="h-4 w-4" />
               Host a Webinar
             </Button>
@@ -397,7 +397,7 @@ export default function WebinarIntegration() {
               }}>Schedule Webinar</Button>
             </DialogFooter>
           </DialogContent>
-        </Dialog>
+        </Dialogue>
       </div>
       
       <div className="flex flex-col md:flex-row gap-4 mb-6">
@@ -419,7 +419,7 @@ export default function WebinarIntegration() {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="">All Topics</SelectItem>
-              <SelectItem value="trauma">Trauma-Informed Practice</SelectItem>
+              <SelectItem value="trauma">Trauma-Informed Practise</SelectItem>
               <SelectItem value="autism">Autism</SelectItem>
               <SelectItem value="restorative">Restorative Justice</SelectItem>
               <SelectItem value="voice">Student Voice</SelectItem>
@@ -469,7 +469,7 @@ export default function WebinarIntegration() {
                   </div>
                 </CardHeader>
                 <CardContent className="pb-3">
-                  <div className="flex items-center mb-4">
+                  <div className="flex items-centre mb-4">
                     <Avatar className="h-10 w-10 mr-3">
                       <AvatarImage src={webinar.presenter.image} alt={webinar.presenter.name} />
                       <AvatarFallback>{webinar.presenter.name.charAt(0)}</AvatarFallback>
@@ -488,12 +488,12 @@ export default function WebinarIntegration() {
                     ))}
                   </div>
                   
-                  <div className="flex items-center justify-between text-sm text-muted-foreground">
-                    <div className="flex items-center">
+                  <div className="flex items-centre justify-between text-sm text-muted-foreground">
+                    <div className="flex items-centre">
                       <Clock className="h-4 w-4 mr-1" />
                       <span>{webinar.duration} minutes</span>
                     </div>
-                    <div className="flex items-center">
+                    <div className="flex items-centre">
                       <Users className="h-4 w-4 mr-1" />
                       <span>{webinar.registered}/{webinar.capacity} registered</span>
                     </div>
@@ -532,7 +532,7 @@ export default function WebinarIntegration() {
                         {format(webinar.date, "EEEE, MMMM d, yyyy")} • {format(webinar.date, "h:mm a")}
                       </CardDescription>
                     </div>
-                    <div className="flex items-center">
+                    <div className="flex items-centre">
                       {[...Array(5)].map((_, i) => (
                         <Star 
                           key={i} 
@@ -544,7 +544,7 @@ export default function WebinarIntegration() {
                   </div>
                 </CardHeader>
                 <CardContent className="pb-3">
-                  <div className="flex items-center mb-4">
+                  <div className="flex items-centre mb-4">
                     <Avatar className="h-10 w-10 mr-3">
                       <AvatarImage src={webinar.presenter.image} alt={webinar.presenter.name} />
                       <AvatarFallback>{webinar.presenter.name.charAt(0)}</AvatarFallback>
@@ -563,12 +563,12 @@ export default function WebinarIntegration() {
                     ))}
                   </div>
                   
-                  <div className="flex items-center justify-between text-sm text-muted-foreground">
-                    <div className="flex items-center">
+                  <div className="flex items-centre justify-between text-sm text-muted-foreground">
+                    <div className="flex items-centre">
                       <Clock className="h-4 w-4 mr-1" />
                       <span>{webinar.duration} minutes</span>
                     </div>
-                    <div className="flex items-center">
+                    <div className="flex items-centre">
                       <Users className="h-4 w-4 mr-1" />
                       <span>{webinar.attendees} attendees</span>
                     </div>

@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Meeting Note Transcription with Key Point Extraction feature provides educators with a powerful tool to automatically transcribe and analyze educational meetings, extracting key points and action items to reduce administrative burden and improve follow-up. This feature leverages AI to convert spoken content into structured, searchable text with highlighted important information.
+The Meeting Note Transcription with Key Point Extraction feature provides educators with a powerful tool to automatically transcribe and analyse educational meetings, extracting key points and action items to reduce administrative burden and improve follow-up. This feature leverages AI to convert spoken content into structured, searchable text with highlighted important information.
 
 ## Key Features
 
@@ -24,9 +24,9 @@ The Meeting Note Transcription with Key Point Extraction feature provides educat
 - Recognition of assigned responsibilities and ownership
 - Highlighting of critical information and concerns
 
-### 4. Meeting Organization and Categorization
+### 4. Meeting Organisation and Categorization
 - Automatic categorization by meeting type (parent conferences, staff meetings, etc.)
-- Tagging system for easy retrieval and organization
+- Tagging system for easy retrieval and organisation
 - Integration with calendar and scheduling systems
 - Linking to related documents and previous meeting notes
 
@@ -47,10 +47,10 @@ The Meeting Note Transcription with Key Point Extraction feature provides educat
 The Meeting Note Transcription feature is built on solid educational psychology principles:
 
 1. **Distributed Cognition**: Reduces cognitive load by automating note-taking, allowing educators to focus on the meeting content
-2. **Information Processing**: Structures complex meeting information into manageable, organized formats
+2. **Information Processing**: Structures complex meeting information into manageable, organised formats
 3. **Collaborative Learning**: Facilitates shared understanding through accessible meeting records
 4. **Memory Enhancement**: Provides accurate records to support recall and implementation of meeting outcomes
-5. **Inclusive Practice**: Supports diverse communication needs through multi-language capabilities
+5. **Inclusive Practise**: Supports diverse communication needs through multi-language capabilities
 
 ## Implementation Considerations
 

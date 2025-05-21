@@ -4,7 +4,7 @@ import GuidedMindfulnessActivities from '@/components/special-needs/mindfulness/
 
 export const metadata: Metadata = {
   title: 'Guided Mindfulness Activities | EdPsych Connect',
-  description: 'Discover and practice evidence-based mindfulness exercises to support emotional wellbeing and self-regulation.',
+  description: 'Discover and practise evidence-based mindfulness exercises to support emotional wellbeing and self-regulation.',
 };
 
 export default function GuidedMindfulnessActivitiesPage() {

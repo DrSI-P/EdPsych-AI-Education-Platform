@@ -18,8 +18,8 @@ interface ImmersiveVoiceInputProps {
 /**
  * Immersive Voice Input Component
  * 
- * Specialized voice input component for immersive learning environments,
- * optimized for navigation and interaction commands.
+ * Specialised voice input component for immersive learning environments,
+ * optimised for navigation and interaction commands.
  */
 export const ImmersiveVoiceInput: React.FC<ImmersiveVoiceInputProps> = ({
   onCommand,
@@ -164,12 +164,12 @@ export const ImmersiveVoiceInput: React.FC<ImmersiveVoiceInputProps> = ({
   return (
     <Card className={className}>
       <CardHeader className="pb-2">
-        <CardTitle className="flex items-center justify-between">
-          <span className="flex items-center gap-2">
+        <CardTitle className="flex items-centre justify-between">
+          <span className="flex items-centre gap-2">
             {isListening ? (
               <Mic className="h-5 w-5 text-green-500" />
             ) : (
-              <MicOff className="h-5 w-5 text-gray-400" />
+              <MicOff className="h-5 w-5 text-grey-400" />
             )}
             Voice Commands
           </span>
@@ -184,12 +184,12 @@ export const ImmersiveVoiceInput: React.FC<ImmersiveVoiceInputProps> = ({
       
       <CardContent>
         <TabsContent value="commands" className="mt-0 space-y-4">
-          <div className="flex justify-center">
+          <div className="flex justify-centre">
             {isListening ? (
               <Button 
                 variant="destructive"
                 onClick={stopListening}
-                className="flex items-center gap-2"
+                className="flex items-centre gap-2"
               >
                 <MicOff className="h-4 w-4" />
                 Stop Voice Commands
@@ -198,7 +198,7 @@ export const ImmersiveVoiceInput: React.FC<ImmersiveVoiceInputProps> = ({
               <Button 
                 variant="default"
                 onClick={() => startListening({ continuous: true })}
-                className="flex items-center gap-2"
+                className="flex items-centre gap-2"
               >
                 <Mic className="h-4 w-4" />
                 Start Voice Commands
@@ -212,7 +212,7 @@ export const ImmersiveVoiceInput: React.FC<ImmersiveVoiceInputProps> = ({
               {getCommandList().map((item, index) => (
                 <li key={index} className="text-sm flex items-start gap-2">
                   <span className="font-medium">{item.command}:</span>
-                  <span className="text-gray-500">{item.description}</span>
+                  <span className="text-grey-500">{item.description}</span>
                 </li>
               ))}
             </ul>
@@ -224,19 +224,19 @@ export const ImmersiveVoiceInput: React.FC<ImmersiveVoiceInputProps> = ({
             <div className="border rounded-md p-3">
               <h3 className="text-sm font-medium mb-2">Voice Status</h3>
               <div className="space-y-2">
-                <div className="flex items-center justify-between">
+                <div className="flex items-centre justify-between">
                   <span className="text-sm">Listening:</span>
-                  <span className={`text-sm font-medium ${isListening ? 'text-green-500' : 'text-gray-500'}`}>
+                  <span className={`text-sm font-medium ${isListening ? 'text-green-500' : 'text-grey-500'}`}>
                     {isListening ? 'Active' : 'Inactive'}
                   </span>
                 </div>
-                <div className="flex items-center justify-between">
+                <div className="flex items-centre justify-between">
                   <span className="text-sm">Last Command:</span>
                   <span className="text-sm font-medium">
                     {lastCommand ? lastCommand.replace('_', ' ') : 'None'}
                   </span>
                 </div>
-                <div className="flex items-center justify-between">
+                <div className="flex items-centre justify-between">
                   <span className="text-sm">Mode:</span>
                   <span className="text-sm font-medium">
                     Immersive Navigation
@@ -247,14 +247,14 @@ export const ImmersiveVoiceInput: React.FC<ImmersiveVoiceInputProps> = ({
             
             <div className="border rounded-md p-3">
               <h3 className="text-sm font-medium mb-2">Current Transcript</h3>
-              <div className="min-h-[60px] bg-gray-50 p-2 rounded text-sm">
+              <div className="min-h-[60px] bg-grey-50 p-2 rounded text-sm">
                 {transcript || interimTranscript ? (
                   <div>
                     <span>{transcript}</span>
-                    <span className="text-gray-400">{interimTranscript}</span>
+                    <span className="text-grey-400">{interimTranscript}</span>
                   </div>
                 ) : (
-                  <p className="text-gray-400">No speech detected yet...</p>
+                  <p className="text-grey-400">No speech detected yet...</p>
                 )}
               </div>
             </div>

@@ -15,7 +15,7 @@ The mobile architecture is built on a foundation of device detection, responsive
 - **View Modes**: Supports multiple view modes (standard, compact, reader, focus, accessibility)
 - **Orientation Support**: Optimizes layout for both portrait and landscape orientations
 
-### 2. Touch-Optimized UI Components
+### 2. Touch-Optimised UI Components
 
 All UI components have been designed and implemented with touch interactions in mind, ensuring a native-like experience on mobile devices.
 
@@ -23,7 +23,7 @@ All UI components have been designed and implemented with touch interactions in 
 - **Touch Feedback**: Visual feedback for touch interactions
 - **Gesture Support**: Implementation of common mobile gestures (tap, swipe, pinch, etc.)
 - **Mobile Navigation**: Bottom navigation bar for easy thumb access
-- **Mobile-Specific Components**: Headers, drawers, FABs, bottom sheets, and other mobile-optimized components
+- **Mobile-Specific Components**: Headers, drawers, FABs, bottom sheets, and other mobile-optimised components
 
 ### 3. Offline Functionality
 
@@ -42,7 +42,7 @@ A comprehensive push notification system keeps users engaged and informed about 
 - **Permission Management**: User-friendly permission request flow
 - **Notification Preferences**: Granular control over notification types and channels
 - **Quiet Hours**: Option to silence notifications during specified hours
-- **Notification Center**: Central hub for viewing and managing notifications
+- **Notification Centre**: Central hub for viewing and managing notifications
 - **Action Buttons**: Interactive notifications with action buttons
 
 ### 5. Accessibility Features
@@ -58,7 +58,7 @@ The mobile application is fully accessible, ensuring that all users, regardless 
 
 ### 6. Performance Optimization
 
-The mobile application is optimized for performance, ensuring fast load times and smooth interactions even on lower-end devices.
+The mobile application is optimised for performance, ensuring fast load times and smooth interactions even on lower-end devices.
 
 - **Code Splitting**: Loading only necessary code for each view
 - **Lazy Loading**: Deferring non-critical resources
@@ -80,7 +80,7 @@ The mobile application is optimized for performance, ensuring fast load times an
 The mobile components follow a modular architecture that promotes reusability and maintainability:
 
 1. **Base Components**: Foundational components like responsive layout containers
-2. **UI Components**: Touch-optimized buttons, lists, cards, etc.
+2. **UI Components**: Touch-optimised buttons, lists, cards, etc.
 3. **Feature Components**: Higher-level components for specific features
 4. **Manager Components**: Components that coordinate complex behaviors
 
@@ -104,7 +104,7 @@ The mobile application has been validated against WCAG 2.1 AA standards:
 - **Keyboard Navigation**: WARNING - Some improvements needed for complete keyboard accessibility
 - **Screen Reader Compatibility**: PASS - All content is accessible to screen readers
 - **Text Scaling**: PASS - All text scales appropriately
-- **Color Independence**: WARNING - Some information is conveyed only through color
+- **Colour Independence**: WARNING - Some information is conveyed only through colour
 - **Motion Reduction**: PASS - All animations can be disabled
 
 **Overall Accessibility Score**: 92/100
@@ -126,7 +126,7 @@ The mobile application has been validated for optimal user experience:
 The mobile application has been validated across different devices:
 
 - **Mobile Phones**: COMPATIBLE - Works well on various mobile phone models
-- **Tablets**: COMPATIBLE - Optimized for tablet screens
+- **Tablets**: COMPATIBLE - Optimised for tablet screens
 - **Desktops**: COMPATIBLE - Responsive design works on desktop browsers
 - **Orientations**: COMPATIBLE - Supports both portrait and landscape orientations
 - **Browsers**: COMPATIBLE - Works across major browsers (Chrome, Safari, Firefox, Edge)

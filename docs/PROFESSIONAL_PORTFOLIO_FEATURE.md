@@ -37,7 +37,7 @@ The Portfolio Builder allows educators to create and maintain a comprehensive pr
 - Achievement linking for context
 
 #### Professional Reflections
-- Structured reflection on practice
+- Structured reflection on practise
 - Learning journey documentation
 - Professional growth narratives
 - Evidence linking for context
@@ -123,7 +123,7 @@ The Portfolio Showcase & Export tools enable educators to share their profession
 - Seamless integration with CPD activities
 - Flexible sharing and export options
 - Professional presentation for career advancement
-- Evidence-based practice documentation
+- Evidence-based practise documentation
 - Reflection tools for professional growth
 
 ### For School Leaders
@@ -171,7 +171,7 @@ The Portfolio Showcase & Export tools enable educators to share their profession
 3. Complete your Professional Profile
 4. Add your qualifications and certifications
 5. Document your achievements with supporting evidence
-6. Add reflections on your professional practice
+6. Add reflections on your professional practise
 7. Review your portfolio analytics
 
 ### Sharing Your Portfolio

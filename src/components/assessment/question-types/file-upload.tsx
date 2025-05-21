@@ -116,12 +116,12 @@ export default function FileUploadQuestion({
 
   return (
     <div className="space-y-6 p-4 bg-white rounded-lg border">
-      <div className="flex justify-between items-center">
-        <h3 className="text-lg font-medium text-gray-900">
+      <div className="flex justify-between items-centre">
+        <h3 className="text-lg font-medium text-grey-900">
           {isEditing ? 'Edit File Upload Question' : 'Add File Upload Question'}
         </h3>
-        <div className="flex items-center space-x-2">
-          <label className="text-sm text-gray-600">Points:</label>
+        <div className="flex items-centre space-x-2">
+          <label className="text-sm text-grey-600">Points:</label>
           <input
             type="number"
             min="1"
@@ -139,7 +139,7 @@ export default function FileUploadQuestion({
       )}
 
       <div>
-        <label htmlFor="question-content" className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor="question-content" className="block text-sm font-medium text-grey-700 mb-1">
           Question <span className="text-red-500">*</span>
         </label>
         <textarea
@@ -149,7 +149,7 @@ export default function FileUploadQuestion({
           placeholder="Enter your question or instructions for file upload"
           rows={3}
           className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-            errors.content ? 'border-red-500' : 'border-gray-300'
+            errors.content ? 'border-red-500' : 'border-grey-300'
           }`}
         />
         {errors.content && (
@@ -158,7 +158,7 @@ export default function FileUploadQuestion({
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
+        <label className="block text-sm font-medium text-grey-700 mb-1">
           Allowed File Types <span className="text-red-500">*</span>
         </label>
         {errors.allowedFileTypes && (
@@ -167,28 +167,28 @@ export default function FileUploadQuestion({
         
         <div className="space-y-2 mb-4">
           {fileTypeOptions.map((option) => (
-            <div key={option.value} className="flex items-center">
+            <div key={option.value} className="flex items-centre">
               <input
                 type="checkbox"
                 id={`filetype-${option.value}`}
                 checked={option.value.split(',').some(type => allowedFileTypes.includes(type))}
                 onChange={() => handleFileTypeToggle(option.value)}
-                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-grey-300 rounded"
               />
-              <label htmlFor={`filetype-${option.value}`} className="ml-2 text-sm text-gray-700">
+              <label htmlFor={`filetype-${option.value}`} className="ml-2 text-sm text-grey-700">
                 {option.label}
               </label>
             </div>
           ))}
         </div>
 
-        <div className="flex items-center space-x-2 mb-4">
+        <div className="flex items-centre space-x-2 mb-4">
           <input
             type="text"
             value={customFileType}
             onChange={(e) => setCustomFileType(e.target.value.toLowerCase().replace(/[^a-z0-9]/g, ''))}
             placeholder="Add custom file extension (without dot)"
-            className="flex-grow px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="flex-grow px-3 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <Button
             type="button"
@@ -201,12 +201,12 @@ export default function FileUploadQuestion({
         </div>
 
         <div className="mb-4">
-          <p className="text-sm font-medium text-gray-700 mb-2">Selected File Types:</p>
+          <p className="text-sm font-medium text-grey-700 mb-2">Selected File Types:</p>
           <div className="flex flex-wrap gap-2">
             {allowedFileTypes.map((type) => (
               <div 
                 key={type} 
-                className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800"
+                className="inline-flex items-centre px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800"
               >
                 .{type}
                 <button
@@ -224,7 +224,7 @@ export default function FileUploadQuestion({
         </div>
 
         <div>
-          <label htmlFor="max-file-size" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="max-file-size" className="block text-sm font-medium text-grey-700 mb-1">
             Maximum File Size (MB)
           </label>
           <input
@@ -234,7 +234,7 @@ export default function FileUploadQuestion({
             max="50"
             value={maxFileSize}
             onChange={(e) => setMaxFileSize(parseInt(e.target.value) || 5)}
-            className="w-32 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-32 px-3 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
       </div>

@@ -102,7 +102,7 @@ const sampleTableData = {
       ['Digital Textbooks', '420', '85%', '£2,500', '3.2x'],
       ['Interactive Simulations', '175', '92%', '£1,800', '3.8x'],
       ['Educational Videos', '320', '88%', '£2,200', '3.5x'],
-      ['Practice Worksheets', '280', '75%', '£1,200', '2.8x'],
+      ['Practise Worksheets', '280', '75%', '£1,200', '2.8x'],
       ['Assessment Tools', '210', '90%', '£1,900', '3.6x'],
     ],
   },
@@ -175,7 +175,7 @@ const DraggableComponent = ({ component }) => {
     <div
       ref={drag}
       className={cn(
-        "flex items-center space-x-2 rounded-md border p-2 cursor-move",
+        "flex items-centre space-x-2 rounded-md border p-2 cursor-move",
         isDragging ? "opacity-50" : "opacity-100"
       )}
     >
@@ -220,7 +220,7 @@ const ReportCanvas = ({ items, setItems, onEditItem, onRemoveItem, onMoveItem, o
       )}
     >
       {items.length === 0 ? (
-        <div className="flex h-full flex-col items-center justify-center space-y-2 text-center">
+        <div className="flex h-full flex-col items-centre justify-centre space-y-2 text-centre">
           <div className="rounded-full bg-muted p-3">
             <PlusCircle className="h-6 w-6 text-muted-foreground" />
           </div>
@@ -280,8 +280,8 @@ const ReportItem = ({ item, index, onEdit, onRemove, onMoveUp, onMoveDown, onDup
         return <MetricPreview />;
       case ItemTypes.IMAGE:
         return (
-          <div className="p-4 bg-white rounded-md flex items-center justify-center">
-            <div className="h-40 w-full bg-muted flex items-center justify-center rounded-md">
+          <div className="p-4 bg-white rounded-md flex items-centre justify-centre">
+            <div className="h-40 w-full bg-muted flex items-centre justify-centre rounded-md">
               <ImageIcon className="h-10 w-10 text-muted-foreground" />
               <span className="ml-2 text-sm text-muted-foreground">Image Placeholder</span>
             </div>
@@ -300,14 +300,14 @@ const ReportItem = ({ item, index, onEdit, onRemove, onMoveUp, onMoveDown, onDup
 
   return (
     <div className="rounded-md border shadow-sm">
-      <div className="flex items-center justify-between bg-muted p-2 rounded-t-md">
-        <div className="flex items-center space-x-2">
+      <div className="flex items-centre justify-between bg-muted p-2 rounded-t-md">
+        <div className="flex items-centre space-x-2">
           <Badge variant="outline" className="text-xs">
             {index + 1}
           </Badge>
           <span className="text-sm font-medium">{item.name}</span>
         </div>
-        <div className="flex items-center space-x-1">
+        <div className="flex items-centre space-x-1">
           <Button variant="ghost" size="icon" onClick={onEdit} title="Edit">
             <Edit className="h-4 w-4" />
           </Button>
@@ -348,7 +348,7 @@ const ReportItem = ({ item, index, onEdit, onRemove, onMoveUp, onMoveDown, onDup
 const ChartPreview = ({ chartType }) => {
   return (
     <div className="p-4 bg-white rounded-md">
-      <div className="h-60 w-full bg-muted flex flex-col items-center justify-center rounded-md">
+      <div className="h-60 w-full bg-muted flex flex-col items-centre justify-centre rounded-md">
         {chartType === 'bar' && <BarChartIcon className="h-10 w-10 text-primary" />}
         {chartType === 'line' && <LineChartIcon className="h-10 w-10 text-primary" />}
         {chartType === 'pie' && <PieChartIcon className="h-10 w-10 text-primary" />}
@@ -399,7 +399,7 @@ const MetricPreview = () => {
   
   return (
     <div className="p-4 bg-white rounded-md">
-      <div className="flex items-center justify-between">
+      <div className="flex items-centre justify-between">
         <div>
           <p className="text-sm text-muted-foreground">{randomMetric.title}</p>
           <h4 className="text-2xl font-bold">{randomMetric.value}</h4>
@@ -410,7 +410,7 @@ const MetricPreview = () => {
             {randomMetric.change} from previous period
           </p>
         </div>
-        <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
+        <div className="h-12 w-12 rounded-full bg-primary/10 flex items-centre justify-centre">
           <randomMetric.icon className="h-6 w-6 text-primary" />
         </div>
       </div>
@@ -481,7 +481,7 @@ const ItemEditorModal = ({ item, onSave, onCancel }) => {
             </div>
             
             <div className="space-y-2">
-              <div className="flex items-center space-x-2">
+              <div className="flex items-centre space-x-2">
                 <Checkbox
                   id="show-legend"
                   checked={editedItem.showLegend !== false}
@@ -492,7 +492,7 @@ const ItemEditorModal = ({ item, onSave, onCancel }) => {
             </div>
             
             <div className="space-y-2">
-              <div className="flex items-center space-x-2">
+              <div className="flex items-centre space-x-2">
                 <Checkbox
                   id="show-grid"
                   checked={editedItem.showGrid !== false}
@@ -554,7 +554,7 @@ const ItemEditorModal = ({ item, onSave, onCancel }) => {
             </div>
             
             <div className="space-y-2">
-              <div className="flex items-center space-x-2">
+              <div className="flex items-centre space-x-2">
                 <Checkbox
                   id="show-pagination"
                   checked={editedItem.showPagination !== false}
@@ -565,7 +565,7 @@ const ItemEditorModal = ({ item, onSave, onCancel }) => {
             </div>
             
             <div className="space-y-2">
-              <div className="flex items-center space-x-2">
+              <div className="flex items-centre space-x-2">
                 <Checkbox
                   id="enable-sorting"
                   checked={editedItem.enableSorting !== false}
@@ -723,9 +723,9 @@ const ItemEditorModal = ({ item, onSave, onCancel }) => {
   };
   
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+    <div className="fixed inset-0 z-50 flex items-centre justify-centre bg-black/50">
       <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-lg">
-        <div className="mb-4 flex items-center justify-between">
+        <div className="mb-4 flex items-centre justify-between">
           <h3 className="text-lg font-medium">Edit {item.name}</h3>
           <Button variant="ghost" size="icon" onClick={onCancel}>
             <X className="h-4 w-4" />
@@ -758,9 +758,9 @@ const ReportSettingsModal = ({ settings, onSave, onCancel }) => {
   };
   
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+    <div className="fixed inset-0 z-50 flex items-centre justify-centre bg-black/50">
       <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-lg">
-        <div className="mb-4 flex items-center justify-between">
+        <div className="mb-4 flex items-centre justify-between">
           <h3 className="text-lg font-medium">Report Settings</h3>
           <Button variant="ghost" size="icon" onClick={onCancel}>
             <X className="h-4 w-4" />
@@ -837,7 +837,7 @@ const ReportSettingsModal = ({ settings, onSave, onCancel }) => {
           </div>
           
           <div className="space-y-2">
-            <div className="flex items-center space-x-2">
+            <div className="flex items-centre space-x-2">
               <Checkbox
                 id="include-header"
                 checked={editedSettings.includeHeader !== false}
@@ -848,7 +848,7 @@ const ReportSettingsModal = ({ settings, onSave, onCancel }) => {
           </div>
           
           <div className="space-y-2">
-            <div className="flex items-center space-x-2">
+            <div className="flex items-centre space-x-2">
               <Checkbox
                 id="include-footer"
                 checked={editedSettings.includeFooter !== false}
@@ -859,7 +859,7 @@ const ReportSettingsModal = ({ settings, onSave, onCancel }) => {
           </div>
           
           <div className="space-y-2">
-            <div className="flex items-center space-x-2">
+            <div className="flex items-centre space-x-2">
               <Checkbox
                 id="include-page-numbers"
                 checked={editedSettings.includePageNumbers !== false}
@@ -898,9 +898,9 @@ const ExportModal = ({ onExport, onCancel }) => {
   };
   
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+    <div className="fixed inset-0 z-50 flex items-centre justify-centre bg-black/50">
       <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-lg">
-        <div className="mb-4 flex items-center justify-between">
+        <div className="mb-4 flex items-centre justify-between">
           <h3 className="text-lg font-medium">Export Report</h3>
           <Button variant="ghost" size="icon" onClick={onCancel}>
             <X className="h-4 w-4" />
@@ -985,7 +985,7 @@ const ExportModal = ({ onExport, onCancel }) => {
           
           {(exportSettings.format === 'html' || exportSettings.format === 'pdf') && (
             <div className="space-y-2">
-              <div className="flex items-center space-x-2">
+              <div className="flex items-centre space-x-2">
                 <Checkbox
                   id="include-interactivity"
                   checked={exportSettings.includeInteractivity}
@@ -1025,9 +1025,9 @@ const ShareModal = ({ onShare, onCancel }) => {
   };
   
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+    <div className="fixed inset-0 z-50 flex items-centre justify-centre bg-black/50">
       <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-lg">
-        <div className="mb-4 flex items-center justify-between">
+        <div className="mb-4 flex items-centre justify-between">
           <h3 className="text-lg font-medium">Share Report</h3>
           <Button variant="ghost" size="icon" onClick={onCancel}>
             <X className="h-4 w-4" />
@@ -1278,7 +1278,7 @@ export function CustomReportBuilder() {
       <TabsContent value="templates" className="mt-4 space-y-2">
         <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
           <div className="rounded-md border p-4 cursor-pointer hover:bg-muted/50">
-            <div className="flex items-center space-x-2">
+            <div className="flex items-centre space-x-2">
               <Layout className="h-5 w-5 text-primary" />
               <span className="font-medium">Student Progress Report</span>
             </div>
@@ -1288,17 +1288,17 @@ export function CustomReportBuilder() {
           </div>
           
           <div className="rounded-md border p-4 cursor-pointer hover:bg-muted/50">
-            <div className="flex items-center space-x-2">
+            <div className="flex items-centre space-x-2">
               <Layout className="h-5 w-5 text-primary" />
               <span className="font-medium">Resource Effectiveness</span>
             </div>
             <p className="mt-2 text-xs text-muted-foreground">
-              Analyze the impact and usage patterns of teaching resources.
+              Analyse the impact and usage patterns of teaching resources.
             </p>
           </div>
           
           <div className="rounded-md border p-4 cursor-pointer hover:bg-muted/50">
-            <div className="flex items-center space-x-2">
+            <div className="flex items-centre space-x-2">
               <Layout className="h-5 w-5 text-primary" />
               <span className="font-medium">Attendance Dashboard</span>
             </div>
@@ -1308,7 +1308,7 @@ export function CustomReportBuilder() {
           </div>
           
           <div className="rounded-md border p-4 cursor-pointer hover:bg-muted/50">
-            <div className="flex items-center space-x-2">
+            <div className="flex items-centre space-x-2">
               <Layout className="h-5 w-5 text-primary" />
               <span className="font-medium">Assessment Analysis</span>
             </div>
@@ -1325,14 +1325,14 @@ export function CustomReportBuilder() {
     <DndProvider backend={HTML5Backend}>
       <div className="container mx-auto py-6">
         {/* Header */}
-        <div className="flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0 mb-6">
+        <div className="flex flex-col space-y-4 md:flex-row md:items-centre md:justify-between md:space-y-0 mb-6">
           <div>
             <h1 className="text-3xl font-bold tracking-tight">Custom Report Builder</h1>
             <p className="text-muted-foreground">
               Create tailored reports with drag-and-drop simplicity
             </p>
           </div>
-          <div className="flex flex-col space-y-2 md:flex-row md:items-center md:space-x-2 md:space-y-0">
+          <div className="flex flex-col space-y-2 md:flex-row md:items-centre md:space-x-2 md:space-y-0">
             <Button variant="outline" onClick={() => setShowSettingsModal(true)}>
               <Settings className="mr-2 h-4 w-4" />
               Settings

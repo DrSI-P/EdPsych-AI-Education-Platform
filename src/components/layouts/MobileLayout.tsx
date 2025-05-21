@@ -16,7 +16,7 @@ interface MobileLayoutProps {
 }
 
 /**
- * MobileLayout component optimized for mobile devices with responsive navigation
+ * MobileLayout component optimised for mobile devices with responsive navigation
  * and touch-friendly controls
  */
 const MobileLayout: React.FC<MobileLayoutProps> = ({
@@ -63,19 +63,19 @@ const MobileLayout: React.FC<MobileLayoutProps> = ({
   };
   
   return (
-    <div className="mobile-layout min-h-screen flex flex-col bg-gray-50">
+    <div className="mobile-layout min-h-screen flex flex-col bg-grey-50">
       {/* Header */}
       <header 
         className={`fixed top-0 left-0 right-0 bg-white shadow-md z-50 transition-transform duration-300 ${
           isNavigationVisible ? 'transform-none' : 'transform -translate-y-full'
         }`}
       >
-        <div className="flex items-center justify-between p-4">
-          <div className="flex items-center">
+        <div className="flex items-centre justify-between p-4">
+          <div className="flex items-centre">
             {showBackButton && (
               <button 
                 onClick={handleBackClick}
-                className="mr-3 p-2 rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="mr-3 p-2 rounded-full hover:bg-grey-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 aria-label="Go back"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -90,7 +90,7 @@ const MobileLayout: React.FC<MobileLayoutProps> = ({
           {isMobile && navigationItems.length > 0 && (
             <button 
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-2 rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="p-2 rounded-full hover:bg-grey-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
               aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             >
               {isMenuOpen ? (
@@ -108,14 +108,14 @@ const MobileLayout: React.FC<MobileLayoutProps> = ({
         
         {/* Mobile menu */}
         {isMobile && isMenuOpen && (
-          <nav className="bg-white border-t border-gray-200">
+          <nav className="bg-white border-t border-grey-200">
             <ul className="py-2">
               {navigationItems.map((item, index) => (
                 <li key={index}>
                   <a
                     href={item.href}
-                    className={`flex items-center px-4 py-3 ${
-                      item.active ? 'bg-blue-50 text-blue-600' : 'hover:bg-gray-50'
+                    className={`flex items-centre px-4 py-3 ${
+                      item.active ? 'bg-blue-50 text-blue-600' : 'hover:bg-grey-50'
                     }`}
                     onClick={() => setIsMenuOpen(false)}
                   >
@@ -139,7 +139,7 @@ const MobileLayout: React.FC<MobileLayoutProps> = ({
       {/* Bottom navigation for mobile */}
       {isMobile && navigationItems.length > 0 && !isMenuOpen && (
         <nav 
-          className={`fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50 transition-transform duration-300 ${
+          className={`fixed bottom-0 left-0 right-0 bg-white border-t border-grey-200 z-50 transition-transform duration-300 ${
             isNavigationVisible ? 'transform-none' : 'transform translate-y-full'
           }`}
         >
@@ -148,8 +148,8 @@ const MobileLayout: React.FC<MobileLayoutProps> = ({
               <li key={index} className="flex-1">
                 <a
                   href={item.href}
-                  className={`flex flex-col items-center justify-center py-3 ${
-                    item.active ? 'text-blue-600' : 'text-gray-600 hover:text-blue-600'
+                  className={`flex flex-col items-centre justify-centre py-3 ${
+                    item.active ? 'text-blue-600' : 'text-grey-600 hover:text-blue-600'
                   }`}
                 >
                   <span className="mb-1">{item.icon}</span>
@@ -163,7 +163,7 @@ const MobileLayout: React.FC<MobileLayoutProps> = ({
       
       {/* Touch-friendly floating action button for primary action */}
       <button
-        className="fixed right-4 bottom-20 w-14 h-14 rounded-full bg-blue-600 text-white shadow-lg flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 hover:bg-blue-700 active:bg-blue-800 z-50"
+        className="fixed right-4 bottom-20 w-14 h-14 rounded-full bg-blue-600 text-white shadow-lg flex items-centre justify-centre focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 hover:bg-blue-700 active:bg-blue-800 z-50"
         aria-label="Add new"
       >
         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -172,7 +172,7 @@ const MobileLayout: React.FC<MobileLayoutProps> = ({
       </button>
       
       {/* iOS-style pull-to-refresh indicator (simplified implementation) */}
-      <div className="absolute top-0 left-0 right-0 flex justify-center pointer-events-none">
+      <div className="absolute top-0 left-0 right-0 flex justify-centre pointer-events-none">
         <div className="h-10 w-10 rounded-full border-2 border-blue-500 border-t-transparent animate-spin opacity-0" id="pull-to-refresh-indicator"></div>
       </div>
       

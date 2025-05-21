@@ -94,7 +94,7 @@ Set up and manage your classes:
 4. Add students to the class:
    - Import from school roster
    - Add students individually
-   - Generate class join code for student self-enrollment
+   - Generate class join code for student self-enrolment
 5. Configure class settings:
    - Learning path options
    - Assessment parameters

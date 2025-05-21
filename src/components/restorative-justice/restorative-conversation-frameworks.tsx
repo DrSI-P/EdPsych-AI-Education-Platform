@@ -230,7 +230,7 @@ const RestorativeConversationFrameworks = () => {
           guidance: "End on a positive note that reinforces community. Acknowledge the courage it takes to participate in difficult conversations. Remind students of when you'll check in on the agreement."
         }
       ],
-      evidence: "Classroom circles are supported by research from the University of Cambridge's Faculty of Education, which found that regular use of circles for conflict resolution reduced behavioral incidents by 74% over a three-year period. The structure is based on indigenous circle practices and adapted for educational settings by Carolyn Boyes-Watson and Kay Pranis.",
+      evidence: "Classroom circles are supported by research from the University of Cambridge's Faculty of Education, which found that regular use of circles for conflict resolution reduced behavioural incidents by 74% over a three-year period. The structure is based on indigenous circle practices and adapted for educational settings by Carolyn Boyes-Watson and Kay Pranis.",
       references: [
         "Boyes-Watson, C., & Pranis, K. (2015). Circle Forward: Building a Restorative School Community.",
         "Riestenberg, N. (2012). Circle in the Square: Building Community and Repairing Harm in School.",
@@ -344,7 +344,7 @@ const RestorativeConversationFrameworks = () => {
     {
       id: "f4",
       title: "Restorative Reflection for Individual Students",
-      description: "A guided self-reflection framework for students to process their behavior and its impact.",
+      description: "A guided self-reflection framework for students to process their behaviour and its impact.",
       suitableFor: ["individual reflection", "minor incidents", "preparation for restorative conversations"],
       ageGroups: ["primary", "secondary"],
       timeRequired: "15-30 minutes",
@@ -391,7 +391,7 @@ const RestorativeConversationFrameworks = () => {
             "What values do we have as a school/class community?",
             "How does what happened align or not align with those values?"
           ],
-          guidance: "This helps move from shame (I am bad) to guilt (I did something that doesn't align with my values). Focus on the behavior, not the student's character."
+          guidance: "This helps move from shame (I am bad) to guilt (I did something that doesn't align with my values). Focus on the behaviour, not the student's character."
         },
         {
           title: "Identifying Needs",
@@ -427,9 +427,9 @@ const RestorativeConversationFrameworks = () => {
           guidance: "End on a positive, forward-looking note. Affirm the student's willingness to reflect and their capacity to make positive choices. Arrange any needed follow-up."
         }
       ],
-      evidence: "Individual restorative reflection is supported by research from the University of Cambridge and the International Institute for Restorative Practices. Studies show that structured reflection increases students' ability to take responsibility for their actions by 67% and reduces defensive responses by 58%. This approach draws on cognitive-behavioral principles and mindfulness practices adapted for educational settings.",
+      evidence: "Individual restorative reflection is supported by research from the University of Cambridge and the International Institute for Restorative Practices. Studies show that structured reflection increases students' ability to take responsibility for their actions by 67% and reduces defensive responses by 58%. This approach draws on cognitive-behavioural principles and mindfulness practices adapted for educational settings.",
       references: [
-        "Burnett, N., & Thorsborne, M. (2015). Restorative Practice and Special Needs: A Practical Guide to Working Restoratively with Young People.",
+        "Burnett, N., & Thorsborne, M. (2015). Restorative Practise and Special Needs: A Practical Guide to Working Restoratively with Young People.",
         "Costello, B., Wachtel, J., & Wachtel, T. (2009). The Restorative Practices Handbook for Teachers, Disciplinarians and Administrators.",
         "Hopkins, B. (2011). The Restorative Classroom: Using Restorative Approaches to Foster Effective Learning."
       ]
@@ -489,7 +489,7 @@ const RestorativeConversationFrameworks = () => {
           description: "Consider which solutions might work best.",
           prompts: [
             "Looking at these ideas, which ones do you think might work?",
-            "How would this solution work in practice?",
+            "How would this solution work in practise?",
             "Is this solution fair to everyone involved?"
           ],
           guidance: "Help disputants evaluate solutions based on fairness, practicality, and addressing everyone's needs. Avoid rushing to a solution before thoroughly evaluating options."
@@ -516,11 +516,11 @@ const RestorativeConversationFrameworks = () => {
           guidance: "End on a positive note. Have disputants shake hands or otherwise acknowledge the agreement. Mediators should inform the adult supervisor of the outcome and arrange follow-up."
         }
       ],
-      evidence: "Peer mediation programs have been extensively studied by researchers at the University of Maine and the Center for Reducing Violence. Research shows that well-implemented peer mediation programs resolve up to 85% of referred conflicts successfully and help develop crucial social-emotional skills in both mediators and participants. This framework is based on the work of Richard Cohen and adapted for UK educational contexts.",
+      evidence: "Peer mediation programs have been extensively studied by researchers at the University of Maine and the Centre for Reducing Violence. Research shows that well-implemented peer mediation programs resolve up to 85% of referred conflicts successfully and help develop crucial social-emotional skills in both mediators and participants. This framework is based on the work of Richard Cohen and adapted for UK educational contexts.",
       references: [
         "Cohen, R. (2005). Students Resolving Conflict: Peer Mediation in Schools.",
         "Cremin, H. (2007). Peer Mediation: Citizenship and Social Inclusion Revisited.",
-        "Bickmore, K. (2002). Peer Mediation Training and Program Implementation in Elementary Schools: Research Results."
+        "Bickmore, K. (2002). Peer Mediation Training and Programme Implementation in Elementary Schools: Research Results."
       ]
     }
   ];
@@ -538,7 +538,7 @@ const RestorativeConversationFrameworks = () => {
         { name: "James Wilson", role: "person responsible" },
         { name: "Emma Clark", role: "person harmed" }
       ],
-      notes: "James acknowledged disrupting the class by repeatedly making noise during Emma's presentation. Emma expressed feeling disrespected and embarrassed. James hadn't realized the full impact of his behavior. They agreed that James would apologize to Emma and the class, and would offer to help Emma prepare for her next presentation if she wanted. Follow-up scheduled for next week.",
+      notes: "James acknowledged disrupting the class by repeatedly making noise during Emma's presentation. Emma expressed feeling disrespected and embarrassed. James hadn't realised the full impact of his behaviour. They agreed that James would apologize to Emma and the class, and would offer to help Emma prepare for her next presentation if she wanted. Follow-up scheduled for next week.",
       agreement: "1. James will apologize to Emma privately after this meeting.\n2. James will apologize to the class at the start of tomorrow's lesson.\n3. James offers to help Emma prepare for her next presentation if she would like.\n4. Both will check in with Ms. Thompson next Friday to confirm how things are going.",
       status: "completed",
       outcome: "Successful resolution. Both students reported feeling better about the situation. James followed through on all agreement points. Emma reported feeling respected and acknowledged."
@@ -732,21 +732,21 @@ const RestorativeConversationFrameworks = () => {
     switch (status) {
       case "completed":
         return (
-          <Badge variant="outline" className="bg-green-50 text-green-700 flex items-center gap-1">
+          <Badge variant="outline" className="bg-green-50 text-green-700 flex items-centre gap-1">
             <Check className="h-3 w-3" />
             Completed
           </Badge>
         );
       case "in progress":
         return (
-          <Badge variant="outline" className="bg-blue-50 text-blue-700 flex items-center gap-1">
+          <Badge variant="outline" className="bg-blue-50 text-blue-700 flex items-centre gap-1">
             <RefreshCw className="h-3 w-3" />
             In Progress
           </Badge>
         );
       default:
         return (
-          <Badge variant="outline" className="bg-gray-50 text-gray-700 flex items-center gap-1">
+          <Badge variant="outline" className="bg-grey-50 text-grey-700 flex items-centre gap-1">
             {status}
           </Badge>
         );
@@ -793,7 +793,7 @@ const RestorativeConversationFrameworks = () => {
         );
       default:
         return (
-          <Badge variant="outline" className="bg-gray-50 text-gray-700">
+          <Badge variant="outline" className="bg-grey-50 text-grey-700">
             {role}
           </Badge>
         );
@@ -818,7 +818,7 @@ const RestorativeConversationFrameworks = () => {
             </TabsList>
             
             {isLoading ? (
-              <div className="flex justify-center items-center py-12">
+              <div className="flex justify-centre items-centre py-12">
                 <p>Loading content...</p>
               </div>
             ) : (
@@ -909,8 +909,8 @@ const RestorativeConversationFrameworks = () => {
                             <h4 className="text-sm font-medium mb-1">Conversation Steps</h4>
                             <div className="space-y-1">
                               {framework.steps.map((step, index) => (
-                                <div key={index} className="flex items-center gap-2">
-                                  <Badge variant="outline" className="w-6 h-6 rounded-full p-0 flex items-center justify-center">
+                                <div key={index} className="flex items-centre gap-2">
+                                  <Badge variant="outline" className="w-6 h-6 rounded-full p-0 flex items-centre justify-centre">
                                     {index + 1}
                                   </Badge>
                                   <span className="text-sm">{step.title}</span>
@@ -938,7 +938,7 @@ const RestorativeConversationFrameworks = () => {
                     ))}
                     
                     {getFilteredFrameworks().length === 0 && (
-                      <div className="text-center py-12">
+                      <div className="text-centre py-12">
                         <p className="text-muted-foreground">
                           No frameworks found matching your filters. Try adjusting your search criteria.
                         </p>
@@ -957,7 +957,7 @@ const RestorativeConversationFrameworks = () => {
                           <CardDescription>{selectedFramework.description}</CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                          <div className="flex justify-between items-center">
+                          <div className="flex justify-between items-centre">
                             <h3 className="text-lg font-medium">Conversation Setup</h3>
                             <Badge variant="outline" className="text-sm">
                               Step {currentStep + 1} of {selectedFramework.steps.length}
@@ -978,7 +978,7 @@ const RestorativeConversationFrameworks = () => {
                                 <Label>Participants</Label>
                                 <div className="flex flex-wrap gap-2 mb-2">
                                   {participants.map((participant, index) => (
-                                    <Badge key={index} variant="secondary" className="flex items-center gap-1">
+                                    <Badge key={index} variant="secondary" className="flex items-centre gap-1">
                                       {participant.name} {getRoleBadge(participant.role)}
                                       <Button 
                                         variant="ghost" 
@@ -1098,9 +1098,9 @@ const RestorativeConversationFrameworks = () => {
                               {selectedFramework.steps.map((step, index) => (
                                 <div 
                                   key={index} 
-                                  className={`flex items-center p-2 rounded-md ${currentStep === index ? 'bg-primary/10 border border-primary/20' : 'hover:bg-muted/50'}`}
+                                  className={`flex items-centre p-2 rounded-md ${currentStep === index ? 'bg-primary/10 border border-primary/20' : 'hover:bg-muted/50'}`}
                                 >
-                                  <div className={`w-6 h-6 rounded-full flex items-center justify-center mr-3 ${currentStep > index ? 'bg-primary text-primary-foreground' : currentStep === index ? 'border-2 border-primary text-primary' : 'border border-muted-foreground text-muted-foreground'}`}>
+                                  <div className={`w-6 h-6 rounded-full flex items-centre justify-centre mr-3 ${currentStep > index ? 'bg-primary text-primary-foreground' : currentStep === index ? 'border-2 border-primary text-primary' : 'border border-muted-foreground text-muted-foreground'}`}>
                                     {currentStep > index ? <Check className="h-4 w-4" /> : index + 1}
                                   </div>
                                   <div>
@@ -1115,7 +1115,7 @@ const RestorativeConversationFrameworks = () => {
                       </Card>
                     </>
                   ) : (
-                    <div className="text-center py-12">
+                    <div className="text-centre py-12">
                       <h3 className="text-lg font-medium mb-2">No Active Conversation</h3>
                       <p className="text-muted-foreground mb-6">
                         Select a framework from the Frameworks tab to start a new restorative conversation.
@@ -1148,7 +1148,7 @@ const RestorativeConversationFrameworks = () => {
                       <CardHeader className="pb-2">
                         <div className="flex justify-between items-start">
                           <div>
-                            <div className="flex items-center gap-2">
+                            <div className="flex items-centre gap-2">
                               <CardTitle>{selectedConversation.title}</CardTitle>
                               {getStatusBadge(selectedConversation.status)}
                             </div>
@@ -1233,7 +1233,7 @@ const RestorativeConversationFrameworks = () => {
                         >
                           <CardHeader className="pb-2">
                             <div className="flex justify-between items-start">
-                              <div className="flex items-center gap-2">
+                              <div className="flex items-centre gap-2">
                                 <CardTitle className="text-lg">{conversation.title}</CardTitle>
                                 {getStatusBadge(conversation.status)}
                               </div>
@@ -1261,7 +1261,7 @@ const RestorativeConversationFrameworks = () => {
                             <p className="line-clamp-2 text-sm">{conversation.notes}</p>
                           </CardContent>
                           <CardFooter>
-                            <div className="flex items-center justify-between w-full">
+                            <div className="flex items-centre justify-between w-full">
                               <Button variant="ghost" size="sm">
                                 <FileText className="h-4 w-4 mr-1" />
                                 Export
@@ -1276,7 +1276,7 @@ const RestorativeConversationFrameworks = () => {
                       ))}
                       
                       {getFilteredConversations().length === 0 && (
-                        <div className="text-center py-12">
+                        <div className="text-centre py-12">
                           <p className="text-muted-foreground">
                             No saved conversations found matching your search. Try adjusting your search criteria or start a new conversation.
                           </p>

@@ -13,7 +13,7 @@ The Content Editor provides a flexible, intuitive interface for creating educati
 - Rich text formatting with accessibility considerations
 - Image, video, and audio embedding with proper alt text and captions
 - Interactive elements including questions, quizzes, and activities
-- Tables, charts, and other data visualization components
+- Tables, charts, and other data visualisation components
 - Curriculum tagging and metadata management
 
 The editor supports multiple content types including lessons, worksheets, assessments, and presentations, all with responsive design for both desktop and mobile viewing.
@@ -28,7 +28,7 @@ The AI generation panel helps educators create content more efficiently by:
 - Suggesting assessment questions aligned with learning objectives
 - Providing curriculum-aligned examples and explanations
 
-All AI-generated content maintains alignment with UK educational standards and can be fully edited and customized by educators.
+All AI-generated content maintains alignment with UK educational standards and can be fully edited and customised by educators.
 
 ### 3. Content Sharing and Collaboration
 
@@ -46,9 +46,9 @@ The system includes invitation management, access controls, and real-time collab
 
 The accessibility checker ensures all content meets WCAG 2.1 AA standards by:
 
-- Analyzing content for accessibility issues
+- Analysing content for accessibility issues
 - Providing specific recommendations for improvements
-- Checking color contrast, alt text, keyboard navigation, and screen reader compatibility
+- Checking colour contrast, alt text, keyboard navigation, and screen reader compatibility
 - Scoring content on accessibility compliance
 - Offering guidance on creating more inclusive materials
 
@@ -88,14 +88,14 @@ The system is designed to be responsive across devices and integrates with the p
 - Simplified content sharing and reuse
 
 ### For Students:
-- Access to customized learning materials suited to their needs
+- Access to customised learning materials suited to their needs
 - Consistent, high-quality educational resources
 - Improved accessibility for diverse learning requirements
-- Content optimized for their specific learning style
+- Content optimised for their specific learning style
 - Materials directly aligned with their curriculum requirements
 
 ### For Schools:
-- Standardized, curriculum-aligned resource creation
+- Standardised, curriculum-aligned resource creation
 - Improved collaboration between teaching staff
 - Reduced duplication of effort through content sharing
 - Consistent accessibility compliance across materials

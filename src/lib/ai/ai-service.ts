@@ -28,7 +28,7 @@ export function getAIService() {
       }
     },
     
-    // Analyze sentiment of text
+    // Analyse sentiment of text
     analyzeSentiment: async (text: string) => {
       try {
         // Simulate API call delay
@@ -61,7 +61,7 @@ export function getAIService() {
           }
         };
       } catch (error) {
-        console.error('Error analyzing sentiment:', error);
+        console.error('Error analysing sentiment:', error);
         throw error;
       }
     },
@@ -109,7 +109,7 @@ export function useAIService() {
     }
   };
   
-  // Analyze sentiment of text
+  // Analyse sentiment of text
   const analyzeSentiment = async (text: string) => {
     setIsLoading(true);
     setError(null);
@@ -195,7 +195,7 @@ export const aiService = {
     }
   },
   
-  // Analyze sentiment of text
+  // Analyse sentiment of text
   analyzeSentiment: async (text: string) => {
     try {
       // Simulate API call delay
@@ -228,7 +228,7 @@ export const aiService = {
         }
       };
     } catch (error) {
-      console.error('Error analyzing sentiment:', error);
+      console.error('Error analysing sentiment:', error);
       throw error;
     }
   },

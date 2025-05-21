@@ -12,7 +12,7 @@ The Agreement Tracking System provides comprehensive tools for documenting, moni
 - **Status Monitoring**: Real-time tracking of agreement and term status (active, completed, at-risk)
 
 ### 2. Progress Tracking
-- **Visual Progress Indicators**: Clear visualization of overall agreement completion
+- **Visual Progress Indicators**: Clear visualisation of overall agreement completion
 - **Term Status Updates**: Ability to update individual term status with notes
 - **Follow-up Scheduling**: Automated follow-up date tracking and reminders
 - **History Logging**: Comprehensive record of all updates and changes
@@ -27,9 +27,9 @@ The Agreement Tracking System provides comprehensive tools for documenting, moni
 The Agreement Tracking System is grounded in established research and best practices:
 
 - **Restorative Justice Principles**: Incorporates accountability, repair of harm, and reintegration
-- **Educational Psychology**: Follows best practices for behavior change and monitoring
+- **Educational Psychology**: Follows best practices for behaviour change and monitoring
 - **Implementation Science**: Structured approach to intervention fidelity and follow-through
-- **UK Educational Context**: Aligned with UK educational standards and behavior management approaches
+- **UK Educational Context**: Aligned with UK educational standards and behaviour management approaches
 
 ## Implementation Details
 
@@ -55,16 +55,16 @@ The Agreement Tracking System is grounded in established research and best pract
 
 ## Accessibility Considerations
 - All components are keyboard navigable
-- Color contrast meets WCAG standards
+- Colour contrast meets WCAG standards
 - Screen reader optimizations
-- Clear status indicators using both color and text
+- Clear status indicators using both colour and text
 - Responsive design for all device sizes
 
 ## Integration with Other Features
 - Seamless connection with Guided Restorative Conversation Frameworks
 - Integration with Circle Process Templates
 - Links to Age-Appropriate Reflection Prompts
-- Potential future integration with IEP/504 plans and behavior tracking
+- Potential future integration with IEP/504 plans and behaviour tracking
 
 ## Future Enhancements
 - Advanced analytics and reporting

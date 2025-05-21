@@ -28,7 +28,7 @@ EdPsych-AI-Education-Platform delivers measurable improvements across key educat
 - **Restorative Justice Framework**: Supporting positive relationships and understanding underlying behaviours
 - **Student Voice Amplification**: Ensuring students' perspectives are heard, valued, and incorporated
 - **Administrative Automation**: Freeing educators from paperwork to focus on teaching and relationships
-- **Evidence-Based Practice**: Grounding all features in research and educational psychology best practices
+- **Evidence-Based Practise**: Grounding all features in research and educational psychology best practices
 - **Inclusive Design**: Ensuring accessibility and support for all learners, particularly those with special educational needs
 
 ## Comprehensive Feature Suite
@@ -217,9 +217,9 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## License
+## Licence
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT Licence - see the LICENSE file for details.
 
 ## Contact
 

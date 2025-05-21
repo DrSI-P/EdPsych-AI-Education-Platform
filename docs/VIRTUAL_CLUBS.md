@@ -24,13 +24,13 @@ The Virtual Clubs feature creates dynamic online communities within the EdPsych 
 
 ### 3. Asynchronous Engagement
 
-- **Discussion Forums**: Threaded conversations organized by topics
+- **Discussion Forums**: Threaded conversations organised by topics
 - **Resource Sharing**: Club-specific libraries for materials and references
 - **Project Workspaces**: Collaborative areas for ongoing club projects
 - **Activity Feeds**: Updates on club news and member contributions
 - **Polls and Surveys**: Tools for gathering member input and preferences
 
-### 4. Specialized Club Types
+### 4. Specialised Club Types
 
 - **Academic Interest Clubs**: Subject-focused groups for extended learning
 - **Creative Arts Clubs**: Spaces for sharing and developing artistic talents
@@ -45,7 +45,7 @@ The Virtual Clubs feature creates dynamic online communities within the EdPsych 
 - **Age-Appropriate Settings**: Controls based on member age groups
 - **AI-Assisted Moderation**: Automated monitoring for inappropriate content
 - **Reporting Tools**: Simple mechanisms for flagging concerns
-- **Digital Citizenship Education**: Resources for positive online behavior
+- **Digital Citizenship Education**: Resources for positive online behaviour
 - **Parental Visibility Options**: Appropriate oversight for younger members
 
 ## User Experience
@@ -81,7 +81,7 @@ The Virtual Clubs feature creates dynamic online communities within the EdPsych 
 - **Club Hubs**: Customizable landing pages for each club
 - **Meeting Rooms**: WebRTC-based video conferencing spaces
 - **Collaborative Workspaces**: Real-time document and media editing
-- **Resource Repositories**: Organized storage for club materials
+- **Resource Repositories**: Organised storage for club materials
 - **Activity Streams**: Dynamic feeds of club updates and contributions
 
 ### Communication Tools
@@ -106,7 +106,7 @@ The Virtual Clubs feature is grounded in established educational psychology prin
 
 - **Social Learning Theory**: Learning through observation and interaction with peers
 - **Self-Determination Theory**: Supporting autonomy, competence, and relatedness
-- **Communities of Practice**: Developing knowledge through shared activities and interests
+- **Communities of Practise**: Developing knowledge through shared activities and interests
 - **Positive Youth Development**: Building assets through meaningful engagement
 - **Belonging and Identity**: Fostering connection and personal growth through group membership
 
@@ -148,7 +148,7 @@ The Virtual Clubs feature integrates with:
 
 ### Phase 3: Advanced Features
 
-- Implement specialized club types with tailored features
+- Implement specialised club types with tailored features
 - Create achievement and recognition system
 - Develop analytics and impact measurement
 - Implement parent visibility and involvement options

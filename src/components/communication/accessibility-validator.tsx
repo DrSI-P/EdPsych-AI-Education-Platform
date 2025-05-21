@@ -65,9 +65,9 @@ export const AccessibilityValidator: React.FC<AccessibilityValidatorProps> = ({
       
       if (componentName.toLowerCase().includes('goal')) {
         mockIssues.push({
-          id: 'color-contrast-1',
+          id: 'colour-contrast-1',
           element: 'Progress indicators',
-          description: 'Some progress indicators may not have sufficient color contrast',
+          description: 'Some progress indicators may not have sufficient colour contrast',
           impact: 'moderate',
           wcagCriteria: 'WCAG 1.4.3 Contrast (Minimum) (Level AA)',
           fixSuggestion: 'Ensure all progress indicators have a contrast ratio of at least 3:1'
@@ -128,7 +128,7 @@ export const AccessibilityValidator: React.FC<AccessibilityValidatorProps> = ({
     }, 2000);
   };
 
-  // Get score color based on value
+  // Get score colour based on value
   const getScoreColor = (score: number) => {
     if (score >= 90) return 'text-green-500';
     if (score >= 70) return 'text-amber-500';
@@ -155,9 +155,9 @@ export const AccessibilityValidator: React.FC<AccessibilityValidatorProps> = ({
   const renderResults = () => {
     if (!validationComplete) {
       return (
-        <div className="flex flex-col items-center justify-center p-8">
+        <div className="flex flex-col items-centre justify-centre p-8">
           <HelpCircle className="h-16 w-16 text-muted-foreground mb-4" />
-          <p className="text-center text-muted-foreground">
+          <p className="text-centre text-muted-foreground">
             Click the "Validate Accessibility" button to check this component against WCAG 2.1 AA standards.
           </p>
         </div>
@@ -181,7 +181,7 @@ export const AccessibilityValidator: React.FC<AccessibilityValidatorProps> = ({
                 <CardDescription>Based on WCAG 2.1 AA standards</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="flex items-center justify-center">
+                <div className="flex items-centre justify-centre">
                   <div className={`text-6xl font-bold ${getScoreColor(accessibilityScore)}`}>
                     {accessibilityScore}
                   </div>
@@ -191,17 +191,17 @@ export const AccessibilityValidator: React.FC<AccessibilityValidatorProps> = ({
               </CardContent>
               <CardFooter>
                 {accessibilityScore >= 90 ? (
-                  <div className="flex items-center text-green-500">
+                  <div className="flex items-centre text-green-500">
                     <CheckCircle2 className="h-4 w-4 mr-2" />
                     Meets WCAG 2.1 AA standards
                   </div>
                 ) : accessibilityScore >= 70 ? (
-                  <div className="flex items-center text-amber-500">
+                  <div className="flex items-centre text-amber-500">
                     <AlertTriangle className="h-4 w-4 mr-2" />
                     Partially meets WCAG 2.1 AA standards
                   </div>
                 ) : (
-                  <div className="flex items-center text-red-500">
+                  <div className="flex items-centre text-red-500">
                     <AlertCircle className="h-4 w-4 mr-2" />
                     Does not meet WCAG 2.1 AA standards
                   </div>
@@ -265,25 +265,25 @@ export const AccessibilityValidator: React.FC<AccessibilityValidatorProps> = ({
             <CardContent>
               <div className="space-y-4">
                 <div className="grid grid-cols-3 gap-4">
-                  <div className="flex flex-col items-center p-4 border rounded-md">
+                  <div className="flex flex-col items-centre p-4 border rounded-md">
                     <div className="text-3xl font-bold text-red-500 mb-2">
                       {issues.filter(issue => issue.impact === 'critical').length}
                     </div>
-                    <div className="text-sm text-center">Critical Issues</div>
+                    <div className="text-sm text-centre">Critical Issues</div>
                   </div>
                   
-                  <div className="flex flex-col items-center p-4 border rounded-md">
+                  <div className="flex flex-col items-centre p-4 border rounded-md">
                     <div className="text-3xl font-bold text-orange-500 mb-2">
                       {issues.filter(issue => issue.impact === 'serious').length}
                     </div>
-                    <div className="text-sm text-center">Serious Issues</div>
+                    <div className="text-sm text-centre">Serious Issues</div>
                   </div>
                   
-                  <div className="flex flex-col items-center p-4 border rounded-md">
+                  <div className="flex flex-col items-centre p-4 border rounded-md">
                     <div className="text-3xl font-bold text-amber-500 mb-2">
                       {issues.filter(issue => issue.impact === 'moderate' || issue.impact === 'minor').length}
                     </div>
-                    <div className="text-sm text-center">Moderate/Minor Issues</div>
+                    <div className="text-sm text-centre">Moderate/Minor Issues</div>
                   </div>
                 </div>
                 
@@ -298,7 +298,7 @@ export const AccessibilityValidator: React.FC<AccessibilityValidatorProps> = ({
                           <li>Some elements may not be fully keyboard accessible.</li>
                         )}
                         {issues.some(issue => issue.wcagCriteria.includes('1.4.3')) && (
-                          <li>Potential color contrast issues in visual elements.</li>
+                          <li>Potential colour contrast issues in visual elements.</li>
                         )}
                         {issues.some(issue => issue.wcagCriteria.includes('4.1.2')) && (
                           <li>Some interactive elements may be missing proper ARIA attributes.</li>
@@ -315,9 +315,9 @@ export const AccessibilityValidator: React.FC<AccessibilityValidatorProps> = ({
         <TabsContent value="issues" className="pt-4">
           {issues.length === 0 ? (
             <Card>
-              <CardContent className="flex flex-col items-center justify-center p-8">
+              <CardContent className="flex flex-col items-centre justify-centre p-8">
                 <CheckCircle2 className="h-16 w-16 text-green-500 mb-4" />
-                <p className="text-center text-muted-foreground">
+                <p className="text-centre text-muted-foreground">
                   No accessibility issues detected. The component meets WCAG 2.1 AA standards.
                 </p>
               </CardContent>
@@ -367,15 +367,15 @@ export const AccessibilityValidator: React.FC<AccessibilityValidatorProps> = ({
                 <div className="border rounded-md">
                   <div className="bg-muted p-3 font-medium">1. Perceivable</div>
                   <div className="p-3 space-y-2">
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-centre">
                       <span>1.1 Text Alternatives</span>
                       <Badge variant="outline" className="border-green-500 text-green-500">Passed</Badge>
                     </div>
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-centre">
                       <span>1.3 Adaptable</span>
                       <Badge variant="outline" className="border-green-500 text-green-500">Passed</Badge>
                     </div>
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-centre">
                       <span>1.4 Distinguishable</span>
                       {issues.some(issue => issue.wcagCriteria.includes('1.4.3')) ? (
                         <Badge variant="destructive">Failed</Badge>
@@ -389,7 +389,7 @@ export const AccessibilityValidator: React.FC<AccessibilityValidatorProps> = ({
                 <div className="border rounded-md">
                   <div className="bg-muted p-3 font-medium">2. Operable</div>
                   <div className="p-3 space-y-2">
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-centre">
                       <span>2.1 Keyboard Accessible</span>
                       {issues.some(issue => issue.wcagCriteria.includes('2.1.1')) ? (
                         <Badge variant="destructive">Failed</Badge>
@@ -397,7 +397,7 @@ export const AccessibilityValidator: React.FC<AccessibilityValidatorProps> = ({
                         <Badge variant="outline" className="border-green-500 text-green-500">Passed</Badge>
                       )}
                     </div>
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-centre">
                       <span>2.4 Navigable</span>
                       <Badge variant="outline" className="border-green-500 text-green-500">Passed</Badge>
                     </div>
@@ -407,15 +407,15 @@ export const AccessibilityValidator: React.FC<AccessibilityValidatorProps> = ({
                 <div className="border rounded-md">
                   <div className="bg-muted p-3 font-medium">3. Understandable</div>
                   <div className="p-3 space-y-2">
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-centre">
                       <span>3.1 Readable</span>
                       <Badge variant="outline" className="border-green-500 text-green-500">Passed</Badge>
                     </div>
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-centre">
                       <span>3.2 Predictable</span>
                       <Badge variant="outline" className="border-green-500 text-green-500">Passed</Badge>
                     </div>
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-centre">
                       <span>3.3 Input Assistance</span>
                       <Badge variant="outline" className="border-green-500 text-green-500">Passed</Badge>
                     </div>
@@ -425,7 +425,7 @@ export const AccessibilityValidator: React.FC<AccessibilityValidatorProps> = ({
                 <div className="border rounded-md">
                   <div className="bg-muted p-3 font-medium">4. Robust</div>
                   <div className="p-3 space-y-2">
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-centre">
                       <span>4.1 Compatible</span>
                       {issues.some(issue => issue.wcagCriteria.includes('4.1.2')) ? (
                         <Badge variant="destructive">Failed</Badge>
@@ -498,7 +498,7 @@ export const AccessibilityValidator: React.FC<AccessibilityValidatorProps> = ({
 
   return (
     <div className="accessibility-validator space-y-4">
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-centre">
         <h2 className="text-xl font-bold">Accessibility Validation</h2>
         
         <Button 

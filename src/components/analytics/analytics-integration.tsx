@@ -271,9 +271,9 @@ const AnalyticsIntegration = () => {
   const renderModuleList = () => (
     <Card>
       <CardHeader>
-        <div className="flex items-center justify-between">
+        <div className="flex items-centre justify-between">
           <CardTitle>Module Integrations</CardTitle>
-          <div className="flex items-center space-x-2">
+          <div className="flex items-centre space-x-2">
             <Button 
               variant="outline" 
               size="sm" 
@@ -320,7 +320,7 @@ const AnalyticsIntegration = () => {
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
-          <div className="flex items-center space-x-2">
+          <div className="flex items-centre space-x-2">
             <Search className="h-4 w-4 text-muted-foreground" />
             <Input 
               placeholder="Search modules..." 
@@ -348,7 +348,7 @@ const AnalyticsIntegration = () => {
                     <div className="flex justify-between items-start">
                       <div>
                         <h4 className="font-medium">{module.name}</h4>
-                        <div className="flex items-center space-x-2 mt-1">
+                        <div className="flex items-centre space-x-2 mt-1">
                           <Badge variant={module.status === 'Connected' ? 'default' : 'destructive'}>
                             {module.status}
                           </Badge>
@@ -377,8 +377,8 @@ const AnalyticsIntegration = () => {
   const renderModuleDetail = () => {
     if (!selectedModule) {
       return (
-        <div className="h-full flex items-center justify-center border border-dashed rounded-md p-8">
-          <div className="text-center">
+        <div className="h-full flex items-centre justify-centre border border-dashed rounded-md p-8">
+          <div className="text-centre">
             <h3 className="text-lg font-medium">No Module Selected</h3>
             <p className="text-muted-foreground">Select a module from the list to view integration details</p>
           </div>
@@ -391,7 +391,7 @@ const AnalyticsIntegration = () => {
     return (
       <Card>
         <CardHeader>
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-centre">
             <div>
               <CardTitle>{module.name} Integration</CardTitle>
               <CardDescription>
@@ -412,7 +412,7 @@ const AnalyticsIntegration = () => {
               <CardContent>
                 <div className="text-2xl font-bold">{module.dataPoints}</div>
                 <p className="text-xs text-muted-foreground">
-                  <span className="flex items-center">
+                  <span className="flex items-centre">
                     <ArrowUpRight className="h-3 w-3 mr-1 text-green-500" />
                     +3 from last month
                   </span>
@@ -427,7 +427,7 @@ const AnalyticsIntegration = () => {
               <CardContent>
                 <div className="text-2xl font-bold">{module.lastSync.split(' ')[0]}</div>
                 <p className="text-xs text-muted-foreground">
-                  <span className="flex items-center">
+                  <span className="flex items-centre">
                     {module.lastSync.split(' ')[1]}
                   </span>
                 </p>
@@ -441,7 +441,7 @@ const AnalyticsIntegration = () => {
               <CardContent>
                 <div className="text-2xl font-bold">{module.metrics.length}</div>
                 <p className="text-xs text-muted-foreground">
-                  <span className="flex items-center">
+                  <span className="flex items-centre">
                     All metrics active
                   </span>
                 </p>
@@ -537,7 +537,7 @@ const AnalyticsIntegration = () => {
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-centre">
             <div>
               <CardTitle>Cross-Module Data Flow</CardTitle>
               <CardDescription>
@@ -629,22 +629,22 @@ const AnalyticsIntegration = () => {
             </div>
             <div className="mt-4">
               <div className="space-y-2">
-                <div className="flex justify-between items-center">
-                  <div className="flex items-center">
+                <div className="flex justify-between items-centre">
+                  <div className="flex items-centre">
                     <div className="w-3 h-3 rounded-full bg-[#4ade80] mr-2"></div>
                     <span className="text-sm">Healthy</span>
                   </div>
                   <span className="text-sm font-medium">6 modules</span>
                 </div>
-                <div className="flex justify-between items-center">
-                  <div className="flex items-center">
+                <div className="flex justify-between items-centre">
+                  <div className="flex items-centre">
                     <div className="w-3 h-3 rounded-full bg-[#fbbf24] mr-2"></div>
                     <span className="text-sm">Warning</span>
                   </div>
                   <span className="text-sm font-medium">1 module</span>
                 </div>
-                <div className="flex justify-between items-center">
-                  <div className="flex items-center">
+                <div className="flex justify-between items-centre">
+                  <div className="flex items-centre">
                     <div className="w-3 h-3 rounded-full bg-[#f87171] mr-2"></div>
                     <span className="text-sm">Error</span>
                   </div>
@@ -705,7 +705,7 @@ const AnalyticsIntegration = () => {
                   <h4 className="font-medium">{setting.name}</h4>
                   <p className="text-sm text-muted-foreground">{setting.description}</p>
                 </div>
-                <div className="flex items-center h-5">
+                <div className="flex items-centre h-5">
                   <Label htmlFor={`privacy-${setting.id}`} className="sr-only">
                     {setting.name}
                   </Label>
@@ -714,7 +714,7 @@ const AnalyticsIntegration = () => {
                     id={`privacy-${setting.id}`}
                     checked={setting.enabled}
                     onChange={() => handleToggleSetting(setting.id, setting.enabled)}
-                    className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
+                    className="h-4 w-4 rounded border-grey-300 text-primary focus:ring-primary"
                   />
                 </div>
               </div>
@@ -732,8 +732,8 @@ const AnalyticsIntegration = () => {
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2">
+            <div className="flex items-centre justify-between">
+              <div className="flex items-centre space-x-2">
                 <div className="w-4 h-4 rounded-full bg-green-500"></div>
                 <span className="font-medium">Compliant</span>
               </div>
@@ -814,7 +814,7 @@ const AnalyticsIntegration = () => {
                   <h4 className="font-medium">{option.name}</h4>
                   <p className="text-sm text-muted-foreground">{option.description}</p>
                 </div>
-                <div className="flex items-center h-5">
+                <div className="flex items-centre h-5">
                   <Label htmlFor={`extensibility-${option.id}`} className="sr-only">
                     {option.name}
                   </Label>
@@ -823,7 +823,7 @@ const AnalyticsIntegration = () => {
                     id={`extensibility-${option.id}`}
                     checked={option.enabled}
                     onChange={() => handleToggleSetting(option.id, option.enabled)}
-                    className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
+                    className="h-4 w-4 rounded border-grey-300 text-primary focus:ring-primary"
                   />
                 </div>
               </div>
@@ -841,7 +841,7 @@ const AnalyticsIntegration = () => {
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            <div className="flex items-center justify-between">
+            <div className="flex items-centre justify-between">
               <div>
                 <h4 className="font-medium">API Status</h4>
                 <p className="text-sm text-muted-foreground">Analytics API is active and available</p>
@@ -907,14 +907,14 @@ const AnalyticsIntegration = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-centre gap-4">
         <div>
           <h2 className="text-2xl font-bold tracking-tight">Analytics Integration</h2>
           <p className="text-muted-foreground">
             Manage analytics integration with platform modules
           </p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-centre gap-2">
           <Button 
             variant="outline" 
             size="sm" 
@@ -958,7 +958,7 @@ const AnalyticsIntegration = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Connected Modules
             </CardTitle>
@@ -971,7 +971,7 @@ const AnalyticsIntegration = () => {
           </CardContent>
         </Card>
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Data Points
             </CardTitle>
@@ -984,7 +984,7 @@ const AnalyticsIntegration = () => {
           </CardContent>
         </Card>
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Integration Health
             </CardTitle>
@@ -997,7 +997,7 @@ const AnalyticsIntegration = () => {
           </CardContent>
         </Card>
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Privacy Compliance
             </CardTitle>

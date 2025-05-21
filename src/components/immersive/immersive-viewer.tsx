@@ -93,7 +93,7 @@ export function ImmersiveViewer({
     <div className={`immersive-viewer relative w-full h-full overflow-hidden rounded-lg ${className}`}>
       {/* Main content area */}
       <div 
-        className={`immersive-content relative w-full h-full bg-gray-100 ${
+        className={`immersive-content relative w-full h-full bg-grey-100 ${
           isVRActive ? 'vr-mode' : ''
         }`}
       >
@@ -104,9 +104,9 @@ export function ImmersiveViewer({
               initial={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5 }}
-              className="absolute inset-0 flex items-center justify-center bg-gray-900/50 z-20"
+              className="absolute inset-0 flex items-centre justify-centre bg-grey-900/50 z-20"
             >
-              <div className="text-center text-white">
+              <div className="text-centre text-white">
                 <div className="inline-block h-12 w-12 animate-spin rounded-full border-4 border-solid border-white border-r-transparent align-[-0.125em]" role="status">
                   <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">Loading...</span>
                 </div>
@@ -119,17 +119,17 @@ export function ImmersiveViewer({
         
         {/* Error overlay */}
         {error && (
-          <div className="absolute inset-0 flex items-center justify-center bg-red-900/50 z-20 p-6">
-            <div className="bg-white rounded-lg p-6 max-w-md text-center">
+          <div className="absolute inset-0 flex items-centre justify-centre bg-red-900/50 z-20 p-6">
+            <div className="bg-white rounded-lg p-6 max-w-md text-centre">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-red-500 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
               </svg>
-              <h3 className="text-lg font-bold text-gray-900 mb-2">Error Loading Content</h3>
-              <p className="text-gray-700 mb-4">{error}</p>
-              <div className="flex justify-center space-x-3">
+              <h3 className="text-lg font-bold text-grey-900 mb-2">Error Loading Content</h3>
+              <p className="text-grey-700 mb-4">{error}</p>
+              <div className="flex justify-centre space-x-3">
                 <button 
                   onClick={() => setError(null)}
-                  className="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-md transition-colors"
+                  className="px-4 py-2 bg-grey-200 hover:bg-grey-300 rounded-md transition-colors"
                 >
                   Dismiss
                 </button>
@@ -213,7 +213,7 @@ export function ImmersiveViewer({
         {!isLoading && !error && (
           <button
             onClick={toggleControls}
-            className="absolute bottom-4 left-4 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-white/90 backdrop-blur-sm shadow-lg hover:bg-white transition-colors"
+            className="absolute bottom-4 left-4 z-10 w-10 h-10 flex items-centre justify-centre rounded-full bg-white/90 backdrop-blur-sm shadow-lg hover:bg-white transition-colors"
             aria-label={showControls ? "Hide controls" : "Show controls"}
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -230,7 +230,7 @@ export function ImmersiveViewer({
         {onBack && !isLoading && !error && (
           <button
             onClick={onBack}
-            className="absolute top-4 left-4 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-white/90 backdrop-blur-sm shadow-lg hover:bg-white transition-colors"
+            className="absolute top-4 left-4 z-10 w-10 h-10 flex items-centre justify-centre rounded-full bg-white/90 backdrop-blur-sm shadow-lg hover:bg-white transition-colors"
             aria-label="Go back"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">

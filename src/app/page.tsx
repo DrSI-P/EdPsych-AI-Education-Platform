@@ -8,6 +8,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { useTheme } from '@/components/theme-provider';
 import MainNavigation from '@/components/ui/MainNavigation';
 import PageHeader from '@/components/ui/PageHeader';
@@ -17,8 +18,10 @@ import FeedbackMessage from '@/components/ui/FeedbackMessage';
 import LearningStyleSelector from '@/components/ui/LearningStyleSelector';
 import CelebrationOverlay from '@/components/ui/CelebrationOverlay';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { motion } from 'framer-motion';
+import { Play } from 'lucide-react';
 
 export default function HomePage() {
   const { ageGroup, setAgeGroup } = useTheme();
@@ -148,7 +151,14 @@ export default function HomePage() {
         
         {/* Learning Content */}
         <div className="mb-12">
-          <h2 className="text-2xl font-semibold mb-4">Recommended for You</h2>
+          <div className="flex justify-between items-centre mb-4">
+            <h2 className="text-2xl font-semibold">Recommended for You</h2>
+            <Button variant="outline" size="sm" asChild>
+              <Link href="/ai-avatar-videos">
+                Explore AI Avatar Videos
+              </Link>
+            </Button>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {learningContent.map((content, index) => (
               <LearningCard
@@ -176,10 +186,66 @@ export default function HomePage() {
           </div>
         </div>
         
+        {/* Featured AI Avatar Video */}
+        <div className="mb-12">
+          <h2 className="text-2xl font-semibold mb-4">Meet Dr. Scott - Your AI Teacher</h2>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="lg:col-span-2">
+              <div className="aspect-video bg-muted rounded-lg overflow-hidden border-2 border-primary/20 flex flex-col items-centre justify-centre">
+                <div className="text-centre p-6">
+                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-centre justify-centre mx-auto mb-4">
+                    <Play className="h-8 w-8 text-primary" />
+                  </div>
+                  <h3 className="text-xl font-medium mb-2">EdPsych Connect: Revolutionising Education Through Psychology</h3>
+                  <p className="text-muted-foreground mb-4">
+                    Watch Dr. Scott's executive summary video introducing our platform's vision, components, and benefits
+                  </p>
+                  <Button asChild>
+                    <Link href="/ai-avatar-videos">
+                      Watch Video
+                    </Link>
+                  </Button>
+                </div>
+              </div>
+            </div>
+            <div>
+              <Card>
+                <CardHeader>
+                  <CardTitle>About AI Avatar Videos</CardTitle>
+                  <CardDescription>
+                    Personalized learning experiences
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <p className="text-sm text-muted-foreground">
+                    Our AI avatar videos feature Dr. Scott Ighavongbe-Patrick providing personalized instruction, guidance, and support for learners of all ages and abilities.
+                  </p>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    These videos adapt to different learning styles and needs, making education more accessible and engaging for everyone.
+                  </p>
+                  <div className="text-xs text-muted-foreground border-t pt-3">
+                    <p className="italic">
+                      "EdPsych Connect was born from a simple yet powerful vision: to create personalised, evidence-based learning experiences that empower every child, regardless of their starting point or individual needs."
+                    </p>
+                    <p className="text-right mt-1">- From the Executive Summary Video</p>
+                  </div>
+                </CardContent>
+                <CardFooter>
+                  <Button variant="outline" className="w-full" asChild>
+                    <Link href="/ai-avatar-videos">
+                      Browse All Videos
+                    </Link>
+                  </Button>
+                </CardFooter>
+              </Card>
+            </div>
+          </div>
+        </div>
+        
         {/* Celebration Demo */}
-        <div className="text-center mb-12">
+        <div className="text-centre mb-12">
           <h2 className="text-2xl font-semibold mb-4">Celebration Demo</h2>
-          <Button 
+          <Button
             size="lg"
             onClick={handleShowCelebration}
           >
@@ -200,7 +266,7 @@ export default function HomePage() {
       </main>
       
       <footer className="border-t py-6 bg-muted/40">
-        <div className="container text-center text-muted-foreground">
+        <div className="container text-centre text-muted-foreground">
           <p>© 2025 EdPsych Connect. All rights reserved.</p>
         </div>
       </footer>

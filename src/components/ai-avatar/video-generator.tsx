@@ -237,7 +237,7 @@ const VideoGenerator: React.FC<VideoGeneratorProps> = ({
       
       {generationStatus === 'generating' && (
         <div className="mt-4 p-4 bg-blue-50 border border-blue-100 rounded">
-          <div className="flex items-center">
+          <div className="flex items-centre">
             <div className="mr-3">
               <svg className="animate-spin h-5 w-5 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
@@ -255,7 +255,7 @@ const VideoGenerator: React.FC<VideoGeneratorProps> = ({
       <form onSubmit={handleSubmit} className="mt-6 space-y-4">
         {/* Script */}
         <div>
-          <label htmlFor="video-script" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="video-script" className="block text-sm font-medium text-grey-700 mb-1">
             Script
           </label>
           <textarea
@@ -263,25 +263,25 @@ const VideoGenerator: React.FC<VideoGeneratorProps> = ({
             value={script}
             onChange={(e) => setScript(e.target.value)}
             rows={6}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             placeholder="Enter the script for your AI avatar to speak..."
             required
           />
-          <p className="mt-1 text-sm text-gray-500">
+          <p className="mt-1 text-sm text-grey-500">
             {script.length}/5000 characters
           </p>
         </div>
         
         {/* Output Format */}
         <div>
-          <label htmlFor="output-format" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="output-format" className="block text-sm font-medium text-grey-700 mb-1">
             Output Format
           </label>
           <select
             id="output-format"
             value={outputFormat}
             onChange={(e) => setOutputFormat(e.target.value as 'mp4' | 'webm')}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           >
             <option value="mp4">MP4 (Recommended)</option>
             <option value="webm">WebM</option>
@@ -290,14 +290,14 @@ const VideoGenerator: React.FC<VideoGeneratorProps> = ({
         
         {/* Resolution */}
         <div>
-          <label htmlFor="resolution" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="resolution" className="block text-sm font-medium text-grey-700 mb-1">
             Resolution
           </label>
           <select
             id="resolution"
             value={resolution}
             onChange={(e) => setResolution(e.target.value as '720p' | '1080p')}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           >
             <option value="720p">720p</option>
             <option value="1080p">1080p</option>
@@ -306,14 +306,14 @@ const VideoGenerator: React.FC<VideoGeneratorProps> = ({
         
         {/* Background */}
         <div>
-          <label htmlFor="background" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="background" className="block text-sm font-medium text-grey-700 mb-1">
             Background
           </label>
           <select
             id="background"
             value={background}
             onChange={(e) => setBackground(e.target.value as 'classroom' | 'office' | 'neutral' | 'custom')}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           >
             <option value="classroom">Classroom</option>
             <option value="office">Office</option>
@@ -325,11 +325,11 @@ const VideoGenerator: React.FC<VideoGeneratorProps> = ({
         {/* Custom Background Upload */}
         {background === 'custom' && (
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-grey-700 mb-1">
               Custom Background
             </label>
             
-            <div className="mt-1 flex items-center">
+            <div className="mt-1 flex items-centre">
               {customBackgroundUrl ? (
                 <div className="relative">
                   <img 
@@ -355,9 +355,9 @@ const VideoGenerator: React.FC<VideoGeneratorProps> = ({
                 <button
                   type="button"
                   onClick={() => backgroundFileInputRef.current?.click()}
-                  className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                  className="inline-flex items-centre px-4 py-2 border border-grey-300 rounded-md shadow-sm text-sm font-medium text-grey-700 bg-white hover:bg-grey-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                 >
-                  <svg className="-ml-1 mr-2 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <svg className="-ml-1 mr-2 h-5 w-5 text-grey-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
                   </svg>
                   Upload Background
@@ -371,22 +371,22 @@ const VideoGenerator: React.FC<VideoGeneratorProps> = ({
                 className="hidden"
               />
             </div>
-            <p className="mt-2 text-sm text-gray-500">
+            <p className="mt-2 text-sm text-grey-500">
               JPG or PNG. Max 10MB. Recommended: 16:9 aspect ratio.
             </p>
           </div>
         )}
         
         {/* Subtitles */}
-        <div className="flex items-center">
+        <div className="flex items-centre">
           <input
             id="include-subtitles"
             type="checkbox"
             checked={includeSubtitles}
             onChange={(e) => setIncludeSubtitles(e.target.checked)}
-            className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+            className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-grey-300 rounded"
           />
-          <label htmlFor="include-subtitles" className="ml-2 block text-sm text-gray-700">
+          <label htmlFor="include-subtitles" className="ml-2 block text-sm text-grey-700">
             Include subtitles
           </label>
         </div>
@@ -394,14 +394,14 @@ const VideoGenerator: React.FC<VideoGeneratorProps> = ({
         {/* Subtitle Language */}
         {includeSubtitles && (
           <div>
-            <label htmlFor="subtitle-language" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="subtitle-language" className="block text-sm font-medium text-grey-700 mb-1">
               Subtitle Language
             </label>
             <select
               id="subtitle-language"
               value={subtitleLanguage}
               onChange={(e) => setSubtitleLanguage(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             >
               <option value="en">English</option>
               <option value="fr">French</option>
@@ -419,7 +419,7 @@ const VideoGenerator: React.FC<VideoGeneratorProps> = ({
         
         {/* Max Duration */}
         <div>
-          <label htmlFor="max-duration" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="max-duration" className="block text-sm font-medium text-grey-700 mb-1">
             Maximum Duration (seconds)
           </label>
           <input
@@ -429,16 +429,16 @@ const VideoGenerator: React.FC<VideoGeneratorProps> = ({
             max={1800}
             value={maxDuration}
             onChange={(e) => setMaxDuration(parseInt(e.target.value))}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           />
-          <p className="mt-1 text-sm text-gray-500">
+          <p className="mt-1 text-sm text-grey-500">
             Between 30 seconds and 30 minutes
           </p>
         </div>
         
         {/* Call to Action */}
         <div>
-          <label htmlFor="cta-text" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="cta-text" className="block text-sm font-medium text-grey-700 mb-1">
             Call to Action Text (Optional)
           </label>
           <input
@@ -446,7 +446,7 @@ const VideoGenerator: React.FC<VideoGeneratorProps> = ({
             type="text"
             value={callToActionText}
             onChange={(e) => setCallToActionText(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             placeholder="e.g., Learn More"
           />
         </div>
@@ -454,7 +454,7 @@ const VideoGenerator: React.FC<VideoGeneratorProps> = ({
         {/* Call to Action URL */}
         {callToActionText && (
           <div>
-            <label htmlFor="cta-url" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="cta-url" className="block text-sm font-medium text-grey-700 mb-1">
               Call to Action URL (Optional)
             </label>
             <input
@@ -462,7 +462,7 @@ const VideoGenerator: React.FC<VideoGeneratorProps> = ({
               type="url"
               value={callToActionUrl}
               onChange={(e) => setCallToActionUrl(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               placeholder="https://example.com"
             />
           </div>
@@ -473,7 +473,7 @@ const VideoGenerator: React.FC<VideoGeneratorProps> = ({
           <button
             type="submit"
             disabled={isLoading || generationStatus === 'generating'}
-            className={`${styles.buttonClass} w-full flex justify-center items-center transition-all ${(isLoading || generationStatus === 'generating') ? 'opacity-70 cursor-not-allowed' : ''}`}
+            className={`${styles.buttonClass} w-full flex justify-centre items-centre transition-all ${(isLoading || generationStatus === 'generating') ? 'opacity-70 cursor-not-allowed' : ''}`}
           >
             {isLoading || generationStatus === 'generating' ? (
               <>

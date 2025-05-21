@@ -17,7 +17,7 @@ By engaging multiple learning modalities simultaneously—visual, auditory, and 
 ### System Overview (1:00-1:30)
 [Screen transitions to show immersive learning interface]
 
-The immersive learning module is powered by WebXR technology, making it accessible across devices without requiring specialized equipment. While the experience is enhanced with VR headsets, it works perfectly well on standard computers, tablets, and even smartphones.
+The immersive learning module is powered by WebXR technology, making it accessible across devices without requiring specialised equipment. While the experience is enhanced with VR headsets, it works perfectly well on standard computers, tablets, and even smartphones.
 
 The system includes a comprehensive library of pre-built environments covering key curriculum areas from Early Years Foundation Stage through Key Stage 4. These environments are fully customizable by educators to align with specific learning objectives and pupil needs.
 
@@ -30,9 +30,9 @@ For science, pupils can step inside a human cell, manipulate DNA structures, or 
 
 For history, learners can walk through accurately recreated historical environments, from Ancient Egyptian temples to Victorian factories, gaining contextual understanding that brings the past to life.
 
-For mathematics, abstract concepts become tangible as pupils physically manipulate 3D shapes, walk through coordinate systems, or visualize algebraic equations in interactive models.
+For mathematics, abstract concepts become tangible as pupils physically manipulate 3D shapes, walk through coordinate systems, or visualise algebraic equations in interactive models.
 
-For geography, pupils can explore different biomes, witness geological processes, or analyze urban development patterns through immersive experiences that create lasting understanding.
+For geography, pupils can explore different biomes, witness geological processes, or analyse urban development patterns through immersive experiences that create lasting understanding.
 
 ### Accessibility and Inclusion (2:15-2:45)
 [Screen transitions to show accessibility features]
@@ -51,7 +51,7 @@ All environments include built-in scaffolding that can be adjusted based on indi
 Educators maintain full control over the immersive learning experiences. From the teacher dashboard, you can:
 
 Select appropriate environments based on curriculum objectives
-Customize content and interaction points
+Customise content and interaction points
 Monitor pupil activity and progress in real-time
 Integrate immersive activities with assessments and other learning modules
 

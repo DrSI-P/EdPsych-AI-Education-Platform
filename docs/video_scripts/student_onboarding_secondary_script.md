@@ -24,7 +24,7 @@ The navigation menu on the left gives you access to all platform features, and t
 ### Learning Resources and Activities (1:00-1:30)
 [Screen transitions to show learning resources]
 
-EdPsych Connect provides access to a wide range of learning resources tailored to your courses and learning preferences. These include interactive lessons, videos, practice exercises, and extension materials.
+EdPsych Connect provides access to a wide range of learning resources tailored to your courses and learning preferences. These include interactive lessons, videos, practise exercises, and extension materials.
 
 What makes this platform unique is how it adapts to your learning style. As you use the system, it identifies whether you learn better through visual materials, reading, interactive exercises, or other approaches, and adjusts accordingly.
 

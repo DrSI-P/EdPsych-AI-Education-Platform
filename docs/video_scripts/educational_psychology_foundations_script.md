@@ -12,7 +12,7 @@ This isn't just another educational technology platform. EdPsych Connect represe
 ### My Professional Journey (0:30-1:15)
 My journey as an Educational Psychologist has been driven by a passion for empowering learners through evidence-based support. Throughout my career, I've worked extensively with disadvantaged children and young people, witnessing firsthand the barriers they face in traditional educational settings.
 
-This experience has shaped my approach to educational psychology, emphasizing the importance of relationship-building, understanding the underlying causes of behavior, and advocating for inclusive education and equitable access.
+This experience has shaped my approach to educational psychology, emphasizing the importance of relationship-building, understanding the underlying causes of behaviour, and advocating for inclusive education and equitable access.
 
 My background in sales management has also provided valuable skills in negotiation and facilitation, which have proven essential in reaching hard-to-reach individuals and creating meaningful educational interventions.
 
@@ -21,7 +21,7 @@ My background in sales management has also provided valuable skills in negotiati
 
 EdPsych Connect is built on several core educational psychology principles:
 
-First, personalized learning paths based on individual starting points. We recognize that every learner begins from a unique position, with different strengths, challenges, and experiences. Our platform adapts to meet learners where they are, rather than forcing them to conform to a standardized approach.
+First, personalized learning paths based on individual starting points. We recognise that every learner begins from a unique position, with different strengths, challenges, and experiences. Our platform adapts to meet learners where they are, rather than forcing them to conform to a standardised approach.
 
 Second, systematic curriculum coverage to minimize learning gaps. By carefully mapping and tracking learning progression, we ensure that essential knowledge and skills aren't overlooked, providing a solid foundation for future learning.
 
@@ -30,13 +30,13 @@ Third, identification and accommodation of diverse learning styles. We understan
 Fourth, content adaptation based on child and young person interest to maximize motivation and engagement. By connecting learning to personal interests, we create meaningful contexts that enhance intrinsic motivation and sustained engagement.
 
 ### Evidence-Based Approach (2:15-3:00)
-Every feature and tool within EdPsych Connect is grounded in educational research and evidence-based practice. We don't implement technology for its own sake, but rather as a means to realize proven educational psychology principles more effectively.
+Every feature and tool within EdPsych Connect is grounded in educational research and evidence-based practise. We don't implement technology for its own sake, but rather as a means to realise proven educational psychology principles more effectively.
 
 Our adaptive complexity system, for example, applies Vygotsky's Zone of Proximal Development theory, carefully calibrating challenge levels to maintain engagement without causing frustration or disengagement.
 
 Our emotional pattern recognition features draw on research in emotional intelligence and self-regulation, helping learners develop awareness and management of their emotional responses to learning challenges.
 
-The restorative justice implementation tools reflect contemporary understanding of behavior as communication and the importance of repairing relationships rather than simply applying consequences.
+The restorative justice implementation tools reflect contemporary understanding of behaviour as communication and the importance of repairing relationships rather than simply applying consequences.
 
 ### Personal Connection (3:00-3:30)
 [AI Avatar returns to full screen]
@@ -54,7 +54,7 @@ In the immersive learning environments that engage multiple senses and learning 
 In the detailed analytics that help educators understand not just what learners are achieving, but how they're approaching their learning.
 
 ### Conclusion (3:45-4:00)
-EdPsych Connect represents a new paradigm in educational technology—one that places educational psychology principles at the center rather than treating them as an afterthought.
+EdPsych Connect represents a new paradigm in educational technology—one that places educational psychology principles at the centre rather than treating them as an afterthought.
 
 By combining these evidence-based approaches with cutting-edge technology, we're creating learning experiences that are truly personalized, engaging, and effective for all learners, regardless of their starting point or individual needs.
 

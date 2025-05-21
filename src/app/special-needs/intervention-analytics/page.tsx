@@ -18,7 +18,7 @@ export default function InterventionAnalyticsPage() {
       <div className="flex flex-col space-y-2">
         <h1 className="text-3xl font-bold tracking-tight">Intervention Effectiveness Analytics</h1>
         <p className="text-muted-foreground">
-          Analyze and compare the effectiveness of different interventions across learning profiles
+          Analyse and compare the effectiveness of different interventions across learning profiles
         </p>
       </div>
       
@@ -36,7 +36,7 @@ export default function InterventionAnalyticsPage() {
         <TabsContent value="about" className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
+              <CardTitle className="flex items-centre gap-2">
                 <Info className="h-5 w-5" />
                 About Intervention Effectiveness Analytics
               </CardTitle>
@@ -48,10 +48,10 @@ export default function InterventionAnalyticsPage() {
               <div className="space-y-3">
                 <h3 className="text-lg font-medium">What is Intervention Effectiveness Analytics?</h3>
                 <p>
-                  Intervention Effectiveness Analytics is a comprehensive system for measuring, analyzing, and comparing 
+                  Intervention Effectiveness Analytics is a comprehensive system for measuring, analysing, and comparing 
                   the impact of different educational interventions across various learning profiles. This evidence-based 
                   approach helps educators make data-informed decisions about which interventions are most effective for 
-                  specific learning needs, allowing for personalized and optimized support strategies.
+                  specific learning needs, allowing for personalized and optimised support strategies.
                 </p>
               </div>
               
@@ -67,7 +67,7 @@ export default function InterventionAnalyticsPage() {
                     statistically significant results, filtering out random variations.
                   </li>
                   <li>
-                    <span className="font-medium">Progress Visualization:</span> Track individual and group progress 
+                    <span className="font-medium">Progress Visualisation:</span> Track individual and group progress 
                     over time with interactive charts and graphs.
                   </li>
                   <li>
@@ -93,7 +93,7 @@ export default function InterventionAnalyticsPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                   <Card>
                     <CardHeader className="pb-2">
-                      <CardTitle className="text-sm font-medium flex items-center gap-2">
+                      <CardTitle className="text-sm font-medium flex items-centre gap-2">
                         <BookOpen className="h-4 w-4" />
                         Education Endowment Foundation
                       </CardTitle>
@@ -109,7 +109,7 @@ export default function InterventionAnalyticsPage() {
                   
                   <Card>
                     <CardHeader className="pb-2">
-                      <CardTitle className="text-sm font-medium flex items-center gap-2">
+                      <CardTitle className="text-sm font-medium flex items-centre gap-2">
                         <BookOpen className="h-4 w-4" />
                         What Works Clearinghouse
                       </CardTitle>
@@ -125,15 +125,15 @@ export default function InterventionAnalyticsPage() {
                   
                   <Card>
                     <CardHeader className="pb-2">
-                      <CardTitle className="text-sm font-medium flex items-center gap-2">
+                      <CardTitle className="text-sm font-medium flex items-centre gap-2">
                         <BookOpen className="h-4 w-4" />
-                        SEND Code of Practice
+                        SEND Code of Practise
                       </CardTitle>
                     </CardHeader>
                     <CardContent>
                       <p className="text-sm">
                         Our analytics framework supports the graduated approach (Assess, Plan, Do, Review) outlined 
-                        in the UK SEND Code of Practice, providing tools for each stage of the cycle.
+                        in the UK SEND Code of Practise, providing tools for each stage of the cycle.
                       </p>
                       <Badge variant="outline" className="mt-2">Regulatory Alignment: High</Badge>
                     </CardContent>
@@ -141,7 +141,7 @@ export default function InterventionAnalyticsPage() {
                   
                   <Card>
                     <CardHeader className="pb-2">
-                      <CardTitle className="text-sm font-medium flex items-center gap-2">
+                      <CardTitle className="text-sm font-medium flex items-centre gap-2">
                         <BookOpen className="h-4 w-4" />
                         Hattie's Visible Learning
                       </CardTitle>
@@ -179,7 +179,7 @@ export default function InterventionAnalyticsPage() {
                     effectiveness across different interventions and learning profiles.
                   </li>
                   <li>
-                    <span className="font-medium">Analyze Individual Progress:</span> Examine detailed progress data for 
+                    <span className="font-medium">Analyse Individual Progress:</span> Examine detailed progress data for 
                     individual students in the Individual tab.
                   </li>
                   <li>
@@ -199,8 +199,8 @@ export default function InterventionAnalyticsPage() {
                     </a>
                   </li>
                   <li>
-                    Department for Education. (2015). Special educational needs and disability code of practice: 0 to 25 years. 
-                    <a href="https://www.gov.uk/government/publications/send-code-of-practice-0-to-25" className="text-blue-600 hover:underline ml-1" target="_blank" rel="noopener noreferrer">
+                    Department for Education. (2015). Special educational needs and disability code of practise: 0 to 25 years. 
+                    <a href="https://www.gov.uk/government/publications/send-code-of-practise-0-to-25" className="text-blue-600 hover:underline ml-1" target="_blank" rel="noopener noreferrer">
                       https://www.gov.uk/government/publications
                     </a>
                   </li>
@@ -225,7 +225,7 @@ export default function InterventionAnalyticsPage() {
         <TabsContent value="reports" className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
+              <CardTitle className="flex items-centre gap-2">
                 <FileText className="h-5 w-5" />
                 Intervention Effectiveness Reports
               </CardTitle>
@@ -250,7 +250,7 @@ export default function InterventionAnalyticsPage() {
                       </p>
                     </CardContent>
                     <CardFooter>
-                      <Button variant="outline" className="w-full flex items-center gap-2">
+                      <Button variant="outline" className="w-full flex items-centre gap-2">
                         <Download className="h-4 w-4" />
                         Generate Report
                       </Button>
@@ -270,7 +270,7 @@ export default function InterventionAnalyticsPage() {
                       </p>
                     </CardContent>
                     <CardFooter>
-                      <Button variant="outline" className="w-full flex items-center gap-2">
+                      <Button variant="outline" className="w-full flex items-centre gap-2">
                         <Download className="h-4 w-4" />
                         Generate Report
                       </Button>
@@ -290,7 +290,7 @@ export default function InterventionAnalyticsPage() {
                       </p>
                     </CardContent>
                     <CardFooter>
-                      <Button variant="outline" className="w-full flex items-center gap-2">
+                      <Button variant="outline" className="w-full flex items-centre gap-2">
                         <Download className="h-4 w-4" />
                         Generate Report
                       </Button>
@@ -310,7 +310,7 @@ export default function InterventionAnalyticsPage() {
                       </p>
                     </CardContent>
                     <CardFooter>
-                      <Button variant="outline" className="w-full flex items-center gap-2">
+                      <Button variant="outline" className="w-full flex items-centre gap-2">
                         <Download className="h-4 w-4" />
                         Generate Report
                       </Button>

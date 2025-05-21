@@ -198,7 +198,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ progress: newProgress });
     }
     
-    // If type is not recognized
+    // If type is not recognised
     return NextResponse.json(
       { error: 'Invalid request type' },
       { status: 400 }

@@ -168,14 +168,14 @@ export function StudentProgressTracking() {
   
   // Render component header with controls
   const renderHeader = () => (
-    <div className="flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0 mb-6">
+    <div className="flex flex-col space-y-4 md:flex-row md:items-centre md:justify-between md:space-y-0 mb-6">
       <div>
         <h1 className="text-3xl font-bold tracking-tight">Student Progress Tracking</h1>
         <p className="text-muted-foreground">
           Comprehensive analytics for monitoring and predicting student achievement
         </p>
       </div>
-      <div className="flex flex-col space-y-2 md:flex-row md:items-center md:space-x-2 md:space-y-0">
+      <div className="flex flex-col space-y-2 md:flex-row md:items-centre md:space-x-2 md:space-y-0">
         <Button variant="outline">
           <RefreshCw className="mr-2 h-4 w-4" />
           Refresh Data
@@ -194,9 +194,9 @@ export function StudentProgressTracking() {
   
   // Render filter bar
   const renderFilterBar = () => (
-    <div className="bg-muted/50 p-4 rounded-lg flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0 mb-6">
-      <div className="flex flex-col space-y-2 md:flex-row md:items-center md:space-x-2 md:space-y-0">
-        <div className="flex items-center space-x-2">
+    <div className="bg-muted/50 p-4 rounded-lg flex flex-col space-y-4 md:flex-row md:items-centre md:justify-between md:space-y-0 mb-6">
+      <div className="flex flex-col space-y-2 md:flex-row md:items-centre md:space-x-2 md:space-y-0">
+        <div className="flex items-centre space-x-2">
           <Filter className="h-4 w-4 text-muted-foreground" />
           <span className="text-sm font-medium">Filters:</span>
         </div>
@@ -214,7 +214,7 @@ export function StudentProgressTracking() {
         </Select>
         
         {showCustomDateRange && (
-          <div className="flex items-center space-x-2">
+          <div className="flex items-centre space-x-2">
             <Popover>
               <PopoverTrigger asChild>
                 <Button
@@ -295,7 +295,7 @@ export function StudentProgressTracking() {
         </Select>
       </div>
       
-      <div className="flex items-center space-x-2">
+      <div className="flex items-centre space-x-2">
         <Button variant="outline" size="sm">
           <Save className="mr-2 h-4 w-4" />
           Save View
@@ -352,7 +352,7 @@ export function StudentProgressTracking() {
       {/* Key metrics */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Average Progress
             </CardTitle>
@@ -370,7 +370,7 @@ export function StudentProgressTracking() {
         </Card>
         
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Students Above Target
             </CardTitle>
@@ -388,7 +388,7 @@ export function StudentProgressTracking() {
         </Card>
         
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Attainment Gap (PP)
             </CardTitle>
@@ -406,7 +406,7 @@ export function StudentProgressTracking() {
         </Card>
         
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Intervention Impact
             </CardTitle>
@@ -449,7 +449,7 @@ export function StudentProgressTracking() {
                     label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
                   >
                     {progressDistributionData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.color} />
+                      <Cell key={`cell-${index}`} fill={entry.colour} />
                     ))}
                   </Pie>
                   <Tooltip formatter={(value) => [`${value} students`, 'Count']} />
@@ -566,8 +566,8 @@ export function StudentProgressTracking() {
           <CardContent className="px-2">
             <div className="space-y-4">
               {atRiskStudentsData.slice(0, 4).map((student) => (
-                <div key={student.id} className="flex items-center justify-between rounded-md bg-muted p-3">
-                  <div className="flex items-center space-x-3">
+                <div key={student.id} className="flex items-centre justify-between rounded-md bg-muted p-3">
+                  <div className="flex items-centre space-x-3">
                     <AlertTriangle className={cn(
                       "h-5 w-5",
                       student.priority === 'high' ? "text-red-500" : 
@@ -1108,7 +1108,7 @@ export function StudentProgressTracking() {
           <CardContent className="px-2">
             <div className="space-y-4">
               <div className="space-y-2">
-                <div className="flex items-center justify-between">
+                <div className="flex items-centre justify-between">
                   <div className="space-y-1">
                     <p className="text-sm font-medium">Number & Place Value</p>
                     <div className="h-2 w-full rounded-full bg-muted">
@@ -1118,7 +1118,7 @@ export function StudentProgressTracking() {
                   <span className="text-sm font-medium">95%</span>
                 </div>
                 
-                <div className="flex items-center justify-between">
+                <div className="flex items-centre justify-between">
                   <div className="space-y-1">
                     <p className="text-sm font-medium">Addition & Subtraction</p>
                     <div className="h-2 w-full rounded-full bg-muted">
@@ -1128,7 +1128,7 @@ export function StudentProgressTracking() {
                   <span className="text-sm font-medium">90%</span>
                 </div>
                 
-                <div className="flex items-center justify-between">
+                <div className="flex items-centre justify-between">
                   <div className="space-y-1">
                     <p className="text-sm font-medium">Multiplication & Division</p>
                     <div className="h-2 w-full rounded-full bg-muted">
@@ -1138,7 +1138,7 @@ export function StudentProgressTracking() {
                   <span className="text-sm font-medium">85%</span>
                 </div>
                 
-                <div className="flex items-center justify-between">
+                <div className="flex items-centre justify-between">
                   <div className="space-y-1">
                     <p className="text-sm font-medium">Fractions</p>
                     <div className="h-2 w-full rounded-full bg-muted">
@@ -1148,7 +1148,7 @@ export function StudentProgressTracking() {
                   <span className="text-sm font-medium">75%</span>
                 </div>
                 
-                <div className="flex items-center justify-between">
+                <div className="flex items-centre justify-between">
                   <div className="space-y-1">
                     <p className="text-sm font-medium">Measurement</p>
                     <div className="h-2 w-full rounded-full bg-muted">
@@ -1158,7 +1158,7 @@ export function StudentProgressTracking() {
                   <span className="text-sm font-medium">80%</span>
                 </div>
                 
-                <div className="flex items-center justify-between">
+                <div className="flex items-centre justify-between">
                   <div className="space-y-1">
                     <p className="text-sm font-medium">Geometry</p>
                     <div className="h-2 w-full rounded-full bg-muted">
@@ -1168,7 +1168,7 @@ export function StudentProgressTracking() {
                   <span className="text-sm font-medium">70%</span>
                 </div>
                 
-                <div className="flex items-center justify-between">
+                <div className="flex items-centre justify-between">
                   <div className="space-y-1">
                     <p className="text-sm font-medium">Statistics</p>
                     <div className="h-2 w-full rounded-full bg-muted">
@@ -1303,7 +1303,7 @@ export function StudentProgressTracking() {
                     label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
                   >
                     {progressDistributionData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.color} />
+                      <Cell key={`cell-${index}`} fill={entry.colour} />
                     ))}
                   </Pie>
                   <Tooltip formatter={(value) => [`${value}%`, 'Percentage']} />
@@ -1323,8 +1323,8 @@ export function StudentProgressTracking() {
           </CardHeader>
           <CardContent className="px-2">
             <div className="space-y-4">
-              <div className="flex items-center justify-between rounded-md bg-muted p-3">
-                <div className="flex items-center space-x-3">
+              <div className="flex items-centre justify-between rounded-md bg-muted p-3">
+                <div className="flex items-centre space-x-3">
                   <Zap className="h-5 w-5 text-blue-500" />
                   <div>
                     <p className="text-sm font-medium">Reading Fluency Programme</p>
@@ -1334,8 +1334,8 @@ export function StudentProgressTracking() {
                 <Badge variant="outline">Week 4</Badge>
               </div>
               
-              <div className="flex items-center justify-between rounded-md bg-muted p-3">
-                <div className="flex items-center space-x-3">
+              <div className="flex items-centre justify-between rounded-md bg-muted p-3">
+                <div className="flex items-centre space-x-3">
                   <Zap className="h-5 w-5 text-blue-500" />
                   <div>
                     <p className="text-sm font-medium">Maths Mastery Booster</p>
@@ -1345,8 +1345,8 @@ export function StudentProgressTracking() {
                 <Badge variant="outline">Week 3</Badge>
               </div>
               
-              <div className="flex items-center justify-between rounded-md bg-muted p-3">
-                <div className="flex items-center space-x-3">
+              <div className="flex items-centre justify-between rounded-md bg-muted p-3">
+                <div className="flex items-centre space-x-3">
                   <Zap className="h-5 w-5 text-blue-500" />
                   <div>
                     <p className="text-sm font-medium">Writing Confidence Workshop</p>
@@ -1356,8 +1356,8 @@ export function StudentProgressTracking() {
                 <Badge variant="outline">Week 6</Badge>
               </div>
               
-              <div className="flex items-center justify-between rounded-md bg-muted p-3">
-                <div className="flex items-center space-x-3">
+              <div className="flex items-centre justify-between rounded-md bg-muted p-3">
+                <div className="flex items-centre space-x-3">
                   <Zap className="h-5 w-5 text-blue-500" />
                   <div>
                     <p className="text-sm font-medium">1:1 Targeted Support</p>
@@ -1403,12 +1403,12 @@ export function StudentProgressTracking() {
                   <div 
                     key={student.id}
                     className={cn(
-                      "flex items-center justify-between rounded-md p-2 cursor-pointer",
+                      "flex items-centre justify-between rounded-md p-2 cursor-pointer",
                       selectedStudent === student.id ? "bg-muted" : "hover:bg-muted/50"
                     )}
                     onClick={() => setSelectedStudent(student.id)}
                   >
-                    <div className="flex items-center space-x-3">
+                    <div className="flex items-centre space-x-3">
                       <User className="h-5 w-5 text-muted-foreground" />
                       <div>
                         <p className="text-sm font-medium">{student.name}</p>
@@ -1422,10 +1422,10 @@ export function StudentProgressTracking() {
                 ))}
                 
                 <div 
-                  className="flex items-center justify-between rounded-md p-2 cursor-pointer hover:bg-muted/50"
+                  className="flex items-centre justify-between rounded-md p-2 cursor-pointer hover:bg-muted/50"
                   onClick={() => setSelectedStudent(5)}
                 >
-                  <div className="flex items-center space-x-3">
+                  <div className="flex items-centre space-x-3">
                     <User className="h-5 w-5 text-muted-foreground" />
                     <div>
                       <p className="text-sm font-medium">Emily Johnson</p>
@@ -1435,10 +1435,10 @@ export function StudentProgressTracking() {
                 </div>
                 
                 <div 
-                  className="flex items-center justify-between rounded-md p-2 cursor-pointer hover:bg-muted/50"
+                  className="flex items-centre justify-between rounded-md p-2 cursor-pointer hover:bg-muted/50"
                   onClick={() => setSelectedStudent(6)}
                 >
-                  <div className="flex items-center space-x-3">
+                  <div className="flex items-centre space-x-3">
                     <User className="h-5 w-5 text-muted-foreground" />
                     <div>
                       <p className="text-sm font-medium">Mohammed Ali</p>
@@ -1448,10 +1448,10 @@ export function StudentProgressTracking() {
                 </div>
                 
                 <div 
-                  className="flex items-center justify-between rounded-md p-2 cursor-pointer hover:bg-muted/50"
+                  className="flex items-centre justify-between rounded-md p-2 cursor-pointer hover:bg-muted/50"
                   onClick={() => setSelectedStudent(7)}
                 >
-                  <div className="flex items-center space-x-3">
+                  <div className="flex items-centre space-x-3">
                     <User className="h-5 w-5 text-muted-foreground" />
                     <div>
                       <p className="text-sm font-medium">Sofia Garcia</p>
@@ -1461,10 +1461,10 @@ export function StudentProgressTracking() {
                 </div>
                 
                 <div 
-                  className="flex items-center justify-between rounded-md p-2 cursor-pointer hover:bg-muted/50"
+                  className="flex items-centre justify-between rounded-md p-2 cursor-pointer hover:bg-muted/50"
                   onClick={() => setSelectedStudent(8)}
                 >
-                  <div className="flex items-center space-x-3">
+                  <div className="flex items-centre space-x-3">
                     <User className="h-5 w-5 text-muted-foreground" />
                     <div>
                       <p className="text-sm font-medium">Daniel Smith</p>
@@ -1479,7 +1479,7 @@ export function StudentProgressTracking() {
         
         <Card className="md:col-span-3">
           <CardHeader>
-            <div className="flex items-center justify-between">
+            <div className="flex items-centre justify-between">
               <div>
                 <CardTitle>Student Progress Details</CardTitle>
                 <CardDescription>
@@ -1487,7 +1487,7 @@ export function StudentProgressTracking() {
                 </CardDescription>
               </div>
               {selectedStudent && (
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <Button variant="outline" size="sm">
                     <FileText className="mr-2 h-4 w-4" />
                     Report
@@ -1505,7 +1505,7 @@ export function StudentProgressTracking() {
               <div className="space-y-6">
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
                   <Card>
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
                       <CardTitle className="text-sm font-medium">
                         Current Average
                       </CardTitle>
@@ -1520,7 +1520,7 @@ export function StudentProgressTracking() {
                   </Card>
                   
                   <Card>
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
                       <CardTitle className="text-sm font-medium">
                         Target Gap
                       </CardTitle>
@@ -1535,7 +1535,7 @@ export function StudentProgressTracking() {
                   </Card>
                   
                   <Card>
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
                       <CardTitle className="text-sm font-medium">
                         Attendance
                       </CardTitle>
@@ -1550,7 +1550,7 @@ export function StudentProgressTracking() {
                   </Card>
                   
                   <Card>
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
                       <CardTitle className="text-sm font-medium">
                         Learning Style
                       </CardTitle>
@@ -1652,15 +1652,15 @@ export function StudentProgressTracking() {
                     </CardHeader>
                     <CardContent className="px-2">
                       <div className="space-y-2">
-                        <div className="flex items-center space-x-2 rounded-md bg-muted p-2">
+                        <div className="flex items-centre space-x-2 rounded-md bg-muted p-2">
                           <ArrowUp className="h-4 w-4 text-green-500" />
                           <span className="text-sm">Reading Comprehension</span>
                         </div>
-                        <div className="flex items-center space-x-2 rounded-md bg-muted p-2">
+                        <div className="flex items-centre space-x-2 rounded-md bg-muted p-2">
                           <ArrowUp className="h-4 w-4 text-green-500" />
                           <span className="text-sm">Scientific Enquiry</span>
                         </div>
-                        <div className="flex items-center space-x-2 rounded-md bg-muted p-2">
+                        <div className="flex items-centre space-x-2 rounded-md bg-muted p-2">
                           <ArrowUp className="h-4 w-4 text-green-500" />
                           <span className="text-sm">Creative Writing</span>
                         </div>
@@ -1677,15 +1677,15 @@ export function StudentProgressTracking() {
                     </CardHeader>
                     <CardContent className="px-2">
                       <div className="space-y-2">
-                        <div className="flex items-center space-x-2 rounded-md bg-muted p-2">
+                        <div className="flex items-centre space-x-2 rounded-md bg-muted p-2">
                           <ArrowDown className="h-4 w-4 text-red-500" />
                           <span className="text-sm">Fractions & Decimals</span>
                         </div>
-                        <div className="flex items-center space-x-2 rounded-md bg-muted p-2">
+                        <div className="flex items-centre space-x-2 rounded-md bg-muted p-2">
                           <ArrowDown className="h-4 w-4 text-red-500" />
                           <span className="text-sm">Spelling Accuracy</span>
                         </div>
-                        <div className="flex items-center space-x-2 rounded-md bg-muted p-2">
+                        <div className="flex items-centre space-x-2 rounded-md bg-muted p-2">
                           <ArrowRight className="h-4 w-4 text-amber-500" />
                           <span className="text-sm">Problem Solving</span>
                         </div>
@@ -1702,14 +1702,14 @@ export function StudentProgressTracking() {
                     </CardHeader>
                     <CardContent className="px-2">
                       <div className="space-y-2">
-                        <div className="flex items-center space-x-2 rounded-md bg-muted p-2">
+                        <div className="flex items-centre space-x-2 rounded-md bg-muted p-2">
                           <Flag className="h-4 w-4 text-blue-500" />
                           <div>
                             <p className="text-sm">Maths Booster Group</p>
                             <p className="text-xs text-muted-foreground">Week 3 of 6</p>
                           </div>
                         </div>
-                        <div className="flex items-center space-x-2 rounded-md bg-muted p-2">
+                        <div className="flex items-centre space-x-2 rounded-md bg-muted p-2">
                           <Flag className="h-4 w-4 text-blue-500" />
                           <div>
                             <p className="text-sm">Spelling Programme</p>
@@ -1728,10 +1728,10 @@ export function StudentProgressTracking() {
                 </div>
               </div>
             ) : (
-              <div className="flex flex-col items-center justify-center space-y-2 py-12">
+              <div className="flex flex-col items-centre justify-centre space-y-2 py-12">
                 <UserPlus className="h-12 w-12 text-muted-foreground" />
                 <h3 className="text-lg font-medium">Select a Student</h3>
-                <p className="text-sm text-muted-foreground text-center max-w-md">
+                <p className="text-sm text-muted-foreground text-centre max-w-md">
                   Choose a student from the list to view their detailed progress information, 
                   including assessment history, subject performance, and intervention records.
                 </p>

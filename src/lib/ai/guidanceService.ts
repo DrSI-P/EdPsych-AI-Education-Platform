@@ -37,7 +37,7 @@ export class AIGuidanceService {
     subject: SubjectArea,
     duration: number // in weeks
   ): Promise<LearningPath> {
-    // Analyze learner profile to determine optimal learning path
+    // Analyse learner profile to determine optimal learning path
     const dominantLearningStyle = this.determineDominantLearningStyle(learnerProfile);
     const currentProficiency = this.assessCurrentProficiency(learnerProfile, subject);
     const relevantGoals = this.getRelevantLearningGoals(learnerProfile, subject);
@@ -147,7 +147,7 @@ export class AIGuidanceService {
       id: `path-${Date.now()}`,
       learnerId: learnerProfile.id,
       title: `Personalized ${subject} Learning Path`,
-      description: `A customized learning journey for ${subject} tailored to your ${dominantLearningStyle} learning style.`,
+      description: `A customised learning journey for ${subject} tailored to your ${dominantLearningStyle} learning style.`,
       subject: subject,
       keyStage: learnerProfile.keyStage,
       objectives: relevantGoals.map(goal => goal.description),
@@ -187,7 +187,7 @@ export class AIGuidanceService {
     currentLearningPath?: LearningPath,
     count: number = 3
   ): Promise<ContentSuggestion[]> {
-    // Analyze learner profile to determine appropriate content
+    // Analyse learner profile to determine appropriate content
     const dominantLearningStyle = this.determineDominantLearningStyle(learnerProfile);
     const interests = this.identifyTopInterests(learnerProfile);
     const areasForImprovement = this.identifyAreasForImprovement(learnerProfile);
@@ -296,9 +296,9 @@ export class AIGuidanceService {
     if (areasForImprovement.length > 0) {
       suggestions.push({
         id: `suggestion-improvement-${Date.now()}`,
-        title: `${this.getSubjectName(areasForImprovement[0])} Practice Activities`,
-        description: `Strengthen your skills in ${this.getSubjectName(areasForImprovement[0])} with these targeted practice activities.`,
-        contentType: 'practice',
+        title: `${this.getSubjectName(areasForImprovement[0])} Practise Activities`,
+        description: `Strengthen your skills in ${this.getSubjectName(areasForImprovement[0])} with these targeted practise activities.`,
+        contentType: 'practise',
         subject: areasForImprovement[0],
         keyStage: learnerProfile.keyStage,
         learningStyleAlignment: {
@@ -397,7 +397,7 @@ export class AIGuidanceService {
   /**
    * Get appropriate content type for learning style
    */
-  private getContentTypeForLearningStyle(style: LearningStyle): 'video' | 'article' | 'interactive' | 'assessment' | 'practice' {
+  private getContentTypeForLearningStyle(style: LearningStyle): 'video' | 'article' | 'interactive' | 'assessment' | 'practise' {
     switch (style) {
       case LearningStyle.VISUAL:
         return 'video';
@@ -422,7 +422,7 @@ export class AIGuidanceService {
     recentActivities: any[],
     currentLearningPaths: LearningPath[]
   ): Promise<InterventionAlert[]> {
-    // Analyze recent activities and learning paths to identify potential issues
+    // Analyse recent activities and learning paths to identify potential issues
     const performanceIssues = this.identifyPerformanceIssues(learnerProfile, recentActivities);
     const engagementIssues = this.identifyEngagementIssues(learnerProfile, recentActivities);
     const goalIssues = this.identifyGoalsAtRisk(learnerProfile, currentLearningPaths);
@@ -451,8 +451,8 @@ export class AIGuidanceService {
             resources: issue.conceptsToReview
           },
           {
-            actionType: 'practice',
-            description: `Complete additional practice exercises in ${this.getSubjectName(issue.subject)}.`
+            actionType: 'practise',
+            description: `Complete additional practise exercises in ${this.getSubjectName(issue.subject)}.`
           }
         ],
         createdAt: new Date(),
@@ -525,7 +525,7 @@ export class AIGuidanceService {
    * Identify performance issues based on recent activities
    */
   private identifyPerformanceIssues(learnerProfile: LearnerProfile, recentActivities: any[]): any[] {
-    // This would typically involve analyzing assessment results over time
+    // This would typically involve analysing assessment results over time
     // For now, we'll return a placeholder implementation
     
     // In a real implementation, this would:
@@ -541,7 +541,7 @@ export class AIGuidanceService {
    * Identify engagement issues based on recent activities
    */
   private identifyEngagementIssues(learnerProfile: LearnerProfile, recentActivities: any[]): any[] {
-    // This would typically involve analyzing platform usage patterns
+    // This would typically involve analysing platform usage patterns
     // For now, we'll return a placeholder implementation
     
     // In a real implementation, this would:
@@ -557,7 +557,7 @@ export class AIGuidanceService {
    * Identify goals at risk based on current progress
    */
   private identifyGoalsAtRisk(learnerProfile: LearnerProfile, currentLearningPaths: LearningPath[]): any[] {
-    // This would typically involve analyzing goal progress against deadlines
+    // This would typically involve analysing goal progress against deadlines
     // For now, we'll return a placeholder implementation
     
     // In a real implementation, this would:
@@ -576,7 +576,7 @@ export class AIGuidanceService {
     learnerProfile: LearnerProfile,
     period: { start: Date; end: Date }
   ): Promise<ProgressReport> {
-    // This would typically involve analyzing all learning activities within the period
+    // This would typically involve analysing all learning activities within the period
     // For now, we'll return a placeholder implementation
     
     // In a real implementation, this would:
@@ -610,7 +610,7 @@ export class AIGuidanceService {
         {
           subject: SubjectArea.MATHEMATICS,
           conceptsToImprove: ['Fractions', 'Algebra'],
-          suggestedActivities: ['Fraction Practice', 'Algebra Basics']
+          suggestedActivities: ['Fraction Practise', 'Algebra Basics']
         }
       ],
       nextSteps: [

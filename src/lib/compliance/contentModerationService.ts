@@ -182,7 +182,7 @@ export class ContentModerationServiceImpl implements ContentModerationService {
     const id = `moderation-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
     
     // In a real implementation, this would extract text from the document
-    // and analyze it, as well as any images in the document
+    // and analyse it, as well as any images in the document
     
     // Mock implementation
     const moderationAction = ContentModerationAction.APPROVE;

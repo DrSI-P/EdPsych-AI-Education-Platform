@@ -88,7 +88,7 @@ export function ProfessionalDashboard({
           comprehension: 65,
           vocabulary: 72
         },
-        recommendations: 'Continue with targeted comprehension strategies. Implement text-to-speech technology for complex texts. Regular reading practice with comprehension questions.'
+        recommendations: 'Continue with targeted comprehension strategies. Implement text-to-speech technology for complex texts. Regular reading practise with comprehension questions.'
       },
       {
         id: '2',
@@ -216,7 +216,7 @@ export function ProfessionalDashboard({
       content: (
         <div className="space-y-6">
           {loading ? (
-            <div className="flex justify-center py-8">
+            <div className="flex justify-centre py-8">
               <Spinner size="lg" />
             </div>
           ) : error ? (
@@ -225,47 +225,47 @@ export function ProfessionalDashboard({
             </Alert>
           ) : (
             <>
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <div>
                   <h2 className="text-xl font-semibold">Welcome, {professionalData.name}</h2>
-                  <p className="text-sm text-gray-600">{professionalData.role} • {professionalData.organisation}</p>
+                  <p className="text-sm text-grey-600">{professionalData.role} • {professionalData.organisation}</p>
                 </div>
                 <div className="text-right">
                   <p className="text-sm font-medium">Today's Date</p>
-                  <p className="text-sm text-gray-600">{new Date().toLocaleDateString('en-GB')}</p>
+                  <p className="text-sm text-grey-600">{new Date().toLocaleDateString('en-GB')}</p>
                 </div>
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <Card>
                   <CardContent className="pt-6">
-                    <div className="text-center">
+                    <div className="text-centre">
                       <div className="text-3xl font-bold text-blue-600 mb-1">
                         {professionalData.caseload.length}
                       </div>
-                      <p className="text-sm text-gray-600">Active Cases</p>
+                      <p className="text-sm text-grey-600">Active Cases</p>
                     </div>
                   </CardContent>
                 </Card>
                 <Card>
                   <CardContent className="pt-6">
-                    <div className="text-center">
+                    <div className="text-centre">
                       <div className="text-3xl font-bold text-green-600 mb-1">
                         {professionalData.schedule.filter(item => 
                           new Date(item.date).toDateString() === new Date().toDateString()
                         ).length}
                       </div>
-                      <p className="text-sm text-gray-600">Appointments Today</p>
+                      <p className="text-sm text-grey-600">Appointments Today</p>
                     </div>
                   </CardContent>
                 </Card>
                 <Card>
                   <CardContent className="pt-6">
-                    <div className="text-center">
+                    <div className="text-centre">
                       <div className="text-3xl font-bold text-purple-600 mb-1">
                         {professionalData.reports.filter(report => report.status === 'draft').length}
                       </div>
-                      <p className="text-sm text-gray-600">Reports in Progress</p>
+                      <p className="text-sm text-grey-600">Reports in Progress</p>
                     </div>
                   </CardContent>
                 </Card>
@@ -283,7 +283,7 @@ export function ProfessionalDashboard({
                       .map(item => (
                         <div 
                           key={item.id} 
-                          className={`p-3 rounded-md border hover:bg-gray-50 ${
+                          className={`p-3 rounded-md border hover:bg-grey-50 ${
                             item.type === 'assessment' ? 'border-blue-200' :
                             item.type === 'session' ? 'border-green-200' :
                             'border-purple-200'
@@ -299,10 +299,10 @@ export function ProfessionalDashboard({
                               {item.type}
                             </span>
                           </div>
-                          <p className="text-sm text-gray-600">
+                          <p className="text-sm text-grey-600">
                             {item.date} • {item.time}
                           </p>
-                          <p className="text-sm text-gray-600">
+                          <p className="text-sm text-grey-600">
                             Location: {item.location}
                           </p>
                         </div>
@@ -326,12 +326,12 @@ export function ProfessionalDashboard({
                     {professionalData.assessments
                       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
                       .map(assessment => (
-                        <div key={assessment.id} className="p-3 rounded-md border hover:bg-gray-50">
+                        <div key={assessment.id} className="p-3 rounded-md border hover:bg-grey-50">
                           <div className="flex justify-between items-start">
                             <h4 className="font-medium">{assessment.studentName}</h4>
-                            <span className="text-xs text-gray-500">{assessment.date}</span>
+                            <span className="text-xs text-grey-500">{assessment.date}</span>
                           </div>
-                          <p className="text-sm text-gray-600">{assessment.type}</p>
+                          <p className="text-sm text-grey-600">{assessment.type}</p>
                           <div className="mt-2 grid grid-cols-2 gap-2">
                             {Object.entries(assessment.scores).map(([key, value]) => (
                               <div key={key} className="flex justify-between text-xs">
@@ -374,11 +374,11 @@ export function ProfessionalDashboard({
                       })
                       .slice(0, 3)
                       .map(student => (
-                        <div key={student.id} className="p-4 rounded-md border hover:bg-gray-50">
+                        <div key={student.id} className="p-4 rounded-md border hover:bg-grey-50">
                           <div className="flex justify-between items-start">
                             <div>
                               <h4 className="font-medium">{student.name}</h4>
-                              <p className="text-sm text-gray-600">
+                              <p className="text-sm text-grey-600">
                                 {student.age} years • {student.year} • {student.school}
                               </p>
                             </div>
@@ -393,12 +393,12 @@ export function ProfessionalDashboard({
                           
                           <div className="mt-3 space-y-2">
                             <div>
-                              <p className="text-xs font-medium text-gray-500">Areas of Concern:</p>
+                              <p className="text-xs font-medium text-grey-500">Areas of Concern:</p>
                               <div className="flex flex-wrap gap-1 mt-1">
                                 {student.concerns.map((concern, index) => (
                                   <span 
                                     key={index}
-                                    className="text-xs px-2 py-0.5 rounded-full bg-gray-100"
+                                    className="text-xs px-2 py-0.5 rounded-full bg-grey-100"
                                   >
                                     {concern}
                                   </span>
@@ -407,11 +407,11 @@ export function ProfessionalDashboard({
                             </div>
                             
                             <div className="text-sm">
-                              <p className="text-xs font-medium text-gray-500">Notes:</p>
+                              <p className="text-xs font-medium text-grey-500">Notes:</p>
                               <p className="text-sm mt-1">{student.notes}</p>
                             </div>
                             
-                            <div className="flex justify-between text-xs text-gray-500">
+                            <div className="flex justify-between text-xs text-grey-500">
                               <span>Last Assessment: {student.lastAssessment !== 'N/A' ? student.lastAssessment : 'None'}</span>
                               <span>Next Session: {student.nextSession}</span>
                             </div>
@@ -460,7 +460,7 @@ export function ProfessionalDashboard({
                       <h4 className="text-sm font-medium mb-2">Suggest Interventions</h4>
                       <AIPrompt
                         placeholder="Describe the student's needs and current assessment results..."
-                        systemPrompt={`You are an educational psychology assistant helping ${professionalData.name}, a ${professionalData.role}. Suggest evidence-based interventions based on the student information provided. Follow UK educational standards and use UK English spelling. For each suggested intervention, include: name, brief description, implementation steps, expected outcomes, and monitoring approach. Keep suggestions practical, specific, and aligned with current UK educational psychology practice.`}
+                        systemPrompt={`You are an educational psychology assistant helping ${professionalData.name}, a ${professionalData.role}. Suggest evidence-based interventions based on the student information provided. Follow UK educational standards and use UK English spelling. For each suggested intervention, include: name, brief description, implementation steps, expected outcomes, and monitoring approach. Keep suggestions practical, specific, and aligned with current UK educational psychology practise.`}
                         onCompletion={handleInterventionSuggestion}
                       />
                     </div>
@@ -478,7 +478,7 @@ export function ProfessionalDashboard({
       content: (
         <div className="space-y-6">
           {loading ? (
-            <div className="flex justify-center py-8">
+            <div className="flex justify-centre py-8">
               <Spinner size="lg" />
             </div>
           ) : error ? (
@@ -487,7 +487,7 @@ export function ProfessionalDashboard({
             </Alert>
           ) : (
             <>
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <h2 className="text-xl font-semibold">My Caseload</h2>
                 <div className="flex gap-2">
                   <Input
@@ -518,7 +518,7 @@ export function ProfessionalDashboard({
                           <div className="flex justify-between items-start">
                             <div>
                               <h3 className="text-lg font-semibold">{student.name}</h3>
-                              <p className="text-sm text-gray-600">
+                              <p className="text-sm text-grey-600">
                                 {student.age} years • {student.year} • {student.school}
                               </p>
                             </div>
@@ -533,12 +533,12 @@ export function ProfessionalDashboard({
                           
                           <div className="mt-4 space-y-3">
                             <div>
-                              <p className="text-sm font-medium text-gray-500">Areas of Concern:</p>
+                              <p className="text-sm font-medium text-grey-500">Areas of Concern:</p>
                               <div className="flex flex-wrap gap-1 mt-1">
                                 {student.concerns.map((concern, index) => (
                                   <span 
                                     key={index}
-                                    className="text-xs px-2 py-0.5 rounded-full bg-gray-100"
+                                    className="text-xs px-2 py-0.5 rounded-full bg-grey-100"
                                   >
                                     {concern}
                                   </span>
@@ -547,11 +547,11 @@ export function ProfessionalDashboard({
                             </div>
                             
                             <div>
-                              <p className="text-sm font-medium text-gray-500">Notes:</p>
+                              <p className="text-sm font-medium text-grey-500">Notes:</p>
                               <p className="text-sm mt-1">{student.notes}</p>
                             </div>
                             
-                            <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm text-gray-600">
+                            <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm text-grey-600">
                               <div>
                                 <span className="font-medium">Last Assessment:</span> {student.lastAssessment !== 'N/A' ? student.lastAssessment : 'None'}
                               </div>
@@ -601,7 +601,7 @@ export function ProfessionalDashboard({
       content: (
         <div className="space-y-6">
           {loading ? (
-            <div className="flex justify-center py-8">
+            <div className="flex justify-centre py-8">
               <Spinner size="lg" />
             </div>
           ) : error ? (
@@ -610,7 +610,7 @@ export function ProfessionalDashboard({
             </Alert>
           ) : (
             <>
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <h2 className="text-xl font-semibold">Assessments</h2>
                 <div className="flex gap-2">
                   <Select
@@ -637,7 +637,7 @@ export function ProfessionalDashboard({
                           <div className="flex justify-between items-start">
                             <div>
                               <h3 className="text-lg font-semibold">{assessment.type}</h3>
-                              <p className="text-sm text-gray-600">
+                              <p className="text-sm text-grey-600">
                                 Student: {assessment.studentName} • Date: {assessment.date}
                               </p>
                             </div>
@@ -645,7 +645,7 @@ export function ProfessionalDashboard({
                           
                           <div className="mt-4 space-y-3">
                             <div>
-                              <p className="text-sm font-medium text-gray-500">Assessment Scores:</p>
+                              <p className="text-sm font-medium text-grey-500">Assessment Scores:</p>
                               <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-2">
                                 {Object.entries(assessment.scores).map(([key, value]) => (
                                   <div 
@@ -656,7 +656,7 @@ export function ProfessionalDashboard({
                                       'bg-orange-50 border border-orange-200'
                                     }`}
                                   >
-                                    <p className="text-xs text-gray-500 capitalize">{key}</p>
+                                    <p className="text-xs text-grey-500 capitalize">{key}</p>
                                     <p className={`text-lg font-semibold ${
                                       value >= 80 ? 'text-green-600' :
                                       value >= 70 ? 'text-blue-600' :
@@ -670,7 +670,7 @@ export function ProfessionalDashboard({
                             </div>
                             
                             <div>
-                              <p className="text-sm font-medium text-gray-500">Recommendations:</p>
+                              <p className="text-sm font-medium text-grey-500">Recommendations:</p>
                               <p className="text-sm mt-1">{assessment.recommendations}</p>
                             </div>
                           </div>
@@ -709,7 +709,7 @@ export function ProfessionalDashboard({
       content: (
         <div className="space-y-6">
           {loading ? (
-            <div className="flex justify-center py-8">
+            <div className="flex justify-centre py-8">
               <Spinner size="lg" />
             </div>
           ) : error ? (
@@ -718,7 +718,7 @@ export function ProfessionalDashboard({
             </Alert>
           ) : (
             <>
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <h2 className="text-xl font-semibold">Reports</h2>
                 <div className="flex gap-2">
                   <Select
@@ -744,7 +744,7 @@ export function ProfessionalDashboard({
                           <div className="flex justify-between items-start">
                             <div>
                               <h3 className="text-lg font-semibold">{report.type}</h3>
-                              <p className="text-sm text-gray-600">
+                              <p className="text-sm text-grey-600">
                                 Student: {report.studentName} • Date: {report.date}
                               </p>
                             </div>
@@ -757,8 +757,8 @@ export function ProfessionalDashboard({
                           </div>
                           
                           <div className="mt-4 space-y-3">
-                            <div className="flex items-center text-sm text-gray-600">
-                              <svg className="h-4 w-4 mr-1 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <div className="flex items-centre text-sm text-grey-600">
+                              <svg className="h-4 w-4 mr-1 text-grey-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                               </svg>
                               Last edited: {report.lastEdited}
@@ -822,7 +822,7 @@ export function ProfessionalDashboard({
       content: (
         <div className="space-y-6">
           {loading ? (
-            <div className="flex justify-center py-8">
+            <div className="flex justify-centre py-8">
               <Spinner size="lg" />
             </div>
           ) : error ? (
@@ -831,7 +831,7 @@ export function ProfessionalDashboard({
             </Alert>
           ) : (
             <>
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <h2 className="text-xl font-semibold">Professional Resources</h2>
                 <div className="flex gap-2">
                   <Input
@@ -864,17 +864,17 @@ export function ProfessionalDashboard({
                       </div>
                     </CardHeader>
                     <CardContent className="flex-grow">
-                      <p className="text-sm text-gray-600 mb-4">
+                      <p className="text-sm text-grey-600 mb-4">
                         {resource.description}
                       </p>
                       <div className="space-y-2">
                         <div>
-                          <p className="text-xs font-medium text-gray-500">Target Areas:</p>
+                          <p className="text-xs font-medium text-grey-500">Target Areas:</p>
                           <div className="flex flex-wrap gap-1 mt-1">
                             {resource.targetAreas.map((area, index) => (
                               <span 
                                 key={index}
-                                className="text-xs px-2 py-0.5 rounded-full bg-gray-100"
+                                className="text-xs px-2 py-0.5 rounded-full bg-grey-100"
                               >
                                 {area}
                               </span>
@@ -882,7 +882,7 @@ export function ProfessionalDashboard({
                           </div>
                         </div>
                         <div>
-                          <p className="text-xs font-medium text-gray-500">Age Range:</p>
+                          <p className="text-xs font-medium text-grey-500">Age Range:</p>
                           <p className="text-sm">{resource.ageRange}</p>
                         </div>
                       </div>

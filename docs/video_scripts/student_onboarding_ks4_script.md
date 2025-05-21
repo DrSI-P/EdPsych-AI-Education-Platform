@@ -27,7 +27,7 @@ You can customise this view to prioritise what matters most to you. The quick na
 When you select a subject, you'll find comprehensive resources aligned with your specific exam board specifications. Each topic includes:
 
 Core content covering all specification points
-Practice questions with model answers
+Practise questions with model answers
 Past paper questions organised by topic
 Extension materials for deeper understanding
 
@@ -63,9 +63,9 @@ These features help develop the higher-order thinking skills essential for succe
 As exams approach, the revision tools become increasingly valuable:
 
 The personalised revision schedule creates an optimal study plan
-The flashcard system builds retrieval practice into your routine
+The flashcard system builds retrieval practise into your routine
 The mark scheme analyser helps you understand assessment criteria
-The performance analytics identify patterns in your practice results
+The performance analytics identify patterns in your practise results
 
 These tools help you revise efficiently and effectively, focusing your efforts where they'll have the greatest impact.
 

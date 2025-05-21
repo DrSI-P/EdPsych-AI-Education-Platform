@@ -90,7 +90,7 @@ For each avatar, we need the following content variations:
 
 ### Integration with Platform
 
-1. **File Organization**
+1. **File Organisation**
    - Create a structured folder system for the avatars
    - Name files consistently for easy reference
    - Example: `[avatar_type]_[avatar_name]_[content_type]_[variation].mp4`
@@ -106,7 +106,7 @@ For each avatar, we need the following content variations:
 
 3. **Storage**
    - Upload videos to an appropriate cloud storage solution
-   - Ensure videos are optimized for streaming
+   - Ensure videos are optimised for streaming
    - Set up proper access controls
 
 4. **Database Integration**

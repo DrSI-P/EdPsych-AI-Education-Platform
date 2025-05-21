@@ -76,7 +76,7 @@ export default function AdvancedSpeechRecognition({
   // Calibration phrases for children
   const calibrationPhrases = [
     "The quick brown fox jumps over the lazy dog",
-    "My favorite ice cream is chocolate with sprinkles",
+    "My favourite ice cream is chocolate with sprinkles",
     "I like to play games with my friends at school",
     "The big dinosaur roared and stomped its feet",
     "Can you help me build a castle with blocks please"
@@ -245,7 +245,7 @@ export default function AdvancedSpeechRecognition({
       // This is a simplified implementation
       
       // In a production environment, we would:
-      // 1. Use a specialized model trained on children's voices
+      // 1. Use a specialised model trained on children's voices
       // 2. Apply acoustic model adaptation based on calibration
       // 3. Adjust frequency filtering to better capture higher pitched voices
       // 4. Implement custom language models for child vocabulary
@@ -353,7 +353,7 @@ export default function AdvancedSpeechRecognition({
   
   // Handle calibration step completion
   const completeCalibrationStep = () => {
-    // In a real implementation, we would save audio samples and analyze them
+    // In a real implementation, we would save audio samples and analyse them
     // For this demo, we'll simulate collecting calibration data
     setCalibrationSamples(prev => [...prev, confidence]);
     
@@ -371,11 +371,11 @@ export default function AdvancedSpeechRecognition({
     setIsCalibrating(false);
     setCalibrationProgress(100);
     
-    // In a real implementation, we would use the collected data to optimize the recognition
+    // In a real implementation, we would use the collected data to optimise the recognition
     // For this demo, we'll just show a success message
     toast({
       title: "Calibration complete",
-      description: "Voice profile has been optimized for better recognition.",
+      description: "Voice profile has been optimised for better recognition.",
       variant: "success",
     });
     
@@ -456,15 +456,15 @@ export default function AdvancedSpeechRecognition({
           <CardContent>
             <Progress value={calibrationProgress} className="mb-4" />
             
-            <div className="bg-muted p-4 rounded-md mb-4 text-center">
+            <div className="bg-muted p-4 rounded-md mb-4 text-centre">
               <p className="text-lg font-medium">{calibrationPhrases[calibrationStep]}</p>
             </div>
             
-            <div className="flex items-center justify-center gap-4 mb-4">
+            <div className="flex items-centre justify-centre gap-4 mb-4">
               <Button
                 variant={isListening ? "destructive" : "default"}
                 onClick={isListening ? stopListening : startListening}
-                className="flex items-center gap-2"
+                className="flex items-centre gap-2"
               >
                 {isListening ? (
                   <>
@@ -479,7 +479,7 @@ export default function AdvancedSpeechRecognition({
             </div>
             
             {isListening && (
-              <div className="flex items-center gap-2 mb-4">
+              <div className="flex items-centre gap-2 mb-4">
                 <div className="w-full bg-muted rounded-full h-2">
                   <div
                     className="bg-primary h-2 rounded-full transition-all"
@@ -516,7 +516,7 @@ export default function AdvancedSpeechRecognition({
               <CardHeader>
                 <CardTitle>Advanced Speech Recognition</CardTitle>
                 <CardDescription>
-                  Optimized for children's voices with enhanced accuracy
+                  Optimised for children's voices with enhanced accuracy
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -533,11 +533,11 @@ export default function AdvancedSpeechRecognition({
                   </Alert>
                 )}
                 
-                <div className="flex items-center justify-between mb-4">
+                <div className="flex items-centre justify-between mb-4">
                   <Button
                     variant={isListening ? "destructive" : "default"}
                     onClick={isListening ? stopListening : startListening}
-                    className="flex items-center gap-2"
+                    className="flex items-centre gap-2"
                   >
                     {isListening ? (
                       <>
@@ -550,7 +550,7 @@ export default function AdvancedSpeechRecognition({
                     )}
                   </Button>
                   
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-centre gap-2">
                     <Button
                       variant="outline"
                       size="icon"
@@ -564,7 +564,7 @@ export default function AdvancedSpeechRecognition({
                       <Button
                         variant="outline"
                         onClick={startCalibration}
-                        className="flex items-center gap-2"
+                        className="flex items-centre gap-2"
                       >
                         <Settings className="h-4 w-4" /> Calibrate
                       </Button>
@@ -573,7 +573,7 @@ export default function AdvancedSpeechRecognition({
                 </div>
                 
                 {isListening && (
-                  <div className="flex items-center gap-2 mb-4">
+                  <div className="flex items-centre gap-2 mb-4">
                     <div className="w-full bg-muted rounded-full h-2">
                       <div
                         className="bg-primary h-2 rounded-full transition-all"
@@ -597,7 +597,7 @@ export default function AdvancedSpeechRecognition({
                 />
                 
                 {confidence > 0 && (
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <div className="flex items-centre gap-2 text-sm text-muted-foreground">
                     <Info className="h-4 w-4" />
                     <span>Recognition confidence: {Math.round(confidence * 100)}%</span>
                   </div>
@@ -620,11 +620,11 @@ export default function AdvancedSpeechRecognition({
               <CardHeader>
                 <CardTitle>Recognition Settings</CardTitle>
                 <CardDescription>
-                  Customize speech recognition to match your needs
+                  Customise speech recognition to match your needs
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="flex items-center justify-between">
+                <div className="flex items-centre justify-between">
                   <div>
                     <Label htmlFor="childVoiceOptimization" className="font-medium">
                       Child Voice Optimization
@@ -640,7 +640,7 @@ export default function AdvancedSpeechRecognition({
                   />
                 </div>
                 
-                <div className="flex items-center justify-between">
+                <div className="flex items-centre justify-between">
                   <div>
                     <Label htmlFor="noiseReduction" className="font-medium">
                       Noise Reduction
@@ -656,7 +656,7 @@ export default function AdvancedSpeechRecognition({
                   />
                 </div>
                 
-                <div className="flex items-center justify-between">
+                <div className="flex items-centre justify-between">
                   <div>
                     <Label htmlFor="autoCapitalization" className="font-medium">
                       Auto Capitalization
@@ -672,7 +672,7 @@ export default function AdvancedSpeechRecognition({
                   />
                 </div>
                 
-                <div className="flex items-center justify-between">
+                <div className="flex items-centre justify-between">
                   <div>
                     <Label htmlFor="punctuationPrediction" className="font-medium">
                       Punctuation Prediction
@@ -688,7 +688,7 @@ export default function AdvancedSpeechRecognition({
                   />
                 </div>
                 
-                <div className="flex items-center justify-between">
+                <div className="flex items-centre justify-between">
                   <div>
                     <Label htmlFor="dialectAdaptation" className="font-medium">
                       UK Dialect Adaptation
@@ -705,7 +705,7 @@ export default function AdvancedSpeechRecognition({
                 </div>
                 
                 <div className="space-y-2">
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <Label htmlFor="confidenceThreshold" className="font-medium">
                       Confidence Threshold
                     </Label>
@@ -727,7 +727,7 @@ export default function AdvancedSpeechRecognition({
                 </div>
                 
                 <div className="space-y-2">
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <Label htmlFor="silenceTimeout" className="font-medium">
                       Silence Timeout
                     </Label>

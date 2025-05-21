@@ -44,42 +44,42 @@ export default function AdaptiveComplexityPage() {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                       <Button 
                         variant="outline" 
-                        className="h-auto flex flex-col items-center justify-center p-6 gap-2"
+                        className="h-auto flex flex-col items-centre justify-centre p-6 gap-2"
                         onClick={() => router.push('/curriculum')}
                       >
                         <BookOpen className="h-10 w-10 text-primary mb-2" />
                         <span className="text-lg font-medium">Curriculum Plans</span>
-                        <span className="text-sm text-muted-foreground text-center">
+                        <span className="text-sm text-muted-foreground text-centre">
                           Adjust complexity of curriculum plans
                         </span>
                       </Button>
                       
                       <Button 
                         variant="outline" 
-                        className="h-auto flex flex-col items-center justify-center p-6 gap-2"
+                        className="h-auto flex flex-col items-centre justify-centre p-6 gap-2"
                         onClick={() => router.push('/resources')}
                       >
                         <Layers className="h-10 w-10 text-primary mb-2" />
                         <span className="text-lg font-medium">Resources</span>
-                        <span className="text-sm text-muted-foreground text-center">
+                        <span className="text-sm text-muted-foreground text-centre">
                           Adjust complexity of learning resources
                         </span>
                       </Button>
                       
                       <Button 
                         variant="outline" 
-                        className="h-auto flex flex-col items-center justify-center p-6 gap-2"
+                        className="h-auto flex flex-col items-centre justify-centre p-6 gap-2"
                         onClick={() => router.push('/multi-modal-content')}
                       >
                         <BarChart3 className="h-10 w-10 text-primary mb-2" />
                         <span className="text-lg font-medium">Multi-Modal Content</span>
-                        <span className="text-sm text-muted-foreground text-center">
+                        <span className="text-sm text-muted-foreground text-centre">
                           Adjust complexity of multi-modal content
                         </span>
                       </Button>
                     </div>
                     
-                    <div className="mt-6 text-center">
+                    <div className="mt-6 text-centre">
                       <p className="text-sm text-muted-foreground mb-4">
                         Or create new adaptive content from scratch
                       </p>
@@ -170,7 +170,7 @@ export default function AdaptiveComplexityPage() {
                 </div>
                 
                 <div className="bg-blue-50 dark:bg-blue-950 p-4 rounded-md">
-                  <h3 className="text-lg font-medium mb-2 flex items-center">
+                  <h3 className="text-lg font-medium mb-2 flex items-centre">
                     <CheckCircle2 className="h-5 w-5 text-blue-600 mr-2" />
                     Teacher Tip
                   </h3>

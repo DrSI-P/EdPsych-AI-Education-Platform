@@ -15,7 +15,7 @@ The plugin architecture is designed to allow seamless integration of third-party
 ### Core Components
 
 1. **Plugin Registry**: Central management system for all plugins
-2. **Plugin Types**: Standardized interfaces for different plugin capabilities
+2. **Plugin Types**: Standardised interfaces for different plugin capabilities
 3. **Permission System**: Granular control over plugin access to platform data
 4. **Event System**: Communication between plugins and the platform
 5. **Admin Interface**: Management dashboard for plugin configuration
@@ -47,7 +47,7 @@ The Google Drive integration provides bi-directional sync and collaborative edit
 2. **File Management**: Create, read, update, and delete operations
 3. **Change Tracking**: Monitoring for changes in both systems
 4. **Embedded Editing**: In-platform editing of Google documents
-5. **Folder Mapping**: Structured organization between platform and Drive
+5. **Folder Mapping**: Structured organisation between platform and Drive
 
 ## External Educational Tools Research
 
@@ -107,7 +107,7 @@ The implementation will follow a phased approach:
 The plugin architecture and integrations align with key educational psychology principles:
 
 1. **Personalized Learning**: Tools adapt to individual learning styles and needs
-2. **Evidence-Based Practice**: Integration with research-backed assessment and intervention tools
+2. **Evidence-Based Practise**: Integration with research-backed assessment and intervention tools
 3. **Accessibility**: Support for diverse learning needs through assistive technology
 4. **Collaborative Learning**: Enhanced opportunities for peer and teacher collaboration
 5. **Metacognition**: Tools that promote reflection on learning processes

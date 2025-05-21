@@ -36,7 +36,7 @@ This document outlines the comprehensive suite of AI Avatar videos needed for th
 - **Getting Started for Educators:** Account setup, navigation, and basic features
 - **Assessment and Curriculum Planning:** Creating and managing assessments, curriculum alignment
 - **AI-Enhanced Teaching Tools:** Using AI features for personalization and differentiation
-- **Data and Progress Monitoring:** Analyzing student data and generating reports
+- **Data and Progress Monitoring:** Analysing student data and generating reports
 
 ### 4. Parent Onboarding Series (3 videos, 2-4 minutes each)
 **Purpose:** Guide parents in supporting their children's learning and engaging with the platform
@@ -56,11 +56,11 @@ This document outlines the comprehensive suite of AI Avatar videos needed for th
 - **Secondary (Years 7-11):** Comprehensive features and advanced learning tools
 
 ### 6. Professional Onboarding Series (3 videos, 3-5 minutes each)
-**Purpose:** Guide educational professionals in using specialized platform features
+**Purpose:** Guide educational professionals in using specialised platform features
 **Target Audience:** Educational psychologists, SEN coordinators, counselors
 **Videos in Series:**
 - **Getting Started for Professionals:** Account setup, professional dashboard, and tools
-- **Assessment and Intervention Tools:** Specialized assessment and support features
+- **Assessment and Intervention Tools:** Specialised assessment and support features
 - **Collaboration and Research Tools:** Data analysis and professional collaboration features
 
 ## Feature-Specific Demonstration Videos
@@ -93,7 +93,7 @@ This document outlines the comprehensive suite of AI Avatar videos needed for th
 - Examples of how these features support inclusive education
 
 ### 10. Special Educational Needs Support Tools (3-4 minutes)
-**Purpose:** Detail the specialized support tools for SEN
+**Purpose:** Detail the specialised support tools for SEN
 **Target Audience:** SEN coordinators, educational psychologists, and parents
 **Key Content:**
 - Overview of executive dysfunction support
@@ -117,7 +117,7 @@ This document outlines the comprehensive suite of AI Avatar videos needed for th
 - Demonstration of feedback collection tools
 - Overview of student-led conference features
 - Explanation of preference tracking system
-- Examples of impact visualization tools
+- Examples of impact visualisation tools
 
 ## Administrative and Technical Videos
 

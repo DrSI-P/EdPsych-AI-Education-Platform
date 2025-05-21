@@ -167,7 +167,7 @@ export default function PersonalizedLearningPathwaysPage() {
       learningOutcomes: [
         "Understand core robotics principles",
         "Design a simple robot",
-        "Program basic movement commands"
+        "Programme basic movement commands"
       ],
       format: ["Hands-on project", "Simulation", "Video tutorials"],
       engagementLevel: 90,
@@ -184,7 +184,7 @@ export default function PersonalizedLearningPathwaysPage() {
       learningOutcomes: [
         "Understand the political context of the Space Race",
         "Trace key milestones in space exploration",
-        "Analyze the shift from competition to cooperation"
+        "Analyse the shift from competition to cooperation"
       ],
       format: ["Documentary video", "Primary sources", "Timeline activity"],
       engagementLevel: 80,
@@ -282,7 +282,7 @@ export default function PersonalizedLearningPathwaysPage() {
     }
   };
   
-  // Function to get subject color
+  // Function to get subject colour
   const getSubjectColor = (subject: string) => {
     switch(subject) {
       case "Mathematics": return "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300";
@@ -292,7 +292,7 @@ export default function PersonalizedLearningPathwaysPage() {
       case "Geography": return "bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-300";
       case "Technology": return "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300";
       case "Art": return "bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-300";
-      default: return "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300";
+      default: return "bg-grey-100 text-grey-800 dark:bg-grey-800 dark:text-grey-300";
     }
   };
   
@@ -336,7 +336,7 @@ export default function PersonalizedLearningPathwaysPage() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-center mb-12"
+        className="text-centre mb-12"
       >
         <h1 className="text-4xl font-bold tracking-tight">Personalized Learning Pathways</h1>
         <p className="mt-4 text-xl text-muted-foreground max-w-3xl mx-auto">
@@ -363,8 +363,8 @@ export default function PersonalizedLearningPathwaysPage() {
               
               {activeTab === 'profile' ? (
                 <div className="space-y-6">
-                  <div className="text-center mb-6">
-                    <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <div className="text-centre mb-6">
+                    <div className="w-20 h-20 bg-primary/10 rounded-full flex items-centre justify-centre mx-auto mb-3">
                       <span className="text-2xl font-bold text-primary">{learnerProfile.name.split(' ').map(n => n[0]).join('')}</span>
                     </div>
                     <h2 className="text-xl font-semibold">{learnerProfile.name}</h2>
@@ -372,7 +372,7 @@ export default function PersonalizedLearningPathwaysPage() {
                   </div>
                   
                   <div>
-                    <h3 className="font-medium mb-2 flex items-center">
+                    <h3 className="font-medium mb-2 flex items-centre">
                       <Star className="mr-2 h-4 w-4 text-primary" />
                       Interests
                     </h3>
@@ -384,13 +384,13 @@ export default function PersonalizedLearningPathwaysPage() {
                   </div>
                   
                   <div>
-                    <h3 className="font-medium mb-2 flex items-center">
+                    <h3 className="font-medium mb-2 flex items-centre">
                       <Award className="mr-2 h-4 w-4 text-primary" />
                       Strengths
                     </h3>
                     <ul className="space-y-1 text-sm">
                       {learnerProfile.strengths.map((strength, index) => (
-                        <li key={index} className="flex items-center">
+                        <li key={index} className="flex items-centre">
                           <CheckCircle className="mr-2 h-3 w-3 text-green-500" />
                           {strength}
                         </li>
@@ -399,13 +399,13 @@ export default function PersonalizedLearningPathwaysPage() {
                   </div>
                   
                   <div>
-                    <h3 className="font-medium mb-2 flex items-center">
+                    <h3 className="font-medium mb-2 flex items-centre">
                       <Zap className="mr-2 h-4 w-4 text-primary" />
                       Areas for Growth
                     </h3>
                     <ul className="space-y-1 text-sm">
                       {learnerProfile.areasForGrowth.map((area, index) => (
-                        <li key={index} className="flex items-center">
+                        <li key={index} className="flex items-centre">
                           <ArrowRight className="mr-2 h-3 w-3 text-amber-500" />
                           {area}
                         </li>
@@ -414,7 +414,7 @@ export default function PersonalizedLearningPathwaysPage() {
                   </div>
                   
                   <div>
-                    <h3 className="font-medium mb-2 flex items-center">
+                    <h3 className="font-medium mb-2 flex items-centre">
                       <Brain className="mr-2 h-4 w-4 text-primary" />
                       Learning Style
                     </h3>
@@ -465,7 +465,7 @@ export default function PersonalizedLearningPathwaysPage() {
                   </div>
                   
                   <div>
-                    <h3 className="font-medium mb-2 flex items-center">
+                    <h3 className="font-medium mb-2 flex items-centre">
                       <BookOpen className="mr-2 h-4 w-4 text-primary" />
                       Prior Knowledge
                     </h3>
@@ -505,9 +505,9 @@ export default function PersonalizedLearningPathwaysPage() {
                         </p>
                       </div>
                       
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-centre justify-between">
                         <Label htmlFor="accessibility-toggle">
-                          <div className="flex items-center">
+                          <div className="flex items-centre">
                             <Users className="mr-2 h-4 w-4" />
                             Accessibility Options
                           </div>
@@ -522,19 +522,19 @@ export default function PersonalizedLearningPathwaysPage() {
                       {showAccessibilityOptions && (
                         <div className="bg-muted/50 p-4 rounded-lg space-y-3">
                           <h4 className="text-sm font-medium">Accessibility Preferences</h4>
-                          <div className="flex items-center justify-between">
+                          <div className="flex items-centre justify-between">
                             <Label htmlFor="text-to-speech">Text-to-Speech</Label>
                             <Switch id="text-to-speech" />
                           </div>
-                          <div className="flex items-center justify-between">
+                          <div className="flex items-centre justify-between">
                             <Label htmlFor="high-contrast">High Contrast Mode</Label>
                             <Switch id="high-contrast" />
                           </div>
-                          <div className="flex items-center justify-between">
+                          <div className="flex items-centre justify-between">
                             <Label htmlFor="simplified-ui">Simplified Interface</Label>
                             <Switch id="simplified-ui" />
                           </div>
-                          <div className="flex items-center justify-between">
+                          <div className="flex items-centre justify-between">
                             <Label htmlFor="extended-time">Extended Time for Activities</Label>
                             <Switch id="extended-time" />
                           </div>
@@ -591,23 +591,23 @@ export default function PersonalizedLearningPathwaysPage() {
         >
           <Card className="mb-8">
             <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-2xl font-semibold flex items-center">
+              <div className="flex items-centre justify-between mb-6">
+                <h2 className="text-2xl font-semibold flex items-centre">
                   <Map className="mr-2 h-5 w-5 text-primary" />
                   Your Learning Pathway
                 </h2>
                 <Badge variant="outline" className="text-xs">
-                  {isLoading ? 'Recalculating...' : 'AI-Optimized'}
+                  {isLoading ? 'Recalculating...' : 'AI-Optimised'}
                 </Badge>
               </div>
               
               <div className="relative">
                 {isLoading && (
-                  <div className="absolute inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center z-10">
-                    <div className="flex flex-col items-center">
+                  <div className="absolute inset-0 bg-background/80 backdrop-blur-sm flex items-centre justify-centre z-10">
+                    <div className="flex flex-col items-centre">
                       <RotateCw className="h-8 w-8 text-primary animate-spin mb-4" />
                       <p className="text-lg font-medium">Recalculating Your Personalized Pathway...</p>
-                      <p className="text-sm text-muted-foreground mt-2">Analyzing learning profile and optimizing module sequence</p>
+                      <p className="text-sm text-muted-foreground mt-2">Analysing learning profile and optimising module sequence</p>
                     </div>
                   </div>
                 )}
@@ -628,7 +628,7 @@ export default function PersonalizedLearningPathwaysPage() {
                         )}
                         
                         {/* Step indicator */}
-                        <div className="absolute left-0 top-0 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                        <div className="absolute left-0 top-0 w-8 h-8 rounded-full bg-primary/10 flex items-centre justify-centre">
                           <span className="text-sm font-medium text-primary">{index + 1}</span>
                         </div>
                         
@@ -637,9 +637,9 @@ export default function PersonalizedLearningPathwaysPage() {
                           onClick={() => setSelectedModule(module.id)}
                         >
                           <CardContent className="p-4">
-                            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                            <div className="flex flex-col md:flex-row md:items-centre justify-between gap-4">
                               <div>
-                                <div className="flex items-center gap-2 mb-1">
+                                <div className="flex items-centre gap-2 mb-1">
                                   <Badge className={`${getSubjectColor(module.subject)}`}>
                                     {module.subject}
                                   </Badge>
@@ -652,7 +652,7 @@ export default function PersonalizedLearningPathwaysPage() {
                               </div>
                               
                               <div className="flex flex-col items-end gap-2">
-                                <div className="flex items-center gap-1 text-sm">
+                                <div className="flex items-centre gap-1 text-sm">
                                   <Clock className="h-4 w-4 text-muted-foreground" />
                                   <span>{module.estimatedTime} min</span>
                                 </div>
@@ -709,7 +709,7 @@ export default function PersonalizedLearningPathwaysPage() {
                                     <h4 className="text-sm font-medium mb-2">Learning Formats</h4>
                                     <div className="flex flex-wrap gap-2">
                                       {module.format.map((format, i) => (
-                                        <Badge key={i} variant="outline" className="flex items-center">
+                                        <Badge key={i} variant="outline" className="flex items-centre">
                                           {getFormatIcon(format)}
                                           <span className="ml-1">{format}</span>
                                         </Badge>
@@ -730,7 +730,7 @@ export default function PersonalizedLearningPathwaysPage() {
                                 </div>
                                 
                                 <div className="flex justify-between mt-4">
-                                  <div className="flex items-center gap-2">
+                                  <div className="flex items-centre gap-2">
                                     <Sparkles className="h-4 w-4 text-primary" />
                                     <span className="text-sm">Engagement Match: {module.engagementLevel}%</span>
                                   </div>
@@ -754,7 +754,7 @@ export default function PersonalizedLearningPathwaysPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <Card>
               <CardContent className="p-6">
-                <h3 className="text-xl font-semibold mb-4 flex items-center">
+                <h3 className="text-xl font-semibold mb-4 flex items-centre">
                   <LineChart className="mr-2 h-5 w-5 text-primary" />
                   Learning Analytics
                 </h3>
@@ -783,11 +783,11 @@ export default function PersonalizedLearningPathwaysPage() {
                   <div className="pt-4 border-t">
                     <h4 className="text-sm font-medium mb-2">Learning Pace</h4>
                     <div className="bg-muted/50 p-4 rounded-lg">
-                      <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-centre justify-between mb-2">
                         <span className="text-sm">Average completion time:</span>
                         <Badge variant="outline">42 minutes/module</Badge>
                       </div>
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-centre justify-between">
                         <span className="text-sm">Retention assessment score:</span>
                         <Badge variant="outline">85%</Badge>
                       </div>
@@ -823,7 +823,7 @@ export default function PersonalizedLearningPathwaysPage() {
             
             <Card>
               <CardContent className="p-6">
-                <h3 className="text-xl font-semibold mb-4 flex items-center">
+                <h3 className="text-xl font-semibold mb-4 flex items-centre">
                   <BarChart className="mr-2 h-5 w-5 text-primary" />
                   Recommendations
                 </h3>
@@ -881,7 +881,7 @@ export default function PersonalizedLearningPathwaysPage() {
                     <div className="space-y-3">
                       <Button variant="outline" className="w-full justify-start">
                         <BookOpen className="mr-2 h-4 w-4" />
-                        Interactive Algebra Practice
+                        Interactive Algebra Practise
                       </Button>
                       <Button variant="outline" className="w-full justify-start">
                         <BookOpen className="mr-2 h-4 w-4" />
@@ -907,11 +907,11 @@ export default function PersonalizedLearningPathwaysPage() {
         transition={{ delay: 0.6, duration: 0.5 }}
         className="mb-12"
       >
-        <h2 className="text-3xl font-semibold mb-6 text-center">How It Works</h2>
+        <h2 className="text-3xl font-semibold mb-6 text-centre">How It Works</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           <Card>
-            <CardContent className="p-6 text-center">
+            <CardContent className="p-6 text-centre">
               <div className="bg-primary/10 p-3 rounded-full w-fit mx-auto mb-4">
                 <Users className="h-6 w-6 text-primary" />
               </div>
@@ -923,7 +923,7 @@ export default function PersonalizedLearningPathwaysPage() {
           </Card>
           
           <Card>
-            <CardContent className="p-6 text-center">
+            <CardContent className="p-6 text-centre">
               <div className="bg-primary/10 p-3 rounded-full w-fit mx-auto mb-4">
                 <Map className="h-6 w-6 text-primary" />
               </div>
@@ -935,7 +935,7 @@ export default function PersonalizedLearningPathwaysPage() {
           </Card>
           
           <Card>
-            <CardContent className="p-6 text-center">
+            <CardContent className="p-6 text-centre">
               <div className="bg-primary/10 p-3 rounded-full w-fit mx-auto mb-4">
                 <Sparkles className="h-6 w-6 text-primary" />
               </div>
@@ -947,7 +947,7 @@ export default function PersonalizedLearningPathwaysPage() {
           </Card>
           
           <Card>
-            <CardContent className="p-6 text-center">
+            <CardContent className="p-6 text-centre">
               <div className="bg-primary/10 p-3 rounded-full w-fit mx-auto mb-4">
                 <Brain className="h-6 w-6 text-primary" />
               </div>
@@ -966,7 +966,7 @@ export default function PersonalizedLearningPathwaysPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.8, duration: 0.5 }}
       >
-        <h2 className="text-3xl font-semibold mb-6 text-center">Benefits</h2>
+        <h2 className="text-3xl font-semibold mb-6 text-centre">Benefits</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Card>
@@ -1049,7 +1049,7 @@ export default function PersonalizedLearningPathwaysPage() {
                     <Zap className="h-4 w-4 text-primary" />
                   </div>
                   <div>
-                    <span className="font-medium">Evidence-Based Practice</span>
+                    <span className="font-medium">Evidence-Based Practise</span>
                     <p className="text-sm text-muted-foreground">Make instructional decisions based on rich data rather than assumptions, improving educational outcomes.</p>
                   </div>
                 </li>

@@ -56,7 +56,7 @@ export const CurriculumAlignmentChecker: React.FC<CurriculumAlignmentCheckerProp
         }
       } else {
         // Otherwise, run a local check with mock data
-        // In a real implementation, this would analyze the content directly
+        // In a real implementation, this would analyse the content directly
         
         // Simulate API delay
         await new Promise(resolve => setTimeout(resolve, 1500));
@@ -188,7 +188,7 @@ export const CurriculumAlignmentChecker: React.FC<CurriculumAlignmentCheckerProp
     runCurriculumCheck();
   }, [contentId, content]);
   
-  // Get score color
+  // Get score colour
   const getScoreColor = (score: number) => {
     if (score >= 90) return 'bg-green-500';
     if (score >= 80) return 'bg-lime-500';
@@ -217,14 +217,14 @@ export const CurriculumAlignmentChecker: React.FC<CurriculumAlignmentCheckerProp
       )}
       
       {isChecking ? (
-        <div className="checking-state p-8 text-center">
+        <div className="checking-state p-8 text-centre">
           <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary mx-auto mb-4"></div>
           <p className="text-lg font-medium">Checking curriculum alignment...</p>
           <p className="text-muted-foreground">This may take a moment.</p>
         </div>
       ) : results ? (
         <div className="results-state">
-          <div className="score-section text-center p-6">
+          <div className="score-section text-centre p-6">
             <div className="relative w-32 h-32 mx-auto mb-4">
               <svg className="w-full h-full" viewBox="0 0 100 100">
                 <circle 
@@ -281,7 +281,7 @@ export const CurriculumAlignmentChecker: React.FC<CurriculumAlignmentCheckerProp
             <h3 className="text-lg font-medium mb-4">Improvement Suggestions</h3>
             
             {results.suggestions.length === 0 ? (
-              <div className="text-center p-8">
+              <div className="text-centre p-8">
                 <CheckCircle2 className="h-12 w-12 text-green-500 mx-auto mb-4" />
                 <p className="text-lg font-medium">Perfect alignment!</p>
                 <p className="text-muted-foreground">Your content is well-aligned with curriculum standards.</p>
@@ -308,7 +308,7 @@ export const CurriculumAlignmentChecker: React.FC<CurriculumAlignmentCheckerProp
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
               {results.curriculumLinks.map((link, index) => (
-                <div key={index} className="flex items-center gap-2 p-2 border rounded-md">
+                <div key={index} className="flex items-centre gap-2 p-2 border rounded-md">
                   {index === 0 ? (
                     <BookOpen className="h-5 w-5 text-primary" />
                   ) : (
@@ -328,7 +328,7 @@ export const CurriculumAlignmentChecker: React.FC<CurriculumAlignmentCheckerProp
                 <Badge 
                   key={stage} 
                   variant={content.metadata.keyStage === stage ? "default" : "outline"}
-                  className="justify-center"
+                  className="justify-centre"
                 >
                   {stage.replace('_', ' ')}
                 </Badge>

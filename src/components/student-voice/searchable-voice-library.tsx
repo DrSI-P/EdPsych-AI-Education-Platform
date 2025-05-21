@@ -84,7 +84,7 @@ export default function SearchableVoiceLibrary() {
         date: "April 22, 2025",
         category: "Cultural Shifts",
         tags: ["community", "service", "projects"],
-        content: "I'd like to suggest we organize monthly community service projects that connect to what we're learning in class. For example, when studying ecosystems in science, we could do a river cleanup. For history, we could interview elderly residents about local history and create an archive. This would make learning more meaningful and help us contribute to our community.",
+        content: "I'd like to suggest we organise monthly community service projects that connect to what we're learning in class. For example, when studying ecosystems in science, we could do a river cleanup. For history, we could interview elderly residents about local history and create an archive. This would make learning more meaningful and help us contribute to our community.",
         author: "Year 9 Student",
         views: 67,
         likes: 42,
@@ -179,7 +179,7 @@ export default function SearchableVoiceLibrary() {
     }
   };
   
-  // Get sentiment badge color
+  // Get sentiment badge colour
   const getSentimentBadgeColor = (sentiment) => {
     switch (sentiment) {
       case "positive":
@@ -189,7 +189,7 @@ export default function SearchableVoiceLibrary() {
       case "mixed":
         return "bg-amber-100 text-amber-800";
       default:
-        return "bg-gray-100 text-gray-800";
+        return "bg-grey-100 text-grey-800";
     }
   };
   
@@ -197,12 +197,12 @@ export default function SearchableVoiceLibrary() {
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center">
+          <CardTitle className="flex items-centre">
             <BookOpen className="mr-2 h-5 w-5" />
             Searchable Voice Library
           </CardTitle>
           <CardDescription>
-            Discover, explore, and analyze student perspectives from across the school
+            Discover, explore, and analyse student perspectives from across the school
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -227,7 +227,7 @@ export default function SearchableVoiceLibrary() {
                 <Button 
                   variant="outline" 
                   onClick={() => setShowFilters(!showFilters)}
-                  className="flex items-center"
+                  className="flex items-centre"
                 >
                   <Filter className="mr-2 h-4 w-4" />
                   Filters
@@ -304,8 +304,8 @@ export default function SearchableVoiceLibrary() {
               )}
               
               {/* Voice Search Option */}
-              <div className="flex justify-center">
-                <Button variant="outline" className="flex items-center">
+              <div className="flex justify-centre">
+                <Button variant="outline" className="flex items-centre">
                   <Mic className="mr-2 h-4 w-4" />
                   Search with Voice
                 </Button>
@@ -338,7 +338,7 @@ export default function SearchableVoiceLibrary() {
                         {voiceLibraryData.recentEntries.map((entry) => (
                           <div key={entry.id} className="p-4 border rounded-lg space-y-2">
                             <div className="flex justify-between items-start">
-                              <div className="flex items-center">
+                              <div className="flex items-centre">
                                 {getFormatIcon(entry.format)}
                                 <h3 className="ml-2 font-medium">{entry.title}</h3>
                               </div>
@@ -369,20 +369,20 @@ export default function SearchableVoiceLibrary() {
                               ))}
                             </div>
                             
-                            <div className="flex justify-between items-center pt-2">
+                            <div className="flex justify-between items-centre pt-2">
                               <div className="text-sm text-muted-foreground">
                                 {entry.author}
                               </div>
                               <div className="flex space-x-4 text-sm text-muted-foreground">
-                                <div className="flex items-center">
+                                <div className="flex items-centre">
                                   <Eye className="mr-1 h-3 w-3" />
                                   <span>{entry.views}</span>
                                 </div>
-                                <div className="flex items-center">
+                                <div className="flex items-centre">
                                   <ThumbsUp className="mr-1 h-3 w-3" />
                                   <span>{entry.likes}</span>
                                 </div>
-                                <div className="flex items-center">
+                                <div className="flex items-centre">
                                   <MessageSquare className="mr-1 h-3 w-3" />
                                   <span>{entry.comments}</span>
                                 </div>
@@ -410,8 +410,8 @@ export default function SearchableVoiceLibrary() {
                       <CardContent>
                         <div className="space-y-2">
                           {voiceLibraryData.popularTopics.map((topic, index) => (
-                            <div key={index} className="flex justify-between items-center p-2 hover:bg-muted/20 rounded-lg cursor-pointer">
-                              <div className="flex items-center">
+                            <div key={index} className="flex justify-between items-centre p-2 hover:bg-muted/20 rounded-lg cursor-pointer">
+                              <div className="flex items-centre">
                                 <Tag className="mr-2 h-4 w-4 text-muted-foreground" />
                                 <span>{topic.name}</span>
                               </div>
@@ -432,8 +432,8 @@ export default function SearchableVoiceLibrary() {
                       <CardContent>
                         <div className="space-y-2">
                           {voiceLibraryData.contentTypes.map((type, index) => (
-                            <div key={index} className="flex justify-between items-center p-2 hover:bg-muted/20 rounded-lg cursor-pointer">
-                              <div className="flex items-center">
+                            <div key={index} className="flex justify-between items-centre p-2 hover:bg-muted/20 rounded-lg cursor-pointer">
+                              <div className="flex items-centre">
                                 {type.icon}
                                 <span className="ml-2">{type.name}</span>
                               </div>
@@ -454,7 +454,7 @@ export default function SearchableVoiceLibrary() {
                       <CardContent>
                         <div className="space-y-2">
                           {voiceLibraryData.categories.map((category, index) => (
-                            <div key={index} className="flex justify-between items-center p-2 hover:bg-muted/20 rounded-lg cursor-pointer">
+                            <div key={index} className="flex justify-between items-centre p-2 hover:bg-muted/20 rounded-lg cursor-pointer">
                               <span>{category.name}</span>
                               <Badge variant="outline">{category.count}</Badge>
                             </div>
@@ -470,7 +470,7 @@ export default function SearchableVoiceLibrary() {
               <TabsContent value="results" className="space-y-6">
                 {searchResults.length > 0 ? (
                   <div>
-                    <div className="flex justify-between items-center mb-4">
+                    <div className="flex justify-between items-centre mb-4">
                       <h2 className="text-xl font-bold">Search Results</h2>
                       <div className="text-sm text-muted-foreground">
                         Found {searchResults.length} results for "{searchQuery}"
@@ -483,7 +483,7 @@ export default function SearchableVoiceLibrary() {
                           <CardHeader className="pb-2">
                             <div className="flex justify-between items-start">
                               <div>
-                                <CardTitle className="text-lg flex items-center">
+                                <CardTitle className="text-lg flex items-centre">
                                   {getFormatIcon(result.format)}
                                   <span className="ml-2">{result.title}</span>
                                 </CardTitle>
@@ -527,7 +527,7 @@ export default function SearchableVoiceLibrary() {
                     </div>
                   </div>
                 ) : (
-                  <div className="text-center py-12">
+                  <div className="text-centre py-12">
                     <Search className="h-12 w-12 mx-auto text-muted-foreground" />
                     <h3 className="mt-4 text-lg font-medium">No search results yet</h3>
                     <p className="mt-2 text-muted-foreground">
@@ -549,7 +549,7 @@ export default function SearchableVoiceLibrary() {
                     </CardHeader>
                     <CardContent className="space-y-4">
                       {voiceLibraryData.savedSearches.map((search, index) => (
-                        <div key={index} className="flex justify-between items-center p-3 border rounded-lg">
+                        <div key={index} className="flex justify-between items-centre p-3 border rounded-lg">
                           <div>
                             <h3 className="font-medium">{search.name}</h3>
                             <p className="text-sm text-muted-foreground">
@@ -576,12 +576,12 @@ export default function SearchableVoiceLibrary() {
                     <CardHeader>
                       <CardTitle>Collections</CardTitle>
                       <CardDescription>
-                        Organized groups of related voices
+                        Organised groups of related voices
                       </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
                       {voiceLibraryData.collections.map((collection, index) => (
-                        <div key={index} className="flex justify-between items-center p-3 border rounded-lg">
+                        <div key={index} className="flex justify-between items-centre p-3 border rounded-lg">
                           <div>
                             <h3 className="font-medium">{collection.name}</h3>
                             <p className="text-sm text-muted-foreground">
@@ -615,7 +615,7 @@ export default function SearchableVoiceLibrary() {
                   <CardContent>
                     <div className="space-y-4">
                       {voiceLibraryData.recentEntries.slice(0, 3).map((entry) => (
-                        <div key={entry.id} className="flex justify-between items-center p-3 border rounded-lg">
+                        <div key={entry.id} className="flex justify-between items-centre p-3 border rounded-lg">
                           <div className="flex items-start space-x-3">
                             <div className="mt-1">
                               {getFormatIcon(entry.format)}
@@ -648,11 +648,11 @@ export default function SearchableVoiceLibrary() {
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
-                      <div className="h-64 w-full bg-muted/20 rounded-lg flex items-center justify-center">
-                        <div className="text-center">
+                      <div className="h-64 w-full bg-muted/20 rounded-lg flex items-centre justify-centre">
+                        <div className="text-centre">
                           <BarChart className="h-10 w-10 mx-auto text-primary" />
                           <p className="mt-2 text-sm text-muted-foreground">Content Distribution Chart</p>
-                          <p className="text-xs text-muted-foreground">(Visualization placeholder)</p>
+                          <p className="text-xs text-muted-foreground">(Visualisation placeholder)</p>
                         </div>
                       </div>
                       
@@ -661,7 +661,7 @@ export default function SearchableVoiceLibrary() {
                           <h4 className="text-sm font-medium mb-2">By Format</h4>
                           {voiceLibraryData.contentTypes.map((type, index) => (
                             <div key={index} className="flex justify-between text-sm">
-                              <div className="flex items-center">
+                              <div className="flex items-centre">
                                 {type.icon}
                                 <span className="ml-1">{type.name}</span>
                               </div>
@@ -691,11 +691,11 @@ export default function SearchableVoiceLibrary() {
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
-                      <div className="h-64 w-full bg-muted/20 rounded-lg flex items-center justify-center">
-                        <div className="text-center">
+                      <div className="h-64 w-full bg-muted/20 rounded-lg flex items-centre justify-centre">
+                        <div className="text-centre">
                           <BarChart className="h-10 w-10 mx-auto text-primary" />
                           <p className="mt-2 text-sm text-muted-foreground">Sentiment Analysis Chart</p>
-                          <p className="text-xs text-muted-foreground">(Visualization placeholder)</p>
+                          <p className="text-xs text-muted-foreground">(Visualisation placeholder)</p>
                         </div>
                       </div>
                       
@@ -705,7 +705,7 @@ export default function SearchableVoiceLibrary() {
                             <span className="text-sm font-medium">Positive</span>
                             <span className="text-sm font-medium">58%</span>
                           </div>
-                          <div className="w-full bg-gray-200 rounded-full h-2.5">
+                          <div className="w-full bg-grey-200 rounded-full h-2.5">
                             <div className="bg-green-600 h-2.5 rounded-full" style={{ width: '58%' }}></div>
                           </div>
                         </div>
@@ -715,7 +715,7 @@ export default function SearchableVoiceLibrary() {
                             <span className="text-sm font-medium">Negative</span>
                             <span className="text-sm font-medium">22%</span>
                           </div>
-                          <div className="w-full bg-gray-200 rounded-full h-2.5">
+                          <div className="w-full bg-grey-200 rounded-full h-2.5">
                             <div className="bg-red-600 h-2.5 rounded-full" style={{ width: '22%' }}></div>
                           </div>
                         </div>
@@ -725,7 +725,7 @@ export default function SearchableVoiceLibrary() {
                             <span className="text-sm font-medium">Mixed</span>
                             <span className="text-sm font-medium">20%</span>
                           </div>
-                          <div className="w-full bg-gray-200 rounded-full h-2.5">
+                          <div className="w-full bg-grey-200 rounded-full h-2.5">
                             <div className="bg-amber-600 h-2.5 rounded-full" style={{ width: '20%' }}></div>
                           </div>
                         </div>
@@ -742,11 +742,11 @@ export default function SearchableVoiceLibrary() {
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <div className="h-80 w-full bg-muted/20 rounded-lg flex items-center justify-center">
-                      <div className="text-center">
+                    <div className="h-80 w-full bg-muted/20 rounded-lg flex items-centre justify-centre">
+                      <div className="text-centre">
                         <Layers className="h-10 w-10 mx-auto text-primary" />
                         <p className="mt-2 text-sm text-muted-foreground">Topic Trend Analysis</p>
-                        <p className="text-xs text-muted-foreground">(Visualization placeholder)</p>
+                        <p className="text-xs text-muted-foreground">(Visualisation placeholder)</p>
                       </div>
                     </div>
                     

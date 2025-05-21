@@ -349,7 +349,7 @@ export default function CreateResource() {
                       <Label htmlFor="tags">Tags</Label>
                       <div className="flex flex-wrap gap-2 mb-2">
                         {tags.map((tag) => (
-                          <Badge key={tag} variant="secondary" className="flex items-center gap-1">
+                          <Badge key={tag} variant="secondary" className="flex items-centre gap-1">
                             {tag}
                             <button
                               type="button"
@@ -383,7 +383,7 @@ export default function CreateResource() {
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-centre justify-between">
                       <div className="space-y-0.5">
                         <Label htmlFor="isPublic">Public Resource</Label>
                         <p className="text-sm text-muted-foreground">
@@ -399,7 +399,7 @@ export default function CreateResource() {
                     
                     <Separator />
                     
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-centre justify-between">
                       <div className="space-y-0.5">
                         <Label htmlFor="allowDownload">Allow Downloads</Label>
                         <p className="text-sm text-muted-foreground">
@@ -415,7 +415,7 @@ export default function CreateResource() {
                     
                     <Separator />
                     
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-centre justify-between">
                       <div className="space-y-0.5">
                         <Label htmlFor="requireAttribution">Require Attribution</Label>
                         <p className="text-sm text-muted-foreground">
@@ -442,7 +442,7 @@ export default function CreateResource() {
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="grid grid-cols-1 gap-4">
-                      <div className="border-2 border-dashed rounded-lg p-6 text-center">
+                      <div className="border-2 border-dashed rounded-lg p-6 text-centre">
                         <Upload className="h-8 w-8 mx-auto text-muted-foreground" />
                         <p className="mt-2 text-sm font-medium">
                           Drag and drop files here or click to browse
@@ -479,9 +479,9 @@ export default function CreateResource() {
                             {files.map((file, index) => (
                               <div
                                 key={`${file.name}-${index}`}
-                                className="flex items-center justify-between p-3 bg-muted rounded-md"
+                                className="flex items-centre justify-between p-3 bg-muted rounded-md"
                               >
-                                <div className="flex items-center space-x-3">
+                                <div className="flex items-centre space-x-3">
                                   {getFileIcon(file)}
                                   <div>
                                     <p className="text-sm font-medium truncate max-w-[200px] sm:max-w-[300px]">
@@ -518,7 +518,7 @@ export default function CreateResource() {
                   </CardHeader>
                   <CardContent>
                     <div className="border rounded-lg overflow-hidden">
-                      <div className="h-48 bg-muted flex items-center justify-center">
+                      <div className="h-48 bg-muted flex items-centre justify-centre">
                         {previewUrl ? (
                           <img
                             src={previewUrl}

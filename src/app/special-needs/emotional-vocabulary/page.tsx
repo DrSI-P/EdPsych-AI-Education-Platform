@@ -4,7 +4,7 @@ import EmotionalVocabularyDevelopment from '@/components/special-needs/emotional
 
 export const metadata: Metadata = {
   title: 'Emotional Vocabulary Development | EdPsych Connect',
-  description: 'Explore, learn, and practice using words to identify and express emotions with our comprehensive emotional vocabulary development tools.',
+  description: 'Explore, learn, and practise using words to identify and express emotions with our comprehensive emotional vocabulary development tools.',
 };
 
 export default function EmotionalVocabularyPage() {

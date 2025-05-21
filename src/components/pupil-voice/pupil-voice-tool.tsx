@@ -430,7 +430,7 @@ export function PupilVoiceTool({
           </div>
           
           {loading ? (
-            <div className="flex justify-center py-8">
+            <div className="flex justify-centre py-8">
               <Spinner size="lg" />
             </div>
           ) : error ? (
@@ -438,7 +438,7 @@ export function PupilVoiceTool({
               {error}
             </Alert>
           ) : filteredEntries.length === 0 ? (
-            <div className="text-center py-8 text-gray-500">
+            <div className="text-centre py-8 text-grey-500">
               No pupil voice entries found matching your criteria.
             </div>
           ) : (
@@ -451,12 +451,12 @@ export function PupilVoiceTool({
                       <span className={`px-2 py-1 text-xs rounded-full ${
                         entry.sentiment === 'positive' ? 'bg-green-100 text-green-800' :
                         entry.sentiment === 'negative' ? 'bg-red-100 text-red-800' :
-                        'bg-gray-100 text-gray-800'
+                        'bg-grey-100 text-grey-800'
                       }`}>
                         {entry.sentiment.charAt(0).toUpperCase() + entry.sentiment.slice(1)}
                       </span>
                     </div>
-                    <div className="text-sm text-gray-500">
+                    <div className="text-sm text-grey-500">
                       {entry.school} • {entry.date}
                     </div>
                   </CardHeader>
@@ -469,11 +469,11 @@ export function PupilVoiceTool({
                       {entry.responses.slice(0, 2).map((response, index) => (
                         <div key={index}>
                           <p className="text-sm font-medium">{response.question}</p>
-                          <p className="text-sm text-gray-600">{response.answer}</p>
+                          <p className="text-sm text-grey-600">{response.answer}</p>
                         </div>
                       ))}
                       {entry.responses.length > 2 && (
-                        <p className="text-sm text-gray-500">+ {entry.responses.length - 2} more responses</p>
+                        <p className="text-sm text-grey-500">+ {entry.responses.length - 2} more responses</p>
                       )}
                     </div>
                     {entry.tags.length > 0 && (
@@ -548,7 +548,7 @@ export function PupilVoiceTool({
             </div>
             
             <div className="space-y-2">
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <h3 className="text-lg font-medium">Questions and Responses</h3>
                 <Button
                   type="button"
@@ -600,7 +600,7 @@ export function PupilVoiceTool({
                 <h4 className="text-sm font-medium mb-2">Generate Age-Appropriate Questions with AI</h4>
                 <AIPrompt
                   placeholder="Describe the topic you want to explore with the pupil..."
-                  systemPrompt={`You are an educational psychologist specializing in pupil voice collection. Generate 3-5 age-appropriate questions for ${collectionForm.ageGroup} school pupils about the topic described. The questions should be open-ended, sensitive, and designed to elicit meaningful responses. Format each question on a new line. Use UK English spelling and follow UK educational standards.`}
+                  systemPrompt={`You are an educational psychologist specialising in pupil voice collection. Generate 3-5 age-appropriate questions for ${collectionForm.ageGroup} school pupils about the topic described. The questions should be open-ended, sensitive, and designed to elicit meaningful responses. Format each question on a new line. Use UK English spelling and follow UK educational standards.`}
                   onCompletion={handleAIQuestions}
                 />
               </div>

@@ -17,7 +17,7 @@ export enum TestSeverity {
 }
 
 /**
- * Test categories for organizing tests by type
+ * Test categories for organising tests by type
  */
 export enum TestCategory {
   UNIT = 'unit',
@@ -119,7 +119,7 @@ export interface PerformanceTestMetrics {
 }
 
 /**
- * Test configuration for customizing test execution
+ * Test configuration for customising test execution
  */
 export interface TestConfig {
   timeout: number; // in milliseconds

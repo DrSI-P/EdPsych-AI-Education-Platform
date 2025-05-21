@@ -478,13 +478,13 @@ export default function AnonymousSuggestionSystem() {
                 <div className="space-y-2">
                   <Label>Visibility</Label>
                   <div className="flex flex-col space-y-2">
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-centre space-x-2">
                       <Button
                         type="button"
                         variant={suggestionForm.visibility === 'private' ? "default" : "outline"}
                         size="sm"
                         onClick={() => handleVisibilityChange('private')}
-                        className="flex items-center gap-2"
+                        className="flex items-centre gap-2"
                       >
                         <Lock className="h-4 w-4" />
                         <span>Private (Staff Only)</span>
@@ -494,13 +494,13 @@ export default function AnonymousSuggestionSystem() {
                       </span>
                     </div>
                     
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-centre space-x-2">
                       <Button
                         type="button"
                         variant={suggestionForm.visibility === 'public' ? "default" : "outline"}
                         size="sm"
                         onClick={() => handleVisibilityChange('public')}
-                        className="flex items-center gap-2"
+                        className="flex items-centre gap-2"
                       >
                         <Users className="h-4 w-4" />
                         <span>Public (Everyone)</span>
@@ -615,7 +615,7 @@ export default function AnonymousSuggestionSystem() {
                 </div>
                 
                 {filteredSuggestions.length === 0 ? (
-                  <div className="text-center py-8 text-muted-foreground">
+                  <div className="text-centre py-8 text-muted-foreground">
                     No suggestions found matching your criteria.
                   </div>
                 ) : (
@@ -632,14 +632,14 @@ export default function AnonymousSuggestionSystem() {
                                 {` • ${suggestionCategories.find(c => c.id === suggestion.category)?.label || suggestion.category}`}
                               </CardDescription>
                             </div>
-                            <div className="flex items-center gap-2">
+                            <div className="flex items-centre gap-2">
                               {suggestion.visibility === 'private' ? (
-                                <Badge variant="outline" className="flex items-center gap-1">
+                                <Badge variant="outline" className="flex items-centre gap-1">
                                   <Lock className="h-3 w-3" />
                                   Private
                                 </Badge>
                               ) : (
-                                <Badge variant="outline" className="flex items-center gap-1">
+                                <Badge variant="outline" className="flex items-centre gap-1">
                                   <Users className="h-3 w-3" />
                                   Public
                                 </Badge>
@@ -652,8 +652,8 @@ export default function AnonymousSuggestionSystem() {
                           <div className="space-y-4">
                             <p className="text-sm">{suggestion.content}</p>
                             
-                            <div className="flex items-center gap-4">
-                              <div className="flex items-center gap-1">
+                            <div className="flex items-centre gap-4">
+                              <div className="flex items-centre gap-1">
                                 <Button
                                   variant="ghost"
                                   size="sm"
@@ -665,7 +665,7 @@ export default function AnonymousSuggestionSystem() {
                                 </Button>
                               </div>
                               
-                              <div className="flex items-center gap-1">
+                              <div className="flex items-centre gap-1">
                                 <Button
                                   variant="ghost"
                                   size="sm"
@@ -697,7 +697,7 @@ export default function AnonymousSuggestionSystem() {
                                 <div className="space-y-3">
                                   {suggestion.responses.map(response => (
                                     <div key={response.id} className="bg-muted/20 p-3 rounded-md">
-                                      <div className="flex items-center gap-2 mb-1">
+                                      <div className="flex items-centre gap-2 mb-1">
                                         {response.fromStaff ? (
                                           <Badge variant="outline" className="text-xs">Staff</Badge>
                                         ) : (

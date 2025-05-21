@@ -11,14 +11,14 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Progress } from "@/components/ui/progress";
 import { 
-  Dialog, 
+  Dialogue, 
   DialogContent, 
   DialogDescription, 
   DialogFooter, 
   DialogHeader, 
   DialogTitle, 
   DialogTrigger 
-} from "@/components/ui/dialog";
+} from "@/components/ui/dialogue";
 import { 
   Shield, 
   FileCheck, 
@@ -97,7 +97,7 @@ const mockWeb3 = {
   }
 };
 
-// License types
+// Licence types
 const licenseTypes = [
   { id: 'all_rights_reserved', name: 'All Rights Reserved', description: 'Full copyright protection with no permissions granted' },
   { id: 'cc_by', name: 'CC BY', description: 'Credit must be given to the creator' },
@@ -156,7 +156,7 @@ const mockCopyrightRegistrations = [
     registeredAt: '2024-12-18T09:45:00Z',
     contentHash: '0x9i0j1k2l3m4n5o6p7q8r9s0t1u2v3w4x5y6z7a8b9c0d1e2f3g4h5i6j7k8l9m0n',
     licenseType: 'all_rights_reserved',
-    description: 'Standardized protocol for assessing developmental progress in children aged 3-7',
+    description: 'Standardised protocol for assessing developmental progress in children aged 3-7',
     txHash: '0x9i0j1k2l3m4n5o6p7q8r9s0t1u2v3w4x5y6z7a8b',
     verified: true,
     visibility: 'restricted',
@@ -313,7 +313,7 @@ const CopyrightRegistrationTools = () => {
           variant: "success",
         });
         
-        // Reset form and close dialog
+        // Reset form and close dialogue
         setNewCopyright({
           title: '',
           type: 'document',
@@ -448,13 +448,13 @@ const CopyrightRegistrationTools = () => {
       <Card key={registration.id} className="mb-4">
         <CardHeader className="pb-2">
           <div className="flex justify-between items-start">
-            <div className="flex items-center">
+            <div className="flex items-centre">
               {typeInfo.icon}
               <Badge variant="outline" className="ml-2">
                 {typeInfo.name}
               </Badge>
             </div>
-            <div className="flex items-center space-x-2">
+            <div className="flex items-centre space-x-2">
               {registration.aiGenerated && (
                 <Badge variant="secondary">AI-Generated</Badge>
               )}
@@ -471,14 +471,14 @@ const CopyrightRegistrationTools = () => {
         <CardContent>
           <p className="text-sm text-muted-foreground mb-3">{registration.description}</p>
           
-          <div className="flex items-center mt-2 justify-between">
-            <div className="flex items-center">
-              <p className="text-sm font-medium mr-2">License:</p>
+          <div className="flex items-centre mt-2 justify-between">
+            <div className="flex items-centre">
+              <p className="text-sm font-medium mr-2">Licence:</p>
               <Badge variant="secondary">
                 {getLicenseName(registration.licenseType)}
               </Badge>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-centre">
               {registration.visibility === 'public' ? (
                 <Eye className="h-4 w-4 mr-1 text-green-500" />
               ) : registration.visibility === 'private' ? (
@@ -491,11 +491,11 @@ const CopyrightRegistrationTools = () => {
           </div>
           
           <div className="grid grid-cols-2 gap-2 mt-4 text-xs text-muted-foreground">
-            <div className="flex items-center">
+            <div className="flex items-centre">
               <Download className="h-3 w-3 mr-1" />
               <span>{registration.downloads} downloads</span>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-centre">
               <Eye className="h-3 w-3 mr-1" />
               <span>{registration.views} views</span>
             </div>
@@ -522,7 +522,7 @@ const CopyrightRegistrationTools = () => {
     );
   };
   
-  // License information component
+  // Licence information component
   const LicenseInfo = ({ licenseType }) => {
     const license = licenseTypes.find(l => l.id === licenseType) || {
       name: licenseType,
@@ -537,18 +537,18 @@ const CopyrightRegistrationTools = () => {
     
     return (
       <div className="p-4 border rounded-lg">
-        <div className="flex items-center mb-2">
+        <div className="flex items-centre mb-2">
           {getLicenseIcon(licenseType)}
           <h3 className="text-lg font-medium ml-2">{license.name}</h3>
         </div>
         <p className="text-sm text-muted-foreground mb-4">{license.description}</p>
         
         <div className="grid grid-cols-2 gap-4">
-          <div className="flex items-center">
+          <div className="flex items-centre">
             <CheckCircle className="h-4 w-4 mr-2 text-green-500" />
             <span className="text-sm">Attribution Required</span>
           </div>
-          <div className="flex items-center">
+          <div className="flex items-centre">
             {licenseType.includes('nc') ? (
               <CheckCircle className="h-4 w-4 mr-2 text-green-500" />
             ) : (
@@ -556,7 +556,7 @@ const CopyrightRegistrationTools = () => {
             )}
             <span className="text-sm">Non-Commercial Only</span>
           </div>
-          <div className="flex items-center">
+          <div className="flex items-centre">
             {licenseType.includes('nd') ? (
               <CheckCircle className="h-4 w-4 mr-2 text-green-500" />
             ) : (
@@ -564,7 +564,7 @@ const CopyrightRegistrationTools = () => {
             )}
             <span className="text-sm">No Derivatives</span>
           </div>
-          <div className="flex items-center">
+          <div className="flex items-centre">
             {licenseType.includes('sa') ? (
               <CheckCircle className="h-4 w-4 mr-2 text-green-500" />
             ) : (
@@ -579,7 +579,7 @@ const CopyrightRegistrationTools = () => {
   
   return (
     <div className="container mx-auto py-8">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-centre mb-6">
         <div>
           <h1 className="text-3xl font-bold">Copyright Registration & Verification</h1>
           <p className="text-muted-foreground mt-1">
@@ -597,7 +597,7 @@ const CopyrightRegistrationTools = () => {
             Connect Wallet
           </Button>
         ) : (
-          <div className="mt-4 md:mt-0 flex items-center">
+          <div className="mt-4 md:mt-0 flex items-centre">
             <Badge variant="outline" className="font-mono">
               {walletAddress}
             </Badge>
@@ -674,14 +674,14 @@ const CopyrightRegistrationTools = () => {
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="licenseType">License Type *</Label>
+                    <Label htmlFor="licenseType">Licence Type *</Label>
                     <select
                       id="licenseType"
                       className="w-full flex h-10 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                       value={newCopyright.licenseType}
                       onChange={(e) => setNewCopyright({...newCopyright, licenseType: e.target.value})}
                     >
-                      {licenseTypes.map((license) => (
+                      {licenseTypes.map((licence) => (
                         <option key={license.id} value={license.id}>
                           {license.name}
                         </option>
@@ -713,11 +713,11 @@ const CopyrightRegistrationTools = () => {
                   </div>
                 </div>
                 
-                <div className="flex items-center space-x-2 mt-2">
+                <div className="flex items-centre space-x-2 mt-2">
                   <input 
                     type="checkbox" 
                     id="aiGenerated" 
-                    className="rounded border-gray-300"
+                    className="rounded border-grey-300"
                     checked={newCopyright.aiGenerated}
                     onChange={(e) => setNewCopyright({...newCopyright, aiGenerated: e.target.checked})}
                   />
@@ -741,7 +741,7 @@ const CopyrightRegistrationTools = () => {
                 {isUploading && (
                   <div className="mt-2">
                     <Label className="text-sm">Upload Progress</Label>
-                    <div className="flex items-center mt-1">
+                    <div className="flex items-centre mt-1">
                       <Progress value={uploadProgress} className="flex-1 mr-2" />
                       <span className="text-sm">{uploadProgress}%</span>
                     </div>
@@ -773,7 +773,7 @@ const CopyrightRegistrationTools = () => {
         </TabsContent>
         
         <TabsContent value="manage" className="mt-0">
-          <div className="flex justify-between items-center mb-6">
+          <div className="flex justify-between items-centre mb-6">
             <h2 className="text-xl font-semibold">My Copyright Registrations</h2>
             <Button 
               onClick={() => setActiveTab('register')}
@@ -789,7 +789,7 @@ const CopyrightRegistrationTools = () => {
               {copyrightRegistrations.map(renderCopyrightCard)}
             </div>
           ) : (
-            <div className="text-center py-12 border rounded-lg">
+            <div className="text-centre py-12 border rounded-lg">
               <FileCheck className="h-12 w-12 mx-auto text-muted-foreground" />
               <h3 className="mt-4 text-lg font-medium">No Copyright Registrations</h3>
               <p className="text-muted-foreground mt-1">
@@ -872,7 +872,7 @@ const CopyrightRegistrationTools = () => {
               
               {verificationResult && (
                 <div className="mt-6 border rounded-lg p-4">
-                  <div className="flex items-center mb-4">
+                  <div className="flex items-centre mb-4">
                     {(verificationResult.valid || verificationResult.matches) ? (
                       <CheckCircle className="h-6 w-6 text-green-500 mr-2" />
                     ) : (
@@ -903,7 +903,7 @@ const CopyrightRegistrationTools = () => {
                           </p>
                         </div>
                         <div>
-                          <p className="text-sm font-medium">License Type</p>
+                          <p className="text-sm font-medium">Licence Type</p>
                           <Badge variant="outline">
                             {verificationResult.licenseType}
                           </Badge>
@@ -947,8 +947,8 @@ const CopyrightRegistrationTools = () => {
         </TabsContent>
       </Tabs>
       
-      {/* Registration Details Dialog */}
-      <Dialog open={showDetailsDialog} onOpenChange={setShowDetailsDialog}>
+      {/* Registration Details Dialogue */}
+      <Dialogue open={showDetailsDialog} onOpenChange={setShowDetailsDialog}>
         <DialogContent className="max-w-3xl">
           <DialogHeader>
             <DialogTitle>Copyright Registration Details</DialogTitle>
@@ -969,7 +969,7 @@ const CopyrightRegistrationTools = () => {
                     </div>
                     <div>
                       <p className="text-sm font-medium">Type</p>
-                      <div className="flex items-center">
+                      <div className="flex items-centre">
                         {getContentTypeInfo(selectedRegistration.type).icon}
                         <span className="ml-1">{getContentTypeInfo(selectedRegistration.type).name}</span>
                       </div>
@@ -979,7 +979,7 @@ const CopyrightRegistrationTools = () => {
                       <p className="text-sm">{selectedRegistration.description}</p>
                     </div>
                     <div>
-                      <p className="text-sm font-medium">License</p>
+                      <p className="text-sm font-medium">Licence</p>
                       <Badge variant="secondary">
                         {getLicenseName(selectedRegistration.licenseType)}
                       </Badge>
@@ -996,7 +996,7 @@ const CopyrightRegistrationTools = () => {
                     </div>
                     <div>
                       <p className="text-sm font-medium">Registration Date</p>
-                      <div className="flex items-center">
+                      <div className="flex items-centre">
                         <Calendar className="h-4 w-4 mr-1" />
                         <span>{new Date(selectedRegistration.registeredAt).toLocaleString()}</span>
                       </div>
@@ -1017,7 +1017,7 @@ const CopyrightRegistrationTools = () => {
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <h3 className="text-lg font-medium mb-2">License Information</h3>
+                  <h3 className="text-lg font-medium mb-2">Licence Information</h3>
                   <LicenseInfo licenseType={selectedRegistration.licenseType} />
                 </div>
                 
@@ -1027,21 +1027,21 @@ const CopyrightRegistrationTools = () => {
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <p className="text-sm font-medium">Views</p>
-                        <div className="flex items-center">
+                        <div className="flex items-centre">
                           <Eye className="h-4 w-4 mr-1" />
                           <span>{selectedRegistration.views}</span>
                         </div>
                       </div>
                       <div>
                         <p className="text-sm font-medium">Downloads</p>
-                        <div className="flex items-center">
+                        <div className="flex items-centre">
                           <Download className="h-4 w-4 mr-1" />
                           <span>{selectedRegistration.downloads}</span>
                         </div>
                       </div>
                       <div>
                         <p className="text-sm font-medium">Visibility</p>
-                        <div className="flex items-center">
+                        <div className="flex items-centre">
                           {selectedRegistration.visibility === 'public' ? (
                             <Eye className="h-4 w-4 mr-1 text-green-500" />
                           ) : selectedRegistration.visibility === 'private' ? (
@@ -1054,7 +1054,7 @@ const CopyrightRegistrationTools = () => {
                       </div>
                       <div>
                         <p className="text-sm font-medium">Owner</p>
-                        <div className="flex items-center">
+                        <div className="flex items-centre">
                           <User className="h-4 w-4 mr-1" />
                           <span className="font-mono text-xs truncate">You</span>
                         </div>
@@ -1076,13 +1076,13 @@ const CopyrightRegistrationTools = () => {
             </Button>
           </DialogFooter>
         </DialogContent>
-      </Dialog>
+      </Dialogue>
       
-      {/* License Information Dialog */}
-      <Dialog open={showLicenseDialog} onOpenChange={setShowLicenseDialog}>
+      {/* Licence Information Dialogue */}
+      <Dialogue open={showLicenseDialog} onOpenChange={setShowLicenseDialog}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>License Types</DialogTitle>
+            <DialogTitle>Licence Types</DialogTitle>
             <DialogDescription>
               Understanding copyright licenses for educational content
             </DialogDescription>
@@ -1090,7 +1090,7 @@ const CopyrightRegistrationTools = () => {
           
           <div className="py-4 max-h-[60vh] overflow-y-auto pr-2">
             <div className="space-y-4">
-              {licenseTypes.map((license) => (
+              {licenseTypes.map((licence) => (
                 <div key={license.id} className="border rounded-lg p-3">
                   <h3 className="font-medium">{license.name}</h3>
                   <p className="text-sm text-muted-foreground">{license.description}</p>
@@ -1099,7 +1099,7 @@ const CopyrightRegistrationTools = () => {
             </div>
             
             <div className="mt-6">
-              <h3 className="font-medium mb-2">Choosing the Right License</h3>
+              <h3 className="font-medium mb-2">Choosing the Right Licence</h3>
               <p className="text-sm text-muted-foreground mb-2">
                 When selecting a license for your educational content, consider:
               </p>
@@ -1108,7 +1108,7 @@ const CopyrightRegistrationTools = () => {
                 <li>Whether you want to allow commercial use</li>
                 <li>If you want to allow modifications or adaptations</li>
                 <li>Whether you want to require attribution</li>
-                <li>If you want derivatives to be shared under the same license</li>
+                <li>If you want derivatives to be shared under the same licence</li>
               </ul>
             </div>
           </div>
@@ -1119,9 +1119,9 @@ const CopyrightRegistrationTools = () => {
             </Button>
           </DialogFooter>
         </DialogContent>
-      </Dialog>
+      </Dialogue>
       
-      {/* Credit purchase dialog from fair usage hook */}
+      {/* Credit purchase dialogue from fair usage hook */}
       <CreditPurchaseDialog />
     </div>
   );
@@ -1173,14 +1173,14 @@ const ResourceCopyrightRegistration = ({ resource, onRegister }) => {
   return (
     <div className="space-y-4 py-4">
       <div>
-        <Label htmlFor="resourceLicenseType">License Type</Label>
+        <Label htmlFor="resourceLicenseType">Licence Type</Label>
         <select
           id="resourceLicenseType"
           className="w-full mt-1 flex h-10 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
           value={licenseType}
           onChange={(e) => setLicenseType(e.target.value)}
         >
-          {licenseTypes.map((license) => (
+          {licenseTypes.map((licence) => (
             <option key={license.id} value={license.id}>
               {license.name}
             </option>
@@ -1191,8 +1191,8 @@ const ResourceCopyrightRegistration = ({ resource, onRegister }) => {
         </p>
       </div>
       
-      <div className="flex items-center space-x-2">
-        <input type="checkbox" id="resourcePublic" className="rounded border-gray-300" defaultChecked />
+      <div className="flex items-centre space-x-2">
+        <input type="checkbox" id="resourcePublic" className="rounded border-grey-300" defaultChecked />
         <Label htmlFor="resourcePublic">Make registration publicly visible</Label>
       </div>
       
@@ -1267,14 +1267,14 @@ const AIContentCopyrightRegistration = ({ content, onRegister }) => {
       </div>
       
       <div>
-        <Label htmlFor="aiContentLicenseType">License Type</Label>
+        <Label htmlFor="aiContentLicenseType">Licence Type</Label>
         <select
           id="aiContentLicenseType"
           className="w-full mt-1 flex h-10 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
           value={licenseType}
           onChange={(e) => setLicenseType(e.target.value)}
         >
-          {licenseTypes.map((license) => (
+          {licenseTypes.map((licence) => (
             <option key={license.id} value={license.id}>
               {license.name}
             </option>

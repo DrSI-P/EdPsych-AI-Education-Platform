@@ -114,8 +114,8 @@ const AgreementTrackingSystem = () => {
     {
       id: "agr-001",
       title: "Classroom Disruption Resolution",
-      description: "Agreement following disruptive behavior in Year 8 Science class",
-      type: "behavioral",
+      description: "Agreement following disruptive behaviour in Year 8 Science class",
+      type: "behavioural",
       status: "active",
       createdAt: "2025-05-10T10:30:00Z",
       participants: ["James Wilson (Student)", "Sarah Thompson (Teacher)", "Mark Davies (Head of Year)"],
@@ -227,7 +227,7 @@ const AgreementTrackingSystem = () => {
       status: "completed",
       createdAt: "2025-04-25T09:45:00Z",
       participants: ["Daniel Taylor (Student)", "Mr. Roberts (Facilities Manager)", "Mrs. Hughes (Deputy Head)"],
-      facilitator: "Mr. Johnson (Restorative Practice Lead)",
+      facilitator: "Mr. Johnson (Restorative Practise Lead)",
       terms: [
         {
           id: "term-007",
@@ -281,8 +281,8 @@ const AgreementTrackingSystem = () => {
     {
       id: "agr-004",
       title: "Online Bullying Intervention",
-      description: "Agreement addressing harmful online behavior between Year 9 students",
-      type: "behavioral",
+      description: "Agreement addressing harmful online behaviour between Year 9 students",
+      type: "behavioural",
       status: "at-risk",
       createdAt: "2025-05-05T13:20:00Z",
       participants: ["Ryan Cooper (Student)", "Aisha Patel (Student)", "Mr. Williams (Head of Year 9)", "Mrs. Cooper (Parent)", "Mr. Patel (Parent)"],
@@ -573,7 +573,7 @@ const AgreementTrackingSystem = () => {
     toast.success('Agreement exported as PDF');
   };
 
-  // Get status badge color
+  // Get status badge colour
   const getStatusColor = (status) => {
     switch (status) {
       case 'active': return 'bg-green-100 text-green-800 border-green-200';
@@ -581,7 +581,7 @@ const AgreementTrackingSystem = () => {
       case 'at-risk': return 'bg-red-100 text-red-800 border-red-200';
       case 'pending': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
       case 'in-progress': return 'bg-purple-100 text-purple-800 border-purple-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+      default: return 'bg-grey-100 text-grey-800 border-grey-200';
     }
   };
 
@@ -600,7 +600,7 @@ const AgreementTrackingSystem = () => {
   // Get type display text
   const getTypeDisplay = (type) => {
     switch (type) {
-      case 'behavioral': return 'Behavioral';
+      case 'behavioural': return 'Behavioural';
       case 'interpersonal': return 'Interpersonal';
       case 'reparative': return 'Reparative';
       case 'academic': return 'Academic';
@@ -644,7 +644,7 @@ const AgreementTrackingSystem = () => {
                   <CardTitle className="text-sm font-medium">Total Agreements</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="flex items-center">
+                  <div className="flex items-centre">
                     <FileText className="h-5 w-5 text-muted-foreground mr-2" />
                     <span className="text-2xl font-bold">{dashboardStats.total}</span>
                   </div>
@@ -655,7 +655,7 @@ const AgreementTrackingSystem = () => {
                   <CardTitle className="text-sm font-medium">Active Agreements</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="flex items-center">
+                  <div className="flex items-centre">
                     <CheckCircle2 className="h-5 w-5 text-green-500 mr-2" />
                     <span className="text-2xl font-bold">{dashboardStats.active}</span>
                   </div>
@@ -666,7 +666,7 @@ const AgreementTrackingSystem = () => {
                   <CardTitle className="text-sm font-medium">At Risk</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="flex items-center">
+                  <div className="flex items-centre">
                     <AlertCircle className="h-5 w-5 text-red-500 mr-2" />
                     <span className="text-2xl font-bold">{dashboardStats.atRisk}</span>
                   </div>
@@ -677,7 +677,7 @@ const AgreementTrackingSystem = () => {
                   <CardTitle className="text-sm font-medium">Upcoming Follow-ups</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="flex items-center">
+                  <div className="flex items-centre">
                     <Calendar className="h-5 w-5 text-blue-500 mr-2" />
                     <span className="text-2xl font-bold">{dashboardStats.upcomingFollowUps}</span>
                   </div>
@@ -698,14 +698,14 @@ const AgreementTrackingSystem = () => {
                     {agreements.slice(0, 3).map((agreement) => (
                       <div key={agreement.id} className="flex items-start p-3 border rounded-lg">
                         <div className="flex-1">
-                          <div className="flex items-center">
+                          <div className="flex items-centre">
                             <h3 className="font-medium">{agreement.title}</h3>
                             <Badge className={`ml-2 ${getStatusColor(agreement.status)}`}>
                               {getStatusDisplay(agreement.status)}
                             </Badge>
                           </div>
                           <p className="text-sm text-muted-foreground mt-1">{agreement.description}</p>
-                          <div className="flex items-center mt-2">
+                          <div className="flex items-centre mt-2">
                             <Users className="h-4 w-4 text-muted-foreground mr-1" />
                             <span className="text-xs text-muted-foreground">{agreement.participants.length} participants</span>
                             <span className="mx-2 text-muted-foreground">•</span>
@@ -723,7 +723,7 @@ const AgreementTrackingSystem = () => {
                       </div>
                     ))}
                     {agreements.length === 0 && (
-                      <div className="text-center p-4">
+                      <div className="text-centre p-4">
                         <p className="text-muted-foreground">No agreements found</p>
                       </div>
                     )}
@@ -758,10 +758,10 @@ const AgreementTrackingSystem = () => {
                       })
                       .slice(0, 5)
                       .map((agreement) => (
-                        <div key={agreement.id} className="flex items-center p-3 border rounded-lg">
+                        <div key={agreement.id} className="flex items-centre p-3 border rounded-lg">
                           <div className="flex-1">
                             <h3 className="font-medium text-sm">{agreement.title}</h3>
-                            <div className="flex items-center mt-1">
+                            <div className="flex items-centre mt-1">
                               <Calendar className="h-4 w-4 text-muted-foreground mr-1" />
                               <span className="text-xs text-muted-foreground">{formatDate(agreement.followUpDate)}</span>
                             </div>
@@ -781,7 +781,7 @@ const AgreementTrackingSystem = () => {
                       const nextWeek = addDays(today, 7);
                       return a.status !== 'completed' && isAfter(followUpDate, today) && isBefore(followUpDate, nextWeek);
                     }).length === 0 && (
-                      <div className="text-center p-4">
+                      <div className="text-centre p-4">
                         <p className="text-muted-foreground">No upcoming follow-ups</p>
                       </div>
                     )}
@@ -804,7 +804,7 @@ const AgreementTrackingSystem = () => {
                     .slice(0, 5)
                     .map((agreement) => (
                       <div key={agreement.id} className="space-y-2">
-                        <div className="flex items-center justify-between">
+                        <div className="flex items-centre justify-between">
                           <span className="font-medium">{agreement.title}</span>
                           <span className="text-sm">{agreement.progress}%</span>
                         </div>
@@ -812,7 +812,7 @@ const AgreementTrackingSystem = () => {
                       </div>
                     ))}
                   {agreements.filter(a => a.status === 'active').length === 0 && (
-                    <div className="text-center p-4">
+                    <div className="text-centre p-4">
                       <p className="text-muted-foreground">No active agreements</p>
                     </div>
                   )}
@@ -868,7 +868,7 @@ const AgreementTrackingSystem = () => {
                         </SelectTrigger>
                         <SelectContent>
                           <SelectItem value="all">All types</SelectItem>
-                          <SelectItem value="behavioral">Behavioral</SelectItem>
+                          <SelectItem value="behavioural">Behavioural</SelectItem>
                           <SelectItem value="interpersonal">Interpersonal</SelectItem>
                           <SelectItem value="reparative">Reparative</SelectItem>
                           <SelectItem value="academic">Academic</SelectItem>
@@ -901,7 +901,7 @@ const AgreementTrackingSystem = () => {
                               </Badge>
                             </TableCell>
                             <TableCell>
-                              <div className="flex items-center space-x-2">
+                              <div className="flex items-centre space-x-2">
                                 <Progress value={agreement.progress} className="h-2 w-20" />
                                 <span className="text-xs">{agreement.progress}%</span>
                               </div>
@@ -920,7 +920,7 @@ const AgreementTrackingSystem = () => {
                         ))}
                         {filteredAgreements.length === 0 && (
                           <TableRow>
-                            <TableCell colSpan={6} className="text-center py-4">
+                            <TableCell colSpan={6} className="text-centre py-4">
                               No agreements found
                             </TableCell>
                           </TableRow>
@@ -946,10 +946,10 @@ const AgreementTrackingSystem = () => {
           <TabsContent value="view" className="space-y-6">
             {selectedAgreement && (
               <>
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-centre">
                   <div>
                     <h2 className="text-2xl font-bold">{selectedAgreement.title}</h2>
-                    <div className="flex items-center mt-1">
+                    <div className="flex items-centre mt-1">
                       <Badge className={getStatusColor(selectedAgreement.status)}>
                         {getStatusDisplay(selectedAgreement.status)}
                       </Badge>
@@ -987,7 +987,7 @@ const AgreementTrackingSystem = () => {
                             <h3 className="text-sm font-medium text-muted-foreground">Participants</h3>
                             <ul className="mt-1 space-y-1">
                               {selectedAgreement.participants.map((participant, index) => (
-                                <li key={index} className="flex items-center">
+                                <li key={index} className="flex items-centre">
                                   <Users className="h-4 w-4 mr-2 text-muted-foreground" />
                                   <span>{participant}</span>
                                 </li>
@@ -1025,7 +1025,7 @@ const AgreementTrackingSystem = () => {
                             <div key={term.id} className="border rounded-lg p-4">
                               <div className="flex items-start justify-between">
                                 <div className="flex-1">
-                                  <div className="flex items-center">
+                                  <div className="flex items-centre">
                                     <h3 className="font-medium">{term.description}</h3>
                                     <Badge className={`ml-2 ${getStatusColor(term.status)}`}>
                                       {getStatusDisplay(term.status)}
@@ -1044,7 +1044,7 @@ const AgreementTrackingSystem = () => {
                                     )}
                                   </div>
                                   {term.notes && (
-                                    <div className="text-sm mt-2 p-2 bg-gray-50 rounded">
+                                    <div className="text-sm mt-2 p-2 bg-grey-50 rounded">
                                       <span className="font-medium">Notes:</span> {term.notes}
                                     </div>
                                   )}
@@ -1119,7 +1119,7 @@ const AgreementTrackingSystem = () => {
                       </CardHeader>
                       <CardContent>
                         <div className="space-y-4">
-                          <div className="flex items-center justify-between">
+                          <div className="flex items-centre justify-between">
                             <div>
                               <h3 className="text-sm font-medium">Next Follow-up</h3>
                               <p className="text-lg font-bold mt-1">{formatDate(selectedAgreement.followUpDate)}</p>
@@ -1150,7 +1150,7 @@ const AgreementTrackingSystem = () => {
                       <CardContent>
                         <div className="space-y-4">
                           {selectedAgreement.updates.map((update, index) => (
-                            <div key={index} className="border-l-2 border-gray-200 pl-4 pb-4">
+                            <div key={index} className="border-l-2 border-grey-200 pl-4 pb-4">
                               <div className="flex justify-between items-start">
                                 <p className="font-medium">{update.author}</p>
                                 <span className="text-xs text-muted-foreground">{formatDate(update.date)}</span>
@@ -1160,7 +1160,7 @@ const AgreementTrackingSystem = () => {
                           ))}
                           
                           {selectedAgreement.updates.length === 0 && (
-                            <p className="text-muted-foreground text-center py-4">No updates yet</p>
+                            <p className="text-muted-foreground text-centre py-4">No updates yet</p>
                           )}
                         </div>
                       </CardContent>
@@ -1233,7 +1233,7 @@ const AgreementTrackingSystem = () => {
                           <SelectValue placeholder="Select agreement type" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="behavioral">Behavioral</SelectItem>
+                          <SelectItem value="behavioural">Behavioural</SelectItem>
                           <SelectItem value="interpersonal">Interpersonal</SelectItem>
                           <SelectItem value="reparative">Reparative</SelectItem>
                           <SelectItem value="academic">Academic</SelectItem>
@@ -1262,7 +1262,7 @@ const AgreementTrackingSystem = () => {
                   </div>
 
                   <div className="space-y-4">
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-centre justify-between">
                       <Label>Participants</Label>
                       <div className="flex space-x-2">
                         <Input
@@ -1286,8 +1286,8 @@ const AgreementTrackingSystem = () => {
                       {newAgreement.participants.length > 0 ? (
                         <ul className="space-y-2">
                           {newAgreement.participants.map((participant, index) => (
-                            <li key={index} className="flex items-center justify-between p-2 bg-gray-50 rounded">
-                              <div className="flex items-center">
+                            <li key={index} className="flex items-centre justify-between p-2 bg-grey-50 rounded">
+                              <div className="flex items-centre">
                                 <Users className="h-4 w-4 mr-2 text-muted-foreground" />
                                 <span>{participant}</span>
                               </div>
@@ -1302,7 +1302,7 @@ const AgreementTrackingSystem = () => {
                           ))}
                         </ul>
                       ) : (
-                        <p className="text-center text-muted-foreground py-4">
+                        <p className="text-centre text-muted-foreground py-4">
                           No participants added yet
                         </p>
                       )}
@@ -1310,7 +1310,7 @@ const AgreementTrackingSystem = () => {
                   </div>
 
                   <div className="space-y-4">
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-centre justify-between">
                       <Label>Agreement Terms</Label>
                     </div>
 
@@ -1357,7 +1357,7 @@ const AgreementTrackingSystem = () => {
                       {newAgreement.terms.length > 0 ? (
                         <div className="space-y-3">
                           {newAgreement.terms.map((term, index) => (
-                            <div key={index} className="flex items-start justify-between p-3 bg-gray-50 rounded">
+                            <div key={index} className="flex items-start justify-between p-3 bg-grey-50 rounded">
                               <div className="flex-1">
                                 <p className="font-medium">{term.description}</p>
                                 <div className="text-sm text-muted-foreground mt-1">
@@ -1378,7 +1378,7 @@ const AgreementTrackingSystem = () => {
                           ))}
                         </div>
                       ) : (
-                        <p className="text-center text-muted-foreground py-4">
+                        <p className="text-centre text-muted-foreground py-4">
                           No terms added yet
                         </p>
                       )}

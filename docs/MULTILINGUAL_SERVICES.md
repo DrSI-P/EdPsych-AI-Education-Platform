@@ -10,7 +10,7 @@ The Multilingual Services feature transforms the EdPsych Connect platform into a
 
 - **Real-time Interface Translation**: Automatic translation of UI elements, navigation, and system messages
 - **Educational Content Translation**: Translation of resources, assessments, and curriculum materials
-- **Quality-Optimized Translations**: AI-enhanced translation with educational terminology precision
+- **Quality-Optimised Translations**: AI-enhanced translation with educational terminology precision
 - **Context-Aware Translation**: Maintaining pedagogical nuance and educational context
 - **Dialect Support**: Recognition of regional language variations (e.g., British vs. American English)
 
@@ -102,7 +102,7 @@ The Multilingual Services feature transforms the EdPsych Connect platform into a
 
 The Multilingual Services feature is grounded in established educational psychology principles:
 
-- **Linguistic Inclusion**: Recognizing language as a core aspect of identity and learning
+- **Linguistic Inclusion**: Recognising language as a core aspect of identity and learning
 - **Cognitive Load Theory**: Reducing extraneous cognitive load caused by language barriers
 - **Zone of Proximal Development**: Providing appropriate linguistic scaffolding
 - **Cultural Responsiveness**: Acknowledging the cultural dimensions of language

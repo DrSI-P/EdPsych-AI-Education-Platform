@@ -11,7 +11,7 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
-    // Get behavior tracking settings for the current user
+    // Get behaviour tracking settings for the current user
     const settings = await prisma.behaviorTrackingSettings.findUnique({
       where: {
         userId: session.user.id,
@@ -38,7 +38,7 @@ export async function GET(req: NextRequest) {
     
     return NextResponse.json(settings);
   } catch (error) {
-    console.error('Error fetching behavior tracking settings:', error);
+    console.error('Error fetching behaviour tracking settings:', error);
     return NextResponse.json({ error: 'Failed to fetch settings' }, { status: 500 });
   }
 }
@@ -108,7 +108,7 @@ export async function POST(req: NextRequest) {
     
     return NextResponse.json(settings);
   } catch (error) {
-    console.error('Error saving behavior tracking settings:', error);
+    console.error('Error saving behaviour tracking settings:', error);
     return NextResponse.json({ error: 'Failed to save settings' }, { status: 500 });
   }
 }

@@ -189,7 +189,7 @@ Format your feedback with:
           )}
           
           {feedback && (
-            <div className="p-4 bg-gray-50 rounded-md border">
+            <div className="p-4 bg-grey-50 rounded-md border">
               <h4 className="text-sm font-medium mb-2">Generated Feedback:</h4>
               <div className="text-sm whitespace-pre-wrap">{feedback}</div>
             </div>

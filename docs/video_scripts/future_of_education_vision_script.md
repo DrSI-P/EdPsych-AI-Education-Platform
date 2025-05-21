@@ -23,7 +23,7 @@ Assessment systems that may not capture the full range of pupil capabilities.
 These challenges require more than incremental improvements—they demand a transformative approach.
 
 ### Our Vision for Personalized Learning (1:00-1:30)
-[Screen transitions to show personalized learning visualization]
+[Screen transitions to show personalized learning visualisation]
 
 At the heart of our vision is truly personalized learning—not as a luxury, but as a fundamental right for every child.
 
@@ -32,7 +32,7 @@ We envision education that begins with understanding each learner's unique start
 This approach recognizes that excellence in education isn't about treating everyone the same, but about providing what each individual needs to thrive.
 
 ### Systematic and Comprehensive Learning (1:30-1:45)
-[Screen transitions to show curriculum visualization]
+[Screen transitions to show curriculum visualisation]
 
 Our vision includes systematic curriculum coverage that eliminates learning gaps while allowing for personalized pacing and pathways.
 
@@ -55,7 +55,7 @@ Educational psychology principles are the foundation of our vision. By applying 
 This scientific approach ensures that innovation is guided by research rather than trends, leading to sustainable improvements in educational outcomes.
 
 ### Inclusive and Equitable Access (2:15-2:30)
-[Screen transitions to show inclusive education visualization]
+[Screen transitions to show inclusive education visualisation]
 
 Our vision prioritizes inclusive and equitable access to high-quality education for all learners, particularly those from disadvantaged backgrounds or with additional needs.
 
@@ -71,7 +71,7 @@ This includes not just academic knowledge, but also creativity, collaboration, c
 ### Conclusion and Call to Action (2:45-3:00)
 [AI Avatar returns to full screen]
 
-The future of education we envision isn't a distant dream—it's being realized today through the EdPsych Connect platform and the dedicated educators who use it.
+The future of education we envision isn't a distant dream—it's being realised today through the EdPsych Connect platform and the dedicated educators who use it.
 
 By combining educational psychology principles with cutting-edge technology, we're creating learning experiences that are more personalized, engaging, and effective for all children and young people.
 

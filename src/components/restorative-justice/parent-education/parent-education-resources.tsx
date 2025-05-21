@@ -96,7 +96,7 @@ const mockResources: ParentResource[] = [
         <li>Stronger parent-child relationships</li>
         <li>Improved communication skills</li>
         <li>Better conflict resolution abilities</li>
-        <li>Reduced behavior challenges</li>
+        <li>Reduced behaviour challenges</li>
         <li>Greater emotional intelligence</li>
         <li>Consistency between home and school approaches</li>
       </ul>
@@ -129,7 +129,7 @@ const mockResources: ParentResource[] = [
       <ul>
         <li>Stay calm and neutral during the conversation</li>
         <li>Listen actively without interrupting</li>
-        <li>Focus on the behavior, not the child</li>
+        <li>Focus on the behaviour, not the child</li>
         <li>Allow time for reflection</li>
         <li>Support children in finding their own solutions</li>
         <li>Follow up to check how agreements are working</li>
@@ -269,7 +269,7 @@ const mockModules: Module[] = [
       },
       {
         id: '2-3',
-        title: 'Practice Scenarios',
+        title: 'Practise Scenarios',
         description: 'Apply what you\'ve learned to common family situations.',
         content: 'Lesson content would appear here.',
         completed: false,
@@ -359,7 +359,7 @@ export default function ParentEducationResources() {
     return matchesSearch && matchesAgeGroup && matchesCategory && matchesDifficulty;
   });
 
-  // Toggle favorite status
+  // Toggle favourite status
   const toggleFavorite = (id: string, type: 'resource' | 'activity') => {
     if (type === 'resource') {
       setResources(resources.map(resource => 
@@ -582,8 +582,8 @@ export default function ParentEducationResources() {
                     </Card>
                   ))
                 ) : (
-                  <div className="col-span-3 p-8 text-center">
-                    <div className="mb-4 flex justify-center">
+                  <div className="col-span-3 p-8 text-centre">
+                    <div className="mb-4 flex justify-centre">
                       <AlertCircle className="h-12 w-12 text-muted-foreground" />
                     </div>
                     <h3 className="text-lg font-medium mb-2">No resources found</h3>
@@ -604,7 +604,7 @@ export default function ParentEducationResources() {
             </>
           ) : (
             <div className="space-y-4">
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <Button variant="outline" onClick={resetViews}>
                   Back to Resources
                 </Button>
@@ -643,7 +643,7 @@ export default function ParentEducationResources() {
                 
                 <CardContent>
                   {activeResource.videoUrl ? (
-                    <div className="aspect-video bg-muted rounded-md flex items-center justify-center mb-4">
+                    <div className="aspect-video bg-muted rounded-md flex items-centre justify-centre mb-4">
                       <p className="text-muted-foreground">Video player would be embedded here</p>
                     </div>
                   ) : null}
@@ -653,7 +653,7 @@ export default function ParentEducationResources() {
                   {activeResource.downloadUrl && (
                     <div className="mt-6">
                       <h3 className="text-lg font-medium mb-2">Downloads</h3>
-                      <Button variant="outline" className="flex items-center gap-2">
+                      <Button variant="outline" className="flex items-centre gap-2">
                         <Download className="h-4 w-4" />
                         Download Resource
                       </Button>
@@ -732,13 +732,13 @@ export default function ParentEducationResources() {
             </div>
           ) : activeLesson ? (
             <div className="space-y-4">
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <Button variant="outline" onClick={() => {
                   setActiveLesson(null);
                 }}>
                   Back to Module
                 </Button>
-                <div className="flex items-center gap-2">
+                <div className="flex items-centre gap-2">
                   <span className="text-sm text-muted-foreground">
                     {activeModule.lessons.findIndex(l => l.id === activeLesson.id) + 1} of {activeModule.lessons.length}
                   </span>
@@ -788,7 +788,7 @@ export default function ParentEducationResources() {
                     </Button>
                     
                     {activeLesson.completed ? (
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-centre gap-2">
                         <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
                           Completed
                         </Badge>
@@ -820,11 +820,11 @@ export default function ParentEducationResources() {
             </div>
           ) : (
             <div className="space-y-4">
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <Button variant="outline" onClick={resetViews}>
                   Back to Modules
                 </Button>
-                <div className="flex items-center gap-2">
+                <div className="flex items-centre gap-2">
                   <span className="text-sm text-muted-foreground">
                     {activeModule.lessons.filter(l => l.completed).length} of {activeModule.lessons.length} completed
                   </span>
@@ -843,10 +843,10 @@ export default function ParentEducationResources() {
                     {activeModule.lessons.map((lesson, index) => (
                       <div 
                         key={lesson.id}
-                        className="flex items-center justify-between p-3 rounded-md border"
+                        className="flex items-centre justify-between p-3 rounded-md border"
                       >
-                        <div className="flex items-center gap-3">
-                          <div className={`flex items-center justify-center w-6 h-6 rounded-full text-xs font-medium ${
+                        <div className="flex items-centre gap-3">
+                          <div className={`flex items-centre justify-centre w-6 h-6 rounded-full text-xs font-medium ${
                             lesson.completed 
                               ? 'bg-green-100 text-green-700' 
                               : 'bg-muted text-muted-foreground'
@@ -873,7 +873,7 @@ export default function ParentEducationResources() {
                   {activeModule.completed ? (
                     <div className="w-full">
                       <Alert className="bg-green-50 text-green-700 border-green-200">
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-centre gap-2">
                           <div className="h-4 w-4 rounded-full bg-green-500" />
                           <AlertTitle>Module Completed</AlertTitle>
                         </div>
@@ -882,16 +882,16 @@ export default function ParentEducationResources() {
                         </AlertDescription>
                       </Alert>
                       
-                      <div className="mt-4 flex justify-center">
+                      <div className="mt-4 flex justify-centre">
                         <Button>Download Certificate</Button>
                       </div>
                     </div>
                   ) : (
                     <div className="w-full">
-                      <p className="text-center text-muted-foreground mb-4">
+                      <p className="text-centre text-muted-foreground mb-4">
                         Complete all lessons to finish this module
                       </p>
-                      <div className="flex justify-center">
+                      <div className="flex justify-centre">
                         <Button 
                           onClick={() => {
                             const firstIncomplete = activeModule.lessons.find(l => !l.completed);
@@ -949,7 +949,7 @@ export default function ParentEducationResources() {
             </div>
           ) : (
             <div className="space-y-4">
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <Button variant="outline" onClick={resetViews}>
                   Back to Activities
                 </Button>
@@ -1069,7 +1069,7 @@ export default function ParentEducationResources() {
                   <li>Stronger parent-child relationships</li>
                   <li>Improved communication skills</li>
                   <li>Better conflict resolution abilities</li>
-                  <li>Reduced behavior challenges</li>
+                  <li>Reduced behaviour challenges</li>
                   <li>Greater emotional intelligence</li>
                   <li>Consistency between home and school approaches</li>
                 </ul>
@@ -1133,7 +1133,7 @@ export default function ParentEducationResources() {
                   <div>
                     <h3 className="text-lg font-medium">Family Activities</h3>
                     <p className="text-muted-foreground">
-                      Find practical activities to do with your family that build relationships and practice restorative skills together.
+                      Find practical activities to do with your family that build relationships and practise restorative skills together.
                     </p>
                   </div>
                 </div>

@@ -13,7 +13,7 @@ const ActivityFilterSchema = z.object({
   searchQuery: z.string().optional()
 });
 
-// Schema for favorite toggling
+// Schema for favourite toggling
 const FavoriteToggleSchema = z.object({
   activityId: z.string(),
   isFavorite: z.boolean()
@@ -163,7 +163,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: error.errors }, { status: 400 });
     }
     
-    console.error('Error toggling favorite:', error);
-    return NextResponse.json({ error: 'Failed to update favorite status' }, { status: 500 });
+    console.error('Error toggling favourite:', error);
+    return NextResponse.json({ error: 'Failed to update favourite status' }, { status: 500 });
   }
 }

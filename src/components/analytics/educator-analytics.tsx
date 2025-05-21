@@ -177,7 +177,7 @@ const EducatorAnalytics = () => {
 
   const renderSkeleton = () => (
     <div className="space-y-4">
-      <div className="flex items-center space-x-4">
+      <div className="flex items-centre space-x-4">
         <Skeleton className="h-12 w-12 rounded-full" />
         <div className="space-y-2">
           <Skeleton className="h-4 w-[250px]" />
@@ -198,13 +198,13 @@ const EducatorAnalytics = () => {
         {mockEducators.map((educator) => (
           <div 
             key={educator.id}
-            className={`p-3 rounded-md cursor-pointer flex justify-between items-center ${
+            className={`p-3 rounded-md cursor-pointer flex justify-between items-centre ${
               selectedEducator === educator.id ? 'bg-muted' : 'hover:bg-muted/50'
             }`}
             onClick={() => setSelectedEducator(educator.id)}
           >
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+            <div className="flex items-centre space-x-3">
+              <div className="w-10 h-10 rounded-full bg-primary/10 flex items-centre justify-centre">
                 {educator.name.charAt(0)}
               </div>
               <div>
@@ -212,10 +212,10 @@ const EducatorAnalytics = () => {
                 <p className="text-sm text-muted-foreground">{educator.role}</p>
               </div>
             </div>
-            <div className="flex items-center space-x-3">
+            <div className="flex items-centre space-x-3">
               <div className="text-right">
                 <p className="font-medium">{educator.effectiveness}%</p>
-                <div className="flex items-center text-sm">
+                <div className="flex items-centre text-sm">
                   {educator.trend === 'up' && (
                     <ArrowUpRight className="h-3 w-3 text-green-500 mr-1" />
                   )}
@@ -245,8 +245,8 @@ const EducatorAnalytics = () => {
   const renderEducatorDetail = () => {
     if (!selectedEducator) {
       return (
-        <div className="h-full flex items-center justify-center border border-dashed rounded-md p-8">
-          <div className="text-center">
+        <div className="h-full flex items-centre justify-centre border border-dashed rounded-md p-8">
+          <div className="text-centre">
             <h3 className="text-lg font-medium">No Educator Selected</h3>
             <p className="text-muted-foreground">Select an educator from the list to view detailed analytics</p>
           </div>
@@ -258,9 +258,9 @@ const EducatorAnalytics = () => {
 
     return (
       <div className="space-y-6">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-4">
-            <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-lg font-medium">
+        <div className="flex items-centre justify-between">
+          <div className="flex items-centre space-x-4">
+            <div className="w-12 h-12 rounded-full bg-primary/10 flex items-centre justify-centre text-lg font-medium">
               {educator.name.charAt(0)}
             </div>
             <div>
@@ -418,13 +418,13 @@ const EducatorAnalytics = () => {
                   <div className="text-2xl font-bold">{educator.effectiveness}%</div>
                   <p className="text-xs text-muted-foreground">
                     {educator.trend === 'up' && (
-                      <span className="text-green-500 flex items-center">
+                      <span className="text-green-500 flex items-centre">
                         <ArrowUpRight className="h-3 w-3 mr-1" />
                         4% from last term
                       </span>
                     )}
                     {educator.trend === 'down' && (
-                      <span className="text-red-500 flex items-center">
+                      <span className="text-red-500 flex items-centre">
                         <ArrowDownRight className="h-3 w-3 mr-1" />
                         2% from last term
                       </span>
@@ -445,7 +445,7 @@ const EducatorAnalytics = () => {
                 <CardContent>
                   <div className="text-2xl font-bold">32</div>
                   <p className="text-xs text-muted-foreground">
-                    <span className="flex items-center">
+                    <span className="flex items-centre">
                       <Users className="h-3 w-3 mr-1" />
                       Current class size
                     </span>
@@ -460,7 +460,7 @@ const EducatorAnalytics = () => {
                 <CardContent>
                   <div className="text-2xl font-bold">48</div>
                   <p className="text-xs text-muted-foreground">
-                    <span className="flex items-center">
+                    <span className="flex items-centre">
                       <BookOpen className="h-3 w-3 mr-1" />
                       This academic year
                     </span>
@@ -870,7 +870,7 @@ const EducatorAnalytics = () => {
               <CardHeader>
                 <CardTitle>Professional Development</CardTitle>
                 <CardDescription>
-                  CPD activities and impact on teaching practice
+                  CPD activities and impact on teaching practise
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -922,7 +922,7 @@ const EducatorAnalytics = () => {
                             <Badge variant="outline">{item.hours} hours</Badge>
                           </div>
                           <div className="mt-2">
-                            <div className="flex items-center space-x-2">
+                            <div className="flex items-centre space-x-2">
                               <CheckCircle className="h-4 w-4 text-green-500" />
                               <p className="text-sm">Completed</p>
                             </div>
@@ -998,14 +998,14 @@ const EducatorAnalytics = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-centre gap-4">
         <div>
           <h2 className="text-2xl font-bold tracking-tight">Educator Analytics</h2>
           <p className="text-muted-foreground">
             Comprehensive analysis of teaching effectiveness and professional development.
           </p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-centre gap-2">
           <Button 
             variant="outline" 
             size="sm" 
@@ -1049,7 +1049,7 @@ const EducatorAnalytics = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Total Educators
             </CardTitle>
@@ -1062,7 +1062,7 @@ const EducatorAnalytics = () => {
           </CardContent>
         </Card>
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Average Effectiveness
             </CardTitle>
@@ -1075,7 +1075,7 @@ const EducatorAnalytics = () => {
           </CardContent>
         </Card>
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               CPD Hours
             </CardTitle>
@@ -1088,7 +1088,7 @@ const EducatorAnalytics = () => {
           </CardContent>
         </Card>
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Resources Created
             </CardTitle>
@@ -1105,7 +1105,7 @@ const EducatorAnalytics = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Card className="md:col-span-1">
           <CardHeader>
-            <div className="flex items-center justify-between">
+            <div className="flex items-centre justify-between">
               <CardTitle>Educators</CardTitle>
               <div className="relative w-full max-w-sm">
                 <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />

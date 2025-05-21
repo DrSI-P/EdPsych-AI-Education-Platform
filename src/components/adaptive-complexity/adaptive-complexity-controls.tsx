@@ -139,9 +139,9 @@ export const AdaptiveComplexityControls: React.FC<AdaptiveComplexityControlsProp
     return (
       <div className={`p-4 border rounded-lg shadow-sm ${className}`}>
         <div className="animate-pulse">
-          <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
-          <div className="h-10 bg-gray-200 rounded mb-4"></div>
-          <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+          <div className="h-4 bg-grey-200 rounded w-3/4 mb-2"></div>
+          <div className="h-10 bg-grey-200 rounded mb-4"></div>
+          <div className="h-4 bg-grey-200 rounded w-1/2"></div>
         </div>
       </div>
     );
@@ -149,15 +149,15 @@ export const AdaptiveComplexityControls: React.FC<AdaptiveComplexityControlsProp
 
   return (
     <div className={`p-4 border rounded-lg shadow-sm ${className}`}>
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex justify-between items-centre mb-4">
         <h3 className="text-lg font-medium">Content Complexity</h3>
-        <div className="flex items-center">
+        <div className="flex items-centre">
           <span className="text-sm mr-2">
             {isManualMode ? 'Manual' : 'Automatic'}
           </span>
           <button
             onClick={toggleMode}
-            className="relative inline-flex h-6 w-11 items-center rounded-full bg-gray-200 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            className="relative inline-flex h-6 w-11 items-centre rounded-full bg-grey-200 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
           >
             <span
               className={`${
@@ -187,27 +187,27 @@ export const AdaptiveComplexityControls: React.FC<AdaptiveComplexityControlsProp
         </div>
       ) : (
         <div className="mb-4">
-          <div className="flex justify-between items-center mb-1">
+          <div className="flex justify-between items-centre mb-1">
             <span className="text-sm font-medium">Current Level:</span>
             <span className="text-sm font-bold">{formatComplexityLevel(currentLevel)}</span>
           </div>
           
           {currentLevel !== recommendedLevel && (
             <div className="mt-2 p-2 bg-blue-50 rounded-md">
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <span className="text-sm text-blue-700">Recommended:</span>
                 <span className="text-sm font-bold text-blue-700">
                   {formatComplexityLevel(recommendedLevel)}
                 </span>
               </div>
-              <div className="mt-1 flex items-center">
-                <div className="w-full bg-gray-200 rounded-full h-2">
+              <div className="mt-1 flex items-centre">
+                <div className="w-full bg-grey-200 rounded-full h-2">
                   <div
                     className="bg-blue-600 h-2 rounded-full"
                     style={{ width: `${confidenceScore * 100}%` }}
                   ></div>
                 </div>
-                <span className="ml-2 text-xs text-gray-500">
+                <span className="ml-2 text-xs text-grey-500">
                   {Math.round(confidenceScore * 100)}% confidence
                 </span>
               </div>
@@ -222,7 +222,7 @@ export const AdaptiveComplexityControls: React.FC<AdaptiveComplexityControlsProp
         </div>
       )}
 
-      <div className="text-xs text-gray-500">
+      <div className="text-xs text-grey-500">
         <p>
           Content complexity is {isManualMode ? 'manually' : 'automatically'} adjusted based on your performance and learning patterns.
         </p>

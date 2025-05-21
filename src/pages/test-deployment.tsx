@@ -9,14 +9,14 @@ import Head from 'next/head';
  */
 export default function TestDeployment() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4">
+    <div className="min-h-screen flex flex-col items-centre justify-centre p-4">
       <Head>
         <title>EdPsych Connect - Deployment Test</title>
         <meta name="description" content="Vercel deployment test page" />
       </Head>
 
-      <main className="flex flex-col items-center justify-center w-full max-w-md">
-        <h1 className="text-3xl font-bold mb-6 text-center">
+      <main className="flex flex-col items-centre justify-centre w-full max-w-md">
+        <h1 className="text-3xl font-bold mb-6 text-centre">
           EdPsych Connect Deployment Test
         </h1>
         
@@ -37,7 +37,7 @@ export default function TestDeployment() {
           </ul>
           
           <div className="border-t pt-4 mt-4">
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-grey-600">
               This page intentionally uses minimal features and dependencies to isolate deployment issues.
             </p>
           </div>

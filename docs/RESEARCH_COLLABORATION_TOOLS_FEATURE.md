@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Research Collaboration Tools feature provides a comprehensive platform for educators to conduct, share, and collaborate on educational research projects across schools. This feature enables evidence-based practice by facilitating rigorous research methodologies, data collection, analysis, and dissemination within a secure and collaborative environment.
+The Research Collaboration Tools feature provides a comprehensive platform for educators to conduct, share, and collaborate on educational research projects across schools. This feature enables evidence-based practise by facilitating rigorous research methodologies, data collection, analysis, and dissemination within a secure and collaborative environment.
 
 ## Key Components
 
@@ -16,7 +16,7 @@ The Research Project Management component allows educators to create, manage, an
 - Participant management and consent tracking
 - Data collection planning and execution
 - Analysis workspace with qualitative and quantitative tools
-- Milestone tracking and progress visualization
+- Milestone tracking and progress visualisation
 - Privacy controls with tiered access levels
 
 #### Technical Implementation:
@@ -33,7 +33,7 @@ The Research Analytics Dashboard provides comprehensive visualizations and metri
 - Project status and timeline tracking
 - Output type distribution and engagement metrics
 - Impact measurement and case studies
-- Collaboration network visualization
+- Collaboration network visualisation
 - Regional and school type distribution
 - Research focus area analysis
 
@@ -76,7 +76,7 @@ The Research Networks component facilitates the creation and management of colla
 
 ### 5. Impact Tracking
 
-The Impact Tracking component enables the documentation, measurement, and visualization of research impact on educational practice and policy.
+The Impact Tracking component enables the documentation, measurement, and visualisation of research impact on educational practise and policy.
 
 #### Features:
 - Impact case study creation
@@ -84,7 +84,7 @@ The Impact Tracking component enables the documentation, measurement, and visual
 - Qualitative testimonials and evidence
 - Before/after comparisons
 - Policy influence tracking
-- Practice change documentation
+- Practise change documentation
 
 #### Technical Implementation:
 - Impact tracking UI in: `src/components/professional-development/research-collaboration.tsx`
@@ -106,7 +106,7 @@ The Impact Tracking component enables the documentation, measurement, and visual
 - Research outputs can be featured in professional development courses
 
 ### Teacher Administrative Automation Integration
-- Research findings can inform data visualization dashboards
+- Research findings can inform data visualisation dashboards
 - Evidence-based practices from research can be suggested in contextual recommendations
 - Research participation can be highlighted in progress reports
 
@@ -114,8 +114,8 @@ The Impact Tracking component enables the documentation, measurement, and visual
 
 The Research Collaboration Tools feature is grounded in established educational psychology principles:
 
-- **Evidence-Based Practice**: Facilitates the systematic use of research evidence in educational decision-making
-- **Action Research**: Supports practitioners in investigating their own practice through structured inquiry
+- **Evidence-Based Practise**: Facilitates the systematic use of research evidence in educational decision-making
+- **Action Research**: Supports practitioners in investigating their own practise through structured inquiry
 - **Communities of Inquiry**: Creates collaborative spaces for critical examination of educational questions
 - **Knowledge Building**: Enables collective construction of understanding through collaborative research
 - **Implementation Science**: Supports the translation of research findings into practical applications
@@ -137,7 +137,7 @@ The feature aligns with key UK educational frameworks and priorities:
 - All components meet WCAG 2.1 AA standards
 - Screen reader compatibility throughout
 - Keyboard navigation for all functions
-- Color contrast ratios exceed minimum requirements
+- Colour contrast ratios exceed minimum requirements
 - Alternative text for all data visualizations
 
 ### Privacy Controls
@@ -154,7 +154,7 @@ The feature aligns with key UK educational frameworks and priorities:
 2. **Participation**: Join existing projects or initiate new investigations
 3. **Collaboration**: Work with colleagues across schools on shared research questions
 4. **Analysis**: Use accessible tools to make sense of collected data
-5. **Implementation**: Apply findings to improve classroom practice
+5. **Implementation**: Apply findings to improve classroom practise
 6. **Sharing**: Disseminate insights to benefit the wider educational community
 
 ### For Research Leaders
@@ -163,7 +163,7 @@ The feature aligns with key UK educational frameworks and priorities:
 3. **Capacity Building**: Develop research skills among participating educators
 4. **Analysis**: Conduct sophisticated cross-site data analysis
 5. **Dissemination**: Share findings through appropriate channels
-6. **Impact**: Track how research influences practice and policy
+6. **Impact**: Track how research influences practise and policy
 
 ### For School Leaders
 1. **Strategic Alignment**: Connect research activities to school improvement priorities
@@ -178,7 +178,7 @@ The feature aligns with key UK educational frameworks and priorities:
 ### Frontend Components
 - React components with TypeScript for type safety
 - Shadcn UI component library for consistent styling
-- Recharts for data visualization
+- Recharts for data visualisation
 - React Hook Form for form handling
 - Zod for client-side validation
 
@@ -195,7 +195,7 @@ The feature aligns with key UK educational frameworks and priorities:
 - Research Data: Secure storage with appropriate access controls
 - Research Outputs: Publications, reports, and other dissemination formats
 - Research Networks: Connections between researchers and institutions
-- Research Impact: Measurements of influence on practice and policy
+- Research Impact: Measurements of influence on practise and policy
 
 ## Future Enhancements
 
@@ -222,4 +222,4 @@ The feature aligns with key UK educational frameworks and priorities:
 
 ## Conclusion
 
-The Research Collaboration Tools feature transforms professional development by enabling educators to engage in rigorous, collaborative research that informs practice and policy. By combining sophisticated project management, data collection, analysis, and dissemination tools with powerful collaboration capabilities, it creates a comprehensive ecosystem for educational research that aligns with UK educational standards and evidence-based practice.
+The Research Collaboration Tools feature transforms professional development by enabling educators to engage in rigorous, collaborative research that informs practise and policy. By combining sophisticated project management, data collection, analysis, and dissemination tools with powerful collaboration capabilities, it creates a comprehensive ecosystem for educational research that aligns with UK educational standards and evidence-based practise.

@@ -26,14 +26,14 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Separator } from "@/components/ui/separator";
 import { 
-  Dialog, 
+  Dialogue, 
   DialogContent, 
   DialogDescription, 
   DialogFooter, 
   DialogHeader, 
   DialogTitle, 
   DialogTrigger 
-} from "@/components/ui/dialog";
+} from "@/components/ui/dialogue";
 import { 
   Tooltip, 
   TooltipContent, 
@@ -68,7 +68,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+} from "@/components/ui/alert-dialogue";
 import {
   HoverCard,
   HoverCardContent,
@@ -146,7 +146,7 @@ const EXPERTISE_AREAS = [
   { id: 8, name: "Secondary Mathematics", category: "Subject Specific" },
   { id: 9, name: "Leadership Development", category: "Leadership" },
   { id: 10, name: "Wellbeing & Mental Health", category: "Pastoral" },
-  { id: 11, name: "Restorative Practice", category: "Behaviour" },
+  { id: 11, name: "Restorative Practise", category: "Behaviour" },
   { id: 12, name: "Literacy Across Curriculum", category: "Literacy" },
   { id: 13, name: "STEM Integration", category: "Cross-Curricular" },
   { id: 14, name: "Educational Research", category: "Professional Learning" },
@@ -300,7 +300,7 @@ const MOCK_MENTORSHIPS = [
     goals: [
       { id: 1, text: "Develop a toolkit of behaviour management strategies", status: "In Progress" },
       { id: 2, text: "Create differentiated resources for a scheme of work", status: "Not Started" },
-      { id: 3, text: "Observe and reflect on experienced teachers' practice", status: "Completed" }
+      { id: 3, text: "Observe and reflect on experienced teachers' practise", status: "Completed" }
     ],
     meetings: [
       { id: 1, date: "2025-01-20", status: "Completed", notes: "Initial meeting to establish goals and expectations" },
@@ -340,7 +340,7 @@ const MOCK_MENTORSHIPS = [
       { id: 2, title: "STEM Project Ideas", type: "Presentation", shared: "2025-02-26" }
     ],
     feedback: [
-      { id: 1, date: "2025-02-25", rating: 5, comment: "Excellent session with hands-on practice with the tools." }
+      { id: 1, date: "2025-02-25", rating: 5, comment: "Excellent session with hands-on practise with the tools." }
     ]
   },
   {
@@ -358,7 +358,7 @@ const MOCK_MENTORSHIPS = [
     ],
     meetings: [
       { id: 1, date: "2025-01-15", status: "Completed", notes: "Initial meeting to establish goals and discuss SEN in early years" },
-      { id: 2, date: "2025-02-01", status: "Completed", notes: "Observed practice and discussed visual support strategies" },
+      { id: 2, date: "2025-02-01", status: "Completed", notes: "Observed practise and discussed visual support strategies" },
       { id: 3, date: "2025-02-20", status: "Completed", notes: "Reviewed visual supports created and planned sensory activities" },
       { id: 4, date: "2025-03-10", status: "Scheduled", notes: "" }
     ],
@@ -571,15 +571,15 @@ export default function MentorMatching() {
 
   return (
     <div className="container mx-auto py-6 space-y-8">
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-centre">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Mentor Matching</h1>
           <p className="text-muted-foreground">
             Connect with mentors and mentees to enhance your professional development
           </p>
         </div>
-        <div className="flex items-center space-x-2">
-          <div className="flex items-center space-x-2 bg-muted p-2 rounded-md">
+        <div className="flex items-centre space-x-2">
+          <div className="flex items-centre space-x-2 bg-muted p-2 rounded-md">
             <Label htmlFor="profileType" className="text-sm">I am a:</Label>
             <Select 
               value={profileType} 
@@ -630,9 +630,9 @@ export default function MentorMatching() {
                   </div>
                 </div>
                 <div className="flex gap-2">
-                  <Dialog>
+                  <Dialogue>
                     <DialogTrigger asChild>
-                      <Button variant="outline" className="flex items-center gap-2">
+                      <Button variant="outline" className="flex items-centre gap-2">
                         <Filter className="h-4 w-4" />
                         Filters
                       </Button>
@@ -649,7 +649,7 @@ export default function MentorMatching() {
                           <Label>Expertise Areas</Label>
                           <div className="grid grid-cols-2 gap-2">
                             {EXPERTISE_AREAS.map((area) => (
-                              <div key={area.id} className="flex items-center space-x-2">
+                              <div key={area.id} className="flex items-centre space-x-2">
                                 <Checkbox 
                                   id={`expertise-${area.id}`} 
                                   checked={expertiseFilter.includes(area.id)}
@@ -720,7 +720,7 @@ export default function MentorMatching() {
                         <Button type="submit">Apply Filters</Button>
                       </DialogFooter>
                     </DialogContent>
-                  </Dialog>
+                  </Dialogue>
                   <Select>
                     <SelectTrigger className="w-[180px]">
                       <SelectValue placeholder="Sort by: Relevance" />
@@ -740,7 +740,7 @@ export default function MentorMatching() {
                   <Card key={mentor.id} className="overflow-hidden">
                     <CardHeader className="pb-2">
                       <div className="flex justify-between items-start">
-                        <div className="flex items-center space-x-3">
+                        <div className="flex items-centre space-x-3">
                           <Avatar className="h-12 w-12">
                             <AvatarImage src={mentor.avatarUrl} alt={mentor.name} />
                             <AvatarFallback>{mentor.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
@@ -750,7 +750,7 @@ export default function MentorMatching() {
                             <CardDescription>{mentor.role}</CardDescription>
                           </div>
                         </div>
-                        <div className="flex items-center">
+                        <div className="flex items-centre">
                           <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                           <span className="text-sm font-medium ml-1">{mentor.rating}</span>
                         </div>
@@ -758,11 +758,11 @@ export default function MentorMatching() {
                     </CardHeader>
                     <CardContent className="pb-2">
                       <div className="space-y-2">
-                        <div className="flex items-center text-sm">
+                        <div className="flex items-centre text-sm">
                           <School className="h-4 w-4 mr-2 text-muted-foreground" />
                           <span>{mentor.school}</span>
                         </div>
-                        <div className="flex items-center text-sm">
+                        <div className="flex items-centre text-sm">
                           <GraduationCap className="h-4 w-4 mr-2 text-muted-foreground" />
                           <span>{mentor.phase} • {mentor.yearsExperience} years experience</span>
                         </div>
@@ -799,7 +799,7 @@ export default function MentorMatching() {
               </div>
 
               {filteredMentors.length === 0 && (
-                <div className="text-center py-12">
+                <div className="text-centre py-12">
                   <AlertCircle className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
                   <h3 className="text-lg font-medium">No mentors found</h3>
                   <p className="text-muted-foreground mt-2">
@@ -810,13 +810,13 @@ export default function MentorMatching() {
             </CardContent>
           </Card>
 
-          {/* Mentor Details Dialog */}
-          <Dialog open={showMentorDetails} onOpenChange={setShowMentorDetails}>
+          {/* Mentor Details Dialogue */}
+          <Dialogue open={showMentorDetails} onOpenChange={setShowMentorDetails}>
             <DialogContent className="sm:max-w-[600px]">
               {selectedMentor && (
                 <>
                   <DialogHeader>
-                    <div className="flex items-center space-x-4">
+                    <div className="flex items-centre space-x-4">
                       <Avatar className="h-16 w-16">
                         <AvatarImage src={selectedMentor.avatarUrl} alt={selectedMentor.name} />
                         <AvatarFallback>{selectedMentor.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
@@ -828,17 +828,17 @@ export default function MentorMatching() {
                     </div>
                   </DialogHeader>
                   <div className="grid gap-4 py-4">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-1">
+                    <div className="flex items-centre justify-between">
+                      <div className="flex items-centre space-x-1">
                         <Star className="h-5 w-5 fill-yellow-400 text-yellow-400" />
                         <span className="font-medium">{selectedMentor.rating}</span>
                         <span className="text-muted-foreground">({selectedMentor.reviewCount} reviews)</span>
                       </div>
-                      <div className="flex items-center space-x-1">
+                      <div className="flex items-centre space-x-1">
                         <Users className="h-5 w-5 text-muted-foreground" />
                         <span>{selectedMentor.menteeCount} mentees</span>
                       </div>
-                      <div className="flex items-center space-x-1">
+                      <div className="flex items-centre space-x-1">
                         <Calendar className="h-5 w-5 text-muted-foreground" />
                         <span>{selectedMentor.availability}</span>
                       </div>
@@ -889,8 +889,8 @@ export default function MentorMatching() {
                       <h4 className="font-medium mb-2">Recent Feedback</h4>
                       <div className="space-y-3">
                         <div className="bg-muted p-3 rounded-md">
-                          <div className="flex items-center justify-between mb-1">
-                            <div className="flex items-center">
+                          <div className="flex items-centre justify-between mb-1">
+                            <div className="flex items-centre">
                               <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                               <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                               <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
@@ -904,8 +904,8 @@ export default function MentorMatching() {
                           </p>
                         </div>
                         <div className="bg-muted p-3 rounded-md">
-                          <div className="flex items-center justify-between mb-1">
-                            <div className="flex items-center">
+                          <div className="flex items-centre justify-between mb-1">
+                            <div className="flex items-centre">
                               <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                               <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                               <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
@@ -939,7 +939,7 @@ export default function MentorMatching() {
                 </>
               )}
             </DialogContent>
-          </Dialog>
+          </Dialogue>
         </TabsContent>
 
         {/* My Mentorships Tab */}
@@ -972,7 +972,7 @@ export default function MentorMatching() {
                       <Card key={mentorship.id} className="overflow-hidden">
                         <CardHeader className="pb-2">
                           <div className="flex justify-between items-start">
-                            <div className="flex items-center space-x-3">
+                            <div className="flex items-centre space-x-3">
                               <Avatar className="h-10 w-10">
                                 <AvatarImage src={mentor?.avatarUrl} alt={mentor?.name} />
                                 <AvatarFallback>{mentor?.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
@@ -991,12 +991,12 @@ export default function MentorMatching() {
                         </CardHeader>
                         <CardContent className="pb-2">
                           <div className="space-y-3">
-                            <div className="flex items-center justify-between text-sm">
-                              <div className="flex items-center">
+                            <div className="flex items-centre justify-between text-sm">
+                              <div className="flex items-centre">
                                 <Calendar className="h-4 w-4 mr-1 text-muted-foreground" />
                                 <span>Started: {new Date(mentorship.startDate).toLocaleDateString('en-GB')}</span>
                               </div>
-                              <div className="flex items-center">
+                              <div className="flex items-centre">
                                 <Target className="h-4 w-4 mr-1 text-muted-foreground" />
                                 <span>Focus: {mentorship.focusAreas.map(id => {
                                   const area = EXPERTISE_AREAS.find(e => e.id === id);
@@ -1013,7 +1013,7 @@ export default function MentorMatching() {
                               <Progress value={progressPercentage} className="h-2" />
                             </div>
                             
-                            <div className="flex justify-between items-center text-sm">
+                            <div className="flex justify-between items-centre text-sm">
                               <div>
                                 <span className="text-muted-foreground">Next meeting: </span>
                                 {mentorship.meetings.find(m => m.status === 'Scheduled')?.date ? (
@@ -1038,7 +1038,7 @@ export default function MentorMatching() {
                   })}
                   
                   {activeMentorships.length === 0 && (
-                    <div className="text-center py-12">
+                    <div className="text-centre py-12">
                       <Users className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
                       <h3 className="text-lg font-medium">No active mentorships</h3>
                       <p className="text-muted-foreground mt-2">
@@ -1052,7 +1052,7 @@ export default function MentorMatching() {
                 </TabsContent>
                 
                 <TabsContent value="pending" className="mt-4">
-                  <div className="text-center py-12">
+                  <div className="text-centre py-12">
                     <Clock className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
                     <h3 className="text-lg font-medium">No pending requests</h3>
                     <p className="text-muted-foreground mt-2">
@@ -1062,7 +1062,7 @@ export default function MentorMatching() {
                 </TabsContent>
                 
                 <TabsContent value="past" className="mt-4">
-                  <div className="text-center py-12">
+                  <div className="text-centre py-12">
                     <BookOpen className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
                     <h3 className="text-lg font-medium">No past mentorships</h3>
                     <p className="text-muted-foreground mt-2">
@@ -1074,8 +1074,8 @@ export default function MentorMatching() {
             </CardContent>
           </Card>
 
-          {/* Mentorship Details Dialog */}
-          <Dialog open={showMentorshipDetails} onOpenChange={setShowMentorshipDetails}>
+          {/* Mentorship Details Dialogue */}
+          <Dialogue open={showMentorshipDetails} onOpenChange={setShowMentorshipDetails}>
             <DialogContent className="sm:max-w-[700px]">
               {selectedMentorship && (
                 <>
@@ -1086,8 +1086,8 @@ export default function MentorMatching() {
                     </DialogDescription>
                   </DialogHeader>
                   <div className="grid gap-4 py-4">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-3">
+                    <div className="flex items-centre justify-between">
+                      <div className="flex items-centre space-x-3">
                         <Avatar className="h-12 w-12">
                           <AvatarImage 
                             src={MOCK_MENTORS.find(m => m.id === selectedMentorship.mentorId)?.avatarUrl} 
@@ -1135,8 +1135,8 @@ export default function MentorMatching() {
                       <h4 className="font-medium mb-2">Goals</h4>
                       <div className="space-y-2">
                         {selectedMentorship.goals.map((goal) => (
-                          <div key={goal.id} className="flex items-center justify-between p-2 border rounded-md">
-                            <div className="flex items-center space-x-2">
+                          <div key={goal.id} className="flex items-centre justify-between p-2 border rounded-md">
+                            <div className="flex items-centre space-x-2">
                               {goal.status === 'Completed' ? (
                                 <CheckCircle className="h-5 w-5 text-green-500" />
                               ) : goal.status === 'In Progress' ? (
@@ -1165,7 +1165,7 @@ export default function MentorMatching() {
                         <TabsTrigger value="feedback">Feedback</TabsTrigger>
                       </TabsList>
                       <TabsContent value="meetings" className="mt-4 space-y-4">
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-between items-centre">
                           <h4 className="font-medium">Meeting History</h4>
                           <Button size="sm">
                             <Plus className="h-4 w-4 mr-1" />
@@ -1174,8 +1174,8 @@ export default function MentorMatching() {
                         </div>
                         <div className="space-y-2">
                           {selectedMentorship.meetings.map((meeting) => (
-                            <div key={meeting.id} className="flex items-center justify-between p-3 border rounded-md">
-                              <div className="flex items-center space-x-3">
+                            <div key={meeting.id} className="flex items-centre justify-between p-3 border rounded-md">
+                              <div className="flex items-centre space-x-3">
                                 <Calendar className="h-5 w-5 text-muted-foreground" />
                                 <div>
                                   <p className="font-medium">{new Date(meeting.date).toLocaleDateString('en-GB')}</p>
@@ -1196,7 +1196,7 @@ export default function MentorMatching() {
                         </div>
                       </TabsContent>
                       <TabsContent value="resources" className="mt-4 space-y-4">
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-between items-centre">
                           <h4 className="font-medium">Shared Resources</h4>
                           <Button size="sm">
                             <Plus className="h-4 w-4 mr-1" />
@@ -1205,8 +1205,8 @@ export default function MentorMatching() {
                         </div>
                         <div className="space-y-2">
                           {selectedMentorship.resources.map((resource) => (
-                            <div key={resource.id} className="flex items-center justify-between p-3 border rounded-md">
-                              <div className="flex items-center space-x-3">
+                            <div key={resource.id} className="flex items-centre justify-between p-3 border rounded-md">
+                              <div className="flex items-centre space-x-3">
                                 <FileText className="h-5 w-5 text-muted-foreground" />
                                 <div>
                                   <p className="font-medium">{resource.title}</p>
@@ -1223,7 +1223,7 @@ export default function MentorMatching() {
                         </div>
                       </TabsContent>
                       <TabsContent value="feedback" className="mt-4 space-y-4">
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-between items-centre">
                           <h4 className="font-medium">Feedback</h4>
                           <Button size="sm">
                             <Plus className="h-4 w-4 mr-1" />
@@ -1233,8 +1233,8 @@ export default function MentorMatching() {
                         <div className="space-y-2">
                           {selectedMentorship.feedback.map((feedback) => (
                             <div key={feedback.id} className="p-3 border rounded-md">
-                              <div className="flex items-center justify-between mb-2">
-                                <div className="flex items-center">
+                              <div className="flex items-centre justify-between mb-2">
+                                <div className="flex items-centre">
                                   {[...Array(5)].map((_, i) => (
                                     <Star 
                                       key={i} 
@@ -1261,14 +1261,14 @@ export default function MentorMatching() {
                 </>
               )}
             </DialogContent>
-          </Dialog>
+          </Dialogue>
         </TabsContent>
 
         {/* My Profile Tab */}
         <TabsContent value="profile" className="space-y-4">
           <Card>
             <CardHeader>
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <div>
                   <CardTitle>My {profileType === 'mentor' ? 'Mentor' : 'Mentee'} Profile</CardTitle>
                   <CardDescription>
@@ -1301,12 +1301,12 @@ export default function MentorMatching() {
             </CardHeader>
             <CardContent>
               {isLoading && !isEditingProfile ? (
-                <div className="flex justify-center items-center py-12">
+                <div className="flex justify-centre items-centre py-12">
                   <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
                 </div>
               ) : (
                 <div className="space-y-6">
-                  <div className="flex items-center space-x-4">
+                  <div className="flex items-centre space-x-4">
                     <Avatar className="h-20 w-20">
                       <AvatarImage src={userProfile?.avatarUrl} alt={userProfile?.name} />
                       <AvatarFallback>{userProfile?.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
@@ -1394,7 +1394,7 @@ export default function MentorMatching() {
                             <Label>Subjects</Label>
                             <div className="grid grid-cols-2 gap-2 mt-2">
                               {SUBJECTS.slice(0, 10).map((subject) => (
-                                <div key={subject} className="flex items-center space-x-2">
+                                <div key={subject} className="flex items-centre space-x-2">
                                   <Checkbox 
                                     id={`subject-${subject}`} 
                                     checked={profileData.subjects.includes(subject)}
@@ -1484,7 +1484,7 @@ export default function MentorMatching() {
                       <div className="space-y-2">
                         <div className="grid grid-cols-2 gap-2">
                           {EXPERTISE_AREAS.map((area) => (
-                            <div key={area.id} className="flex items-center space-x-2">
+                            <div key={area.id} className="flex items-centre space-x-2">
                               <Checkbox 
                                 id={`expertise-${area.id}`} 
                                 checked={profileData.expertise.includes(area.id)}
@@ -1507,7 +1507,7 @@ export default function MentorMatching() {
                                 const expertise = EXPERTISE_AREAS.find(e => e.id === expertiseId);
                                 return expertise ? (
                                   <div key={expertise.id} className="space-y-2">
-                                    <div className="flex justify-between items-center">
+                                    <div className="flex justify-between items-centre">
                                       <Label>{expertise.name}</Label>
                                       <span className="text-sm">Advanced</span>
                                     </div>
@@ -1530,7 +1530,7 @@ export default function MentorMatching() {
                         <div className="grid grid-cols-3 gap-4">
                           <Card>
                             <CardContent className="pt-6">
-                              <div className="text-center">
+                              <div className="text-centre">
                                 <Users className="h-8 w-8 text-primary mx-auto mb-2" />
                                 <p className="text-2xl font-bold">12</p>
                                 <p className="text-sm text-muted-foreground">Active Mentees</p>
@@ -1539,7 +1539,7 @@ export default function MentorMatching() {
                           </Card>
                           <Card>
                             <CardContent className="pt-6">
-                              <div className="text-center">
+                              <div className="text-centre">
                                 <Star className="h-8 w-8 text-yellow-500 mx-auto mb-2" />
                                 <p className="text-2xl font-bold">4.8</p>
                                 <p className="text-sm text-muted-foreground">Average Rating</p>
@@ -1548,7 +1548,7 @@ export default function MentorMatching() {
                           </Card>
                           <Card>
                             <CardContent className="pt-6">
-                              <div className="text-center">
+                              <div className="text-centre">
                                 <Award className="h-8 w-8 text-green-500 mx-auto mb-2" />
                                 <p className="text-2xl font-bold">24</p>
                                 <p className="text-sm text-muted-foreground">Goals Achieved</p>
@@ -1574,7 +1574,7 @@ export default function MentorMatching() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <div>
                       <p className="text-sm text-muted-foreground">Active Mentorships</p>
                       <p className="text-2xl font-bold">{activeMentorships.length}</p>
@@ -1690,8 +1690,8 @@ export default function MentorMatching() {
                         mentee: MOCK_MENTEES.find(m => m.id === mentorship.menteeId)?.name
                       }))
                   ).sort((a, b) => new Date(a.date) - new Date(b.date)).slice(0, 3).map(meeting => (
-                    <div key={meeting.id} className="flex items-center justify-between p-3 border rounded-md">
-                      <div className="flex items-center space-x-3">
+                    <div key={meeting.id} className="flex items-centre justify-between p-3 border rounded-md">
+                      <div className="flex items-centre space-x-3">
                         <Calendar className="h-5 w-5 text-muted-foreground" />
                         <div>
                           <p className="font-medium">{new Date(meeting.date).toLocaleDateString('en-GB')}</p>
@@ -1704,7 +1704,7 @@ export default function MentorMatching() {
                     </div>
                   ))}
                   {activeMentorships.flatMap(m => m.meetings).filter(m => m.status === 'Scheduled').length === 0 && (
-                    <div className="text-center py-8">
+                    <div className="text-centre py-8">
                       <Calendar className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
                       <p className="text-muted-foreground">No upcoming meetings</p>
                     </div>
@@ -1719,8 +1719,8 @@ export default function MentorMatching() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  <div className="flex items-center justify-between p-3 border rounded-md">
-                    <div className="flex items-center space-x-3">
+                  <div className="flex items-centre justify-between p-3 border rounded-md">
+                    <div className="flex items-centre space-x-3">
                       <FileText className="h-5 w-5 text-blue-500" />
                       <div>
                         <p className="font-medium">Effective Questioning Techniques</p>
@@ -1731,11 +1731,11 @@ export default function MentorMatching() {
                       <Download className="h-4 w-4" />
                     </Button>
                   </div>
-                  <div className="flex items-center justify-between p-3 border rounded-md">
-                    <div className="flex items-center space-x-3">
+                  <div className="flex items-centre justify-between p-3 border rounded-md">
+                    <div className="flex items-centre space-x-3">
                       <Video className="h-5 w-5 text-red-500" />
                       <div>
-                        <p className="font-medium">Differentiation in Practice</p>
+                        <p className="font-medium">Differentiation in Practise</p>
                         <p className="text-sm text-muted-foreground">Video • 28 mins • Inclusion</p>
                       </div>
                     </div>
@@ -1743,8 +1743,8 @@ export default function MentorMatching() {
                       <ExternalLink className="h-4 w-4" />
                     </Button>
                   </div>
-                  <div className="flex items-center justify-between p-3 border rounded-md">
-                    <div className="flex items-center space-x-3">
+                  <div className="flex items-centre justify-between p-3 border rounded-md">
+                    <div className="flex items-centre space-x-3">
                       <BookOpen className="h-5 w-5 text-green-500" />
                       <div>
                         <p className="font-medium">Behaviour Management Toolkit</p>

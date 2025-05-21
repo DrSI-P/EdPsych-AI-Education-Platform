@@ -30,7 +30,7 @@ The Mentor Matching feature is a comprehensive system designed to connect educat
 ### 4. Analytics Dashboard
 
 - **Engagement Metrics**: Tracks meeting attendance, resource utilization, and communication frequency
-- **Progress Visualization**: Charts goal completion and skill development over time
+- **Progress Visualisation**: Charts goal completion and skill development over time
 - **Impact Assessment**: Measures before/after growth in key professional areas
 - **CPD Integration**: Automatically records mentorship activities as CPD points
 
@@ -58,7 +58,7 @@ The Mentor Matching feature is a comprehensive system designed to connect educat
 2. **Mentee Matching**: Recommendations of compatible mentees based on expertise alignment
 3. **Request Management**: Tools for reviewing and responding to mentorship requests
 4. **Mentorship Planning**: Structured approach to defining goals and development pathways
-5. **Impact Visualization**: Analytics showing mentorship effectiveness and mentee growth
+5. **Impact Visualisation**: Analytics showing mentorship effectiveness and mentee growth
 6. **Professional Recognition**: CPD points and portfolio entries for mentorship contributions
 
 ## Technical Implementation
@@ -83,11 +83,11 @@ The Mentor Matching feature is a comprehensive system designed to connect educat
 
 The Mentor Matching feature is grounded in established educational psychology principles:
 
-- **Social Learning Theory**: Leverages observation, modeling, and guided practice through mentorship
+- **Social Learning Theory**: Leverages observation, modelling, and guided practise through mentorship
 - **Zone of Proximal Development**: Matches educators with mentors who can provide appropriate scaffolding
 - **Growth Mindset**: Encourages continuous professional development through structured mentorship
-- **Reflective Practice**: Integrates reflection throughout the mentorship journey
-- **Evidence-Based Practice**: Connects educators with mentors who can share research-informed approaches
+- **Reflective Practise**: Integrates reflection throughout the mentorship journey
+- **Evidence-Based Practise**: Connects educators with mentors who can share research-informed approaches
 
 ## UK Educational Framework Alignment
 
@@ -115,4 +115,4 @@ The feature aligns with key UK educational frameworks:
 
 ## Conclusion
 
-The Mentor Matching feature transforms professional development by creating meaningful connections between educators at different career stages. By combining intelligent matching algorithms with comprehensive tracking and integration with other platform features, it creates a powerful ecosystem for professional growth that aligns with UK educational standards and evidence-based practice.
+The Mentor Matching feature transforms professional development by creating meaningful connections between educators at different career stages. By combining intelligent matching algorithms with comprehensive tracking and integration with other platform features, it creates a powerful ecosystem for professional growth that aligns with UK educational standards and evidence-based practise.

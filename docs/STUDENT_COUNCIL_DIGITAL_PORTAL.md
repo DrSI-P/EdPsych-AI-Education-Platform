@@ -2,13 +2,13 @@
 
 ## Overview
 
-The Student Council Digital Portal is a comprehensive platform designed to empower student leadership bodies to effectively represent student interests, organize initiatives, and drive positive change within educational settings. This digital hub provides student councils with the tools, resources, and communication channels needed to amplify student voice and enhance democratic participation in school governance.
+The Student Council Digital Portal is a comprehensive platform designed to empower student leadership bodies to effectively represent student interests, organise initiatives, and drive positive change within educational settings. This digital hub provides student councils with the tools, resources, and communication channels needed to amplify student voice and enhance democratic participation in school governance.
 
 ## Key Features
 
 ### Council Management
 - **Role-based access control**: Different permission levels for officers, representatives, and advisors
-- **Committee organization**: Tools for creating and managing specialized committees
+- **Committee organisation**: Tools for creating and managing specialised committees
 - **Meeting management**: Scheduling, agenda creation, minutes recording, and action tracking
 - **Election system**: Digital voting platform for council elections with secure ballot processing
 
@@ -61,7 +61,7 @@ The Student Council Digital Portal is a comprehensive platform designed to empow
 ### Leadership Growth
 - **Project management**: Real-world experience in planning and executing initiatives
 - **Team coordination**: Tools for delegating tasks and collaborating effectively
-- **Resource stewardship**: Practice in responsible budget and resource management
+- **Resource stewardship**: Practise in responsible budget and resource management
 - **Strategic planning**: Support for setting goals and developing action plans
 
 ### Community Building
@@ -128,7 +128,7 @@ The Student Council Digital Portal is a comprehensive platform designed to empow
 - **Parent communication**: Channels for sharing council activities with families
 - **Community partnerships**: Tools for coordinating with external organizations
 - **Public reporting**: Generation of impact reports for broader community
-- **Event management**: Support for organizing school and community events
+- **Event management**: Support for organising school and community events
 
 ## Future Enhancements
 

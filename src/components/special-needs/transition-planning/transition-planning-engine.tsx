@@ -404,7 +404,7 @@ const TransitionPlanningEngine = () => {
   const getStatusBadgeColor = (status) => {
     switch (status) {
       case 'draft':
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-grey-100 text-grey-800';
       case 'in-progress':
         return 'bg-blue-100 text-blue-800';
       case 'completed':
@@ -412,7 +412,7 @@ const TransitionPlanningEngine = () => {
       case 'on-hold':
         return 'bg-yellow-100 text-yellow-800';
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-grey-100 text-grey-800';
     }
   };
   
@@ -440,25 +440,25 @@ const TransitionPlanningEngine = () => {
             
             {/* Dashboard Tab */}
             <TabsContent value="dashboard" className="space-y-6 py-4">
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <h3 className="text-lg font-medium">Your Transition Plans</h3>
-                <Button onClick={handleCreateNewPlan} className="flex items-center gap-2">
+                <Button onClick={handleCreateNewPlan} className="flex items-centre gap-2">
                   <PlusCircle className="h-4 w-4" />
                   New Plan
                 </Button>
               </div>
               
               {isLoading ? (
-                <div className="text-center py-8">
+                <div className="text-centre py-8">
                   <p>Loading transition plans...</p>
                 </div>
               ) : transitionPlans.length === 0 ? (
-                <div className="text-center py-8 border rounded-md bg-gray-50">
+                <div className="text-centre py-8 border rounded-md bg-grey-50">
                   <h3 className="font-medium mb-2">No transition plans yet</h3>
-                  <p className="text-sm text-gray-500 mb-4">
+                  <p className="text-sm text-grey-500 mb-4">
                     Create your first transition plan to help manage educational changes.
                   </p>
-                  <Button onClick={handleCreateNewPlan} variant="outline" className="flex items-center gap-2">
+                  <Button onClick={handleCreateNewPlan} variant="outline" className="flex items-centre gap-2">
                     <PlusCircle className="h-4 w-4" />
                     Create New Plan
                   </Button>
@@ -469,7 +469,7 @@ const TransitionPlanningEngine = () => {
                     <Card key={plan.id} className="overflow-hidden">
                       <CardHeader className="pb-2">
                         <div className="flex justify-between items-start">
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-centre gap-2">
                             {getTransitionTypeIcon(plan.transitionType)}
                             <CardTitle className="text-lg">{plan.title}</CardTitle>
                           </div>
@@ -484,20 +484,20 @@ const TransitionPlanningEngine = () => {
                       <CardContent className="pb-2">
                         <div className="space-y-2">
                           <div className="flex justify-between text-sm">
-                            <span className="text-gray-500">Start Date:</span>
+                            <span className="text-grey-500">Start Date:</span>
                             <span>{format(new Date(plan.startDate), 'PPP')}</span>
                           </div>
                           <div className="flex justify-between text-sm">
-                            <span className="text-gray-500">Target Date:</span>
+                            <span className="text-grey-500">Target Date:</span>
                             <span>{format(new Date(plan.targetDate), 'PPP')}</span>
                           </div>
                           
                           <div className="mt-4">
                             <div className="flex justify-between text-sm mb-1">
-                              <span className="text-gray-500">Progress:</span>
+                              <span className="text-grey-500">Progress:</span>
                               <span>{plan.progress || 0}%</span>
                             </div>
-                            <div className="w-full bg-gray-200 rounded-full h-2.5">
+                            <div className="w-full bg-grey-200 rounded-full h-2.5">
                               <div 
                                 className="bg-blue-600 h-2.5 rounded-full" 
                                 style={{ width: `${plan.progress || 0}%` }}
@@ -575,7 +575,7 @@ const TransitionPlanningEngine = () => {
                       <SelectContent>
                         {transitionTypes.map((type) => (
                           <SelectItem key={type.value} value={type.value}>
-                            <div className="flex items-center gap-2">
+                            <div className="flex items-centre gap-2">
                               {type.icon}
                               <span>{type.label}</span>
                             </div>
@@ -717,9 +717,9 @@ const TransitionPlanningEngine = () => {
                       </div>
                       
                       <div className="space-y-2">
-                        <div className="flex items-center justify-between">
+                        <div className="flex items-centre justify-between">
                           <Label htmlFor="goal-steps">Steps to Achieve</Label>
-                          <div className="flex items-center space-x-2">
+                          <div className="flex items-centre space-x-2">
                             <Input
                               id="goal-steps"
                               placeholder="Add a step"
@@ -741,7 +741,7 @@ const TransitionPlanningEngine = () => {
                         {newGoal.steps.length > 0 ? (
                           <ul className="space-y-2 mt-2">
                             {newGoal.steps.map((step, index) => (
-                              <li key={index} className="flex items-center justify-between bg-gray-50 p-2 rounded">
+                              <li key={index} className="flex items-centre justify-between bg-grey-50 p-2 rounded">
                                 <span>{index + 1}. {step}</span>
                                 <Button 
                                   variant="ghost" 
@@ -755,7 +755,7 @@ const TransitionPlanningEngine = () => {
                             ))}
                           </ul>
                         ) : (
-                          <p className="text-sm text-gray-500 mt-2">No steps added yet</p>
+                          <p className="text-sm text-grey-500 mt-2">No steps added yet</p>
                         )}
                       </div>
                     </CardContent>
@@ -791,8 +791,8 @@ const TransitionPlanningEngine = () => {
                                 <h5 className="text-sm font-medium">Steps:</h5>
                                 <ul className="space-y-1">
                                   {goal.steps.map((step, index) => (
-                                    <li key={index} className="text-sm flex items-center gap-2">
-                                      <span className="flex-shrink-0 h-5 w-5 rounded-full bg-blue-100 text-blue-800 flex items-center justify-center text-xs">
+                                    <li key={index} className="text-sm flex items-centre gap-2">
+                                      <span className="flex-shrink-0 h-5 w-5 rounded-full bg-blue-100 text-blue-800 flex items-centre justify-centre text-xs">
                                         {index + 1}
                                       </span>
                                       {step}
@@ -816,8 +816,8 @@ const TransitionPlanningEngine = () => {
                       ))}
                     </div>
                   ) : (
-                    <div className="text-center py-4 border rounded-md bg-gray-50">
-                      <p className="text-sm text-gray-500">No goals added yet</p>
+                    <div className="text-centre py-4 border rounded-md bg-grey-50">
+                      <p className="text-sm text-grey-500">No goals added yet</p>
                     </div>
                   )}
                 </div>
@@ -934,8 +934,8 @@ const TransitionPlanningEngine = () => {
                       ))}
                     </div>
                   ) : (
-                    <div className="text-center py-4 border rounded-md bg-gray-50">
-                      <p className="text-sm text-gray-500">No team members added yet</p>
+                    <div className="text-centre py-4 border rounded-md bg-grey-50">
+                      <p className="text-sm text-grey-500">No team members added yet</p>
                     </div>
                   )}
                 </div>
@@ -1052,8 +1052,8 @@ const TransitionPlanningEngine = () => {
                       ))}
                     </div>
                   ) : (
-                    <div className="text-center py-4 border rounded-md bg-gray-50">
-                      <p className="text-sm text-gray-500">No resources added yet</p>
+                    <div className="text-centre py-4 border rounded-md bg-grey-50">
+                      <p className="text-sm text-grey-500">No resources added yet</p>
                     </div>
                   )}
                 </div>
@@ -1168,8 +1168,8 @@ const TransitionPlanningEngine = () => {
                       ))}
                     </div>
                   ) : (
-                    <div className="text-center py-4 border rounded-md bg-gray-50">
-                      <p className="text-sm text-gray-500">No accommodations added yet</p>
+                    <div className="text-centre py-4 border rounded-md bg-grey-50">
+                      <p className="text-sm text-grey-500">No accommodations added yet</p>
                     </div>
                   )}
                 </div>
@@ -1205,16 +1205,16 @@ const TransitionPlanningEngine = () => {
                     <CardContent className="space-y-4">
                       <ul className="space-y-2">
                         <li className="text-sm">
-                          <a href="#" className="text-blue-600 hover:underline">SEND Code of Practice</a>
-                          <p className="text-gray-500">Statutory guidance for organisations working with children and young people with SEND</p>
+                          <a href="#" className="text-blue-600 hover:underline">SEND Code of Practise</a>
+                          <p className="text-grey-500">Statutory guidance for organisations working with children and young people with SEND</p>
                         </li>
                         <li className="text-sm">
                           <a href="#" className="text-blue-600 hover:underline">Transition to Adulthood</a>
-                          <p className="text-gray-500">Guidance on preparing for adulthood for young people with SEND</p>
+                          <p className="text-grey-500">Guidance on preparing for adulthood for young people with SEND</p>
                         </li>
                         <li className="text-sm">
                           <a href="#" className="text-blue-600 hover:underline">School Admissions Code</a>
-                          <p className="text-gray-500">Statutory guidance on school admissions</p>
+                          <p className="text-grey-500">Statutory guidance on school admissions</p>
                         </li>
                       </ul>
                     </CardContent>
@@ -1229,15 +1229,15 @@ const TransitionPlanningEngine = () => {
                       <ul className="space-y-2">
                         <li className="text-sm">
                           <a href="#" className="text-blue-600 hover:underline">National Autistic Society - Transition Support</a>
-                          <p className="text-gray-500">Resources for supporting autistic students through transitions</p>
+                          <p className="text-grey-500">Resources for supporting autistic students through transitions</p>
                         </li>
                         <li className="text-sm">
                           <a href="#" className="text-blue-600 hover:underline">IPSEA - Transition Planning</a>
-                          <p className="text-gray-500">Legal advice and resources for transition planning</p>
+                          <p className="text-grey-500">Legal advice and resources for transition planning</p>
                         </li>
                         <li className="text-sm">
                           <a href="#" className="text-blue-600 hover:underline">Council for Disabled Children</a>
-                          <p className="text-gray-500">Transition resources and case studies</p>
+                          <p className="text-grey-500">Transition resources and case studies</p>
                         </li>
                       </ul>
                     </CardContent>
@@ -1252,15 +1252,15 @@ const TransitionPlanningEngine = () => {
                       <ul className="space-y-2">
                         <li className="text-sm">
                           <a href="#" className="text-blue-600 hover:underline">One-Page Profile Template</a>
-                          <p className="text-gray-500">Create a simple profile to share key information about the student</p>
+                          <p className="text-grey-500">Create a simple profile to share key information about the student</p>
                         </li>
                         <li className="text-sm">
                           <a href="#" className="text-blue-600 hover:underline">Transition Meeting Agenda Template</a>
-                          <p className="text-gray-500">Structure for effective transition planning meetings</p>
+                          <p className="text-grey-500">Structure for effective transition planning meetings</p>
                         </li>
                         <li className="text-sm">
                           <a href="#" className="text-blue-600 hover:underline">School Visit Checklist</a>
-                          <p className="text-gray-500">What to look for when visiting a new school</p>
+                          <p className="text-grey-500">What to look for when visiting a new school</p>
                         </li>
                       </ul>
                     </CardContent>
@@ -1275,15 +1275,15 @@ const TransitionPlanningEngine = () => {
                       <ul className="space-y-2">
                         <li className="text-sm">
                           <a href="#" className="text-blue-600 hover:underline">Education Endowment Foundation</a>
-                          <p className="text-gray-500">Research on effective transition practices</p>
+                          <p className="text-grey-500">Research on effective transition practices</p>
                         </li>
                         <li className="text-sm">
                           <a href="#" className="text-blue-600 hover:underline">British Journal of Special Education</a>
-                          <p className="text-gray-500">Academic research on supporting transitions</p>
+                          <p className="text-grey-500">Academic research on supporting transitions</p>
                         </li>
                         <li className="text-sm">
                           <a href="#" className="text-blue-600 hover:underline">Nuffield Foundation - School Transitions Research</a>
-                          <p className="text-gray-500">Impact of transitions on educational outcomes</p>
+                          <p className="text-grey-500">Impact of transitions on educational outcomes</p>
                         </li>
                       </ul>
                     </CardContent>

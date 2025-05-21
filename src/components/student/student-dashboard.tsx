@@ -122,7 +122,7 @@ export function StudentDashboard({
       },
       {
         id: '2',
-        type: 'practice',
+        type: 'practise',
         title: 'Romeo and Juliet Character Quiz',
         subject: 'English',
         relevance: 'medium',
@@ -180,7 +180,7 @@ export function StudentDashboard({
       content: (
         <div className="space-y-6">
           {loading ? (
-            <div className="flex justify-center py-8">
+            <div className="flex justify-centre py-8">
               <Spinner size="lg" />
             </div>
           ) : error ? (
@@ -193,7 +193,7 @@ export function StudentDashboard({
                 <Card className="flex-1">
                   <CardHeader>
                     <h2 className="text-xl font-semibold">Welcome, {studentData.name}</h2>
-                    <p className="text-sm text-gray-600">{studentData.year} • {studentData.school}</p>
+                    <p className="text-sm text-grey-600">{studentData.year} • {studentData.school}</p>
                   </CardHeader>
                   <CardContent>
                     <div className="mb-4">
@@ -201,7 +201,7 @@ export function StudentDashboard({
                         <span>Overall Progress</span>
                         <span>{studentData.overallProgress}%</span>
                       </div>
-                      <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div className="w-full bg-grey-200 rounded-full h-2">
                         <div 
                           className={`h-2 rounded-full ${
                             studentData.overallProgress >= 80 ? 'bg-green-600' :
@@ -221,7 +221,7 @@ export function StudentDashboard({
                             <span>{subject.name}</span>
                             <span>{subject.progress}%</span>
                           </div>
-                          <div className="w-full bg-gray-200 rounded-full h-1.5">
+                          <div className="w-full bg-grey-200 rounded-full h-1.5">
                             <div 
                               className={`h-1.5 rounded-full ${
                                 subject.progress >= 80 ? 'bg-green-500' :
@@ -231,7 +231,7 @@ export function StudentDashboard({
                               style={{ width: `${subject.progress}%` }}
                             ></div>
                           </div>
-                          <p className="text-xs text-gray-600">
+                          <p className="text-xs text-grey-600">
                             Current topic: {subject.currentTopic}
                           </p>
                         </div>
@@ -251,10 +251,10 @@ export function StudentDashboard({
                         .sort((a, b) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime())
                         .slice(0, 3)
                         .map(assignment => (
-                          <div key={assignment.id} className="flex justify-between items-center p-2 rounded-md hover:bg-gray-50">
+                          <div key={assignment.id} className="flex justify-between items-centre p-2 rounded-md hover:bg-grey-50">
                             <div>
                               <h4 className="font-medium">{assignment.title}</h4>
-                              <p className="text-sm text-gray-600">{assignment.subject}</p>
+                              <p className="text-sm text-grey-600">{assignment.subject}</p>
                             </div>
                             <div className="text-right">
                               <p className="text-sm">Due: {assignment.dueDate}</p>
@@ -269,7 +269,7 @@ export function StudentDashboard({
                         ))}
                       
                       {studentData.assignments.filter(a => a.status === 'pending').length === 0 && (
-                        <p className="text-center text-gray-500 py-2">No upcoming assignments</p>
+                        <p className="text-centre text-grey-500 py-2">No upcoming assignments</p>
                       )}
                     </CardContent>
                     <CardFooter>
@@ -288,12 +288,12 @@ export function StudentDashboard({
                     </CardHeader>
                     <CardContent className="space-y-2">
                       {studentData.achievements.slice(0, 2).map(achievement => (
-                        <div key={achievement.id} className="flex items-start gap-3 p-2 rounded-md hover:bg-gray-50">
+                        <div key={achievement.id} className="flex items-start gap-3 p-2 rounded-md hover:bg-grey-50">
                           <div className="text-2xl">{achievement.icon}</div>
                           <div>
                             <h4 className="font-medium">{achievement.title}</h4>
-                            <p className="text-sm text-gray-600">{achievement.description}</p>
-                            <p className="text-xs text-gray-500 mt-1">Earned on {achievement.date}</p>
+                            <p className="text-sm text-grey-600">{achievement.description}</p>
+                            <p className="text-xs text-grey-500 mt-1">Earned on {achievement.date}</p>
                           </div>
                         </div>
                       ))}
@@ -320,14 +320,14 @@ export function StudentDashboard({
                           <h4 className="font-medium">{recommendation.title}</h4>
                           <span className={`text-xs px-2 py-0.5 rounded-full ${
                             recommendation.type === 'resource' ? 'bg-blue-100 text-blue-800' :
-                            recommendation.type === 'practice' ? 'bg-purple-100 text-purple-800' :
+                            recommendation.type === 'practise' ? 'bg-purple-100 text-purple-800' :
                             'bg-green-100 text-green-800'
                           }`}>
                             {recommendation.type}
                           </span>
                         </div>
-                        <p className="text-sm text-gray-600 mb-2">{recommendation.description}</p>
-                        <p className="text-xs text-gray-500">Subject: {recommendation.subject}</p>
+                        <p className="text-sm text-grey-600 mb-2">{recommendation.description}</p>
+                        <p className="text-xs text-grey-500">Subject: {recommendation.subject}</p>
                       </CardContent>
                       <CardFooter>
                         <Button className="w-full">
@@ -362,7 +362,7 @@ export function StudentDashboard({
       content: (
         <div className="space-y-6">
           {loading ? (
-            <div className="flex justify-center py-8">
+            <div className="flex justify-centre py-8">
               <Spinner size="lg" />
             </div>
           ) : error ? (
@@ -380,7 +380,7 @@ export function StudentDashboard({
                         <span>Progress</span>
                         <span>{subject.progress}%</span>
                       </div>
-                      <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div className="w-full bg-grey-200 rounded-full h-2">
                         <div 
                           className={`h-2 rounded-full ${
                             subject.progress >= 80 ? 'bg-green-600' :
@@ -405,11 +405,11 @@ export function StudentDashboard({
                         
                         <div>
                           <h4 className="text-sm font-medium">Recent Scores</h4>
-                          <div className="flex items-center gap-1 mt-1">
+                          <div className="flex items-centre gap-1 mt-1">
                             {subject.recentScores.map((score, index) => (
                               <div 
                                 key={index}
-                                className={`h-8 w-8 rounded-md flex items-center justify-center text-xs text-white ${
+                                className={`h-8 w-8 rounded-md flex items-centre justify-centre text-xs text-white ${
                                   score >= 80 ? 'bg-green-500' :
                                   score >= 60 ? 'bg-blue-500' :
                                   'bg-orange-500'
@@ -432,7 +432,7 @@ export function StudentDashboard({
                         className="flex-1"
                         variant="outline"
                       >
-                        Practice
+                        Practise
                       </Button>
                     </CardFooter>
                   </Card>
@@ -454,11 +454,11 @@ export function StudentDashboard({
                             .map(recommendation => (
                               <div 
                                 key={recommendation.id} 
-                                className="flex justify-between items-center p-3 rounded-md border hover:bg-gray-50"
+                                className="flex justify-between items-centre p-3 rounded-md border hover:bg-grey-50"
                               >
                                 <div>
                                   <h5 className="font-medium">{recommendation.title}</h5>
-                                  <p className="text-sm text-gray-600">{recommendation.description}</p>
+                                  <p className="text-sm text-grey-600">{recommendation.description}</p>
                                 </div>
                                 <Button size="sm">Open</Button>
                               </div>
@@ -480,7 +480,7 @@ export function StudentDashboard({
       content: (
         <div className="space-y-6">
           {loading ? (
-            <div className="flex justify-center py-8">
+            <div className="flex justify-centre py-8">
               <Spinner size="lg" />
             </div>
           ) : error ? (
@@ -489,7 +489,7 @@ export function StudentDashboard({
             </Alert>
           ) : (
             <>
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <h2 className="text-xl font-semibold">My Assignments</h2>
                 <div className="flex gap-2">
                   <Select
@@ -530,7 +530,7 @@ export function StudentDashboard({
                               {assignment.priority}
                             </span>
                           </div>
-                          <p className="text-sm text-gray-600">{assignment.subject}</p>
+                          <p className="text-sm text-grey-600">{assignment.subject}</p>
                         </CardHeader>
                         <CardContent className="flex-grow">
                           <div className="flex justify-between text-sm">
@@ -539,7 +539,7 @@ export function StudentDashboard({
                           </div>
                           <div className="mt-4">
                             <div className="text-sm font-medium mb-1">Time Remaining:</div>
-                            <div className="w-full bg-gray-200 rounded-full h-2">
+                            <div className="w-full bg-grey-200 rounded-full h-2">
                               {/* This would be calculated dynamically in a real app */}
                               <div 
                                 className="bg-blue-600 h-2 rounded-full" 
@@ -566,7 +566,7 @@ export function StudentDashboard({
                     ))}
                     
                   {studentData.assignments.filter(a => a.status === 'pending').length === 0 && (
-                    <div className="md:col-span-2 text-center py-8 text-gray-500">
+                    <div className="md:col-span-2 text-centre py-8 text-grey-500">
                       No pending assignments. Great job!
                     </div>
                   )}
@@ -587,7 +587,7 @@ export function StudentDashboard({
                               completed
                             </span>
                           </div>
-                          <p className="text-sm text-gray-600">{assignment.subject}</p>
+                          <p className="text-sm text-grey-600">{assignment.subject}</p>
                         </CardHeader>
                         <CardContent className="flex-grow">
                           <div className="flex justify-between text-sm">
@@ -597,8 +597,8 @@ export function StudentDashboard({
                           {assignment.score && (
                             <div className="mt-4">
                               <div className="text-sm font-medium mb-1">Score:</div>
-                              <div className="flex items-center gap-2">
-                                <div className="w-full bg-gray-200 rounded-full h-2">
+                              <div className="flex items-centre gap-2">
+                                <div className="w-full bg-grey-200 rounded-full h-2">
                                   <div 
                                     className={`h-2 rounded-full ${
                                       assignment.score >= 80 ? 'bg-green-600' :
@@ -625,7 +625,7 @@ export function StudentDashboard({
                     ))}
                     
                   {studentData.assignments.filter(a => a.status === 'completed').length === 0 && (
-                    <div className="md:col-span-2 text-center py-8 text-gray-500">
+                    <div className="md:col-span-2 text-centre py-8 text-grey-500">
                       No completed assignments yet.
                     </div>
                   )}
@@ -642,7 +642,7 @@ export function StudentDashboard({
       content: (
         <div className="space-y-6">
           {loading ? (
-            <div className="flex justify-center py-8">
+            <div className="flex justify-centre py-8">
               <Spinner size="lg" />
             </div>
           ) : error ? (
@@ -651,7 +651,7 @@ export function StudentDashboard({
             </Alert>
           ) : (
             <>
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <h2 className="text-xl font-semibold">My Achievements</h2>
                 <div className="text-sm">
                   <span className="font-medium">Total Achievements:</span> {studentData.achievements.length}
@@ -661,14 +661,14 @@ export function StudentDashboard({
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {studentData.achievements.map(achievement => (
                   <Card key={achievement.id} className="h-full flex flex-col">
-                    <CardHeader className="text-center">
+                    <CardHeader className="text-centre">
                       <div className="text-4xl mb-2">{achievement.icon}</div>
                       <h3 className="text-lg font-semibold">{achievement.title}</h3>
                     </CardHeader>
                     <CardContent className="flex-grow">
-                      <p className="text-sm text-gray-600 text-center">{achievement.description}</p>
+                      <p className="text-sm text-grey-600 text-centre">{achievement.description}</p>
                     </CardContent>
-                    <CardFooter className="text-center text-sm text-gray-500">
+                    <CardFooter className="text-centre text-sm text-grey-500">
                       Earned on {achievement.date}
                     </CardFooter>
                   </Card>
@@ -683,8 +683,8 @@ export function StudentDashboard({
                   <div className="space-y-4">
                     <div className="space-y-2">
                       <h4 className="text-sm font-medium">Mathematics Master</h4>
-                      <div className="flex items-center gap-2">
-                        <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div className="flex items-centre gap-2">
+                        <div className="w-full bg-grey-200 rounded-full h-2">
                           <div 
                             className="bg-blue-600 h-2 rounded-full" 
                             style={{ width: '75%' }}
@@ -692,13 +692,13 @@ export function StudentDashboard({
                         </div>
                         <span className="text-sm">75%</span>
                       </div>
-                      <p className="text-xs text-gray-600">Complete 20 mathematics assignments with scores above 80%</p>
+                      <p className="text-xs text-grey-600">Complete 20 mathematics assignments with scores above 80%</p>
                     </div>
                     
                     <div className="space-y-2">
                       <h4 className="text-sm font-medium">Literary Scholar</h4>
-                      <div className="flex items-center gap-2">
-                        <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div className="flex items-centre gap-2">
+                        <div className="w-full bg-grey-200 rounded-full h-2">
                           <div 
                             className="bg-blue-600 h-2 rounded-full" 
                             style={{ width: '40%' }}
@@ -706,13 +706,13 @@ export function StudentDashboard({
                         </div>
                         <span className="text-sm">40%</span>
                       </div>
-                      <p className="text-xs text-gray-600">Read and complete activities for 5 different literary works</p>
+                      <p className="text-xs text-grey-600">Read and complete activities for 5 different literary works</p>
                     </div>
                     
                     <div className="space-y-2">
                       <h4 className="text-sm font-medium">Scientific Investigator</h4>
-                      <div className="flex items-center gap-2">
-                        <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div className="flex items-centre gap-2">
+                        <div className="w-full bg-grey-200 rounded-full h-2">
                           <div 
                             className="bg-blue-600 h-2 rounded-full" 
                             style={{ width: '60%' }}
@@ -720,7 +720,7 @@ export function StudentDashboard({
                         </div>
                         <span className="text-sm">60%</span>
                       </div>
-                      <p className="text-xs text-gray-600">Complete 10 science experiments with detailed observations</p>
+                      <p className="text-xs text-grey-600">Complete 10 science experiments with detailed observations</p>
                     </div>
                   </div>
                 </CardContent>

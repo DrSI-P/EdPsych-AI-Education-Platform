@@ -19,7 +19,7 @@ From the review of these materials, several consistent patterns and themes emerg
 
 The psychological advice reports demonstrate a comprehensive assessment methodology that includes:
 
-1. **Multi-Modal Assessment**: Gathering information from multiple sources (observations, interviews, standardized measures)
+1. **Multi-Modal Assessment**: Gathering information from multiple sources (observations, interviews, standardised measures)
 2. **Ecological Perspective**: Considering the child within their broader environment (home, school, community)
 3. **Strengths-Based Focus**: Identifying capabilities and interests, not just challenges
 4. **Developmental Framework**: Understanding needs within appropriate developmental contexts
@@ -42,7 +42,7 @@ These materials suggest several ways AI and technology can enhance educational e
 
 1. **Personalized Content Delivery**: Adapting materials to learning styles and preferences
 2. **Progress Monitoring**: Tracking development across multiple domains
-3. **Early Identification**: Recognizing patterns that may indicate additional needs
+3. **Early Identification**: Recognising patterns that may indicate additional needs
 4. **Resource Curation**: Matching evidence-based strategies to specific challenges
 5. **Administrative Automation**: Reducing paperwork burden on educators
 6. **Communication Facilitation**: Enhancing collaboration between home and school
@@ -56,10 +56,10 @@ Based on this analysis, the EdPsych Connect platform should incorporate:
 3. **Voice Capture Mechanisms**: Methods for systematically gathering and responding to student input
 4. **Collaborative Planning Tools**: Shared spaces for educators, families, and students
 5. **Evidence Repository**: Searchable database of effective strategies linked to specific needs
-6. **Progress Visualization**: Multi-dimensional representation of development across domains
+6. **Progress Visualisation**: Multi-dimensional representation of development across domains
 7. **Administrative Automation**: Streamlined documentation and planning processes
 8. **Relationship Mapping**: Tools to identify and strengthen key supportive relationships
 
 ## Conclusion
 
-The psychological advice reports and educational resources provided by Dr. Scott offer invaluable insights into the complex needs of children in educational settings. They highlight the importance of personalized, relationship-based approaches that honor student voice and agency. The EdPsych Connect platform has the potential to transform educational experiences by leveraging AI to implement these evidence-based approaches at scale, reducing administrative burdens while enhancing the quality and effectiveness of educational support.
+The psychological advice reports and educational resources provided by Dr. Scott offer invaluable insights into the complex needs of children in educational settings. They highlight the importance of personalized, relationship-based approaches that honour student voice and agency. The EdPsych Connect platform has the potential to transform educational experiences by leveraging AI to implement these evidence-based approaches at scale, reducing administrative burdens while enhancing the quality and effectiveness of educational support.

@@ -171,7 +171,7 @@ export function AssessmentCreator({ onSave, onCancel, initialData }: AssessmentC
               
               <div className="font-medium mb-2">Question {index + 1}</div>
               <p className="mb-2">{question.text}</p>
-              <div className="text-sm text-gray-500">Type: {question.type}</div>
+              <div className="text-sm text-grey-500">Type: {question.type}</div>
               
               {question.type === 'multiple-choice' && (
                 <div className="mt-2">
@@ -215,8 +215,8 @@ export function AssessmentCreator({ onSave, onCancel, initialData }: AssessmentC
               
               {currentQuestion.type === 'multiple-choice' && (
                 <div className="space-y-3">
-                  <div className="flex justify-between items-center">
-                    <label className="block text-sm font-medium text-gray-700">Options</label>
+                  <div className="flex justify-between items-centre">
+                    <label className="block text-sm font-medium text-grey-700">Options</label>
                     <Button
                       type="button"
                       onClick={addOption}
@@ -227,22 +227,22 @@ export function AssessmentCreator({ onSave, onCancel, initialData }: AssessmentC
                   </div>
                   
                   {currentQuestion.options.map((option, index) => (
-                    <div key={index} className="flex items-center space-x-2">
+                    <div key={index} className="flex items-centre space-x-2">
                       <Input
                         value={option}
                         onChange={(e) => handleOptionChange(index, e.target.value)}
                         className="flex-1"
                       />
                       
-                      <div className="flex items-center">
+                      <div className="flex items-centre">
                         <input
                           type="radio"
                           name="correctAnswer"
                           checked={index === currentQuestion.options.indexOf(currentQuestion.correctAnswer)}
                           onChange={() => setCurrentQuestion(prev => ({ ...prev, correctAnswer: option }))}
-                          className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
+                          className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-grey-300"
                         />
-                        <label className="ml-2 text-sm text-gray-700">Correct</label>
+                        <label className="ml-2 text-sm text-grey-700">Correct</label>
                       </div>
                       
                       {currentQuestion.options.length > 2 && (

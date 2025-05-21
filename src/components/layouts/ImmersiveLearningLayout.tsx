@@ -38,9 +38,9 @@ const themeConfigs = {
     ambientSound: '/sounds/desert-wind.mp3'
   },
   mountain: {
-    bgColor: 'bg-gradient-to-b from-gray-300 via-gray-500 to-gray-700',
-    accentColor: 'text-gray-100',
-    borderColor: 'border-gray-400',
+    bgColor: 'bg-gradient-to-b from-grey-300 via-grey-500 to-grey-700',
+    accentColor: 'text-grey-100',
+    borderColor: 'border-grey-400',
     particleColor: '#6b7280',
     ambientSound: '/sounds/mountain-wind.mp3'
   }

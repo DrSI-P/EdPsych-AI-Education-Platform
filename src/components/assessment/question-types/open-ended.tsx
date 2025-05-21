@@ -65,12 +65,12 @@ export default function OpenEndedQuestion({
 
   return (
     <div className="space-y-6 p-4 bg-white rounded-lg border">
-      <div className="flex justify-between items-center">
-        <h3 className="text-lg font-medium text-gray-900">
+      <div className="flex justify-between items-centre">
+        <h3 className="text-lg font-medium text-grey-900">
           {isEditing ? 'Edit Open-Ended Question' : 'Add Open-Ended Question'}
         </h3>
-        <div className="flex items-center space-x-2">
-          <label className="text-sm text-gray-600">Points:</label>
+        <div className="flex items-centre space-x-2">
+          <label className="text-sm text-grey-600">Points:</label>
           <input
             type="number"
             min="1"
@@ -88,7 +88,7 @@ export default function OpenEndedQuestion({
       )}
 
       <div>
-        <label htmlFor="question-content" className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor="question-content" className="block text-sm font-medium text-grey-700 mb-1">
           Question <span className="text-red-500">*</span>
         </label>
         <textarea
@@ -98,7 +98,7 @@ export default function OpenEndedQuestion({
           placeholder="Enter your question here"
           rows={3}
           className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-            errors.content ? 'border-red-500' : 'border-gray-300'
+            errors.content ? 'border-red-500' : 'border-grey-300'
           }`}
         />
         {errors.content && (
@@ -107,10 +107,10 @@ export default function OpenEndedQuestion({
       </div>
 
       <div>
-        <label htmlFor="expected-answer" className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor="expected-answer" className="block text-sm font-medium text-grey-700 mb-1">
           Expected Answer (Optional)
         </label>
-        <p className="text-xs text-gray-500 mb-2">
+        <p className="text-xs text-grey-500 mb-2">
           This will be used for grading guidance and AI-assisted marking. Students will not see this.
         </p>
         <textarea
@@ -119,15 +119,15 @@ export default function OpenEndedQuestion({
           onChange={(e) => setExpectedAnswer(e.target.value)}
           placeholder="Enter an expected answer or grading criteria"
           rows={4}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full px-3 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
 
       <div>
-        <label htmlFor="word-limit" className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor="word-limit" className="block text-sm font-medium text-grey-700 mb-1">
           Word Limit (Optional)
         </label>
-        <div className="flex items-center">
+        <div className="flex items-centre">
           <input
             id="word-limit"
             type="number"
@@ -135,9 +135,9 @@ export default function OpenEndedQuestion({
             value={wordLimit}
             onChange={(e) => setWordLimit(parseInt(e.target.value) || 0)}
             placeholder="Enter word limit"
-            className="w-32 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-32 px-3 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          <span className="ml-2 text-sm text-gray-500">
+          <span className="ml-2 text-sm text-grey-500">
             (0 = no limit)
           </span>
         </div>

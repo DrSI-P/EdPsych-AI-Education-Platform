@@ -7,26 +7,26 @@ The Guided Mindfulness Activities feature enhances the platform's emotional well
 
 ### Diverse Mindfulness Library
 - Comprehensive collection of evidence-based mindfulness activities
-- Activities categorized by type (breathing, body-scan, visualization, movement, sensory, compassion)
+- Activities categorized by type (breathing, body-scan, visualisation, movement, sensory, compassion)
 - Age-appropriate content for different educational stages (nursery, primary, secondary)
 - Varied difficulty levels to accommodate different experience levels
 
-### Interactive Practice Interface
+### Interactive Practise Interface
 - Audio-guided mindfulness sessions with playback controls
 - Visual guidance with step-by-step instructions
-- Progress tracking during practice sessions
-- Post-practice reflection and feedback options
+- Progress tracking during practise sessions
+- Post-practise reflection and feedback options
 
 ### Personalization Options
-- User preference settings for practice duration, themes, and voice
-- Favorite activity tracking for quick access
-- Practice history with completion records and ratings
+- User preference settings for practise duration, themes, and voice
+- Favourite activity tracking for quick access
+- Practise history with completion records and ratings
 - Customizable reminder settings
 
 ### Evidence-Based Approach
 - Activities grounded in research from educational psychology
 - Implementation guidance based on UK educational standards
-- Benefits clearly explained for each practice
+- Benefits clearly explained for each practise
 - References to authoritative sources and research
 
 ## Integration with Platform
@@ -39,7 +39,7 @@ The Guided Mindfulness Activities feature integrates seamlessly with the platfor
 
 ## Accessibility Considerations
 - High contrast mode compatible
-- Screen reader optimized interface with appropriate ARIA labels
+- Screen reader optimised interface with appropriate ARIA labels
 - Keyboard navigation support for all interactive elements
 - Responsive design for all device sizes
 - Audio descriptions and transcripts for all guided practices

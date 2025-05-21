@@ -107,9 +107,9 @@ export default function HighContrastModeEngine({
       );
       document.documentElement.style.removeProperty('--text-size-adjust');
       document.documentElement.style.removeProperty('--contrast-adjust');
-      document.documentElement.style.removeProperty('--custom-text-color');
-      document.documentElement.style.removeProperty('--custom-background-color');
-      document.documentElement.style.removeProperty('--custom-link-color');
+      document.documentElement.style.removeProperty('--custom-text-colour');
+      document.documentElement.style.removeProperty('--custom-background-colour');
+      document.documentElement.style.removeProperty('--custom-link-colour');
       
       // Reset theme if needed
       if (theme === 'high-contrast') {
@@ -138,9 +138,9 @@ export default function HighContrastModeEngine({
     
     // Set custom colors if in custom mode
     if (settingsToApply.mode === 'custom') {
-      document.documentElement.style.setProperty('--custom-text-color', settingsToApply.customTextColor || '#ffffff');
-      document.documentElement.style.setProperty('--custom-background-color', settingsToApply.customBackgroundColor || '#000000');
-      document.documentElement.style.setProperty('--custom-link-color', settingsToApply.customLinkColor || '#ffff00');
+      document.documentElement.style.setProperty('--custom-text-colour', settingsToApply.customTextColor || '#ffffff');
+      document.documentElement.style.setProperty('--custom-background-colour', settingsToApply.customBackgroundColor || '#000000');
+      document.documentElement.style.setProperty('--custom-link-colour', settingsToApply.customLinkColor || '#ffff00');
     }
     
     // Apply reduced animations if enabled
@@ -276,8 +276,8 @@ export default function HighContrastModeEngine({
   return (
     <Card className={className}>
       <CardHeader>
-        <CardTitle className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
+        <CardTitle className="flex items-centre justify-between">
+          <div className="flex items-centre gap-2">
             <Contrast className="h-5 w-5" />
             High Contrast Mode
           </div>
@@ -287,7 +287,7 @@ export default function HighContrastModeEngine({
           />
         </CardTitle>
         <CardDescription>
-          Adjust contrast and color settings to improve readability
+          Adjust contrast and colour settings to improve readability
         </CardDescription>
       </CardHeader>
       
@@ -307,47 +307,47 @@ export default function HighContrastModeEngine({
                   onValueChange={(value) => handleSettingsChange('mode', value)}
                   className="grid grid-cols-2 gap-4"
                 >
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <RadioGroupItem value="high-contrast" id="high-contrast" />
-                    <Label htmlFor="high-contrast" className="flex items-center gap-2">
+                    <Label htmlFor="high-contrast" className="flex items-centre gap-2">
                       <Contrast className="h-4 w-4" />
                       Black on White
                     </Label>
                   </div>
                   
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <RadioGroupItem value="dark-high-contrast" id="dark-high-contrast" />
-                    <Label htmlFor="dark-high-contrast" className="flex items-center gap-2">
+                    <Label htmlFor="dark-high-contrast" className="flex items-centre gap-2">
                       <Moon className="h-4 w-4" />
                       White on Black
                     </Label>
                   </div>
                   
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <RadioGroupItem value="yellow-black" id="yellow-black" />
-                    <Label htmlFor="yellow-black" className="flex items-center gap-2">
+                    <Label htmlFor="yellow-black" className="flex items-centre gap-2">
                       <Sun className="h-4 w-4" />
                       Yellow on Black
                     </Label>
                   </div>
                   
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <RadioGroupItem value="black-yellow" id="black-yellow" />
-                    <Label htmlFor="black-yellow" className="flex items-center gap-2">
+                    <Label htmlFor="black-yellow" className="flex items-centre gap-2">
                       <SunMoon className="h-4 w-4" />
                       Black on Yellow
                     </Label>
                   </div>
                   
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <RadioGroupItem value="blue-yellow" id="blue-yellow" />
-                    <Label htmlFor="blue-yellow" className="flex items-center gap-2">
+                    <Label htmlFor="blue-yellow" className="flex items-centre gap-2">
                       <Eye className="h-4 w-4" />
                       Blue on Yellow
                     </Label>
                   </div>
                   
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <RadioGroupItem value="custom" id="custom" />
                     <Label htmlFor="custom">Custom</Label>
                   </div>
@@ -357,11 +357,11 @@ export default function HighContrastModeEngine({
               {settings.mode === 'custom' && (
                 <div className="space-y-4 p-4 border rounded-md">
                   <div className="space-y-2">
-                    <Label htmlFor="text-color">Text Color</Label>
-                    <div className="flex items-center gap-2">
+                    <Label htmlFor="text-colour">Text Colour</Label>
+                    <div className="flex items-centre gap-2">
                       <input 
-                        type="color" 
-                        id="text-color"
+                        type="colour" 
+                        id="text-colour"
                         value={settings.customTextColor}
                         onChange={(e) => handleSettingsChange('customTextColor', e.target.value)}
                         className="w-10 h-10 rounded-md cursor-pointer"
@@ -371,11 +371,11 @@ export default function HighContrastModeEngine({
                   </div>
                   
                   <div className="space-y-2">
-                    <Label htmlFor="background-color">Background Color</Label>
-                    <div className="flex items-center gap-2">
+                    <Label htmlFor="background-colour">Background Colour</Label>
+                    <div className="flex items-centre gap-2">
                       <input 
-                        type="color" 
-                        id="background-color"
+                        type="colour" 
+                        id="background-colour"
                         value={settings.customBackgroundColor}
                         onChange={(e) => handleSettingsChange('customBackgroundColor', e.target.value)}
                         className="w-10 h-10 rounded-md cursor-pointer"
@@ -385,11 +385,11 @@ export default function HighContrastModeEngine({
                   </div>
                   
                   <div className="space-y-2">
-                    <Label htmlFor="link-color">Link Color</Label>
-                    <div className="flex items-center gap-2">
+                    <Label htmlFor="link-colour">Link Colour</Label>
+                    <div className="flex items-centre gap-2">
                       <input 
-                        type="color" 
-                        id="link-color"
+                        type="colour" 
+                        id="link-colour"
                         value={settings.customLinkColor}
                         onChange={(e) => handleSettingsChange('customLinkColor', e.target.value)}
                         className="w-10 h-10 rounded-md cursor-pointer"
@@ -428,7 +428,7 @@ export default function HighContrastModeEngine({
                 />
               </div>
               
-              <div className="flex items-center justify-between">
+              <div className="flex items-centre justify-between">
                 <div className="space-y-0.5">
                   <Label htmlFor="reduce-animations">Reduce Animations</Label>
                   <p className="text-xs text-muted-foreground">
@@ -499,7 +499,7 @@ export default function HighContrastModeEngine({
                       <Button variant="outline">Outline Button</Button>
                       <Button variant="destructive">Destructive Button</Button>
                     </div>
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-centre space-x-2">
                       <Switch id="preview-switch" />
                       <Label htmlFor="preview-switch">Toggle Switch</Label>
                     </div>
@@ -543,7 +543,7 @@ export default function HighContrastModeEngine({
         <Button 
           variant="outline" 
           onClick={handleResetSettings}
-          className="flex items-center gap-2"
+          className="flex items-centre gap-2"
         >
           <RefreshCw className="h-4 w-4" />
           Reset
@@ -551,7 +551,7 @@ export default function HighContrastModeEngine({
         
         <Button 
           onClick={handleApplySettings}
-          className="flex items-center gap-2"
+          className="flex items-centre gap-2"
           disabled={isApplied && JSON.stringify(settings) === JSON.stringify({
             enabled: document.documentElement.classList.contains('high-contrast') || 
                     document.documentElement.classList.contains('dark-high-contrast') ||
@@ -568,9 +568,9 @@ export default function HighContrastModeEngine({
             textSize: parseInt(document.documentElement.style.getPropertyValue('--text-size-adjust') || '100'),
             contrastLevel: parseInt(document.documentElement.style.getPropertyValue('--contrast-adjust') || '100'),
             reduceAnimations: document.documentElement.classList.contains('reduce-animations'),
-            customTextColor: document.documentElement.style.getPropertyValue('--custom-text-color') || '#ffffff',
-            customBackgroundColor: document.documentElement.style.getPropertyValue('--custom-background-color') || '#000000',
-            customLinkColor: document.documentElement.style.getPropertyValue('--custom-link-color') || '#ffff00',
+            customTextColor: document.documentElement.style.getPropertyValue('--custom-text-colour') || '#ffffff',
+            customBackgroundColor: document.documentElement.style.getPropertyValue('--custom-background-colour') || '#000000',
+            customLinkColor: document.documentElement.style.getPropertyValue('--custom-link-colour') || '#ffff00',
           })}
         >
           <Check className="h-4 w-4" />

@@ -36,7 +36,7 @@ Every aspect of EdPsych Connect is grounded in:
 
 4. **UK Department for Education Standards**: All content and approaches align with UK educational requirements and curriculum standards.
 
-5. **Real-World Educational Experience**: The platform draws on over 12 years of educational psychology practice and direct experience with diverse learners.
+5. **Real-World Educational Experience**: The platform draws on over 12 years of educational psychology practise and direct experience with diverse learners.
 
 ### Technological Innovation
 
@@ -102,7 +102,7 @@ EdPsych Connect leverages cutting-edge technology to deliver:
 
 5. **Resource Library**: Extensive collection of evidence-based teaching materials and approaches.
 
-6. **Professional Development**: Continuous learning opportunities integrated into daily practice.
+6. **Professional Development**: Continuous learning opportunities integrated into daily practise.
 
 7. **Collaborative Tools**: Platforms for sharing best practices and working with colleagues.
 
@@ -118,7 +118,7 @@ EdPsych Connect leverages cutting-edge technology to deliver:
 
 4. **Report Generation**: Automated compilation of observations and data into professional documentation.
 
-5. **Research Opportunities**: Anonymised data for advancing educational psychology practice.
+5. **Research Opportunities**: Anonymised data for advancing educational psychology practise.
 
 6. **CPD Resources**: Continuous professional development materials and tracking.
 

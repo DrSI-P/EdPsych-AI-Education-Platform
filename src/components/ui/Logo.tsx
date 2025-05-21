@@ -70,7 +70,7 @@ const Logo: React.FC<LogoProps> = ({
   if (variant === 'text-only') {
     return (
       <Link href="/">
-        <div className={cn('flex items-center', className)}>
+        <div className={cn('flex items-centre', className)}>
           {animated && !isReducedMotion ? (
             <motion.span
               initial={textAnimation.initial}
@@ -101,7 +101,7 @@ const Logo: React.FC<LogoProps> = ({
   // Render image-based variants
   return (
     <Link href="/">
-      <div className={cn('flex items-center', className)}>
+      <div className={cn('flex items-centre', className)}>
         {animated && !isReducedMotion ? (
           <motion.div
             initial={logoAnimation.initial}

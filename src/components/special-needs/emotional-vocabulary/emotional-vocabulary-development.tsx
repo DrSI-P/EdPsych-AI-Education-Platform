@@ -200,7 +200,7 @@ const EmotionalVocabularyDevelopment = () => {
       strategies: [
         "Share your excitement with others",
         "Channel extra energy into positive activities",
-        "Practice patience if you need to wait",
+        "Practise patience if you need to wait",
         "Take deep breaths if excitement feels overwhelming"
       ],
       imageUrl: "/emotions/excited.png",
@@ -225,7 +225,7 @@ const EmotionalVocabularyDevelopment = () => {
         "I was calm after taking deep breaths."
       ],
       strategies: [
-        "Practice deep breathing",
+        "Practise deep breathing",
         "Find a quiet space",
         "Listen to gentle music",
         "Use calming sensory items (soft toys, stress balls)"
@@ -282,7 +282,7 @@ const EmotionalVocabularyDevelopment = () => {
         "Remember that everyone makes mistakes",
         "Use humor appropriately",
         "Focus on how to move forward",
-        "Practice self-compassion"
+        "Practise self-compassion"
       ],
       imageUrl: "/emotions/embarrassed.png",
       color: "#FF6347", // Tomato
@@ -360,10 +360,10 @@ const EmotionalVocabularyDevelopment = () => {
         "Speaking in front of the class made me nervous."
       ],
       strategies: [
-        "Practice deep breathing",
-        "Prepare and practice ahead of time",
+        "Practise deep breathing",
+        "Prepare and practise ahead of time",
         "Use positive self-talk",
-        "Visualize success"
+        "Visualise success"
       ],
       imageUrl: "/emotions/nervous.png",
       color: "#7FFFD4", // Aquamarine
@@ -388,13 +388,13 @@ const EmotionalVocabularyDevelopment = () => {
       ],
       strategies: [
         "Focus on your own strengths and achievements",
-        "Practice gratitude for what you have",
+        "Practise gratitude for what you have",
         "Talk about your feelings with a trusted person",
         "Set personal goals rather than comparing to others"
       ],
       imageUrl: "/emotions/jealous.png",
       color: "#32CD32", // Lime Green
-      activities: ["emotion-journal", "gratitude-practice", "strength-spotting"],
+      activities: ["emotion-journal", "gratitude-practise", "strength-spotting"],
       relatedEmotions: ["envious", "resentful", "insecure"]
     },
     {
@@ -416,7 +416,7 @@ const EmotionalVocabularyDevelopment = () => {
       strategies: [
         "Reach out to someone you trust",
         "Join clubs or activities to meet people",
-        "Practice self-care activities you enjoy",
+        "Practise self-care activities you enjoy",
         "Remember that many people feel lonely sometimes"
       ],
       imageUrl: "/emotions/lonely.png",
@@ -429,9 +429,9 @@ const EmotionalVocabularyDevelopment = () => {
       name: "Grateful",
       category: "joy",
       intensity: "medium",
-      description: "A feeling of thankfulness and appreciation, often experienced when recognizing good things in your life or when someone helps you.",
+      description: "A feeling of thankfulness and appreciation, often experienced when recognising good things in your life or when someone helps you.",
       bodyFeelings: "Warm heart, relaxed body, smiling, open posture",
-      triggers: ["Receiving help", "Having needs met", "Recognizing good things", "Overcoming difficulties"],
+      triggers: ["Receiving help", "Having needs met", "Recognising good things", "Overcoming difficulties"],
       expressions: ["Saying thank you", "Smiling", "Helping others", "Expressing appreciation"],
       synonyms: ["Thankful", "Appreciative", "Blessed", "Indebted", "Obliged"],
       ageGroups: ["primary", "secondary"],
@@ -444,7 +444,7 @@ const EmotionalVocabularyDevelopment = () => {
         "Keep a gratitude journal",
         "Express thanks to others",
         "Notice small positive things each day",
-        "Practice gratitude before bed"
+        "Practise gratitude before bed"
       ],
       imageUrl: "/emotions/grateful.png",
       color: "#DDA0DD", // Plum
@@ -474,7 +474,7 @@ const EmotionalVocabularyDevelopment = () => {
         "Challenge yourself to learn something new"
       ],
       imageUrl: "/emotions/bored.png",
-      color: "#A9A9A9", // Dark Gray
+      color: "#A9A9A9", // Dark Grey
       activities: ["emotion-journal", "interest-exploration", "creativity-challenges"],
       relatedEmotions: ["uninterested", "restless", "disengaged"]
     },
@@ -516,7 +516,7 @@ const EmotionalVocabularyDevelopment = () => {
       ageGroups: ["primary", "secondary"],
       emotionCategories: ["all"],
       duration: "10-15 minutes",
-      materials: ["Journal or paper", "Colored pencils or markers", "Emotion vocabulary list"],
+      materials: ["Journal or paper", "Coloured pencils or markers", "Emotion vocabulary list"],
       instructions: [
         "Choose an emotion you experienced today",
         "Write or draw what triggered this emotion",
@@ -569,16 +569,16 @@ const EmotionalVocabularyDevelopment = () => {
     {
       id: "a3",
       name: "Emotion Vocabulary Tree",
-      description: "Create a visual display of emotion words organized by categories, intensity, and relationships.",
+      description: "Create a visual display of emotion words organised by categories, intensity, and relationships.",
       ageGroups: ["primary", "secondary"],
       emotionCategories: ["all"],
       duration: "30-45 minutes",
-      materials: ["Large paper or poster board", "Colored markers or pencils", "Emotion word cards", "Reference materials"],
+      materials: ["Large paper or poster board", "Coloured markers or pencils", "Emotion word cards", "Reference materials"],
       instructions: [
         "Draw a large tree with branches representing different emotion categories",
         "Place basic emotions at the trunk and branch points",
         "Add related and more specific emotions along the branches",
-        "Color-code emotions by intensity or category",
+        "Colour-code emotions by intensity or category",
         "Add definitions, synonyms, or examples for each emotion",
         "Continue adding new emotion words as you learn them"
       ],
@@ -597,7 +597,7 @@ const EmotionalVocabularyDevelopment = () => {
     {
       id: "a4",
       name: "Emotion Detective",
-      description: "Identify and analyze emotions in stories, videos, or real-life scenarios using clues and evidence.",
+      description: "Identify and analyse emotions in stories, videos, or real-life scenarios using clues and evidence.",
       ageGroups: ["primary", "secondary"],
       emotionCategories: ["all"],
       duration: "20-30 minutes",
@@ -632,7 +632,7 @@ const EmotionalVocabularyDevelopment = () => {
       materials: ["Wall space or bulletin board", "Card stock or paper", "Art supplies", "Reference materials"],
       instructions: [
         "Designate a wall or board for emotion vocabulary",
-        "Organize sections by emotion categories or intensity",
+        "Organise sections by emotion categories or intensity",
         "Add new emotion words regularly with definitions",
         "Include student-created illustrations or examples",
         "Reference the wall during discussions and activities",
@@ -654,7 +654,7 @@ const EmotionalVocabularyDevelopment = () => {
     {
       id: "a6",
       name: "Emotion Scenarios",
-      description: "Analyze and discuss how different emotions might arise in various situations and how they could be managed.",
+      description: "Analyse and discuss how different emotions might arise in various situations and how they could be managed.",
       ageGroups: ["primary", "secondary"],
       emotionCategories: ["all"],
       duration: "15-25 minutes",
@@ -686,13 +686,13 @@ const EmotionalVocabularyDevelopment = () => {
       ageGroups: ["early-years", "primary", "secondary"],
       emotionCategories: ["all"],
       duration: "20-30 minutes initially, then ongoing use",
-      materials: ["Paper or cardstock", "Colored markers", "Emotion vocabulary lists", "Thermometer template (optional)"],
+      materials: ["Paper or cardstock", "Coloured markers", "Emotion vocabulary lists", "Thermometer template (optional)"],
       instructions: [
         "Create a visual scale (like a thermometer or number line)",
         "Identify emotions of different intensities within the same category",
         "Place these emotions along the scale from mild to intense",
         "Discuss body signals that indicate different intensity levels",
-        "Practice identifying your current emotional intensity",
+        "Practise identifying your current emotional intensity",
         "Use the scale to communicate feelings and track changes"
       ],
       benefits: [
@@ -722,7 +722,7 @@ const EmotionalVocabularyDevelopment = () => {
         "Explain the specific game rules",
         "Play in small groups or pairs",
         "Discuss new words or insights after playing",
-        "Rotate games to practice different aspects of emotion vocabulary"
+        "Rotate games to practise different aspects of emotion vocabulary"
       ],
       benefits: [
         "Makes vocabulary learning engaging and interactive",
@@ -860,8 +860,8 @@ const EmotionalVocabularyDevelopment = () => {
         },
         {
           question: "When you're feeling anxious about a future event, what might help?",
-          options: ["Avoid thinking about it completely", "Focus only on what could go wrong", "Prepare appropriately and practice positive self-talk", "Tell yourself you'll definitely fail"],
-          answer: "Prepare appropriately and practice positive self-talk"
+          options: ["Avoid thinking about it completely", "Focus only on what could go wrong", "Prepare appropriately and practise positive self-talk", "Tell yourself you'll definitely fail"],
+          answer: "Prepare appropriately and practise positive self-talk"
         },
         {
           question: "If you're feeling sad, which of these strategies might be helpful?",
@@ -875,8 +875,8 @@ const EmotionalVocabularyDevelopment = () => {
         },
         {
           question: "If you're feeling nervous before giving a presentation, which strategy would be most helpful?",
-          options: ["Call in sick to avoid it completely", "Practice your presentation and use calming techniques", "Tell yourself you'll definitely make mistakes", "Stay up all night worrying about it"],
-          answer: "Practice your presentation and use calming techniques"
+          options: ["Call in sick to avoid it completely", "Practise your presentation and use calming techniques", "Tell yourself you'll definitely make mistakes", "Stay up all night worrying about it"],
+          answer: "Practise your presentation and use calming techniques"
         }
       ],
       imageUrl: "/quizzes/emotion-regulation-strategies-quiz.png"
@@ -963,7 +963,7 @@ const EmotionalVocabularyDevelopment = () => {
           { id: "h5", type: "activity_completed", name: "Emotion Vocabulary Tree", date: "2025-05-08", notes: "Added 12 new emotion words" }
         ]);
         
-        // Simulate favorite emotions
+        // Simulate favourite emotions
         setFavoriteEmotions(["e1", "e7", "e14", "e16"]);
         
         setIsLoading(false);
@@ -1175,10 +1175,10 @@ const EmotionalVocabularyDevelopment = () => {
       disgust: "#32CD32", // Lime Green
       peace: "#87CEEB", // Sky Blue
       shame: "#FF6347", // Tomato
-      neutral: "#A9A9A9" // Dark Gray
+      neutral: "#A9A9A9" // Dark Grey
     };
     
-    return categoryColors[category] || "#808080"; // Default to gray if category not found
+    return categoryColors[category] || "#808080"; // Default to grey if category not found
   };
   
   const getIntensityLabel = (intensity) => {
@@ -1247,7 +1247,7 @@ const EmotionalVocabularyDevelopment = () => {
         <CardHeader>
           <CardTitle>Emotional Vocabulary Development</CardTitle>
           <CardDescription>
-            Explore, learn, and practice using words to identify and express emotions
+            Explore, learn, and practise using words to identify and express emotions
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -1261,7 +1261,7 @@ const EmotionalVocabularyDevelopment = () => {
             </TabsList>
             
             {isLoading ? (
-              <div className="flex justify-center items-center py-12">
+              <div className="flex justify-centre items-centre py-12">
                 <p>Loading content...</p>
               </div>
             ) : (
@@ -1342,7 +1342,7 @@ const EmotionalVocabularyDevelopment = () => {
                       <CardHeader className="pb-2">
                         <div className="flex justify-between items-start">
                           <div>
-                            <CardTitle className="text-2xl" style={{ color: selectedEmotion.color }}>
+                            <CardTitle className="text-2xl" style={{ color: selectedEmotion.colour }}>
                               {selectedEmotion.name}
                             </CardTitle>
                             <CardDescription>
@@ -1427,8 +1427,8 @@ const EmotionalVocabularyDevelopment = () => {
                           
                           <div className="space-y-4">
                             <div className="rounded-lg overflow-hidden border bg-card text-card-foreground shadow">
-                              <div className="p-6 flex justify-center items-center" style={{ backgroundColor: `${selectedEmotion.color}20` }}>
-                                <div className="w-32 h-32 rounded-full flex justify-center items-center" style={{ backgroundColor: selectedEmotion.color }}>
+                              <div className="p-6 flex justify-centre items-centre" style={{ backgroundColor: `${selectedEmotion.colour}20` }}>
+                                <div className="w-32 h-32 rounded-full flex justify-centre items-centre" style={{ backgroundColor: selectedEmotion.colour }}>
                                   {/* In a real implementation, this would be an actual image */}
                                   <span className="text-4xl">😊</span>
                                 </div>
@@ -1439,7 +1439,7 @@ const EmotionalVocabularyDevelopment = () => {
                               <h3 className="text-lg font-medium mb-2">Similar Words</h3>
                               <div className="flex flex-wrap gap-2">
                                 {selectedEmotion.synonyms.map((synonym, index) => (
-                                  <Badge key={index} variant="outline" style={{ borderColor: selectedEmotion.color }}>
+                                  <Badge key={index} variant="outline" style={{ borderColor: selectedEmotion.colour }}>
                                     {synonym}
                                   </Badge>
                                 ))}
@@ -1469,7 +1469,7 @@ const EmotionalVocabularyDevelopment = () => {
                             </div>
                             
                             <div>
-                              <h3 className="text-lg font-medium mb-2">Practice With</h3>
+                              <h3 className="text-lg font-medium mb-2">Practise With</h3>
                               <div className="space-y-2">
                                 {selectedEmotion.activities.map((activityId, index) => {
                                   const activityName = activityId.split('-').map(word => 
@@ -1499,7 +1499,7 @@ const EmotionalVocabularyDevelopment = () => {
                         >
                           <CardHeader className="pb-2">
                             <div className="flex justify-between items-start">
-                              <CardTitle style={{ color: emotion.color }}>{emotion.name}</CardTitle>
+                              <CardTitle style={{ color: emotion.colour }}>{emotion.name}</CardTitle>
                               <Button 
                                 variant="ghost" 
                                 size="icon"
@@ -1520,7 +1520,7 @@ const EmotionalVocabularyDevelopment = () => {
                             </CardDescription>
                           </CardHeader>
                           <CardContent className="pt-0">
-                            <div className="flex justify-between items-center mb-2">
+                            <div className="flex justify-between items-centre mb-2">
                               <Badge variant="outline" className="text-xs">
                                 {emotion.intensity.charAt(0).toUpperCase() + emotion.intensity.slice(1)} intensity
                               </Badge>
@@ -1556,7 +1556,7 @@ const EmotionalVocabularyDevelopment = () => {
                       ))}
                       
                       {getFilteredEmotions().length === 0 && (
-                        <div className="col-span-full text-center py-12">
+                        <div className="col-span-full text-centre py-12">
                           <p className="text-muted-foreground">
                             No emotions found matching your filters. Try adjusting your search criteria.
                           </p>
@@ -1630,7 +1630,7 @@ const EmotionalVocabularyDevelopment = () => {
                         </CardHeader>
                         <CardContent className="space-y-4">
                           <div className="flex flex-wrap gap-2">
-                            <Badge variant="outline" className="flex items-center">
+                            <Badge variant="outline" className="flex items-centre">
                               <Clock className="mr-1 h-3 w-3" />
                               {activity.duration}
                             </Badge>
@@ -1678,7 +1678,7 @@ const EmotionalVocabularyDevelopment = () => {
                     ))}
                     
                     {getFilteredActivities().length === 0 && (
-                      <div className="col-span-full text-center py-12">
+                      <div className="col-span-full text-centre py-12">
                         <p className="text-muted-foreground">
                           No activities found matching your filters. Try adjusting your search criteria.
                         </p>
@@ -1734,7 +1734,7 @@ const EmotionalVocabularyDevelopment = () => {
                               {quiz.difficulty}
                             </Badge>
                             
-                            <Badge variant="outline" className="flex items-center">
+                            <Badge variant="outline" className="flex items-centre">
                               <HelpCircle className="mr-1 h-3 w-3" />
                               {quiz.questions.length} questions
                             </Badge>
@@ -1746,7 +1746,7 @@ const EmotionalVocabularyDevelopment = () => {
                             ))}
                           </div>
                           
-                          <div className="flex items-center space-x-2">
+                          <div className="flex items-centre space-x-2">
                             <div className="flex-1">
                               <div className="text-sm font-medium mb-1">Sample Question:</div>
                               <div className="text-sm">{quiz.questions[0].question}</div>
@@ -1766,7 +1766,7 @@ const EmotionalVocabularyDevelopment = () => {
                     ))}
                     
                     {getFilteredQuizzes().length === 0 && (
-                      <div className="col-span-full text-center py-12">
+                      <div className="col-span-full text-centre py-12">
                         <p className="text-muted-foreground">
                           No quizzes found matching your filters. Try adjusting your search criteria.
                         </p>
@@ -1814,8 +1814,8 @@ const EmotionalVocabularyDevelopment = () => {
                       <Card key={resource.id}>
                         <div className="aspect-video relative overflow-hidden rounded-t-lg">
                           {/* In a real implementation, this would be an actual image */}
-                          <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">
-                            <Image className="h-12 w-12 text-gray-400" />
+                          <div className="absolute inset-0 bg-grey-200 flex items-centre justify-centre">
+                            <Image className="h-12 w-12 text-grey-400" />
                           </div>
                         </div>
                         <CardHeader>
@@ -1848,7 +1848,7 @@ const EmotionalVocabularyDevelopment = () => {
                     ))}
                     
                     {getFilteredResources().length === 0 && (
-                      <div className="col-span-full text-center py-12">
+                      <div className="col-span-full text-centre py-12">
                         <p className="text-muted-foreground">
                           No resources found matching your filters. Try adjusting your search criteria.
                         </p>
@@ -1933,12 +1933,12 @@ const EmotionalVocabularyDevelopment = () => {
                         <ScrollArea className="h-[300px]">
                           <div className="space-y-4">
                             {activityHistory.map(activity => (
-                              <div key={activity.id} className="flex items-start space-x-4 p-2 rounded-md hover:bg-gray-50">
+                              <div key={activity.id} className="flex items-start space-x-4 p-2 rounded-md hover:bg-grey-50">
                                 <div className="mt-0.5">
                                   {getActivityTypeIcon(activity.type)}
                                 </div>
                                 <div className="flex-1 space-y-1">
-                                  <div className="flex items-center justify-between">
+                                  <div className="flex items-centre justify-between">
                                     <p className="font-medium">{activity.name}</p>
                                     <p className="text-xs text-muted-foreground">
                                       {new Date(activity.date).toLocaleDateString('en-GB', { 
@@ -1965,7 +1965,7 @@ const EmotionalVocabularyDevelopment = () => {
                     
                     <Card>
                       <CardHeader>
-                        <CardTitle>Favorite Emotions</CardTitle>
+                        <CardTitle>Favourite Emotions</CardTitle>
                         <CardDescription>
                           Emotions you've saved for quick reference
                         </CardDescription>
@@ -1980,23 +1980,23 @@ const EmotionalVocabularyDevelopment = () => {
                               return (
                                 <div 
                                   key={emotion.id} 
-                                  className="flex items-start space-x-4 p-2 rounded-md hover:bg-gray-50 cursor-pointer"
+                                  className="flex items-start space-x-4 p-2 rounded-md hover:bg-grey-50 cursor-pointer"
                                   onClick={() => {
                                     setSelectedEmotion(emotion);
                                     setActiveTab("explore");
                                   }}
                                 >
                                   <div 
-                                    className="w-10 h-10 rounded-full flex items-center justify-center"
-                                    style={{ backgroundColor: `${emotion.color}20` }}
+                                    className="w-10 h-10 rounded-full flex items-centre justify-centre"
+                                    style={{ backgroundColor: `${emotion.colour}20` }}
                                   >
-                                    <span className="text-lg" style={{ color: emotion.color }}>
+                                    <span className="text-lg" style={{ color: emotion.colour }}>
                                       {emotion.name.charAt(0)}
                                     </span>
                                   </div>
                                   <div className="flex-1 space-y-1">
-                                    <div className="flex items-center justify-between">
-                                      <p className="font-medium" style={{ color: emotion.color }}>{emotion.name}</p>
+                                    <div className="flex items-centre justify-between">
+                                      <p className="font-medium" style={{ color: emotion.colour }}>{emotion.name}</p>
                                       <Badge variant="outline" className="capitalize text-xs">
                                         {emotion.category}
                                       </Badge>
@@ -2008,9 +2008,9 @@ const EmotionalVocabularyDevelopment = () => {
                             })}
                             
                             {favoriteEmotions.length === 0 && (
-                              <div className="text-center py-8">
+                              <div className="text-centre py-8">
                                 <p className="text-muted-foreground">
-                                  You haven't saved any favorite emotions yet. Click the heart icon on emotions you want to save.
+                                  You haven't saved any favourite emotions yet. Click the heart icon on emotions you want to save.
                                 </p>
                               </div>
                             )}
@@ -2024,14 +2024,14 @@ const EmotionalVocabularyDevelopment = () => {
                     <CardHeader>
                       <CardTitle>Preferences</CardTitle>
                       <CardDescription>
-                        Customize your emotional vocabulary learning experience
+                        Customise your emotional vocabulary learning experience
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
                       <div className="space-y-6">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                           <div className="space-y-4">
-                            <div className="flex items-center justify-between">
+                            <div className="flex items-centre justify-between">
                               <div className="space-y-0.5">
                                 <Label htmlFor="voice-enabled">Voice Narration</Label>
                                 <p className="text-sm text-muted-foreground">
@@ -2047,7 +2047,7 @@ const EmotionalVocabularyDevelopment = () => {
                               />
                             </div>
                             
-                            <div className="flex items-center justify-between">
+                            <div className="flex items-centre justify-between">
                               <div className="space-y-0.5">
                                 <Label htmlFor="animations-enabled">Animations</Label>
                                 <p className="text-sm text-muted-foreground">
@@ -2065,7 +2065,7 @@ const EmotionalVocabularyDevelopment = () => {
                           </div>
                           
                           <div className="space-y-4">
-                            <div className="flex items-center justify-between">
+                            <div className="flex items-centre justify-between">
                               <div className="space-y-0.5">
                                 <Label htmlFor="simplified-view">Simplified View</Label>
                                 <p className="text-sm text-muted-foreground">
@@ -2081,7 +2081,7 @@ const EmotionalVocabularyDevelopment = () => {
                               />
                             </div>
                             
-                            <div className="flex items-center justify-between">
+                            <div className="flex items-centre justify-between">
                               <div className="space-y-0.5">
                                 <Label htmlFor="high-contrast">High Contrast</Label>
                                 <p className="text-sm text-muted-foreground">

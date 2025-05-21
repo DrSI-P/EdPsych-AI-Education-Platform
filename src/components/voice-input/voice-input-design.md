@@ -8,7 +8,7 @@ This document outlines the design for enhancing the voice input feature in the E
 
 1. **Age-Appropriate Design**: Tailored experiences for different age groups from nursery to end of compulsory school age
 2. **Accessibility-First**: Prioritizing the needs of children with typing difficulties and other special educational needs
-3. **Seamless Integration**: Consistent availability and behavior across all platform areas
+3. **Seamless Integration**: Consistent availability and behaviour across all platform areas
 4. **Engaging Experience**: Visual feedback and guidance that motivates and supports users
 5. **Educational Support**: Features that help develop communication skills while providing alternative input methods
 
@@ -181,20 +181,20 @@ import { motion } from 'framer-motion';
 
 ### 5. Activity-Specific Voice Input Components
 
-Specialized components for different learning activities:
+Specialised components for different learning activities:
 
 ```typescript
 // src/components/voice-input/activity-specific/assessment-voice-input.tsx
-// Optimized for answering assessment questions
+// Optimised for answering assessment questions
 
 // src/components/voice-input/activity-specific/immersive-voice-input.tsx
-// Optimized for immersive learning environments with 3D navigation commands
+// Optimised for immersive learning environments with 3D navigation commands
 
 // src/components/voice-input/activity-specific/adaptive-complexity-voice-input.tsx
 // Integration with adaptive complexity feature
 ```
 
-### 6. Voice Input Tutorial and Practice
+### 6. Voice Input Tutorial and Practise
 
 Components to help children learn effective voice input usage:
 
@@ -202,8 +202,8 @@ Components to help children learn effective voice input usage:
 // src/components/voice-input/tutorial/voice-input-tutorial.tsx
 // Interactive tutorial with age-appropriate guidance
 
-// src/components/voice-input/practice/voice-input-practice.tsx
-// Practice activities for developing voice input skills
+// src/components/voice-input/practise/voice-input-practise.tsx
+// Practise activities for developing voice input skills
 ```
 
 ## User Experience Design
@@ -302,17 +302,17 @@ Components to help children learn effective voice input usage:
 1. **Voice Input Provider**: Core infrastructure for platform-wide voice capabilities
 2. **Age-Graduated Recognition**: Enhanced recognition with age-specific optimizations
 3. **Universal Voice Input Component**: Flexible component for use throughout the platform
-4. **Assessment Integration**: Voice input optimized for assessment activities
+4. **Assessment Integration**: Voice input optimised for assessment activities
 5. **Adaptive Complexity Integration**: Voice controls for the adaptive complexity feature
-6. **Tutorial and Practice**: Support for learning effective voice input usage
+6. **Tutorial and Practise**: Support for learning effective voice input usage
 
 ## Technical Considerations
 
-1. **Performance**: Optimize for low-latency response, especially for younger users
+1. **Performance**: Optimise for low-latency response, especially for younger users
 2. **Privacy**: Ensure voice data is handled securely and in compliance with regulations
 3. **Offline Support**: Provide basic functionality when internet connection is limited
 4. **Browser Compatibility**: Ensure consistent experience across supported browsers
-5. **Mobile Support**: Optimize for touch devices commonly used in educational settings
+5. **Mobile Support**: Optimise for touch devices commonly used in educational settings
 
 ## Success Metrics
 

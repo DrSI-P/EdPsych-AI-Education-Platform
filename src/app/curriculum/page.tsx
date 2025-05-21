@@ -214,7 +214,7 @@ export default function CurriculumPlanner() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-centre mb-8">
         <div>
           <h1 className="text-3xl font-bold text-primary">Curriculum Planner</h1>
           <p className="text-muted-foreground mt-2">
@@ -237,7 +237,7 @@ export default function CurriculumPlanner() {
         <div className="lg:col-span-1">
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg flex items-center">
+              <CardTitle className="text-lg flex items-centre">
                 <Filter className="mr-2 h-5 w-5" />
                 Filters
               </CardTitle>
@@ -333,7 +333,7 @@ export default function CurriculumPlanner() {
                 />
               </div>
             </form>
-            <div className="flex items-center space-x-2">
+            <div className="flex items-centre space-x-2">
               <Button 
                 variant={viewMode === 'grid' ? 'default' : 'outline'} 
                 size="icon"
@@ -354,16 +354,16 @@ export default function CurriculumPlanner() {
           {/* Tabs for Curriculum Content */}
           <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-6">
             <TabsList className="w-full sm:w-auto">
-              <TabsTrigger value="plans" className="flex items-center">
+              <TabsTrigger value="plans" className="flex items-centre">
                 <FileText className="mr-2 h-4 w-4" />
                 Curriculum Plans
               </TabsTrigger>
-              <TabsTrigger value="standards" className="flex items-center">
+              <TabsTrigger value="standards" className="flex items-centre">
                 <LayoutGrid className="mr-2 h-4 w-4" />
                 Curriculum Standards
               </TabsTrigger>
               {session && (
-                <TabsTrigger value="my-plans" className="flex items-center">
+                <TabsTrigger value="my-plans" className="flex items-centre">
                   <Calendar className="mr-2 h-4 w-4" />
                   My Plans
                 </TabsTrigger>
@@ -373,7 +373,7 @@ export default function CurriculumPlanner() {
             {/* Curriculum Plans Tab */}
             <TabsContent value="plans" className="mt-6">
               {filteredPlans.length === 0 ? (
-                <div className="text-center py-12">
+                <div className="text-centre py-12">
                   <BookOpen className="mx-auto h-12 w-12 text-muted-foreground" />
                   <h3 className="mt-4 text-lg font-medium">No curriculum plans found</h3>
                   <p className="mt-2 text-muted-foreground">
@@ -403,22 +403,22 @@ export default function CurriculumPlanner() {
                           {plan.description}
                         </p>
                         <div className="grid grid-cols-3 gap-2 mt-4">
-                          <div className="text-center p-2 bg-muted rounded-md">
+                          <div className="text-centre p-2 bg-muted rounded-md">
                             <p className="text-sm font-medium">{plan.objectives}</p>
                             <p className="text-xs text-muted-foreground">Objectives</p>
                           </div>
-                          <div className="text-center p-2 bg-muted rounded-md">
+                          <div className="text-centre p-2 bg-muted rounded-md">
                             <p className="text-sm font-medium">{plan.resources}</p>
                             <p className="text-xs text-muted-foreground">Resources</p>
                           </div>
-                          <div className="text-center p-2 bg-muted rounded-md">
+                          <div className="text-centre p-2 bg-muted rounded-md">
                             <p className="text-sm font-medium">{plan.assessments}</p>
                             <p className="text-xs text-muted-foreground">Assessments</p>
                           </div>
                         </div>
                       </CardContent>
                       <CardFooter className="border-t pt-4">
-                        <div className="flex justify-between items-center w-full">
+                        <div className="flex justify-between items-centre w-full">
                           <span className="text-xs text-muted-foreground">
                             Last updated: {plan.lastUpdated}
                           </span>
@@ -441,7 +441,7 @@ export default function CurriculumPlanner() {
                         <div className="flex-1 p-6">
                           <div className="flex flex-col md:flex-row justify-between">
                             <div>
-                              <div className="flex items-center">
+                              <div className="flex items-centre">
                                 <h3 className="text-lg font-semibold">
                                   <Link href={`/curriculum/plans/${plan.id}`} className="hover:underline">
                                     {plan.title}
@@ -462,7 +462,7 @@ export default function CurriculumPlanner() {
                           <p className="mt-4 text-sm text-muted-foreground">
                             {plan.description}
                           </p>
-                          <div className="mt-4 flex items-center justify-between">
+                          <div className="mt-4 flex items-centre justify-between">
                             <div className="flex space-x-4">
                               <div className="text-sm">
                                 <span className="font-medium">{plan.objectives}</span> objectives
@@ -492,7 +492,7 @@ export default function CurriculumPlanner() {
 
               {/* Pagination */}
               {filteredPlans.length > 0 && (
-                <div className="flex justify-center mt-8">
+                <div className="flex justify-centre mt-8">
                   <Pagination>
                     <Button 
                       variant="outline" 
@@ -502,7 +502,7 @@ export default function CurriculumPlanner() {
                     >
                       Previous
                     </Button>
-                    <div className="flex items-center mx-4">
+                    <div className="flex items-centre mx-4">
                       <span className="text-sm">
                         Page {currentPage} of {Math.ceil(filteredPlans.length / 6)}
                       </span>
@@ -523,7 +523,7 @@ export default function CurriculumPlanner() {
             {/* Curriculum Standards Tab */}
             <TabsContent value="standards" className="mt-6">
               {filteredStandards.length === 0 ? (
-                <div className="text-center py-12">
+                <div className="text-centre py-12">
                   <BookOpen className="mx-auto h-12 w-12 text-muted-foreground" />
                   <h3 className="mt-4 text-lg font-medium">No curriculum standards found</h3>
                   <p className="mt-2 text-muted-foreground">
@@ -537,7 +537,7 @@ export default function CurriculumPlanner() {
                       <CardHeader className="pb-2">
                         <div className="flex justify-between items-start">
                           <div>
-                            <CardTitle className="text-lg flex items-center">
+                            <CardTitle className="text-lg flex items-centre">
                               <Badge variant="outline" className="mr-2">
                                 {standard.code}
                               </Badge>
@@ -566,7 +566,7 @@ export default function CurriculumPlanner() {
 
               {/* Pagination */}
               {filteredStandards.length > 0 && (
-                <div className="flex justify-center mt-8">
+                <div className="flex justify-centre mt-8">
                   <Pagination>
                     <Button 
                       variant="outline" 
@@ -576,7 +576,7 @@ export default function CurriculumPlanner() {
                     >
                       Previous
                     </Button>
-                    <div className="flex items-center mx-4">
+                    <div className="flex items-centre mx-4">
                       <span className="text-sm">
                         Page {currentPage} of {Math.ceil(filteredStandards.length / 6)}
                       </span>
@@ -597,7 +597,7 @@ export default function CurriculumPlanner() {
             {/* My Plans Tab */}
             {session && (
               <TabsContent value="my-plans" className="mt-6">
-                <div className="text-center py-12">
+                <div className="text-centre py-12">
                   <Calendar className="mx-auto h-12 w-12 text-muted-foreground" />
                   <h3 className="mt-4 text-lg font-medium">My Curriculum Plans</h3>
                   <p className="mt-2 text-muted-foreground">

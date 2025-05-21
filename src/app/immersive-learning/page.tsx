@@ -117,7 +117,7 @@ export default function ImmersiveLearningPage() {
     {
       id: '6',
       title: 'Mathematical Visualizations',
-      description: 'Visualize complex mathematical concepts in 3D space to better understand abstract ideas.',
+      description: 'Visualise complex mathematical concepts in 3D space to better understand abstract ideas.',
       type: '3d',
       thumbnailUrl: '/images/math.jpg',
       scenarioUrl: '/scenarios/math'
@@ -166,7 +166,7 @@ export default function ImmersiveLearningPage() {
         }}
       >
         <Card className="h-full flex flex-col overflow-hidden hover:shadow-lg transition-shadow duration-300">
-          <div className="relative h-40 overflow-hidden bg-gray-100">
+          <div className="relative h-40 overflow-hidden bg-grey-100">
             {experience.thumbnailUrl ? (
               <img 
                 src={experience.thumbnailUrl} 
@@ -174,8 +174,8 @@ export default function ImmersiveLearningPage() {
                 className="w-full h-full object-cover"
               />
             ) : (
-              <div className="w-full h-full flex items-center justify-center bg-gray-200">
-                <span className="text-gray-500">No preview available</span>
+              <div className="w-full h-full flex items-centre justify-centre bg-grey-200">
+                <span className="text-grey-500">No preview available</span>
               </div>
             )}
             <div className="absolute top-2 right-2 px-2 py-1 text-xs rounded-full bg-blue-500 text-white">
@@ -187,7 +187,7 @@ export default function ImmersiveLearningPage() {
             <h3 className="text-lg font-semibold">{experience.title}</h3>
           </CardHeader>
           <CardContent className="flex-grow">
-            <p className="text-sm text-gray-600">{experience.description}</p>
+            <p className="text-sm text-grey-600">{experience.description}</p>
           </CardContent>
           <div className="p-4 pt-0 mt-auto">
             <Button 
@@ -229,11 +229,11 @@ export default function ImmersiveLearningPage() {
               controlsPosition="bottom-right"
               className="w-full h-full"
             >
-              <div className="w-full h-full flex items-center justify-center">
-                <div className="text-center p-8 bg-white/80 backdrop-blur-sm rounded-lg shadow-lg">
+              <div className="w-full h-full flex items-centre justify-centre">
+                <div className="text-centre p-8 bg-white/80 backdrop-blur-sm rounded-lg shadow-lg">
                   <h2 className="text-2xl font-bold mb-4">{activeExperience.title}</h2>
                   <p className="mb-6">{activeExperience.description}</p>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-grey-600">
                     This is a placeholder for the actual 3D/VR/AR content that would be loaded from {activeExperience.scenarioUrl}
                   </p>
                 </div>
@@ -245,10 +245,10 @@ export default function ImmersiveLearningPage() {
         // Experience selection view
         <div className="container mx-auto px-4 py-8">
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            <h1 className="text-3xl font-bold text-grey-900 mb-2">
               Immersive Learning
             </h1>
-            <p className="text-gray-600">
+            <p className="text-grey-600">
               Explore interactive 3D, VR, and AR learning experiences designed to make complex concepts more engaging and accessible.
             </p>
           </div>
@@ -282,8 +282,8 @@ export default function ImmersiveLearningPage() {
                 {vrExperiences.length > 0 ? (
                   vrExperiences.map((exp, index) => renderExperienceCard(exp, index))
                 ) : (
-                  <div className="col-span-full text-center py-12">
-                    <p className="text-gray-500">No VR experiences available yet.</p>
+                  <div className="col-span-full text-centre py-12">
+                    <p className="text-grey-500">No VR experiences available yet.</p>
                   </div>
                 )}
               </motion.div>
@@ -299,8 +299,8 @@ export default function ImmersiveLearningPage() {
                 {arExperiences.length > 0 ? (
                   arExperiences.map((exp, index) => renderExperienceCard(exp, index))
                 ) : (
-                  <div className="col-span-full text-center py-12">
-                    <p className="text-gray-500">No AR experiences available yet.</p>
+                  <div className="col-span-full text-centre py-12">
+                    <p className="text-grey-500">No AR experiences available yet.</p>
                   </div>
                 )}
               </motion.div>
@@ -316,8 +316,8 @@ export default function ImmersiveLearningPage() {
                 {threeDExperiences.length > 0 ? (
                   threeDExperiences.map((exp, index) => renderExperienceCard(exp, index))
                 ) : (
-                  <div className="col-span-full text-center py-12">
-                    <p className="text-gray-500">No 3D experiences available yet.</p>
+                  <div className="col-span-full text-centre py-12">
+                    <p className="text-grey-500">No 3D experiences available yet.</p>
                   </div>
                 )}
               </motion.div>
@@ -328,7 +328,7 @@ export default function ImmersiveLearningPage() {
             initial="hidden"
             animate="visible"
             variants={pageTransitionVariants}
-            className="mt-12 bg-gray-50 rounded-lg p-6"
+            className="mt-12 bg-grey-50 rounded-lg p-6"
           >
             <h2 className="text-xl font-semibold mb-4">About Immersive Learning</h2>
             <p className="mb-4">

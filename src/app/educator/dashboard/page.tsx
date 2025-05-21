@@ -74,7 +74,7 @@ export default function EducatorDashboardPage() {
     },
     {
       title: 'Settings',
-      description: 'Customize your administrative automation preferences',
+      description: 'Customise your administrative automation preferences',
       icon: <Settings className="h-6 w-6" />,
       action: () => {
         toast({
@@ -126,7 +126,7 @@ export default function EducatorDashboardPage() {
                     onClick={action.action}
                   >
                     <div className="flex flex-col items-start text-left">
-                      <div className="flex items-center mb-2">
+                      <div className="flex items-centre mb-2">
                         {action.icon}
                         <span className="ml-2 font-medium">{action.title}</span>
                       </div>
@@ -145,7 +145,7 @@ export default function EducatorDashboardPage() {
                 </CardHeader>
                 <CardContent className="space-y-2">
                   {recentDocuments.map(doc => (
-                    <div key={doc.id} className="flex justify-between items-center p-2 hover:bg-muted rounded-md">
+                    <div key={doc.id} className="flex justify-between items-centre p-2 hover:bg-muted rounded-md">
                       <div>
                         <p className="font-medium">{doc.title}</p>
                         <p className="text-sm text-muted-foreground">{doc.date}</p>
@@ -168,7 +168,7 @@ export default function EducatorDashboardPage() {
                 </CardHeader>
                 <CardContent className="space-y-2">
                   {recentLessonPlans.map(plan => (
-                    <div key={plan.id} className="flex justify-between items-center p-2 hover:bg-muted rounded-md">
+                    <div key={plan.id} className="flex justify-between items-centre p-2 hover:bg-muted rounded-md">
                       <div>
                         <p className="font-medium">{plan.title}</p>
                         <p className="text-sm text-muted-foreground">{plan.subject} | {plan.yearGroup} | {plan.date}</p>
@@ -200,7 +200,7 @@ export default function EducatorDashboardPage() {
               <ul>
                 <li>
                   <strong>Automated Documentation</strong> - Easily create structured documentation for classroom observations,
-                  student conferences, behavior incidents, parent meetings, and lesson reflections.
+                  student conferences, behaviour incidents, parent meetings, and lesson reflections.
                 </li>
                 <li>
                   <strong>Smart Lesson Planning</strong> - Design comprehensive, differentiated lesson plans aligned with
