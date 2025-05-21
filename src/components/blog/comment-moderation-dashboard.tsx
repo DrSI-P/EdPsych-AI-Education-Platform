@@ -48,16 +48,16 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+} from "@/components/ui/alert-dialogue";
 import { 
-  Dialog,
+  Dialogue,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@/components/ui/dialogue";
 import { 
   BarChart, 
   BookOpen, 
@@ -261,7 +261,7 @@ const CommentModerationDashboard = () => {
     }, 1000);
   };
   
-  // Open rejection dialog
+  // Open rejection dialogue
   const openRejectionDialog = (comment) => {
     setSelectedComment(comment);
     setRejectionReason("");
@@ -325,7 +325,7 @@ const CommentModerationDashboard = () => {
           <Card key={comment.id} className={comment.flags > 0 ? "border-yellow-200 bg-yellow-50" : ""}>
             <CardHeader className="pb-2">
               <div className="flex justify-between items-start">
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <Avatar>
                     <AvatarImage src={comment.author.avatar} alt={comment.author.name} />
                     <AvatarFallback>{comment.author.name.charAt(0)}</AvatarFallback>
@@ -335,7 +335,7 @@ const CommentModerationDashboard = () => {
                     <p className="text-xs text-muted-foreground">{comment.author.role}</p>
                   </div>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   {comment.flags > 0 && (
                     <Badge variant="outline" className="bg-yellow-100 text-yellow-800 border-yellow-200">
                       <Flag className="h-3 w-3 mr-1" />
@@ -362,7 +362,7 @@ const CommentModerationDashboard = () => {
               
               {comment.reports && comment.reports.length > 0 && (
                 <div className="mt-4 p-3 bg-red-50 border border-red-100 rounded-md">
-                  <h4 className="text-sm font-medium text-red-800 flex items-center">
+                  <h4 className="text-sm font-medium text-red-800 flex items-centre">
                     <Shield className="h-4 w-4 mr-1" />
                     Reported Content
                   </h4>
@@ -427,7 +427,7 @@ const CommentModerationDashboard = () => {
           </Card>
         ))
       ) : (
-        <div className="text-center py-12">
+        <div className="text-centre py-12">
           <MessageSquare className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
           <h3 className="text-lg font-medium">No comments to moderate</h3>
           <p className="text-sm text-muted-foreground mt-2">
@@ -497,10 +497,10 @@ const CommentModerationDashboard = () => {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="h-[300px] flex items-center justify-center">
-              <div className="text-center text-muted-foreground">
+            <div className="h-[300px] flex items-centre justify-centre">
+              <div className="text-centre text-muted-foreground">
                 <BarChart className="h-16 w-16 mx-auto mb-2" />
-                <p>Chart visualization would appear here</p>
+                <p>Chart visualisation would appear here</p>
                 <p className="text-sm">Showing approved vs rejected comments by day</p>
               </div>
             </div>
@@ -517,9 +517,9 @@ const CommentModerationDashboard = () => {
           <CardContent>
             <div className="space-y-4">
               {moderationStats.topReportReasons.map((item) => (
-                <div key={item.reason} className="flex items-center">
+                <div key={item.reason} className="flex items-centre">
                   <div className="w-1/3 text-sm capitalize">{item.reason}</div>
-                  <div className="w-2/3 flex items-center">
+                  <div className="w-2/3 flex items-centre">
                     <div 
                       className="h-2 bg-primary rounded-full" 
                       style={{ 
@@ -581,7 +581,7 @@ const CommentModerationDashboard = () => {
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="space-y-4">
-            <div className="flex items-center justify-between">
+            <div className="flex items-centre justify-between">
               <div className="space-y-0.5">
                 <Label htmlFor="auto-flag">Auto-Flag Suspicious Comments</Label>
                 <p className="text-sm text-muted-foreground">
@@ -593,7 +593,7 @@ const CommentModerationDashboard = () => {
             
             <Separator />
             
-            <div className="flex items-center justify-between">
+            <div className="flex items-centre justify-between">
               <div className="space-y-0.5">
                 <Label htmlFor="auto-approve">Auto-Approve Safe Comments</Label>
                 <p className="text-sm text-muted-foreground">
@@ -605,7 +605,7 @@ const CommentModerationDashboard = () => {
             
             <Separator />
             
-            <div className="flex items-center justify-between">
+            <div className="flex items-centre justify-between">
               <div className="space-y-0.5">
                 <Label htmlFor="auto-reject">Auto-Reject Harmful Comments</Label>
                 <p className="text-sm text-muted-foreground">
@@ -764,7 +764,7 @@ const CommentModerationDashboard = () => {
           <div className="space-y-2">
             <h3 className="text-lg font-medium">AI Capabilities</h3>
             <p className="text-sm">
-              Our AI moderation system helps identify potentially problematic content by analyzing:
+              Our AI moderation system helps identify potentially problematic content by analysing:
             </p>
             <ul className="list-disc pl-5 mt-2 space-y-1 text-sm">
               <li>Toxic language and personal attacks</li>
@@ -776,7 +776,7 @@ const CommentModerationDashboard = () => {
           </div>
           
           <div className="p-4 bg-yellow-50 border border-yellow-100 rounded-md">
-            <h4 className="text-sm font-medium text-yellow-800 flex items-center">
+            <h4 className="text-sm font-medium text-yellow-800 flex items-centre">
               <HelpCircle className="h-4 w-4 mr-1" />
               Important Limitations
             </h4>
@@ -803,9 +803,9 @@ const CommentModerationDashboard = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex items-centre justify-between">
         <h1 className="text-2xl font-bold">Comment Moderation</h1>
-        <div className="flex items-center space-x-2">
+        <div className="flex items-centre space-x-2">
           <form onSubmit={handleSearch} className="flex space-x-2">
             <Input
               placeholder="Search comments..."
@@ -872,8 +872,8 @@ const CommentModerationDashboard = () => {
         </TabsContent>
       </Tabs>
       
-      {/* Rejection Reason Dialog */}
-      <Dialog open={showRejectionDialog} onOpenChange={setShowRejectionDialog}>
+      {/* Rejection Reason Dialogue */}
+      <Dialogue open={showRejectionDialog} onOpenChange={setShowRejectionDialog}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Reject Comment</DialogTitle>
@@ -948,7 +948,7 @@ const CommentModerationDashboard = () => {
             </Button>
           </DialogFooter>
         </DialogContent>
-      </Dialog>
+      </Dialogue>
     </div>
   );
 };

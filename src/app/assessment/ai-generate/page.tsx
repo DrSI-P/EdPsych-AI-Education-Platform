@@ -151,7 +151,7 @@ export default function AIAssessmentGeneratorPage() {
       <div className="space-y-6">
         <div className="mb-6">
           <h2 className="text-xl font-semibold mb-2">AI Assessment Generator</h2>
-          <p className="text-gray-600">
+          <p className="text-grey-600">
             Use AI to generate assessments based on your requirements. You can provide a detailed prompt or use the guided options below.
           </p>
         </div>
@@ -164,9 +164,9 @@ export default function AIAssessmentGeneratorPage() {
             <CardContent>
               <Form className="space-y-4">
                 <div className="space-y-2">
-                  <label className="block text-sm font-medium text-gray-700">Subject</label>
+                  <label className="block text-sm font-medium text-grey-700">Subject</label>
                   <select
-                    className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                    className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-grey-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
                     value={subject}
                     onChange={(e) => setSubject(e.target.value)}
                   >
@@ -180,9 +180,9 @@ export default function AIAssessmentGeneratorPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="block text-sm font-medium text-gray-700">Key Stage</label>
+                  <label className="block text-sm font-medium text-grey-700">Key Stage</label>
                   <select
-                    className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                    className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-grey-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
                     value={keyStage}
                     onChange={(e) => setKeyStage(e.target.value)}
                   >
@@ -196,9 +196,9 @@ export default function AIAssessmentGeneratorPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="block text-sm font-medium text-gray-700">Assessment Type</label>
+                  <label className="block text-sm font-medium text-grey-700">Assessment Type</label>
                   <select
-                    className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                    className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-grey-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
                     value={assessmentType}
                     onChange={(e) => setAssessmentType(e.target.value)}
                   >
@@ -211,12 +211,12 @@ export default function AIAssessmentGeneratorPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="block text-sm font-medium text-gray-700">Number of Questions</label>
+                  <label className="block text-sm font-medium text-grey-700">Number of Questions</label>
                   <input
                     type="number"
                     min="1"
                     max="50"
-                    className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                    className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-grey-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
                     value={questionCount}
                     onChange={(e) => setQuestionCount(parseInt(e.target.value) || 10)}
                   />
@@ -231,21 +231,21 @@ export default function AIAssessmentGeneratorPage() {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-grey-600">
                   Select the types of questions you want to include in your assessment.
                 </p>
                 
                 <div className="space-y-2">
                   {questionTypes.map((type) => (
-                    <div key={type.value} className="flex items-center">
+                    <div key={type.value} className="flex items-centre">
                       <input
                         id={`question-type-${type.value}`}
                         type="checkbox"
-                        className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                        className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-grey-300 rounded"
                         checked={selectedQuestionTypes.includes(type.value)}
                         onChange={() => handleToggleQuestionType(type.value)}
                       />
-                      <label htmlFor={`question-type-${type.value}`} className="ml-2 block text-sm text-gray-900">
+                      <label htmlFor={`question-type-${type.value}`} className="ml-2 block text-sm text-grey-900">
                         {type.label}
                       </label>
                     </div>
@@ -267,11 +267,11 @@ export default function AIAssessmentGeneratorPage() {
             <h3 className="text-lg font-medium">Detailed Prompt (Optional)</h3>
           </CardHeader>
           <CardContent>
-            <p className="text-sm text-gray-600 mb-4">
+            <p className="text-sm text-grey-600 mb-4">
               Provide additional details about the assessment you want to generate. The more specific you are, the better the results will be.
             </p>
             <textarea
-              className="w-full h-32 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              className="w-full h-32 p-2 border border-grey-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
               placeholder="E.g., Create an assessment about photosynthesis for Year 8 students. Include questions about the process, required materials, and importance to plant life."
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
@@ -306,8 +306,8 @@ export default function AIAssessmentGeneratorPage() {
   const renderPreviewTab = () => {
     if (!generatedAssessment) {
       return (
-        <div className="text-center py-12">
-          <p className="text-gray-500">
+        <div className="text-centre py-12">
+          <p className="text-grey-500">
             Generate an assessment to preview it here.
           </p>
         </div>
@@ -321,23 +321,23 @@ export default function AIAssessmentGeneratorPage() {
             <h3 className="text-xl font-semibold">{generatedAssessment.title}</h3>
           </CardHeader>
           <CardContent>
-            <p className="text-gray-600 mb-4">{generatedAssessment.description}</p>
+            <p className="text-grey-600 mb-4">{generatedAssessment.description}</p>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
               <div>
-                <p className="text-sm font-medium text-gray-500">Subject</p>
+                <p className="text-sm font-medium text-grey-500">Subject</p>
                 <p className="text-base">{subjects.find(s => s.value === generatedAssessment.subject)?.label || generatedAssessment.subject}</p>
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-500">Key Stage</p>
+                <p className="text-sm font-medium text-grey-500">Key Stage</p>
                 <p className="text-base">{keyStages.find(k => k.value === generatedAssessment.keyStage)?.label || generatedAssessment.keyStage}</p>
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-500">Assessment Type</p>
+                <p className="text-sm font-medium text-grey-500">Assessment Type</p>
                 <p className="text-base">{assessmentTypes.find(t => t.value === generatedAssessment.type)?.label || generatedAssessment.type}</p>
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-500">Questions</p>
+                <p className="text-sm font-medium text-grey-500">Questions</p>
                 <p className="text-base">{generatedAssessment.questions.length}</p>
               </div>
             </div>
@@ -349,7 +349,7 @@ export default function AIAssessmentGeneratorPage() {
                 <div key={index} className="border rounded-md p-4">
                   <div className="flex justify-between mb-2">
                     <h5 className="font-medium">Question {index + 1}</h5>
-                    <span className="text-sm text-gray-500">
+                    <span className="text-sm text-grey-500">
                       {questionTypes.find(t => t.value === question.type)?.label || question.type}
                     </span>
                   </div>
@@ -359,14 +359,14 @@ export default function AIAssessmentGeneratorPage() {
                   {question.type === 'multiple-choice' && question.options && (
                     <div className="ml-4 mt-2 space-y-2">
                       {question.options.map((option, optIndex) => (
-                        <div key={optIndex} className="flex items-center">
+                        <div key={optIndex} className="flex items-centre">
                           <input
                             type="radio"
                             name={`question-${index}`}
                             disabled
-                            className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300"
+                            className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-grey-300"
                           />
-                          <label className="ml-2 block text-sm text-gray-900">
+                          <label className="ml-2 block text-sm text-grey-900">
                             {option.text}
                             {option.isCorrect && previewMode && (
                               <span className="ml-2 text-green-600">(Correct)</span>
@@ -401,8 +401,8 @@ export default function AIAssessmentGeneratorPage() {
                   )}
                   
                   {previewMode && question.answer && (
-                    <div className="mt-2 p-2 bg-gray-50 rounded">
-                      <p className="text-sm font-medium text-gray-700">Expected Answer:</p>
+                    <div className="mt-2 p-2 bg-grey-50 rounded">
+                      <p className="text-sm font-medium text-grey-700">Expected Answer:</p>
                       <p className="text-sm">{question.answer}</p>
                     </div>
                   )}
@@ -448,8 +448,8 @@ export default function AIAssessmentGeneratorPage() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-6">
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-gray-900">AI Assessment Generator</h1>
+        <div className="flex items-centre justify-between">
+          <h1 className="text-2xl font-bold text-grey-900">AI Assessment Generator</h1>
           <Button
             variant="outline"
             onClick={() => router.push('/assessment')}

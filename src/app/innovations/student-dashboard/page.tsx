@@ -47,14 +47,14 @@ export default function StudentDashboard() {
         {/* Sidebar */}
         <div className="w-full md:w-64 space-y-4">
           <Card>
-            <CardContent className="p-4 flex flex-col items-center">
+            <CardContent className="p-4 flex flex-col items-centre">
               <Avatar className="h-20 w-20 my-2">
                 <AvatarImage src="/images/avatars/student-avatar.png" alt="Student Avatar" />
                 <AvatarFallback>JD</AvatarFallback>
               </Avatar>
               <h2 className="text-xl font-bold mt-2">Jamie Davies</h2>
               <p className="text-muted-foreground">Year 5 - Maple Class</p>
-              <div className="flex items-center mt-2">
+              <div className="flex items-centre mt-2">
                 <Star className="h-4 w-4 text-yellow-500 fill-yellow-500" />
                 <Star className="h-4 w-4 text-yellow-500 fill-yellow-500" />
                 <Star className="h-4 w-4 text-yellow-500 fill-yellow-500" />
@@ -154,7 +154,7 @@ export default function StudentDashboard() {
                   </PieChart>
                 </ResponsiveContainer>
               </div>
-              <div className="text-xs text-center text-muted-foreground mt-2">
+              <div className="text-xs text-centre text-muted-foreground mt-2">
                 Based on your learning activities and preferences
               </div>
             </CardContent>
@@ -163,14 +163,14 @@ export default function StudentDashboard() {
         
         {/* Main Content */}
         <div className="flex-1">
-          <div className="flex justify-between items-center mb-6">
+          <div className="flex justify-between items-centre mb-6">
             <div>
               <h1 className="text-3xl font-bold tracking-tight">Student Dashboard</h1>
               <p className="text-muted-foreground">
                 Track your progress, manage assignments, and set learning goals
               </p>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex items-centre gap-4">
               <div className="relative">
                 <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
                 <input
@@ -193,7 +193,7 @@ export default function StudentDashboard() {
               {/* Quick Stats */}
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
                 <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">
                       Overall Progress
                     </CardTitle>
@@ -208,7 +208,7 @@ export default function StudentDashboard() {
                   </CardContent>
                 </Card>
                 <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">
                       Assignments Completed
                     </CardTitle>
@@ -223,7 +223,7 @@ export default function StudentDashboard() {
                   </CardContent>
                 </Card>
                 <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">
                       Learning Hours
                     </CardTitle>
@@ -238,7 +238,7 @@ export default function StudentDashboard() {
                   </CardContent>
                 </Card>
                 <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">
                       Achievement Badges
                     </CardTitle>
@@ -342,12 +342,12 @@ export default function StudentDashboard() {
                       { title: "Science Experiment", subject: "Science", due: "5 days", status: "Not Started", priority: "Medium" },
                       { title: "History Timeline", subject: "History", due: "1 week", status: "In Progress", priority: "Low" },
                     ].map((assignment, i) => (
-                      <div key={i} className="flex items-center justify-between p-3 border rounded-lg">
+                      <div key={i} className="flex items-centre justify-between p-3 border rounded-lg">
                         <div className="flex-1">
                           <div className="font-medium">{assignment.title}</div>
                           <div className="text-sm text-muted-foreground">{assignment.subject} • Due: {assignment.due}</div>
                         </div>
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-centre gap-3">
                           <Badge variant={
                             assignment.status === "Not Started" ? "outline" : 
                             assignment.status === "In Progress" ? "secondary" : "default"
@@ -392,16 +392,16 @@ export default function StudentDashboard() {
                       <Card key={i} className="overflow-hidden">
                         <div className="bg-primary h-2"></div>
                         <CardHeader className="p-4">
-                          <div className="flex justify-center mb-2">
+                          <div className="flex justify-centre mb-2">
                             <div className="rounded-full bg-primary/10 p-2">
                               <Trophy className="h-6 w-6 text-primary" />
                             </div>
                           </div>
-                          <CardTitle className="text-center text-sm">{achievement.name}</CardTitle>
+                          <CardTitle className="text-centre text-sm">{achievement.name}</CardTitle>
                         </CardHeader>
                         <CardContent className="p-4 pt-0">
-                          <p className="text-xs text-center text-muted-foreground">{achievement.description}</p>
-                          <p className="text-xs text-center mt-2 font-medium">{achievement.date}</p>
+                          <p className="text-xs text-centre text-muted-foreground">{achievement.description}</p>
+                          <p className="text-xs text-centre mt-2 font-medium">{achievement.date}</p>
                         </CardContent>
                       </Card>
                     ))}
@@ -424,12 +424,12 @@ export default function StudentDashboard() {
                   This section is under development. Please check back soon for updates.
                 </CardDescription>
               </CardHeader>
-              <CardContent className="flex flex-col items-center justify-center py-10">
+              <CardContent className="flex flex-col items-centre justify-centre py-10">
                 <div className="rounded-full bg-primary/10 p-6 mb-4">
                   <Settings className="h-10 w-10 text-primary animate-spin-slow" />
                 </div>
                 <h3 className="text-xl font-medium mb-2">Coming Soon</h3>
-                <p className="text-center text-muted-foreground max-w-md">
+                <p className="text-centre text-muted-foreground max-w-md">
                   We're working hard to bring you the best {activeTab} experience. 
                   This feature will be available in the next update.
                 </p>

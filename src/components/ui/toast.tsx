@@ -39,7 +39,7 @@ export function ToastClose({ onClick, className = '' }: ToastCloseProps) {
   return (
     <button 
       onClick={onClick} 
-      className={`ml-auto flex h-6 w-6 items-center justify-center rounded-md hover:bg-gray-100 ${className}`}
+      className={`ml-auto flex h-6 w-6 items-centre justify-centre rounded-md hover:bg-grey-100 ${className}`}
       aria-label="Close"
     >
       <svg
@@ -63,7 +63,7 @@ export function ToastClose({ onClick, className = '' }: ToastCloseProps) {
 export interface ToastViewportProps {
   children: React.ReactNode;
   className?: string;
-  position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left' | 'top-center' | 'bottom-center';
+  position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left' | 'top-centre' | 'bottom-centre';
 }
 
 export function ToastViewport({ 
@@ -77,8 +77,8 @@ export function ToastViewport({
     'top-left': 'top-0 left-0 flex flex-col pt-4 pl-4',
     'bottom-right': 'bottom-0 right-0 flex flex-col pb-4 pr-4',
     'bottom-left': 'bottom-0 left-0 flex flex-col pb-4 pl-4',
-    'top-center': 'top-0 left-1/2 transform -translate-x-1/2 flex flex-col pt-4',
-    'bottom-center': 'bottom-0 left-1/2 transform -translate-x-1/2 flex flex-col pb-4',
+    'top-centre': 'top-0 left-1/2 transform -translate-x-1/2 flex flex-col pt-4',
+    'bottom-centre': 'bottom-0 left-1/2 transform -translate-x-1/2 flex flex-col pb-4',
   };
 
   return (
@@ -93,7 +93,7 @@ interface ToastProps {
   type?: 'success' | 'error' | 'warning' | 'info';
   duration?: number;
   onClose?: () => void;
-  position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left' | 'top-center' | 'bottom-center';
+  position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left' | 'top-centre' | 'bottom-centre';
   className?: string;
 }
 
@@ -136,8 +136,8 @@ export function Toast({
     'top-left': 'top-4 left-4',
     'bottom-right': 'bottom-4 right-4',
     'bottom-left': 'bottom-4 left-4',
-    'top-center': 'top-4 left-1/2 transform -translate-x-1/2',
-    'bottom-center': 'bottom-4 left-1/2 transform -translate-x-1/2',
+    'top-centre': 'top-4 left-1/2 transform -translate-x-1/2',
+    'bottom-centre': 'bottom-4 left-1/2 transform -translate-x-1/2',
   };
 
   if (!mounted) return null;
@@ -151,7 +151,7 @@ export function Toast({
       <div
         className={`${
           typeClasses[type]
-        } text-white px-4 py-3 rounded shadow-lg flex items-center ${className}`}
+        } text-white px-4 py-3 rounded shadow-lg flex items-centre ${className}`}
         role="alert"
       >
         {type === 'success' && (

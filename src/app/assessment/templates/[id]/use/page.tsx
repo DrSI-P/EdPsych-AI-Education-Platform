@@ -110,7 +110,7 @@ export default function UseAssessmentTemplatePage() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
+      <div className="flex justify-centre items-centre min-h-screen">
         <Spinner size="lg" />
       </div>
     );
@@ -134,8 +134,8 @@ export default function UseAssessmentTemplatePage() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-6">
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-gray-900">Create Assessment from Template</h1>
+        <div className="flex items-centre justify-between">
+          <h1 className="text-2xl font-bold text-grey-900">Create Assessment from Template</h1>
           <Button
             variant="outline"
             onClick={() => router.push('/assessment/templates')}
@@ -154,10 +154,10 @@ export default function UseAssessmentTemplatePage() {
             <CardContent>
               <Form className="space-y-4">
                 <div className="space-y-2">
-                  <label className="block text-sm font-medium text-gray-700">Assessment Title</label>
+                  <label className="block text-sm font-medium text-grey-700">Assessment Title</label>
                   <input
                     type="text"
-                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    className="mt-1 block w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     placeholder="Enter a title for your assessment"
@@ -165,9 +165,9 @@ export default function UseAssessmentTemplatePage() {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="block text-sm font-medium text-gray-700">Description</label>
+                  <label className="block text-sm font-medium text-grey-700">Description</label>
                   <textarea
-                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    className="mt-1 block w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     placeholder="Describe what this assessment is for"
@@ -177,21 +177,21 @@ export default function UseAssessmentTemplatePage() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <label className="block text-sm font-medium text-gray-700">Due Date (Optional)</label>
+                    <label className="block text-sm font-medium text-grey-700">Due Date (Optional)</label>
                     <input
                       type="datetime-local"
-                      className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className="mt-1 block w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                       value={dueDate}
                       onChange={(e) => setDueDate(e.target.value)}
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <label className="block text-sm font-medium text-gray-700">Time Limit (Minutes, Optional)</label>
+                    <label className="block text-sm font-medium text-grey-700">Time Limit (Minutes, Optional)</label>
                     <input
                       type="number"
                       min="0"
-                      className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className="mt-1 block w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                       value={timeLimit}
                       onChange={(e) => setTimeLimit(e.target.value)}
                       placeholder="No time limit"
@@ -201,12 +201,12 @@ export default function UseAssessmentTemplatePage() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <label className="block text-sm font-medium text-gray-700">Passing Score (%)</label>
+                    <label className="block text-sm font-medium text-grey-700">Passing Score (%)</label>
                     <input
                       type="number"
                       min="0"
                       max="100"
-                      className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className="mt-1 block w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                       value={passingScore}
                       onChange={(e) => setPassingScore(e.target.value)}
                     />
@@ -214,28 +214,28 @@ export default function UseAssessmentTemplatePage() {
                 </div>
 
                 <div className="space-y-2">
-                  <div className="flex items-center">
+                  <div className="flex items-centre">
                     <input
                       id="allow-retakes"
                       type="checkbox"
-                      className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-grey-300 rounded"
                       checked={allowRetakes}
                       onChange={(e) => setAllowRetakes(e.target.checked)}
                     />
-                    <label htmlFor="allow-retakes" className="ml-2 block text-sm text-gray-900">
+                    <label htmlFor="allow-retakes" className="ml-2 block text-sm text-grey-900">
                       Allow students to retake this assessment
                     </label>
                   </div>
                   
-                  <div className="flex items-center mt-2">
+                  <div className="flex items-centre mt-2">
                     <input
                       id="show-answers"
                       type="checkbox"
-                      className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-grey-300 rounded"
                       checked={showAnswers}
                       onChange={(e) => setShowAnswers(e.target.checked)}
                     />
-                    <label htmlFor="show-answers" className="ml-2 block text-sm text-gray-900">
+                    <label htmlFor="show-answers" className="ml-2 block text-sm text-grey-900">
                       Show correct answers after submission
                     </label>
                   </div>
@@ -276,34 +276,34 @@ export default function UseAssessmentTemplatePage() {
               <div className="space-y-4">
                 <div>
                   <h3 className="text-lg font-medium">{template.title}</h3>
-                  <p className="text-sm text-gray-600 mt-1">{template.description}</p>
+                  <p className="text-sm text-grey-600 mt-1">{template.description}</p>
                 </div>
                 
                 <div className="grid grid-cols-1 gap-2 text-sm">
                   <div>
-                    <span className="text-gray-500">Subject:</span>{' '}
+                    <span className="text-grey-500">Subject:</span>{' '}
                     <span className="font-medium">{template.subject}</span>
                   </div>
                   <div>
-                    <span className="text-gray-500">Key Stage:</span>{' '}
+                    <span className="text-grey-500">Key Stage:</span>{' '}
                     <span className="font-medium">{template.keyStage}</span>
                   </div>
                   <div>
-                    <span className="text-gray-500">Type:</span>{' '}
+                    <span className="text-grey-500">Type:</span>{' '}
                     <span className="font-medium">{template.type}</span>
                   </div>
                   <div>
-                    <span className="text-gray-500">Questions:</span>{' '}
+                    <span className="text-grey-500">Questions:</span>{' '}
                     <span className="font-medium">{template.questionCount}</span>
                   </div>
                 </div>
                 
                 {template.tags && template.tags.length > 0 && (
                   <div>
-                    <h4 className="text-sm font-medium text-gray-700 mb-2">Tags:</h4>
+                    <h4 className="text-sm font-medium text-grey-700 mb-2">Tags:</h4>
                     <div className="flex flex-wrap gap-1">
                       {template.tags.map((tag, index) => (
-                        <span key={index} className="px-2 py-1 text-xs rounded-full bg-gray-100 text-gray-800">
+                        <span key={index} className="px-2 py-1 text-xs rounded-full bg-grey-100 text-grey-800">
                           {tag}
                         </span>
                       ))}
@@ -311,7 +311,7 @@ export default function UseAssessmentTemplatePage() {
                   </div>
                 )}
                 
-                <div className="text-xs text-gray-500 pt-2 border-t">
+                <div className="text-xs text-grey-500 pt-2 border-t">
                   Created by {template.createdBy?.name || 'Unknown'} on {new Date(template.createdAt).toLocaleDateString()}
                 </div>
               </div>

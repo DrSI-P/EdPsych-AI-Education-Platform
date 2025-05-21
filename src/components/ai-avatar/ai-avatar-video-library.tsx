@@ -15,7 +15,7 @@ import { Skeleton } from '../ui/skeleton';
  * AI Avatar Video Library Component
  * 
  * Displays a searchable, filterable library of AI Avatar videos
- * organized by categories and audiences.
+ * organised by categories and audiences.
  */
 export const AIAvatarVideoLibrary: React.FC = () => {
   const [loading, setLoading] = useState(true);
@@ -132,7 +132,7 @@ export const AIAvatarVideoLibrary: React.FC = () => {
         </Button>
         
         <h2 className="text-2xl font-bold mb-2">{selectedVideo.title}</h2>
-        <p className="text-gray-600 mb-4">{selectedVideo.description}</p>
+        <p className="text-grey-600 mb-4">{selectedVideo.description}</p>
         
         <AIAvatarVideoPlayer 
           videoId={selectedVideo.id} 
@@ -142,16 +142,16 @@ export const AIAvatarVideoLibrary: React.FC = () => {
         
         <div className="mt-6">
           <h3 className="text-xl font-semibold mb-2">About this video</h3>
-          <div className="flex flex-wrap gap-4 text-sm text-gray-600">
-            <div className="flex items-center">
+          <div className="flex flex-wrap gap-4 text-sm text-grey-600">
+            <div className="flex items-centre">
               <Clock size={16} className="mr-1" />
               <span>{formatDuration(selectedVideo.duration)}</span>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-centre">
               <User size={16} className="mr-1" />
               <span>{selectedVideo.audience.replace('_', ' ')}</span>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-centre">
               <Tag size={16} className="mr-1" />
               <span>{selectedVideo.category.replace('_', ' ')}</span>
             </div>
@@ -163,7 +163,7 @@ export const AIAvatarVideoLibrary: React.FC = () => {
               {selectedVideo.tags.map(tag => (
                 <span 
                   key={tag} 
-                  className="px-2 py-1 bg-gray-100 text-gray-800 text-xs rounded-full"
+                  className="px-2 py-1 bg-grey-100 text-grey-800 text-xs rounded-full"
                 >
                   {tag}
                 </span>
@@ -183,7 +183,7 @@ export const AIAvatarVideoLibrary: React.FC = () => {
       {/* Search and filters */}
       <div className="mb-6">
         <div className="relative mb-4">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-grey-400" size={18} />
           <Input
             type="text"
             placeholder="Search videos..."
@@ -230,9 +230,9 @@ export const AIAvatarVideoLibrary: React.FC = () => {
       
       {/* Video grid */}
       {filteredVideos.length === 0 ? (
-        <div className="text-center py-12">
+        <div className="text-centre py-12">
           <h3 className="text-xl font-medium mb-2">No videos found</h3>
-          <p className="text-gray-600">Try adjusting your search or filters</p>
+          <p className="text-grey-600">Try adjusting your search or filters</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -242,7 +242,7 @@ export const AIAvatarVideoLibrary: React.FC = () => {
               className="overflow-hidden hover:shadow-lg transition-shadow cursor-pointer"
               onClick={() => handleVideoSelect(video)}
             >
-              <div className="aspect-video bg-gray-100 relative">
+              <div className="aspect-video bg-grey-100 relative">
                 <img 
                   src={video.thumbnailPath || `/api/ai-avatar/thumbnails/${video.id}`} 
                   alt={video.title}
@@ -265,7 +265,7 @@ export const AIAvatarVideoLibrary: React.FC = () => {
                 </CardDescription>
               </CardHeader>
               
-              <CardFooter className="pt-0 text-sm text-gray-600">
+              <CardFooter className="pt-0 text-sm text-grey-600">
                 <div className="flex justify-between w-full">
                   <span>{video.audience.replace('_', ' ')}</span>
                   <span>{video.category.replace('_', ' ')}</span>

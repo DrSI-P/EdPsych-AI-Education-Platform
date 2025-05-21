@@ -54,11 +54,11 @@ The Vercel build failure was resolved by updating the HeyGenVideo interface to i
 ### Visionary Innovations
 All visionary improvements from the strategic review have been implemented, creating cutting-edge features that position EdPsych Connect as a revolutionary force in educational technology:
 
-1. **Neuroadaptive Interface**: Adapts content complexity and presentation based on real-time cognitive state assessment, providing personalized learning experiences that optimize engagement and comprehension.
+1. **Neuroadaptive Interface**: Adapts content complexity and presentation based on real-time cognitive state assessment, providing personalized learning experiences that optimise engagement and comprehension.
 
 2. **Digital Twin Learning Companion**: Creates a personalized AI companion that evolves with the learner, providing tailored guidance, support, and motivation throughout their educational journey.
 
-3. **Biofeedback Learning**: Integrates physiological signals to optimize learning conditions, helping students recognize and regulate their emotional and cognitive states for improved learning outcomes.
+3. **Biofeedback Learning**: Integrates physiological signals to optimise learning conditions, helping students recognise and regulate their emotional and cognitive states for improved learning outcomes.
 
 4. **Immersive Learning Environments**: Delivers interactive 3D environments that transform abstract concepts into tangible experiences, enhancing understanding and retention through spatial learning.
 
@@ -74,12 +74,12 @@ All visionary improvements from the strategic review have been implemented, crea
 
 1. **Educator Dashboard**: A comprehensive interface for teachers to manage classrooms, track student progress, plan curriculum, create assessments, and access teaching resources. Features include:
    - Student management with detailed progress tracking
-   - Curriculum planning and resource organization
+   - Curriculum planning and resource organisation
    - Assessment creation and management
-   - Data visualization of classroom performance
+   - Data visualisation of classroom performance
 
 2. **Student Dashboard**: A personalized learning hub for students to track progress, manage assignments, set goals, and access learning resources. Features include:
-   - Subject progress visualization
+   - Subject progress visualisation
    - Assignment tracking and management
    - Learning style analysis
    - Achievement recognition and gamification elements
@@ -98,7 +98,7 @@ We successfully resolved a critical issue with the GitHub repository by merging 
 
 All implemented features have been rigorously validated and tested to ensure functionality, integration, and compliance with platform standards. The validation confirms that:
 
-1. All files are properly structured and organized
+1. All files are properly structured and organised
 2. TypeScript compliance is maintained throughout the codebase
 3. Components follow Next.js 14 app router structure
 4. Accessibility standards are upheld across all new features

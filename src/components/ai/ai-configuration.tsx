@@ -221,7 +221,7 @@ export function AIConfiguration({
                   onChange={(value) => handleSettingChange('defaultProvider', value)}
                   className="w-full"
                 />
-                <p className="text-xs text-gray-500 mt-1">The default AI provider to use when no specific provider is requested</p>
+                <p className="text-xs text-grey-500 mt-1">The default AI provider to use when no specific provider is requested</p>
               </div>
               
               <div>
@@ -237,7 +237,7 @@ export function AIConfiguration({
                   onChange={(value) => handleSettingChange('defaultModel', value)}
                   className="w-full"
                 />
-                <p className="text-xs text-gray-500 mt-1">The default model to use when no specific model is requested</p>
+                <p className="text-xs text-grey-500 mt-1">The default model to use when no specific model is requested</p>
               </div>
               
               <div>
@@ -247,7 +247,7 @@ export function AIConfiguration({
                   onChange={(e) => handleSettingChange('systemPrompt', e.target.value)}
                   className="w-full h-24"
                 />
-                <p className="text-xs text-gray-500 mt-1">Default system prompt to use for all AI interactions</p>
+                <p className="text-xs text-grey-500 mt-1">Default system prompt to use for all AI interactions</p>
               </div>
             </CardContent>
           </Card>
@@ -259,7 +259,7 @@ export function AIConfiguration({
             <CardContent className="space-y-4">
               <div>
                 <label className="block text-sm font-medium mb-1">Temperature: {config.temperature}</label>
-                <div className="flex items-center gap-2">
+                <div className="flex items-centre gap-2">
                   <span className="text-sm">0.0</span>
                   <input 
                     type="range" 
@@ -272,7 +272,7 @@ export function AIConfiguration({
                   />
                   <span className="text-sm">2.0</span>
                 </div>
-                <p className="text-xs text-gray-500 mt-1">Controls randomness: lower values are more deterministic, higher values more creative</p>
+                <p className="text-xs text-grey-500 mt-1">Controls randomness: lower values are more deterministic, higher values more creative</p>
               </div>
               
               <div>
@@ -283,12 +283,12 @@ export function AIConfiguration({
                   onChange={(e) => handleSettingChange('maxTokens', parseInt(e.target.value))}
                   className="w-full"
                 />
-                <p className="text-xs text-gray-500 mt-1">Maximum number of tokens to generate in responses</p>
+                <p className="text-xs text-grey-500 mt-1">Maximum number of tokens to generate in responses</p>
               </div>
               
               <div>
                 <label className="block text-sm font-medium mb-1">Top P: {config.topP}</label>
-                <div className="flex items-center gap-2">
+                <div className="flex items-centre gap-2">
                   <span className="text-sm">0.0</span>
                   <input 
                     type="range" 
@@ -301,12 +301,12 @@ export function AIConfiguration({
                   />
                   <span className="text-sm">1.0</span>
                 </div>
-                <p className="text-xs text-gray-500 mt-1">Controls diversity via nucleus sampling</p>
+                <p className="text-xs text-grey-500 mt-1">Controls diversity via nucleus sampling</p>
               </div>
               
               <div>
                 <label className="block text-sm font-medium mb-1">Frequency Penalty: {config.frequencyPenalty}</label>
-                <div className="flex items-center gap-2">
+                <div className="flex items-centre gap-2">
                   <span className="text-sm">0.0</span>
                   <input 
                     type="range" 
@@ -319,12 +319,12 @@ export function AIConfiguration({
                   />
                   <span className="text-sm">2.0</span>
                 </div>
-                <p className="text-xs text-gray-500 mt-1">Reduces repetition of token sequences</p>
+                <p className="text-xs text-grey-500 mt-1">Reduces repetition of token sequences</p>
               </div>
               
               <div>
                 <label className="block text-sm font-medium mb-1">Presence Penalty: {config.presencePenalty}</label>
-                <div className="flex items-center gap-2">
+                <div className="flex items-centre gap-2">
                   <span className="text-sm">0.0</span>
                   <input 
                     type="range" 
@@ -337,7 +337,7 @@ export function AIConfiguration({
                   />
                   <span className="text-sm">2.0</span>
                 </div>
-                <p className="text-xs text-gray-500 mt-1">Reduces repetition of topics</p>
+                <p className="text-xs text-grey-500 mt-1">Reduces repetition of topics</p>
               </div>
             </CardContent>
           </Card>
@@ -396,7 +396,7 @@ export function AIConfiguration({
                   onChange={(value) => handleNestedConfigChange('safetySettings', 'safetySettings', 'ageAppropriate', value)}
                   className="w-full"
                 />
-                <p className="text-xs text-gray-500 mt-1">Ensure content is appropriate for the selected age group</p>
+                <p className="text-xs text-grey-500 mt-1">Ensure content is appropriate for the selected age group</p>
               </div>
             </CardContent>
           </Card>
@@ -420,7 +420,7 @@ export function AIConfiguration({
                   onChange={(value) => handleNestedConfigChange('educationalSettings', 'educationalSettings', 'curriculumAlignment', value)}
                   className="w-full"
                 />
-                <p className="text-xs text-gray-500 mt-1">Align AI responses with the selected curriculum standards</p>
+                <p className="text-xs text-grey-500 mt-1">Align AI responses with the selected curriculum standards</p>
               </div>
               
               <div>
@@ -439,7 +439,7 @@ export function AIConfiguration({
                   onChange={(value) => handleNestedConfigChange('educationalSettings', 'educationalSettings', 'ageGroup', value)}
                   className="w-full"
                 />
-                <p className="text-xs text-gray-500 mt-1">Target age group for educational content</p>
+                <p className="text-xs text-grey-500 mt-1">Target age group for educational content</p>
               </div>
               
               <div>
@@ -465,7 +465,7 @@ export function AIConfiguration({
                   onChange={(value) => handleNestedConfigChange('educationalSettings', 'educationalSettings', 'feedbackStyle', value)}
                   className="w-full"
                 />
-                <p className="text-xs text-gray-500 mt-1">Style of feedback provided to learners</p>
+                <p className="text-xs text-grey-500 mt-1">Style of feedback provided to learners</p>
               </div>
             </CardContent>
           </Card>
@@ -490,7 +490,7 @@ export function AIConfiguration({
                   onChange={(e) => handleNestedConfigChange('usageSettings', 'usageSettings', 'rateLimit', parseInt(e.target.value))}
                   className="w-full"
                 />
-                <p className="text-xs text-gray-500 mt-1">Maximum number of AI requests per minute</p>
+                <p className="text-xs text-grey-500 mt-1">Maximum number of AI requests per minute</p>
               </div>
               
               <div>
@@ -518,7 +518,7 @@ export function AIConfiguration({
                       })}
                       className="w-full"
                     />
-                    <p className="text-xs text-gray-500 mt-1">Maximum AI requests per user per day</p>
+                    <p className="text-xs text-grey-500 mt-1">Maximum AI requests per user per day</p>
                   </div>
                   
                   <div>
@@ -532,7 +532,7 @@ export function AIConfiguration({
                       })}
                       className="w-full"
                     />
-                    <p className="text-xs text-gray-500 mt-1">Maximum AI requests per user per month</p>
+                    <p className="text-xs text-grey-500 mt-1">Maximum AI requests per user per month</p>
                   </div>
                 </>
               )}
@@ -568,7 +568,7 @@ export function AIConfiguration({
                     })}
                     className="w-full"
                   />
-                  <p className="text-xs text-gray-500 mt-1">Maximum monthly spending on AI services</p>
+                  <p className="text-xs text-grey-500 mt-1">Maximum monthly spending on AI services</p>
                 </div>
               )}
               
@@ -611,7 +611,7 @@ export function AIConfiguration({
                       onChange={(value) => handleNestedConfigChange('providers', provider, 'defaultModel', value)}
                       className="w-full"
                     />
-                    <p className="text-xs text-gray-500 mt-1">Default model to use for this provider</p>
+                    <p className="text-xs text-grey-500 mt-1">Default model to use for this provider</p>
                   </div>
                 )}
               </CardContent>
@@ -626,11 +626,11 @@ export function AIConfiguration({
     <div className={`ai-configuration ${className}`}>
       <div className="mb-6">
         <h2 className="text-2xl font-bold mb-2">AI Configuration</h2>
-        <p className="text-gray-600">Configure AI providers, models, and settings for the EdPsych AI Education Platform</p>
+        <p className="text-grey-600">Configure AI providers, models, and settings for the EdPsych AI Education Platform</p>
       </div>
       
       {loading && (
-        <div className="flex justify-center my-8">
+        <div className="flex justify-centre my-8">
           <Spinner size="large" />
         </div>
       )}

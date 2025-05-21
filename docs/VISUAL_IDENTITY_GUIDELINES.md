@@ -8,19 +8,19 @@ This document outlines the visual identity guidelines for the EdPsych-AI-Educati
 
 #### 1. Khan Academy
 - **Strengths**: Clean interface with focused content presentation, effective use of white space
-- **Color Scheme**: Navy blue primary color with green accents creates trust and growth associations
-- **Typography**: Clear, readable sans-serif fonts optimized for learning
+- **Colour Scheme**: Navy blue primary colour with green accents creates trust and growth associations
+- **Typography**: Clear, readable sans-serif fonts optimised for learning
 - **Visual Elements**: Simple, consistent iconography and minimal animations that support learning
 
 #### 2. Cambridge Assessment (CAM Bugs)
 - **Strengths**: Professional appearance with academic credibility
-- **Color Scheme**: Traditional academic blues with modern accent colors
+- **Colour Scheme**: Traditional academic blues with modern accent colors
 - **Typography**: Balanced serif/sans-serif combination conveying authority and accessibility
 - **Visual Elements**: Structured layouts with clear information hierarchy
 
 #### 3. Reading Eggs
 - **Strengths**: Engaging, age-appropriate visuals for younger learners
-- **Color Scheme**: Vibrant, playful colors that maintain readability
+- **Colour Scheme**: Vibrant, playful colors that maintain readability
 - **Typography**: Friendly, approachable fonts with excellent readability
 - **Visual Elements**: Character-based design elements that create emotional connection
 
@@ -35,7 +35,7 @@ Based on research of top educational platforms and the goal of creating the prem
 - Ensure the logo works across all digital platforms and print materials
 - Create responsive versions for different contexts and sizes
 
-#### Color Palette
+#### Colour Palette
 
 **Primary Colors:**
 - Deep Blue (#1E3A8A): Conveys trust, professionalism, and educational authority
@@ -57,7 +57,7 @@ Based on research of top educational platforms and the goal of creating the prem
 **Primary Font Family: Inter**
 - Clean, modern sans-serif with excellent readability across devices
 - Comprehensive weight range for flexible typographic hierarchy
-- Optimized for screen reading and accessibility
+- Optimised for screen reading and accessibility
 
 **Secondary Font Family: Merriweather**
 - Serif font for longer-form content and academic materials
@@ -110,8 +110,8 @@ Based on research of top educational platforms and the goal of creating the prem
 - Icon + text combinations for improved comprehension
 
 #### Forms and Inputs
-- Clearly labeled inputs with consistent styling
-- Validation states with appropriate color coding
+- Clearly labelled inputs with consistent styling
+- Validation states with appropriate colour coding
 - Helpful placeholder text and error messages
 - Logical grouping of related inputs
 
@@ -120,7 +120,7 @@ Based on research of top educational platforms and the goal of creating the prem
 #### Photography Style
 - Authentic, diverse representation of UK educational settings
 - Focus on engagement, collaboration, and active learning
-- Consistent treatment (color grading, cropping) across all imagery
+- Consistent treatment (colour grading, cropping) across all imagery
 
 #### Illustration Style
 - Consistent, modern illustration style with educational focus
@@ -142,11 +142,11 @@ Based on research of top educational platforms and the goal of creating the prem
 #### Transitions
 - Smooth, logical transitions between states and pages
 - Consistent direction and movement patterns
-- Performance-optimized animations that work across devices
+- Performance-optimised animations that work across devices
 
 #### Progress Indicators
 - Clear visual feedback for loading states
-- Consistent progress visualization across learning activities
+- Consistent progress visualisation across learning activities
 - Celebratory animations for achievements and milestones
 
 ## Implementation Guidelines
@@ -158,7 +158,7 @@ Based on research of top educational platforms and the goal of creating the prem
 
 ### Accessibility Considerations
 - WCAG 2.1 AA compliance across all visual elements
-- Color contrast ratios that exceed minimum requirements
+- Colour contrast ratios that exceed minimum requirements
 - Visual alternatives for all audio content
 - Reduced motion options for vestibular disorders
 

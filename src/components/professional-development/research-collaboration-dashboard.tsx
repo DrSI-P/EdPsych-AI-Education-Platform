@@ -112,7 +112,7 @@ const MOCK_RESEARCH_FOCUS_DISTRIBUTION = [
 ];
 
 const MOCK_IMPACT_METRICS = [
-  { name: 'Practice Change', value: 75 },
+  { name: 'Practise Change', value: 75 },
   { name: 'Policy Influence', value: 45 },
   { name: 'Student Outcomes', value: 85 },
   { name: 'Teacher Development', value: 70 },
@@ -162,7 +162,7 @@ export default function ResearchCollaborationDashboard() {
   
   return (
     <div className="container mx-auto py-6 space-y-8">
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-centre">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Research Analytics</h1>
           <p className="text-muted-foreground">
@@ -216,7 +216,7 @@ export default function ResearchCollaborationDashboard() {
                 <FileText className="h-6 w-6 text-primary" />
               </div>
             </div>
-            <div className="mt-4 flex items-center text-xs text-muted-foreground">
+            <div className="mt-4 flex items-centre text-xs text-muted-foreground">
               <TrendingUp className="h-3 w-3 mr-1 text-green-500" />
               <span className="text-green-500 font-medium">+3</span>
               <span className="ml-1">from last month</span>
@@ -235,7 +235,7 @@ export default function ResearchCollaborationDashboard() {
                 <BookOpen className="h-6 w-6 text-primary" />
               </div>
             </div>
-            <div className="mt-4 flex items-center text-xs text-muted-foreground">
+            <div className="mt-4 flex items-centre text-xs text-muted-foreground">
               <TrendingUp className="h-3 w-3 mr-1 text-green-500" />
               <span className="text-green-500 font-medium">+5</span>
               <span className="ml-1">from last month</span>
@@ -254,7 +254,7 @@ export default function ResearchCollaborationDashboard() {
                 <School className="h-6 w-6 text-primary" />
               </div>
             </div>
-            <div className="mt-4 flex items-center text-xs text-muted-foreground">
+            <div className="mt-4 flex items-centre text-xs text-muted-foreground">
               <TrendingUp className="h-3 w-3 mr-1 text-green-500" />
               <span className="text-green-500 font-medium">+2</span>
               <span className="ml-1">from last month</span>
@@ -273,7 +273,7 @@ export default function ResearchCollaborationDashboard() {
                 <Award className="h-6 w-6 text-primary" />
               </div>
             </div>
-            <div className="mt-4 flex items-center text-xs text-muted-foreground">
+            <div className="mt-4 flex items-centre text-xs text-muted-foreground">
               <TrendingUp className="h-3 w-3 mr-1 text-green-500" />
               <span className="text-green-500 font-medium">+12</span>
               <span className="ml-1">from last month</span>
@@ -296,7 +296,7 @@ export default function ResearchCollaborationDashboard() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center">
+                <CardTitle className="flex items-centre">
                   <Activity className="mr-2 h-5 w-5" /> Research Activity Trends
                 </CardTitle>
                 <CardDescription>
@@ -326,7 +326,7 @@ export default function ResearchCollaborationDashboard() {
             
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center">
+                <CardTitle className="flex items-centre">
                   <PieChartIcon className="mr-2 h-5 w-5" /> Research Focus Distribution
                 </CardTitle>
                 <CardDescription>
@@ -352,7 +352,7 @@ export default function ResearchCollaborationDashboard() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center">
+                <CardTitle className="flex items-centre">
                   <BarChart2 className="mr-2 h-5 w-5" /> Methodology Distribution
                 </CardTitle>
                 <CardDescription>
@@ -386,7 +386,7 @@ export default function ResearchCollaborationDashboard() {
             
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center">
+                <CardTitle className="flex items-centre">
                   <School className="mr-2 h-5 w-5" /> School Type Distribution
                 </CardTitle>
                 <CardDescription>
@@ -420,7 +420,7 @@ export default function ResearchCollaborationDashboard() {
             
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center">
+                <CardTitle className="flex items-centre">
                   <Globe className="mr-2 h-5 w-5" /> Regional Distribution
                 </CardTitle>
                 <CardDescription>
@@ -458,7 +458,7 @@ export default function ResearchCollaborationDashboard() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center">
+                <CardTitle className="flex items-centre">
                   <Activity className="mr-2 h-5 w-5" /> Project Status Trends
                 </CardTitle>
                 <CardDescription>
@@ -488,7 +488,7 @@ export default function ResearchCollaborationDashboard() {
             
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center">
+                <CardTitle className="flex items-centre">
                   <Users className="mr-2 h-5 w-5" /> Collaboration Metrics
                 </CardTitle>
                 <CardDescription>
@@ -517,7 +517,7 @@ export default function ResearchCollaborationDashboard() {
           
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center">
+              <CardTitle className="flex items-centre">
                 <Calendar className="mr-2 h-5 w-5" /> Project Timeline
               </CardTitle>
               <CardDescription>
@@ -541,13 +541,13 @@ export default function ResearchCollaborationDashboard() {
                       <td className="py-3">Impact of Phonics Teaching Approaches</td>
                       <td>Sarah Johnson</td>
                       <td>
-                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                        <span className="inline-flex items-centre px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
                           In Progress
                         </span>
                       </td>
                       <td>3</td>
                       <td>
-                        <div className="flex items-center">
+                        <div className="flex items-centre">
                           <span className="text-xs text-muted-foreground mr-2">Jan 2025</span>
                           <div className="w-32 bg-muted rounded-full h-2">
                             <div className="bg-blue-500 h-2 rounded-full" style={{ width: '65%' }}></div>
@@ -560,13 +560,13 @@ export default function ResearchCollaborationDashboard() {
                       <td className="py-3">Mathematics Anxiety Intervention Study</td>
                       <td>David Wilson</td>
                       <td>
-                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800">
+                        <span className="inline-flex items-centre px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800">
                           Planning
                         </span>
                       </td>
                       <td>2</td>
                       <td>
-                        <div className="flex items-center">
+                        <div className="flex items-centre">
                           <span className="text-xs text-muted-foreground mr-2">Jun 2025</span>
                           <div className="w-32 bg-muted rounded-full h-2">
                             <div className="bg-amber-500 h-2 rounded-full" style={{ width: '25%' }}></div>
@@ -579,13 +579,13 @@ export default function ResearchCollaborationDashboard() {
                       <td className="py-3">Digital Literacy Development in KS3</td>
                       <td>Michael Chen</td>
                       <td>
-                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                        <span className="inline-flex items-centre px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
                           Analysis
                         </span>
                       </td>
                       <td>3</td>
                       <td>
-                        <div className="flex items-center">
+                        <div className="flex items-centre">
                           <span className="text-xs text-muted-foreground mr-2">Nov 2024</span>
                           <div className="w-32 bg-muted rounded-full h-2">
                             <div className="bg-purple-500 h-2 rounded-full" style={{ width: '80%' }}></div>
@@ -595,16 +595,16 @@ export default function ResearchCollaborationDashboard() {
                       </td>
                     </tr>
                     <tr className="border-b border-muted">
-                      <td className="py-3">Restorative Practice Implementation Study</td>
+                      <td className="py-3">Restorative Practise Implementation Study</td>
                       <td>Priya Patel</td>
                       <td>
-                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                        <span className="inline-flex items-centre px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
                           In Progress
                         </span>
                       </td>
                       <td>5</td>
                       <td>
-                        <div className="flex items-center">
+                        <div className="flex items-centre">
                           <span className="text-xs text-muted-foreground mr-2">Jan 2025</span>
                           <div className="w-32 bg-muted rounded-full h-2">
                             <div className="bg-blue-500 h-2 rounded-full" style={{ width: '45%' }}></div>
@@ -617,13 +617,13 @@ export default function ResearchCollaborationDashboard() {
                       <td className="py-3">SEND Provision Mapping Effectiveness</td>
                       <td>Emma Thompson</td>
                       <td>
-                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                        <span className="inline-flex items-centre px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
                           Completed
                         </span>
                       </td>
                       <td>4</td>
                       <td>
-                        <div className="flex items-center">
+                        <div className="flex items-centre">
                           <span className="text-xs text-muted-foreground mr-2">Sep 2024</span>
                           <div className="w-32 bg-muted rounded-full h-2">
                             <div className="bg-green-500 h-2 rounded-full" style={{ width: '100%' }}></div>
@@ -644,7 +644,7 @@ export default function ResearchCollaborationDashboard() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center">
+                <CardTitle className="flex items-centre">
                   <BarChart2 className="mr-2 h-5 w-5" /> Output Types
                 </CardTitle>
                 <CardDescription>
@@ -675,7 +675,7 @@ export default function ResearchCollaborationDashboard() {
             
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center">
+                <CardTitle className="flex items-centre">
                   <LineChart className="mr-2 h-5 w-5" /> Engagement Metrics
                 </CardTitle>
                 <CardDescription>
@@ -707,7 +707,7 @@ export default function ResearchCollaborationDashboard() {
           
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center">
+              <CardTitle className="flex items-centre">
                 <BookOpen className="mr-2 h-5 w-5" /> Top Research Outputs
               </CardTitle>
               <CardDescription>
@@ -749,7 +749,7 @@ export default function ResearchCollaborationDashboard() {
                     </tr>
                     <tr className="border-b border-muted">
                       <td className="py-3">Restorative Approaches in UK Schools: Implementation Guide</td>
-                      <td>Practice Guide</td>
+                      <td>Practise Guide</td>
                       <td>Patel, Johnson, Smith</td>
                       <td>Apr 2025</td>
                       <td className="text-right">245</td>
@@ -786,7 +786,7 @@ export default function ResearchCollaborationDashboard() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center">
+                <CardTitle className="flex items-centre">
                   <BarChart2 className="mr-2 h-5 w-5" /> Impact Categories
                 </CardTitle>
                 <CardDescription>
@@ -810,7 +810,7 @@ export default function ResearchCollaborationDashboard() {
             
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center">
+                <CardTitle className="flex items-centre">
                   <Users className="mr-2 h-5 w-5" /> Reach Statistics
                 </CardTitle>
                 <CardDescription>
@@ -820,22 +820,22 @@ export default function ResearchCollaborationDashboard() {
               <CardContent>
                 <div className="h-80">
                   <div className="grid grid-cols-2 gap-4 h-full">
-                    <div className="flex flex-col items-center justify-center bg-muted/50 rounded-lg p-6">
+                    <div className="flex flex-col items-centre justify-centre bg-muted/50 rounded-lg p-6">
                       <School className="h-12 w-12 text-primary mb-4" />
                       <p className="text-4xl font-bold">67</p>
                       <p className="text-sm text-muted-foreground mt-2">Schools Impacted</p>
-                      <div className="mt-4 flex items-center text-xs">
+                      <div className="mt-4 flex items-centre text-xs">
                         <ArrowUpRight className="h-3 w-3 mr-1 text-green-500" />
                         <span className="text-green-500 font-medium">+12</span>
                         <span className="ml-1 text-muted-foreground">from last period</span>
                       </div>
                     </div>
                     
-                    <div className="flex flex-col items-center justify-center bg-muted/50 rounded-lg p-6">
+                    <div className="flex flex-col items-centre justify-centre bg-muted/50 rounded-lg p-6">
                       <Users className="h-12 w-12 text-primary mb-4" />
                       <p className="text-4xl font-bold">23,900</p>
                       <p className="text-sm text-muted-foreground mt-2">Students Reached</p>
-                      <div className="mt-4 flex items-center text-xs">
+                      <div className="mt-4 flex items-centre text-xs">
                         <ArrowUpRight className="h-3 w-3 mr-1 text-green-500" />
                         <span className="text-green-500 font-medium">+3,450</span>
                         <span className="ml-1 text-muted-foreground">from last period</span>
@@ -849,7 +849,7 @@ export default function ResearchCollaborationDashboard() {
           
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center">
+              <CardTitle className="flex items-centre">
                 <TrendingUp className="mr-2 h-5 w-5" /> Impact Case Studies
               </CardTitle>
               <CardDescription>
@@ -864,20 +864,20 @@ export default function ResearchCollaborationDashboard() {
                       <h3 className="font-medium">Synthetic Phonics Implementation Study</h3>
                       <p className="text-sm text-muted-foreground mt-1">Implementation of revised synthetic phonics approach based on research findings, resulting in 15% improvement in early reading outcomes.</p>
                     </div>
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                      Practice Change
+                    <span className="inline-flex items-centre px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                      Practise Change
                     </span>
                   </div>
                   <div className="mt-4 grid grid-cols-3 gap-4">
-                    <div className="text-center">
+                    <div className="text-centre">
                       <p className="text-2xl font-bold">18</p>
                       <p className="text-xs text-muted-foreground">Schools</p>
                     </div>
-                    <div className="text-center">
+                    <div className="text-centre">
                       <p className="text-2xl font-bold">4,500</p>
                       <p className="text-xs text-muted-foreground">Students</p>
                     </div>
-                    <div className="text-center">
+                    <div className="text-centre">
                       <p className="text-2xl font-bold">15%</p>
                       <p className="text-xs text-muted-foreground">Improvement</p>
                     </div>
@@ -890,20 +890,20 @@ export default function ResearchCollaborationDashboard() {
                       <h3 className="font-medium">SEND Provision Mapping Study</h3>
                       <p className="text-sm text-muted-foreground mt-1">Development of new SEND provision mapping policy adopted by local authority, improving consistency and effectiveness of support.</p>
                     </div>
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                    <span className="inline-flex items-centre px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
                       Policy Change
                     </span>
                   </div>
                   <div className="mt-4 grid grid-cols-3 gap-4">
-                    <div className="text-center">
+                    <div className="text-centre">
                       <p className="text-2xl font-bold">12</p>
                       <p className="text-xs text-muted-foreground">Schools</p>
                     </div>
-                    <div className="text-center">
+                    <div className="text-centre">
                       <p className="text-2xl font-bold">3,200</p>
                       <p className="text-xs text-muted-foreground">Students</p>
                     </div>
-                    <div className="text-center">
+                    <div className="text-centre">
                       <p className="text-2xl font-bold">1</p>
                       <p className="text-xs text-muted-foreground">Policy Adopted</p>
                     </div>
@@ -913,23 +913,23 @@ export default function ResearchCollaborationDashboard() {
                 <div className="bg-muted/50 rounded-lg p-4">
                   <div className="flex justify-between items-start">
                     <div>
-                      <h3 className="font-medium">Restorative Practice Implementation Study</h3>
+                      <h3 className="font-medium">Restorative Practise Implementation Study</h3>
                       <p className="text-sm text-muted-foreground mt-1">Whole-school implementation of restorative approaches, resulting in 40% reduction in exclusions and improved school climate.</p>
                     </div>
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                    <span className="inline-flex items-centre px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
                       School Culture
                     </span>
                   </div>
                   <div className="mt-4 grid grid-cols-3 gap-4">
-                    <div className="text-center">
+                    <div className="text-centre">
                       <p className="text-2xl font-bold">10</p>
                       <p className="text-xs text-muted-foreground">Schools</p>
                     </div>
-                    <div className="text-center">
+                    <div className="text-centre">
                       <p className="text-2xl font-bold">6,500</p>
                       <p className="text-xs text-muted-foreground">Students</p>
                     </div>
-                    <div className="text-center">
+                    <div className="text-centre">
                       <p className="text-2xl font-bold">-40%</p>
                       <p className="text-xs text-muted-foreground">Exclusions</p>
                     </div>
@@ -945,7 +945,7 @@ export default function ResearchCollaborationDashboard() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center">
+                <CardTitle className="flex items-centre">
                   <Users className="mr-2 h-5 w-5" /> Collaboration Network
                 </CardTitle>
                 <CardDescription>
@@ -953,10 +953,10 @@ export default function ResearchCollaborationDashboard() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="h-80 flex items-center justify-center">
-                  <div className="text-center">
+                <div className="h-80 flex items-centre justify-centre">
+                  <div className="text-centre">
                     <div className="bg-muted/50 p-8 rounded-lg">
-                      <div className="text-muted-foreground mb-4">Network visualization would appear here</div>
+                      <div className="text-muted-foreground mb-4">Network visualisation would appear here</div>
                       <p className="text-sm">Interactive network graph showing connections between 32 schools and 85 researchers across 5 research networks</p>
                     </div>
                   </div>
@@ -966,7 +966,7 @@ export default function ResearchCollaborationDashboard() {
             
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center">
+                <CardTitle className="flex items-centre">
                   <BarChart2 className="mr-2 h-5 w-5" /> Cross-School Collaboration
                 </CardTitle>
                 <CardDescription>
@@ -994,7 +994,7 @@ export default function ResearchCollaborationDashboard() {
           
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center">
+              <CardTitle className="flex items-centre">
                 <Globe className="mr-2 h-5 w-5" /> Research Networks
               </CardTitle>
               <CardDescription>
@@ -1014,19 +1014,19 @@ export default function ResearchCollaborationDashboard() {
                     </Button>
                   </div>
                   <div className="mt-4 grid grid-cols-4 gap-4">
-                    <div className="text-center">
+                    <div className="text-centre">
                       <p className="text-xl font-bold">42</p>
                       <p className="text-xs text-muted-foreground">Members</p>
                     </div>
-                    <div className="text-center">
+                    <div className="text-centre">
                       <p className="text-xl font-bold">15</p>
                       <p className="text-xs text-muted-foreground">Schools</p>
                     </div>
-                    <div className="text-center">
+                    <div className="text-centre">
                       <p className="text-xl font-bold">8</p>
                       <p className="text-xs text-muted-foreground">Projects</p>
                     </div>
-                    <div className="text-center">
+                    <div className="text-centre">
                       <p className="text-xl font-bold">12</p>
                       <p className="text-xs text-muted-foreground">Outputs</p>
                     </div>
@@ -1044,19 +1044,19 @@ export default function ResearchCollaborationDashboard() {
                     </Button>
                   </div>
                   <div className="mt-4 grid grid-cols-4 gap-4">
-                    <div className="text-center">
+                    <div className="text-centre">
                       <p className="text-xl font-bold">38</p>
                       <p className="text-xs text-muted-foreground">Members</p>
                     </div>
-                    <div className="text-center">
+                    <div className="text-centre">
                       <p className="text-xl font-bold">22</p>
                       <p className="text-xs text-muted-foreground">Schools</p>
                     </div>
-                    <div className="text-center">
+                    <div className="text-centre">
                       <p className="text-xl font-bold">6</p>
                       <p className="text-xs text-muted-foreground">Projects</p>
                     </div>
-                    <div className="text-center">
+                    <div className="text-centre">
                       <p className="text-xl font-bold">9</p>
                       <p className="text-xs text-muted-foreground">Outputs</p>
                     </div>
@@ -1074,19 +1074,19 @@ export default function ResearchCollaborationDashboard() {
                     </Button>
                   </div>
                   <div className="mt-4 grid grid-cols-4 gap-4">
-                    <div className="text-center">
+                    <div className="text-centre">
                       <p className="text-xl font-bold">45</p>
                       <p className="text-xs text-muted-foreground">Members</p>
                     </div>
-                    <div className="text-center">
+                    <div className="text-centre">
                       <p className="text-xl font-bold">28</p>
                       <p className="text-xs text-muted-foreground">Schools</p>
                     </div>
-                    <div className="text-center">
+                    <div className="text-centre">
                       <p className="text-xl font-bold">9</p>
                       <p className="text-xs text-muted-foreground">Projects</p>
                     </div>
-                    <div className="text-center">
+                    <div className="text-centre">
                       <p className="text-xl font-bold">14</p>
                       <p className="text-xs text-muted-foreground">Outputs</p>
                     </div>

@@ -296,16 +296,16 @@ export default function AssessmentTakePage() {
             </div>
             <div className="space-y-2">
               {question.options?.map((option) => (
-                <div key={option.id} className="flex items-center">
+                <div key={option.id} className="flex items-centre">
                   <input
                     type={allowMultiple ? 'checkbox' : 'radio'}
                     id={`option-${option.id}`}
                     name={`question-${question.id}`}
                     checked={Array.isArray(answer?.content) && answer?.content.includes(option.id)}
                     onChange={() => handleMultipleChoiceChange(question.id, option.id, allowMultiple)}
-                    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
+                    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-grey-300"
                   />
-                  <label htmlFor={`option-${option.id}`} className="ml-2 block text-sm text-gray-700">
+                  <label htmlFor={`option-${option.id}`} className="ml-2 block text-sm text-grey-700">
                     {option.text}
                   </label>
                 </div>
@@ -321,14 +321,14 @@ export default function AssessmentTakePage() {
               <p>{question.content}</p>
             </div>
             {question.wordLimit ? (
-              <p className="text-sm text-gray-500">Word limit: {question.wordLimit} words</p>
+              <p className="text-sm text-grey-500">Word limit: {question.wordLimit} words</p>
             ) : null}
             <textarea
               value={answer?.content || ''}
               onChange={(e) => handleAnswerChange(question.id, e.target.value)}
               placeholder="Enter your answer here"
               rows={6}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             ></textarea>
           </div>
         );
@@ -347,14 +347,14 @@ export default function AssessmentTakePage() {
             </div>
             <div className="space-y-3">
               {question.items?.map((item) => (
-                <div key={item.id} className="grid grid-cols-2 gap-4 items-center">
-                  <div className="p-2 border rounded bg-gray-50">
+                <div key={item.id} className="grid grid-cols-2 gap-4 items-centre">
+                  <div className="p-2 border rounded bg-grey-50">
                     {item.left}
                   </div>
                   <select
                     value={answer?.content?.[item.id] || ''}
                     onChange={(e) => handleMatchingChange(question.id, item.id, e.target.value)}
-                    className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="block w-full px-3 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="">-- Select matching item --</option>
                     {rightItems.map((rightItem) => (
@@ -377,12 +377,12 @@ export default function AssessmentTakePage() {
             </div>
             <div className="p-4 border-2 border-dashed rounded-md">
               {answer?.content ? (
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="flex items-centre justify-between">
+                  <div className="flex items-centre">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-grey-400 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
-                    <span className="text-sm text-gray-700">{answer.content.name}</span>
+                    <span className="text-sm text-grey-700">{answer.content.name}</span>
                   </div>
                   <button
                     type="button"
@@ -393,17 +393,17 @@ export default function AssessmentTakePage() {
                   </button>
                 </div>
               ) : (
-                <div className="text-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="text-centre">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="mx-auto h-12 w-12 text-grey-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
                   </svg>
-                  <p className="mt-1 text-sm text-gray-600">
+                  <p className="mt-1 text-sm text-grey-600">
                     Drag and drop a file, or <span className="text-blue-500">browse</span>
                   </p>
-                  <p className="mt-1 text-xs text-gray-500">
+                  <p className="mt-1 text-xs text-grey-500">
                     Allowed file types: {question.allowedFileTypes?.map(type => `.${type}`).join(', ')}
                   </p>
-                  <p className="mt-1 text-xs text-gray-500">
+                  <p className="mt-1 text-xs text-grey-500">
                     Maximum file size: {question.maxFileSize} MB
                   </p>
                   <input
@@ -445,16 +445,16 @@ export default function AssessmentTakePage() {
           <h2 className="text-2xl font-bold mb-4">Assessment Results</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-            <div className="text-center p-4 bg-white rounded-md shadow-sm">
-              <p className="text-sm text-gray-500 mb-1">Your Score</p>
+            <div className="text-centre p-4 bg-white rounded-md shadow-sm">
+              <p className="text-sm text-grey-500 mb-1">Your Score</p>
               <p className="text-3xl font-bold">{score}/{totalPoints}</p>
             </div>
-            <div className="text-center p-4 bg-white rounded-md shadow-sm">
-              <p className="text-sm text-gray-500 mb-1">Percentage</p>
+            <div className="text-centre p-4 bg-white rounded-md shadow-sm">
+              <p className="text-sm text-grey-500 mb-1">Percentage</p>
               <p className="text-3xl font-bold">{percentage}%</p>
             </div>
-            <div className="text-center p-4 bg-white rounded-md shadow-sm">
-              <p className="text-sm text-gray-500 mb-1">Result</p>
+            <div className="text-centre p-4 bg-white rounded-md shadow-sm">
+              <p className="text-sm text-grey-500 mb-1">Result</p>
               <p className={`text-xl font-bold ${passed ? 'text-green-600' : 'text-red-600'}`}>
                 {passed ? 'PASSED' : 'FAILED'}
               </p>
@@ -463,7 +463,7 @@ export default function AssessmentTakePage() {
           
           <div className="bg-white p-4 rounded-md">
             <h3 className="text-lg font-medium mb-2">Feedback</h3>
-            <p className="text-gray-700">{results.feedback || 'No feedback provided.'}</p>
+            <p className="text-grey-700">{results.feedback || 'No feedback provided.'}</p>
           </div>
         </div>
         
@@ -495,19 +495,19 @@ export default function AssessmentTakePage() {
                   <p className="mb-2">{question.content}</p>
                   
                   <div className="bg-white p-3 rounded mb-2">
-                    <p className="text-sm font-medium text-gray-500">Your Answer:</p>
+                    <p className="text-sm font-medium text-grey-500">Your Answer:</p>
                     {renderAnswerContent(question, answer)}
                   </div>
                   
                   {!isCorrect && questionResult?.correctAnswer && (
                     <div className="bg-green-50 p-3 rounded">
-                      <p className="text-sm font-medium text-gray-500">Correct Answer:</p>
+                      <p className="text-sm font-medium text-grey-500">Correct Answer:</p>
                       <p className="text-sm">{renderCorrectAnswer(question, questionResult.correctAnswer)}</p>
                     </div>
                   )}
                   
                   {questionResult?.feedback && (
-                    <div className="mt-2 text-sm text-gray-700">
+                    <div className="mt-2 text-sm text-grey-700">
                       <p className="font-medium">Feedback:</p>
                       <p>{questionResult.feedback}</p>
                     </div>
@@ -558,12 +558,12 @@ export default function AssessmentTakePage() {
   };
 
   const renderAnswerContent = (question: Question, answer: Answer | undefined) => {
-    if (!answer) return <p className="text-gray-500">No answer provided</p>;
+    if (!answer) return <p className="text-grey-500">No answer provided</p>;
     
     switch (question.type) {
       case 'multiple-choice':
         if (!Array.isArray(answer.content) || answer.content.length === 0) {
-          return <p className="text-gray-500">No option selected</p>;
+          return <p className="text-grey-500">No option selected</p>;
         }
         
         return (
@@ -581,12 +581,12 @@ export default function AssessmentTakePage() {
         return answer.content ? (
           <p>{answer.content}</p>
         ) : (
-          <p className="text-gray-500">No answer provided</p>
+          <p className="text-grey-500">No answer provided</p>
         );
         
       case 'matching':
         if (!answer.content || Object.keys(answer.content).length === 0) {
-          return <p className="text-gray-500">No matches provided</p>;
+          return <p className="text-grey-500">No matches provided</p>;
         }
         
         return (
@@ -606,18 +606,18 @@ export default function AssessmentTakePage() {
         
       case 'file-upload':
         return answer.content ? (
-          <p className="flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-400 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <p className="flex items-centre">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-grey-400 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
             {answer.content.name || 'File uploaded'}
           </p>
         ) : (
-          <p className="text-gray-500">No file uploaded</p>
+          <p className="text-grey-500">No file uploaded</p>
         );
         
       default:
-        return <p className="text-gray-500">Unsupported question type</p>;
+        return <p className="text-grey-500">Unsupported question type</p>;
     }
   };
 
@@ -650,8 +650,8 @@ export default function AssessmentTakePage() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
-        <Spinner size="large" />
+      <div className="flex justify-centre items-centre min-h-screen">
+        <Spinner size="lg" />
       </div>
     );
   }
@@ -699,16 +699,16 @@ export default function AssessmentTakePage() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">{assessment.title}</h1>
-        <p className="text-gray-600">{assessment.description}</p>
+        <h1 className="text-2xl font-bold text-grey-900">{assessment.title}</h1>
+        <p className="text-grey-600">{assessment.description}</p>
       </div>
 
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex justify-between items-centre mb-4">
         <div className="text-sm">
           Question {currentQuestionIndex + 1} of {assessment.questions.length}
         </div>
         {timeRemaining !== null && (
-          <div className={`text-sm font-medium ${timeRemaining < 60 ? 'text-red-600' : 'text-gray-700'}`}>
+          <div className={`text-sm font-medium ${timeRemaining < 60 ? 'text-red-600' : 'text-grey-700'}`}>
             Time Remaining: {formatTime(timeRemaining)}
           </div>
         )}
@@ -719,7 +719,7 @@ export default function AssessmentTakePage() {
           {currentQuestion ? (
             renderQuestion(currentQuestion)
           ) : (
-            <p className="text-gray-500">No questions available</p>
+            <p className="text-grey-500">No questions available</p>
           )}
         </CardContent>
         <CardFooter className="flex justify-between border-t p-6">
@@ -747,13 +747,13 @@ export default function AssessmentTakePage() {
         </CardFooter>
       </Card>
 
-      <div className="flex justify-center">
+      <div className="flex justify-centre">
         <div className="flex flex-wrap gap-2 max-w-2xl">
           {assessment.questions.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentQuestionIndex(index)}
-              className={`w-8 h-8 flex items-center justify-center rounded-full text-sm font-medium ${
+              className={`w-8 h-8 flex items-centre justify-centre rounded-full text-sm font-medium ${
                 index === currentQuestionIndex
                   ? 'bg-blue-600 text-white'
                   : answers[index]?.content && 
@@ -761,7 +761,7 @@ export default function AssessmentTakePage() {
                       ? answers[index].content.length > 0 
                       : answers[index].content !== null && answers[index].content !== '' && Object.keys(answers[index].content || {}).length > 0)
                     ? 'bg-green-100 text-green-800 border border-green-300'
-                    : 'bg-gray-100 text-gray-800 border border-gray-300'
+                    : 'bg-grey-100 text-grey-800 border border-grey-300'
               }`}
             >
               {index + 1}

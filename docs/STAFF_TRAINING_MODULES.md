@@ -7,7 +7,7 @@ The Staff Training Modules on Restorative Approaches feature provides comprehens
 ## Key Components
 
 ### 1. Comprehensive Module Library
-- **Evidence-Based Content**: Training modules based on established restorative justice research and practice
+- **Evidence-Based Content**: Training modules based on established restorative justice research and practise
 - **Progressive Learning Path**: Structured modules from beginner to advanced levels
 - **Diverse Learning Formats**: Content delivered through videos, text, quizzes, activities, and reflections
 - **UK Educational Context**: All content aligned with UK educational standards and approaches
@@ -15,14 +15,14 @@ The Staff Training Modules on Restorative Approaches feature provides comprehens
 ### 2. Interactive Learning Experience
 - **Progress Tracking**: Comprehensive tracking of completed sections and modules
 - **Self-Paced Learning**: Ability to start, pause, and resume training at any time
-- **Visual Progress Indicators**: Clear visualization of completion status
+- **Visual Progress Indicators**: Clear visualisation of completion status
 - **Certificate Generation**: Downloadable certificates upon module completion
 
 ### 3. Resource Library
 - **Supplementary Materials**: Additional resources to support implementation
 - **Downloadable Templates**: Practical tools for classroom application
 - **Research References**: Links to supporting research and evidence base
-- **Implementation Guides**: Step-by-step guidance for practice
+- **Implementation Guides**: Step-by-step guidance for practise
 
 ### 4. Assessment and Reflection
 - **Knowledge Checks**: Quizzes to verify understanding of key concepts
@@ -36,11 +36,11 @@ The Staff Training Modules are grounded in established research and best practic
 
 1. **Restorative Justice Principles**: Incorporates core principles including relationship-building, harm repair, and community involvement from leading researchers like Howard Zehr, Belinda Hopkins, and Margaret Thorsborne.
 
-2. **Implementation Science**: Follows best practices for professional development and skill transfer to ensure learning translates to practice.
+2. **Implementation Science**: Follows best practices for professional development and skill transfer to ensure learning translates to practise.
 
 3. **Adult Learning Theory**: Designed with principles of andragogy to engage adult learners effectively.
 
-4. **UK Educational Context**: Aligned with UK educational standards, the SEND Code of Practice, and safeguarding requirements.
+4. **UK Educational Context**: Aligned with UK educational standards, the SEND Code of Practise, and safeguarding requirements.
 
 5. **User's Doctoral Research**: Incorporates key findings and frameworks from the platform owner's doctoral thesis on restorative approaches in educational psychology.
 
@@ -75,13 +75,13 @@ The Staff Training Modules are grounded in established research and best practic
 - **Consistent Implementation**: Ensures all staff have access to the same high-quality training
 - **Culture Building**: Supports whole-school adoption of restorative approaches
 - **Cost-Effective**: Provides comprehensive training without external consultancy costs
-- **Evidence-Based Practice**: Ensures approaches are grounded in research and best practice
+- **Evidence-Based Practise**: Ensures approaches are grounded in research and best practise
 
 ## Accessibility Considerations
 - All components are keyboard navigable
-- Color contrast meets WCAG standards
+- Colour contrast meets WCAG standards
 - Screen reader optimizations
-- Clear visual indicators using both color and text
+- Clear visual indicators using both colour and text
 - Responsive design for all device sizes
 
 ## Integration with Other Features
@@ -102,4 +102,4 @@ The Staff Training Modules are grounded in established research and best practic
 
 5. Morrison, B. (2007). Restoring Safe School Communities: A Whole School Response to Bullying, Violence and Alienation. Federation Press.
 
-6. Department for Education. (2015). Special educational needs and disability code of practice: 0 to 25 years. UK Government.
+6. Department for Education. (2015). Special educational needs and disability code of practise: 0 to 25 years. UK Government.

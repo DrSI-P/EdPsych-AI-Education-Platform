@@ -257,7 +257,7 @@ export class HuggingFaceService {
   }
   
   /**
-   * Analyze student text for reading level and complexity
+   * Analyse student text for reading level and complexity
    */
   async analyzeReadingLevel(text: string) {
     try {
@@ -317,7 +317,7 @@ export class HuggingFaceService {
       };
     } catch (error) {
       console.error('Hugging Face reading level analysis error:', error);
-      throw new Error(`Failed to analyze reading level: ${error.message}`);
+      throw new Error(`Failed to analyse reading level: ${error.message}`);
     }
   }
   

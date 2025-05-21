@@ -73,7 +73,7 @@ const BiofeedbackLearning: React.FC<BiofeedbackLearningProps> = ({
     }
   }, [focusLevel, adaptContent]);
   
-  // Get color for focus/stress indicators
+  // Get colour for focus/stress indicators
   const getFocusColor = () => {
     if (focusLevel > 70) return 'bg-green-500';
     if (focusLevel > 40) return 'bg-yellow-500';
@@ -97,10 +97,10 @@ const BiofeedbackLearning: React.FC<BiofeedbackLearningProps> = ({
         exit={{ opacity: 0, y: 20 }}
         className="fixed bottom-4 right-4 bg-white rounded-lg shadow-xl p-4 max-w-sm border-l-4 border-blue-500 z-50"
       >
-        <h4 className="text-lg font-semibold text-gray-800 mb-2">
+        <h4 className="text-lg font-semibold text-grey-800 mb-2">
           {stressLevel > 70 ? 'High stress detected' : 'Focus decreasing'}
         </h4>
-        <p className="text-gray-600 mb-3">
+        <p className="text-grey-600 mb-3">
           {stressLevel > 70 
             ? 'Your stress levels are elevated. Consider taking a short break to relax.'
             : 'Your focus is decreasing. A short break might help you concentrate better.'}
@@ -108,7 +108,7 @@ const BiofeedbackLearning: React.FC<BiofeedbackLearningProps> = ({
         <div className="flex space-x-2">
           <button
             onClick={() => setShowBreakSuggestion(false)}
-            className="px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400"
+            className="px-3 py-1 bg-grey-200 text-grey-700 rounded hover:bg-grey-300 focus:outline-none focus:ring-2 focus:ring-grey-400"
           >
             Dismiss
           </button>
@@ -135,11 +135,11 @@ const BiofeedbackLearning: React.FC<BiofeedbackLearningProps> = ({
     if (!simulationMode) return null;
     
     return (
-      <div className="bg-gray-100 p-4 rounded-lg mb-4 border border-gray-300">
-        <h4 className="text-sm font-semibold text-gray-700 mb-2">Biofeedback Simulation Controls</h4>
+      <div className="bg-grey-100 p-4 rounded-lg mb-4 border border-grey-300">
+        <h4 className="text-sm font-semibold text-grey-700 mb-2">Biofeedback Simulation Controls</h4>
         <div className="space-y-3">
           <div>
-            <label htmlFor="focus-level" className="block text-xs text-gray-500 mb-1">
+            <label htmlFor="focus-level" className="block text-xs text-grey-500 mb-1">
               Focus Level: {focusLevel}%
             </label>
             <input
@@ -153,11 +153,11 @@ const BiofeedbackLearning: React.FC<BiofeedbackLearningProps> = ({
                 setFocusLevel(newValue);
                 if (onFocusChange) onFocusChange(newValue);
               }}
-              className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer"
+              className="w-full h-2 bg-grey-300 rounded-lg appearance-none cursor-pointer"
             />
           </div>
           <div>
-            <label htmlFor="stress-level" className="block text-xs text-gray-500 mb-1">
+            <label htmlFor="stress-level" className="block text-xs text-grey-500 mb-1">
               Stress Level: {stressLevel}%
             </label>
             <input
@@ -171,7 +171,7 @@ const BiofeedbackLearning: React.FC<BiofeedbackLearningProps> = ({
                 setStressLevel(newValue);
                 if (onStressChange) onStressChange(newValue);
               }}
-              className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer"
+              className="w-full h-2 bg-grey-300 rounded-lg appearance-none cursor-pointer"
             />
           </div>
         </div>
@@ -187,9 +187,9 @@ const BiofeedbackLearning: React.FC<BiofeedbackLearningProps> = ({
       {/* Biofeedback indicators */}
       {showFeedback && (
         <div className="biofeedback-indicators flex space-x-4 mb-4">
-          <div className="focus-indicator flex items-center">
-            <div className="text-sm font-medium text-gray-700 mr-2">Focus:</div>
-            <div className="w-24 h-3 bg-gray-200 rounded-full overflow-hidden">
+          <div className="focus-indicator flex items-centre">
+            <div className="text-sm font-medium text-grey-700 mr-2">Focus:</div>
+            <div className="w-24 h-3 bg-grey-200 rounded-full overflow-hidden">
               <motion.div
                 className={`h-full ${getFocusColor()}`}
                 initial={{ width: 0 }}
@@ -198,9 +198,9 @@ const BiofeedbackLearning: React.FC<BiofeedbackLearningProps> = ({
               />
             </div>
           </div>
-          <div className="stress-indicator flex items-center">
-            <div className="text-sm font-medium text-gray-700 mr-2">Stress:</div>
-            <div className="w-24 h-3 bg-gray-200 rounded-full overflow-hidden">
+          <div className="stress-indicator flex items-centre">
+            <div className="text-sm font-medium text-grey-700 mr-2">Stress:</div>
+            <div className="w-24 h-3 bg-grey-200 rounded-full overflow-hidden">
               <motion.div
                 className={`h-full ${getStressColor()}`}
                 initial={{ width: 0 }}
@@ -210,14 +210,14 @@ const BiofeedbackLearning: React.FC<BiofeedbackLearningProps> = ({
             </div>
           </div>
           {adaptContent && (
-            <div className="content-adaptation flex items-center">
-              <div className="text-sm font-medium text-gray-700 mr-2">Content:</div>
+            <div className="content-adaptation flex items-centre">
+              <div className="text-sm font-medium text-grey-700 mr-2">Content:</div>
               <span className={`text-sm px-2 py-0.5 rounded-full ${
                 contentAdaptation === 'simplified' 
                   ? 'bg-blue-100 text-blue-800' 
                   : contentAdaptation === 'enhanced'
                     ? 'bg-purple-100 text-purple-800'
-                    : 'bg-gray-100 text-gray-800'
+                    : 'bg-grey-100 text-grey-800'
               }`}>
                 {contentAdaptation === 'simplified' 
                   ? 'Simplified' 

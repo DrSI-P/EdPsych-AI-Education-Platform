@@ -27,7 +27,7 @@ Parent resources must be tailored to children's developmental stages:
 Resources should emphasize practical application:
 - Clear, step-by-step guidance for restorative conversations
 - Concrete examples and scenarios relevant to home settings
-- Simple tools that can be implemented without specialized training
+- Simple tools that can be implemented without specialised training
 - Realistic expectations for busy family environments
 
 ### 4. Evidence-Based Approach
@@ -79,7 +79,7 @@ All resources should be grounded in educational psychology research:
 #### Environmental Considerations
 - Creating physical spaces that support restorative practices
 - Establishing family agreements and expectations
-- Modeling restorative approaches in parent behavior
+- Modelling restorative approaches in parent behaviour
 - Involving all family members in restorative culture
 
 ### 4. Supporting Special Needs
@@ -122,7 +122,7 @@ All resources should be grounded in educational psychology research:
 ### 2. Learning Modules
 
 - **Self-Paced Courses**: Structured learning about restorative principles
-- **Scenario-Based Learning**: Practice applying restorative approaches to common situations
+- **Scenario-Based Learning**: Practise applying restorative approaches to common situations
 - **Progress Tracking**: Monitoring implementation and confidence
 - **Certificate of Completion**: Recognition of parent learning
 
@@ -136,7 +136,7 @@ All resources should be grounded in educational psychology research:
 ### 4. Community Features
 
 - **Discussion Forums**: Spaces for parents to share experiences
-- **Expert Q&A**: Opportunities to ask questions of restorative practice specialists
+- **Expert Q&A**: Opportunities to ask questions of restorative practise specialists
 - **Success Stories**: Examples of effective home implementation
 - **Peer Support**: Connections with other parents using restorative approaches
 
@@ -164,7 +164,7 @@ The parent education resources will draw from multiple evidence bases:
 ### Neurodiversity Perspectives
 - SCERTS framework for emotional regulation
 - TEACCH principles for environmental structure
-- Naturalistic Developmental Behavioral Interventions
+- Naturalistic Developmental Behavioural Interventions
 - Strengths-based approaches to difference
 
 ## Integration with Existing Platform Features

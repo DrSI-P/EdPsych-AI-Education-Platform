@@ -378,7 +378,7 @@ export default function SpeechToTextEngine({
   
   // Handle calibration step completion
   const completeCalibrationStep = () => {
-    // In a real implementation, we would save audio samples and analyze them
+    // In a real implementation, we would save audio samples and analyse them
     // For this demo, we'll simulate collecting calibration data
     setCalibrationSamples(prev => [...prev, confidence]);
     
@@ -396,10 +396,10 @@ export default function SpeechToTextEngine({
     setIsCalibrating(false);
     setCalibrationProgress(100);
     
-    // In a real implementation, we would use the collected data to optimize the recognition
+    // In a real implementation, we would use the collected data to optimise the recognition
     toast({
       title: "Calibration complete",
-      description: "Voice profile has been optimized for better recognition.",
+      description: "Voice profile has been optimised for better recognition.",
       variant: "success",
     });
     
@@ -434,12 +434,12 @@ export default function SpeechToTextEngine({
     }
   };
   
-  // Helper function to optimize child voice transcript
+  // Helper function to optimise child voice transcript
   const optimizeChildVoiceTranscript = (text: string): string => {
     if (!text) return text;
     
     // Common child speech patterns and corrections
-    let optimized = text
+    let optimised = text
       // Fix common child pronunciation issues
       .replace(/(\b)fing(\b)/gi, '$1thing$2')
       .replace(/(\b)wiv(\b)/gi, '$1with$2')
@@ -462,7 +462,7 @@ export default function SpeechToTextEngine({
       .replace(/(\b)going (go|play|see)(\b)/gi, '$1going to $2$3')
       .replace(/(\b)have (go|play|see)(\b)/gi, '$1have to $2$3');
     
-    return optimized;
+    return optimised;
   };
   
   // Helper function to auto-capitalize text
@@ -537,15 +537,15 @@ export default function SpeechToTextEngine({
         <CardContent>
           <Progress value={calibrationProgress} className="mb-4" />
           
-          <div className="bg-muted p-4 rounded-md mb-4 text-center">
+          <div className="bg-muted p-4 rounded-md mb-4 text-centre">
             <p className="text-lg font-medium">{calibrationPhrases[calibrationStep]}</p>
           </div>
           
-          <div className="flex items-center justify-center gap-4 mb-4">
+          <div className="flex items-centre justify-centre gap-4 mb-4">
             <Button
               variant={isListening ? "destructive" : "default"}
               onClick={isListening ? stopListening : startListening}
-              className="flex items-center gap-2"
+              className="flex items-centre gap-2"
             >
               {isListening ? (
                 <>
@@ -562,7 +562,7 @@ export default function SpeechToTextEngine({
           </div>
           
           {isListening && (
-            <div className="flex items-center justify-center gap-2 mb-4">
+            <div className="flex items-centre justify-centre gap-2 mb-4">
               <div className="h-2 w-full bg-muted rounded-full overflow-hidden">
                 <div 
                   className="h-full bg-primary transition-all duration-100"
@@ -597,8 +597,8 @@ export default function SpeechToTextEngine({
   return (
     <Card className={className}>
       <CardHeader>
-        <CardTitle className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
+        <CardTitle className="flex items-centre justify-between">
+          <div className="flex items-centre gap-2">
             {isListening ? (
               <Mic className="h-5 w-5 text-green-500 animate-pulse" />
             ) : (
@@ -630,7 +630,7 @@ export default function SpeechToTextEngine({
               />
               
               {isListening && (
-                <div className="absolute bottom-2 right-2 flex items-center gap-1">
+                <div className="absolute bottom-2 right-2 flex items-centre gap-1">
                   <div className="relative w-16 h-1 bg-muted rounded-full overflow-hidden">
                     <div 
                       className="absolute top-0 left-0 h-full bg-green-500 transition-all duration-100"
@@ -646,7 +646,7 @@ export default function SpeechToTextEngine({
                 <Button 
                   variant="destructive" 
                   onClick={stopListening}
-                  className="flex items-center gap-1"
+                  className="flex items-centre gap-1"
                 >
                   <MicOff className="h-4 w-4" />
                   Stop Listening
@@ -655,7 +655,7 @@ export default function SpeechToTextEngine({
                 <Button 
                   variant="default" 
                   onClick={startListening}
-                  className="flex items-center gap-1"
+                  className="flex items-centre gap-1"
                 >
                   <Mic className="h-4 w-4" />
                   Start Listening
@@ -665,7 +665,7 @@ export default function SpeechToTextEngine({
               <Button 
                 variant="outline" 
                 onClick={clearText}
-                className="flex items-center gap-1"
+                className="flex items-centre gap-1"
                 disabled={!text && !interimText}
               >
                 <RefreshCw className="h-4 w-4" />
@@ -675,7 +675,7 @@ export default function SpeechToTextEngine({
               <Button 
                 variant="secondary" 
                 onClick={copyToClipboard}
-                className="flex items-center gap-1"
+                className="flex items-centre gap-1"
                 disabled={!text}
               >
                 {isCopied ? (
@@ -707,7 +707,7 @@ export default function SpeechToTextEngine({
           
           <TabsContent value="settings" className="space-y-4 pt-4">
             <div className="space-y-4">
-              <div className="flex items-center justify-between">
+              <div className="flex items-centre justify-between">
                 <div className="space-y-0.5">
                   <Label htmlFor="child-voice">Child Voice Optimization</Label>
                   <p className="text-xs text-muted-foreground">
@@ -721,7 +721,7 @@ export default function SpeechToTextEngine({
                 />
               </div>
               
-              <div className="flex items-center justify-between">
+              <div className="flex items-centre justify-between">
                 <div className="space-y-0.5">
                   <Label htmlFor="noise-reduction">Background Noise Reduction</Label>
                   <p className="text-xs text-muted-foreground">
@@ -735,7 +735,7 @@ export default function SpeechToTextEngine({
                 />
               </div>
               
-              <div className="flex items-center justify-between">
+              <div className="flex items-centre justify-between">
                 <div className="space-y-0.5">
                   <Label htmlFor="auto-capitalization">Auto-Capitalization</Label>
                   <p className="text-xs text-muted-foreground">
@@ -749,7 +749,7 @@ export default function SpeechToTextEngine({
                 />
               </div>
               
-              <div className="flex items-center justify-between">
+              <div className="flex items-centre justify-between">
                 <div className="space-y-0.5">
                   <Label htmlFor="punctuation">Punctuation Prediction</Label>
                   <p className="text-xs text-muted-foreground">
@@ -823,7 +823,7 @@ export default function SpeechToTextEngine({
       <CardFooter className="flex justify-between">
         <div className="text-xs text-muted-foreground">
           {isListening ? (
-            <span className="flex items-center gap-1">
+            <span className="flex items-centre gap-1">
               <Mic className="h-3 w-3 text-green-500" />
               Listening...
             </span>

@@ -333,7 +333,7 @@ export default function ImpactVisualisationTools() {
     ]
   };
   
-  // Get status badge color
+  // Get status badge colour
   const getStatusBadgeColor = (status) => {
     switch (status) {
       case "Implemented":
@@ -343,11 +343,11 @@ export default function ImpactVisualisationTools() {
       case "Pending Review":
         return "bg-amber-100 text-amber-800";
       default:
-        return "bg-gray-100 text-gray-800";
+        return "bg-grey-100 text-grey-800";
     }
   };
   
-  // Get impact badge color
+  // Get impact badge colour
   const getImpactBadgeColor = (impact) => {
     switch (impact) {
       case "High":
@@ -355,9 +355,9 @@ export default function ImpactVisualisationTools() {
       case "Medium":
         return "bg-blue-100 text-blue-800";
       case "Low":
-        return "bg-gray-100 text-gray-800";
+        return "bg-grey-100 text-grey-800";
       default:
-        return "bg-gray-100 text-gray-800";
+        return "bg-grey-100 text-grey-800";
     }
   };
 
@@ -374,7 +374,7 @@ export default function ImpactVisualisationTools() {
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center">
+          <CardTitle className="flex items-centre">
             <BarChartIcon className="mr-2 h-5 w-5" />
             Impact Visualisation Tools
           </CardTitle>
@@ -393,7 +393,7 @@ export default function ImpactVisualisationTools() {
             
             {/* Dashboard Tab */}
             <TabsContent value="dashboard" className="space-y-6">
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <h2 className="text-2xl font-bold">Impact Dashboard</h2>
                 <div className="flex space-x-2">
                   <Select value={timeRange} onValueChange={setTimeRange}>
@@ -422,29 +422,29 @@ export default function ImpactVisualisationTools() {
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
-                      <div className="flex justify-between items-center">
-                        <div className="flex items-center">
+                      <div className="flex justify-between items-centre">
+                        <div className="flex items-centre">
                           <Target className="mr-2 h-4 w-4 text-blue-500" />
                           <span>Total Initiatives</span>
                         </div>
                         <Badge variant="outline">{impactData.summary.totalInitiatives}</Badge>
                       </div>
-                      <div className="flex justify-between items-center">
-                        <div className="flex items-center">
+                      <div className="flex justify-between items-centre">
+                        <div className="flex items-centre">
                           <CheckCircle className="mr-2 h-4 w-4 text-green-500" />
                           <span>Implemented Changes</span>
                         </div>
                         <Badge variant="outline">{impactData.summary.implementedChanges}</Badge>
                       </div>
-                      <div className="flex justify-between items-center">
-                        <div className="flex items-center">
+                      <div className="flex justify-between items-centre">
+                        <div className="flex items-centre">
                           <Clock className="mr-2 h-4 w-4 text-amber-500" />
                           <span>In Progress</span>
                         </div>
                         <Badge variant="outline">{impactData.summary.inProgressChanges}</Badge>
                       </div>
-                      <div className="flex justify-between items-center">
-                        <div className="flex items-center">
+                      <div className="flex justify-between items-centre">
+                        <div className="flex items-centre">
                           <AlertTriangle className="mr-2 h-4 w-4 text-red-500" />
                           <span>Pending Review</span>
                         </div>
@@ -476,7 +476,7 @@ export default function ImpactVisualisationTools() {
                           <span className="text-sm font-medium">Student Participation</span>
                           <span className="text-sm font-medium">{impactData.summary.studentParticipation}%</span>
                         </div>
-                        <div className="w-full bg-gray-200 rounded-full h-2.5">
+                        <div className="w-full bg-grey-200 rounded-full h-2.5">
                           <div 
                             className="bg-blue-600 h-2.5 rounded-full" 
                             style={{ width: `${impactData.summary.studentParticipation}%` }}
@@ -489,7 +489,7 @@ export default function ImpactVisualisationTools() {
                           <span className="text-sm font-medium">Overall Satisfaction</span>
                           <span className="text-sm font-medium">{impactData.summary.overallSatisfaction}%</span>
                         </div>
-                        <div className="w-full bg-gray-200 rounded-full h-2.5">
+                        <div className="w-full bg-grey-200 rounded-full h-2.5">
                           <div 
                             className="bg-green-600 h-2.5 rounded-full" 
                             style={{ width: `${impactData.summary.overallSatisfaction}%` }}
@@ -519,7 +519,7 @@ export default function ImpactVisualisationTools() {
                             <span className="text-sm font-medium">{category.name}</span>
                             <span className="text-sm font-medium">{category.successRate}%</span>
                           </div>
-                          <div className="w-full bg-gray-200 rounded-full h-2.5">
+                          <div className="w-full bg-grey-200 rounded-full h-2.5">
                             <div 
                               className="bg-purple-600 h-2.5 rounded-full" 
                               style={{ width: `${category.successRate}%` }}
@@ -589,9 +589,9 @@ export default function ImpactVisualisationTools() {
                                   {metric.before} → {metric.after} {metric.unit}
                                 </span>
                               </div>
-                              <div className="w-full bg-gray-200 rounded-full h-2.5 mb-1">
+                              <div className="w-full bg-grey-200 rounded-full h-2.5 mb-1">
                                 <div 
-                                  className="bg-gray-500 h-2.5 rounded-full" 
+                                  className="bg-grey-500 h-2.5 rounded-full" 
                                   style={{ width: `${metric.before}%` }}
                                 ></div>
                               </div>
@@ -619,7 +619,7 @@ export default function ImpactVisualisationTools() {
             
             {/* Initiative Impact Tab */}
             <TabsContent value="initiatives" className="space-y-6">
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <h2 className="text-2xl font-bold">Initiative Impact</h2>
                 <div className="flex space-x-2">
                   <Select defaultValue="all">
@@ -666,29 +666,29 @@ export default function ImpactVisualisationTools() {
                           <p className="mb-4">{impact.description}</p>
                           
                           <div className="space-y-4">
-                            <div className="flex justify-between items-center">
-                              <div className="flex items-center">
+                            <div className="flex justify-between items-centre">
+                              <div className="flex items-centre">
                                 <Users className="mr-2 h-4 w-4 text-blue-500" />
                                 <span>Student Participation</span>
                               </div>
                               <Badge variant="outline">85%</Badge>
                             </div>
-                            <div className="flex justify-between items-center">
-                              <div className="flex items-center">
+                            <div className="flex justify-between items-centre">
+                              <div className="flex items-centre">
                                 <MessageSquare className="mr-2 h-4 w-4 text-green-500" />
                                 <span>Feedback Collected</span>
                               </div>
                               <Badge variant="outline">124 responses</Badge>
                             </div>
-                            <div className="flex justify-between items-center">
-                              <div className="flex items-center">
+                            <div className="flex justify-between items-centre">
+                              <div className="flex items-centre">
                                 <Calendar className="mr-2 h-4 w-4 text-purple-500" />
                                 <span>Implementation Time</span>
                               </div>
                               <Badge variant="outline">45 days</Badge>
                             </div>
-                            <div className="flex justify-between items-center">
-                              <div className="flex items-center">
+                            <div className="flex justify-between items-centre">
+                              <div className="flex items-centre">
                                 <Zap className="mr-2 h-4 w-4 text-amber-500" />
                                 <span>Resources Required</span>
                               </div>
@@ -709,19 +709,19 @@ export default function ImpactVisualisationTools() {
                                   </span>
                                 </div>
                                 <div className="relative pt-1">
-                                  <div className="flex mb-2 items-center justify-between">
-                                    <div className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full bg-gray-200">
+                                  <div className="flex mb-2 items-centre justify-between">
+                                    <div className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full bg-grey-200">
                                       Before
                                     </div>
                                     <div className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full bg-blue-200">
                                       After
                                     </div>
                                   </div>
-                                  <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-gray-200">
-                                    <div style={{ width: `${metric.before}%` }} className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-gray-500"></div>
+                                  <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-grey-200">
+                                    <div style={{ width: `${metric.before}%` }} className="shadow-none flex flex-col text-centre whitespace-nowrap text-white justify-centre bg-grey-500"></div>
                                   </div>
                                   <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-blue-200">
-                                    <div style={{ width: `${metric.after}%` }} className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-500"></div>
+                                    <div style={{ width: `${metric.after}%` }} className="shadow-none flex flex-col text-centre whitespace-nowrap text-white justify-centre bg-blue-500"></div>
                                   </div>
                                 </div>
                               </div>
@@ -759,7 +759,7 @@ export default function ImpactVisualisationTools() {
             
             {/* Trend Analysis Tab */}
             <TabsContent value="trends" className="space-y-6">
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <h2 className="text-2xl font-bold">Trend Analysis</h2>
                 <div className="flex space-x-2">
                   <Select defaultValue="academic-year">
@@ -961,7 +961,7 @@ export default function ImpactVisualisationTools() {
             
             {/* Reports Tab */}
             <TabsContent value="reports" className="space-y-6">
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <h2 className="text-2xl font-bold">Impact Reports</h2>
                 <div className="flex space-x-2">
                   <Button variant="outline">
@@ -984,7 +984,7 @@ export default function ImpactVisualisationTools() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    <div className="flex justify-between items-center p-4 border rounded-lg">
+                    <div className="flex justify-between items-centre p-4 border rounded-lg">
                       <div>
                         <h3 className="font-medium">Termly Impact Summary</h3>
                         <p className="text-sm text-muted-foreground">Comprehensive overview of all student voice initiatives and their impact</p>
@@ -992,7 +992,7 @@ export default function ImpactVisualisationTools() {
                       <Button>Generate</Button>
                     </div>
                     
-                    <div className="flex justify-between items-center p-4 border rounded-lg">
+                    <div className="flex justify-between items-centre p-4 border rounded-lg">
                       <div>
                         <h3 className="font-medium">Category-Specific Analysis</h3>
                         <p className="text-sm text-muted-foreground">Detailed analysis of impact within specific categories</p>
@@ -1000,7 +1000,7 @@ export default function ImpactVisualisationTools() {
                       <Button>Generate</Button>
                     </div>
                     
-                    <div className="flex justify-between items-center p-4 border rounded-lg">
+                    <div className="flex justify-between items-centre p-4 border rounded-lg">
                       <div>
                         <h3 className="font-medium">Trend Analysis Report</h3>
                         <p className="text-sm text-muted-foreground">Long-term trends in student voice impact metrics</p>
@@ -1008,7 +1008,7 @@ export default function ImpactVisualisationTools() {
                       <Button>Generate</Button>
                     </div>
                     
-                    <div className="flex justify-between items-center p-4 border rounded-lg">
+                    <div className="flex justify-between items-centre p-4 border rounded-lg">
                       <div>
                         <h3 className="font-medium">Initiative Comparison</h3>
                         <p className="text-sm text-muted-foreground">Side-by-side comparison of multiple initiatives</p>
@@ -1016,7 +1016,7 @@ export default function ImpactVisualisationTools() {
                       <Button>Generate</Button>
                     </div>
                     
-                    <div className="flex justify-between items-center p-4 border rounded-lg">
+                    <div className="flex justify-between items-centre p-4 border rounded-lg">
                       <div>
                         <h3 className="font-medium">Stakeholder Presentation</h3>
                         <p className="text-sm text-muted-foreground">Visual presentation for sharing with school leadership and governors</p>
@@ -1036,8 +1036,8 @@ export default function ImpactVisualisationTools() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    <div className="flex justify-between items-center p-4 border rounded-lg">
-                      <div className="flex items-center">
+                    <div className="flex justify-between items-centre p-4 border rounded-lg">
+                      <div className="flex items-centre">
                         <FileText className="h-8 w-8 text-blue-500 mr-4" />
                         <div>
                           <h3 className="font-medium">Spring Term Impact Summary</h3>
@@ -1054,8 +1054,8 @@ export default function ImpactVisualisationTools() {
                       </div>
                     </div>
                     
-                    <div className="flex justify-between items-center p-4 border rounded-lg">
-                      <div className="flex items-center">
+                    <div className="flex justify-between items-centre p-4 border rounded-lg">
+                      <div className="flex items-centre">
                         <FileText className="h-8 w-8 text-green-500 mr-4" />
                         <div>
                           <h3 className="font-medium">Wellbeing Initiatives Analysis</h3>
@@ -1072,8 +1072,8 @@ export default function ImpactVisualisationTools() {
                       </div>
                     </div>
                     
-                    <div className="flex justify-between items-center p-4 border rounded-lg">
-                      <div className="flex items-center">
+                    <div className="flex justify-between items-centre p-4 border rounded-lg">
+                      <div className="flex items-centre">
                         <FileText className="h-8 w-8 text-purple-500 mr-4" />
                         <div>
                           <h3 className="font-medium">Annual Student Voice Impact</h3>

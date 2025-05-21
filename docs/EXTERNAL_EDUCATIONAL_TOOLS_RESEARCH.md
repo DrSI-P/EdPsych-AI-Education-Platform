@@ -200,4 +200,4 @@ Each integration should be developed with the following considerations:
 
 The research identifies several UK-based educational tools with free tiers that can enhance the EdPsych-AI-Education-Platform through the third-party plugin architecture. These tools cover the key areas of cognitive assessment, special educational needs support, mental health and wellbeing, post-16 planning, and assistive technology.
 
-By integrating these tools, the platform can provide comprehensive support for educators working with students who have diverse needs, while maintaining the flexibility to add more specialized tools as required.
+By integrating these tools, the platform can provide comprehensive support for educators working with students who have diverse needs, while maintaining the flexibility to add more specialised tools as required.

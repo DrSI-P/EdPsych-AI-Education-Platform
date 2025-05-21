@@ -46,7 +46,7 @@ export default function VoiceInputTestPage() {
           transition={{ duration: 0.5 }}
         >
           <h1 className="text-3xl font-bold mb-2">Voice Input Testing</h1>
-          <p className="text-gray-600 mb-6">
+          <p className="text-grey-600 mb-6">
             Test the enhanced voice input feature across different age groups and scenarios.
           </p>
           
@@ -121,7 +121,7 @@ export default function VoiceInputTestPage() {
                 )}
                 
                 {activeTab === 'universal' && (
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm text-grey-500">
                     No additional settings for universal component.
                   </p>
                 )}

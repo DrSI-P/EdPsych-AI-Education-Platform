@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Student Preference Tracking System is a sophisticated component of the Student Voice Amplification System designed to capture, analyze, and apply student preferences across multiple dimensions of the learning experience. This system enables personalized learning experiences by systematically tracking student preferences for content types, learning approaches, environmental factors, and interaction styles.
+The Student Preference Tracking System is a sophisticated component of the Student Voice Amplification System designed to capture, analyse, and apply student preferences across multiple dimensions of the learning experience. This system enables personalized learning experiences by systematically tracking student preferences for content types, learning approaches, environmental factors, and interaction styles.
 
 ## Key Features
 
@@ -130,7 +130,7 @@ The Student Preference Tracking System is a sophisticated component of the Stude
 - Machine learning for preference prediction
 - Cross-context preference analysis
 - Preference-based peer grouping
-- Preference visualization and analytics
+- Preference visualisation and analytics
 
 ### Research Opportunities
 - Longitudinal studies on preference stability

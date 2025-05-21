@@ -63,7 +63,7 @@ const sampleAssessmentData = {
       areasForDevelopment: ['Analytical writing', 'Grammar and punctuation'],
       effort: 'Good',
       attendance: 97,
-      behavior: 'Excellent',
+      behaviour: 'Excellent',
       comments: 'Emma continues to show strong engagement in English lessons. Her creative writing is particularly impressive, with rich vocabulary and imaginative storylines. To progress further, Emma should focus on developing her analytical writing skills, particularly when responding to non-fiction texts.'
     },
     Mathematics: { 
@@ -74,8 +74,8 @@ const sampleAssessmentData = {
       areasForDevelopment: ['Algebra', 'Problem-solving'],
       effort: 'Satisfactory',
       attendance: 95,
-      behavior: 'Good',
-      comments: 'Emma has made steady progress in Mathematics this term. She demonstrates good understanding of number operations and data handling. Emma would benefit from additional practice with algebraic concepts and applying mathematical knowledge to solve complex problems.'
+      behaviour: 'Good',
+      comments: 'Emma has made steady progress in Mathematics this term. She demonstrates good understanding of number operations and data handling. Emma would benefit from additional practise with algebraic concepts and applying mathematical knowledge to solve complex problems.'
     },
     Science: { 
       currentScore: 82, 
@@ -85,7 +85,7 @@ const sampleAssessmentData = {
       areasForDevelopment: ['Physics concepts', 'Scientific vocabulary'],
       effort: 'Excellent',
       attendance: 98,
-      behavior: 'Excellent',
+      behaviour: 'Excellent',
       comments: 'Emma shows genuine enthusiasm for Science, particularly in practical investigations and biology topics. She asks thoughtful questions and contributes well to class discussions. To enhance her understanding further, Emma should work on consolidating physics concepts and expanding her use of scientific vocabulary.'
     },
     History: { 
@@ -96,8 +96,8 @@ const sampleAssessmentData = {
       areasForDevelopment: ['Extended writing', 'Chronological understanding'],
       effort: 'Good',
       attendance: 96,
-      behavior: 'Good',
-      comments: 'Emma demonstrates good historical knowledge and is developing her skills in analyzing historical sources. Her contributions to class discussions show thoughtful engagement with the subject. To progress further, Emma should focus on structuring extended writing more effectively and developing a more secure chronological understanding of historical periods.'
+      behaviour: 'Good',
+      comments: 'Emma demonstrates good historical knowledge and is developing her skills in analysing historical sources. Her contributions to class discussions show thoughtful engagement with the subject. To progress further, Emma should focus on structuring extended writing more effectively and developing a more secure chronological understanding of historical periods.'
     },
     Art: { 
       currentScore: 88, 
@@ -107,8 +107,8 @@ const sampleAssessmentData = {
       areasForDevelopment: ['Art history knowledge', 'Critical analysis'],
       effort: 'Excellent',
       attendance: 100,
-      behavior: 'Excellent',
-      comments: 'Emma shows exceptional talent in Art, with particularly strong drawing skills and creative approaches to projects. Her portfolio demonstrates a good range of techniques and thoughtful development of ideas. To enhance her work further, Emma should develop her knowledge of art history and practice analyzing the work of other artists more critically.'
+      behaviour: 'Excellent',
+      comments: 'Emma shows exceptional talent in Art, with particularly strong drawing skills and creative approaches to projects. Her portfolio demonstrates a good range of techniques and thoughtful development of ideas. To enhance her work further, Emma should develop her knowledge of art history and practise analysing the work of other artists more critically.'
     }
   },
   // Additional student data would be included here
@@ -120,7 +120,7 @@ const reportTemplates = [
     id: 'end-of-term', 
     name: 'End of Term Report', 
     description: 'Comprehensive report covering all subjects and aspects of school life',
-    sections: ['Academic Progress', 'Attendance and Punctuality', 'Behavior and Attitude', 'Extra-Curricular Activities', 'Targets for Next Term']
+    sections: ['Academic Progress', 'Attendance and Punctuality', 'Behaviour and Attitude', 'Extra-Curricular Activities', 'Targets for Next Term']
   },
   { 
     id: 'mid-term', 
@@ -143,7 +143,7 @@ const reportTemplates = [
   { 
     id: 'sen', 
     name: 'Special Educational Needs Report', 
-    description: 'Specialized report focusing on progress against IEP/504 targets',
+    description: 'Specialised report focusing on progress against IEP/504 targets',
     sections: ['Target Progress', 'Intervention Effectiveness', 'Social and Emotional Development', 'Recommended Adjustments']
   },
   { 
@@ -297,7 +297,7 @@ export default function AutomatedProgressReportGeneration() {
             areasForDevelopment: data.areasForDevelopment,
             effort: data.effort,
             attendance: data.attendance,
-            behavior: data.behavior,
+            behaviour: data.behaviour,
             comments: aiEnhancedComment
           };
         }).filter(Boolean);
@@ -355,13 +355,13 @@ export default function AutomatedProgressReportGeneration() {
       subjectReports.reduce((sum, report) => sum + report.progress, 0) / subjectReports.length
     );
     
-    // Count strengths in effort and behavior
+    // Count strengths in effort and behaviour
     const goodEffortCount = subjectReports.filter(report => 
       ['Good', 'Excellent'].includes(report.effort)
     ).length;
     
     const goodBehaviorCount = subjectReports.filter(report => 
-      ['Good', 'Excellent'].includes(report.behavior)
+      ['Good', 'Excellent'].includes(report.behaviour)
     ).length;
     
     const effortRatio = goodEffortCount / subjectReports.length;
@@ -374,7 +374,7 @@ export default function AutomatedProgressReportGeneration() {
       case 'positive':
         comment = `${student.name} has demonstrated ${averageProgress > 0 ? 'positive' : 'steady'} progress this term, with an average attainment of ${averageCurrentScore}%. `;
         comment += effortRatio > 0.7 ? `${student.name}'s effort has been consistently good across most subjects. ` : `${student.name} has shown good effort in some subject areas. `;
-        comment += behaviorRatio > 0.7 ? `Behavior has been exemplary throughout the term. ` : `Behavior has been generally appropriate. `;
+        comment += behaviorRatio > 0.7 ? `Behaviour has been exemplary throughout the term. ` : `Behaviour has been generally appropriate. `;
         comment += `${student.name} has particular strengths in ${subjectReports.sort((a, b) => b.currentScore - a.currentScore)[0].subject} and should be encouraged to continue developing these skills.`;
         break;
         
@@ -391,7 +391,7 @@ export default function AutomatedProgressReportGeneration() {
         comment = `${student.name} has achieved an average attainment of ${averageCurrentScore}% this term, representing a ${averageProgress > 0 ? 'positive change' : 'slight change'} of ${Math.abs(averageProgress)}% from previous assessments. `;
         comment += `Particular strengths are evident in ${subjectReports.sort((a, b) => b.currentScore - a.currentScore)[0].subject}, while additional support in ${subjectReports.sort((a, b) => a.currentScore - b.currentScore)[0].subject} could help address current challenges. `;
         comment += effortRatio > 0.7 ? `Effort has been consistently good across most subjects. ` : `Effort has been variable across different subjects. `;
-        comment += behaviorRatio > 0.7 ? `Behavior has been positive throughout the term. ` : `Behavior has been generally appropriate with some inconsistencies. `;
+        comment += behaviorRatio > 0.7 ? `Behaviour has been positive throughout the term. ` : `Behaviour has been generally appropriate with some inconsistencies. `;
         comment += `Overall, ${student.name} ${averageProgress > 3 ? 'is making excellent progress' : averageProgress > 0 ? 'is making steady progress' : 'would benefit from additional support'} at this stage of the academic year.`;
         break;
     }
@@ -414,7 +414,7 @@ export default function AutomatedProgressReportGeneration() {
     
     // Generate specific next steps
     return developmentAreas.map(({ subject, area }) => {
-      return `Focus on improving ${area} in ${subject} through regular practice and targeted support.`;
+      return `Focus on improving ${area} in ${subject} through regular practise and targeted support.`;
     });
   };
   
@@ -562,7 +562,7 @@ export default function AutomatedProgressReportGeneration() {
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center">
+          <CardTitle className="flex items-centre">
             <FileText className="mr-2 h-5 w-5" />
             Automated Progress Report Generation
           </CardTitle>
@@ -616,7 +616,7 @@ export default function AutomatedProgressReportGeneration() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <Card>
                   <CardHeader>
-                    <CardTitle className="flex items-center">
+                    <CardTitle className="flex items-centre">
                       <Users className="mr-2 h-5 w-5" />
                       Select Students
                     </CardTitle>
@@ -654,7 +654,7 @@ export default function AutomatedProgressReportGeneration() {
                       
                       <div className="space-y-2 max-h-[300px] overflow-y-auto">
                         {sampleStudents.map(student => (
-                          <div key={student.id} className="flex items-center space-x-2">
+                          <div key={student.id} className="flex items-centre space-x-2">
                             <Checkbox 
                               id={`student-${student.id}`} 
                               checked={selectedStudents.includes(student.id)}
@@ -682,7 +682,7 @@ export default function AutomatedProgressReportGeneration() {
                 
                 <Card>
                   <CardHeader>
-                    <CardTitle className="flex items-center">
+                    <CardTitle className="flex items-centre">
                       <BookOpen className="mr-2 h-5 w-5" />
                       Select Subjects
                     </CardTitle>
@@ -713,7 +713,7 @@ export default function AutomatedProgressReportGeneration() {
                       
                       <div className="grid grid-cols-2 gap-2">
                         {Array.from(new Set(sampleStudents.flatMap(student => student.subjects))).map(subject => (
-                          <div key={subject} className="flex items-center space-x-2">
+                          <div key={subject} className="flex items-centre space-x-2">
                             <Checkbox 
                               id={`subject-${subject}`} 
                               checked={selectedSubjects.includes(subject)}
@@ -739,12 +739,12 @@ export default function AutomatedProgressReportGeneration() {
               
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center">
+                  <CardTitle className="flex items-centre">
                     <Settings className="mr-2 h-5 w-5" />
                     Report Options
                   </CardTitle>
                   <CardDescription>
-                    Customize the content and style of your reports
+                    Customise the content and style of your reports
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -786,7 +786,7 @@ export default function AutomatedProgressReportGeneration() {
                     </div>
                     
                     <div className="space-y-4">
-                      <div className="flex items-center space-x-2">
+                      <div className="flex items-centre space-x-2">
                         <Checkbox 
                           id="include-attendance" 
                           checked={includeAttendance}
@@ -795,16 +795,16 @@ export default function AutomatedProgressReportGeneration() {
                         <Label htmlFor="include-attendance">Include attendance data</Label>
                       </div>
                       
-                      <div className="flex items-center space-x-2">
+                      <div className="flex items-centre space-x-2">
                         <Checkbox 
-                          id="include-behavior" 
+                          id="include-behaviour" 
                           checked={includeBehavior}
                           onCheckedChange={(checked) => setIncludeBehavior(checked as boolean)}
                         />
-                        <Label htmlFor="include-behavior">Include behavior information</Label>
+                        <Label htmlFor="include-behaviour">Include behaviour information</Label>
                       </div>
                       
-                      <div className="flex items-center space-x-2">
+                      <div className="flex items-centre space-x-2">
                         <Checkbox 
                           id="include-graphs" 
                           checked={includeGraphs}
@@ -813,7 +813,7 @@ export default function AutomatedProgressReportGeneration() {
                         <Label htmlFor="include-graphs">Include visual progress graphs</Label>
                       </div>
                       
-                      <div className="flex items-center space-x-2">
+                      <div className="flex items-centre space-x-2">
                         <Checkbox 
                           id="include-next-steps" 
                           checked={includeNextSteps}
@@ -839,7 +839,7 @@ export default function AutomatedProgressReportGeneration() {
             <TabsContent value="preview" className="space-y-6">
               {generatedReports.length > 0 ? (
                 <>
-                  <div className="flex justify-between items-center">
+                  <div className="flex justify-between items-centre">
                     <h2 className="text-xl font-bold">Generated Reports</h2>
                     <div className="text-sm text-muted-foreground">
                       {generatedReports.length} reports generated
@@ -899,7 +899,7 @@ export default function AutomatedProgressReportGeneration() {
                   </div>
                 </>
               ) : (
-                <div className="text-center py-12">
+                <div className="text-centre py-12">
                   <FileText className="h-12 w-12 mx-auto text-muted-foreground" />
                   <h3 className="mt-4 text-lg font-medium">No reports generated yet</h3>
                   <p className="mt-2 text-muted-foreground">
@@ -920,7 +920,7 @@ export default function AutomatedProgressReportGeneration() {
             <TabsContent value="view" className="space-y-6">
               {currentReport ? (
                 <div className="space-y-6">
-                  <div className="flex justify-between items-center">
+                  <div className="flex justify-between items-centre">
                     <div>
                       <h2 className="text-2xl font-bold">{currentReport.student.name}</h2>
                       <p className="text-muted-foreground">
@@ -1008,7 +1008,7 @@ export default function AutomatedProgressReportGeneration() {
                                 <span className="text-sm font-medium">Current Score</span>
                                 <span className="text-sm font-medium">{subject.currentScore}%</span>
                               </div>
-                              <div className="w-full bg-gray-200 rounded-full h-2.5">
+                              <div className="w-full bg-grey-200 rounded-full h-2.5">
                                 <div 
                                   className="bg-primary h-2.5 rounded-full" 
                                   style={{ width: `${subject.currentScore}%` }}
@@ -1032,9 +1032,9 @@ export default function AutomatedProgressReportGeneration() {
                                   {subject.comparisonToAverage > 0 ? `+${subject.comparisonToAverage}%` : `${subject.comparisonToAverage}%`}
                                 </span>
                               </div>
-                              <div className="flex items-center space-x-2">
+                              <div className="flex items-centre space-x-2">
                                 <span className="text-sm">Class: {subject.classAverage}%</span>
-                                <div className="flex-1 h-0.5 bg-gray-200"></div>
+                                <div className="flex-1 h-0.5 bg-grey-200"></div>
                                 <span className="text-sm">Student: {subject.currentScore}%</span>
                               </div>
                               
@@ -1063,16 +1063,16 @@ export default function AutomatedProgressReportGeneration() {
                           </div>
                           
                           {currentReport.includeAttendance && (
-                            <div className="mt-4 flex items-center">
+                            <div className="mt-4 flex items-centre">
                               <Clock className="h-4 w-4 mr-2 text-muted-foreground" />
                               <span className="text-sm">Attendance: {subject.attendance}%</span>
                             </div>
                           )}
                           
                           {currentReport.includeBehavior && (
-                            <div className="mt-2 flex items-center">
+                            <div className="mt-2 flex items-centre">
                               <Smile className="h-4 w-4 mr-2 text-muted-foreground" />
-                              <span className="text-sm">Behavior: {subject.behavior}</span>
+                              <span className="text-sm">Behaviour: {subject.behaviour}</span>
                             </div>
                           )}
                         </CardContent>
@@ -1083,7 +1083,7 @@ export default function AutomatedProgressReportGeneration() {
                   {currentReport.nextSteps && currentReport.nextSteps.length > 0 && (
                     <Card>
                       <CardHeader>
-                        <CardTitle className="flex items-center">
+                        <CardTitle className="flex items-centre">
                           <Target className="mr-2 h-5 w-5" />
                           Next Steps
                         </CardTitle>
@@ -1145,7 +1145,7 @@ export default function AutomatedProgressReportGeneration() {
                   </div>
                 </div>
               ) : (
-                <div className="text-center py-12">
+                <div className="text-centre py-12">
                   <FileText className="h-12 w-12 mx-auto text-muted-foreground" />
                   <h3 className="mt-4 text-lg font-medium">No report selected</h3>
                   <p className="mt-2 text-muted-foreground">
@@ -1159,7 +1159,7 @@ export default function AutomatedProgressReportGeneration() {
             <TabsContent value="saved" className="space-y-6">
               {savedReports.length > 0 ? (
                 <>
-                  <div className="flex justify-between items-center">
+                  <div className="flex justify-between items-centre">
                     <h2 className="text-xl font-bold">Saved Reports</h2>
                     <div className="text-sm text-muted-foreground">
                       {savedReports.length} reports saved
@@ -1212,7 +1212,7 @@ export default function AutomatedProgressReportGeneration() {
                   </div>
                 </>
               ) : (
-                <div className="text-center py-12">
+                <div className="text-centre py-12">
                   <Save className="h-12 w-12 mx-auto text-muted-foreground" />
                   <h3 className="mt-4 text-lg font-medium">No saved reports</h3>
                   <p className="mt-2 text-muted-foreground">

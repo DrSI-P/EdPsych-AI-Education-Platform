@@ -15,7 +15,7 @@ export default function IEP504PlanPage() {
     <div className="container mx-auto py-8 space-y-8">
       <div className="space-y-2">
         <h1 className="text-3xl font-bold tracking-tight">IEP/504 Plan Management</h1>
-        <p className="text-gray-500 dark:text-gray-400">
+        <p className="text-grey-500 dark:text-grey-400">
           Create and manage comprehensive educational support plans for students with special educational needs
         </p>
       </div>
@@ -48,7 +48,7 @@ export default function IEP504PlanPage() {
                     </div>
                     <div>
                       <h3 className="font-medium">Individualised Education Plans (IEPs)</h3>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-grey-500">
                         In the UK, IEPs are working documents used to plan, monitor and evaluate 
                         interventions for pupils with special educational needs. They outline specific, 
                         measurable targets and strategies tailored to individual student needs.
@@ -62,7 +62,7 @@ export default function IEP504PlanPage() {
                     </div>
                     <div>
                       <h3 className="font-medium">504 Accommodation Plans</h3>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-grey-500">
                         While "504 Plans" are primarily a US term, similar accommodation plans exist in the UK 
                         for students who need reasonable adjustments but may not require an EHCP. These plans 
                         ensure equal access to education through specific accommodations.
@@ -76,7 +76,7 @@ export default function IEP504PlanPage() {
                     </div>
                     <div>
                       <h3 className="font-medium">Education, Health and Care Plans (EHCPs)</h3>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-grey-500">
                         EHCPs are legal documents that describe a child's special educational, health and social care needs, 
                         and the provision required to meet those needs. They are more comprehensive than IEPs and have 
                         statutory backing.
@@ -91,9 +91,9 @@ export default function IEP504PlanPage() {
                       <Users className="h-5 w-5 text-amber-700" />
                     </div>
                     <div>
-                      <h3 className="font-medium">The SEND Code of Practice</h3>
-                      <p className="text-sm text-gray-500">
-                        The SEND Code of Practice (2015) provides statutory guidance for organisations working with 
+                      <h3 className="font-medium">The SEND Code of Practise</h3>
+                      <p className="text-sm text-grey-500">
+                        The SEND Code of Practise (2015) provides statutory guidance for organisations working with 
                         children and young people with special educational needs and disabilities. It emphasises 
                         person-centred planning and the graduated approach of Assess, Plan, Do, Review.
                       </p>
@@ -106,7 +106,7 @@ export default function IEP504PlanPage() {
                     </div>
                     <div>
                       <h3 className="font-medium">Legal Framework</h3>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-grey-500">
                         The Children and Families Act 2014 and the Equality Act 2010 form the legal basis for 
                         SEND provision in the UK. Schools have a duty to make reasonable adjustments to ensure 
                         students with disabilities are not disadvantaged.
@@ -114,9 +114,9 @@ export default function IEP504PlanPage() {
                     </div>
                   </div>
                   
-                  <div className="bg-gray-50 p-4 rounded-md">
+                  <div className="bg-grey-50 p-4 rounded-md">
                     <h3 className="font-medium mb-2">Key Differences Between UK and US Approaches</h3>
-                    <ul className="space-y-1 text-sm text-gray-600">
+                    <ul className="space-y-1 text-sm text-grey-600">
                       <li>• UK uses IEPs and EHCPs; US uses IEPs and 504 Plans</li>
                       <li>• UK has a graduated approach to SEND support</li>
                       <li>• UK emphasises the role of the SENCO (Special Educational Needs Coordinator)</li>
@@ -129,7 +129,7 @@ export default function IEP504PlanPage() {
               <div className="bg-blue-50 p-4 rounded-md">
                 <h3 className="font-medium text-blue-800 mb-2">The Graduated Approach to SEND Support</h3>
                 <p className="text-sm text-blue-700 mb-3">
-                  The UK SEND Code of Practice outlines a graduated approach to supporting children with special educational needs:
+                  The UK SEND Code of Practise outlines a graduated approach to supporting children with special educational needs:
                 </p>
                 <div className="grid md:grid-cols-4 gap-3 text-sm">
                   <div className="bg-white p-3 rounded-md border border-blue-200">
@@ -179,7 +179,7 @@ export default function IEP504PlanPage() {
                     <CheckCircle2 className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
                     <div>
                       <h4 className="font-medium">Use SMART Goals</h4>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-grey-500">
                         Ensure all goals are Specific, Measurable, Achievable, Relevant, and Time-bound. 
                         This provides clarity and enables effective progress monitoring.
                       </p>
@@ -190,7 +190,7 @@ export default function IEP504PlanPage() {
                     <CheckCircle2 className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
                     <div>
                       <h4 className="font-medium">Focus on Strengths</h4>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-grey-500">
                         Begin with a thorough assessment of the student's strengths, interests, and preferences. 
                         Build on these to develop effective strategies and increase engagement.
                       </p>
@@ -201,7 +201,7 @@ export default function IEP504PlanPage() {
                     <CheckCircle2 className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
                     <div>
                       <h4 className="font-medium">Prioritise Key Areas</h4>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-grey-500">
                         Focus on the most important areas of need rather than trying to address everything at once. 
                         This prevents overwhelming the student and allows for meaningful progress.
                       </p>
@@ -212,7 +212,7 @@ export default function IEP504PlanPage() {
                     <CheckCircle2 className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
                     <div>
                       <h4 className="font-medium">Include Baseline Data</h4>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-grey-500">
                         Document current performance levels to provide a clear starting point for measuring progress. 
                         Use multiple sources of data for a comprehensive picture.
                       </p>
@@ -227,7 +227,7 @@ export default function IEP504PlanPage() {
                     <CheckCircle2 className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
                     <div>
                       <h4 className="font-medium">Ensure Collaborative Implementation</h4>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-grey-500">
                         Clearly communicate the plan to all staff involved in implementation. 
                         Ensure everyone understands their responsibilities and the strategies to be used.
                       </p>
@@ -238,7 +238,7 @@ export default function IEP504PlanPage() {
                     <CheckCircle2 className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
                     <div>
                       <h4 className="font-medium">Regular Progress Monitoring</h4>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-grey-500">
                         Collect data consistently to track progress toward goals. Use this data to make 
                         informed decisions about continuing, modifying, or changing interventions.
                       </p>
@@ -249,7 +249,7 @@ export default function IEP504PlanPage() {
                     <CheckCircle2 className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
                     <div>
                       <h4 className="font-medium">Meaningful Review Meetings</h4>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-grey-500">
                         Hold regular review meetings with all stakeholders, including the student when appropriate. 
                         Focus on progress, challenges, and next steps.
                       </p>
@@ -260,7 +260,7 @@ export default function IEP504PlanPage() {
                     <CheckCircle2 className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
                     <div>
                       <h4 className="font-medium">Adjust as Needed</h4>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-grey-500">
                         Be willing to revise goals, accommodations, or strategies based on progress data 
                         and feedback. Flexibility is key to effective support.
                       </p>
@@ -302,8 +302,8 @@ export default function IEP504PlanPage() {
                 <div className="grid md:grid-cols-3 gap-4">
                   <div className="border rounded-md p-3">
                     <h4 className="font-medium mb-1">UK Department for Education</h4>
-                    <p className="text-sm text-gray-500 mb-2">
-                      SEND Code of Practice: 0 to 25 years
+                    <p className="text-sm text-grey-500 mb-2">
+                      SEND Code of Practise: 0 to 25 years
                     </p>
                     <a href="#" className="text-sm text-blue-600 hover:underline">
                       View Resource
@@ -311,7 +311,7 @@ export default function IEP504PlanPage() {
                   </div>
                   <div className="border rounded-md p-3">
                     <h4 className="font-medium mb-1">nasen (National Association for SEND)</h4>
-                    <p className="text-sm text-gray-500 mb-2">
+                    <p className="text-sm text-grey-500 mb-2">
                       Effective IEP Development: A Guide for SENCOs
                     </p>
                     <a href="#" className="text-sm text-blue-600 hover:underline">
@@ -320,7 +320,7 @@ export default function IEP504PlanPage() {
                   </div>
                   <div className="border rounded-md p-3">
                     <h4 className="font-medium mb-1">Education Endowment Foundation</h4>
-                    <p className="text-sm text-gray-500 mb-2">
+                    <p className="text-sm text-grey-500 mb-2">
                       Special Educational Needs in Mainstream Schools
                     </p>
                     <a href="#" className="text-sm text-blue-600 hover:underline">

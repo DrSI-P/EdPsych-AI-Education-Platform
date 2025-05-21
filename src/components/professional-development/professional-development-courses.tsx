@@ -52,14 +52,14 @@ import {
   AvatarImage 
 } from "@/components/ui/avatar";
 import { 
-  Dialog, 
+  Dialogue, 
   DialogContent, 
   DialogDescription, 
   DialogFooter, 
   DialogHeader, 
   DialogTitle, 
   DialogTrigger 
-} from "@/components/ui/dialog";
+} from "@/components/ui/dialogue";
 import { 
   BarChart, 
   BookOpen, 
@@ -92,7 +92,7 @@ const COURSE_CATEGORIES = [
   { id: 'sen', label: 'Special Educational Needs' },
   { id: 'restorative', label: 'Restorative Approaches' },
   { id: 'assessment', label: 'Educational Assessment' },
-  { id: 'pedagogy', label: 'Pedagogical Practice' },
+  { id: 'pedagogy', label: 'Pedagogical Practise' },
   { id: 'wellbeing', label: 'Wellbeing & Mental Health' },
   { id: 'inclusion', label: 'Inclusive Education' },
   { id: 'leadership', label: 'Educational Leadership' },
@@ -146,7 +146,7 @@ const SAMPLE_COURSES = [
   {
     id: 3,
     title: 'Advanced Assessment for Learning',
-    description: 'Master evidence-based assessment techniques to enhance pupil progress and inform teaching practice.',
+    description: 'Master evidence-based assessment techniques to enhance pupil progress and inform teaching practise.',
     category: 'assessment',
     difficulty: 'advanced',
     duration: '8 hours',
@@ -190,7 +190,7 @@ const SAMPLE_COURSES = [
   },
   {
     id: 6,
-    title: 'Attachment Theory in Educational Practice',
+    title: 'Attachment Theory in Educational Practise',
     description: 'Understand how attachment theory can inform educational approaches and interventions.',
     category: 'wellbeing',
     difficulty: 'advanced',
@@ -380,10 +380,10 @@ export default function ProfessionalDevelopmentCourses() {
     );
   };
   
-  // Get difficulty badge color
+  // Get difficulty badge colour
   const getDifficultyColor = (difficultyId) => {
     const difficulty = DIFFICULTY_LEVELS.find(d => d.id === difficultyId);
-    return difficulty ? difficulty.color : 'bg-gray-500';
+    return difficulty ? difficulty.colour : 'bg-grey-500';
   };
   
   // Get difficulty label
@@ -438,9 +438,9 @@ export default function ProfessionalDevelopmentCourses() {
         <TabsContent value="explore">
           {!selectedCourse ? (
             <>
-              <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-centre mb-6 gap-4">
                 <div className="relative w-full md:w-1/2">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-grey-400" size={18} />
                   <Input
                     placeholder="Search courses..."
                     className="pl-10"
@@ -451,7 +451,7 @@ export default function ProfessionalDevelopmentCourses() {
                 <Button 
                   variant="outline" 
                   onClick={() => setShowFilters(!showFilters)}
-                  className="flex items-center gap-2"
+                  className="flex items-centre gap-2"
                 >
                   <Filter size={16} />
                   {showFilters ? 'Hide Filters' : 'Show Filters'}
@@ -480,7 +480,7 @@ export default function ProfessionalDevelopmentCourses() {
                       <Badge
                         key={difficulty.id}
                         variant={selectedDifficulties.includes(difficulty.id) ? "default" : "outline"}
-                        className={`cursor-pointer ${selectedDifficulties.includes(difficulty.id) ? difficulty.color : ''}`}
+                        className={`cursor-pointer ${selectedDifficulties.includes(difficulty.id) ? difficulty.colour : ''}`}
                         onClick={() => toggleDifficulty(difficulty.id)}
                       >
                         {difficulty.label}
@@ -494,7 +494,7 @@ export default function ProfessionalDevelopmentCourses() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {filteredCourses.map(course => (
                     <Card key={course.id} className="overflow-hidden">
-                      <div className="h-48 bg-gray-200 relative">
+                      <div className="h-48 bg-grey-200 relative">
                         {/* Course image would be here */}
                         <div className="absolute top-2 right-2">
                           <Badge className={getDifficultyColor(course.difficulty)}>
@@ -510,32 +510,32 @@ export default function ProfessionalDevelopmentCourses() {
                         <CardDescription className="line-clamp-2">{course.description}</CardDescription>
                       </CardHeader>
                       <CardContent>
-                        <div className="flex items-center justify-between text-sm mb-4">
-                          <div className="flex items-center gap-1">
+                        <div className="flex items-centre justify-between text-sm mb-4">
+                          <div className="flex items-centre gap-1">
                             <Clock size={16} />
                             <span>{course.duration}</span>
                           </div>
-                          <div className="flex items-center gap-1">
+                          <div className="flex items-centre gap-1">
                             <Layers size={16} />
                             <span>{course.modules} Modules</span>
                           </div>
-                          <div className="flex items-center gap-1">
+                          <div className="flex items-centre gap-1">
                             <Certificate size={16} />
                             <span>{course.cpd_points} CPD Points</span>
                           </div>
                         </div>
-                        <div className="flex items-center gap-2 mb-2">
+                        <div className="flex items-centre gap-2 mb-2">
                           <Avatar className="h-6 w-6">
                             <AvatarFallback>{course.instructor.split(' ').map(n => n[0]).join('')}</AvatarFallback>
                           </Avatar>
                           <span className="text-sm">{course.instructor}</span>
                         </div>
-                        <div className="flex items-center justify-between text-sm text-muted-foreground">
-                          <div className="flex items-center gap-1">
+                        <div className="flex items-centre justify-between text-sm text-muted-foreground">
+                          <div className="flex items-centre gap-1">
                             <Users size={14} />
                             <span>{course.enrolled} enrolled</span>
                           </div>
-                          <div className="flex items-center gap-1">
+                          <div className="flex items-centre gap-1">
                             <Star size={14} className="fill-yellow-400 text-yellow-400" />
                             <span>{course.rating}</span>
                           </div>
@@ -550,7 +550,7 @@ export default function ProfessionalDevelopmentCourses() {
                   ))}
                 </div>
               ) : (
-                <div className="text-center py-12">
+                <div className="text-centre py-12">
                   <h3 className="text-xl font-medium mb-2">No courses found</h3>
                   <p className="text-muted-foreground">Try adjusting your search or filters</p>
                 </div>
@@ -576,23 +576,23 @@ export default function ProfessionalDevelopmentCourses() {
                     </div>
                     
                     <div className="flex flex-wrap gap-4 text-sm">
-                      <div className="flex items-center gap-1">
+                      <div className="flex items-centre gap-1">
                         <Clock size={16} />
                         <span>{selectedCourse.duration}</span>
                       </div>
-                      <div className="flex items-center gap-1">
+                      <div className="flex items-centre gap-1">
                         <Layers size={16} />
                         <span>{selectedCourse.modules} Modules</span>
                       </div>
-                      <div className="flex items-center gap-1">
+                      <div className="flex items-centre gap-1">
                         <Certificate size={16} />
                         <span>{selectedCourse.cpd_points} CPD Points</span>
                       </div>
-                      <div className="flex items-center gap-1">
+                      <div className="flex items-centre gap-1">
                         <Users size={16} />
                         <span>{selectedCourse.enrolled} enrolled</span>
                       </div>
-                      <div className="flex items-center gap-1">
+                      <div className="flex items-centre gap-1">
                         <Star size={16} className="fill-yellow-400 text-yellow-400" />
                         <span>{selectedCourse.rating}</span>
                       </div>
@@ -601,7 +601,7 @@ export default function ProfessionalDevelopmentCourses() {
                   
                   <div className="flex flex-col gap-2">
                     <Button className="w-full">Enrol Now</Button>
-                    <Button variant="outline" className="w-full flex items-center gap-2">
+                    <Button variant="outline" className="w-full flex items-centre gap-2">
                       <Share2 size={16} />
                       Share Course
                     </Button>
@@ -623,8 +623,8 @@ export default function ProfessionalDevelopmentCourses() {
                         {SAMPLE_MODULES.map((module, index) => (
                           <AccordionItem key={module.id} value={`module-${module.id}`}>
                             <AccordionTrigger>
-                              <div className="flex items-center gap-3">
-                                <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${module.completed ? 'bg-green-500 text-white' : 'bg-gray-200'}`}>
+                              <div className="flex items-centre gap-3">
+                                <div className={`w-6 h-6 rounded-full flex items-centre justify-centre text-xs ${module.completed ? 'bg-green-500 text-white' : 'bg-grey-200'}`}>
                                   {module.completed ? <CheckCircle size={14} /> : index + 1}
                                 </div>
                                 <span>{module.title}</span>
@@ -633,13 +633,13 @@ export default function ProfessionalDevelopmentCourses() {
                             <AccordionContent>
                               <div className="pl-9">
                                 <p className="mb-2">{module.description}</p>
-                                <div className="flex items-center justify-between">
-                                  <div className="flex items-center gap-4">
-                                    <div className="flex items-center gap-1 text-sm text-muted-foreground">
+                                <div className="flex items-centre justify-between">
+                                  <div className="flex items-centre gap-4">
+                                    <div className="flex items-centre gap-1 text-sm text-muted-foreground">
                                       <Clock size={14} />
                                       <span>{module.duration}</span>
                                     </div>
-                                    <div className="flex items-center gap-1">
+                                    <div className="flex items-centre gap-1">
                                       {renderContentTypeIcons(module.content_types)}
                                     </div>
                                   </div>
@@ -662,7 +662,7 @@ export default function ProfessionalDevelopmentCourses() {
                       <CardTitle>Instructor</CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <div className="flex items-center gap-3 mb-3">
+                      <div className="flex items-centre gap-3 mb-3">
                         <Avatar>
                           <AvatarFallback>{selectedCourse.instructor.split(' ').map(n => n[0]).join('')}</AvatarFallback>
                         </Avatar>
@@ -685,7 +685,7 @@ export default function ProfessionalDevelopmentCourses() {
                       {SAMPLE_DISCUSSIONS.map(discussion => (
                         <div key={discussion.id} className="mb-4 pb-4 border-b last:border-0 last:mb-0 last:pb-0">
                           <h4 className="font-medium mb-1">{discussion.title}</h4>
-                          <div className="flex items-center justify-between text-sm text-muted-foreground">
+                          <div className="flex items-centre justify-between text-sm text-muted-foreground">
                             <span>Started by {discussion.author}</span>
                             <span>{discussion.replies} replies</span>
                           </div>
@@ -725,12 +725,12 @@ export default function ProfessionalDevelopmentCourses() {
                     </div>
                     <Progress value={course.progress} className="h-2" />
                   </div>
-                  <div className="flex items-center justify-between text-sm mb-4">
-                    <div className="flex items-center gap-1">
+                  <div className="flex items-centre justify-between text-sm mb-4">
+                    <div className="flex items-centre gap-1">
                       <Clock size={16} />
                       <span>{course.duration}</span>
                     </div>
-                    <div className="flex items-center gap-1">
+                    <div className="flex items-centre gap-1">
                       <Certificate size={16} />
                       <span>{course.cpd_points} CPD Points</span>
                     </div>
@@ -745,7 +745,7 @@ export default function ProfessionalDevelopmentCourses() {
             ))}
             
             {SAMPLE_COURSES.filter(course => course.progress > 0).length === 0 && (
-              <div className="col-span-full text-center py-12">
+              <div className="col-span-full text-centre py-12">
                 <h3 className="text-xl font-medium mb-2">No courses in progress</h3>
                 <p className="text-muted-foreground mb-4">Explore our course catalogue to get started</p>
                 <Button onClick={() => setActiveTab('explore')}>Browse Courses</Button>
@@ -764,18 +764,18 @@ export default function ProfessionalDevelopmentCourses() {
                   <CardDescription>Completed on {certificate.completion_date}</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="bg-muted p-6 rounded-lg flex flex-col items-center justify-center mb-4">
+                  <div className="bg-muted p-6 rounded-lg flex flex-col items-centre justify-centre mb-4">
                     <Certificate size={48} className="mb-2 text-primary" />
                     <h3 className="text-lg font-medium">Certificate of Completion</h3>
                     <p className="text-sm text-muted-foreground">{certificate.cpd_points} CPD Points</p>
                   </div>
                 </CardContent>
                 <CardFooter className="flex justify-between">
-                  <Button variant="outline" className="flex items-center gap-2">
+                  <Button variant="outline" className="flex items-centre gap-2">
                     <Download size={16} />
                     Download
                   </Button>
-                  <Button variant="outline" className="flex items-center gap-2">
+                  <Button variant="outline" className="flex items-centre gap-2">
                     <Share2 size={16} />
                     Share
                   </Button>
@@ -784,7 +784,7 @@ export default function ProfessionalDevelopmentCourses() {
             ))}
             
             {SAMPLE_CERTIFICATES.length === 0 && (
-              <div className="col-span-full text-center py-12">
+              <div className="col-span-full text-centre py-12">
                 <h3 className="text-xl font-medium mb-2">No certificates yet</h3>
                 <p className="text-muted-foreground mb-4">Complete courses to earn certificates</p>
                 <Button onClick={() => setActiveTab('explore')}>Browse Courses</Button>
@@ -807,11 +807,11 @@ export default function ProfessionalDevelopmentCourses() {
                     {SAMPLE_DISCUSSIONS.map(discussion => (
                       <div key={discussion.id} className="p-4 border rounded-lg">
                         <h4 className="font-medium mb-1">{discussion.title}</h4>
-                        <div className="flex items-center justify-between text-sm text-muted-foreground mb-3">
+                        <div className="flex items-centre justify-between text-sm text-muted-foreground mb-3">
                           <span>Started by {discussion.author} • {discussion.date}</span>
                           <span>{discussion.replies} replies</span>
                         </div>
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-between items-centre">
                           <span className="text-xs text-muted-foreground">
                             Last activity: {discussion.last_activity}
                           </span>
@@ -835,8 +835,8 @@ export default function ProfessionalDevelopmentCourses() {
                 <CardContent>
                   <div className="space-y-3">
                     {SAMPLE_COMMUNITY_MEMBERS.map(member => (
-                      <div key={member.id} className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
+                      <div key={member.id} className="flex items-centre justify-between">
+                        <div className="flex items-centre gap-3">
                           <Avatar>
                             <AvatarFallback>{member.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
                           </Avatar>
@@ -845,7 +845,7 @@ export default function ProfessionalDevelopmentCourses() {
                             <p className="text-sm text-muted-foreground">{member.role}</p>
                           </div>
                         </div>
-                        <div className={`w-2 h-2 rounded-full ${member.status === 'online' ? 'bg-green-500' : 'bg-gray-300'}`}></div>
+                        <div className={`w-2 h-2 rounded-full ${member.status === 'online' ? 'bg-green-500' : 'bg-grey-300'}`}></div>
                       </div>
                     ))}
                   </div>
@@ -862,17 +862,17 @@ export default function ProfessionalDevelopmentCourses() {
                 <CardContent>
                   <div className="space-y-3">
                     <div className="p-3 border rounded-lg">
-                      <div className="flex items-center gap-3 mb-2">
+                      <div className="flex items-centre gap-3 mb-2">
                         <Calendar className="text-primary" />
                         <div>
-                          <h4 className="font-medium">Trauma-Informed Practice Webinar</h4>
+                          <h4 className="font-medium">Trauma-Informed Practise Webinar</h4>
                           <p className="text-sm text-muted-foreground">25 May 2025, 16:00-17:30</p>
                         </div>
                       </div>
                       <Button size="sm" variant="outline" className="w-full">Add to Calendar</Button>
                     </div>
                     <div className="p-3 border rounded-lg">
-                      <div className="flex items-center gap-3 mb-2">
+                      <div className="flex items-centre gap-3 mb-2">
                         <Calendar className="text-primary" />
                         <div>
                           <h4 className="font-medium">Q&A with Dr. Sarah Thompson</h4>

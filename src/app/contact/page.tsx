@@ -89,7 +89,7 @@ export default function ContactPage() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-center mb-12"
+        className="text-centre mb-12"
       >
         <h1 className="text-4xl font-bold tracking-tight">Contact Us</h1>
         <p className="mt-4 text-xl text-muted-foreground max-w-3xl mx-auto">
@@ -176,7 +176,7 @@ export default function ContactPage() {
                 <motion.div 
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="flex flex-col items-center justify-center text-center py-8"
+                  className="flex flex-col items-centre justify-centre text-centre py-8"
                 >
                   <div className="bg-green-100 p-3 rounded-full mb-4">
                     <CheckCircle2 className="h-12 w-12 text-green-600" />
@@ -190,7 +190,7 @@ export default function ContactPage() {
                 <motion.div 
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="flex flex-col items-center justify-center text-center py-8"
+                  className="flex flex-col items-centre justify-centre text-centre py-8"
                 >
                   <div className="bg-red-100 p-3 rounded-full mb-4">
                     <AlertCircle className="h-12 w-12 text-red-600" />
@@ -326,7 +326,7 @@ export default function ContactPage() {
         transition={{ delay: 0.6, duration: 0.5 }}
         className="mt-20"
       >
-        <h2 className="text-2xl font-semibold mb-6 text-center">Frequently Asked Questions</h2>
+        <h2 className="text-2xl font-semibold mb-6 text-centre">Frequently Asked Questions</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Card>

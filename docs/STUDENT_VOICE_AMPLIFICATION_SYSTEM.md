@@ -234,7 +234,7 @@ Planned future enhancements include:
 1. **Student-led Conference Tools**:
    - Digital portfolios for student-led conferences
    - Guided reflection templates
-   - Progress visualization tools
+   - Progress visualisation tools
 
 2. **Collaborative Goal Setting**:
    - Student-teacher goal co-creation interfaces
@@ -246,7 +246,7 @@ Planned future enhancements include:
    - Initiative tracking and management
    - School-wide polling and consultation tools
 
-4. **Impact Visualization**:
+4. **Impact Visualisation**:
    - Analytics showing how student feedback influences school decisions
    - Before/after comparisons of implemented suggestions
    - Recognition system for valuable contributions

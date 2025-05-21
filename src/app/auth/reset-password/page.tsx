@@ -46,11 +46,11 @@ export default function RequestResetPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="flex min-h-screen items-centre justify-centre bg-grey-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md">
-        <div className="text-center mb-8">
+        <div className="text-centre mb-8">
           <h1 className="text-3xl font-bold">Reset Password</h1>
-          <p className="mt-2 text-gray-600">
+          <p className="mt-2 text-grey-600">
             Enter your email address and we'll send you a link to reset your password.
           </p>
         </div>
@@ -58,11 +58,11 @@ export default function RequestResetPage() {
         <Card>
           <CardContent className="pt-6">
             {success ? (
-              <div className="text-center py-4">
+              <div className="text-centre py-4">
                 <Alert type="success" className="mb-4">
                   If your email is registered, you will receive a password reset link shortly.
                 </Alert>
-                <p className="text-sm text-gray-600 mb-4">
+                <p className="text-sm text-grey-600 mb-4">
                   Please check your email inbox and follow the instructions to reset your password.
                 </p>
                 <Button variant="outline" onClick={() => router.push('/auth/signin')}>
@@ -78,7 +78,7 @@ export default function RequestResetPage() {
                 )}
                 
                 <div className="mb-4">
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label htmlFor="email" className="block text-sm font-medium text-grey-700 mb-1">
                     Email Address
                   </label>
                   <Input
@@ -103,7 +103,7 @@ export default function RequestResetPage() {
                   </Button>
                 </div>
                 
-                <div className="mt-4 text-center">
+                <div className="mt-4 text-centre">
                   <Link href="/auth/signin" className="text-sm text-blue-600 hover:text-blue-800">
                     Return to sign in
                   </Link>

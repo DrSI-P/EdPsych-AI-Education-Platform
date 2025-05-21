@@ -251,7 +251,7 @@ export function AdminDashboard({
       content: (
         <div className="space-y-6">
           {loading ? (
-            <div className="flex justify-center py-8">
+            <div className="flex justify-centre py-8">
               <Spinner size="lg" />
             </div>
           ) : error ? (
@@ -260,10 +260,10 @@ export function AdminDashboard({
             </Alert>
           ) : (
             <>
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <div>
                   <h2 className="text-xl font-semibold">Admin Dashboard</h2>
-                  <p className="text-sm text-gray-600">{adminData.role} • {adminData.organisation}</p>
+                  <p className="text-sm text-grey-600">{adminData.role} • {adminData.organisation}</p>
                 </div>
                 <div className="text-right">
                   <p className="text-sm font-medium">System Status</p>
@@ -284,7 +284,7 @@ export function AdminDashboard({
                         <div className="flex justify-between items-start">
                           <div>
                             <p className="font-medium">{alert.message}</p>
-                            <p className="text-sm text-gray-600">{alert.timestamp}</p>
+                            <p className="text-sm text-grey-600">{alert.timestamp}</p>
                           </div>
                         </div>
                       </Alert>
@@ -296,41 +296,41 @@ export function AdminDashboard({
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <Card>
                   <CardContent className="pt-6">
-                    <div className="text-center">
+                    <div className="text-centre">
                       <div className="text-3xl font-bold text-blue-600 mb-1">
                         {adminData.systemStats.totalUsers}
                       </div>
-                      <p className="text-sm text-gray-600">Total Users</p>
+                      <p className="text-sm text-grey-600">Total Users</p>
                     </div>
                   </CardContent>
                 </Card>
                 <Card>
                   <CardContent className="pt-6">
-                    <div className="text-center">
+                    <div className="text-centre">
                       <div className="text-3xl font-bold text-green-600 mb-1">
                         {adminData.systemStats.activeUsers}
                       </div>
-                      <p className="text-sm text-gray-600">Active Users</p>
+                      <p className="text-sm text-grey-600">Active Users</p>
                     </div>
                   </CardContent>
                 </Card>
                 <Card>
                   <CardContent className="pt-6">
-                    <div className="text-center">
+                    <div className="text-centre">
                       <div className="text-3xl font-bold text-purple-600 mb-1">
                         {adminData.systemStats.totalSchools}
                       </div>
-                      <p className="text-sm text-gray-600">Schools</p>
+                      <p className="text-sm text-grey-600">Schools</p>
                     </div>
                   </CardContent>
                 </Card>
                 <Card>
                   <CardContent className="pt-6">
-                    <div className="text-center">
+                    <div className="text-centre">
                       <div className="text-3xl font-bold text-orange-600 mb-1">
                         {adminData.systemStats.totalResources}
                       </div>
-                      <p className="text-sm text-gray-600">Resources</p>
+                      <p className="text-sm text-grey-600">Resources</p>
                     </div>
                   </CardContent>
                 </Card>
@@ -348,7 +348,7 @@ export function AdminDashboard({
                           <span>Storage Used</span>
                           <span>{adminData.systemStats.storageUsed}</span>
                         </div>
-                        <div className="w-full bg-gray-200 rounded-full h-2">
+                        <div className="w-full bg-grey-200 rounded-full h-2">
                           <div 
                             className="bg-blue-600 h-2 rounded-full" 
                             style={{ width: '80%' }}
@@ -361,7 +361,7 @@ export function AdminDashboard({
                           <span>API Calls (Daily)</span>
                           <span>{adminData.systemStats.apiCalls.daily.toLocaleString()}</span>
                         </div>
-                        <div className="w-full bg-gray-200 rounded-full h-2">
+                        <div className="w-full bg-grey-200 rounded-full h-2">
                           <div 
                             className="bg-green-600 h-2 rounded-full" 
                             style={{ width: '65%' }}
@@ -372,16 +372,16 @@ export function AdminDashboard({
                       <div className="pt-2">
                         <h4 className="text-sm font-medium mb-2">AI Usage Breakdown</h4>
                         <div className="grid grid-cols-3 gap-2">
-                          <div className="p-2 bg-gray-50 rounded-md">
-                            <p className="text-xs text-gray-500">Completions</p>
+                          <div className="p-2 bg-grey-50 rounded-md">
+                            <p className="text-xs text-grey-500">Completions</p>
                             <p className="text-sm font-medium">{adminData.systemStats.aiUsage.completions.toLocaleString()}</p>
                           </div>
-                          <div className="p-2 bg-gray-50 rounded-md">
-                            <p className="text-xs text-gray-500">Embeddings</p>
+                          <div className="p-2 bg-grey-50 rounded-md">
+                            <p className="text-xs text-grey-500">Embeddings</p>
                             <p className="text-sm font-medium">{adminData.systemStats.aiUsage.embeddings.toLocaleString()}</p>
                           </div>
-                          <div className="p-2 bg-gray-50 rounded-md">
-                            <p className="text-xs text-gray-500">Images</p>
+                          <div className="p-2 bg-grey-50 rounded-md">
+                            <p className="text-xs text-grey-500">Images</p>
                             <p className="text-sm font-medium">{adminData.systemStats.aiUsage.images.toLocaleString()}</p>
                           </div>
                         </div>
@@ -404,7 +404,7 @@ export function AdminDashboard({
                   </CardHeader>
                   <CardContent className="space-y-3">
                     {adminData.recentActivity.map(activity => (
-                      <div key={activity.id} className="p-3 rounded-md border hover:bg-gray-50">
+                      <div key={activity.id} className="p-3 rounded-md border hover:bg-grey-50">
                         <div className="flex justify-between items-start">
                           <h4 className="font-medium">{activity.details}</h4>
                           <span className={`text-xs px-2 py-0.5 rounded-full ${
@@ -416,7 +416,7 @@ export function AdminDashboard({
                             {activity.type}
                           </span>
                         </div>
-                        <div className="flex justify-between text-sm text-gray-600 mt-1">
+                        <div className="flex justify-between text-sm text-grey-600 mt-1">
                           <span>By: {activity.actor}</span>
                           <span>{activity.timestamp}</span>
                         </div>
@@ -437,28 +437,28 @@ export function AdminDashboard({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <Card>
                   <CardHeader>
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-centre">
                       <h3 className="text-lg font-semibold">Recent Users</h3>
                       <Button size="sm">Manage Users</Button>
                     </div>
                   </CardHeader>
                   <CardContent className="space-y-3">
                     {adminData.users.slice(0, 3).map(user => (
-                      <div key={user.id} className="p-3 rounded-md border hover:bg-gray-50">
+                      <div key={user.id} className="p-3 rounded-md border hover:bg-grey-50">
                         <div className="flex justify-between items-start">
                           <div>
                             <h4 className="font-medium">{user.name}</h4>
-                            <p className="text-sm text-gray-600">{user.email}</p>
+                            <p className="text-sm text-grey-600">{user.email}</p>
                           </div>
                           <span className={`text-xs px-2 py-0.5 rounded-full ${
                             user.status === 'active' ? 'bg-green-100 text-green-800' :
-                            user.status === 'inactive' ? 'bg-gray-100 text-gray-800' :
+                            user.status === 'inactive' ? 'bg-grey-100 text-grey-800' :
                             'bg-yellow-100 text-yellow-800'
                           }`}>
                             {user.status}
                           </span>
                         </div>
-                        <div className="flex justify-between text-sm text-gray-600 mt-1">
+                        <div className="flex justify-between text-sm text-grey-600 mt-1">
                           <span>Role: {user.role}</span>
                           <span>Last Login: {user.lastLogin}</span>
                         </div>
@@ -469,28 +469,28 @@ export function AdminDashboard({
                 
                 <Card>
                   <CardHeader>
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-centre">
                       <h3 className="text-lg font-semibold">Recent Schools</h3>
                       <Button size="sm">Manage Schools</Button>
                     </div>
                   </CardHeader>
                   <CardContent className="space-y-3">
                     {adminData.schools.slice(0, 3).map(school => (
-                      <div key={school.id} className="p-3 rounded-md border hover:bg-gray-50">
+                      <div key={school.id} className="p-3 rounded-md border hover:bg-grey-50">
                         <div className="flex justify-between items-start">
                           <div>
                             <h4 className="font-medium">{school.name}</h4>
-                            <p className="text-sm text-gray-600">{school.type} • {school.location}</p>
+                            <p className="text-sm text-grey-600">{school.type} • {school.location}</p>
                           </div>
                           <span className={`text-xs px-2 py-0.5 rounded-full ${
                             school.status === 'active' ? 'bg-green-100 text-green-800' :
-                            school.status === 'inactive' ? 'bg-gray-100 text-gray-800' :
+                            school.status === 'inactive' ? 'bg-grey-100 text-grey-800' :
                             'bg-yellow-100 text-yellow-800'
                           }`}>
                             {school.status}
                           </span>
                         </div>
-                        <div className="flex justify-between text-sm text-gray-600 mt-1">
+                        <div className="flex justify-between text-sm text-grey-600 mt-1">
                           <span>Users: {school.usersCount}</span>
                           <span>Added: {school.dateAdded}</span>
                         </div>
@@ -510,7 +510,7 @@ export function AdminDashboard({
       content: (
         <div className="space-y-6">
           {loading ? (
-            <div className="flex justify-center py-8">
+            <div className="flex justify-centre py-8">
               <Spinner size="lg" />
             </div>
           ) : error ? (
@@ -519,7 +519,7 @@ export function AdminDashboard({
             </Alert>
           ) : (
             <>
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <h2 className="text-xl font-semibold">User Management</h2>
                 <div className="flex gap-2">
                   <Input
@@ -547,25 +547,25 @@ export function AdminDashboard({
                 <CardContent className="p-0">
                   <div className="overflow-x-auto">
                     <table className="w-full">
-                      <thead className="bg-gray-50">
+                      <thead className="bg-grey-50">
                         <tr>
-                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
-                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Last Login</th>
-                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date Created</th>
-                          <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                          <th className="px-4 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">Name</th>
+                          <th className="px-4 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">Email</th>
+                          <th className="px-4 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">Role</th>
+                          <th className="px-4 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">Status</th>
+                          <th className="px-4 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">Last Login</th>
+                          <th className="px-4 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">Date Created</th>
+                          <th className="px-4 py-3 text-right text-xs font-medium text-grey-500 uppercase tracking-wider">Actions</th>
                         </tr>
                       </thead>
-                      <tbody className="bg-white divide-y divide-gray-200">
+                      <tbody className="bg-white divide-y divide-grey-200">
                         {adminData.users.map(user => (
-                          <tr key={user.id} className="hover:bg-gray-50">
+                          <tr key={user.id} className="hover:bg-grey-50">
                             <td className="px-4 py-4 whitespace-nowrap">
                               <div className="font-medium">{user.name}</div>
                             </td>
                             <td className="px-4 py-4 whitespace-nowrap">
-                              <div className="text-sm text-gray-600">{user.email}</div>
+                              <div className="text-sm text-grey-600">{user.email}</div>
                             </td>
                             <td className="px-4 py-4 whitespace-nowrap">
                               <div className="text-sm">{user.role}</div>
@@ -573,17 +573,17 @@ export function AdminDashboard({
                             <td className="px-4 py-4 whitespace-nowrap">
                               <span className={`px-2 py-1 text-xs rounded-full ${
                                 user.status === 'active' ? 'bg-green-100 text-green-800' :
-                                user.status === 'inactive' ? 'bg-gray-100 text-gray-800' :
+                                user.status === 'inactive' ? 'bg-grey-100 text-grey-800' :
                                 'bg-yellow-100 text-yellow-800'
                               }`}>
                                 {user.status}
                               </span>
                             </td>
                             <td className="px-4 py-4 whitespace-nowrap">
-                              <div className="text-sm text-gray-600">{user.lastLogin}</div>
+                              <div className="text-sm text-grey-600">{user.lastLogin}</div>
                             </td>
                             <td className="px-4 py-4 whitespace-nowrap">
-                              <div className="text-sm text-gray-600">{user.dateCreated}</div>
+                              <div className="text-sm text-grey-600">{user.dateCreated}</div>
                             </td>
                             <td className="px-4 py-4 whitespace-nowrap text-right">
                               <div className="flex justify-end gap-2">
@@ -615,9 +615,9 @@ export function AdminDashboard({
                 </CardContent>
               </Card>
               
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <div>
-                  <p className="text-sm text-gray-600">Showing {adminData.users.length} of {adminData.systemStats.totalUsers} users</p>
+                  <p className="text-sm text-grey-600">Showing {adminData.users.length} of {adminData.systemStats.totalUsers} users</p>
                 </div>
                 <div className="flex gap-2">
                   <Button variant="outline" size="sm">Previous</Button>
@@ -634,7 +634,7 @@ export function AdminDashboard({
                     <Card>
                       <CardContent className="pt-4">
                         <h4 className="font-medium mb-2">Import Users</h4>
-                        <p className="text-sm text-gray-600 mb-4">
+                        <p className="text-sm text-grey-600 mb-4">
                           Import multiple users from a CSV file.
                         </p>
                         <Button variant="outline" className="w-full">
@@ -646,7 +646,7 @@ export function AdminDashboard({
                     <Card>
                       <CardContent className="pt-4">
                         <h4 className="font-medium mb-2">Export Users</h4>
-                        <p className="text-sm text-gray-600 mb-4">
+                        <p className="text-sm text-grey-600 mb-4">
                           Export user data to CSV or Excel format.
                         </p>
                         <Button variant="outline" className="w-full">
@@ -658,7 +658,7 @@ export function AdminDashboard({
                     <Card>
                       <CardContent className="pt-4">
                         <h4 className="font-medium mb-2">Bulk Update</h4>
-                        <p className="text-sm text-gray-600 mb-4">
+                        <p className="text-sm text-grey-600 mb-4">
                           Update multiple user accounts at once.
                         </p>
                         <Button variant="outline" className="w-full">
@@ -680,7 +680,7 @@ export function AdminDashboard({
       content: (
         <div className="space-y-6">
           {loading ? (
-            <div className="flex justify-center py-8">
+            <div className="flex justify-centre py-8">
               <Spinner size="lg" />
             </div>
           ) : error ? (
@@ -689,7 +689,7 @@ export function AdminDashboard({
             </Alert>
           ) : (
             <>
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <h2 className="text-xl font-semibold">School Management</h2>
                 <div className="flex gap-2">
                   <Input
@@ -715,20 +715,20 @@ export function AdminDashboard({
                 <CardContent className="p-0">
                   <div className="overflow-x-auto">
                     <table className="w-full">
-                      <thead className="bg-gray-50">
+                      <thead className="bg-grey-50">
                         <tr>
-                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
-                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Location</th>
-                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Users</th>
-                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date Added</th>
-                          <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                          <th className="px-4 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">Name</th>
+                          <th className="px-4 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">Type</th>
+                          <th className="px-4 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">Location</th>
+                          <th className="px-4 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">Users</th>
+                          <th className="px-4 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">Status</th>
+                          <th className="px-4 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">Date Added</th>
+                          <th className="px-4 py-3 text-right text-xs font-medium text-grey-500 uppercase tracking-wider">Actions</th>
                         </tr>
                       </thead>
-                      <tbody className="bg-white divide-y divide-gray-200">
+                      <tbody className="bg-white divide-y divide-grey-200">
                         {adminData.schools.map(school => (
-                          <tr key={school.id} className="hover:bg-gray-50">
+                          <tr key={school.id} className="hover:bg-grey-50">
                             <td className="px-4 py-4 whitespace-nowrap">
                               <div className="font-medium">{school.name}</div>
                             </td>
@@ -736,7 +736,7 @@ export function AdminDashboard({
                               <div className="text-sm">{school.type}</div>
                             </td>
                             <td className="px-4 py-4 whitespace-nowrap">
-                              <div className="text-sm text-gray-600">{school.location}</div>
+                              <div className="text-sm text-grey-600">{school.location}</div>
                             </td>
                             <td className="px-4 py-4 whitespace-nowrap">
                               <div className="text-sm">{school.usersCount}</div>
@@ -744,14 +744,14 @@ export function AdminDashboard({
                             <td className="px-4 py-4 whitespace-nowrap">
                               <span className={`px-2 py-1 text-xs rounded-full ${
                                 school.status === 'active' ? 'bg-green-100 text-green-800' :
-                                school.status === 'inactive' ? 'bg-gray-100 text-gray-800' :
+                                school.status === 'inactive' ? 'bg-grey-100 text-grey-800' :
                                 'bg-yellow-100 text-yellow-800'
                               }`}>
                                 {school.status}
                               </span>
                             </td>
                             <td className="px-4 py-4 whitespace-nowrap">
-                              <div className="text-sm text-gray-600">{school.dateAdded}</div>
+                              <div className="text-sm text-grey-600">{school.dateAdded}</div>
                             </td>
                             <td className="px-4 py-4 whitespace-nowrap text-right">
                               <div className="flex justify-end gap-2">
@@ -784,9 +784,9 @@ export function AdminDashboard({
                 </CardContent>
               </Card>
               
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <div>
-                  <p className="text-sm text-gray-600">Showing {adminData.schools.length} of {adminData.systemStats.totalSchools} schools</p>
+                  <p className="text-sm text-grey-600">Showing {adminData.schools.length} of {adminData.systemStats.totalSchools} schools</p>
                 </div>
                 <div className="flex gap-2">
                   <Button variant="outline" size="sm">Previous</Button>
@@ -803,24 +803,24 @@ export function AdminDashboard({
                     <div>
                       <h4 className="font-medium mb-2">Onboarding Steps</h4>
                       <ol className="space-y-2 text-sm">
-                        <li className="flex items-center gap-2">
-                          <div className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-medium">1</div>
+                        <li className="flex items-centre gap-2">
+                          <div className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-centre justify-centre font-medium">1</div>
                           <span>Add school details and administrator</span>
                         </li>
-                        <li className="flex items-center gap-2">
-                          <div className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-medium">2</div>
+                        <li className="flex items-centre gap-2">
+                          <div className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-centre justify-centre font-medium">2</div>
                           <span>Configure school settings and permissions</span>
                         </li>
-                        <li className="flex items-center gap-2">
-                          <div className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-medium">3</div>
+                        <li className="flex items-centre gap-2">
+                          <div className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-centre justify-centre font-medium">3</div>
                           <span>Import users (staff and students)</span>
                         </li>
-                        <li className="flex items-center gap-2">
-                          <div className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-medium">4</div>
+                        <li className="flex items-centre gap-2">
+                          <div className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-centre justify-centre font-medium">4</div>
                           <span>Set up curriculum and resources</span>
                         </li>
-                        <li className="flex items-center gap-2">
-                          <div className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-medium">5</div>
+                        <li className="flex items-centre gap-2">
+                          <div className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-centre justify-centre font-medium">5</div>
                           <span>Provide training and support</span>
                         </li>
                       </ol>
@@ -863,7 +863,7 @@ export function AdminDashboard({
       content: (
         <div className="space-y-6">
           {loading ? (
-            <div className="flex justify-center py-8">
+            <div className="flex justify-centre py-8">
               <Spinner size="lg" />
             </div>
           ) : error ? (
@@ -872,7 +872,7 @@ export function AdminDashboard({
             </Alert>
           ) : (
             <>
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <h2 className="text-xl font-semibold">System Settings</h2>
                 <Button>
                   Save Changes
@@ -1130,8 +1130,8 @@ export function AdminDashboard({
                     
                     <div>
                       <label className="block text-sm font-medium mb-1">Firebase Configuration</label>
-                      <Textarea 
-                        value="{\n  \"apiKey\": \"•••••••••••••••••••••••\",\n  \"authDomain\": \"edpsych-connect.firebaseapp.com\",\n  \"projectId\": \"edpsych-connect\"\n  // Additional fields hidden\n}"
+                      <Textarea
+                        value="{\n  \"apiKey\": \"•••••••••••••••••••••••\",\n  \"authDomain\": \"edpsych-connect.firebaseapp.com\",\n  \"projectId\": \"edpsych-connect\"\n  /* Additional fields hidden */\n}"
                         className="w-full h-24 font-mono text-xs"
                       />
                     </div>
@@ -1167,7 +1167,7 @@ export function AdminDashboard({
                     <Card>
                       <CardContent className="pt-4">
                         <h4 className="font-medium mb-2">Backup Database</h4>
-                        <p className="text-sm text-gray-600 mb-4">
+                        <p className="text-sm text-grey-600 mb-4">
                           Create a full backup of all system databases.
                         </p>
                         <Button variant="outline" className="w-full">
@@ -1179,7 +1179,7 @@ export function AdminDashboard({
                     <Card>
                       <CardContent className="pt-4">
                         <h4 className="font-medium mb-2">Clear Cache</h4>
-                        <p className="text-sm text-gray-600 mb-4">
+                        <p className="text-sm text-grey-600 mb-4">
                           Clear system cache to improve performance.
                         </p>
                         <Button variant="outline" className="w-full">
@@ -1191,7 +1191,7 @@ export function AdminDashboard({
                     <Card>
                       <CardContent className="pt-4">
                         <h4 className="font-medium mb-2">System Logs</h4>
-                        <p className="text-sm text-gray-600 mb-4">
+                        <p className="text-sm text-grey-600 mb-4">
                           View and download system logs for troubleshooting.
                         </p>
                         <Button variant="outline" className="w-full">
@@ -1203,7 +1203,7 @@ export function AdminDashboard({
                     <Card>
                       <CardContent className="pt-4">
                         <h4 className="font-medium mb-2">Update System</h4>
-                        <p className="text-sm text-gray-600 mb-4">
+                        <p className="text-sm text-grey-600 mb-4">
                           Check for and apply system updates.
                         </p>
                         <Button variant="outline" className="w-full">

@@ -17,7 +17,7 @@ export default function AboutPage() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-center mb-16"
+        className="text-centre mb-16"
       >
         <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-6">About EdPsych Connect</h1>
         <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
@@ -30,7 +30,7 @@ export default function AboutPage() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.2, duration: 0.5 }}
-        className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-20 items-center"
+        className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-20 items-centre"
       >
         <div className="order-2 md:order-1">
           <h2 className="text-3xl font-bold mb-6">Our Mission & Vision</h2>
@@ -88,7 +88,7 @@ export default function AboutPage() {
         transition={{ delay: 0.4, duration: 0.5 }}
         className="mb-20"
       >
-        <h2 className="text-3xl font-bold mb-8 text-center">Our Story</h2>
+        <h2 className="text-3xl font-bold mb-8 text-centre">Our Story</h2>
         
         <Tabs defaultValue="beginning" className="w-full">
           <TabsList className="grid w-full grid-cols-3">
@@ -98,7 +98,7 @@ export default function AboutPage() {
           </TabsList>
           
           <TabsContent value="beginning" className="mt-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-centre">
               <div className="relative h-[300px] rounded-xl overflow-hidden shadow-lg">
                 <Image 
                   src="/images/about/beginning.jpg" 
@@ -111,7 +111,7 @@ export default function AboutPage() {
               <div>
                 <h3 className="text-2xl font-semibold mb-4">From Vision to Reality</h3>
                 <p className="text-muted-foreground mb-4">
-                  EdPsych Connect began with Dr. Scott Ighavongbe-Patrick's vision to transform educational experiences for all children. Drawing from over 12 years of experience as an Educational Psychologist, Dr. Scott recognized the need for a platform that could truly personalize learning based on sound educational psychology principles.
+                  EdPsych Connect began with Dr. Scott Ighavongbe-Patrick's vision to transform educational experiences for all children. Drawing from over 12 years of experience as an Educational Psychologist, Dr. Scott recognised the need for a platform that could truly personalize learning based on sound educational psychology principles.
                 </p>
                 <p className="text-muted-foreground">
                   The platform was born from a commitment to empower learners through tailored, evidence-based support, with a particular focus on creating equitable access for disadvantaged children and young people.
@@ -121,7 +121,7 @@ export default function AboutPage() {
           </TabsContent>
           
           <TabsContent value="development" className="mt-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-centre">
               <div>
                 <h3 className="text-2xl font-semibold mb-4">Building the Platform</h3>
                 <p className="text-muted-foreground mb-4">
@@ -144,7 +144,7 @@ export default function AboutPage() {
           </TabsContent>
           
           <TabsContent value="future" className="mt-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-centre">
               <div className="relative h-[300px] rounded-xl overflow-hidden shadow-lg">
                 <Image 
                   src="/images/about/future.jpg" 
@@ -175,7 +175,7 @@ export default function AboutPage() {
         transition={{ delay: 0.6, duration: 0.5 }}
         className="mb-20"
       >
-        <h2 className="text-3xl font-bold mb-8 text-center">Our Core Values</h2>
+        <h2 className="text-3xl font-bold mb-8 text-centre">Our Core Values</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <Card className="overflow-hidden border-2 hover:border-primary/50 transition-all duration-300">
@@ -224,19 +224,29 @@ export default function AboutPage() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.8, duration: 0.5 }}
-        className="bg-primary/5 rounded-xl p-8 md:p-12 text-center"
+        className="bg-primary/5 rounded-xl p-8 md:p-12 text-centre"
       >
         <h2 className="text-3xl font-bold mb-4">Join Our Educational Journey</h2>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
           Discover how EdPsych Connect is transforming education through personalized, evidence-based learning experiences.
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <div className="flex flex-col sm:flex-row gap-4 justify-centre mb-6">
           <Button size="lg" asChild>
             <Link href="/register">Get Started</Link>
           </Button>
           <Button size="lg" variant="outline" asChild>
             <Link href="/contact">Contact Us</Link>
           </Button>
+        </div>
+        <div className="mt-4 border-t border-primary/10 pt-6">
+          <h3 className="text-xl font-semibold mb-3">Featured Resources</h3>
+          <div className="flex flex-col sm:flex-row gap-4 justify-centre">
+            <Button variant="secondary" asChild>
+              <Link href="/ai-avatar-videos">
+                Explore AI Avatar Videos with Dr. Scott
+              </Link>
+            </Button>
+          </div>
         </div>
       </motion.section>
     </div>

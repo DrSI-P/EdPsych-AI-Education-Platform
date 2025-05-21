@@ -42,8 +42,8 @@ const CelebrationOverlay: React.FC<CelebrationOverlayProps> = ({
       case 'nursery':
         return {
           container: 'rounded-3xl border-8 p-8 max-w-md mx-auto',
-          title: 'text-4xl font-bold mb-4 text-center',
-          message: 'text-2xl text-center mb-6',
+          title: 'text-4xl font-bold mb-4 text-centre',
+          message: 'text-2xl text-centre mb-6',
           image: 'w-48 h-48 mx-auto mb-6',
           button: 'text-xl font-bold py-4 px-8 rounded-full',
           icon: 'w-16 h-16 mx-auto mb-4'
@@ -51,8 +51,8 @@ const CelebrationOverlay: React.FC<CelebrationOverlayProps> = ({
       case 'early-primary':
         return {
           container: 'rounded-2xl border-4 p-6 max-w-md mx-auto',
-          title: 'text-3xl font-bold mb-3 text-center',
-          message: 'text-xl text-center mb-5',
+          title: 'text-3xl font-bold mb-3 text-centre',
+          message: 'text-xl text-centre mb-5',
           image: 'w-40 h-40 mx-auto mb-5',
           button: 'text-lg font-semibold py-3 px-6 rounded-xl',
           icon: 'w-14 h-14 mx-auto mb-3'
@@ -60,8 +60,8 @@ const CelebrationOverlay: React.FC<CelebrationOverlayProps> = ({
       case 'late-primary':
         return {
           container: 'rounded-xl border-2 p-5 max-w-md mx-auto',
-          title: 'text-2xl font-semibold mb-2 text-center',
-          message: 'text-lg text-center mb-4',
+          title: 'text-2xl font-semibold mb-2 text-centre',
+          message: 'text-lg text-centre mb-4',
           image: 'w-32 h-32 mx-auto mb-4',
           button: 'text-base font-medium py-2 px-5 rounded-lg',
           icon: 'w-12 h-12 mx-auto mb-2'
@@ -70,8 +70,8 @@ const CelebrationOverlay: React.FC<CelebrationOverlayProps> = ({
       default:
         return {
           container: 'rounded-lg border p-4 max-w-md mx-auto',
-          title: 'text-xl font-medium mb-2 text-center',
-          message: 'text-base text-center mb-4',
+          title: 'text-xl font-medium mb-2 text-centre',
+          message: 'text-base text-centre mb-4',
           image: 'w-24 h-24 mx-auto mb-4',
           button: 'text-sm font-medium py-2 px-4 rounded-md',
           icon: 'w-10 h-10 mx-auto mb-2'
@@ -185,7 +185,7 @@ const CelebrationOverlay: React.FC<CelebrationOverlayProps> = ({
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {Array.from({ length: 50 }).map((_, i) => {
           const size = Math.random() * 10 + 5;
-          const color = [
+          const colour = [
             'bg-red-500', 'bg-blue-500', 'bg-green-500', 
             'bg-yellow-500', 'bg-purple-500', 'bg-pink-500'
           ][Math.floor(Math.random() * 6)];
@@ -193,7 +193,7 @@ const CelebrationOverlay: React.FC<CelebrationOverlayProps> = ({
           return (
             <motion.div
               key={i}
-              className={`absolute rounded-full ${color}`}
+              className={`absolute rounded-full ${colour}`}
               style={{
                 width: size,
                 height: size,
@@ -221,7 +221,7 @@ const CelebrationOverlay: React.FC<CelebrationOverlayProps> = ({
   // Render overlay content
   const renderOverlayContent = () => {
     return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+      <div className="fixed inset-0 z-50 flex items-centre justify-centre p-4 bg-black/50 backdrop-blur-sm">
         {renderConfetti()}
         
         <Card 
@@ -253,7 +253,7 @@ const CelebrationOverlay: React.FC<CelebrationOverlayProps> = ({
             )}
             
             {onClose && (
-              <div className="text-center">
+              <div className="text-centre">
                 <Button
                   className={cn(styles.button, typeStyles.buttonBg)}
                   onClick={onClose}

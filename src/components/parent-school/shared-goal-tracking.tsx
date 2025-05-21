@@ -85,13 +85,13 @@ const MOCK_GOALS = [
     createdBy: 'teacher',
     creatorName: 'Ms. Johnson',
     strategies: [
-      { id: '1', text: 'Daily reading practice for 15 minutes', source: 'school' },
+      { id: '1', text: 'Daily reading practise for 15 minutes', source: 'school' },
       { id: '2', text: 'Use reading bookmarks with decoding strategies', source: 'school' },
       { id: '3', text: 'Record reading and listen back to identify areas for improvement', source: 'home' }
     ],
     evidence: [
       { id: '1', type: 'note', title: 'Reading assessment', date: '2025-05-15', addedBy: 'teacher' },
-      { id: '2', type: 'photo', title: 'Reading practice chart', date: '2025-06-01', addedBy: 'parent' },
+      { id: '2', type: 'photo', title: 'Reading practise chart', date: '2025-06-01', addedBy: 'parent' },
       { id: '3', type: 'audio', title: 'Reading recording', date: '2025-06-20', addedBy: 'parent' }
     ],
     updates: [
@@ -120,7 +120,7 @@ const MOCK_GOALS = [
     creatorName: 'Mr. Williams',
     strategies: [
       { id: '1', text: 'Use visual aids and manipulatives for problem-solving', source: 'school' },
-      { id: '2', text: 'Practice math games that build confidence', source: 'school' },
+      { id: '2', text: 'Practise math games that build confidence', source: 'school' },
       { id: '3', text: 'Relate math to real-life situations at home', source: 'home' }
     ],
     evidence: [
@@ -151,7 +151,7 @@ const MOCK_GOALS = [
     creatorName: 'Ms. Johnson',
     strategies: [
       { id: '1', text: 'Use visual timers for turn-taking activities', source: 'school' },
-      { id: '2', text: 'Practice collaborative games with clear rules', source: 'school' },
+      { id: '2', text: 'Practise collaborative games with clear rules', source: 'school' },
       { id: '3', text: 'Arrange playdates with one friend at a time', source: 'home' }
     ],
     evidence: [
@@ -225,7 +225,7 @@ export default function SharedGoalTracking() {
   
   return (
     <div className="container mx-auto py-6">
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between items-centre mb-6">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Shared Goal Tracking</h1>
           <p className="text-muted-foreground">
@@ -250,7 +250,7 @@ export default function SharedGoalTracking() {
             <CardContent>
               <div className="space-y-4">
                 <div>
-                  <div className="flex justify-between items-center mb-1">
+                  <div className="flex justify-between items-centre mb-1">
                     <h4 className="text-sm font-medium">Academic Goals</h4>
                     <span className="text-sm text-muted-foreground">75%</span>
                   </div>
@@ -258,7 +258,7 @@ export default function SharedGoalTracking() {
                 </div>
                 
                 <div>
-                  <div className="flex justify-between items-center mb-1">
+                  <div className="flex justify-between items-centre mb-1">
                     <h4 className="text-sm font-medium">Social Goals</h4>
                     <span className="text-sm text-muted-foreground">90%</span>
                   </div>
@@ -266,7 +266,7 @@ export default function SharedGoalTracking() {
                 </div>
                 
                 <div>
-                  <div className="flex justify-between items-center mb-1">
+                  <div className="flex justify-between items-centre mb-1">
                     <h4 className="text-sm font-medium">Emotional Goals</h4>
                     <span className="text-sm text-muted-foreground">65%</span>
                   </div>
@@ -296,12 +296,12 @@ export default function SharedGoalTracking() {
               </div>
               
               <div className="mt-6 grid grid-cols-2 gap-4">
-                <div className="bg-muted rounded-lg p-3 text-center">
+                <div className="bg-muted rounded-lg p-3 text-centre">
                   <h4 className="text-sm font-medium text-muted-foreground">Active Goals</h4>
                   <p className="text-2xl font-bold mt-1">2</p>
                 </div>
                 
-                <div className="bg-muted rounded-lg p-3 text-center">
+                <div className="bg-muted rounded-lg p-3 text-centre">
                   <h4 className="text-sm font-medium text-muted-foreground">Completed</h4>
                   <p className="text-2xl font-bold mt-1">1</p>
                 </div>
@@ -344,8 +344,8 @@ export default function SharedGoalTracking() {
                       <Progress value={goal.progress} className="h-2" />
                     </div>
                     
-                    <div className="mt-2 flex justify-between items-center text-xs text-muted-foreground">
-                      <div className="flex items-center">
+                    <div className="mt-2 flex justify-between items-centre text-xs text-muted-foreground">
+                      <div className="flex items-centre">
                         <Calendar className="h-3 w-3 mr-1" />
                         <span>
                           {goal.status === 'completed' 
@@ -353,7 +353,7 @@ export default function SharedGoalTracking() {
                             : calculateDaysRemaining(goal.targetDate) + ' days remaining'}
                         </span>
                       </div>
-                      <div className="flex items-center">
+                      <div className="flex items-centre">
                         <MessageSquare className="h-3 w-3 mr-1" />
                         <span>{goal.updates.length} updates</span>
                       </div>
@@ -370,7 +370,7 @@ export default function SharedGoalTracking() {
             <CardHeader className="pb-2">
               <div className="flex justify-between items-start">
                 <div>
-                  <div className="flex items-center">
+                  <div className="flex items-centre">
                     <CardTitle>{selectedGoal.title}</CardTitle>
                     <Badge className="ml-2" variant={selectedGoal.status === 'completed' ? 'default' : 'outline'}>
                       {selectedGoal.status === 'completed' ? 'Completed' : 'In Progress'}
@@ -412,7 +412,7 @@ export default function SharedGoalTracking() {
             <CardContent>
               <div className="space-y-6">
                 <div>
-                  <div className="flex justify-between items-center mb-2">
+                  <div className="flex justify-between items-centre mb-2">
                     <h3 className="text-sm font-medium">Progress</h3>
                     <span className="text-sm font-medium">{selectedGoal.progress}%</span>
                   </div>
@@ -443,7 +443,7 @@ export default function SharedGoalTracking() {
                 <Separator />
                 
                 <div>
-                  <div className="flex justify-between items-center mb-2">
+                  <div className="flex justify-between items-centre mb-2">
                     <h3 className="text-sm font-medium">Strategies</h3>
                     <Button variant="ghost" size="sm">
                       <PlusCircle className="h-3 w-3 mr-1" />
@@ -470,7 +470,7 @@ export default function SharedGoalTracking() {
                 <Separator />
                 
                 <div>
-                  <div className="flex justify-between items-center mb-2">
+                  <div className="flex justify-between items-centre mb-2">
                     <h3 className="text-sm font-medium">Evidence</h3>
                     <Button variant="ghost" size="sm" onClick={() => setShowAddEvidence(true)}>
                       <PlusCircle className="h-3 w-3 mr-1" />
@@ -488,7 +488,7 @@ export default function SharedGoalTracking() {
                         </div>
                         <div>
                           <p className="font-medium text-sm">{evidence.title}</p>
-                          <div className="flex items-center mt-1 text-xs text-muted-foreground">
+                          <div className="flex items-centre mt-1 text-xs text-muted-foreground">
                             <Calendar className="h-3 w-3 mr-1" />
                             <span>{new Date(evidence.date).toLocaleDateString()}</span>
                             <span className="mx-2">•</span>
@@ -503,7 +503,7 @@ export default function SharedGoalTracking() {
                 <Separator />
                 
                 <div>
-                  <div className="flex justify-between items-center mb-2">
+                  <div className="flex justify-between items-centre mb-2">
                     <h3 className="text-sm font-medium">Updates</h3>
                     <Button variant="ghost" size="sm" onClick={() => setShowAddUpdate(true)}>
                       <PlusCircle className="h-3 w-3 mr-1" />
@@ -537,7 +537,7 @@ export default function SharedGoalTracking() {
                         <div className="flex justify-between items-start">
                           <p className="text-sm">{update.content}</p>
                         </div>
-                        <div className="flex items-center mt-2 text-xs text-muted-foreground">
+                        <div className="flex items-centre mt-2 text-xs text-muted-foreground">
                           <Calendar className="h-3 w-3 mr-1" />
                           <span>{new Date(update.date).toLocaleDateString()}</span>
                           <span className="mx-2">•</span>

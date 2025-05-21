@@ -18,38 +18,38 @@ export default async function DashboardLayout({
   return (
     <div className="flex min-h-screen">
       {/* Sidebar */}
-      <div className="w-64 bg-gray-900 text-white p-4">
+      <div className="w-64 bg-grey-900 text-white p-4">
         <div className="mb-8">
           <h2 className="text-xl font-bold">EdPsych Platform</h2>
         </div>
         
         <nav className="space-y-2">
-          <Link href="/dashboard" className="block py-2 px-4 rounded hover:bg-gray-800">
+          <Link href="/dashboard" className="block py-2 px-4 rounded hover:bg-grey-800">
             Dashboard
           </Link>
-          <Link href="/assessment" className="block py-2 px-4 rounded hover:bg-gray-800">
+          <Link href="/assessment" className="block py-2 px-4 rounded hover:bg-grey-800">
             Assessments
           </Link>
-          <Link href="/resources" className="block py-2 px-4 rounded hover:bg-gray-800">
+          <Link href="/resources" className="block py-2 px-4 rounded hover:bg-grey-800">
             Resources
           </Link>
-          <Link href="/curriculum" className="block py-2 px-4 rounded hover:bg-gray-800">
+          <Link href="/curriculum" className="block py-2 px-4 rounded hover:bg-grey-800">
             Curriculum
           </Link>
-          <Link href="/immersive" className="block py-2 px-4 rounded hover:bg-gray-800">
+          <Link href="/immersive" className="block py-2 px-4 rounded hover:bg-grey-800">
             Immersive Learning
           </Link>
           
           {/* Admin-only links */}
           {session.user?.role === 'ADMIN' && (
-            <Link href="/admin" className="block py-2 px-4 rounded hover:bg-gray-800">
+            <Link href="/admin" className="block py-2 px-4 rounded hover:bg-grey-800">
               Admin Panel
             </Link>
           )}
           
           {/* Educator-only links */}
           {(session.user?.role === 'EDUCATOR' || session.user?.role === 'ADMIN') && (
-            <Link href="/educator" className="block py-2 px-4 rounded hover:bg-gray-800">
+            <Link href="/educator" className="block py-2 px-4 rounded hover:bg-grey-800">
               Educator Tools
             </Link>
           )}

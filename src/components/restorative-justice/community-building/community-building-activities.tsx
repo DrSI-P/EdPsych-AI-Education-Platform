@@ -100,7 +100,7 @@ const sampleActivities: Activity[] = [
     ],
     objectives: [
       'Build community through shared aspirations',
-      'Practice active listening skills',
+      'Practise active listening skills',
       'Develop empathy and understanding',
       'Create a positive classroom culture'
     ],
@@ -111,7 +111,7 @@ const sampleActivities: Activity[] = [
       'Adapt language for different age groups',
       'Consider cultural sensitivities'
     ],
-    evidence_base: 'Based on Indigenous circle practices and restorative approaches. Research shows regular community circles improve classroom climate and reduce behavior incidents (Riestenberg, 2012).',
+    evidence_base: 'Based on Indigenous circle practices and restorative approaches. Research shows regular community circles improve classroom climate and reduce behaviour incidents (Riestenberg, 2012).',
     rating: 4.8,
     favorites: 156
   },
@@ -141,7 +141,7 @@ const sampleActivities: Activity[] = [
     ],
     objectives: [
       'Develop non-verbal communication skills',
-      'Practice collaborative problem-solving',
+      'Practise collaborative problem-solving',
       'Build trust and positive physical interaction',
       'Experience interdependence and cooperation'
     ],
@@ -152,7 +152,7 @@ const sampleActivities: Activity[] = [
       'Connect the activity to classroom challenges',
       'Focus on process over outcome'
     ],
-    evidence_base: 'Cooperative games like Human Knot have been shown to increase prosocial behavior and improve group cohesion (Orlick, 2006).',
+    evidence_base: 'Cooperative games like Human Knot have been shown to increase prosocial behaviour and improve group cohesion (Orlick, 2006).',
     rating: 4.5,
     favorites: 124
   },
@@ -184,8 +184,8 @@ const sampleActivities: Activity[] = [
       'Create a permanent display representing the web'
     ],
     objectives: [
-      'Practice giving and receiving positive feedback',
-      'Visualize community connections',
+      'Practise giving and receiving positive feedback',
+      'Visualise community connections',
       'Build a positive classroom culture',
       'Develop gratitude and appreciation skills'
     ],
@@ -256,7 +256,7 @@ const CommunityBuildingActivities = () => {
     setSelectedActivity(activity);
   };
 
-  // Handle favorite toggle
+  // Handle favourite toggle
   const handleToggleFavorite = (activityId: string) => {
     if (favorites.includes(activityId)) {
       setFavorites(favorites.filter(id => id !== activityId));
@@ -371,7 +371,7 @@ const CommunityBuildingActivities = () => {
     
     const style = categoryStyles[category];
     return (
-      <Badge className={`${style.bg} ${style.color} hover:${style.bg}`}>
+      <Badge className={`${style.bg} ${style.colour} hover:${style.bg}`}>
         {category.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
       </Badge>
     );
@@ -512,7 +512,7 @@ const CommunityBuildingActivities = () => {
                 {filteredActivities.length === 0 ? (
                   <Card>
                     <CardContent className="pt-6">
-                      <p className="text-center text-muted-foreground">No activities match your filters</p>
+                      <p className="text-centre text-muted-foreground">No activities match your filters</p>
                     </CardContent>
                   </Card>
                 ) : (
@@ -540,7 +540,7 @@ const CommunityBuildingActivities = () => {
                                 />
                               </Button>
                             </div>
-                            <div className="flex items-center space-x-1 mt-1">
+                            <div className="flex items-centre space-x-1 mt-1">
                               {activity.rating >= 4.5 ? (
                                 <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                               ) : (
@@ -573,7 +573,7 @@ const CommunityBuildingActivities = () => {
                       <div className="flex justify-between items-start">
                         <div>
                           <CardTitle className="text-2xl">{selectedActivity.title}</CardTitle>
-                          <div className="flex items-center space-x-1 mt-1">
+                          <div className="flex items-centre space-x-1 mt-1">
                             {selectedActivity.rating >= 4.5 ? (
                               <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                             ) : (
@@ -611,19 +611,19 @@ const CommunityBuildingActivities = () => {
                         <div>
                           <h3 className="font-medium mb-2">Activity Details</h3>
                           <div className="space-y-2">
-                            <div className="flex items-center">
+                            <div className="flex items-centre">
                               <div className="w-32 text-muted-foreground">Category:</div>
                               <div>{renderCategoryBadge(selectedActivity.category)}</div>
                             </div>
-                            <div className="flex items-center">
+                            <div className="flex items-centre">
                               <div className="w-32 text-muted-foreground">Age Groups:</div>
                               <div>{formatAgeGroups(selectedActivity.ageGroups)}</div>
                             </div>
-                            <div className="flex items-center">
+                            <div className="flex items-centre">
                               <div className="w-32 text-muted-foreground">Time Required:</div>
                               <div>{formatTimeRequired(selectedActivity.timeRequired)}</div>
                             </div>
-                            <div className="flex items-center">
+                            <div className="flex items-centre">
                               <div className="w-32 text-muted-foreground">Group Size:</div>
                               <div>{formatGroupSize(selectedActivity.groupSize)}</div>
                             </div>
@@ -707,10 +707,10 @@ const CommunityBuildingActivities = () => {
                   </Card>
                 ) : (
                   <Card>
-                    <CardContent className="flex flex-col items-center justify-center p-12">
+                    <CardContent className="flex flex-col items-centre justify-centre p-12">
                       <Users className="h-16 w-16 text-muted-foreground mb-4" />
                       <h3 className="text-xl font-medium mb-2">Select an Activity</h3>
-                      <p className="text-center text-muted-foreground">
+                      <p className="text-centre text-muted-foreground">
                         Choose an activity from the list to view its details, steps, and resources.
                       </p>
                     </CardContent>
@@ -724,18 +724,18 @@ const CommunityBuildingActivities = () => {
           <TabsContent value="favorites">
             <Card>
               <CardHeader>
-                <CardTitle>My Favorite Activities</CardTitle>
+                <CardTitle>My Favourite Activities</CardTitle>
                 <CardDescription>
                   Activities you've saved for quick access
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 {favorites.length === 0 ? (
-                  <div className="text-center py-8">
+                  <div className="text-centre py-8">
                     <Bookmark className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
                     <h3 className="text-lg font-medium mb-2">No favorites yet</h3>
                     <p className="text-muted-foreground mb-4">
-                      Save your favorite activities for quick access
+                      Save your favourite activities for quick access
                     </p>
                     <Button variant="outline" onClick={() => document.querySelector('[data-value="browse"]')?.click()}>
                       Browse Activities
@@ -801,7 +801,7 @@ const CommunityBuildingActivities = () => {
                     The activities in this collection are designed to align with restorative justice principles and evidence-based educational psychology practices. They support the development of key social-emotional skills including empathy, communication, cooperation, and conflict resolution.
                   </p>
                   <p>
-                    Regular implementation of these activities helps create the conditions where restorative approaches can flourish, reducing behavior incidents and improving academic outcomes by fostering a sense of belonging and mutual respect.
+                    Regular implementation of these activities helps create the conditions where restorative approaches can flourish, reducing behaviour incidents and improving academic outcomes by fostering a sense of belonging and mutual respect.
                   </p>
                   
                   <h3 className="text-lg font-medium mt-6">Key Benefits</h3>
@@ -838,7 +838,7 @@ const CommunityBuildingActivities = () => {
                       <strong>Reflection:</strong> Include time for reflection to deepen learning and connection to classroom values.
                     </li>
                     <li>
-                      <strong>Modeling:</strong> Participate authentically in activities alongside students to model vulnerability and engagement.
+                      <strong>Modelling:</strong> Participate authentically in activities alongside students to model vulnerability and engagement.
                     </li>
                   </ul>
                 </CardContent>
@@ -856,7 +856,7 @@ const CommunityBuildingActivities = () => {
                     <ul className="list-disc pl-5 space-y-2">
                       <li>Restorative Justice in Education</li>
                       <li>Social-Emotional Learning</li>
-                      <li>Positive Behavior Interventions and Supports</li>
+                      <li>Positive Behaviour Interventions and Supports</li>
                       <li>Trauma-Informed Practices</li>
                       <li>Cooperative Learning</li>
                     </ul>
@@ -873,31 +873,31 @@ const CommunityBuildingActivities = () => {
                   <CardContent>
                     <ul className="space-y-4">
                       <li>
-                        <a href="#" className="flex items-center text-primary hover:underline">
+                        <a href="#" className="flex items-centre text-primary hover:underline">
                           <BookOpen className="mr-2 h-4 w-4" />
                           Circle Forward: Building a Restorative School Community
                         </a>
                       </li>
                       <li>
-                        <a href="#" className="flex items-center text-primary hover:underline">
+                        <a href="#" className="flex items-centre text-primary hover:underline">
                           <BookOpen className="mr-2 h-4 w-4" />
                           The Restorative Practices Handbook
                         </a>
                       </li>
                       <li>
-                        <a href="#" className="flex items-center text-primary hover:underline">
+                        <a href="#" className="flex items-centre text-primary hover:underline">
                           <BookOpen className="mr-2 h-4 w-4" />
                           Better Than Carrots or Sticks
                         </a>
                       </li>
                       <li>
-                        <a href="#" className="flex items-center text-primary hover:underline">
+                        <a href="#" className="flex items-centre text-primary hover:underline">
                           <Download className="mr-2 h-4 w-4" />
                           Printable Activity Cards (PDF)
                         </a>
                       </li>
                       <li>
-                        <a href="#" className="flex items-center text-primary hover:underline">
+                        <a href="#" className="flex items-centre text-primary hover:underline">
                           <Download className="mr-2 h-4 w-4" />
                           Implementation Guide (PDF)
                         </a>

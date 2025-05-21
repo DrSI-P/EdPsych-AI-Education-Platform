@@ -127,7 +127,7 @@ export class FeedbackGeneratorService implements FeedbackGenerator {
       } else if (percentage >= 60) {
         byTopic[topic] = `Good progress in ${topic}. You correctly answered ${data.correct} out of ${data.total} questions. Continue practicing to strengthen your understanding.`;
       } else {
-        byTopic[topic] = `More practice needed in ${topic}. You correctly answered ${data.correct} out of ${data.total} questions. Focus on building your foundational knowledge in this area.`;
+        byTopic[topic] = `More practise needed in ${topic}. You correctly answered ${data.correct} out of ${data.total} questions. Focus on building your foundational knowledge in this area.`;
       }
     }
     
@@ -152,7 +152,7 @@ export class FeedbackGeneratorService implements FeedbackGenerator {
    * 
    * @param studentId The student's ID
    * @param subject The subject area
-   * @param timeframe The time period to analyze
+   * @param timeframe The time period to analyse
    * @returns Structured progress feedback
    */
   async generateProgressFeedback(
@@ -165,7 +165,7 @@ export class FeedbackGeneratorService implements FeedbackGenerator {
     areasForImprovement: string[];
     recommendations: string[];
   }> {
-    // In a real implementation, this would analyze the student's assessment history
+    // In a real implementation, this would analyse the student's assessment history
     // For now, we'll return mock data
     
     return {
@@ -176,14 +176,14 @@ export class FeedbackGeneratorService implements FeedbackGenerator {
         'Good progress in explaining mathematical reasoning'
       ],
       areasForImprovement: [
-        'More practice needed with complex algebraic expressions',
+        'More practise needed with complex algebraic expressions',
         'Continue developing skills in geometric proofs',
         'Work on time management during assessments'
       ],
       recommendations: [
         'Review the interactive lessons on algebraic expressions',
-        'Practice with the geometry visualization tools',
-        'Try the timed practice assessments to build speed and accuracy'
+        'Practise with the geometry visualisation tools',
+        'Try the timed practise assessments to build speed and accuracy'
       ]
     };
   }
@@ -203,7 +203,7 @@ export class FeedbackGeneratorService implements FeedbackGenerator {
         return 'Excellent! You've demonstrated good understanding of this concept.';
       case CognitiveDomain.APPLY:
         return 'Great job! You've successfully applied the concept to solve this problem.';
-      case CognitiveDomain.ANALYZE:
+      case CognitiveDomain.Analyse:
         return 'Excellent analysis! You've broken down the problem effectively.';
       case CognitiveDomain.EVALUATE:
         return 'Strong critical thinking! You've evaluated the situation correctly.';
@@ -229,7 +229,7 @@ export class FeedbackGeneratorService implements FeedbackGenerator {
         return 'This concept might need more review. Try looking at examples that explain how this works.';
       case CognitiveDomain.APPLY:
         return 'When applying this concept, remember to follow the key steps in the process.';
-      case CognitiveDomain.ANALYZE:
+      case CognitiveDomain.Analyse:
         return 'For analysis questions, try breaking down the problem into smaller parts first.';
       case CognitiveDomain.EVALUATE:
         return 'When evaluating, consider multiple perspectives and criteria before making a judgment.';
@@ -276,7 +276,7 @@ export class FeedbackGeneratorService implements FeedbackGenerator {
     if (result.percentage >= 80) {
       nextSteps.push('Challenge yourself with more advanced material to extend your learning.');
     } else if (result.percentage >= 60) {
-      nextSteps.push('Review the topics where you had difficulty and practice with similar questions.');
+      nextSteps.push('Review the topics where you had difficulty and practise with similar questions.');
     } else {
       nextSteps.push('Focus on building your foundational understanding of the core concepts.');
     }
@@ -295,16 +295,16 @@ export class FeedbackGeneratorService implements FeedbackGenerator {
     for (const domain of weakDomains) {
       switch (domain) {
         case CognitiveDomain.REMEMBER:
-          nextSteps.push('Practice with flashcards or memory aids to strengthen recall of key facts and definitions.');
+          nextSteps.push('Practise with flashcards or memory aids to strengthen recall of key facts and definitions.');
           break;
         case CognitiveDomain.UNDERSTAND:
           nextSteps.push('Review explanations and examples to deepen your understanding of core concepts.');
           break;
         case CognitiveDomain.APPLY:
-          nextSteps.push('Work through practice problems that require applying concepts in different contexts.');
+          nextSteps.push('Work through practise problems that require applying concepts in different contexts.');
           break;
-        case CognitiveDomain.ANALYZE:
-          nextSteps.push('Practice breaking down complex problems into smaller, manageable parts.');
+        case CognitiveDomain.Analyse:
+          nextSteps.push('Practise breaking down complex problems into smaller, manageable parts.');
           break;
         case CognitiveDomain.EVALUATE:
           nextSteps.push('Develop your critical thinking by comparing different approaches and solutions.');

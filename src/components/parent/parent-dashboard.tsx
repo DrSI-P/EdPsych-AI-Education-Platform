@@ -95,7 +95,7 @@ export function ParentDashboard({
       upcomingAssignments: [
         {
           id: '2-1',
-          title: 'Multiplication and Division Practice',
+          title: 'Multiplication and Division Practise',
           subject: 'Mathematics',
           dueDate: '2025-05-17'
         },
@@ -116,7 +116,7 @@ export function ParentDashboard({
       subject: 'Weekly Mathematics Update',
       date: '2025-05-15',
       read: false,
-      content: 'Emma has been making good progress in algebra this week. She scored 78% on the weekly quiz, showing improvement in solving equations. She still needs some practice with algebraic fractions.'
+      content: 'Emma has been making good progress in algebra this week. She scored 78% on the weekly quiz, showing improvement in solving equations. She still needs some practise with algebraic fractions.'
     },
     {
       id: '2',
@@ -203,7 +203,7 @@ export function ParentDashboard({
       content: (
         <div className="space-y-6">
           {loading ? (
-            <div className="flex justify-center py-8">
+            <div className="flex justify-centre py-8">
               <Spinner size="lg" />
             </div>
           ) : error ? (
@@ -212,7 +212,7 @@ export function ParentDashboard({
             </Alert>
           ) : (
             <>
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <h2 className="text-xl font-semibold">Parent Dashboard</h2>
                 <Select
                   value={selectedChild}
@@ -228,7 +228,7 @@ export function ParentDashboard({
               <Card>
                 <CardHeader>
                   <h3 className="text-lg font-semibold">{currentChild.name}'s Progress</h3>
-                  <p className="text-sm text-gray-600">{currentChild.year} • {currentChild.school}</p>
+                  <p className="text-sm text-grey-600">{currentChild.year} • {currentChild.school}</p>
                 </CardHeader>
                 <CardContent>
                   <div className="mb-4">
@@ -236,7 +236,7 @@ export function ParentDashboard({
                       <span>Overall Progress</span>
                       <span>{currentChild.overallProgress}%</span>
                     </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2">
+                    <div className="w-full bg-grey-200 rounded-full h-2">
                       <div 
                         className={`h-2 rounded-full ${
                           currentChild.overallProgress >= 80 ? 'bg-green-600' :
@@ -256,7 +256,7 @@ export function ParentDashboard({
                           <span>{subject.name}</span>
                           <span>{subject.progress}%</span>
                         </div>
-                        <div className="w-full bg-gray-200 rounded-full h-1.5">
+                        <div className="w-full bg-grey-200 rounded-full h-1.5">
                           <div 
                             className={`h-1.5 rounded-full ${
                               subject.progress >= 80 ? 'bg-green-500' :
@@ -284,7 +284,7 @@ export function ParentDashboard({
                   </CardHeader>
                   <CardContent className="space-y-3">
                     {currentChild.recentActivity.map(activity => (
-                      <div key={activity.id} className="p-3 rounded-md border hover:bg-gray-50">
+                      <div key={activity.id} className="p-3 rounded-md border hover:bg-grey-50">
                         <div className="flex justify-between items-start">
                           <h4 className="font-medium">{activity.title}</h4>
                           <span className={`text-xs px-2 py-0.5 rounded-full ${
@@ -294,12 +294,12 @@ export function ParentDashboard({
                             {activity.type}
                           </span>
                         </div>
-                        <p className="text-sm text-gray-600">Date: {activity.date}</p>
+                        <p className="text-sm text-grey-600">Date: {activity.date}</p>
                         {activity.score && (
-                          <p className="text-sm text-gray-600">Score: {activity.score}%</p>
+                          <p className="text-sm text-grey-600">Score: {activity.score}%</p>
                         )}
                         {activity.duration && (
-                          <p className="text-sm text-gray-600">Time spent: {activity.duration}</p>
+                          <p className="text-sm text-grey-600">Time spent: {activity.duration}</p>
                         )}
                       </div>
                     ))}
@@ -320,10 +320,10 @@ export function ParentDashboard({
                   </CardHeader>
                   <CardContent className="space-y-3">
                     {currentChild.upcomingAssignments.map(assignment => (
-                      <div key={assignment.id} className="p-3 rounded-md border hover:bg-gray-50">
+                      <div key={assignment.id} className="p-3 rounded-md border hover:bg-grey-50">
                         <h4 className="font-medium">{assignment.title}</h4>
-                        <p className="text-sm text-gray-600">Subject: {assignment.subject}</p>
-                        <p className="text-sm text-gray-600">Due: {assignment.dueDate}</p>
+                        <p className="text-sm text-grey-600">Subject: {assignment.subject}</p>
+                        <p className="text-sm text-grey-600">Due: {assignment.dueDate}</p>
                       </div>
                     ))}
                   </CardContent>
@@ -361,7 +361,7 @@ export function ParentDashboard({
       content: (
         <div className="space-y-6">
           {loading ? (
-            <div className="flex justify-center py-8">
+            <div className="flex justify-centre py-8">
               <Spinner size="lg" />
             </div>
           ) : error ? (
@@ -370,7 +370,7 @@ export function ParentDashboard({
             </Alert>
           ) : (
             <>
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <h2 className="text-xl font-semibold">Teacher Messages</h2>
                 <Button>
                   Compose Message
@@ -384,8 +384,8 @@ export function ParentDashboard({
                       <div className="flex justify-between items-start">
                         <div>
                           <h3 className="font-medium">{message.subject}</h3>
-                          <p className="text-sm text-gray-600">From: {message.from}</p>
-                          <p className="text-sm text-gray-500">Date: {message.date}</p>
+                          <p className="text-sm text-grey-600">From: {message.from}</p>
+                          <p className="text-sm text-grey-500">Date: {message.date}</p>
                         </div>
                         {!message.read && (
                           <span className="px-2 py-1 text-xs rounded-full bg-blue-100 text-blue-800">
@@ -393,7 +393,7 @@ export function ParentDashboard({
                           </span>
                         )}
                       </div>
-                      <div className="mt-3 p-3 bg-gray-50 rounded-md">
+                      <div className="mt-3 p-3 bg-grey-50 rounded-md">
                         <p className="text-sm">{message.content}</p>
                       </div>
                       <div className="mt-3 flex justify-end gap-2">
@@ -427,7 +427,7 @@ export function ParentDashboard({
       content: (
         <div className="space-y-6">
           {loading ? (
-            <div className="flex justify-center py-8">
+            <div className="flex justify-centre py-8">
               <Spinner size="lg" />
             </div>
           ) : error ? (
@@ -436,7 +436,7 @@ export function ParentDashboard({
             </Alert>
           ) : (
             <>
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <h2 className="text-xl font-semibold">Upcoming School Events</h2>
                 <Select
                   options={[
@@ -455,8 +455,8 @@ export function ParentDashboard({
                       <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-4">
                         <div className="md:flex-1">
                           <h3 className="text-lg font-semibold">{event.title}</h3>
-                          <p className="text-sm text-gray-600">{event.date} at {event.time}</p>
-                          <p className="text-sm text-gray-600">Location: {event.location}</p>
+                          <p className="text-sm text-grey-600">{event.date} at {event.time}</p>
+                          <p className="text-sm text-grey-600">Location: {event.location}</p>
                           <p className="mt-2">{event.description}</p>
                         </div>
                         <div className="flex flex-col gap-2 md:w-40">
@@ -483,7 +483,7 @@ export function ParentDashboard({
       content: (
         <div className="space-y-6">
           {loading ? (
-            <div className="flex justify-center py-8">
+            <div className="flex justify-centre py-8">
               <Spinner size="lg" />
             </div>
           ) : error ? (
@@ -492,7 +492,7 @@ export function ParentDashboard({
             </Alert>
           ) : (
             <>
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <h2 className="text-xl font-semibold">Resources for Parents</h2>
                 <Input
                   placeholder="Search resources..."
@@ -506,23 +506,23 @@ export function ParentDashboard({
                     <h3 className="text-lg font-semibold">Supporting Mathematics Learning</h3>
                   </CardHeader>
                   <CardContent className="flex-grow">
-                    <p className="text-sm text-gray-600 mb-4">
+                    <p className="text-sm text-grey-600 mb-4">
                       Practical strategies to support your child's mathematics learning at home, including everyday applications and resources.
                     </p>
                     <div className="space-y-2">
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-centre gap-2">
                         <svg className="h-5 w-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                         </svg>
                         <span className="text-sm">Guide: Mathematics at Home</span>
                       </div>
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-centre gap-2">
                         <svg className="h-5 w-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
                         </svg>
                         <span className="text-sm">Video: Maths Anxiety Tips</span>
                       </div>
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-centre gap-2">
                         <svg className="h-5 w-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                         </svg>
@@ -542,23 +542,23 @@ export function ParentDashboard({
                     <h3 className="text-lg font-semibold">Encouraging Reading Habits</h3>
                   </CardHeader>
                   <CardContent className="flex-grow">
-                    <p className="text-sm text-gray-600 mb-4">
+                    <p className="text-sm text-grey-600 mb-4">
                       Strategies to foster a love of reading, recommended book lists by age group, and activities to enhance comprehension.
                     </p>
                     <div className="space-y-2">
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-centre gap-2">
                         <svg className="h-5 w-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                         </svg>
                         <span className="text-sm">Guide: Reading Together</span>
                       </div>
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-centre gap-2">
                         <svg className="h-5 w-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                         </svg>
                         <span className="text-sm">Book Lists by Age Group</span>
                       </div>
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-centre gap-2">
                         <svg className="h-5 w-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                         </svg>
@@ -578,23 +578,23 @@ export function ParentDashboard({
                     <h3 className="text-lg font-semibold">Supporting Wellbeing</h3>
                   </CardHeader>
                   <CardContent className="flex-grow">
-                    <p className="text-sm text-gray-600 mb-4">
+                    <p className="text-sm text-grey-600 mb-4">
                       Resources to support your child's mental health and wellbeing, including managing academic stress and building resilience.
                     </p>
                     <div className="space-y-2">
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-centre gap-2">
                         <svg className="h-5 w-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                         </svg>
                         <span className="text-sm">Guide: Supporting Exam Stress</span>
                       </div>
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-centre gap-2">
                         <svg className="h-5 w-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
                         </svg>
                         <span className="text-sm">Video: Building Resilience</span>
                       </div>
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-centre gap-2">
                         <svg className="h-5 w-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                         </svg>

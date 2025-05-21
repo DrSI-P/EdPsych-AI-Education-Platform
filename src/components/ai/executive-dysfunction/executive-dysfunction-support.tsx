@@ -406,7 +406,7 @@ export default function ExecutiveDysfunctionSupport({
             </div>
             
             <div className="space-y-2">
-              <div className="flex items-center justify-between">
+              <div className="flex items-centre justify-between">
                 <Label>Task Complexity</Label>
                 <span className="text-sm text-muted-foreground">{newTask.complexity}%</span>
               </div>
@@ -450,7 +450,7 @@ export default function ExecutiveDysfunctionSupport({
           
           {tasks.length === 0 ? (
             <Card>
-              <CardContent className="py-6 text-center text-muted-foreground">
+              <CardContent className="py-6 text-centre text-muted-foreground">
                 <ListTodo className="mx-auto h-8 w-8 mb-2 opacity-50" />
                 <p>No tasks added yet. Add your first task above.</p>
               </CardContent>
@@ -460,14 +460,14 @@ export default function ExecutiveDysfunctionSupport({
               {tasks.map((task) => (
                 <Card key={task.id} className={task.completed ? 'opacity-60' : ''}>
                   <CardHeader className="pb-2">
-                    <div className="flex items-center justify-between">
-                      <CardTitle className="text-lg flex items-center">
+                    <div className="flex items-centre justify-between">
+                      <CardTitle className="text-lg flex items-centre">
                         <div className="flex-shrink-0 mr-2">
                           {task.completed ? (
                             <CheckCircle2 className="h-5 w-5 text-green-500" />
                           ) : (
                             <div 
-                              className="h-5 w-5 rounded-full border-2 border-gray-300 cursor-pointer"
+                              className="h-5 w-5 rounded-full border-2 border-grey-300 cursor-pointer"
                               onClick={() => handleTaskComplete(task.id)}
                             />
                           )}
@@ -485,7 +485,7 @@ export default function ExecutiveDysfunctionSupport({
                         <p className="mt-1">{task.description}</p>
                       )}
                       {task.dueDate && (
-                        <div className="flex items-center mt-2 text-sm">
+                        <div className="flex items-centre mt-2 text-sm">
                           <Calendar className="h-3 w-3 mr-1" />
                           Due: {new Date(task.dueDate).toLocaleDateString()}
                         </div>
@@ -496,7 +496,7 @@ export default function ExecutiveDysfunctionSupport({
                   {task.steps && task.steps.length > 0 && (
                     <CardContent className="pt-0">
                       <div className="mt-2">
-                        <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-centre justify-between mb-2">
                           <span className="text-sm font-medium">Progress</span>
                           <span className="text-sm text-muted-foreground">
                             {calculateTaskProgress(task)}%
@@ -522,7 +522,7 @@ export default function ExecutiveDysfunctionSupport({
                                       <CheckSquare className="h-4 w-4 text-green-500" />
                                     ) : (
                                       <div 
-                                        className="h-4 w-4 rounded border border-gray-300 cursor-pointer"
+                                        className="h-4 w-4 rounded border border-grey-300 cursor-pointer"
                                         onClick={() => handleStepComplete(task.id, index)}
                                       />
                                     )}
@@ -563,12 +563,12 @@ export default function ExecutiveDysfunctionSupport({
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="flex flex-col items-center justify-center">
+            <div className="flex flex-col items-centre justify-centre">
               <div className={`text-5xl font-bold mb-4 ${breakMode ? 'text-green-500' : ''}`}>
                 {formatTime(timerRemaining)}
               </div>
               
-              <div className="text-center mb-6">
+              <div className="text-centre mb-6">
                 <Badge variant="outline" className={breakMode ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800'}>
                   {breakMode ? 'Break Time' : 'Focus Time'}
                 </Badge>
@@ -576,17 +576,17 @@ export default function ExecutiveDysfunctionSupport({
               
               <div className="flex space-x-2 mb-6">
                 {!timerActive ? (
-                  <Button onClick={handleTimerStart} className="flex items-center">
+                  <Button onClick={handleTimerStart} className="flex items-centre">
                     <Play className="mr-2 h-4 w-4" />
                     Start
                   </Button>
                 ) : (
-                  <Button onClick={handleTimerPause} variant="outline" className="flex items-center">
+                  <Button onClick={handleTimerPause} variant="outline" className="flex items-centre">
                     <Pause className="mr-2 h-4 w-4" />
                     Pause
                   </Button>
                 )}
-                <Button onClick={handleTimerReset} variant="outline" className="flex items-center">
+                <Button onClick={handleTimerReset} variant="outline" className="flex items-centre">
                   <TimerReset className="mr-2 h-4 w-4" />
                   Reset
                 </Button>
@@ -595,7 +595,7 @@ export default function ExecutiveDysfunctionSupport({
               {settings.useTimerBreakdown && (
                 <div className="w-full max-w-md">
                   <div className="space-y-2">
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-centre justify-between">
                       <Label>Focus Duration (minutes)</Label>
                       <span className="text-sm text-muted-foreground">{timerDuration} min</span>
                     </div>
@@ -618,7 +618,7 @@ export default function ExecutiveDysfunctionSupport({
             </div>
             
             <div className="bg-slate-50 dark:bg-slate-900 p-4 rounded-md">
-              <h4 className="text-sm font-medium mb-2 flex items-center">
+              <h4 className="text-sm font-medium mb-2 flex items-centre">
                 <Lightbulb className="h-4 w-4 mr-2 text-amber-500" />
                 Focus Tips
               </h4>
@@ -648,16 +648,16 @@ export default function ExecutiveDysfunctionSupport({
           <CardHeader>
             <CardTitle>Daily Schedule</CardTitle>
             <CardDescription>
-              Visualize your day to manage time effectively
+              Visualise your day to manage time effectively
             </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               {/* This would be replaced with an actual calendar/schedule component */}
-              <div className="text-center p-6 border border-dashed rounded-md">
+              <div className="text-centre p-6 border border-dashed rounded-md">
                 <Calendar className="h-10 w-10 mx-auto mb-2 text-muted-foreground" />
                 <p className="text-muted-foreground">
-                  Daily schedule visualization coming soon
+                  Daily schedule visualisation coming soon
                 </p>
               </div>
             </div>
@@ -679,7 +679,7 @@ export default function ExecutiveDysfunctionSupport({
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="bg-slate-50 dark:bg-slate-900 p-4 rounded-md">
-              <h4 className="text-sm font-medium mb-2 flex items-center">
+              <h4 className="text-sm font-medium mb-2 flex items-centre">
                 <BrainCircuit className="h-4 w-4 mr-2 text-purple-500" />
                 Working Memory Strategies
               </h4>
@@ -690,7 +690,7 @@ export default function ExecutiveDysfunctionSupport({
                 </li>
                 <li className="flex items-start">
                   <CheckCircle2 className="h-4 w-4 mr-2 text-green-500 mt-0.5" />
-                  <span>Use visualization techniques to remember information</span>
+                  <span>Use visualisation techniques to remember information</span>
                 </li>
                 <li className="flex items-start">
                   <CheckCircle2 className="h-4 w-4 mr-2 text-green-500 mt-0.5" />
@@ -731,7 +731,7 @@ export default function ExecutiveDysfunctionSupport({
           <CardContent>
             <div className="space-y-4">
               {/* This would be replaced with an actual visual reminder component */}
-              <div className="text-center p-6 border border-dashed rounded-md">
+              <div className="text-centre p-6 border border-dashed rounded-md">
                 <Layers className="h-10 w-10 mx-auto mb-2 text-muted-foreground" />
                 <p className="text-muted-foreground">
                   Visual reminder creation tools coming soon
@@ -756,7 +756,7 @@ export default function ExecutiveDysfunctionSupport({
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="bg-blue-50 dark:bg-blue-950 p-4 rounded-md">
-              <h4 className="text-sm font-medium mb-2 flex items-center text-blue-700 dark:text-blue-300">
+              <h4 className="text-sm font-medium mb-2 flex items-centre text-blue-700 dark:text-blue-300">
                 <Sparkles className="h-4 w-4 mr-2" />
                 Calming Techniques
               </h4>
@@ -792,13 +792,13 @@ export default function ExecutiveDysfunctionSupport({
             </div>
             
             <div className="bg-purple-50 dark:bg-purple-950 p-4 rounded-md">
-              <h4 className="text-sm font-medium mb-2 flex items-center text-purple-700 dark:text-purple-300">
+              <h4 className="text-sm font-medium mb-2 flex items-centre text-purple-700 dark:text-purple-300">
                 <Zap className="h-4 w-4 mr-2" />
                 Emotional Awareness
               </h4>
               <div className="space-y-4">
                 <p className="text-sm">
-                  Recognizing your emotional state is the first step to regulation.
+                  Recognising your emotional state is the first step to regulation.
                   How are you feeling right now?
                 </p>
                 
@@ -820,7 +820,7 @@ export default function ExecutiveDysfunctionSupport({
             </div>
             
             <div className="bg-green-50 dark:bg-green-950 p-4 rounded-md">
-              <h4 className="text-sm font-medium mb-2 flex items-center text-green-700 dark:text-green-300">
+              <h4 className="text-sm font-medium mb-2 flex items-centre text-green-700 dark:text-green-300">
                 <Lightbulb className="h-4 w-4 mr-2" />
                 Coping Strategies
               </h4>
@@ -849,11 +849,11 @@ export default function ExecutiveDysfunctionSupport({
           <CardHeader>
             <CardTitle>Support Settings</CardTitle>
             <CardDescription>
-              Customize executive function support tools to meet your needs
+              Customise executive function support tools to meet your needs
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="flex items-center justify-between">
+            <div className="flex items-centre justify-between">
               <div className="space-y-0.5">
                 <Label>Use Visual Supports</Label>
                 <p className="text-sm text-muted-foreground">
@@ -868,7 +868,7 @@ export default function ExecutiveDysfunctionSupport({
             
             <Separator />
             
-            <div className="flex items-center justify-between">
+            <div className="flex items-centre justify-between">
               <div className="space-y-0.5">
                 <Label>Use Audio Reminders</Label>
                 <p className="text-sm text-muted-foreground">
@@ -883,7 +883,7 @@ export default function ExecutiveDysfunctionSupport({
             
             <Separator />
             
-            <div className="flex items-center justify-between">
+            <div className="flex items-centre justify-between">
               <div className="space-y-0.5">
                 <Label>Use Timer Breakdown</Label>
                 <p className="text-sm text-muted-foreground">
@@ -898,7 +898,7 @@ export default function ExecutiveDysfunctionSupport({
             
             <Separator />
             
-            <div className="flex items-center justify-between">
+            <div className="flex items-centre justify-between">
               <div className="space-y-0.5">
                 <Label>Use Automatic Breaks</Label>
                 <p className="text-sm text-muted-foreground">
@@ -913,7 +913,7 @@ export default function ExecutiveDysfunctionSupport({
             
             <Separator />
             
-            <div className="flex items-center justify-between">
+            <div className="flex items-centre justify-between">
               <div className="space-y-0.5">
                 <Label>Use Task Breakdown</Label>
                 <p className="text-sm text-muted-foreground">
@@ -929,7 +929,7 @@ export default function ExecutiveDysfunctionSupport({
             <Separator />
             
             <div className="space-y-2">
-              <div className="flex items-center justify-between">
+              <div className="flex items-centre justify-between">
                 <Label>Complexity Threshold for Auto-Breakdown</Label>
                 <span className="text-sm text-muted-foreground">{settings.complexityThreshold}%</span>
               </div>
@@ -987,7 +987,7 @@ export default function ExecutiveDysfunctionSupport({
                   variant={settings.interfaceComplexity === 'simplified' ? 'default' : 'outline'} 
                   size="sm"
                   onClick={() => setSettings({...settings, interfaceComplexity: 'simplified'})}
-                  className="flex items-center"
+                  className="flex items-centre"
                 >
                   <PanelLeft className="h-4 w-4 mr-2" />
                   Simplified
@@ -1003,7 +1003,7 @@ export default function ExecutiveDysfunctionSupport({
                   variant={settings.interfaceComplexity === 'detailed' ? 'default' : 'outline'} 
                   size="sm"
                   onClick={() => setSettings({...settings, interfaceComplexity: 'detailed'})}
-                  className="flex items-center"
+                  className="flex items-centre"
                 >
                   <PanelRight className="h-4 w-4 mr-2" />
                   Detailed
@@ -1028,8 +1028,8 @@ export default function ExecutiveDysfunctionSupport({
     <div className={className}>
       <Card className="mb-6">
         <CardHeader>
-          <CardTitle className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
+          <CardTitle className="flex items-centre justify-between">
+            <div className="flex items-centre gap-2">
               <BrainCircuit className="h-5 w-5 text-primary" />
               Executive Function Support
             </div>
@@ -1041,34 +1041,34 @@ export default function ExecutiveDysfunctionSupport({
             )}
           </CardTitle>
           <CardDescription>
-            Tools to help with planning, organization, time management, and emotional regulation
+            Tools to help with planning, organisation, time management, and emotional regulation
           </CardDescription>
         </CardHeader>
         
         <CardContent>
           <Tabs defaultValue="task-management" value={activeTab} onValueChange={setActiveTab}>
             <TabsList className="grid grid-cols-2 md:grid-cols-5 mb-4">
-              <TabsTrigger value="task-management" className="flex items-center gap-1">
+              <TabsTrigger value="task-management" className="flex items-centre gap-1">
                 <ListTodo className="h-4 w-4" />
                 <span className="hidden md:inline">Task Management</span>
                 <span className="md:hidden">Tasks</span>
               </TabsTrigger>
-              <TabsTrigger value="time-management" className="flex items-center gap-1">
+              <TabsTrigger value="time-management" className="flex items-centre gap-1">
                 <Clock className="h-4 w-4" />
                 <span className="hidden md:inline">Time Management</span>
                 <span className="md:hidden">Time</span>
               </TabsTrigger>
-              <TabsTrigger value="working-memory" className="flex items-center gap-1">
+              <TabsTrigger value="working-memory" className="flex items-centre gap-1">
                 <BrainCircuit className="h-4 w-4" />
                 <span className="hidden md:inline">Working Memory</span>
                 <span className="md:hidden">Memory</span>
               </TabsTrigger>
-              <TabsTrigger value="emotional-regulation" className="flex items-center gap-1">
+              <TabsTrigger value="emotional-regulation" className="flex items-centre gap-1">
                 <Sparkles className="h-4 w-4" />
                 <span className="hidden md:inline">Emotional Regulation</span>
                 <span className="md:hidden">Emotions</span>
               </TabsTrigger>
-              <TabsTrigger value="settings" className="flex items-center gap-1">
+              <TabsTrigger value="settings" className="flex items-centre gap-1">
                 <Layers className="h-4 w-4" />
                 <span>Settings</span>
               </TabsTrigger>

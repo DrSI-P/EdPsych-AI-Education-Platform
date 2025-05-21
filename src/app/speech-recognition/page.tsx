@@ -16,7 +16,7 @@ export default function SpeechRecognitionPage() {
         <div className="mb-8">
           <h1 className="text-3xl font-bold mb-2">Advanced Speech Recognition</h1>
           <p className="text-muted-foreground">
-            Optimized for children's voices with enhanced accuracy and accessibility
+            Optimised for children's voices with enhanced accuracy and accessibility
           </p>
         </div>
         
@@ -36,7 +36,7 @@ export default function SpeechRecognitionPage() {
             {transcript && (
               <Card className="mt-6">
                 <CardHeader>
-                  <CardTitle>Recognized Text</CardTitle>
+                  <CardTitle>Recognised Text</CardTitle>
                   <CardDescription>
                     Your speech has been converted to text
                   </CardDescription>

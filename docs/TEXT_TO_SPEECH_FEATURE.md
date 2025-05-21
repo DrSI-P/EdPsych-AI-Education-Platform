@@ -11,7 +11,7 @@ The text-to-speech feature has been designed to provide high-quality speech synt
 The text-to-speech service (`textToSpeech.ts`) provides advanced speech synthesis capabilities with extensive customization options:
 
 1. **Multiple Voice Support**: Access to all system voices with preference options for UK English and child-friendly voices
-2. **Special Educational Needs Support**: Specialized processing for simplified language, extended pauses, and keyword emphasis
+2. **Special Educational Needs Support**: Specialised processing for simplified language, extended pauses, and keyword emphasis
 3. **Multi-language Support**: Speech synthesis in multiple languages, with a focus on UK English
 4. **Customizable Speech Parameters**: Adjustable rate, pitch, and volume
 5. **Text Highlighting**: Synchronized highlighting of text being read

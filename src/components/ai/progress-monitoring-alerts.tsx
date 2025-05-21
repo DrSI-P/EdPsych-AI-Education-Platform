@@ -83,7 +83,7 @@ const mockLearningPaths: LearningPath[] = [
     id: 'path-1',
     learnerId: 'learner-1',
     title: 'Personalised Science Learning Path',
-    description: 'A customized learning journey for Science tailored to your Visual learning style.',
+    description: 'A customised learning journey for Science tailored to your Visual learning style.',
     subject: SubjectArea.SCIENCE,
     keyStage: KeyStage.KS3,
     objectives: [
@@ -175,8 +175,8 @@ const mockInterventionAlerts: InterventionAlert[] = [
         resources: ['Algebra Basics', 'Equation Solving']
       },
       {
-        actionType: 'practice',
-        description: 'Complete additional practice exercises in Mathematics.'
+        actionType: 'practise',
+        description: 'Complete additional practise exercises in Mathematics.'
       }
     ],
     createdAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000), // 1 day ago
@@ -262,7 +262,7 @@ const mockProgressReport: ProgressReport = {
     {
       subject: SubjectArea.MATHEMATICS,
       conceptsToImprove: ['Fractions', 'Algebra'],
-      suggestedActivities: ['Fraction Practice', 'Algebra Basics']
+      suggestedActivities: ['Fraction Practise', 'Algebra Basics']
     }
   ],
   nextSteps: [
@@ -309,7 +309,7 @@ export default function ProgressMonitoringAlerts() {
       
       toast({
         title: "Progress Monitored",
-        description: "Your learning progress has been analyzed.",
+        description: "Your learning progress has been analysed.",
         duration: 3000,
       });
     } catch (error) {
@@ -405,7 +405,7 @@ export default function ProgressMonitoringAlerts() {
     }
   };
   
-  // Get alert color based on type and severity
+  // Get alert colour based on type and severity
   const getAlertColor = (alert: InterventionAlert): string => {
     if (alert.alertType === 'achievement') {
       return 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-900/30';
@@ -499,7 +499,7 @@ export default function ProgressMonitoringAlerts() {
     <div className="container mx-auto py-6">
       <h1 className="text-3xl font-bold mb-6">Progress Monitoring & Alerts</h1>
       
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between items-centre mb-6">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-[400px]">
           <TabsList>
             <TabsTrigger value="alerts">Alerts</TabsTrigger>
@@ -517,12 +517,12 @@ export default function ProgressMonitoringAlerts() {
             {isLoading ? (
               <>
                 <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
-                Analyzing...
+                Analysing...
               </>
             ) : (
               <>
                 <RefreshCw className="mr-2 h-4 w-4" />
-                Analyze Progress
+                Analyse Progress
               </>
             )}
           </Button>
@@ -545,7 +545,7 @@ export default function ProgressMonitoringAlerts() {
               <Alert key={alert.id} className={`${getAlertColor(alert)}`}>
                 <div className="flex flex-col md:flex-row md:items-start md:justify-between">
                   <div className="flex-1">
-                    <div className="flex items-center mb-1">
+                    <div className="flex items-centre mb-1">
                       {getAlertIcon(alert)}
                       <AlertTitle className="ml-2">{alert.title}</AlertTitle>
                       {!alert.acknowledged && (
@@ -564,17 +564,17 @@ export default function ProgressMonitoringAlerts() {
                         <h4 className="text-sm font-medium mb-2">Details</h4>
                         {alert.alertType === 'performance_drop' && (
                           <div className="space-y-2">
-                            <div className="flex justify-between items-center">
+                            <div className="flex justify-between items-centre">
                               <span className="text-sm">Previous Score:</span>
                               <span className="font-medium">{alert.metrics.previousScore}%</span>
                             </div>
-                            <div className="flex justify-between items-center">
+                            <div className="flex justify-between items-centre">
                               <span className="text-sm">Current Score:</span>
                               <span className="font-medium">{alert.metrics.currentScore}%</span>
                             </div>
-                            <div className="flex justify-between items-center">
+                            <div className="flex justify-between items-centre">
                               <span className="text-sm">Change:</span>
-                              <span className="font-medium flex items-center text-red-500">
+                              <span className="font-medium flex items-centre text-red-500">
                                 <TrendingDown className="h-4 w-4 mr-1" />
                                 {alert.metrics.dropPercentage.toFixed(1)}%
                               </span>
@@ -584,15 +584,15 @@ export default function ProgressMonitoringAlerts() {
                         
                         {alert.alertType === 'goal_at_risk' && (
                           <div className="space-y-2">
-                            <div className="flex justify-between items-center">
+                            <div className="flex justify-between items-centre">
                               <span className="text-sm">Current Progress:</span>
                               <span className="font-medium">{alert.metrics.currentProgress}%</span>
                             </div>
-                            <div className="flex justify-between items-center">
+                            <div className="flex justify-between items-centre">
                               <span className="text-sm">Days Remaining:</span>
                               <span className="font-medium">{alert.metrics.daysRemaining}</span>
                             </div>
-                            <div className="flex justify-between items-center">
+                            <div className="flex justify-between items-centre">
                               <span className="text-sm">Required Daily Progress:</span>
                               <span className="font-medium">{alert.metrics.requiredDailyProgress.toFixed(1)}%</span>
                             </div>
@@ -601,15 +601,15 @@ export default function ProgressMonitoringAlerts() {
                         
                         {alert.alertType === 'achievement' && (
                           <div className="space-y-2">
-                            <div className="flex justify-between items-center">
+                            <div className="flex justify-between items-centre">
                               <span className="text-sm">Completion Rate:</span>
                               <span className="font-medium">{alert.metrics.completionRate}%</span>
                             </div>
-                            <div className="flex justify-between items-center">
+                            <div className="flex justify-between items-centre">
                               <span className="text-sm">Time Spent:</span>
                               <span className="font-medium">{alert.metrics.timeSpent} minutes</span>
                             </div>
-                            <div className="flex justify-between items-center">
+                            <div className="flex justify-between items-centre">
                               <span className="text-sm">Activities Completed:</span>
                               <span className="font-medium">{alert.metrics.activitiesCompleted}</span>
                             </div>
@@ -671,10 +671,10 @@ export default function ProgressMonitoringAlerts() {
               </Alert>
             ))
           ) : (
-            <div className="flex flex-col items-center justify-center py-12">
+            <div className="flex flex-col items-centre justify-centre py-12">
               <Bell className="h-12 w-12 text-muted-foreground mb-4" />
               <h3 className="text-lg font-medium mb-2">No Alerts</h3>
-              <p className="text-muted-foreground text-center max-w-md">
+              <p className="text-muted-foreground text-centre max-w-md">
                 You don't have any alerts at the moment. We'll notify you when there's something that needs your attention.
               </p>
               <Button 
@@ -700,7 +700,7 @@ export default function ProgressMonitoringAlerts() {
                     {formatDate(progressReport.period.start)} - {formatDate(progressReport.period.end)}
                   </CardDescription>
                 </div>
-                <Badge variant="outline" className="flex items-center">
+                <Badge variant="outline" className="flex items-centre">
                   <Calendar className="h-4 w-4 mr-1" />
                   {formatTimeAgo(progressReport.generatedAt)}
                 </Badge>
@@ -708,7 +708,7 @@ export default function ProgressMonitoringAlerts() {
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <BarChart className="h-5 w-5 text-primary" />
                   <div>
                     <p className="text-sm font-medium">Overall Progress</p>
@@ -716,7 +716,7 @@ export default function ProgressMonitoringAlerts() {
                   </div>
                 </div>
                 
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <CheckCircle2 className="h-5 w-5 text-primary" />
                   <div>
                     <p className="text-sm font-medium">Goals</p>
@@ -724,7 +724,7 @@ export default function ProgressMonitoringAlerts() {
                   </div>
                 </div>
                 
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <Clock className="h-5 w-5 text-primary" />
                   <div>
                     <p className="text-sm font-medium">Time Spent</p>
@@ -739,7 +739,7 @@ export default function ProgressMonitoringAlerts() {
                   <div className="space-y-4">
                     {Object.entries(progressReport.subjectProgress).map(([subject, progress]) => (
                       <div key={subject} className="space-y-1">
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-between items-centre">
                           <span>{getSubjectName(subject as SubjectArea)}</span>
                           <span>{progress}%</span>
                         </div>
@@ -785,7 +785,7 @@ export default function ProgressMonitoringAlerts() {
                           <p className="text-sm font-medium">Suggested Activities:</p>
                           <ul className="text-sm mt-1 space-y-1">
                             {area.suggestedActivities.map((activity, i) => (
-                              <li key={i} className="flex items-center">
+                              <li key={i} className="flex items-centre">
                                 <ArrowUpRight className="h-4 w-4 mr-1 text-amber-600" />
                                 {activity}
                               </li>
@@ -832,10 +832,10 @@ export default function ProgressMonitoringAlerts() {
             </CardFooter>
           </Card>
         ) : (
-          <div className="flex flex-col items-center justify-center py-12">
+          <div className="flex flex-col items-centre justify-centre py-12">
             <BarChart className="h-12 w-12 text-muted-foreground mb-4" />
             <h3 className="text-lg font-medium mb-2">No Progress Report</h3>
-            <p className="text-muted-foreground text-center max-w-md">
+            <p className="text-muted-foreground text-centre max-w-md">
               You don't have a progress report yet. Generate one to see your learning progress.
             </p>
             <Button 
@@ -866,19 +866,19 @@ export default function ProgressMonitoringAlerts() {
                 </CardHeader>
                 <CardContent className="pb-2">
                   <div className="flex flex-wrap gap-4">
-                    <div className="flex items-center">
+                    <div className="flex items-centre">
                       <Clock className="h-4 w-4 text-muted-foreground mr-1" />
                       <span className="text-sm">{activity.timeSpent} minutes</span>
                     </div>
                     
                     {activity.score !== null && (
-                      <div className="flex items-center">
+                      <div className="flex items-centre">
                         <BarChart className="h-4 w-4 text-muted-foreground mr-1" />
                         <span className="text-sm">Score: {activity.score}%</span>
                       </div>
                     )}
                     
-                    <div className="flex items-center">
+                    <div className="flex items-centre">
                       <Calendar className="h-4 w-4 text-muted-foreground mr-1" />
                       <span className="text-sm">{formatTimeAgo(activity.completedAt)}</span>
                     </div>
@@ -893,10 +893,10 @@ export default function ProgressMonitoringAlerts() {
               </Card>
             ))
           ) : (
-            <div className="flex flex-col items-center justify-center py-12">
+            <div className="flex flex-col items-centre justify-centre py-12">
               <Clock className="h-12 w-12 text-muted-foreground mb-4" />
               <h3 className="text-lg font-medium mb-2">No Recent Activities</h3>
-              <p className="text-muted-foreground text-center max-w-md">
+              <p className="text-muted-foreground text-centre max-w-md">
                 You haven't completed any learning activities recently. Start a learning path to track your progress.
               </p>
             </div>

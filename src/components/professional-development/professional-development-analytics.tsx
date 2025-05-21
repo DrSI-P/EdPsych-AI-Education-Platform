@@ -109,10 +109,10 @@ export default function ProfessionalDevelopmentAnalytics() {
   
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-centre mb-6 gap-4">
         <h1 className="text-3xl font-bold">Professional Development Analytics</h1>
         
-        <div className="flex items-center gap-2">
+        <div className="flex items-centre gap-2">
           <Select value={timeRange} onValueChange={setTimeRange}>
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Select time range" />
@@ -126,7 +126,7 @@ export default function ProfessionalDevelopmentAnalytics() {
             </SelectContent>
           </Select>
           
-          <Button variant="outline" className="flex items-center gap-2">
+          <Button variant="outline" className="flex items-centre gap-2">
             <Download className="h-4 w-4" />
             Export
           </Button>
@@ -153,7 +153,7 @@ export default function ProfessionalDevelopmentAnalytics() {
               </CardHeader>
               <CardContent>
                 <div className="text-3xl font-bold">1,248</div>
-                <p className="text-xs text-muted-foreground mt-1 flex items-center">
+                <p className="text-xs text-muted-foreground mt-1 flex items-centre">
                   <span className="text-green-500 mr-1">↑ 12%</span> from last month
                 </p>
               </CardContent>
@@ -167,7 +167,7 @@ export default function ProfessionalDevelopmentAnalytics() {
               </CardHeader>
               <CardContent>
                 <div className="text-3xl font-bold">683</div>
-                <p className="text-xs text-muted-foreground mt-1 flex items-center">
+                <p className="text-xs text-muted-foreground mt-1 flex items-centre">
                   <span className="text-green-500 mr-1">↑ 8%</span> from last month
                 </p>
               </CardContent>
@@ -181,7 +181,7 @@ export default function ProfessionalDevelopmentAnalytics() {
               </CardHeader>
               <CardContent>
                 <div className="text-3xl font-bold">426</div>
-                <p className="text-xs text-muted-foreground mt-1 flex items-center">
+                <p className="text-xs text-muted-foreground mt-1 flex items-centre">
                   <span className="text-green-500 mr-1">↑ 15%</span> from last month
                 </p>
               </CardContent>
@@ -195,7 +195,7 @@ export default function ProfessionalDevelopmentAnalytics() {
               </CardHeader>
               <CardContent>
                 <div className="text-3xl font-bold">4.7/5</div>
-                <p className="text-xs text-muted-foreground mt-1 flex items-center">
+                <p className="text-xs text-muted-foreground mt-1 flex items-centre">
                   <span className="text-green-500 mr-1">↑ 0.2</span> from last month
                 </p>
               </CardContent>
@@ -230,7 +230,7 @@ export default function ProfessionalDevelopmentAnalytics() {
             <Card>
               <CardHeader>
                 <CardTitle>Course Popularity</CardTitle>
-                <CardDescription>Most popular courses by enrollment</CardDescription>
+                <CardDescription>Most popular courses by enrolment</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="h-80">
@@ -247,7 +247,7 @@ export default function ProfessionalDevelopmentAnalytics() {
                       <Legend />
                       <Bar dataKey="enrollments" name="Enrollments">
                         {SAMPLE_COURSE_POPULARITY_DATA.map((entry, index) => (
-                          <Cell key={`cell-${index}`} fill={entry.color} />
+                          <Cell key={`cell-${index}`} fill={entry.colour} />
                         ))}
                       </Bar>
                     </BarChart>
@@ -308,7 +308,7 @@ export default function ProfessionalDevelopmentAnalytics() {
                         label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
                       >
                         {SAMPLE_ENGAGEMENT_DATA.map((entry, index) => (
-                          <Cell key={`cell-${index}`} fill={entry.color} />
+                          <Cell key={`cell-${index}`} fill={entry.colour} />
                         ))}
                       </Pie>
                       <Tooltip />
@@ -334,9 +334,9 @@ export default function ProfessionalDevelopmentAnalytics() {
                   <div className="space-y-6">
                     {SAMPLE_COURSE_POPULARITY_DATA.map((course, index) => (
                       <div key={index} className="space-y-2">
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-between items-centre">
                           <h4 className="font-medium">{course.name}</h4>
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-centre gap-2">
                             <span className="text-sm text-muted-foreground">{Math.floor(Math.random() * 30) + 70}% completion rate</span>
                             <span className="text-sm font-medium">{(4 + Math.random()).toFixed(1)}/5</span>
                           </div>
@@ -375,7 +375,7 @@ export default function ProfessionalDevelopmentAnalytics() {
                           label={({ name, percent }) => `${(percent * 100).toFixed(0)}%`}
                         >
                           {SAMPLE_SATISFACTION_DATA.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={entry.color} />
+                            <Cell key={`cell-${index}`} fill={entry.colour} />
                           ))}
                         </Pie>
                         <Tooltip />
@@ -393,23 +393,23 @@ export default function ProfessionalDevelopmentAnalytics() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-centre">
                       <span>Practical examples</span>
                       <span className="text-sm font-medium">78%</span>
                     </div>
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-centre">
                       <span>Clear explanations</span>
                       <span className="text-sm font-medium">65%</span>
                     </div>
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-centre">
                       <span>Engaging content</span>
                       <span className="text-sm font-medium">58%</span>
                     </div>
-                    <div className="flex justify-between items-center">
-                      <span>Relevant to practice</span>
+                    <div className="flex justify-between items-centre">
+                      <span>Relevant to practise</span>
                       <span className="text-sm font-medium">52%</span>
                     </div>
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-centre">
                       <span>More interactive elements</span>
                       <span className="text-sm font-medium">37%</span>
                     </div>
@@ -539,7 +539,7 @@ export default function ProfessionalDevelopmentAnalytics() {
                             { name: 'Mobile', value: 35, color: '#00C49F' },
                             { name: 'Tablet', value: 20, color: '#FFBB28' }
                           ].map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={entry.color} />
+                            <Cell key={`cell-${index}`} fill={entry.colour} />
                           ))}
                         </Pie>
                         <Tooltip />
@@ -617,7 +617,7 @@ export default function ProfessionalDevelopmentAnalytics() {
                             { name: 'Completed 1 course', value: 22, color: '#FFC107' },
                             { name: 'In progress', value: 10, color: '#2196F3' }
                           ].map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={entry.color} />
+                            <Cell key={`cell-${index}`} fill={entry.colour} />
                           ))}
                         </Pie>
                         <Tooltip />
@@ -733,7 +733,7 @@ export default function ProfessionalDevelopmentAnalytics() {
                             { name: 'Differentiation', value: 15, color: '#FF8042' },
                             { name: 'Other Courses', value: 20, color: '#8884d8' }
                           ].map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={entry.color} />
+                            <Cell key={`cell-${index}`} fill={entry.colour} />
                           ))}
                         </Pie>
                         <Tooltip />

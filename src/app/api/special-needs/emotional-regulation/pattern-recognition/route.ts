@@ -326,7 +326,7 @@ function generateTriggerPatterns(emotionRecords: any[]) {
     }
   });
   
-  // Convert to format for visualization
+  // Convert to format for visualisation
   const triggerPatternData = Object.entries(triggerEmotions).map(([trigger, emotions]) => {
     return {
       trigger,

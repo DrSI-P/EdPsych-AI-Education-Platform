@@ -240,7 +240,7 @@ export default function MultilingualSupportPage() {
           .replace(/hello/gi, 'hola')
           .replace(/goodbye/gi, 'adiós')
           .replace(/thank you/gi, 'gracias')
-          .replace(/please/gi, 'por favor')
+          .replace(/please/gi, 'por favour')
           .replace(/student/gi, 'estudiante')
           .replace(/teacher/gi, 'profesor')
           .replace(/school/gi, 'escuela')
@@ -313,7 +313,7 @@ export default function MultilingualSupportPage() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-center mb-12"
+        className="text-centre mb-12"
       >
         <h1 className="text-4xl font-bold tracking-tight">Multilingual Support</h1>
         <p className="mt-4 text-xl text-muted-foreground max-w-3xl mx-auto">
@@ -340,8 +340,8 @@ export default function MultilingualSupportPage() {
               
               {activeTab === 'overview' ? (
                 <div className="space-y-6">
-                  <div className="text-center mb-6">
-                    <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <div className="text-centre mb-6">
+                    <div className="w-20 h-20 bg-primary/10 rounded-full flex items-centre justify-centre mx-auto mb-3">
                       <Globe className="h-8 w-8 text-primary" />
                     </div>
                     <h2 className="text-xl font-semibold">Language Support</h2>
@@ -349,10 +349,10 @@ export default function MultilingualSupportPage() {
                   </div>
                   
                   <div className="space-y-4">
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-centre">
                       <h3 className="font-medium">Select Language</h3>
                       {getSelectedLanguageDetails() && (
-                        <div className="flex items-center">
+                        <div className="flex items-centre">
                           <span className="mr-2">{getSelectedLanguageDetails().flag}</span>
                           {getSupportLevelBadge(getSelectedLanguageDetails().supportLevel)}
                         </div>
@@ -366,7 +366,7 @@ export default function MultilingualSupportPage() {
                       <SelectContent>
                         {languages.map((language) => (
                           <SelectItem key={language.code} value={language.code}>
-                            <div className="flex items-center">
+                            <div className="flex items-centre">
                               <span className="mr-2">{language.flag}</span>
                               <span>{language.name}</span>
                               <span className="ml-2 text-muted-foreground">({language.nativeName})</span>
@@ -384,7 +384,7 @@ export default function MultilingualSupportPage() {
                         {['voice-input', 'voice-output', 'content-adaptation', 'cultural-sensitivity', 'assessment', 'feedback'].map((feature) => {
                           const isAvailable = getSelectedLanguageDetails().availableFeatures.includes(feature);
                           return (
-                            <div key={feature} className="flex items-center">
+                            <div key={feature} className="flex items-centre">
                               {isAvailable ? (
                                 <Check className="h-4 w-4 text-green-500 mr-2" />
                               ) : (
@@ -428,9 +428,9 @@ export default function MultilingualSupportPage() {
                   <div>
                     <h3 className="font-medium mb-3">Language Settings</h3>
                     <div className="space-y-4">
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-centre justify-between">
                         <Label htmlFor="auto-translation-toggle">
-                          <div className="flex items-center">
+                          <div className="flex items-centre">
                             <Globe className="mr-2 h-4 w-4" />
                             Auto-Translation
                           </div>
@@ -442,9 +442,9 @@ export default function MultilingualSupportPage() {
                         />
                       </div>
                       
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-centre justify-between">
                         <Label htmlFor="content-adaptation-toggle">
-                          <div className="flex items-center">
+                          <div className="flex items-centre">
                             <BookOpen className="mr-2 h-4 w-4" />
                             Content Adaptation
                           </div>
@@ -456,9 +456,9 @@ export default function MultilingualSupportPage() {
                         />
                       </div>
                       
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-centre justify-between">
                         <Label htmlFor="cultural-sensitivity-toggle">
-                          <div className="flex items-center">
+                          <div className="flex items-centre">
                             <Users className="mr-2 h-4 w-4" />
                             Cultural Sensitivity
                           </div>
@@ -475,15 +475,15 @@ export default function MultilingualSupportPage() {
                   <div className="pt-4 border-t">
                     <h3 className="font-medium mb-3">Accessibility Options</h3>
                     <div className="space-y-3">
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-centre justify-between">
                         <Label htmlFor="text-to-speech">Text-to-Speech</Label>
                         <Switch id="text-to-speech" checked={true} />
                       </div>
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-centre justify-between">
                         <Label htmlFor="speech-to-text">Speech-to-Text</Label>
                         <Switch id="speech-to-text" checked={true} />
                       </div>
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-centre justify-between">
                         <Label htmlFor="simplified-language">Simplified Language</Label>
                         <Switch id="simplified-language" checked={false} />
                       </div>
@@ -539,13 +539,13 @@ export default function MultilingualSupportPage() {
           {activeTab === 'translator' ? (
             <Card>
               <CardContent className="p-6">
-                <h2 className="text-2xl font-semibold mb-6 flex items-center">
+                <h2 className="text-2xl font-semibold mb-6 flex items-centre">
                   <MessageSquare className="mr-2 h-5 w-5 text-primary" />
                   Real-Time Translator
                 </h2>
                 
                 <div className="mb-6">
-                  <div className="flex justify-between items-center mb-2">
+                  <div className="flex justify-between items-centre mb-2">
                     <Label htmlFor="translation-input">English (UK)</Label>
                     <Button 
                       variant="ghost" 
@@ -567,9 +567,9 @@ export default function MultilingualSupportPage() {
                       className="min-h-[100px] resize-y"
                     />
                     {voiceInputActive && (
-                      <div className="absolute inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center rounded-md">
-                        <div className="flex flex-col items-center">
-                          <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-2 relative">
+                      <div className="absolute inset-0 bg-background/80 backdrop-blur-sm flex items-centre justify-centre rounded-md">
+                        <div className="flex flex-col items-centre">
+                          <div className="w-16 h-16 rounded-full bg-primary/10 flex items-centre justify-centre mb-2 relative">
                             <Mic className="h-6 w-6 text-primary" />
                             <div className="absolute inset-0 rounded-full border-2 border-primary animate-ping opacity-75"></div>
                           </div>
@@ -581,7 +581,7 @@ export default function MultilingualSupportPage() {
                 </div>
                 
                 <div className="mb-6">
-                  <div className="flex justify-between items-center mb-2">
+                  <div className="flex justify-between items-centre mb-2">
                     <Label htmlFor="translation-output">
                       {getSelectedLanguageDetails().flag} {getSelectedLanguageDetails().name}
                     </Label>
@@ -605,8 +605,8 @@ export default function MultilingualSupportPage() {
                     </div>
                     
                     {isTranslating && (
-                      <div className="absolute inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center rounded-md">
-                        <div className="flex flex-col items-center">
+                      <div className="absolute inset-0 bg-background/80 backdrop-blur-sm flex items-centre justify-centre rounded-md">
+                        <div className="flex flex-col items-centre">
                           <RotateCw className="h-8 w-8 text-primary animate-spin mb-2" />
                           <p className="text-sm">Translating...</p>
                         </div>
@@ -677,7 +677,7 @@ export default function MultilingualSupportPage() {
             <div className="space-y-8">
               <Card>
                 <CardContent className="p-6">
-                  <h2 className="text-2xl font-semibold mb-6 flex items-center">
+                  <h2 className="text-2xl font-semibold mb-6 flex items-centre">
                     <Globe className="mr-2 h-5 w-5 text-primary" />
                     Comprehensive Language Support
                   </h2>
@@ -688,7 +688,7 @@ export default function MultilingualSupportPage() {
                   
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                     <Card>
-                      <CardContent className="p-4 text-center">
+                      <CardContent className="p-4 text-centre">
                         <div className="bg-primary/10 p-3 rounded-full w-fit mx-auto mb-3">
                           <Languages className="h-6 w-6 text-primary" />
                         </div>
@@ -698,7 +698,7 @@ export default function MultilingualSupportPage() {
                     </Card>
                     
                     <Card>
-                      <CardContent className="p-4 text-center">
+                      <CardContent className="p-4 text-centre">
                         <div className="bg-primary/10 p-3 rounded-full w-fit mx-auto mb-3">
                           <Mic className="h-6 w-6 text-primary" />
                         </div>
@@ -708,7 +708,7 @@ export default function MultilingualSupportPage() {
                     </Card>
                     
                     <Card>
-                      <CardContent className="p-4 text-center">
+                      <CardContent className="p-4 text-centre">
                         <div className="bg-primary/10 p-3 rounded-full w-fit mx-auto mb-3">
                           <BookOpen className="h-6 w-6 text-primary" />
                         </div>
@@ -728,8 +728,8 @@ export default function MultilingualSupportPage() {
                           'bg-blue-500'
                         }`}></div>
                         <CardContent className="p-4">
-                          <div className="flex items-center justify-between mb-2">
-                            <div className="flex items-center">
+                          <div className="flex items-centre justify-between mb-2">
+                            <div className="flex items-centre">
                               <span className="text-2xl mr-2">{language.flag}</span>
                               <div>
                                 <h4 className="font-medium">{language.name}</h4>
@@ -755,7 +755,7 @@ export default function MultilingualSupportPage() {
               
               <Card>
                 <CardContent className="p-6">
-                  <h2 className="text-2xl font-semibold mb-6 flex items-center">
+                  <h2 className="text-2xl font-semibold mb-6 flex items-centre">
                     <Layers className="mr-2 h-5 w-5 text-primary" />
                     Beyond Translation: Comprehensive Language Support
                   </h2>
@@ -895,11 +895,11 @@ export default function MultilingualSupportPage() {
         transition={{ delay: 0.6, duration: 0.5 }}
         className="mb-12"
       >
-        <h2 className="text-3xl font-semibold mb-6 text-center">How It Works</h2>
+        <h2 className="text-3xl font-semibold mb-6 text-centre">How It Works</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           <Card>
-            <CardContent className="p-6 text-center">
+            <CardContent className="p-6 text-centre">
               <div className="bg-primary/10 p-3 rounded-full w-fit mx-auto mb-4">
                 <Globe className="h-6 w-6 text-primary" />
               </div>
@@ -911,7 +911,7 @@ export default function MultilingualSupportPage() {
           </Card>
           
           <Card>
-            <CardContent className="p-6 text-center">
+            <CardContent className="p-6 text-centre">
               <div className="bg-primary/10 p-3 rounded-full w-fit mx-auto mb-4">
                 <Brain className="h-6 w-6 text-primary" />
               </div>
@@ -923,7 +923,7 @@ export default function MultilingualSupportPage() {
           </Card>
           
           <Card>
-            <CardContent className="p-6 text-center">
+            <CardContent className="p-6 text-centre">
               <div className="bg-primary/10 p-3 rounded-full w-fit mx-auto mb-4">
                 <Users className="h-6 w-6 text-primary" />
               </div>
@@ -935,7 +935,7 @@ export default function MultilingualSupportPage() {
           </Card>
           
           <Card>
-            <CardContent className="p-6 text-center">
+            <CardContent className="p-6 text-centre">
               <div className="bg-primary/10 p-3 rounded-full w-fit mx-auto mb-4">
                 <Mic className="h-6 w-6 text-primary" />
               </div>
@@ -954,7 +954,7 @@ export default function MultilingualSupportPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.8, duration: 0.5 }}
       >
-        <h2 className="text-3xl font-semibold mb-6 text-center">Benefits</h2>
+        <h2 className="text-3xl font-semibold mb-6 text-centre">Benefits</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Card>

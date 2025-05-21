@@ -25,7 +25,7 @@ const EmotionalRegulationEngine = () => {
   const [activeTab, setActiveTab] = useState("identify");
   const [settings, setSettings] = useState({
     emotionVocabularyLevel: "intermediate",
-    preferredStrategies: ["deep-breathing", "counting", "visualization"],
+    preferredStrategies: ["deep-breathing", "counting", "visualisation"],
     triggerAwareness: true,
     selfMonitoringLevel: "guided",
     notificationPreferences: {
@@ -110,7 +110,7 @@ const EmotionalRegulationEngine = () => {
       evidenceBase: "Recommended by the Royal College of Psychiatrists as a grounding technique."
     },
     {
-      id: "visualization",
+      id: "visualisation",
       name: "Peaceful Place Visualisation",
       description: "Imagine a calm, peaceful place to help you relax.",
       steps: [
@@ -226,7 +226,7 @@ const EmotionalRegulationEngine = () => {
           intensity: 6, 
           timestamp: new Date(Date.now() - 259200000).toISOString(),
           triggers: "Class presentation",
-          strategiesUsed: ["visualization", "deep-breathing"]
+          strategiesUsed: ["visualisation", "deep-breathing"]
         }
       ];
       setEmotionHistory(mockHistory);
@@ -263,7 +263,7 @@ const EmotionalRegulationEngine = () => {
           title: "Made a new friend",
           content: "I felt nervous about talking to the new student, but I used my brave thoughts and introduced myself. We played together at break time and it was really fun!",
           emotions: ["Nervous", "Happy", "Excited"],
-          strategies: ["visualization"]
+          strategies: ["visualisation"]
         }
       ];
       setEmotionJournal(mockJournal);
@@ -434,7 +434,7 @@ const EmotionalRegulationEngine = () => {
     const emotion = 
       basicEmotions.find(e => e.name === emotionName) || 
       advancedEmotions.find(e => e.name === emotionName);
-    return emotion ? emotion.color : "#808080";
+    return emotion ? emotion.colour : "#808080";
   };
   
   const getEmotionIcon = (emotionName) => {
@@ -494,10 +494,10 @@ const EmotionalRegulationEngine = () => {
                       <Button
                         key={emotion.name}
                         variant={currentEmotion.name === emotion.name ? "default" : "outline"}
-                        className="h-24 flex flex-col items-center justify-center"
+                        className="h-24 flex flex-col items-centre justify-centre"
                         style={{
-                          borderColor: emotion.color,
-                          backgroundColor: currentEmotion.name === emotion.name ? emotion.color : "transparent",
+                          borderColor: emotion.colour,
+                          backgroundColor: currentEmotion.name === emotion.name ? emotion.colour : "transparent",
                           color: currentEmotion.name === emotion.name ? "white" : "inherit"
                         }}
                         onClick={() => handleEmotionSelect(emotion)}
@@ -518,10 +518,10 @@ const EmotionalRegulationEngine = () => {
                       <Button
                         key={emotion.name}
                         variant={currentEmotion.name === emotion.name ? "default" : "outline"}
-                        className="h-24 flex flex-col items-center justify-center"
+                        className="h-24 flex flex-col items-centre justify-centre"
                         style={{
-                          borderColor: emotion.color,
-                          backgroundColor: currentEmotion.name === emotion.name ? emotion.color : "transparent",
+                          borderColor: emotion.colour,
+                          backgroundColor: currentEmotion.name === emotion.name ? emotion.colour : "transparent",
                           color: currentEmotion.name === emotion.name ? "white" : "inherit"
                         }}
                         onClick={() => handleEmotionSelect(emotion)}
@@ -561,9 +561,9 @@ const EmotionalRegulationEngine = () => {
             </CardHeader>
             <CardContent className="space-y-6">
               {currentEmotion.name && (
-                <div className="flex items-center justify-center mb-6">
+                <div className="flex items-centre justify-centre mb-6">
                   <div 
-                    className="w-20 h-20 rounded-full flex items-center justify-center text-4xl"
+                    className="w-20 h-20 rounded-full flex items-centre justify-centre text-4xl"
                     style={{ backgroundColor: getEmotionColor(currentEmotion.name) }}
                   >
                     {getEmotionIcon(currentEmotion.name)}
@@ -585,7 +585,7 @@ const EmotionalRegulationEngine = () => {
                     step={1}
                     onValueChange={handleIntensityChange}
                   />
-                  <div className="flex justify-center mt-2">
+                  <div className="flex justify-centre mt-2">
                     <Badge variant="outline" className="text-lg px-4 py-2">
                       {currentEmotion.intensity} - {getIntensityLabel(currentEmotion.intensity)}
                     </Badge>
@@ -639,7 +639,7 @@ const EmotionalRegulationEngine = () => {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="flex flex-col items-center space-y-6">
+              <div className="flex flex-col items-centre space-y-6">
                 <div className="relative w-64 h-80">
                   <Image 
                     src="/images/body-outline.png" 
@@ -726,7 +726,7 @@ const EmotionalRegulationEngine = () => {
                     </Card>
                   ))
                 ) : (
-                  <div className="text-center py-8">
+                  <div className="text-centre py-8">
                     <p>Select an emotion to see strategies that might help.</p>
                   </div>
                 )}
@@ -759,8 +759,8 @@ const EmotionalRegulationEngine = () => {
                     emotionHistory.map((entry, index) => (
                       <Card key={index} className="border-l-4" style={{ borderLeftColor: getEmotionColor(entry.name) }}>
                         <CardHeader className="pb-2">
-                          <div className="flex justify-between items-center">
-                            <div className="flex items-center gap-2">
+                          <div className="flex justify-between items-centre">
+                            <div className="flex items-centre gap-2">
                               <span className="text-2xl">{getEmotionIcon(entry.name)}</span>
                               <CardTitle>{entry.name}</CardTitle>
                               <Badge variant="outline">
@@ -798,7 +798,7 @@ const EmotionalRegulationEngine = () => {
                       </Card>
                     ))
                   ) : (
-                    <div className="text-center py-8">
+                    <div className="text-centre py-8">
                       <p>No emotion history recorded yet.</p>
                       <Button className="mt-4" onClick={() => setActiveTab("identify")}>
                         Record Your First Emotion
@@ -842,7 +842,7 @@ const EmotionalRegulationEngine = () => {
                         emotionJournal.map((entry) => (
                           <Card key={entry.id}>
                             <CardHeader>
-                              <div className="flex justify-between items-center">
+                              <div className="flex justify-between items-centre">
                                 <CardTitle>{entry.title}</CardTitle>
                                 <div className="text-sm text-muted-foreground">
                                   {formatDate(entry.date)}
@@ -881,7 +881,7 @@ const EmotionalRegulationEngine = () => {
                           </Card>
                         ))
                       ) : (
-                        <div className="text-center py-8">
+                        <div className="text-centre py-8">
                           <p>No journal entries yet.</p>
                         </div>
                       )}
@@ -905,7 +905,7 @@ const EmotionalRegulationEngine = () => {
                             variant="outline"
                             className="h-10"
                             style={{
-                              borderColor: emotion.color
+                              borderColor: emotion.colour
                             }}
                           >
                             <span className="mr-1">{emotion.icon}</span>

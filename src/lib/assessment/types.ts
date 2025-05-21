@@ -105,7 +105,7 @@ export enum CognitiveDomain {
   REMEMBER = 'remember',
   UNDERSTAND = 'understand',
   APPLY = 'apply',
-  ANALYZE = 'analyze',
+  Analyse = 'analyse',
   EVALUATE = 'evaluate',
   CREATE = 'create',
 }
@@ -530,7 +530,7 @@ export interface QuestionBank {
 }
 
 /**
- * Assessment engine for creating, managing, and analyzing assessments
+ * Assessment engine for creating, managing, and analysing assessments
  */
 export interface AssessmentEngine {
   createAssessment: (assessment: Assessment) => Promise<string>;

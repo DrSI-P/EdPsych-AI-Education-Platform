@@ -28,7 +28,7 @@ export async function GET(req: NextRequest) {
     }
 
     // Check if user has access to this plan
-    const userAccess = await prisma.curriculumPlanCollaborator.findFirst({
+    const userAccess = await prisma.CurriculumPlanCollaborator.findFirst({
       where: {
         OR: [
           { userId: session.user.id, planId },
@@ -50,7 +50,7 @@ export async function GET(req: NextRequest) {
     }
 
     // Get collaborators for the plan
-    const collaborators = await prisma.curriculumPlanCollaborator.findMany({
+    const collaborators = await prisma.CurriculumPlanCollaborator.findMany({
       where: { planId },
       include: {
         user: {
@@ -187,7 +187,7 @@ export async function POST(req: NextRequest) {
     const isOwner = plan.authorId === session.user.id;
     
     if (!isOwner && session.user.role !== 'ADMIN') {
-      const userAccess = await prisma.curriculumPlanCollaborator.findFirst({
+      const userAccess = await prisma.CurriculumPlanCollaborator.findFirst({
         where: {
           userId: session.user.id,
           planId,
@@ -240,7 +240,7 @@ export async function POST(req: NextRequest) {
         }
 
         // Check if already a collaborator
-        const existingCollaborator = await prisma.curriculumPlanCollaborator.findFirst({
+        const existingCollaborator = await prisma.CurriculumPlanCollaborator.findFirst({
           where: {
             userId: targetUser.id,
             planId,
@@ -250,7 +250,7 @@ export async function POST(req: NextRequest) {
         if (existingCollaborator) {
           // Update role if different
           if (existingCollaborator.role !== role) {
-            const updatedCollaborator = await prisma.curriculumPlanCollaborator.update({
+            const updatedCollaborator = await prisma.CurriculumPlanCollaborator.update({
               where: { id: existingCollaborator.id },
               data: { role },
               include: {
@@ -273,7 +273,7 @@ export async function POST(req: NextRequest) {
         }
 
         // Add new collaborator
-        const collaborator = await prisma.curriculumPlanCollaborator.create({
+        const collaborator = await prisma.CurriculumPlanCollaborator.create({
           data: {
             role,
             plan: {
@@ -306,7 +306,7 @@ export async function POST(req: NextRequest) {
           );
         }
 
-        const collaborator = await prisma.curriculumPlanCollaborator.findFirst({
+        const collaborator = await prisma.CurriculumPlanCollaborator.findFirst({
           where: {
             userId,
             planId,
@@ -320,7 +320,7 @@ export async function POST(req: NextRequest) {
           );
         }
 
-        await prisma.curriculumPlanCollaborator.delete({
+        await prisma.CurriculumPlanCollaborator.delete({
           where: { id: collaborator.id },
         });
 

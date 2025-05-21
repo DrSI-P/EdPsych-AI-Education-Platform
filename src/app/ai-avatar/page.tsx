@@ -37,9 +37,9 @@ export default function AIAvatarPage() {
       <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div>
           <h2 className="text-2xl font-bold mb-4">Step 1: Create Your Avatar</h2>
-          <p className="text-gray-600 mb-6">
+          <p className="text-grey-600 mb-6">
             Create an AI avatar that will represent you in educational videos. 
-            You can customize the appearance, voice, and presentation style.
+            You can customise the appearance, voice, and presentation style.
           </p>
           
           <AvatarCreator 
@@ -50,7 +50,7 @@ export default function AIAvatarPage() {
         
         <div>
           <h2 className="text-2xl font-bold mb-4">Step 2: Generate Video</h2>
-          <p className="text-gray-600 mb-6">
+          <p className="text-grey-600 mb-6">
             Once you've created an avatar, you can generate educational videos by providing a script.
             The AI will bring your avatar to life, speaking your script with natural expressions and gestures.
           </p>
@@ -61,12 +61,12 @@ export default function AIAvatarPage() {
               onVideoGenerated={handleVideoGenerated}
             />
           ) : (
-            <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 text-center">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="bg-grey-50 border border-grey-200 rounded-lg p-6 text-centre">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 mx-auto text-grey-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
               </svg>
-              <h3 className="mt-4 text-lg font-medium text-gray-900">Create an avatar first</h3>
-              <p className="mt-2 text-sm text-gray-500">
+              <h3 className="mt-4 text-lg font-medium text-grey-900">Create an avatar first</h3>
+              <p className="mt-2 text-sm text-grey-500">
                 Please complete Step 1 to create an avatar before generating videos.
               </p>
             </div>
@@ -99,7 +99,7 @@ export default function AIAvatarPage() {
                 navigator.clipboard.writeText(generatedVideoUrl);
                 alert('Video URL copied to clipboard!');
               }}
-              className="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors"
+              className="px-4 py-2 bg-grey-200 text-grey-800 rounded-md hover:bg-grey-300 transition-colors"
             >
               Copy Video URL
             </button>

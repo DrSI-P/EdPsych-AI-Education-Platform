@@ -93,11 +93,11 @@ export default function StudentCouncilDigitalPortal() {
       status: "In Progress",
       progress: 65,
       dueDate: "June 15, 2025",
-      description: "Planning and organizing the end-of-year celebration event for all students."
+      description: "Planning and organising the end-of-year celebration event for all students."
     },
     {
       id: 2,
-      title: "Study Support Program",
+      title: "Study Support Programme",
       committee: "Academic Affairs",
       status: "In Progress",
       progress: 80,
@@ -180,7 +180,7 @@ export default function StudentCouncilDigitalPortal() {
     }
   ];
   
-  // Get status badge color
+  // Get status badge colour
   const getStatusBadgeColor = (status) => {
     switch (status) {
       case "Approved":
@@ -192,7 +192,7 @@ export default function StudentCouncilDigitalPortal() {
       case "Planning":
         return "bg-purple-100 text-purple-800";
       default:
-        return "bg-gray-100 text-gray-800";
+        return "bg-grey-100 text-grey-800";
     }
   };
   
@@ -200,7 +200,7 @@ export default function StudentCouncilDigitalPortal() {
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center">
+          <CardTitle className="flex items-centre">
             <Users className="mr-2 h-5 w-5" />
             Student Council Digital Portal
           </CardTitle>
@@ -220,7 +220,7 @@ export default function StudentCouncilDigitalPortal() {
             
             {/* Dashboard Tab */}
             <TabsContent value="dashboard" className="space-y-6">
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <div>
                   <h2 className="text-2xl font-bold">{councilData.name}</h2>
                   <p className="text-muted-foreground">Academic Year: {councilData.academicYear}</p>
@@ -238,36 +238,36 @@ export default function StudentCouncilDigitalPortal() {
                     <CardTitle className="text-lg">Quick Stats</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    <div className="flex justify-between items-center">
-                      <div className="flex items-center">
+                    <div className="flex justify-between items-centre">
+                      <div className="flex items-centre">
                         <Users className="mr-2 h-4 w-4 text-blue-500" />
                         <span>Council Members</span>
                       </div>
                       <Badge variant="outline">{councilData.members.length}</Badge>
                     </div>
-                    <div className="flex justify-between items-center">
-                      <div className="flex items-center">
+                    <div className="flex justify-between items-centre">
+                      <div className="flex items-centre">
                         <UserPlus className="mr-2 h-4 w-4 text-green-500" />
                         <span>Committees</span>
                       </div>
                       <Badge variant="outline">{councilData.committees.length}</Badge>
                     </div>
-                    <div className="flex justify-between items-center">
-                      <div className="flex items-center">
+                    <div className="flex justify-between items-centre">
+                      <div className="flex items-centre">
                         <Calendar className="mr-2 h-4 w-4 text-purple-500" />
                         <span>Upcoming Meetings</span>
                       </div>
                       <Badge variant="outline">{upcomingMeetings.length}</Badge>
                     </div>
-                    <div className="flex justify-between items-center">
-                      <div className="flex items-center">
+                    <div className="flex justify-between items-centre">
+                      <div className="flex items-centre">
                         <FileText className="mr-2 h-4 w-4 text-amber-500" />
                         <span>Active Initiatives</span>
                       </div>
                       <Badge variant="outline">{activeInitiatives.length}</Badge>
                     </div>
-                    <div className="flex justify-between items-center">
-                      <div className="flex items-center">
+                    <div className="flex justify-between items-centre">
+                      <div className="flex items-centre">
                         <MessageSquare className="mr-2 h-4 w-4 text-red-500" />
                         <span>Recent Feedback Items</span>
                       </div>
@@ -279,7 +279,7 @@ export default function StudentCouncilDigitalPortal() {
                 {/* Next Meeting */}
                 <Card>
                   <CardHeader className="pb-2">
-                    <CardTitle className="text-lg flex items-center">
+                    <CardTitle className="text-lg flex items-centre">
                       <Calendar className="mr-2 h-4 w-4" />
                       Next Meeting
                     </CardTitle>
@@ -287,7 +287,7 @@ export default function StudentCouncilDigitalPortal() {
                   <CardContent className="space-y-4">
                     <div>
                       <h3 className="font-medium text-base">{upcomingMeetings[0].title}</h3>
-                      <div className="flex items-center text-sm text-muted-foreground mt-1">
+                      <div className="flex items-centre text-sm text-muted-foreground mt-1">
                         <Clock className="mr-1 h-4 w-4" />
                         {upcomingMeetings[0].date} • {upcomingMeetings[0].time}
                       </div>
@@ -318,7 +318,7 @@ export default function StudentCouncilDigitalPortal() {
                 {/* Announcements */}
                 <Card>
                   <CardHeader className="pb-2">
-                    <CardTitle className="text-lg flex items-center">
+                    <CardTitle className="text-lg flex items-centre">
                       <Bell className="mr-2 h-4 w-4" />
                       Announcements
                     </CardTitle>
@@ -327,7 +327,7 @@ export default function StudentCouncilDigitalPortal() {
                     {announcements.map((announcement) => (
                       <div key={announcement.id} className="space-y-1">
                         <h3 className="font-medium text-base">{announcement.title}</h3>
-                        <div className="flex items-center text-sm text-muted-foreground">
+                        <div className="flex items-centre text-sm text-muted-foreground">
                           <Clock className="mr-1 h-3 w-3" />
                           {announcement.date} • by {announcement.author}
                         </div>
@@ -348,7 +348,7 @@ export default function StudentCouncilDigitalPortal() {
                 {/* Active Initiatives */}
                 <Card>
                   <CardHeader className="pb-2">
-                    <CardTitle className="text-lg flex items-center">
+                    <CardTitle className="text-lg flex items-centre">
                       <FileText className="mr-2 h-4 w-4" />
                       Active Initiatives
                     </CardTitle>
@@ -389,7 +389,7 @@ export default function StudentCouncilDigitalPortal() {
                 {/* Recent Feedback */}
                 <Card>
                   <CardHeader className="pb-2">
-                    <CardTitle className="text-lg flex items-center">
+                    <CardTitle className="text-lg flex items-centre">
                       <MessageSquare className="mr-2 h-4 w-4" />
                       Recent Feedback
                     </CardTitle>
@@ -407,12 +407,12 @@ export default function StudentCouncilDigitalPortal() {
                           </Badge>
                         </div>
                         <p className="text-sm">{feedback.summary}</p>
-                        <div className="flex items-center text-sm text-muted-foreground">
-                          <div className="flex items-center mr-4">
+                        <div className="flex items-centre text-sm text-muted-foreground">
+                          <div className="flex items-centre mr-4">
                             <Vote className="mr-1 h-3 w-3" />
                             {feedback.votes} votes
                           </div>
-                          <div className="flex items-center">
+                          <div className="flex items-centre">
                             <MessageSquare className="mr-1 h-3 w-3" />
                             {feedback.comments} comments
                           </div>
@@ -436,7 +436,7 @@ export default function StudentCouncilDigitalPortal() {
                 {/* Council Members */}
                 <Card className="md:col-span-2">
                   <CardHeader className="pb-2">
-                    <CardTitle className="text-lg flex items-center">
+                    <CardTitle className="text-lg flex items-centre">
                       <Users className="mr-2 h-4 w-4" />
                       Council Members
                     </CardTitle>
@@ -447,7 +447,7 @@ export default function StudentCouncilDigitalPortal() {
                   <CardContent>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {councilData.members.map((member) => (
-                        <div key={member.id} className="flex items-center space-x-4">
+                        <div key={member.id} className="flex items-centre space-x-4">
                           <Avatar>
                             <AvatarImage src={member.avatar} alt={member.name} />
                             <AvatarFallback>{member.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
@@ -465,17 +465,17 @@ export default function StudentCouncilDigitalPortal() {
                 {/* Committees */}
                 <Card>
                   <CardHeader className="pb-2">
-                    <CardTitle className="text-lg flex items-center">
+                    <CardTitle className="text-lg flex items-centre">
                       <UserPlus className="mr-2 h-4 w-4" />
                       Committees
                     </CardTitle>
                     <CardDescription>
-                      Specialized working groups
+                      Specialised working groups
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     {councilData.committees.map((committee) => (
-                      <div key={committee.id} className="flex justify-between items-center">
+                      <div key={committee.id} className="flex justify-between items-centre">
                         <div>
                           <p className="font-medium">{committee.name}</p>
                           <p className="text-sm text-muted-foreground">
@@ -500,7 +500,7 @@ export default function StudentCouncilDigitalPortal() {
             
             {/* Meetings Tab */}
             <TabsContent value="meetings" className="space-y-6">
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <h2 className="text-xl font-bold">Council Meetings</h2>
                 <div className="flex space-x-2">
                   <Button variant="outline">
@@ -515,7 +515,7 @@ export default function StudentCouncilDigitalPortal() {
               </div>
               
               <div className="space-y-4">
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <Input placeholder="Search meetings..." className="max-w-sm" />
                   <Select defaultValue="all">
                     <SelectTrigger className="w-[180px]">
@@ -593,12 +593,12 @@ export default function StudentCouncilDigitalPortal() {
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
-                      <div className="flex justify-between items-center p-4 border rounded-lg">
+                      <div className="flex justify-between items-centre p-4 border rounded-lg">
                         <div>
                           <h3 className="font-medium">Full Council Meeting</h3>
                           <p className="text-sm text-muted-foreground">May 6, 2025 • 15:30 - 16:30</p>
                         </div>
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-centre space-x-2">
                           <Badge variant="outline">Minutes Available</Badge>
                           <Button variant="outline" size="sm">
                             <Download className="mr-2 h-3 w-3" />
@@ -607,12 +607,12 @@ export default function StudentCouncilDigitalPortal() {
                         </div>
                       </div>
                       
-                      <div className="flex justify-between items-center p-4 border rounded-lg">
+                      <div className="flex justify-between items-centre p-4 border rounded-lg">
                         <div>
                           <h3 className="font-medium">Executive Board Meeting</h3>
                           <p className="text-sm text-muted-foreground">April 22, 2025 • 16:00 - 17:00</p>
                         </div>
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-centre space-x-2">
                           <Badge variant="outline">Minutes Available</Badge>
                           <Button variant="outline" size="sm">
                             <Download className="mr-2 h-3 w-3" />
@@ -621,12 +621,12 @@ export default function StudentCouncilDigitalPortal() {
                         </div>
                       </div>
                       
-                      <div className="flex justify-between items-center p-4 border rounded-lg">
+                      <div className="flex justify-between items-centre p-4 border rounded-lg">
                         <div>
                           <h3 className="font-medium">Events Committee</h3>
                           <p className="text-sm text-muted-foreground">April 18, 2025 • 12:15 - 12:45</p>
                         </div>
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-centre space-x-2">
                           <Badge variant="outline">Minutes Available</Badge>
                           <Button variant="outline" size="sm">
                             <Download className="mr-2 h-3 w-3" />
@@ -647,7 +647,7 @@ export default function StudentCouncilDigitalPortal() {
             
             {/* Initiatives Tab */}
             <TabsContent value="initiatives" className="space-y-6">
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <h2 className="text-xl font-bold">Council Initiatives</h2>
                 <div className="flex space-x-2">
                   <Button variant="outline">
@@ -662,7 +662,7 @@ export default function StudentCouncilDigitalPortal() {
               </div>
               
               <div className="space-y-4">
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <Input placeholder="Search initiatives..." className="max-w-sm" />
                   <Select defaultValue="all">
                     <SelectTrigger className="w-[180px]">
@@ -737,15 +737,15 @@ export default function StudentCouncilDigitalPortal() {
                           <div>
                             <h4 className="text-sm font-medium mb-2">Key Milestones</h4>
                             <div className="text-sm">
-                              <div className="flex items-center">
+                              <div className="flex items-centre">
                                 <CheckCircle className="mr-2 h-3 w-3 text-green-500" />
                                 Planning completed
                               </div>
-                              <div className="flex items-center">
+                              <div className="flex items-centre">
                                 <CheckCircle className="mr-2 h-3 w-3 text-green-500" />
                                 Resources allocated
                               </div>
-                              <div className="flex items-center">
+                              <div className="flex items-centre">
                                 <AlertCircle className="mr-2 h-3 w-3 text-amber-500" />
                                 Implementation in progress
                               </div>
@@ -776,12 +776,12 @@ export default function StudentCouncilDigitalPortal() {
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
-                      <div className="flex justify-between items-center p-4 border rounded-lg">
+                      <div className="flex justify-between items-centre p-4 border rounded-lg">
                         <div>
                           <h3 className="font-medium">Spring Charity Fundraiser</h3>
                           <p className="text-sm text-muted-foreground">Events Committee • Completed April 15, 2025</p>
                         </div>
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-centre space-x-2">
                           <Badge className="bg-green-100 text-green-800">Completed</Badge>
                           <Button variant="outline" size="sm">
                             <Eye className="mr-2 h-3 w-3" />
@@ -790,12 +790,12 @@ export default function StudentCouncilDigitalPortal() {
                         </div>
                       </div>
                       
-                      <div className="flex justify-between items-center p-4 border rounded-lg">
+                      <div className="flex justify-between items-centre p-4 border rounded-lg">
                         <div>
                           <h3 className="font-medium">Curriculum Feedback Collection</h3>
                           <p className="text-sm text-muted-foreground">Academic Affairs • Completed March 30, 2025</p>
                         </div>
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-centre space-x-2">
                           <Badge className="bg-green-100 text-green-800">Completed</Badge>
                           <Button variant="outline" size="sm">
                             <Eye className="mr-2 h-3 w-3" />
@@ -816,7 +816,7 @@ export default function StudentCouncilDigitalPortal() {
             
             {/* Feedback Tab */}
             <TabsContent value="feedback" className="space-y-6">
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <h2 className="text-xl font-bold">Student Feedback</h2>
                 <div className="flex space-x-2">
                   <Button variant="outline">
@@ -856,13 +856,13 @@ export default function StudentCouncilDigitalPortal() {
                           <CardContent className="space-y-4">
                             <p>{feedback.summary}</p>
                             
-                            <div className="flex items-center space-x-4">
-                              <div className="flex items-center">
+                            <div className="flex items-centre space-x-4">
+                              <div className="flex items-centre">
                                 <Vote className="mr-1 h-4 w-4 text-blue-500" />
                                 <span className="font-medium">{feedback.votes}</span>
                                 <span className="text-muted-foreground ml-1">votes</span>
                               </div>
-                              <div className="flex items-center">
+                              <div className="flex items-centre">
                                 <MessageSquare className="mr-1 h-4 w-4 text-green-500" />
                                 <span className="font-medium">{feedback.comments}</span>
                                 <span className="text-muted-foreground ml-1">comments</span>
@@ -930,7 +930,7 @@ export default function StudentCouncilDigitalPortal() {
                           rows={4}
                         />
                       </div>
-                      <div className="flex items-center space-x-2">
+                      <div className="flex items-centre space-x-2">
                         <input type="checkbox" id="anonymous" className="rounded" />
                         <Label htmlFor="anonymous">Submit anonymously</Label>
                       </div>
@@ -947,29 +947,29 @@ export default function StudentCouncilDigitalPortal() {
                       <CardTitle className="text-lg">Feedback Stats</CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-4">
-                      <div className="flex justify-between items-center">
-                        <div className="flex items-center">
+                      <div className="flex justify-between items-centre">
+                        <div className="flex items-centre">
                           <Flag className="mr-2 h-4 w-4 text-blue-500" />
                           <span>Total Feedback</span>
                         </div>
                         <Badge variant="outline">42</Badge>
                       </div>
-                      <div className="flex justify-between items-center">
-                        <div className="flex items-center">
+                      <div className="flex justify-between items-centre">
+                        <div className="flex items-centre">
                           <CheckCircle className="mr-2 h-4 w-4 text-green-500" />
                           <span>Implemented</span>
                         </div>
                         <Badge variant="outline">15</Badge>
                       </div>
-                      <div className="flex justify-between items-center">
-                        <div className="flex items-center">
+                      <div className="flex justify-between items-centre">
+                        <div className="flex items-centre">
                           <Clock className="mr-2 h-4 w-4 text-amber-500" />
                           <span>In Progress</span>
                         </div>
                         <Badge variant="outline">18</Badge>
                       </div>
-                      <div className="flex justify-between items-center">
-                        <div className="flex items-center">
+                      <div className="flex justify-between items-centre">
+                        <div className="flex items-centre">
                           <AlertCircle className="mr-2 h-4 w-4 text-red-500" />
                           <span>Under Review</span>
                         </div>
@@ -1007,7 +1007,7 @@ export default function StudentCouncilDigitalPortal() {
             
             {/* Resources Tab */}
             <TabsContent value="resources" className="space-y-6">
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <h2 className="text-xl font-bold">Council Resources</h2>
                 <div className="flex space-x-2">
                   <Button variant="outline">
@@ -1034,8 +1034,8 @@ export default function StudentCouncilDigitalPortal() {
                       <div className="space-y-2">
                         <h3 className="font-medium">Council Governance</h3>
                         <div className="space-y-2">
-                          <div className="flex justify-between items-center p-3 border rounded-lg">
-                            <div className="flex items-center">
+                          <div className="flex justify-between items-centre p-3 border rounded-lg">
+                            <div className="flex items-centre">
                               <FileText className="mr-2 h-4 w-4 text-blue-500" />
                               <span>Student Council Constitution</span>
                             </div>
@@ -1049,8 +1049,8 @@ export default function StudentCouncilDigitalPortal() {
                             </div>
                           </div>
                           
-                          <div className="flex justify-between items-center p-3 border rounded-lg">
-                            <div className="flex items-center">
+                          <div className="flex justify-between items-centre p-3 border rounded-lg">
+                            <div className="flex items-centre">
                               <FileText className="mr-2 h-4 w-4 text-blue-500" />
                               <span>Council Bylaws</span>
                             </div>
@@ -1064,8 +1064,8 @@ export default function StudentCouncilDigitalPortal() {
                             </div>
                           </div>
                           
-                          <div className="flex justify-between items-center p-3 border rounded-lg">
-                            <div className="flex items-center">
+                          <div className="flex justify-between items-centre p-3 border rounded-lg">
+                            <div className="flex items-centre">
                               <FileText className="mr-2 h-4 w-4 text-blue-500" />
                               <span>Officer Role Descriptions</span>
                             </div>
@@ -1084,8 +1084,8 @@ export default function StudentCouncilDigitalPortal() {
                       <div className="space-y-2">
                         <h3 className="font-medium">Meeting Templates</h3>
                         <div className="space-y-2">
-                          <div className="flex justify-between items-center p-3 border rounded-lg">
-                            <div className="flex items-center">
+                          <div className="flex justify-between items-centre p-3 border rounded-lg">
+                            <div className="flex items-centre">
                               <FileText className="mr-2 h-4 w-4 text-green-500" />
                               <span>Meeting Agenda Template</span>
                             </div>
@@ -1099,8 +1099,8 @@ export default function StudentCouncilDigitalPortal() {
                             </div>
                           </div>
                           
-                          <div className="flex justify-between items-center p-3 border rounded-lg">
-                            <div className="flex items-center">
+                          <div className="flex justify-between items-centre p-3 border rounded-lg">
+                            <div className="flex items-centre">
                               <FileText className="mr-2 h-4 w-4 text-green-500" />
                               <span>Meeting Minutes Template</span>
                             </div>
@@ -1114,8 +1114,8 @@ export default function StudentCouncilDigitalPortal() {
                             </div>
                           </div>
                           
-                          <div className="flex justify-between items-center p-3 border rounded-lg">
-                            <div className="flex items-center">
+                          <div className="flex justify-between items-centre p-3 border rounded-lg">
+                            <div className="flex items-centre">
                               <FileText className="mr-2 h-4 w-4 text-green-500" />
                               <span>Action Item Tracker</span>
                             </div>
@@ -1134,8 +1134,8 @@ export default function StudentCouncilDigitalPortal() {
                       <div className="space-y-2">
                         <h3 className="font-medium">Initiative Planning</h3>
                         <div className="space-y-2">
-                          <div className="flex justify-between items-center p-3 border rounded-lg">
-                            <div className="flex items-center">
+                          <div className="flex justify-between items-centre p-3 border rounded-lg">
+                            <div className="flex items-centre">
                               <FileText className="mr-2 h-4 w-4 text-purple-500" />
                               <span>Project Proposal Template</span>
                             </div>
@@ -1149,8 +1149,8 @@ export default function StudentCouncilDigitalPortal() {
                             </div>
                           </div>
                           
-                          <div className="flex justify-between items-center p-3 border rounded-lg">
-                            <div className="flex items-center">
+                          <div className="flex justify-between items-centre p-3 border rounded-lg">
+                            <div className="flex items-centre">
                               <FileText className="mr-2 h-4 w-4 text-purple-500" />
                               <span>Budget Request Form</span>
                             </div>
@@ -1164,8 +1164,8 @@ export default function StudentCouncilDigitalPortal() {
                             </div>
                           </div>
                           
-                          <div className="flex justify-between items-center p-3 border rounded-lg">
-                            <div className="flex items-center">
+                          <div className="flex justify-between items-centre p-3 border rounded-lg">
+                            <div className="flex items-centre">
                               <FileText className="mr-2 h-4 w-4 text-purple-500" />
                               <span>Event Planning Checklist</span>
                             </div>
@@ -1193,8 +1193,8 @@ export default function StudentCouncilDigitalPortal() {
                       </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
-                      <div className="flex justify-between items-center p-3 border rounded-lg">
-                        <div className="flex items-center">
+                      <div className="flex justify-between items-centre p-3 border rounded-lg">
+                        <div className="flex items-centre">
                           <Award className="mr-2 h-4 w-4 text-amber-500" />
                           <span>Leadership Skills Workshop</span>
                         </div>
@@ -1203,8 +1203,8 @@ export default function StudentCouncilDigitalPortal() {
                         </Button>
                       </div>
                       
-                      <div className="flex justify-between items-center p-3 border rounded-lg">
-                        <div className="flex items-center">
+                      <div className="flex justify-between items-centre p-3 border rounded-lg">
+                        <div className="flex items-centre">
                           <Award className="mr-2 h-4 w-4 text-amber-500" />
                           <span>Public Speaking Guide</span>
                         </div>
@@ -1213,8 +1213,8 @@ export default function StudentCouncilDigitalPortal() {
                         </Button>
                       </div>
                       
-                      <div className="flex justify-between items-center p-3 border rounded-lg">
-                        <div className="flex items-center">
+                      <div className="flex justify-between items-centre p-3 border rounded-lg">
+                        <div className="flex items-centre">
                           <Award className="mr-2 h-4 w-4 text-amber-500" />
                           <span>Conflict Resolution Training</span>
                         </div>
@@ -1223,8 +1223,8 @@ export default function StudentCouncilDigitalPortal() {
                         </Button>
                       </div>
                       
-                      <div className="flex justify-between items-center p-3 border rounded-lg">
-                        <div className="flex items-center">
+                      <div className="flex justify-between items-centre p-3 border rounded-lg">
+                        <div className="flex items-centre">
                           <Award className="mr-2 h-4 w-4 text-amber-500" />
                           <span>Team Building Activities</span>
                         </div>

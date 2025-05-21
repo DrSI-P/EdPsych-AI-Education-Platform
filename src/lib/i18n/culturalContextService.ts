@@ -361,7 +361,7 @@ export class CulturalContextService {
           }
         }
         
-        // Mock adaptations (in a real implementation, this would analyze and modify the content)
+        // Mock adaptations (in a real implementation, this would analyse and modify the content)
         adaptationsMade.push('Adjusted formality level for target culture');
         adaptationsMade.push('Replaced UK-specific examples with culturally relevant ones');
         

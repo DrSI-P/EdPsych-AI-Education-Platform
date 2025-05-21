@@ -59,7 +59,7 @@ All features and components must undergo a rigorous design review process before
 Every feature must pass this quality checklist before release:
 
 - [ ] Visual consistency with design system
-- [ ] Responsive behavior across all breakpoints
+- [ ] Responsive behaviour across all breakpoints
 - [ ] Animation and transition quality
 - [ ] Accessibility compliance
 - [ ] Performance benchmarks
@@ -94,7 +94,7 @@ The platform development will specifically target excellence in these common awa
 
 ### Visual Design
 
-- Sophisticated use of color, typography, and space
+- Sophisticated use of colour, typography, and space
 - Consistent and cohesive visual language
 - Age-appropriate visual elements that maintain brand integrity
 

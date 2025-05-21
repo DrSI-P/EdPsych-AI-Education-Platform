@@ -52,14 +52,14 @@ const blogPost = {
   title: "AI-Powered Differentiation: Transforming Inclusive Education",
   content: `
   <h2>Introduction</h2>
-  <p>Inclusive education has long been a cornerstone of effective teaching practice, but the challenge of truly differentiating instruction for diverse learners remains significant. With the advent of artificial intelligence technologies, educators now have powerful new tools to support personalised learning at scale.</p>
+  <p>Inclusive education has long been a cornerstone of effective teaching practise, but the challenge of truly differentiating instruction for diverse learners remains significant. With the advent of artificial intelligence technologies, educators now have powerful new tools to support personalised learning at scale.</p>
   
   <p>This article explores how AI-powered differentiation is transforming inclusive education in UK classrooms, providing evidence-based strategies and practical implementation guidance.</p>
   
   <h2>The Challenge of Differentiation</h2>
   <p>Effective differentiation requires teachers to modify content, process, products, and learning environments based on individual student needs. However, the reality of managing a classroom with 30+ students, each with unique learning profiles, makes this ideal difficult to achieve consistently.</p>
   
-  <p>Research by Thompson et al. (2023) found that while 92% of UK teachers believe differentiation is essential for inclusive practice, only 34% feel they can implement it effectively for all students in their classrooms.</p>
+  <p>Research by Thompson et al. (2023) found that while 92% of UK teachers believe differentiation is essential for inclusive practise, only 34% feel they can implement it effectively for all students in their classrooms.</p>
   
   <h2>AI-Enhanced Differentiation Approaches</h2>
   <p>Artificial intelligence offers several promising approaches to enhance differentiation:</p>
@@ -131,7 +131,7 @@ const blogPost = {
   likes: 124,
   comments: 32,
   views: 1850,
-  curriculum: ["SEND", "Inclusive Practice", "EdTech"],
+  curriculum: ["SEND", "Inclusive Practise", "EdTech"],
   ageRange: ["KS2", "KS3", "KS4"],
   relatedPosts: [
     {
@@ -294,8 +294,8 @@ const BlogPostDetail = () => {
           {blogPost.category}
         </Badge>
         <h1 className="text-4xl font-bold tracking-tight">{blogPost.title}</h1>
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mt-4">
-          <div className="flex items-center space-x-2">
+        <div className="flex flex-wrap items-centre gap-x-4 gap-y-2 mt-4">
+          <div className="flex items-centre space-x-2">
             <Avatar>
               <AvatarImage src={blogPost.author.avatar} alt={blogPost.author.name} />
               <AvatarFallback>{blogPost.author.name.charAt(0)}</AvatarFallback>
@@ -306,7 +306,7 @@ const BlogPostDetail = () => {
             </div>
           </div>
           <Separator orientation="vertical" className="h-6" />
-          <div className="flex items-center text-sm text-muted-foreground">
+          <div className="flex items-centre text-sm text-muted-foreground">
             <Calendar className="h-4 w-4 mr-1" />
             {new Date(blogPost.publishedAt).toLocaleDateString('en-GB', {
               day: 'numeric',
@@ -315,12 +315,12 @@ const BlogPostDetail = () => {
             })}
           </div>
           <Separator orientation="vertical" className="h-6" />
-          <div className="flex items-center text-sm text-muted-foreground">
+          <div className="flex items-centre text-sm text-muted-foreground">
             <Clock className="h-4 w-4 mr-1" />
             {blogPost.readTime}
           </div>
           <Separator orientation="vertical" className="h-6" />
-          <div className="flex items-center text-sm text-muted-foreground">
+          <div className="flex items-centre text-sm text-muted-foreground">
             <Eye className="h-4 w-4 mr-1" />
             {blogPost.views} views
           </div>
@@ -335,7 +335,7 @@ const BlogPostDetail = () => {
         />
       </div>
       
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-centre">
         <div className="flex space-x-4">
           <Button 
             variant="outline" 
@@ -512,12 +512,12 @@ const BlogPostDetail = () => {
                   <AvatarFallback>{comment.author.name.charAt(0)}</AvatarFallback>
                 </Avatar>
                 <div className="flex-1">
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <div>
                       <h4 className="font-medium">{comment.author.name}</h4>
                       <p className="text-xs text-muted-foreground">{comment.author.role}</p>
                     </div>
-                    <div className="flex items-center">
+                    <div className="flex items-centre">
                       <p className="text-xs text-muted-foreground">
                         {new Date(comment.publishedAt).toLocaleDateString('en-GB', {
                           day: 'numeric',
@@ -541,7 +541,7 @@ const BlogPostDetail = () => {
                     </div>
                   </div>
                   <p className="mt-2 text-sm">{comment.content}</p>
-                  <div className="flex items-center space-x-4 mt-2">
+                  <div className="flex items-centre space-x-4 mt-2">
                     <Button variant="ghost" size="sm" className="h-8 px-2">
                       <ThumbsUp className="h-3 w-3 mr-1" />
                       {comment.likes}
@@ -562,12 +562,12 @@ const BlogPostDetail = () => {
                         <AvatarFallback>{reply.author.name.charAt(0)}</AvatarFallback>
                       </Avatar>
                       <div className="flex-1">
-                        <div className="flex items-center justify-between">
+                        <div className="flex items-centre justify-between">
                           <div>
                             <h4 className="font-medium text-sm">{reply.author.name}</h4>
                             <p className="text-xs text-muted-foreground">{reply.author.role}</p>
                           </div>
-                          <div className="flex items-center">
+                          <div className="flex items-centre">
                             <p className="text-xs text-muted-foreground">
                               {new Date(reply.publishedAt).toLocaleDateString('en-GB', {
                                 day: 'numeric',
@@ -591,7 +591,7 @@ const BlogPostDetail = () => {
                           </div>
                         </div>
                         <p className="mt-2 text-sm">{reply.content}</p>
-                        <div className="flex items-center space-x-4 mt-2">
+                        <div className="flex items-centre space-x-4 mt-2">
                           <Button variant="ghost" size="sm" className="h-8 px-2">
                             <ThumbsUp className="h-3 w-3 mr-1" />
                             {reply.likes}
@@ -658,7 +658,7 @@ const BlogPostDetail = () => {
         </div>
       </div>
       
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-centre">
         <Button variant="outline">
           <ArrowLeft className="h-4 w-4 mr-2" />
           Back to Blog

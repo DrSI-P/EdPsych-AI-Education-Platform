@@ -229,8 +229,8 @@ export default function CurriculumDifferentiationEngine({
     <div className={className}>
       <Card className="mb-6">
         <CardHeader>
-          <CardTitle className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
+          <CardTitle className="flex items-centre justify-between">
+            <div className="flex items-centre gap-2">
               <Brain className="h-5 w-5 text-primary" />
               AI Curriculum Differentiation
             </div>
@@ -243,7 +243,7 @@ export default function CurriculumDifferentiationEngine({
         <CardContent className="space-y-4">
           {learningProfiles.length > 0 ? (
             <div className="space-y-4">
-              <div className="flex items-center justify-between">
+              <div className="flex items-centre justify-between">
                 <div className="space-y-0.5">
                   <label className="text-sm font-medium">Differentiate for all learning styles</label>
                   <p className="text-xs text-muted-foreground">
@@ -277,7 +277,7 @@ export default function CurriculumDifferentiationEngine({
               <div className="space-y-4 pt-4 border-t">
                 <h3 className="text-sm font-medium">Differentiation Settings</h3>
                 
-                <div className="flex items-center justify-between">
+                <div className="flex items-centre justify-between">
                   <div className="space-y-0.5">
                     <label className="text-sm font-medium">Learning Style Adaptation</label>
                     <p className="text-xs text-muted-foreground">
@@ -290,7 +290,7 @@ export default function CurriculumDifferentiationEngine({
                   />
                 </div>
                 
-                <div className="flex items-center justify-between">
+                <div className="flex items-centre justify-between">
                   <div className="space-y-0.5">
                     <label className="text-sm font-medium">Prior Knowledge Consideration</label>
                     <p className="text-xs text-muted-foreground">
@@ -303,7 +303,7 @@ export default function CurriculumDifferentiationEngine({
                   />
                 </div>
                 
-                <div className="flex items-center justify-between">
+                <div className="flex items-centre justify-between">
                   <div className="space-y-0.5">
                     <label className="text-sm font-medium">Include Extension Activities</label>
                     <p className="text-xs text-muted-foreground">
@@ -316,7 +316,7 @@ export default function CurriculumDifferentiationEngine({
                   />
                 </div>
                 
-                <div className="flex items-center justify-between">
+                <div className="flex items-centre justify-between">
                   <div className="space-y-0.5">
                     <label className="text-sm font-medium">Include Scaffolding</label>
                     <p className="text-xs text-muted-foreground">
@@ -330,7 +330,7 @@ export default function CurriculumDifferentiationEngine({
                 </div>
                 
                 <div className="space-y-2">
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <label className="text-sm font-medium">Differentiation Level</label>
                     <span className="text-xs text-muted-foreground">
                       {settings.differentiationLevel}%
@@ -359,14 +359,14 @@ export default function CurriculumDifferentiationEngine({
         </CardContent>
         
         <CardFooter className="flex justify-between border-t pt-4">
-          <div className="flex items-center text-xs text-muted-foreground">
+          <div className="flex items-centre text-xs text-muted-foreground">
             <Lightbulb className="h-3 w-3 mr-1" /> 
             AI-powered differentiation
           </div>
           <Button 
             onClick={generateDifferentiation} 
             disabled={isGenerating || (!curriculumContent && !curriculumPlanId)}
-            className="flex items-center gap-1"
+            className="flex items-centre gap-1"
           >
             {isGenerating ? (
               <>
@@ -386,9 +386,9 @@ export default function CurriculumDifferentiationEngine({
       {isGenerating && (
         <Card>
           <CardContent className="py-6">
-            <div className="flex flex-col items-center justify-center space-y-4">
+            <div className="flex flex-col items-centre justify-centre space-y-4">
               <RefreshCw className="h-8 w-8 text-primary animate-spin" />
-              <div className="text-center">
+              <div className="text-centre">
                 <h3 className="text-lg font-medium">Generating Differentiated Curriculum</h3>
                 <p className="text-sm text-muted-foreground">
                   Adapting content to meet diverse learning needs...
@@ -411,26 +411,26 @@ export default function CurriculumDifferentiationEngine({
           <CardContent>
             <Tabs defaultValue="visual" value={activeTab} onValueChange={setActiveTab}>
               <TabsList className="grid w-full grid-cols-4">
-                <TabsTrigger value="visual" className="flex items-center gap-1">
+                <TabsTrigger value="visual" className="flex items-centre gap-1">
                   <span className="hidden sm:inline">Visual</span>
                   <span className="sm:hidden">👁️</span>
                 </TabsTrigger>
-                <TabsTrigger value="auditory" className="flex items-center gap-1">
+                <TabsTrigger value="auditory" className="flex items-centre gap-1">
                   <span className="hidden sm:inline">Auditory</span>
                   <span className="sm:hidden">👂</span>
                 </TabsTrigger>
-                <TabsTrigger value="kinesthetic" className="flex items-center gap-1">
+                <TabsTrigger value="kinesthetic" className="flex items-centre gap-1">
                   <span className="hidden sm:inline">Kinesthetic</span>
                   <span className="sm:hidden">✋</span>
                 </TabsTrigger>
-                <TabsTrigger value="readingWriting" className="flex items-center gap-1">
+                <TabsTrigger value="readingWriting" className="flex items-centre gap-1">
                   <span className="hidden sm:inline">Reading/Writing</span>
                   <span className="sm:hidden">📝</span>
                 </TabsTrigger>
               </TabsList>
               
               <div className="mt-4 border rounded-md p-4">
-                <div className="flex items-center gap-2 mb-4">
+                <div className="flex items-centre gap-2 mb-4">
                   {activeTab === 'visual' && (
                     <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200">
                       Visual Learners
@@ -473,7 +473,7 @@ export default function CurriculumDifferentiationEngine({
           </CardContent>
           
           <CardFooter className="flex justify-between border-t pt-4">
-            <div className="flex items-center gap-2">
+            <div className="flex items-centre gap-2">
               <Button variant="outline" size="sm" onClick={() => setDifferentiatedContent(null)}>
                 Reset
               </Button>

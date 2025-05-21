@@ -1,6 +1,6 @@
 # Vercel Deployment Error Analysis
 
-This document provides a structured approach to analyzing and resolving common Vercel deployment errors for the EdPsych-AI-Education-Platform.
+This document provides a structured approach to analysing and resolving common Vercel deployment errors for the EdPsych-AI-Education-Platform.
 
 ## Common Error Categories
 
@@ -78,7 +78,7 @@ This document provides a structured approach to analyzing and resolving common V
   - Memory leaks in long-running operations
 
 #### Resolution Steps
-1. Optimize function size by code splitting and tree shaking
+1. Optimise function size by code splitting and tree shaking
 2. Move large dependencies to external services when possible
 3. Implement efficient database queries and API calls
 4. Use edge functions for performance-critical operations
@@ -106,7 +106,7 @@ This document provides a structured approach to analyzing and resolving common V
 #### Resolution Steps
 1. Verify static assets are in the correct location (public directory)
 2. Use relative paths or the Next.js Image component
-3. Optimize large assets (compress images, minify JS/CSS)
+3. Optimise large assets (compress images, minify JS/CSS)
 4. Ensure proper file extensions and MIME types
 
 ## Systematic Troubleshooting Approach
@@ -117,7 +117,7 @@ This document provides a structured approach to analyzing and resolving common V
 - Progressively add features to determine breaking points
 - Use feature flags to selectively enable functionality
 
-### 2. Analyze Build Logs
+### 2. Analyse Build Logs
 
 - Review Vercel build logs for specific error messages
 - Look for warnings that might escalate to errors

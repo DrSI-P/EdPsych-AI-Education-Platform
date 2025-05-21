@@ -157,7 +157,7 @@ const EnhancedAchievementCard: React.FC<AchievementCardProps> = ({
     
     if (isLocked) {
       return (
-        <div className={`${ageStyles.iconSize} rounded-full flex items-center justify-center bg-neutral-200 dark:bg-neutral-700 text-neutral-400 dark:text-neutral-500`}>
+        <div className={`${ageStyles.iconSize} rounded-full flex items-centre justify-centre bg-neutral-200 dark:bg-neutral-700 text-neutral-400 dark:text-neutral-500`}>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-1/2 h-1/2">
             <path fillRule="evenodd" d="M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3v6.75a3 3 0 003 3h10.5a3 3 0 003-3v-6.75a3 3 0 00-3-3v-3c0-2.9-2.35-5.25-5.25-5.25zm3.75 8.25v-3a3.75 3.75 0 10-7.5 0v3h7.5z" clipRule="evenodd" />
           </svg>
@@ -186,7 +186,7 @@ const EnhancedAchievementCard: React.FC<AchievementCardProps> = ({
     
     if (iconEmoji) {
       return (
-        <div className={`${ageStyles.iconSize} rounded-full ${levelStyles.iconBg} ${levelStyles.shadow} flex items-center justify-center text-white text-3xl`}>
+        <div className={`${ageStyles.iconSize} rounded-full ${levelStyles.iconBg} ${levelStyles.shadow} flex items-centre justify-centre text-white text-3xl`}>
           {iconEmoji}
         </div>
       );
@@ -194,7 +194,7 @@ const EnhancedAchievementCard: React.FC<AchievementCardProps> = ({
     
     // Default icon if none provided
     return (
-      <div className={`${ageStyles.iconSize} rounded-full ${levelStyles.iconBg} ${levelStyles.shadow} flex items-center justify-center text-white`}>
+      <div className={`${ageStyles.iconSize} rounded-full ${levelStyles.iconBg} ${levelStyles.shadow} flex items-centre justify-centre text-white`}>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-1/2 h-1/2">
           <path fillRule="evenodd" d="M12.516 2.17a.75.75 0 00-1.032 0 11.209 11.209 0 01-7.877 3.08.75.75 0 00-.722.515A12.74 12.74 0 002.25 9.75c0 5.942 4.064 10.933 9.563 12.348a.749.749 0 00.374 0c5.499-1.415 9.563-6.406 9.563-12.348 0-1.39-.223-2.73-.635-3.985a.75.75 0 00-.722-.516l-.143.001c-2.996 0-5.717-1.17-7.734-3.08zm3.094 8.016a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clipRule="evenodd" />
         </svg>
@@ -213,7 +213,7 @@ const EnhancedAchievementCard: React.FC<AchievementCardProps> = ({
       onClick={onClick}
       {...ageStyles.animation}
     >
-      <div className="flex flex-col items-center text-center p-4">
+      <div className="flex flex-col items-centre text-centre p-4">
         {getAchievementIcon()}
         
         <h3 className={`${ageStyles.titleClass} mt-3 ${isLocked ? 'text-neutral-500' : ''}`}>
@@ -225,7 +225,7 @@ const EnhancedAchievementCard: React.FC<AchievementCardProps> = ({
         </p>
         
         {earnedDate && !isLocked && (
-          <div className="mt-3 text-xs text-neutral-500 flex items-center">
+          <div className="mt-3 text-xs text-neutral-500 flex items-centre">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-3 h-3 mr-1">
               <path fillRule="evenodd" d="M6.75 2.25A.75.75 0 017.5 3v1.5h9V3A.75.75 0 0117.25 2.25c.41 0 .75.334.75.75V4.5h.75A2.25 2.25 0 0121 6.75v2.25h-2.25V6.75a.75.75 0 00-.75-.75H5.25a.75.75 0 00-.75.75v12a.75.75 0 00.75.75h12a.75.75 0 00.75-.75V16.5h2.25v2.25A2.25 2.25 0 0118 21H5.25a2.25 2.25 0 01-2.25-2.25v-12A2.25 2.25 0 015.25 4.5H6v-1.5a.75.75 0 01.75-.75zm10.5 6.75a.75.75 0 01.75.75v5.25l1.72-1.72a.75.75 0 111.06 1.06l-3 3a.75.75 0 01-1.06 0l-3-3a.75.75 0 111.06-1.06l1.72 1.72V9.75a.75.75 0 01.75-.75z" clipRule="evenodd" />
             </svg>
@@ -236,7 +236,7 @@ const EnhancedAchievementCard: React.FC<AchievementCardProps> = ({
         {getProgressBar()}
         
         {isLocked && (
-          <div className="mt-3 text-xs text-neutral-500 flex items-center">
+          <div className="mt-3 text-xs text-neutral-500 flex items-centre">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-3 h-3 mr-1">
               <path fillRule="evenodd" d="M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3v6.75a3 3 0 003 3h10.5a3 3 0 003-3v-6.75a3 3 0 00-3-3v-3c0-2.9-2.35-5.25-5.25-5.25zm3.75 8.25v-3a3.75 3.75 0 10-7.5 0v3h7.5z" clipRule="evenodd" />
             </svg>

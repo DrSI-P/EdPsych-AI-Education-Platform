@@ -161,7 +161,7 @@ const MOCK_CELEBRATIONS = [
     },
     comments: [
       { id: '1', author: 'Mr. Williams', text: 'Oliver approached complex problems with creativity and persistence.', date: '2025-05-20' },
-      { id: '2', author: 'Parent', text: 'Thank you for recognizing Oliver\'s efforts!', date: '2025-05-21' }
+      { id: '2', author: 'Parent', text: 'Thank you for recognising Oliver\'s efforts!', date: '2025-05-21' }
     ],
     isPublic: true
   },
@@ -233,7 +233,7 @@ export default function VirtualConferenceTools() {
   
   return (
     <div className="container mx-auto py-6">
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between items-centre mb-6">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Parent-Teacher Collaboration</h1>
           <p className="text-muted-foreground">
@@ -292,7 +292,7 @@ export default function VirtualConferenceTools() {
                           )}
                         </div>
                         
-                        <div className="mt-2 flex items-center text-xs text-muted-foreground">
+                        <div className="mt-2 flex items-centre text-xs text-muted-foreground">
                           <CalendarIcon className="h-3 w-3 mr-1" />
                           <span>{new Date(conference.date).toLocaleDateString()}</span>
                           <span className="mx-1">•</span>
@@ -336,7 +336,7 @@ export default function VirtualConferenceTools() {
                             onClick={() => setSelectedConference(conf)}
                           >
                             <p className="font-medium text-sm">{conf.title}</p>
-                            <div className="flex items-center text-xs text-muted-foreground">
+                            <div className="flex items-centre text-xs text-muted-foreground">
                               <Clock className="h-3 w-3 mr-1" />
                               <span>{conf.time}</span>
                               <span className="mx-1">•</span>
@@ -357,7 +357,7 @@ export default function VirtualConferenceTools() {
                 <CardHeader>
                   <div className="flex justify-between items-start">
                     <div>
-                      <div className="flex items-center">
+                      <div className="flex items-centre">
                         <CardTitle>{selectedConference.title}</CardTitle>
                         <Badge className="ml-2" variant={selectedConference.status === 'confirmed' ? 'default' : 'outline'}>
                           {selectedConference.status === 'confirmed' ? 'Confirmed' : 'Pending'}
@@ -426,7 +426,7 @@ export default function VirtualConferenceTools() {
                       </div>
                     </div>
                     
-                    <div className="flex items-center">
+                    <div className="flex items-centre">
                       <Avatar className="h-10 w-10 mr-3">
                         <AvatarImage src={selectedConference.teacher.avatar} />
                         <AvatarFallback>{selectedConference.teacher.name.charAt(0)}</AvatarFallback>
@@ -439,7 +439,7 @@ export default function VirtualConferenceTools() {
                     
                     {selectedConference.type === 'video' && selectedConference.status === 'confirmed' && (
                       <div className="bg-muted p-4 rounded-lg">
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-between items-centre">
                           <div>
                             <h3 className="text-sm font-medium">Video Conference Link</h3>
                             <p className="text-sm text-muted-foreground mt-1">
@@ -456,7 +456,7 @@ export default function VirtualConferenceTools() {
                     
                     {selectedConference.type === 'in-person' && (
                       <div className="bg-muted p-4 rounded-lg">
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-between items-centre">
                           <div>
                             <h3 className="text-sm font-medium">Meeting Location</h3>
                             <p className="text-sm text-muted-foreground mt-1">
@@ -481,7 +481,7 @@ export default function VirtualConferenceTools() {
                     <Separator />
                     
                     <div>
-                      <div className="flex justify-between items-center mb-2">
+                      <div className="flex justify-between items-centre mb-2">
                         <h3 className="text-sm font-medium">Translation Options</h3>
                         <Select defaultValue={selectedConference.translation.enabled ? selectedConference.translation.language : "none"}>
                           <SelectTrigger className="w-[180px]">
@@ -505,7 +505,7 @@ export default function VirtualConferenceTools() {
                     <Separator />
                     
                     <div>
-                      <div className="flex justify-between items-center mb-2">
+                      <div className="flex justify-between items-centre mb-2">
                         <h3 className="text-sm font-medium">Documents</h3>
                         <Button variant="ghost" size="sm">
                           <PlusCircle className="h-3 w-3 mr-1" />
@@ -516,7 +516,7 @@ export default function VirtualConferenceTools() {
                       {selectedConference.documents.length > 0 ? (
                         <div className="space-y-2">
                           {selectedConference.documents.map((doc) => (
-                            <div key={doc.id} className="flex items-center p-3 bg-muted rounded-lg">
+                            <div key={doc.id} className="flex items-centre p-3 bg-muted rounded-lg">
                               <FileText className="h-5 w-5 mr-3 text-blue-500" />
                               <div className="flex-1">
                                 <p className="text-sm font-medium">{doc.name}</p>
@@ -538,15 +538,15 @@ export default function VirtualConferenceTools() {
                     <div>
                       <h3 className="text-sm font-medium mb-2">Accessibility Options</h3>
                       <div className="space-y-2">
-                        <div className="flex items-center">
+                        <div className="flex items-centre">
                           <input type="checkbox" id="captions" className="mr-2" />
                           <Label htmlFor="captions" className="text-sm">Enable live captions</Label>
                         </div>
-                        <div className="flex items-center">
+                        <div className="flex items-centre">
                           <input type="checkbox" id="recording" className="mr-2" />
                           <Label htmlFor="recording" className="text-sm">Record meeting for later review</Label>
                         </div>
-                        <div className="flex items-center">
+                        <div className="flex items-centre">
                           <input type="checkbox" id="notes" className="mr-2" />
                           <Label htmlFor="notes" className="text-sm">Request written summary notes</Label>
                         </div>
@@ -573,7 +573,7 @@ export default function VirtualConferenceTools() {
           </div>
           
           {showRequestForm && (
-            <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+            <div className="fixed inset-0 bg-black/50 flex items-centre justify-centre z-50">
               <div className="bg-background rounded-lg p-6 max-w-md w-full">
                 <h2 className="text-xl font-bold mb-4">Request Conference</h2>
                 <div className="space-y-4">
@@ -601,7 +601,7 @@ export default function VirtualConferenceTools() {
                         <SelectItem value="progress">Progress Discussion</SelectItem>
                         <SelectItem value="concern">Discuss a Concern</SelectItem>
                         <SelectItem value="send">SEND Support Review</SelectItem>
-                        <SelectItem value="behavior">Behavior Discussion</SelectItem>
+                        <SelectItem value="behaviour">Behaviour Discussion</SelectItem>
                         <SelectItem value="other">Other</SelectItem>
                       </SelectContent>
                     </Select>
@@ -635,7 +635,7 @@ export default function VirtualConferenceTools() {
                     <Label htmlFor="times">Preferred Times</Label>
                     <div className="grid grid-cols-3 gap-2 mt-1">
                       {['Morning', 'Afternoon', 'After School'].map((time) => (
-                        <div key={time} className="flex items-center space-x-2">
+                        <div key={time} className="flex items-centre space-x-2">
                           <input type="checkbox" id={time} />
                           <Label htmlFor={time} className="text-sm">{time}</Label>
                         </div>
@@ -698,7 +698,7 @@ export default function VirtualConferenceTools() {
                           )}
                         </div>
                         
-                        <div className="mt-2 flex items-center text-xs text-muted-foreground">
+                        <div className="mt-2 flex items-centre text-xs text-muted-foreground">
                           <CalendarIcon className="h-3 w-3 mr-1" />
                           <span>{new Date(celebration.date).toLocaleDateString()}</span>
                           <span className="mx-1">•</span>
@@ -725,12 +725,12 @@ export default function VirtualConferenceTools() {
                 <CardContent>
                   <div className="space-y-4">
                     <div className="grid grid-cols-2 gap-4">
-                      <div className="bg-muted rounded-lg p-3 text-center">
+                      <div className="bg-muted rounded-lg p-3 text-centre">
                         <h4 className="text-sm font-medium text-muted-foreground">Achievements</h4>
                         <p className="text-2xl font-bold mt-1">12</p>
                       </div>
                       
-                      <div className="bg-muted rounded-lg p-3 text-center">
+                      <div className="bg-muted rounded-lg p-3 text-centre">
                         <h4 className="text-sm font-medium text-muted-foreground">Awards</h4>
                         <p className="text-2xl font-bold mt-1">5</p>
                       </div>
@@ -740,7 +740,7 @@ export default function VirtualConferenceTools() {
                       <h4 className="text-sm font-medium mb-2">Recent Categories</h4>
                       <div className="space-y-2">
                         <div>
-                          <div className="flex justify-between items-center mb-1">
+                          <div className="flex justify-between items-centre mb-1">
                             <span className="text-sm">Literacy</span>
                             <span className="text-sm text-muted-foreground">40%</span>
                           </div>
@@ -750,7 +750,7 @@ export default function VirtualConferenceTools() {
                         </div>
                         
                         <div>
-                          <div className="flex justify-between items-center mb-1">
+                          <div className="flex justify-between items-centre mb-1">
                             <span className="text-sm">Numeracy</span>
                             <span className="text-sm text-muted-foreground">30%</span>
                           </div>
@@ -760,7 +760,7 @@ export default function VirtualConferenceTools() {
                         </div>
                         
                         <div>
-                          <div className="flex justify-between items-center mb-1">
+                          <div className="flex justify-between items-centre mb-1">
                             <span className="text-sm">Social Skills</span>
                             <span className="text-sm text-muted-foreground">20%</span>
                           </div>
@@ -770,7 +770,7 @@ export default function VirtualConferenceTools() {
                         </div>
                         
                         <div>
-                          <div className="flex justify-between items-center mb-1">
+                          <div className="flex justify-between items-centre mb-1">
                             <span className="text-sm">Other</span>
                             <span className="text-sm text-muted-foreground">10%</span>
                           </div>
@@ -790,7 +790,7 @@ export default function VirtualConferenceTools() {
                 <CardHeader>
                   <div className="flex justify-between items-start">
                     <div>
-                      <div className="flex items-center">
+                      <div className="flex items-centre">
                         <CardTitle>{selectedCelebration.title}</CardTitle>
                         {selectedCelebration.type === 'achievement' ? (
                           <Badge className="ml-2 bg-amber-100 text-amber-800">Achievement</Badge>
@@ -843,7 +843,7 @@ export default function VirtualConferenceTools() {
                             className="w-full h-full object-cover" 
                           />
                           {selectedCelebration.media.type === 'video' && (
-                            <div className="absolute inset-0 flex items-center justify-center">
+                            <div className="absolute inset-0 flex items-centre justify-centre">
                               <Button size="icon" className="h-12 w-12 rounded-full bg-primary/90 hover:bg-primary">
                                 <Play className="h-6 w-6" />
                               </Button>
@@ -851,7 +851,7 @@ export default function VirtualConferenceTools() {
                           )}
                         </div>
                       ) : (
-                        <div className="flex items-center justify-center h-full">
+                        <div className="flex items-centre justify-centre h-full">
                           {selectedCelebration.type === 'achievement' ? (
                             <Star className="h-16 w-16 text-amber-500" />
                           ) : selectedCelebration.type === 'award' ? (
@@ -863,8 +863,8 @@ export default function VirtualConferenceTools() {
                       )}
                     </div>
                     
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center">
+                    <div className="flex items-centre justify-between">
+                      <div className="flex items-centre">
                         <Avatar className="h-10 w-10 mr-3">
                           <AvatarImage src={selectedCelebration.teacher.avatar} />
                           <AvatarFallback>{selectedCelebration.teacher.name.charAt(0)}</AvatarFallback>
@@ -875,15 +875,15 @@ export default function VirtualConferenceTools() {
                         </div>
                       </div>
                       
-                      <div className="flex items-center space-x-4">
-                        <div className="flex items-center">
+                      <div className="flex items-centre space-x-4">
+                        <div className="flex items-centre">
                           <CalendarIcon className="h-4 w-4 mr-1 text-muted-foreground" />
                           <span className="text-sm text-muted-foreground">
                             {new Date(selectedCelebration.date).toLocaleDateString()}
                           </span>
                         </div>
                         
-                        <div className="flex items-center">
+                        <div className="flex items-centre">
                           {selectedCelebration.isPublic ? (
                             <Globe className="h-4 w-4 mr-1 text-muted-foreground" />
                           ) : (
@@ -899,16 +899,16 @@ export default function VirtualConferenceTools() {
                     <Separator />
                     
                     <div>
-                      <div className="flex justify-between items-center mb-2">
+                      <div className="flex justify-between items-centre mb-2">
                         <h3 className="text-sm font-medium">Related Goals</h3>
                       </div>
                       
                       <div className="p-3 bg-muted rounded-lg">
-                        <div className="flex items-center">
+                        <div className="flex items-centre">
                           <Target className="h-5 w-5 mr-2 text-primary" />
                           <div>
                             <p className="text-sm font-medium">Reading Fluency</p>
-                            <div className="flex items-center mt-1">
+                            <div className="flex items-centre mt-1">
                               <div className="w-24 h-2 bg-background rounded-full overflow-hidden mr-2">
                                 <div className="h-full bg-primary" style={{ width: '65%' }}></div>
                               </div>
@@ -922,12 +922,12 @@ export default function VirtualConferenceTools() {
                     <Separator />
                     
                     <div>
-                      <div className="flex justify-between items-center mb-2">
+                      <div className="flex justify-between items-centre mb-2">
                         <h3 className="text-sm font-medium">Reactions</h3>
                       </div>
                       
                       <div className="flex space-x-2">
-                        <Button variant="outline" size="sm" className="flex items-center">
+                        <Button variant="outline" size="sm" className="flex items-centre">
                           <Heart className="h-4 w-4 mr-1 text-rose-500" />
                           <span>{selectedCelebration.reactions.likes}</span>
                         </Button>
@@ -949,7 +949,7 @@ export default function VirtualConferenceTools() {
                     <Separator />
                     
                     <div>
-                      <div className="flex justify-between items-center mb-2">
+                      <div className="flex justify-between items-centre mb-2">
                         <h3 className="text-sm font-medium">Comments</h3>
                       </div>
                       
@@ -979,7 +979,7 @@ export default function VirtualConferenceTools() {
                               <AvatarFallback>{comment.author.charAt(0)}</AvatarFallback>
                             </Avatar>
                             <div className="flex-1 bg-muted p-3 rounded-lg">
-                              <div className="flex justify-between items-center">
+                              <div className="flex justify-between items-centre">
                                 <p className="font-medium text-sm">{comment.author}</p>
                                 <p className="text-xs text-muted-foreground">
                                   {new Date(comment.date).toLocaleDateString()}
@@ -1010,7 +1010,7 @@ export default function VirtualConferenceTools() {
           </div>
           
           {showCelebrationForm && (
-            <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+            <div className="fixed inset-0 bg-black/50 flex items-centre justify-centre z-50">
               <div className="bg-background rounded-lg p-6 max-w-md w-full">
                 <h2 className="text-xl font-bold mb-4">Add Celebration</h2>
                 <div className="space-y-4">
@@ -1044,7 +1044,7 @@ export default function VirtualConferenceTools() {
                   
                   <div>
                     <Label>Media</Label>
-                    <div className="border border-dashed rounded-lg p-6 mt-1 text-center">
+                    <div className="border border-dashed rounded-lg p-6 mt-1 text-centre">
                       <Camera className="h-8 w-8 mx-auto text-muted-foreground" />
                       <p className="text-sm text-muted-foreground mt-2">
                         Drag and drop an image or video, or click to browse

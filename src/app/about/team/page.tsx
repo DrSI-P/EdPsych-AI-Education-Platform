@@ -40,7 +40,7 @@ const TeamMember = ({
     >
       <Card className="h-full flex flex-col overflow-hidden border-2 hover:border-primary/50 transition-all duration-300">
         <CardHeader className="pb-2">
-          <div className="flex flex-col md:flex-row gap-6 items-center">
+          <div className="flex flex-col md:flex-row gap-6 items-centre">
             <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-primary/20">
               <Image 
                 src={imageSrc} 
@@ -50,7 +50,7 @@ const TeamMember = ({
                 sizes="(max-width: 768px) 100vw, 33vw"
               />
             </div>
-            <div className="text-center md:text-left">
+            <div className="text-centre md:text-left">
               <CardTitle className="text-2xl font-bold">{name}</CardTitle>
               <CardDescription className="text-lg mt-1">{title}</CardDescription>
               <p className="text-sm text-muted-foreground mt-1">{qualifications}</p>
@@ -77,7 +77,7 @@ const TeamMember = ({
             </TabsContent>
           </Tabs>
         </CardContent>
-        <CardFooter className="flex justify-center md:justify-start gap-2 pt-2 pb-4">
+        <CardFooter className="flex justify-centre md:justify-start gap-2 pt-2 pb-4">
           {socialLinks.linkedin && (
             <Button variant="outline" size="icon" asChild>
               <a href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile">
@@ -118,7 +118,7 @@ export default function TeamPage() {
       name: "Dr. Scott Ighavongbe-Patrick",
       title: "Child and Adolescent Psychologist, Managing Director",
       qualifications: "BSc, DEdPsych, CPsychol, MBPsS, OND",
-      bio: "Dr. Scott Ighavongbe-Patrick is the visionary founder and Managing Director of EdPsych Connect Limited. With over 12 years of experience as an Educational Psychologist, he has dedicated his career to empowering learners through tailored, evidence-based support. His passion for inclusive education and equitable access drives the platform's mission to transform learning experiences for all children, particularly those from disadvantaged backgrounds. Dr. Scott's approach emphasizes relationship-building and understanding the underlying causes of behavior, informed by principles of Restorative Justice. His background in sales management has equipped him with exceptional negotiation and facilitation skills, enabling him to reach even the most hard-to-engage individuals.",
+      bio: "Dr. Scott Ighavongbe-Patrick is the visionary founder and Managing Director of EdPsych Connect Limited. With over 12 years of experience as an Educational Psychologist, he has dedicated his career to empowering learners through tailored, evidence-based support. His passion for inclusive education and equitable access drives the platform's mission to transform learning experiences for all children, particularly those from disadvantaged backgrounds. Dr. Scott's approach emphasizes relationship-building and understanding the underlying causes of behaviour, informed by principles of Restorative Justice. His background in sales management has equipped him with exceptional negotiation and facilitation skills, enabling him to reach even the most hard-to-engage individuals.",
       imageSrc: "/images/team/dr-scott.jpg", // Placeholder - will need actual image
       socialLinks: {
         linkedin: "https://www.linkedin.com/in/dr-scott-ighavongbe-patrick-dedpsych-cpsychol-9143941b6/",
@@ -179,7 +179,7 @@ export default function TeamPage() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-center mb-12"
+        className="text-centre mb-12"
       >
         <h1 className="text-4xl font-bold tracking-tight">Meet Our Team</h1>
         <p className="mt-4 text-xl text-muted-foreground max-w-3xl mx-auto">
@@ -206,7 +206,7 @@ export default function TeamPage() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.8, duration: 0.5 }}
-        className="mt-16 text-center"
+        className="mt-16 text-centre"
       >
         <h2 className="text-2xl font-semibold mb-4">Join Our Mission</h2>
         <p className="max-w-2xl mx-auto text-muted-foreground">

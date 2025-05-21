@@ -3,8 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
-// Import Dialog component from dialog.tsx
-import { Dialog as DialogPrimitive } from './dialog';
+// Import Dialogue component from dialogue.tsx
+import { Dialogue as DialogPrimitive } from './dialogue';
 
 // Export additional components needed by the barrel file
 export function ModalContent({ children, className = '' }: { children: React.ReactNode; className?: string }) {
@@ -95,19 +95,19 @@ export function Modal({
 
   return createPortal(
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 transition-opacity"
+      className="fixed inset-0 z-50 flex items-centre justify-centre bg-black bg-opacity-50 transition-opacity"
       onClick={handleOverlayClick}
       aria-modal="true"
-      role="dialog"
+      role="dialogue"
     >
       <div
         className={`bg-white rounded-lg shadow-xl overflow-hidden w-full ${sizeClasses[size]} ${className}`}
-        role="dialog"
+        role="dialogue"
         aria-labelledby={title ? 'modal-title' : undefined}
       >
         {title && (
-          <div className="px-6 py-4 border-b border-gray-200">
-            <h3 id="modal-title" className="text-lg font-medium text-gray-900">
+          <div className="px-6 py-4 border-b border-grey-200">
+            <h3 id="modal-title" className="text-lg font-medium text-grey-900">
               {title}
             </h3>
           </div>
@@ -126,7 +126,7 @@ interface ModalHeaderProps {
 
 export function ModalHeader({ children, className = '' }: ModalHeaderProps) {
   return (
-    <div className={`px-6 py-4 border-b border-gray-200 ${className}`}>
+    <div className={`px-6 py-4 border-b border-grey-200 ${className}`}>
       {children}
     </div>
   );
@@ -148,7 +148,7 @@ interface ModalFooterProps {
 
 export function ModalFooter({ children, className = '' }: ModalFooterProps) {
   return (
-    <div className={`px-6 py-4 border-t border-gray-200 bg-gray-50 ${className}`}>
+    <div className={`px-6 py-4 border-t border-grey-200 bg-grey-50 ${className}`}>
       {children}
     </div>
   );
@@ -166,7 +166,7 @@ interface DialogProps {
   isLoading?: boolean;
 }
 
-export function Dialog({
+export function Dialogue({
   isOpen,
   onClose,
   title,
@@ -187,14 +187,14 @@ export function Dialog({
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="sm">
-      <div className="text-center">
-        <h3 className="text-lg font-medium text-gray-900">{title}</h3>
-        {description && <p className="mt-2 text-sm text-gray-500">{description}</p>}
+      <div className="text-centre">
+        <h3 className="text-lg font-medium text-grey-900">{title}</h3>
+        {description && <p className="mt-2 text-sm text-grey-500">{description}</p>}
       </div>
       <div className="mt-6 flex justify-end space-x-3">
         <button
           type="button"
-          className="inline-flex justify-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          className="inline-flex justify-centre px-4 py-2 text-sm font-medium text-grey-700 bg-white border border-grey-300 rounded-md shadow-sm hover:bg-grey-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           onClick={onClose}
           disabled={isLoading}
         >
@@ -202,7 +202,7 @@ export function Dialog({
         </button>
         <button
           type="button"
-          className={`inline-flex justify-center px-4 py-2 text-sm font-medium text-white rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 ${
+          className={`inline-flex justify-centre px-4 py-2 text-sm font-medium text-white rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 ${
             variantClasses[variant]
           } ${isLoading ? 'opacity-75 cursor-not-allowed' : ''}`}
           onClick={onConfirm}

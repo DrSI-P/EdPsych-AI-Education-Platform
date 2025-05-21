@@ -212,8 +212,8 @@ export default function AdminUserManagement() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">User Management</h1>
-        <p className="text-gray-600">
+        <h1 className="text-3xl font-bold text-grey-900 mb-2">User Management</h1>
+        <p className="text-grey-600">
           Manage users, assign roles, and control access to the platform.
         </p>
       </div>
@@ -226,19 +226,19 @@ export default function AdminUserManagement() {
       
       <Card className="mb-6">
         <CardContent className="p-6">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+          <div className="flex flex-col md:flex-row md:items-centre md:justify-between gap-4 mb-6">
             <form onSubmit={handleSearch} className="w-full md:w-auto">
               <div className="relative">
                 <input
                   type="text"
                   placeholder="Search users by name or email"
-                  className="w-full md:w-80 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full md:w-80 px-4 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
                 <button
                   type="submit"
-                  className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                  className="absolute right-2 top-1/2 transform -translate-y-1/2 text-grey-500 hover:text-grey-700"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -283,16 +283,16 @@ export default function AdminUserManagement() {
           </Tabs>
           
           {loading ? (
-            <div className="flex justify-center items-center py-12">
+            <div className="flex justify-centre items-centre py-12">
               <Spinner size="lg" />
             </div>
           ) : users.length === 0 ? (
-            <div className="text-center py-12 bg-gray-50 rounded-md">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 mx-auto text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="text-centre py-12 bg-grey-50 rounded-md">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 mx-auto text-grey-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
               </svg>
-              <h3 className="text-lg font-medium text-gray-900 mb-1">No users found</h3>
-              <p className="text-gray-500">
+              <h3 className="text-lg font-medium text-grey-900 mb-1">No users found</h3>
+              <p className="text-grey-500">
                 {searchQuery 
                   ? `No users match your search criteria "${searchQuery}"`
                   : activeTab !== 'all' 
@@ -306,39 +306,39 @@ export default function AdminUserManagement() {
                 <Table>
                   <thead>
                     <tr>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created</th>
-                      <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">Name</th>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">Email</th>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">Role</th>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">Status</th>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">Created</th>
+                      <th className="px-4 py-3 text-right text-xs font-medium text-grey-500 uppercase tracking-wider">Actions</th>
                     </tr>
                   </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
+                  <tbody className="bg-white divide-y divide-grey-200">
                     {users.map((user) => (
-                      <tr key={user.id} className="hover:bg-gray-50">
+                      <tr key={user.id} className="hover:bg-grey-50">
                         <td className="px-4 py-4 whitespace-nowrap">
-                          <div className="flex items-center">
-                            <div className="flex-shrink-0 h-10 w-10 bg-gray-200 rounded-full flex items-center justify-center">
+                          <div className="flex items-centre">
+                            <div className="flex-shrink-0 h-10 w-10 bg-grey-200 rounded-full flex items-centre justify-centre">
                               {user.name ? (
-                                <span className="text-gray-600 font-medium">
+                                <span className="text-grey-600 font-medium">
                                   {user.name.split(' ').map(n => n[0]).join('').toUpperCase()}
                                 </span>
                               ) : (
-                                <span className="text-gray-600 font-medium">
+                                <span className="text-grey-600 font-medium">
                                   {user.email[0].toUpperCase()}
                                 </span>
                               )}
                             </div>
                             <div className="ml-4">
-                              <div className="text-sm font-medium text-gray-900">
+                              <div className="text-sm font-medium text-grey-900">
                                 {user.name || 'No name provided'}
                               </div>
                             </div>
                           </div>
                         </td>
                         <td className="px-4 py-4 whitespace-nowrap">
-                          <div className="text-sm text-gray-900">{user.email}</div>
+                          <div className="text-sm text-grey-900">{user.email}</div>
                         </td>
                         <td className="px-4 py-4 whitespace-nowrap">
                           <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
@@ -347,7 +347,7 @@ export default function AdminUserManagement() {
                                 user.role === 'student' ? 'bg-blue-100 text-blue-800' : 
                                   user.role === 'parent' ? 'bg-yellow-100 text-yellow-800' : 
                                     user.role === 'professional' ? 'bg-indigo-100 text-indigo-800' : 
-                                      'bg-gray-100 text-gray-800'}`}>
+                                      'bg-grey-100 text-grey-800'}`}>
                             {user.role.charAt(0).toUpperCase() + user.role.slice(1)}
                           </span>
                         </td>
@@ -357,7 +357,7 @@ export default function AdminUserManagement() {
                             {user.emailVerified ? 'Verified' : 'Unverified'}
                           </span>
                         </td>
-                        <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <td className="px-4 py-4 whitespace-nowrap text-sm text-grey-500">
                           {new Date(user.createdAt).toLocaleDateString()}
                         </td>
                         <td className="px-4 py-4 whitespace-nowrap text-right text-sm font-medium">
@@ -405,14 +405,14 @@ export default function AdminUserManagement() {
       >
         <div className="space-y-4">
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="name" className="block text-sm font-medium text-grey-700 mb-1">
               Name
             </label>
             <input
               type="text"
               id="name"
               className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                formErrors.name ? 'border-red-500' : 'border-gray-300'
+                formErrors.name ? 'border-red-500' : 'border-grey-300'
               }`}
               value={editForm.name}
               onChange={(e) => setEditForm({ ...editForm, name: e.target.value })}
@@ -423,14 +423,14 @@ export default function AdminUserManagement() {
           </div>
           
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="email" className="block text-sm font-medium text-grey-700 mb-1">
               Email
             </label>
             <input
               type="email"
               id="email"
               className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                formErrors.email ? 'border-red-500' : 'border-gray-300'
+                formErrors.email ? 'border-red-500' : 'border-grey-300'
               }`}
               value={editForm.email}
               onChange={(e) => setEditForm({ ...editForm, email: e.target.value })}
@@ -441,13 +441,13 @@ export default function AdminUserManagement() {
           </div>
           
           <div>
-            <label htmlFor="role" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="role" className="block text-sm font-medium text-grey-700 mb-1">
               Role
             </label>
             <select
               id="role"
               className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                formErrors.role ? 'border-red-500' : 'border-gray-300'
+                formErrors.role ? 'border-red-500' : 'border-grey-300'
               }`}
               value={editForm.role}
               onChange={(e) => setEditForm({ ...editForm, role: e.target.value })}
@@ -490,7 +490,7 @@ export default function AdminUserManagement() {
         title="Delete User"
       >
         <div>
-          <p className="text-gray-700 mb-6">
+          <p className="text-grey-700 mb-6">
             Are you sure you want to delete the user <span className="font-semibold">{selectedUser?.name || selectedUser?.email}</span>? This action cannot be undone.
           </p>
           

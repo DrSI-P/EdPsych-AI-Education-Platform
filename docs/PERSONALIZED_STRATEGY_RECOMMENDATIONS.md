@@ -13,7 +13,7 @@ The Personalized Regulation Strategy Recommendations feature enhances the platfo
 
 ### Comprehensive Strategy Database
 - Extensive library of evidence-based regulation strategies
-- Categorized by type (physical, cognitive, social, behavioral, expressive)
+- Categorized by type (physical, cognitive, social, behavioural, expressive)
 - Varied complexity levels to accommodate different developmental stages
 - Detailed implementation steps for each strategy
 
@@ -21,18 +21,18 @@ The Personalized Regulation Strategy Recommendations feature enhances the platfo
 - Customizable strategy type preferences
 - Adjustable complexity settings
 - Reminder frequency options
-- Favorite strategy tracking
+- Favourite strategy tracking
 
 ### Strategy Effectiveness Tracking
 - Rating system for strategy effectiveness
 - Historical tracking of strategy usage
 - Notes and reflection capabilities
-- Data visualization of strategy effectiveness over time
+- Data visualisation of strategy effectiveness over time
 
 ## Evidence Base
 This feature is grounded in evidence-based approaches to emotional regulation, including:
 
-- Cognitive-Behavioral Therapy principles for emotional regulation
+- Cognitive-Behavioural Therapy principles for emotional regulation
 - UK Department for Education SEND guidance on emotional development
 - Self-regulation frameworks from educational psychology
 - Personalized learning approaches from educational research
@@ -47,6 +47,6 @@ The Personalized Regulation Strategy Recommendations feature integrates seamless
 
 ## Accessibility Considerations
 - High contrast mode compatible
-- Screen reader optimized interface with appropriate ARIA labels
+- Screen reader optimised interface with appropriate ARIA labels
 - Keyboard navigation support for all interactive elements
 - Responsive design for all device sizes

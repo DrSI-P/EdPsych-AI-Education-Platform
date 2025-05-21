@@ -223,27 +223,27 @@ export const AIGenerationPanel: React.FC<AIGenerationPanelProps> = ({
                 onValueChange={(value) => setQuickGenerationType(value as any)}
                 className="flex flex-wrap gap-4"
               >
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <RadioGroupItem value="outline" id="outline" />
                   <Label htmlFor="outline">Outline</Label>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <RadioGroupItem value="complete" id="complete" />
                   <Label htmlFor="complete">Complete Content</Label>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <RadioGroupItem value="enhance" id="enhance" />
                   <Label htmlFor="enhance">Enhance Existing</Label>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <RadioGroupItem value="adapt" id="adapt" />
                   <Label htmlFor="adapt">Adapt for Learning Styles</Label>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <RadioGroupItem value="simplify" id="simplify" />
                   <Label htmlFor="simplify">Simplify</Label>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <RadioGroupItem value="extend" id="extend" />
                   <Label htmlFor="extend">Extend</Label>
                 </div>
@@ -347,7 +347,7 @@ export const AIGenerationPanel: React.FC<AIGenerationPanelProps> = ({
               {advancedPrompt.learningObjectives.length > 0 ? (
                 <ul className="mt-2 space-y-1">
                   {advancedPrompt.learningObjectives.map((objective, index) => (
-                    <li key={index} className="flex justify-between items-center p-2 bg-muted rounded-md">
+                    <li key={index} className="flex justify-between items-centre p-2 bg-muted rounded-md">
                       <span>{objective}</span>
                       <Button 
                         variant="ghost" 
@@ -368,7 +368,7 @@ export const AIGenerationPanel: React.FC<AIGenerationPanelProps> = ({
               <Label>Target Learning Styles</Label>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2">
                 {Object.values(LearningStyle).map((style) => (
-                  <div key={style} className="flex items-center space-x-2">
+                  <div key={style} className="flex items-centre space-x-2">
                     <Checkbox 
                       id={`style-${style}`} 
                       checked={advancedPrompt.targetLearningStyles?.includes(style)}
@@ -384,7 +384,7 @@ export const AIGenerationPanel: React.FC<AIGenerationPanelProps> = ({
               <Label>SEN Support</Label>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
                 {Object.values(SENCategory).map((category) => (
-                  <div key={category} className="flex items-center space-x-2">
+                  <div key={category} className="flex items-centre space-x-2">
                     <Checkbox 
                       id={`sen-${category}`} 
                       checked={advancedPrompt.senSupport?.includes(category)}

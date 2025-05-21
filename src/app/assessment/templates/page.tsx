@@ -130,8 +130,8 @@ export default function AssessmentTemplatesPage() {
   const renderTemplateGrid = () => {
     if (filteredTemplates.length === 0) {
       return (
-        <div className="text-center py-12">
-          <p className="text-gray-500 mb-4">No templates found matching your criteria.</p>
+        <div className="text-centre py-12">
+          <p className="text-grey-500 mb-4">No templates found matching your criteria.</p>
           <Button onClick={handleCreateTemplate}>
             Create New Template
           </Button>
@@ -163,37 +163,37 @@ export default function AssessmentTemplatesPage() {
               </div>
             </CardHeader>
             <CardContent className="pb-2 flex-grow">
-              <p className="text-sm text-gray-600 mb-2 line-clamp-2">{template.description}</p>
+              <p className="text-sm text-grey-600 mb-2 line-clamp-2">{template.description}</p>
               
               <div className="grid grid-cols-2 gap-2 text-sm mb-2">
                 <div>
-                  <span className="text-gray-500">Subject:</span>{' '}
+                  <span className="text-grey-500">Subject:</span>{' '}
                   <span className="font-medium">{subjects.find(s => s.value === template.subject)?.label || template.subject}</span>
                 </div>
                 <div>
-                  <span className="text-gray-500">Key Stage:</span>{' '}
+                  <span className="text-grey-500">Key Stage:</span>{' '}
                   <span className="font-medium">{keyStages.find(k => k.value === template.keyStage)?.label || template.keyStage}</span>
                 </div>
                 <div>
-                  <span className="text-gray-500">Type:</span>{' '}
+                  <span className="text-grey-500">Type:</span>{' '}
                   <span className="font-medium">{template.type}</span>
                 </div>
                 <div>
-                  <span className="text-gray-500">Questions:</span>{' '}
+                  <span className="text-grey-500">Questions:</span>{' '}
                   <span className="font-medium">{template.questionCount}</span>
                 </div>
               </div>
               
               <div className="flex flex-wrap gap-1 mt-2">
                 {template.tags.map((tag, index) => (
-                  <span key={index} className="px-2 py-1 text-xs rounded-full bg-gray-100 text-gray-800">
+                  <span key={index} className="px-2 py-1 text-xs rounded-full bg-grey-100 text-grey-800">
                     {tag}
                   </span>
                 ))}
               </div>
             </CardContent>
-            <CardFooter className="pt-2 flex justify-between items-center">
-              <div className="text-xs text-gray-500">
+            <CardFooter className="pt-2 flex justify-between items-centre">
+              <div className="text-xs text-grey-500">
                 By {template.createdBy.name}
               </div>
               <Button 
@@ -211,7 +211,7 @@ export default function AssessmentTemplatesPage() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
+      <div className="flex justify-centre items-centre min-h-screen">
         <Spinner size="large" />
       </div>
     );
@@ -220,13 +220,13 @@ export default function AssessmentTemplatesPage() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-6">
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-gray-900">Assessment Templates</h1>
+        <div className="flex items-centre justify-between">
+          <h1 className="text-2xl font-bold text-grey-900">Assessment Templates</h1>
           <Button onClick={handleCreateTemplate}>
             Create New Template
           </Button>
         </div>
-        <p className="mt-2 text-gray-600">
+        <p className="mt-2 text-grey-600">
           Use pre-built templates to quickly create assessments for your students.
         </p>
       </div>
@@ -254,14 +254,14 @@ export default function AssessmentTemplatesPage() {
             <input
               type="text"
               placeholder="Search templates..."
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              className="w-full px-4 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
           <div>
             <select
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              className="w-full px-4 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
               value={selectedSubject}
               onChange={(e) => setSelectedSubject(e.target.value)}
             >
@@ -274,7 +274,7 @@ export default function AssessmentTemplatesPage() {
           </div>
           <div>
             <select
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              className="w-full px-4 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
               value={selectedKeyStage}
               onChange={(e) => setSelectedKeyStage(e.target.value)}
             >

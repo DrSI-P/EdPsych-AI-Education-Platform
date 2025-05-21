@@ -51,7 +51,7 @@ const resourceEffectivenessData = [
   { name: 'Digital Textbooks', effectiveness: 85, usage: 420, cost: 2500 },
   { name: 'Interactive Simulations', effectiveness: 92, usage: 175, cost: 1800 },
   { name: 'Educational Videos', effectiveness: 88, usage: 320, cost: 2200 },
-  { name: 'Practice Worksheets', effectiveness: 75, usage: 280, cost: 1200 },
+  { name: 'Practise Worksheets', effectiveness: 75, usage: 280, cost: 1200 },
   { name: 'Assessment Tools', effectiveness: 90, usage: 210, cost: 1900 },
   { name: 'Learning Games', effectiveness: 86, usage: 150, cost: 1600 },
   { name: 'Reference Materials', effectiveness: 78, usage: 190, cost: 1400 },
@@ -117,7 +117,7 @@ const popularResourcesData = [
   { name: 'Science Experiment Videos', downloads: 980, rating: 4.7, type: 'Digital' },
   { name: 'Reading Comprehension Worksheets', downloads: 850, rating: 4.5, type: 'Print' },
   { name: 'Historical Timeline Interactive', downloads: 780, rating: 4.6, type: 'Interactive' },
-  { name: 'Grammar Practice Activities', downloads: 720, rating: 4.4, type: 'Digital' },
+  { name: 'Grammar Practise Activities', downloads: 720, rating: 4.4, type: 'Digital' },
   { name: 'Physics Simulation Lab', downloads: 680, rating: 4.9, type: 'Interactive' },
   { name: 'Creative Writing Prompts', downloads: 650, rating: 4.3, type: 'Print' },
   { name: 'Geography Map Quizzes', downloads: 620, rating: 4.5, type: 'Digital' },
@@ -195,14 +195,14 @@ export function ResourceAndAssessmentAnalytics() {
   
   // Render component header with controls
   const renderHeader = () => (
-    <div className="flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0 mb-6">
+    <div className="flex flex-col space-y-4 md:flex-row md:items-centre md:justify-between md:space-y-0 mb-6">
       <div>
         <h1 className="text-3xl font-bold tracking-tight">Resource & Assessment Analytics</h1>
         <p className="text-muted-foreground">
           Comprehensive insights into resource usage and assessment effectiveness
         </p>
       </div>
-      <div className="flex flex-col space-y-2 md:flex-row md:items-center md:space-x-2 md:space-y-0">
+      <div className="flex flex-col space-y-2 md:flex-row md:items-centre md:space-x-2 md:space-y-0">
         <Button variant="outline">
           <RefreshCw className="mr-2 h-4 w-4" />
           Refresh Data
@@ -221,9 +221,9 @@ export function ResourceAndAssessmentAnalytics() {
   
   // Render filter bar
   const renderFilterBar = () => (
-    <div className="bg-muted/50 p-4 rounded-lg flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0 mb-6">
-      <div className="flex flex-col space-y-2 md:flex-row md:items-center md:space-x-2 md:space-y-0">
-        <div className="flex items-center space-x-2">
+    <div className="bg-muted/50 p-4 rounded-lg flex flex-col space-y-4 md:flex-row md:items-centre md:justify-between md:space-y-0 mb-6">
+      <div className="flex flex-col space-y-2 md:flex-row md:items-centre md:space-x-2 md:space-y-0">
+        <div className="flex items-centre space-x-2">
           <Filter className="h-4 w-4 text-muted-foreground" />
           <span className="text-sm font-medium">Filters:</span>
         </div>
@@ -241,7 +241,7 @@ export function ResourceAndAssessmentAnalytics() {
         </Select>
         
         {showCustomDateRange && (
-          <div className="flex items-center space-x-2">
+          <div className="flex items-centre space-x-2">
             <Popover>
               <PopoverTrigger asChild>
                 <Button
@@ -323,7 +323,7 @@ export function ResourceAndAssessmentAnalytics() {
         </Select>
       </div>
       
-      <div className="flex items-center space-x-2">
+      <div className="flex items-centre space-x-2">
         <Button variant="outline" size="sm">
           <Save className="mr-2 h-4 w-4" />
           Save View
@@ -380,7 +380,7 @@ export function ResourceAndAssessmentAnalytics() {
       {/* Key metrics */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Total Resources Used
             </CardTitle>
@@ -398,7 +398,7 @@ export function ResourceAndAssessmentAnalytics() {
         </Card>
         
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Digital Resource Usage
             </CardTitle>
@@ -416,7 +416,7 @@ export function ResourceAndAssessmentAnalytics() {
         </Card>
         
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Assessment Effectiveness
             </CardTitle>
@@ -434,7 +434,7 @@ export function ResourceAndAssessmentAnalytics() {
         </Card>
         
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Resource ROI
             </CardTitle>
@@ -526,7 +526,7 @@ export function ResourceAndAssessmentAnalytics() {
                     label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
                   >
                     {assessmentTypesData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.color} />
+                      <Cell key={`cell-${index}`} fill={entry.colour} />
                     ))}
                   </Pie>
                   <Tooltip formatter={(value) => [`${value}%`, 'Percentage']} />
@@ -602,8 +602,8 @@ export function ResourceAndAssessmentAnalytics() {
           <CardContent className="px-2">
             <div className="space-y-4">
               {popularResourcesData.slice(0, 4).map((resource, index) => (
-                <div key={index} className="flex items-center justify-between rounded-md bg-muted p-3">
-                  <div className="flex items-center space-x-3">
+                <div key={index} className="flex items-centre justify-between rounded-md bg-muted p-3">
+                  <div className="flex items-centre space-x-3">
                     {resource.type === 'Digital' ? (
                       <Laptop className="h-5 w-5 text-blue-500" />
                     ) : resource.type === 'Interactive' ? (
@@ -613,7 +613,7 @@ export function ResourceAndAssessmentAnalytics() {
                     )}
                     <div>
                       <p className="text-sm font-medium">{resource.name}</p>
-                      <div className="flex items-center">
+                      <div className="flex items-centre">
                         <Star className="h-3 w-3 fill-current text-yellow-500" />
                         <span className="ml-1 text-xs text-muted-foreground">{resource.rating}</span>
                       </div>
@@ -772,8 +772,8 @@ export function ResourceAndAssessmentAnalytics() {
                     nameKey="name"
                     label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
                   >
-                    {({ name, value, color }) => (
-                      <Cell key={`cell-${name}`} fill={color} />
+                    {({ name, value, colour }) => (
+                      <Cell key={`cell-${name}`} fill={colour} />
                     )}
                   </Pie>
                   <Tooltip formatter={(value) => [`${value}%`, 'Percentage']} />
@@ -814,8 +814,8 @@ export function ResourceAndAssessmentAnalytics() {
                     nameKey="name"
                     label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
                   >
-                    {({ name, value, color }) => (
-                      <Cell key={`cell-${name}`} fill={color} />
+                    {({ name, value, colour }) => (
+                      <Cell key={`cell-${name}`} fill={colour} />
                     )}
                   </Pie>
                   <Tooltip formatter={(value) => [`${value}%`, 'Percentage']} />
@@ -868,8 +868,8 @@ export function ResourceAndAssessmentAnalytics() {
           <CardContent className="px-2">
             <div className="space-y-4">
               {popularResourcesData.slice(0, 5).map((resource, index) => (
-                <div key={index} className="flex items-center justify-between rounded-md bg-muted p-3">
-                  <div className="flex items-center space-x-3">
+                <div key={index} className="flex items-centre justify-between rounded-md bg-muted p-3">
+                  <div className="flex items-centre space-x-3">
                     {resource.type === 'Digital' ? (
                       <Laptop className="h-5 w-5 text-blue-500" />
                     ) : resource.type === 'Interactive' ? (
@@ -879,7 +879,7 @@ export function ResourceAndAssessmentAnalytics() {
                     )}
                     <div>
                       <p className="text-sm font-medium">{resource.name}</p>
-                      <div className="flex items-center">
+                      <div className="flex items-centre">
                         <Star className="h-3 w-3 fill-current text-yellow-500" />
                         <span className="ml-1 text-xs text-muted-foreground">{resource.rating}</span>
                       </div>
@@ -954,7 +954,7 @@ export function ResourceAndAssessmentAnalytics() {
                     { type: 'Digital Textbooks', roi: 2.8 },
                     { type: 'Interactive Simulations', roi: 3.5 },
                     { type: 'Educational Videos', roi: 3.2 },
-                    { type: 'Practice Worksheets', roi: 2.5 },
+                    { type: 'Practise Worksheets', roi: 2.5 },
                     { type: 'Assessment Tools', roi: 3.8 },
                     { type: 'Learning Games', roi: 3.0 },
                     { type: 'Reference Materials', roi: 2.2 },
@@ -1149,9 +1149,9 @@ export function ResourceAndAssessmentAnalytics() {
           <CardContent className="px-2">
             <div className="space-y-4">
               {resourceEffectivenessData.sort((a, b) => b.effectiveness - a.effectiveness).slice(0, 5).map((resource, index) => (
-                <div key={index} className="flex items-center justify-between rounded-md bg-muted p-3">
-                  <div className="flex items-center space-x-3">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/10">
+                <div key={index} className="flex items-centre justify-between rounded-md bg-muted p-3">
+                  <div className="flex items-centre space-x-3">
+                    <div className="flex h-9 w-9 items-centre justify-centre rounded-full bg-primary/10">
                       <span className="text-sm font-medium">{resource.effectiveness}%</span>
                     </div>
                     <div>
@@ -1196,7 +1196,7 @@ export function ResourceAndAssessmentAnalytics() {
                     label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
                   >
                     {assessmentTypesData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.color} />
+                      <Cell key={`cell-${index}`} fill={entry.colour} />
                     ))}
                   </Pie>
                   <Tooltip formatter={(value) => [`${value}%`, 'Percentage']} />
@@ -1323,8 +1323,8 @@ export function ResourceAndAssessmentAnalytics() {
                     nameKey="name"
                     label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
                   >
-                    {({ name, value, color }) => (
-                      <Cell key={`cell-${name}`} fill={color} />
+                    {({ name, value, colour }) => (
+                      <Cell key={`cell-${name}`} fill={colour} />
                     )}
                   </Pie>
                   <Tooltip formatter={(value) => [`${value}%`, 'Percentage']} />
@@ -1362,8 +1362,8 @@ export function ResourceAndAssessmentAnalytics() {
                     nameKey="name"
                     label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
                   >
-                    {({ name, value, color }) => (
-                      <Cell key={`cell-${name}`} fill={color} />
+                    {({ name, value, colour }) => (
+                      <Cell key={`cell-${name}`} fill={colour} />
                     )}
                   </Pie>
                   <Tooltip formatter={(value) => [`${value}%`, 'Percentage']} />
@@ -1383,12 +1383,12 @@ export function ResourceAndAssessmentAnalytics() {
           </CardHeader>
           <CardContent className="px-2">
             <div className="space-y-4">
-              <div className="flex items-center justify-between rounded-md bg-muted p-3">
-                <div className="flex items-center space-x-3">
+              <div className="flex items-centre justify-between rounded-md bg-muted p-3">
+                <div className="flex items-centre space-x-3">
                   <FileCheck className="h-5 w-5 text-blue-500" />
                   <div>
                     <p className="text-sm font-medium">Digital Quiz Platform</p>
-                    <div className="flex items-center">
+                    <div className="flex items-centre">
                       <Star className="h-3 w-3 fill-current text-yellow-500" />
                       <span className="ml-1 text-xs text-muted-foreground">4.8</span>
                     </div>
@@ -1397,12 +1397,12 @@ export function ResourceAndAssessmentAnalytics() {
                 <Badge variant="outline">85%</Badge>
               </div>
               
-              <div className="flex items-center justify-between rounded-md bg-muted p-3">
-                <div className="flex items-center space-x-3">
+              <div className="flex items-centre justify-between rounded-md bg-muted p-3">
+                <div className="flex items-centre space-x-3">
                   <FileCheck className="h-5 w-5 text-blue-500" />
                   <div>
                     <p className="text-sm font-medium">Rubric Builder</p>
-                    <div className="flex items-center">
+                    <div className="flex items-centre">
                       <Star className="h-3 w-3 fill-current text-yellow-500" />
                       <span className="ml-1 text-xs text-muted-foreground">4.6</span>
                     </div>
@@ -1411,12 +1411,12 @@ export function ResourceAndAssessmentAnalytics() {
                 <Badge variant="outline">78%</Badge>
               </div>
               
-              <div className="flex items-center justify-between rounded-md bg-muted p-3">
-                <div className="flex items-center space-x-3">
+              <div className="flex items-centre justify-between rounded-md bg-muted p-3">
+                <div className="flex items-centre space-x-3">
                   <FileCheck className="h-5 w-5 text-blue-500" />
                   <div>
                     <p className="text-sm font-medium">Feedback Assistant</p>
-                    <div className="flex items-center">
+                    <div className="flex items-centre">
                       <Star className="h-3 w-3 fill-current text-yellow-500" />
                       <span className="ml-1 text-xs text-muted-foreground">4.7</span>
                     </div>
@@ -1425,12 +1425,12 @@ export function ResourceAndAssessmentAnalytics() {
                 <Badge variant="outline">72%</Badge>
               </div>
               
-              <div className="flex items-center justify-between rounded-md bg-muted p-3">
-                <div className="flex items-center space-x-3">
+              <div className="flex items-centre justify-between rounded-md bg-muted p-3">
+                <div className="flex items-centre space-x-3">
                   <FileCheck className="h-5 w-5 text-blue-500" />
                   <div>
                     <p className="text-sm font-medium">Progress Tracker</p>
-                    <div className="flex items-center">
+                    <div className="flex items-centre">
                       <Star className="h-3 w-3 fill-current text-yellow-500" />
                       <span className="ml-1 text-xs text-muted-foreground">4.5</span>
                     </div>
@@ -1665,8 +1665,8 @@ export function ResourceAndAssessmentAnalytics() {
           </CardHeader>
           <CardContent className="px-2">
             <div className="space-y-4">
-              <div className="flex items-center justify-between rounded-md bg-muted p-3">
-                <div className="flex items-center space-x-3">
+              <div className="flex items-centre justify-between rounded-md bg-muted p-3">
+                <div className="flex items-centre space-x-3">
                   <CheckCircle className="h-5 w-5 text-green-500" />
                   <div>
                     <p className="text-sm font-medium">Immediate Feedback</p>
@@ -1676,8 +1676,8 @@ export function ResourceAndAssessmentAnalytics() {
                 <Badge>High Impact</Badge>
               </div>
               
-              <div className="flex items-center justify-between rounded-md bg-muted p-3">
-                <div className="flex items-center space-x-3">
+              <div className="flex items-centre justify-between rounded-md bg-muted p-3">
+                <div className="flex items-centre space-x-3">
                   <CheckCircle className="h-5 w-5 text-green-500" />
                   <div>
                     <p className="text-sm font-medium">Formative Quizzing</p>
@@ -1687,8 +1687,8 @@ export function ResourceAndAssessmentAnalytics() {
                 <Badge>High Impact</Badge>
               </div>
               
-              <div className="flex items-center justify-between rounded-md bg-muted p-3">
-                <div className="flex items-center space-x-3">
+              <div className="flex items-centre justify-between rounded-md bg-muted p-3">
+                <div className="flex items-centre space-x-3">
                   <CheckCircle className="h-5 w-5 text-green-500" />
                   <div>
                     <p className="text-sm font-medium">Self-Assessment</p>
@@ -1698,8 +1698,8 @@ export function ResourceAndAssessmentAnalytics() {
                 <Badge>High Impact</Badge>
               </div>
               
-              <div className="flex items-center justify-between rounded-md bg-muted p-3">
-                <div className="flex items-center space-x-3">
+              <div className="flex items-centre justify-between rounded-md bg-muted p-3">
+                <div className="flex items-centre space-x-3">
                   <CheckCircle className="h-5 w-5 text-green-500" />
                   <div>
                     <p className="text-sm font-medium">Peer Review</p>
@@ -1730,13 +1730,13 @@ export function ResourceAndAssessmentAnalytics() {
           <CardHeader>
             <CardTitle>Resource Optimization Recommendations</CardTitle>
             <CardDescription>
-              AI-powered suggestions to optimize resource usage
+              AI-powered suggestions to optimise resource usage
             </CardDescription>
           </CardHeader>
           <CardContent className="px-2">
             <div className="space-y-4">
               <div className="rounded-md border p-4">
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <Lightbulb className="h-5 w-5 text-yellow-500" />
                   <h4 className="text-sm font-medium">Increase Interactive Resources in Science</h4>
                 </div>
@@ -1744,14 +1744,14 @@ export function ResourceAndAssessmentAnalytics() {
                   Analysis shows 92% effectiveness for interactive simulations in Science, but only 22% of Science resources are interactive. 
                   Increasing interactive content could improve student outcomes by an estimated 15%.
                 </p>
-                <div className="mt-3 flex items-center justify-between">
+                <div className="mt-3 flex items-centre justify-between">
                   <Badge variant="outline">High Priority</Badge>
                   <Button size="sm" variant="outline">Implement</Button>
                 </div>
               </div>
               
               <div className="rounded-md border p-4">
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <Lightbulb className="h-5 w-5 text-yellow-500" />
                   <h4 className="text-sm font-medium">Consolidate Digital Textbook Subscriptions</h4>
                 </div>
@@ -1759,14 +1759,14 @@ export function ResourceAndAssessmentAnalytics() {
                   Current analysis shows overlap in 3 digital textbook platforms with similar content. 
                   Consolidating to a single platform could reduce costs by £1,800 annually while maintaining resource quality.
                 </p>
-                <div className="mt-3 flex items-center justify-between">
+                <div className="mt-3 flex items-centre justify-between">
                   <Badge variant="outline">Medium Priority</Badge>
                   <Button size="sm" variant="outline">Implement</Button>
                 </div>
               </div>
               
               <div className="rounded-md border p-4">
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <Lightbulb className="h-5 w-5 text-yellow-500" />
                   <h4 className="text-sm font-medium">Expand Video Resources for Humanities</h4>
                 </div>
@@ -1774,14 +1774,14 @@ export function ResourceAndAssessmentAnalytics() {
                   Humanities has the lowest digital resource usage (25%) despite high effectiveness ratings (82%). 
                   Adding curated video content could increase engagement and improve learning outcomes.
                 </p>
-                <div className="mt-3 flex items-center justify-between">
+                <div className="mt-3 flex items-centre justify-between">
                   <Badge variant="outline">Medium Priority</Badge>
                   <Button size="sm" variant="outline">Implement</Button>
                 </div>
               </div>
               
               <div className="rounded-md border p-4">
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <Lightbulb className="h-5 w-5 text-yellow-500" />
                   <h4 className="text-sm font-medium">Implement Resource Tagging System</h4>
                 </div>
@@ -1789,7 +1789,7 @@ export function ResourceAndAssessmentAnalytics() {
                   Only 45% of resources have proper metadata tagging, limiting discoverability. 
                   Implementing a comprehensive tagging system could increase resource utilization by an estimated 25%.
                 </p>
-                <div className="mt-3 flex items-center justify-between">
+                <div className="mt-3 flex items-centre justify-between">
                   <Badge variant="outline">High Priority</Badge>
                   <Button size="sm" variant="outline">Implement</Button>
                 </div>
@@ -1808,7 +1808,7 @@ export function ResourceAndAssessmentAnalytics() {
           <CardContent className="px-2">
             <div className="space-y-4">
               <div className="rounded-md border p-4">
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <Lightbulb className="h-5 w-5 text-yellow-500" />
                   <h4 className="text-sm font-medium">Increase Formative Assessment Frequency</h4>
                 </div>
@@ -1816,14 +1816,14 @@ export function ResourceAndAssessmentAnalytics() {
                   Data shows 22% higher progress in classes with weekly formative assessments vs. monthly. 
                   Implementing low-stakes weekly quizzes could significantly improve retention and reduce test anxiety.
                 </p>
-                <div className="mt-3 flex items-center justify-between">
+                <div className="mt-3 flex items-centre justify-between">
                   <Badge variant="outline">High Priority</Badge>
                   <Button size="sm" variant="outline">Implement</Button>
                 </div>
               </div>
               
               <div className="rounded-md border p-4">
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <Lightbulb className="h-5 w-5 text-yellow-500" />
                   <h4 className="text-sm font-medium">Implement Digital Feedback System</h4>
                 </div>
@@ -1831,14 +1831,14 @@ export function ResourceAndAssessmentAnalytics() {
                   Analysis shows 35% time reduction in assessment feedback when using digital tools, with no reduction in quality. 
                   Adopting a school-wide digital feedback approach could save approximately 5 hours per teacher per week.
                 </p>
-                <div className="mt-3 flex items-center justify-between">
+                <div className="mt-3 flex items-centre justify-between">
                   <Badge variant="outline">High Priority</Badge>
                   <Button size="sm" variant="outline">Implement</Button>
                 </div>
               </div>
               
               <div className="rounded-md border p-4">
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <Lightbulb className="h-5 w-5 text-yellow-500" />
                   <h4 className="text-sm font-medium">Expand Peer Assessment Practices</h4>
                 </div>
@@ -1846,22 +1846,22 @@ export function ResourceAndAssessmentAnalytics() {
                   Peer assessment shows 15% higher engagement and 12% better knowledge retention, but is only used in 10% of classes. 
                   Implementing structured peer assessment could improve outcomes while reducing teacher workload.
                 </p>
-                <div className="mt-3 flex items-center justify-between">
+                <div className="mt-3 flex items-centre justify-between">
                   <Badge variant="outline">Medium Priority</Badge>
                   <Button size="sm" variant="outline">Implement</Button>
                 </div>
               </div>
               
               <div className="rounded-md border p-4">
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <Lightbulb className="h-5 w-5 text-yellow-500" />
-                  <h4 className="text-sm font-medium">Standardize Rubric Usage</h4>
+                  <h4 className="text-sm font-medium">Standardise Rubric Usage</h4>
                 </div>
                 <p className="mt-2 text-sm text-muted-foreground">
-                  Classes using standardized rubrics show 18% more consistent assessment outcomes and higher student satisfaction. 
+                  Classes using standardised rubrics show 18% more consistent assessment outcomes and higher student satisfaction. 
                   Developing department-wide rubrics could improve assessment reliability and student understanding.
                 </p>
-                <div className="mt-3 flex items-center justify-between">
+                <div className="mt-3 flex items-centre justify-between">
                   <Badge variant="outline">Medium Priority</Badge>
                   <Button size="sm" variant="outline">Implement</Button>
                 </div>
@@ -1881,7 +1881,7 @@ export function ResourceAndAssessmentAnalytics() {
           </CardHeader>
           <CardContent className="px-2">
             <div className="space-y-4">
-              <div className="flex items-center space-x-2 rounded-md bg-muted p-3">
+              <div className="flex items-centre space-x-2 rounded-md bg-muted p-3">
                 <AlertTriangle className="h-5 w-5 text-amber-500" />
                 <div>
                   <p className="text-sm font-medium">Limited SEND-Specific Resources</p>
@@ -1889,7 +1889,7 @@ export function ResourceAndAssessmentAnalytics() {
                 </div>
               </div>
               
-              <div className="flex items-center space-x-2 rounded-md bg-muted p-3">
+              <div className="flex items-centre space-x-2 rounded-md bg-muted p-3">
                 <AlertTriangle className="h-5 w-5 text-amber-500" />
                 <div>
                   <p className="text-sm font-medium">Outdated Computing Materials</p>
@@ -1897,7 +1897,7 @@ export function ResourceAndAssessmentAnalytics() {
                 </div>
               </div>
               
-              <div className="flex items-center space-x-2 rounded-md bg-muted p-3">
+              <div className="flex items-centre space-x-2 rounded-md bg-muted p-3">
                 <AlertTriangle className="h-5 w-5 text-amber-500" />
                 <div>
                   <p className="text-sm font-medium">Limited EAL Support Resources</p>
@@ -1905,7 +1905,7 @@ export function ResourceAndAssessmentAnalytics() {
                 </div>
               </div>
               
-              <div className="flex items-center space-x-2 rounded-md bg-muted p-3">
+              <div className="flex items-centre space-x-2 rounded-md bg-muted p-3">
                 <AlertTriangle className="h-5 w-5 text-amber-500" />
                 <div>
                   <p className="text-sm font-medium">Few Higher-Order Thinking Resources</p>
@@ -1932,7 +1932,7 @@ export function ResourceAndAssessmentAnalytics() {
           </CardHeader>
           <CardContent className="px-2">
             <div className="space-y-4">
-              <div className="flex items-center space-x-2 rounded-md bg-muted p-3">
+              <div className="flex items-centre space-x-2 rounded-md bg-muted p-3">
                 <AlertTriangle className="h-5 w-5 text-amber-500" />
                 <div>
                   <p className="text-sm font-medium">Feedback Timeliness</p>
@@ -1940,7 +1940,7 @@ export function ResourceAndAssessmentAnalytics() {
                 </div>
               </div>
               
-              <div className="flex items-center space-x-2 rounded-md bg-muted p-3">
+              <div className="flex items-centre space-x-2 rounded-md bg-muted p-3">
                 <AlertTriangle className="h-5 w-5 text-amber-500" />
                 <div>
                   <p className="text-sm font-medium">Limited Self-Assessment</p>
@@ -1948,7 +1948,7 @@ export function ResourceAndAssessmentAnalytics() {
                 </div>
               </div>
               
-              <div className="flex items-center space-x-2 rounded-md bg-muted p-3">
+              <div className="flex items-centre space-x-2 rounded-md bg-muted p-3">
                 <AlertTriangle className="h-5 w-5 text-amber-500" />
                 <div>
                   <p className="text-sm font-medium">Assessment Variety</p>
@@ -1956,7 +1956,7 @@ export function ResourceAndAssessmentAnalytics() {
                 </div>
               </div>
               
-              <div className="flex items-center space-x-2 rounded-md bg-muted p-3">
+              <div className="flex items-centre space-x-2 rounded-md bg-muted p-3">
                 <AlertTriangle className="h-5 w-5 text-amber-500" />
                 <div>
                   <p className="text-sm font-medium">Digital Assessment Skills</p>
@@ -1983,8 +1983,8 @@ export function ResourceAndAssessmentAnalytics() {
           </CardHeader>
           <CardContent className="px-2">
             <div className="space-y-4">
-              <div className="flex items-center justify-between rounded-md bg-muted p-3">
-                <div className="flex items-center space-x-3">
+              <div className="flex items-centre justify-between rounded-md bg-muted p-3">
+                <div className="flex items-centre space-x-3">
                   <TrendingUp className="h-5 w-5 text-green-500" />
                   <div>
                     <p className="text-sm font-medium">Subscription Consolidation</p>
@@ -1994,8 +1994,8 @@ export function ResourceAndAssessmentAnalytics() {
                 <Badge variant="outline">£3,200/yr</Badge>
               </div>
               
-              <div className="flex items-center justify-between rounded-md bg-muted p-3">
-                <div className="flex items-center space-x-3">
+              <div className="flex items-centre justify-between rounded-md bg-muted p-3">
+                <div className="flex items-centre space-x-3">
                   <TrendingUp className="h-5 w-5 text-green-500" />
                   <div>
                     <p className="text-sm font-medium">Print Resource Reduction</p>
@@ -2005,8 +2005,8 @@ export function ResourceAndAssessmentAnalytics() {
                 <Badge variant="outline">£2,500/yr</Badge>
               </div>
               
-              <div className="flex items-center justify-between rounded-md bg-muted p-3">
-                <div className="flex items-center space-x-3">
+              <div className="flex items-centre justify-between rounded-md bg-muted p-3">
+                <div className="flex items-centre space-x-3">
                   <TrendingUp className="h-5 w-5 text-green-500" />
                   <div>
                     <p className="text-sm font-medium">Assessment Automation</p>
@@ -2016,8 +2016,8 @@ export function ResourceAndAssessmentAnalytics() {
                 <Badge variant="outline">£4,800/yr</Badge>
               </div>
               
-              <div className="flex items-center justify-between rounded-md bg-muted p-3">
-                <div className="flex items-center space-x-3">
+              <div className="flex items-centre justify-between rounded-md bg-muted p-3">
+                <div className="flex items-centre space-x-3">
                   <TrendingUp className="h-5 w-5 text-green-500" />
                   <div>
                     <p className="text-sm font-medium">Resource Sharing Network</p>

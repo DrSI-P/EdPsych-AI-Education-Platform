@@ -123,7 +123,7 @@ export async function POST(req: NextRequest) {
     
     // Create prompt for progress-adaptive pacing
     const prompt = `
-      You are an expert educational designer specializing in personalized learning pacing based on individual student progress.
+      You are an expert educational designer specialising in personalized learning pacing based on individual student progress.
       
       Task: Create a personalized learning pace plan that adapts to the student's progress and learning needs.
       
@@ -169,7 +169,7 @@ export async function POST(req: NextRequest) {
       Please create a personalized learning pace plan according to the following guidelines:
       
       1. For Gradual pacing (baseline pace < 40%):
-         - Provide more time for concept exploration and practice
+         - Provide more time for concept exploration and practise
          - Include additional reinforcement activities
          - Add strategic breakpoints for reflection and consolidation
          - Ensure mastery before progression to new concepts
@@ -191,7 +191,7 @@ export async function POST(req: NextRequest) {
       
       ${settings.includeReinforcementActivities ? `
       If including reinforcement activities, please provide:
-      - Additional practice exercises for key concepts
+      - Additional practise exercises for key concepts
       - Alternative explanations using different approaches
       - Real-world application examples
       - Guided review activities

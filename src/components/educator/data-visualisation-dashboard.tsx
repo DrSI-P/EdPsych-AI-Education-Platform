@@ -199,14 +199,14 @@ export function DataVisualisationDashboard() {
   
   // Render dashboard header with controls
   const renderDashboardHeader = () => (
-    <div className="flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0">
+    <div className="flex flex-col space-y-4 md:flex-row md:items-centre md:justify-between md:space-y-0">
       <div>
         <h2 className="text-3xl font-bold tracking-tight">Data Visualisation Dashboard</h2>
         <p className="text-muted-foreground">
           Interactive analytics and insights to support evidence-based educational practices
         </p>
       </div>
-      <div className="flex flex-col space-y-2 md:flex-row md:items-center md:space-x-2 md:space-y-0">
+      <div className="flex flex-col space-y-2 md:flex-row md:items-centre md:space-x-2 md:space-y-0">
         <Select value={selectedConfig} onValueChange={setSelectedConfig}>
           <SelectTrigger className="w-full md:w-[180px]">
             <SelectValue placeholder="Select dashboard" />
@@ -220,7 +220,7 @@ export function DataVisualisationDashboard() {
           </SelectContent>
         </Select>
         
-        <div className="flex items-center space-x-2">
+        <div className="flex items-centre space-x-2">
           <Button variant="outline" size="icon">
             <RefreshCw className="h-4 w-4" />
           </Button>
@@ -237,9 +237,9 @@ export function DataVisualisationDashboard() {
   
   // Render filter bar
   const renderFilterBar = () => (
-    <div className="bg-muted/50 p-4 rounded-lg flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0">
-      <div className="flex flex-col space-y-2 md:flex-row md:items-center md:space-x-2 md:space-y-0">
-        <div className="flex items-center space-x-2">
+    <div className="bg-muted/50 p-4 rounded-lg flex flex-col space-y-4 md:flex-row md:items-centre md:justify-between md:space-y-0">
+      <div className="flex flex-col space-y-2 md:flex-row md:items-centre md:space-x-2 md:space-y-0">
+        <div className="flex items-centre space-x-2">
           <Filter className="h-4 w-4 text-muted-foreground" />
           <span className="text-sm font-medium">Filters:</span>
         </div>
@@ -258,7 +258,7 @@ export function DataVisualisationDashboard() {
         </Select>
         
         {showCustomDateRange && (
-          <div className="flex items-center space-x-2">
+          <div className="flex items-centre space-x-2">
             <Popover>
               <PopoverTrigger asChild>
                 <Button
@@ -308,7 +308,7 @@ export function DataVisualisationDashboard() {
         </Select>
       </div>
       
-      <div className="flex items-center space-x-2">
+      <div className="flex items-centre space-x-2">
         <Button variant="outline" size="sm">
           <Share2 className="mr-2 h-4 w-4" />
           Share
@@ -327,7 +327,7 @@ export function DataVisualisationDashboard() {
       {/* Key metrics */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Average Progress
             </CardTitle>
@@ -345,7 +345,7 @@ export function DataVisualisationDashboard() {
         </Card>
         
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Attendance Rate
             </CardTitle>
@@ -363,7 +363,7 @@ export function DataVisualisationDashboard() {
         </Card>
         
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Resource Utilisation
             </CardTitle>
@@ -381,7 +381,7 @@ export function DataVisualisationDashboard() {
         </Card>
         
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Parent Engagement
             </CardTitle>
@@ -591,7 +591,7 @@ export function DataVisualisationDashboard() {
                     label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
                   >
                     {parentEngagementData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.color} />
+                      <Cell key={`cell-${index}`} fill={entry.colour} />
                     ))}
                   </Pie>
                   {chartSettings.showLegend && <Legend />}
@@ -634,7 +634,7 @@ export function DataVisualisationDashboard() {
                     <Info className="h-5 w-5 text-blue-500 flex-shrink-0" />
                   )}
                   <div className="flex-1">
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-centre justify-between">
                       <p className="font-medium">{alert.message}</p>
                       <span className="text-xs text-muted-foreground">{alert.date}</span>
                     </div>
@@ -696,7 +696,7 @@ export function DataVisualisationDashboard() {
       {/* Key metrics */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Average Academic Progress
             </CardTitle>
@@ -714,7 +714,7 @@ export function DataVisualisationDashboard() {
         </Card>
         
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Assessment Completion
             </CardTitle>
@@ -732,7 +732,7 @@ export function DataVisualisationDashboard() {
         </Card>
         
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Curriculum Coverage
             </CardTitle>
@@ -832,7 +832,7 @@ export function DataVisualisationDashboard() {
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
-          <div className="flex items-center justify-between">
+          <div className="flex items-centre justify-between">
             <Label htmlFor="show-grid">Show grid lines</Label>
             <Switch
               id="show-grid"
@@ -843,7 +843,7 @@ export function DataVisualisationDashboard() {
             />
           </div>
           
-          <div className="flex items-center justify-between">
+          <div className="flex items-centre justify-between">
             <Label htmlFor="show-legend">Show legends</Label>
             <Switch
               id="show-legend"
@@ -854,7 +854,7 @@ export function DataVisualisationDashboard() {
             />
           </div>
           
-          <div className="flex items-center justify-between">
+          <div className="flex items-centre justify-between">
             <Label htmlFor="enable-animation">Enable animations</Label>
             <Switch
               id="enable-animation"
@@ -865,7 +865,7 @@ export function DataVisualisationDashboard() {
             />
           </div>
           
-          <div className="flex items-center justify-between">
+          <div className="flex items-centre justify-between">
             <Label htmlFor="dark-mode">Dark mode charts</Label>
             <Switch
               id="dark-mode"
@@ -946,15 +946,15 @@ export function DataVisualisationDashboard() {
                       {dashboardConfigs.map(config => (
                         <div 
                           key={config.id}
-                          className="flex items-center justify-between p-2 border rounded-md"
+                          className="flex items-centre justify-between p-2 border rounded-md"
                         >
-                          <div className="flex items-center">
+                          <div className="flex items-centre">
                             <span>{config.name}</span>
                             {config.isDefault && (
                               <Badge variant="outline" className="ml-2">Default</Badge>
                             )}
                           </div>
-                          <div className="flex items-center space-x-2">
+                          <div className="flex items-centre space-x-2">
                             <Button variant="ghost" size="sm">Edit</Button>
                             {!config.isDefault && (
                               <Button variant="ghost" size="sm">Delete</Button>
@@ -986,7 +986,7 @@ export function DataVisualisationDashboard() {
               <div>
                 <h3 className="text-lg font-medium">Getting Started</h3>
                 <p className="text-muted-foreground mt-1">
-                  The Data Visualisation Dashboard provides interactive analytics to help you make data-informed decisions about your educational practice. Here's how to get started:
+                  The Data Visualisation Dashboard provides interactive analytics to help you make data-informed decisions about your educational practise. Here's how to get started:
                 </p>
                 <ul className="list-disc pl-6 mt-2 space-y-1">
                   <li>Use the filters at the top to select time periods and student groups</li>
@@ -1020,11 +1020,11 @@ export function DataVisualisationDashboard() {
                   <li>Recognise successful teaching strategies</li>
                   <li>Optimise resource allocation</li>
                   <li>Improve parent communication</li>
-                  <li>Make evidence-based decisions about your practice</li>
+                  <li>Make evidence-based decisions about your practise</li>
                 </ul>
               </div>
               
-              <div className="flex justify-center mt-4">
+              <div className="flex justify-centre mt-4">
                 <Button>
                   View Full Documentation
                 </Button>

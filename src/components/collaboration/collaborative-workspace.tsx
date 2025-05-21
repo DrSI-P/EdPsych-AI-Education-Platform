@@ -154,7 +154,7 @@ const mockSession: CollaborationSession = {
     tags: ['ecosystem', 'biology', 'group project'],
     educationalObjectives: [
       'Understand the interactions within ecosystems',
-      'Analyze the impact of human activity on biodiversity',
+      'Analyse the impact of human activity on biodiversity',
       'Develop collaborative research skills'
     ]
   }
@@ -168,7 +168,7 @@ const mockDocument: CollaborativeDocument = {
   content: `# Ecosystem Research Project
 
 ## Introduction
-Our team is researching the impact of climate change on local ecosystems. This collaborative document will serve as our main workspace for organizing research, sharing findings, and preparing our final presentation.
+Our team is researching the impact of climate change on local ecosystems. This collaborative document will serve as our main workspace for organising research, sharing findings, and preparing our final presentation.
 
 ## Research Questions
 1. How are local ecosystems responding to temperature changes?
@@ -179,7 +179,7 @@ Our team is researching the impact of climate change on local ecosystems. This c
 - Alex: Research on temperature data and trends
 - Sarah: Species impact analysis
 - Michael: Conservation strategies
-- Emma: Data visualization and presentation
+- Emma: Data visualisation and presentation
 
 ## Timeline
 - Week 1: Initial research and data collection
@@ -364,7 +364,7 @@ export default function CollaborativeWorkspace() {
   
   // Scroll to bottom of chat when new messages arrive
   useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    chatEndRef.current?.scrollIntoView({ behaviour: 'smooth' });
   }, [chatMessages]);
   
   // Format date
@@ -412,7 +412,7 @@ export default function CollaborativeWorkspace() {
     return `${diffInMonths} month${diffInMonths !== 1 ? 's' : ''} ago`;
   };
   
-  // Get status color
+  // Get status colour
   const getStatusColor = (status: string): string => {
     switch (status) {
       case 'online':
@@ -420,13 +420,13 @@ export default function CollaborativeWorkspace() {
       case 'away':
         return 'bg-yellow-500';
       case 'offline':
-        return 'bg-gray-500';
+        return 'bg-grey-500';
       default:
-        return 'bg-gray-500';
+        return 'bg-grey-500';
     }
   };
   
-  // Get role badge color
+  // Get role badge colour
   const getRoleBadgeColor = (role: CollaborationRole): string => {
     switch (role) {
       case CollaborationRole.OWNER:
@@ -436,9 +436,9 @@ export default function CollaborativeWorkspace() {
       case CollaborationRole.COMMENTER:
         return 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300';
       case CollaborationRole.VIEWER:
-        return 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-300';
+        return 'bg-grey-100 text-grey-800 dark:bg-grey-900/30 dark:text-grey-300';
       default:
-        return 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-300';
+        return 'bg-grey-100 text-grey-800 dark:bg-grey-900/30 dark:text-grey-300';
     }
   };
   
@@ -528,7 +528,7 @@ export default function CollaborativeWorkspace() {
   
   return (
     <div className="container mx-auto py-6">
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between items-centre mb-6">
         <div>
           <h1 className="text-3xl font-bold">{session.title}</h1>
           <p className="text-muted-foreground">{session.description}</p>
@@ -564,8 +564,8 @@ export default function CollaborativeWorkspace() {
             <CardContent>
               <div className="space-y-4">
                 {participants.map((participant) => (
-                  <div key={participant.userId} className="flex items-center justify-between">
-                    <div className="flex items-center">
+                  <div key={participant.userId} className="flex items-centre justify-between">
+                    <div className="flex items-centre">
                       <div className="relative">
                         <Avatar>
                           <AvatarFallback>{getInitials(participant.name)}</AvatarFallback>
@@ -666,7 +666,7 @@ export default function CollaborativeWorkspace() {
             
             <TabsContent value="document" className="mt-4">
               <Card>
-                <CardHeader className="flex flex-row items-center justify-between">
+                <CardHeader className="flex flex-row items-centre justify-between">
                   <div>
                     <CardTitle>{document.title}</CardTitle>
                     <CardDescription>
@@ -713,7 +713,7 @@ export default function CollaborativeWorkspace() {
                   )}
                 </CardContent>
                 <CardFooter className="flex justify-between">
-                  <div className="flex items-center text-sm text-muted-foreground">
+                  <div className="flex items-centre text-sm text-muted-foreground">
                     <Clock className="h-4 w-4 mr-1" />
                     <span>Version {document.version} • {document.metadata.wordCount} words • {document.metadata.readingTime} min read</span>
                   </div>
@@ -739,7 +739,7 @@ export default function CollaborativeWorkspace() {
                     <Card key={comment.id}>
                       <CardHeader className="pb-2">
                         <div className="flex justify-between items-start">
-                          <div className="flex items-center">
+                          <div className="flex items-centre">
                             <Avatar className="h-6 w-6 mr-2">
                               <AvatarFallback>{getInitials(comment.userName)}</AvatarFallback>
                             </Avatar>
@@ -769,7 +769,7 @@ export default function CollaborativeWorkspace() {
                         <div className="ml-8 border-l-2 pl-4 space-y-3">
                           {comment.replies.map((reply) => (
                             <div key={reply.id} className="pt-2">
-                              <div className="flex items-center">
+                              <div className="flex items-centre">
                                 <Avatar className="h-5 w-5 mr-2">
                                   <AvatarFallback>{getInitials(reply.userName)}</AvatarFallback>
                                 </Avatar>
@@ -841,7 +841,7 @@ export default function CollaborativeWorkspace() {
                   </ScrollArea>
                 </CardContent>
                 <CardFooter>
-                  <div className="flex w-full items-center space-x-2">
+                  <div className="flex w-full items-centre space-x-2">
                     <Button variant="outline" size="icon">
                       <Paperclip className="h-4 w-4" />
                     </Button>
@@ -870,7 +870,7 @@ export default function CollaborativeWorkspace() {
             <TabsContent value="video" className="mt-4">
               <Card className="h-[600px]">
                 <CardHeader>
-                  <div className="flex justify-between items-center">
+                  <div className="flex justify-between items-centre">
                     <CardTitle>Video Conference</CardTitle>
                     <Button variant="destructive" size="sm">
                       <X className="h-4 w-4 mr-2" />
@@ -878,14 +878,14 @@ export default function CollaborativeWorkspace() {
                     </Button>
                   </div>
                 </CardHeader>
-                <CardContent className="flex flex-col items-center justify-center h-[450px] bg-muted rounded-md">
-                  <div className="text-center">
+                <CardContent className="flex flex-col items-centre justify-centre h-[450px] bg-muted rounded-md">
+                  <div className="text-centre">
                     <Video className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
                     <h3 className="text-lg font-medium">Video Conference</h3>
                     <p className="text-muted-foreground mt-2">
                       In a real implementation, this would display the video conference interface.
                     </p>
-                    <div className="flex justify-center mt-6 space-x-4">
+                    <div className="flex justify-centre mt-6 space-x-4">
                       <Button variant="outline">
                         <Video className="h-4 w-4 mr-2" />
                         Camera
@@ -902,7 +902,7 @@ export default function CollaborativeWorkspace() {
                   </div>
                 </CardContent>
                 <CardFooter className="flex justify-between">
-                  <div className="flex items-center">
+                  <div className="flex items-centre">
                     <p className="text-sm text-muted-foreground">
                       <Clock className="h-4 w-4 inline mr-1" />
                       00:00:00

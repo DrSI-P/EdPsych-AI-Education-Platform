@@ -151,7 +151,7 @@ export function ParentTeacherCommunicationEngine() {
   return (
     <Card className="mb-6">
       <CardHeader>
-        <CardTitle className="flex items-center">
+        <CardTitle className="flex items-centre">
           <MessageSquare className="mr-2 h-5 w-5" />
           Communication Engine
         </CardTitle>
@@ -164,7 +164,7 @@ export function ParentTeacherCommunicationEngine() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <h3 className="text-sm font-medium">Notification Status</h3>
-              <div className="flex items-center space-x-2">
+              <div className="flex items-centre space-x-2">
                 <Badge variant="outline" className="bg-green-50">
                   <Check className="mr-1 h-3 w-3 text-green-500" />
                   <span className="text-green-700">Active</span>
@@ -199,7 +199,7 @@ export function ParentTeacherCommunicationEngine() {
                   control={form.control}
                   name="emailNotifications"
                   render={({ field }) => (
-                    <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3">
+                    <FormItem className="flex flex-row items-centre justify-between rounded-lg border p-3">
                       <div className="space-y-0.5">
                         <FormLabel>Email Notifications</FormLabel>
                         <FormDescription className="text-xs">
@@ -221,7 +221,7 @@ export function ParentTeacherCommunicationEngine() {
                   control={form.control}
                   name="smsNotifications"
                   render={({ field }) => (
-                    <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3">
+                    <FormItem className="flex flex-row items-centre justify-between rounded-lg border p-3">
                       <div className="space-y-0.5">
                         <FormLabel>SMS Notifications</FormLabel>
                         <FormDescription className="text-xs">
@@ -245,7 +245,7 @@ export function ParentTeacherCommunicationEngine() {
                   control={form.control}
                   name="privacyMode"
                   render={({ field }) => (
-                    <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3">
+                    <FormItem className="flex flex-row items-centre justify-between rounded-lg border p-3">
                       <div className="space-y-0.5">
                         <FormLabel>Enhanced Privacy</FormLabel>
                         <FormDescription className="text-xs">
@@ -267,7 +267,7 @@ export function ParentTeacherCommunicationEngine() {
                   control={form.control}
                   name="autoTranslate"
                   render={({ field }) => (
-                    <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3">
+                    <FormItem className="flex flex-row items-centre justify-between rounded-lg border p-3">
                       <div className="space-y-0.5">
                         <FormLabel>Auto-Translate</FormLabel>
                         <FormDescription className="text-xs">
@@ -289,7 +289,7 @@ export function ParentTeacherCommunicationEngine() {
               <div className="flex justify-end">
                 <Button type="submit" disabled={loading}>
                   {loading ? (
-                    <span className="flex items-center">
+                    <span className="flex items-centre">
                       <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -297,7 +297,7 @@ export function ParentTeacherCommunicationEngine() {
                       Saving...
                     </span>
                   ) : (
-                    <span className="flex items-center">
+                    <span className="flex items-centre">
                       <Save className="mr-2 h-4 w-4" />
                       Save Settings
                     </span>
@@ -309,7 +309,7 @@ export function ParentTeacherCommunicationEngine() {
         </div>
       </CardContent>
       <CardFooter className="bg-muted/50 text-xs text-muted-foreground">
-        <div className="flex items-center">
+        <div className="flex items-centre">
           <AlertCircle className="mr-1 h-3 w-3" />
           <span>Communication settings apply to all parent-teacher interactions</span>
         </div>

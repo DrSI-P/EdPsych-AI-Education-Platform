@@ -346,7 +346,7 @@ export default function TextToSpeechEngine({
                 disabled={isPlaying}
               />
               
-              <div className="flex flex-wrap gap-2 justify-center">
+              <div className="flex flex-wrap gap-2 justify-centre">
                 <Button
                   onClick={handlePlay}
                   disabled={isLoading || (!text.trim())}
@@ -424,7 +424,7 @@ export default function TextToSpeechEngine({
                 </div>
                 
                 <div className="space-y-2">
-                  <div className="flex justify-between items-center">
+                  <div className="flex justify-between items-centre">
                     <Label htmlFor="rate-slider">Speaking Rate ({rate.toFixed(1)}x)</Label>
                   </div>
                   <Slider
@@ -439,7 +439,7 @@ export default function TextToSpeechEngine({
                 </div>
                 
                 <div className="space-y-2">
-                  <div className="flex justify-between items-center">
+                  <div className="flex justify-between items-centre">
                     <Label htmlFor="pitch-slider">Pitch ({pitch.toFixed(1)})</Label>
                   </div>
                   <Slider
@@ -454,7 +454,7 @@ export default function TextToSpeechEngine({
                 </div>
                 
                 <div className="space-y-2">
-                  <div className="flex justify-between items-center">
+                  <div className="flex justify-between items-centre">
                     <Label htmlFor="volume-slider">Volume ({Math.round(volume * 100)}%)</Label>
                   </div>
                   <Slider

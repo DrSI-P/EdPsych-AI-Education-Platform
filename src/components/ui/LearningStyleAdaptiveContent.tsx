@@ -113,14 +113,14 @@ const LearningStyleAdaptiveContent: React.FC<LearningStyleAdaptiveContentProps> 
       {/* Style selector */}
       {allowUserSelection && (
         <div className="learning-style-selector mb-6">
-          <div className="text-sm text-gray-500 mb-2">Choose your preferred learning style:</div>
+          <div className="text-sm text-grey-500 mb-2">Choose your preferred learning style:</div>
           <div className="flex flex-wrap gap-2">
             <button
               onClick={() => handleStyleChange('visual')}
               className={`px-4 py-2 rounded-full text-sm font-medium ${
                 activeStyle === 'visual'
                   ? 'bg-blue-600 text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  : 'bg-grey-100 text-grey-700 hover:bg-grey-200'
               }`}
             >
               <span className="mr-2">👁️</span>
@@ -131,7 +131,7 @@ const LearningStyleAdaptiveContent: React.FC<LearningStyleAdaptiveContentProps> 
               className={`px-4 py-2 rounded-full text-sm font-medium ${
                 activeStyle === 'auditory'
                   ? 'bg-blue-600 text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  : 'bg-grey-100 text-grey-700 hover:bg-grey-200'
               }`}
             >
               <span className="mr-2">👂</span>
@@ -142,7 +142,7 @@ const LearningStyleAdaptiveContent: React.FC<LearningStyleAdaptiveContentProps> 
               className={`px-4 py-2 rounded-full text-sm font-medium ${
                 activeStyle === 'kinesthetic'
                   ? 'bg-blue-600 text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  : 'bg-grey-100 text-grey-700 hover:bg-grey-200'
               }`}
             >
               <span className="mr-2">✋</span>
@@ -153,7 +153,7 @@ const LearningStyleAdaptiveContent: React.FC<LearningStyleAdaptiveContentProps> 
               className={`px-4 py-2 rounded-full text-sm font-medium ${
                 activeStyle === 'read-write'
                   ? 'bg-blue-600 text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  : 'bg-grey-100 text-grey-700 hover:bg-grey-200'
               }`}
             >
               <span className="mr-2">📝</span>

@@ -22,7 +22,7 @@ export default function ScreenReaderOptimizationPage() {
   
   return (
     <div className="container mx-auto py-8 px-4">
-      <h1 className="text-3xl font-bold mb-6 flex items-center">
+      <h1 className="text-3xl font-bold mb-6 flex items-centre">
         <Image 
           src="/images/screen-reader-icon.png" 
           alt="Screen Reader Optimization Icon" 
@@ -52,7 +52,7 @@ export default function ScreenReaderOptimizationPage() {
         <div className="lg:col-span-1">
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center">
+              <CardTitle className="flex items-centre">
                 <Eye className="h-5 w-5 mr-2" />
                 About Screen Readers
               </CardTitle>
@@ -101,7 +101,7 @@ export default function ScreenReaderOptimizationPage() {
                       Research from the Royal National Institute of Blind People (RNIB) indicates that approximately 2 million people in the UK live with sight loss, with screen readers being essential assistive technology for many.
                     </p>
                     <p>
-                      A 2023 study in the British Journal of Educational Technology found that optimized screen reader content improved information retention by 37% for visually impaired students.
+                      A 2023 study in the British Journal of Educational Technology found that optimised screen reader content improved information retention by 37% for visually impaired students.
                     </p>
                     <p>
                       The Web Accessibility Initiative (WAI) reports that proper semantic structure can reduce the time needed for screen reader users to navigate content by up to 60%.
@@ -149,7 +149,7 @@ export default function ScreenReaderOptimizationPage() {
           
           <Card className="mt-6">
             <CardHeader>
-              <CardTitle className="flex items-center">
+              <CardTitle className="flex items-centre">
                 <Lightbulb className="h-5 w-5 mr-2" />
                 Creating Screen Reader-Friendly Content
               </CardTitle>

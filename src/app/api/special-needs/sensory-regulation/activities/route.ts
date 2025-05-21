@@ -9,7 +9,7 @@ const sensoryActivitySchema = z.object({
   userId: z.string(),
   name: z.string().min(1).max(100),
   description: z.string().max(500),
-  category: z.enum(['calming', 'alerting', 'organizing']),
+  category: z.enum(['calming', 'alerting', 'organising']),
   sensorySystems: z.array(z.enum(['visual', 'auditory', 'tactile', 'vestibular', 'proprioceptive', 'olfactory', 'gustatory'])),
   duration: z.number().min(1).max(60),
   materials: z.string().max(500).optional(),

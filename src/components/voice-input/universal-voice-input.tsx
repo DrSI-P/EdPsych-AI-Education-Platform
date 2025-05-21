@@ -181,14 +181,14 @@ const NurseryVoiceUI: React.FC<AgeSpecificVoiceUIProps> = ({
   return (
     <Card className="border-4 border-blue-300 rounded-xl bg-blue-50">
       <CardHeader className="pb-2">
-        <CardTitle className="flex items-center justify-center text-center text-2xl font-bold text-blue-600">
+        <CardTitle className="flex items-centre justify-centre text-centre text-2xl font-bold text-blue-600">
           {isListening ? "I'm Listening!" : "Talk to Me!"}
         </CardTitle>
       </CardHeader>
       
       <CardContent className="pb-2">
         {/* Character animation */}
-        <div className="flex justify-center mb-4">
+        <div className="flex justify-centre mb-4">
           <AnimatePresence mode="wait">
             {isListening ? (
               <motion.div
@@ -196,7 +196,7 @@ const NurseryVoiceUI: React.FC<AgeSpecificVoiceUIProps> = ({
                 initial={{ scale: 0.8 }}
                 animate={{ scale: 1 + (volume * 0.2) }}
                 exit={{ scale: 0.8 }}
-                className="w-24 h-24 bg-blue-200 rounded-full flex items-center justify-center"
+                className="w-24 h-24 bg-blue-200 rounded-full flex items-centre justify-centre"
               >
                 <span className="text-4xl">🎤</span>
               </motion.div>
@@ -206,7 +206,7 @@ const NurseryVoiceUI: React.FC<AgeSpecificVoiceUIProps> = ({
                 initial={{ scale: 0.8 }}
                 animate={{ scale: 1 }}
                 exit={{ scale: 0.8 }}
-                className="w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center"
+                className="w-24 h-24 bg-grey-200 rounded-full flex items-centre justify-centre"
               >
                 <span className="text-4xl">🎤</span>
               </motion.div>
@@ -215,16 +215,16 @@ const NurseryVoiceUI: React.FC<AgeSpecificVoiceUIProps> = ({
         </div>
         
         {/* Transcript display - simplified for nursery */}
-        <div className="min-h-[60px] bg-white rounded-xl p-4 text-center text-xl">
+        <div className="min-h-[60px] bg-white rounded-xl p-4 text-centre text-xl">
           {transcript || interimTranscript ? (
             <p className="text-blue-800">{transcript} {interimTranscript}</p>
           ) : (
-            <p className="text-gray-400">{placeholder}</p>
+            <p className="text-grey-400">{placeholder}</p>
           )}
         </div>
       </CardContent>
       
-      <CardFooter className="flex justify-center gap-4 pt-2">
+      <CardFooter className="flex justify-centre gap-4 pt-2">
         {isListening ? (
           <Button 
             size="lg"
@@ -273,12 +273,12 @@ const EarlyPrimaryVoiceUI: React.FC<AgeSpecificVoiceUIProps> = ({
   return (
     <Card className="border-2 border-purple-300 rounded-lg bg-purple-50">
       <CardHeader className="pb-2">
-        <CardTitle className="flex items-center justify-between text-xl font-bold text-purple-700">
+        <CardTitle className="flex items-centre justify-between text-xl font-bold text-purple-700">
           <span>Voice Helper</span>
           {isListening && (
-            <div className="flex items-center">
+            <div className="flex items-centre">
               <Volume2 className="h-5 w-5 mr-1 text-purple-500" />
-              <div className="w-16 h-2 bg-gray-200 rounded-full overflow-hidden">
+              <div className="w-16 h-2 bg-grey-200 rounded-full overflow-hidden">
                 <motion.div 
                   className="h-full bg-purple-500"
                   style={{ width: `${volume * 100}%` }}
@@ -291,7 +291,7 @@ const EarlyPrimaryVoiceUI: React.FC<AgeSpecificVoiceUIProps> = ({
       
       <CardContent className="pb-2">
         {/* Animated helper */}
-        <div className="flex justify-center mb-3">
+        <div className="flex justify-centre mb-3">
           <AnimatePresence mode="wait">
             {isListening ? (
               <motion.div
@@ -299,7 +299,7 @@ const EarlyPrimaryVoiceUI: React.FC<AgeSpecificVoiceUIProps> = ({
                 initial={{ y: 5 }}
                 animate={{ y: [0, -5, 0] }}
                 transition={{ repeat: Infinity, duration: 1.5 }}
-                className="w-16 h-16 bg-purple-200 rounded-full flex items-center justify-center"
+                className="w-16 h-16 bg-purple-200 rounded-full flex items-centre justify-centre"
               >
                 <span className="text-3xl">🦊</span>
               </motion.div>
@@ -309,7 +309,7 @@ const EarlyPrimaryVoiceUI: React.FC<AgeSpecificVoiceUIProps> = ({
                 initial={{ rotate: 0 }}
                 animate={{ rotate: [0, 10, 0, -10, 0] }}
                 transition={{ repeat: 1, duration: 2 }}
-                className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center"
+                className="w-16 h-16 bg-grey-200 rounded-full flex items-centre justify-centre"
               >
                 <span className="text-3xl">🦊</span>
               </motion.div>
@@ -322,15 +322,15 @@ const EarlyPrimaryVoiceUI: React.FC<AgeSpecificVoiceUIProps> = ({
           {transcript || interimTranscript ? (
             <p className="text-purple-900">{transcript} <span className="text-purple-400">{interimTranscript}</span></p>
           ) : (
-            <p className="text-gray-400">{placeholder}</p>
+            <p className="text-grey-400">{placeholder}</p>
           )}
         </div>
       </CardContent>
       
-      <CardFooter className="flex justify-center gap-3 pt-2">
+      <CardFooter className="flex justify-centre gap-3 pt-2">
         {isListening ? (
           <Button 
-            className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg flex items-center gap-2"
+            className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg flex items-centre gap-2"
             onClick={stopListening}
           >
             <MicOff className="h-5 w-5" />
@@ -338,7 +338,7 @@ const EarlyPrimaryVoiceUI: React.FC<AgeSpecificVoiceUIProps> = ({
           </Button>
         ) : (
           <Button 
-            className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-center gap-2"
+            className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-centre gap-2"
             onClick={startListening}
           >
             <Mic className="h-5 w-5" />
@@ -375,20 +375,20 @@ const LatePrimaryVoiceUI: React.FC<AgeSpecificVoiceUIProps> = ({
   return (
     <Card>
       <CardHeader className="pb-3">
-        <CardTitle className="flex items-center justify-between">
-          <span className="flex items-center gap-2">
+        <CardTitle className="flex items-centre justify-between">
+          <span className="flex items-centre gap-2">
             {isListening ? (
               <Mic className="h-5 w-5 text-green-500" />
             ) : (
-              <MicOff className="h-5 w-5 text-gray-400" />
+              <MicOff className="h-5 w-5 text-grey-400" />
             )}
             Voice Input
           </span>
           
           {isListening && (
-            <div className="flex items-center gap-2">
-              <span className="text-sm text-gray-500">Volume</span>
-              <div className="w-20 h-2 bg-gray-200 rounded-full overflow-hidden">
+            <div className="flex items-centre gap-2">
+              <span className="text-sm text-grey-500">Volume</span>
+              <div className="w-20 h-2 bg-grey-200 rounded-full overflow-hidden">
                 <motion.div 
                   className="h-full bg-green-500"
                   style={{ width: `${volume * 100}%` }}
@@ -400,19 +400,19 @@ const LatePrimaryVoiceUI: React.FC<AgeSpecificVoiceUIProps> = ({
       </CardHeader>
       
       <CardContent className="pb-3">
-        <div className="relative min-h-[100px] bg-gray-50 rounded-md p-3 border">
+        <div className="relative min-h-[100px] bg-grey-50 rounded-md p-3 border">
           {transcript || interimTranscript ? (
             <div>
               <span>{transcript}</span>
-              <span className="text-gray-400">{interimTranscript}</span>
+              <span className="text-grey-400">{interimTranscript}</span>
             </div>
           ) : (
-            <p className="text-gray-400">{placeholder}</p>
+            <p className="text-grey-400">{placeholder}</p>
           )}
           
           {isListening && (
             <motion.div 
-              className="absolute bottom-2 right-2 w-6 h-6 rounded-full bg-green-100 flex items-center justify-center"
+              className="absolute bottom-2 right-2 w-6 h-6 rounded-full bg-green-100 flex items-centre justify-centre"
               animate={{ scale: [1, 1.2, 1] }}
               transition={{ repeat: Infinity, duration: 1.5 }}
             >
@@ -429,7 +429,7 @@ const LatePrimaryVoiceUI: React.FC<AgeSpecificVoiceUIProps> = ({
               variant="destructive"
               size="sm"
               onClick={stopListening}
-              className="flex items-center gap-1"
+              className="flex items-centre gap-1"
             >
               <MicOff className="h-4 w-4" />
               Stop
@@ -439,7 +439,7 @@ const LatePrimaryVoiceUI: React.FC<AgeSpecificVoiceUIProps> = ({
               variant="default"
               size="sm"
               onClick={startListening}
-              className="flex items-center gap-1"
+              className="flex items-centre gap-1"
             >
               <Mic className="h-4 w-4" />
               Start
@@ -457,7 +457,7 @@ const LatePrimaryVoiceUI: React.FC<AgeSpecificVoiceUIProps> = ({
           )}
         </div>
         
-        <div className="text-xs text-gray-500">
+        <div className="text-xs text-grey-500">
           {isListening ? "Listening..." : "Ready"}
         </div>
       </CardFooter>
@@ -480,19 +480,19 @@ const SecondaryVoiceUI: React.FC<AgeSpecificVoiceUIProps> = ({
   return (
     <Card className="bg-white shadow-sm">
       <CardHeader className="pb-3">
-        <CardTitle className="flex items-center justify-between text-base font-medium">
-          <span className="flex items-center gap-2">
+        <CardTitle className="flex items-centre justify-between text-base font-medium">
+          <span className="flex items-centre gap-2">
             {isListening ? (
               <Mic className="h-4 w-4 text-blue-600" />
             ) : (
-              <MicOff className="h-4 w-4 text-gray-400" />
+              <MicOff className="h-4 w-4 text-grey-400" />
             )}
             Speech Recognition
           </span>
           
           {isListening && (
-            <div className="flex items-center gap-2">
-              <div className="w-24 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+            <div className="flex items-centre gap-2">
+              <div className="w-24 h-1.5 bg-grey-100 rounded-full overflow-hidden">
                 <motion.div 
                   className="h-full bg-blue-600"
                   style={{ width: `${volume * 100}%` }}
@@ -504,14 +504,14 @@ const SecondaryVoiceUI: React.FC<AgeSpecificVoiceUIProps> = ({
       </CardHeader>
       
       <CardContent className="pb-3">
-        <div className="relative min-h-[120px] bg-gray-50 rounded-sm p-3 border border-gray-200 text-sm">
+        <div className="relative min-h-[120px] bg-grey-50 rounded-sm p-3 border border-grey-200 text-sm">
           {transcript || interimTranscript ? (
             <div>
-              <span className="text-gray-900">{transcript}</span>
-              <span className="text-gray-400">{interimTranscript}</span>
+              <span className="text-grey-900">{transcript}</span>
+              <span className="text-grey-400">{interimTranscript}</span>
             </div>
           ) : (
-            <p className="text-gray-400 text-sm">{placeholder}</p>
+            <p className="text-grey-400 text-sm">{placeholder}</p>
           )}
         </div>
       </CardContent>
@@ -550,7 +550,7 @@ const SecondaryVoiceUI: React.FC<AgeSpecificVoiceUIProps> = ({
           )}
         </div>
         
-        <div className="text-xs text-gray-500">
+        <div className="text-xs text-grey-500">
           {isListening ? "Recording in progress" : "Ready to record"}
         </div>
       </CardFooter>

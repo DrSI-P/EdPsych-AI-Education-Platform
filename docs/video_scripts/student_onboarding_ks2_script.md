@@ -12,7 +12,7 @@ Hello there! I'm Dr. Scott, and I'm really excited to show you around EdPsych Co
 
 First, let's see how you get started. Your teacher will give you a special username and password. When you type these in, you'll arrive at your very own dashboard. Think of this as your learning headquarters!
 
-You can see your name at the top, and there's a fun avatar you can customize to look however you want. Let's click on the avatar now to make it your own.
+You can see your name at the top, and there's a fun avatar you can customise to look however you want. Let's click on the avatar now to make it your own.
 
 ### Dashboard Tour (0:40-1:10)
 [Screen transitions to show student dashboard with animated highlights]

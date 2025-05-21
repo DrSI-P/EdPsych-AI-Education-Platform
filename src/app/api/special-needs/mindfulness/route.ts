@@ -10,7 +10,7 @@ const MindfulnessActivitySchema = z.object({
   title: z.string(),
   description: z.string(),
   duration: z.number(),
-  category: z.enum(['breathing', 'body-scan', 'visualization', 'movement', 'sensory', 'compassion']),
+  category: z.enum(['breathing', 'body-scan', 'visualisation', 'movement', 'sensory', 'compassion']),
   ageRange: z.enum(['all', 'primary', 'secondary']),
   difficulty: z.enum(['beginner', 'intermediate', 'advanced']),
   benefits: z.array(z.string()),
@@ -67,7 +67,7 @@ export async function GET(req: Request) {
       take: 10
     });
     
-    // Fetch favorite activities
+    // Fetch favourite activities
     const favoriteActivities = await db.mindfulnessSettings.findUnique({
       where: {
         userId: session.user.id
@@ -83,7 +83,7 @@ export async function GET(req: Request) {
       activities: [], // Would be populated from database
       userPreferences: userSettings?.preferences || {
         preferredDuration: 'medium',
-        preferredThemes: ['breathing', 'body-scan', 'visualization'],
+        preferredThemes: ['breathing', 'body-scan', 'visualisation'],
         preferredVoice: 'female',
         reminderFrequency: 'weekly',
         backgroundSounds: true
@@ -179,7 +179,7 @@ export async function POST(req: Request) {
         
         let favoriteActivities = userSettings?.favoriteActivities || [];
         
-        // Toggle favorite status
+        // Toggle favourite status
         if (favoriteActivities.includes(activityId)) {
           favoriteActivities = favoriteActivities.filter(id => id !== activityId);
         } else {
@@ -198,7 +198,7 @@ export async function POST(req: Request) {
             userId: session.user.id,
             preferences: {
               preferredDuration: 'medium',
-              preferredThemes: ['breathing', 'body-scan', 'visualization'],
+              preferredThemes: ['breathing', 'body-scan', 'visualisation'],
               preferredVoice: 'female',
               reminderFrequency: 'weekly',
               backgroundSounds: true
@@ -209,7 +209,7 @@ export async function POST(req: Request) {
         
         return NextResponse.json({
           success: true,
-          message: 'Favorite status updated successfully',
+          message: 'Favourite status updated successfully',
           isFavorite: !userSettings?.favoriteActivities.includes(activityId)
         });
       }

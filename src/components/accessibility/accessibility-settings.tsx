@@ -257,7 +257,7 @@ export default function AccessibilitySettings() {
             <CardHeader>
               <CardTitle>Visual Settings</CardTitle>
               <CardDescription>
-                Customize the visual appearance of the platform to suit your needs.
+                Customise the visual appearance of the platform to suit your needs.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -269,19 +269,19 @@ export default function AccessibilitySettings() {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="light">
-                      <div className="flex items-center">
+                      <div className="flex items-centre">
                         <Sun className="h-4 w-4 mr-2" />
                         <span>Light</span>
                       </div>
                     </SelectItem>
                     <SelectItem value="dark">
-                      <div className="flex items-center">
+                      <div className="flex items-centre">
                         <Moon className="h-4 w-4 mr-2" />
                         <span>Dark</span>
                       </div>
                     </SelectItem>
                     <SelectItem value="system">
-                      <div className="flex items-center">
+                      <div className="flex items-centre">
                         <RefreshCw className="h-4 w-4 mr-2" />
                         <span>System</span>
                       </div>
@@ -290,7 +290,7 @@ export default function AccessibilitySettings() {
                 </Select>
               </div>
               
-              <div className="flex items-center justify-between">
+              <div className="flex items-centre justify-between">
                 <div>
                   <Label htmlFor="high-contrast" className="block mb-1">High Contrast</Label>
                   <p className="text-sm text-muted-foreground">
@@ -304,7 +304,7 @@ export default function AccessibilitySettings() {
                 />
               </div>
               
-              <div className="flex items-center justify-between">
+              <div className="flex items-centre justify-between">
                 <div>
                   <Label htmlFor="reduced-motion" className="block mb-1">Reduced Motion</Label>
                   <p className="text-sm text-muted-foreground">
@@ -319,9 +319,9 @@ export default function AccessibilitySettings() {
               </div>
               
               <div className="space-y-2">
-                <div className="flex items-center justify-between">
+                <div className="flex items-centre justify-between">
                   <Label htmlFor="font-size">Font Size ({fontSize}%)</Label>
-                  <div className="flex items-center">
+                  <div className="flex items-centre">
                     <Button
                       variant="outline"
                       size="icon"
@@ -373,7 +373,7 @@ export default function AccessibilitySettings() {
                 />
               </div>
               
-              <div className="flex items-center justify-between">
+              <div className="flex items-centre justify-between">
                 <div>
                   <Label htmlFor="dyslexic-font" className="block mb-1">Dyslexia-Friendly Font</Label>
                   <p className="text-sm text-muted-foreground">
@@ -395,11 +395,11 @@ export default function AccessibilitySettings() {
             <CardHeader>
               <CardTitle>Reading & Navigation Settings</CardTitle>
               <CardDescription>
-                Customize reading and navigation features to improve accessibility.
+                Customise reading and navigation features to improve accessibility.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-              <div className="flex items-center justify-between">
+              <div className="flex items-centre justify-between">
                 <div>
                   <Label htmlFor="text-to-speech" className="block mb-1">Text to Speech</Label>
                   <p className="text-sm text-muted-foreground">
@@ -413,7 +413,7 @@ export default function AccessibilitySettings() {
                 />
               </div>
               
-              <div className="flex items-center justify-between">
+              <div className="flex items-centre justify-between">
                 <div>
                   <Label htmlFor="reading-guide" className="block mb-1">Reading Guide</Label>
                   <p className="text-sm text-muted-foreground">
@@ -441,7 +441,7 @@ export default function AccessibilitySettings() {
               
               <Separator />
               
-              <div className="flex items-center justify-between">
+              <div className="flex items-centre justify-between">
                 <div>
                   <Label htmlFor="keyboard-navigation" className="block mb-1">Enhanced Keyboard Navigation</Label>
                   <p className="text-sm text-muted-foreground">
@@ -477,11 +477,11 @@ export default function AccessibilitySettings() {
             <CardHeader>
               <CardTitle>Cognitive Support Settings</CardTitle>
               <CardDescription>
-                Customize features to support different cognitive needs.
+                Customise features to support different cognitive needs.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-              <div className="flex items-center justify-between">
+              <div className="flex items-centre justify-between">
                 <div>
                   <Label htmlFor="simplified-interface" className="block mb-1">Simplified Interface</Label>
                   <p className="text-sm text-muted-foreground">
@@ -495,7 +495,7 @@ export default function AccessibilitySettings() {
                 />
               </div>
               
-              <div className="flex items-center justify-between">
+              <div className="flex items-centre justify-between">
                 <div>
                   <Label htmlFor="extended-timers" className="block mb-1">Extended Timers</Label>
                   <p className="text-sm text-muted-foreground">
@@ -509,7 +509,7 @@ export default function AccessibilitySettings() {
                 />
               </div>
               
-              <div className="flex items-center justify-between">
+              <div className="flex items-centre justify-between">
                 <div>
                   <Label htmlFor="focus-mode" className="block mb-1">Focus Mode</Label>
                   <p className="text-sm text-muted-foreground">

@@ -971,7 +971,7 @@ async function getExpertiseAreas() {
     { id: 8, name: "Secondary Mathematics", category: "Subject Specific" },
     { id: 9, name: "Leadership Development", category: "Leadership" },
     { id: 10, name: "Wellbeing & Mental Health", category: "Pastoral" },
-    { id: 11, name: "Restorative Practice", category: "Behaviour" },
+    { id: 11, name: "Restorative Practise", category: "Behaviour" },
     { id: 12, name: "Literacy Across Curriculum", category: "Literacy" },
     { id: 13, name: "STEM Integration", category: "Cross-Curricular" },
     { id: 14, name: "Educational Research", category: "Professional Learning" },

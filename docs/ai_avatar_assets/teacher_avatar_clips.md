@@ -47,7 +47,7 @@ Effective curriculum planning is essential for creating structured learning jour
 
 To begin, navigate to the Curriculum section and select "Create New Plan." You'll be able to align your plan with UK curriculum standards using our learning objective management system, which breaks down complex skills into manageable components.
 
-The platform provides curriculum templates based on best practices, which you can customize to meet the needs of different learners and contexts. Our collaboration tools enable teams of educators to work together, sharing expertise and resources.
+The platform provides curriculum templates based on best practices, which you can customise to meet the needs of different learners and contexts. Our collaboration tools enable teams of educators to work together, sharing expertise and resources.
 
 Let me demonstrate how to create a differentiated curriculum plan that accommodates diverse learning needs...
 ```
@@ -63,7 +63,7 @@ Congratulations on your achievement! This milestone represents not just the know
 
 Remember that every step forward, no matter how small it might seem, is a significant part of your growth. Your dedication to learning and willingness to tackle challenges shows remarkable character and determination.
 
-I'm truly proud of what you've accomplished, and I encourage you to take a moment to recognize and celebrate this success.
+I'm truly proud of what you've accomplished, and I encourage you to take a moment to recognise and celebrate this success.
 ```
 
 ### Providing Reassurance

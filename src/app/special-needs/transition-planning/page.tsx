@@ -50,21 +50,21 @@ export default function TransitionPlanningPage() {
         
         <TransitionPlanningEngine />
         
-        <div className="bg-gray-50 border rounded-lg p-6 space-y-4">
+        <div className="bg-grey-50 border rounded-lg p-6 space-y-4">
           <h2 className="text-xl font-semibold">Evidence-Based Approach</h2>
           <p>
             Our transition planning tools are based on research and best practices from educational psychology and special needs education.
           </p>
           <div className="space-y-2 mt-2">
-            <p className="text-sm text-gray-600">
-              <span className="font-medium">Research basis:</span> This feature draws on research from the Department for Education's SEND Code of Practice, 
+            <p className="text-sm text-grey-600">
+              <span className="font-medium">Research basis:</span> This feature draws on research from the Department for Education's SEND Code of Practise, 
               the Education Endowment Foundation's research on effective transitions, and studies published in the British Journal of Special Education.
             </p>
-            <p className="text-sm text-gray-600">
-              <span className="font-medium">Person-centered approach:</span> Our tools emphasize student voice and preferences, aligning with best practices 
-              in person-centered planning and the SEND Code of Practice's focus on putting children, young people, and families at the center of the process.
+            <p className="text-sm text-grey-600">
+              <span className="font-medium">Person-centred approach:</span> Our tools emphasize student voice and preferences, aligning with best practices 
+              in person-centred planning and the SEND Code of Practise's focus on putting children, young people, and families at the centre of the process.
             </p>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-grey-600">
               <span className="font-medium">Collaborative framework:</span> The transition planning tools facilitate collaboration between students, parents, 
               teachers, and other professionals, reflecting research showing that multi-agency approaches lead to more successful transitions.
             </p>

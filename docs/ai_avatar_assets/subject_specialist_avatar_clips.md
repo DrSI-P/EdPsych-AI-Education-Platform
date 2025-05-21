@@ -35,7 +35,7 @@ I believe that everyone can think like a scientist, and I'm here to help you dev
 ```
 Today we're exploring strategies for approaching complex mathematical problems. Rather than jumping straight to calculations, let's develop a systematic approach.
 
-First, take time to understand the problem completely. Read it carefully, identify what you're being asked to find, and note any constraints or conditions. Visualizing the problem can be extremely helpful - try drawing a diagram or creating a table to represent the information.
+First, take time to understand the problem completely. Read it carefully, identify what you're being asked to find, and note any constraints or conditions. Visualising the problem can be extremely helpful - try drawing a diagram or creating a table to represent the information.
 
 Next, consider what mathematical tools might be relevant. Could this problem involve algebra, geometry, or perhaps statistical concepts? Making these connections helps activate your prior knowledge.
 
@@ -43,7 +43,7 @@ When you begin solving, break the problem into manageable steps. Check your work
 
 If you get stuck, try working backward from the answer or solving a simpler version of the problem first.
 
-Remember, mathematical problem-solving is a skill that develops with practice. Each challenge you tackle builds your capacity for mathematical thinking.
+Remember, mathematical problem-solving is a skill that develops with practise. Each challenge you tackle builds your capacity for mathematical thinking.
 ```
 
 ### Scientific Method Application
@@ -59,7 +59,7 @@ From your question, develop a hypothesis - a testable explanation that predicts 
 
 Next, design an experiment to test your hypothesis. Identify your variables - what you'll change (independent), what you'll measure (dependent), and what you'll keep constant (controlled).
 
-Collect your data carefully, recording all observations even if they seem unimportant at the time. Analyze your results using appropriate tools, whether that's statistical analysis or qualitative comparison.
+Collect your data carefully, recording all observations even if they seem unimportant at the time. Analyse your results using appropriate tools, whether that's statistical analysis or qualitative comparison.
 
 Finally, draw conclusions based on your evidence. Does your data support your hypothesis? What new questions have emerged?
 
@@ -73,11 +73,11 @@ Remember, science is iterative - each investigation leads to refined questions a
 **Background:** Clean setting with visual fraction models
 **Script:**
 ```
-Fractions represent parts of a whole, but they can be challenging to visualize. Let's explore them using concrete models.
+Fractions represent parts of a whole, but they can be challenging to visualise. Let's explore them using concrete models.
 
 Think of a fraction as having two components: the numerator (top number) tells us how many parts we're considering, while the denominator (bottom number) tells us the total number of equal parts in the whole.
 
-For example, with 3/4, we're considering 3 out of 4 equal parts. We can visualize this as a circle divided into 4 equal sections with 3 sections shaded.
+For example, with 3/4, we're considering 3 out of 4 equal parts. We can visualise this as a circle divided into 4 equal sections with 3 sections shaded.
 
 Equivalent fractions represent the same quantity in different ways. If we divide each section of our 3/4 model in half, we now have 6 sections shaded out of 8 total sections - that's 6/8, which equals 3/4.
 
@@ -115,11 +115,11 @@ Calculus might seem intimidating, but at its heart, it's about understanding cha
 
 The first big idea in calculus is the derivative, which measures the rate at which a quantity changes. Imagine tracking the position of a moving car. The derivative of position with respect to time gives us velocity - how quickly the position is changing. The derivative of velocity gives us acceleration - how quickly the velocity is changing.
 
-The second big idea is the integral, which finds the accumulation of quantities. If you know the velocity of a car at every moment, the integral of velocity gives you the total distance traveled.
+The second big idea is the integral, which finds the accumulation of quantities. If you know the velocity of a car at every moment, the integral of velocity gives you the total distance travelled.
 
 These two concepts - derivatives and integrals - are connected by the Fundamental Theorem of Calculus, one of the most elegant relationships in mathematics.
 
-Calculus has applications everywhere: from predicting population growth to optimizing business decisions to modeling physical systems. As we explore these concepts further, you'll develop powerful tools for understanding our changing world.
+Calculus has applications everywhere: from predicting population growth to optimising business decisions to modelling physical systems. As we explore these concepts further, you'll develop powerful tools for understanding our changing world.
 ```
 
 ### Genetics and Inheritance
@@ -173,7 +173,7 @@ Ethical frameworks offer different approaches to these questions. Consequentiali
 
 Science itself operates within ethical boundaries, with principles like research integrity, informed consent, and responsible reporting of results.
 
-As we explore scientific concepts, we'll also consider these ethical dimensions, recognizing that science doesn't exist in isolation from human values and societal impacts.
+As we explore scientific concepts, we'll also consider these ethical dimensions, recognising that science doesn't exist in isolation from human values and societal impacts.
 ```
 
 ## Curriculum Connection Clips

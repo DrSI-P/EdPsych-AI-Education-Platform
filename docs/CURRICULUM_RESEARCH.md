@@ -83,11 +83,11 @@ The assessment framework is aligned with the National Curriculum assessment stru
 
 - **Formative assessment**: Ongoing assessment during the learning process
 - **Summative assessment**: End of key stage assessments
-- **Standardized tests**: Including SATs at the end of KS1 and KS2
+- **Standardised tests**: Including SATs at the end of KS1 and KS2
 
 ## Special Educational Needs and Disabilities (SEND)
 
-In accordance with the UK SEND Code of Practice, our curriculum planning tools include:
+In accordance with the UK SEND Code of Practise, our curriculum planning tools include:
 
 - Options for differentiation and personalization
 - Support for creating inclusive learning objectives
@@ -110,4 +110,4 @@ This document will be regularly updated to reflect:
 
 3. Department for Education. (n.d.). The national curriculum: Overview. Retrieved from https://www.gov.uk/national-curriculum
 
-4. Department for Education. (2015). Special educational needs and disability code of practice: 0 to 25 years. Retrieved from https://www.gov.uk/government/publications/send-code-of-practice-0-to-25
+4. Department for Education. (2015). Special educational needs and disability code of practise: 0 to 25 years. Retrieved from https://www.gov.uk/government/publications/send-code-of-practise-0-to-25

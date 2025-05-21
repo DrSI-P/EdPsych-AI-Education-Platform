@@ -36,7 +36,7 @@ Fourth, Student Voice Amplification ensures pupils' perspectives are heard, valu
 
 Fifth, Administrative Automation frees educators from paperwork to focus on teaching and relationships.
 
-Sixth, Evidence-Based Practice grounds all features in research and educational psychology best practices.
+Sixth, Evidence-Based Practise grounds all features in research and educational psychology best practices.
 
 And seventh, Inclusive Design ensures accessibility and support for all learners, particularly those with special educational needs.
 ```
@@ -53,14 +53,14 @@ For students, our Voice Amplification system offers multiple channels for expres
 
 Our Special Educational Needs Support includes executive dysfunction tools, learning style adaptation, and comprehensive emotional regulation support.
 
-The Professional Development section provides structured courses, CPD tracking, and certification, all designed to enhance teaching practice and career advancement.
+The Professional Development section provides structured courses, CPD tracking, and certification, all designed to enhance teaching practise and career advancement.
 
-All these features are built on a foundation of accessibility, UK educational compliance, and evidence-based practice.
+All these features are built on a foundation of accessibility, UK educational compliance, and evidence-based practise.
 ```
 
 ### Call to Action (30 seconds)
 ```
-I invite you to explore the EdPsych-AI-Education-Platform and discover how it can transform your educational practice.
+I invite you to explore the EdPsych-AI-Education-Platform and discover how it can transform your educational practise.
 
 Whether you're a teacher looking to reduce administrative burden, a school leader seeking to enhance student voice, or an educational psychologist wanting evidence-based tools, our platform offers solutions designed specifically for UK educational contexts.
 
@@ -135,7 +135,7 @@ The system also integrates with our certification features, allowing you to show
 ```
 The CPD Tracking feature transforms professional development from an administrative burden into a meaningful journey of growth and reflection.
 
-By providing structured recording, insightful analytics, and strategic planning tools, it helps you take control of your professional development and demonstrate its impact on your practice.
+By providing structured recording, insightful analytics, and strategic planning tools, it helps you take control of your professional development and demonstrate its impact on your practise.
 
 We encourage you to explore this feature further and discover how it can enhance your professional journey within the UK educational context.
 ```
@@ -278,7 +278,7 @@ The Contextual Resource Recommendation Engine transforms how educators discover 
 
 By intelligently connecting your work context with relevant resources, it helps you provide more effective, differentiated instruction without the time-consuming search for appropriate materials.
 
-We encourage you to explore this feature further and discover how it can enhance your teaching practice through contextually relevant resource recommendations.
+We encourage you to explore this feature further and discover how it can enhance your teaching practise through contextually relevant resource recommendations.
 ```
 
 ## Additional Training Scripts

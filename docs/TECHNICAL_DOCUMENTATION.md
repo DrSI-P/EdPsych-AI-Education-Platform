@@ -56,13 +56,13 @@ The platform follows a layered architecture:
 
 ### UI Components
 
-The platform includes several specialized UI components:
+The platform includes several specialised UI components:
 
 1. **Layouts**:
    - `ImmersiveLearningLayout`: Creates themed, interactive learning environments
    - `ResponsiveLayout`: Adapts content for different device sizes
    - `PrintLayout`: Optimizes content for printing with proper formatting
-   - `MobileLayout`: Provides touch-optimized interfaces for mobile devices
+   - `MobileLayout`: Provides touch-optimised interfaces for mobile devices
 
 2. **Accessibility**:
    - `AccessibilityControls`: Adjusts font size, contrast, motion, and enables dyslexic font
@@ -131,7 +131,7 @@ Interactive, themed environments enhance engagement through:
 1. Visual and auditory theming
 2. Interactive elements
 3. Ambient effects
-4. Progress visualization
+4. Progress visualisation
 5. Adaptive difficulty based on performance
 
 ### Accessibility and Inclusion
@@ -152,7 +152,7 @@ Intelligent assessment features include:
 1. Adaptive questioning
 2. Natural language understanding
 3. Personalized feedback
-4. Progress visualization
+4. Progress visualisation
 5. Learning gap identification
 6. Recommendation generation
 
@@ -220,7 +220,7 @@ interface GenerateContentRequest {
   maxLength?: number;
 }
 
-// POST /api/ai/analyze-text
+// POST /api/ai/analyse-text
 interface AnalyzeTextRequest {
   text: string;
   analysisType: 'readability' | 'sentiment' | 'key-phrases' | 'language';
@@ -261,7 +261,7 @@ The platform implements several security measures:
 
 ## Performance Optimization
 
-Performance is optimized through:
+Performance is optimised through:
 
 1. **Server-Side Rendering**: For initial page loads
 2. **Static Generation**: For content that doesn't change frequently
@@ -279,7 +279,7 @@ Developers can extend the platform by:
 3. Creating new learning modules
 4. Implementing custom assessment types
 5. Adding language support
-6. Developing specialized learning tools
+6. Developing specialised learning tools
 
 ## Troubleshooting
 
@@ -289,7 +289,7 @@ Common issues and solutions:
 2. **API Key Errors**: Verify all required API keys are set in environment variables
 3. **Build Failures**: Ensure all dependencies are installed and TypeScript errors are resolved
 4. **AI Service Errors**: Check rate limits and API quotas
-5. **Performance Issues**: Monitor server resources and optimize database queries
+5. **Performance Issues**: Monitor server resources and optimise database queries
 
 ## Conclusion
 

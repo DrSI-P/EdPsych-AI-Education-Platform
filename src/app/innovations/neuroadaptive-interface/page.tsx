@@ -118,7 +118,7 @@ export default function NeuroadaptiveInterfacePage() {
     }
   };
   
-  // Get color for metrics
+  // Get colour for metrics
   const getMetricColor = (value: number, isInverse: boolean = false) => {
     if (isInverse) {
       if (value > 70) return "text-red-500";
@@ -137,11 +137,11 @@ export default function NeuroadaptiveInterfacePage() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-center mb-12"
+        className="text-centre mb-12"
       >
         <h1 className="text-4xl font-bold tracking-tight">Neuroscience-Informed Adaptive Interface</h1>
         <p className="mt-4 text-xl text-muted-foreground max-w-3xl mx-auto">
-          Experience a revolutionary interface that adapts in real-time to your cognitive state, optimizing learning and reducing cognitive fatigue.
+          Experience a revolutionary interface that adapts in real-time to your cognitive state, optimising learning and reducing cognitive fatigue.
         </p>
       </motion.div>
 
@@ -155,8 +155,8 @@ export default function NeuroadaptiveInterfacePage() {
         >
           <Card className="h-full">
             <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-2xl font-semibold flex items-center">
+              <div className="flex items-centre justify-between mb-6">
+                <h2 className="text-2xl font-semibold flex items-centre">
                   <Brain className="mr-2 h-5 w-5 text-primary" />
                   Cognitive Metrics
                 </h2>
@@ -173,7 +173,7 @@ export default function NeuroadaptiveInterfacePage() {
               <div className="space-y-6">
                 <div>
                   <div className="flex justify-between mb-2">
-                    <Label className="flex items-center">
+                    <Label className="flex items-centre">
                       <Eye className="mr-2 h-4 w-4" />
                       Attention Level
                     </Label>
@@ -186,7 +186,7 @@ export default function NeuroadaptiveInterfacePage() {
                 
                 <div>
                   <div className="flex justify-between mb-2">
-                    <Label className="flex items-center">
+                    <Label className="flex items-centre">
                       <Brain className="mr-2 h-4 w-4" />
                       Cognitive Load
                     </Label>
@@ -199,7 +199,7 @@ export default function NeuroadaptiveInterfacePage() {
                 
                 <div>
                   <div className="flex justify-between mb-2">
-                    <Label className="flex items-center">
+                    <Label className="flex items-centre">
                       <Clock className="mr-2 h-4 w-4" />
                       Fatigue Level
                     </Label>
@@ -212,7 +212,7 @@ export default function NeuroadaptiveInterfacePage() {
                 
                 <div>
                   <div className="flex justify-between mb-2">
-                    <Label className="flex items-center">
+                    <Label className="flex items-centre">
                       <Zap className="mr-2 h-4 w-4" />
                       Engagement Score
                     </Label>
@@ -225,7 +225,7 @@ export default function NeuroadaptiveInterfacePage() {
                 
                 <div>
                   <div className="flex justify-between mb-2">
-                    <Label className="flex items-center">
+                    <Label className="flex items-centre">
                       <Heart className="mr-2 h-4 w-4" />
                       Stress Level
                     </Label>
@@ -250,7 +250,7 @@ export default function NeuroadaptiveInterfacePage() {
               </div>
               
               <div className="mt-8 space-y-6">
-                <div className="flex items-center justify-between">
+                <div className="flex items-centre justify-between">
                   <Label htmlFor="adaptation-toggle" className="font-medium">
                     Adaptive Interface
                   </Label>
@@ -265,7 +265,7 @@ export default function NeuroadaptiveInterfacePage() {
                   <Label htmlFor="simulation-toggle" className="font-medium">
                     Simulation
                   </Label>
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <Button 
                       variant={simulationRunning ? "destructive" : "default"}
                       size="sm"
@@ -273,7 +273,7 @@ export default function NeuroadaptiveInterfacePage() {
                     >
                       {simulationRunning ? "Stop" : "Start"} Simulation
                     </Button>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-centre gap-2">
                       <Label htmlFor="speed-slider" className="text-sm">Speed</Label>
                       <Slider
                         id="speed-slider"
@@ -301,12 +301,12 @@ export default function NeuroadaptiveInterfacePage() {
         >
           <Card className="h-full">
             <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-2xl font-semibold flex items-center">
+              <div className="flex items-centre justify-between mb-6">
+                <h2 className="text-2xl font-semibold flex items-centre">
                   <Activity className="mr-2 h-5 w-5 text-primary" />
                   Adaptive Learning Interface
                 </h2>
-                <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-sm">
+                <div className="flex items-centre gap-2 px-3 py-1 rounded-full bg-primary/10 text-sm">
                   <Gauge className="h-4 w-4" />
                   <span>Mode: {interfaceMode.charAt(0).toUpperCase() + interfaceMode.slice(1)}</span>
                 </div>
@@ -319,7 +319,7 @@ export default function NeuroadaptiveInterfacePage() {
               <Tabs defaultValue="content">
                 <TabsList className="grid w-full grid-cols-3">
                   <TabsTrigger value="content">Learning Content</TabsTrigger>
-                  <TabsTrigger value="visualization">Data Visualization</TabsTrigger>
+                  <TabsTrigger value="visualisation">Data Visualisation</TabsTrigger>
                   <TabsTrigger value="settings">Interface Settings</TabsTrigger>
                 </TabsList>
                 
@@ -333,7 +333,7 @@ export default function NeuroadaptiveInterfacePage() {
                         <Button>Continue to Next Section</Button>
                       </div>
                       
-                      <div className="text-center text-sm text-muted-foreground">
+                      <div className="text-centre text-sm text-muted-foreground">
                         <p>Content has been simplified to reduce cognitive load.</p>
                         <p>Additional details and examples are temporarily hidden.</p>
                       </div>
@@ -349,7 +349,7 @@ export default function NeuroadaptiveInterfacePage() {
                         </div>
                       </div>
                       
-                      <div className="text-center text-sm text-muted-foreground">
+                      <div className="text-centre text-sm text-muted-foreground">
                         <p>Focus mode activated to help maintain attention.</p>
                         <p>Content is highlighted with increased contrast and reduced distractions.</p>
                       </div>
@@ -365,7 +365,7 @@ export default function NeuroadaptiveInterfacePage() {
                           <li><strong>Extraneous load</strong> - the way information is presented</li>
                           <li><strong>Germane load</strong> - the mental effort needed for learning</li>
                         </ul>
-                        <p className="mb-6">Effective instructional design aims to minimize extraneous load, manage intrinsic load, and optimize germane load.</p>
+                        <p className="mb-6">Effective instructional design aims to minimize extraneous load, manage intrinsic load, and optimise germane load.</p>
                         <div className="flex justify-between">
                           <Button variant="outline">Previous</Button>
                           <Button>Next</Button>
@@ -386,7 +386,7 @@ export default function NeuroadaptiveInterfacePage() {
                   )}
                 </TabsContent>
                 
-                <TabsContent value="visualization" className="mt-6">
+                <TabsContent value="visualisation" className="mt-6">
                   <div className="space-y-6">
                     <div className="bg-card p-6 rounded-lg border">
                       <h3 className="text-xl font-semibold mb-4">Learning Analytics</h3>
@@ -394,7 +394,7 @@ export default function NeuroadaptiveInterfacePage() {
                       {interfaceMode === 'simplified' ? (
                         <div className="space-y-4">
                           <p className="mb-2">Simplified view showing key metrics only:</p>
-                          <div className="h-[200px] bg-muted rounded-md flex items-center justify-center">
+                          <div className="h-[200px] bg-muted rounded-md flex items-centre justify-centre">
                             <BarChart className="h-12 w-12 text-muted-foreground" />
                           </div>
                           <p className="text-sm text-muted-foreground">Detailed charts temporarily hidden to reduce cognitive load.</p>
@@ -410,7 +410,7 @@ export default function NeuroadaptiveInterfacePage() {
                             </div>
                           </div>
                           
-                          <div className="h-[200px] bg-muted rounded-md flex items-center justify-center">
+                          <div className="h-[200px] bg-muted rounded-md flex items-centre justify-centre">
                             <LineChart className="h-12 w-12 text-muted-foreground" />
                           </div>
                           
@@ -444,7 +444,7 @@ export default function NeuroadaptiveInterfacePage() {
                           <p className="mb-4">Essential settings only:</p>
                           
                           <div className="space-y-4">
-                            <div className="flex items-center justify-between">
+                            <div className="flex items-centre justify-between">
                               <Label htmlFor="text-size">Text Size</Label>
                               <Slider
                                 id="text-size"
@@ -456,7 +456,7 @@ export default function NeuroadaptiveInterfacePage() {
                               />
                             </div>
                             
-                            <div className="flex items-center justify-between">
+                            <div className="flex items-centre justify-between">
                               <Label htmlFor="notifications">Notifications</Label>
                               <Switch id="notifications" />
                             </div>
@@ -471,7 +471,7 @@ export default function NeuroadaptiveInterfacePage() {
                               <h4 className="font-medium">Display Settings</h4>
                               
                               <div className="space-y-4">
-                                <div className="flex items-center justify-between">
+                                <div className="flex items-centre justify-between">
                                   <Label htmlFor="text-size">Text Size</Label>
                                   <Slider
                                     id="text-size"
@@ -483,7 +483,7 @@ export default function NeuroadaptiveInterfacePage() {
                                   />
                                 </div>
                                 
-                                <div className="flex items-center justify-between">
+                                <div className="flex items-centre justify-between">
                                   <Label htmlFor="contrast">Contrast</Label>
                                   <Slider
                                     id="contrast"
@@ -494,7 +494,7 @@ export default function NeuroadaptiveInterfacePage() {
                                   />
                                 </div>
                                 
-                                <div className="flex items-center justify-between">
+                                <div className="flex items-centre justify-between">
                                   <Label htmlFor="animations">Animations</Label>
                                   <Switch id="animations" defaultChecked />
                                 </div>
@@ -505,17 +505,17 @@ export default function NeuroadaptiveInterfacePage() {
                               <h4 className="font-medium">Notification Settings</h4>
                               
                               <div className="space-y-4">
-                                <div className="flex items-center justify-between">
+                                <div className="flex items-centre justify-between">
                                   <Label htmlFor="notifications">Notifications</Label>
                                   <Switch id="notifications" defaultChecked />
                                 </div>
                                 
-                                <div className="flex items-center justify-between">
+                                <div className="flex items-centre justify-between">
                                   <Label htmlFor="break-reminders">Break Reminders</Label>
                                   <Switch id="break-reminders" defaultChecked />
                                 </div>
                                 
-                                <div className="flex items-center justify-between">
+                                <div className="flex items-centre justify-between">
                                   <Label htmlFor="progress-updates">Progress Updates</Label>
                                   <Switch id="progress-updates" defaultChecked />
                                 </div>
@@ -527,17 +527,17 @@ export default function NeuroadaptiveInterfacePage() {
                             <h4 className="font-medium mb-4">Cognitive Adaptation Settings</h4>
                             
                             <div className="space-y-4">
-                              <div className="flex items-center justify-between">
+                              <div className="flex items-centre justify-between">
                                 <Label htmlFor="auto-simplify">Auto-simplify on High Cognitive Load</Label>
                                 <Switch id="auto-simplify" defaultChecked />
                               </div>
                               
-                              <div className="flex items-center justify-between">
+                              <div className="flex items-centre justify-between">
                                 <Label htmlFor="focus-mode">Focus Mode on Low Attention</Label>
                                 <Switch id="focus-mode" defaultChecked />
                               </div>
                               
-                              <div className="flex items-center justify-between">
+                              <div className="flex items-centre justify-between">
                                 <Label htmlFor="break-suggestions">Break Suggestions</Label>
                                 <Switch id="break-suggestions" defaultChecked />
                               </div>
@@ -561,23 +561,23 @@ export default function NeuroadaptiveInterfacePage() {
         transition={{ delay: 0.6, duration: 0.5 }}
         className="mb-12"
       >
-        <h2 className="text-3xl font-semibold mb-6 text-center">How It Works</h2>
+        <h2 className="text-3xl font-semibold mb-6 text-centre">How It Works</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <Card>
-            <CardContent className="p-6 text-center">
+            <CardContent className="p-6 text-centre">
               <div className="bg-primary/10 p-3 rounded-full w-fit mx-auto mb-4">
                 <Eye className="h-6 w-6 text-primary" />
               </div>
               <h3 className="text-xl font-semibold mb-2">Cognitive State Monitoring</h3>
               <p className="text-muted-foreground">
-                Advanced algorithms analyze webcam data to detect attention levels, cognitive load, and fatigue through micro-expressions, eye movements, and posture.
+                Advanced algorithms analyse webcam data to detect attention levels, cognitive load, and fatigue through micro-expressions, eye movements, and posture.
               </p>
             </CardContent>
           </Card>
           
           <Card>
-            <CardContent className="p-6 text-center">
+            <CardContent className="p-6 text-centre">
               <div className="bg-primary/10 p-3 rounded-full w-fit mx-auto mb-4">
                 <Brain className="h-6 w-6 text-primary" />
               </div>
@@ -589,13 +589,13 @@ export default function NeuroadaptiveInterfacePage() {
           </Card>
           
           <Card>
-            <CardContent className="p-6 text-center">
+            <CardContent className="p-6 text-centre">
               <div className="bg-primary/10 p-3 rounded-full w-fit mx-auto mb-4">
                 <Zap className="h-6 w-6 text-primary" />
               </div>
               <h3 className="text-xl font-semibold mb-2">Dynamic Adaptation</h3>
               <p className="text-muted-foreground">
-                The interface automatically adjusts to optimize your learning experience, reducing cognitive load when needed and enhancing focus during attention dips.
+                The interface automatically adjusts to optimise your learning experience, reducing cognitive load when needed and enhancing focus during attention dips.
               </p>
             </CardContent>
           </Card>
@@ -608,7 +608,7 @@ export default function NeuroadaptiveInterfacePage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.8, duration: 0.5 }}
       >
-        <h2 className="text-3xl font-semibold mb-6 text-center">Benefits</h2>
+        <h2 className="text-3xl font-semibold mb-6 text-centre">Benefits</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Card>

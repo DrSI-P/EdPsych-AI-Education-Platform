@@ -57,7 +57,7 @@ The progress tracking shows development over time, celebrating growth and highli
 ### Accessibility and Preferences (3:15-3:30)
 [Screen transitions to show settings]
 
-You can customize your EdPsych Connect experience through the settings menu. Adjust text size, contrast, and language preferences to suit your needs.
+You can customise your EdPsych Connect experience through the settings menu. Adjust text size, contrast, and language preferences to suit your needs.
 
 If you're supporting a child with specific requirements, you can also enable additional accessibility features that will carry over to their account when they log in.
 

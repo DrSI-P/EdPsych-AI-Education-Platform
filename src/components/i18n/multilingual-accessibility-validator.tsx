@@ -193,7 +193,7 @@ export const MultilingualAccessibilityValidator: React.FC<MultilingualAccessibil
         category: 'Screen Reader',
         criteria: 'Screen reader compatibility',
         status: 'pass',
-        details: 'All multilingual components are properly labeled for screen readers.',
+        details: 'All multilingual components are properly labelled for screen readers.',
         impact: 'critical',
         wcagReference: '4.1.2'
       },
@@ -495,7 +495,7 @@ export const MultilingualAccessibilityValidator: React.FC<MultilingualAccessibil
   return (
     <Card className={className}>
       <CardHeader>
-        <CardTitle className="flex items-center">
+        <CardTitle className="flex items-centre">
           <Languages className="h-5 w-5 mr-2" />
           Multilingual Accessibility Validator
         </CardTitle>
@@ -518,7 +518,7 @@ export const MultilingualAccessibilityValidator: React.FC<MultilingualAccessibil
           <TabsContent value="accessibility" className="space-y-4 pt-4">
             {/* Overall score */}
             <div className="space-y-2">
-              <div className="flex items-center justify-between">
+              <div className="flex items-centre justify-between">
                 <h3 className="text-sm font-medium">Overall Accessibility Score</h3>
                 <span className="text-sm font-medium">{overallAccessibilityScore}%</span>
               </div>
@@ -546,7 +546,7 @@ export const MultilingualAccessibilityValidator: React.FC<MultilingualAccessibil
               <TableBody>
                 {accessibilityResults.map((result, index) => (
                   <TableRow key={index}>
-                    <TableCell className="font-medium flex items-center">
+                    <TableCell className="font-medium flex items-centre">
                       {getCategoryIcon(result.category)}
                       <span className="ml-2">{result.category}</span>
                     </TableCell>
@@ -572,7 +572,7 @@ export const MultilingualAccessibilityValidator: React.FC<MultilingualAccessibil
           <TabsContent value="coverage" className="space-y-4 pt-4">
             {/* Overall coverage score */}
             <div className="space-y-2">
-              <div className="flex items-center justify-between">
+              <div className="flex items-centre justify-between">
                 <h3 className="text-sm font-medium">Overall Language Coverage</h3>
                 <span className="text-sm font-medium">{overallCoverageScore}%</span>
               </div>
@@ -589,8 +589,8 @@ export const MultilingualAccessibilityValidator: React.FC<MultilingualAccessibil
             {/* Language coverage accordion */}
             {coverageResults.map((result, index) => (
               <div key={index} className="border rounded-lg mb-4">
-                <div className="flex items-center justify-between p-4">
-                  <div className="flex items-center">
+                <div className="flex items-centre justify-between p-4">
+                  <div className="flex items-centre">
                     <Globe className="h-5 w-5 mr-2" />
                     <div>
                       <h3 className="font-medium">{i18nService.getLanguageMetadata(result.language)?.englishName || result.language}</h3>
@@ -599,7 +599,7 @@ export const MultilingualAccessibilityValidator: React.FC<MultilingualAccessibil
                       </p>
                     </div>
                   </div>
-                  <div className="flex items-center space-x-4">
+                  <div className="flex items-centre space-x-4">
                     <div className="text-right">
                       <div className="font-medium">{result.overallCompletionPercentage}%</div>
                       <div>{getCoverageBadge(result.status)}</div>
@@ -619,12 +619,12 @@ export const MultilingualAccessibilityValidator: React.FC<MultilingualAccessibil
                     <TableBody>
                       {result.namespaces.map((ns, nsIndex) => (
                         <TableRow key={nsIndex}>
-                          <TableCell className="font-medium flex items-center">
+                          <TableCell className="font-medium flex items-centre">
                             {getNamespaceIcon(ns.namespace)}
                             <span className="ml-2">{ns.namespace}</span>
                           </TableCell>
                           <TableCell>
-                            <div className="flex items-center space-x-2">
+                            <div className="flex items-centre space-x-2">
                               <Progress value={ns.completionPercentage} className="h-2 w-[100px]" />
                               <span className="text-sm">{ns.completionPercentage}%</span>
                             </div>

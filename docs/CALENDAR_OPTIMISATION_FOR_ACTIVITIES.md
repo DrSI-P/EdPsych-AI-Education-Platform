@@ -77,7 +77,7 @@ The Calendar Optimisation for Activities feature integrates with multiple existi
 The Calendar Optimisation for Activities feature is built on solid educational psychology principles:
 
 1. **Cognitive Load Management**: Scheduling complex tasks during optimal cognitive periods
-2. **Spaced Practice**: Distributing similar activities to enhance learning and retention
+2. **Spaced Practise**: Distributing similar activities to enhance learning and retention
 3. **Task Switching Costs**: Minimising context switching by batching similar activities
 4. **Attention Restoration**: Scheduling breaks and recovery periods to maintain effectiveness
 5. **Collaborative Efficacy**: Optimising group activities for maximum productivity

@@ -13,7 +13,7 @@ const progressUpdateSchema = z.object({
   timeSpent: z.number().optional(), // in seconds
 });
 
-// Schema for course enrollment
+// Schema for course enrolment
 const enrollmentSchema = z.object({
   userId: z.string(),
   courseId: z.string(),
@@ -75,8 +75,8 @@ async function handleEnrollment(body: any) {
       );
     }
 
-    // Create new enrollment
-    const enrollment = await prisma.courseEnrollment.create({
+    // Create new enrolment
+    const enrolment = await prisma.courseEnrollment.create({
       data: {
         userId,
         courseId,
@@ -87,13 +87,13 @@ async function handleEnrollment(body: any) {
     });
 
     return NextResponse.json(
-      { message: 'Successfully enrolled', enrollment },
+      { message: 'Successfully enrolled', enrolment },
       { status: 201 }
     );
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
-        { error: 'Invalid enrollment data', details: error.errors },
+        { error: 'Invalid enrolment data', details: error.errors },
         { status: 400 }
       );
     }
@@ -149,7 +149,7 @@ async function handleProgressUpdate(body: any) {
       overallProgress = Math.round(totalProgress / allModuleProgress.length);
     }
 
-    // Update enrollment record
+    // Update enrolment record
     await prisma.courseEnrollment.update({
       where: {
         userId_courseId: {
@@ -183,7 +183,7 @@ async function handleCompletion(body: any) {
   try {
     const { userId, courseId, feedback, rating } = completionSchema.parse(body);
 
-    // Update enrollment status
+    // Update enrolment status
     const updatedEnrollment = await prisma.courseEnrollment.update({
       where: {
         userId_courseId: {
@@ -213,7 +213,7 @@ async function handleCompletion(body: any) {
     return NextResponse.json(
       { 
         message: 'Course completed successfully', 
-        enrollment: updatedEnrollment,
+        enrolment: updatedEnrollment,
         certificate 
       },
       { status: 200 }

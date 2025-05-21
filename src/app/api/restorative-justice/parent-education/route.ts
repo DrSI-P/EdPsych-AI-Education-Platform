@@ -98,7 +98,7 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     
-    // Check if this is a favorite toggle request
+    // Check if this is a favourite toggle request
     if (body.action === "toggleFavorite") {
       const validatedData = FavoriteSchema.parse(body);
       const { resourceId, isFavorite } = validatedData;

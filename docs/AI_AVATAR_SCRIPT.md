@@ -10,7 +10,7 @@ For over 12 years as an Educational Psychologist, I've witnessed firsthand how o
 
 EdPsych Connect changes everything. Built on robust educational psychology principles and powered by cutting-edge AI, our platform creates truly personalised learning experiences that adapt to each child's starting point, learning style, and interests—while systematically covering curriculum requirements to eliminate learning gaps.
 
-This isn't just educational technology. It's a complete ecosystem that empowers students to thrive, liberates teachers from administrative burdens to focus on what matters, gives parents unprecedented insight and involvement, and provides professionals with powerful tools for evidence-based practice.
+This isn't just educational technology. It's a complete ecosystem that empowers students to thrive, liberates teachers from administrative burdens to focus on what matters, gives parents unprecedented insight and involvement, and provides professionals with powerful tools for evidence-based practise.
 
 In a world where AI is transforming every aspect of our lives, education cannot remain static. EdPsych Connect harnesses this technology not to replace human connection, but to enhance it—creating learning experiences that are engaging, stress-free, and deeply rewarding.
 
@@ -79,11 +79,11 @@ But EdPsych Connect goes beyond just content delivery. The platform includes:
 
 **Voice Input Support** that removes barriers for children who struggle with typing.
 
-**Emotional Regulation Tools** that help students recognize and manage feelings that might interfere with learning.
+**Emotional Regulation Tools** that help students recognise and manage feelings that might interfere with learning.
 
 **AI-Powered Assessment** that provides immediate, constructive feedback focused on growth rather than judgment.
 
-**Progress Visualization** that celebrates achievements and builds confidence.
+**Progress Visualisation** that celebrates achievements and builds confidence.
 
 All of this is delivered through an interface that adapts to each user's needs, including accessibility features for diverse learners.
 
@@ -95,7 +95,7 @@ For students, EdPsych Connect transforms learning from something that happens to
 
 Imagine a Year 5 student named James who struggles with traditional maths instruction but loves football. In a conventional classroom, James might disengage during maths lessons, falling further behind and developing anxiety about the subject.
 
-On EdPsych Connect, James's learning pathway presents mathematical concepts through football scenarios. He learns fractions by analyzing team statistics, geometry through pitch dimensions and passing angles, and data handling by tracking match results.
+On EdPsych Connect, James's learning pathway presents mathematical concepts through football scenarios. He learns fractions by analysing team statistics, geometry through pitch dimensions and passing angles, and data handling by tracking match results.
 
 The platform detects that James learns best through visual and kinesthetic approaches, so it presents information with interactive diagrams he can manipulate rather than text-heavy explanations.
 
@@ -121,7 +121,7 @@ When challenges arise, parents receive practical guidance based on educational p
 
 The Communication Hub streamlines interaction with teachers and professionals, ensuring everyone is working together effectively. No more lost notes in book bags or missed important messages.
 
-For parents of children with special educational needs, the platform provides specialized resources and tracking tools to support their child's specific requirements, empowering them as advocates and partners in their child's education.
+For parents of children with special educational needs, the platform provides specialised resources and tracking tools to support their child's specific requirements, empowering them as advocates and partners in their child's education.
 
 This level of insight and support transforms the parent experience from anxiety and uncertainty to confidence and partnership.
 
@@ -145,11 +145,11 @@ For professional development, the platform offers personalized recommendations a
 
 This isn't about technology replacing teachers—it's about technology empowering teachers to do what they entered the profession to do: inspire, guide, and connect with young people.
 
-### For Professionals: Evidence-Based Practice Enhanced
+### For Professionals: Evidence-Based Practise Enhanced
 
 *[Professional, authoritative tone]*
 
-For educational psychologists, SENDCos, therapists, and other professionals, EdPsych Connect provides powerful tools for evidence-based practice and efficient case management.
+For educational psychologists, SENDCos, therapists, and other professionals, EdPsych Connect provides powerful tools for evidence-based practise and efficient case management.
 
 The platform's comprehensive Case Management System brings together all relevant information in one secure location, creating a chronological record of interventions and outcomes that supports informed decision-making.
 
@@ -161,7 +161,7 @@ Collaboration Spaces enable secure multi-disciplinary teamwork, improving coordi
 
 For research and professional development, the platform offers anonymized data access, analysis tools, and support for publication preparation, contributing to the advancement of educational psychology as a field.
 
-These tools don't replace professional judgment but enhance it—providing richer information, more efficient processes, and stronger evidence for effective practice.
+These tools don't replace professional judgment but enhance it—providing richer information, more efficient processes, and stronger evidence for effective practise.
 
 ### The Technology: AI as Enabler, Not Replacement
 
@@ -171,7 +171,7 @@ At EdPsych Connect, we view artificial intelligence not as a replacement for hum
 
 Our AI systems are designed with clear ethical principles:
 
-**Human-Centered** - Technology serves human needs and values, not the other way around.
+**Human-Centred** - Technology serves human needs and values, not the other way around.
 
 **Transparent** - Users understand how AI is being used and what data informs its operations.
 
@@ -193,7 +193,7 @@ The platform uses several types of AI working together:
 
 **Avatar Technology** that creates engaging video presentations personalized to different needs.
 
-All of these technologies work together to create a system that's more responsive, personalized, and effective than traditional approaches—while keeping humans firmly at the center of the educational experience.
+All of these technologies work together to create a system that's more responsive, personalized, and effective than traditional approaches—while keeping humans firmly at the centre of the educational experience.
 
 ### The Evidence: Research-Based and Validated
 
@@ -209,11 +209,11 @@ Our approach to personalized learning draws on established theories including:
 
 **Self-Determination Theory** - Supporting autonomy, competence, and relatedness as foundations of motivation.
 
-**Cognitive Load Theory** - Managing information presentation to optimize working memory.
+**Cognitive Load Theory** - Managing information presentation to optimise working memory.
 
 **Growth Mindset** - Fostering belief in the ability to develop abilities through effort and learning.
 
-**Executive Function Development** - Supporting planning, organization, and self-regulation skills.
+**Executive Function Development** - Supporting planning, organisation, and self-regulation skills.
 
 The platform's features for students with special educational needs are informed by research in areas including dyslexia, ADHD, autism spectrum conditions, and emotional regulation.
 
@@ -224,7 +224,7 @@ Our approach has been validated through rigorous testing and refinement, with ou
 - Reduced learning anxiety and improved confidence
 - Enhanced teacher effectiveness and satisfaction
 - Stronger parent involvement and understanding
-- More efficient and effective professional practice
+- More efficient and effective professional practise
 
 This evidence base isn't static—the platform continuously collects anonymized data on what works, refining approaches based on real-world outcomes while maintaining the highest standards of privacy and ethics.
 
@@ -242,7 +242,7 @@ We envision a future where:
 
 **Every parent** has insight into their child's learning journey and practical ways to provide support.
 
-**Every professional** has powerful tools for evidence-based practice and efficient case management.
+**Every professional** has powerful tools for evidence-based practise and efficient case management.
 
 This isn't just about improving existing educational models but fundamentally transforming how learning happens—creating systems that adapt to learners rather than forcing learners to adapt to systems.
 
@@ -260,7 +260,7 @@ EdPsych Connect invites you to join this educational revolution:
 
 **For parents** - Explore how EdPsych Connect can provide unprecedented insight into your child's learning journey and practical ways to provide support.
 
-**For professionals** - Learn how our tools can enhance your evidence-based practice and case management, improving outcomes for the children and young people you serve.
+**For professionals** - Learn how our tools can enhance your evidence-based practise and case management, improving outcomes for the children and young people you serve.
 
 **For researchers and partners** - Join us in continuing to develop and refine approaches that advance educational psychology and technology.
 

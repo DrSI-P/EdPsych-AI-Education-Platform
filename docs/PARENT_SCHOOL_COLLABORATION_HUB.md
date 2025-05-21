@@ -104,7 +104,7 @@ The hub is designed to be accessible to all users, including:
 
 - **Screen Reader Compatibility**: ARIA labels and semantic HTML throughout
 - **Keyboard Navigation**: Full functionality without mouse interaction
-- **Color Contrast**: WCAG AA compliance for all text and interactive elements
+- **Colour Contrast**: WCAG AA compliance for all text and interactive elements
 - **Text Customization**: Options for font size, spacing, and dyslexia-friendly typefaces
 - **Voice Input**: Speech-to-text capabilities for all text entry fields
 - **Language Support**: Interface translation in multiple languages
@@ -128,7 +128,7 @@ The Parent-School Collaboration Hub integrates with:
 2. **Goal Setting Framework**: Structure for creating meaningful, measurable goals
 3. **Strategy Recommendation Tips**: Approaches for suggesting appropriate home strategies
 4. **Conference Preparation Checklist**: Steps to prepare for productive parent meetings
-5. **Celebration Guidelines**: Protocols for recognizing achievements appropriately
+5. **Celebration Guidelines**: Protocols for recognising achievements appropriately
 
 ### For Parents
 
@@ -160,7 +160,7 @@ Planned extensions to the Parent-School Collaboration Hub include:
 
 The Parent-School Collaboration Hub aligns with key UK educational frameworks:
 
-- **SEND Code of Practice**: Support for the graduated approach and parent partnership
+- **SEND Code of Practise**: Support for the graduated approach and parent partnership
 - **Ofsted Framework**: Evidence gathering for parent engagement and communication
 - **Pupil Premium**: Documentation of interventions and impact for disadvantaged pupils
 - **Early Years Foundation Stage**: Partnership with parents in early development

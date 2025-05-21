@@ -3,7 +3,7 @@
 
 export * from './accordion';
 export * from './alert';
-export * from './alert-dialog';
+export * from './alert-dialogue';
 export * from './avatar';
 export * from './badge';
 export * from './button';
@@ -11,16 +11,16 @@ export * from './calendar';
 export * from './card';
 export * from './checkbox';
 
-// Export dialog components with explicit names to avoid conflicts with modal
+// Export dialogue components with explicit names to avoid conflicts with modal
 export {
-  Dialog,
+  Dialogue,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger
-} from './dialog';
+} from './dialogue';
 
 // Export dropdown components with explicit names to avoid conflicts
 export { 
@@ -62,7 +62,7 @@ export {
   LoadingSpinner
 } from './loading';
 
-// Export modal components with explicit names to avoid conflicts with dialog
+// Export modal components with explicit names to avoid conflicts with dialogue
 export {
   Modal,
   ModalBody,

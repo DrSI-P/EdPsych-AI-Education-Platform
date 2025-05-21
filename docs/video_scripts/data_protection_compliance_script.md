@@ -15,7 +15,7 @@ EdPsych Connect is built from the ground up to align with UK educational require
 Department for Education (DfE) standards and frameworks
 National Curriculum alignment across all key stages
 Ofsted inspection requirements and evidence gathering
-SEND Code of Practice implementation and documentation
+SEND Code of Practise implementation and documentation
 Statutory assessment and reporting requirements
 
 This comprehensive compliance ensures that schools can confidently implement the platform knowing it supports rather than complicates their regulatory obligations.

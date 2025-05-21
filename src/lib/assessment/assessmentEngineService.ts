@@ -30,7 +30,7 @@ import {
 /**
  * Implementation of the Assessment Engine
  * 
- * This class provides the core functionality for creating, managing, and analyzing
+ * This class provides the core functionality for creating, managing, and analysing
  * assessments based on evidence-based educational psychology principles.
  */
 export class AssessmentEngineService implements AssessmentEngine {
@@ -337,8 +337,8 @@ export class AssessmentEngineService implements AssessmentEngine {
   }
   
   /**
-   * Analyze results for an assessment
-   * @param assessmentId The ID of the assessment to analyze
+   * Analyse results for an assessment
+   * @param assessmentId The ID of the assessment to analyse
    * @returns Analytics for the assessment
    */
   async analyzeResults(assessmentId: string): Promise<{
@@ -352,7 +352,7 @@ export class AssessmentEngineService implements AssessmentEngine {
       averageTimeSpent: number;
     }>;
   }> {
-    console.log(`Analyzing results for assessment ${assessmentId}`);
+    console.log(`Analysing results for assessment ${assessmentId}`);
     
     // In a real implementation, this would query a database for all attempts on this assessment
     // and perform statistical analysis

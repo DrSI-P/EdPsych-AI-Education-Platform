@@ -167,8 +167,8 @@ export default function TakePupilVoiceSurveyPage() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
-        <Spinner size="large" />
+      <div className="flex justify-centre items-centre min-h-screen">
+        <Spinner size="lg" />
       </div>
     );
   }
@@ -208,22 +208,22 @@ export default function TakePupilVoiceSurveyPage() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">{survey.title}</h1>
+        <h1 className="text-2xl font-bold text-grey-900">{survey.title}</h1>
         {survey.description && (
-          <p className="mt-2 text-gray-600">
+          <p className="mt-2 text-grey-600">
             {survey.description}
           </p>
         )}
       </div>
 
       <div className="mb-4">
-        <div className="w-full bg-gray-200 rounded-full h-2.5">
+        <div className="w-full bg-grey-200 rounded-full h-2.5">
           <div 
             className="bg-indigo-600 h-2.5 rounded-full" 
             style={{ width: `${((currentStep + 1) / survey.questions.length) * 100}%` }}
           ></div>
         </div>
-        <div className="flex justify-between mt-2 text-sm text-gray-600">
+        <div className="flex justify-between mt-2 text-sm text-grey-600">
           <span>Question {currentStep + 1} of {survey.questions.length}</span>
           <span>{Math.round(((currentStep + 1) / survey.questions.length) * 100)}% complete</span>
         </div>
@@ -233,7 +233,7 @@ export default function TakePupilVoiceSurveyPage() {
         <CardContent className="pt-6">
           <div className="space-y-4">
             <div className="flex items-start">
-              <span className="bg-indigo-100 text-indigo-800 rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">
+              <span className="bg-indigo-100 text-indigo-800 rounded-full w-6 h-6 flex items-centre justify-centre mr-3 flex-shrink-0">
                 {currentStep + 1}
               </span>
               <div className="flex-grow">
@@ -242,16 +242,16 @@ export default function TakePupilVoiceSurveyPage() {
                 {currentQuestion.type === 'multiple_choice' && (
                   <div className="space-y-2 mt-3">
                     {currentQuestion.options.map((option: string, optionIndex: number) => (
-                      <div key={optionIndex} className="flex items-center">
+                      <div key={optionIndex} className="flex items-centre">
                         <input
                           type="radio"
                           name={`question_${currentQuestion.id}`}
                           id={`option_${currentQuestion.id}_${optionIndex}`}
-                          className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300"
+                          className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-grey-300"
                           checked={responses[currentQuestion.id] === option}
                           onChange={() => handleInputChange(currentQuestion.id, option)}
                         />
-                        <label htmlFor={`option_${currentQuestion.id}_${optionIndex}`} className="ml-2 block text-sm text-gray-900">
+                        <label htmlFor={`option_${currentQuestion.id}_${optionIndex}`} className="ml-2 block text-sm text-grey-900">
                           {option}
                         </label>
                       </div>
@@ -261,19 +261,19 @@ export default function TakePupilVoiceSurveyPage() {
                 
                 {currentQuestion.type === 'likert_scale' && (
                   <div className="mt-3">
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-centre">
                       {currentQuestion.options.map((option: string, optionIndex: number) => (
-                        <div key={optionIndex} className="text-center">
-                          <div className="flex flex-col items-center">
+                        <div key={optionIndex} className="text-centre">
+                          <div className="flex flex-col items-centre">
                             <input
                               type="radio"
                               name={`question_${currentQuestion.id}`}
                               id={`option_${currentQuestion.id}_${optionIndex}`}
-                              className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300"
+                              className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-grey-300"
                               checked={responses[currentQuestion.id] === option}
                               onChange={() => handleInputChange(currentQuestion.id, option)}
                             />
-                            <label htmlFor={`option_${currentQuestion.id}_${optionIndex}`} className="mt-1 block text-xs text-gray-500">
+                            <label htmlFor={`option_${currentQuestion.id}_${optionIndex}`} className="mt-1 block text-xs text-grey-500">
                               {option}
                             </label>
                           </div>
@@ -285,15 +285,15 @@ export default function TakePupilVoiceSurveyPage() {
                 
                 {currentQuestion.type === 'emoji_scale' && (
                   <div className="mt-3">
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-centre">
                       {currentQuestion.options.map((emoji: string, optionIndex: number) => (
-                        <div key={optionIndex} className="text-center">
-                          <div className="flex flex-col items-center">
+                        <div key={optionIndex} className="text-centre">
+                          <div className="flex flex-col items-centre">
                             <input
                               type="radio"
                               name={`question_${currentQuestion.id}`}
                               id={`option_${currentQuestion.id}_${optionIndex}`}
-                              className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300"
+                              className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-grey-300"
                               checked={responses[currentQuestion.id] === emoji}
                               onChange={() => handleInputChange(currentQuestion.id, emoji)}
                             />
@@ -309,29 +309,29 @@ export default function TakePupilVoiceSurveyPage() {
                 
                 {currentQuestion.type === 'yes_no' && (
                   <div className="flex space-x-4 mt-3">
-                    <div className="flex items-center">
+                    <div className="flex items-centre">
                       <input
                         type="radio"
                         name={`question_${currentQuestion.id}`}
                         id={`option_${currentQuestion.id}_yes`}
-                        className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300"
+                        className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-grey-300"
                         checked={responses[currentQuestion.id] === 'Yes'}
                         onChange={() => handleInputChange(currentQuestion.id, 'Yes')}
                       />
-                      <label htmlFor={`option_${currentQuestion.id}_yes`} className="ml-2 block text-sm text-gray-900">
+                      <label htmlFor={`option_${currentQuestion.id}_yes`} className="ml-2 block text-sm text-grey-900">
                         Yes
                       </label>
                     </div>
-                    <div className="flex items-center">
+                    <div className="flex items-centre">
                       <input
                         type="radio"
                         name={`question_${currentQuestion.id}`}
                         id={`option_${currentQuestion.id}_no`}
-                        className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300"
+                        className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-grey-300"
                         checked={responses[currentQuestion.id] === 'No'}
                         onChange={() => handleInputChange(currentQuestion.id, 'No')}
                       />
-                      <label htmlFor={`option_${currentQuestion.id}_no`} className="ml-2 block text-sm text-gray-900">
+                      <label htmlFor={`option_${currentQuestion.id}_no`} className="ml-2 block text-sm text-grey-900">
                         No
                       </label>
                     </div>
@@ -341,7 +341,7 @@ export default function TakePupilVoiceSurveyPage() {
                 {currentQuestion.type === 'open_ended' && (
                   <div className="mt-3">
                     <textarea
-                      className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className="mt-1 block w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                       rows={3}
                       placeholder="Type your answer here..."
                       value={responses[currentQuestion.id] || ''}

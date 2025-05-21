@@ -262,8 +262,8 @@ export default function CreatePupilVoiceSurveyPage() {
   const renderQuestionEditor = () => {
     if (activeQuestionIndex === null || !questions[activeQuestionIndex]) {
       return (
-        <div className="text-center py-12">
-          <p className="text-gray-500 mb-4">No question selected.</p>
+        <div className="text-centre py-12">
+          <p className="text-grey-500 mb-4">No question selected.</p>
           <Button onClick={handleAddQuestion}>
             Add Question
           </Button>
@@ -276,9 +276,9 @@ export default function CreatePupilVoiceSurveyPage() {
     return (
       <div className="space-y-4">
         <div className="space-y-2">
-          <label className="block text-sm font-medium text-gray-700">Question Text</label>
+          <label className="block text-sm font-medium text-grey-700">Question Text</label>
           <textarea
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            className="mt-1 block w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             value={question.text}
             onChange={(e) => handleQuestionChange(activeQuestionIndex, 'text', e.target.value)}
             placeholder="Enter your question here"
@@ -287,9 +287,9 @@ export default function CreatePupilVoiceSurveyPage() {
         </div>
         
         <div className="space-y-2">
-          <label className="block text-sm font-medium text-gray-700">Question Type</label>
+          <label className="block text-sm font-medium text-grey-700">Question Type</label>
           <select
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            className="mt-1 block w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             value={question.type}
             onChange={(e) => handleQuestionChange(activeQuestionIndex, 'type', e.target.value)}
           >
@@ -301,28 +301,28 @@ export default function CreatePupilVoiceSurveyPage() {
           </select>
         </div>
         
-        <div className="flex items-center">
+        <div className="flex items-centre">
           <input
             id="required"
             type="checkbox"
-            className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+            className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-grey-300 rounded"
             checked={question.required}
             onChange={(e) => handleQuestionChange(activeQuestionIndex, 'required', e.target.checked)}
           />
-          <label htmlFor="required" className="ml-2 block text-sm text-gray-900">
+          <label htmlFor="required" className="ml-2 block text-sm text-grey-900">
             Required question
           </label>
         </div>
         
         {(question.type === 'multiple_choice') && (
           <div className="space-y-2">
-            <label className="block text-sm font-medium text-gray-700">Options</label>
+            <label className="block text-sm font-medium text-grey-700">Options</label>
             <div className="space-y-2">
               {question.options.map((option, optionIndex) => (
-                <div key={optionIndex} className="flex items-center">
+                <div key={optionIndex} className="flex items-centre">
                   <input
                     type="text"
-                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    className="mt-1 block w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     value={option}
                     onChange={(e) => handleOptionChange(activeQuestionIndex, optionIndex, e.target.value)}
                     placeholder={`Option ${optionIndex + 1}`}
@@ -353,12 +353,12 @@ export default function CreatePupilVoiceSurveyPage() {
         
         {(question.type === 'likert_scale' || question.type === 'emoji_scale') && (
           <div className="space-y-2">
-            <label className="block text-sm font-medium text-gray-700">Scale Options</label>
-            <div className="flex justify-between items-center p-2 border border-gray-200 rounded">
+            <label className="block text-sm font-medium text-grey-700">Scale Options</label>
+            <div className="flex justify-between items-centre p-2 border border-grey-200 rounded">
               {question.options.map((option, optionIndex) => (
-                <div key={optionIndex} className="text-center">
+                <div key={optionIndex} className="text-centre">
                   <div className="text-lg">{option}</div>
-                  <div className="text-xs text-gray-500">{optionIndex + 1}</div>
+                  <div className="text-xs text-grey-500">{optionIndex + 1}</div>
                 </div>
               ))}
             </div>
@@ -401,10 +401,10 @@ export default function CreatePupilVoiceSurveyPage() {
     return (
       <div className="space-y-6">
         <div className="space-y-2">
-          <label className="block text-sm font-medium text-gray-700">Survey Title</label>
+          <label className="block text-sm font-medium text-grey-700">Survey Title</label>
           <input
             type="text"
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            className="mt-1 block w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Enter a title for your survey"
@@ -412,9 +412,9 @@ export default function CreatePupilVoiceSurveyPage() {
         </div>
         
         <div className="space-y-2">
-          <label className="block text-sm font-medium text-gray-700">Description (Optional)</label>
+          <label className="block text-sm font-medium text-grey-700">Description (Optional)</label>
           <textarea
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            className="mt-1 block w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Provide a brief description of the survey"
@@ -439,7 +439,7 @@ export default function CreatePupilVoiceSurveyPage() {
       <div className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="md:col-span-1 space-y-4">
-            <div className="bg-gray-50 p-4 rounded-md">
+            <div className="bg-grey-50 p-4 rounded-md">
               <h3 className="text-lg font-medium mb-2">Questions</h3>
               <div className="space-y-2 max-h-96 overflow-y-auto">
                 {questions.map((question, index) => (
@@ -448,15 +448,15 @@ export default function CreatePupilVoiceSurveyPage() {
                     className={`p-3 rounded-md cursor-pointer ${
                       activeQuestionIndex === index
                         ? 'bg-indigo-50 border border-indigo-300'
-                        : 'bg-white border border-gray-200 hover:border-gray-300'
+                        : 'bg-white border border-grey-200 hover:border-grey-300'
                     }`}
                     onClick={() => setActiveQuestionIndex(index)}
                   >
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-centre justify-between">
                       <div className="font-medium truncate">
                         {question.text || `Question ${index + 1}`}
                       </div>
-                      <div className="text-xs text-gray-500">
+                      <div className="text-xs text-grey-500">
                         {question.type === 'multiple_choice' ? 'Multiple Choice' :
                          question.type === 'likert_scale' ? 'Likert Scale' :
                          question.type === 'emoji_scale' ? 'Emoji Scale' :
@@ -525,8 +525,8 @@ export default function CreatePupilVoiceSurveyPage() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
-        <Spinner size="large" />
+      <div className="flex justify-centre items-centre min-h-screen">
+        <Spinner size="lg" />
       </div>
     );
   }
@@ -534,8 +534,8 @@ export default function CreatePupilVoiceSurveyPage() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-6">
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-gray-900">Create Pupil Voice Survey</h1>
+        <div className="flex items-centre justify-between">
+          <h1 className="text-2xl font-bold text-grey-900">Create Pupil Voice Survey</h1>
           <Button
             variant="outline"
             onClick={() => router.push('/assessment/pupil-voice')}
@@ -552,17 +552,17 @@ export default function CreatePupilVoiceSurveyPage() {
       )}
 
       <div className="mb-6">
-        <div className="flex items-center mb-8">
-          <div className={`flex items-center justify-center w-10 h-10 rounded-full ${
-            currentStep >= 1 ? 'bg-indigo-600 text-white' : 'bg-gray-200 text-gray-600'
+        <div className="flex items-centre mb-8">
+          <div className={`flex items-centre justify-centre w-10 h-10 rounded-full ${
+            currentStep >= 1 ? 'bg-indigo-600 text-white' : 'bg-grey-200 text-grey-600'
           }`}>
             1
           </div>
           <div className={`flex-1 h-1 mx-2 ${
-            currentStep >= 2 ? 'bg-indigo-600' : 'bg-gray-200'
+            currentStep >= 2 ? 'bg-indigo-600' : 'bg-grey-200'
           }`}></div>
-          <div className={`flex items-center justify-center w-10 h-10 rounded-full ${
-            currentStep >= 2 ? 'bg-indigo-600 text-white' : 'bg-gray-200 text-gray-600'
+          <div className={`flex items-centre justify-centre w-10 h-10 rounded-full ${
+            currentStep >= 2 ? 'bg-indigo-600 text-white' : 'bg-grey-200 text-grey-600'
           }`}>
             2
           </div>

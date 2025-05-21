@@ -22,7 +22,7 @@ The Educator role has access to teaching tools and pupil data relevant to their 
 
 The Support Staff role provides limited access tailored to teaching assistants and other support personnel.
 
-The system also includes specialized roles for Educational Psychologists, SENCOs, and other professionals with specific access requirements.
+The system also includes specialised roles for Educational Psychologists, SENCOs, and other professionals with specific access requirements.
 
 ### User Provisioning and Integration (1:15-1:45)
 [Screen transitions to show user provisioning tools]
@@ -35,7 +35,7 @@ SIMS, Arbor, and Bromcom integrations enable automatic synchronization with your
 
 Single Sign-On options include Microsoft Azure AD, Google Workspace, and ClassLink, simplifying access for users.
 
-The manual creation workflow allows for adding individual users with customized permissions when needed.
+The manual creation workflow allows for adding individual users with customised permissions when needed.
 
 ### System Configuration (1:45-2:15)
 [Screen transitions to show configuration settings]

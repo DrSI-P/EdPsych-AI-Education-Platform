@@ -37,14 +37,14 @@ import {
   TableRow 
 } from "@/components/ui/table";
 import { 
-  Dialog, 
+  Dialogue, 
   DialogContent, 
   DialogDescription, 
   DialogFooter, 
   DialogHeader, 
   DialogTitle, 
   DialogTrigger 
-} from "@/components/ui/dialog";
+} from "@/components/ui/dialogue";
 import { 
   Accordion, 
   AccordionContent, 
@@ -172,7 +172,7 @@ const SubscriptionManagement = () => {
         'Phone and email support',
         '20GB shared storage',
         'Full API access',
-        'White-labeling options',
+        'White-labelling options',
         'Dedicated account manager'
       ],
       limitations: [],
@@ -358,9 +358,9 @@ const SubscriptionManagement = () => {
         
         {/* Subscription Plans Tab */}
         <TabsContent value="plans" className="space-y-6">
-          <div className="flex justify-between items-center mb-6">
+          <div className="flex justify-between items-centre mb-6">
             <h2 className="text-2xl font-semibold">Choose Your Plan</h2>
-            <div className="flex items-center space-x-2">
+            <div className="flex items-centre space-x-2">
               <span className={`text-sm ${billingCycle === 'monthly' ? 'font-semibold' : ''}`}>Monthly</span>
               <Switch 
                 checked={billingCycle === 'annual'} 
@@ -522,7 +522,7 @@ const SubscriptionManagement = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center">
+                  <CardTitle className="flex items-centre">
                     <Users className="h-5 w-5 mr-2" />
                     Educational Discount
                   </CardTitle>
@@ -542,9 +542,9 @@ const SubscriptionManagement = () => {
               
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center">
+                  <CardTitle className="flex items-centre">
                     <Gift className="h-5 w-5 mr-2" />
-                    Non-Profit Program
+                    Non-Profit Programme
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -562,9 +562,9 @@ const SubscriptionManagement = () => {
               
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center">
+                  <CardTitle className="flex items-centre">
                     <Zap className="h-5 w-5 mr-2" />
-                    Startup Program
+                    Startup Programme
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -621,7 +621,7 @@ const SubscriptionManagement = () => {
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-centre justify-between">
                       <span className="text-2xl font-bold">{aiCredits}</span>
                       <span className="text-sm text-muted-foreground">Available Credits</span>
                     </div>
@@ -636,7 +636,7 @@ const SubscriptionManagement = () => {
                     </div>
                   </CardContent>
                   <CardFooter>
-                    <Dialog>
+                    <Dialogue>
                       <DialogTrigger asChild>
                         <Button className="w-full">Buy More Credits</Button>
                       </DialogTrigger>
@@ -649,12 +649,12 @@ const SubscriptionManagement = () => {
                         </DialogHeader>
                         <div className="grid gap-4 py-4">
                           {creditPackages.map((pkg) => (
-                            <div key={pkg.id} className="flex items-center justify-between p-3 border rounded-lg">
+                            <div key={pkg.id} className="flex items-centre justify-between p-3 border rounded-lg">
                               <div>
                                 <h4 className="font-medium">{pkg.name}</h4>
                                 <p className="text-sm text-muted-foreground">Save {pkg.savings}</p>
                               </div>
-                              <div className="flex items-center gap-4">
+                              <div className="flex items-centre gap-4">
                                 <span className="font-bold">{formatCurrency(pkg.price)}</span>
                                 <Button size="sm" onClick={() => handleBuyCreditPackage(pkg.id)}>
                                   Purchase
@@ -664,7 +664,7 @@ const SubscriptionManagement = () => {
                           ))}
                         </div>
                       </DialogContent>
-                    </Dialog>
+                    </Dialogue>
                   </CardFooter>
                 </Card>
               </div>
@@ -752,8 +752,8 @@ const SubscriptionManagement = () => {
               </div>
             </>
           ) : (
-            <div className="flex items-center justify-center h-64">
-              <div className="text-center">
+            <div className="flex items-centre justify-centre h-64">
+              <div className="text-centre">
                 <h3 className="text-lg font-medium">No active subscription</h3>
                 <p className="text-muted-foreground mb-4">Please select a subscription plan to view usage details.</p>
                 <Button onClick={() => setActiveTab('plans')}>View Plans</Button>
@@ -766,9 +766,9 @@ const SubscriptionManagement = () => {
         <TabsContent value="addons" className="space-y-6">
           {currentSubscription ? (
             <>
-              <div className="flex justify-between items-center mb-6">
+              <div className="flex justify-between items-centre mb-6">
                 <h2 className="text-2xl font-semibold">Feature Add-Ons</h2>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <span className={`text-sm ${billingCycle === 'monthly' ? 'font-semibold' : ''}`}>Monthly</span>
                   <Switch 
                     checked={billingCycle === 'annual'} 
@@ -786,7 +786,7 @@ const SubscriptionManagement = () => {
                   return (
                     <Card key={addon.id} className={isActive ? 'border-primary' : ''}>
                       <CardHeader>
-                        <CardTitle className="flex items-center">
+                        <CardTitle className="flex items-centre">
                           <Package className="h-5 w-5 mr-2" />
                           {addon.name}
                         </CardTitle>
@@ -877,7 +877,7 @@ const SubscriptionManagement = () => {
                       </TableBody>
                     </Table>
                   ) : (
-                    <div className="text-center py-6">
+                    <div className="text-centre py-6">
                       <p className="text-muted-foreground">You don't have any active add-ons.</p>
                     </div>
                   )}
@@ -885,8 +885,8 @@ const SubscriptionManagement = () => {
               </Card>
             </>
           ) : (
-            <div className="flex items-center justify-center h-64">
-              <div className="text-center">
+            <div className="flex items-centre justify-centre h-64">
+              <div className="text-centre">
                 <h3 className="text-lg font-medium">No active subscription</h3>
                 <p className="text-muted-foreground mb-4">Please select a subscription plan to add feature add-ons.</p>
                 <Button onClick={() => setActiveTab('plans')}>View Plans</Button>
@@ -904,7 +904,7 @@ const SubscriptionManagement = () => {
                   <CardTitle>Payment Methods</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="flex items-center p-4 border rounded-lg mb-4">
+                  <div className="flex items-centre p-4 border rounded-lg mb-4">
                     <div className="mr-4">
                       <CreditCard className="h-8 w-8 text-primary" />
                     </div>
@@ -922,7 +922,7 @@ const SubscriptionManagement = () => {
               </Card>
               
               <Card>
-                <CardHeader className="flex flex-row items-center justify-between">
+                <CardHeader className="flex flex-row items-centre justify-between">
                   <div>
                     <CardTitle>Billing History</CardTitle>
                     <CardDescription>
@@ -1009,8 +1009,8 @@ const SubscriptionManagement = () => {
               </div>
             </>
           ) : (
-            <div className="flex items-center justify-center h-64">
-              <div className="text-center">
+            <div className="flex items-centre justify-centre h-64">
+              <div className="text-centre">
                 <h3 className="text-lg font-medium">No billing history</h3>
                 <p className="text-muted-foreground mb-4">Please select a subscription plan to view billing details.</p>
                 <Button onClick={() => setActiveTab('plans')}>View Plans</Button>
@@ -1020,8 +1020,8 @@ const SubscriptionManagement = () => {
         </TabsContent>
       </Tabs>
       
-      {/* Payment Dialog */}
-      <Dialog open={paymentDialogOpen} onOpenChange={setPaymentDialogOpen}>
+      {/* Payment Dialogue */}
+      <Dialogue open={paymentDialogOpen} onOpenChange={setPaymentDialogOpen}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Complete Your Subscription</DialogTitle>
@@ -1073,7 +1073,7 @@ const SubscriptionManagement = () => {
               </div>
             </div>
             
-            <div className="flex items-center space-x-2 pt-4">
+            <div className="flex items-centre space-x-2 pt-4">
               <Shield className="h-4 w-4 text-muted-foreground" />
               <span className="text-sm text-muted-foreground">Your payment information is secure and encrypted</span>
             </div>
@@ -1088,7 +1088,7 @@ const SubscriptionManagement = () => {
             </Button>
           </DialogFooter>
         </DialogContent>
-      </Dialog>
+      </Dialogue>
     </div>
   );
 };

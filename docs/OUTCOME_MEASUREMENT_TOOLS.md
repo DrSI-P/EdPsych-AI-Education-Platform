@@ -10,7 +10,7 @@ The measurement framework is grounded in educational psychology research, partic
 
 The outcome measurement tools are built on the following core principles:
 
-1. **Multi-dimensional Assessment**: Measuring outcomes across academic, social-emotional, behavioral, and relational domains to capture the full impact of restorative practices.
+1. **Multi-dimensional Assessment**: Measuring outcomes across academic, social-emotional, behavioural, and relational domains to capture the full impact of restorative practices.
 
 2. **Multiple Stakeholder Perspectives**: Gathering input from students, teachers, parents, and other relevant stakeholders to ensure comprehensive understanding.
 
@@ -24,7 +24,7 @@ The outcome measurement tools are built on the following core principles:
 
 7. **Theoretical Grounding**: Connecting measurements to established frameworks in affect script psychology, attachment theory, and restorative justice principles.
 
-8. **Practical Utility**: Ensuring tools are accessible, user-friendly, and provide actionable insights for educational practice.
+8. **Practical Utility**: Ensuring tools are accessible, user-friendly, and provide actionable insights for educational practise.
 
 ## Measurement Dimensions
 
@@ -42,21 +42,21 @@ The outcome measurement tools are built on the following core principles:
 - Relationship mapping exercises
 - Community participation tracking
 
-### 2. Psychological and Behavioral Adjustment
+### 2. Psychological and Behavioural Adjustment
 
 **Key Metrics:**
 - Emotional regulation and management
-- Behavioral incidents and patterns
-- Prosocial behavior development
+- Behavioural incidents and patterns
+- Prosocial behaviour development
 - Conflict resolution skills
 
 **Measurement Tools:**
 - Strengths and Difficulties Questionnaire (SDQ)
 - Emotional regulation assessments
-- Behavioral incident tracking with restorative outcomes
+- Behavioural incident tracking with restorative outcomes
 - Conflict resolution skills assessment
 
-### 3. Restorative Practice Implementation
+### 3. Restorative Practise Implementation
 
 **Key Metrics:**
 - Frequency and quality of restorative conversations
@@ -65,10 +65,10 @@ The outcome measurement tools are built on the following core principles:
 - Integration of restorative principles across school policies
 
 **Measurement Tools:**
-- Restorative Practice Implementation Checklist
+- Restorative Practise Implementation Checklist
 - Staff self-assessment surveys
 - Policy review framework
-- Practice observation tools
+- Practise observation tools
 
 ### 4. Academic Engagement and Achievement
 
@@ -101,7 +101,7 @@ The outcome measurement tools are built on the following core principles:
 ### 6. Long-term Outcomes and Impact
 
 **Key Metrics:**
-- Sustained behavioral changes
+- Sustained behavioural changes
 - Long-term relationship quality
 - Educational trajectory and outcomes
 - Transfer of skills to other contexts
@@ -124,7 +124,7 @@ The outcome measurement tools are built on the following core principles:
 2. **Process Monitoring**
    - Ongoing tracking during implementation
    - Regular check-ins on implementation fidelity
-   - Formative feedback for practice adjustment
+   - Formative feedback for practise adjustment
 
 3. **Short-term Outcome Assessment**
    - Conducted 3-6 months after implementation
@@ -185,10 +185,10 @@ The outcome measurement tools are built on the following core principles:
    - Actionable insight generation
 
 5. **Resource Integration**
-   - Links to relevant restorative practice resources
+   - Links to relevant restorative practise resources
    - Recommended interventions based on outcomes
    - Professional development suggestions
-   - Community of practice connections
+   - Community of practise connections
 
 ## Evidence Base
 
@@ -198,7 +198,7 @@ The outcome measurement tools are grounded in established research and validated
 
 2. **Sense of School Community Scale (SSCS)**: Assesses students' perception of community within the school, developed by Battistich, Schaps, & Wilson (2004).
 
-3. **Strengths and Difficulties Questionnaire (SDQ)**: Widely used and validated tool for assessing psychological and behavioral adjustment (Goodman, 1997).
+3. **Strengths and Difficulties Questionnaire (SDQ)**: Widely used and validated tool for assessing psychological and behavioural adjustment (Goodman, 1997).
 
 4. **Affect Script Psychology Framework**: Based on Tomkins' theory of affect and script psychology, providing a theoretical foundation for understanding emotional responses.
 
@@ -212,12 +212,12 @@ The outcome measurement tools are grounded in established research and validated
 2. Select the most relevant measurement dimensions based on your school's context and priorities.
 3. Establish a realistic timeline for baseline assessment and follow-up measurements.
 4. Ensure all staff understand the purpose and process of the measurement tools.
-5. Use the data to inform ongoing professional development and practice refinement.
+5. Use the data to inform ongoing professional development and practise refinement.
 
 ### For Teachers:
 
 1. Integrate the measurement tools into existing classroom routines where possible.
-2. Use the results to reflect on and develop your own restorative practice.
+2. Use the results to reflect on and develop your own restorative practise.
 3. Involve students in understanding the purpose and value of the assessments.
 4. Look for patterns and trends rather than focusing on isolated incidents.
 5. Connect measurement outcomes to specific teaching and relationship-building strategies.
@@ -228,7 +228,7 @@ The outcome measurement tools are grounded in established research and validated
 2. Help schools interpret results within their specific context and demographics.
 3. Support the development of action plans based on measurement outcomes.
 4. Provide training on the theoretical frameworks underlying the measurement tools.
-5. Facilitate reflection on the connection between measurement data and practice development.
+5. Facilitate reflection on the connection between measurement data and practise development.
 
 ## References
 

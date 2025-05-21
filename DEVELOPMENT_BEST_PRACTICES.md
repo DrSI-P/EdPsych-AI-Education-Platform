@@ -96,7 +96,7 @@ As this platform is focused on educational psychology, all development should be
 1. **Accessibility**: Ensure all components are accessible to users with disabilities.
 2. **Inclusivity**: Design with diverse users in mind, considering different learning styles and needs.
 3. **Evidence-based**: Implement features based on sound educational psychology research.
-4. **User-centered**: Prioritize the needs of students, educators, and parents in all design decisions.
+4. **User-centred**: Prioritize the needs of students, educators, and parents in all design decisions.
 5. **Ethical considerations**: Handle sensitive data appropriately and consider the ethical implications of AI in education.
 
 By following these best practices, we can maintain a high-quality codebase, prevent common issues, and ensure the EdPsych-AI-Education-Platform effectively serves its educational mission.

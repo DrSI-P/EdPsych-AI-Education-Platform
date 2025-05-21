@@ -22,7 +22,7 @@ The CPD (Continuing Professional Development) Tracking feature provides educator
 ### 3. Reflection and Impact Assessment
 - Structured reflection templates for each CPD activity
 - Impact assessment framework based on educational psychology principles
-- Connection between CPD activities and classroom practice
+- Connection between CPD activities and classroom practise
 - Evidence collection for demonstrating impact on teaching and learning
 - Collaborative reflection opportunities with peers
 
@@ -118,10 +118,10 @@ The CPD (Continuing Professional Development) Tracking feature provides educator
 - Comparative data presentation
 
 ## Educational Psychology Foundations
-- Reflective practice principles embedded in reflection templates
+- Reflective practise principles embedded in reflection templates
 - Growth mindset approach to professional development
-- Evidence-based practice focus in impact assessment
-- Communities of practice support through collaborative reflection
+- Evidence-based practise focus in impact assessment
+- Communities of practise support through collaborative reflection
 - Self-determination theory application in goal setting and motivation
 
 ## Accessibility Considerations

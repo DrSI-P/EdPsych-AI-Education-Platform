@@ -15,10 +15,10 @@ This document provides a comprehensive review of the voice input, accessibility,
 ### Integration Points
 - ✅ Root layout integration ensures platform-wide availability
 - ✅ Automatic age group detection based on user profile
-- ✅ Exclusion from specialized voice input test pages to prevent interference
+- ✅ Exclusion from specialised voice input test pages to prevent interference
 - ✅ Settings persistence across sessions
 
-### Specialized Voice Input Components
+### Specialised Voice Input Components
 - ✅ Assessment-specific voice input for different question types
 - ✅ Universal voice input component with age-appropriate interfaces
 - ✅ Voice input provider with comprehensive settings and calibration
@@ -57,10 +57,10 @@ This document provides a comprehensive review of the voice input, accessibility,
 ### Learning Content Pages
 - ✅ Voice input accessible for answering questions
 - ✅ Accessibility controls functional
-- ⚠️ Need specialized voice commands for navigation
+- ⚠️ Need specialised voice commands for navigation
 
 ### Assessment Pages
-- ✅ Specialized voice input for different question types
+- ✅ Specialised voice input for different question types
 - ✅ Accessibility controls functional
 - ⚠️ Need better voice input guidance for complex questions
 
@@ -94,12 +94,12 @@ This document provides a comprehensive review of the voice input, accessibility,
 ### Integration
 - 🔄 Add voice input to search functionality
 - 🔄 Integrate with virtual keyboard for hybrid input
-- 🔄 Create specialized voice interfaces for math and science content
+- 🔄 Create specialised voice interfaces for math and science content
 
 ## Next Steps
 
 1. Address identified gaps in discoverability, usability, and accessibility
 2. Enhance multilingual support for voice input
-3. Create specialized voice interfaces for complex content types
+3. Create specialised voice interfaces for complex content types
 4. Develop comprehensive testing plan for voice input across different devices and environments
 5. Proceed to visual and brand identity design phase

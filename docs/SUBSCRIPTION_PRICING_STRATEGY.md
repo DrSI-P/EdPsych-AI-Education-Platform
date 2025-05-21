@@ -23,7 +23,7 @@ The strategy aims to balance accessibility with sustainability, ensuring the pla
 | Basic LMS Platforms | £3-8 | 10-15% | Custom |
 | Advanced EdTech Platforms | £8-15 | 15-20% | Custom |
 | AI-Enhanced Education | £12-25 | 15-25% | Custom |
-| Specialized Educational Tools | £5-20 | 10-20% | Custom |
+| Specialised Educational Tools | £5-20 | 10-20% | Custom |
 
 ### Key Pricing Trends
 
@@ -117,7 +117,7 @@ The strategy aims to balance accessibility with sustainability, ensuring the pla
 - Phone and email support
 - 20GB shared storage
 - Full API access
-- White-labeling options
+- White-labelling options
 - Dedicated account manager
 
 **AI Usage Limits:**
@@ -210,21 +210,21 @@ To ensure optimal platform performance and equitable resource allocation, the fo
 
 ## Special Pricing Programs
 
-### Educational Discount Program
+### Educational Discount Programme
 
 - 25% discount for verified educational institutions
 - Available on Professional and Institution tiers
 - Annual billing required
 - Minimum 5 educator accounts
 
-### Non-Profit Organization Program
+### Non-Profit Organisation Programme
 
 - 40% discount for verified non-profit organizations
 - Available on all paid tiers
 - Annual billing required
 - Must provide proof of non-profit status
 
-### Startup Program
+### Startup Programme
 
 - 30% discount for EdTech startups under 3 years old
 - Available on Professional and Institution tiers
@@ -237,7 +237,7 @@ To ensure optimal platform performance and equitable resource allocation, the fo
 2. **Phase 2 (Month 2):** Add pay-as-you-go options and AI credits system
 3. **Phase 3 (Month 3):** Implement Enterprise tier and special pricing programs
 4. **Phase 4 (Month 4):** Launch feature add-ons and complete billing integration
-5. **Phase 5 (Month 5):** Optimize based on initial usage data and feedback
+5. **Phase 5 (Month 5):** Optimise based on initial usage data and feedback
 
 ## Revenue Projections
 

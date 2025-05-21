@@ -162,19 +162,19 @@ describe('VoiceInput Component', () => {
     fireEvent.click(micButton);
     
     // Check that visual feedback element is displayed
-    expect(screen.getByTestId('voice-visualization')).toBeInTheDocument();
+    expect(screen.getByTestId('voice-visualisation')).toBeInTheDocument();
     
     // Simulate audio level event
     mockSpeechRecognition.onaudiostart();
     
-    // Check that visualization is active
-    expect(screen.getByTestId('voice-visualization')).toHaveClass('active');
+    // Check that visualisation is active
+    expect(screen.getByTestId('voice-visualisation')).toHaveClass('active');
     
     // Simulate speech end
     mockSpeechRecognition.onspeechend();
     
-    // Check that visualization is inactive
-    expect(screen.getByTestId('voice-visualization')).not.toHaveClass('active');
+    // Check that visualisation is inactive
+    expect(screen.getByTestId('voice-visualisation')).not.toHaveClass('active');
   });
 
   it('provides accessibility features', async () => {

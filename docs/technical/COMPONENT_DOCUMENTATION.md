@@ -332,7 +332,7 @@ function Header() {
   
   return (
     <header className="bg-white shadow">
-      <div className="container mx-auto px-4 py-2 flex justify-between items-center">
+      <div className="container mx-auto px-4 py-2 flex justify-between items-centre">
         <Logo />
         <nav>{/* Navigation items */}</nav>
         <MultilingualSupport
@@ -372,7 +372,7 @@ function SearchBar() {
   };
   
   return (
-    <div className="flex items-center">
+    <div className="flex items-centre">
       <input
         type="text"
         value={searchQuery}
@@ -393,7 +393,7 @@ function SearchBar() {
 
 **File:** `src/components/voice-input/activity-specific/assessment-voice-input.tsx`
 
-**Purpose:** Specialized voice input component for assessments with education-specific vocabulary support.
+**Purpose:** Specialised voice input component for assessments with education-specific vocabulary support.
 
 **Key Features:**
 - Subject-specific terminology recognition
@@ -453,7 +453,7 @@ function Layout({ children }) {
   return (
     <div className="min-h-screen flex flex-col">
       <header className="bg-white shadow">
-        <div className="container mx-auto px-4 py-2 flex justify-between items-center">
+        <div className="container mx-auto px-4 py-2 flex justify-between items-centre">
           <Logo />
           <nav>{/* Navigation items */}</nav>
           <GlobalVoiceInput
@@ -549,7 +549,7 @@ function AssessmentModule({ assessment }) {
 
 **File:** `src/components/ai-avatar/avatar-creator.tsx`
 
-**Purpose:** Interface for creating and customizing AI avatars.
+**Purpose:** Interface for creating and customising AI avatars.
 
 **Key Features:**
 - Avatar style selection
@@ -774,9 +774,9 @@ async function performMaintenance() {
     const backupPath = await backupDatabase('/backups/daily');
     console.log(`Database backed up to ${backupPath}`);
     
-    // Optimize tables
+    // Optimise tables
     const optimizeResult = await optimizeTables();
-    console.log('Tables optimized:', optimizeResult);
+    console.log('Tables optimised:', optimizeResult);
   } catch (error) {
     console.error('Maintenance failed:', error);
   }

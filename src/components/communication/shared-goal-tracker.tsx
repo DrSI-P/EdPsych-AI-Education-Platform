@@ -13,14 +13,14 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { 
-  Dialog, 
+  Dialogue, 
   DialogContent, 
   DialogDescription, 
   DialogFooter, 
   DialogHeader, 
   DialogTitle, 
   DialogTrigger 
-} from '@/components/ui/dialog';
+} from '@/components/ui/dialogue';
 import { 
   Select, 
   SelectContent, 
@@ -142,9 +142,9 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
             status: 'in_progress',
             progress: 60,
             homeActions: [
-              'Practice turn-taking during family games',
+              'Practise turn-taking during family games',
               'Discuss social scenarios and appropriate responses',
-              'Arrange playdates to practice skills'
+              'Arrange playdates to practise skills'
             ],
             schoolActions: [
               'Structured group activities with clear roles',
@@ -216,7 +216,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
       });
       
       // In a real implementation, this would add the new goal to the state
-      // For now, we'll just close the dialog
+      // For now, we'll just close the dialogue
       setIsCreatingGoal(false);
       
       // Mock adding the goal to the state
@@ -298,7 +298,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
     return true;
   });
   
-  // Get badge color based on category
+  // Get badge colour based on category
   const getCategoryBadge = (category: string) => {
     switch (category) {
       case 'academic':
@@ -359,7 +359,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
   
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center p-8">
+      <div className="flex items-centre justify-centre p-8">
         <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent"></div>
         <span className="ml-2">Loading goals...</span>
       </div>
@@ -368,7 +368,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
   
   return (
     <div className="shared-goal-tracker">
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between items-centre mb-6">
         <div>
           <h2 className="text-2xl font-bold">Shared Goals</h2>
           <p className="text-muted-foreground">
@@ -376,7 +376,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
           </p>
         </div>
         
-        <div className="flex items-center gap-4">
+        <div className="flex items-centre gap-4">
           <Select value={filter} onValueChange={(value: any) => setFilter(value)}>
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Filter goals" />
@@ -388,7 +388,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
             </SelectContent>
           </Select>
           
-          <Dialog open={isCreatingGoal} onOpenChange={setIsCreatingGoal}>
+          <Dialogue open={isCreatingGoal} onOpenChange={setIsCreatingGoal}>
             <DialogTrigger asChild>
               <Button>
                 <PlusCircle className="h-4 w-4 mr-2" />
@@ -405,7 +405,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
               
               <form onSubmit={handleCreateGoal}>
                 <div className="grid gap-4 py-4">
-                  <div className="grid grid-cols-4 items-center gap-4">
+                  <div className="grid grid-cols-4 items-centre gap-4">
                     <label htmlFor="title" className="text-right font-medium">
                       Title
                     </label>
@@ -418,7 +418,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
                     />
                   </div>
                   
-                  <div className="grid grid-cols-4 items-center gap-4">
+                  <div className="grid grid-cols-4 items-centre gap-4">
                     <label htmlFor="category" className="text-right font-medium">
                       Category
                     </label>
@@ -436,7 +436,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
                     </Select>
                   </div>
                   
-                  <div className="grid grid-cols-4 items-center gap-4">
+                  <div className="grid grid-cols-4 items-centre gap-4">
                     <label htmlFor="description" className="text-right font-medium">
                       Description
                     </label>
@@ -449,7 +449,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
                     />
                   </div>
                   
-                  <div className="grid grid-cols-4 items-center gap-4">
+                  <div className="grid grid-cols-4 items-centre gap-4">
                     <label htmlFor="targetDate" className="text-right font-medium">
                       Target Date
                     </label>
@@ -496,15 +496,15 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
                 </DialogFooter>
               </form>
             </DialogContent>
-          </Dialog>
+          </Dialogue>
         </div>
       </div>
       
       {filteredGoals.length === 0 ? (
-        <div className="flex flex-col items-center justify-center p-12 border rounded-lg bg-muted/50">
+        <div className="flex flex-col items-centre justify-centre p-12 border rounded-lg bg-muted/50">
           <Target className="h-12 w-12 text-muted-foreground mb-4" />
           <h3 className="text-xl font-medium mb-2">No goals found</h3>
-          <p className="text-muted-foreground text-center max-w-md mb-6">
+          <p className="text-muted-foreground text-centre max-w-md mb-6">
             {filter === 'all' 
               ? "No goals have been created yet. Create a new goal to start collaborating."
               : filter === 'active'
@@ -524,7 +524,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
                 <div className="flex justify-between items-start">
                   <div>
                     <CardTitle>{goal.title}</CardTitle>
-                    <CardDescription className="flex items-center mt-1">
+                    <CardDescription className="flex items-centre mt-1">
                       <Calendar className="h-4 w-4 mr-1" />
                       Created {formatDate(goal.createdAt)}
                       {goal.targetDate && (
@@ -544,7 +544,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
                 <p className="mb-4">{goal.description}</p>
                 
                 <div className="mb-4">
-                  <div className="flex justify-between items-center mb-1">
+                  <div className="flex justify-between items-centre mb-1">
                     <span className="text-sm font-medium">Progress</span>
                     <span className="text-sm font-medium">{goal.progress}%</span>
                   </div>
@@ -560,14 +560,14 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
                   
                   <TabsContent value="updates" className="max-h-48 overflow-y-auto">
                     {goal.updates.length === 0 ? (
-                      <p className="text-center text-muted-foreground py-4">
+                      <p className="text-centre text-muted-foreground py-4">
                         No updates yet. Add the first update below.
                       </p>
                     ) : (
                       <div className="space-y-3 py-2">
                         {goal.updates.map((update) => (
                           <div key={update.id} className="border-l-2 border-primary pl-4 py-1">
-                            <div className="flex items-center text-sm text-muted-foreground mb-1">
+                            <div className="flex items-centre text-sm text-muted-foreground mb-1">
                               {getRoleIcon(update.updatedByRole)}
                               <span>{getRoleName(update.updatedByRole)}</span>
                               <span className="mx-1">•</span>
@@ -606,9 +606,9 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
               </CardContent>
               
               <CardFooter className="flex justify-between border-t pt-4">
-                <div className="flex items-center">
+                <div className="flex items-centre">
                   {goal.status === 'completed' ? (
-                    <Badge variant="outline" className="border-green-500 text-green-500 flex items-center">
+                    <Badge variant="outline" className="border-green-500 text-green-500 flex items-centre">
                       <CheckCircle2 className="h-3 w-3 mr-1" />
                       Completed
                     </Badge>
@@ -621,7 +621,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
                   )}
                 </div>
                 
-                <Dialog open={selectedGoal?.id === goal.id} onOpenChange={(open) => {
+                <Dialogue open={selectedGoal?.id === goal.id} onOpenChange={(open) => {
                   if (!open) setSelectedGoal(null);
                   else setSelectedGoal(goal);
                 }}>
@@ -657,7 +657,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
                         <label htmlFor="newProgress" className="block font-medium mb-2">
                           Update Progress (Optional)
                         </label>
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-centre gap-4">
                           <Input
                             id="newProgress"
                             type="range"
@@ -668,7 +668,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
                             onChange={(e) => setNewProgress(parseInt(e.target.value))}
                             className="flex-1"
                           />
-                          <span className="w-12 text-center">
+                          <span className="w-12 text-centre">
                             {newProgress !== null ? newProgress : goal.progress}%
                           </span>
                         </div>
@@ -684,7 +684,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
                       </Button>
                     </DialogFooter>
                   </DialogContent>
-                </Dialog>
+                </Dialogue>
               </CardFooter>
             </Card>
           ))}

@@ -103,7 +103,7 @@ export default function CreateAssessmentTemplatePage() {
       <div className="space-y-6">
         <div className="mb-6">
           <h2 className="text-xl font-semibold mb-2">Create Assessment Template</h2>
-          <p className="text-gray-600">
+          <p className="text-grey-600">
             Create a reusable template from an existing assessment. Templates can be used to quickly create new assessments with the same structure.
           </p>
         </div>
@@ -115,10 +115,10 @@ export default function CreateAssessmentTemplatePage() {
           <CardContent>
             <Form className="space-y-4">
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-700">Template Title</label>
+                <label className="block text-sm font-medium text-grey-700">Template Title</label>
                 <input
                   type="text"
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  className="mt-1 block w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   value={templateTitle}
                   onChange={(e) => setTemplateTitle(e.target.value)}
                   placeholder="Enter a title for your template"
@@ -126,9 +126,9 @@ export default function CreateAssessmentTemplatePage() {
               </div>
 
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-700">Description</label>
+                <label className="block text-sm font-medium text-grey-700">Description</label>
                 <textarea
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  className="mt-1 block w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   value={templateDescription}
                   onChange={(e) => setTemplateDescription(e.target.value)}
                   placeholder="Describe what this template is for and how it should be used"
@@ -137,25 +137,25 @@ export default function CreateAssessmentTemplatePage() {
               </div>
 
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-700">Tags (comma separated)</label>
+                <label className="block text-sm font-medium text-grey-700">Tags (comma separated)</label>
                 <input
                   type="text"
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  className="mt-1 block w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   value={tags}
                   onChange={(e) => setTags(e.target.value)}
                   placeholder="e.g., formative, science, year 7"
                 />
               </div>
 
-              <div className="flex items-center">
+              <div className="flex items-centre">
                 <input
                   id="is-public"
                   type="checkbox"
-                  className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-grey-300 rounded"
                   checked={isPublic}
                   onChange={(e) => setIsPublic(e.target.checked)}
                 />
-                <label htmlFor="is-public" className="ml-2 block text-sm text-gray-900">
+                <label htmlFor="is-public" className="ml-2 block text-sm text-grey-900">
                   Make this template public (available to all users)
                 </label>
               </div>
@@ -186,14 +186,14 @@ export default function CreateAssessmentTemplatePage() {
       <div className="space-y-6">
         <div className="mb-6">
           <h2 className="text-xl font-semibold mb-2">Select Assessment</h2>
-          <p className="text-gray-600">
+          <p className="text-grey-600">
             Choose an existing assessment to use as the basis for your template.
           </p>
         </div>
 
         {assessments.length === 0 ? (
-          <div className="text-center py-12">
-            <p className="text-gray-500 mb-4">You don't have any assessments yet.</p>
+          <div className="text-centre py-12">
+            <p className="text-grey-500 mb-4">You don't have any assessments yet.</p>
             <Button onClick={() => router.push('/assessment/create')}>
               Create an Assessment
             </Button>
@@ -206,7 +206,7 @@ export default function CreateAssessmentTemplatePage() {
                 className={`cursor-pointer transition-all ${
                   selectedAssessment?.id === assessment.id 
                     ? 'border-indigo-500 ring-2 ring-indigo-200' 
-                    : 'hover:border-gray-300'
+                    : 'hover:border-grey-300'
                 }`}
                 onClick={() => handleSelectAssessment(assessment)}
               >
@@ -214,23 +214,23 @@ export default function CreateAssessmentTemplatePage() {
                   <div className="flex justify-between items-start">
                     <div>
                       <h3 className="text-lg font-medium">{assessment.title}</h3>
-                      <p className="text-sm text-gray-600 mt-1">{assessment.description}</p>
+                      <p className="text-sm text-grey-600 mt-1">{assessment.description}</p>
                       
                       <div className="grid grid-cols-2 gap-2 text-sm mt-2">
                         <div>
-                          <span className="text-gray-500">Subject:</span>{' '}
+                          <span className="text-grey-500">Subject:</span>{' '}
                           <span className="font-medium">{assessment.subject}</span>
                         </div>
                         <div>
-                          <span className="text-gray-500">Key Stage:</span>{' '}
+                          <span className="text-grey-500">Key Stage:</span>{' '}
                           <span className="font-medium">{assessment.keyStage}</span>
                         </div>
                         <div>
-                          <span className="text-gray-500">Type:</span>{' '}
+                          <span className="text-grey-500">Type:</span>{' '}
                           <span className="font-medium">{assessment.type}</span>
                         </div>
                         <div>
-                          <span className="text-gray-500">Questions:</span>{' '}
+                          <span className="text-grey-500">Questions:</span>{' '}
                           <span className="font-medium">{assessment.questions?.length || 0}</span>
                         </div>
                       </div>
@@ -276,8 +276,8 @@ export default function CreateAssessmentTemplatePage() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-6">
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-gray-900">Create Assessment Template</h1>
+        <div className="flex items-centre justify-between">
+          <h1 className="text-2xl font-bold text-grey-900">Create Assessment Template</h1>
           <Button
             variant="outline"
             onClick={() => router.push('/assessment/templates')}

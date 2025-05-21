@@ -5,7 +5,7 @@
 ### Introduction (0:00-0:30)
 [AI Avatar appears with professional, warm demeanor]
 
-Welcome to this advanced training session for EdPsych Connect. I'm Dr. Scott Ighavongbe-Patrick, Educational Psychologist and founder of EdPsych Connect. This video is designed for educators who have mastered the basics of the platform and are ready to explore its more advanced capabilities. Today, I'll show you powerful features that can transform your teaching practice and maximize the platform's impact on pupil learning.
+Welcome to this advanced training session for EdPsych Connect. I'm Dr. Scott Ighavongbe-Patrick, Educational Psychologist and founder of EdPsych Connect. This video is designed for educators who have mastered the basics of the platform and are ready to explore its more advanced capabilities. Today, I'll show you powerful features that can transform your teaching practise and maximize the platform's impact on pupil learning.
 
 ### Data-Informed Teaching (0:30-1:15)
 [Screen transitions to show analytics dashboard]
@@ -14,7 +14,7 @@ Let's begin with the advanced analytics dashboard. Beyond basic progress trackin
 
 The cognitive load analyzer identifies content that may be overwhelming pupils, allowing you to adjust complexity or provide additional scaffolding.
 
-The engagement patterns tool reveals when and how different pupils interact with content, helping you optimize lesson timing and format.
+The engagement patterns tool reveals when and how different pupils interact with content, helping you optimise lesson timing and format.
 
 The concept mastery mapper shows connections between related skills and knowledge areas, highlighting prerequisite gaps that may be hindering progress.
 
@@ -59,7 +59,7 @@ These tools help you develop a comprehensive understanding of pupil learning whi
 
 The platform includes powerful tools for teacher collaboration:
 
-The lesson study framework supports structured observation and reflection on teaching practice.
+The lesson study framework supports structured observation and reflection on teaching practise.
 
 The resource exchange allows secure sharing of materials with attribution and usage analytics.
 
@@ -78,7 +78,7 @@ The API connections allow secure data exchange with your school's MIS and other 
 
 The content import tools bring in materials from common repositories and publishers.
 
-The assessment integration synchronizes with standardized testing systems.
+The assessment integration synchronizes with standardised testing systems.
 
 The calendar synchronization keeps all your scheduling tools aligned.
 

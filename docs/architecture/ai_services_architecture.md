@@ -30,11 +30,11 @@ This document outlines the enhanced AI services architecture for the EdPsych-AI-
 - Excellent at following complex instructions
 
 **Recommended Use Cases:**
-- Analyzing lengthy educational materials and research papers
+- Analysing lengthy educational materials and research papers
 - Creating comprehensive lesson plans with deep context
 - Handling complex, nuanced educational discussions
 - Supporting students with special educational needs requiring careful, thoughtful responses
-- Processing and analyzing large volumes of student writing
+- Processing and analysing large volumes of student writing
 
 ### 3. Google Gemini
 
@@ -48,7 +48,7 @@ This document outlines the enhanced AI services architecture for the EdPsych-AI-
 - Mathematics and science education
 - Visual learning materials analysis and creation
 - Code teaching and programming education
-- Data visualization and interpretation
+- Data visualisation and interpretation
 - Integration with Google Classroom and other Google educational tools
 
 ### 4. GROK
@@ -84,7 +84,7 @@ This document outlines the enhanced AI services architecture for the EdPsych-AI-
 ### 6. Azure Cognitive Services
 
 **Strengths:**
-- Specialized services for specific tasks (speech, vision, language)
+- Specialised services for specific tasks (speech, vision, language)
 - Strong enterprise integration and compliance
 - Robust text analytics and sentiment analysis
 - Excellent multilingual capabilities
@@ -99,13 +99,13 @@ This document outlines the enhanced AI services architecture for the EdPsych-AI-
 ### 7. Hugging Face Models
 
 **Strengths:**
-- Specialized, fine-tuned models for specific tasks
+- Specialised, fine-tuned models for specific tasks
 - Open-source options for cost efficiency
 - Strong community support
 - Flexibility for custom model training
 
 **Recommended Use Cases:**
-- Specialized UK curriculum alignment
+- Specialised UK curriculum alignment
 - Domain-specific educational models
 - Custom model training for specific educational needs
 - Cost-effective AI for specific, well-defined tasks
@@ -177,9 +177,9 @@ The platform will implement a unified AI Service Layer that abstracts the comple
 3. Set up OpenRouter as a fallback and optimization layer
 4. Enhance the Task Router with more sophisticated routing logic
 
-### Phase 3: Specialized Services
+### Phase 3: Specialised Services
 
-1. Integrate Azure Cognitive Services for specialized tasks
+1. Integrate Azure Cognitive Services for specialised tasks
 2. Implement Hugging Face models for UK-specific educational needs
 3. Develop comprehensive caching and optimization
 4. Implement advanced response validation
@@ -189,7 +189,7 @@ The platform will implement a unified AI Service Layer that abstracts the comple
 1. Develop AI model performance analytics
 2. Implement cost optimization strategies
 3. Create A/B testing framework for educational effectiveness
-4. Develop custom fine-tuning pipeline for specialized educational tasks
+4. Develop custom fine-tuning pipeline for specialised educational tasks
 
 ## Technical Considerations
 
@@ -214,7 +214,7 @@ The platform will implement a unified AI Service Layer that abstracts the comple
 ### Performance
 
 - Implement efficient caching strategies
-- Optimize prompt engineering for each provider
+- Optimise prompt engineering for each provider
 - Develop asynchronous processing for non-real-time tasks
 
 ## Educational AI Use Case Mapping
@@ -223,10 +223,10 @@ The platform will implement a unified AI Service Layer that abstracts the comple
 |------------------|------------------|-------------------|-----------|
 | Curriculum Generation | OpenAI | Claude | OpenAI's strength in content creation with Claude as backup for complex, lengthy curricula |
 | Mathematics Education | Gemini | OpenAI | Gemini's mathematical reasoning with OpenAI as a general backup |
-| Special Needs Support | Claude | Azure | Claude's nuanced understanding with Azure's specialized services |
+| Special Needs Support | Claude | Azure | Claude's nuanced understanding with Azure's specialised services |
 | Real-time Tutoring | GROK | OpenRouter | GROK's conversational abilities with OpenRouter for fallback options |
-| Language Translation | Azure | Gemini | Azure's specialized translation with Gemini's multilingual capabilities |
-| UK Curriculum Alignment | Hugging Face | OpenAI | Specialized UK models with OpenAI for general support |
+| Language Translation | Azure | Gemini | Azure's specialised translation with Gemini's multilingual capabilities |
+| UK Curriculum Alignment | Hugging Face | OpenAI | Specialised UK models with OpenAI for general support |
 | Visual Learning | Gemini | Azure | Gemini's multimodal capabilities with Azure's vision services |
 | Student Writing Analysis | Claude | OpenAI | Claude's long-context understanding with OpenAI's analysis capabilities |
 

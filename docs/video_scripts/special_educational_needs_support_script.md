@@ -10,14 +10,14 @@ Welcome to this demonstration of the Special Educational Needs Support Tools wit
 ### Educational Psychology Foundations (0:30-1:00)
 [Screen transitions to show educational theory visualizations]
 
-Our approach to supporting special educational needs is grounded in educational psychology principles and evidence-based practice. We recognize that every learner is unique, with individual strengths, challenges, and learning profiles that require personalized support.
+Our approach to supporting special educational needs is grounded in educational psychology principles and evidence-based practise. We recognise that every learner is unique, with individual strengths, challenges, and learning profiles that require personalized support.
 
 Rather than focusing solely on accommodations, our tools are designed to develop skills and strategies that promote independence and self-efficacy. This approach aligns with research showing that the most effective interventions combine appropriate support with opportunities to build capacity over time.
 
 ### Executive Function Support (1:00-1:30)
 [Screen transitions to show executive function tools]
 
-Executive function challenges affect many learners, impacting organization, planning, time management, and emotional regulation. Our platform includes specialized tools to develop these crucial skills:
+Executive function challenges affect many learners, impacting organisation, planning, time management, and emotional regulation. Our platform includes specialised tools to develop these crucial skills:
 
 Visual schedules and task breakdowns help learners understand and manage complex assignments.
 
@@ -34,7 +34,7 @@ For pupils with specific learning differences like dyslexia, dyscalculia, or dys
 
 Text-to-speech and speech-to-text tools remove barriers to accessing and producing written content.
 
-Customizable visual displays adjust font, spacing, color, and layout to optimize readability.
+Customizable visual displays adjust font, spacing, colour, and layout to optimise readability.
 
 Multi-modal content presentation allows information to be accessed through preferred learning channels.
 

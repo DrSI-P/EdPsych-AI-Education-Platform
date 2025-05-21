@@ -93,7 +93,7 @@
 ### Performance Optimization
 - [ ] Implement frontend optimizations
 - [ ] Create backend performance enhancements
-- [ ] Optimize database queries
+- [ ] Optimise database queries
 - [ ] Implement caching strategy
 
 ### Content Development (Continued)

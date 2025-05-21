@@ -13,7 +13,7 @@ interface AvatarCreatorProps {
 /**
  * Avatar Creator Component
  * 
- * A component for creating and customizing AI avatars for educational videos
+ * A component for creating and customising AI avatars for educational videos
  */
 const AvatarCreator: React.FC<AvatarCreatorProps> = ({
   onAvatarCreated,
@@ -162,7 +162,7 @@ const AvatarCreator: React.FC<AvatarCreatorProps> = ({
       <form onSubmit={handleSubmit} className="mt-6 space-y-4">
         {/* Avatar Name */}
         <div>
-          <label htmlFor="avatar-name" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="avatar-name" className="block text-sm font-medium text-grey-700 mb-1">
             Avatar Name
           </label>
           <input
@@ -170,7 +170,7 @@ const AvatarCreator: React.FC<AvatarCreatorProps> = ({
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             placeholder="Dr. Scott"
             required
           />
@@ -178,14 +178,14 @@ const AvatarCreator: React.FC<AvatarCreatorProps> = ({
         
         {/* Avatar Provider */}
         <div>
-          <label htmlFor="avatar-provider" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="avatar-provider" className="block text-sm font-medium text-grey-700 mb-1">
             Avatar Provider
           </label>
           <select
             id="avatar-provider"
             value={provider}
             onChange={(e) => setProvider(e.target.value as any)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           >
             <option value="veed">VEED.IO</option>
             <option value="simli">Simli</option>
@@ -197,14 +197,14 @@ const AvatarCreator: React.FC<AvatarCreatorProps> = ({
         
         {/* Avatar Style */}
         <div>
-          <label htmlFor="avatar-style" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="avatar-style" className="block text-sm font-medium text-grey-700 mb-1">
             Presentation Style
           </label>
           <select
             id="avatar-style"
             value={style}
             onChange={(e) => setStyle(e.target.value as any)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           >
             <option value="formal">Formal</option>
             <option value="casual">Casual</option>
@@ -215,14 +215,14 @@ const AvatarCreator: React.FC<AvatarCreatorProps> = ({
         
         {/* Voice Accent */}
         <div>
-          <label htmlFor="avatar-accent" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="avatar-accent" className="block text-sm font-medium text-grey-700 mb-1">
             Voice Accent
           </label>
           <select
             id="avatar-accent"
             value={accent}
             onChange={(e) => setAccent(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           >
             <option value="en-GB">British English</option>
             <option value="en-US">American English</option>
@@ -234,14 +234,14 @@ const AvatarCreator: React.FC<AvatarCreatorProps> = ({
         
         {/* Target Age Group */}
         <div>
-          <label htmlFor="target-age-group" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="target-age-group" className="block text-sm font-medium text-grey-700 mb-1">
             Target Audience
           </label>
           <select
             id="target-age-group"
             value={targetAgeGroup}
             onChange={(e) => setTargetAgeGroup(e.target.value as any)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           >
             <option value="nursery">Nursery (Ages 3-5)</option>
             <option value="early-primary">Early Primary (Ages 5-8)</option>
@@ -253,11 +253,11 @@ const AvatarCreator: React.FC<AvatarCreatorProps> = ({
         
         {/* Avatar Image Upload */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-grey-700 mb-1">
             Avatar Image (Optional)
           </label>
           
-          <div className="mt-1 flex items-center">
+          <div className="mt-1 flex items-centre">
             {previewUrl ? (
               <div className="relative">
                 <img 
@@ -283,9 +283,9 @@ const AvatarCreator: React.FC<AvatarCreatorProps> = ({
               <button
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
-                className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                className="inline-flex items-centre px-4 py-2 border border-grey-300 rounded-md shadow-sm text-sm font-medium text-grey-700 bg-white hover:bg-grey-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
               >
-                <svg className="-ml-1 mr-2 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <svg className="-ml-1 mr-2 h-5 w-5 text-grey-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                   <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
                 </svg>
                 Upload Image
@@ -299,7 +299,7 @@ const AvatarCreator: React.FC<AvatarCreatorProps> = ({
               className="hidden"
             />
           </div>
-          <p className="mt-2 text-sm text-gray-500">
+          <p className="mt-2 text-sm text-grey-500">
             JPG or PNG. Max 5MB. Recommended: square image with clear face.
           </p>
         </div>
@@ -309,7 +309,7 @@ const AvatarCreator: React.FC<AvatarCreatorProps> = ({
           <button
             type="submit"
             disabled={isLoading}
-            className={`${styles.buttonClass} w-full flex justify-center items-center transition-all ${isLoading ? 'opacity-70 cursor-not-allowed' : ''}`}
+            className={`${styles.buttonClass} w-full flex justify-centre items-centre transition-all ${isLoading ? 'opacity-70 cursor-not-allowed' : ''}`}
           >
             {isLoading ? (
               <>

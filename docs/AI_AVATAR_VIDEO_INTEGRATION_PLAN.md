@@ -83,7 +83,7 @@ Synthesia will be maintained as an alternative solution, particularly valuable f
   - Step-by-step usage instructions
   - Practical examples in UK educational contexts
   - Integration with other platform components
-  - Best practice recommendations
+  - Best practise recommendations
 - Ensure all content aligns with UK educational standards and terminology
 
 ### Stakeholder-Specific Training
@@ -91,7 +91,7 @@ Synthesia will be maintained as an alternative solution, particularly valuable f
   - **Educators**: Focus on administrative efficiency, teaching tools, and professional development
   - **Parents**: Emphasize communication tools, progress tracking, and home-school collaboration
   - **Students**: Highlight voice amplification, self-advocacy, and learning tools
-  - **Professionals**: Detail assessment tools, data analysis, and evidence-based practice
+  - **Professionals**: Detail assessment tools, data analysis, and evidence-based practise
 
 ### Accessibility Considerations
 - Include captions on all avatar videos
@@ -103,7 +103,7 @@ Synthesia will be maintained as an alternative solution, particularly valuable f
 ## Technical Integration
 
 ### Storage and Delivery
-- Store avatar video content in cloud storage optimized for video delivery
+- Store avatar video content in cloud storage optimised for video delivery
 - Implement content delivery network (CDN) for efficient global access
 - Create responsive video player compatible with all devices
 - Implement progressive loading for optimal performance
@@ -116,7 +116,7 @@ Synthesia will be maintained as an alternative solution, particularly valuable f
 - **Marketing Materials**: Use executive summary video in promotional content
 
 ### Performance Considerations
-- Optimize video compression for balance of quality and loading speed
+- Optimise video compression for balance of quality and loading speed
 - Implement lazy loading to improve page performance
 - Create thumbnail previews for video selection
 - Provide quality options for different bandwidth capabilities

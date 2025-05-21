@@ -147,7 +147,7 @@ export class AdaptiveDifficultyService implements AdaptiveDifficultyEngine {
     questionInfo.sort((a, b) => b.information - a.information);
     
     // Add some randomness to avoid always selecting the same questions
-    // This implements the principle of varied practice from learning theory
+    // This implements the principle of varied practise from learning theory
     const topQuestions = questionInfo.slice(0, Math.min(3, questionInfo.length));
     const selectedIndex = Math.floor(Math.random() * topQuestions.length);
     
@@ -160,7 +160,7 @@ export class AdaptiveDifficultyService implements AdaptiveDifficultyEngine {
    * This would implement a learning algorithm to refine difficulty parameters
    * based on accumulated response data.
    * 
-   * @param responses The responses to analyze
+   * @param responses The responses to analyse
    */
   async updateDifficultyModel(responses: QuestionResponse[]): Promise<void> {
     // In a real implementation, this would update the IRT parameters
@@ -199,7 +199,7 @@ export class AdaptiveDifficultyService implements AdaptiveDifficultyEngine {
   /**
    * Calculate the success rate from a set of responses
    * 
-   * @param responses The responses to analyze
+   * @param responses The responses to analyse
    * @returns The success rate (0-1)
    */
   private calculateSuccessRate(responses: QuestionResponse[]): number {

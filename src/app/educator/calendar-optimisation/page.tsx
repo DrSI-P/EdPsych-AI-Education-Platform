@@ -55,7 +55,7 @@ export default function CalendarOptimisationPage() {
               
               <h3 className="text-lg font-medium mt-4">Educational Psychology Foundations</h3>
               <p>
-                This feature is built on solid educational psychology principles including cognitive load management, spaced practice, attention restoration, and work-life balance considerations.
+                This feature is built on solid educational psychology principles including cognitive load management, spaced practise, attention restoration, and work-life balance considerations.
               </p>
               
               <p className="mt-4">

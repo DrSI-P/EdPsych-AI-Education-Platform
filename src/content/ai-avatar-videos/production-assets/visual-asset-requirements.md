@@ -8,14 +8,14 @@ This document outlines the visual asset requirements for the AI avatar education
 ### Image Specifications
 - **Format**: PNG with transparency where appropriate
 - **Resolution**: 1920x1080 pixels (Full HD)
-- **Color Space**: sRGB
-- **File Size**: Optimized for web (under 500KB per image where possible)
+- **Colour Space**: sRGB
+- **File Size**: Optimised for web (under 500KB per image where possible)
 
 ### Design Guidelines
 - **Branding**: All assets must include EdPsych Connect branding elements
 - **Accessibility**: High contrast ratios for text elements (minimum 4.5:1)
 - **Typography**: Use platform standard fonts (Open Sans for UI elements)
-- **Color Palette**: Adhere to the platform's enhanced visual design system
+- **Colour Palette**: Adhere to the platform's enhanced visual design system
 
 ## Asset Categories
 
@@ -50,7 +50,7 @@ These assets should capture the platform interface for demonstration purposes:
 - **student_login.png**: Student login screen (simplified)
 - **student_dashboard.png**: Student dashboard (KS2 version)
 - **todays_learning.png**: Today's learning section
-- **progress_section.png**: Progress visualization
+- **progress_section.png**: Progress visualisation
 - **achievements_section.png**: Achievements and badges
 - **subjects_navigation.png**: Subject selection interface
 - **lesson_library.png**: Lesson library view
@@ -64,7 +64,7 @@ These assets should capture the platform interface for demonstration purposes:
 - **parent_login.png**: Parent portal login
 - **parent_dashboard.png**: Parent dashboard overview
 - **progress_overview.png**: Child's progress overview
-- **subject_progress.png**: Subject progress visualization
+- **subject_progress.png**: Subject progress visualisation
 - **detailed_subject_view.png**: Detailed subject performance
 - **recent_activities.png**: Recent activities timeline
 - **assessment_results.png**: Assessment results summary
@@ -95,9 +95,9 @@ These assets provide contextual backgrounds for the AI avatar:
 
 ### Professional Assets (Admin/Teacher)
 - Detailed, information-rich interfaces
-- Professional color scheme
+- Professional colour scheme
 - Comprehensive tool options visible
-- Data visualization elements
+- Data visualisation elements
 - Clean, efficient layout
 
 ## Accessibility Features
@@ -106,12 +106,12 @@ These assets provide contextual backgrounds for the AI avatar:
 - **Font**: Open Sans or similar sans-serif
 - **Size**: Minimum 32px at 1080p
 - **Background**: Semi-transparent background for contrast
-- **Position**: Bottom center, not obscuring important content
+- **Position**: Bottom centre, not obscuring important content
 - **Timing**: Synchronized with speech, appropriate reading speed
 
 ### Visual Indicators
 - Clear highlighting for interactive elements
-- Consistent color coding for different functions
+- Consistent colour coding for different functions
 - Progress indicators for multi-step processes
 - Success/error states clearly differentiated
 - Focus indicators for keyboard navigation
@@ -125,7 +125,7 @@ These assets provide contextual backgrounds for the AI avatar:
 ## Quality Assurance Checklist
 - [ ] All assets match platform visual identity
 - [ ] Text elements meet accessibility contrast requirements
-- [ ] Images are optimized for web delivery
+- [ ] Images are optimised for web delivery
 - [ ] Age-appropriate considerations implemented
 - [ ] Assets tested with screen readers and assistive technology
 - [ ] Consistent naming conventions followed

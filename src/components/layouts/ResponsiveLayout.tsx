@@ -85,7 +85,7 @@ const ResponsiveLayout: React.FC<ResponsiveLayoutProps> = ({
             /* Add page numbers */
             @page {
               margin: 2cm;
-              @bottom-center {
+              @bottom-centre {
                 content: "Page " counter(page) " of " counter(pages);
               }
             }

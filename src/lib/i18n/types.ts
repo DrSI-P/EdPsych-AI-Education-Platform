@@ -65,7 +65,7 @@ export interface LanguageMetadata {
 }
 
 /**
- * Translation namespace categories to organize translations
+ * Translation namespace categories to organise translations
  */
 export enum TranslationNamespace {
   COMMON = 'common',

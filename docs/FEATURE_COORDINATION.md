@@ -97,7 +97,7 @@ This document outlines the principles and practices for ensuring coordinated fea
 ### User Journey Mapping
 - Document expected user flows across features
 - Identify and eliminate friction points
-- Optimize transitions between modules
+- Optimise transitions between modules
 - Validate with representative users
 
 ### Accessibility Across Journeys

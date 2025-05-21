@@ -2,13 +2,13 @@
 
 ## Overview
 
-The Searchable Voice Library provides a comprehensive repository of student perspectives, feedback, and ideas that can be easily searched, filtered, and analyzed. This feature creates an accessible archive of student voice contributions, ensuring that valuable insights are preserved, discoverable, and actionable over time, rather than being lost or forgotten after initial collection.
+The Searchable Voice Library provides a comprehensive repository of student perspectives, feedback, and ideas that can be easily searched, filtered, and analysed. This feature creates an accessible archive of student voice contributions, ensuring that valuable insights are preserved, discoverable, and actionable over time, rather than being lost or forgotten after initial collection.
 
 ## Key Features
 
 ### Content Repository
 - **Multi-format storage**: Preservation of student voice in various formats (text, audio, video, images)
-- **Structured organization**: Categorization by topic, theme, date, grade level, and other relevant metadata
+- **Structured organisation**: Categorization by topic, theme, date, grade level, and other relevant metadata
 - **Contribution tracking**: Attribution of ideas while maintaining appropriate privacy protections
 - **Version history**: Tracking of how ideas evolve and develop over time
 
@@ -28,9 +28,9 @@ The Searchable Voice Library provides a comprehensive repository of student pers
 
 ### User Interface
 - **Intuitive search interface**: Clean, accessible design with prominent search functionality
-- **Results visualization**: Clear presentation of search results with relevant context
+- **Results visualisation**: Clear presentation of search results with relevant context
 - **Filtering controls**: Comprehensive options for refining search results
-- **Responsive design**: Optimized experience across device types and screen sizes
+- **Responsive design**: Optimised experience across device types and screen sizes
 
 ### Data Management
 - **Secure storage**: Protection of sensitive student contributions with appropriate access controls
@@ -52,7 +52,7 @@ The Searchable Voice Library provides a comprehensive repository of student pers
 - **Historical context**: Understanding of how current situations relate to past experiences
 - **Pattern recognition**: Identification of recurring issues that require systemic solutions
 
-### Evidence-Based Practice
+### Evidence-Based Practise
 - **Decision support**: Rich repository of student perspectives to inform choices
 - **Implementation guidance**: Student insights on what works and what doesn't
 - **Impact assessment**: Before-and-after comparisons to evaluate changes
@@ -70,7 +70,7 @@ The Searchable Voice Library provides a comprehensive repository of student pers
 - **Initial taxonomy**: Development of initial categorization and tagging framework
 - **Historical import**: Process for incorporating existing student voice data
 - **Permission structures**: Definition of appropriate access levels for different users
-- **Training program**: Guidance for effective use of search and analysis tools
+- **Training programme**: Guidance for effective use of search and analysis tools
 
 ### Best Practices
 - **Regular maintenance**: Scheduled reviews to improve categorization and searchability
@@ -96,13 +96,13 @@ The Searchable Voice Library provides a comprehensive repository of student pers
 - **Utilization frequency**: Tracking how often the library is accessed and by whom
 - **Citation instances**: Monitoring references to library content in decision-making
 - **Contribution growth**: Measuring the expansion of the library over time
-- **Search diversity**: Analyzing the range of topics and perspectives being sought
+- **Search diversity**: Analysing the range of topics and perspectives being sought
 
 ### Continuous Improvement
 - **Feature enhancement**: Regular updates based on user feedback and needs
 - **Search optimization**: Ongoing improvement of search algorithms and filters
 - **Interface refinement**: Iterative design improvements for better user experience
-- **Content curation**: Regular review and organization of library contents
+- **Content curation**: Regular review and organisation of library contents
 
 ## Integration with Educational Framework
 
@@ -120,7 +120,7 @@ The Searchable Voice Library provides a comprehensive repository of student pers
 
 ### Professional Development
 - **Empathy building**: Authentic student perspectives to inform teacher understanding
-- **Practice reflection**: Comparison of teaching approaches with student experiences
+- **Practise reflection**: Comparison of teaching approaches with student experiences
 - **Needs assessment**: Identification of areas where staff may need additional support
 - **Impact evidence**: Documentation of how teacher practices affect student experiences
 
@@ -128,14 +128,14 @@ The Searchable Voice Library provides a comprehensive repository of student pers
 
 ### Advanced Analytics
 - **Predictive insights**: Anticipation of emerging issues based on early signals
-- **Network analysis**: Visualization of how ideas connect and influence each other
+- **Network analysis**: Visualisation of how ideas connect and influence each other
 - **Longitudinal studies**: Tracking of how student perspectives evolve throughout their education
 - **Cross-institutional comparison**: Benchmarking against similar schools or districts
 
 ### Expanded Accessibility
 - **Multilingual support**: Search and retrieval across multiple languages
 - **Multimodal interfaces**: Additional ways to search including gesture and image-based queries
-- **Adaptive technologies**: Customized interfaces for users with different abilities
+- **Adaptive technologies**: Customised interfaces for users with different abilities
 - **Mobile optimization**: Enhanced experience for smartphone and tablet users
 
 ### AI Integration

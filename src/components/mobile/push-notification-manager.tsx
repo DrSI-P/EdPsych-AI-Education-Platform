@@ -613,7 +613,7 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
   const unreadCount = notifications.filter(notification => !notification.read).length;
 
   return (
-    <div className="notification-center">
+    <div className="notification-centre">
       <div className="notification-header">
         <h2>Notifications</h2>
         

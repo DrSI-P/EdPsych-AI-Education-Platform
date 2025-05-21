@@ -371,7 +371,7 @@ export default function AIPoweredAssessmentPage() {
     }
   };
   
-  // Get mastery color
+  // Get mastery colour
   const getMasteryColor = (mastery: number) => {
     if (mastery >= 80) return "text-green-500";
     if (mastery >= 60) return "text-amber-500";
@@ -384,7 +384,7 @@ export default function AIPoweredAssessmentPage() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-center mb-12"
+        className="text-centre mb-12"
       >
         <h1 className="text-4xl font-bold tracking-tight">AI-Powered Assessment</h1>
         <p className="mt-4 text-xl text-muted-foreground max-w-3xl mx-auto">
@@ -413,8 +413,8 @@ export default function AIPoweredAssessmentPage() {
                 <div className="space-y-6">
                   {!assessmentInProgress && !assessmentCompleted ? (
                     <div className="space-y-4">
-                      <div className="text-center mb-6">
-                        <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                      <div className="text-centre mb-6">
+                        <div className="w-20 h-20 bg-primary/10 rounded-full flex items-centre justify-centre mx-auto mb-3">
                           <FileText className="h-8 w-8 text-primary" />
                         </div>
                         <h2 className="text-xl font-semibold">Mathematics Assessment</h2>
@@ -444,7 +444,7 @@ export default function AIPoweredAssessmentPage() {
                       </div>
                       
                       <div>
-                        <h3 className="font-medium mb-2 flex items-center">
+                        <h3 className="font-medium mb-2 flex items-centre">
                           <Brain className="mr-2 h-4 w-4 text-primary" />
                           Concepts Assessed
                         </h3>
@@ -466,7 +466,7 @@ export default function AIPoweredAssessmentPage() {
                     </div>
                   ) : assessmentInProgress ? (
                     <div className="space-y-4">
-                      <div className="flex justify-between items-center">
+                      <div className="flex justify-between items-centre">
                         <h3 className="font-medium">Question {currentQuestionIndex + 1}/{questions.length}</h3>
                         <Badge variant="outline">
                           {currentQuestion.type === 'multiple-choice' ? 'Multiple Choice' : 
@@ -476,9 +476,9 @@ export default function AIPoweredAssessmentPage() {
                       </div>
                       
                       <div className="bg-muted/50 p-4 rounded-lg">
-                        <div className="flex items-center gap-2 mb-2">
+                        <div className="flex items-centre gap-2 mb-2">
                           <div className="flex-shrink-0">
-                            <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center">
+                            <div className="w-6 h-6 rounded-full bg-primary/20 flex items-centre justify-centre">
                               <span className="text-xs font-medium text-primary">{currentQuestion.difficulty}</span>
                             </div>
                           </div>
@@ -509,7 +509,7 @@ export default function AIPoweredAssessmentPage() {
                           <h3 className="font-medium">Previous Results</h3>
                           <div className="space-y-2">
                             {results.map((result, index) => (
-                              <div key={index} className="flex items-center gap-2">
+                              <div key={index} className="flex items-centre gap-2">
                                 <div className={`w-2 h-2 rounded-full ${result.correct ? 'bg-green-500' : 'bg-red-500'}`}></div>
                                 <span className="text-sm">Question {index + 1}: {result.score}%</span>
                               </div>
@@ -533,12 +533,12 @@ export default function AIPoweredAssessmentPage() {
                     </div>
                   ) : (
                     <div className="space-y-4">
-                      <div className="text-center mb-6">
-                        <div className="w-20 h-20 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-3">
+                      <div className="text-centre mb-6">
+                        <div className="w-20 h-20 bg-green-100 dark:bg-green-900/30 rounded-full flex items-centre justify-centre mx-auto mb-3">
                           <CheckCircle className="h-8 w-8 text-green-600 dark:text-green-400" />
                         </div>
                         <h2 className="text-xl font-semibold">Assessment Complete</h2>
-                        <p className="text-muted-foreground">Your results have been analyzed</p>
+                        <p className="text-muted-foreground">Your results have been analysed</p>
                       </div>
                       
                       <div className="bg-muted/50 p-4 rounded-lg">
@@ -577,8 +577,8 @@ export default function AIPoweredAssessmentPage() {
                               )
                             )
                             .map((concept, index) => (
-                              <div key={index} className="flex items-center justify-between">
-                                <div className="flex items-center gap-2">
+                              <div key={index} className="flex items-centre justify-between">
+                                <div className="flex items-centre gap-2">
                                   {getTrendIcon(concept.trend)}
                                   <span className="text-sm">{concept.concept}</span>
                                 </div>
@@ -636,9 +636,9 @@ export default function AIPoweredAssessmentPage() {
                         </p>
                       </div>
                       
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-centre justify-between">
                         <Label htmlFor="adaptive-toggle">
-                          <div className="flex items-center">
+                          <div className="flex items-centre">
                             <Brain className="mr-2 h-4 w-4" />
                             Adaptive Difficulty
                           </div>
@@ -649,9 +649,9 @@ export default function AIPoweredAssessmentPage() {
                         />
                       </div>
                       
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-centre justify-between">
                         <Label htmlFor="hints-toggle">
-                          <div className="flex items-center">
+                          <div className="flex items-centre">
                             <Lightbulb className="mr-2 h-4 w-4" />
                             Show Hints
                           </div>
@@ -662,9 +662,9 @@ export default function AIPoweredAssessmentPage() {
                         />
                       </div>
                       
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-centre justify-between">
                         <Label htmlFor="timer-toggle">
-                          <div className="flex items-center">
+                          <div className="flex items-centre">
                             <Clock className="mr-2 h-4 w-4" />
                             Question Timer
                           </div>
@@ -680,15 +680,15 @@ export default function AIPoweredAssessmentPage() {
                   <div className="pt-4 border-t">
                     <h3 className="font-medium mb-3">Accessibility Options</h3>
                     <div className="space-y-3">
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-centre justify-between">
                         <Label htmlFor="text-to-speech">Text-to-Speech</Label>
                         <Switch id="text-to-speech" />
                       </div>
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-centre justify-between">
                         <Label htmlFor="extended-time">Extended Time</Label>
                         <Switch id="extended-time" />
                       </div>
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-centre justify-between">
                         <Label htmlFor="simplified-language">Simplified Language</Label>
                         <Switch id="simplified-language" />
                       </div>
@@ -725,8 +725,8 @@ export default function AIPoweredAssessmentPage() {
                           }`}
                           onClick={() => setSelectedAnswer(option)}
                         >
-                          <div className="flex items-center">
-                            <div className={`w-5 h-5 rounded-full border-2 mr-3 flex items-center justify-center ${
+                          <div className="flex items-centre">
+                            <div className={`w-5 h-5 rounded-full border-2 mr-3 flex items-centre justify-centre ${
                               selectedAnswer === option 
                                 ? 'border-primary' 
                                 : 'border-muted-foreground'
@@ -764,7 +764,7 @@ export default function AIPoweredAssessmentPage() {
                                 <h4 className="text-sm font-medium">{rubricItem.criteria}</h4>
                                 <div className="grid grid-cols-4 gap-1 mt-1">
                                   {rubricItem.levels.map((level, levelIndex) => (
-                                    <div key={levelIndex} className="text-xs p-1 border rounded text-center">
+                                    <div key={levelIndex} className="text-xs p-1 border rounded text-centre">
                                       {level.score}: {level.description}
                                     </div>
                                   ))}
@@ -810,7 +810,7 @@ export default function AIPoweredAssessmentPage() {
                   <div className="mt-8 pt-6 border-t">
                     <h3 className="text-lg font-medium mb-3">Previous Question Feedback</h3>
                     <div className="bg-muted/50 p-4 rounded-lg">
-                      <div className="flex items-center gap-2 mb-2">
+                      <div className="flex items-centre gap-2 mb-2">
                         {results[currentQuestionIndex - 1].correct ? (
                           <CheckCircle className="h-5 w-5 text-green-500" />
                         ) : (
@@ -836,14 +836,14 @@ export default function AIPoweredAssessmentPage() {
             <div className="space-y-8">
               <Card>
                 <CardContent className="p-6">
-                  <h2 className="text-2xl font-semibold mb-6 flex items-center">
+                  <h2 className="text-2xl font-semibold mb-6 flex items-centre">
                     <BarChart className="mr-2 h-5 w-5 text-primary" />
                     Assessment Results
                   </h2>
                   
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                     <Card>
-                      <CardContent className="p-4 text-center">
+                      <CardContent className="p-4 text-centre">
                         <div className="text-5xl font-bold mb-2 text-primary">
                           {Math.round(results.reduce((acc, r) => acc + r.score, 0) / results.length)}%
                         </div>
@@ -852,7 +852,7 @@ export default function AIPoweredAssessmentPage() {
                     </Card>
                     
                     <Card>
-                      <CardContent className="p-4 text-center">
+                      <CardContent className="p-4 text-centre">
                         <div className="text-5xl font-bold mb-2 text-primary">
                           {results.filter(r => r.correct).length}/{results.length}
                         </div>
@@ -861,7 +861,7 @@ export default function AIPoweredAssessmentPage() {
                     </Card>
                     
                     <Card>
-                      <CardContent className="p-4 text-center">
+                      <CardContent className="p-4 text-centre">
                         <div className="text-5xl font-bold mb-2 text-primary">
                           {Math.round(results.reduce((acc, r) => acc + r.timeSpent, 0) / 60)}
                         </div>
@@ -875,7 +875,7 @@ export default function AIPoweredAssessmentPage() {
                     {results.map((result, index) => (
                       <Card key={index}>
                         <CardContent className="p-4">
-                          <div className="flex items-center justify-between mb-2">
+                          <div className="flex items-centre justify-between mb-2">
                             <h4 className="font-medium">Question {index + 1}</h4>
                             <Badge 
                               variant={result.correct ? "default" : "destructive"}
@@ -915,7 +915,7 @@ export default function AIPoweredAssessmentPage() {
               
               <Card>
                 <CardContent className="p-6">
-                  <h2 className="text-2xl font-semibold mb-6 flex items-center">
+                  <h2 className="text-2xl font-semibold mb-6 flex items-centre">
                     <Brain className="mr-2 h-5 w-5 text-primary" />
                     Knowledge Map
                   </h2>
@@ -926,8 +926,8 @@ export default function AIPoweredAssessmentPage() {
                       <div className="space-y-4">
                         {conceptMastery.map((concept, index) => (
                           <div key={index}>
-                            <div className="flex items-center justify-between mb-1">
-                              <div className="flex items-center">
+                            <div className="flex items-centre justify-between mb-1">
+                              <div className="flex items-centre">
                                 {getTrendIcon(concept.trend)}
                                 <span className="ml-2">{concept.concept}</span>
                               </div>
@@ -959,7 +959,7 @@ export default function AIPoweredAssessmentPage() {
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <Card>
                           <CardContent className="p-4">
-                            <h4 className="font-medium mb-2 flex items-center">
+                            <h4 className="font-medium mb-2 flex items-centre">
                               <Zap className="mr-2 h-4 w-4 text-primary" />
                               Focus Areas
                             </h4>
@@ -969,7 +969,7 @@ export default function AIPoweredAssessmentPage() {
                                 .map((concept, index) => (
                                   <li key={index} className="flex items-start">
                                     <ArrowRight className="mr-2 h-4 w-4 text-red-500 flex-shrink-0 mt-0.5" />
-                                    <span>{concept.concept} - Review fundamental principles and practice with basic examples</span>
+                                    <span>{concept.concept} - Review fundamental principles and practise with basic examples</span>
                                   </li>
                                 ))}
                               {conceptMastery
@@ -977,7 +977,7 @@ export default function AIPoweredAssessmentPage() {
                                 .map((concept, index) => (
                                   <li key={index} className="flex items-start">
                                     <ArrowRight className="mr-2 h-4 w-4 text-amber-500 flex-shrink-0 mt-0.5" />
-                                    <span>{concept.concept} - Continue practice with intermediate problems</span>
+                                    <span>{concept.concept} - Continue practise with intermediate problems</span>
                                   </li>
                                 ))}
                             </ul>
@@ -986,7 +986,7 @@ export default function AIPoweredAssessmentPage() {
                         
                         <Card>
                           <CardContent className="p-4">
-                            <h4 className="font-medium mb-2 flex items-center">
+                            <h4 className="font-medium mb-2 flex items-centre">
                               <Sparkles className="mr-2 h-4 w-4 text-primary" />
                               Recommended Resources
                             </h4>
@@ -997,7 +997,7 @@ export default function AIPoweredAssessmentPage() {
                               </li>
                               <li className="flex items-start">
                                 <BookOpen className="mr-2 h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
-                                <span>Practice set: "Algebraic Expressions in Real-World Contexts"</span>
+                                <span>Practise set: "Algebraic Expressions in Real-World Contexts"</span>
                               </li>
                               <li className="flex items-start">
                                 <BookOpen className="mr-2 h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
@@ -1026,7 +1026,7 @@ export default function AIPoweredAssessmentPage() {
             <div className="space-y-8">
               <Card>
                 <CardContent className="p-6">
-                  <h2 className="text-2xl font-semibold mb-6 flex items-center">
+                  <h2 className="text-2xl font-semibold mb-6 flex items-centre">
                     <Brain className="mr-2 h-5 w-5 text-primary" />
                     Intelligent Assessment System
                   </h2>
@@ -1067,7 +1067,7 @@ export default function AIPoweredAssessmentPage() {
                         </div>
                         <h3 className="font-medium mb-2">Knowledge Mapping</h3>
                         <p className="text-sm text-muted-foreground">
-                          Visualize your understanding across concepts and topics, identifying connections and knowledge gaps.
+                          Visualise your understanding across concepts and topics, identifying connections and knowledge gaps.
                         </p>
                       </CardContent>
                     </Card>
@@ -1078,7 +1078,7 @@ export default function AIPoweredAssessmentPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <Card>
                   <CardContent className="p-6">
-                    <h3 className="text-xl font-semibold mb-4 flex items-center">
+                    <h3 className="text-xl font-semibold mb-4 flex items-centre">
                       <PieChart className="mr-2 h-5 w-5 text-primary" />
                       Current Knowledge Profile
                     </h3>
@@ -1119,7 +1119,7 @@ export default function AIPoweredAssessmentPage() {
                               {conceptMastery
                                 .filter(concept => concept.mastery >= 80)
                                 .map((concept, index) => (
-                                  <li key={index} className="flex items-center">
+                                  <li key={index} className="flex items-centre">
                                     <CheckCircle className="mr-2 h-3 w-3 text-green-500" />
                                     {concept.concept}
                                   </li>
@@ -1133,7 +1133,7 @@ export default function AIPoweredAssessmentPage() {
                               {conceptMastery
                                 .filter(concept => concept.mastery < 60)
                                 .map((concept, index) => (
-                                  <li key={index} className="flex items-center">
+                                  <li key={index} className="flex items-centre">
                                     <ArrowRight className="mr-2 h-3 w-3 text-red-500" />
                                     {concept.concept}
                                   </li>
@@ -1148,7 +1148,7 @@ export default function AIPoweredAssessmentPage() {
                 
                 <Card>
                   <CardContent className="p-6">
-                    <h3 className="text-xl font-semibold mb-4 flex items-center">
+                    <h3 className="text-xl font-semibold mb-4 flex items-centre">
                       <Layers className="mr-2 h-5 w-5 text-primary" />
                       Assessment Types
                     </h3>
@@ -1199,11 +1199,11 @@ export default function AIPoweredAssessmentPage() {
         transition={{ delay: 0.6, duration: 0.5 }}
         className="mb-12"
       >
-        <h2 className="text-3xl font-semibold mb-6 text-center">How It Works</h2>
+        <h2 className="text-3xl font-semibold mb-6 text-centre">How It Works</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           <Card>
-            <CardContent className="p-6 text-center">
+            <CardContent className="p-6 text-centre">
               <div className="bg-primary/10 p-3 rounded-full w-fit mx-auto mb-4">
                 <Brain className="h-6 w-6 text-primary" />
               </div>
@@ -1215,7 +1215,7 @@ export default function AIPoweredAssessmentPage() {
           </Card>
           
           <Card>
-            <CardContent className="p-6 text-center">
+            <CardContent className="p-6 text-centre">
               <div className="bg-primary/10 p-3 rounded-full w-fit mx-auto mb-4">
                 <PenTool className="h-6 w-6 text-primary" />
               </div>
@@ -1227,7 +1227,7 @@ export default function AIPoweredAssessmentPage() {
           </Card>
           
           <Card>
-            <CardContent className="p-6 text-center">
+            <CardContent className="p-6 text-centre">
               <div className="bg-primary/10 p-3 rounded-full w-fit mx-auto mb-4">
                 <MessageSquare className="h-6 w-6 text-primary" />
               </div>
@@ -1239,7 +1239,7 @@ export default function AIPoweredAssessmentPage() {
           </Card>
           
           <Card>
-            <CardContent className="p-6 text-center">
+            <CardContent className="p-6 text-centre">
               <div className="bg-primary/10 p-3 rounded-full w-fit mx-auto mb-4">
                 <BarChart2 className="h-6 w-6 text-primary" />
               </div>
@@ -1258,7 +1258,7 @@ export default function AIPoweredAssessmentPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.8, duration: 0.5 }}
       >
-        <h2 className="text-3xl font-semibold mb-6 text-center">Benefits</h2>
+        <h2 className="text-3xl font-semibold mb-6 text-centre">Benefits</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Card>

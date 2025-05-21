@@ -13,7 +13,7 @@ The Blockchain Credentials Wallet provides a secure environment for users to man
 - **Credential Issuance**: Educational institutions and platform administrators can issue tamper-proof credentials on the blockchain
 - **Credential Verification**: Third parties can instantly verify the authenticity of credentials without intermediaries
 - **Credential Sharing**: Users can securely share their credentials with employers, educational institutions, or other stakeholders
-- **Credential Management**: Comprehensive dashboard for viewing, organizing, and managing all blockchain-verified credentials
+- **Credential Management**: Comprehensive dashboard for viewing, organising, and managing all blockchain-verified credentials
 - **Privacy Controls**: Granular privacy settings allowing users to control visibility and access to their credentials
 
 ### 2. Copyright Registration and Verification Tools
@@ -22,7 +22,7 @@ The Copyright Registration and Verification Tools provide a comprehensive system
 
 - **Content Registration**: Register copyright for educational resources, documents, assessments, and AI-generated content
 - **Blockchain Verification**: Immutable proof of ownership and timestamp verification on the blockchain
-- **License Management**: Flexible licensing options including Creative Commons and custom licenses
+- **Licence Management**: Flexible licensing options including Creative Commons and custom licenses
 - **Content Verification**: Tools to verify the authenticity and ownership of educational content
 - **Integration with Resource Library**: Seamless copyright registration for uploaded resources
 - **AI Content Protection**: Special provisions for registering and protecting AI-generated educational content

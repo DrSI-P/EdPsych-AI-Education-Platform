@@ -163,13 +163,13 @@ const MainNavigation: React.FC<MainNavigationProps> = ({
   // Render desktop navigation
   const renderDesktopNavigation = () => {
     return (
-      <div className="hidden md:flex items-center space-x-1">
+      <div className="hidden md:flex items-centre space-x-1">
         {navigationItems.map((item) => (
           <Link
             key={item.href}
             href={item.href}
             className={cn(
-              'flex items-center gap-2',
+              'flex items-centre gap-2',
               styles.navItem,
               pathname === item.href ? styles.activeNavItem : styles.inactiveNavItem
             )}
@@ -221,7 +221,7 @@ const MainNavigation: React.FC<MainNavigationProps> = ({
                       <Link
                         href={item.href}
                         className={cn(
-                          'flex items-center gap-3 p-3',
+                          'flex items-centre gap-3 p-3',
                           styles.navItem,
                           pathname === item.href ? styles.activeNavItem : styles.inactiveNavItem
                         )}
@@ -237,7 +237,7 @@ const MainNavigation: React.FC<MainNavigationProps> = ({
                     <motion.div variants={mobileMenuItemAnimation}>
                       <Button
                         variant="ghost"
-                        className="w-full flex items-center justify-start gap-3 p-3 text-destructive"
+                        className="w-full flex items-centre justify-start gap-3 p-3 text-destructive"
                         onClick={() => signOut()}
                       >
                         <LogOut className="h-5 w-5" />
@@ -301,14 +301,14 @@ const MainNavigation: React.FC<MainNavigationProps> = ({
       'sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60',
       className
     )}>
-      <div className="container flex h-16 items-center justify-between">
-        <div className="flex items-center gap-2">
+      <div className="container flex h-16 items-centre justify-between">
+        <div className="flex items-centre gap-2">
           <Logo variant="default" size="md" />
         </div>
         
         {renderDesktopNavigation()}
         
-        <div className="flex items-center gap-2">
+        <div className="flex items-centre gap-2">
           {renderUserMenu()}
           {renderMobileNavigation()}
         </div>

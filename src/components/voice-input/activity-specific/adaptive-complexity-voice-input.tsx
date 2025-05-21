@@ -26,7 +26,7 @@ interface AdaptiveComplexityVoiceInputProps {
 /**
  * Adaptive Complexity Voice Input Component
  * 
- * Specialized voice input component for the adaptive complexity feature,
+ * Specialised voice input component for the adaptive complexity feature,
  * with optimizations for different complexity levels.
  */
 export const AdaptiveComplexityVoiceInput: React.FC<AdaptiveComplexityVoiceInputProps> = ({
@@ -145,7 +145,7 @@ export const AdaptiveComplexityVoiceInput: React.FC<AdaptiveComplexityVoiceInput
             <ul className="text-xs text-purple-700 space-y-1 list-disc pl-4">
               <li>Use detailed explanations</li>
               <li>Include specific examples</li>
-              <li>Say "new paragraph" to organize your response</li>
+              <li>Say "new paragraph" to organise your response</li>
             </ul>
           </motion.div>
         );
@@ -160,7 +160,7 @@ export const AdaptiveComplexityVoiceInput: React.FC<AdaptiveComplexityVoiceInput
             <ul className="text-xs text-amber-700 space-y-1 list-disc pl-4">
               <li>Provide comprehensive explanations</li>
               <li>Use subject-specific vocabulary</li>
-              <li>Structure your response with clear organization</li>
+              <li>Structure your response with clear organisation</li>
               <li>Say punctuation like "comma", "period", "question mark"</li>
             </ul>
           </motion.div>
@@ -208,13 +208,13 @@ export const AdaptiveComplexityVoiceInput: React.FC<AdaptiveComplexityVoiceInput
               <SelectItem value="expert">Expert</SelectItem>
             </SelectContent>
           </Select>
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-grey-500">
             Complexity level is determined by the adaptive system
           </p>
         </div>
         
         <div className="space-y-2">
-          <div className="flex items-center justify-between">
+          <div className="flex items-centre justify-between">
             <Label htmlFor="child-voice-optimization">Child Voice Optimization</Label>
             <Switch 
               id="child-voice-optimization"
@@ -222,7 +222,7 @@ export const AdaptiveComplexityVoiceInput: React.FC<AdaptiveComplexityVoiceInput
               onCheckedChange={(checked) => updateSettings({ childVoiceOptimization: checked })}
             />
           </div>
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-grey-500">
             Improves recognition accuracy for children's voices
           </p>
         </div>
@@ -237,7 +237,7 @@ export const AdaptiveComplexityVoiceInput: React.FC<AdaptiveComplexityVoiceInput
             value={[settings.confidenceThreshold]}
             onValueChange={(value) => updateSettings({ confidenceThreshold: value[0] })}
           />
-          <div className="flex justify-between text-xs text-gray-500">
+          <div className="flex justify-between text-xs text-grey-500">
             <span>More Forgiving</span>
             <span>More Strict</span>
           </div>
@@ -246,7 +246,7 @@ export const AdaptiveComplexityVoiceInput: React.FC<AdaptiveComplexityVoiceInput
         <div className="space-y-2">
           <Label>Special Educational Needs</Label>
           <div className="grid grid-cols-1 gap-2">
-            <div className="flex items-center justify-between">
+            <div className="flex items-centre justify-between">
               <Label htmlFor="articulation" className="text-sm">Articulation Support</Label>
               <Switch 
                 id="articulation"
@@ -260,7 +260,7 @@ export const AdaptiveComplexityVoiceInput: React.FC<AdaptiveComplexityVoiceInput
               />
             </div>
             
-            <div className="flex items-center justify-between">
+            <div className="flex items-centre justify-between">
               <Label htmlFor="fluency" className="text-sm">Fluency Support</Label>
               <Switch 
                 id="fluency"
@@ -274,7 +274,7 @@ export const AdaptiveComplexityVoiceInput: React.FC<AdaptiveComplexityVoiceInput
               />
             </div>
             
-            <div className="flex items-center justify-between">
+            <div className="flex items-centre justify-between">
               <Label htmlFor="processing" className="text-sm">Processing Support</Label>
               <Switch 
                 id="processing"
@@ -309,8 +309,8 @@ export const AdaptiveComplexityVoiceInput: React.FC<AdaptiveComplexityVoiceInput
   return (
     <Card className={className}>
       <CardHeader className="pb-2">
-        <CardTitle className="flex items-center justify-between">
-          <span className="flex items-center gap-2">
+        <CardTitle className="flex items-centre justify-between">
+          <span className="flex items-centre gap-2">
             <Mic className="h-4 w-4" />
             <span>Voice Input</span>
             <span className="text-xs px-2 py-0.5 bg-blue-100 text-blue-800 rounded-full">

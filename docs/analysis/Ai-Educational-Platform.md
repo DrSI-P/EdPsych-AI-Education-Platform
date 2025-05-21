@@ -50,7 +50,7 @@ The Ai-Educational-Platform repository is a Node.js/Express-based educational pl
 
 4. **Resource Library**:
    - Educational resource discovery
-   - Sharing and organization
+   - Sharing and organisation
    - Resource management
 
 5. **Immersive Learning**:
@@ -84,7 +84,7 @@ The Ai-Educational-Platform repository is a Node.js/Express-based educational pl
 2. **Firebase**: For authentication and user management
 3. **MongoDB**: For database storage
 4. **Azure Cognitive Services**: For text analytics, form recognition, and translation
-5. **Hugging Face Models**: For specialized educational models and UK curriculum standards
+5. **Hugging Face Models**: For specialised educational models and UK curriculum standards
 6. **Vercel**: For deployment with CI/CD pipeline
 
 ## Security Features

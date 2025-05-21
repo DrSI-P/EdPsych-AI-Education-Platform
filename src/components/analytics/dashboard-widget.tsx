@@ -34,13 +34,13 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import {
-  Dialog,
+  Dialogue,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
+} from '@/components/ui/dialogue';
 import { Badge } from '@/components/ui/badge';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
@@ -94,7 +94,7 @@ export const DashboardWidget: React.FC<DashboardWidgetProps> = ({
   const renderChart = () => {
     if (!widget.chartConfig || isLoading) {
       return (
-        <div className="flex items-center justify-center h-64">
+        <div className="flex items-centre justify-centre h-64">
           <Skeleton className="h-full w-full" />
         </div>
       );
@@ -120,7 +120,7 @@ export const DashboardWidget: React.FC<DashboardWidgetProps> = ({
     const datasetNames = datasets.map(dataset => dataset.label);
     
     // Get colors
-    const colors = datasets.map(dataset => dataset.color || dataset.borderColor || '#4361ee');
+    const colors = datasets.map(dataset => dataset.colour || dataset.borderColor || '#4361ee');
 
     switch (type) {
       case ChartType.BAR:
@@ -195,7 +195,7 @@ export const DashboardWidget: React.FC<DashboardWidgetProps> = ({
         );
       default:
         return (
-          <div className="flex items-center justify-center h-64 border border-dashed rounded-md">
+          <div className="flex items-centre justify-centre h-64 border border-dashed rounded-md">
             <p className="text-muted-foreground">Chart type not supported</p>
           </div>
         );
@@ -206,7 +206,7 @@ export const DashboardWidget: React.FC<DashboardWidgetProps> = ({
   const renderMetric = () => {
     if (!widget.metricConfig || isLoading) {
       return (
-        <div className="flex flex-col items-center justify-center h-32">
+        <div className="flex flex-col items-centre justify-centre h-32">
           <Skeleton className="h-12 w-32 mb-2" />
           <Skeleton className="h-4 w-24" />
         </div>
@@ -216,13 +216,13 @@ export const DashboardWidget: React.FC<DashboardWidgetProps> = ({
     const { value, previousValue, unit, trend, trendPercentage, goal } = widget.metricConfig;
     
     return (
-      <div className="flex flex-col items-center justify-center h-full py-6">
+      <div className="flex flex-col items-centre justify-centre h-full py-6">
         <div className="text-4xl font-bold mb-2">
           {value}{unit ? ` ${unit}` : ''}
         </div>
         
         {previousValue && trend && (
-          <div className={`flex items-center text-sm ${
+          <div className={`flex items-centre text-sm ${
             trend === 'up' ? 'text-green-500' : 
             trend === 'down' ? 'text-red-500' : 
             'text-muted-foreground'
@@ -253,13 +253,13 @@ export const DashboardWidget: React.FC<DashboardWidgetProps> = ({
       case WidgetType.TABLE:
         // Table implementation would go here
         return (
-          <div className="flex items-center justify-center h-64 border border-dashed rounded-md">
+          <div className="flex items-centre justify-centre h-64 border border-dashed rounded-md">
             <p className="text-muted-foreground">Table view</p>
           </div>
         );
       default:
         return (
-          <div className="flex items-center justify-center h-64 border border-dashed rounded-md">
+          <div className="flex items-centre justify-centre h-64 border border-dashed rounded-md">
             <p className="text-muted-foreground">Widget type not supported</p>
           </div>
         );
@@ -276,7 +276,7 @@ export const DashboardWidget: React.FC<DashboardWidgetProps> = ({
               <CardDescription>{widget.description}</CardDescription>
             )}
           </div>
-          <div className="flex items-center space-x-1">
+          <div className="flex items-centre space-x-1">
             {widget.chartConfig?.accessibility && (
               <TooltipProvider>
                 <Tooltip>
@@ -389,8 +389,8 @@ export const DashboardWidget: React.FC<DashboardWidgetProps> = ({
         {renderWidgetContent()}
       </CardContent>
       
-      {/* Accessibility Information Dialog */}
-      <Dialog open={showAccessibilityInfo} onOpenChange={setShowAccessibilityInfo}>
+      {/* Accessibility Information Dialogue */}
+      <Dialogue open={showAccessibilityInfo} onOpenChange={setShowAccessibilityInfo}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Accessibility Information</DialogTitle>
@@ -431,7 +431,7 @@ export const DashboardWidget: React.FC<DashboardWidgetProps> = ({
             )}
           </div>
         </DialogContent>
-      </Dialog>
+      </Dialogue>
     </Card>
   );
 };

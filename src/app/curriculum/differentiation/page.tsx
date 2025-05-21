@@ -91,7 +91,7 @@ export default function CurriculumDifferentiationPage() {
                       <Button 
                         variant="outline" 
                         onClick={() => router.push('/curriculum')}
-                        className="flex items-center gap-1"
+                        className="flex items-centre gap-1"
                       >
                         Select Different Plan
                       </Button>
@@ -113,7 +113,7 @@ export default function CurriculumDifferentiationPage() {
                       </p>
                       <Button 
                         onClick={() => router.push('/curriculum')}
-                        className="flex items-center gap-1"
+                        className="flex items-centre gap-1"
                       >
                         <BookOpen className="h-4 w-4" />
                         Browse Curriculum Plans
@@ -124,7 +124,7 @@ export default function CurriculumDifferentiationPage() {
               ) : (
                 <Card className="mb-6">
                   <CardContent className="py-6">
-                    <div className="flex flex-col items-center justify-center space-y-4">
+                    <div className="flex flex-col items-centre justify-centre space-y-4">
                       <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
                       <p>Loading curriculum plan...</p>
                     </div>
@@ -159,7 +159,7 @@ export default function CurriculumDifferentiationPage() {
                     AI-Driven Curriculum Differentiation automatically adapts educational content to meet the diverse learning needs and styles of individual students. This feature transforms standard curriculum plans into personalized learning experiences that address the unique requirements of each learner.
                   </p>
                   <p className="mt-2">
-                    By leveraging artificial intelligence and data from learning style assessments, the system creates variations of curriculum content optimized for different learning preferences, abilities, and prior knowledge levels.
+                    By leveraging artificial intelligence and data from learning style assessments, the system creates variations of curriculum content optimised for different learning preferences, abilities, and prior knowledge levels.
                   </p>
                 </div>
                 

@@ -1,5 +1,5 @@
 // Analytics utilities for EdPsych-AI-Education-Platform
-// Provides comprehensive analytics tracking, reporting, and visualization
+// Provides comprehensive analytics tracking, reporting, and visualisation
 
 import { useEffect, useState } from 'react';
 
@@ -644,7 +644,7 @@ export const getAnalyticsReport = async (
 };
 
 /**
- * Analytics visualization component
+ * Analytics visualisation component
  */
 export const AnalyticsDashboard: React.FC<{
   startDate: Date;

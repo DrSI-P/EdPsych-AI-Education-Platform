@@ -193,7 +193,7 @@ const sampleReflections = [
   {
     id: 2,
     title: "Digital Learning During Pandemic",
-    content: "The rapid shift to digital learning during the pandemic presented both challenges and opportunities. While initially difficult to maintain student engagement, the development of interactive digital resources ultimately enhanced my teaching practice. I\'ve continued to incorporate these tools even after returning to classroom teaching, creating a more blended approach.",
+    content: "The rapid shift to digital learning during the pandemic presented both challenges and opportunities. While initially difficult to maintain student engagement, the development of interactive digital resources ultimately enhanced my teaching practise. I\'ve continued to incorporate these tools even after returning to classroom teaching, creating a more blended approach.",
     date: "2022-06-30",
     tags: ["Digital Learning", "Remote Teaching", "Student Engagement"],
     visibility: "public"
@@ -336,7 +336,7 @@ export default function ProfessionalPortfolio() {
 
   return (
     <div className="container mx-auto py-6 space-y-8">
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-centre">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Professional Portfolio</h1>
           <p className="text-muted-foreground">
@@ -358,7 +358,7 @@ export default function ProfessionalPortfolio() {
       <div className="grid gap-4 md:grid-cols-4">
         <Card className="md:col-span-3">
           <CardHeader className="pb-3">
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-centre">
               <CardTitle>Portfolio Completeness</CardTitle>
               <Badge variant="outline">{portfolioCompleteness}%</Badge>
             </div>
@@ -366,32 +366,32 @@ export default function ProfessionalPortfolio() {
           <CardContent>
             <Progress value={portfolioCompleteness} className="h-2" />
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 mt-4">
-              <div className="flex flex-col items-center">
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center ${activeTab === 'profile' ? 'bg-primary text-primary-foreground' : 'bg-muted'}`}>
+              <div className="flex flex-col items-centre">
+                <div className={`w-8 h-8 rounded-full flex items-centre justify-centre ${activeTab === 'profile' ? 'bg-primary text-primary-foreground' : 'bg-muted'}`}>
                   <User className="h-4 w-4" />
                 </div>
                 <span className="text-xs mt-1">Profile</span>
               </div>
-              <div className="flex flex-col items-center">
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center ${activeTab === 'achievements' ? 'bg-primary text-primary-foreground' : 'bg-muted'}`}>
+              <div className="flex flex-col items-centre">
+                <div className={`w-8 h-8 rounded-full flex items-centre justify-centre ${activeTab === 'achievements' ? 'bg-primary text-primary-foreground' : 'bg-muted'}`}>
                   <Award className="h-4 w-4" />
                 </div>
                 <span className="text-xs mt-1">Achievements</span>
               </div>
-              <div className="flex flex-col items-center">
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center ${activeTab === 'evidence' ? 'bg-primary text-primary-foreground' : 'bg-muted'}`}>
+              <div className="flex flex-col items-centre">
+                <div className={`w-8 h-8 rounded-full flex items-centre justify-centre ${activeTab === 'evidence' ? 'bg-primary text-primary-foreground' : 'bg-muted'}`}>
                   <FileText className="h-4 w-4" />
                 </div>
                 <span className="text-xs mt-1">Evidence</span>
               </div>
-              <div className="flex flex-col items-center">
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center ${activeTab === 'reflections' ? 'bg-primary text-primary-foreground' : 'bg-muted'}`}>
+              <div className="flex flex-col items-centre">
+                <div className={`w-8 h-8 rounded-full flex items-centre justify-centre ${activeTab === 'reflections' ? 'bg-primary text-primary-foreground' : 'bg-muted'}`}>
                   <GraduationCap className="h-4 w-4" />
                 </div>
                 <span className="text-xs mt-1">Reflections</span>
               </div>
-              <div className="flex flex-col items-center">
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center ${activeTab === 'analytics' ? 'bg-primary text-primary-foreground' : 'bg-muted'}`}>
+              <div className="flex flex-col items-centre">
+                <div className={`w-8 h-8 rounded-full flex items-centre justify-centre ${activeTab === 'analytics' ? 'bg-primary text-primary-foreground' : 'bg-muted'}`}>
                   <BarChart3 className="h-4 w-4" />
                 </div>
                 <span className="text-xs mt-1">Analytics</span>
@@ -454,7 +454,7 @@ export default function ProfessionalPortfolio() {
               {editMode ? (
                 <form onSubmit={handleProfileUpdate} className="space-y-4">
                   <div className="flex flex-col md:flex-row gap-4">
-                    <div className="md:w-1/3 flex flex-col items-center">
+                    <div className="md:w-1/3 flex flex-col items-centre">
                       <Avatar className="w-32 h-32">
                         <AvatarImage src={profile.avatar} alt={profile.name} />
                         <AvatarFallback>{profile.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
@@ -535,7 +535,7 @@ export default function ProfessionalPortfolio() {
                     <Label>Specialisations</Label>
                     <div className="flex flex-wrap gap-2">
                       {profile.specialisations.map((spec, index) => (
-                        <Badge key={index} variant="secondary" className="flex items-center gap-1">
+                        <Badge key={index} variant="secondary" className="flex items-centre gap-1">
                           {spec}
                           <Button 
                             variant="ghost" 
@@ -556,14 +556,14 @@ export default function ProfessionalPortfolio() {
                     <Label>Qualifications</Label>
                     <div className="space-y-2">
                       {profile.qualifications.map((qual, index) => (
-                        <div key={index} className="flex items-center justify-between p-2 border rounded-md">
+                        <div key={index} className="flex items-centre justify-between p-2 border rounded-md">
                           <div>
                             <p className="font-medium">{qual.title}</p>
                             <p className="text-sm text-muted-foreground">
                               {qual.institution}, {qual.year}
                             </p>
                           </div>
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-centre gap-2">
                             {qual.verified && (
                               <Badge variant="outline" className="bg-green-50">Verified</Badge>
                             )}
@@ -591,15 +591,15 @@ export default function ProfessionalPortfolio() {
               ) : (
                 <div className="space-y-6">
                   <div className="flex flex-col md:flex-row gap-6">
-                    <div className="md:w-1/3 flex flex-col items-center">
+                    <div className="md:w-1/3 flex flex-col items-centre">
                       <Avatar className="w-32 h-32">
                         <AvatarImage src={profile.avatar} alt={profile.name} />
                         <AvatarFallback>{profile.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
                       </Avatar>
                       <h2 className="text-xl font-bold mt-2">{profile.name}</h2>
-                      <p className="text-muted-foreground text-center">{profile.title}</p>
+                      <p className="text-muted-foreground text-centre">{profile.title}</p>
                       <p className="text-sm text-muted-foreground">{profile.school}</p>
-                      <div className="flex items-center gap-2 mt-2">
+                      <div className="flex items-centre gap-2 mt-2">
                         <Badge variant="outline">{profile.yearsExperience} years experience</Badge>
                       </div>
                     </div>
@@ -623,11 +623,11 @@ export default function ProfessionalPortfolio() {
                       <div>
                         <h3 className="text-lg font-semibold">Contact Information</h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-1">
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-centre gap-2">
                             <span className="text-muted-foreground">Email:</span>
                             <span>{profile.email}</span>
                           </div>
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-centre gap-2">
                             <span className="text-muted-foreground">Phone:</span>
                             <span>{profile.phone}</span>
                           </div>
@@ -663,7 +663,7 @@ export default function ProfessionalPortfolio() {
 
         {/* Achievements Tab */}
         <TabsContent value="achievements" className="space-y-4">
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-centre">
             <h2 className="text-2xl font-bold">Professional Achievements</h2>
             <Button onClick={() => setShowAddAchievement(true)}>
               <Plus className="mr-2 h-4 w-4" />
@@ -680,7 +680,7 @@ export default function ProfessionalPortfolio() {
                       <CardTitle>{achievement.title}</CardTitle>
                       <CardDescription>{achievement.date}</CardDescription>
                     </div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-centre gap-2">
                       <Badge>{achievement.type}</Badge>
                       <Button 
                         variant="ghost" 
@@ -726,7 +726,7 @@ export default function ProfessionalPortfolio() {
 
         {/* Evidence Tab */}
         <TabsContent value="evidence" className="space-y-4">
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-centre">
             <h2 className="text-2xl font-bold">Evidence & Artefacts</h2>
             <Button onClick={() => setShowAddEvidence(true)}>
               <Plus className="mr-2 h-4 w-4" />
@@ -743,7 +743,7 @@ export default function ProfessionalPortfolio() {
                       <CardTitle>{item.title}</CardTitle>
                       <CardDescription>{item.date} • {item.type}</CardDescription>
                     </div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-centre gap-2">
                       <Button 
                         variant="ghost" 
                         size="sm" 
@@ -799,7 +799,7 @@ export default function ProfessionalPortfolio() {
 
         {/* Reflections Tab */}
         <TabsContent value="reflections" className="space-y-4">
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-centre">
             <h2 className="text-2xl font-bold">Professional Reflections</h2>
             <Button onClick={() => setShowAddReflection(true)}>
               <Plus className="mr-2 h-4 w-4" />
@@ -816,7 +816,7 @@ export default function ProfessionalPortfolio() {
                       <CardTitle>{reflection.title}</CardTitle>
                       <CardDescription>{format(new Date(reflection.date), "PPP")}</CardDescription>
                     </div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-centre gap-2">
                       <Button 
                         variant="ghost" 
                         size="sm" 
@@ -927,7 +927,7 @@ export default function ProfessionalPortfolio() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-centre">
                   <div>
                     <h3 className="font-semibold">Total CPD Points</h3>
                     <p className="text-3xl font-bold">
@@ -951,14 +951,14 @@ export default function ProfessionalPortfolio() {
                   <h3 className="font-semibold mb-2">Recent CPD Activities</h3>
                   <div className="space-y-2">
                     {cpdActivities.slice(0, 3).map((activity) => (
-                      <div key={activity.id} className="flex justify-between items-center p-2 border rounded-md">
+                      <div key={activity.id} className="flex justify-between items-centre p-2 border rounded-md">
                         <div>
                           <p className="font-medium">{activity.title}</p>
                           <p className="text-sm text-muted-foreground">
                             {activity.type} • {activity.provider}
                           </p>
                         </div>
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-centre gap-2">
                           <Badge>{activity.points} points</Badge>
                           {activity.certificate && (
                             <Badge variant="outline" className="bg-green-50">Certificate</Badge>
@@ -999,7 +999,7 @@ export default function ProfessionalPortfolio() {
                   <h3 className="font-semibold">Areas for Development</h3>
                   <ul className="list-disc pl-5 space-y-1 text-sm">
                     <li>Limited evidence in digital learning</li>
-                    <li>Few reflections on classroom practice</li>
+                    <li>Few reflections on classroom practise</li>
                     <li>No evidence linked to assessment practices</li>
                     <li>Consider adding more visual evidence</li>
                   </ul>
@@ -1007,7 +1007,7 @@ export default function ProfessionalPortfolio() {
                 <div className="space-y-2">
                   <h3 className="font-semibold">Recommendations</h3>
                   <ul className="list-disc pl-5 space-y-1 text-sm">
-                    <li>Add classroom practice examples</li>
+                    <li>Add classroom practise examples</li>
                     <li>Include student feedback (anonymised)</li>
                     <li>Add more reflections on recent CPD</li>
                     <li>Consider video evidence of teaching</li>
@@ -1021,7 +1021,7 @@ export default function ProfessionalPortfolio() {
 
       {/* Add Achievement Modal */}
       {showAddAchievement && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-black/50 flex items-centre justify-centre z-50">
           <Card className="w-full max-w-2xl max-h-[90vh] overflow-y-auto">
             <CardHeader>
               <CardTitle>Add Achievement</CardTitle>
@@ -1107,7 +1107,7 @@ export default function ProfessionalPortfolio() {
 
       {/* Add Evidence Modal */}
       {showAddEvidence && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-black/50 flex items-centre justify-centre z-50">
           <Card className="w-full max-w-2xl max-h-[90vh] overflow-y-auto">
             <CardHeader>
               <CardTitle>Add Evidence</CardTitle>
@@ -1177,7 +1177,7 @@ export default function ProfessionalPortfolio() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="file">Upload File</Label>
-                  <div className="border-2 border-dashed rounded-md p-6 flex flex-col items-center justify-center">
+                  <div className="border-2 border-dashed rounded-md p-6 flex flex-col items-centre justify-centre">
                     <Upload className="h-8 w-8 text-muted-foreground mb-2" />
                     <p className="text-sm text-muted-foreground mb-1">Drag and drop your file here, or click to browse</p>
                     <p className="text-xs text-muted-foreground">Supported formats: PDF, DOCX, PPTX, JPG, PNG (max 10MB)</p>
@@ -1195,7 +1195,7 @@ export default function ProfessionalPortfolio() {
                   <Label>Link to Achievements</Label>
                   <div className="space-y-2">
                     {achievements.map((achievement) => (
-                      <div key={achievement.id} className="flex items-center space-x-2">
+                      <div key={achievement.id} className="flex items-centre space-x-2">
                         <Switch id={`achievement-${achievement.id}`} />
                         <Label htmlFor={`achievement-${achievement.id}`}>{achievement.title}</Label>
                       </div>
@@ -1230,12 +1230,12 @@ export default function ProfessionalPortfolio() {
 
       {/* Add Reflection Modal */}
       {showAddReflection && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-black/50 flex items-centre justify-centre z-50">
           <Card className="w-full max-w-2xl max-h-[90vh] overflow-y-auto">
             <CardHeader>
               <CardTitle>Add Reflection</CardTitle>
               <CardDescription>
-                Record a professional reflection on your practice or development
+                Record a professional reflection on your practise or development
               </CardDescription>
             </CardHeader>
             <form onSubmit={(e) => {
@@ -1301,7 +1301,7 @@ export default function ProfessionalPortfolio() {
                   <Label>Link to Evidence</Label>
                   <div className="space-y-2">
                     {evidence.slice(0, 3).map((item) => (
-                      <div key={item.id} className="flex items-center space-x-2">
+                      <div key={item.id} className="flex items-centre space-x-2">
                         <Switch id={`evidence-${item.id}`} />
                         <Label htmlFor={`evidence-${item.id}`}>{item.title}</Label>
                       </div>

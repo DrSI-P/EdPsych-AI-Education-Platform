@@ -69,7 +69,7 @@ export default function ContentTransformationPage() {
                   <h3 className="text-lg font-medium mb-2">Learning Styles Supported</h3>
                   <ul className="list-disc pl-5 space-y-2">
                     <li>
-                      <span className="font-medium">Visual:</span> For learners who process information best through seeing. Content is enhanced with visual elements, spatial organization, and visual metaphors.
+                      <span className="font-medium">Visual:</span> For learners who process information best through seeing. Content is enhanced with visual elements, spatial organisation, and visual metaphors.
                     </li>
                     <li>
                       <span className="font-medium">Auditory:</span> For learners who process information best through hearing. Content emphasizes dialogue, discussion points, and spoken explanations.
@@ -89,7 +89,7 @@ export default function ContentTransformationPage() {
                 <div>
                   <h3 className="text-lg font-medium mb-2">How It Works</h3>
                   <p>
-                    The Content Transformation Engine uses advanced AI to analyze educational content and create optimized versions for each learning style. 
+                    The Content Transformation Engine uses advanced AI to analyse educational content and create optimised versions for each learning style. 
                     It maintains the educational objectives and factual accuracy while adapting the presentation format, examples, and activities to match different learning preferences.
                   </p>
                   <p className="mt-2">

@@ -15,7 +15,7 @@ The Safe Digital Expression Spaces feature provides students with secure, modera
 
 ### Creative Expression Gallery
 - **Artwork Uploads**: Share drawings, paintings, and other visual expressions
-- **Medium Documentation**: Record the creative medium used (digital, colored pencil, markers, etc.)
+- **Medium Documentation**: Record the creative medium used (digital, coloured pencil, markers, etc.)
 - **Privacy Controls**: Choose whether artwork is private or shared with support team
 - **Feedback System**: Receive constructive feedback from art teachers and counselors
 - **Visual Gallery**: Browse past artwork in an intuitive gallery format
@@ -29,16 +29,16 @@ The Safe Digital Expression Spaces feature provides students with secure, modera
 
 ### Peer Support Groups
 - **Moderated Spaces**: All groups supervised by trained staff members
-- **Topical Focus**: Groups organized around specific themes (test anxiety, transitions, mindfulness)
-- **Threaded Discussions**: Organized conversation flows with responses
-- **Role Identification**: Clear labeling of peers, facilitators, and staff
+- **Topical Focus**: Groups organised around specific themes (test anxiety, transitions, mindfulness)
+- **Threaded Discussions**: Organised conversation flows with responses
+- **Role Identification**: Clear labelling of peers, facilitators, and staff
 - **Recent Activity Tracking**: See latest group interactions
 
 ## Safeguarding Measures
 
 1. **Staff Supervision**: All shared content and peer groups are monitored by qualified staff
 2. **Privacy Controls**: Students control what is shared and what remains private
-3. **Clear Boundaries**: Explicit labeling of who can see and respond to content
+3. **Clear Boundaries**: Explicit labelling of who can see and respond to content
 4. **Role Identification**: Clear indication of peer vs. staff responses
 5. **Content Moderation**: Inappropriate content can be flagged and addressed
 6. **Secure Environment**: All data is encrypted and protected
@@ -80,7 +80,7 @@ The feature extends the Prisma schema with several new models:
 ### Accessibility Considerations
 - Clear visual indicators for privacy settings
 - Consistent navigation patterns across expression types
-- Screen reader optimized content structure
+- Screen reader optimised content structure
 - Keyboard navigation support
 - Clear feedback for all user actions
 
@@ -92,7 +92,7 @@ The Safe Digital Expression Spaces feature supports several key educational outc
 
 2. **Improved Self-Regulation**: Regular reflection and expression helps students process emotions and develop coping strategies.
 
-3. **Reduced Isolation**: Moderated peer connections help students realize they're not alone in their experiences.
+3. **Reduced Isolation**: Moderated peer connections help students realise they're not alone in their experiences.
 
 4. **Digital Citizenship**: Students learn appropriate online communication and privacy management.
 
@@ -106,6 +106,6 @@ The Safe Digital Expression Spaces feature supports several key educational outc
 
 3. Department for Education. (2021). Keeping children safe in education: Statutory guidance for schools and colleges. UK Government.
 
-4. Allen, K. A., Ryan, T., Gray, D. L., McInerney, D. M., & Waters, L. (2014). Social media use and social connectedness in adolescents: The positives and the potential pitfalls. The Australian Educational and Developmental Psychologist, 31(1), 18-31.
+4. Allen, K. A., Ryan, T., Grey, D. L., McInerney, D. M., & Waters, L. (2014). Social media use and social connectedness in adolescents: The positives and the potential pitfalls. The Australian Educational and Developmental Psychologist, 31(1), 18-31.
 
 5. UK Council for Internet Safety. (2020). Education for a Connected World – 2020 edition. UK Government.

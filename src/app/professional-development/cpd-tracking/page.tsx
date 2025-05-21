@@ -27,7 +27,7 @@ export default function CPDTrackingPage() {
               View and download certificates for your completed professional development activities.
             </p>
             
-            <div className="text-center py-12">
+            <div className="text-centre py-12">
               <p className="text-muted-foreground">
                 Complete CPD activities to earn certificates.
               </p>
@@ -72,7 +72,7 @@ export default function CPDTrackingPage() {
               <div className="border rounded-lg p-4">
                 <h3 className="font-medium mb-2">Education Endowment Foundation</h3>
                 <p className="text-sm text-muted-foreground mb-4">
-                  Evidence-based resources to improve teaching practice.
+                  Evidence-based resources to improve teaching practise.
                 </p>
                 <a href="https://educationendowmentfoundation.org.uk/" 
                    target="_blank" 

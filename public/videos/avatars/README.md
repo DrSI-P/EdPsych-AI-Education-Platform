@@ -12,7 +12,7 @@ This directory contains the AI-generated avatar videos for the EdPsych-AI-Educat
 └── specialist/      # Videos featuring subject specialist avatars
 ```
 
-Each subdirectory contains videos organized by category:
+Each subdirectory contains videos organised by category:
 - introduction/
 - instructional/
 - emotional_support/

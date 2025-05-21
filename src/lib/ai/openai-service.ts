@@ -178,7 +178,7 @@ export class OpenAIService {
   }
   
   /**
-   * Analyze student work to identify strengths and areas for improvement
+   * Analyse student work to identify strengths and areas for improvement
    */
   async analyzeStudentWork(studentWork: string, learningObjectives: string[], rubric?: {
     criteria: string;
@@ -198,7 +198,7 @@ export class OpenAIService {
       }
       
       const prompt = `
-        Analyze the following student work against the learning objectives.
+        Analyse the following student work against the learning objectives.
         
         Learning objectives:
         ${learningObjectives.map(obj => `- ${obj}`).join('\n')}
@@ -222,7 +222,7 @@ export class OpenAIService {
       });
     } catch (error) {
       console.error('OpenAI student work analysis error:', error);
-      throw new Error(`Failed to analyze student work: ${error.message}`);
+      throw new Error(`Failed to analyse student work: ${error.message}`);
     }
   }
 }

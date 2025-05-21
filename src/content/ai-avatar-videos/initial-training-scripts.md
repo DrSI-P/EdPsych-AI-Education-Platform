@@ -122,7 +122,7 @@ To begin, access the Content Creation area by clicking "Create" in the main navi
 
 The platform supports several content types:
 - Lessons: Structured learning experiences with multiple elements
-- Activities: Interactive exercises for practice and application
+- Activities: Interactive exercises for practise and application
 - Assessments: Formative and summative evaluations
 - Resources: Supporting materials and references
 

@@ -370,7 +370,7 @@ export class AdaptiveComplexityService {
    */
   private updateLearningRate(profile: LearningProfile, newPerformance: PerformanceMetric): void {
     // This is a simplified implementation
-    // A more sophisticated version would analyze performance trends over time
+    // A more sophisticated version would analyse performance trends over time
     
     const subjectPref = profile.subjectPreferences[newPerformance.subjectArea];
     
@@ -427,7 +427,7 @@ export class AdaptiveComplexityService {
     const performances = skillProfile.performanceHistory;
     if (performances.length < 3) return;
     
-    // Group performances by content ID to analyze patterns
+    // Group performances by content ID to analyse patterns
     const contentPerformance: Record<string, PerformanceMetric[]> = {};
     
     performances.forEach(perf => {
@@ -440,7 +440,7 @@ export class AdaptiveComplexityService {
     const strengths: string[] = [];
     const weaknesses: string[] = [];
     
-    // Analyze each content area
+    // Analyse each content area
     Object.entries(contentPerformance).forEach(([contentId, perfs]) => {
       if (perfs.length === 0) return;
       
@@ -522,7 +522,7 @@ export class AdaptiveComplexityService {
       // Complexity increased
       return [
         'Review prerequisite concepts to ensure solid foundation',
-        'Attempt more challenging practice exercises',
+        'Attempt more challenging practise exercises',
         'Explore advanced application scenarios',
         'Consider peer collaboration on complex problems'
       ];
@@ -530,7 +530,7 @@ export class AdaptiveComplexityService {
       // Complexity decreased
       return [
         'Focus on mastering fundamental concepts',
-        'Practice with additional examples at current level',
+        'Practise with additional examples at current level',
         'Review explanations with more detailed breakdowns',
         'Consider requesting additional support resources'
       ];

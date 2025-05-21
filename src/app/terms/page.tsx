@@ -15,7 +15,7 @@ export default function TermsOfServicePage() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-center mb-12"
+        className="text-centre mb-12"
       >
         <h1 className="text-4xl font-bold tracking-tight">Terms of Service</h1>
         <p className="mt-4 text-xl text-muted-foreground max-w-3xl mx-auto">
@@ -67,7 +67,7 @@ export default function TermsOfServicePage() {
                 <div className="space-y-8">
                   {/* Introduction */}
                   <section id="introduction">
-                    <div className="flex items-center gap-3 mb-4">
+                    <div className="flex items-centre gap-3 mb-4">
                       <div className="bg-primary/10 p-2 rounded-full">
                         <FileText className="h-5 w-5 text-primary" />
                       </div>
@@ -86,7 +86,7 @@ export default function TermsOfServicePage() {
 
                   {/* Definitions */}
                   <section id="definitions">
-                    <div className="flex items-center gap-3 mb-4">
+                    <div className="flex items-centre gap-3 mb-4">
                       <div className="bg-primary/10 p-2 rounded-full">
                         <FileText className="h-5 w-5 text-primary" />
                       </div>
@@ -106,7 +106,7 @@ export default function TermsOfServicePage() {
 
                   {/* Account Registration */}
                   <section id="account">
-                    <div className="flex items-center gap-3 mb-4">
+                    <div className="flex items-centre gap-3 mb-4">
                       <div className="bg-primary/10 p-2 rounded-full">
                         <UserCheck className="h-5 w-5 text-primary" />
                       </div>
@@ -128,7 +128,7 @@ export default function TermsOfServicePage() {
 
                   {/* Services */}
                   <section id="services">
-                    <div className="flex items-center gap-3 mb-4">
+                    <div className="flex items-centre gap-3 mb-4">
                       <div className="bg-primary/10 p-2 rounded-full">
                         <FileText className="h-5 w-5 text-primary" />
                       </div>
@@ -155,7 +155,7 @@ export default function TermsOfServicePage() {
 
                   {/* User Content */}
                   <section id="content">
-                    <div className="flex items-center gap-3 mb-4">
+                    <div className="flex items-centre gap-3 mb-4">
                       <div className="bg-primary/10 p-2 rounded-full">
                         <FileText className="h-5 w-5 text-primary" />
                       </div>
@@ -179,7 +179,7 @@ export default function TermsOfServicePage() {
 
                   {/* Privacy & Data */}
                   <section id="privacy">
-                    <div className="flex items-center gap-3 mb-4">
+                    <div className="flex items-centre gap-3 mb-4">
                       <div className="bg-primary/10 p-2 rounded-full">
                         <Lock className="h-5 w-5 text-primary" />
                       </div>
@@ -198,7 +198,7 @@ export default function TermsOfServicePage() {
 
                   {/* Intellectual Property */}
                   <section id="intellectual">
-                    <div className="flex items-center gap-3 mb-4">
+                    <div className="flex items-centre gap-3 mb-4">
                       <div className="bg-primary/10 p-2 rounded-full">
                         <Shield className="h-5 w-5 text-primary" />
                       </div>
@@ -222,7 +222,7 @@ export default function TermsOfServicePage() {
 
                   {/* Limitation of Liability */}
                   <section id="liability">
-                    <div className="flex items-center gap-3 mb-4">
+                    <div className="flex items-centre gap-3 mb-4">
                       <div className="bg-primary/10 p-2 rounded-full">
                         <AlertTriangle className="h-5 w-5 text-primary" />
                       </div>
@@ -244,7 +244,7 @@ export default function TermsOfServicePage() {
 
                   {/* Termination */}
                   <section id="termination">
-                    <div className="flex items-center gap-3 mb-4">
+                    <div className="flex items-centre gap-3 mb-4">
                       <div className="bg-primary/10 p-2 rounded-full">
                         <Clock className="h-5 w-5 text-primary" />
                       </div>
@@ -263,7 +263,7 @@ export default function TermsOfServicePage() {
 
                   {/* Changes to Terms */}
                   <section id="changes">
-                    <div className="flex items-center gap-3 mb-4">
+                    <div className="flex items-centre gap-3 mb-4">
                       <div className="bg-primary/10 p-2 rounded-full">
                         <FileText className="h-5 w-5 text-primary" />
                       </div>
@@ -279,7 +279,7 @@ export default function TermsOfServicePage() {
 
                   {/* Contact Us */}
                   <section id="contact">
-                    <div className="flex items-center gap-3 mb-4">
+                    <div className="flex items-centre gap-3 mb-4">
                       <div className="bg-primary/10 p-2 rounded-full">
                         <FileText className="h-5 w-5 text-primary" />
                       </div>

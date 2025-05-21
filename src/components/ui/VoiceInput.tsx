@@ -100,7 +100,7 @@ const VoiceInput: React.FC<VoiceInputProps> = ({
 
   return (
     <div className={`voice-input-container relative ${className}`}>
-      <div className={`flex items-center border rounded-lg overflow-hidden ${disabled ? 'opacity-60' : ''}`}>
+      <div className={`flex items-centre border rounded-lg overflow-hidden ${disabled ? 'opacity-60' : ''}`}>
         {buttonPosition === 'left' && (
           <button
             type="button"
@@ -124,11 +124,11 @@ const VoiceInput: React.FC<VoiceInputProps> = ({
           </button>
         )}
         
-        <div className="flex-grow px-4 py-2 min-h-[44px] flex items-center">
+        <div className="flex-grow px-4 py-2 min-h-[44px] flex items-centre">
           {showTranscript && transcript ? (
-            <p className="text-gray-800">{transcript}</p>
+            <p className="text-grey-800">{transcript}</p>
           ) : (
-            <p className="text-gray-400">{placeholder}</p>
+            <p className="text-grey-400">{placeholder}</p>
           )}
         </div>
         
@@ -164,7 +164,7 @@ const VoiceInput: React.FC<VoiceInputProps> = ({
       
       {/* Visual feedback for speech recognition */}
       {isListening && (
-        <div className="absolute bottom-0 left-0 right-0 flex justify-center">
+        <div className="absolute bottom-0 left-0 right-0 flex justify-centre">
           <div className="flex space-x-1 py-1">
             <div className="w-1 h-1 bg-blue-500 rounded-full animate-pulse" style={{ animationDelay: '0ms' }}></div>
             <div className="w-1 h-1 bg-blue-500 rounded-full animate-pulse" style={{ animationDelay: '100ms' }}></div>

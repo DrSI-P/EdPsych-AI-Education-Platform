@@ -72,10 +72,10 @@ export const AccessibilityValidator: React.FC<AccessibilityValidatorProps> = ({
             },
             {
               type: 'color_independence',
-              description: 'Some information is conveyed only through color',
+              description: 'Some information is conveyed only through colour',
               severity: 'moderate',
               element: '.notification-status',
-              recommendation: 'Add text or icons to supplement color-based information'
+              recommendation: 'Add text or icons to supplement colour-based information'
             }
           ]
         };
@@ -170,7 +170,7 @@ export const UserExperienceValidator: React.FC<UserExperienceValidatorProps> = (
               description: 'Initial load time could be improved',
               severity: 'minor',
               metric: 'FCP: 1.8s',
-              recommendation: 'Consider lazy loading non-critical resources and optimizing images'
+              recommendation: 'Consider lazy loading non-critical resources and optimising images'
             },
             {
               type: 'visual_stability',
@@ -203,7 +203,7 @@ export const UserExperienceValidator: React.FC<UserExperienceValidatorProps> = (
       {isValidating && (
         <div className="validation-indicator">
           <span className="validation-icon">📊</span>
-          <span className="validation-text">Analyzing user experience...</span>
+          <span className="validation-text">Analysing user experience...</span>
         </div>
       )}
       
@@ -221,7 +221,7 @@ interface AccessibilitySettingsValidatorProps {
 /**
  * AccessibilitySettingsValidator Component
  * 
- * A component that validates the application's behavior with different accessibility settings.
+ * A component that validates the application's behaviour with different accessibility settings.
  * It tests various combinations of settings to ensure proper functionality.
  */
 export const AccessibilitySettingsValidator: React.FC<AccessibilitySettingsValidatorProps> = ({

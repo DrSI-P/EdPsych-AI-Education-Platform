@@ -77,9 +77,9 @@ The implementation process involves:
 
 ## 3. Generating Video Clips
 
-### Organizing Scripts
+### Organising Scripts
 
-The scripts for all avatar videos are organized in the following files:
+The scripts for all avatar videos are organised in the following files:
 - `/docs/ai_avatar_assets/teacher_avatar_clips.md` - For Dr. Scott's teacher avatar
 - `/docs/ai_avatar_assets/student_peer_avatar_clips.md` - For student peer avatars
 - `/docs/ai_avatar_assets/special_needs_support_avatar_clips.md` - For special needs support avatars
@@ -128,7 +128,7 @@ For each script:
 
 ## 4. Post-Processing and Integration
 
-### Video Organization
+### Video Organisation
 
 1. Create a folder structure in the platform's storage:
    ```

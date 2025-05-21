@@ -23,7 +23,7 @@ const ErrorBoundaryIntegration: React.FC = () => {
   return (
     <div className="container mx-auto py-8 px-4">
       <h1 className="text-3xl font-bold mb-2">Error Boundary Integration</h1>
-      <p className="text-gray-600 mb-6">
+      <p className="text-grey-600 mb-6">
         Guidelines and examples for integrating error boundaries throughout the platform
       </p>
       
@@ -42,7 +42,7 @@ const ErrorBoundaryIntegration: React.FC = () => {
             <CardContent className="space-y-6">
               <div>
                 <h3 className="text-lg font-medium mb-2">Basic Usage</h3>
-                <div className="bg-gray-50 p-4 rounded-md border">
+                <div className="bg-grey-50 p-4 rounded-md border">
                   <pre className="text-sm overflow-auto">
 {`// Standard Error Boundary
 import ErrorBoundary from '@/components/error-boundary/error-boundary';
@@ -114,7 +114,7 @@ import RootErrorBoundary from '@/components/error-boundary/root-error-boundary';
             <CardContent className="space-y-6">
               <div>
                 <h3 className="text-lg font-medium mb-2">Page-Level Integration</h3>
-                <div className="bg-gray-50 p-4 rounded-md border">
+                <div className="bg-grey-50 p-4 rounded-md border">
                   <pre className="text-sm overflow-auto">
 {`// app/some-feature/page.tsx
 'use client';
@@ -137,7 +137,7 @@ export default function SomeFeaturePage() {
               
               <div>
                 <h3 className="text-lg font-medium mb-2">Age-Adaptive Integration</h3>
-                <div className="bg-gray-50 p-4 rounded-md border">
+                <div className="bg-grey-50 p-4 rounded-md border">
                   <pre className="text-sm overflow-auto">
 {`// components/learning-activity/activity-content.tsx
 'use client';
@@ -162,9 +162,9 @@ export default function LearningActivity({ activityId }) {
               
               <div>
                 <h3 className="text-lg font-medium mb-2">Data Fetching Integration</h3>
-                <div className="bg-gray-50 p-4 rounded-md border">
+                <div className="bg-grey-50 p-4 rounded-md border">
                   <pre className="text-sm overflow-auto">
-{`// components/dashboard/data-visualization.tsx
+{`// components/dashboard/data-visualisation.tsx
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -229,7 +229,7 @@ export default function DashboardWrapper() {
                 <p className="mb-2">
                   Use multiple error boundaries at different levels of your component tree rather than just one at the top level. This prevents a single error from taking down the entire UI.
                 </p>
-                <div className="bg-gray-50 p-4 rounded-md border">
+                <div className="bg-grey-50 p-4 rounded-md border">
                   <pre className="text-sm overflow-auto">
 {`// Good: Granular error boundaries
 <ErrorBoundary>
@@ -286,7 +286,7 @@ export default function DashboardWrapper() {
                 <p className="mb-2">
                   Always use the onError prop to log errors for monitoring and debugging. In production, these should be sent to an error monitoring service.
                 </p>
-                <div className="bg-gray-50 p-4 rounded-md border">
+                <div className="bg-grey-50 p-4 rounded-md border">
                   <pre className="text-sm overflow-auto">
 {`<ErrorBoundary
   onError={(error, errorInfo) => {
@@ -342,7 +342,7 @@ export default function DashboardWrapper() {
         </TabsContent>
       </Tabs>
       
-      <div className="mt-8 flex justify-center">
+      <div className="mt-8 flex justify-centre">
         <Button 
           onClick={() => router.push('/error-boundary-test')}
           className="px-6"

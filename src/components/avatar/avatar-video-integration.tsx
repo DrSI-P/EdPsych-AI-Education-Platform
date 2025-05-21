@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog as Dialogue, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { 
   AlertCircle, 
   CheckCircle, 
@@ -67,7 +67,7 @@ export const AvatarVideoIntegration: React.FC<AvatarVideoIntegrationProps> = ({
           componentType,
           position,
           videoId: position === 'intro' ? 'video1' : position === 'summary' ? 'video2' : undefined,
-          scriptTemplate: position === 'feedback' ? 'Well done on completing this {{subject}} activity! You've made great progress with {{skill}}.' : undefined,
+          scriptTemplate: position === 'feedback' ? 'Well done on completing this {subject} activity! You\'ve made great progress with {skill}.' : undefined,
           dynamicVariables: position === 'feedback' ? { subject: 'mathematics', skill: 'fractions' } : undefined,
           conditions: {
             userRole: ['student', 'teacher'],
@@ -145,7 +145,7 @@ export const AvatarVideoIntegration: React.FC<AvatarVideoIntegrationProps> = ({
   // Render loading state
   if (isLoading) {
     return (
-      <div className={`flex items-center justify-center p-4 ${className}`}>
+      <div className={`flex items-centre justify-centre p-4 ${className}`}>
         <Loader2 className="h-6 w-6 animate-spin mr-2" />
         <span>Loading avatar content...</span>
       </div>
@@ -155,7 +155,7 @@ export const AvatarVideoIntegration: React.FC<AvatarVideoIntegrationProps> = ({
   // Render error state
   if (error) {
     return (
-      <div className={`flex items-center p-4 text-destructive ${className}`}>
+      <div className={`flex items-centre p-4 text-destructive ${className}`}>
         <AlertCircle className="h-6 w-6 mr-2" />
         <span>{error}</span>
       </div>
@@ -173,10 +173,10 @@ export const AvatarVideoIntegration: React.FC<AvatarVideoIntegrationProps> = ({
           </CardDescription>
         </CardHeader>
         
-        <CardContent className="flex flex-col items-center justify-center p-6">
+        <CardContent className="flex flex-col items-centre justify-centre p-6">
           <Film className="h-12 w-12 text-muted-foreground mb-4" />
           <h3 className="text-xl font-medium mb-2">No Video Selected</h3>
-          <p className="text-muted-foreground text-center mb-6">
+          <p className="text-muted-foreground text-centre mb-6">
             Select a video from the library or create a new one to enhance this content.
           </p>
           
@@ -193,7 +193,7 @@ export const AvatarVideoIntegration: React.FC<AvatarVideoIntegrationProps> = ({
               </DialogHeader>
               <VideoLibrary onSelectVideo={handleVideoSelect} />
             </DialogContent>
-          </Dialog>
+          </Dialogue>
         </CardContent>
       </Card>
     );
@@ -203,7 +203,7 @@ export const AvatarVideoIntegration: React.FC<AvatarVideoIntegrationProps> = ({
   return (
     <Card className={className}>
       <CardHeader>
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-centre">
           <div>
             <CardTitle>{video.title}</CardTitle>
             <CardDescription>
@@ -224,7 +224,7 @@ export const AvatarVideoIntegration: React.FC<AvatarVideoIntegrationProps> = ({
               </DialogHeader>
               <VideoLibrary onSelectVideo={handleVideoSelect} />
             </DialogContent>
-          </Dialog>
+          </Dialogue>
         </div>
       </CardHeader>
       

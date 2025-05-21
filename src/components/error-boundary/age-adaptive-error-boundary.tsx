@@ -65,13 +65,13 @@ const NurseryErrorFallback: React.FC = () => {
   return (
     <Card className="w-full max-w-md mx-auto my-8 border-4 border-yellow-300 rounded-xl bg-yellow-50">
       <CardHeader className="pb-2">
-        <CardTitle className="text-center text-2xl font-bold text-yellow-700">
+        <CardTitle className="text-centre text-2xl font-bold text-yellow-700">
           Oops! Something went wrong
         </CardTitle>
       </CardHeader>
-      <CardContent className="text-center">
-        <div className="flex justify-center mb-4">
-          <div className="w-24 h-24 bg-yellow-100 rounded-full flex items-center justify-center">
+      <CardContent className="text-centre">
+        <div className="flex justify-centre mb-4">
+          <div className="w-24 h-24 bg-yellow-100 rounded-full flex items-centre justify-centre">
             <span className="text-5xl">😕</span>
           </div>
         </div>
@@ -80,7 +80,7 @@ const NurseryErrorFallback: React.FC = () => {
           Let's try again!
         </p>
         
-        <div className="flex justify-center">
+        <div className="flex justify-centre">
           <Button 
             size="lg"
             className="h-14 px-6 rounded-full bg-green-500 hover:bg-green-600 text-white text-lg"
@@ -101,13 +101,13 @@ const EarlyPrimaryErrorFallback: React.FC = () => {
   return (
     <Card className="w-full max-w-md mx-auto my-8 border-2 border-blue-300 rounded-lg bg-blue-50">
       <CardHeader className="pb-2">
-        <CardTitle className="text-center text-xl font-bold text-blue-700">
+        <CardTitle className="text-centre text-xl font-bold text-blue-700">
           Oops! We hit a bump
         </CardTitle>
       </CardHeader>
-      <CardContent className="text-center">
-        <div className="flex justify-center mb-4">
-          <div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center">
+      <CardContent className="text-centre">
+        <div className="flex justify-centre mb-4">
+          <div className="w-20 h-20 bg-blue-100 rounded-full flex items-centre justify-centre">
             <Bug className="h-10 w-10 text-blue-500" />
           </div>
         </div>
@@ -120,7 +120,7 @@ const EarlyPrimaryErrorFallback: React.FC = () => {
           Don't worry! Let's try again or go back home.
         </p>
         
-        <div className="flex justify-center gap-4">
+        <div className="flex justify-centre gap-4">
           <Button 
             className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg"
             onClick={() => window.location.reload()}
@@ -148,20 +148,20 @@ const LatePrimaryErrorFallback: React.FC = () => {
   return (
     <Card className="w-full max-w-md mx-auto my-8 shadow-md">
       <CardHeader className="bg-purple-50 border-b border-purple-100">
-        <CardTitle className="text-purple-800 flex items-center gap-2">
+        <CardTitle className="text-purple-800 flex items-centre gap-2">
           <AlertCircle className="h-5 w-5" />
           Something went wrong
         </CardTitle>
       </CardHeader>
       <CardContent className="pt-4">
         <div className="flex items-start gap-4 mb-4">
-          <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
+          <div className="w-12 h-12 bg-purple-100 rounded-full flex items-centre justify-centre flex-shrink-0">
             <Bug className="h-6 w-6 text-purple-500" />
           </div>
           
           <div>
             <h3 className="font-medium text-lg mb-1">We found a problem</h3>
-            <p className="text-gray-600 mb-2">
+            <p className="text-grey-600 mb-2">
               The page couldn't load properly. This happens sometimes when computers get confused.
             </p>
             <div className="bg-purple-50 p-3 rounded-md border border-purple-100 mb-4">
@@ -179,7 +179,7 @@ const LatePrimaryErrorFallback: React.FC = () => {
           <Button 
             variant="outline"
             onClick={() => window.location.reload()}
-            className="flex items-center gap-1"
+            className="flex items-centre gap-1"
           >
             <RefreshCw className="h-4 w-4" />
             Refresh
@@ -203,8 +203,8 @@ const LatePrimaryErrorFallback: React.FC = () => {
 const SecondaryErrorFallback: React.FC = () => {
   return (
     <Card className="w-full max-w-md mx-auto my-8 shadow-lg">
-      <CardHeader className="bg-gray-50 border-b">
-        <CardTitle className="text-gray-800 flex items-center gap-2">
+      <CardHeader className="bg-grey-50 border-b">
+        <CardTitle className="text-grey-800 flex items-centre gap-2">
           <AlertCircle className="h-5 w-5 text-red-500" />
           Application Error
         </CardTitle>
@@ -218,8 +218,8 @@ const SecondaryErrorFallback: React.FC = () => {
         </div>
         
         <div className="mb-4">
-          <h3 className="font-medium text-gray-800 mb-2">Possible Solutions:</h3>
-          <ul className="list-disc pl-5 text-sm text-gray-700 space-y-1">
+          <h3 className="font-medium text-grey-800 mb-2">Possible Solutions:</h3>
+          <ul className="list-disc pl-5 text-sm text-grey-700 space-y-1">
             <li>Refresh the page to reload the application</li>
             <li>Clear your browser cache and try again</li>
             <li>Return to the home page and navigate back to this section</li>
@@ -240,7 +240,7 @@ const SecondaryErrorFallback: React.FC = () => {
           <Button 
             variant="outline"
             onClick={() => window.location.reload()}
-            className="flex items-center gap-1"
+            className="flex items-centre gap-1"
           >
             <RefreshCw className="h-4 w-4" />
             Refresh Page

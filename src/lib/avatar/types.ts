@@ -22,7 +22,7 @@ export enum VideoAspectRatio {
   STANDARD = '4:3',
   WIDESCREEN = '16:9',
   SQUARE = '1:1',
-  VERTICAL = '9:16'  // For mobile-optimized content
+  VERTICAL = '9:16'  // For mobile-optimised content
 }
 
 /**

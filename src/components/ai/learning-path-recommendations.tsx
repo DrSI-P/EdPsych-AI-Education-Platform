@@ -273,7 +273,7 @@ export default function LearningPathRecommendations() {
               <div className="space-y-4">
                 <div>
                   <p className="text-sm font-medium mb-1">Dominant Learning Style</p>
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <span className="text-xl">{getLearningStyleIcon(LearningStyle.VISUAL)}</span>
                     <span>{getLearningStyleName(LearningStyle.VISUAL)}</span>
                     <Progress value={60} className="h-2 w-20" />
@@ -324,7 +324,7 @@ export default function LearningPathRecommendations() {
                 <CardTitle>{learningPath.title}</CardTitle>
                 <CardDescription>{learningPath.description}</CardDescription>
               </div>
-              <div className="flex items-center space-x-2">
+              <div className="flex items-centre space-x-2">
                 <Button variant="outline" size="sm" onClick={saveLearningPath}>
                   <Download className="h-4 w-4 mr-1" />
                   Save
@@ -338,7 +338,7 @@ export default function LearningPathRecommendations() {
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-              <div className="flex items-center space-x-2">
+              <div className="flex items-centre space-x-2">
                 <BookOpen className="h-5 w-5 text-primary" />
                 <div>
                   <p className="text-sm font-medium">Subject</p>
@@ -346,7 +346,7 @@ export default function LearningPathRecommendations() {
                 </div>
               </div>
               
-              <div className="flex items-center space-x-2">
+              <div className="flex items-centre space-x-2">
                 <Calendar className="h-5 w-5 text-primary" />
                 <div>
                   <p className="text-sm font-medium">Duration</p>
@@ -354,7 +354,7 @@ export default function LearningPathRecommendations() {
                 </div>
               </div>
               
-              <div className="flex items-center space-x-2">
+              <div className="flex items-centre space-x-2">
                 <BarChart className="h-5 w-5 text-primary" />
                 <div>
                   <p className="text-sm font-medium">Difficulty</p>
@@ -366,7 +366,7 @@ export default function LearningPathRecommendations() {
             <div className="space-y-6">
               <div>
                 <h3 className="text-lg font-medium mb-2">Learning Style Alignment</h3>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <span className="text-xl">{getLearningStyleIcon(learningPath.alignedToLearningStyle)}</span>
                   <span>{getLearningStyleName(learningPath.alignedToLearningStyle)}</span>
                   <Badge className="ml-2 bg-primary/20 text-primary border-primary/20">
@@ -407,8 +407,8 @@ export default function LearningPathRecommendations() {
                         An introduction to key concepts in {getSubjectName(learningPath.subject)}, 
                         tailored to your {getLearningStyleName(learningPath.alignedToLearningStyle)} learning style.
                       </p>
-                      <div className="flex items-center justify-between mt-2">
-                        <div className="flex items-center space-x-2">
+                      <div className="flex items-centre justify-between mt-2">
+                        <div className="flex items-centre space-x-2">
                           <Clock className="h-4 w-4 text-muted-foreground" />
                           <span className="text-sm text-muted-foreground">2 hours</span>
                         </div>
@@ -432,8 +432,8 @@ export default function LearningPathRecommendations() {
                         Explore the fundamental principles of {getSubjectName(learningPath.subject)} 
                         and how they apply to real-world scenarios.
                       </p>
-                      <div className="flex items-center justify-between mt-2">
-                        <div className="flex items-center space-x-2">
+                      <div className="flex items-centre justify-between mt-2">
+                        <div className="flex items-centre space-x-2">
                           <Clock className="h-4 w-4 text-muted-foreground" />
                           <span className="text-sm text-muted-foreground">3 hours</span>
                         </div>
@@ -457,8 +457,8 @@ export default function LearningPathRecommendations() {
                         Delve deeper into advanced topics in {getSubjectName(learningPath.subject)}, 
                         building on your existing knowledge.
                       </p>
-                      <div className="flex items-center justify-between mt-2">
-                        <div className="flex items-center space-x-2">
+                      <div className="flex items-centre justify-between mt-2">
+                        <div className="flex items-centre space-x-2">
                           <Clock className="h-4 w-4 text-muted-foreground" />
                           <span className="text-sm text-muted-foreground">4 hours</span>
                         </div>

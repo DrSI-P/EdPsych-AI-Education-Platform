@@ -2,7 +2,7 @@ import React from 'react';
 
 export const metadata = {
   title: 'Biofeedback Learning System | EdPsych Connect',
-  description: 'Experience our revolutionary learning environment that adapts to your physiological and emotional state in real-time, optimizing conditions for maximum comprehension and retention.',
+  description: 'Experience our revolutionary learning environment that adapts to your physiological and emotional state in real-time, optimising conditions for maximum comprehension and retention.',
 };
 
 export default function BiofeedbackLearningLayout({

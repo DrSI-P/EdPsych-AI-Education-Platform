@@ -22,7 +22,7 @@ const sampleBlogPosts = [
   {
     id: 1,
     title: "Evidence-Based Strategies for Supporting Executive Function in the Classroom",
-    excerpt: "Practical approaches to help students develop organization, time management, and self-regulation skills based on the latest research.",
+    excerpt: "Practical approaches to help students develop organisation, time management, and self-regulation skills based on the latest research.",
     author: {
       name: "Dr. Emma Thompson",
       avatar: "/avatars/emma-thompson.jpg",
@@ -79,7 +79,7 @@ const sampleBlogPosts = [
   {
     id: 4,
     title: "Applying Cognitive Load Theory to Lesson Design",
-    excerpt: "Practical strategies for optimizing instruction based on how the brain processes and retains information.",
+    excerpt: "Practical strategies for optimising instruction based on how the brain processes and retains information.",
     author: {
       name: "AI Education Assistant",
       avatar: "/avatars/ai-assistant.jpg",
@@ -170,7 +170,7 @@ const FeaturedPost = ({ post }) => {
       <div className="relative h-[300px] w-full">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/70 z-10" />
         <div className="absolute bottom-6 left-6 right-6 z-20">
-          <div className="flex items-center space-x-2 mb-2">
+          <div className="flex items-centre space-x-2 mb-2">
             <Badge variant="secondary" className="bg-primary text-primary-foreground">
               {post.category}
             </Badge>
@@ -183,8 +183,8 @@ const FeaturedPost = ({ post }) => {
           </div>
           <h2 className="text-2xl font-bold text-white mb-2">{post.title}</h2>
           <p className="text-white/80 mb-4 line-clamp-2">{post.excerpt}</p>
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
+          <div className="flex items-centre justify-between">
+            <div className="flex items-centre space-x-2">
               <Avatar className="h-8 w-8">
                 <AvatarImage src={post.author.avatar} alt={post.author.name} />
                 <AvatarFallback>{post.author.name.charAt(0)}</AvatarFallback>
@@ -194,8 +194,8 @@ const FeaturedPost = ({ post }) => {
                 <p className="text-xs text-white/70">{post.author.role}</p>
               </div>
             </div>
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center text-white/80 text-sm">
+            <div className="flex items-centre space-x-4">
+              <div className="flex items-centre text-white/80 text-sm">
                 <Clock className="mr-1 h-4 w-4" />
                 {post.readTime} min read
               </div>
@@ -241,27 +241,27 @@ const BlogPostCard = ({ post }) => {
       <CardContent className="flex-grow pt-4">
         <h3 className="text-xl font-bold mb-2 line-clamp-2">{post.title}</h3>
         <p className="text-muted-foreground mb-4 line-clamp-3">{post.excerpt}</p>
-        <div className="flex items-center justify-between mt-auto">
-          <div className="flex items-center space-x-2">
+        <div className="flex items-centre justify-between mt-auto">
+          <div className="flex items-centre space-x-2">
             <Avatar className="h-6 w-6">
               <AvatarImage src={post.author.avatar} alt={post.author.name} />
               <AvatarFallback>{post.author.name.charAt(0)}</AvatarFallback>
             </Avatar>
             <span className="text-sm font-medium">{post.author.name}</span>
           </div>
-          <div className="flex items-center text-muted-foreground text-sm">
+          <div className="flex items-centre text-muted-foreground text-sm">
             <Clock className="mr-1 h-4 w-4" />
             {post.readTime} min
           </div>
         </div>
       </CardContent>
       <CardFooter className="border-t pt-4 flex justify-between">
-        <div className="flex items-center space-x-4 text-muted-foreground">
-          <div className="flex items-center">
+        <div className="flex items-centre space-x-4 text-muted-foreground">
+          <div className="flex items-centre">
             <ThumbsUp className="mr-1 h-4 w-4" />
             <span className="text-sm">{post.likes}</span>
           </div>
-          <div className="flex items-center">
+          <div className="flex items-centre">
             <MessageSquare className="mr-1 h-4 w-4" />
             <span className="text-sm">{post.comments}</span>
           </div>
@@ -282,7 +282,7 @@ const CategoryList = ({ categories }) => {
       {categories.map((category) => (
         <div 
           key={category.id}
-          className="flex items-center justify-between py-2 px-3 rounded-md hover:bg-muted cursor-pointer"
+          className="flex items-centre justify-between py-2 px-3 rounded-md hover:bg-muted cursor-pointer"
         >
           <span className="font-medium">{category.name}</span>
           <Badge variant="secondary">{category.count}</Badge>
@@ -328,7 +328,7 @@ const AIContentGenerator = () => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="flex items-center">
+        <CardTitle className="flex items-centre">
           <Zap className="mr-2 h-5 w-5 text-purple-500" />
           AI Content Assistant
         </CardTitle>
@@ -398,7 +398,7 @@ export function EducationalAIBlog() {
   
   return (
     <div className="container mx-auto py-8">
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
+      <div className="flex flex-col md:flex-row md:items-centre md:justify-between mb-8">
         <div>
           <h1 className="text-4xl font-bold tracking-tight">Educational AI Blog</h1>
           <p className="text-xl text-muted-foreground mt-2">
@@ -454,7 +454,7 @@ export function EducationalAIBlog() {
           {/* Categories */}
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center">
+              <CardTitle className="flex items-centre">
                 <BookMarked className="mr-2 h-5 w-5" />
                 Categories
               </CardTitle>
@@ -467,7 +467,7 @@ export function EducationalAIBlog() {
           {/* Popular Tags */}
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center">
+              <CardTitle className="flex items-centre">
                 <Tag className="mr-2 h-5 w-5" />
                 Popular Tags
               </CardTitle>
@@ -496,8 +496,8 @@ export function EducationalAIBlog() {
           </Tabs>
           
           {/* Filter and Sort */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
+          <div className="flex items-centre justify-between">
+            <div className="flex items-centre space-x-2">
               <Button variant="outline" size="sm">
                 <Filter className="mr-2 h-4 w-4" />
                 Filter
@@ -524,8 +524,8 @@ export function EducationalAIBlog() {
           </div>
           
           {/* Pagination */}
-          <div className="flex items-center justify-center mt-8">
-            <div className="flex items-center space-x-2">
+          <div className="flex items-centre justify-centre mt-8">
+            <div className="flex items-centre space-x-2">
               <Button variant="outline" size="sm" disabled>
                 Previous
               </Button>

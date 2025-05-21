@@ -56,7 +56,7 @@ export default function PersonalizedInterventionsEngine({
         'Structured literacy approach',
         'Text-to-speech technology',
         'Multisensory learning techniques',
-        'Reading fluency practice'
+        'Reading fluency practise'
       ]
     },
     {
@@ -76,7 +76,7 @@ export default function PersonalizedInterventionsEngine({
       name: 'ADHD Support',
       description: 'Interventions for students with attention and executive function challenges',
       recommendedInterventions: [
-        'Task breakdown and organization',
+        'Task breakdown and organisation',
         'Time management strategies',
         'Self-monitoring techniques',
         'Movement breaks and fidget tools',
@@ -320,8 +320,8 @@ export default function PersonalizedInterventionsEngine({
   return (
     <Card className={className}>
       <CardHeader>
-        <CardTitle className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
+        <CardTitle className="flex items-centre justify-between">
+          <div className="flex items-centre gap-2">
             <Sparkles className="h-5 w-5" />
             Personalized Interventions
           </div>
@@ -392,17 +392,17 @@ export default function PersonalizedInterventionsEngine({
                   }
                   className="grid grid-cols-3 gap-4"
                 >
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <RadioGroupItem value="light" id="light" />
                     <Label htmlFor="light">Light</Label>
                   </div>
                   
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <RadioGroupItem value="moderate" id="moderate" />
                     <Label htmlFor="moderate">Moderate</Label>
                   </div>
                   
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <RadioGroupItem value="intensive" id="intensive" />
                     <Label htmlFor="intensive">Intensive</Label>
                   </div>
@@ -416,7 +416,7 @@ export default function PersonalizedInterventionsEngine({
                 <Label>Target Areas</Label>
                 <div className="grid grid-cols-2 gap-2">
                   {targetAreas.map((area) => (
-                    <div key={area.id} className="flex items-center space-x-2">
+                    <div key={area.id} className="flex items-centre space-x-2">
                       <Switch 
                         checked={settings.targetAreas.includes(area.id)}
                         onCheckedChange={() => handleTargetAreaToggle(area.id)}
@@ -476,7 +476,7 @@ export default function PersonalizedInterventionsEngine({
           
           <TabsContent value="monitoring" className="space-y-6 pt-4">
             <div className="space-y-4">
-              <div className="flex items-center justify-between">
+              <div className="flex items-centre justify-between">
                 <div className="space-y-0.5">
                   <Label htmlFor="progress-tracking">Progress Tracking</Label>
                   <p className="text-xs text-muted-foreground">
@@ -501,17 +501,17 @@ export default function PersonalizedInterventionsEngine({
                   }
                   className="grid grid-cols-3 gap-4"
                 >
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <RadioGroupItem value="daily" id="daily" />
                     <Label htmlFor="daily">Daily</Label>
                   </div>
                   
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <RadioGroupItem value="weekly" id="weekly" />
                     <Label htmlFor="weekly">Weekly</Label>
                   </div>
                   
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-centre space-x-2">
                     <RadioGroupItem value="monthly" id="monthly" />
                     <Label htmlFor="monthly">Monthly</Label>
                   </div>
@@ -521,7 +521,7 @@ export default function PersonalizedInterventionsEngine({
                 </p>
               </div>
               
-              <div className="flex items-center justify-between">
+              <div className="flex items-centre justify-between">
                 <div className="space-y-0.5">
                   <Label htmlFor="parent-teacher-updates">Parent/Teacher Updates</Label>
                   <p className="text-xs text-muted-foreground">
@@ -539,24 +539,24 @@ export default function PersonalizedInterventionsEngine({
               
               {settings.progressTracking && (
                 <div className="p-4 bg-muted rounded-md space-y-3">
-                  <h4 className="font-medium flex items-center gap-2">
+                  <h4 className="font-medium flex items-centre gap-2">
                     <Target className="h-4 w-4" />
                     Progress Monitoring Tools
                   </h4>
                   <div className="space-y-2">
-                    <div className="flex items-center justify-between text-sm">
+                    <div className="flex items-centre justify-between text-sm">
                       <span>Goal Setting</span>
                       <span className="text-green-500">Available</span>
                     </div>
-                    <div className="flex items-center justify-between text-sm">
+                    <div className="flex items-centre justify-between text-sm">
                       <span>Data Collection</span>
                       <span className="text-green-500">Available</span>
                     </div>
-                    <div className="flex items-center justify-between text-sm">
-                      <span>Progress Visualization</span>
+                    <div className="flex items-centre justify-between text-sm">
+                      <span>Progress Visualisation</span>
                       <span className="text-green-500">Available</span>
                     </div>
-                    <div className="flex items-center justify-between text-sm">
+                    <div className="flex items-centre justify-between text-sm">
                       <span>Intervention Effectiveness Analysis</span>
                       <span className="text-green-500">Available</span>
                     </div>
@@ -575,7 +575,7 @@ export default function PersonalizedInterventionsEngine({
         <Button 
           variant="outline" 
           onClick={handleResetSettings}
-          className="flex items-center gap-2"
+          className="flex items-centre gap-2"
         >
           <RefreshCw className="h-4 w-4" />
           Reset
@@ -583,7 +583,7 @@ export default function PersonalizedInterventionsEngine({
         
         <Button 
           onClick={handleApplySettings}
-          className="flex items-center gap-2"
+          className="flex items-centre gap-2"
           disabled={!settings.learningProfile || settings.targetAreas.length === 0}
         >
           <Check className="h-4 w-4" />
@@ -602,13 +602,13 @@ function getInterventionDescription(profileId: string, index: number): string {
       'Explicit, systematic teaching of reading skills with multisensory components.',
       'Using software that converts text to speech to support reading comprehension.',
       'Incorporating visual, auditory, kinesthetic, and tactile elements in learning activities.',
-      'Regular practice with decodable texts to build reading speed and accuracy.'
+      'Regular practise with decodable texts to build reading speed and accuracy.'
     ],
     'dyscalculia': [
       'Teaching math concepts using physical objects before moving to pictures and then abstract symbols.',
       'Activities that develop understanding of quantity, number relationships, and estimation.',
       'Using diagrams, charts, and manipulatives to represent mathematical concepts.',
-      'Strategies like mnemonics and regular practice to help recall math facts.',
+      'Strategies like mnemonics and regular practise to help recall math facts.',
       'Connecting math concepts to everyday situations and practical applications.'
     ],
     'adhd': [
@@ -616,7 +616,7 @@ function getInterventionDescription(profileId: string, index: number): string {
       'Using timers, planners, and visual schedules to manage time effectively.',
       'Teaching students to monitor their own attention and work completion.',
       'Providing appropriate outlets for physical energy and sensory input needs.',
-      'Reducing distractions and optimizing the learning environment.'
+      'Reducing distractions and optimising the learning environment.'
     ],
     'asd': [
       'Using pictures, icons, or written words to show daily activities and transitions.',
@@ -644,7 +644,7 @@ function getInterventionDescription(profileId: string, index: number): string {
       'Adapt implementation based on student response and environmental factors.',
       'Set specific, measurable, achievable, relevant, and time-bound (SMART) goals.',
       'Track progress using appropriate assessment tools and adjust as needed.',
-      'Access specialized resources and materials to support unique learning needs.'
+      'Access specialised resources and materials to support unique learning needs.'
     ]
   };
   

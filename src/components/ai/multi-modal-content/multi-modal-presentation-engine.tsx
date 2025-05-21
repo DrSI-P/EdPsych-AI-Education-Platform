@@ -205,7 +205,7 @@ export default function MultiModalPresentationEngine({
       <div className="space-y-6">
         <div className="relative aspect-video bg-slate-100 dark:bg-slate-800 rounded-lg overflow-hidden">
           {settings.includeVisual && currentSlide.visualContent && (
-            <div className="absolute inset-0 flex items-center justify-center">
+            <div className="absolute inset-0 flex items-centre justify-centre">
               <img 
                 src={currentSlide.visualContent} 
                 alt={currentSlide.title || 'Visual representation'} 
@@ -216,7 +216,7 @@ export default function MultiModalPresentationEngine({
           
           {settings.includeInteractive && currentSlide.interactiveContent && (
             <div className="absolute bottom-4 right-4 p-2 bg-white/80 dark:bg-black/80 rounded-md">
-              <Button size="sm" variant="outline" className="flex items-center gap-1">
+              <Button size="sm" variant="outline" className="flex items-centre gap-1">
                 <Hand className="h-4 w-4" />
                 Interactive Element
               </Button>
@@ -225,7 +225,7 @@ export default function MultiModalPresentationEngine({
           
           <div className="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/70 to-transparent text-white">
             <h3 className="font-medium">{currentSlide.title}</h3>
-            <div className="flex items-center gap-2 text-xs">
+            <div className="flex items-centre gap-2 text-xs">
               <Badge variant="outline" className="bg-white/20 text-white border-white/30">
                 Slide {currentSlide + 1} of {multiModalContent.slides.length}
               </Badge>
@@ -235,7 +235,7 @@ export default function MultiModalPresentationEngine({
         
         {settings.includeAudio && currentSlide.audioContent && (
           <div className="bg-slate-50 dark:bg-slate-900 p-3 rounded-md">
-            <div className="flex items-center gap-2 mb-2">
+            <div className="flex items-centre gap-2 mb-2">
               <Headphones className="h-4 w-4 text-blue-600" />
               <span className="text-sm font-medium">Audio Narration</span>
             </div>
@@ -250,7 +250,7 @@ export default function MultiModalPresentationEngine({
         
         {settings.includeText && currentSlide.textContent && (
           <div className="bg-slate-50 dark:bg-slate-900 p-4 rounded-md">
-            <div className="flex items-center gap-2 mb-2">
+            <div className="flex items-centre gap-2 mb-2">
               <FileText className="h-4 w-4 text-teal-600" />
               <span className="text-sm font-medium">Text Content</span>
             </div>
@@ -260,8 +260,8 @@ export default function MultiModalPresentationEngine({
           </div>
         )}
         
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
+        <div className="flex items-centre justify-between">
+          <div className="flex items-centre gap-2">
             <Button 
               variant="outline" 
               size="icon" 
@@ -321,7 +321,7 @@ export default function MultiModalPresentationEngine({
                   className="w-full h-full object-cover"
                 />
               ) : (
-                <div className="flex items-center justify-center w-full h-full">
+                <div className="flex items-centre justify-centre w-full h-full">
                   <ImageIcon className="h-8 w-8 text-muted-foreground" />
                 </div>
               )}
@@ -357,7 +357,7 @@ export default function MultiModalPresentationEngine({
                   className="w-full h-8"
                 />
               ) : (
-                <div className="flex items-center justify-center p-4 bg-slate-100 dark:bg-slate-800 rounded-md">
+                <div className="flex items-centre justify-centre p-4 bg-slate-100 dark:bg-slate-800 rounded-md">
                   <Headphones className="h-6 w-6 text-muted-foreground mr-2" />
                   <span className="text-muted-foreground">No audio available</span>
                 </div>
@@ -389,7 +389,7 @@ export default function MultiModalPresentationEngine({
                   <div dangerouslySetInnerHTML={{ __html: slide.textContent }} />
                 </div>
               ) : (
-                <div className="flex items-center justify-center p-4 bg-slate-100 dark:bg-slate-800 rounded-md">
+                <div className="flex items-centre justify-centre p-4 bg-slate-100 dark:bg-slate-800 rounded-md">
                   <FileText className="h-6 w-6 text-muted-foreground mr-2" />
                   <span className="text-muted-foreground">No text content available</span>
                 </div>
@@ -418,16 +418,16 @@ export default function MultiModalPresentationEngine({
             <CardContent className="py-2">
               {slide.interactiveContent ? (
                 <div className="bg-slate-100 dark:bg-slate-800 p-4 rounded-md">
-                  <div className="flex items-center justify-center">
+                  <div className="flex items-centre justify-centre">
                     <Hand className="h-6 w-6 text-primary mr-2" />
                     <span>Interactive element available</span>
                   </div>
-                  <div className="mt-2 text-center">
+                  <div className="mt-2 text-centre">
                     <Button size="sm">Launch Interactive Element</Button>
                   </div>
                 </div>
               ) : (
-                <div className="flex items-center justify-center p-4 bg-slate-100 dark:bg-slate-800 rounded-md">
+                <div className="flex items-centre justify-centre p-4 bg-slate-100 dark:bg-slate-800 rounded-md">
                   <Hand className="h-6 w-6 text-muted-foreground mr-2" />
                   <span className="text-muted-foreground">No interactive content available</span>
                 </div>
@@ -443,8 +443,8 @@ export default function MultiModalPresentationEngine({
     <div className={className}>
       <Card className="mb-6">
         <CardHeader>
-          <CardTitle className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
+          <CardTitle className="flex items-centre justify-between">
+            <div className="flex items-centre gap-2">
               <Sparkles className="h-5 w-5 text-primary" />
               Multi-Modal Content Presentation
             </div>
@@ -462,7 +462,7 @@ export default function MultiModalPresentationEngine({
             </TabsList>
             
             <TabsContent value="content" className="space-y-4 pt-4">
-              <div className="flex items-center justify-between">
+              <div className="flex items-centre justify-between">
                 <div className="space-y-0.5">
                   <label className="text-sm font-medium">Include Visual Content</label>
                   <p className="text-xs text-muted-foreground">
@@ -475,7 +475,7 @@ export default function MultiModalPresentationEngine({
                 />
               </div>
               
-              <div className="flex items-center justify-between">
+              <div className="flex items-centre justify-between">
                 <div className="space-y-0.5">
                   <label className="text-sm font-medium">Include Audio Content</label>
                   <p className="text-xs text-muted-foreground">
@@ -488,7 +488,7 @@ export default function MultiModalPresentationEngine({
                 />
               </div>
               
-              <div className="flex items-center justify-between">
+              <div className="flex items-centre justify-between">
                 <div className="space-y-0.5">
                   <label className="text-sm font-medium">Include Text Content</label>
                   <p className="text-xs text-muted-foreground">
@@ -501,7 +501,7 @@ export default function MultiModalPresentationEngine({
                 />
               </div>
               
-              <div className="flex items-center justify-between">
+              <div className="flex items-centre justify-between">
                 <div className="space-y-0.5">
                   <label className="text-sm font-medium">Include Interactive Elements</label>
                   <p className="text-xs text-muted-foreground">
@@ -515,7 +515,7 @@ export default function MultiModalPresentationEngine({
               </div>
               
               <div className="space-y-2">
-                <div className="flex items-center justify-between">
+                <div className="flex items-centre justify-between">
                   <label className="text-sm font-medium">Content Complexity</label>
                   <span className="text-xs text-muted-foreground">
                     {settings.contentComplexity}%
@@ -564,7 +564,7 @@ export default function MultiModalPresentationEngine({
                 </select>
               </div>
               
-              <div className="flex items-center justify-between">
+              <div className="flex items-centre justify-between">
                 <div className="space-y-0.5">
                   <label className="text-sm font-medium">Auto-Advance Slides</label>
                   <p className="text-xs text-muted-foreground">
@@ -581,14 +581,14 @@ export default function MultiModalPresentationEngine({
         </CardContent>
         
         <CardFooter className="flex justify-between border-t pt-4">
-          <div className="flex items-center text-xs text-muted-foreground">
+          <div className="flex items-centre text-xs text-muted-foreground">
             <CheckCircle2 className="h-3 w-3 mr-1" /> 
             Multi-sensory learning
           </div>
           <Button 
             onClick={generateMultiModalContent} 
             disabled={isGenerating}
-            className="flex items-center gap-1"
+            className="flex items-centre gap-1"
           >
             {isGenerating ? (
               <>
@@ -608,9 +608,9 @@ export default function MultiModalPresentationEngine({
       {isGenerating && (
         <Card>
           <CardContent className="py-6">
-            <div className="flex flex-col items-center justify-center space-y-4">
+            <div className="flex flex-col items-centre justify-centre space-y-4">
               <RefreshCw className="h-8 w-8 text-primary animate-spin" />
-              <div className="text-center">
+              <div className="text-centre">
                 <h3 className="text-lg font-medium">Generating Multi-Modal Content</h3>
                 <p className="text-sm text-muted-foreground">
                   Creating content for multiple sensory channels...
@@ -669,7 +669,7 @@ export default function MultiModalPresentationEngine({
               variant="outline" 
               size="sm" 
               onClick={() => setMultiModalContent(null)}
-              className="flex items-center gap-1"
+              className="flex items-centre gap-1"
             >
               Reset
             </Button>
@@ -682,7 +682,7 @@ export default function MultiModalPresentationEngine({
                   description: "The multi-modal content has been saved to your account.",
                 });
               }}
-              className="flex items-center gap-1"
+              className="flex items-centre gap-1"
             >
               <Download className="h-4 w-4 mr-1" />
               Save Content

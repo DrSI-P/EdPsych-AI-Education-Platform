@@ -10,14 +10,14 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { 
-  Dialog, 
+  Dialogue, 
   DialogContent, 
   DialogDescription, 
   DialogFooter, 
   DialogHeader, 
   DialogTitle, 
   DialogTrigger 
-} from "@/components/ui/dialog";
+} from "@/components/ui/dialogue";
 import { 
   Shield, 
   Award, 
@@ -104,7 +104,7 @@ const credentialTypes = [
   { id: 'attendance', name: 'Event Attendance', icon: <Clock className="h-5 w-5" /> }
 ];
 
-// License types
+// Licence types
 const licenseTypes = [
   { id: 'all_rights_reserved', name: 'All Rights Reserved', description: 'Full copyright protection with no permissions granted' },
   { id: 'cc_by', name: 'CC BY', description: 'Credit must be given to the creator' },
@@ -187,7 +187,7 @@ const mockCopyrightRegistrations = [
     registeredAt: '2024-12-18T09:45:00Z',
     contentHash: '0x9i0j1k2l3m4n5o6p7q8r9s0t1u2v3w4x5y6z7a8b9c0d1e2f3g4h5i6j7k8l9m0n',
     licenseType: 'all_rights_reserved',
-    description: 'Standardized protocol for assessing developmental progress in children aged 3-7',
+    description: 'Standardised protocol for assessing developmental progress in children aged 3-7',
     txHash: '0x9i0j1k2l3m4n5o6p7q8r9s0t1u2v3w4x5y6z7a8b',
     verified: true
   }
@@ -322,7 +322,7 @@ const BlockchainCredentialsWallet = () => {
           variant: "success",
         });
         
-        // Reset form and close dialog
+        // Reset form and close dialogue
         setNewCredential({
           type: 'course_completion',
           title: '',
@@ -396,7 +396,7 @@ const BlockchainCredentialsWallet = () => {
           variant: "success",
         });
         
-        // Reset form and close dialog
+        // Reset form and close dialogue
         setNewCopyright({
           title: '',
           type: 'document',
@@ -499,7 +499,7 @@ const BlockchainCredentialsWallet = () => {
       <Card key={credential.id} className="mb-4">
         <CardHeader className="pb-2">
           <div className="flex justify-between items-start">
-            <div className="flex items-center">
+            <div className="flex items-centre">
               {typeInfo.icon}
               <Badge variant="outline" className="ml-2">
                 {typeInfo.name}
@@ -580,8 +580,8 @@ const BlockchainCredentialsWallet = () => {
             {registration.contentHash}
           </div>
           
-          <div className="flex items-center mt-2">
-            <p className="text-sm font-medium mr-2">License:</p>
+          <div className="flex items-centre mt-2">
+            <p className="text-sm font-medium mr-2">Licence:</p>
             <Badge variant="secondary">
               {getLicenseName(registration.licenseType)}
             </Badge>
@@ -603,7 +603,7 @@ const BlockchainCredentialsWallet = () => {
   
   return (
     <div className="container mx-auto py-8">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-centre mb-6">
         <div>
           <h1 className="text-3xl font-bold">Blockchain Credentials Wallet</h1>
           <p className="text-muted-foreground mt-1">
@@ -621,7 +621,7 @@ const BlockchainCredentialsWallet = () => {
             Connect Wallet
           </Button>
         ) : (
-          <div className="mt-4 md:mt-0 flex items-center">
+          <div className="mt-4 md:mt-0 flex items-centre">
             <Badge variant="outline" className="font-mono">
               {walletAddress}
             </Badge>
@@ -649,7 +649,7 @@ const BlockchainCredentialsWallet = () => {
         </TabsList>
         
         <TabsContent value="credentials" className="mt-0">
-          <div className="flex justify-between items-center mb-6">
+          <div className="flex justify-between items-centre mb-6">
             <h2 className="text-xl font-semibold">My Credentials</h2>
             <Button 
               onClick={() => setShowCredentialDialog(true)}
@@ -665,7 +665,7 @@ const BlockchainCredentialsWallet = () => {
               {credentials.map(renderCredentialCard)}
             </div>
           ) : (
-            <div className="text-center py-12 border rounded-lg">
+            <div className="text-centre py-12 border rounded-lg">
               <Award className="h-12 w-12 mx-auto text-muted-foreground" />
               <h3 className="mt-4 text-lg font-medium">No Credentials Yet</h3>
               <p className="text-muted-foreground mt-1">
@@ -683,7 +683,7 @@ const BlockchainCredentialsWallet = () => {
         </TabsContent>
         
         <TabsContent value="copyright" className="mt-0">
-          <div className="flex justify-between items-center mb-6">
+          <div className="flex justify-between items-centre mb-6">
             <h2 className="text-xl font-semibold">Copyright Registrations</h2>
             <Button 
               onClick={() => setShowCopyrightDialog(true)}
@@ -699,7 +699,7 @@ const BlockchainCredentialsWallet = () => {
               {copyrightRegistrations.map(renderCopyrightCard)}
             </div>
           ) : (
-            <div className="text-center py-12 border rounded-lg">
+            <div className="text-centre py-12 border rounded-lg">
               <FileCheck className="h-12 w-12 mx-auto text-muted-foreground" />
               <h3 className="mt-4 text-lg font-medium">No Copyright Registrations</h3>
               <p className="text-muted-foreground mt-1">
@@ -750,7 +750,7 @@ const BlockchainCredentialsWallet = () => {
                 
                 {verificationResult && (
                   <div className="mt-6 border rounded-lg p-4">
-                    <div className="flex items-center mb-4">
+                    <div className="flex items-centre mb-4">
                       {verificationResult.valid ? (
                         <CheckCircle className="h-6 w-6 text-green-500 mr-2" />
                       ) : (
@@ -804,7 +804,7 @@ const BlockchainCredentialsWallet = () => {
                             </p>
                           </div>
                           <div>
-                            <p className="text-sm font-medium">License Type</p>
+                            <p className="text-sm font-medium">Licence Type</p>
                             <Badge variant="outline">
                               {verificationResult.licenseType}
                             </Badge>
@@ -826,8 +826,8 @@ const BlockchainCredentialsWallet = () => {
         </TabsContent>
       </Tabs>
       
-      {/* Issue Credential Dialog */}
-      <Dialog open={showCredentialDialog} onOpenChange={setShowCredentialDialog}>
+      {/* Issue Credential Dialogue */}
+      <Dialogue open={showCredentialDialog} onOpenChange={setShowCredentialDialog}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Issue New Credential</DialogTitle>
@@ -837,7 +837,7 @@ const BlockchainCredentialsWallet = () => {
           </DialogHeader>
           
           <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center gap-4">
+            <div className="grid grid-cols-4 items-centre gap-4">
               <Label htmlFor="credentialType" className="text-right">
                 Type
               </Label>
@@ -855,7 +855,7 @@ const BlockchainCredentialsWallet = () => {
               </select>
             </div>
             
-            <div className="grid grid-cols-4 items-center gap-4">
+            <div className="grid grid-cols-4 items-centre gap-4">
               <Label htmlFor="credentialTitle" className="text-right">
                 Title *
               </Label>
@@ -868,7 +868,7 @@ const BlockchainCredentialsWallet = () => {
               />
             </div>
             
-            <div className="grid grid-cols-4 items-center gap-4">
+            <div className="grid grid-cols-4 items-centre gap-4">
               <Label htmlFor="credentialIssuer" className="text-right">
                 Issuer *
               </Label>
@@ -881,7 +881,7 @@ const BlockchainCredentialsWallet = () => {
               />
             </div>
             
-            <div className="grid grid-cols-4 items-center gap-4">
+            <div className="grid grid-cols-4 items-centre gap-4">
               <Label htmlFor="credentialDescription" className="text-right">
                 Description
               </Label>
@@ -894,7 +894,7 @@ const BlockchainCredentialsWallet = () => {
               />
             </div>
             
-            <div className="grid grid-cols-4 items-center gap-4">
+            <div className="grid grid-cols-4 items-centre gap-4">
               <Label htmlFor="credentialSkills" className="text-right">
                 Skills
               </Label>
@@ -917,10 +917,10 @@ const BlockchainCredentialsWallet = () => {
             </Button>
           </DialogFooter>
         </DialogContent>
-      </Dialog>
+      </Dialogue>
       
-      {/* Register Copyright Dialog */}
-      <Dialog open={showCopyrightDialog} onOpenChange={setShowCopyrightDialog}>
+      {/* Register Copyright Dialogue */}
+      <Dialogue open={showCopyrightDialog} onOpenChange={setShowCopyrightDialog}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Register New Copyright</DialogTitle>
@@ -930,7 +930,7 @@ const BlockchainCredentialsWallet = () => {
           </DialogHeader>
           
           <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center gap-4">
+            <div className="grid grid-cols-4 items-centre gap-4">
               <Label htmlFor="copyrightTitle" className="text-right">
                 Title *
               </Label>
@@ -943,7 +943,7 @@ const BlockchainCredentialsWallet = () => {
               />
             </div>
             
-            <div className="grid grid-cols-4 items-center gap-4">
+            <div className="grid grid-cols-4 items-centre gap-4">
               <Label htmlFor="copyrightType" className="text-right">
                 Type *
               </Label>
@@ -961,7 +961,7 @@ const BlockchainCredentialsWallet = () => {
               </select>
             </div>
             
-            <div className="grid grid-cols-4 items-center gap-4">
+            <div className="grid grid-cols-4 items-centre gap-4">
               <Label htmlFor="copyrightDescription" className="text-right">
                 Description
               </Label>
@@ -974,9 +974,9 @@ const BlockchainCredentialsWallet = () => {
               />
             </div>
             
-            <div className="grid grid-cols-4 items-center gap-4">
+            <div className="grid grid-cols-4 items-centre gap-4">
               <Label htmlFor="copyrightLicense" className="text-right">
-                License
+                Licence
               </Label>
               <select
                 id="copyrightLicense"
@@ -984,7 +984,7 @@ const BlockchainCredentialsWallet = () => {
                 value={newCopyright.licenseType}
                 onChange={(e) => setNewCopyright({...newCopyright, licenseType: e.target.value})}
               >
-                {licenseTypes.map((license) => (
+                {licenseTypes.map((licence) => (
                   <option key={license.id} value={license.id}>
                     {license.name}
                   </option>
@@ -992,7 +992,7 @@ const BlockchainCredentialsWallet = () => {
               </select>
             </div>
             
-            <div className="grid grid-cols-4 items-center gap-4">
+            <div className="grid grid-cols-4 items-centre gap-4">
               <Label htmlFor="copyrightFile" className="text-right">
                 File
               </Label>
@@ -1014,10 +1014,10 @@ const BlockchainCredentialsWallet = () => {
             </Button>
           </DialogFooter>
         </DialogContent>
-      </Dialog>
+      </Dialogue>
       
-      {/* Share Credential Dialog */}
-      <Dialog open={showShareDialog} onOpenChange={setShowShareDialog}>
+      {/* Share Credential Dialogue */}
+      <Dialogue open={showShareDialog} onOpenChange={setShowShareDialog}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Share Credential</DialogTitle>
@@ -1028,7 +1028,7 @@ const BlockchainCredentialsWallet = () => {
           
           {selectedCredential && (
             <div className="py-4">
-              <div className="flex justify-center mb-4">
+              <div className="flex justify-centre mb-4">
                 <div className="bg-muted p-4 rounded-lg">
                   <QrCode className="h-32 w-32" />
                 </div>
@@ -1102,9 +1102,9 @@ const BlockchainCredentialsWallet = () => {
             </Button>
           </DialogFooter>
         </DialogContent>
-      </Dialog>
+      </Dialogue>
       
-      {/* Credit purchase dialog from fair usage hook */}
+      {/* Credit purchase dialogue from fair usage hook */}
       <CreditPurchaseDialog />
     </div>
   );

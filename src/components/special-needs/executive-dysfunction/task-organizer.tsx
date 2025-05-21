@@ -429,15 +429,15 @@ export default function TaskOrganizer({
     <div className={className}>
       <Card className="mb-6">
         <CardHeader>
-          <CardTitle className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
+          <CardTitle className="flex items-centre justify-between">
+            <div className="flex items-centre gap-2">
               <Brain className="h-5 w-5 text-primary" />
               Executive Function Task Organizer
             </div>
             <Button 
               size="sm" 
               onClick={() => setIsCreatingTask(!isCreatingTask)}
-              className="flex items-center gap-1"
+              className="flex items-centre gap-1"
             >
               {isCreatingTask ? (
                 <>
@@ -453,7 +453,7 @@ export default function TaskOrganizer({
             </Button>
           </CardTitle>
           <CardDescription>
-            Organize tasks with visual cues and step-by-step breakdowns
+            Organise tasks with visual cues and step-by-step breakdowns
           </CardDescription>
         </CardHeader>
         
@@ -558,7 +558,7 @@ export default function TaskOrganizer({
                 
                 <div className="space-y-2">
                   <Label>Task Steps</Label>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-centre gap-2">
                     <Input 
                       placeholder="Add a step"
                       value={newStep}
@@ -583,8 +583,8 @@ export default function TaskOrganizer({
                   {(newTask.steps || []).length > 0 && (
                     <div className="mt-2 space-y-2">
                       {(newTask.steps || []).map((step, index) => (
-                        <div key={step.id} className="flex items-center justify-between bg-slate-50 dark:bg-slate-900 p-2 rounded-md">
-                          <div className="flex items-center gap-2">
+                        <div key={step.id} className="flex items-centre justify-between bg-slate-50 dark:bg-slate-900 p-2 rounded-md">
+                          <div className="flex items-centre gap-2">
                             <span className="text-sm font-medium text-slate-500">{index + 1}.</span>
                             <span>{step.description}</span>
                           </div>
@@ -603,7 +603,7 @@ export default function TaskOrganizer({
                 
                 <div className="space-y-2">
                   <Label>Tags</Label>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-centre gap-2">
                     <Input 
                       placeholder="Add a tag"
                       value={newTag}
@@ -628,7 +628,7 @@ export default function TaskOrganizer({
                   {(newTask.tags || []).length > 0 && (
                     <div className="flex flex-wrap gap-2 mt-2">
                       {(newTask.tags || []).map((tag) => (
-                        <Badge key={tag} variant="outline" className="flex items-center gap-1">
+                        <Badge key={tag} variant="outline" className="flex items-centre gap-1">
                           {tag}
                           <X 
                             className="h-3 w-3 cursor-pointer" 
@@ -670,7 +670,7 @@ export default function TaskOrganizer({
             </Card>
           )}
           
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div className="flex flex-col md:flex-row md:items-centre justify-between gap-4">
             <Tabs defaultValue="all" value={activeTab} onValueChange={setActiveTab} className="w-full md:w-auto">
               <TabsList className="grid grid-cols-5">
                 <TabsTrigger value="all">All</TabsTrigger>
@@ -681,8 +681,8 @@ export default function TaskOrganizer({
               </TabsList>
             </Tabs>
             
-            <div className="flex flex-col md:flex-row gap-4 md:items-center">
-              <div className="flex items-center space-x-2">
+            <div className="flex flex-col md:flex-row gap-4 md:items-centre">
+              <div className="flex items-centre space-x-2">
                 <Checkbox 
                   id="show-completed" 
                   checked={showCompletedTasks}
@@ -691,7 +691,7 @@ export default function TaskOrganizer({
                 <Label htmlFor="show-completed">Show completed tasks</Label>
               </div>
               
-              <div className="flex items-center space-x-2">
+              <div className="flex items-centre space-x-2">
                 <Label htmlFor="sort-by">Sort by:</Label>
                 <Select value={sortBy} onValueChange={setSortBy}>
                   <SelectTrigger id="sort-by" className="w-[140px]">
@@ -705,7 +705,7 @@ export default function TaskOrganizer({
                 </Select>
               </div>
               
-              <div className="flex items-center space-x-2">
+              <div className="flex items-centre space-x-2">
                 <Switch 
                   id="visual-cues" 
                   checked={useVisualCues}
@@ -717,8 +717,8 @@ export default function TaskOrganizer({
           </div>
           
           {sortedTasks.length === 0 ? (
-            <div className="text-center py-8">
-              <div className="mx-auto w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-3">
+            <div className="text-centre py-8">
+              <div className="mx-auto w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-centre justify-centre mb-3">
                 <ListChecks className="h-6 w-6 text-slate-400" />
               </div>
               <h3 className="text-lg font-medium">No tasks found</h3>
@@ -747,7 +747,7 @@ export default function TaskOrganizer({
                               task.status === 'done' ? 'bg-slate-50 dark:bg-slate-900/50 opacity-70' : ''
                             }`}
                           >
-                            <div className="flex items-center p-3">
+                            <div className="flex items-centre p-3">
                               <div 
                                 {...provided.dragHandleProps}
                                 className="mr-3 cursor-grab"
@@ -756,8 +756,8 @@ export default function TaskOrganizer({
                               </div>
                               
                               <div className="flex-1">
-                                <div className="flex items-center justify-between">
-                                  <div className="flex items-center gap-2">
+                                <div className="flex items-centre justify-between">
+                                  <div className="flex items-centre gap-2">
                                     <Checkbox 
                                       checked={task.status === 'done'}
                                       onCheckedChange={(checked) => {
@@ -772,11 +772,11 @@ export default function TaskOrganizer({
                                     </span>
                                   </div>
                                   
-                                  <div className="flex items-center gap-2">
+                                  <div className="flex items-centre gap-2">
                                     {task.dueDate && (
                                       <Badge 
                                         variant="outline" 
-                                        className={`flex items-center gap-1 ${
+                                        className={`flex items-centre gap-1 ${
                                           isOverdue(task.dueDate) && task.status !== 'done' 
                                             ? 'bg-red-50 text-red-700 border-red-200' 
                                             : 'bg-slate-50 text-slate-700 border-slate-200'
@@ -792,7 +792,7 @@ export default function TaskOrganizer({
                                     </Badge>
                                     
                                     <Badge variant="outline" className={getStatusColor(task.status)}>
-                                      <div className="flex items-center gap-1">
+                                      <div className="flex items-centre gap-1">
                                         {getStatusIcon(task.status)}
                                         <span className="capitalize">{task.status.replace('-', ' ')}</span>
                                       </div>
@@ -828,7 +828,7 @@ export default function TaskOrganizer({
                                   
                                   {task.steps.length > 0 && (
                                     <div>
-                                      <div className="flex items-center justify-between mb-2">
+                                      <div className="flex items-centre justify-between mb-2">
                                         <h4 className="text-sm font-medium">Steps</h4>
                                         <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200">
                                           {calculateTaskProgress(task)}% complete
@@ -844,7 +844,7 @@ export default function TaskOrganizer({
                                       
                                       <div className="space-y-2">
                                         {task.steps.map((step) => (
-                                          <div key={step.id} className="flex items-center gap-2">
+                                          <div key={step.id} className="flex items-centre gap-2">
                                             <Checkbox 
                                               checked={step.completed}
                                               onCheckedChange={() => handleToggleStepCompletion(task.id, step.id)}
@@ -860,7 +860,7 @@ export default function TaskOrganizer({
                                   
                                   <div className="flex flex-wrap gap-2">
                                     {task.timeEstimate && (
-                                      <Badge variant="outline" className="flex items-center gap-1 bg-purple-50 text-purple-700 border-purple-200">
+                                      <Badge variant="outline" className="flex items-centre gap-1 bg-purple-50 text-purple-700 border-purple-200">
                                         <Timer className="h-3 w-3" />
                                         {formatTimeEstimate(task.timeEstimate)}
                                       </Badge>
@@ -894,7 +894,7 @@ export default function TaskOrganizer({
                                       variant="outline" 
                                       size="sm" 
                                       onClick={() => handleUpdateTask(task.id)}
-                                      className="flex items-center gap-1"
+                                      className="flex items-centre gap-1"
                                     >
                                       <Edit className="h-3 w-3" />
                                       Edit
@@ -903,7 +903,7 @@ export default function TaskOrganizer({
                                       variant="destructive" 
                                       size="sm" 
                                       onClick={() => handleDeleteTask(task.id)}
-                                      className="flex items-center gap-1"
+                                      className="flex items-centre gap-1"
                                     >
                                       <Trash2 className="h-3 w-3" />
                                       Delete
@@ -925,7 +925,7 @@ export default function TaskOrganizer({
         </CardContent>
         
         <CardFooter className="flex justify-between border-t pt-4">
-          <div className="flex items-center text-xs text-muted-foreground">
+          <div className="flex items-centre text-xs text-muted-foreground">
             <Sparkles className="h-3 w-3 mr-1" /> 
             Drag and drop to reorder tasks
           </div>
@@ -933,7 +933,7 @@ export default function TaskOrganizer({
             variant="outline" 
             size="sm" 
             onClick={() => setIsCreatingTask(true)}
-            className="flex items-center gap-1"
+            className="flex items-centre gap-1"
           >
             <Plus className="h-4 w-4" />
             Add Task

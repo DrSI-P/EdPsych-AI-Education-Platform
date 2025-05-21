@@ -30,7 +30,7 @@ The system provides detailed analytics on student learning journeys:
 - Learning style effectiveness analysis
 - Time-based progress trends (weekly/monthly)
 - Skill development tracking across curriculum areas
-- Achievement milestones and learning journey visualization
+- Achievement milestones and learning journey visualisation
 
 ### 3. Learning Style Optimization
 
@@ -58,7 +58,7 @@ The feature incorporates engaging game mechanics:
 - Badges and achievements
 - Virtual rewards and collectibles
 - Quest narratives and themed adventures
-- Progress visualization and milestone tracking
+- Progress visualisation and milestone tracking
 
 ## Technical Implementation
 
@@ -150,7 +150,7 @@ The Adventure Quest Saga is grounded in established educational psychology princ
    - Track their progress across subjects and skills
    - Earn rewards and achievements for completed challenges
    - Gain insights into their most effective learning approaches
-   - Visualize their educational journey and milestones
+   - Visualise their educational journey and milestones
 
 2. The experience is:
    - Engaging and narrative-driven
@@ -217,7 +217,7 @@ Planned enhancements for the Adventure Quest Saga include:
    - More sophisticated AI-driven content generation
    - Real-time adaptation based on performance
    - Deeper learning style analysis and optimization
-   - Predictive modeling for optimal learning paths
+   - Predictive modelling for optimal learning paths
 
 3. **Expanded Content:**
    - Additional subject areas and specializations
@@ -227,9 +227,9 @@ Planned enhancements for the Adventure Quest Saga include:
 
 4. **Extended Analytics:**
    - More detailed learning insights
-   - Predictive performance modeling
+   - Predictive performance modelling
    - Comparative cohort analysis
-   - Long-term learning journey visualization
+   - Long-term learning journey visualisation
 
 5. **Integration Enhancements:**
    - Connection with parent-school collaboration tools

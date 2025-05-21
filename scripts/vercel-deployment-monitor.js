@@ -22,7 +22,7 @@ const configFiles = [
   'package.json'
 ];
 
-// ANSI color codes for terminal output
+// ANSI colour codes for terminal output
 const colors = {
   reset: '\x1b[0m',
   bright: '\x1b[1m',
@@ -91,7 +91,7 @@ function checkConfigurationFiles() {
  * Check package.json for potential issues
  */
 function checkPackageJson() {
-  console.log(`${colors.cyan}Analyzing package.json...${colors.reset}`);
+  console.log(`${colors.cyan}Analysing package.json...${colors.reset}`);
   
   try {
     const packageJsonPath = path.join(process.cwd(), 'package.json');
@@ -126,7 +126,7 @@ function checkPackageJson() {
     
     console.log('');
   } catch (error) {
-    console.log(`  ${colors.red}Error analyzing package.json:${colors.reset} ${error.message}\n`);
+    console.log(`  ${colors.red}Error analysing package.json:${colors.reset} ${error.message}\n`);
   }
 }
 
@@ -134,7 +134,7 @@ function checkPackageJson() {
  * Check Next.js configuration for potential issues
  */
 function checkNextConfig() {
-  console.log(`${colors.cyan}Analyzing Next.js configuration...${colors.reset}`);
+  console.log(`${colors.cyan}Analysing Next.js configuration...${colors.reset}`);
   
   try {
     const nextConfigPath = path.join(process.cwd(), 'next.config.js');
@@ -166,7 +166,7 @@ function checkNextConfig() {
     
     console.log('');
   } catch (error) {
-    console.log(`  ${colors.red}Error analyzing Next.js configuration:${colors.reset} ${error.message}\n`);
+    console.log(`  ${colors.red}Error analysing Next.js configuration:${colors.reset} ${error.message}\n`);
   }
 }
 
@@ -174,7 +174,7 @@ function checkNextConfig() {
  * Check Vercel configuration for potential issues
  */
 function checkVercelConfig() {
-  console.log(`${colors.cyan}Analyzing Vercel configuration...${colors.reset}`);
+  console.log(`${colors.cyan}Analysing Vercel configuration...${colors.reset}`);
   
   try {
     const vercelConfigPath = path.join(process.cwd(), 'vercel.json');
@@ -214,7 +214,7 @@ function checkVercelConfig() {
     
     console.log('');
   } catch (error) {
-    console.log(`  ${colors.red}Error analyzing Vercel configuration:${colors.reset} ${error.message}\n`);
+    console.log(`  ${colors.red}Error analysing Vercel configuration:${colors.reset} ${error.message}\n`);
   }
 }
 
@@ -255,7 +255,7 @@ function provideTroubleshootingGuidance() {
   
   console.log(`\n  4. ${colors.yellow}Static Asset Issues${colors.reset}`);
   console.log(`     • Use relative paths or the public directory for static assets`);
-  console.log(`     • Optimize large assets`);
+  console.log(`     • Optimise large assets`);
   
   console.log(`\n${colors.bright}Next Steps:${colors.reset}`);
   console.log(`  1. Check if the minimal test page deploys successfully`);

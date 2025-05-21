@@ -15,8 +15,8 @@ This document outlines the accessibility implementation requirements for the AI 
 ### Style Guidelines
 - **Font**: Sans-serif (Open Sans or system default)
 - **Size**: Adjustable, defaulting to 5% of screen height
-- **Color**: White text with black outline or on semi-transparent background
-- **Position**: Bottom center, adjustable in player
+- **Colour**: White text with black outline or on semi-transparent background
+- **Position**: Bottom centre, adjustable in player
 - **Contrast**: Minimum ratio of 4.5:1 against all backgrounds
 
 ### Content Guidelines

@@ -49,16 +49,16 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+} from "@/components/ui/alert-dialogue";
 import { 
-  Dialog,
+  Dialogue,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@/components/ui/dialogue";
 import { 
   ArrowLeft, 
   BookOpen, 
@@ -97,7 +97,7 @@ const categories = [
   "Assessment",
   "Social-Emotional Learning",
   "Cognitive Development",
-  "Behavior Management",
+  "Behaviour Management",
   "Learning Strategies",
   "Neurodiversity",
   "Educational Technology",
@@ -119,7 +119,7 @@ const tags = [
   "Working Memory",
   "Self-Regulation",
   "Emotional Literacy",
-  "Restorative Practice"
+  "Restorative Practise"
 ];
 
 const curriculumAreas = [
@@ -130,7 +130,7 @@ const curriculumAreas = [
   "Science",
   "Digital Literacy",
   "Cross-Curricular",
-  "Inclusive Practice",
+  "Inclusive Practise",
   "Assessment",
   "Pedagogy"
 ];
@@ -246,7 +246,7 @@ const BlogPostEditor = () => {
       } else if (aiPrompt.toLowerCase().includes("content")) {
         setPostData({
           ...postData,
-          content: postData.content + "\n\n## AI-Enhanced Executive Function Support\n\nExecutive function skills are critical for academic success and lifelong learning. These cognitive processes include working memory, cognitive flexibility, and inhibitory control. Recent research has demonstrated that targeted interventions, particularly when enhanced with AI-driven personalization, can significantly improve these skills in students of all ages.\n\n### Evidence-Based Approaches\n\nMultiple studies have shown that explicit instruction in executive function strategies, combined with regular practice and feedback, leads to measurable improvements in student performance across subject areas. For example, a 2023 study by Thompson et al. found that students who received structured executive function training showed a 27% improvement in task completion and a 32% reduction in off-task behavior."
+          content: postData.content + "\n\n## AI-Enhanced Executive Function Support\n\nExecutive function skills are critical for academic success and lifelong learning. These cognitive processes include working memory, cognitive flexibility, and inhibitory control. Recent research has demonstrated that targeted interventions, particularly when enhanced with AI-driven personalization, can significantly improve these skills in students of all ages.\n\n### Evidence-Based Approaches\n\nMultiple studies have shown that explicit instruction in executive function strategies, combined with regular practise and feedback, leads to measurable improvements in student performance across subject areas. For example, a 2023 study by Thompson et al. found that students who received structured executive function training showed a 27% improvement in task completion and a 32% reduction in off-task behaviour."
         });
       } else if (aiPrompt.toLowerCase().includes("tags")) {
         setSelectedTags(["Executive Function", "Working Memory", "AI", "Cognitive Development", "Self-Regulation"]);
@@ -283,9 +283,9 @@ const BlogPostEditor = () => {
       </div>
       
       <div className="space-y-2">
-        <div className="flex items-center justify-between">
+        <div className="flex items-centre justify-between">
           <Label htmlFor="content">Content</Label>
-          <div className="flex items-center space-x-2">
+          <div className="flex items-centre space-x-2">
             <Button variant="outline" size="sm">
               <Image className="h-4 w-4 mr-2" />
               Add Image
@@ -311,7 +311,7 @@ const BlogPostEditor = () => {
       </div>
       
       <div className="flex justify-end space-x-2">
-        <Dialog open={showAIDialog} onOpenChange={setShowAIDialog}>
+        <Dialogue open={showAIDialog} onOpenChange={setShowAIDialog}>
           <DialogTrigger asChild>
             <Button variant="outline">
               <Sparkles className="h-4 w-4 mr-2" />
@@ -383,7 +383,7 @@ const BlogPostEditor = () => {
               </Button>
             </DialogFooter>
           </DialogContent>
-        </Dialog>
+        </Dialogue>
         
         <Button variant="outline" onClick={handleSaveDraft} disabled={isSaving}>
           {isSaving ? (
@@ -428,7 +428,7 @@ const BlogPostEditor = () => {
         <div className="border rounded-md p-4">
           <div className="flex flex-wrap gap-2 mb-4">
             {selectedTags.map((tag) => (
-              <Badge key={tag} className="flex items-center gap-1">
+              <Badge key={tag} className="flex items-centre gap-1">
                 {tag}
                 <X 
                   className="h-3 w-3 cursor-pointer" 
@@ -448,7 +448,7 @@ const BlogPostEditor = () => {
                 {tags.filter(tag => !selectedTags.includes(tag)).map((tag) => (
                   <div 
                     key={tag} 
-                    className="flex items-center space-x-2"
+                    className="flex items-centre space-x-2"
                   >
                     <Checkbox 
                       id={`tag-${tag}`} 
@@ -478,7 +478,7 @@ const BlogPostEditor = () => {
                 {curriculumAreas.map((area) => (
                   <div 
                     key={area} 
-                    className="flex items-center space-x-2"
+                    className="flex items-centre space-x-2"
                   >
                     <Checkbox 
                       id={`curriculum-${area}`} 
@@ -505,7 +505,7 @@ const BlogPostEditor = () => {
               {ageRanges.map((range) => (
                 <div 
                   key={range} 
-                  className="flex items-center space-x-2"
+                  className="flex items-centre space-x-2"
                 >
                   <Checkbox 
                     id={`age-${range}`} 
@@ -527,7 +527,7 @@ const BlogPostEditor = () => {
       
       <div className="space-y-2">
         <Label htmlFor="featured-image">Featured Image</Label>
-        <div className="border-2 border-dashed rounded-md p-6 text-center">
+        <div className="border-2 border-dashed rounded-md p-6 text-centre">
           {postData.featuredImage ? (
             <div className="space-y-2">
               <img 
@@ -546,7 +546,7 @@ const BlogPostEditor = () => {
             </div>
           ) : (
             <div className="space-y-2">
-              <div className="flex justify-center">
+              <div className="flex justify-centre">
                 <Upload className="h-10 w-10 text-muted-foreground" />
               </div>
               <p className="text-sm text-muted-foreground">
@@ -589,7 +589,7 @@ const BlogPostEditor = () => {
       </div>
       
       <div className="space-y-4">
-        <div className="flex items-center justify-between">
+        <div className="flex items-centre justify-between">
           <div className="space-y-0.5">
             <Label htmlFor="draft-switch">Save as Draft</Label>
             <p className="text-sm text-muted-foreground">
@@ -605,7 +605,7 @@ const BlogPostEditor = () => {
         
         <Separator />
         
-        <div className="flex items-center justify-between">
+        <div className="flex items-centre justify-between">
           <div className="space-y-0.5">
             <Label htmlFor="comments-switch">Allow Comments</Label>
             <p className="text-sm text-muted-foreground">
@@ -621,7 +621,7 @@ const BlogPostEditor = () => {
         
         <Separator />
         
-        <div className="flex items-center justify-between">
+        <div className="flex items-centre justify-between">
           <div className="space-y-0.5">
             <Label htmlFor="private-switch">Private Post</Label>
             <p className="text-sm text-muted-foreground">
@@ -637,7 +637,7 @@ const BlogPostEditor = () => {
         
         <Separator />
         
-        <div className="flex items-center justify-between">
+        <div className="flex items-centre justify-between">
           <div className="space-y-0.5">
             <Label htmlFor="featured-switch">Featured Post</Label>
             <p className="text-sm text-muted-foreground">
@@ -692,8 +692,8 @@ const BlogPostEditor = () => {
                   </Badge>
                 )}
                 <h1 className="text-3xl font-bold">{postData.title}</h1>
-                <div className="flex items-center space-x-4 mt-2 text-sm text-muted-foreground">
-                  <div className="flex items-center">
+                <div className="flex items-centre space-x-4 mt-2 text-sm text-muted-foreground">
+                  <div className="flex items-centre">
                     <Calendar className="h-4 w-4 mr-1" />
                     {new Date(postData.publishDate).toLocaleDateString('en-GB', {
                       day: 'numeric',
@@ -701,7 +701,7 @@ const BlogPostEditor = () => {
                       year: 'numeric'
                     })}
                   </div>
-                  <div className="flex items-center">
+                  <div className="flex items-centre">
                     <Clock className="h-4 w-4 mr-1" />
                     {Math.max(1, Math.ceil(postData.content.length / 1000))} min read
                   </div>
@@ -777,7 +777,7 @@ const BlogPostEditor = () => {
             </div>
           </>
         ) : (
-          <div className="text-center py-12">
+          <div className="text-centre py-12">
             <BookOpen className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
             <h3 className="text-lg font-medium">Nothing to preview yet</h3>
             <p className="text-sm text-muted-foreground mt-2">
@@ -791,8 +791,8 @@ const BlogPostEditor = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center space-x-2">
+      <div className="flex items-centre justify-between">
+        <div className="flex items-centre space-x-2">
           <Button variant="outline" size="sm">
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Posts
@@ -801,7 +801,7 @@ const BlogPostEditor = () => {
             {postData.title || "New Blog Post"}
           </h1>
         </div>
-        <div className="flex items-center space-x-2">
+        <div className="flex items-centre space-x-2">
           <Button variant="outline" onClick={handleSaveDraft} disabled={isSaving}>
             {isSaving ? (
               <>

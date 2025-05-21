@@ -57,7 +57,7 @@ export const AccessibilityChecker: React.FC<AccessibilityCheckerProps> = ({
         }
       } else {
         // Otherwise, run a local check with mock data
-        // In a real implementation, this would analyze the content directly
+        // In a real implementation, this would analyse the content directly
         
         // Simulate API delay
         await new Promise(resolve => setTimeout(resolve, 1500));
@@ -73,7 +73,7 @@ export const AccessibilityChecker: React.FC<AccessibilityCheckerProps> = ({
             },
             {
               severity: 'moderate' as const,
-              description: 'Color contrast may be insufficient in some text elements',
+              description: 'Colour contrast may be insufficient in some text elements',
               recommendation: 'Ensure all text has a contrast ratio of at least 4.5:1 against its background.'
             },
             {
@@ -154,7 +154,7 @@ export const AccessibilityChecker: React.FC<AccessibilityCheckerProps> = ({
     }
   };
   
-  // Get severity text color
+  // Get severity text colour
   const getSeverityTextColor = (severity: 'critical' | 'serious' | 'moderate' | 'minor') => {
     switch (severity) {
       case 'critical':
@@ -168,7 +168,7 @@ export const AccessibilityChecker: React.FC<AccessibilityCheckerProps> = ({
     }
   };
   
-  // Get score color
+  // Get score colour
   const getScoreColor = (score: number) => {
     if (score >= 90) return 'bg-green-500';
     if (score >= 80) return 'bg-lime-500';
@@ -197,14 +197,14 @@ export const AccessibilityChecker: React.FC<AccessibilityCheckerProps> = ({
       )}
       
       {isChecking ? (
-        <div className="checking-state p-8 text-center">
+        <div className="checking-state p-8 text-centre">
           <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary mx-auto mb-4"></div>
           <p className="text-lg font-medium">Checking accessibility...</p>
           <p className="text-muted-foreground">This may take a moment.</p>
         </div>
       ) : results ? (
         <div className="results-state">
-          <div className="score-section text-center p-6">
+          <div className="score-section text-centre p-6">
             <div className="relative w-32 h-32 mx-auto mb-4">
               <svg className="w-full h-full" viewBox="0 0 100 100">
                 <circle 
@@ -261,7 +261,7 @@ export const AccessibilityChecker: React.FC<AccessibilityCheckerProps> = ({
             <h3 className="text-lg font-medium mb-4">Accessibility Issues</h3>
             
             {results.issues.length === 0 ? (
-              <div className="text-center p-8">
+              <div className="text-centre p-8">
                 <CheckCircle2 className="h-12 w-12 text-green-500 mx-auto mb-4" />
                 <p className="text-lg font-medium">No issues found!</p>
                 <p className="text-muted-foreground">Your content meets accessibility standards.</p>
@@ -272,7 +272,7 @@ export const AccessibilityChecker: React.FC<AccessibilityCheckerProps> = ({
                   {results.issues.map((issue, index) => (
                     <Card key={index}>
                       <CardHeader className="pb-2">
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-centre gap-2">
                           {getSeverityIcon(issue.severity)}
                           <CardTitle className={`text-base ${getSeverityTextColor(issue.severity)}`}>
                             {issue.severity.charAt(0).toUpperCase() + issue.severity.slice(1)} Issue

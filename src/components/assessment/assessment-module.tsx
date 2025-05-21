@@ -668,7 +668,7 @@ export function AssessmentModule({
           </div>
           
           {loading ? (
-            <div className="flex justify-center py-8">
+            <div className="flex justify-centre py-8">
               <Spinner size="lg" />
             </div>
           ) : error ? (
@@ -676,7 +676,7 @@ export function AssessmentModule({
               {error}
             </Alert>
           ) : filteredAssessments.length === 0 ? (
-            <div className="text-center py-8 text-gray-500">
+            <div className="text-centre py-8 text-grey-500">
               No assessments found matching your criteria.
             </div>
           ) : (
@@ -686,21 +686,21 @@ export function AssessmentModule({
                   <CardHeader>
                     <div className="flex items-start justify-between">
                       <h3 className="text-lg font-semibold">{assessment.title}</h3>
-                      <span className="px-2 py-1 text-xs rounded-full bg-gray-100 text-gray-800">
+                      <span className="px-2 py-1 text-xs rounded-full bg-grey-100 text-grey-800">
                         {assessment.duration}
                       </span>
                     </div>
                   </CardHeader>
                   <CardContent className="flex-grow">
-                    <p className="text-sm text-gray-600 mb-4">{assessment.description}</p>
-                    <div className="text-xs text-gray-500 space-y-1">
+                    <p className="text-sm text-grey-600 mb-4">{assessment.description}</p>
+                    <div className="text-xs text-grey-500 space-y-1">
                       <div><span className="font-medium">Subject:</span> {assessment.subject.charAt(0).toUpperCase() + assessment.subject.slice(1)}</div>
                       <div><span className="font-medium">Age Range:</span> {assessment.ageRange.charAt(0).toUpperCase() + assessment.ageRange.slice(1)}</div>
                       <div><span className="font-medium">Curriculum:</span> {assessment.curriculum}</div>
                     </div>
                     <div className="mt-4">
                       <h4 className="text-sm font-medium">Questions:</h4>
-                      <ul className="text-xs text-gray-600 list-disc pl-5 mt-1">
+                      <ul className="text-xs text-grey-600 list-disc pl-5 mt-1">
                         <li>{assessment.questions.length} questions</li>
                         <li>
                           {assessment.questions.reduce((total, q) => total + q.points, 0)} total points
@@ -809,7 +809,7 @@ export function AssessmentModule({
             </div>
             
             <div className="space-y-2">
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-centre">
                 <h3 className="text-lg font-medium">Questions</h3>
                 <Button
                   type="button"
@@ -874,7 +874,7 @@ export function AssessmentModule({
                     
                     {question.type === 'multiple_choice' && question.options && (
                       <div className="space-y-2">
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-between items-centre">
                           <h5 className="text-sm font-medium">Options</h5>
                           <Button
                             type="button"
@@ -887,14 +887,14 @@ export function AssessmentModule({
                         </div>
                         
                         {question.options.map((option, optionIndex) => (
-                          <div key={optionIndex} className="flex items-center gap-2">
+                          <div key={optionIndex} className="flex items-centre gap-2">
                             <Input
                               value={option}
                               onChange={(e) => handleOptionChange(questionIndex, optionIndex, e.target.value)}
                               placeholder={`Option ${optionIndex + 1}`}
                               className="flex-grow"
                             />
-                            <div className="flex items-center">
+                            <div className="flex items-centre">
                               <input
                                 type="radio"
                                 name={`correct-${questionIndex}`}
@@ -924,7 +924,7 @@ export function AssessmentModule({
                       <div className="space-y-2">
                         <h5 className="text-sm font-medium">Correct Answer</h5>
                         <div className="flex gap-4">
-                          <div className="flex items-center">
+                          <div className="flex items-centre">
                             <input
                               type="radio"
                               name={`correct-${questionIndex}`}
@@ -934,7 +934,7 @@ export function AssessmentModule({
                             />
                             <label>True</label>
                           </div>
-                          <div className="flex items-center">
+                          <div className="flex items-centre">
                             <input
                               type="radio"
                               name={`correct-${questionIndex}`}
@@ -961,7 +961,7 @@ export function AssessmentModule({
                     
                     {question.type === 'matching' && question.options && (
                       <div className="space-y-2">
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-between items-centre">
                           <h5 className="text-sm font-medium">Matching Pairs</h5>
                           <Button
                             type="button"
@@ -974,7 +974,7 @@ export function AssessmentModule({
                         </div>
                         
                         {question.options.map((option, optionIndex) => (
-                          <div key={optionIndex} className="flex items-center gap-2">
+                          <div key={optionIndex} className="flex items-centre gap-2">
                             <Input
                               value={option}
                               onChange={(e) => handleOptionChange(questionIndex, optionIndex, e.target.value)}
@@ -998,7 +998,7 @@ export function AssessmentModule({
                     )}
                     
                     {question.type === 'essay' && (
-                      <div className="text-sm text-gray-600">
+                      <div className="text-sm text-grey-600">
                         Essay questions will be manually graded.
                       </div>
                     )}
@@ -1010,7 +1010,7 @@ export function AssessmentModule({
                 <h4 className="text-sm font-medium mb-2">Generate Questions with AI</h4>
                 <AIPrompt
                   placeholder={`Describe the assessment content for ${createForm.subject} at ${createForm.ageRange} level...`}
-                  systemPrompt={`You are an educational assessment expert specializing in ${createForm.subject} for ${createForm.ageRange} students following the ${createForm.curriculum}. Generate 5 appropriate assessment questions based on the user's description. Include a mix of question types (multiple_choice, short_answer, true_false, etc.). For multiple choice questions, include 4 options and indicate the correct answer. Format your response as a JSON array of question objects with the following structure:
+                  systemPrompt={`You are an educational assessment expert specialising in ${createForm.subject} for ${createForm.ageRange} students following the ${createForm.curriculum}. Generate 5 appropriate assessment questions based on the user's description. Include a mix of question types (multiple_choice, short_answer, true_false, etc.). For multiple choice questions, include 4 options and indicate the correct answer. Format your response as a JSON array of question objects with the following structure:
 [
   {
     "type": "multiple_choice",

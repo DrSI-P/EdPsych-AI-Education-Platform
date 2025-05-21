@@ -10,10 +10,10 @@ The voice input and accessibility features have been designed to address the div
 
 ### Speech Recognition Service
 
-The speech recognition service (`speechRecognition.ts`) provides advanced speech recognition capabilities optimized for children's voices. Key features include:
+The speech recognition service (`speechRecognition.ts`) provides advanced speech recognition capabilities optimised for children's voices. Key features include:
 
 1. **Child Voice Optimization**: Enhanced recognition for children's speech patterns and pronunciation
-2. **Special Educational Needs Support**: Specialized processing for articulation difficulties, fluency challenges, and processing needs
+2. **Special Educational Needs Support**: Specialised processing for articulation difficulties, fluency challenges, and processing needs
 3. **Multi-language Support**: Recognition in multiple languages, with a focus on UK English
 4. **Continuous Listening**: Option for continuous speech recognition or single-utterance mode
 5. **Profanity Filtering**: Automatic filtering of inappropriate language
@@ -94,7 +94,7 @@ The implementation aligns with key educational psychology principles:
 
 1. **Universal Design for Learning**: Multiple means of engagement, representation, and action/expression
 2. **Inclusive Education**: Removing barriers to learning for all students
-3. **Self-Determination**: Empowering users to customize their learning environment
+3. **Self-Determination**: Empowering users to customise their learning environment
 4. **Cognitive Load Management**: Reducing extraneous cognitive load through accessibility features
 5. **Emotional Support**: Reducing anxiety and frustration through accessible interfaces
 
@@ -114,7 +114,7 @@ Planned future enhancements include:
 
 1. **Voice Commands**: Navigation and control of the platform using voice commands
 2. **AI-Enhanced Recognition**: Further improvements to child voice recognition using AI models
-3. **Personalized Accessibility Profiles**: AI-recommended accessibility settings based on user behavior
+3. **Personalized Accessibility Profiles**: AI-recommended accessibility settings based on user behaviour
 4. **Expanded Language Support**: Additional languages and dialects
 5. **Integration with Assistive Technologies**: Support for external assistive devices and software
 

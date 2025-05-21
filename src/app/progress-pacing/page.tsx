@@ -44,24 +44,24 @@ export default function ProgressPacingPage() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <Button 
                         variant="outline" 
-                        className="h-auto flex flex-col items-center justify-center p-6 gap-2"
+                        className="h-auto flex flex-col items-centre justify-centre p-6 gap-2"
                         onClick={() => router.push('/students')}
                       >
                         <Users className="h-10 w-10 text-primary mb-2" />
                         <span className="text-lg font-medium">Select Student</span>
-                        <span className="text-sm text-muted-foreground text-center">
+                        <span className="text-sm text-muted-foreground text-centre">
                           Adjust pacing based on individual student progress
                         </span>
                       </Button>
                       
                       <Button 
                         variant="outline" 
-                        className="h-auto flex flex-col items-center justify-center p-6 gap-2"
+                        className="h-auto flex flex-col items-centre justify-centre p-6 gap-2"
                         onClick={() => router.push('/curriculum')}
                       >
                         <BookOpen className="h-10 w-10 text-primary mb-2" />
                         <span className="text-lg font-medium">Select Curriculum</span>
-                        <span className="text-sm text-muted-foreground text-center">
+                        <span className="text-sm text-muted-foreground text-centre">
                           Adjust pacing for a specific curriculum plan
                         </span>
                       </Button>
@@ -104,7 +104,7 @@ export default function ProgressPacingPage() {
                       <span className="font-medium">Progress-Based Adaptation:</span> Automatically adjusts learning pace based on student progress data, mastery levels, and engagement patterns.
                     </li>
                     <li>
-                      <span className="font-medium">Reinforcement Activities:</span> Provides additional practice opportunities when needed to ensure concept mastery before progression.
+                      <span className="font-medium">Reinforcement Activities:</span> Provides additional practise opportunities when needed to ensure concept mastery before progression.
                     </li>
                     <li>
                       <span className="font-medium">Acceleration Options:</span> Offers pathways for advanced progression when students demonstrate strong understanding and mastery.
@@ -147,7 +147,7 @@ export default function ProgressPacingPage() {
                 </div>
                 
                 <div className="bg-blue-50 dark:bg-blue-950 p-4 rounded-md">
-                  <h3 className="text-lg font-medium mb-2 flex items-center">
+                  <h3 className="text-lg font-medium mb-2 flex items-centre">
                     <CheckCircle2 className="h-5 w-5 text-blue-600 mr-2" />
                     Teacher Tip
                   </h3>

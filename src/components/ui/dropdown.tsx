@@ -92,7 +92,7 @@ export function DropdownItem({
 }: DropdownItemProps) {
   return (
     <button
-      className={`block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 ${
+      className={`block w-full text-left px-4 py-2 text-sm text-grey-700 hover:bg-grey-100 hover:text-grey-900 ${
         disabled ? 'opacity-50 cursor-not-allowed' : ''
       } ${className}`}
       role="menuitem"
@@ -114,7 +114,7 @@ export function DropdownLink({ children, href, className = '' }: DropdownLinkPro
   return (
     <a
       href={href}
-      className={`block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 ${className}`}
+      className={`block px-4 py-2 text-sm text-grey-700 hover:bg-grey-100 hover:text-grey-900 ${className}`}
       role="menuitem"
     >
       {children}
@@ -127,7 +127,7 @@ interface DropdownDividerProps {
 }
 
 export function DropdownDivider({ className = '' }: DropdownDividerProps) {
-  return <div className={`my-1 h-px bg-gray-200 ${className}`} role="none" />;
+  return <div className={`my-1 h-px bg-grey-200 ${className}`} role="none" />;
 }
 
 interface DropdownLabelProps {
@@ -137,7 +137,7 @@ interface DropdownLabelProps {
 
 export function DropdownLabel({ children, className = '' }: DropdownLabelProps) {
   return (
-    <div className={`px-4 py-2 text-xs text-gray-500 ${className}`} role="none">
+    <div className={`px-4 py-2 text-xs text-grey-500 ${className}`} role="none">
       {children}
     </div>
   );
@@ -175,10 +175,10 @@ export function MenuItem({
   onClick,
   className = '',
 }: MenuItemProps) {
-  const classes = `inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${
+  const classes = `inline-flex items-centre px-1 pt-1 border-b-2 text-sm font-medium ${
     active
-      ? 'border-blue-500 text-gray-900'
-      : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
+      ? 'border-blue-500 text-grey-900'
+      : 'border-transparent text-grey-500 hover:border-grey-300 hover:text-grey-700'
   } ${className}`;
 
   if (href) {

@@ -52,7 +52,7 @@ The Blockchain Credentials and Copyright Protection feature leverages blockchain
 
 1. **Achievement**: Complete courses, assessments, or professional development activities
 2. **Issuance**: Receive blockchain-verified credentials in digital wallet
-3. **Management**: Organize and control visibility of credentials
+3. **Management**: Organise and control visibility of credentials
 4. **Sharing**: Securely share verified credentials with employers or institutions
 5. **Verification**: Provide tamper-proof evidence of qualifications
 

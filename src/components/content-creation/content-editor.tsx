@@ -25,7 +25,7 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { AlertCircle, Save, Eye, Upload, Download, Share2, Settings, Plus, Trash2, MoveUp, MoveDown, Copy } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialogue, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialogue';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { useToast } from '@/components/ui/use-toast';
@@ -435,7 +435,7 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
   
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center h-64">
+      <div className="flex items-centre justify-centre h-64">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
       </div>
     );
@@ -457,7 +457,7 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
   
   return (
     <div className="content-editor">
-      <div className="content-editor-header flex justify-between items-center mb-4">
+      <div className="content-editor-header flex justify-between items-centre mb-4">
         <div>
           <h1 className="text-2xl font-bold">{content.metadata.title || 'Untitled Content'}</h1>
           <p className="text-muted-foreground">{content.metadata.isPublished ? 'Published' : 'Draft'}</p>
@@ -520,9 +520,9 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
         <TabsContent value="edit" className="p-4 border rounded-md mt-2">
           <div className="content-elements space-y-4">
             {content.elements.length === 0 ? (
-              <div className="text-center p-8 border border-dashed rounded-md">
+              <div className="text-centre p-8 border border-dashed rounded-md">
                 <p className="text-muted-foreground mb-4">No content elements yet. Add your first element below.</p>
-                <div className="flex flex-wrap gap-2 justify-center">
+                <div className="flex flex-wrap gap-2 justify-centre">
                   <Button variant="outline" onClick={() => handleAddElement(ContentElementType.TEXT)}>
                     Add Text
                   </Button>
@@ -540,7 +540,7 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
             ) : (
               content.elements.map((element, index) => (
                 <div key={element.id} className="element-container border rounded-md p-4">
-                  <div className="element-header flex justify-between items-center mb-2">
+                  <div className="element-header flex justify-between items-centre mb-2">
                     <Badge>{element.type}</Badge>
                     <div className="element-actions flex gap-1">
                       <TooltipProvider>
@@ -719,7 +719,7 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
               <Label>Learning Styles</Label>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2">
                 {Object.values(LearningStyle).map((style) => (
-                  <div key={style} className="flex items-center space-x-2">
+                  <div key={style} className="flex items-centre space-x-2">
                     <Checkbox 
                       id={`style-${style}`} 
                       checked={content.metadata.targetLearningStyles.includes(style)}
@@ -746,7 +746,7 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
               <Label>SEN Support</Label>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
                 {Object.values(SENCategory).map((category) => (
-                  <div key={category} className="flex items-center space-x-2">
+                  <div key={category} className="flex items-centre space-x-2">
                     <Checkbox 
                       id={`sen-${category}`} 
                       checked={content.metadata.senSupport?.includes(category)}
@@ -791,7 +791,7 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
             <div className="space-y-2">
               <Label>Accessibility Settings</Label>
               <div className="grid grid-cols-2 gap-2">
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <Checkbox 
                     id="highContrast" 
                     checked={content.settings.accessibility?.highContrast || false}
@@ -801,7 +801,7 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
                   />
                   <Label htmlFor="highContrast">High Contrast</Label>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <Checkbox 
                     id="largeText" 
                     checked={content.settings.accessibility?.largeText || false}
@@ -811,7 +811,7 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
                   />
                   <Label htmlFor="largeText">Large Text</Label>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <Checkbox 
                     id="screenReaderOptimized" 
                     checked={content.settings.accessibility?.screenReaderOptimized || false}
@@ -819,9 +819,9 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
                       handleSettingsChange('accessibility.screenReaderOptimized', !!checked);
                     }}
                   />
-                  <Label htmlFor="screenReaderOptimized">Screen Reader Optimized</Label>
+                  <Label htmlFor="screenReaderOptimized">Screen Reader Optimised</Label>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-centre space-x-2">
                   <Checkbox 
                     id="reducedMotion" 
                     checked={content.settings.accessibility?.reducedMotion || false}
@@ -865,7 +865,7 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
             
             <div className="preview-content">
               {content.elements.length === 0 ? (
-                <p className="text-center text-muted-foreground">No content to preview.</p>
+                <p className="text-centre text-muted-foreground">No content to preview.</p>
               ) : (
                 <div className="space-y-4">
                   {content.elements.map((element) => (
@@ -877,7 +877,7 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
                           <div dangerouslySetInnerHTML={{ __html: (element as any).content || 'Text content' }} />
                         )}
                         {element.type === ContentElementType.IMAGE && (
-                          <div className="text-center">
+                          <div className="text-centre">
                             <img 
                               src={(element as any).src || 'https://via.placeholder.com/400x300?text=Image'} 
                               alt={(element as any).alt || 'Image'} 
@@ -889,8 +889,8 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
                           </div>
                         )}
                         {element.type === ContentElementType.VIDEO && (
-                          <div className="text-center">
-                            <div className="bg-muted aspect-video flex items-center justify-center">
+                          <div className="text-centre">
+                            <div className="bg-muted aspect-video flex items-centre justify-centre">
                               <span>Video: {(element as any).title || 'Video content'}</span>
                             </div>
                           </div>
@@ -918,8 +918,8 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
         </TabsContent>
       </Tabs>
       
-      {/* AI Generation Dialog */}
-      <Dialog open={showAIPanel} onOpenChange={setShowAIPanel}>
+      {/* AI Generation Dialogue */}
+      <Dialogue open={showAIPanel} onOpenChange={setShowAIPanel}>
         <DialogContent className="max-w-4xl">
           <DialogHeader>
             <DialogTitle>AI Content Generation</DialogTitle>
@@ -936,10 +936,10 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
             />
           </ScrollArea>
         </DialogContent>
-      </Dialog>
+      </Dialogue>
       
-      {/* Accessibility Checker Dialog */}
-      <Dialog open={showAccessibilityChecker} onOpenChange={setShowAccessibilityChecker}>
+      {/* Accessibility Checker Dialogue */}
+      <Dialogue open={showAccessibilityChecker} onOpenChange={setShowAccessibilityChecker}>
         <DialogContent className="max-w-4xl">
           <DialogHeader>
             <DialogTitle>Accessibility Checker</DialogTitle>
@@ -957,10 +957,10 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
             />
           </ScrollArea>
         </DialogContent>
-      </Dialog>
+      </Dialogue>
       
-      {/* Curriculum Alignment Checker Dialog */}
-      <Dialog open={showCurriculumChecker} onOpenChange={setShowCurriculumChecker}>
+      {/* Curriculum Alignment Checker Dialogue */}
+      <Dialogue open={showCurriculumChecker} onOpenChange={setShowCurriculumChecker}>
         <DialogContent className="max-w-4xl">
           <DialogHeader>
             <DialogTitle>Curriculum Alignment Checker</DialogTitle>
@@ -978,7 +978,7 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
             />
           </ScrollArea>
         </DialogContent>
-      </Dialog>
+      </Dialogue>
     </div>
   );
 };

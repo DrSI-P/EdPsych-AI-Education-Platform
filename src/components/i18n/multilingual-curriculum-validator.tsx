@@ -219,14 +219,14 @@ export const MultilingualCurriculumValidator: React.FC<MultilingualCurriculumVal
     return results.find(result => result.language === selectedLanguage);
   };
   
-  // Get score color based on value
+  // Get score colour based on value
   const getScoreColor = (score: number): string => {
     if (score >= 90) return 'text-green-500';
     if (score >= 70) return 'text-amber-500';
     return 'text-red-500';
   };
   
-  // Get progress color based on score
+  // Get progress colour based on score
   const getProgressColor = (score: number): string => {
     if (score >= 90) return 'bg-green-500';
     if (score >= 70) return 'bg-amber-500';
@@ -261,7 +261,7 @@ export const MultilingualCurriculumValidator: React.FC<MultilingualCurriculumVal
     }
     
     return (
-      <Badge variant={variant} className="ml-2 flex items-center">
+      <Badge variant={variant} className="ml-2 flex items-centre">
         {icon}
         {count}
       </Badge>
@@ -278,9 +278,9 @@ export const MultilingualCurriculumValidator: React.FC<MultilingualCurriculumVal
             {t('curriculum_validator_description', 'curriculum')}
           </CardDescription>
         </CardHeader>
-        <CardContent className="flex flex-col items-center justify-center p-6 space-y-4">
+        <CardContent className="flex flex-col items-centre justify-centre p-6 space-y-4">
           <Loader2 className="h-8 w-8 animate-spin" />
-          <div className="text-center">
+          <div className="text-centre">
             <p>{t('validating_curriculum', 'curriculum')}</p>
             <p className="text-sm text-muted-foreground">
               {t('validating_languages', 'curriculum')}
@@ -297,7 +297,7 @@ export const MultilingualCurriculumValidator: React.FC<MultilingualCurriculumVal
   return (
     <Card className={className}>
       <CardHeader>
-        <div className="flex items-center justify-between">
+        <div className="flex items-centre justify-between">
           <div>
             <CardTitle>{t('curriculum_validator', 'curriculum')}</CardTitle>
             <CardDescription>
@@ -318,12 +318,12 @@ export const MultilingualCurriculumValidator: React.FC<MultilingualCurriculumVal
       
       <CardContent>
         {error ? (
-          <div className="flex items-center text-destructive p-4 border border-destructive/20 rounded-md bg-destructive/10">
+          <div className="flex items-centre text-destructive p-4 border border-destructive/20 rounded-md bg-destructive/10">
             <AlertCircle className="h-5 w-5 mr-2" />
             <span>{error}</span>
           </div>
         ) : results.length === 0 ? (
-          <div className="flex flex-col items-center justify-center p-6 space-y-4 text-center">
+          <div className="flex flex-col items-centre justify-centre p-6 space-y-4 text-centre">
             <BookOpen className="h-12 w-12 text-muted-foreground" />
             <div>
               <p>{t('no_validation_results', 'curriculum')}</p>
@@ -336,7 +336,7 @@ export const MultilingualCurriculumValidator: React.FC<MultilingualCurriculumVal
           <div className="space-y-6">
             {/* Overall score */}
             <div className="space-y-2">
-              <div className="flex items-center justify-between">
+              <div className="flex items-centre justify-between">
                 <h3 className="text-lg font-medium">
                   {t('overall_score', 'curriculum')}
                 </h3>
@@ -362,7 +362,7 @@ export const MultilingualCurriculumValidator: React.FC<MultilingualCurriculumVal
             >
               <TabsList className="w-full overflow-x-auto flex-wrap">
                 {results.map(result => (
-                  <TabsTrigger key={result.language} value={result.language} className="flex items-center">
+                  <TabsTrigger key={result.language} value={result.language} className="flex items-centre">
                     {getLanguageName(result.language)}
                     {renderIssueBadge(IssueType.ERROR, result.issueCount.error)}
                   </TabsTrigger>
@@ -372,7 +372,7 @@ export const MultilingualCurriculumValidator: React.FC<MultilingualCurriculumVal
               {results.map(result => (
                 <TabsContent key={result.language} value={result.language} className="space-y-4">
                   {/* Language score */}
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <h3 className="font-medium">
                       {t('language_score', 'curriculum')}
                     </h3>
@@ -382,16 +382,16 @@ export const MultilingualCurriculumValidator: React.FC<MultilingualCurriculumVal
                   </div>
                   
                   {/* Issues summary */}
-                  <div className="flex items-center space-x-4">
-                    <div className="flex items-center">
+                  <div className="flex items-centre space-x-4">
+                    <div className="flex items-centre">
                       <span className="text-destructive mr-1">{t('errors', 'curriculum')}:</span>
                       <span className="font-medium">{result.issueCount.error}</span>
                     </div>
-                    <div className="flex items-center">
+                    <div className="flex items-centre">
                       <span className="text-amber-500 mr-1">{t('warnings', 'curriculum')}:</span>
                       <span className="font-medium">{result.issueCount.warning}</span>
                     </div>
-                    <div className="flex items-center">
+                    <div className="flex items-centre">
                       <span className="text-muted-foreground mr-1">{t('info', 'curriculum')}:</span>
                       <span className="font-medium">{result.issueCount.info}</span>
                     </div>
@@ -445,7 +445,7 @@ export const MultilingualCurriculumValidator: React.FC<MultilingualCurriculumVal
                       </div>
                     </div>
                   ) : (
-                    <div className="flex items-center text-green-500 p-3 bg-green-500/10 border border-green-500/20 rounded-md">
+                    <div className="flex items-centre text-green-500 p-3 bg-green-500/10 border border-green-500/20 rounded-md">
                       <CheckCircle2 className="h-5 w-5 mr-2" />
                       <span>{t('no_issues_found', 'curriculum')}</span>
                     </div>
@@ -456,7 +456,7 @@ export const MultilingualCurriculumValidator: React.FC<MultilingualCurriculumVal
                     <h4 className="font-medium">{t('passed_checks', 'curriculum')}</h4>
                     <div className="space-y-1">
                       {result.passedChecks.map((check, index) => (
-                        <div key={index} className="flex items-center">
+                        <div key={index} className="flex items-centre">
                           <CheckCircle2 className="h-4 w-4 text-green-500 mr-2" />
                           <span className="text-sm">{check}</span>
                         </div>

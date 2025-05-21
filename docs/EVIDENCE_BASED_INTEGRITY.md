@@ -1,6 +1,6 @@
 # EdPsych-AI-Education-Platform Evidence-Based Integrity Principles
 
-This document outlines the foundational principles ensuring that all content and features within the EdPsych-AI-Education-Platform maintain the highest standards of educational integrity, factual accuracy, and evidence-based practice.
+This document outlines the foundational principles ensuring that all content and features within the EdPsych-AI-Education-Platform maintain the highest standards of educational integrity, factual accuracy, and evidence-based practise.
 
 ## Core Principles
 
@@ -26,7 +26,7 @@ The platform commits to:
 - Transparent documentation of content review processes
 - Avoiding misleading or ambiguous presentations of information
 
-### 3. Evidence-Based Practice
+### 3. Evidence-Based Practise
 
 All pedagogical approaches and educational tools must:
 
@@ -52,8 +52,8 @@ Curriculum content must:
 
 Content for learners with SEND must:
 
-- Be based on current best practice in SEND education
-- Align with the SEND Code of Practice
+- Be based on current best practise in SEND education
+- Align with the SEND Code of Practise
 - Be developed with input from SEND specialists
 - Maintain high expectations while providing appropriate support
 - Avoid stereotyping or oversimplification of learning differences

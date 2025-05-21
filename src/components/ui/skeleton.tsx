@@ -26,7 +26,7 @@ export function Skeleton({
   rounded = false,
   animate = true,
 }: SkeletonProps) {
-  const baseStyles = 'bg-gray-200 dark:bg-gray-700';
+  const baseStyles = 'bg-grey-200 dark:bg-grey-700';
   const animationStyles = animate ? 'animate-pulse' : '';
   const roundedStyles = rounded ? 'rounded-full' : 'rounded';
   
@@ -62,7 +62,7 @@ export function Skeleton({
 /**
  * Skeleton Text Component
  * 
- * A specialized skeleton component for text content with multiple lines.
+ * A specialised skeleton component for text content with multiple lines.
  */
 export function SkeletonText({
   className,
@@ -92,7 +92,7 @@ export function SkeletonText({
 /**
  * Skeleton Card Component
  * 
- * A specialized skeleton component for card layouts.
+ * A specialised skeleton component for card layouts.
  */
 export function SkeletonCard({
   className,
@@ -124,7 +124,7 @@ export function SkeletonCard({
         animate={animate}
       />
       {hasFooter && (
-        <div className="mt-4 flex items-center justify-between">
+        <div className="mt-4 flex items-centre justify-between">
           <Skeleton
             width={100}
             height={10}
@@ -145,7 +145,7 @@ export function SkeletonCard({
 /**
  * Skeleton Table Component
  * 
- * A specialized skeleton component for table layouts.
+ * A specialised skeleton component for table layouts.
  */
 export function SkeletonTable({
   className,
@@ -197,7 +197,7 @@ export function SkeletonTable({
 /**
  * Skeleton Avatar with Text Component
  * 
- * A specialized skeleton component for avatar with text layouts.
+ * A specialised skeleton component for avatar with text layouts.
  */
 export function SkeletonAvatarWithText({
   className,
@@ -209,7 +209,7 @@ export function SkeletonAvatarWithText({
   animate?: boolean;
 }) {
   return (
-    <div className={cn('flex items-center space-x-4', className)}>
+    <div className={cn('flex items-centre space-x-4', className)}>
       <Skeleton
         variant="avatar"
         animate={animate}
@@ -231,7 +231,7 @@ export function SkeletonAvatarWithText({
 /**
  * Skeleton Form Component
  * 
- * A specialized skeleton component for form layouts.
+ * A specialised skeleton component for form layouts.
  */
 export function SkeletonForm({
   className,

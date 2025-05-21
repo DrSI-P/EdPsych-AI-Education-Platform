@@ -119,8 +119,8 @@ export const AccessibilityProvider: React.FC<{ children: React.ReactNode }> = ({
       document.documentElement.classList.remove('reduce-motion');
     }
     
-    // Apply color blind mode
-    document.documentElement.setAttribute('data-color-blind', colorBlindMode);
+    // Apply colour blind mode
+    document.documentElement.setAttribute('data-colour-blind', colorBlindMode);
     
     // Apply focus mode
     if (focusMode) {
@@ -152,9 +152,9 @@ export const AccessibilityProvider: React.FC<{ children: React.ReactNode }> = ({
     };
   }, [reduceMotion]);
 
-  // Check for prefers-color-scheme media query
+  // Check for prefers-colour-scheme media query
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const mediaQuery = window.matchMedia('(prefers-colour-scheme: dark)');
     
     if (mediaQuery.matches && !highContrast) {
       setHighContrast(true);
@@ -262,7 +262,7 @@ export const AccessibilityControls: React.FC = () => {
       </button>
 
       {isOpen && (
-        <div className="accessibility-panel" role="dialog" aria-label="Accessibility settings">
+        <div className="accessibility-panel" role="dialogue" aria-label="Accessibility settings">
           <h2>Accessibility Settings</h2>
 
           <div className="setting-group">
@@ -316,9 +316,9 @@ export const AccessibilityControls: React.FC = () => {
           </div>
 
           <div className="setting-group">
-            <label htmlFor="color-blind-mode">Color Blind Mode</label>
+            <label htmlFor="colour-blind-mode">Colour Blind Mode</label>
             <select
-              id="color-blind-mode"
+              id="colour-blind-mode"
               value={colorBlindMode}
               onChange={(e) => setColorBlindMode(e.target.value)}
             >
@@ -326,7 +326,7 @@ export const AccessibilityControls: React.FC = () => {
               <option value="protanopia">Protanopia (Red-Blind)</option>
               <option value="deuteranopia">Deuteranopia (Green-Blind)</option>
               <option value="tritanopia">Tritanopia (Blue-Blind)</option>
-              <option value="achromatopsia">Achromatopsia (No Color)</option>
+              <option value="achromatopsia">Achromatopsia (No Colour)</option>
             </select>
           </div>
 
@@ -559,7 +559,7 @@ export const KeyboardShortcuts: React.FC<{ shortcuts: { key: string; description
       {isOpen && (
         <div
           className="keyboard-shortcuts-panel"
-          role="dialog"
+          role="dialogue"
           aria-label="Keyboard shortcuts"
           ref={ref as React.RefObject<HTMLDivElement>}
         >
@@ -1061,7 +1061,7 @@ export const AccessibleAccordion: React.FC<{
 };
 
 /**
- * Component for accessible modal dialog
+ * Component for accessible modal dialogue
  * @param {Object} props - Component props
  * @returns {JSX.Element} - Accessible modal component
  */
@@ -1094,7 +1094,7 @@ export const AccessibleModal: React.FC<{
     <div className="modal-overlay" onClick={onClose}>
       <div
         className="modal-content"
-        role="dialog"
+        role="dialogue"
         aria-modal="true"
         aria-labelledby="modal-title"
         aria-describedby={ariaLabel ? undefined : "modal-description"}
@@ -1316,9 +1316,9 @@ export const AccessibleFormField: React.FC<{
 };
 
 /**
- * Component for accessible color picker with contrast checking
+ * Component for accessible colour picker with contrast checking
  * @param {Object} props - Component props
- * @returns {JSX.Element} - Accessible color picker component
+ * @returns {JSX.Element} - Accessible colour picker component
  */
 export const AccessibleColorPicker: React.FC<{
   value: string;
@@ -1385,12 +1385,12 @@ export const AccessibleColorPicker: React.FC<{
   }, [value, backgroundColor]);
 
   return (
-    <div className="accessible-color-picker">
+    <div className="accessible-colour-picker">
       <label htmlFor={id}>{label}</label>
       
-      <div className="color-picker-container">
+      <div className="colour-picker-container">
         <input
-          type="color"
+          type="colour"
           id={id}
           value={value}
           onChange={e => onChange(e.target.value)}
@@ -1419,7 +1419,7 @@ export const AccessibleColorPicker: React.FC<{
             Contrast ratio: {contrastRatio.toFixed(2)}:1 ({contrastLevel})
             {contrastLevel === 'fail' && (
               <span className="contrast-warning">
-                This color combination does not meet WCAG accessibility standards.
+                This colour combination does not meet WCAG accessibility standards.
               </span>
             )}
           </div>

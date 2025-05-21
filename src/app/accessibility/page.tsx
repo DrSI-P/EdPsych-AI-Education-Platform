@@ -8,7 +8,7 @@ export default function AccessibilityPage() {
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-2">Accessibility Settings</h1>
         <p className="text-muted-foreground">
-          Customize your experience to meet your individual needs and preferences. These settings will be applied across the entire platform.
+          Customise your experience to meet your individual needs and preferences. These settings will be applied across the entire platform.
         </p>
       </div>
       

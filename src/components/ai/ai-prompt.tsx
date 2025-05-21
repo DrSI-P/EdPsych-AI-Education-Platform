@@ -156,7 +156,7 @@ export function AIPrompt({
           )}
           
           {result && (
-            <div className="p-4 bg-gray-50 rounded-md border">
+            <div className="p-4 bg-grey-50 rounded-md border">
               <h4 className="text-sm font-medium mb-2">Response:</h4>
               <div className="text-sm whitespace-pre-wrap">{result}</div>
             </div>

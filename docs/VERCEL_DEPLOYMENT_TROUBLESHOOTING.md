@@ -72,7 +72,7 @@ This document provides a comprehensive guide for troubleshooting deployment fail
 **Serverless Function Limitations**
 - **Issue**: API routes exceed Vercel serverless function limits
 - **Solution**:
-  - Optimize code to reduce bundle size
+  - Optimise code to reduce bundle size
   - Split complex functions into smaller functions
   - Check for memory leaks or excessive resource usage
 
@@ -93,7 +93,7 @@ This document provides a comprehensive guide for troubleshooting deployment fail
 **Large Asset Files**
 - **Issue**: Asset files exceed size limits
 - **Solution**:
-  - Optimize images and other large assets
+  - Optimise images and other large assets
   - Consider using external storage for very large files
 
 ## Vercel-Specific Troubleshooting
@@ -189,7 +189,7 @@ Based on the current project structure, we recommend the following configuration
 3. **Build Optimization**:
 - Consider using `next build && next export` for static site generation if possible
 - Implement code splitting to reduce initial load time
-- Optimize image assets using Next.js Image component
+- Optimise image assets using Next.js Image component
 
 4. **Incremental Deployment**:
 - Deploy a minimal version first

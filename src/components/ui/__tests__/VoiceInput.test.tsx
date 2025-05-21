@@ -66,7 +66,7 @@ describe('VoiceInput', () => {
     expect(screen.getByLabelText('Start listening')).toBeInTheDocument();
   });
   
-  it('displays transcript when speech is recognized', () => {
+  it('displays transcript when speech is recognised', () => {
     render(<VoiceInput onSpeechResult={mockOnSpeechResult} showTranscript={true} />);
     
     // Start listening

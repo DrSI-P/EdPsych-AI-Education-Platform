@@ -11,14 +11,14 @@ The Gamification Elements feature transforms learning experiences within the EdP
 - **Customizable Badges**: Visual recognition for accomplishments and milestones
 - **Skill Trees**: Progressive unlocking of capabilities and content
 - **Level Progression**: Structured advancement through learning journeys
-- **Mastery Tracking**: Visualization of developing expertise across domains
+- **Mastery Tracking**: Visualisation of developing expertise across domains
 - **Achievement Showcases**: Personal and public displays of accomplishments
 
 ### 2. Challenge Framework
 
 - **Learning Quests**: Narrative-driven educational challenges
 - **Daily Challenges**: Regular, bite-sized learning activities
-- **Skill Challenges**: Targeted practice for specific abilities
+- **Skill Challenges**: Targeted practise for specific abilities
 - **Team Challenges**: Collaborative problem-solving opportunities
 - **Custom Challenge Creation**: Educator-designed learning activities
 
@@ -108,7 +108,7 @@ The Gamification Elements feature is grounded in established educational psychol
 - **Flow Theory**: Balancing challenge and skill for optimal engagement
 - **Growth Mindset**: Emphasizing effort, progress, and learning from setbacks
 - **Operant Conditioning**: Providing meaningful, timely feedback for learning behaviors
-- **Social Learning Theory**: Leveraging observation and modeling for skill development
+- **Social Learning Theory**: Leveraging observation and modelling for skill development
 
 ## Accessibility and Compliance
 

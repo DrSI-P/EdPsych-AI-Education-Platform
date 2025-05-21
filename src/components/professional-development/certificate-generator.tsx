@@ -93,12 +93,12 @@ export default function CertificateGenerator() {
             <CardContent>
               {certificate ? (
                 <div className="bg-white p-8 border rounded-lg shadow-lg">
-                  <div className="text-center mb-6">
+                  <div className="text-centre mb-6">
                     <h2 className="text-3xl font-serif mb-2">Certificate of Completion</h2>
                     <div className="w-32 h-1 bg-primary mx-auto"></div>
                   </div>
                   
-                  <div className="text-center mb-8">
+                  <div className="text-centre mb-8">
                     <p className="text-lg">This certifies that</p>
                     <h3 className="text-2xl font-bold my-2">{certificate.recipientName}</h3>
                     <p className="text-lg">has successfully completed</p>
@@ -106,37 +106,37 @@ export default function CertificateGenerator() {
                     <p className="text-lg">on {certificate.completionDate}</p>
                   </div>
                   
-                  <div className="flex justify-between items-center mt-12">
+                  <div className="flex justify-between items-centre mt-12">
                     <div>
-                      <div className="w-40 h-px bg-gray-400 mb-2"></div>
+                      <div className="w-40 h-px bg-grey-400 mb-2"></div>
                       <p className="text-sm">{certificate.instructor}</p>
-                      <p className="text-xs text-gray-600">Course Instructor</p>
+                      <p className="text-xs text-grey-600">Course Instructor</p>
                     </div>
                     
-                    <div className="flex flex-col items-center">
-                      <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-2">
+                    <div className="flex flex-col items-centre">
+                      <div className="w-16 h-16 rounded-full bg-primary/10 flex items-centre justify-centre mb-2">
                         <Certificate className="h-8 w-8 text-primary" />
                       </div>
-                      <p className="text-xs text-gray-600">{certificate.cpd_points} CPD Points</p>
+                      <p className="text-xs text-grey-600">{certificate.cpd_points} CPD Points</p>
                     </div>
                     
                     <div className="text-right">
-                      <div className="w-40 h-px bg-gray-400 mb-2"></div>
+                      <div className="w-40 h-px bg-grey-400 mb-2"></div>
                       <p className="text-sm">{certificate.organisation}</p>
-                      <p className="text-xs text-gray-600">Issuing Organisation</p>
+                      <p className="text-xs text-grey-600">Issuing Organisation</p>
                     </div>
                   </div>
                   
-                  <div className="text-center mt-8">
-                    <p className="text-xs text-gray-500">Certificate ID: {certificate.certificationId}</p>
-                    <p className="text-xs text-gray-500">Verify this certificate at edpsychconnect.com/verify</p>
+                  <div className="text-centre mt-8">
+                    <p className="text-xs text-grey-500">Certificate ID: {certificate.certificationId}</p>
+                    <p className="text-xs text-grey-500">Verify this certificate at edpsychconnect.com/verify</p>
                   </div>
                 </div>
               ) : (
-                <div className="bg-muted h-96 rounded-lg flex flex-col items-center justify-center">
+                <div className="bg-muted h-96 rounded-lg flex flex-col items-centre justify-centre">
                   <Certificate className="h-16 w-16 text-muted-foreground mb-4" />
                   <h3 className="text-xl font-medium mb-2">No Certificate Generated</h3>
-                  <p className="text-muted-foreground text-center max-w-md mb-6">
+                  <p className="text-muted-foreground text-centre max-w-md mb-6">
                     Select a template and click "Generate Certificate" to create your certificate
                   </p>
                 </div>
@@ -146,7 +146,7 @@ export default function CertificateGenerator() {
               <Button 
                 variant="outline" 
                 disabled={!certificate}
-                className="flex items-center gap-2"
+                className="flex items-centre gap-2"
               >
                 <Share2 className="h-4 w-4" />
                 Share
@@ -154,7 +154,7 @@ export default function CertificateGenerator() {
               
               <Button 
                 disabled={!certificate}
-                className="flex items-center gap-2"
+                className="flex items-centre gap-2"
               >
                 <Download className="h-4 w-4" />
                 Download PDF
@@ -186,8 +186,8 @@ export default function CertificateGenerator() {
                         }`}
                         onClick={() => setSelectedTemplate(template.id)}
                       >
-                        <div className="flex items-center gap-3">
-                          <div className="w-12 h-12 bg-muted rounded flex items-center justify-center">
+                        <div className="flex items-centre gap-3">
+                          <div className="w-12 h-12 bg-muted rounded flex items-centre justify-centre">
                             <Certificate className="h-6 w-6 text-muted-foreground" />
                           </div>
                           <div>

@@ -294,7 +294,7 @@ export function ResourceLibrary({
           </div>
           
           {loading ? (
-            <div className="flex justify-center py-8">
+            <div className="flex justify-centre py-8">
               <Spinner size="lg" />
             </div>
           ) : error ? (
@@ -302,7 +302,7 @@ export function ResourceLibrary({
               {error}
             </Alert>
           ) : filteredResources.length === 0 ? (
-            <div className="text-center py-8 text-gray-500">
+            <div className="text-centre py-8 text-grey-500">
               No resources found matching your criteria.
             </div>
           ) : (
@@ -312,14 +312,14 @@ export function ResourceLibrary({
                   <CardHeader>
                     <div className="flex items-start justify-between">
                       <h3 className="text-lg font-semibold">{resource.title}</h3>
-                      <span className="px-2 py-1 text-xs rounded-full bg-gray-100 text-gray-800">
+                      <span className="px-2 py-1 text-xs rounded-full bg-grey-100 text-grey-800">
                         {resource.type.charAt(0).toUpperCase() + resource.type.slice(1)}
                       </span>
                     </div>
                   </CardHeader>
                   <CardContent className="flex-grow">
-                    <p className="text-sm text-gray-600 mb-4">{resource.description}</p>
-                    <div className="text-xs text-gray-500 space-y-1">
+                    <p className="text-sm text-grey-600 mb-4">{resource.description}</p>
+                    <div className="text-xs text-grey-500 space-y-1">
                       <div><span className="font-medium">Subject:</span> {resource.subject.charAt(0).toUpperCase() + resource.subject.slice(1)}</div>
                       <div><span className="font-medium">Age Range:</span> {resource.ageRange.charAt(0).toUpperCase() + resource.ageRange.slice(1)}</div>
                       <div><span className="font-medium">Curriculum:</span> {resource.curriculum}</div>
@@ -453,13 +453,13 @@ export function ResourceLibrary({
               />
             ) : (
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-700">
+                <label className="block text-sm font-medium text-grey-700">
                   File Upload
                 </label>
                 <input
                   type="file"
                   onChange={handleFileChange}
-                  className="block w-full text-sm text-gray-500
+                  className="block w-full text-sm text-grey-500
                     file:mr-4 file:py-2 file:px-4
                     file:rounded-md file:border-0
                     file:text-sm file:font-semibold

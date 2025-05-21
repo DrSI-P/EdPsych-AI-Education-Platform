@@ -161,7 +161,7 @@ export const HeyGenAvatarCreation: React.FC = () => {
     return (
       <Card className="w-full max-w-3xl mx-auto">
         <CardHeader>
-          <CardTitle className="text-green-600 flex items-center">
+          <CardTitle className="text-green-600 flex items-centre">
             <Check className="mr-2" /> Avatar Created Successfully
           </CardTitle>
           <CardDescription>
@@ -173,7 +173,7 @@ export const HeyGenAvatarCreation: React.FC = () => {
             The avatar and voice have been successfully created and are now available for generating videos.
             You can now proceed to the video generation process using your custom avatar.
           </p>
-          <div className="flex justify-center">
+          <div className="flex justify-centre">
             <Button onClick={handleReset} variant="outline" className="mr-2">
               Create Another Avatar
             </Button>
@@ -217,7 +217,7 @@ export const HeyGenAvatarCreation: React.FC = () => {
           {/* Face Photos */}
           <div>
             <label className="block text-sm font-medium mb-1">Face Photos (3-5 recommended)</label>
-            <p className="text-sm text-gray-500 mb-2">
+            <p className="text-sm text-grey-500 mb-2">
               Upload clear photos of your face from different angles for best results.
             </p>
             
@@ -228,9 +228,9 @@ export const HeyGenAvatarCreation: React.FC = () => {
                 </div>
               ))}
               
-              <label className="border border-dashed rounded-md flex flex-col items-center justify-center aspect-square cursor-pointer hover:bg-gray-50">
-                <Upload className="h-8 w-8 text-gray-400 mb-2" />
-                <span className="text-sm text-gray-500">Add Photo</span>
+              <label className="border border-dashed rounded-md flex flex-col items-centre justify-centre aspect-square cursor-pointer hover:bg-grey-50">
+                <Upload className="h-8 w-8 text-grey-400 mb-2" />
+                <span className="text-sm text-grey-500">Add Photo</span>
                 <input
                   type="file"
                   accept="image/*"
@@ -245,7 +245,7 @@ export const HeyGenAvatarCreation: React.FC = () => {
           {/* Voice Sample */}
           <div>
             <label className="block text-sm font-medium mb-1">Voice Sample</label>
-            <p className="text-sm text-gray-500 mb-2">
+            <p className="text-sm text-grey-500 mb-2">
               Upload or record a clear voice sample (2-3 minutes recommended) for voice cloning.
             </p>
             
@@ -256,10 +256,10 @@ export const HeyGenAvatarCreation: React.FC = () => {
               </TabsList>
               
               <TabsContent value="upload">
-                <div className="border border-dashed rounded-md p-6 flex flex-col items-center justify-center cursor-pointer hover:bg-gray-50">
-                  <Upload className="h-8 w-8 text-gray-400 mb-2" />
-                  <span className="text-sm text-gray-500 mb-2">Upload Voice Sample</span>
-                  <span className="text-xs text-gray-400 mb-4">WAV or MP3 format, 2-3 minutes of clear speech</span>
+                <div className="border border-dashed rounded-md p-6 flex flex-col items-centre justify-centre cursor-pointer hover:bg-grey-50">
+                  <Upload className="h-8 w-8 text-grey-400 mb-2" />
+                  <span className="text-sm text-grey-500 mb-2">Upload Voice Sample</span>
+                  <span className="text-xs text-grey-400 mb-4">WAV or MP3 format, 2-3 minutes of clear speech</span>
                   <input
                     type="file"
                     accept="audio/*"
@@ -274,12 +274,12 @@ export const HeyGenAvatarCreation: React.FC = () => {
               </TabsContent>
               
               <TabsContent value="record">
-                <div className="border rounded-md p-6 flex flex-col items-center justify-center">
-                  <Mic className={`h-8 w-8 ${isRecording ? 'text-red-500 animate-pulse' : 'text-gray-400'} mb-2`} />
-                  <span className="text-sm text-gray-500 mb-2">
+                <div className="border rounded-md p-6 flex flex-col items-centre justify-centre">
+                  <Mic className={`h-8 w-8 ${isRecording ? 'text-red-500 animate-pulse' : 'text-grey-400'} mb-2`} />
+                  <span className="text-sm text-grey-500 mb-2">
                     {isRecording ? 'Recording in progress...' : 'Click to record your voice'}
                   </span>
-                  <span className="text-xs text-gray-400 mb-4">
+                  <span className="text-xs text-grey-400 mb-4">
                     Speak clearly for 2-3 minutes, reading a passage or script
                   </span>
                   

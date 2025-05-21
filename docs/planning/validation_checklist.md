@@ -105,7 +105,7 @@ This document serves as a validation checklist to ensure that no features or int
 
 ### Backend and Server
 - [x] Next.js API routes
-- [x] Express.js for specialized services
+- [x] Express.js for specialised services
 - [x] Socket.io
 - [x] Winston/Morgan for logging
 
@@ -117,7 +117,7 @@ This document serves as a validation checklist to ensure that no features or int
 
 ## Repository Structure Validation
 - [x] All necessary directories and files accounted for
-- [x] Clear organization of modules and components
+- [x] Clear organisation of modules and components
 - [x] Proper separation of concerns
 - [x] Scalable architecture
 

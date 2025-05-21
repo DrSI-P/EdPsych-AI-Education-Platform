@@ -27,7 +27,7 @@ The Professional Portfolio feature provides educators with a comprehensive syste
 - Structured evidence upload and organisation
 - Lesson plan and teaching resource showcase
 - Student work samples (anonymised) with reflection
-- Classroom practice video integration
+- Classroom practise video integration
 - Feedback collection and presentation
 - Evidence tagging and categorisation
 - Version control for portfolio artefacts
@@ -37,7 +37,7 @@ The Professional Portfolio feature provides educators with a comprehensive syste
 - Goal setting and progress tracking integration
 - Professional growth visualisation over time
 - Strengths and development areas analysis
-- Connection between CPD activities and practice impact
+- Connection between CPD activities and practise impact
 - Reflective journal with privacy controls
 - Professional learning network integration
 
@@ -137,10 +137,10 @@ The Professional Portfolio feature provides educators with a comprehensive syste
 - Expertise showcasing through webinar history
 
 ## Educational Psychology Foundations
-- Reflective practice principles embedded in portfolio templates
+- Reflective practise principles embedded in portfolio templates
 - Growth mindset approach to professional development presentation
-- Evidence-based practice focus in impact documentation
-- Communities of practice support through portfolio sharing
+- Evidence-based practise focus in impact documentation
+- Communities of practise support through portfolio sharing
 - Self-determination theory application in goal setting and motivation
 
 ## Accessibility Considerations

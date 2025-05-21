@@ -122,18 +122,18 @@ export default function PupilVoiceResultsPage() {
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
-                <h4 className="text-sm font-medium text-gray-500">Total Responses</h4>
+              <div className="bg-white p-4 rounded-lg shadow-sm border border-grey-200">
+                <h4 className="text-sm font-medium text-grey-500">Total Responses</h4>
                 <p className="text-2xl font-bold mt-1">{stats.totalResponses}</p>
               </div>
               
-              <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
-                <h4 className="text-sm font-medium text-gray-500">Completion Rate</h4>
+              <div className="bg-white p-4 rounded-lg shadow-sm border border-grey-200">
+                <h4 className="text-sm font-medium text-grey-500">Completion Rate</h4>
                 <p className="text-2xl font-bold mt-1">{stats.completionRate.toFixed(1)}%</p>
               </div>
               
-              <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
-                <h4 className="text-sm font-medium text-gray-500">Avg. Time to Complete</h4>
+              <div className="bg-white p-4 rounded-lg shadow-sm border border-grey-200">
+                <h4 className="text-sm font-medium text-grey-500">Avg. Time to Complete</h4>
                 <p className="text-2xl font-bold mt-1">
                   {stats.averageTimeToComplete ? 
                     `${Math.floor(stats.averageTimeToComplete / 60)}m ${Math.round(stats.averageTimeToComplete % 60)}s` : 
@@ -155,20 +155,20 @@ export default function PupilVoiceResultsPage() {
                 if (!questionStats) return null;
                 
                 return (
-                  <div key={question.id} className="flex items-center space-x-2">
-                    <div className="w-8 h-8 bg-indigo-100 text-indigo-800 rounded-full flex items-center justify-center flex-shrink-0">
+                  <div key={question.id} className="flex items-centre space-x-2">
+                    <div className="w-8 h-8 bg-indigo-100 text-indigo-800 rounded-full flex items-centre justify-centre flex-shrink-0">
                       {index + 1}
                     </div>
                     <div className="flex-grow">
-                      <div className="flex justify-between items-center mb-1">
+                      <div className="flex justify-between items-centre mb-1">
                         <p className="text-sm font-medium truncate" title={question.text}>
                           {question.text.length > 60 ? `${question.text.substring(0, 60)}...` : question.text}
                         </p>
-                        <span className="text-sm text-gray-500">
+                        <span className="text-sm text-grey-500">
                           {questionStats.responseRate.toFixed(1)}%
                         </span>
                       </div>
-                      <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div className="w-full bg-grey-200 rounded-full h-2">
                         <div 
                           className="bg-indigo-600 h-2 rounded-full" 
                           style={{ width: `${questionStats.responseRate}%` }}
@@ -198,12 +198,12 @@ export default function PupilVoiceResultsPage() {
             <Card key={question.id}>
               <CardHeader>
                 <div className="flex items-start">
-                  <div className="w-8 h-8 bg-indigo-100 text-indigo-800 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                  <div className="w-8 h-8 bg-indigo-100 text-indigo-800 rounded-full flex items-centre justify-centre mr-3 flex-shrink-0">
                     {index + 1}
                   </div>
                   <div>
                     <h3 className="text-lg font-medium">{question.text}</h3>
-                    <p className="text-sm text-gray-500 mt-1">
+                    <p className="text-sm text-grey-500 mt-1">
                       {questionStats.responseCount} responses ({questionStats.responseRate.toFixed(1)}%)
                     </p>
                   </div>
@@ -218,7 +218,7 @@ export default function PupilVoiceResultsPage() {
                       
                       return (
                         <div key={option}>
-                          <div className="flex justify-between items-center mb-1">
+                          <div className="flex justify-between items-centre mb-1">
                             <span className="text-sm font-medium">
                               {question.type === 'emoji_scale' ? (
                                 <span className="text-xl">{option}</span>
@@ -226,11 +226,11 @@ export default function PupilVoiceResultsPage() {
                                 option
                               )}
                             </span>
-                            <span className="text-sm text-gray-500">
+                            <span className="text-sm text-grey-500">
                               {count} ({percentage.toFixed(1)}%)
                             </span>
                           </div>
-                          <div className="w-full bg-gray-200 rounded-full h-2">
+                          <div className="w-full bg-grey-200 rounded-full h-2">
                             <div 
                               className="bg-indigo-600 h-2 rounded-full" 
                               style={{ width: `${percentage}%` }}
@@ -244,13 +244,13 @@ export default function PupilVoiceResultsPage() {
                 
                 {question.type === 'open_ended' && (
                   <div className="space-y-3">
-                    <p className="text-sm text-gray-500 mb-2">
+                    <p className="text-sm text-grey-500 mb-2">
                       {questionStats.responseCount} text responses
                     </p>
                     
                     <div className="max-h-60 overflow-y-auto space-y-2">
                       {questionStats.responses.map((response: string, i: number) => (
-                        <div key={i} className="p-3 bg-gray-50 rounded-md border border-gray-200">
+                        <div key={i} className="p-3 bg-grey-50 rounded-md border border-grey-200">
                           <p className="text-sm">{response}</p>
                         </div>
                       ))}
@@ -271,27 +271,27 @@ export default function PupilVoiceResultsPage() {
     return (
       <div className="space-y-6">
         <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+          <table className="min-w-full divide-y divide-grey-200">
+            <thead className="bg-grey-50">
               <tr>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">
                   Respondent
                 </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">
                   Submitted
                 </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">
                   Status
                 </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">
                   Completion Time
                 </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">
                   Actions
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="bg-white divide-y divide-grey-200">
               {responses.map((response, index) => {
                 const startTime = response.startedAt ? new Date(response.startedAt) : null;
                 const endTime = response.completedAt ? new Date(response.completedAt) : null;
@@ -300,10 +300,10 @@ export default function PupilVoiceResultsPage() {
                 
                 return (
                   <tr key={response.id || index}>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-grey-900">
                       {response.respondentId || response.respondentName || `Anonymous ${index + 1}`}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-grey-500">
                       {response.completedAt ? new Date(response.completedAt).toLocaleString() : 'N/A'}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
@@ -315,12 +315,12 @@ export default function PupilVoiceResultsPage() {
                         {response.status === 'completed' ? 'Completed' : 'Partial'}
                       </span>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-grey-500">
                       {completionTime ? 
                         `${Math.floor(completionTime / 60)}m ${Math.round(completionTime % 60)}s` : 
                         'N/A'}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-grey-500">
                       <Button
                         variant="outline"
                         size="sm"
@@ -341,7 +341,7 @@ export default function PupilVoiceResultsPage() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
+      <div className="flex justify-centre items-centre min-h-screen">
         <Spinner size="large" />
       </div>
     );
@@ -381,8 +381,8 @@ export default function PupilVoiceResultsPage() {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="mb-6">
-          <div className="flex items-center justify-between">
-            <h1 className="text-2xl font-bold text-gray-900">{survey.title} - Results</h1>
+          <div className="flex items-centre justify-between">
+            <h1 className="text-2xl font-bold text-grey-900">{survey.title} - Results</h1>
             <Button
               variant="outline"
               onClick={() => router.push('/assessment/pupil-voice')}
@@ -402,8 +402,8 @@ export default function PupilVoiceResultsPage() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-6">
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-gray-900">{survey.title} - Results</h1>
+        <div className="flex items-centre justify-between">
+          <h1 className="text-2xl font-bold text-grey-900">{survey.title} - Results</h1>
           <Button
             variant="outline"
             onClick={() => router.push('/assessment/pupil-voice')}
@@ -412,7 +412,7 @@ export default function PupilVoiceResultsPage() {
           </Button>
         </div>
         {survey.description && (
-          <p className="mt-2 text-gray-600">
+          <p className="mt-2 text-grey-600">
             {survey.description}
           </p>
         )}

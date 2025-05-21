@@ -150,7 +150,7 @@ export default function BiofeedbackLearningPage() {
   // Update recommendations based on biometric data
   const updateRecommendations = () => {
     if (biometrics.stressLevel > 70) {
-      setCurrentRecommendation('High stress detected. Consider a 2-minute breathing exercise to optimize learning conditions.');
+      setCurrentRecommendation('High stress detected. Consider a 2-minute breathing exercise to optimise learning conditions.');
     } else if (biometrics.focusLevel < 40) {
       setCurrentRecommendation('Focus levels dropping. Suggested interventions: short break, change of learning modality, or brief physical activity.');
     } else if (biometrics.energyLevel < 30) {
@@ -164,7 +164,7 @@ export default function BiofeedbackLearningPage() {
     }
   };
   
-  // Get color for metrics
+  // Get colour for metrics
   const getMetricColor = (value: number, isInverse: boolean = false) => {
     if (isInverse) {
       if (value > 70) return "text-red-500";
@@ -195,11 +195,11 @@ export default function BiofeedbackLearningPage() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-center mb-12"
+        className="text-centre mb-12"
       >
         <h1 className="text-4xl font-bold tracking-tight">Integrated Biofeedback Learning System</h1>
         <p className="mt-4 text-xl text-muted-foreground max-w-3xl mx-auto">
-          Experience a revolutionary learning environment that adapts to your physiological and emotional state in real-time, optimizing conditions for maximum comprehension and retention.
+          Experience a revolutionary learning environment that adapts to your physiological and emotional state in real-time, optimising conditions for maximum comprehension and retention.
         </p>
       </motion.div>
 
@@ -213,8 +213,8 @@ export default function BiofeedbackLearningPage() {
         >
           <Card className="h-full">
             <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-2xl font-semibold flex items-center">
+              <div className="flex items-centre justify-between mb-6">
+                <h2 className="text-2xl font-semibold flex items-centre">
                   <Heart className="mr-2 h-5 w-5 text-primary" />
                   Biometric Data
                 </h2>
@@ -229,18 +229,18 @@ export default function BiofeedbackLearningPage() {
               </div>
               
               <div className="space-y-6">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="text-center px-4 py-3 bg-primary/10 rounded-lg">
+                <div className="flex items-centre justify-between mb-4">
+                  <div className="text-centre px-4 py-3 bg-primary/10 rounded-lg">
                     <div className="text-2xl font-bold">{Math.round(biometrics.heartRate)}</div>
                     <div className="text-xs text-muted-foreground">BPM</div>
                   </div>
                   
-                  <div className="text-center px-4 py-3 bg-primary/10 rounded-lg">
+                  <div className="text-centre px-4 py-3 bg-primary/10 rounded-lg">
                     <div className="text-2xl font-bold">{Math.round(biometrics.breathingRate)}</div>
                     <div className="text-xs text-muted-foreground">Breaths/min</div>
                   </div>
                   
-                  <div className="text-center px-4 py-3 bg-primary/10 rounded-lg">
+                  <div className="text-centre px-4 py-3 bg-primary/10 rounded-lg">
                     <div className="text-2xl font-bold">{getEmotionalStateEmoji()}</div>
                     <div className="text-xs text-muted-foreground capitalize">{biometrics.emotionalState}</div>
                   </div>
@@ -248,7 +248,7 @@ export default function BiofeedbackLearningPage() {
                 
                 <div>
                   <div className="flex justify-between mb-2">
-                    <Label className="flex items-center">
+                    <Label className="flex items-centre">
                       <Activity className="mr-2 h-4 w-4" />
                       Stress Level
                     </Label>
@@ -261,7 +261,7 @@ export default function BiofeedbackLearningPage() {
                 
                 <div>
                   <div className="flex justify-between mb-2">
-                    <Label className="flex items-center">
+                    <Label className="flex items-centre">
                       <Brain className="mr-2 h-4 w-4" />
                       Focus Level
                     </Label>
@@ -274,7 +274,7 @@ export default function BiofeedbackLearningPage() {
                 
                 <div>
                   <div className="flex justify-between mb-2">
-                    <Label className="flex items-center">
+                    <Label className="flex items-centre">
                       <Zap className="mr-2 h-4 w-4" />
                       Energy Level
                     </Label>
@@ -287,7 +287,7 @@ export default function BiofeedbackLearningPage() {
                 
                 <div className="pt-4 border-t">
                   <div className="bg-muted/50 p-4 rounded-lg">
-                    <h3 className="font-medium mb-2 flex items-center">
+                    <h3 className="font-medium mb-2 flex items-centre">
                       <Sparkles className="mr-2 h-4 w-4 text-primary" />
                       Biofeedback Recommendation
                     </h3>
@@ -297,7 +297,7 @@ export default function BiofeedbackLearningPage() {
               </div>
               
               <div className="mt-8 space-y-6">
-                <div className="flex items-center justify-between">
+                <div className="flex items-centre justify-between">
                   <Label htmlFor="biofeedback-toggle" className="font-medium">
                     Biofeedback Adaptation
                   </Label>
@@ -312,7 +312,7 @@ export default function BiofeedbackLearningPage() {
                   <Label htmlFor="simulation-toggle" className="font-medium">
                     Simulation
                   </Label>
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-centre justify-between">
                     <Button 
                       variant={simulationRunning ? "destructive" : "default"}
                       size="sm"
@@ -320,7 +320,7 @@ export default function BiofeedbackLearningPage() {
                     >
                       {simulationRunning ? "Stop" : "Start"} Simulation
                     </Button>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-centre gap-2">
                       <Label htmlFor="speed-slider" className="text-sm">Speed</Label>
                       <Slider
                         id="speed-slider"
@@ -356,7 +356,7 @@ export default function BiofeedbackLearningPage() {
             <TabsContent value="dashboard" className="mt-6">
               <Card>
                 <CardContent className="p-6">
-                  <h2 className="text-2xl font-semibold mb-6 flex items-center">
+                  <h2 className="text-2xl font-semibold mb-6 flex items-centre">
                     <LineChart className="mr-2 h-5 w-5 text-primary" />
                     Learning Metrics
                   </h2>
@@ -431,7 +431,7 @@ export default function BiofeedbackLearningPage() {
                       </div>
                       
                       <div className="bg-muted/50 p-4 rounded-lg">
-                        <h3 className="font-medium mb-2 flex items-center">
+                        <h3 className="font-medium mb-2 flex items-centre">
                           <Gauge className="mr-2 h-4 w-4 text-primary" />
                           Learning State Analysis
                         </h3>
@@ -439,17 +439,17 @@ export default function BiofeedbackLearningPage() {
                           {biometrics.focusLevel > 70 && biometrics.stressLevel < 40 ? 
                             "You're in an optimal learning state. Your focus is high and stress is low, creating ideal conditions for deep learning and retention." : 
                             biometrics.stressLevel > 70 ? 
-                              "High stress is currently limiting your learning potential. Consider a brief relaxation exercise to optimize your physiological state." :
+                              "High stress is currently limiting your learning potential. Consider a brief relaxation exercise to optimise your physiological state." :
                               biometrics.focusLevel < 40 ?
                                 "Your focus levels indicate potential for distraction. Consider a short break or switching to a different learning modality." :
-                                "Your current physiological state is conducive to learning. Minor adjustments to stress or focus could further optimize your experience."}
+                                "Your current physiological state is conducive to learning. Minor adjustments to stress or focus could further optimise your experience."}
                         </p>
                       </div>
                     </div>
                   </div>
                   
                   <div className="border-t pt-6">
-                    <h3 className="text-lg font-medium mb-4">Biofeedback-Optimized Learning Path</h3>
+                    <h3 className="text-lg font-medium mb-4">Biofeedback-Optimised Learning Path</h3>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                       <Card className="overflow-hidden">
                         <div className="bg-primary/10 p-4">
@@ -503,7 +503,7 @@ export default function BiofeedbackLearningPage() {
             <TabsContent value="content" className="mt-6">
               <Card>
                 <CardContent className="p-6">
-                  <h2 className="text-2xl font-semibold mb-6 flex items-center">
+                  <h2 className="text-2xl font-semibold mb-6 flex items-centre">
                     <BarChart className="mr-2 h-5 w-5 text-primary" />
                     Biofeedback-Adaptive Content
                   </h2>
@@ -520,15 +520,15 @@ export default function BiofeedbackLearningPage() {
                       <div className="space-y-4">
                         <div className="bg-primary/5 p-6 rounded-lg border-2 border-primary/20">
                           <h3 className="text-xl font-semibold mb-4">Key Concept: Biofeedback in Learning</h3>
-                          <div className="flex flex-col md:flex-row gap-6 items-center mb-4">
-                            <div className="bg-muted rounded-lg p-4 flex items-center justify-center w-full md:w-1/3 aspect-video">
+                          <div className="flex flex-col md:flex-row gap-6 items-centre mb-4">
+                            <div className="bg-muted rounded-lg p-4 flex items-centre justify-centre w-full md:w-1/3 aspect-video">
                               <Activity className="h-12 w-12 text-primary/50" />
                             </div>
                             <div className="w-full md:w-2/3">
                               <p className="mb-4">Biofeedback uses real-time physiological data to help you understand and control your body's responses.</p>
                               <p className="font-medium">In learning, this means:</p>
                               <ul className="list-disc pl-6 space-y-2 mt-2">
-                                <li>Recognizing when you're in an optimal state for learning</li>
+                                <li>Recognising when you're in an optimal state for learning</li>
                                 <li>Identifying when stress or fatigue are affecting comprehension</li>
                                 <li>Learning to self-regulate for better focus and retention</li>
                               </ul>
@@ -540,7 +540,7 @@ export default function BiofeedbackLearningPage() {
                           </div>
                         </div>
                         
-                        <div className="text-center text-sm text-muted-foreground">
+                        <div className="text-centre text-sm text-muted-foreground">
                           <p>Content has been simplified and made more visual based on your current focus levels.</p>
                           <p>Interactive elements have been increased to boost engagement.</p>
                         </div>
@@ -558,9 +558,9 @@ export default function BiofeedbackLearningPage() {
                           </div>
                         </div>
                         
-                        <div className="text-center text-sm text-muted-foreground">
+                        <div className="text-centre text-sm text-muted-foreground">
                           <p>Content has been adjusted to reduce cognitive load based on your current stress levels.</p>
-                          <p>Calming color scheme and simplified language have been applied.</p>
+                          <p>Calming colour scheme and simplified language have been applied.</p>
                         </div>
                       </div>
                     ) : biometrics.energyLevel < 40 ? (
@@ -590,7 +590,7 @@ export default function BiofeedbackLearningPage() {
                           </div>
                         </div>
                         
-                        <div className="text-center text-sm text-muted-foreground">
+                        <div className="text-centre text-sm text-muted-foreground">
                           <p>Content has been made more interactive and engaging based on your current energy levels.</p>
                           <p>Stimulating colors and interactive elements have been added.</p>
                         </div>
@@ -599,13 +599,13 @@ export default function BiofeedbackLearningPage() {
                       <div className="space-y-4">
                         <div className="bg-card p-6 rounded-lg border">
                           <h3 className="text-xl font-semibold mb-4">Biofeedback in Educational Contexts</h3>
-                          <p className="mb-4">Biofeedback represents a significant advancement in educational technology, offering real-time physiological data that can be used to optimize learning experiences. By monitoring metrics such as heart rate variability, skin conductance, breathing patterns, and even subtle facial expressions, biofeedback systems can determine a learner's cognitive and emotional state.</p>
+                          <p className="mb-4">Biofeedback represents a significant advancement in educational technology, offering real-time physiological data that can be used to optimise learning experiences. By monitoring metrics such as heart rate variability, skin conductance, breathing patterns, and even subtle facial expressions, biofeedback systems can determine a learner's cognitive and emotional state.</p>
                           
                           <h4 className="font-medium mt-6 mb-3">Key Applications in Education:</h4>
                           <ul className="list-disc pl-6 mb-6 space-y-2">
                             <li><strong>Cognitive Load Management</strong> - Detecting when a student is approaching cognitive overload and adjusting content complexity accordingly</li>
                             <li><strong>Attention Optimization</strong> - Identifying attention fluctuations and implementing interventions to restore focus</li>
-                            <li><strong>Emotional Regulation</strong> - Recognizing emotional states that inhibit learning (anxiety, frustration) and providing appropriate support</li>
+                            <li><strong>Emotional Regulation</strong> - Recognising emotional states that inhibit learning (anxiety, frustration) and providing appropriate support</li>
                             <li><strong>Flow State Facilitation</strong> - Creating conditions that promote the optimal state of engaged concentration</li>
                             <li><strong>Metacognitive Development</strong> - Helping learners understand their own physiological responses to different learning activities</li>
                           </ul>
@@ -627,7 +627,7 @@ export default function BiofeedbackLearningPage() {
             <TabsContent value="exercises" className="mt-6">
               <Card>
                 <CardContent className="p-6">
-                  <h2 className="text-2xl font-semibold mb-6 flex items-center">
+                  <h2 className="text-2xl font-semibold mb-6 flex items-centre">
                     <Activity className="mr-2 h-5 w-5 text-primary" />
                     Biofeedback Exercises
                   </h2>
@@ -670,9 +670,9 @@ export default function BiofeedbackLearningPage() {
                           <div className="bg-white dark:bg-black/20 p-4 rounded-lg mb-4">
                             <ol className="space-y-2">
                               <li>1. Choose a small object to focus on (a pen, paperclip, etc.)</li>
-                              <li>2. Examine it in detail for 30 seconds, noting color, texture, shape</li>
-                              <li>3. Close your eyes and visualize the object for 30 seconds</li>
-                              <li>4. Open your eyes and compare your visualization to the actual object</li>
+                              <li>2. Examine it in detail for 30 seconds, noting colour, texture, shape</li>
+                              <li>3. Close your eyes and visualise the object for 30 seconds</li>
+                              <li>4. Open your eyes and compare your visualisation to the actual object</li>
                               <li>5. Repeat once more, then return to your learning task</li>
                             </ol>
                           </div>
@@ -800,11 +800,11 @@ export default function BiofeedbackLearningPage() {
         transition={{ delay: 0.6, duration: 0.5 }}
         className="mb-12"
       >
-        <h2 className="text-3xl font-semibold mb-6 text-center">How It Works</h2>
+        <h2 className="text-3xl font-semibold mb-6 text-centre">How It Works</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <Card>
-            <CardContent className="p-6 text-center">
+            <CardContent className="p-6 text-centre">
               <div className="bg-primary/10 p-3 rounded-full w-fit mx-auto mb-4">
                 <Heart className="h-6 w-6 text-primary" />
               </div>
@@ -816,7 +816,7 @@ export default function BiofeedbackLearningPage() {
           </Card>
           
           <Card>
-            <CardContent className="p-6 text-center">
+            <CardContent className="p-6 text-centre">
               <div className="bg-primary/10 p-3 rounded-full w-fit mx-auto mb-4">
                 <Brain className="h-6 w-6 text-primary" />
               </div>
@@ -828,13 +828,13 @@ export default function BiofeedbackLearningPage() {
           </Card>
           
           <Card>
-            <CardContent className="p-6 text-center">
+            <CardContent className="p-6 text-centre">
               <div className="bg-primary/10 p-3 rounded-full w-fit mx-auto mb-4">
                 <Sparkles className="h-6 w-6 text-primary" />
               </div>
               <h3 className="text-xl font-semibold mb-2">Adaptive Optimization</h3>
               <p className="text-muted-foreground">
-                The learning environment automatically adjusts to your physiological state, optimizing content presentation, difficulty level, and learning modalities to match your current cognitive capacity.
+                The learning environment automatically adjusts to your physiological state, optimising content presentation, difficulty level, and learning modalities to match your current cognitive capacity.
               </p>
             </CardContent>
           </Card>
@@ -847,7 +847,7 @@ export default function BiofeedbackLearningPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.8, duration: 0.5 }}
       >
-        <h2 className="text-3xl font-semibold mb-6 text-center">Benefits</h2>
+        <h2 className="text-3xl font-semibold mb-6 text-centre">Benefits</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Card>
@@ -878,7 +878,7 @@ export default function BiofeedbackLearningPage() {
                   </div>
                   <div>
                     <span className="font-medium">Self-Regulation Skills</span>
-                    <p className="text-sm text-muted-foreground">Develop the ability to recognize and control your physiological states for improved learning and performance.</p>
+                    <p className="text-sm text-muted-foreground">Develop the ability to recognise and control your physiological states for improved learning and performance.</p>
                   </div>
                 </li>
                 <li className="flex items-start">
