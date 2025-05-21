@@ -47,19 +47,32 @@ export async function POST(request: Request) {
     const verificationTokenExpiry = new Date(Date.now() + 24 * 3600000); // 24 hours from now
     
     // Store verification token in database
-    await prisma.verificationToken.upsert({
-      where: { 
-        identifier: email 
-      },
-      update: {
-        token: verificationToken,
-        expires: verificationTokenExpiry,
-      },
-      create: {
+    // First, try to find an existing token for this email
+    const existingToken = await prisma.verificationToken.findFirst({
+      where: {
+        identifier: email
+      }
+    });
+    
+    if (existingToken) {
+      // If token exists, delete it first
+      await prisma.verificationToken.delete({
+        where: {
+          identifier_token: {
+            identifier: existingToken.identifier,
+            token: existingToken.token
+          }
+        }
+      });
+    }
+    
+    // Create a new token
+    await prisma.verificationToken.create({
+      data: {
         identifier: email,
         token: verificationToken,
         expires: verificationTokenExpiry,
-      },
+      }
     });
     
     // In a real application, send email with verification link
@@ -136,7 +149,12 @@ export async function PUT(request: Request) {
     
     // Delete used verification token
     await prisma.verificationToken.delete({
-      where: { identifier: verificationRecord.identifier },
+      where: {
+        identifier_token: {
+          identifier: verificationRecord.identifier,
+          token: verificationRecord.token
+        }
+      },
     });
     
     return NextResponse.json({ 
