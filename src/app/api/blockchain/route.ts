@@ -86,7 +86,7 @@ export async function GET(request: NextRequest) {
     // Mock verification response
     const verificationResult = await mockBlockchainInteraction('verify', {
       id: id || 'unknown',
-      type,
+      type: type || undefined,
       transactionId: transactionId || undefined,
       verificationCode: verificationCode || undefined
     });
