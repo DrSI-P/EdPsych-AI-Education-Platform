@@ -144,31 +144,31 @@ function fixPackageLock() {
       content.includes('registry.npmjs.org/@zag-js/dialog/-/dialogue')) {
     console.log('  Found resolved URLs with UK spelling');
     
-    // Direct replacement for react-dialog URL
-    if (content.includes('registry.npmjs.org/@radix-ui/react-dialog/-/react-dialogue')) {
-      content = content.replace(
-        'https://registry.npmjs.org/@radix-ui/react-dialog/-/react-dialogue-1.0.0.tgz',
-        'https://registry.npmjs.org/@radix-ui/react-dialog/-/react-dialog-1.0.0.tgz'
-      );
-      console.log('  Fixed @radix-ui/react-dialog resolved URL');
+    // Generic replacement for react-dialog URLs with any version number
+    const reactDialogRegex = /https:\/\/registry\.npmjs\.org\/@radix-ui\/react-dialog\/-\/react-dialogue-([0-9]+\.[0-9]+\.[0-9]+)\.tgz/g;
+    if (reactDialogRegex.test(content)) {
+      content = content.replace(reactDialogRegex, (match, version) => {
+        console.log(`  Fixed @radix-ui/react-dialog resolved URL for version ${version}`);
+        return `https://registry.npmjs.org/@radix-ui/react-dialog/-/react-dialog-${version}.tgz`;
+      });
     }
     
-    // Direct replacement for react-alert-dialog URL
-    if (content.includes('registry.npmjs.org/@radix-ui/react-alert-dialog/-/react-alert-dialogue')) {
-      content = content.replace(
-        'https://registry.npmjs.org/@radix-ui/react-alert-dialog/-/react-alert-dialogue-1.0.0.tgz',
-        'https://registry.npmjs.org/@radix-ui/react-alert-dialog/-/react-alert-dialog-1.0.0.tgz'
-      );
-      console.log('  Fixed @radix-ui/react-alert-dialog resolved URL');
+    // Generic replacement for react-alert-dialog URLs with any version number
+    const reactAlertDialogRegex = /https:\/\/registry\.npmjs\.org\/@radix-ui\/react-alert-dialog\/-\/react-alert-dialogue-([0-9]+\.[0-9]+\.[0-9]+)\.tgz/g;
+    if (reactAlertDialogRegex.test(content)) {
+      content = content.replace(reactAlertDialogRegex, (match, version) => {
+        console.log(`  Fixed @radix-ui/react-alert-dialog resolved URL for version ${version}`);
+        return `https://registry.npmjs.org/@radix-ui/react-alert-dialog/-/react-alert-dialog-${version}.tgz`;
+      });
     }
     
-    // Direct replacement for @zag-js/dialog URL
-    if (content.includes('registry.npmjs.org/@zag-js/dialog/-/dialogue')) {
-      content = content.replace(
-        'https://registry.npmjs.org/@zag-js/dialog/-/dialogue-1.12.2.tgz',
-        'https://registry.npmjs.org/@zag-js/dialog/-/dialog-1.12.2.tgz'
-      );
-      console.log('  Fixed @zag-js/dialog resolved URL');
+    // Generic replacement for @zag-js/dialog URLs with any version number
+    const zagJsDialogRegex = /https:\/\/registry\.npmjs\.org\/@zag-js\/dialog\/-\/dialogue-([0-9]+\.[0-9]+\.[0-9]+)\.tgz/g;
+    if (zagJsDialogRegex.test(content)) {
+      content = content.replace(zagJsDialogRegex, (match, version) => {
+        console.log(`  Fixed @zag-js/dialog resolved URL for version ${version}`);
+        return `https://registry.npmjs.org/@zag-js/dialog/-/dialog-${version}.tgz`;
+      });
     }
     
     updated = true;
