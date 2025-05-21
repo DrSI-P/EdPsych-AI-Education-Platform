@@ -33,7 +33,14 @@ The deployment was failing due to inconsistent use of UK vs US spelling in packa
   - `fix-calendar-component-imports.js`: Fixes imports in all files that use the component
   - `fix-calendar-optimization-path.js`: Renames the directory from UK to US spelling
 
-### 2. Previous Fixes
+### 2. Prisma Model Case Fix
+
+The build was failing due to incorrect case usage when accessing Prisma models:
+
+- Fixed references from `prisma.CurriculumPlanCollaborator` to `prisma.curriculumPlanCollaborator`
+- Created a script to automate the fix for any similar issues in the future
+
+### 3. Previous Fixes
 
 We've also consolidated previous fixes:
 
@@ -58,6 +65,7 @@ npm install
 For detailed information about specific fixes:
 - [UK Spelling Package Fix](uk-spelling-package-fix.md)
 - [Calendar Optimization Fix](calendar-optimization-fix.md)
+- [Prisma Model Case Fix](prisma-model-case-fix.md)
 
 ## Deployment Process
 
@@ -113,3 +121,4 @@ For more detailed information about specific fixes:
 
 - [UK Spelling Package Fix](uk-spelling-package-fix.md) - Details about fixing UK spelling in package names
 - [Calendar Optimization Fix](calendar-optimization-fix.md) - Details about fixing UK spelling in calendar optimization components
+- [Prisma Model Case Fix](prisma-model-case-fix.md) - Details about fixing Prisma model case issues
