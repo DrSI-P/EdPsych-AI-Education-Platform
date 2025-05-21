@@ -139,7 +139,6 @@ export async function POST(req: NextRequest) {
         subject,
         keyStage,
         year: year || '',
-        status: 'draft',
         user: {
           connect: { id: session.user.id },
         },
