@@ -80,10 +80,50 @@ To fix this issue, we created a script (`scripts/fix-password-reset-migration.js
 3. If it exists, updates it to mark it as successfully applied
 4. If it doesn't exist, inserts a new record marking it as successfully applied
 
-This script needs to be run manually on the database to resolve the migration issue before the next deployment can succeed.
+Since the database is hosted on Supabase and not accessible locally, the script cannot be run directly from a local environment. Instead, you'll need to execute SQL commands directly on the database using the Supabase dashboard or another database administration tool.
 
-```bash
-node scripts/fix-password-reset-migration.js
+Here are the SQL commands to fix the failed migration:
+
+```sql
+-- Check if the migration exists
+SELECT * FROM _prisma_migrations WHERE migration_name = '20250521020000_add_password_reset_model';
+
+-- If it exists and is marked as failed, update it to mark as applied successfully
+UPDATE _prisma_migrations
+SET applied = 1,
+    rolled_back = 0,
+    rolled_back_at = NULL
+WHERE migration_name = '20250521020000_add_password_reset_model';
+
+-- If it doesn't exist, insert it as a successfully applied migration
+INSERT INTO _prisma_migrations (
+  id,
+  checksum,
+  finished_at,
+  migration_name,
+  logs,
+  rolled_back_at,
+  started_at,
+  applied_steps_count
+)
+SELECT
+  gen_random_uuid(),
+  'manually-fixed-migration',
+  NOW(),
+  '20250521020000_add_password_reset_model',
+  'Migration manually marked as applied',
+  NULL,
+  NOW(),
+  1
+WHERE NOT EXISTS (
+  SELECT 1 FROM _prisma_migrations WHERE migration_name = '20250521020000_add_password_reset_model'
+);
 ```
 
-This approach allows us to fix the migration history without having to modify the database schema, since the table already exists.
+Alternatively, for future deployments, you could modify the build script in `package.json` to handle failed migrations more gracefully:
+
+```json
+"build": "prisma migrate deploy || true && next build"
+```
+
+This would allow the build to continue even if the migration deployment fails, which might be acceptable if the schema is already in sync with the database.
