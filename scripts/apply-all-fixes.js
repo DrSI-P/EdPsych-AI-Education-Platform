@@ -10,34 +10,8 @@ const fs = require('fs');
 // Configuration
 const scriptsDir = __dirname;
 const fixScripts = [
-  // Fix for the CurriculumPlanCollaborator case sensitivity issue
-  'fix-curriculum-collaborator-case.js',
-  
-  // Targeted fix for the specific file causing the build failure
-  'fix-curriculum-collaboration-route.js',
-  
-  // Fix TypeScript syntax errors
-  'fix-apostrophes.js',
-  'fix-template-literals.js',
-  'fix-import-statements.js',
-  'fix-uk-spelling.js',
-  'fix-package-names.js', // Fix UK spelling in package names
-  'fix-seed-file.js',
-  'fix-remaining-typescript-errors.js',
-  'fix-enhanced-typescript-errors.js',
-  'fix-tabs-component.js',
-  
-  // Fix for the Plugin model
-  'fix-plugin-model-migration.js',
-  
-  // Fix for the curriculum collaboration models
-  'fix-curriculum-collaboration-migration.js',
-  
-  // Fix for the password reset model
-  'fix-password-reset-migration.js',
-  
-  // Apply all migrations
-  'apply-fix-migration.js'
+  // Only run the package name fix script for now
+  'fix-package-names.js' // Fix UK spelling in package names
 ];
 
 // Main function
