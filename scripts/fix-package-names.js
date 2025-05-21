@@ -80,6 +80,22 @@ function fixPackageLock() {
     updated = true;
   }
   
+  // Special case for @radix-ui/react-dialogue
+  if (content.includes('@radix-ui/react-dialogue')) {
+    console.log('  Found @radix-ui/react-dialogue package references');
+    content = content.replace(/@radix-ui\/react-dialogue/g, '@radix-ui/react-dialog');
+    console.log('  Replaced @radix-ui/react-dialogue with @radix-ui/react-dialog');
+    updated = true;
+  }
+  
+  // Special case for @radix-ui/react-alert-dialogue
+  if (content.includes('@radix-ui/react-alert-dialogue')) {
+    console.log('  Found @radix-ui/react-alert-dialogue package references');
+    content = content.replace(/@radix-ui\/react-alert-dialogue/g, '@radix-ui/react-alert-dialog');
+    console.log('  Replaced @radix-ui/react-alert-dialogue with @radix-ui/react-alert-dialog');
+    updated = true;
+  }
+  
   // Fix resolved URLs for @zag-js packages - direct replacements for the specific URLs
   if (content.includes('registry.npmjs.org/@zag-js/color-picker/-/colour-picker') ||
       content.includes('registry.npmjs.org/@zag-js/color-utils/-/colour-utils')) {
@@ -111,6 +127,32 @@ function fixPackageLock() {
     console.log('  Found colour-support package references');
     content = content.replace(/colour-support/g, 'color-support');
     console.log('  Replaced colour-support with color-support');
+    updated = true;
+  }
+  
+  // Fix resolved URLs for @radix-ui packages
+  if (content.includes('registry.npmjs.org/@radix-ui/react-dialog/-/react-dialogue') ||
+      content.includes('registry.npmjs.org/@radix-ui/react-alert-dialog/-/react-alert-dialogue')) {
+    console.log('  Found @radix-ui resolved URLs with UK spelling');
+    
+    // Direct replacement for react-dialog URL
+    if (content.includes('registry.npmjs.org/@radix-ui/react-dialog/-/react-dialogue')) {
+      content = content.replace(
+        'https://registry.npmjs.org/@radix-ui/react-dialog/-/react-dialogue-1.0.0.tgz',
+        'https://registry.npmjs.org/@radix-ui/react-dialog/-/react-dialog-1.0.0.tgz'
+      );
+      console.log('  Fixed @radix-ui/react-dialog resolved URL');
+    }
+    
+    // Direct replacement for react-alert-dialog URL
+    if (content.includes('registry.npmjs.org/@radix-ui/react-alert-dialog/-/react-alert-dialogue')) {
+      content = content.replace(
+        'https://registry.npmjs.org/@radix-ui/react-alert-dialog/-/react-alert-dialogue-1.0.0.tgz',
+        'https://registry.npmjs.org/@radix-ui/react-alert-dialog/-/react-alert-dialog-1.0.0.tgz'
+      );
+      console.log('  Fixed @radix-ui/react-alert-dialog resolved URL');
+    }
+    
     updated = true;
   }
   
