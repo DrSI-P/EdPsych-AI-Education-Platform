@@ -6,7 +6,7 @@ import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card'
 import { Button } from '@/components/ui/button';
 import { Alert } from '@/components/ui/alert';
 import { Spinner } from '@/components/ui/loading';
-import { Tabs } from '@/components/ui/tabs';
+import { SimpleTabs  } from '@/components/ui/tabs';
 
 export default function PreviewPupilVoiceSurveyPage() {
   const router = useRouter();
@@ -401,7 +401,7 @@ export default function PreviewPupilVoiceSurveyPage() {
       </div>
 
       <div className="mb-6">
-        <Tabs
+        <SimpleTabs
           tabs={[
             { id: 'preview', label: 'Preview' },
             { id: 'settings', label: 'Settings' },

@@ -180,7 +180,7 @@ export const AvatarVideoIntegration: React.FC<AvatarVideoIntegrationProps> = ({
             Select a video from the library or create a new one to enhance this content.
           </p>
           
-          <Dialog open={isLibraryOpen} onOpenChange={setIsLibraryOpen}>
+          <Dialogue open={isLibraryOpen} onOpenChange={setIsLibraryOpen}>
             <DialogTrigger asChild>
               <Button>
                 <Video className="h-4 w-4 mr-2" />
@@ -211,7 +211,7 @@ export const AvatarVideoIntegration: React.FC<AvatarVideoIntegrationProps> = ({
             </CardDescription>
           </div>
           
-          <Dialog open={isLibraryOpen} onOpenChange={setIsLibraryOpen}>
+          <Dialogue open={isLibraryOpen} onOpenChange={setIsLibraryOpen}>
             <DialogTrigger asChild>
               <Button variant="outline" size="sm">
                 <Settings className="h-4 w-4 mr-2" />

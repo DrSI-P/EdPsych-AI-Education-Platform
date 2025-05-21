@@ -6,7 +6,7 @@ import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card'
 import { Button } from '@/components/ui/button';
 import { Alert } from '@/components/ui/alert';
 import { Spinner } from '@/components/ui/loading';
-import { Tabs } from '@/components/ui/tabs';
+import { SimpleTabs  } from '@/components/ui/tabs';
 import { Form } from '@/components/ui/form';
 
 interface Template {
@@ -238,7 +238,7 @@ export default function AssessmentTemplatesPage() {
       )}
 
       <div className="mb-6">
-        <Tabs
+        <SimpleTabs
           tabs={[
             { id: 'all', label: 'All Templates' },
             { id: 'my-templates', label: 'My Templates' },

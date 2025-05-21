@@ -6,7 +6,7 @@ import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card'
 import { Button } from '@/components/ui/button';
 import { Alert } from '@/components/ui/alert';
 import { Spinner } from '@/components/ui/loading';
-import { Tabs } from '@/components/ui/tabs';
+import { SimpleTabs  } from '@/components/ui/tabs';
 import dynamic from 'next/dynamic';
 
 // Dynamically import chart components to avoid SSR issues
@@ -758,7 +758,7 @@ export default function AssessmentResultsPage() {
 
       <Card className="mb-6">
         <CardContent className="p-6">
-          <Tabs
+          <SimpleTabs
             tabs={[
               { id: 'overview', label: 'Overview' },
               { id: 'responses', label: 'Student Responses' },

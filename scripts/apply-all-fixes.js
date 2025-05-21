@@ -1,6 +1,5 @@
 /**
- * Master script to apply all fixes for the EdPsych-AI-Education-Platform
- * This script runs all the individual fix scripts in the correct order
+ * This script applies all fixes needed for successful Vercel deployment
  */
 
 const { execSync } = require('child_process');
@@ -8,62 +7,45 @@ const path = require('path');
 const fs = require('fs');
 
 // Configuration
+const rootDir = path.resolve(__dirname, '..');
 const scriptsDir = __dirname;
-const fixScripts = [
-  // Only run the package name fix script for now
-  'fix-package-names.js' // Fix UK spelling in package names
-];
 
-// Main function
-async function main() {
-  console.log('Starting application of all fixes...');
-  console.log('====================================');
-  
-  // Check if all scripts exist
-  const missingScripts = [];
-  for (const script of fixScripts) {
-    const scriptPath = path.join(scriptsDir, script);
-    if (!fs.existsSync(scriptPath)) {
-      missingScripts.push(script);
-    }
+console.log('Starting application of all fixes...');
+
+// Function to run a script and log its output
+function runScript(scriptPath, description) {
+  console.log(`\n=== Running ${description} ===`);
+  try {
+    const output = execSync(`node "${scriptPath}"`, { encoding: 'utf8' });
+    console.log(output);
+    return true;
+  } catch (error) {
+    console.error(`Error running ${description}:`);
+    console.error(error.message);
+    return false;
   }
-  
-  if (missingScripts.length > 0) {
-    console.error('Error: The following scripts are missing:');
-    missingScripts.forEach(script => console.error(`  - ${script}`));
-    console.error('Please make sure all fix scripts are in the scripts directory.');
-    process.exit(1);
-  }
-  
-  // Run each script in sequence
-  for (const script of fixScripts) {
-    const scriptPath = path.join(scriptsDir, script);
-    console.log(`\nRunning ${script}...`);
-    console.log('------------------------------------');
-    
-    try {
-      execSync(`node "${scriptPath}"`, { stdio: 'inherit' });
-      console.log(`✅ Successfully ran ${script}`);
-    } catch (error) {
-      console.error(`❌ Error running ${script}:`);
-      console.error(error.message);
-      console.error('\nFix application process halted due to errors.');
-      console.error('Please fix the errors and try again.');
-      process.exit(1);
-    }
-  }
-  
-  console.log('\n====================================');
-  console.log('✅ All fixes have been successfully applied!');
-  console.log('\nNext steps:');
-  console.log('1. Run the TypeScript compiler to verify the fixes: npx tsc --noEmit');
-  console.log('2. Test the application locally');
-  console.log('3. Commit the changes and push to GitHub');
-  console.log('4. Deploy to Vercel');
 }
 
-// Run the script
-main().catch(error => {
-  console.error('Unhandled error:', error);
-  process.exit(1);
-});
+// Run all fix scripts
+const fixResults = [
+  runScript(path.join(scriptsDir, 'fix-package-names.js'), 'Package Names Fix (UK to US spelling)'),
+  runScript(path.join(scriptsDir, 'fix-apostrophes.js'), 'Apostrophes Fix'),
+  runScript(path.join(scriptsDir, 'fix-template-literals.js'), 'Template Literals Fix'),
+  runScript(path.join(scriptsDir, 'fix-import-statements.js'), 'Import Statements Fix'),
+  runScript(path.join(scriptsDir, 'fix-tabs-component.js'), 'Tabs Component Fix'),
+  runScript(path.join(scriptsDir, 'fix-enhanced-typescript-errors.js'), 'Enhanced TypeScript Errors Fix'),
+  runScript(path.join(scriptsDir, 'fix-remaining-typescript-errors.js'), 'Remaining TypeScript Errors Fix')
+];
+
+// Check if all scripts ran successfully
+const allSuccessful = fixResults.every(result => result);
+
+if (allSuccessful) {
+  console.log('\n✅ All fixes applied successfully!');
+  console.log('\nNext steps:');
+  console.log('1. Run npm install to update dependencies');
+  console.log('2. Commit and push changes to GitHub');
+  console.log('3. Trigger a new Vercel deployment');
+} else {
+  console.log('\n⚠️ Some fixes failed to apply. Please check the logs above for details.');
+}

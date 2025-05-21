@@ -6,7 +6,7 @@ import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card'
 import { Button } from '@/components/ui/button';
 import { Alert } from '@/components/ui/alert';
 import { Spinner } from '@/components/ui/loading';
-import { Tabs } from '@/components/ui/tabs';
+import { SimpleTabs  } from '@/components/ui/tabs';
 
 interface Question {
   id: string;
@@ -280,7 +280,7 @@ export default function AssessmentPreviewPage() {
 
       <Card className="mb-6">
         <CardContent className="p-6">
-          <Tabs
+          <SimpleTabs
             tabs={[
               { id: 'preview', label: 'Preview' },
               { id: 'settings', label: 'Settings' },
