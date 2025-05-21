@@ -86,7 +86,7 @@ async function handleCreateActivity(body: any) {
   try {
     const { userId, ...activityData } = cpdActivitySchema.parse(body);
 
-    const activity = await prisma.CPDActivity.create({
+    const activity = await prisma.cPDActivity.create({
       data: {
         ...activityData,
         user: { connect: { id: userId } },
@@ -125,7 +125,7 @@ async function handleUpdateActivity(body: any) {
     cpdActivitySchema.parse({ userId, ...activityData });
 
     // Check if activity exists and belongs to user
-    const existingActivity = await prisma.CPDActivity.findFirst({
+    const existingActivity = await prisma.cPDActivity.findFirst({
       where: {
         id,
         userId,
@@ -139,7 +139,7 @@ async function handleUpdateActivity(body: any) {
       );
     }
 
-    const activity = await prisma.CPDActivity.update({
+    const activity = await prisma.cPDActivity.update({
       where: { id },
       data: {
         ...activityData,
@@ -166,7 +166,7 @@ async function handleCreateGoal(body: any) {
   try {
     const { userId, ...goalData } = cpdGoalSchema.parse(body);
 
-    const goal = await prisma.CPDGoal.create({
+    const goal = await prisma.cPDGoal.create({
       data: {
         ...goalData,
         user: { connect: { id: userId } },
@@ -205,7 +205,7 @@ async function handleUpdateGoal(body: any) {
     cpdGoalSchema.parse({ userId, ...goalData });
 
     // Check if goal exists and belongs to user
-    const existingGoal = await prisma.CPDGoal.findFirst({
+    const existingGoal = await prisma.cPDGoal.findFirst({
       where: {
         id,
         userId,
@@ -219,7 +219,7 @@ async function handleUpdateGoal(body: any) {
       );
     }
 
-    const goal = await prisma.CPDGoal.update({
+    const goal = await prisma.cPDGoal.update({
       where: { id },
       data: {
         ...goalData,
@@ -247,7 +247,7 @@ async function handleAddReflection(body: any) {
     const { activityId, userId, content, impactRating, nextSteps } = cpdReflectionSchema.parse(body);
 
     // Check if activity exists and belongs to user
-    const existingActivity = await prisma.CPDActivity.findFirst({
+    const existingActivity = await prisma.cPDActivity.findFirst({
       where: {
         id: activityId,
         userId,
@@ -262,7 +262,7 @@ async function handleAddReflection(body: any) {
     }
 
     // Check if reflection already exists
-    const existingReflection = await prisma.CPDReflection.findFirst({
+    const existingReflection = await prisma.cPDReflection.findFirst({
       where: {
         activityId,
         userId,
@@ -273,7 +273,7 @@ async function handleAddReflection(body: any) {
 
     if (existingReflection) {
       // Update existing reflection
-      reflection = await prisma.CPDReflection.update({
+      reflection = await prisma.cPDReflection.update({
         where: { id: existingReflection.id },
         data: {
           content,
@@ -284,7 +284,7 @@ async function handleAddReflection(body: any) {
       });
     } else {
       // Create new reflection
-      reflection = await prisma.CPDReflection.create({
+      reflection = await prisma.cPDReflection.create({
         data: {
           content,
           impactRating,
@@ -317,7 +317,7 @@ async function handleAddEvidence(body: any) {
     const { activityId, userId, title, fileUrl, fileType } = evidenceSchema.parse(body);
 
     // Check if activity exists and belongs to user
-    const existingActivity = await prisma.CPDActivity.findFirst({
+    const existingActivity = await prisma.cPDActivity.findFirst({
       where: {
         id: activityId,
         userId,
@@ -331,7 +331,7 @@ async function handleAddEvidence(body: any) {
       );
     }
 
-    const evidence = await prisma.CPDEvidence.create({
+    const evidence = await prisma.cPDEvidence.create({
       data: {
         title,
         fileUrl,
@@ -369,7 +369,7 @@ async function handleGenerateReport(body: any) {
     }
 
     // Fetch user's CPD activities
-    const activities = await prisma.CPDActivity.findMany({
+    const activities = await prisma.cPDActivity.findMany({
       where: {
         userId,
         date: {
@@ -481,7 +481,7 @@ export async function GET(req: NextRequest) {
 }
 
 async function getUserActivities(userId: string, startDate: string | null, endDate: string | null) {
-  const activities = await prisma.CPDActivity.findMany({
+  const activities = await prisma.cPDActivity.findMany({
     where: {
       userId,
       date: {
@@ -498,7 +498,7 @@ async function getUserActivities(userId: string, startDate: string | null, endDa
 }
 
 async function getActivityDetails(activityId: string, userId: string) {
-  const activity = await prisma.CPDActivity.findFirst({
+  const activity = await prisma.cPDActivity.findFirst({
     where: {
       id: activityId,
       userId,
@@ -520,7 +520,7 @@ async function getActivityDetails(activityId: string, userId: string) {
 }
 
 async function getUserGoals(userId: string) {
-  const goals = await prisma.CPDGoal.findMany({
+  const goals = await prisma.cPDGoal.findMany({
     where: {
       userId,
     },
@@ -533,7 +533,7 @@ async function getUserGoals(userId: string) {
 }
 
 async function getGoalDetails(goalId: string, userId: string) {
-  const goal = await prisma.CPDGoal.findFirst({
+  const goal = await prisma.cPDGoal.findFirst({
     where: {
       id: goalId,
       userId,
@@ -548,7 +548,7 @@ async function getGoalDetails(goalId: string, userId: string) {
   }
 
   // Get related activities (those that match the goal's categories or standards)
-  const relatedActivities = await prisma.CPDActivity.findMany({
+  const relatedActivities = await prisma.cPDActivity.findMany({
     where: {
       userId,
       OR: [
@@ -589,7 +589,7 @@ async function getGoalDetails(goalId: string, userId: string) {
 
 async function getUserAnalytics(userId: string, startDate: string | null, endDate: string | null) {
   // Fetch all user's CPD activities
-  const activities = await prisma.CPDActivity.findMany({
+  const activities = await prisma.cPDActivity.findMany({
     where: {
       userId,
       date: {
@@ -672,7 +672,7 @@ async function getUserAnalytics(userId: string, startDate: string | null, endDat
 
 async function getUserRecommendations(userId: string) {
   // Fetch user's CPD activities
-  const activities = await prisma.CPDActivity.findMany({
+  const activities = await prisma.cPDActivity.findMany({
     where: {
       userId,
     },
