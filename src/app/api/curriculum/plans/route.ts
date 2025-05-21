@@ -39,7 +39,7 @@ export async function GET(req: NextRequest) {
     }
 
     if (userId) {
-      where.authorId = userId;
+      where.userId = userId;
     }
 
     // Get curriculum plans with pagination
@@ -49,7 +49,7 @@ export async function GET(req: NextRequest) {
       skip,
       take: limit,
       include: {
-        author: {
+        user: {
           select: {
             id: true,
             name: true,
@@ -154,7 +154,7 @@ export async function POST(req: NextRequest) {
         year: year || '',
         term: term || '',
         status: 'draft',
-        author: {
+        user: {
           connect: { id: session.user.id },
         },
       },
