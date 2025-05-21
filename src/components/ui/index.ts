@@ -13,7 +13,7 @@ export * from './checkbox';
 
 // Export dialogue components with explicit names to avoid conflicts with modal
 export {
-  Dialogue,
+  Dialog,
   DialogContent,
   DialogDescription,
   DialogFooter,

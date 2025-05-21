@@ -10,14 +10,14 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { 
-  Dialogue, 
+  Dialog, 
   DialogContent, 
   DialogDescription, 
   DialogFooter, 
   DialogHeader, 
   DialogTitle, 
   DialogTrigger 
-} from "@/components/ui/dialogue";
+} from "@/components/ui/dialog";
 import { 
   Shield, 
   Award, 
@@ -826,8 +826,8 @@ const BlockchainCredentialsWallet = () => {
         </TabsContent>
       </Tabs>
       
-      {/* Issue Credential Dialogue */}
-      <Dialogue open={showCredentialDialog} onOpenChange={setShowCredentialDialog}>
+      {/* Issue Credential Dialog */}
+      <Dialog open={showCredentialDialog} onOpenChange={setShowCredentialDialog}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Issue New Credential</DialogTitle>
@@ -917,10 +917,10 @@ const BlockchainCredentialsWallet = () => {
             </Button>
           </DialogFooter>
         </DialogContent>
-      </Dialogue>
+      </Dialog>
       
-      {/* Register Copyright Dialogue */}
-      <Dialogue open={showCopyrightDialog} onOpenChange={setShowCopyrightDialog}>
+      {/* Register Copyright Dialog */}
+      <Dialog open={showCopyrightDialog} onOpenChange={setShowCopyrightDialog}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Register New Copyright</DialogTitle>
@@ -1014,10 +1014,10 @@ const BlockchainCredentialsWallet = () => {
             </Button>
           </DialogFooter>
         </DialogContent>
-      </Dialogue>
+      </Dialog>
       
-      {/* Share Credential Dialogue */}
-      <Dialogue open={showShareDialog} onOpenChange={setShowShareDialog}>
+      {/* Share Credential Dialog */}
+      <Dialog open={showShareDialog} onOpenChange={setShowShareDialog}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Share Credential</DialogTitle>
@@ -1102,7 +1102,7 @@ const BlockchainCredentialsWallet = () => {
             </Button>
           </DialogFooter>
         </DialogContent>
-      </Dialogue>
+      </Dialog>
       
       {/* Credit purchase dialogue from fair usage hook */}
       <CreditPurchaseDialog />

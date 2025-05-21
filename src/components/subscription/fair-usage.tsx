@@ -7,14 +7,14 @@ import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AlertCircle, CreditCard, Zap } from 'lucide-react';
 import { 
-  Dialogue, 
+  Dialog, 
   DialogContent, 
   DialogDescription, 
   DialogFooter, 
   DialogHeader, 
   DialogTitle, 
   DialogTrigger 
-} from "@/components/ui/dialogue";
+} from "@/components/ui/dialog";
 
 // This hook can be used in any component that needs to check usage limits
 export const useFairUsage = () => {
@@ -276,7 +276,7 @@ export const useFairUsage = () => {
   
   // Credit purchase dialogue component
   const CreditPurchaseDialog = () => (
-    <Dialogue open={showCreditDialog} onOpenChange={setShowCreditDialog}>
+    <Dialog open={showCreditDialog} onOpenChange={setShowCreditDialog}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Additional Credits Required</DialogTitle>
@@ -330,7 +330,7 @@ export const useFairUsage = () => {
           </Button>
         </DialogFooter>
       </DialogContent>
-    </Dialogue>
+    </Dialog>
   );
   
   return {

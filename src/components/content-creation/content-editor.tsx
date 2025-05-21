@@ -25,7 +25,7 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { AlertCircle, Save, Eye, Upload, Download, Share2, Settings, Plus, Trash2, MoveUp, MoveDown, Copy } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Dialogue, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialogue';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { useToast } from '@/components/ui/use-toast';
@@ -918,8 +918,8 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
         </TabsContent>
       </Tabs>
       
-      {/* AI Generation Dialogue */}
-      <Dialogue open={showAIPanel} onOpenChange={setShowAIPanel}>
+      {/* AI Generation Dialog */}
+      <Dialog open={showAIPanel} onOpenChange={setShowAIPanel}>
         <DialogContent className="max-w-4xl">
           <DialogHeader>
             <DialogTitle>AI Content Generation</DialogTitle>
@@ -936,10 +936,10 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
             />
           </ScrollArea>
         </DialogContent>
-      </Dialogue>
+      </Dialog>
       
-      {/* Accessibility Checker Dialogue */}
-      <Dialogue open={showAccessibilityChecker} onOpenChange={setShowAccessibilityChecker}>
+      {/* Accessibility Checker Dialog */}
+      <Dialog open={showAccessibilityChecker} onOpenChange={setShowAccessibilityChecker}>
         <DialogContent className="max-w-4xl">
           <DialogHeader>
             <DialogTitle>Accessibility Checker</DialogTitle>
@@ -957,10 +957,10 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
             />
           </ScrollArea>
         </DialogContent>
-      </Dialogue>
+      </Dialog>
       
-      {/* Curriculum Alignment Checker Dialogue */}
-      <Dialogue open={showCurriculumChecker} onOpenChange={setShowCurriculumChecker}>
+      {/* Curriculum Alignment Checker Dialog */}
+      <Dialog open={showCurriculumChecker} onOpenChange={setShowCurriculumChecker}>
         <DialogContent className="max-w-4xl">
           <DialogHeader>
             <DialogTitle>Curriculum Alignment Checker</DialogTitle>
@@ -978,7 +978,7 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
             />
           </ScrollArea>
         </DialogContent>
-      </Dialogue>
+      </Dialog>
     </div>
   );
 };

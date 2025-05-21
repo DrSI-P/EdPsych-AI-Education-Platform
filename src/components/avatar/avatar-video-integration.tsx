@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Dialog as Dialogue, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog as Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { 
   AlertCircle, 
   CheckCircle, 
@@ -180,7 +180,7 @@ export const AvatarVideoIntegration: React.FC<AvatarVideoIntegrationProps> = ({
             Select a video from the library or create a new one to enhance this content.
           </p>
           
-          <Dialogue open={isLibraryOpen} onOpenChange={setIsLibraryOpen}>
+          <Dialog open={isLibraryOpen} onOpenChange={setIsLibraryOpen}>
             <DialogTrigger asChild>
               <Button>
                 <Video className="h-4 w-4 mr-2" />
@@ -193,7 +193,7 @@ export const AvatarVideoIntegration: React.FC<AvatarVideoIntegrationProps> = ({
               </DialogHeader>
               <VideoLibrary onSelectVideo={handleVideoSelect} />
             </DialogContent>
-          </Dialogue>
+          </Dialog>
         </CardContent>
       </Card>
     );
@@ -211,7 +211,7 @@ export const AvatarVideoIntegration: React.FC<AvatarVideoIntegrationProps> = ({
             </CardDescription>
           </div>
           
-          <Dialogue open={isLibraryOpen} onOpenChange={setIsLibraryOpen}>
+          <Dialog open={isLibraryOpen} onOpenChange={setIsLibraryOpen}>
             <DialogTrigger asChild>
               <Button variant="outline" size="sm">
                 <Settings className="h-4 w-4 mr-2" />
@@ -224,7 +224,7 @@ export const AvatarVideoIntegration: React.FC<AvatarVideoIntegrationProps> = ({
               </DialogHeader>
               <VideoLibrary onSelectVideo={handleVideoSelect} />
             </DialogContent>
-          </Dialogue>
+          </Dialog>
         </div>
       </CardHeader>
       

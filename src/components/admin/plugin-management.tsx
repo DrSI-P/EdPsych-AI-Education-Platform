@@ -43,14 +43,14 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import {
-  Dialogue,
+  Dialog,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialogue';
+} from '@/components/ui/dialog';
 import {
   Table,
   TableBody,
@@ -423,7 +423,7 @@ export default function PluginManagement() {
             Refresh
           </Button>
           
-          <Dialogue>
+          <Dialog>
             <DialogTrigger asChild>
               <Button size="sm">
                 <Upload className="h-4 w-4 mr-2" />
@@ -466,7 +466,7 @@ export default function PluginManagement() {
                 </Button>
               </DialogFooter>
             </DialogContent>
-          </Dialogue>
+          </Dialog>
         </div>
       </div>
       
@@ -753,9 +753,9 @@ export default function PluginManagement() {
         </TabsContent>
       </Tabs>
       
-      {/* Plugin Settings Dialogue */}
+      {/* Plugin Settings Dialog */}
       {selectedPlugin && (
-        <Dialogue open={isSettingsOpen} onOpenChange={setIsSettingsOpen}>
+        <Dialog open={isSettingsOpen} onOpenChange={setIsSettingsOpen}>
           <DialogContent className="max-w-2xl">
             <DialogHeader>
               <DialogTitle>Plugin Settings: {selectedPlugin.name}</DialogTitle>
@@ -950,7 +950,7 @@ export default function PluginManagement() {
               </div>
             </DialogFooter>
           </DialogContent>
-        </Dialogue>
+        </Dialog>
       )}
     </div>
   );

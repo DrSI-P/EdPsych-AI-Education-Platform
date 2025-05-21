@@ -13,14 +13,14 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { 
-  Dialogue, 
+  Dialog, 
   DialogContent, 
   DialogDescription, 
   DialogFooter, 
   DialogHeader, 
   DialogTitle, 
   DialogTrigger 
-} from '@/components/ui/dialogue';
+} from '@/components/ui/dialog';
 import { 
   Select, 
   SelectContent, 
@@ -388,7 +388,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
             </SelectContent>
           </Select>
           
-          <Dialogue open={isCreatingGoal} onOpenChange={setIsCreatingGoal}>
+          <Dialog open={isCreatingGoal} onOpenChange={setIsCreatingGoal}>
             <DialogTrigger asChild>
               <Button>
                 <PlusCircle className="h-4 w-4 mr-2" />
@@ -496,7 +496,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
                 </DialogFooter>
               </form>
             </DialogContent>
-          </Dialogue>
+          </Dialog>
         </div>
       </div>
       
@@ -621,7 +621,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
                   )}
                 </div>
                 
-                <Dialogue open={selectedGoal?.id === goal.id} onOpenChange={(open) => {
+                <Dialog open={selectedGoal?.id === goal.id} onOpenChange={(open) => {
                   if (!open) setSelectedGoal(null);
                   else setSelectedGoal(goal);
                 }}>
@@ -684,7 +684,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
                       </Button>
                     </DialogFooter>
                   </DialogContent>
-                </Dialogue>
+                </Dialog>
               </CardFooter>
             </Card>
           ))}
