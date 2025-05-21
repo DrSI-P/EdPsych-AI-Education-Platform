@@ -80,8 +80,8 @@ try {
 
 console.log('Skipping migration resolution as it needs to be done on Vercel...');
 console.log('Add the following to your Vercel build command:');
-console.log('npx prisma migrate resolve --applied 20250521040000_add_curriculum_collaboration_models && npx prisma migrate deploy && npm run build');
-console.log('Note: The migrations 20250521020000_add_password_reset_model and 20250521030000_add_password_field_to_user are already marked as applied in the database, so we don\'t need to resolve them again.');
+console.log('npx prisma migrate deploy && npm run build');
+console.log('Note: All problematic migrations (20250521020000_add_password_reset_model, 20250521030000_add_password_field_to_user, and 20250521040000_add_curriculum_collaboration_models) are already marked as applied in the database, so we don\'t need to resolve them again.');
 
 console.log('Build fix completed successfully!');
 console.log('You can now run "npx prisma migrate deploy" to apply any pending migrations.');
