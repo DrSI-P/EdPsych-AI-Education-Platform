@@ -63,6 +63,11 @@ export default function UseAssessmentTemplatePage() {
     setError('');
 
     try {
+      if (!template) {
+        setError('Template not found or has been deleted');
+        return;
+      }
+      
       // Prepare the assessment data from the template
       const assessmentData = {
         ...template.templateData,
@@ -74,7 +79,7 @@ export default function UseAssessmentTemplatePage() {
         allowRetakes: allowRetakes,
         showAnswers: showAnswers,
         isTemplate: false,
-        templateId: template.id
+        templateId: template?.id
       };
 
       // Create the assessment
