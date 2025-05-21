@@ -198,17 +198,17 @@ export class FeedbackGeneratorService implements FeedbackGenerator {
     // Vary feedback based on cognitive domain to reinforce specific skills
     switch (question.cognitiveDomain) {
       case CognitiveDomain.REMEMBER:
-        return 'Well done! You've successfully recalled this information.';
+        return 'Well done! You\'ve successfully recalled this information.';
       case CognitiveDomain.UNDERSTAND:
-        return 'Excellent! You've demonstrated good understanding of this concept.';
+        return 'Excellent! You\'ve demonstrated good understanding of this concept.';
       case CognitiveDomain.APPLY:
-        return 'Great job! You've successfully applied the concept to solve this problem.';
+        return 'Great job! You\'ve successfully applied the concept to solve this problem.';
       case CognitiveDomain.Analyse:
-        return 'Excellent analysis! You've broken down the problem effectively.';
+        return 'Excellent analysis! You\'ve broken down the problem effectively.';
       case CognitiveDomain.EVALUATE:
-        return 'Strong critical thinking! You've evaluated the situation correctly.';
+        return 'Strong critical thinking! You\'ve evaluated the situation correctly.';
       case CognitiveDomain.CREATE:
-        return 'Impressive creativity! You've developed an effective solution.';
+        return 'Impressive creativity! You\'ve developed an effective solution.';
       default:
         return 'Correct! Well done.';
     }

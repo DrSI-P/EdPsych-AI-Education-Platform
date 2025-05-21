@@ -72,10 +72,64 @@ function fixPackageLock() {
     updated = true;
   }
   
+  // Special case for @zag-js/colour-picker and @zag-js/colour-utils
+  if (content.includes('@zag-js/colour-picker') || content.includes('@zag-js/colour-utils')) {
+    console.log('  Found @zag-js/colour-* package references');
+    content = content.replace(/@zag-js\/colour-/g, '@zag-js/color-');
+    console.log('  Replaced @zag-js/colour- with @zag-js/color-');
+    updated = true;
+  }
+  
+  // Fix resolved URLs for @zag-js packages - direct replacements for the specific URLs
+  if (content.includes('registry.npmjs.org/@zag-js/color-picker/-/colour-picker') ||
+      content.includes('registry.npmjs.org/@zag-js/color-utils/-/colour-utils')) {
+    console.log('  Found @zag-js resolved URLs with UK spelling');
+    
+    // Direct replacement for color-picker URL
+    if (content.includes('registry.npmjs.org/@zag-js/color-picker/-/colour-picker')) {
+      content = content.replace(
+        'https://registry.npmjs.org/@zag-js/color-picker/-/colour-picker-1.12.2.tgz',
+        'https://registry.npmjs.org/@zag-js/color-picker/-/color-picker-1.12.2.tgz'
+      );
+      console.log('  Fixed @zag-js/color-picker resolved URL');
+    }
+    
+    // Direct replacement for color-utils URL
+    if (content.includes('registry.npmjs.org/@zag-js/color-utils/-/colour-utils')) {
+      content = content.replace(
+        'https://registry.npmjs.org/@zag-js/color-utils/-/colour-utils-1.12.2.tgz',
+        'https://registry.npmjs.org/@zag-js/color-utils/-/color-utils-1.12.2.tgz'
+      );
+      console.log('  Fixed @zag-js/color-utils resolved URL');
+    }
+    
+    updated = true;
+  }
+  
+  // Special case for colour-support
+  if (content.includes('"colour-support"')) {
+    console.log('  Found colour-support package references');
+    content = content.replace(/colour-support/g, 'color-support');
+    console.log('  Replaced colour-support with color-support');
+    updated = true;
+  }
+  
   // Replace UK spellings with US spellings in package names
   for (const [uk, us] of Object.entries(packageNameMap)) {
     // Skip d3-colour as it's handled separately
     if (uk === 'd3-colour') continue;
+    
+    // Check for direct package name match (e.g., "colour" itself)
+    const directPattern = new RegExp(`"${uk}"`, 'g');
+    if (directPattern.test(content)) {
+      console.log(`  Found direct UK spelling package name: ${uk}`);
+      content = content.replace(directPattern, (match) => {
+        console.log(`  Replacing with US spelling: "${us}"`);
+        return `"${us}"`;
+      });
+      updated = true;
+    }
+    
     // Create regex patterns to match package names with UK spelling
     const patterns = [
       new RegExp(`"${uk}-name"`, 'g'),
@@ -147,6 +201,19 @@ function fixPackageLock() {
   
   // Also fix URLs to npm registry
   for (const [uk, us] of Object.entries(packageNameMap)) {
+    // Fix direct package URLs (e.g., https://registry.npmjs.org/colour/-/colour-3.2.1.tgz)
+    const directUrlPattern = new RegExp(`https://registry.npmjs.org/${uk}/-/${uk}-`, 'g');
+    if (directUrlPattern.test(content)) {
+      console.log(`  Found direct UK spelling in npm URL: ${uk}`);
+      content = content.replace(directUrlPattern, (match) => {
+        const newUrl = match.replace(new RegExp(uk, 'g'), us);
+        console.log(`  Replacing with US spelling URL: ${newUrl}`);
+        return newUrl;
+      });
+      updated = true;
+    }
+    
+    // Fix package URLs with prefixes
     const urlPattern = new RegExp(`https://registry.npmjs.org/${uk}-([^/]+)/-/${uk}-`, 'g');
     if (urlPattern.test(content)) {
       console.log(`  Found UK spelling in npm URL: ${uk}`);
@@ -187,6 +254,19 @@ function fixYarnLock() {
   
   // Replace UK spellings with US spellings in package names
   for (const [uk, us] of Object.entries(packageNameMap)) {
+    // Check for direct package name
+    const directPattern = new RegExp(`${uk}@`, 'g');
+    if (directPattern.test(content)) {
+      console.log(`  Found direct UK spelling in package name: ${uk}`);
+      content = content.replace(directPattern, (match) => {
+        const newName = match.replace(uk, us);
+        console.log(`  Replacing with US spelling: ${newName}`);
+        return newName;
+      });
+      updated = true;
+    }
+    
+    // Check for package names with prefixes
     const pattern = new RegExp(`${uk}-([a-zA-Z0-9-]+)@`, 'g');
     if (pattern.test(content)) {
       console.log(`  Found UK spelling in package name: ${uk}`);
