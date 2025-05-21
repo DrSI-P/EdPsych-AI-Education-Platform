@@ -13,6 +13,8 @@ The deployment was failing due to npm trying to download packages with UK spelli
 - `@zag-js/colour-picker` → `@zag-js/color-picker`
 - `@zag-js/colour-utils` → `@zag-js/color-utils`
 - `colour-support` → `color-support`
+- `@radix-ui/react-dialogue` → `@radix-ui/react-dialog`
+- `@radix-ui/react-alert-dialogue` → `@radix-ui/react-alert-dialog`
 - Fixed package URLs in package-lock.json that were still using UK spelling
 
 ### 2. Previous Fixes
