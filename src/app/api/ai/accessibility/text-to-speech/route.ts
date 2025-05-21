@@ -43,7 +43,8 @@ export async function POST(req: NextRequest) {
     // Merge with user options
     const speechOptions = {
       ...defaultOptions,
-      ...options
+      ...options,
+      textLength: text.length // Add textLength property
     };
 
     // Log the request for analytics (optional)
