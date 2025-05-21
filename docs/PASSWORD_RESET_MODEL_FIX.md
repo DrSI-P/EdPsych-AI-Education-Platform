@@ -59,3 +59,31 @@ model User {
 ## Related Issues
 
 This issue is similar to the AssessmentTemplate model issue documented in [MIGRATION_FIX.md](./MIGRATION_FIX.md), where a model was referenced in the code but not defined in the schema.
+
+## Additional Complications
+
+After adding the model to the schema and removing the migration file, we encountered an additional issue during deployment:
+
+```
+migrate found failed migrations in the target database, new migrations will not be applied.
+The `20250521020000_add_password_reset_model` migration started at 2025-05-21 00:13:03.944127 UTC failed
+```
+
+This occurred because our first attempt to apply the migration failed (due to the table already existing), but Prisma recorded this failed migration in its migration history table (`_prisma_migrations`). Even though we removed the migration file from our repository, Prisma's migration history in the database still showed that the migration failed.
+
+### Resolution
+
+To fix this issue, we created a script (`scripts/fix-password-reset-migration.js`) that:
+
+1. Connects to the database
+2. Checks if the failed migration exists in the `_prisma_migrations` table
+3. If it exists, updates it to mark it as successfully applied
+4. If it doesn't exist, inserts a new record marking it as successfully applied
+
+This script needs to be run manually on the database to resolve the migration issue before the next deployment can succeed.
+
+```bash
+node scripts/fix-password-reset-migration.js
+```
+
+This approach allows us to fix the migration history without having to modify the database schema, since the table already exists.
