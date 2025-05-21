@@ -123,9 +123,9 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     
     // Validate required fields
-    const { title, description, subject, keyStage, year, term } = body;
+    const { title, subject, keyStage, year, term } = body;
     
-    if (!title || !description || !subject || !keyStage) {
+    if (!title || !subject || !keyStage) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
@@ -136,7 +136,6 @@ export async function POST(req: NextRequest) {
     const plan = await prisma.curriculumPlan.create({
       data: {
         title,
-        description,
         subject,
         keyStage,
         year: year || '',
