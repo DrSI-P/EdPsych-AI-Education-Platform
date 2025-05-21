@@ -90,6 +90,7 @@ model User {
   immersiveExperienceReviews ImmersiveExperienceReview[] // Relation to immersive experience reviews
   immersiveTools        ImmersiveTool[]            // Relation to created immersive tools
   immersiveToolReviews  ImmersiveToolReview[]      // Relation to immersive tool reviews
+  pluginCredentials     PluginCredential[]         // Relation to plugin credentials
 }
 
 model VerificationToken {
@@ -824,6 +825,18 @@ model Plugin {
   updatedAt          DateTime
   errorMessage       String?
   configuredSettings Json
+}
+
+model PluginCredential {
+  id          String   @id @default(cuid())
+  pluginId    String
+  userId      String
+  credentials Json
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([pluginId, userId], name: "pluginId_userId")
 }
 
 // Immersive Learning Models
