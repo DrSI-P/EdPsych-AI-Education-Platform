@@ -52,10 +52,10 @@ export async function POST(req: NextRequest) {
         userId: session.user.id,
         action: 'feature_used',
         feature: 'text-to-speech',
-        details: JSON.stringify(speechOptions)
-        // timestamp and textLength fields removed as they're not in the schema
-        // createdAt is automatically set by Prisma
-        // Adding this comment to force a rebuild
+        details: JSON.stringify({
+          ...speechOptions,
+          textCharCount: text.length
+        })
       }
     });
 
