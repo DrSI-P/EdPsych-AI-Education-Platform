@@ -21,6 +21,7 @@ const fixScripts = [
   'fix-template-literals.js',
   'fix-import-statements.js',
   'fix-uk-spelling.js',
+  'fix-package-names.js', // Fix UK spelling in package names
   'fix-seed-file.js',
   'fix-remaining-typescript-errors.js',
   'fix-enhanced-typescript-errors.js',
