@@ -80,6 +80,7 @@ model User {
   adaptiveContents      AdaptiveContent[]
   speechCalibrations    SpeechCalibration[]
   speechRecognitionLogs SpeechRecognitionLog[]
+  passwordReset         PasswordReset?
 }
 
 model VerificationToken {
@@ -740,4 +741,15 @@ model AssessmentTemplate {
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
   createdBy         User     @relation(fields: [creatorId], references: [id])
+}
+
+// Password Reset Model
+model PasswordReset {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  token     String
+  expires   DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
