@@ -91,6 +91,8 @@ model User {
   immersiveTools        ImmersiveTool[]            // Relation to created immersive tools
   immersiveToolReviews  ImmersiveToolReview[]      // Relation to immersive tool reviews
   pluginCredentials     PluginCredential[]         // Relation to plugin credentials
+  courseDiscussions     CourseDiscussion[]         // Relation to course discussions
+  discussionReplies     DiscussionReply[]          // Relation to discussion replies
 }
 
 model VerificationToken {
@@ -837,6 +839,29 @@ model PluginCredential {
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([pluginId, userId], name: "pluginId_userId")
+}
+
+// Professional Development Community Models
+model CourseDiscussion {
+  id             String            @id @default(cuid())
+  userId         String
+  courseId       String
+  title          String
+  content        String            @db.Text
+  createdAt      DateTime          @default(now())
+  lastActivityAt DateTime?         @default(now())
+  user           User              @relation(fields: [userId], references: [id])
+  replies        DiscussionReply[]
+}
+
+model DiscussionReply {
+  id           String          @id @default(cuid())
+  userId       String
+  discussionId String
+  content      String          @db.Text
+  createdAt    DateTime        @default(now())
+  user         User            @relation(fields: [userId], references: [id])
+  discussion   CourseDiscussion @relation(fields: [discussionId], references: [id], onDelete: Cascade)
 }
 
 // Immersive Learning Models
