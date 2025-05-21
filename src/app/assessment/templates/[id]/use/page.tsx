@@ -63,6 +63,11 @@ export default function UseAssessmentTemplatePage() {
     setError('');
 
     try {
+      if (!template) {
+        setError('Template not found or has been deleted');
+        return;
+      }
+      
       // Prepare the assessment data from the template
       const assessmentData = {
         ...template.templateData,
@@ -74,7 +79,7 @@ export default function UseAssessmentTemplatePage() {
         allowRetakes: allowRetakes,
         showAnswers: showAnswers,
         isTemplate: false,
-        templateId: template.id
+        templateId: template?.id
       };
 
       // Create the assessment
@@ -106,7 +111,7 @@ export default function UseAssessmentTemplatePage() {
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <Spinner size="large" />
+        <Spinner size="lg" />
       </div>
     );
   }
@@ -114,7 +119,7 @@ export default function UseAssessmentTemplatePage() {
   if (!template) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <Alert type="error">
+        <Alert variant="error">
           Template not found or you don't have permission to access it.
         </Alert>
         <div className="mt-4">
@@ -254,7 +259,7 @@ export default function UseAssessmentTemplatePage() {
               </div>
               
               {error && (
-                <Alert type="error" className="mt-4 w-full">
+                <Alert variant="error" className="mt-4 w-full">
                   {error}
                 </Alert>
               )}
