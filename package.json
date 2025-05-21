@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npx prisma migrate resolve --applied 20250521030000_add_password_field_to_user && npx prisma migrate resolve --applied 20250521040000_add_curriculum_collaboration_models && npx prisma migrate deploy && next build",
+    "build": "npx prisma migrate resolve --applied 20250521040000_add_curriculum_collaboration_models && npx prisma migrate deploy && next build",
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
