@@ -19,7 +19,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Dialogue, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialogue";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { 
@@ -1498,8 +1498,8 @@ export default function LearningCommunities() {
         </div>
       )}
       
-      {/* Create Community Dialogue */}
-      <Dialogue open={showCreateCommunityDialog} onOpenChange={setShowCreateCommunityDialog}>
+      {/* Create Community Dialog */}
+      <Dialog open={showCreateCommunityDialog} onOpenChange={setShowCreateCommunityDialog}>
         <DialogContent className="sm:max-w-[600px]">
           <DialogHeader>
             <DialogTitle>Create New Learning Community</DialogTitle>
@@ -1583,10 +1583,10 @@ export default function LearningCommunities() {
             <Button onClick={() => setShowCreateCommunityDialog(false)}>Create Community</Button>
           </DialogFooter>
         </DialogContent>
-      </Dialogue>
+      </Dialog>
       
-      {/* Share Resource Dialogue */}
-      <Dialogue open={showResourceDialog} onOpenChange={setShowResourceDialog}>
+      {/* Share Resource Dialog */}
+      <Dialog open={showResourceDialog} onOpenChange={setShowResourceDialog}>
         <DialogContent className="sm:max-w-[600px]">
           <DialogHeader>
             <DialogTitle>Share Resource</DialogTitle>
@@ -1689,10 +1689,10 @@ export default function LearningCommunities() {
             <Button onClick={() => setShowResourceDialog(false)}>Share Resource</Button>
           </DialogFooter>
         </DialogContent>
-      </Dialogue>
+      </Dialog>
       
-      {/* Privacy Settings Dialogue */}
-      <Dialogue open={showPrivacySettingsDialog} onOpenChange={setShowPrivacySettingsDialog}>
+      {/* Privacy Settings Dialog */}
+      <Dialog open={showPrivacySettingsDialog} onOpenChange={setShowPrivacySettingsDialog}>
         <DialogContent className="sm:max-w-[600px]">
           <DialogHeader>
             <DialogTitle>Community Privacy Settings</DialogTitle>
@@ -1892,7 +1892,7 @@ export default function LearningCommunities() {
             <Button onClick={() => setShowPrivacySettingsDialog(false)}>Save Settings</Button>
           </DialogFooter>
         </DialogContent>
-      </Dialogue>
+      </Dialog>
     </div>
   );
 }

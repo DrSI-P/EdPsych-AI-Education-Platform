@@ -34,13 +34,13 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import {
-  Dialogue,
+  Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialogue';
+} from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
@@ -389,8 +389,8 @@ export const DashboardWidget: React.FC<DashboardWidgetProps> = ({
         {renderWidgetContent()}
       </CardContent>
       
-      {/* Accessibility Information Dialogue */}
-      <Dialogue open={showAccessibilityInfo} onOpenChange={setShowAccessibilityInfo}>
+      {/* Accessibility Information Dialog */}
+      <Dialog open={showAccessibilityInfo} onOpenChange={setShowAccessibilityInfo}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Accessibility Information</DialogTitle>
@@ -431,7 +431,7 @@ export const DashboardWidget: React.FC<DashboardWidgetProps> = ({
             )}
           </div>
         </DialogContent>
-      </Dialogue>
+      </Dialog>
     </Card>
   );
 };

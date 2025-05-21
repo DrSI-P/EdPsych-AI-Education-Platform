@@ -7,7 +7,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Mic, MicOff, X, Minimize2, Maximize2, Settings, HelpCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { Dialogue, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialogue';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -610,7 +610,7 @@ const GlobalVoiceInput: React.FC = () => {
   // Render settings dialogue
   const renderSettingsDialog = () => {
     return (
-      <Dialogue open={isSettingsOpen} onOpenChange={setIsSettingsOpen}>
+      <Dialog open={isSettingsOpen} onOpenChange={setIsSettingsOpen}>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle>Voice Input Settings</DialogTitle>
@@ -737,14 +737,14 @@ const GlobalVoiceInput: React.FC = () => {
             </Button>
           </div>
         </DialogContent>
-      </Dialogue>
+      </Dialog>
     );
   };
   
   // Render help dialogue
   const renderHelpDialog = () => {
     return (
-      <Dialogue open={isHelpOpen} onOpenChange={setIsHelpOpen}>
+      <Dialog open={isHelpOpen} onOpenChange={setIsHelpOpen}>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle>Voice Input Help</DialogTitle>
@@ -804,7 +804,7 @@ const GlobalVoiceInput: React.FC = () => {
             </div>
           </div>
         </DialogContent>
-      </Dialogue>
+      </Dialog>
     );
   };
   

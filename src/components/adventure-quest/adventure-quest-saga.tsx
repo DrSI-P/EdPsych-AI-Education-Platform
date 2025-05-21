@@ -11,14 +11,14 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Progress } from "@/components/ui/progress";
 import { 
-  Dialogue, 
+  Dialog, 
   DialogContent, 
   DialogDescription, 
   DialogFooter, 
   DialogHeader, 
   DialogTitle, 
   DialogTrigger 
-} from "@/components/ui/dialogue";
+} from "@/components/ui/dialog";
 import { 
   Sword, 
   Map, 
@@ -1359,7 +1359,7 @@ const QuestHub = ({ quests, onSelectQuest }) => {
             className="w-full md:w-auto"
           />
           
-          <Dialogue>
+          <Dialog>
             <DialogTrigger asChild>
               <Button variant="outline" size="icon">
                 <Filter className="h-4 w-4" />
@@ -1455,7 +1455,7 @@ const QuestHub = ({ quests, onSelectQuest }) => {
                 </DialogClose>
               </DialogFooter>
             </DialogContent>
-          </Dialogue>
+          </Dialog>
         </div>
       </div>
       

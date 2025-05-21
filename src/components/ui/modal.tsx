@@ -3,8 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
-// Import Dialogue component from dialogue.tsx
-import { Dialogue as DialogPrimitive } from './dialogue';
+// Import Dialog component from dialogue.tsx
+import { Dialog as DialogPrimitive } from './dialogue';
 
 // Export additional components needed by the barrel file
 export function ModalContent({ children, className = '' }: { children: React.ReactNode; className?: string }) {
@@ -166,7 +166,7 @@ interface DialogProps {
   isLoading?: boolean;
 }
 
-export function Dialogue({
+export function Dialog({
   isOpen,
   onClose,
   title,

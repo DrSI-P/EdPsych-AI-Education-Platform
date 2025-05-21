@@ -11,14 +11,14 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Progress } from "@/components/ui/progress";
 import { 
-  Dialogue, 
+  Dialog, 
   DialogContent, 
   DialogDescription, 
   DialogFooter, 
   DialogHeader, 
   DialogTitle, 
   DialogTrigger 
-} from "@/components/ui/dialogue";
+} from "@/components/ui/dialog";
 import { 
   Shield, 
   FileCheck, 
@@ -947,8 +947,8 @@ const CopyrightRegistrationTools = () => {
         </TabsContent>
       </Tabs>
       
-      {/* Registration Details Dialogue */}
-      <Dialogue open={showDetailsDialog} onOpenChange={setShowDetailsDialog}>
+      {/* Registration Details Dialog */}
+      <Dialog open={showDetailsDialog} onOpenChange={setShowDetailsDialog}>
         <DialogContent className="max-w-3xl">
           <DialogHeader>
             <DialogTitle>Copyright Registration Details</DialogTitle>
@@ -1076,10 +1076,10 @@ const CopyrightRegistrationTools = () => {
             </Button>
           </DialogFooter>
         </DialogContent>
-      </Dialogue>
+      </Dialog>
       
-      {/* Licence Information Dialogue */}
-      <Dialogue open={showLicenseDialog} onOpenChange={setShowLicenseDialog}>
+      {/* Licence Information Dialog */}
+      <Dialog open={showLicenseDialog} onOpenChange={setShowLicenseDialog}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Licence Types</DialogTitle>
@@ -1119,7 +1119,7 @@ const CopyrightRegistrationTools = () => {
             </Button>
           </DialogFooter>
         </DialogContent>
-      </Dialogue>
+      </Dialog>
       
       {/* Credit purchase dialogue from fair usage hook */}
       <CreditPurchaseDialog />

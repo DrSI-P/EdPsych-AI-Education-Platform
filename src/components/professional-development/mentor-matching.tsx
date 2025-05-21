@@ -26,14 +26,14 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Separator } from "@/components/ui/separator";
 import { 
-  Dialogue, 
+  Dialog, 
   DialogContent, 
   DialogDescription, 
   DialogFooter, 
   DialogHeader, 
   DialogTitle, 
   DialogTrigger 
-} from "@/components/ui/dialogue";
+} from "@/components/ui/dialog";
 import { 
   Tooltip, 
   TooltipContent, 
@@ -68,7 +68,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialogue";
+} from "@/components/ui/alert-dialog";
 import {
   HoverCard,
   HoverCardContent,
@@ -630,7 +630,7 @@ export default function MentorMatching() {
                   </div>
                 </div>
                 <div className="flex gap-2">
-                  <Dialogue>
+                  <Dialog>
                     <DialogTrigger asChild>
                       <Button variant="outline" className="flex items-centre gap-2">
                         <Filter className="h-4 w-4" />
@@ -720,7 +720,7 @@ export default function MentorMatching() {
                         <Button type="submit">Apply Filters</Button>
                       </DialogFooter>
                     </DialogContent>
-                  </Dialogue>
+                  </Dialog>
                   <Select>
                     <SelectTrigger className="w-[180px]">
                       <SelectValue placeholder="Sort by: Relevance" />
@@ -810,8 +810,8 @@ export default function MentorMatching() {
             </CardContent>
           </Card>
 
-          {/* Mentor Details Dialogue */}
-          <Dialogue open={showMentorDetails} onOpenChange={setShowMentorDetails}>
+          {/* Mentor Details Dialog */}
+          <Dialog open={showMentorDetails} onOpenChange={setShowMentorDetails}>
             <DialogContent className="sm:max-w-[600px]">
               {selectedMentor && (
                 <>
@@ -939,7 +939,7 @@ export default function MentorMatching() {
                 </>
               )}
             </DialogContent>
-          </Dialogue>
+          </Dialog>
         </TabsContent>
 
         {/* My Mentorships Tab */}
@@ -1074,8 +1074,8 @@ export default function MentorMatching() {
             </CardContent>
           </Card>
 
-          {/* Mentorship Details Dialogue */}
-          <Dialogue open={showMentorshipDetails} onOpenChange={setShowMentorshipDetails}>
+          {/* Mentorship Details Dialog */}
+          <Dialog open={showMentorshipDetails} onOpenChange={setShowMentorshipDetails}>
             <DialogContent className="sm:max-w-[700px]">
               {selectedMentorship && (
                 <>
@@ -1261,7 +1261,7 @@ export default function MentorMatching() {
                 </>
               )}
             </DialogContent>
-          </Dialogue>
+          </Dialog>
         </TabsContent>
 
         {/* My Profile Tab */}
