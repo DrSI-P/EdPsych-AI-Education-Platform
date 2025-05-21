@@ -15,20 +15,19 @@ console.log(`Backup created at ${backupDir}`);
 // Step 2: Mark the problematic migration as applied
 console.log('Fixing migration history...');
 
-// Note: The migrations 20250521020000_add_password_reset_model and 20250521030000_add_password_field_to_user are already marked as applied in the database
-console.log('Note: Migrations 20250521020000_add_password_reset_model and 20250521030000_add_password_field_to_user are already marked as applied in the database');
+// Note: All problematic migrations are already marked as applied in the database
+console.log('Note: All problematic migrations (20250521020000_add_password_reset_model, 20250521030000_add_password_field_to_user, and 20250521040000_add_curriculum_collaboration_models) are already marked as applied in the database');
 
-// Fix the problematic migration
+// Just deploy any pending migrations
 try {
-  // This command will mark the migration as applied without running it
-  console.log('Resolving migration 20250521040000_add_curriculum_collaboration_models...');
-  execSync('npx prisma migrate resolve --applied 20250521040000_add_curriculum_collaboration_models', {
+  console.log('Deploying any pending migrations...');
+  execSync('npx prisma migrate deploy', {
     stdio: 'inherit',
     env: { ...process.env }
   });
-  console.log('Second migration marked as applied successfully');
+  console.log('Migrations deployed successfully');
 } catch (error) {
-  console.error('Error marking second migration as applied:', error);
+  console.error('Error deploying migrations:', error);
   process.exit(1);
 }
 
