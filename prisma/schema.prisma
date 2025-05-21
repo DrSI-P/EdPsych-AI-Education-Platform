@@ -82,6 +82,10 @@ model User {
   speechCalibrations    SpeechCalibration[]
   speechRecognitionLogs SpeechRecognitionLog[]
   passwordReset         PasswordReset?
+  curriculumCollaborations CurriculumPlanCollaborator[]
+  curriculumComments    CurriculumPlanComment[]
+  createdTasks          CurriculumPlanTask[]       @relation("TaskCreator")
+  assignedTasks         CurriculumPlanTask[]       @relation("TaskAssignee")
 }
 
 model VerificationToken {
@@ -573,6 +577,9 @@ model CurriculumPlan {
   user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   objectives        CurriculumObjective[]
   differentiations  CurriculumDifferentiation[]
+  collaborators     CurriculumPlanCollaborator[]
+  comments          CurriculumPlanComment[]
+  tasks             CurriculumPlanTask[]
 }
 
 model CurriculumDifferentiation {
@@ -753,4 +760,43 @@ model PasswordReset {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// Curriculum Collaboration Models
+model CurriculumPlanCollaborator {
+  id        String   @id @default(cuid())
+  role      String   @default("viewer") // viewer, editor
+  planId    String
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  plan      CurriculumPlan @relation(fields: [planId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model CurriculumPlanComment {
+  id        String   @id @default(cuid())
+  content   String   @db.Text
+  planId    String
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  plan      CurriculumPlan @relation(fields: [planId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model CurriculumPlanTask {
+  id           String   @id @default(cuid())
+  title        String
+  description  String   @db.Text
+  status       String   @default("pending") // pending, in_progress, completed
+  dueDate      DateTime?
+  planId       String
+  creatorId    String
+  assignedToId String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  plan         CurriculumPlan @relation(fields: [planId], references: [id], onDelete: Cascade)
+  createdBy    User     @relation("TaskCreator", fields: [creatorId], references: [id], onDelete: Cascade)
+  assignedTo   User?    @relation("TaskAssignee", fields: [assignedToId], references: [id])
 }
