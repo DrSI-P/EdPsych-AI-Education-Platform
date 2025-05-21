@@ -1131,7 +1131,7 @@ export function AdminDashboard({
                     <div>
                       <label className="block text-sm font-medium mb-1">Firebase Configuration</label>
                       <Textarea
-                        value="{\n  \"apiKey\": \"•••••••••••••••••••••••\",\n  \"authDomain\": \"edpsych-connect.firebaseapp.com\",\n  \"projectId\": \"edpsych-connect\"\n  /* Additional fields hidden */\n}"
+                        value={'{\n  "apiKey": "•••••••••••••••••••••••",\n  "authDomain": "edpsych-connect.firebaseapp.com",\n  "projectId": "edpsych-connect"\n  /* Additional fields hidden */\n}'}
                         className="w-full h-24 font-mono text-xs"
                       />
                     </div>

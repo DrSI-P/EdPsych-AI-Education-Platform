@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/form';
-import { Tabs } from '@/components/ui/tabs';
+import { SimpleTabs  } from '@/components/ui/tabs';
 import { Alert } from '@/components/ui/alert';
 import { Spinner } from '@/components/ui/loading';
 import { Dropdown } from '@/components/ui/dropdown';
@@ -264,7 +264,7 @@ export default function CreateAssessmentPage() {
       
       <Card className="mb-6">
         <CardContent className="p-6">
-          <Tabs
+          <SimpleTabs
             tabs={[
               { id: 'details', label: 'Assessment Details' },
               { id: 'settings', label: 'Settings' },

@@ -27,7 +27,7 @@ import {
   ArrowRight, Target, Eye, EyeOff, Zap, Flag, User, UserPlus, UserCheck, Star,
   Lightbulb, Clipboard, Briefcase, Heart, ThumbsUp, MessageSquare, School, GraduationCap,
   FileQuestion, BookMarked, Laptop, Tablet, Smartphone, Printer, Database, Search,
-  Library, Book, Video, Music, Image, File, FilePlus, FileText2, FileCheck
+  Library, Book, Video, Music, Image, File, FilePlus, FileText, FileCheck
 } from 'lucide-react';
 import { cn } from "@/lib/utils";
 
@@ -1893,7 +1893,7 @@ export function ResourceAndAssessmentAnalytics() {
                 <AlertTriangle className="h-5 w-5 text-amber-500" />
                 <div>
                   <p className="text-sm font-medium">Outdated Computing Materials</p>
-                  <p className="text-xs text-muted-foreground">65% of computing resources >2 years old</p>
+                  <p className="text-xs text-muted-foreground">65% of computing resources {'>'}2 years old</p>
                 </div>
               </div>
               
