@@ -8,7 +8,9 @@ This document provides instructions to fix the build issues identified in the Ed
    - `src/app/api/curriculum/plans/route.ts`: Changed `authorId` to `userId` and `author` to `user`
    - `src/app/api/curriculum/collaboration/route.ts`: Fixed references to `authorId` which should be `userId`
 
-2. **Failed Migration**: Created a script to fix the failed migration `20250521020000_add_password_reset_model`.
+2. **Failed Migrations**: Created a script to fix the following failed migrations:
+   - `20250521020000_add_password_reset_model`
+   - `20250521030000_add_password_field_to_user` (fails because the password field already exists in the User table)
 
 ## How to Apply the Fixes
 
@@ -24,7 +26,7 @@ This script will:
 1. Check and fix any `authorId` references in the collaboration route file
 2. Check and fix any `authorId` references in the plans route file
 3. Create a backup of your current migrations directory
-4. Mark the problematic migration as applied without running it
+4. Mark the problematic migrations as applied without running them
 5. Allow you to proceed with applying any pending migrations
 
 ### Individual Fix Scripts
@@ -95,7 +97,9 @@ After applying these fixes and pushing to GitHub, you should be able to build an
 
 ## Additional Notes
 
-- The migration issue occurred because the migration `20250521020000_add_password_reset_model` was an empty migration intended to fix the migration history, but it failed.
+- The migration issues occurred because:
+  - The migration `20250521020000_add_password_reset_model` was an empty migration intended to fix the migration history, but it failed.
+  - The migration `20250521030000_add_password_field_to_user` failed because the password field already exists in the User table.
 - The type error occurred because the field names used in the code didn't match the field names in the Prisma schema.
 - The fix-build-issues.js script creates a .env file with the Supabase database URL. You need to replace `[YOUR-PASSWORD]` in the DATABASE_URL with your actual Supabase database password.
 
@@ -107,7 +111,7 @@ To ensure successful builds on Vercel, update your build command in the Vercel p
 2. Navigate to Settings > General > Build & Development Settings
 3. Update the build command to:
    ```
-   npx prisma migrate resolve --applied 20250521020000_add_password_reset_model && npx prisma migrate deploy && npm run build
+   npx prisma migrate resolve --applied 20250521020000_add_password_reset_model && npx prisma migrate resolve --applied 20250521030000_add_password_field_to_user && npx prisma migrate deploy && npm run build
    ```
 4. Make sure your environment variables include the correct DATABASE_URL for Supabase:
    ```

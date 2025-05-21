@@ -13,9 +13,10 @@ git add BUILD-FIX-README.md
 git add UPDATE-BUILD-COMMAND.md
 git add package.json
 git add commit-and-push.sh
+git add commit-and-push.bat
 
 # Commit the changes
-git commit -m "Fix build issues: type error in plans route and migration failure"
+git commit -m "Fix build issues: type error in plans route and multiple migration failures"
 
 # Push to GitHub
 git push origin main
