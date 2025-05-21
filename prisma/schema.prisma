@@ -61,6 +61,7 @@ model User {
   createdCourses        Course[]
   createdLessons        Lesson[]
   createdAssessments    Assessment[]
+  createdTemplates      AssessmentTemplate[]
   notifications         Notification[]
   messages              Message[]
   sentMessages          Message[]           @relation("SentMessages")
@@ -721,4 +722,22 @@ model SpeechRecognitionLog {
   duration          Float?
   createdAt         DateTime @default(now())
   user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// Assessment Template Model
+model AssessmentTemplate {
+  id                String   @id @default(cuid())
+  creatorId         String
+  title             String
+  description       String   @db.Text
+  subject           String
+  keyStage          String
+  type              String   @default("quiz")
+  isPublic          Boolean  @default(false)
+  tags              String[]
+  questionCount     Int      @default(0)
+  templateData      Json
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  createdBy         User     @relation(fields: [creatorId], references: [id])
 }
