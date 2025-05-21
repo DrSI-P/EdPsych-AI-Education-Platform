@@ -80,6 +80,14 @@ function fixPackageLock() {
     updated = true;
   }
   
+  // Special case for @zag-js/dialogue
+  if (content.includes('@zag-js/dialogue')) {
+    console.log('  Found @zag-js/dialogue package references');
+    content = content.replace(/@zag-js\/dialogue/g, '@zag-js/dialog');
+    console.log('  Replaced @zag-js/dialogue with @zag-js/dialog');
+    updated = true;
+  }
+  
   // Special case for @radix-ui/react-dialogue
   if (content.includes('@radix-ui/react-dialogue')) {
     console.log('  Found @radix-ui/react-dialogue package references');
@@ -130,10 +138,11 @@ function fixPackageLock() {
     updated = true;
   }
   
-  // Fix resolved URLs for @radix-ui packages
+  // Fix resolved URLs for @radix-ui and @zag-js packages
   if (content.includes('registry.npmjs.org/@radix-ui/react-dialog/-/react-dialogue') ||
-      content.includes('registry.npmjs.org/@radix-ui/react-alert-dialog/-/react-alert-dialogue')) {
-    console.log('  Found @radix-ui resolved URLs with UK spelling');
+      content.includes('registry.npmjs.org/@radix-ui/react-alert-dialog/-/react-alert-dialogue') ||
+      content.includes('registry.npmjs.org/@zag-js/dialog/-/dialogue')) {
+    console.log('  Found resolved URLs with UK spelling');
     
     // Direct replacement for react-dialog URL
     if (content.includes('registry.npmjs.org/@radix-ui/react-dialog/-/react-dialogue')) {
@@ -151,6 +160,15 @@ function fixPackageLock() {
         'https://registry.npmjs.org/@radix-ui/react-alert-dialog/-/react-alert-dialog-1.0.0.tgz'
       );
       console.log('  Fixed @radix-ui/react-alert-dialog resolved URL');
+    }
+    
+    // Direct replacement for @zag-js/dialog URL
+    if (content.includes('registry.npmjs.org/@zag-js/dialog/-/dialogue')) {
+      content = content.replace(
+        'https://registry.npmjs.org/@zag-js/dialog/-/dialogue-1.12.2.tgz',
+        'https://registry.npmjs.org/@zag-js/dialog/-/dialog-1.12.2.tgz'
+      );
+      console.log('  Fixed @zag-js/dialog resolved URL');
     }
     
     updated = true;

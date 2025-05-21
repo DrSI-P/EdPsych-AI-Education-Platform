@@ -9,6 +9,7 @@ We identified and fixed the following issues that were causing Vercel deployment
    - We enhanced the `fix-package-names.js` script to handle additional UK spelling variants:
      - Added specific handling for `@zag-js/colour-picker` → `@zag-js/color-picker`
      - Added specific handling for `@zag-js/colour-utils` → `@zag-js/color-utils`
+     - Added specific handling for `@zag-js/dialogue` → `@zag-js/dialog`
      - Added specific handling for `colour-support` → `color-support`
      - Added specific handling for `@radix-ui/react-dialogue` → `@radix-ui/react-dialog`
      - Added specific handling for `@radix-ui/react-alert-dialogue` → `@radix-ui/react-alert-dialog`
