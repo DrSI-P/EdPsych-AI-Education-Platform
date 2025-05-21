@@ -34,7 +34,9 @@ export async function GET(req: NextRequest) {
           { userId: session.user.id, planId },
           {
             plan: {
-              authorId: session.user.id,
+              user: {
+                id: session.user.id
+              },
               id: planId
             }
           }
@@ -105,7 +107,7 @@ export async function GET(req: NextRequest) {
     const plan = await prisma.curriculumPlan.findUnique({
       where: { id: planId },
       include: {
-        author: {
+        user: {
           select: {
             id: true,
             name: true,
@@ -126,10 +128,10 @@ export async function GET(req: NextRequest) {
 
     // Determine user's role in this plan
     let userRole = 'viewer';
-    if (plan.authorId === session.user.id) {
+    if (plan.userId === session.user.id) {
       userRole = 'owner';
     } else {
-      const collaborator = collaborators.find(c => c.user.id === session.user.id);
+      const collaborator = collaborators.find((c: any) => c.user.id === session.user.id);
       if (collaborator) {
         userRole = collaborator.role;
       }
@@ -184,7 +186,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const isOwner = plan.authorId === session.user.id;
+    const isOwner = plan.userId === session.user.id;
     
     if (!isOwner && session.user.role !== 'ADMIN') {
       const userAccess = await prisma.curriculumPlanCollaborator.findFirst({
@@ -379,7 +381,7 @@ export async function POST(req: NextRequest) {
         }
 
         // Only comment author or plan owner can delete
-        if (comment.userId !== session.user.id && plan.authorId !== session.user.id && session.user.role !== 'ADMIN') {
+        if (comment.userId !== session.user.id && plan.userId !== session.user.id && session.user.role !== 'ADMIN') {
           return NextResponse.json(
             { error: 'You do not have permission to delete this comment' },
             { status: 403 }
@@ -512,9 +514,9 @@ export async function POST(req: NextRequest) {
 
         // Only task creator, assignee, or plan owner can delete
         if (
-          task.creatorId !== session.user.id && 
-          task.assignedToId !== session.user.id && 
-          plan.authorId !== session.user.id && 
+          task.creatorId !== session.user.id &&
+          task.assignedToId !== session.user.id &&
+          plan.userId !== session.user.id &&
           session.user.role !== 'ADMIN'
         ) {
           return NextResponse.json(
