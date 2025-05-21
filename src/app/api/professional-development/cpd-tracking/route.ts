@@ -387,7 +387,7 @@ async function handleGenerateReport(body: any) {
     });
 
     // Calculate total points
-    const totalPoints = activities.reduce((sum, activity) => {
+    const totalPoints = activities.reduce((sum: number, activity: any) => {
       if (activity.status === 'Completed') {
         return sum + activity.points;
       }
@@ -399,8 +399,8 @@ async function handleGenerateReport(body: any) {
       user: await prisma.user.findUnique({ where: { id: userId } }),
       activities,
       totalPoints,
-      totalHours: activities.reduce((sum, activity) => sum + activity.duration, 0),
-      completedActivities: activities.filter(a => a.status === 'Completed').length,
+      totalHours: activities.reduce((sum: number, activity: any) => sum + activity.duration, 0),
+      completedActivities: activities.filter((a: any) => a.status === 'Completed').length,
       generatedAt: new Date(),
       period: {
         start: startDate ? new Date(startDate) : undefined,
@@ -570,8 +570,8 @@ async function getGoalDetails(goalId: string, userId: string) {
   });
 
   // Calculate progress towards goal
-  const completedActivities = relatedActivities.filter(a => a.status === 'Completed');
-  const pointsAchieved = completedActivities.reduce((sum, activity) => sum + activity.points, 0);
+  const completedActivities = relatedActivities.filter((a: any) => a.status === 'Completed');
+  const pointsAchieved = completedActivities.reduce((sum: number, activity: any) => sum + activity.points, 0);
   const progressPercentage = Math.min(100, (pointsAchieved / goal.targetPoints) * 100);
 
   return NextResponse.json({ 
@@ -601,19 +601,19 @@ async function getUserAnalytics(userId: string, startDate: string | null, endDat
 
   // Calculate total points and hours
   const totalPoints = activities
-    .filter(a => a.status === 'Completed')
-    .reduce((sum, activity) => sum + activity.points, 0);
+    .filter((a: any) => a.status === 'Completed')
+    .reduce((sum: number, activity: any) => sum + activity.points, 0);
   
   const totalHours = activities
-    .filter(a => a.status === 'Completed')
-    .reduce((sum, activity) => sum + activity.duration, 0);
+    .filter((a: any) => a.status === 'Completed')
+    .reduce((sum: number, activity: any) => sum + activity.duration, 0);
 
   // Calculate points by category
-  const categoryPoints = {};
+  const categoryPoints: Record<number, number> = {};
   activities
-    .filter(a => a.status === 'Completed')
-    .forEach(activity => {
-      activity.categories.forEach(categoryId => {
+    .filter((a: any) => a.status === 'Completed')
+    .forEach((activity: any) => {
+      activity.categories.forEach((categoryId: number) => {
         if (!categoryPoints[categoryId]) {
           categoryPoints[categoryId] = 0;
         }
@@ -622,11 +622,11 @@ async function getUserAnalytics(userId: string, startDate: string | null, endDat
     });
 
   // Calculate points by standard
-  const standardPoints = {};
+  const standardPoints: Record<number, number> = {};
   activities
-    .filter(a => a.status === 'Completed')
-    .forEach(activity => {
-      activity.standards.forEach(standardId => {
+    .filter((a: any) => a.status === 'Completed')
+    .forEach((activity: any) => {
+      activity.standards.forEach((standardId: number) => {
         if (!standardPoints[standardId]) {
           standardPoints[standardId] = 0;
         }
@@ -635,10 +635,10 @@ async function getUserAnalytics(userId: string, startDate: string | null, endDat
     });
 
   // Calculate points by month
-  const monthlyPoints = {};
+  const monthlyPoints: Record<string, number> = {};
   activities
-    .filter(a => a.status === 'Completed')
-    .forEach(activity => {
+    .filter((a: any) => a.status === 'Completed')
+    .forEach((activity: any) => {
       const month = new Date(activity.date).toISOString().substring(0, 7); // YYYY-MM format
       if (!monthlyPoints[month]) {
         monthlyPoints[month] = 0;
@@ -647,8 +647,8 @@ async function getUserAnalytics(userId: string, startDate: string | null, endDat
     });
 
   // Calculate activity type distribution
-  const activityTypes = {};
-  activities.forEach(activity => {
+  const activityTypes: Record<string, number> = {};
+  activities.forEach((activity: any) => {
     if (!activityTypes[activity.type]) {
       activityTypes[activity.type] = 0;
     }
@@ -659,9 +659,9 @@ async function getUserAnalytics(userId: string, startDate: string | null, endDat
     analytics: {
       totalPoints,
       totalHours,
-      completedActivities: activities.filter(a => a.status === 'Completed').length,
-      plannedActivities: activities.filter(a => a.status === 'Planned').length,
-      inProgressActivities: activities.filter(a => a.status === 'In Progress').length,
+      completedActivities: activities.filter((a: any) => a.status === 'Completed').length,
+      plannedActivities: activities.filter((a: any) => a.status === 'Planned').length,
+      inProgressActivities: activities.filter((a: any) => a.status === 'In Progress').length,
       categoryPoints,
       standardPoints,
       monthlyPoints,
@@ -679,11 +679,11 @@ async function getUserRecommendations(userId: string) {
   });
 
   // Calculate points by category
-  const categoryPoints = {};
+  const categoryPoints: Record<number, number> = {};
   activities
-    .filter(a => a.status === 'Completed')
-    .forEach(activity => {
-      activity.categories.forEach(categoryId => {
+    .filter((a: any) => a.status === 'Completed')
+    .forEach((activity: any) => {
+      activity.categories.forEach((categoryId: number) => {
         if (!categoryPoints[categoryId]) {
           categoryPoints[categoryId] = 0;
         }
@@ -692,11 +692,11 @@ async function getUserRecommendations(userId: string) {
     });
 
   // Calculate points by standard
-  const standardPoints = {};
+  const standardPoints: Record<number, number> = {};
   activities
-    .filter(a => a.status === 'Completed')
-    .forEach(activity => {
-      activity.standards.forEach(standardId => {
+    .filter((a: any) => a.status === 'Completed')
+    .forEach((activity: any) => {
+      activity.standards.forEach((standardId: number) => {
         if (!standardPoints[standardId]) {
           standardPoints[standardId] = 0;
         }
