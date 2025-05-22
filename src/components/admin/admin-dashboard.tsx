@@ -21,6 +21,8 @@ export function AdminDashboard({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [dismissedAlerts, setDismissedAlerts] = useState<string[]>([]);
+  const [roleFilter, setRoleFilter] = useState('all');
+  const [schoolTypeFilter, setSchoolTypeFilter] = useState('all');
   
   // Mock data for demonstration
   const [adminData, setAdminData] = useState({
@@ -534,6 +536,8 @@ export function AdminDashboard({
                       { value: 'parent', label: 'Parent' },
                       { value: 'school_admin', label: 'School Administrator' }
                     ]}
+                    value={roleFilter}
+                    onChange={setRoleFilter}
                     className="w-48"
                   />
                   <Button>
@@ -702,6 +706,8 @@ export function AdminDashboard({
                       { value: 'secondary', label: 'Secondary' },
                       { value: 'special', label: 'Special Education' }
                     ]}
+                    value={schoolTypeFilter}
+                    onChange={setSchoolTypeFilter}
                     className="w-40"
                   />
                   <Button>
