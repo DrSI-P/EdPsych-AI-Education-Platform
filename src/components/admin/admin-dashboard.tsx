@@ -212,7 +212,10 @@ export function AdminDashboard({
       )
     }));
     
-    showToast(`User status updated to ${newStatus}`);
+    showToast({
+      message: `User status updated to ${newStatus}`,
+      type: 'success'
+    });
   };
   
   // Handle school status change
@@ -226,7 +229,10 @@ export function AdminDashboard({
       )
     }));
     
-    showToast(`School status updated to ${newStatus}`);
+    showToast({
+      message: `School status updated to ${newStatus}`,
+      type: 'success'
+    });
   };
   
   // Handle alert dismissal
