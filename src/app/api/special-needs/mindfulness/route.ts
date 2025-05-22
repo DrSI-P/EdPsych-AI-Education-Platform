@@ -180,9 +180,12 @@ export async function POST(req: Request) {
         let favoriteActivities = userSettings?.favoriteActivities || [];
         
         // Toggle favourite status
-        if (favoriteActivities.includes(activityId)) {
+        if (Array.isArray(favoriteActivities) && favoriteActivities.includes(activityId)) {
           favoriteActivities = favoriteActivities.filter(id => id !== activityId);
         } else {
+          if (!Array.isArray(favoriteActivities)) {
+            favoriteActivities = [];
+          }
           favoriteActivities.push(activityId);
         }
         
@@ -210,7 +213,7 @@ export async function POST(req: Request) {
         return NextResponse.json({
           success: true,
           message: 'Favourite status updated successfully',
-          isFavorite: !userSettings?.favoriteActivities.includes(activityId)
+          isFavorite: Array.isArray(userSettings?.favoriteActivities) ? !userSettings.favoriteActivities.includes(activityId) : false
         });
       }
       
