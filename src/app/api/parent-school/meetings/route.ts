@@ -212,7 +212,7 @@ async function POST(req: NextRequest) {
         year: 'Year X'
       },
       location: validatedData.location,
-      status: 'Scheduled',
+      status: 'Scheduled' as 'Scheduled' | 'Completed' | 'Cancelled' | 'Rescheduled',
       description: validatedData.description || '',
       agenda: validatedData.agenda || [],
       documents: validatedData.documents?.map((doc, index) => ({
