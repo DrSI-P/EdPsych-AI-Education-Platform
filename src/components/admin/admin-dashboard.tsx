@@ -29,6 +29,12 @@ export function AdminDashboard({
   const [defaultModel, setDefaultModel] = useState('gpt-4o');
   const [passwordPolicy, setPasswordPolicy] = useState('strong');
   const [storageProvider, setStorageProvider] = useState('s3');
+  const [maintenanceModeEnabled, setMaintenanceModeEnabled] = useState(false);
+  const [contentFilteringEnabled, setContentFilteringEnabled] = useState(true);
+  const [logAIInteractionsEnabled, setLogAIInteractionsEnabled] = useState(true);
+  const [twoFactorAuthEnabled, setTwoFactorAuthEnabled] = useState(true);
+  const [passwordRotationEnabled, setPasswordRotationEnabled] = useState(true);
+  const [logAuthAttemptsEnabled, setLogAuthAttemptsEnabled] = useState(true);
   
   // Mock data for demonstration
   const [adminData, setAdminData] = useState({
@@ -942,9 +948,10 @@ export function AdminDashboard({
                     </div>
                     
                     <div className="pt-2">
-                      <Checkbox 
+                      <Checkbox
                         label="Enable maintenance mode"
-                        checked={false}
+                        checked={maintenanceModeEnabled}
+                        onChange={setMaintenanceModeEnabled}
                       />
                     </div>
                   </CardContent>
@@ -995,16 +1002,18 @@ export function AdminDashboard({
                     </div>
                     
                     <div className="pt-2">
-                      <Checkbox 
+                      <Checkbox
                         label="Enable content filtering"
-                        checked={true}
+                        checked={contentFilteringEnabled}
+                        onChange={setContentFilteringEnabled}
                       />
                     </div>
                     
                     <div>
-                      <Checkbox 
+                      <Checkbox
                         label="Log all AI interactions"
-                        checked={true}
+                        checked={logAIInteractionsEnabled}
+                        onChange={setLogAIInteractionsEnabled}
                       />
                     </div>
                   </CardContent>
@@ -1039,23 +1048,26 @@ export function AdminDashboard({
                     </div>
                     
                     <div className="pt-2">
-                      <Checkbox 
+                      <Checkbox
                         label="Enable two-factor authentication"
-                        checked={true}
+                        checked={twoFactorAuthEnabled}
+                        onChange={setTwoFactorAuthEnabled}
                       />
                     </div>
                     
                     <div>
-                      <Checkbox 
+                      <Checkbox
                         label="Enforce password rotation (90 days)"
-                        checked={true}
+                        checked={passwordRotationEnabled}
+                        onChange={setPasswordRotationEnabled}
                       />
                     </div>
                     
                     <div>
-                      <Checkbox 
+                      <Checkbox
                         label="Log all authentication attempts"
-                        checked={true}
+                        checked={logAuthAttemptsEnabled}
+                        onChange={setLogAuthAttemptsEnabled}
                       />
                     </div>
                   </CardContent>
