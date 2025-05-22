@@ -263,11 +263,6 @@ const MembershipSchema = z.object({
 
 // Mock data storage (would be replaced with database in production)
 // Using the exported Community interface defined above
-  schoolCount?: number;
-  featured?: boolean;
-  image?: string;
-  activity?: "low" | "medium" | "high";
-}
 
 interface Resource {
   id?: string;
