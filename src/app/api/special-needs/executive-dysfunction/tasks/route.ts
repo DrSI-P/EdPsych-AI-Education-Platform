@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
     }
     
     // Get user's tasks
-    const tasks = await prisma.executiveFunctionTask.findMany({
+    const tasks = await (prisma as any).executiveFunctionTask.findMany({
       where: {
         userId: userId
       },
@@ -32,17 +32,17 @@ export async function GET(req: NextRequest) {
     
     return NextResponse.json({
       success: true,
-      tasks: tasks.map(task => ({
+      tasks: tasks.map((task: any) => ({
         id: task.id,
         title: task.title,
         description: task.description || '',
         dueDate: task.dueDate || '',
         priority: task.priority,
         status: task.status,
-        steps: task.steps as any[],
-        timeEstimate: task.timeEstimate,
-        visualReminder: task.visualReminder || '',
-        tags: task.tags as string[],
+        steps: (task as any).steps || [],
+        timeEstimate: (task as any).timeEstimate || 0,
+        visualReminder: (task as any).visualReminder || '',
+        tags: (task as any).tags || [],
         isExpanded: false
       }))
     });
@@ -70,7 +70,7 @@ export async function POST(req: NextRequest) {
     }
     
     // Delete existing tasks for this user
-    await prisma.executiveFunctionTask.deleteMany({
+    await (prisma as any).executiveFunctionTask.deleteMany({
       where: {
         userId: userId
       }
@@ -79,7 +79,7 @@ export async function POST(req: NextRequest) {
     // Create new tasks
     const createdTasks = await Promise.all(
       tasks.map(async (task: any) => {
-        return prisma.executiveFunctionTask.create({
+        return (prisma as any).executiveFunctionTask.create({
           data: {
             id: task.id,
             userId: userId,
@@ -120,7 +120,7 @@ export async function PUT(req: NextRequest) {
     const { taskId, updates } = data;
     
     // Get the task to check ownership
-    const task = await prisma.executiveFunctionTask.findUnique({
+    const task = await (prisma as any).executiveFunctionTask.findUnique({
       where: {
         id: taskId
       }
@@ -136,7 +136,7 @@ export async function PUT(req: NextRequest) {
     }
     
     // Update the task
-    const updatedTask = await prisma.executiveFunctionTask.update({
+    const updatedTask = await (prisma as any).executiveFunctionTask.update({
       where: {
         id: taskId
       },
@@ -170,7 +170,7 @@ export async function DELETE(req: NextRequest) {
     }
     
     // Get the task to check ownership
-    const task = await prisma.executiveFunctionTask.findUnique({
+    const task = await (prisma as any).executiveFunctionTask.findUnique({
       where: {
         id: taskId
       }
@@ -186,7 +186,7 @@ export async function DELETE(req: NextRequest) {
     }
     
     // Delete the task
-    await prisma.executiveFunctionTask.delete({
+    await (prisma as any).executiveFunctionTask.delete({
       where: {
         id: taskId
       }

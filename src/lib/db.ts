@@ -57,6 +57,86 @@ export const db = {
     }
   },
   
+  // Circle Template operations
+  circleTemplate: {
+    findMany: async (params: any = {}) => {
+      return prisma.circleTemplate.findMany(params);
+    },
+    findUnique: async (params: any = {}) => {
+      return prisma.circleTemplate.findUnique(params);
+    },
+    create: async (params: any = {}) => {
+      return prisma.circleTemplate.create(params);
+    },
+    update: async (params: any = {}) => {
+      return prisma.circleTemplate.update(params);
+    },
+    delete: async (params: any = {}) => {
+      return prisma.circleTemplate.delete(params);
+    }
+  },
+  
+  // Reflection Prompt operations
+  reflectionPrompt: {
+    findMany: async (params: any = {}) => {
+      return prisma.reflectionPrompt.findMany(params);
+    },
+    findUnique: async (params: any = {}) => {
+      return prisma.reflectionPrompt.findUnique(params);
+    },
+    create: async (params: any = {}) => {
+      return prisma.reflectionPrompt.create(params);
+    },
+    update: async (params: any = {}) => {
+      return prisma.reflectionPrompt.update(params);
+    },
+    delete: async (params: any = {}) => {
+      return prisma.reflectionPrompt.delete(params);
+    }
+  },
+  
+  // Restorative Training Module operations
+  restorativeTrainingModule: {
+    findMany: async (params: any = {}) => {
+      return prisma.restorativeTrainingModule.findMany(params);
+    },
+    findUnique: async (params: any = {}) => {
+      return prisma.restorativeTrainingModule.findUnique(params);
+    },
+    create: async (params: any = {}) => {
+      return prisma.restorativeTrainingModule.create(params);
+    },
+    update: async (params: any = {}) => {
+      return prisma.restorativeTrainingModule.update(params);
+    },
+    delete: async (params: any = {}) => {
+      return prisma.restorativeTrainingModule.delete(params);
+    }
+  },
+  
+  // Restorative Training Progress operations
+  restorativeTrainingProgress: {
+    findMany: async (params: any = {}) => {
+      return prisma.restorativeTrainingProgress.findMany(params);
+    },
+    findFirst: async (params: any = {}) => {
+      return prisma.restorativeTrainingProgress.findFirst(params);
+    },
+    create: async (params: any = {}) => {
+      return prisma.restorativeTrainingProgress.create(params);
+    },
+    update: async (params: any = {}) => {
+      return prisma.restorativeTrainingProgress.update(params);
+    }
+  },
+  
+  // Restorative Training Quiz Attempt operations
+  restorativeTrainingQuizAttempt: {
+    create: async (params: any = {}) => {
+      return prisma.restorativeTrainingQuizAttempt.create(params);
+    }
+  },
+  
   // Generic query function
   query: async (model: string, operation: string, params: any = {}) => {
     if (!prisma[model]) {

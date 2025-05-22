@@ -18,7 +18,7 @@ export async function GET(req: NextRequest) {
     const userId = session.user.id;
     
     // Fetch user's intervention analytics settings
-    const analyticsSettings = await prisma.interventionAnalyticsSettings.findUnique({
+    const analyticsSettings = await (prisma as any).interventionAnalyticsSettings.findUnique({
       where: {
         userId: userId,
       },
@@ -97,7 +97,7 @@ export async function POST(req: NextRequest) {
     }
     
     // Create or update user's intervention analytics settings
-    const analyticsSettings = await prisma.interventionAnalyticsSettings.upsert({
+    const analyticsSettings = await (prisma as any).interventionAnalyticsSettings.upsert({
       where: {
         userId: userId,
       },
@@ -126,7 +126,7 @@ export async function POST(req: NextRequest) {
     });
     
     // Log the settings change
-    await prisma.analyticsLog.create({
+    await (prisma as any).analyticsLog.create({
       data: {
         userId: userId,
         action: 'settings_update',
