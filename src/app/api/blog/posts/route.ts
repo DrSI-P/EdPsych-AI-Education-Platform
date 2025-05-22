@@ -114,7 +114,7 @@ export async function GET(request: NextRequest) {
     }
     
     if (tag) {
-      filteredPosts = filteredPosts.filter(p => p.tags.includes(tag));
+      filteredPosts = filteredPosts.filter(p => Array.isArray(p.tags) && p.tags.includes(tag));
     }
     
     if (author) {
@@ -134,11 +134,11 @@ export async function GET(request: NextRequest) {
     }
     
     if (curriculumArea) {
-      filteredPosts = filteredPosts.filter(p => p.curriculumAreas.includes(curriculumArea));
+      filteredPosts = filteredPosts.filter(p => Array.isArray(p.curriculumAreas) && p.curriculumAreas.includes(curriculumArea));
     }
     
     if (ageRange) {
-      filteredPosts = filteredPosts.filter(p => p.ageRanges.includes(ageRange));
+      filteredPosts = filteredPosts.filter(p => Array.isArray(p.ageRanges) && p.ageRanges.includes(ageRange));
     }
 
     // Pagination
