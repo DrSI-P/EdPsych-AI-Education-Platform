@@ -132,13 +132,142 @@ const MembershipSchema = z.object({
 });
 
 // Mock data storage (would be replaced with database in production)
-let communities = [];
-let resources = [];
-let discussions = [];
-let events = [];
-let collaborations = [];
-let memberships = [];
-let privacySettings = [];
+interface Community {
+  id: string;
+  name: string;
+  description: string;
+  categories: string[];
+  privacy: "open" | "restricted";
+  schools?: string[];
+  createdAt?: string;
+  updatedAt?: string;
+  createdBy?: string;
+  members?: number;
+  schoolCount?: number;
+  featured?: boolean;
+  image?: string;
+  activity?: "low" | "medium" | "high";
+}
+
+interface Resource {
+  id?: string;
+  communityId: string;
+  title: string;
+  description: string;
+  type: string;
+  tags: string[];
+  fileUrl?: string;
+  fileType?: string;
+  fileSize?: number;
+  author: {
+    id: string;
+    name: string;
+    school: string;
+  };
+  createdAt?: string;
+  updatedAt?: string;
+  downloads?: number;
+  rating?: number;
+  reviews?: number;
+  featured?: boolean;
+  privacySettings?: {
+    anonymized?: boolean;
+    attribution?: boolean;
+    reviewed?: boolean;
+    sharingScope?: "community" | "selected" | "platform";
+  };
+}
+
+interface Discussion {
+  id?: string;
+  communityId: string;
+  title: string;
+  content: string;
+  author: {
+    id: string;
+    name: string;
+    role?: string;
+    school: string;
+    avatar?: string;
+  };
+  createdAt?: string;
+  updatedAt?: string;
+  replies?: number;
+  views?: number;
+  lastReplyAt?: string;
+  pinned?: boolean;
+  tags?: string[];
+}
+
+interface Event {
+  id?: string;
+  communityId: string;
+  title: string;
+  description: string;
+  type: string;
+  date: string;
+  time: string;
+  location: string;
+  host: {
+    id: string;
+    name: string;
+    school: string;
+  };
+  capacity?: number;
+  attendees?: string[];
+  attendeeCount?: number;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+interface Collaboration {
+  id?: string;
+  communityId: string;
+  title: string;
+  description: string;
+  type: string;
+  schools: string[];
+  members?: string[];
+  memberCount?: number;
+  status: "Planning" | "In Progress" | "Completed";
+  progress: number;
+  dueDate: string;
+  createdAt?: string;
+  updatedAt?: string;
+  createdBy?: string;
+  resources?: string[];
+  discussions?: string[];
+}
+
+interface Membership {
+  userId: string;
+  communityId: string;
+  role: "Member" | "Facilitator" | "Admin";
+  joinedAt?: string;
+  lastActivity?: string;
+  status?: "Active" | "Inactive" | "Pending";
+}
+
+interface PrivacySetting {
+  communityId: string;
+  visibility: "open" | "restricted";
+  discussionsAccess: "members" | "selected" | "all";
+  resourcesAccess: "members" | "controlled" | "all";
+  eventsAccess: "members" | "selected" | "public";
+  collaborationsAccess: "members" | "selected" | "all";
+  enableAnonymization: boolean;
+  requireApproval: boolean;
+  maintainAttribution: boolean;
+  approvedSchools?: string[];
+}
+
+let communities: Community[] = [];
+let resources: Resource[] = [];
+let discussions: Discussion[] = [];
+let events: Event[] = [];
+let collaborations: Collaboration[] = [];
+let memberships: Membership[] = [];
+let privacySettings: PrivacySetting[] = [];
 
 // Integration with other professional development modules
 const integrateCPDActivity = async (userId, activityType, details) => {
