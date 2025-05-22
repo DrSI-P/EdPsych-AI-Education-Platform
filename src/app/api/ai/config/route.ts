@@ -26,7 +26,7 @@ export async function GET() {
     };
     
     // Determine default provider (first available one)
-    let defaultProvider: AIProvider | null = null;
+    let defaultProvider: AIProvider | undefined = undefined;
     for (const [provider, configured] of Object.entries(configuredProviders)) {
       if (configured) {
         defaultProvider = provider as AIProvider;
