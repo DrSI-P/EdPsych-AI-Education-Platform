@@ -314,7 +314,7 @@ function generatePersonalizedRecommendations(
   const strategyEffectiveness: Record<string, { totalRating: number; count: number; average: number }> = {};
   strategyHistory.forEach(record => {
     if (record.details?.strategyId) {
-      const strategyId = record.details.strategyId;
+      const strategyId = record.details?.strategyId;
       if (!strategyEffectiveness[strategyId]) {
         strategyEffectiveness[strategyId] = {
           totalRating: 0,

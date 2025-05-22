@@ -80,12 +80,12 @@ export async function POST(req: NextRequest) {
       Key Stage: ${contentKeyStage || 'Not specified'}
       
       Presentation Settings:
-      - Include Visual Content: ${settings.includeVisual ? 'Yes' : 'No'}
-      - Include Audio Content: ${settings.includeAudio ? 'Yes' : 'No'}
-      - Include Text Content: ${settings.includeText ? 'Yes' : 'No'}
-      - Include Interactive Elements: ${settings.includeInteractive ? 'Yes' : 'No'}
-      - Accessibility Level: ${settings.accessibilityLevel}
-      - Content Complexity: ${settings.contentComplexity}%
+      - Include Visual Content: ${settings?.includeVisual ? 'Yes' : 'No'}
+      - Include Audio Content: ${settings?.includeAudio ? 'Yes' : 'No'}
+      - Include Text Content: ${settings?.includeText ? 'Yes' : 'No'}
+      - Include Interactive Elements: ${settings?.includeInteractive ? 'Yes' : 'No'}
+      - Accessibility Level: ${settings?.accessibilityLevel}
+      - Content Complexity: ${settings?.contentComplexity}%
       
       Create a multi-modal presentation with the following characteristics:
       
@@ -97,10 +97,10 @@ export async function POST(req: NextRequest) {
          - Text content in HTML format (if includeText is true)
          - Interactive element description (if includeInteractive is true)
       
-      ${settings.accessibilityLevel === 'high' || settings.accessibilityLevel === 'maximum' ? 
+      ${settings?.accessibilityLevel === 'high' || settings?.accessibilityLevel === 'maximum' ?
         'Include additional accessibility features such as alternative text for images, transcripts for audio, and clear navigation cues.' : ''}
       
-      ${settings.accessibilityLevel === 'maximum' ? 
+      ${settings?.accessibilityLevel === 'maximum' ?
         'Provide comprehensive accessibility support including simplified language options, colour contrast considerations, and keyboard navigation instructions.' : ''}
       
       Ensure all content is:
