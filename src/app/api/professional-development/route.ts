@@ -204,7 +204,9 @@ async function handleCompletion(body: any) {
       data: {
         userId,
         courseId,
-        issuedAt: new Date(),
+        title: "Course Completion Certificate",
+        issuer: "EdPsych Connect",
+        issueDate: new Date().toISOString(),
         certificateUrl: `/certificates/${userId}-${courseId}-${Date.now()}.pdf`,
       },
     });
