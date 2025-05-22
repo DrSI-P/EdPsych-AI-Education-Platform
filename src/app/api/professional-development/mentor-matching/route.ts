@@ -152,7 +152,7 @@ async function handleUpdateProfile(body: any) {
     }
 
     // Update user's CPD profile with mentorship information
-    await prisma.cpdProfile.upsert({
+    await prisma.cPDProfile.upsert({
       where: { userId },
       update: {
         mentorshipRole: profileData.role,
