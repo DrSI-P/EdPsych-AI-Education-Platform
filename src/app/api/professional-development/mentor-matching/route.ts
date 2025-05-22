@@ -123,14 +123,14 @@ async function handleUpdateProfile(body: any) {
     const { userId, ...profileData } = profileSchema.parse(body);
 
     // Check if profile exists
-    const existingProfile = await prisma.mentorship.findUnique({
+    const existingProfile = await prisma.mentorProfile.findUnique({
       where: { userId }
     });
 
     let profile;
     if (existingProfile) {
       // Update existing profile
-      profile = await prisma.mentorship.update({
+      profile = await prisma.mentorProfile.update({
         where: { userId },
         data: {
           ...profileData,
@@ -140,7 +140,7 @@ async function handleUpdateProfile(body: any) {
       });
     } else {
       // Create new profile
-      profile = await prisma.mentorship.create({
+      profile = await prisma.mentorProfile.create({
         data: {
           ...profileData,
           mentorshipPreferences: profileData.mentorshipPreferences || undefined,
@@ -829,7 +829,7 @@ export async function GET(req: NextRequest) {
 }
 
 async function getProfile(userId: string) {
-  const profile = await prisma.mentorship.findUnique({
+  const profile = await prisma.mentorProfile.findUnique({
     where: { userId }
   });
   
@@ -903,7 +903,7 @@ async function getMentors(expertise: string | null, phase: string | null, subjec
     where.subjects = { has: subject };
   }
   
-  const mentors = await prisma.mentorship.findMany({
+  const mentors = await prisma.mentorProfile.findMany({
     where,
     orderBy: { createdAt: 'desc' }
   });
