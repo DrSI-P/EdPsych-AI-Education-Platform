@@ -23,6 +23,12 @@ export function AdminDashboard({
   const [dismissedAlerts, setDismissedAlerts] = useState<string[]>([]);
   const [roleFilter, setRoleFilter] = useState('all');
   const [schoolTypeFilter, setSchoolTypeFilter] = useState('all');
+  const [defaultLanguage, setDefaultLanguage] = useState('en-GB');
+  const [defaultTimeZone, setDefaultTimeZone] = useState('Europe/London');
+  const [defaultAIProvider, setDefaultAIProvider] = useState('openai');
+  const [defaultModel, setDefaultModel] = useState('gpt-4o');
+  const [passwordPolicy, setPasswordPolicy] = useState('strong');
+  const [storageProvider, setStorageProvider] = useState('s3');
   
   // Mock data for demonstration
   const [adminData, setAdminData] = useState({
@@ -915,7 +921,8 @@ export function AdminDashboard({
                           { value: 'fr', label: 'French' },
                           { value: 'es', label: 'Spanish' }
                         ]}
-                        value="en-GB"
+                        value={defaultLanguage}
+                        onChange={setDefaultLanguage}
                         className="w-full"
                       />
                     </div>
@@ -928,7 +935,8 @@ export function AdminDashboard({
                           { value: 'Europe/Paris', label: 'Paris (CET/CEST)' },
                           { value: 'America/New_York', label: 'New York (EST/EDT)' }
                         ]}
-                        value="Europe/London"
+                        value={defaultTimeZone}
+                        onChange={setDefaultTimeZone}
                         className="w-full"
                       />
                     </div>
@@ -957,7 +965,8 @@ export function AdminDashboard({
                           { value: 'grok', label: 'GROK' },
                           { value: 'openrouter', label: 'OpenRouter' }
                         ]}
-                        value="openai"
+                        value={defaultAIProvider}
+                        onChange={setDefaultAIProvider}
                         className="w-full"
                       />
                     </div>
@@ -970,7 +979,8 @@ export function AdminDashboard({
                           { value: 'claude-3-opus', label: 'Claude 3 Opus' },
                           { value: 'gemini-pro', label: 'Gemini Pro' }
                         ]}
-                        value="gpt-4o"
+                        value={defaultModel}
+                        onChange={setDefaultModel}
                         className="w-full"
                       />
                     </div>
@@ -1022,7 +1032,8 @@ export function AdminDashboard({
                           { value: 'strong', label: 'Strong (10+ chars, mixed case, symbols)' },
                           { value: 'very_strong', label: 'Very Strong (12+ chars, mixed case, symbols, numbers)' }
                         ]}
-                        value="strong"
+                        value={passwordPolicy}
+                        onChange={setPasswordPolicy}
                         className="w-full"
                       />
                     </div>
@@ -1149,7 +1160,8 @@ export function AdminDashboard({
                           { value: 's3', label: 'Amazon S3' },
                           { value: 'firebase', label: 'Firebase Storage' }
                         ]}
-                        value="s3"
+                        value={storageProvider}
+                        onChange={setStorageProvider}
                         className="w-full"
                       />
                     </div>
