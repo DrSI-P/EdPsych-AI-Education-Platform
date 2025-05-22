@@ -575,7 +575,7 @@ export async function POST(request: NextRequest) {
         memberships.push(newMembership);
         
         // Update community member count
-        community.members += 1;
+        community.members = (community.members ?? 0) + 1;
         
         // Integrate with CPD tracking
         await integrateCPDActivity(userId, 'community_join', {
