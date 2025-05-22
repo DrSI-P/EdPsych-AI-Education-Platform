@@ -20,6 +20,7 @@ export function AdminDashboard({
   const { showToast } = useToast();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [dismissedAlerts, setDismissedAlerts] = useState<string[]>([]);
   
   // Mock data for demonstration
   const [adminData, setAdminData] = useState({
@@ -237,10 +238,7 @@ export function AdminDashboard({
   
   // Handle alert dismissal
   const handleDismissAlert = (alertId: string) => {
-    setAdminData(prev => ({
-      ...prev,
-      alerts: prev.alerts.filter(alert => alert.id !== alertId)
-    }));
+    setDismissedAlerts(prev => [...prev, alertId]);
   };
   
   // Define the tabs
@@ -274,12 +272,13 @@ export function AdminDashboard({
               <div className="space-y-4">
                 {adminData.alerts.length > 0 && (
                   <div className="space-y-2">
-                    {adminData.alerts.map(alert => (
-                      <Alert 
-                        key={alert.id} 
+                    {adminData.alerts
+                      .filter(alert => !dismissedAlerts.includes(alert.id))
+                      .map(alert => (
+                      <Alert
+                        key={alert.id}
                         variant={alert.type as 'info' | 'warning' | 'error'}
                         dismissible
-                        onDismiss={() => handleDismissAlert(alert.id)}
                       >
                         <div className="flex justify-between items-start">
                           <div>
