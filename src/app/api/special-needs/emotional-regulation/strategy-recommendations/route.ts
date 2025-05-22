@@ -313,7 +313,7 @@ function generatePersonalizedRecommendations(
   // Step 2: Analyse strategy effectiveness
   const strategyEffectiveness: Record<string, { totalRating: number; count: number; average: number }> = {};
   strategyHistory.forEach(record => {
-    if (record.details.strategyId) {
+    if (record.details?.strategyId) {
       const strategyId = record.details.strategyId;
       if (!strategyEffectiveness[strategyId]) {
         strategyEffectiveness[strategyId] = {
@@ -322,7 +322,7 @@ function generatePersonalizedRecommendations(
           average: 0
         };
       }
-      strategyEffectiveness[strategyId].totalRating += record.details.effectiveness;
+      strategyEffectiveness[strategyId].totalRating += record.details?.effectiveness || 0;
       strategyEffectiveness[strategyId].count += 1;
       strategyEffectiveness[strategyId].average = 
         strategyEffectiveness[strategyId].totalRating / strategyEffectiveness[strategyId].count;
