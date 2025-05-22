@@ -262,17 +262,7 @@ const MembershipSchema = z.object({
 });
 
 // Mock data storage (would be replaced with database in production)
-interface Community {
-  id: string;
-  name: string;
-  description: string;
-  categories: string[];
-  privacy: "open" | "restricted";
-  schools?: string[];
-  createdAt?: string;
-  updatedAt?: string;
-  createdBy?: string;
-  members?: number;
+// Using the exported Community interface defined above
   schoolCount?: number;
   featured?: boolean;
   image?: string;
