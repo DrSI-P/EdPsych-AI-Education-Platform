@@ -104,7 +104,7 @@ export async function GET(req: Request) {
     }
     
     // Determine what data to fetch based on type parameter
-    let responseData = {};
+    let responseData: any = {};
     
     switch (type) {
       case 'journal':

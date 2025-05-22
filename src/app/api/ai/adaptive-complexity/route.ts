@@ -220,9 +220,9 @@ export async function POST(req: NextRequest) {
         originalContent: contentToAdjust || '',
         adjustedContent: adjustedContent,
         settings: settings,
-        subject: contentSubject || null,
-        keyStage: contentKeyStage || null,
-        sourceContentId: contentId || null,
+        subject: contentSubject || undefined,
+        keyStage: contentKeyStage || undefined,
+        sourceContentId: contentId || undefined,
         performanceMetricsUsed: performanceMetrics ? true : false
       }
     });

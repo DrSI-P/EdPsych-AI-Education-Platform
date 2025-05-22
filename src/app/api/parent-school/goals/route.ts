@@ -214,7 +214,7 @@ async function POST(req: NextRequest) {
       subject: validatedData.subject,
       startDate: validatedData.startDate,
       targetDate: validatedData.targetDate,
-      status: 'Not Started',
+      status: 'Not Started' as 'Not Started' | 'In Progress' | 'Completed' | 'On Hold',
       progress: 0,
       schoolActions: validatedData.schoolActions,
       homeActions: validatedData.homeActions,
