@@ -551,10 +551,10 @@ export default function PluginManagement() {
                             <p className="text-sm text-grey-500">Loading plugins...</p>
                           </div>
                         </TableCell>
-                        <TableCell></TableCell>
-                        <TableCell></TableCell>
-                        <TableCell></TableCell>
-                        <TableCell></TableCell>
+                        <TableCell>{"\u00A0"}</TableCell>
+                        <TableCell>{"\u00A0"}</TableCell>
+                        <TableCell>{"\u00A0"}</TableCell>
+                        <TableCell>{"\u00A0"}</TableCell>
                       </TableRow>
                     ) : filteredPlugins.length === 0 ? (
                       <TableRow>
@@ -564,10 +564,10 @@ export default function PluginManagement() {
                             <p className="text-sm text-grey-500">No plugins found matching your filters.</p>
                           </div>
                         </TableCell>
-                        <TableCell></TableCell>
-                        <TableCell></TableCell>
-                        <TableCell></TableCell>
-                        <TableCell></TableCell>
+                        <TableCell>{"\u00A0"}</TableCell>
+                        <TableCell>{"\u00A0"}</TableCell>
+                        <TableCell>{"\u00A0"}</TableCell>
+                        <TableCell>{"\u00A0"}</TableCell>
                       </TableRow>
                     ) : (
                       filteredPlugins.map(plugin => (
