@@ -85,9 +85,9 @@ export async function POST(req: NextRequest) {
       contrastMode: settings.contrastMode || "high-contrast",
       contrastLevel: Number(settings.contrastLevel) || 100,
       reduceAnimations: Boolean(settings.reduceAnimations || false),
-      customTextColor: settings.customTextColor || null,
-      customBackgroundColor: settings.customBackgroundColor || null,
-      customLinkColor: settings.customLinkColor || null,
+      customTextColor: settings.customTextColor || undefined,
+      customBackgroundColor: settings.customBackgroundColor || undefined,
+      customLinkColor: settings.customLinkColor || undefined,
       screenReaderOptimized: Boolean(settings.screenReaderOptimized || false),
       dyslexiaFriendly: Boolean(settings.dyslexiaFriendly || false),
       dyslexiaFont: settings.dyslexiaFont || "opendyslexic",
@@ -96,7 +96,7 @@ export async function POST(req: NextRequest) {
       keyboardNavigationOptimized: Boolean(settings.keyboardNavigationOptimized || false),
       focusIndicators: Boolean(settings.focusIndicators || true),
       reduceMotion: Boolean(settings.reduceMotion || false),
-      colorBlindnessType: settings.colorBlindnessType || null
+      colorBlindnessType: settings.colorBlindnessType || undefined
     };
 
     // Save settings to database (upsert to create or update)
