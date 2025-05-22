@@ -219,7 +219,7 @@ async function POST(req: NextRequest) {
       schoolActions: validatedData.schoolActions,
       homeActions: validatedData.homeActions,
       updates: [],
-      evidence: []
+      evidence: ''
     };
     
     // In a real implementation, we would save the goal to the database
