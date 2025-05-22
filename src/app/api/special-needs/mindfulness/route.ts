@@ -90,10 +90,10 @@ export async function GET(req: Request) {
       },
       activityHistory: activityHistory.map(log => ({
         id: log.id,
-        activityId: log.details.activityId,
+        activityId: log.details?.activityId || '',
         completedAt: log.timestamp,
-        duration: log.details.duration || 0,
-        feedback: log.details.feedback || null
+        duration: log.details?.duration || 0,
+        feedback: log.details?.feedback || null
       })),
       favoriteActivities: favoriteActivities?.favoriteActivities || []
     });
