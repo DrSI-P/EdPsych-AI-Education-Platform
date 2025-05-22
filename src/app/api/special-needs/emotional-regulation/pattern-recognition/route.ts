@@ -104,11 +104,21 @@ function generatePatternAnalysis(
 ) {
   // Initialize analysis object
   const analysis = {
-    insights: [],
-    triggerPatterns: [],
-    timePatterns: { hourly: [], daily: [] },
-    emotionTrends: [],
-    emotionCorrelations: []
+    insights: [] as Array<{
+      id: string;
+      type: string;
+      title: string;
+      description: string;
+      [key: string]: any;
+    }>,
+    triggerPatterns: [] as Array<{
+      trigger: string;
+      total: number;
+      [key: string]: any;
+    }>,
+    timePatterns: { hourly: [] as Array<{hour: number, count: number}>, daily: [] as Array<{day: number, name: string, count: number}> },
+    emotionTrends: [] as Array<{date: string, [key: string]: any}>,
+    emotionCorrelations: [] as Array<{source: string, target: string, count: number, strength: number}>
   };
   
   if (emotionRecords.length === 0) {
