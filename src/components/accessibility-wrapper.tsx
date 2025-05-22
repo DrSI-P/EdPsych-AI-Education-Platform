@@ -22,7 +22,7 @@ export function AccessibilityWrapper({ children }: { children: React.ReactNode }
   
   // Determine if we should show the voice input on this page
   // Exclude it from pages where it might interfere with specialised voice interfaces
-  const shouldShowVoiceInput = !pathname.includes('/voice-input-test');
+  const shouldShowVoiceInput = pathname ? !pathname.includes('/voice-input-test') : true;
   
   return (
     <VoiceInputProvider>
