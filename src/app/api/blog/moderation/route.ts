@@ -125,7 +125,7 @@ export async function POST(request: NextRequest) {
             id: Math.floor(Math.random() * 1000).toString(),
             ...validatedData,
             createdAt: new Date().toISOString(),
-            status: 'pending'
+            status: 'pending' as 'pending' | 'approved' | 'rejected'
           }
         });
       } catch (error) {
