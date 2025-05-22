@@ -127,10 +127,8 @@ export default function TextToSpeechReader() {
     const textToRead = textareaRef.current?.value || text;
     
     if (!textToRead) {
-      toast({
-        title: 'No Text to Read',
-        description: 'Please enter some text to read aloud.',
-        variant: 'destructive'
+      toast('No Text to Read', {
+        description: 'Please enter some text to read aloud.'
       });
       return;
     }
