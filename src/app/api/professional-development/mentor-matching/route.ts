@@ -286,7 +286,7 @@ async function handleRespondToRequest(body: any) {
           date: startDate.toISOString(),
           duration: 0, // Will be updated as meetings occur
           status: 'In Progress',
-          evidence: [],
+          evidence: '',
           reflection: '',
           points: 0, // Will be updated as meetings occur
           createdAt: new Date()
@@ -302,7 +302,7 @@ async function handleRespondToRequest(body: any) {
           date: startDate.toISOString(),
           duration: 0, // Will be updated as meetings occur
           status: 'In Progress',
-          evidence: [],
+          evidence: '',
           reflection: '',
           points: 0, // Will be updated as meetings occur
           createdAt: new Date()
@@ -629,7 +629,7 @@ async function handleUpdateGoal(body: any) {
             description: `Completed mentorship goal with ${mentorship.mentorId}`,
             date: new Date().toISOString(),
             type: 'Mentorship',
-            evidence: [],
+            evidence: '',
             visibility: 'public',
             createdAt: new Date()
           }
@@ -727,7 +727,7 @@ async function handleCompleteMentorship(body: any) {
         description: `Successfully mentored ${mentorship.menteeId} focusing on ${mentorship.focusAreas.join(', ')}`,
         date: new Date().toISOString(),
         type: 'Mentorship',
-        evidence: [],
+        evidence: '',
         visibility: 'public',
         createdAt: new Date()
       }
@@ -741,7 +741,7 @@ async function handleCompleteMentorship(body: any) {
         description: `Successfully completed mentorship with ${mentorship.mentorId} focusing on ${mentorship.focusAreas.join(', ')}`,
         date: new Date().toISOString(),
         type: 'Mentorship',
-        evidence: [],
+        evidence: '',
         visibility: 'public',
         createdAt: new Date()
       }
@@ -757,7 +757,7 @@ async function handleCompleteMentorship(body: any) {
           date: new Date().toISOString(),
           tags: ['mentorship', 'professional development'],
           visibility: 'public',
-          associatedEvidence: [],
+          associatedEvidence: '',
           createdAt: new Date()
         }
       });
