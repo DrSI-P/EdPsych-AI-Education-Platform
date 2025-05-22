@@ -487,7 +487,7 @@ export async function POST(request: NextRequest) {
             updatedAt: new Date().toISOString(),
             members: 1,
             schoolCount: 1,
-            activity: 'low',
+            activity: "low" as "low",
           };
           
           communities.push(newCommunity);
