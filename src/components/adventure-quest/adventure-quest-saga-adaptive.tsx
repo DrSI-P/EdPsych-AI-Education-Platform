@@ -59,16 +59,92 @@ import { useUserProfile } from '../user/user-profile-context';
  * 4. Personalized quest recommendations
  */
 
+// Define types for the component props
+interface UserProfile {
+  id?: string;
+  name?: string;
+  email?: string;
+  role?: string;
+  keyStage?: string;
+  learningStyles?: string[];
+  preferences?: Record<string, any>;
+}
+
+interface LearningHistoryItem {
+  id: string;
+  questId: string;
+  subject: string;
+  completedAt: string;
+  score: number;
+  timeSpent: number;
+}
+
+interface AssessmentResult {
+  id: string;
+  questId: string;
+  subject: string;
+  completedAt: string;
+  score: number;
+  maxScore: number;
+  percentageScore: number;
+  skillBreakdown?: Record<string, number>;
+}
+
+interface CurriculumContextType {
+  subjects?: string[];
+  keyStages?: string[];
+  getCurriculumStandards?: (subject: string, keyStage: string) => any;
+}
+
+interface GenerationParams {
+  difficulty: string;
+  subject: string;
+  keyStage: string;
+  learningStyles: string[];
+  focusAreas: string[];
+  duration: string;
+}
+
+interface Quest {
+  id: string;
+  title: string;
+  description: string;
+  difficulty: string;
+  subject: string;
+  keyStage: string;
+  duration: string;
+  xpReward: number;
+  learningStyles: string[];
+  objectives: string[];
+  chapters: any[];
+  rewards: any[];
+  progress: number;
+  unlocked: boolean;
+  adaptive: boolean;
+  focusAreas: string[];
+  generatedAt: string;
+  curriculumCode?: string;
+  curriculumLink?: string;
+}
+
+interface AdaptiveQuestGeneratorProps {
+  userProfile: UserProfile;
+  learningHistory: LearningHistoryItem[];
+  curriculumContext: CurriculumContextType;
+  assessmentResults: AssessmentResult[];
+  onQuestGenerated: (quest: Quest) => void;
+}
+
 // Adaptive Quest Generator Component
-const AdaptiveQuestGenerator = ({ 
-  userProfile, 
-  learningHistory, 
-  curriculumContext, 
+const AdaptiveQuestGenerator = ({
+  userProfile,
+  learningHistory,
+  curriculumContext,
   assessmentResults,
   onQuestGenerated
-}) => {
+}: AdaptiveQuestGeneratorProps) => {
   const [generating, setGenerating] = useState(false);
-  const [generationParams, setGenerationParams] = useState({
+  const [generationParams, setGenerationParams] = useState<GenerationParams>({
     difficulty: 'auto',
     subject: '',
     keyStage: '',
@@ -107,10 +183,8 @@ const AdaptiveQuestGenerator = ({
         
         onQuestGenerated(generatedQuest);
         
-        toast({
-          title: "Quest Generated",
-          description: `"${generatedQuest.title}" has been created based on your learning profile`,
-          variant: "success",
+        toast("Quest Generated", {
+          description: `"${generatedQuest.title}" has been created based on your learning profile`
         });
         
         setGenerating(false);
@@ -118,10 +192,8 @@ const AdaptiveQuestGenerator = ({
       
     } catch (error) {
       console.error("Error generating adaptive quest:", error);
-      toast({
-        title: "Generation Failed",
-        description: "There was an error generating your quest. Please try again.",
-        variant: "destructive",
+      toast("Generation Failed", {
+        description: "There was an error generating your quest. Please try again."
       });
       setGenerating(false);
     }
@@ -129,12 +201,12 @@ const AdaptiveQuestGenerator = ({
   
   // Create adaptive quest based on user data
   const createAdaptiveQuest = (
-    userProfile, 
-    learningHistory, 
-    assessmentResults, 
-    params,
-    curriculumContext
-  ) => {
+    userProfile: UserProfile,
+    learningHistory: LearningHistoryItem[],
+    assessmentResults: AssessmentResult[],
+    params: GenerationParams,
+    curriculumContext: CurriculumContextType
+  ): Quest => {
     // Determine appropriate difficulty
     let difficulty = params.difficulty;
     if (difficulty === 'auto') {
@@ -230,13 +302,13 @@ const AdaptiveQuestGenerator = ({
   };
   
   // Helper functions for adaptive quest generation
-  const determineSubjectFocus = (learningHistory, assessmentResults) => {
+  const determineSubjectFocus = (learningHistory: LearningHistoryItem[], assessmentResults: AssessmentResult[]): string => {
     if (!assessmentResults || assessmentResults.length === 0) {
       return 'Mathematics'; // Default subject
     }
     
     // Find subject with lowest average score (area for improvement)
-    const subjectScores = {};
+    const subjectScores: Record<string, { total: number; count: number }> = {};
     let lowestSubject = null;
     let lowestScore = 100;
     
@@ -263,13 +335,13 @@ const AdaptiveQuestGenerator = ({
     return lowestSubject || 'Mathematics';
   };
   
-  const determineFocusAreas = (assessmentResults) => {
+  const determineFocusAreas = (assessmentResults: AssessmentResult[]): string[] => {
     if (!assessmentResults || assessmentResults.length === 0) {
       return ['problem-solving', 'critical-thinking']; // Default focus areas
     }
     
     // Find skill areas with lowest scores
-    const skillScores = {};
+    const skillScores: Record<string, { total: number; count: number }> = {};
     
     assessmentResults.forEach(result => {
       if (result.skillBreakdown) {
@@ -299,7 +371,7 @@ const AdaptiveQuestGenerator = ({
     return sortedSkills.slice(0, 3).map(item => item.skill);
   };
   
-  const generateQuestTitleAndDescription = (subject, focusAreas, difficulty) => {
+  const generateQuestTitleAndDescription = (subject: string, focusAreas: string[], difficulty: string): { title: string; description: string } => {
     // In a real implementation, this would use an AI service to generate creative titles
     // For now, use templates based on subject and focus areas
     
@@ -379,7 +451,7 @@ const AdaptiveQuestGenerator = ({
     return { title, description };
   };
   
-  const generateQuestObjectives = (subject, focusAreas, curriculumContext) => {
+  const generateQuestObjectives = (subject: string, focusAreas: string[], curriculumContext: CurriculumContextType): string[] => {
     // In a real implementation, this would generate objectives based on curriculum standards
     // For now, use templates based on subject and focus areas
     
@@ -421,7 +493,7 @@ const AdaptiveQuestGenerator = ({
     
     // Select 3-5 objectives
     const count = Math.floor(Math.random() * 3) + 3; // 3-5 objectives
-    const selectedObjectives = [];
+    const selectedObjectives: string[] = [];
     
     // Ensure focus areas are included in objectives
     if (focusAreas && focusAreas.length > 0) {
@@ -444,7 +516,7 @@ const AdaptiveQuestGenerator = ({
     return selectedObjectives;
   };
   
-  const generateQuestChapters = (subject, focusAreas, difficulty) => {
+  const generateQuestChapters = (subject: string, focusAreas: string[], difficulty: string): any[] => {
     // In a real implementation, this would generate chapters based on curriculum progression
     // For now, use templates based on subject and difficulty
     
@@ -578,7 +650,7 @@ const AdaptiveQuestGenerator = ({
     return selectedChapters;
   };
   
-  const generateQuestRewards = (subject, difficulty) => {
+  const generateQuestRewards = (subject: string, difficulty: string): any[] => {
     // In a real implementation, this would generate rewards based on curriculum achievements
     // For now, use templates based on subject and difficulty
     
@@ -641,7 +713,7 @@ const AdaptiveQuestGenerator = ({
     return rewards;
   };
   
-  const getCurriculumCode = (subject, keyStage, curriculumContext) => {
+  const getCurriculumCode = (subject: string, keyStage: string, curriculumContext: CurriculumContextType): string | null => {
     if (!curriculumContext) return null;
     
     // In a real implementation, this would look up the appropriate curriculum code
@@ -656,7 +728,7 @@ const AdaptiveQuestGenerator = ({
     return `${subjectPrefix}${keyStageNumber}-AQ`;
   };
   
-  const getCurriculumLink = (subject, keyStage, curriculumContext) => {
+  const getCurriculumLink = (subject: string, keyStage: string, curriculumContext: CurriculumContextType): string | null => {
     if (!curriculumContext) return null;
     
     // In a real implementation, this would generate a link to curriculum standards
@@ -915,7 +987,7 @@ const Loader2 = (props) => (
 );
 
 // Custom search icon
-const Search = (props) => (
+const Search = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -1925,10 +1997,8 @@ const AdventureQuestSagaAdaptive = () => {
       return;
     }
     
-    toast({
-      title: "Quest Started",
-      description: `You've begun "${quest.title}"`,
-      variant: "success",
+    toast("Quest Started", {
+      description: `You've begun "${quest.title}"`
     });
     
     // Update character
