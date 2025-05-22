@@ -137,6 +137,26 @@ export const db = {
     }
   },
   
+  // Mindfulness Settings operations
+  mindfulnessSettings: {
+    findUnique: async (params: any = {}) => {
+      return prisma.mindfulnessSettings.findUnique(params);
+    },
+    upsert: async (params: any = {}) => {
+      return prisma.mindfulnessSettings.upsert(params);
+    }
+  },
+  
+  // Mindfulness Log operations
+  mindfulnessLog: {
+    findMany: async (params: any = {}) => {
+      return prisma.mindfulnessLog.findMany(params);
+    },
+    create: async (params: any = {}) => {
+      return prisma.mindfulnessLog.create(params);
+    }
+  },
+  
   // Generic query function
   query: async (model: string, operation: string, params: any = {}) => {
     if (!prisma[model]) {
