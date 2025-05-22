@@ -98,7 +98,7 @@ export async function POST(req: Request) {
         title: validatedData.title,
         description: validatedData.description || '',
         type: validatedData.type,
-        status: 'active',
+        status: 'active' as 'active' | 'completed' | 'at-risk',
         participants: validatedData.participants,
         facilitator: validatedData.facilitator || '',
         followUpDate: new Date(validatedData.followUpDate),
