@@ -47,8 +47,12 @@ export async function GET(req: NextRequest) {
           select: {
             id: true,
             name: true,
-            yearGroup: true,
-            supportNeeds: true
+            studentProfile: {
+              select: {
+                gradeLevel: true,
+                specialNeeds: true
+              }
+            }
           }
         }
       }
@@ -137,8 +141,12 @@ export async function POST(req: NextRequest) {
           select: {
             id: true,
             name: true,
-            yearGroup: true,
-            supportNeeds: true
+            studentProfile: {
+              select: {
+                gradeLevel: true,
+                specialNeeds: true
+              }
+            }
           }
         }
       }
@@ -165,7 +173,7 @@ export async function POST(req: NextRequest) {
         }
       });
       
-      if (participantSettings?.emailNotifications) {
+      if (participantSettings?.enableMeetingNotifications) {
         // In a real implementation, this would send an email notification
         console.log(`Email notification would be sent to participant ${participantId}`);
       }

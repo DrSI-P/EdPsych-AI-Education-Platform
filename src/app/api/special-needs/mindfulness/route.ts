@@ -88,13 +88,16 @@ export async function GET(req: Request) {
         reminderFrequency: 'weekly',
         backgroundSounds: true
       },
-      activityHistory: activityHistory.map(log => ({
-        id: log.id,
-        activityId: (log.details as any)?.activityId || '',
-        completedAt: log.timestamp,
-        duration: (log.details as any)?.duration || 0,
-        feedback: (log.details as any)?.feedback || null
-      })),
+      activityHistory: activityHistory.map((log: any) => {
+        const details = log.details as Record<string, unknown>;
+        return {
+          id: log.id,
+          activityId: typeof details?.activityId === 'string' ? details.activityId : '',
+          completedAt: log.timestamp,
+          duration: typeof details?.duration === 'number' ? details.duration : 0,
+          feedback: details?.feedback || null
+        };
+      }),
       favoriteActivities: favoriteActivities?.favoriteActivities || []
     });
     
@@ -177,7 +180,10 @@ export async function POST(req: Request) {
           }
         });
         
-        let favoriteActivities = userSettings?.favoriteActivities || [];
+        // Ensure favoriteActivities is a string array
+        let favoriteActivities: string[] = Array.isArray(userSettings?.favoriteActivities)
+          ? userSettings.favoriteActivities.map(id => String(id))
+          : [];
         
         // Toggle favourite status
         if (favoriteActivities.includes(activityId)) {
@@ -210,7 +216,7 @@ export async function POST(req: Request) {
         return NextResponse.json({
           success: true,
           message: 'Favourite status updated successfully',
-          isFavorite: !userSettings?.favoriteActivities.includes(activityId)
+          isFavorite: !Array.isArray(userSettings?.favoriteActivities) || !userSettings.favoriteActivities.includes(activityId)
         });
       }
       

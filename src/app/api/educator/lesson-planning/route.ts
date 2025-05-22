@@ -90,8 +90,8 @@ export async function GET(request: NextRequest) {
     // Extract query parameters
     const params = {
       userId: url.searchParams.get('userId') || undefined,
-      limit: url.searchParams.get('limit') ? parseInt(url.searchParams.get('limit')!) : 10,
-      offset: url.searchParams.get('offset') ? parseInt(url.searchParams.get('offset')!) : 0,
+      limit: url.searchParams.get('limit') ? parseInt(url.searchParams.get('limit') || '10') : 10,
+      offset: url.searchParams.get('offset') ? parseInt(url.searchParams.get('offset') || '0') : 0,
       subject: url.searchParams.get('subject') || undefined,
       yearGroup: url.searchParams.get('yearGroup') || undefined,
       searchTerm: url.searchParams.get('searchTerm') || undefined
@@ -178,9 +178,9 @@ export async function GET(request: NextRequest) {
     if (validatedParams.searchTerm) {
       const term = validatedParams.searchTerm.toLowerCase();
       filteredPlans = filteredPlans.filter(plan =>
-        plan.title.toLowerCase().includes(term) ||
+        plan.title?.toLowerCase().includes(term) ||
         plan.objectives?.toLowerCase().includes(term) ||
-        plan.metadata.keyVocabulary?.toLowerCase().includes(term)
+        plan.metadata?.keyVocabulary?.toLowerCase().includes(term)
       );
     }
     
