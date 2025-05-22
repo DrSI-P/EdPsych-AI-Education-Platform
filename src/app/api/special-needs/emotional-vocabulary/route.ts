@@ -39,14 +39,14 @@ export async function GET(req: Request) {
     const intensity = searchParams.get('intensity');
     
     // Fetch user preferences
-    const userPreferences = await prisma.emotionalVocabularyPreferences.findUnique({
+    const userPreferences = await (prisma as any).emotionalVocabularyPreferences.findUnique({
       where: {
         userId: session.user.id,
       },
     });
     
     // Fetch user progress
-    const userProgress = await prisma.emotionalVocabularyProgress.findMany({
+    const userProgress = await (prisma as any).emotionalVocabularyProgress.findMany({
       where: {
         userId: session.user.id,
       },
@@ -56,7 +56,7 @@ export async function GET(req: Request) {
     });
     
     // Fetch emotions based on filters
-    const emotions = await prisma.emotion.findMany({
+    const emotions = await (prisma as any).emotion.findMany({
       where: {
         ...(ageGroup && ageGroup !== 'all' ? { ageGroups: { has: ageGroup } } : {}),
         ...(category && category !== 'all' ? { category } : {}),
@@ -73,7 +73,7 @@ export async function GET(req: Request) {
     });
     
     // Fetch activities based on filters
-    const activities = await prisma.emotionalVocabularyActivity.findMany({
+    const activities = await (prisma as any).emotionalVocabularyActivity.findMany({
       where: {
         ...(ageGroup && ageGroup !== 'all' ? { ageGroups: { has: ageGroup } } : {}),
         ...(category && category !== 'all' ? { 
@@ -86,7 +86,7 @@ export async function GET(req: Request) {
     });
     
     // Fetch quizzes based on filters
-    const quizzes = await prisma.emotionalVocabularyQuiz.findMany({
+    const quizzes = await (prisma as any).emotionalVocabularyQuiz.findMany({
       where: {
         ...(ageGroup && ageGroup !== 'all' ? { ageGroups: { has: ageGroup } } : {}),
       },
@@ -96,7 +96,7 @@ export async function GET(req: Request) {
     });
     
     // Fetch resources based on filters
-    const resources = await prisma.emotionalVocabularyResource.findMany({
+    const resources = await (prisma as any).emotionalVocabularyResource.findMany({
       where: {
         ...(ageGroup && ageGroup !== 'all' ? { ageGroups: { has: ageGroup } } : {}),
       },
@@ -167,7 +167,7 @@ export async function POST(req: Request) {
       const preferences = PreferencesSchema.parse(body.preferences);
       
       // Update or create user preferences
-      const updatedPreferences = await prisma.emotionalVocabularyPreferences.upsert({
+      const updatedPreferences = await (prisma as any).emotionalVocabularyPreferences.upsert({
         where: {
           userId: session.user.id,
         },
@@ -186,7 +186,7 @@ export async function POST(req: Request) {
       const progress = ProgressSchema.parse(body.progress);
       
       // Record user progress
-      const newProgress = await prisma.emotionalVocabularyProgress.create({
+      const newProgress = await (prisma as any).emotionalVocabularyProgress.create({
         data: {
           userId: session.user.id,
           emotionId: progress.emotionId,

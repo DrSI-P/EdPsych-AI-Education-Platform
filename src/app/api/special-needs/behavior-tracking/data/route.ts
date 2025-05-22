@@ -42,7 +42,7 @@ export async function GET(req: NextRequest) {
       }
     }
     
-    const trackingData = await prisma.behaviorTracking.findMany({
+    const trackingData = await (prisma as any).behaviorTracking.findMany({
       where,
       orderBy: {
         date: 'desc',
@@ -75,7 +75,7 @@ export async function POST(req: NextRequest) {
     }
     
     // Get the behaviour to calculate points
-    const behaviour = await prisma.behaviorDefinition.findUnique({
+    const behaviour = await (prisma as any).behaviorDefinition.findUnique({
       where: {
         id: data.behaviorId,
       },
@@ -89,7 +89,7 @@ export async function POST(req: NextRequest) {
     const pointsEarned = behaviour.pointValue * (data.count || 1);
     
     // Create new tracking entry
-    const tracking = await prisma.behaviorTracking.create({
+    const tracking = await (prisma as any).behaviorTracking.create({
       data: {
         userId: session.user.id,
         behaviorId: data.behaviorId,
@@ -104,7 +104,7 @@ export async function POST(req: NextRequest) {
     
     // Update student points if student ID is provided
     if (data.studentId) {
-      await prisma.student.update({
+      await (prisma as any).student.update({
         where: {
           id: data.studentId,
         },
@@ -117,7 +117,7 @@ export async function POST(req: NextRequest) {
     }
     
     // Check if this tracking helps achieve any goals
-    const activeGoals = await prisma.behaviorGoal.findMany({
+    const activeGoals = await (prisma as any).behaviorGoal.findMany({
       where: {
         userId: session.user.id,
         targetBehavior: data.behaviorId,
@@ -149,7 +149,7 @@ export async function POST(req: NextRequest) {
           break;
       }
       
-      const totalCount = await prisma.behaviorTracking.aggregate({
+      const totalCount = await (prisma as any).behaviorTracking.aggregate({
         where: {
           userId: session.user.id,
           behaviorId: data.behaviorId,
@@ -167,7 +167,7 @@ export async function POST(req: NextRequest) {
       
       // If goal is achieved, update its status
       if (currentTotal >= goal.targetValue) {
-        await prisma.behaviorGoal.update({
+        await (prisma as any).behaviorGoal.update({
           where: {
             id: goal.id,
           },
@@ -178,7 +178,7 @@ export async function POST(req: NextRequest) {
         });
         
         // Log goal completion
-        await prisma.behaviorTrackingLog.create({
+        await (prisma as any).behaviorTrackingLog.create({
           data: {
             userId: session.user.id,
             action: 'GOAL_COMPLETED',
@@ -193,7 +193,7 @@ export async function POST(req: NextRequest) {
         
         // If there's a reward associated with this goal, create a reward redemption
         if (goal.reward) {
-          await prisma.rewardRedemption.create({
+          await (prisma as any).rewardRedemption.create({
             data: {
               userId: session.user.id,
               studentId: data.studentId,
@@ -207,7 +207,7 @@ export async function POST(req: NextRequest) {
     }
     
     // Log the tracking creation
-    await prisma.behaviorTrackingLog.create({
+    await (prisma as any).behaviorTrackingLog.create({
       data: {
         userId: session.user.id,
         action: 'BEHAVIOR_TRACKED',

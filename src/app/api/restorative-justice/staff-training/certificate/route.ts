@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
     
     // Check if user is requesting their own certificate or has admin role
     if (userId !== session.user.id) {
-      const user = await prisma.user.findUnique({
+      const user = await (prisma as any).user.findUnique({
         where: { id: session.user.id },
         select: { role: true }
       });
@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
     }
     
     // Verify module completion
-    const progress = await prisma.restorativeTrainingProgress.findFirst({
+    const progress = await (prisma as any).restorativeTrainingProgress.findFirst({
       where: {
         userId,
         moduleId
@@ -41,7 +41,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'No progress found for this module' }, { status: 404 });
     }
     
-    const module = await prisma.restorativeTrainingModule.findUnique({
+    const module = await (prisma as any).restorativeTrainingModule.findUnique({
       where: { id: moduleId },
       include: { sections: true }
     });
@@ -56,7 +56,7 @@ export async function POST(req: NextRequest) {
     }
     
     // Get user details
-    const user = await prisma.user.findUnique({
+    const user = await (prisma as any).user.findUnique({
       where: { id: userId },
       select: { name: true, email: true }
     });
@@ -114,8 +114,9 @@ export async function POST(req: NextRequest) {
     });
     
     // Add user name
-    page.drawText(user.name || user.email, {
-      x: width / 2 - (user.name ? user.name.length * 6 : user.email.length * 6),
+    const displayName = user.name || user.email || "Certificate Recipient";
+    page.drawText(displayName, {
+      x: width / 2 - (displayName.length * 6),
       y: height - 220,
       size: 24,
       font: helveticaBold,
@@ -186,7 +187,7 @@ export async function POST(req: NextRequest) {
     const pdfBytes = await pdfDoc.save();
     
     // Update progress to mark certificate as issued
-    await prisma.restorativeTrainingProgress.update({
+    await (prisma as any).restorativeTrainingProgress.update({
       where: { id: progress.id },
       data: { certificateIssued: true }
     });

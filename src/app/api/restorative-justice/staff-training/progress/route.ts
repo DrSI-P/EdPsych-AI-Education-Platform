@@ -30,7 +30,7 @@ export async function GET(req: NextRequest) {
     
     // Check if requesting user is the same as the target user or has admin role
     if (userId !== session.user.id) {
-      const user = await prisma.user.findUnique({
+      const user = await (prisma as any).user.findUnique({
         where: { id: session.user.id },
         select: { role: true }
       });
@@ -41,7 +41,7 @@ export async function GET(req: NextRequest) {
     }
     
     // Get user progress from database
-    const progress = await prisma.restorativeTrainingProgress.findMany({
+    const progress = await (prisma as any).restorativeTrainingProgress.findMany({
       where: { userId },
       include: {
         quizAttempts: true
@@ -73,7 +73,7 @@ export async function POST(req: NextRequest) {
       
       // Check if user is updating their own progress or has admin role
       if (validatedData.userId !== session.user.id) {
-        const user = await prisma.user.findUnique({
+        const user = await (prisma as any).user.findUnique({
           where: { id: session.user.id },
           select: { role: true }
         });
@@ -87,7 +87,7 @@ export async function POST(req: NextRequest) {
       switch (validatedData.action) {
         case 'access':
           // Record module access
-          const existingProgress = await prisma.restorativeTrainingProgress.findFirst({
+          const existingProgress = await (prisma as any).restorativeTrainingProgress.findFirst({
             where: {
               userId: validatedData.userId,
               moduleId: validatedData.moduleId
@@ -95,18 +95,18 @@ export async function POST(req: NextRequest) {
           });
           
           if (!existingProgress) {
-            await prisma.restorativeTrainingProgress.create({
+            await (prisma as any).restorativeTrainingProgress.create({
               data: {
                 userId: validatedData.userId,
                 moduleId: validatedData.moduleId,
-                lastAccessed: new Date(),
+                lastAccessedAt: new Date(),
                 completedSections: []
               }
             });
           } else {
-            await prisma.restorativeTrainingProgress.update({
+            await (prisma as any).restorativeTrainingProgress.update({
               where: { id: existingProgress.id },
-              data: { lastAccessed: new Date() }
+              data: { lastAccessedAt: new Date() }
             });
           }
           
@@ -119,7 +119,7 @@ export async function POST(req: NextRequest) {
           }
           
           // Get existing progress or create new
-          let progress = await prisma.restorativeTrainingProgress.findFirst({
+          let progress = await (prisma as any).restorativeTrainingProgress.findFirst({
             where: {
               userId: validatedData.userId,
               moduleId: validatedData.moduleId
@@ -127,11 +127,11 @@ export async function POST(req: NextRequest) {
           });
           
           if (!progress) {
-            progress = await prisma.restorativeTrainingProgress.create({
+            progress = await (prisma as any).restorativeTrainingProgress.create({
               data: {
                 userId: validatedData.userId,
                 moduleId: validatedData.moduleId,
-                lastAccessed: new Date(),
+                lastAccessedAt: new Date(),
                 completedSections: [validatedData.sectionId]
               }
             });
@@ -142,23 +142,23 @@ export async function POST(req: NextRequest) {
               completedSections.push(validatedData.sectionId);
             }
             
-            progress = await prisma.restorativeTrainingProgress.update({
+            progress = await (prisma as any).restorativeTrainingProgress.update({
               where: { id: progress.id },
               data: {
-                lastAccessed: new Date(),
+                lastAccessedAt: new Date(),
                 completedSections
               }
             });
           }
           
           // Check if all sections are completed to issue certificate
-          const module = await prisma.restorativeTrainingModule.findUnique({
+          const module = await (prisma as any).restorativeTrainingModule.findUnique({
             where: { id: validatedData.moduleId },
             include: { sections: true }
           });
           
           if (module && progress.completedSections.length === module.sections.length) {
-            await prisma.restorativeTrainingProgress.update({
+            await (prisma as any).restorativeTrainingProgress.update({
               where: { id: progress.id },
               data: { certificateIssued: true }
             });
@@ -173,7 +173,7 @@ export async function POST(req: NextRequest) {
           }
           
           // Get existing progress or create new
-          let quizProgress = await prisma.restorativeTrainingProgress.findFirst({
+          let quizProgress = await (prisma as any).restorativeTrainingProgress.findFirst({
             where: {
               userId: validatedData.userId,
               moduleId: validatedData.moduleId
@@ -181,18 +181,18 @@ export async function POST(req: NextRequest) {
           });
           
           if (!quizProgress) {
-            quizProgress = await prisma.restorativeTrainingProgress.create({
+            quizProgress = await (prisma as any).restorativeTrainingProgress.create({
               data: {
                 userId: validatedData.userId,
                 moduleId: validatedData.moduleId,
-                lastAccessed: new Date(),
+                lastAccessedAt: new Date(),
                 completedSections: []
               }
             });
           }
           
           // Record quiz attempt
-          const quizAttempt = await prisma.restorativeTrainingQuizAttempt.create({
+          const quizAttempt = await (prisma as any).restorativeTrainingQuizAttempt.create({
             data: {
               progressId: quizProgress.id,
               quizId: validatedData.quizId,

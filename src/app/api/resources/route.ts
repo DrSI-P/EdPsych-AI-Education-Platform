@@ -61,7 +61,7 @@ export async function GET(req: NextRequest) {
     }
 
     // Get resources with pagination
-    const resources = await prisma.resource.findMany({
+    const resources = await (prisma as any).teachingResource.findMany({
       where,
       orderBy,
       skip,
@@ -78,7 +78,7 @@ export async function GET(req: NextRequest) {
     });
 
     // Get total count for pagination
-    const totalResources = await prisma.resource.count({ where });
+    const totalResources = await (prisma as any).teachingResource.count({ where });
     const totalPages = Math.ceil(totalResources / limit);
 
     return NextResponse.json({
@@ -145,7 +145,7 @@ export async function POST(req: NextRequest) {
     // and their URLs would be saved in the database
     
     // For now, we'll create a resource without actual file storage
-    const resource = await prisma.resource.create({
+    const resource = await (prisma as any).teachingResource.create({
       data: {
         title,
         description,

@@ -12,7 +12,7 @@ export async function GET(req: NextRequest) {
     }
     
     // Get behaviors for the current user
-    const behaviors = await prisma.behaviorDefinition.findMany({
+    const behaviors = await (prisma as any).behaviorDefinition.findMany({
       where: {
         userId: session.user.id,
       },
@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
     }
     
     // Create new behaviour
-    const behaviour = await prisma.behaviorDefinition.create({
+    const behaviour = await (prisma as any).behaviorDefinition.create({
       data: {
         userId: session.user.id,
         name: data.name,
@@ -58,7 +58,7 @@ export async function POST(req: NextRequest) {
     });
     
     // Log the behaviour creation
-    await prisma.behaviorTrackingLog.create({
+    await (prisma as any).behaviorTrackingLog.create({
       data: {
         userId: session.user.id,
         action: 'BEHAVIOR_CREATED',

@@ -5,8 +5,25 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
-// Get the migration name from command line arguments or use the latest migration
-const migrationName = process.argv[2] || '20250522083600_add_course_progress_and_fix_enrollment';
+// Get the migration names from command line arguments or use the default migrations
+const migrationNames = process.argv.slice(2).length > 0
+  ? process.argv.slice(2)
+  : [
+      '20250522083600_add_course_progress_and_fix_enrollment',
+      '20250522084500_add_certificate_course_relation',
+      '20250522085400_add_webinar_models',
+      '20250522085700_add_teaching_resource_model',
+      '20250522090000_add_restorative_justice_models',
+      '20250522090300_add_circle_template_model',
+      '20250522090600_add_community_building_models',
+      '20250522090900_add_parent_education_models',
+      '20250522091200_add_reflection_prompts_model',
+      '20250522091500_add_restorative_training_models',
+      '20250522092700_add_restorative_training_resources',
+      '20250522092920_add_duration_and_level_to_training_module',
+      '20250522093140_add_type_and_duration_to_training_section',
+      '20250522093350_add_restorative_training_quiz_attempt'
+    ];
 
 // Path to the migrations directory
 const migrationsDir = path.join(__dirname, '../prisma/migrations');
@@ -29,19 +46,22 @@ if (!fs.existsSync(appliedMigrationsDir)) {
   console.log('Created _applied directory');
 }
 
-// Path to the migration directory
-const migrationDir = path.join(migrationsDir, migrationName);
+// Apply each migration
+for (const migrationName of migrationNames) {
+  // Path to the migration directory
+  const migrationDir = path.join(migrationsDir, migrationName);
 
-// Check if the migration directory exists
-if (!fs.existsSync(migrationDir)) {
-  console.error(`Migration ${migrationName} not found`);
-  process.exit(1);
+  // Check if the migration directory exists
+  if (!fs.existsSync(migrationDir)) {
+    console.error(`Migration ${migrationName} not found`);
+    continue;
+  }
+
+  // Mark the migration as applied
+  const appliedMigrationPath = path.join(appliedMigrationsDir, `${migrationName}.toml`);
+  fs.writeFileSync(appliedMigrationPath, `migration_name = "${migrationName}"\napplied_at = ${Math.floor(Date.now() / 1000)}\n`);
+  console.log(`Marked migration ${migrationName} as applied`);
 }
-
-// Mark the migration as applied
-const appliedMigrationPath = path.join(appliedMigrationsDir, `${migrationName}.toml`);
-fs.writeFileSync(appliedMigrationPath, `migration_name = "${migrationName}"\napplied_at = ${Math.floor(Date.now() / 1000)}\n`);
-console.log(`Marked migration ${migrationName} as applied`);
 
 // Generate the Prisma client
 console.log('Generating Prisma client...');
