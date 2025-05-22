@@ -80,7 +80,7 @@ export async function GET(req: Request) {
     // In a real implementation, we would fetch activities from the database
     // For now, we'll return a placeholder response
     return NextResponse.json({
-      activities: [], // Would be populated from database
+      activities: [] as any[], // Would be populated from database
       userPreferences: userSettings?.preferences || {
         preferredDuration: 'medium',
         preferredThemes: ['breathing', 'body-scan', 'visualisation'],
