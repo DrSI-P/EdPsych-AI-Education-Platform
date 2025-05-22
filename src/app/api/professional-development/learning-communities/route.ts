@@ -635,7 +635,7 @@ export async function POST(request: NextRequest) {
             updatedAt: new Date().toISOString(),
             replies: 0,
             views: 0,
-            lastReplyAt: null,
+            lastReplyAt: undefined,
             pinned: false,
           };
           
