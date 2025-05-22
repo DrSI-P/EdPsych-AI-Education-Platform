@@ -803,7 +803,7 @@ export default function ParentPortalPage() {
                               <h4 className="font-medium">{item.title}</h4>
                               <p className="text-sm text-muted-foreground">{item.subject}</p>
                             </div>
-                            <div className={`flex items-centre ${statusInfo.colour}`}>
+                            <div className={`flex items-centre ${statusInfo.color}`}>
                               {statusInfo.icon}
                               <span className="ml-1 text-sm capitalize">{item.status.replace('-', ' ')}</span>
                             </div>

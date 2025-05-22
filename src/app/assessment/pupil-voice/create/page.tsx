@@ -21,7 +21,7 @@ interface QuestionType {
 export default function CreatePupilVoiceSurveyPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const templateId = searchParams.get('template');
+  const templateId = searchParams?.get('template');
   
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -253,7 +253,11 @@ export default function CreatePupilVoiceSurveyPage() {
       }
     } catch (err) {
       console.error('Error saving survey:', err);
-      setError(err.message || 'An error occurred while saving the survey');
+      setError(
+        err instanceof Error
+          ? err.message
+          : 'An error occurred while saving the survey'
+      );
     } finally {
       setSaving(false);
     }
@@ -546,7 +550,7 @@ export default function CreatePupilVoiceSurveyPage() {
       </div>
 
       {error && (
-        <Alert type="error" className="mb-6">
+        <Alert variant="error" className="mb-6">
           {error}
         </Alert>
       )}

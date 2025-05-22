@@ -207,7 +207,7 @@ export default function CurriculumPlanner() {
     return matchesSubject && matchesKeyStage && matchesSearch;
   });
 
-  const handleSearch = (e) => {
+  const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     // In a real implementation, this would trigger an API call
   };
@@ -493,29 +493,11 @@ export default function CurriculumPlanner() {
               {/* Pagination */}
               {filteredPlans.length > 0 && (
                 <div className="flex justify-centre mt-8">
-                  <Pagination>
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
-                      disabled={currentPage === 1}
-                    >
-                      Previous
-                    </Button>
-                    <div className="flex items-centre mx-4">
-                      <span className="text-sm">
-                        Page {currentPage} of {Math.ceil(filteredPlans.length / 6)}
-                      </span>
-                    </div>
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      onClick={() => setCurrentPage(Math.min(Math.ceil(filteredPlans.length / 6), currentPage + 1))}
-                      disabled={currentPage === Math.ceil(filteredPlans.length / 6)}
-                    >
-                      Next
-                    </Button>
-                  </Pagination>
+                  <Pagination
+                    currentPage={currentPage}
+                    totalPages={Math.ceil(filteredPlans.length / 6)}
+                    onPageChange={(page) => setCurrentPage(page)}
+                  />
                 </div>
               )}
             </TabsContent>
@@ -567,29 +549,11 @@ export default function CurriculumPlanner() {
               {/* Pagination */}
               {filteredStandards.length > 0 && (
                 <div className="flex justify-centre mt-8">
-                  <Pagination>
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
-                      disabled={currentPage === 1}
-                    >
-                      Previous
-                    </Button>
-                    <div className="flex items-centre mx-4">
-                      <span className="text-sm">
-                        Page {currentPage} of {Math.ceil(filteredStandards.length / 6)}
-                      </span>
-                    </div>
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      onClick={() => setCurrentPage(Math.min(Math.ceil(filteredStandards.length / 6), currentPage + 1))}
-                      disabled={currentPage === Math.ceil(filteredStandards.length / 6)}
-                    >
-                      Next
-                    </Button>
-                  </Pagination>
+                  <Pagination
+                    currentPage={currentPage}
+                    totalPages={Math.ceil(filteredStandards.length / 6)}
+                    onPageChange={(page) => setCurrentPage(page)}
+                  />
                 </div>
               )}
             </TabsContent>

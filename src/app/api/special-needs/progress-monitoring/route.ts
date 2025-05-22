@@ -20,15 +20,16 @@ export async function GET(req: NextRequest) {
       );
     }
 
-    // Get user's progress monitoring settings
-    const monitoringSettings = await prisma.progressMonitoring.findUnique({
+    // Get user's progress monitoring settings from LearningDifferenceProfile
+    const learningDifferenceProfile = await prisma.learningDifferenceProfile.findUnique({
       where: {
         userId: session.user.id
       }
     });
 
     // If no settings exist yet, return default settings
-    if (!monitoringSettings) {
+    const settings = learningDifferenceProfile?.settings as Record<string, any> | undefined;
+    if (!learningDifferenceProfile || !settings || !settings.progressMonitoring) {
       return NextResponse.json({
         success: true,
         settings: {
@@ -42,16 +43,19 @@ export async function GET(req: NextRequest) {
       });
     }
 
+    // Extract progress monitoring settings from the settings JSON field
+    const monitoringSettings = (learningDifferenceProfile.settings as Record<string, any>).progressMonitoring;
+    
     return NextResponse.json({
       success: true,
       settings: {
-        enabled: monitoringSettings.enabled,
-        monitoringFrequency: monitoringSettings.monitoringFrequency,
-        automaticReminders: monitoringSettings.automaticReminders,
-        dataVisualization: monitoringSettings.dataVisualization,
-        progressReports: monitoringSettings.progressReports,
-        goalTracking: monitoringSettings.goalTracking,
-        interventionId: monitoringSettings.interventionId
+        enabled: monitoringSettings.enabled || false,
+        monitoringFrequency: monitoringSettings.monitoringFrequency || 'weekly',
+        automaticReminders: monitoringSettings.automaticReminders || true,
+        dataVisualization: monitoringSettings.dataVisualization || true,
+        progressReports: monitoringSettings.progressReports || true,
+        goalTracking: monitoringSettings.goalTracking || true,
+        interventionId: monitoringSettings.interventionId || null
       }
     });
   } catch (error) {
@@ -106,30 +110,40 @@ export async function POST(req: NextRequest) {
       interventionId: settings.interventionId || null
     };
 
-    // Save settings to database (upsert to create or update)
-    const updatedSettings = await prisma.progressMonitoring.upsert({
+    // Save settings to LearningDifferenceProfile (upsert to create or update)
+    const updatedProfile = await prisma.learningDifferenceProfile.upsert({
       where: {
         userId: session.user.id
       },
-      update: validatedSettings,
+      update: {
+        settings: {
+          ...((await prisma.learningDifferenceProfile.findUnique({
+            where: { userId: session.user.id }
+          }))?.settings as Record<string, any> || {}),
+          progressMonitoring: validatedSettings
+        }
+      },
       create: {
         userId: session.user.id,
-        ...validatedSettings
+        assessmentResults: {},
+        settings: {
+          progressMonitoring: validatedSettings
+        }
       }
     });
 
-    // Log the progress monitoring settings update for analytics
-    await prisma.monitoringLog.create({
+    // Log the progress monitoring settings update for analytics using CommunicationLog
+    await prisma.communicationLog.create({
       data: {
         userId: session.user.id,
-        action: 'settings_update',
-        details: JSON.stringify(validatedSettings),
+        action: 'progress_monitoring_settings_update',
+        details: validatedSettings,
       }
     });
 
     return NextResponse.json({
       success: true,
-      settings: updatedSettings
+      settings: (updatedProfile.settings as Record<string, any>)?.progressMonitoring || validatedSettings
     });
   } catch (error) {
     console.error('Progress monitoring API error:', error);

@@ -52,7 +52,7 @@ export default function AssessmentPreviewPage() {
   useEffect(() => {
     const fetchAssessment = async () => {
       try {
-        const response = await fetch(`/api/assessment/${params.id}`);
+        const response = await fetch(`/api/assessment/${params?.id}`);
         
         if (!response.ok) {
           throw new Error('Failed to fetch assessment');
@@ -68,10 +68,10 @@ export default function AssessmentPreviewPage() {
       }
     };
     
-    if (params.id) {
+    if (params?.id) {
       fetchAssessment();
     }
-  }, [params.id]);
+  }, [params?.id]);
 
   const handlePublish = async () => {
     if (!assessment) return;
@@ -233,7 +233,7 @@ export default function AssessmentPreviewPage() {
   if (error) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <Alert type="error" className="mb-6">
+        <Alert variant="error" className="mb-6">
           {error}
         </Alert>
         <Button onClick={() => router.back()}>
@@ -246,7 +246,7 @@ export default function AssessmentPreviewPage() {
   if (!assessment) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <Alert type="error" className="mb-6">
+        <Alert variant="error" className="mb-6">
           Assessment not found
         </Alert>
         <Button onClick={() => router.push('/assessment')}>
@@ -273,7 +273,7 @@ export default function AssessmentPreviewPage() {
       </div>
 
       {publishSuccess && (
-        <Alert type="success" className="mb-6">
+        <Alert variant="success" className="mb-6">
           Assessment published successfully! Redirecting...
         </Alert>
       )}
@@ -400,7 +400,7 @@ export default function AssessmentPreviewPage() {
                     </p>
                     
                     {assessment.questions.length === 0 ? (
-                      <Alert type="warning">
+                      <Alert variant="warning">
                         You need to add at least one question before publishing this assessment.
                       </Alert>
                     ) : assessment.status === 'published' ? (

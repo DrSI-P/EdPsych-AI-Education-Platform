@@ -9,15 +9,31 @@ import { Spinner } from '@/components/ui/loading';
 import { Tabs } from '@/components/ui/tabs';
 import { Form } from '@/components/ui/form';
 
+interface AssessmentTemplate {
+  id: string;
+  title: string;
+  description: string;
+  subject: string;
+  keyStage: string;
+  type: string;
+  questionCount: number;
+  tags?: string[];
+  createdAt: string;
+  createdBy?: {
+    name: string;
+  };
+  templateData: any;
+}
+
 export default function UseAssessmentTemplatePage() {
   const router = useRouter();
   const params = useParams();
-  const templateId = params.id;
+  const templateId = params ? params.id : '';
   
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
-  const [template, setTemplate] = useState(null);
+  const [template, setTemplate] = useState<AssessmentTemplate | null>(null);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [dueDate, setDueDate] = useState('');
@@ -29,7 +45,7 @@ export default function UseAssessmentTemplatePage() {
   useEffect(() => {
     const fetchTemplate = async () => {
       try {
-        const response = await fetch(`/api/assessment/templates/${templateId}`);
+        const response = await fetch(`/api/assessment/templates/${templateId || ''}`);
         
         if (!response.ok) {
           throw new Error('Failed to fetch template');
@@ -102,7 +118,7 @@ export default function UseAssessmentTemplatePage() {
       router.push(`/assessment/edit/${data.id}`);
     } catch (err) {
       console.error('Error creating assessment:', err);
-      setError(err.message || 'An error occurred while creating the assessment');
+      setError(err instanceof Error ? err.message : 'An error occurred while creating the assessment');
     } finally {
       setSaving(false);
     }
@@ -302,7 +318,7 @@ export default function UseAssessmentTemplatePage() {
                   <div>
                     <h4 className="text-sm font-medium text-grey-700 mb-2">Tags:</h4>
                     <div className="flex flex-wrap gap-1">
-                      {template.tags.map((tag, index) => (
+                      {template.tags.map((tag: string, index: number) => (
                         <span key={index} className="px-2 py-1 text-xs rounded-full bg-grey-100 text-grey-800">
                           {tag}
                         </span>

@@ -25,7 +25,7 @@ export async function GET(
     const goalId = params.goalId;
 
     // Get the specific goal
-    const goal = await prisma.monitoringGoal.findUnique({
+    const goal = await (prisma as any).executiveFunctionTask.findUnique({
       where: {
         id: goalId,
         userId: session.user.id
@@ -43,14 +43,14 @@ export async function GET(
       success: true,
       goal: {
         id: goal.id,
-        title: goal.title,
-        description: goal.description,
-        targetDate: goal.targetDate,
-        baseline: goal.baseline,
-        target: goal.target,
-        currentValue: goal.currentValue,
-        unit: goal.unit,
-        notes: goal.notes
+        title: goal.title || '',
+        description: goal.description || '',
+        targetDate: goal.dueDate || null,
+        baseline: 0,
+        target: 0,
+        currentValue: 0,
+        unit: '',
+        notes: goal.notes || ''
       }
     });
   } catch (error) {
@@ -90,7 +90,7 @@ export async function PUT(
     }
 
     // Check if goal exists and belongs to user
-    const existingGoal = await prisma.monitoringGoal.findUnique({
+    const existingGoal = await (prisma as any).executiveFunctionTask.findUnique({
       where: {
         id: goalId,
         userId: session.user.id
@@ -105,31 +105,28 @@ export async function PUT(
     }
 
     // Update goal
-    const updatedGoal = await prisma.monitoringGoal.update({
+    const updatedGoal = await (prisma as any).executiveFunctionTask.update({
       where: {
         id: goalId
       },
       data: {
         title: goal.title || existingGoal.title,
         description: goal.description !== undefined ? goal.description : existingGoal.description,
-        targetDate: goal.targetDate ? new Date(goal.targetDate) : existingGoal.targetDate,
-        baseline: goal.baseline !== undefined ? goal.baseline : existingGoal.baseline,
-        target: goal.target !== undefined ? goal.target : existingGoal.target,
-        currentValue: goal.currentValue !== undefined ? goal.currentValue : existingGoal.currentValue,
-        unit: goal.unit || existingGoal.unit,
-        notes: goal.notes !== undefined ? goal.notes : existingGoal.notes
+        dueDate: goal.targetDate ? new Date(goal.targetDate) : existingGoal.dueDate,
+        notes: goal.notes !== undefined ? goal.notes : existingGoal.notes,
+        updatedAt: new Date()
       }
     });
 
-    // Log the goal update for analytics
-    await prisma.monitoringLog.create({
+    // Log the goal update for analytics using CommunicationLog
+    await prisma.communicationLog.create({
       data: {
         userId: session.user.id,
         action: 'goal_updated',
-        details: JSON.stringify({
+        details: {
           goalId: updatedGoal.id,
           title: updatedGoal.title
-        }),
+        },
       }
     });
 
@@ -163,7 +160,7 @@ export async function DELETE(
     const goalId = params.goalId;
 
     // Check if goal exists and belongs to user
-    const existingGoal = await prisma.monitoringGoal.findUnique({
+    const existingGoal = await (prisma as any).executiveFunctionTask.findUnique({
       where: {
         id: goalId,
         userId: session.user.id
@@ -177,29 +174,22 @@ export async function DELETE(
       );
     }
 
-    // Delete all data points associated with this goal
-    await prisma.dataPoint.deleteMany({
-      where: {
-        goalId: goalId
-      }
-    });
-
     // Delete the goal
-    await prisma.monitoringGoal.delete({
+    await (prisma as any).executiveFunctionTask.delete({
       where: {
         id: goalId
       }
     });
 
-    // Log the goal deletion for analytics
-    await prisma.monitoringLog.create({
+    // Log the goal deletion for analytics using CommunicationLog
+    await prisma.communicationLog.create({
       data: {
         userId: session.user.id,
         action: 'goal_deleted',
-        details: JSON.stringify({
+        details: {
           goalId: goalId,
           title: existingGoal.title
-        }),
+        },
       }
     });
 

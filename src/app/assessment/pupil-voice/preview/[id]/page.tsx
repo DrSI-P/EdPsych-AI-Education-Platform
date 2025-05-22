@@ -11,7 +11,7 @@ import { SimpleTabs  } from '@/components/ui/tabs';
 export default function PreviewPupilVoiceSurveyPage() {
   const router = useRouter();
   const params = useParams();
-  const surveyId = params.id as string;
+  const surveyId = params ? params.id as string : '';
   
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -354,7 +354,7 @@ export default function PreviewPupilVoiceSurveyPage() {
   if (error) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <Alert type="error" className="mb-6">
+        <Alert variant="error" className="mb-6">
           {error}
         </Alert>
         <Button
@@ -369,7 +369,7 @@ export default function PreviewPupilVoiceSurveyPage() {
   if (!survey) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <Alert type="error" className="mb-6">
+        <Alert variant="error" className="mb-6">
           Survey not found
         </Alert>
         <Button

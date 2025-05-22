@@ -59,7 +59,7 @@ export default function RequestResetPage() {
           <CardContent className="pt-6">
             {success ? (
               <div className="text-centre py-4">
-                <Alert type="success" className="mb-4">
+                <Alert variant="success" className="mb-4">
                   If your email is registered, you will receive a password reset link shortly.
                 </Alert>
                 <p className="text-sm text-grey-600 mb-4">
@@ -72,7 +72,7 @@ export default function RequestResetPage() {
             ) : (
               <form onSubmit={handleSubmit}>
                 {error && (
-                  <Alert type="error" className="mb-4">
+                  <Alert variant="error" className="mb-4">
                     {error}
                   </Alert>
                 )}

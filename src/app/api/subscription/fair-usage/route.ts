@@ -1,13 +1,37 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 
+// Define feature type
+type Feature =
+  | 'aiRecommendations'
+  | 'progressReports'
+  | 'meetingNotes'
+  | 'lessonPlans'
+  | 'blockchainCredentials'
+  | 'copyrightRegistration'
+  | 'storage';
+
+// Define subscription tier type
+type SubscriptionTier = 'free' | 'educator' | 'professional' | 'institution' | 'enterprise';
+
+// Define usage type
+type Usage = {
+  aiRecommendations: number;
+  progressReports: number;
+  meetingNotes: number;
+  lessonPlans: number;
+  blockchainCredentials: number;
+  copyrightRegistration: number;
+  storage: number;
+};
+
 // Schema for usage tracking
 const UsageSchema = z.object({
   userId: z.string(),
   feature: z.enum([
-    'aiRecommendations', 
-    'progressReports', 
-    'meetingNotes', 
+    'aiRecommendations',
+    'progressReports',
+    'meetingNotes',
     'lessonPlans',
     'blockchainCredentials',
     'copyrightRegistration',
@@ -38,7 +62,7 @@ const CreditOperationSchema = z.object({
 });
 
 // Subscription tier limits
-const tierLimits = {
+const tierLimits: Record<SubscriptionTier, Record<Feature, number>> = {
   free: {
     aiRecommendations: 0,
     progressReports: 0,
@@ -87,7 +111,7 @@ const tierLimits = {
 };
 
 // Credit costs for pay-as-you-go features
-const creditCosts = {
+const creditCosts: Partial<Record<Feature, number>> = {
   aiRecommendations: 1,
   progressReports: 3,
   meetingNotes: 2,
@@ -96,10 +120,21 @@ const creditCosts = {
   copyrightRegistration: 10,
 };
 
+// Define user type
+type User = {
+  subscription: {
+    tier: SubscriptionTier;
+    billingCycle: string;
+    status: string;
+  };
+  credits: number;
+  usage: Usage;
+};
+
 // Mock database for demonstration
 // In production, this would be replaced with actual database calls
 const mockDb = {
-  users: new Map([
+  users: new Map<string, User>([
     ['user1', { 
       subscription: { tier: 'educator', billingCycle: 'monthly', status: 'active' },
       credits: 75,
@@ -129,7 +164,7 @@ const mockDb = {
   ]),
   
   // Track usage for a feature
-  trackUsage(userId, feature, quantity) {
+  trackUsage(userId: string, feature: Feature, quantity: number) {
     const user = this.users.get(userId);
     if (!user) return { success: false, error: 'User not found' };
     
@@ -147,7 +182,7 @@ const mockDb = {
   },
   
   // Check if a user has reached their limit for a feature
-  checkLimit(userId, feature) {
+  checkLimit(userId: string, feature: Feature) {
     const user = this.users.get(userId);
     if (!user) return { success: false, error: 'User not found' };
     
@@ -173,7 +208,7 @@ const mockDb = {
   },
   
   // Manage AI credits
-  manageCredits(userId, operation, amount = 0) {
+  manageCredits(userId: string, operation: 'add' | 'subtract' | 'check', amount = 0) {
     const user = this.users.get(userId);
     if (!user) return { success: false, error: 'User not found' };
     
@@ -196,7 +231,7 @@ const mockDb = {
   },
   
   // Use credits to access a feature beyond subscription limits
-  useCreditsForFeature(userId, feature, quantity = 1) {
+  useCreditsForFeature(userId: string, feature: Feature, quantity = 1) {
     const user = this.users.get(userId);
     if (!user) return { success: false, error: 'User not found' };
     

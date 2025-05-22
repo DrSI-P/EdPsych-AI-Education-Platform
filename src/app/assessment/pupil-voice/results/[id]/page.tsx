@@ -11,7 +11,7 @@ import { SimpleTabs  } from '@/components/ui/tabs';
 export default function PupilVoiceResultsPage() {
   const router = useRouter();
   const params = useParams();
-  const surveyId = params.id as string;
+  const surveyId = params ? params.id as string : '';
   
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -213,7 +213,7 @@ export default function PupilVoiceResultsPage() {
                 {(question.type === 'multiple_choice' || question.type === 'likert_scale' || 
                  question.type === 'emoji_scale' || question.type === 'yes_no') && (
                   <div className="space-y-3">
-                    {Object.entries(questionStats.optionCounts).sort((a, b) => b[1] - a[1]).map(([option, count]: [string, any]) => {
+                    {Object.entries(questionStats.optionCounts as Record<string, number>).sort((a, b) => b[1] - a[1]).map(([option, count]: [string, number]) => {
                       const percentage = (count / questionStats.responseCount) * 100;
                       
                       return (
@@ -342,7 +342,7 @@ export default function PupilVoiceResultsPage() {
   if (loading) {
     return (
       <div className="flex justify-centre items-centre min-h-screen">
-        <Spinner size="large" />
+        <Spinner size="lg" />
       </div>
     );
   }
@@ -350,7 +350,7 @@ export default function PupilVoiceResultsPage() {
   if (error) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <Alert type="error" className="mb-6">
+        <Alert variant="error" className="mb-6">
           {error}
         </Alert>
         <Button
@@ -365,7 +365,7 @@ export default function PupilVoiceResultsPage() {
   if (!survey) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <Alert type="error" className="mb-6">
+        <Alert variant="error" className="mb-6">
           Survey not found
         </Alert>
         <Button
@@ -392,7 +392,7 @@ export default function PupilVoiceResultsPage() {
           </div>
         </div>
         
-        <Alert type="info" className="mb-6">
+        <Alert variant="info" className="mb-6">
           No responses have been collected for this survey yet.
         </Alert>
       </div>

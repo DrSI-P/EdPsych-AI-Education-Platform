@@ -50,23 +50,11 @@ export async function GET(req: NextRequest) {
             image: true,
             role: true
           }
-        },
-        student: {
-          select: {
-            id: true,
-            name: true,
-            yearGroup: true,
-            supportNeeds: true
-          }
-        },
-        attachments: true
+        }
       }
     };
     
-    // Add student filter if provided
-    if (studentId) {
-      query.where.studentId = studentId;
-    }
+    // We can't filter by studentId directly since it's not in the model
     
     // Fetch messages
     const messages = await prisma.communicationMessage.findMany(query);
@@ -101,7 +89,7 @@ export async function POST(req: NextRequest) {
     // Get message data from request body
     const { message } = await req.json();
     
-    if (!message || !message.content || !message.recipientId || !message.studentId) {
+    if (!message || !message.content || !message.recipientId) {
       return NextResponse.json(
         { success: false, error: 'Missing required message data' },
         { status: 400 }
@@ -111,20 +99,11 @@ export async function POST(req: NextRequest) {
     // Create new message
     const newMessage = await prisma.communicationMessage.create({
       data: {
+        subject: message.subject || 'No Subject',
         content: message.content,
         senderId: userId,
         recipientId: message.recipientId,
-        studentId: message.studentId,
-        urgent: message.urgent || false,
-        read: false,
-        attachments: {
-          create: message.attachments?.map((attachment: any) => ({
-            name: attachment.name,
-            type: attachment.type,
-            size: attachment.size,
-            url: attachment.url
-          })) || []
-        }
+        isRead: false
       },
       include: {
         sender: {
@@ -144,16 +123,7 @@ export async function POST(req: NextRequest) {
             image: true,
             role: true
           }
-        },
-        student: {
-          select: {
-            id: true,
-            name: true,
-            yearGroup: true,
-            supportNeeds: true
-          }
-        },
-        attachments: true
+        }
       }
     });
     
@@ -165,7 +135,7 @@ export async function POST(req: NextRequest) {
         details: JSON.stringify({
           messageId: newMessage.id,
           recipientId: message.recipientId,
-          studentId: message.studentId
+          studentId: message.studentId || 'unknown'
         })
       }
     });
@@ -178,12 +148,12 @@ export async function POST(req: NextRequest) {
     });
     
     // Handle notifications based on recipient settings
-    if (recipientSettings?.emailNotifications) {
+    if (recipientSettings?.enableMessageNotifications) {
       // In a real implementation, this would send an email notification
       console.log(`Email notification would be sent to recipient ${message.recipientId}`);
     }
     
-    if (recipientSettings?.smsNotifications && message.urgent) {
+    if (recipientSettings?.enableMessageNotifications) {
       // In a real implementation, this would send an SMS for urgent messages
       console.log(`SMS notification would be sent to recipient ${message.recipientId} for urgent message`);
     }

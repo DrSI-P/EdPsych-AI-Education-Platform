@@ -20,12 +20,19 @@ export async function GET(req: NextRequest) {
       );
     }
 
-    // Get user's intervention settings
-    const interventionSettings = await prisma.personalizedInterventions.findUnique({
+    // Get user's intervention settings from LearningDifferenceProfile
+    const learningDifferenceProfile = await prisma.learningDifferenceProfile.findUnique({
       where: {
         userId: session.user.id
       }
     });
+    
+    // Extract intervention settings from the profile's settings field
+    const interventionSettings = learningDifferenceProfile?.settings
+      ? (typeof learningDifferenceProfile.settings === 'string'
+          ? JSON.parse(learningDifferenceProfile.settings)
+          : learningDifferenceProfile.settings)
+      : null;
 
     // If no settings exist yet, return default settings
     if (!interventionSettings) {
@@ -44,22 +51,17 @@ export async function GET(req: NextRequest) {
       });
     }
 
-    // Parse JSON fields
-    const targetAreas = interventionSettings.targetAreas 
-      ? JSON.parse(interventionSettings.targetAreas as string) 
-      : [];
-
     return NextResponse.json({
       success: true,
-      settings: {
-        enabled: interventionSettings.enabled,
-        learningProfile: interventionSettings.learningProfile,
-        interventionLevel: interventionSettings.interventionLevel,
-        targetAreas: targetAreas,
-        customStrategies: interventionSettings.customStrategies,
-        progressTracking: interventionSettings.progressTracking,
-        reminderFrequency: interventionSettings.reminderFrequency,
-        parentTeacherUpdates: interventionSettings.parentTeacherUpdates
+      settings: interventionSettings || {
+        enabled: false,
+        learningProfile: '',
+        interventionLevel: 'moderate',
+        targetAreas: [],
+        customStrategies: '',
+        progressTracking: true,
+        reminderFrequency: 'weekly',
+        parentTeacherUpdates: true
       }
     });
   } catch (error) {
@@ -113,35 +115,33 @@ export async function POST(req: NextRequest) {
         : true
     };
 
-    // Save settings to database (upsert to create or update)
-    const updatedSettings = await prisma.personalizedInterventions.upsert({
+    // Save settings to LearningDifferenceProfile
+    const updatedProfile = await prisma.learningDifferenceProfile.upsert({
       where: {
         userId: session.user.id
       },
-      update: validatedSettings,
+      update: {
+        settings: validatedSettings
+      },
       create: {
         userId: session.user.id,
-        ...validatedSettings
+        assessmentResults: {},
+        settings: validatedSettings
       }
     });
 
-    // Log the intervention creation/update for analytics
-    await prisma.interventionLog.create({
+    // Log the action in CommunicationLog since there's no interventionLog model
+    await prisma.communicationLog.create({
       data: {
         userId: session.user.id,
-        action: updatedSettings ? 'update' : 'create',
-        learningProfile: validatedSettings.learningProfile,
-        interventionLevel: validatedSettings.interventionLevel,
-        details: JSON.stringify(validatedSettings),
+        action: 'intervention_settings_update',
+        details: validatedSettings
       }
     });
 
     return NextResponse.json({
       success: true,
-      settings: {
-        ...validatedSettings,
-        targetAreas: JSON.parse(validatedSettings.targetAreas as string)
-      }
+      settings: validatedSettings
     });
   } catch (error) {
     console.error('Personalized interventions API error:', error);

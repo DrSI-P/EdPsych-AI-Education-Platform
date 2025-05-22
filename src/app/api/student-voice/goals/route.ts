@@ -264,7 +264,7 @@ export async function POST(request: NextRequest) {
         
         // In a real implementation, we would look up user details
         // For now, we'll use mock data
-        const authorDetails = {
+        const authorDetails: { [key: string]: { name: string; role: string } } = {
           "student123": { name: "Jamie Smith", role: "Student" },
           "teacher456": { name: "Ms. Johnson", role: "Teacher" },
           "parent789": { name: "Mr. Smith", role: "Parent" }

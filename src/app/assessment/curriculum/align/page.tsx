@@ -37,7 +37,7 @@ interface Assessment {
 export default function AlignAssessmentPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const standardId = searchParams.get('standard');
+  const standardId = searchParams ? searchParams.get('standard') : null;
   
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -78,7 +78,7 @@ export default function AlignAssessmentPage() {
           
           if (alignedResponse.ok) {
             const alignedData = await alignedResponse.json();
-            setSelectedAssessments(alignedData.map(a => a.id));
+            setSelectedAssessments(alignedData.map((a: { id: string }) => a.id));
           }
         }
       } catch (err) {
@@ -143,7 +143,11 @@ export default function AlignAssessmentPage() {
       router.push('/assessment/curriculum');
     } catch (err) {
       console.error('Error saving alignment:', err);
-      setError(err.message || 'An error occurred while saving the alignment');
+      setError(
+        err instanceof Error
+          ? err.message
+          : 'An error occurred while saving the alignment'
+      );
     } finally {
       setSaving(false);
     }
@@ -152,7 +156,7 @@ export default function AlignAssessmentPage() {
   if (loading) {
     return (
       <div className="flex justify-centre items-centre min-h-screen">
-        <Spinner size="large" />
+        <Spinner size="lg" />
       </div>
     );
   }
@@ -160,7 +164,7 @@ export default function AlignAssessmentPage() {
   if (!standard) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <Alert type="error">
+        <Alert variant="error">
           Curriculum standard not found or you don't have permission to access it.
         </Alert>
         <div className="mt-4">
@@ -314,7 +318,7 @@ export default function AlignAssessmentPage() {
               </div>
               
               {error && (
-                <Alert type="error" className="mt-4 w-full">
+                <Alert variant="error" className="mt-4 w-full">
                   {error}
                 </Alert>
               )}

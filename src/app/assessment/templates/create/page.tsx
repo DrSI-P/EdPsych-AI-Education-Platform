@@ -9,13 +9,23 @@ import { Spinner } from '@/components/ui/loading';
 import { SimpleTabs  } from '@/components/ui/tabs';
 import { Form } from '@/components/ui/form';
 
+interface Assessment {
+  id: string;
+  title: string;
+  description?: string;
+  subject: string;
+  keyStage: string;
+  type: string;
+  questions?: Array<any>;
+}
+
 export default function CreateAssessmentTemplatePage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [activeTab, setActiveTab] = useState('details');
-  const [assessments, setAssessments] = useState([]);
-  const [selectedAssessment, setSelectedAssessment] = useState(null);
+  const [assessments, setAssessments] = useState<Assessment[]>([]);
+  const [selectedAssessment, setSelectedAssessment] = useState<Assessment | null>(null);
   const [templateTitle, setTemplateTitle] = useState('');
   const [templateDescription, setTemplateDescription] = useState('');
   const [isPublic, setIsPublic] = useState(false);
@@ -41,7 +51,7 @@ export default function CreateAssessmentTemplatePage() {
     fetchAssessments();
   }, []);
 
-  const handleSelectAssessment = (assessment) => {
+  const handleSelectAssessment = (assessment: Assessment) => {
     setSelectedAssessment(assessment);
     setTemplateTitle(assessment.title);
     setTemplateDescription(assessment.description || '');
@@ -92,7 +102,11 @@ export default function CreateAssessmentTemplatePage() {
       router.push('/assessment/templates');
     } catch (err) {
       console.error('Error creating template:', err);
-      setError(err.message || 'An error occurred while creating the template');
+      setError(
+        err instanceof Error
+          ? err.message
+          : 'An error occurred while creating the template'
+      );
     } finally {
       setLoading(false);
     }
@@ -201,15 +215,18 @@ export default function CreateAssessmentTemplatePage() {
         ) : (
           <div className="space-y-4">
             {assessments.map((assessment) => (
-              <Card 
-                key={assessment.id} 
-                className={`cursor-pointer transition-all ${
-                  selectedAssessment?.id === assessment.id 
-                    ? 'border-indigo-500 ring-2 ring-indigo-200' 
-                    : 'hover:border-grey-300'
-                }`}
+              <div
+                key={assessment.id}
                 onClick={() => handleSelectAssessment(assessment)}
+                className="cursor-pointer"
               >
+                <Card
+                  className={`transition-all ${
+                    selectedAssessment?.id === assessment.id
+                      ? 'border-indigo-500 ring-2 ring-indigo-200'
+                      : 'hover:border-grey-300'
+                  }`}
+                >
                 <CardContent className="p-4">
                   <div className="flex justify-between items-start">
                     <div>
@@ -244,6 +261,7 @@ export default function CreateAssessmentTemplatePage() {
                   </div>
                 </CardContent>
               </Card>
+              </div>
             ))}
           </div>
         )}
@@ -265,7 +283,7 @@ export default function CreateAssessmentTemplatePage() {
         </div>
 
         {error && (
-          <Alert type="error" className="mt-4">
+          <Alert variant="error" className="mt-4">
             {error}
           </Alert>
         )}

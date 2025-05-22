@@ -77,10 +77,7 @@ export default function EducatorDashboardPage() {
       description: 'Customise your administrative automation preferences',
       icon: <Settings className="h-6 w-6" />,
       action: () => {
-        toast({
-          title: "Settings",
-          description: "Settings functionality will be available in a future update.",
-        });
+        toast("Settings functionality will be available in a future update.");
       }
     },
     {
@@ -88,10 +85,7 @@ export default function EducatorDashboardPage() {
       description: 'Access guides and tutorials for administrative automation',
       icon: <HelpCircle className="h-6 w-6" />,
       action: () => {
-        toast({
-          title: "Help & Resources",
-          description: "Help resources will be available in a future update.",
-        });
+        toast("Help resources will be available in a future update.");
       }
     }
   ];

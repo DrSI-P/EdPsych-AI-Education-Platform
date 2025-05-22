@@ -72,7 +72,7 @@ export default function AssessmentResultsPage() {
   useEffect(() => {
     const fetchAssessment = async () => {
       try {
-        const response = await fetch(`/api/assessment/${params.id}/results`);
+        const response = await fetch(`/api/assessment/${params ? params.id : ''}/results`);
         
         if (!response.ok) {
           throw new Error('Failed to fetch assessment results');
@@ -88,10 +88,10 @@ export default function AssessmentResultsPage() {
       }
     };
     
-    if (params.id) {
+    if (params && params.id) {
       fetchAssessment();
     }
-  }, [params.id]);
+  }, [params && params.id]);
 
   useEffect(() => {
     const fetchResponseDetails = async () => {
@@ -449,7 +449,7 @@ export default function AssessmentResultsPage() {
               <CardContent>
                 {responseLoading ? (
                   <div className="flex justify-centre py-8">
-                    <Spinner size="large" />
+                    <Spinner size="lg" />
                   </div>
                 ) : responseDetails ? (
                   <div className="space-y-6">
@@ -708,7 +708,7 @@ export default function AssessmentResultsPage() {
   if (loading) {
     return (
       <div className="flex justify-centre items-centre min-h-screen">
-        <Spinner size="large" />
+        <Spinner size="lg" />
       </div>
     );
   }
@@ -716,7 +716,7 @@ export default function AssessmentResultsPage() {
   if (error) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <Alert type="error" className="mb-6">
+        <Alert variant="error" className="mb-6">
           {error}
         </Alert>
         <Button onClick={() => router.back()}>
@@ -729,7 +729,7 @@ export default function AssessmentResultsPage() {
   if (!assessment) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <Alert type="error" className="mb-6">
+        <Alert variant="error" className="mb-6">
           Assessment not found
         </Alert>
         <Button onClick={() => router.push('/assessment')}>

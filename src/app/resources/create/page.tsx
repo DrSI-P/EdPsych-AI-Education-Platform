@@ -215,7 +215,7 @@ export default function CreateResource() {
               
               <TabsContent value="details" className="mt-6 space-y-6">
                 {formErrors.submit && (
-                  <Alert variant="destructive">
+                  <Alert variant="error">
                     <AlertCircle className="h-4 w-4" />
                     <AlertTitle>Error</AlertTitle>
                     <AlertDescription>{formErrors.submit}</AlertDescription>

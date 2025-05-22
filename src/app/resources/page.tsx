@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FormEvent } from 'react';
 import { useSession } from 'next-auth/react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -12,9 +12,25 @@ import { Pagination } from '@/components/ui/pagination';
 import { Search, Upload, BookOpen, Filter, Grid3X3, List } from 'lucide-react';
 import Link from 'next/link';
 
+// Define the resource type
+interface Resource {
+  id: string;
+  title: string;
+  description: string;
+  subject: string;
+  keyStage: string;
+  type: string;
+  author: string;
+  dateCreated: string;
+  thumbnail: string;
+  downloads: number;
+  rating: number;
+  tags: string[];
+}
+
 export default function ResourceLibrary() {
   const { data: session, status } = useSession();
-  const [resources, setResources] = useState([]);
+  const [resources, setResources] = useState<Resource[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -136,7 +152,7 @@ export default function ResourceLibrary() {
     fetchResources();
   }, [currentPage, searchQuery, selectedSubject, selectedKeyStage, selectedType]);
 
-  const handleSearch = (e) => {
+  const handleSearch = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setCurrentPage(1); // Reset to first page on new search
     // Search logic will be implemented with actual API
@@ -425,10 +441,10 @@ export default function ResourceLibrary() {
               {/* Pagination */}
               {!loading && filteredResources.length > 0 && (
                 <div className="flex justify-centre mt-8">
-                  <Pagination>
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
+                  <div className="flex items-center gap-4">
+                    <Button
+                      variant="outline"
+                      size="sm"
                       onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
                       disabled={currentPage === 1}
                     >
@@ -439,15 +455,15 @@ export default function ResourceLibrary() {
                         Page {currentPage} of {totalPages}
                       </span>
                     </div>
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
+                    <Button
+                      variant="outline"
+                      size="sm"
                       onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
                       disabled={currentPage === totalPages}
                     >
                       Next
                     </Button>
-                  </Pagination>
+                  </div>
                 </div>
               )}
             </TabsContent>

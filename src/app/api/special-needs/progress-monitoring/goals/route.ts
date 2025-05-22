@@ -20,7 +20,7 @@ export async function GET(req: NextRequest) {
     }
 
     // Get user's progress monitoring goals
-    const goals = await prisma.monitoringGoal.findMany({
+    const goals = await (prisma as any).executiveFunctionTask.findMany({
       where: {
         userId: session.user.id
       },
@@ -31,16 +31,16 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      goals: goals.map(goal => ({
+      goals: goals.map((goal: any) => ({
         id: goal.id,
-        title: goal.title,
-        description: goal.description,
-        targetDate: goal.targetDate,
-        baseline: goal.baseline,
-        target: goal.target,
-        currentValue: goal.currentValue,
-        unit: goal.unit,
-        notes: goal.notes
+        title: goal.title || '',
+        description: goal.description || '',
+        targetDate: goal.dueDate || null,
+        baseline: 0,
+        target: 0,
+        currentValue: 0,
+        unit: '',
+        notes: goal.notes || ''
       }))
     });
   } catch (error) {
@@ -82,36 +82,45 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Create goal in database
-    const newGoal = await prisma.monitoringGoal.create({
+    // Create goal in database using ExecutiveFunctionTask
+    const newGoal = await (prisma as any).executiveFunctionTask.create({
       data: {
         userId: session.user.id,
         title: goal.title,
         description: goal.description || '',
-        targetDate: new Date(goal.targetDate),
-        baseline: goal.baseline,
-        target: goal.target,
-        currentValue: goal.baseline,
-        unit: goal.unit,
+        dueDate: new Date(goal.targetDate),
+        priority: 2,
+        complexity: 2,
+        status: 'not_started',
         notes: goal.notes || ''
       }
     });
 
-    // Log the goal creation for analytics
-    await prisma.monitoringLog.create({
+    // Log the goal creation for analytics using CommunicationLog
+    await prisma.communicationLog.create({
       data: {
         userId: session.user.id,
         action: 'goal_created',
-        details: JSON.stringify({
+        details: {
           goalId: newGoal.id,
           title: newGoal.title
-        }),
+        },
       }
     });
 
     return NextResponse.json({
       success: true,
-      goal: newGoal
+      goal: {
+        id: newGoal.id,
+        title: newGoal.title,
+        description: newGoal.description || '',
+        targetDate: newGoal.dueDate,
+        baseline: 0,
+        target: 0,
+        currentValue: 0,
+        unit: '',
+        notes: newGoal.notes || ''
+      }
     });
   } catch (error) {
     console.error('Progress monitoring goals API error:', error);

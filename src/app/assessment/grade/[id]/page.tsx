@@ -88,7 +88,7 @@ export default function ManualGradingPage() {
     const fetchData = async () => {
       try {
         // Fetch the response with assessment and answers
-        const responseRes = await fetch(`/api/assessment/response/${params.id}`);
+        const responseRes = await fetch(`/api/assessment/response/${params?.id}`);
         
         if (!responseRes.ok) {
           throw new Error('Failed to fetch response');
@@ -132,10 +132,10 @@ export default function ManualGradingPage() {
       }
     };
     
-    if (params.id) {
+    if (params?.id) {
       fetchData();
     }
-  }, [params.id]);
+  }, [params?.id]);
 
   const handleScoreChange = (questionId: string, score: number) => {
     const question = assessment?.questions.find(q => q.id === questionId);
@@ -204,7 +204,7 @@ export default function ManualGradingPage() {
       setSaveSuccess(true);
       
       // Refresh response data
-      const updatedRes = await fetch(`/api/assessment/response/${params.id}`);
+      const updatedRes = await fetch(`/api/assessment/response/${params?.id}`);
       const updatedData = await updatedRes.json();
       setResponse(updatedData);
     } catch (err) {

@@ -2,7 +2,18 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import type { PupilVoiceSurvey } from '@/types/assessment';
+
+// Define the PupilVoiceSurvey type inline
+interface PupilVoiceSurvey {
+  id: string;
+  title: string;
+  description?: string;
+  status: 'draft' | 'active' | 'completed';
+  questionCount: number;
+  responseCount: number;
+  createdAt: string;
+  updatedAt: string;
+}
 import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Alert } from '@/components/ui/alert';

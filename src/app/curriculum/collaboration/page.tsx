@@ -18,17 +18,67 @@ import { format } from 'date-fns';
 import { CalendarIcon, Check, Clock, MessageSquare, Plus, Trash2, UserPlus, Users } from 'lucide-react';
 import Link from 'next/link';
 import { toast } from '@/components/ui/use-toast';
+import { SelectSingleEventHandler } from 'react-day-picker';
+
+// Define types for our data structures
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  image?: string;
+}
+
+interface Collaborator {
+  id: string;
+  user: User;
+  role: string;
+}
+
+interface Comment {
+  id: string;
+  content: string;
+  userId: string;
+  user: User;
+  createdAt: string;
+}
+
+interface Task {
+  id: string;
+  title: string;
+  description: string;
+  status: 'pending' | 'completed';
+  assignedTo?: User;
+  dueDate?: string;
+}
+
+interface Plan {
+  id: string;
+  title: string;
+  description: string;
+  subject: string;
+  keyStage: string;
+  status: string;
+  author: User;
+}
+
+interface CollaborationData {
+  plan: Plan;
+  collaborators: Collaborator[];
+  comments: Comment[];
+  tasks: Task[];
+  userRole: string;
+}
 
 export default function CurriculumCollaboration() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const planId = searchParams.get('planId');
+  const planId = searchParams ? searchParams.get('planId') : null;
   
   const [activeTab, setActiveTab] = useState('overview');
-  const [collaborationData, setCollaborationData] = useState(null);
+  const [collaborationData, setCollaborationData] = useState<CollaborationData | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
   
   // Form states
   const [newCollaboratorEmail, setNewCollaboratorEmail] = useState('');
@@ -37,7 +87,7 @@ export default function CurriculumCollaboration() {
   const [newTaskTitle, setNewTaskTitle] = useState('');
   const [newTaskDescription, setNewTaskDescription] = useState('');
   const [newTaskAssignee, setNewTaskAssignee] = useState('');
-  const [newTaskDueDate, setNewTaskDueDate] = useState(null);
+  const [newTaskDueDate, setNewTaskDueDate] = useState<Date | null>(null);
   const [isAddingCollaborator, setIsAddingCollaborator] = useState(false);
   const [isAddingTask, setIsAddingTask] = useState(false);
 
@@ -63,12 +113,9 @@ export default function CurriculumCollaboration() {
         const data = await response.json();
         setCollaborationData(data);
       } catch (err) {
-        setError(err.message);
-        toast({
-          title: 'Error',
-          description: err.message,
-          variant: 'destructive',
-        });
+        const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred';
+        setError(errorMessage);
+        toast(errorMessage);
       } finally {
         setLoading(false);
       }
@@ -78,15 +125,11 @@ export default function CurriculumCollaboration() {
   }, [planId, status, router]);
 
   // Handle adding a collaborator
-  const handleAddCollaborator = async (e) => {
+  const handleAddCollaborator = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!newCollaboratorEmail) {
-      toast({
-        title: 'Error',
-        description: 'Email is required',
-        variant: 'destructive',
-      });
+      toast('Email is required');
       return;
     }
     
@@ -112,30 +155,33 @@ export default function CurriculumCollaboration() {
       const data = await response.json();
       
       // Update local state
-      setCollaborationData(prev => ({
-        ...prev,
-        collaborators: [...prev.collaborators, data.collaborator],
-      }));
+      setCollaborationData((prev: CollaborationData | null) => {
+        if (!prev) return {
+          plan: data.plan,
+          collaborators: [data.collaborator],
+          comments: [],
+          tasks: [],
+          userRole: 'viewer'
+        };
+        return {
+          ...prev,
+          collaborators: [...prev.collaborators, data.collaborator],
+        };
+      });
       
       setNewCollaboratorEmail('');
       setNewCollaboratorRole('viewer');
       setIsAddingCollaborator(false);
       
-      toast({
-        title: 'Success',
-        description: `${data.collaborator.user.name || data.collaborator.user.email} added as a collaborator`,
-      });
+      toast(`${data.collaborator.user.name || data.collaborator.user.email} added as a collaborator`);
     } catch (err) {
-      toast({
-        title: 'Error',
-        description: err.message,
-        variant: 'destructive',
-      });
+      const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred';
+      toast(errorMessage);
     }
   };
 
   // Handle removing a collaborator
-  const handleRemoveCollaborator = async (userId) => {
+  const handleRemoveCollaborator = async (userId: string) => {
     try {
       const response = await fetch('/api/curriculum/collaboration', {
         method: 'POST',
@@ -155,34 +201,27 @@ export default function CurriculumCollaboration() {
       }
       
       // Update local state
-      setCollaborationData(prev => ({
-        ...prev,
-        collaborators: prev.collaborators.filter(c => c.user.id !== userId),
-      }));
+      setCollaborationData((prev: CollaborationData | null) => {
+        if (!prev) return prev;
+        return {
+          ...prev,
+          collaborators: prev.collaborators.filter((c: Collaborator) => c.user.id !== userId),
+        };
+      });
       
-      toast({
-        title: 'Success',
-        description: 'Collaborator removed',
-      });
+      toast('Collaborator removed');
     } catch (err) {
-      toast({
-        title: 'Error',
-        description: err.message,
-        variant: 'destructive',
-      });
+      const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred';
+      toast(errorMessage);
     }
   };
 
   // Handle adding a comment
-  const handleAddComment = async (e) => {
+  const handleAddComment = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!newComment.trim()) {
-      toast({
-        title: 'Error',
-        description: 'Comment cannot be empty',
-        variant: 'destructive',
-      });
+      toast('Comment cannot be empty');
       return;
     }
     
@@ -207,28 +246,31 @@ export default function CurriculumCollaboration() {
       const data = await response.json();
       
       // Update local state
-      setCollaborationData(prev => ({
-        ...prev,
-        comments: [data.comment, ...prev.comments],
-      }));
+      setCollaborationData((prev: CollaborationData | null) => {
+        if (!prev) return {
+          plan: data.plan,
+          collaborators: [],
+          comments: [data.comment],
+          tasks: [],
+          userRole: 'viewer'
+        };
+        return {
+          ...prev,
+          comments: [data.comment, ...prev.comments],
+        };
+      });
       
       setNewComment('');
       
-      toast({
-        title: 'Success',
-        description: 'Comment added',
-      });
+      toast('Comment added');
     } catch (err) {
-      toast({
-        title: 'Error',
-        description: err.message,
-        variant: 'destructive',
-      });
+      const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred';
+      toast(errorMessage);
     }
   };
 
   // Handle deleting a comment
-  const handleDeleteComment = async (commentId) => {
+  const handleDeleteComment = async (commentId: string) => {
     try {
       const response = await fetch('/api/curriculum/collaboration', {
         method: 'POST',
@@ -248,34 +290,27 @@ export default function CurriculumCollaboration() {
       }
       
       // Update local state
-      setCollaborationData(prev => ({
-        ...prev,
-        comments: prev.comments.filter(c => c.id !== commentId),
-      }));
+      setCollaborationData((prev: CollaborationData | null) => {
+        if (!prev) return prev;
+        return {
+          ...prev,
+          comments: prev.comments.filter((c: Comment) => c.id !== commentId),
+        };
+      });
       
-      toast({
-        title: 'Success',
-        description: 'Comment deleted',
-      });
+      toast('Comment deleted');
     } catch (err) {
-      toast({
-        title: 'Error',
-        description: err.message,
-        variant: 'destructive',
-      });
+      const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred';
+      toast(errorMessage);
     }
   };
 
   // Handle adding a task
-  const handleAddTask = async (e) => {
+  const handleAddTask = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!newTaskTitle || !newTaskDescription) {
-      toast({
-        title: 'Error',
-        description: 'Title and description are required',
-        variant: 'destructive',
-      });
+      toast('Title and description are required');
       return;
     }
     
@@ -303,10 +338,19 @@ export default function CurriculumCollaboration() {
       const data = await response.json();
       
       // Update local state
-      setCollaborationData(prev => ({
-        ...prev,
-        tasks: [data.task, ...prev.tasks],
-      }));
+      setCollaborationData((prev: CollaborationData | null) => {
+        if (!prev) return {
+          plan: data.plan,
+          collaborators: [],
+          comments: [],
+          tasks: [data.task],
+          userRole: 'viewer'
+        };
+        return {
+          ...prev,
+          tasks: [data.task, ...prev.tasks],
+        };
+      });
       
       setNewTaskTitle('');
       setNewTaskDescription('');
@@ -314,21 +358,15 @@ export default function CurriculumCollaboration() {
       setNewTaskDueDate(null);
       setIsAddingTask(false);
       
-      toast({
-        title: 'Success',
-        description: 'Task added',
-      });
+      toast('Task added');
     } catch (err) {
-      toast({
-        title: 'Error',
-        description: err.message,
-        variant: 'destructive',
-      });
+      const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred';
+      toast(errorMessage);
     }
   };
 
   // Handle updating a task status
-  const handleUpdateTaskStatus = async (taskId, newStatus) => {
+  const handleUpdateTaskStatus = async (taskId: string, newStatus: 'pending' | 'completed') => {
     try {
       const response = await fetch('/api/curriculum/collaboration', {
         method: 'POST',
@@ -351,26 +389,23 @@ export default function CurriculumCollaboration() {
       const data = await response.json();
       
       // Update local state
-      setCollaborationData(prev => ({
-        ...prev,
-        tasks: prev.tasks.map(t => t.id === taskId ? data.task : t),
-      }));
+      setCollaborationData((prev: CollaborationData | null) => {
+        if (!prev) return prev;
+        return {
+          ...prev,
+          tasks: prev.tasks.map((t: Task) => t.id === taskId ? data.task : t),
+        };
+      });
       
-      toast({
-        title: 'Success',
-        description: 'Task updated',
-      });
+      toast('Task updated');
     } catch (err) {
-      toast({
-        title: 'Error',
-        description: err.message,
-        variant: 'destructive',
-      });
+      const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred';
+      toast(errorMessage);
     }
   };
 
   // Handle deleting a task
-  const handleDeleteTask = async (taskId) => {
+  const handleDeleteTask = async (taskId: string) => {
     try {
       const response = await fetch('/api/curriculum/collaboration', {
         method: 'POST',
@@ -390,21 +425,18 @@ export default function CurriculumCollaboration() {
       }
       
       // Update local state
-      setCollaborationData(prev => ({
-        ...prev,
-        tasks: prev.tasks.filter(t => t.id !== taskId),
-      }));
+      setCollaborationData((prev: CollaborationData | null) => {
+        if (!prev) return prev;
+        return {
+          ...prev,
+          tasks: prev.tasks.filter((t: Task) => t.id !== taskId),
+        };
+      });
       
-      toast({
-        title: 'Success',
-        description: 'Task deleted',
-      });
+      toast('Task deleted');
     } catch (err) {
-      toast({
-        title: 'Error',
-        description: err.message,
-        variant: 'destructive',
-      });
+      const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred';
+      toast(errorMessage);
     }
   };
 
@@ -643,7 +675,7 @@ export default function CurriculumCollaboration() {
                     </div>
                     
                     {/* Collaborators */}
-                    {collaborators.map((collaborator) => (
+                    {collaborators.map((collaborator: Collaborator) => (
                       <div key={collaborator.id} className="flex items-center justify-between">
                         <div className="flex items-center">
                           <Avatar className="h-8 w-8 mr-2">
@@ -715,7 +747,7 @@ export default function CurriculumCollaboration() {
                     </p>
                   </div>
                 ) : (
-                  comments.map((comment) => (
+                  comments.map((comment: Comment) => (
                     <div key={comment.id} className="border rounded-lg p-4">
                       <div className="flex justify-between items-start">
                         <div className="flex items-center">
@@ -813,7 +845,7 @@ export default function CurriculumCollaboration() {
                             <SelectContent>
                               <SelectItem value="">Unassigned</SelectItem>
                               <SelectItem value={plan.author.id}>{plan.author.name}</SelectItem>
-                              {collaborators.map((collaborator) => (
+                              {collaborators.map((collaborator: Collaborator) => (
                                 <SelectItem key={collaborator.user.id} value={collaborator.user.id}>
                                   {collaborator.user.name}
                                 </SelectItem>
@@ -838,8 +870,8 @@ export default function CurriculumCollaboration() {
                             <PopoverContent className="w-auto p-0">
                               <Calendar
                                 mode="single"
-                                selected={newTaskDueDate}
-                                onSelect={setNewTaskDueDate}
+                                selected={newTaskDueDate || undefined}
+                                onSelect={(date: Date | undefined) => setNewTaskDueDate(date || null)}
                                 initialFocus
                               />
                             </PopoverContent>
@@ -872,12 +904,12 @@ export default function CurriculumCollaboration() {
                     {/* Pending Tasks */}
                     <div>
                       <h3 className="font-medium mb-3">Pending Tasks</h3>
-                      {tasks.filter(t => t.status === 'pending').length === 0 ? (
+                      {tasks.filter((t: Task) => t.status === 'pending').length === 0 ? (
                         <p className="text-sm text-muted-foreground">No pending tasks</p>
                       ) : (
                         tasks
-                          .filter(t => t.status === 'pending')
-                          .map((task) => (
+                          .filter((t: Task) => t.status === 'pending')
+                          .map((task: Task) => (
                             <div key={task.id} className="border rounded-lg p-4 mb-3">
                               <div className="flex justify-between items-start">
                                 <div>
@@ -931,12 +963,12 @@ export default function CurriculumCollaboration() {
                     {/* Completed Tasks */}
                     <div>
                       <h3 className="font-medium mb-3">Completed Tasks</h3>
-                      {tasks.filter(t => t.status === 'completed').length === 0 ? (
+                      {tasks.filter((t: Task) => t.status === 'completed').length === 0 ? (
                         <p className="text-sm text-muted-foreground">No completed tasks</p>
                       ) : (
                         tasks
-                          .filter(t => t.status === 'completed')
-                          .map((task) => (
+                          .filter((t: Task) => t.status === 'completed')
+                          .map((task: Task) => (
                             <div key={task.id} className="border rounded-lg p-4 mb-3 bg-muted/30">
                               <div className="flex justify-between items-start">
                                 <div>

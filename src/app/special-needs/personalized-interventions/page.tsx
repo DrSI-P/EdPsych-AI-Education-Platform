@@ -8,17 +8,34 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Sparkles, Info, BookOpen, AlertTriangle, Lightbulb, GraduationCap, FileText } from "lucide-react";
 
+// Define the type for intervention settings
+interface InterventionSettings {
+  enabled: boolean;
+  learningProfile: string;
+  interventionLevel: string;
+  targetAreas: string[];
+  customStrategies: string;
+  progressTracking: boolean;
+  reminderFrequency: string;
+  parentTeacherUpdates: boolean;
+}
+
 export default function PersonalizedInterventionsPage() {
-  const [settings, setSettings] = useState({
+  const [settings, setSettings] = useState<InterventionSettings>({
     enabled: false,
     learningProfile: '',
     interventionLevel: 'moderate',
-    targetAreas: [],
+    targetAreas: [] as string[],
     customStrategies: '',
     progressTracking: true,
     reminderFrequency: 'weekly',
     parentTeacherUpdates: true
   });
+  
+  // Create a handler function to update settings
+  const handleSettingsChange = (newSettings: InterventionSettings) => {
+    setSettings(newSettings);
+  };
   
   return (
     <div className="container mx-auto py-8 px-4">
@@ -35,10 +52,11 @@ export default function PersonalizedInterventionsPage() {
       
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
-          <PersonalizedInterventionsEngine 
-            onSettingsChange={setSettings}
-            className="mb-8"
-          />
+          <div className="mb-8">
+            <PersonalizedInterventionsEngine
+              onSettingsChange={handleSettingsChange}
+            />
+          </div>
           
           <Alert className="mb-8">
             <Info className="h-4 w-4" />

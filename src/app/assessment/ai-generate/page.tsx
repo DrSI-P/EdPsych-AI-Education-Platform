@@ -13,6 +13,30 @@ interface AIAssessmentGeneratorProps {
   // Props can be added as needed
 }
 
+// Define the type for the generated assessment
+interface GeneratedAssessment {
+  id?: string;
+  title: string;
+  description: string;
+  subject: string;
+  keyStage: string;
+  type: string;
+  questions: Array<{
+    id?: string;
+    content: string;
+    type: string;
+    options?: Array<{
+      text: string;
+      isCorrect: boolean;
+    }>;
+    pairs?: Array<{
+      left: string;
+      right: string;
+    }>;
+    answer?: string;
+  }>;
+}
+
 export default function AIAssessmentGeneratorPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -24,7 +48,7 @@ export default function AIAssessmentGeneratorPage() {
   const [keyStage, setKeyStage] = useState('');
   const [questionCount, setQuestionCount] = useState(10);
   const [assessmentType, setAssessmentType] = useState('quiz');
-  const [generatedAssessment, setGeneratedAssessment] = useState(null);
+  const [generatedAssessment, setGeneratedAssessment] = useState<GeneratedAssessment | null>(null);
   const [previewMode, setPreviewMode] = useState(false);
 
   const subjects = [
@@ -64,8 +88,11 @@ export default function AIAssessmentGeneratorPage() {
     { value: 'matching', label: 'Matching' },
     { value: 'file-upload', label: 'File Upload' },
   ];
+  
+  // Define type for question type values
+  type QuestionType = 'multiple-choice' | 'open-ended' | 'matching' | 'file-upload';
 
-  const [selectedQuestionTypes, setSelectedQuestionTypes] = useState(['multiple-choice', 'open-ended']);
+  const [selectedQuestionTypes, setSelectedQuestionTypes] = useState<QuestionType[]>(['multiple-choice', 'open-ended']);
 
   const handleGenerateAssessment = async () => {
     setGenerating(true);
@@ -101,7 +128,11 @@ export default function AIAssessmentGeneratorPage() {
       setActiveTab('preview');
     } catch (err) {
       console.error('Error generating assessment:', err);
-      setError(err.message || 'An error occurred while generating the assessment');
+      setError(
+        err instanceof Error
+          ? err.message
+          : 'An error occurred while generating the assessment'
+      );
     } finally {
       setGenerating(false);
     }
@@ -132,13 +163,17 @@ export default function AIAssessmentGeneratorPage() {
       router.push(`/assessment/edit/${data.id}`);
     } catch (err) {
       console.error('Error saving assessment:', err);
-      setError(err.message || 'An error occurred while saving the assessment');
+      setError(
+        err instanceof Error
+          ? err.message
+          : 'An error occurred while saving the assessment'
+      );
     } finally {
       setLoading(false);
     }
   };
 
-  const handleToggleQuestionType = (type) => {
+  const handleToggleQuestionType = (type: QuestionType) => {
     if (selectedQuestionTypes.includes(type)) {
       setSelectedQuestionTypes(selectedQuestionTypes.filter(t => t !== type));
     } else {
@@ -242,8 +277,8 @@ export default function AIAssessmentGeneratorPage() {
                         id={`question-type-${type.value}`}
                         type="checkbox"
                         className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-grey-300 rounded"
-                        checked={selectedQuestionTypes.includes(type.value)}
-                        onChange={() => handleToggleQuestionType(type.value)}
+                        checked={selectedQuestionTypes.includes(type.value as QuestionType)}
+                        onChange={() => handleToggleQuestionType(type.value as QuestionType)}
                       />
                       <label htmlFor={`question-type-${type.value}`} className="ml-2 block text-sm text-grey-900">
                         {type.label}
@@ -295,7 +330,7 @@ export default function AIAssessmentGeneratorPage() {
         </div>
 
         {error && (
-          <Alert type="error" className="mt-4">
+          <Alert variant="error" className="mt-4">
             {error}
           </Alert>
         )}
@@ -437,7 +472,7 @@ export default function AIAssessmentGeneratorPage() {
         </div>
         
         {error && (
-          <Alert type="error" className="mt-4">
+          <Alert variant="error" className="mt-4">
             {error}
           </Alert>
         )}

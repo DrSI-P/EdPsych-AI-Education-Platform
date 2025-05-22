@@ -30,7 +30,9 @@ export default function InterventionAnalyticsPage() {
         </TabsList>
         
         <TabsContent value="analytics" className="space-y-6">
-          <InterventionAnalyticsEngine className="w-full" />
+          <div className="w-full">
+            <InterventionAnalyticsEngine />
+          </div>
         </TabsContent>
         
         <TabsContent value="about" className="space-y-6">

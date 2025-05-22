@@ -632,10 +632,10 @@ export default function PersonalizedLearningPathwaysPage() {
                           <span className="text-sm font-medium text-primary">{index + 1}</span>
                         </div>
                         
-                        <Card 
-                          className={`border ${selectedModule === module.id ? 'border-primary' : ''} transition-colors`}
-                          onClick={() => setSelectedModule(module.id)}
-                        >
+                        <div onClick={() => setSelectedModule(module.id)} className="cursor-pointer">
+                          <Card
+                            className={`border ${selectedModule === module.id ? 'border-primary' : ''} transition-colors`}
+                          >
                           <CardContent className="p-4">
                             <div className="flex flex-col md:flex-row md:items-centre justify-between gap-4">
                               <div>
@@ -743,6 +743,7 @@ export default function PersonalizedLearningPathwaysPage() {
                             )}
                           </CardContent>
                         </Card>
+                        </div>
                       </div>
                     );
                   })}

@@ -149,7 +149,7 @@ export default function CurriculumAlignmentPage() {
     if (loading) {
       return (
         <div className="flex justify-centre items-centre py-12">
-          <Spinner size="large" />
+          <Spinner size="lg" />
         </div>
       );
     }
@@ -239,7 +239,7 @@ export default function CurriculumAlignmentPage() {
       </div>
 
       {error && (
-        <Alert type="error" className="mb-6">
+        <Alert variant="error" className="mb-6">
           {error}
         </Alert>
       )}

@@ -344,32 +344,43 @@ export default function TermsOfServicePage() {
       >
         <h2 className="text-2xl font-semibold mb-6">Frequently Asked Questions</h2>
         
-        <Accordion type="single" collapsible className="w-full">
-          <AccordionItem value="item-1">
-            <AccordionTrigger>How often are these Terms updated?</AccordionTrigger>
-            <AccordionContent>
-              We review our Terms of Service periodically to ensure they remain current with our services and applicable laws. Any material changes will be communicated to users at least 30 days before they take effect.
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="item-2">
-            <AccordionTrigger>What happens to my data if I delete my account?</AccordionTrigger>
-            <AccordionContent>
-              When you delete your account, we will remove your personal information from our active databases. However, some information may be retained for legal, administrative, or security purposes. Please refer to our Privacy Policy for more details on data retention.
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="item-3">
-            <AccordionTrigger>Can I use EdPsych Connect for commercial purposes?</AccordionTrigger>
-            <AccordionContent>
-              EdPsych Connect is primarily designed for educational use. Commercial use requires specific licensing agreements. Please contact our team at business@edpsychconnect.com to discuss commercial licensing options.
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="item-4">
-            <AccordionTrigger>How do I report content that violates these Terms?</AccordionTrigger>
-            <AccordionContent>
-              If you encounter content that violates our Terms of Service, please report it immediately by using the "Report" feature within the platform or by contacting our support team at support@edpsychconnect.com.
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
+        <div className="space-y-4">
+          <Card>
+            <CardContent className="p-4">
+              <div className="font-medium mb-2">How often are these Terms updated?</div>
+              <div className="text-muted-foreground">
+                We review our Terms of Service periodically to ensure they remain current with our services and applicable laws. Any material changes will be communicated to users at least 30 days before they take effect.
+              </div>
+            </CardContent>
+          </Card>
+          
+          <Card>
+            <CardContent className="p-4">
+              <div className="font-medium mb-2">What happens to my data if I delete my account?</div>
+              <div className="text-muted-foreground">
+                When you delete your account, we will remove your personal information from our active databases. However, some information may be retained for legal, administrative, or security purposes. Please refer to our Privacy Policy for more details on data retention.
+              </div>
+            </CardContent>
+          </Card>
+          
+          <Card>
+            <CardContent className="p-4">
+              <div className="font-medium mb-2">Can I use EdPsych Connect for commercial purposes?</div>
+              <div className="text-muted-foreground">
+                EdPsych Connect is primarily designed for educational use. Commercial use requires specific licensing agreements. Please contact our team at business@edpsychconnect.com to discuss commercial licensing options.
+              </div>
+            </CardContent>
+          </Card>
+          
+          <Card>
+            <CardContent className="p-4">
+              <div className="font-medium mb-2">How do I report content that violates these Terms?</div>
+              <div className="text-muted-foreground">
+                If you encounter content that violates our Terms of Service, please report it immediately by using the "Report" feature within the platform or by contacting our support team at support@edpsychconnect.com.
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       </motion.div>
     </div>
   );

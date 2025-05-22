@@ -29,14 +29,11 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({
         success: true,
         settings: {
-          emailNotifications: true,
-          smsNotifications: false,
-          autoTranslate: false,
-          privacyMode: true,
-          reminderFrequency: 'weekly',
-          messageTemplate: true,
-          readReceipts: true,
-          urgentFlagging: true
+          preferredMethod: 'email',
+          notificationFrequency: 'daily',
+          enableMessageNotifications: true,
+          enableMeetingNotifications: true,
+          enableReportNotifications: true
         },
       });
     }
@@ -45,14 +42,11 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({
       success: true,
       settings: {
-        emailNotifications: settings.emailNotifications,
-        smsNotifications: settings.smsNotifications,
-        autoTranslate: settings.autoTranslate,
-        privacyMode: settings.privacyMode,
-        reminderFrequency: settings.reminderFrequency,
-        messageTemplate: settings.messageTemplate,
-        readReceipts: settings.readReceipts,
-        urgentFlagging: settings.urgentFlagging
+        preferredMethod: settings.preferredMethod,
+        notificationFrequency: settings.notificationFrequency,
+        enableMessageNotifications: settings.enableMessageNotifications,
+        enableMeetingNotifications: settings.enableMeetingNotifications,
+        enableReportNotifications: settings.enableReportNotifications
       },
     });
   } catch (error) {
@@ -94,26 +88,19 @@ export async function POST(req: NextRequest) {
         userId: userId,
       },
       update: {
-        emailNotifications: settings.emailNotifications !== undefined ? settings.emailNotifications : true,
-        smsNotifications: settings.smsNotifications !== undefined ? settings.smsNotifications : false,
-        autoTranslate: settings.autoTranslate !== undefined ? settings.autoTranslate : false,
-        privacyMode: settings.privacyMode !== undefined ? settings.privacyMode : true,
-        reminderFrequency: settings.reminderFrequency || 'weekly',
-        messageTemplate: settings.messageTemplate !== undefined ? settings.messageTemplate : true,
-        readReceipts: settings.readReceipts !== undefined ? settings.readReceipts : true,
-        urgentFlagging: settings.urgentFlagging !== undefined ? settings.urgentFlagging : true,
-        updatedAt: new Date(),
+        preferredMethod: settings.preferredMethod || 'email',
+        notificationFrequency: settings.notificationFrequency || 'daily',
+        enableMessageNotifications: settings.enableMessageNotifications !== undefined ? settings.enableMessageNotifications : true,
+        enableMeetingNotifications: settings.enableMeetingNotifications !== undefined ? settings.enableMeetingNotifications : true,
+        enableReportNotifications: settings.enableReportNotifications !== undefined ? settings.enableReportNotifications : true,
       },
       create: {
         userId: userId,
-        emailNotifications: settings.emailNotifications !== undefined ? settings.emailNotifications : true,
-        smsNotifications: settings.smsNotifications !== undefined ? settings.smsNotifications : false,
-        autoTranslate: settings.autoTranslate !== undefined ? settings.autoTranslate : false,
-        privacyMode: settings.privacyMode !== undefined ? settings.privacyMode : true,
-        reminderFrequency: settings.reminderFrequency || 'weekly',
-        messageTemplate: settings.messageTemplate !== undefined ? settings.messageTemplate : true,
-        readReceipts: settings.readReceipts !== undefined ? settings.readReceipts : true,
-        urgentFlagging: settings.urgentFlagging !== undefined ? settings.urgentFlagging : true,
+        preferredMethod: settings.preferredMethod || 'email',
+        notificationFrequency: settings.notificationFrequency || 'daily',
+        enableMessageNotifications: settings.enableMessageNotifications !== undefined ? settings.enableMessageNotifications : true,
+        enableMeetingNotifications: settings.enableMeetingNotifications !== undefined ? settings.enableMeetingNotifications : true,
+        enableReportNotifications: settings.enableReportNotifications !== undefined ? settings.enableReportNotifications : true,
       },
     });
     

@@ -133,7 +133,7 @@ export default function VoiceInputTestPage() {
             <div>
               <h2 className="text-xl font-bold mb-4">Voice Input Component</h2>
               
-              <TabsContent value="universal" className="mt-0" forceMount={activeTab === 'universal'}>
+              <TabsContent value="universal" className="mt-0" {...(activeTab === 'universal' ? { forceMount: true } : {})}>
                 {activeTab === 'universal' && (
                   <UniversalVoiceInput 
                     onTranscriptChange={handleTranscriptChange}
@@ -146,7 +146,7 @@ export default function VoiceInputTestPage() {
                 )}
               </TabsContent>
               
-              <TabsContent value="assessment" className="mt-0" forceMount={activeTab === 'assessment'}>
+              <TabsContent value="assessment" className="mt-0" {...(activeTab === 'assessment' ? { forceMount: true } : {})}>
                 {activeTab === 'assessment' && (
                   <AssessmentVoiceInput 
                     onTranscriptChange={handleTranscriptChange}
@@ -158,7 +158,7 @@ export default function VoiceInputTestPage() {
                 )}
               </TabsContent>
               
-              <TabsContent value="adaptive" className="mt-0" forceMount={activeTab === 'adaptive'}>
+              <TabsContent value="adaptive" className="mt-0" {...(activeTab === 'adaptive' ? { forceMount: true } : {})}>
                 {activeTab === 'adaptive' && (
                   <AdaptiveComplexityVoiceInput 
                     onTranscriptChange={handleTranscriptChange}

@@ -95,17 +95,17 @@ export default function UKEducationalCompliance() {
                 </Button>
               </div>
 
-              <Accordion type="single" collapsible className="w-full">
+              <div className="space-y-4">
                 {selectedKeyStage === "ks2" && (
                   <>
-                    <AccordionItem value="item-1">
-                      <AccordionTrigger>
-                        <div className="flex items-centre">
+                    <Card>
+                      <CardHeader className="py-3">
+                        <CardTitle className="text-base flex items-centre">
                           <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
                           <span>Reading - Word Reading</span>
-                        </div>
-                      </AccordionTrigger>
-                      <AccordionContent>
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent>
                         <div className="space-y-4 pl-6">
                           <div className="flex items-centre justify-between">
                             <div className="flex-1">
@@ -129,16 +129,16 @@ export default function UKEducationalCompliance() {
                             </div>
                           </div>
                         </div>
-                      </AccordionContent>
-                    </AccordionItem>
-                    <AccordionItem value="item-2">
-                      <AccordionTrigger>
-                        <div className="flex items-centre">
+                      </CardContent>
+                    </Card>
+                    <Card>
+                      <CardHeader className="py-3">
+                        <CardTitle className="text-base flex items-centre">
                           <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
                           <span>Reading - Comprehension</span>
-                        </div>
-                      </AccordionTrigger>
-                      <AccordionContent>
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent>
                         <div className="space-y-4 pl-6">
                           <div className="flex items-centre justify-between">
                             <div className="flex-1">
@@ -173,16 +173,16 @@ export default function UKEducationalCompliance() {
                             </div>
                           </div>
                         </div>
-                      </AccordionContent>
-                    </AccordionItem>
-                    <AccordionItem value="item-3">
-                      <AccordionTrigger>
-                        <div className="flex items-centre">
+                      </CardContent>
+                    </Card>
+                    <Card>
+                      <CardHeader className="py-3">
+                        <CardTitle className="text-base flex items-centre">
                           <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
                           <span>Writing - Transcription</span>
-                        </div>
-                      </AccordionTrigger>
-                      <AccordionContent>
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent>
                         <div className="space-y-4 pl-6">
                           <div className="flex items-centre justify-between">
                             <div className="flex-1">
@@ -206,16 +206,16 @@ export default function UKEducationalCompliance() {
                             </div>
                           </div>
                         </div>
-                      </AccordionContent>
-                    </AccordionItem>
-                    <AccordionItem value="item-4">
-                      <AccordionTrigger>
-                        <div className="flex items-centre">
+                      </CardContent>
+                    </Card>
+                    <Card>
+                      <CardHeader className="py-3">
+                        <CardTitle className="text-base flex items-centre">
                           <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
                           <span>Writing - Composition</span>
-                        </div>
-                      </AccordionTrigger>
-                      <AccordionContent>
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent>
                         <div className="space-y-4 pl-6">
                           <div className="flex items-centre justify-between">
                             <div className="flex-1">
@@ -239,16 +239,16 @@ export default function UKEducationalCompliance() {
                             </div>
                           </div>
                         </div>
-                      </AccordionContent>
-                    </AccordionItem>
-                    <AccordionItem value="item-5">
-                      <AccordionTrigger>
-                        <div className="flex items-centre">
+                      </CardContent>
+                    </Card>
+                    <Card>
+                      <CardHeader className="py-3">
+                        <CardTitle className="text-base flex items-centre">
                           <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
                           <span>Grammar and Punctuation</span>
-                        </div>
-                      </AccordionTrigger>
-                      <AccordionContent>
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent>
                         <div className="space-y-4 pl-6">
                           <div className="flex items-centre justify-between">
                             <div className="flex-1">
@@ -272,11 +272,11 @@ export default function UKEducationalCompliance() {
                             </div>
                           </div>
                         </div>
-                      </AccordionContent>
-                    </AccordionItem>
+                      </CardContent>
+                    </Card>
                   </>
                 )}
-              </Accordion>
+              </div>
             </CardContent>
             <CardFooter>
               <Button variant="outline" className="w-full">

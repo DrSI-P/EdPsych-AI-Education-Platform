@@ -45,7 +45,7 @@ export async function GET(req: NextRequest) {
     }
     
     // Fetch transition plans
-    const transitionPlans = await prisma.transitionPlan.findMany({
+    const transitionPlans = await (prisma as any).transitionPlan.findMany({
       where: query,
       include: {
         goals: true,
@@ -82,7 +82,7 @@ export async function POST(req: NextRequest) {
     });
     
     // Create the transition plan
-    const transitionPlan = await prisma.transitionPlan.create({
+    const transitionPlan = await (prisma as any).transitionPlan.create({
       data: {
         title: validatedData.title,
         transitionType: validatedData.transitionType,

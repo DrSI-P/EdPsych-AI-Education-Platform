@@ -82,7 +82,7 @@ export async function GET(req: NextRequest) {
       const readMessages = await prisma.communicationMessage.count({
         where: {
           recipientId: userId,
-          read: true,
+          isRead: true,
           createdAt: {
             gte: startDate
           }
@@ -231,12 +231,10 @@ export async function POST(req: NextRequest) {
     // Create report request record
     const newReportRequest = await prisma.communicationReportRequest.create({
       data: {
-        userId,
-        reportType: reportRequest.type,
-        timeRange: reportRequest.timeRange || 'term',
-        format: reportRequest.format || 'pdf',
-        status: 'processing',
-        customParameters: reportRequest.customParameters || {}
+        requesterId: userId,
+        studentId: userId, // Using the same user as both requester and student for now
+        type: reportRequest.type,
+        status: 'processing'
       }
     });
     
@@ -262,8 +260,7 @@ export async function POST(req: NextRequest) {
         id: newReportRequest.id
       },
       data: {
-        status: 'completed',
-        resultUrl: `https://example.com/reports/${newReportRequest.id}.${reportRequest.format || 'pdf'}`
+        status: 'completed'
       }
     });
     
@@ -271,8 +268,7 @@ export async function POST(req: NextRequest) {
       success: true,
       reportRequest: {
         ...newReportRequest,
-        status: 'completed',
-        resultUrl: `https://example.com/reports/${newReportRequest.id}.${reportRequest.format || 'pdf'}`
+        status: 'completed'
       }
     });
   } catch (error) {

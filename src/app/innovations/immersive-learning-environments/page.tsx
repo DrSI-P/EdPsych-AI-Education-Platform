@@ -173,7 +173,7 @@ export default function ImmersiveLearningEnvironmentsPage() {
       particles.forEach(particle => {
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
-        ctx.fillStyle = particle.colour;
+        ctx.fillStyle = particle.color;
         ctx.globalAlpha = 0.6;
         ctx.fill();
         
