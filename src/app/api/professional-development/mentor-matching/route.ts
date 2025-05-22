@@ -280,9 +280,8 @@ async function handleRespondToRequest(body: any) {
       await prisma.cPDActivity.create({
         data: {
           userId: request.mentorId,
-          title: `Mentorship with ${request.menteeId}`,
+          title: `Mentorship with ${request.menteeId} - Providing mentorship focusing on ${request.focusAreas.join(', ')}`,
           type: 'Mentorship',
-          description: `Providing mentorship focusing on ${request.focusAreas.join(', ')}`,
           date: startDate.toISOString(),
           duration: 0, // Will be updated as meetings occur
           status: 'In Progress',
@@ -296,9 +295,8 @@ async function handleRespondToRequest(body: any) {
       await prisma.cPDActivity.create({
         data: {
           userId: request.menteeId,
-          title: `Mentorship with ${request.mentorId}`,
+          title: `Mentorship with ${request.mentorId} - Receiving mentorship focusing on ${request.focusAreas.join(', ')}`,
           type: 'Mentorship',
-          description: `Receiving mentorship focusing on ${request.focusAreas.join(', ')}`,
           date: startDate.toISOString(),
           duration: 0, // Will be updated as meetings occur
           status: 'In Progress',
