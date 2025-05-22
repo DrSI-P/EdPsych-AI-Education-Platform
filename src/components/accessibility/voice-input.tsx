@@ -119,10 +119,8 @@ export default function VoiceInput() {
         console.error('Speech recognition error:', error);
         setIsLoading(false);
         setIsListening(false);
-        toast({
-          title: 'Speech Recognition Error',
-          description: `An error occurred: ${error}`,
-          variant: 'destructive'
+        toast('Speech Recognition Error', {
+          description: `An error occurred: ${error}`
         });
       }
     );
