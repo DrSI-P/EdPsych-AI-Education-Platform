@@ -1,0 +1,6 @@
+
+# This is a manually created migration.toml file
+# It marks this migration as applied without running the SQL
+
+migration_name = "20250522_add_mentorship_and_portfolio_models"
+applied_steps_count = 1
