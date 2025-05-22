@@ -175,8 +175,7 @@ export default function AccessibilitySettings() {
     
     localStorage.setItem('accessibility-settings', JSON.stringify(settings));
     
-    toast({
-      title: "Settings Saved",
+    toast("Settings Saved", {
       description: "Your accessibility settings have been saved.",
       duration: 3000,
     });
@@ -234,8 +233,7 @@ export default function AccessibilitySettings() {
     
     localStorage.removeItem('accessibility-settings');
     
-    toast({
-      title: "Settings Reset",
+    toast("Settings Reset", {
       description: "Your accessibility settings have been reset to defaults.",
       duration: 3000,
     });
