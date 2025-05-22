@@ -64,9 +64,9 @@ export async function GET(request: Request) {
     const userId = session.user.id;
     
     // Determine which data to fetch based on type
-    let messages = [];
-    let meetings = [];
-    let reports = [];
+    let messages: any[] = [];
+    let meetings: any[] = [];
+    let reports: any[] = [];
     
     if (type === 'all' || type === 'messages') {
       // Fetch messages
