@@ -197,7 +197,7 @@ async function handleRequestMentorship(body: any) {
         goals: requestData.goals,
         duration: requestData.duration,
         frequency: requestData.frequency,
-        status: 'pending',
+        status: 'pending' as 'pending' | 'accepted' | 'declined',
         createdAt: new Date()
       }
     });
@@ -262,13 +262,13 @@ async function handleRespondToRequest(body: any) {
         data: {
           mentorId: request.mentorId,
           menteeId: request.menteeId,
-          status: 'active',
+          status: 'active' as 'active' | 'pending' | 'completed' | 'declined',
           startDate: startDate.toISOString(),
           endDate: endDate.toISOString(),
           focusAreas: request.focusAreas,
           goals: request.goals.map(goal => ({
             text: goal,
-            status: 'not_started'
+            status: 'not_started' as 'not_started' | 'in_progress' | 'completed'
           })),
           frequency: request.frequency,
           requestId: requestId,

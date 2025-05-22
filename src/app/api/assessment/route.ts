@@ -71,7 +71,7 @@ export async function POST(request: NextRequest) {
         showResults,
         randomizeQuestions,
         allowRetakes,
-        status: 'draft',
+        status: 'draft' as 'draft' | 'published' | 'archived',
         creator: {
           connect: { id: session.user.id },
         },
