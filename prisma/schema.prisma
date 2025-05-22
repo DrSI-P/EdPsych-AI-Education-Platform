@@ -97,6 +97,7 @@ model User {
   cpdGoals              CPDGoal[]                  // Relation to CPD goals
   cpdReflections        CPDReflection[]            // Relation to CPD reflections
   cpdEvidence           CPDEvidence[]              // Relation to CPD evidence
+  courseProgress        CourseProgress[]           // Relation to course progress
   
   // New relations for Mentorship models
   mentorProfile         MentorProfile?
@@ -267,6 +268,7 @@ model Course {
   enrollments       Enrollment[]
   progressReports   ProgressReport[]
   assessments       Assessment[]
+  courseProgress    CourseProgress[]
 }
 
 model Lesson {
