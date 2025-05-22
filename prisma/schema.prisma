@@ -128,6 +128,8 @@ model User {
   reflectionPrompts     ReflectionPrompt[]     // Relation to reflection prompts
   trainingProgress      RestorativeTrainingProgress[] // Relation to training progress
   learningDifferenceProfile LearningDifferenceProfile?
+  mindfulnessSettings   MindfulnessSettings?   // Relation to mindfulness settings
+  mindfulnessLogs       MindfulnessLog[]       // Relation to mindfulness logs
 }
 
 model VerificationToken {
@@ -1559,6 +1561,26 @@ model TeachingResource {
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
   author            User     @relation(fields: [authorId], references: [id])
+}
+
+// Mindfulness Models
+model MindfulnessSettings {
+  id                String   @id @default(cuid())
+  userId            String   @unique
+  preferences       Json
+  favoriteActivities Json
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model MindfulnessLog {
+  id                String   @id @default(cuid())
+  userId            String
+  action            String
+  details           Json
+  timestamp         DateTime @default(now())
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 // Learning Differences Profile Model
