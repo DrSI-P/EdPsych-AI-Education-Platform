@@ -177,9 +177,9 @@ export async function GET(request: NextRequest) {
     // Search by term if specified
     if (validatedParams.searchTerm) {
       const term = validatedParams.searchTerm.toLowerCase();
-      filteredPlans = filteredPlans.filter(plan => 
-        plan.title.toLowerCase().includes(term) || 
-        plan.objectives.toLowerCase().includes(term) ||
+      filteredPlans = filteredPlans.filter(plan =>
+        plan.title.toLowerCase().includes(term) ||
+        plan.objectives?.toLowerCase().includes(term) ||
         plan.metadata.keyVocabulary?.toLowerCase().includes(term)
       );
     }

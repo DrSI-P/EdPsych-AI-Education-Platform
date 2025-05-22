@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
     }[] = [];
     
     // If using real data (not demo data)
-    if (settings.enabled) {
+    if (settings?.enabled) {
       // Build query based on settings
       const query: any = {
         where: {
@@ -60,10 +60,10 @@ export async function POST(req: NextRequest) {
       };
       
       // Apply time range filter if specified
-      if (settings.timeRange !== 'all') {
+      if (settings?.timeRange !== 'all') {
         const dateFilter: any = {};
         
-        switch (settings.timeRange) {
+        switch (settings?.timeRange) {
           case 'week':
             dateFilter.gte = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
             break;
@@ -85,7 +85,7 @@ export async function POST(req: NextRequest) {
       }
       
       // Apply intervention filter if using selected interventions
-      if (settings.dataSource === 'selected' && settings.selectedInterventions?.length > 0) {
+      if (settings?.dataSource === 'selected' && settings.selectedInterventions?.length > 0) {
         query.where.interventionType = {
           in: settings.selectedInterventions,
         };

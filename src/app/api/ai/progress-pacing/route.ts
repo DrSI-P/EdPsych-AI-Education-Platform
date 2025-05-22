@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
         };
         
         // Get learning style if needed
-        if (settings.considerLearningStyle) {
+        if (settings?.considerLearningStyle) {
           learningStyle = await prisma.learningStyle.findFirst({
             where: { userId: studentId },
             orderBy: { createdAt: 'desc' }
@@ -74,10 +74,10 @@ export async function POST(req: NextRequest) {
     }
     
     // Determine baseline pace
-    let baselinePace = settings.baselinePace;
+    let baselinePace = settings?.baselinePace;
     
     // If adapt to progress is enabled and progress metrics are available
-    if (settings.adaptToProgress && progressMetrics?.recommendedPace) {
+    if (settings?.adaptToProgress && progressMetrics?.recommendedPace) {
       baselinePace = progressMetrics.recommendedPace;
     }
     
@@ -149,15 +149,15 @@ export async function POST(req: NextRequest) {
       
       Baseline Pace Level: ${baselinePace}% (${baselinePace < 30 ? 'Gradual' : baselinePace < 60 ? 'Moderate' : 'Accelerated'})
       Adaptation Type: ${adaptationType}
-      Adaptation Strength: ${settings.adaptationStrength}%
+      Adaptation Strength: ${settings?.adaptationStrength}%
       
       Pacing Settings:
-      - Adapt to Progress Data: ${settings.adaptToProgress ? 'Yes' : 'No'}
-      - Include Reinforcement Activities: ${settings.includeReinforcementActivities ? 'Yes' : 'No'}
-      - Include Acceleration Options: ${settings.includeAccelerationOptions ? 'Yes' : 'No'}
-      - Consider Learning Style: ${settings.considerLearningStyle ? 'Yes' : 'No'}
-      - Auto-Assess Mastery: ${settings.autoAssessMastery ? 'Yes' : 'No'}
-      - Enable Breakpoints: ${settings.enableBreakpoints ? 'Yes' : 'No'}
+      - Adapt to Progress Data: ${settings?.adaptToProgress ? 'Yes' : 'No'}
+      - Include Reinforcement Activities: ${settings?.includeReinforcementActivities ? 'Yes' : 'No'}
+      - Include Acceleration Options: ${settings?.includeAccelerationOptions ? 'Yes' : 'No'}
+      - Consider Learning Style: ${settings?.considerLearningStyle ? 'Yes' : 'No'}
+      - Auto-Assess Mastery: ${settings?.autoAssessMastery ? 'Yes' : 'No'}
+      - Enable Breakpoints: ${settings?.enableBreakpoints ? 'Yes' : 'No'}
       
       ${progressMetrics ? `Student Progress Metrics:
       - Learning Velocity: ${progressMetrics.learningVelocity}%
@@ -189,7 +189,7 @@ export async function POST(req: NextRequest) {
          - Verify mastery through more challenging assessments
          - Expand breadth of coverage with opportunities for depth in areas of interest
       
-      ${settings.includeReinforcementActivities ? `
+      ${settings?.includeReinforcementActivities ? `
       If including reinforcement activities, please provide:
       - Additional practise exercises for key concepts
       - Alternative explanations using different approaches
@@ -197,7 +197,7 @@ export async function POST(req: NextRequest) {
       - Guided review activities
       ` : ''}
       
-      ${settings.includeAccelerationOptions ? `
+      ${settings?.includeAccelerationOptions ? `
       If including acceleration options, please provide:
       - Advanced concept exploration opportunities
       - Independent research projects
@@ -205,7 +205,7 @@ export async function POST(req: NextRequest) {
       - Peer teaching opportunities
       ` : ''}
       
-      ${settings.autoAssessMastery ? `
+      ${settings?.autoAssessMastery ? `
       If including mastery checkpoints, please provide:
       - Key knowledge verification points
       - Skill demonstration opportunities
@@ -213,7 +213,7 @@ export async function POST(req: NextRequest) {
       - Self-assessment prompts
       ` : ''}
       
-      ${settings.enableBreakpoints ? `
+      ${settings?.enableBreakpoints ? `
       If including strategic breakpoints, please provide:
       - Reflection points for knowledge consolidation
       - Synthesis activities to connect concepts
