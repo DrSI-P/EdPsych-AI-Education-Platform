@@ -166,7 +166,7 @@ export async function GET(req: NextRequest) {
     }
     
     // Parse assessment results with proper error handling
-    let results = {};
+    let results: any = {};
     if (learningStyle.assessmentResults) {
       try {
         const parsedResults = JSON.parse(learningStyle.assessmentResults.toString());
