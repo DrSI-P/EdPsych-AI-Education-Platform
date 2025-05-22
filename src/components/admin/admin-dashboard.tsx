@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
 import { Input, Textarea, Select, Checkbox } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
-import { Tabs } from '@/components/ui/tabs';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Spinner } from '@/components/ui/loading';
 import { Alert } from '@/components/ui/alert';
 import { useToast } from '@/components/ui/toast';
@@ -1252,7 +1252,20 @@ export function AdminDashboard({
   
   return (
     <div className={className}>
-      <Tabs tabs={tabs} />
+      <Tabs defaultValue={tabs[0].id}>
+        <TabsList>
+          {tabs.map((tab) => (
+            <TabsTrigger key={tab.id} value={tab.id}>
+              {tab.label}
+            </TabsTrigger>
+          ))}
+        </TabsList>
+        {tabs.map((tab) => (
+          <TabsContent key={tab.id} value={tab.id}>
+            {tab.content}
+          </TabsContent>
+        ))}
+      </Tabs>
     </div>
   );
 }
