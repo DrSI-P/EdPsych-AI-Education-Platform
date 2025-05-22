@@ -223,7 +223,6 @@ export default function PluginManagement() {
       console.error('Failed to fetch plugins:', error);
       toast("Error", {
         description: "Failed to fetch plugins. Please try again.",
-        variant: "destructive",
       });
       setIsLoading(false);
     }
@@ -262,7 +261,6 @@ export default function PluginManagement() {
       console.error('Failed to toggle plugin status:', error);
       toast("Error", {
         description: "Failed to update plugin status. Please try again.",
-        variant: "destructive",
       });
       setIsLoading(false);
     }
@@ -309,7 +307,6 @@ export default function PluginManagement() {
       console.error('Failed to install plugin:', error);
       toast("Error", {
         description: "Failed to install plugin. Please check the URL and try again.",
-        variant: "destructive",
       });
       setIsLoading(false);
     }
@@ -353,7 +350,6 @@ export default function PluginManagement() {
       console.error('Failed to update plugin settings:', error);
       toast("Error", {
         description: "Failed to update plugin settings. Please try again.",
-        variant: "destructive",
       });
       setIsLoading(false);
     }
@@ -382,7 +378,6 @@ export default function PluginManagement() {
       console.error('Failed to uninstall plugin:', error);
       toast("Error", {
         description: "Failed to uninstall plugin. Please try again.",
-        variant: "destructive",
       });
       setIsLoading(false);
     }
