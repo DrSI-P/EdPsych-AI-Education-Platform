@@ -2,198 +2,125 @@
 
 ## Overview
 
-This document provides a comprehensive guide for adding the missing Mentorship and Portfolio models to the EdPsych-AI-Education-Platform database. These models are referenced in the codebase but were not defined in the Prisma schema, causing TypeScript errors and potential runtime issues.
-
-## Models Added
-
-### Mentorship Models
-
-1. **MentorProfile**
-   - Stores information about a user's mentorship profile
-   - Contains fields for role, expertise, availability, and preferences
-
-2. **MentorshipRequest**
-   - Represents a request from a mentee to a mentor
-   - Includes message, focus areas, goals, and status
-
-3. **Mentorship**
-   - Represents an active mentorship relationship
-   - Links mentor and mentee with goals and status tracking
-
-4. **MentorshipMeeting**
-   - Tracks meetings between mentors and mentees
-   - Includes date, duration, format, and notes
-
-5. **MentorshipResource**
-   - Resources shared within a mentorship
-   - Can be links or uploaded files
-
-6. **MentorshipFeedback**
-   - Feedback provided by mentors and mentees
-   - Includes ratings and comments
-
-7. **CPDProfile**
-   - Continuing Professional Development profile
-   - Links to mentorship activities
-
-### Portfolio Models
-
-1. **PortfolioProfile**
-   - Main profile for a user's professional portfolio
-   - Contains biographical and professional information
-
-2. **PortfolioQualification**
-   - Educational and professional qualifications
-   - Includes verification status
-
-3. **PortfolioAchievement**
-   - Professional achievements and accomplishments
-   - Can be linked to evidence
-
-4. **PortfolioEvidence**
-   - Evidence supporting achievements
-   - Can be documents, images, or other files
-
-5. **PortfolioEvidenceAchievement**
-   - Junction table linking evidence to achievements
-   - Many-to-many relationship
-
-6. **PortfolioReflection**
-   - Professional reflections on experiences
-   - Can be linked to evidence
-
-7. **PortfolioReflectionEvidence**
-   - Junction table linking reflections to evidence
-   - Many-to-many relationship
-
-8. **Certificate**
-   - Professional certificates and credentials
-   - Includes verification status
+This document provides a comprehensive guide for the migration process to add Mentorship and Portfolio models to the EdPsych-AI-Education-Platform. The migration includes new models for mentor matching, mentorship management, and portfolio tracking.
 
 ## Schema Changes
 
-The migration adds the following to the Prisma schema:
+The migration adds the following models to the Prisma schema:
 
-1. **New Models**: All the models listed above with their fields and relationships
-2. **User Model Updates**: New relations added to the User model to link to the new models
-3. **Indexes**: Unique constraints and indexes for efficient querying
-4. **Relations**: Foreign key relationships between models
+### Mentorship Models
+- `MentorProfile`: Stores information about mentors, including their expertise and availability
+- `MentorshipRequest`: Tracks requests from mentees to mentors
+- `Mentorship`: Represents an active mentorship relationship between a mentor and mentee
+- `MentorshipMeeting`: Records meetings between mentors and mentees
+- `MentorshipResource`: Stores resources shared during mentorship
+- `MentorshipFeedback`: Captures feedback from both mentors and mentees
 
-## Migration Files
+### Portfolio Models
+- `PortfolioProfile`: Main profile for a user's professional portfolio
+- `PortfolioQualification`: Records qualifications and certifications
+- `PortfolioAchievement`: Tracks professional achievements
+- `PortfolioEvidence`: Stores evidence of professional development
+- `PortfolioEvidenceAchievement`: Links evidence to achievements
+- `PortfolioReflection`: Captures reflections on professional development
+- `PortfolioReflectionEvidence`: Links reflections to evidence
+- `Certificate`: Stores certificates earned through the platform
 
-The following files have been created:
+### User Model Updates
+The User model has been updated with new relations to connect to these models:
+- Mentorship relations: `mentorProfile`, `mentorRequests`, `menteeRequests`, etc.
+- Portfolio relations: `portfolioProfile`, `certificates`, etc.
 
-1. **Migration SQL**: `prisma/migrations/20250522_add_mentorship_and_portfolio_models/migration.sql`
-   - Contains the SQL statements to create the tables and relationships
+## Migration Process
 
-2. **Schema Additions**: `prisma/schema-additions.prisma`
-   - Contains the Prisma schema definitions for the new models
+### 1. Schema Preparation
 
-3. **User Model Updates**: `prisma/user-model-updates.prisma`
-   - Contains the updated User model with new relations
+Several scripts were created to prepare the schema for migration:
 
-## Migration Scripts
+- **fix-schema-conflicts.js**: Resolves merge conflicts in the schema file
+- **remove-duplicate-models.js**: Removes duplicate model definitions
+- **fix-mentorship-model.js**: Adds the `@unique` attribute to the `requestId` field
 
-We've created several scripts to help with the migration process:
+To run these scripts in sequence:
 
-1. **Fix Schema and Prepare Migration**: `scripts/fix-schema-and-prepare-migration.js`
-   - Removes duplicate model definitions from the schema
-   - Creates a backup of the original schema
-   - Prepares the migration to be applied when database access is available
+```bash
+node EdPsych-AI-Education-Platform/scripts/fix-schema-conflicts.js
+node EdPsych-AI-Education-Platform/scripts/remove-duplicate-models.js
+node EdPsych-AI-Education-Platform/scripts/fix-mentorship-model.js
+```
 
-2. **Fix Mentorship Model**: `scripts/fix-mentorship-model.js`
-   - Adds the `@unique` attribute to the `requestId` field in the Mentorship model
-   - Ensures consistency between model definitions
+### 2. Generate Prisma Client
 
-3. **Check and Apply Schema Updates**: `scripts/check-and-apply-schema-updates.js`
-   - Checks if models already exist in the database before attempting to add them
-   - Creates a temporary migration file with only the missing models
-   - Handles database connection issues gracefully
+After fixing the schema, generate the Prisma client:
 
-4. **Deploy Migration**: `scripts/deploy-migration.js`
-   - Provides a robust way to apply the migration when database access is available
-   - Offers multiple approaches to apply the migration
-   - Includes interactive confirmation steps
+```bash
+npx prisma generate --schema=EdPsych-AI-Education-Platform/prisma/schema.prisma
+```
 
-## How to Apply the Migration
+### 3. Apply Migration
 
-### Option 1: Using the Fix and Deploy Scripts (Recommended)
+Use the deploy-migration.js script to apply the migration to the database:
 
-1. Run the fix schema script to remove duplicate model definitions:
-   ```bash
-   node scripts/fix-schema-and-prepare-migration.js
-   ```
+```bash
+node EdPsych-AI-Education-Platform/scripts/deploy-migration.js
+```
 
-2. Run the fix mentorship model script to add the `@unique` attribute:
-   ```bash
-   node scripts/fix-mentorship-model.js
-   ```
-
-3. When database access is available, run the deploy migration script:
-   ```bash
-   node scripts/deploy-migration.js
-   ```
-
-4. Test the API routes to ensure they work correctly.
-
-### Option 2: Using Prisma Migrate
-
-1. Ensure you have access to the database
-2. Run the following command:
-   ```bash
-   npx prisma migrate dev --name add_mentorship_and_portfolio_models
-   ```
-
-3. Generate the Prisma client:
-   ```bash
-   npx prisma generate
-   ```
-
-### Option 3: Manual SQL Execution
-
-If you prefer to apply the migration manually:
-
-1. Connect to the database using your preferred PostgreSQL client
-2. Execute the SQL statements in `prisma/migrations/20250522_add_mentorship_and_portfolio_models/migration.sql`
-3. Update the `_prisma_migrations` table to record the migration
-4. Generate the Prisma client:
-   ```bash
-   npx prisma generate
-   ```
-
-## Verification
-
-After applying the migration, verify that:
-
-1. The new tables exist in the database
-2. The Prisma client can access the new models
-3. The API routes that use these models work correctly
+The script will:
+1. Check if the migration is already applied
+2. Ask for confirmation before proceeding
+3. Try multiple approaches to apply the migration:
+   - Using `prisma migrate resolve`
+   - Using `prisma db execute`
+   - Providing instructions for manual SQL execution if needed
+4. Generate the Prisma client after successful migration
 
 ## Troubleshooting
 
-### Common Issues
+### Schema Validation Errors
 
-1. **Duplicate Models**: If you see errors about models already existing, the models may have been added in a different migration. Use the `fix-schema-and-prepare-migration.js` script to remove duplicate definitions.
+If you encounter schema validation errors:
 
-2. **Relation Errors**: If you see errors about relations, ensure that the referenced models exist and the field types match. The `fix-mentorship-model.js` script can help fix relation issues with the Mentorship model.
+1. Check for duplicate model definitions:
+   ```bash
+   node EdPsych-AI-Education-Platform/scripts/remove-duplicate-models.js
+   ```
 
-3. **Database Connection**: Ensure your DATABASE_URL environment variable is correctly set. If you can't connect to the database, use the `deploy-migration.js` script when database access is available.
+2. Verify that all referenced models are defined:
+   ```bash
+   node EdPsych-AI-Education-Platform/scripts/fix-schema-conflicts.js
+   ```
 
-4. **Schema Validation Errors**: If you see validation errors when generating the Prisma client, check for duplicate model definitions or inconsistent field attributes. The `fix-schema-and-prepare-migration.js` script can help resolve these issues.
+3. Check for missing `@unique` attributes on relation fields:
+   ```bash
+   node EdPsych-AI-Education-Platform/scripts/fix-mentorship-model.js
+   ```
 
-## Next Steps
+### Migration Errors
 
-After applying this migration:
+If the migration fails to apply:
 
-1. Update any TypeScript interfaces to match the new models
-2. Test the affected API routes thoroughly
-3. Update any frontend components that interact with these models
-4. Commit and push the changes to GitHub
+1. Check the database connection:
+   ```bash
+   npx prisma db pull
+   ```
 
-## Related Documentation
+2. Try applying the migration manually:
+   - Open the migration SQL file: `EdPsych-AI-Education-Platform/prisma/migrations/20250522_add_mentorship_and_portfolio_models/migration.sql`
+   - Execute the SQL in your database management tool
+   - Mark the migration as applied:
+     ```bash
+     npx prisma migrate resolve --applied 20250522_add_mentorship_and_portfolio_models
+     ```
 
-- [SCHEMA_FIX_AND_MIGRATION_REPORT.md](./SCHEMA_FIX_AND_MIGRATION_REPORT.md)
-- [MISSING_PRISMA_MODELS.md](./MISSING_PRISMA_MODELS.md)
-- [SCHEMA_CODE_MISMATCH_FIX.md](./SCHEMA_CODE_MISMATCH_FIX.md)
-- [MENTOR_MATCHING.md](./MENTOR_MATCHING.md)
-- [MENTOR_MATCHING_FEATURE.md](./MENTOR_MATCHING_FEATURE.md)
+## Testing
+
+After applying the migration, test the API routes:
+
+- Mentor Matching: `/api/professional-development/mentor-matching`
+- Portfolio: `/api/professional-development/portfolio`
+
+## Conclusion
+
+This migration adds comprehensive support for mentorship and portfolio features to the EdPsych-AI-Education-Platform. The new models enable users to engage in mentorship relationships and maintain professional development portfolios.
+
+For detailed information about the schema fixes and migration process, refer to the [Schema Fix and Migration Report](./SCHEMA_FIX_AND_MIGRATION_REPORT.md).

@@ -2,68 +2,71 @@
 
 ## Issue Summary
 
-We encountered an issue with the Mentorship and Portfolio models in the EdPsych-AI-Education-Platform. The models were referenced in the API routes but appeared to be missing from the database, causing TypeScript errors. However, when attempting to add these models to the schema, we discovered that they were already defined in the local schema file, but with duplicate definitions.
+The Prisma schema had several issues that needed to be fixed:
 
-## Root Cause Analysis
+1. **Merge Conflicts**: The schema contained merge conflicts between local and remote changes.
+2. **Duplicate Model Definitions**: Several models were defined multiple times in the schema.
+3. **Missing Model References**: The User model had references to models that were not properly defined in the schema.
 
-1. **Duplicate Model Definitions**: The Prisma schema contained duplicate definitions of the Mentorship and Portfolio models:
-   - First set at lines 1012-1236
-   - Second set at lines 1239-1462
+## Resolution Steps
 
-2. **Local vs. Remote Discrepancy**: The models existed in the local schema file but were likely not migrated to the production database or pushed to GitHub.
+### 1. Fix Schema Conflicts
 
-3. **Database Connection Issues**: When attempting to run migrations, we encountered database connection errors, preventing verification of whether these models exist in the actual database.
+Created a script (`fix-schema-conflicts.js`) to resolve merge conflicts in the schema file. The script:
+- Created a backup of the original schema
+- Resolved conflicts by intelligently merging changes from both versions
+- Preserved important annotations like `@db.Text` and relationship definitions
+- Ensured all required models were properly defined
 
-4. **Validation Errors**: The validation errors occurred because the models already existed in the local schema file, but the migration was attempting to add them again.
+### 2. Remove Duplicate Models
 
-## Actions Taken
+Created a script (`remove-duplicate-models.js`) to remove duplicate model definitions from the schema. The script:
+- Created a backup of the schema
+- Processed the schema line by line to identify and remove duplicate model definitions
+- Preserved the first occurrence of each model definition
+- Successfully removed 8 duplicate model definitions:
+  - PortfolioProfile
+  - PortfolioQualification
+  - PortfolioAchievement
+  - PortfolioEvidence
+  - PortfolioEvidenceAchievement
+  - PortfolioReflection
+  - PortfolioReflectionEvidence
+  - Certificate
 
-1. **Created Backup**: Made a backup of the original schema file to preserve the current state.
+### 3. Fix Mentorship Model
 
-2. **Removed Duplicate Definitions**: Fixed the schema by removing the duplicate model definitions, keeping only the first set.
+Created a script (`fix-mentorship-model.js`) to add the `@unique` attribute to the `requestId` field in the Mentorship model, which is required for one-to-one relations.
 
-3. **Prepared Migration**: Created a migration.toml file to mark the migration as applied without running the SQL, which will help when database access is available.
+### 4. Generate Prisma Client
 
-4. **Created Robust Scripts**:
-   - `fix-schema-and-prepare-migration.js`: Removes duplicate model definitions and prepares the migration
-   - `check-and-apply-schema-updates.js`: Enhanced to check for existing models before attempting to add them
+Successfully generated the Prisma client with the fixed schema using:
+```bash
+npx prisma generate --schema=EdPsych-AI-Education-Platform/prisma/schema.prisma
+```
 
-5. **Generated Documentation**: Created this report to explain the issue and the steps taken to fix it.
+## Migration Status
 
-## Technical Details
+The migration file (`20250522_add_mentorship_and_portfolio_models/migration.sql`) has been prepared and is ready to be applied to the database. The migration includes:
 
-### Schema Changes
-
-The duplicate model definitions were removed from the schema file. The only significant difference between the two sets was that in the second definition of the Mentorship model (line 1285), the `requestId` field had the `@unique` attribute, which was missing in the first definition (line 1059). We ensured this attribute was preserved in the remaining definition.
-
-### Migration Strategy
-
-Since we couldn't directly access the database, we prepared the migration to be applied when database access is available. The migration SQL file contains the necessary statements to create the tables and relationships for the Mentorship and Portfolio models.
+- Creation of new tables for Mentorship models
+- Creation of new tables for Portfolio models
+- Addition of new relations to the User model
 
 ## Next Steps
 
-1. **Commit and Push Changes**: Push the fixed schema and migration files to GitHub.
-
-2. **Apply Migration When Database Access is Available**:
+1. **Apply Migration**: Use the `deploy-migration.js` script to apply the migration to the production database.
+2. **Update Dependencies**: Consider updating the Prisma dependencies to resolve the version mismatch warning:
    ```bash
-   npx prisma migrate resolve --applied 20250522_add_mentorship_and_portfolio_models
-   npx prisma generate
+   npm i --save-dev prisma@latest
+   npm i @prisma/client@latest
    ```
-
-3. **Test API Routes**: Verify that the API routes work correctly with the models.
-
-4. **Update TypeScript Interfaces**: Ensure all TypeScript interfaces match the model definitions.
+3. **Test API Routes**: Test the mentor-matching and portfolio API routes to ensure they work correctly with the updated schema.
+4. **Commit and Push**: Commit the fixed schema and migration files to GitHub.
 
 ## Lessons Learned
 
-1. **Schema Synchronization**: Ensure schema changes are properly synchronized between local development environments and production.
-
-2. **Migration Management**: Implement a more robust process for managing database migrations, especially when direct database access is limited.
-
-3. **Validation Checks**: Include validation checks in migration scripts to prevent duplicate model definitions.
-
-4. **Documentation**: Maintain clear documentation of schema changes and migration processes.
-
-## Conclusion
-
-The issue with duplicate model definitions has been resolved, and the migration is prepared to be applied when database access is available. This fix ensures that the Mentorship and Portfolio models will be properly defined in the schema and available in the database, resolving the TypeScript errors in the API routes.
+1. **Schema Validation**: Always validate schema changes before committing them to avoid merge conflicts and duplicate definitions.
+2. **Automated Fixes**: Creating scripts to automate the fix process ensures consistency and reduces the risk of manual errors.
+3. **Backups**: Always create backups before making changes to critical files like the schema.
+4. **Version Control**: Properly managing merge conflicts in version control is essential for collaborative development.

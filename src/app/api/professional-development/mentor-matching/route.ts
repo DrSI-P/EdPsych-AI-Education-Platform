@@ -123,14 +123,14 @@ async function handleUpdateProfile(body: any) {
     const { userId, ...profileData } = profileSchema.parse(body);
 
     // Check if profile exists
-    const existingProfile = await prisma.mentorProfile.findUnique({
+    const existingProfile = await prisma.mentorship.findUnique({
       where: { userId }
     });
 
     let profile;
     if (existingProfile) {
       // Update existing profile
-      profile = await prisma.mentorProfile.update({
+      profile = await prisma.mentorship.update({
         where: { userId },
         data: {
           ...profileData,
@@ -140,7 +140,7 @@ async function handleUpdateProfile(body: any) {
       });
     } else {
       // Create new profile
-      profile = await prisma.mentorProfile.create({
+      profile = await prisma.mentorship.create({
         data: {
           ...profileData,
           mentorshipPreferences: profileData.mentorshipPreferences || undefined,
@@ -197,7 +197,7 @@ async function handleRequestMentorship(body: any) {
         goals: requestData.goals,
         duration: requestData.duration,
         frequency: requestData.frequency,
-        status: 'pending',
+        status: 'pending' as 'pending' | 'accepted' | 'declined',
         createdAt: new Date()
       }
     });
@@ -262,13 +262,13 @@ async function handleRespondToRequest(body: any) {
         data: {
           mentorId: request.mentorId,
           menteeId: request.menteeId,
-          status: 'active',
+          status: 'active' as 'active' | 'pending' | 'completed' | 'declined',
           startDate: startDate.toISOString(),
           endDate: endDate.toISOString(),
           focusAreas: request.focusAreas,
           goals: request.goals.map(goal => ({
             text: goal,
-            status: 'not_started'
+            status: 'not_started' as 'not_started' | 'in_progress' | 'completed'
           })),
           frequency: request.frequency,
           requestId: requestId,
@@ -829,7 +829,7 @@ export async function GET(req: NextRequest) {
 }
 
 async function getProfile(userId: string) {
-  const profile = await prisma.mentorProfile.findUnique({
+  const profile = await prisma.mentorship.findUnique({
     where: { userId }
   });
   
@@ -903,7 +903,7 @@ async function getMentors(expertise: string | null, phase: string | null, subjec
     where.subjects = { has: subject };
   }
   
-  const mentors = await prisma.mentorProfile.findMany({
+  const mentors = await prisma.mentorship.findMany({
     where,
     orderBy: { createdAt: 'desc' }
   });

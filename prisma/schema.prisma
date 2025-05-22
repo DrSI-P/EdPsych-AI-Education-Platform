@@ -108,7 +108,7 @@ model User {
   receivedFeedback      MentorshipFeedback[]       @relation("ReceivedFeedback")
   cpdProfile            CPDProfile?
   
-  // New relations for Portfolio models
+  // Portfolio model relations
   portfolioProfile      PortfolioProfile?
   portfolioQualifications PortfolioQualification[]
   portfolioAchievements PortfolioAchievement[]
@@ -1007,163 +1007,50 @@ model CPDEvidence {
   activity          CPDActivity @relation(fields: [activityId], references: [id], onDelete: Cascade)
   user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
-
-
-// Mentorship Models
-model MentorProfile {
-  id                    String   @id @default(cuid())
-  userId                String   @unique
-  role                  String   // mentor, mentee, both
-  school                String
-  phase                 String
-  yearsExperience       Int
-  expertise             Int[]
-  subjects              String[]
-  bio                   String?
-  availability          String?
-  goals                 String?
-  mentorshipPreferences Json?
-  createdAt             DateTime @default(now())
-  updatedAt             DateTime @updatedAt
-  user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model MentorshipRequest {
-  id              String     @id @default(cuid())
-  mentorId        String
-  menteeId        String
-  message         String
-  focusAreas      Int[]
-  goals           String[]
-  duration        String
-  frequency       String
-  status          String     @default("pending")
-  responseMessage String?
-  respondedAt     DateTime?
-  createdAt       DateTime   @default(now())
-  mentor          User       @relation("MentorRequests", fields: [mentorId], references: [id], onDelete: Cascade)
-  mentee          User       @relation("MenteeRequests", fields: [menteeId], references: [id], onDelete: Cascade)
-  mentorship      Mentorship?
-}
-
-model Mentorship {
-  id           String              @id @default(cuid())
-  mentorId     String
-  menteeId     String
-  status       String
-  startDate    String
-  endDate      String?
-  focusAreas   Int[]
-  goals        Json
-  frequency    String
-  requestId    String?             @unique
-  completedAt  DateTime?
-  createdAt    DateTime            @default(now())
-  updatedAt    DateTime?           @updatedAt
-  mentor       User                @relation("MentorMentorships", fields: [mentorId], references: [id], onDelete: Cascade)
-  mentee       User                @relation("MenteeMentorships", fields: [menteeId], references: [id], onDelete: Cascade)
-  request      MentorshipRequest?  @relation(fields: [requestId], references: [id])
-  meetings     MentorshipMeeting[]
-  resources    MentorshipResource[]
-  feedback     MentorshipFeedback[]
-}
-
-model MentorshipMeeting {
-  id           String              @id @default(cuid())
-  mentorshipId String
-  date         String
-  duration     Int
-  format       String
-  agenda       String?
-  notes        String?
-  status       String
-  createdAt    DateTime            @default(now())
-  updatedAt    DateTime?           @updatedAt
-  mentorship   Mentorship          @relation(fields: [mentorshipId], references: [id], onDelete: Cascade)
-  feedback     MentorshipFeedback[]
-}
-
-model MentorshipResource {
-  id           String     @id @default(cuid())
-  mentorshipId String
-  title        String
-  description  String?
-  type         String
-  url          String?
-  fileUrl      String?
-  createdAt    DateTime   @default(now())
-  mentorship   Mentorship @relation(fields: [mentorshipId], references: [id], onDelete: Cascade)
-}
-
-model MentorshipFeedback {
-  id           String            @id @default(cuid())
-  mentorshipId String
-  fromUserId   String
-  toUserId     String
-  rating       Int
-  comment      String
-  meetingId    String?
-  createdAt    DateTime          @default(now())
-  mentorship   Mentorship        @relation(fields: [mentorshipId], references: [id], onDelete: Cascade)
-  fromUser     User              @relation("SentFeedback", fields: [fromUserId], references: [id], onDelete: Cascade)
-  toUser       User              @relation("ReceivedFeedback", fields: [toUserId], references: [id], onDelete: Cascade)
-  meeting      MentorshipMeeting? @relation(fields: [meetingId], references: [id])
-}
-
-model CPDProfile {
-  id                  String   @id @default(cuid())
-  userId              String   @unique
-  mentorshipRole      String?
-  mentorshipExpertise Int[]
-  createdAt           DateTime @default(now())
-  updatedAt           DateTime @updatedAt
-  user                User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
 // Portfolio Models
 model PortfolioProfile {
-  id                 String   @id @default(cuid())
-  userId             String   @unique
-  name               String
-  title              String
-  school             String?
-  yearsExperience    Int?
-  email              String?
-  phone              String?
-  biography          String?
-  teachingPhilosophy String?
-  specialisations    String[]
-  avatarUrl          String?
-  createdAt          DateTime @default(now())
-  updatedAt          DateTime @updatedAt
-  user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                String   @id @default(cuid())
+  userId            String   @unique
+  name              String
+  title             String
+  school            String?
+  yearsExperience   Int?
+  email             String?
+  phone             String?
+  biography         String?  @db.Text
+  teachingPhilosophy String? @db.Text
+  specialisations   String[]
+  avatarUrl         String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model PortfolioQualification {
-  id             String    @id @default(cuid())
-  userId         String
-  title          String
-  institution    String
-  year           String
-  verified       Boolean   @default(false)
-  certificateUrl String?
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime? @updatedAt
-  user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                String   @id @default(cuid())
+  userId            String
+  title             String
+  institution       String
+  year              String
+  verified          Boolean  @default(false)
+  certificateUrl    String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime? @updatedAt
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model PortfolioAchievement {
-  id                String                      @id @default(cuid())
+  id                String   @id @default(cuid())
   userId            String
   title             String
-  description       String
+  description       String   @db.Text
   date              String
   type              String
   evidence          String[]
-  visibility        String                      @default("public")
-  createdAt         DateTime                    @default(now())
-  updatedAt         DateTime?                   @updatedAt
-  user              User                        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  visibility        String   @default("public")
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime? @updatedAt
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   evidenceItems     PortfolioEvidenceAchievement[]
 }
 
@@ -1234,3 +1121,123 @@ model Certificate {
   updatedAt      DateTime? @updatedAt
   user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
+
+// Mentorship Models
+model MentorProfile {
+  id                    String   @id @default(cuid())
+  userId                String   @unique
+  role                  String   // mentor, mentee, both
+  school                String
+  phase                 String
+  yearsExperience       Int
+  expertise             Int[]
+  subjects              String[]
+  bio                   String?
+  availability          String?
+  goals                 String?
+  mentorshipPreferences Json?
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+  user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model MentorshipRequest {
+  id              String     @id @default(cuid())
+  mentorId        String
+  menteeId        String
+  message         String
+  focusAreas      Int[]
+  goals           String[]
+  duration        String
+  frequency       String
+  status          String     @default("pending")
+  responseMessage String?
+  respondedAt     DateTime?
+  createdAt       DateTime   @default(now())
+  mentor          User       @relation("MentorRequests", fields: [mentorId], references: [id], onDelete: Cascade)
+  mentee          User       @relation("MenteeRequests", fields: [menteeId], references: [id], onDelete: Cascade)
+  mentorship      Mentorship?
+}
+
+model Mentorship {
+  id           String              @id @default(cuid())
+  mentorId     String
+  menteeId     String
+  status       String
+  startDate    String
+  endDate      String?
+  focusAreas   Int[]
+  goals        Json
+  frequency    String
+  requestId    String?             @unique  // Added @unique to fix the validation error
+  completedAt  DateTime?
+  createdAt    DateTime            @default(now())
+  updatedAt    DateTime?           @updatedAt
+  mentor       User                @relation("MentorMentorships", fields: [mentorId], references: [id], onDelete: Cascade)
+  mentee       User                @relation("MenteeMentorships", fields: [menteeId], references: [id], onDelete: Cascade)
+  request      MentorshipRequest?  @relation(fields: [requestId], references: [id])
+  meetings     MentorshipMeeting[]
+  resources    MentorshipResource[]
+  feedback     MentorshipFeedback[]
+}
+
+model MentorshipMeeting {
+  id           String              @id @default(cuid())
+  mentorshipId String
+  date         String
+  duration     Int
+  format       String
+  agenda       String?
+  notes        String?
+  status       String
+  createdAt    DateTime            @default(now())
+  updatedAt    DateTime?           @updatedAt
+  mentorship   Mentorship          @relation(fields: [mentorshipId], references: [id], onDelete: Cascade)
+  feedback     MentorshipFeedback[]
+}
+
+model MentorshipResource {
+  id           String     @id @default(cuid())
+  mentorshipId String
+  title        String
+  description  String?
+  type         String
+  url          String?
+  fileUrl      String?
+  createdAt    DateTime   @default(now())
+  mentorship   Mentorship @relation(fields: [mentorshipId], references: [id], onDelete: Cascade)
+}
+
+model MentorshipFeedback {
+  id           String            @id @default(cuid())
+  mentorshipId String
+  fromUserId   String
+  toUserId     String
+  rating       Int
+  comment      String
+  meetingId    String?
+  createdAt    DateTime          @default(now())
+  mentorship   Mentorship        @relation(fields: [mentorshipId], references: [id], onDelete: Cascade)
+  fromUser     User              @relation("SentFeedback", fields: [fromUserId], references: [id], onDelete: Cascade)
+  toUser       User              @relation("ReceivedFeedback", fields: [toUserId], references: [id], onDelete: Cascade)
+  meeting      MentorshipMeeting? @relation(fields: [meetingId], references: [id])
+}
+
+model CPDProfile {
+  id                  String   @id @default(cuid())
+  userId              String   @unique
+  mentorshipRole      String?
+  mentorshipExpertise Int[]
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  user                User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// Portfolio Models
+
+
+
+
+
+
+

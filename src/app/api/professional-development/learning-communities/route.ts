@@ -1,6 +1,136 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 
+// Type definitions for Learning Communities API
+export interface Community {
+  id: string;
+  name: string;
+  description: string;
+  categories: string[];
+  privacy: "open" | "restricted";
+  schools?: string[];
+  createdAt?: string;
+  updatedAt?: string;
+  createdBy?: string;
+  members?: number;
+  schoolCount?: number;
+  featured?: boolean;
+  image?: string;
+  activity?: "low" | "medium" | "high";
+}
+
+export interface Resource {
+  id?: string;
+  communityId: string;
+  title: string;
+  description: string;
+  type: string;
+  tags: string[];
+  fileUrl?: string;
+  fileType?: string;
+  fileSize?: number;
+  author: {
+    id: string;
+    name: string;
+    school: string;
+  };
+  createdAt?: string;
+  updatedAt?: string;
+  downloads?: number;
+  rating?: number;
+  reviews?: number;
+  featured?: boolean;
+  privacySettings?: {
+    anonymized?: boolean;
+    attribution?: boolean;
+    reviewed?: boolean;
+    sharingScope?: "community" | "selected" | "platform";
+  };
+}
+
+export interface Discussion {
+  id?: string;
+  communityId: string;
+  title: string;
+  content: string;
+  author: {
+    id: string;
+    name: string;
+    role?: string;
+    school: string;
+    avatar?: string;
+  };
+  createdAt?: string;
+  updatedAt?: string;
+  replies?: number;
+  views?: number;
+  lastReplyAt?: string;
+  pinned?: boolean;
+  tags?: string[];
+}
+
+export interface Event {
+  id?: string;
+  communityId: string;
+  title: string;
+  description: string;
+  type: string;
+  date: string;
+  time: string;
+  location: string;
+  host: {
+    id: string;
+    name: string;
+    school: string;
+  };
+  capacity?: number;
+  attendees?: string[];
+  attendeeCount?: number;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface Collaboration {
+  id?: string;
+  communityId: string;
+  title: string;
+  description: string;
+  type: string;
+  schools: string[];
+  members?: string[];
+  memberCount?: number;
+  status: "Planning" | "In Progress" | "Completed";
+  progress: number;
+  dueDate: string;
+  createdAt?: string;
+  updatedAt?: string;
+  createdBy?: string;
+  resources?: string[];
+  discussions?: string[];
+}
+
+export interface Membership {
+  userId: string;
+  communityId: string;
+  role: "Member" | "Facilitator" | "Admin";
+  joinedAt?: string;
+  lastActivity?: string;
+  status?: "Active" | "Inactive" | "Pending";
+}
+
+export interface PrivacySetting {
+  communityId: string;
+  visibility: "open" | "restricted";
+  discussionsAccess: "members" | "selected" | "all";
+  resourcesAccess: "members" | "controlled" | "all";
+  eventsAccess: "members" | "selected" | "public";
+  collaborationsAccess: "members" | "selected" | "all";
+  enableAnonymization: boolean;
+  requireApproval: boolean;
+  maintainAttribution: boolean;
+  approvedSchools?: string[];
+}
+
 // Schema definitions for Learning Communities API
 const CommunitySchema = z.object({
   id: z.string().optional(),
@@ -132,16 +262,18 @@ const MembershipSchema = z.object({
 });
 
 // Mock data storage (would be replaced with database in production)
-let communities = [];
-let resources = [];
-let discussions = [];
-let events = [];
-let collaborations = [];
-let memberships = [];
-let privacySettings = [];
+// Using the exported interfaces defined above
+
+let communities: Community[] = [];
+let resources: Resource[] = [];
+let discussions: Discussion[] = [];
+let events: Event[] = [];
+let collaborations: Collaboration[] = [];
+let memberships: Membership[] = [];
+let privacySettings: PrivacySetting[] = [];
 
 // Integration with other professional development modules
-const integrateCPDActivity = async (userId, activityType, details) => {
+const integrateCPDActivity = async (userId: string, activityType: string, details: any): Promise<{success: boolean, points?: number, error?: string}> => {
   try {
     // In a real implementation, this would call the CPD Tracking API
     console.log(`Recording CPD activity for user ${userId}: ${activityType}`);
@@ -152,7 +284,7 @@ const integrateCPDActivity = async (userId, activityType, details) => {
   }
 };
 
-const integratePortfolio = async (userId, portfolioItem) => {
+const integratePortfolio = async (userId: string, portfolioItem: any): Promise<{success: boolean, portfolioItemId?: string, error?: string}> => {
   try {
     // In a real implementation, this would call the Professional Portfolio API
     console.log(`Adding portfolio item for user ${userId}`);
@@ -163,7 +295,7 @@ const integratePortfolio = async (userId, portfolioItem) => {
   }
 };
 
-const integrateMentorMatching = async (userId, expertise) => {
+const integrateMentorMatching = async (userId: string, expertise: string[]): Promise<{success: boolean, error?: string}> => {
   try {
     // In a real implementation, this would call the Mentor Matching API
     console.log(`Updating expertise for user ${userId}: ${expertise.join(', ')}`);
@@ -175,8 +307,8 @@ const integrateMentorMatching = async (userId, expertise) => {
 };
 
 // Helper functions
-const calculateCPDPoints = (activityType) => {
-  const pointsMap = {
+const calculateCPDPoints = (activityType: string): number => {
+  const pointsMap: {[key: string]: number} = {
     'resource_share': 2,
     'discussion_post': 1,
     'discussion_reply': 0.5,
@@ -190,7 +322,7 @@ const calculateCPDPoints = (activityType) => {
   return pointsMap[activityType] || 0;
 };
 
-const generateId = (prefix) => {
+const generateId = (prefix: string): string => {
   return `${prefix}_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 };
 
@@ -355,7 +487,7 @@ export async function POST(request: NextRequest) {
             updatedAt: new Date().toISOString(),
             members: 1,
             schoolCount: 1,
-            activity: 'low',
+            activity: "low" as "low",
           };
           
           communities.push(newCommunity);
@@ -363,11 +495,11 @@ export async function POST(request: NextRequest) {
           // Create default privacy settings
           const newPrivacySettings = {
             communityId: newCommunity.id,
-            visibility: communityData.privacy,
-            discussionsAccess: 'members',
-            resourcesAccess: 'controlled',
-            eventsAccess: 'members',
-            collaborationsAccess: 'members',
+            visibility: communityData.privacy as "open" | "restricted",
+            discussionsAccess: "members" as "members" | "selected" | "all",
+            resourcesAccess: "controlled" as "members" | "controlled" | "all",
+            eventsAccess: "members" as "members" | "selected" | "public",
+            collaborationsAccess: "members" as "members" | "selected" | "all",
             enableAnonymization: true,
             requireApproval: true,
             maintainAttribution: true,
@@ -380,10 +512,10 @@ export async function POST(request: NextRequest) {
           const newMembership = {
             userId: body.userId,
             communityId: newCommunity.id,
-            role: 'Admin',
+            role: "Admin" as "Admin" | "Member" | "Facilitator",
             joinedAt: new Date().toISOString(),
             lastActivity: new Date().toISOString(),
-            status: 'Active',
+            status: "Active" as "Active" | "Inactive" | "Pending",
           };
           
           memberships.push(newMembership);
@@ -434,16 +566,16 @@ export async function POST(request: NextRequest) {
         const newMembership = {
           userId,
           communityId,
-          role,
+          role: role as "Admin" | "Member" | "Facilitator",
           joinedAt: new Date().toISOString(),
           lastActivity: new Date().toISOString(),
-          status: community.privacy === 'restricted' ? 'Pending' : 'Active',
+          status: (community.privacy === 'restricted' ? 'Pending' : 'Active') as "Active" | "Inactive" | "Pending",
         };
         
         memberships.push(newMembership);
         
         // Update community member count
-        community.members += 1;
+        community.members = (community.members ?? 0) + 1;
         
         // Integrate with CPD tracking
         await integrateCPDActivity(userId, 'community_join', {
@@ -503,7 +635,7 @@ export async function POST(request: NextRequest) {
             updatedAt: new Date().toISOString(),
             replies: 0,
             views: 0,
-            lastReplyAt: null,
+            lastReplyAt: undefined,
             pinned: false,
           };
           
@@ -948,8 +1080,8 @@ export async function DELETE(request: NextRequest) {
         
         // Update community member count
         const memberCommunityIndex = communities.findIndex(c => c.id === communityId);
-        if (memberCommunityIndex !== -1) {
-          communities[memberCommunityIndex].members -= 1;
+        if (memberCommunityIndex !== -1 && communities[memberCommunityIndex]?.members !== undefined) {
+          communities[memberCommunityIndex].members = (communities[memberCommunityIndex].members ?? 0) - 1;
         }
         
         return NextResponse.json({ success: true, deleted: deletedMembership });
