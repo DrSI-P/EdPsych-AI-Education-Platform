@@ -116,6 +116,17 @@ model User {
   portfolioEvidence     PortfolioEvidence[]
   portfolioReflections  PortfolioReflection[]
   certificates          Certificate[]
+  webinars              Webinar[]              // Relation to created webinars
+  webinarRegistrations  WebinarRegistration[]  // Relation to webinar registrations
+  webinarAttendance     WebinarAttendee[]      // Relation to webinar attendance
+  webinarFeedback       WebinarFeedback[]      // Relation to webinar feedback
+  teachingResources     TeachingResource[]     // Relation to teaching resources
+  restorativeAgreements RestorativeAgreement[] // Relation to restorative agreements
+  circleTemplates       CircleTemplate[]       // Relation to circle templates
+  activityFavorites     ActivityFavorite[]     // Relation to activity favorites
+  parentEducationFavorites ParentEducationFavorite[] // Relation to parent education favorites
+  reflectionPrompts     ReflectionPrompt[]     // Relation to reflection prompts
+  trainingProgress      RestorativeTrainingProgress[] // Relation to training progress
 }
 
 model VerificationToken {
@@ -269,6 +280,7 @@ model Course {
   progressReports   ProgressReport[]
   assessments       Assessment[]
   courseProgress    CourseProgress[]
+  certificates      Certificate[]
 }
 
 model Lesson {
@@ -1143,6 +1155,7 @@ model Certificate {
   createdAt      DateTime  @default(now())
   updatedAt      DateTime? @updatedAt
   user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course         Course?   @relation(fields: [courseId], references: [id])
 }
 
 // Mentorship Models
@@ -1231,6 +1244,71 @@ model MentorshipResource {
   mentorship   Mentorship @relation(fields: [mentorshipId], references: [id], onDelete: Cascade)
 }
 
+// Webinar Models
+model Webinar {
+  id                 String               @id @default(cuid())
+  title              String
+  description        String               @db.Text
+  presenterId        String
+  date               DateTime
+  duration           Int                  // Duration in minutes
+  capacity           Int
+  topics             String[]
+  level              String
+  recordingEnabled   Boolean              @default(true)
+  recordingUrl       String?
+  recordingAvailable Boolean              @default(false)
+  recordingAddedAt   DateTime?
+  averageRating      Float?
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime?            @updatedAt
+  presenter          User                 @relation(fields: [presenterId], references: [id])
+  registrations      WebinarRegistration[]
+  attendees          WebinarAttendee[]
+  feedback           WebinarFeedback[]
+}
+
+model WebinarRegistration {
+  id              String    @id @default(cuid())
+  userId          String
+  webinarId       String
+  registeredAt    DateTime  @default(now())
+  addedToCalendar Boolean   @default(false)
+  attended        Boolean   @default(false)
+  certificateIssued Boolean @default(false)
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  webinar         Webinar   @relation(fields: [webinarId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, webinarId])
+}
+
+model WebinarAttendee {
+  id         String   @id @default(cuid())
+  userId     String
+  webinarId  String
+  joinedAt   DateTime @default(now())
+  leftAt     DateTime?
+  timeSpent  Int?     // Time spent in minutes
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  webinar    Webinar  @relation(fields: [webinarId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, webinarId])
+}
+
+model WebinarFeedback {
+  id          String   @id @default(cuid())
+  userId      String
+  webinarId   String
+  rating      Int      // 1-5 scale
+  comments    String?  @db.Text
+  submittedAt DateTime @default(now())
+  updatedAt   DateTime? @updatedAt
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  webinar     Webinar  @relation(fields: [webinarId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, webinarId])
+}
+
 model MentorshipFeedback {
   id           String            @id @default(cuid())
   mentorshipId String
@@ -1254,5 +1332,231 @@ model CPDProfile {
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
   user                User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// Restorative Justice Models
+model RestorativeAgreement {
+  id            String    @id @default(cuid())
+  userId        String
+  title         String
+  description   String    @db.Text
+  type          String    // behavioural, interpersonal, reparative, academic, attendance
+  status        String    // active, completed, at-risk
+  participants  String[]
+  facilitator   String?
+  followUpDate  DateTime
+  progress      Int       @default(0)
+  notes         String?   @db.Text
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  user          User      @relation(fields: [userId], references: [id])
+  terms         RestorativeAgreementTerm[]
+  updates       RestorativeAgreementUpdate[]
+}
+
+model RestorativeAgreementTerm {
+  id               String    @id @default(cuid())
+  agreementId      String
+  description      String    @db.Text
+  responsibleParty String
+  dueDate          DateTime
+  status           String    // pending, in-progress, completed, at-risk
+  completedDate    DateTime?
+  notes            String?   @db.Text
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  agreement        RestorativeAgreement @relation(fields: [agreementId], references: [id], onDelete: Cascade)
+}
+
+// Circle Process Models
+model CircleTemplate {
+  id          String   @id @default(cuid())
+  userId      String
+  title       String
+  description String   @db.Text
+  ageGroup    String   // all, primary, secondary
+  purpose     String   // community-building, problem-solving, celebration, conflict-resolution, academic, other
+  structure   Json     // openingCeremony, checkIn, mainActivity, checkOut, closingCeremony
+  questions   Json     // Array of category and items
+  materials   String[]
+  timeRequired String
+  spaceSetup  String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  user        User     @relation(fields: [userId], references: [id])
+}
+
+// Community Building Models
+model CommunityBuildingActivity {
+  id          String   @id @default(cuid())
+  title       String
+  description String   @db.Text
+  category    String   // ice-breaker, team-building, reflection, etc.
+  ageGroups   String[] // primary, secondary, all
+  timeRequired String  // short, medium, long
+  groupSize   String   // small, medium, large
+  materials   String[]
+  instructions String  @db.Text
+  variations  String?  @db.Text
+  tips        String?  @db.Text
+  rating      Float    @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  favorites   ActivityFavorite[]
+}
+
+model ActivityFavorite {
+  id         String   @id @default(cuid())
+  userId     String
+  activityId String
+  createdAt  DateTime @default(now())
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  activity   CommunityBuildingActivity @relation(fields: [activityId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, activityId])
+}
+
+model RestorativeAgreementUpdate {
+  id          String    @id @default(cuid())
+  agreementId String
+  content     String    @db.Text
+  author      String
+  createdAt   DateTime  @default(now())
+  agreement   RestorativeAgreement @relation(fields: [agreementId], references: [id], onDelete: Cascade)
+}
+
+// Parent Education Models
+model ParentEducationResource {
+  id              String   @id @default(cuid())
+  title           String
+  description     String   @db.Text
+  category        String   // guide, video, activity, printable, course
+  ageGroups       String[] // early-years, primary, secondary, all-ages
+  difficultyLevel String   // beginner, intermediate, advanced
+  content         String   @db.Text
+  videoUrl        String?
+  downloadUrl     String?
+  estimatedTime   String?
+  tags            String[]
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  favorites       ParentEducationFavorite[]
+}
+
+// Reflection Prompts Model
+model ReflectionPrompt {
+  id                  String   @id @default(cuid())
+  userId              String
+  title               String
+  description         String   @db.Text
+  ageGroup            String   // early-years, primary, secondary, staff
+  category            String
+  promptText          String   @db.Text
+  supportingQuestions String[]
+  visualSupports      Boolean  @default(false)
+  simplifiedLanguage  Boolean  @default(false)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  user                User     @relation(fields: [userId], references: [id])
+}
+
+model ParentEducationFavorite {
+  id         String   @id @default(cuid())
+  userId     String
+  resourceId String
+  createdAt  DateTime @default(now())
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  resource   ParentEducationResource @relation(fields: [resourceId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, resourceId])
+}
+
+// Restorative Training Models
+model RestorativeTrainingModule {
+  id          String   @id @default(cuid())
+  title       String
+  description String   @db.Text
+  duration    String   @default("")
+  level       String   @default("Beginner")
+  order       Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  sections    RestorativeTrainingSection[]
+  resources   RestorativeTrainingResource[]
+  progress    RestorativeTrainingProgress[]
+}
+
+model RestorativeTrainingSection {
+  id          String   @id @default(cuid())
+  moduleId    String
+  title       String
+  type        String   @default("text")
+  content     String   @db.Text
+  duration    String   @default("")
+  order       Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  module      RestorativeTrainingModule @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+}
+
+model RestorativeTrainingProgress {
+  id                String   @id @default(cuid())
+  userId            String
+  moduleId          String
+  completedSections String[]
+  startedAt         DateTime @default(now())
+  lastAccessedAt    DateTime @default(now())
+  completedAt       DateTime?
+  certificateIssued Boolean  @default(false)
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  module            RestorativeTrainingModule @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  quizAttempts      RestorativeTrainingQuizAttempt[]
+
+  @@unique([userId, moduleId])
+}
+
+model RestorativeTrainingQuizAttempt {
+  id          String   @id @default(cuid())
+  progressId  String
+  quizId      String
+  score       Int
+  attemptedAt DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  progress    RestorativeTrainingProgress @relation(fields: [progressId], references: [id], onDelete: Cascade)
+}
+
+model RestorativeTrainingResource {
+  id          String   @id @default(cuid())
+  moduleId    String
+  title       String
+  type        String   // pdf, video, link, template
+  url         String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  module      RestorativeTrainingModule @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+}
+
+// Teaching Resources Model
+model TeachingResource {
+  id                String   @id @default(cuid())
+  title             String
+  description       String   @db.Text
+  subject           String
+  keyStage          String
+  type              String
+  tags              String[]
+  isPublic          Boolean  @default(true)
+  allowDownload     Boolean  @default(true)
+  requireAttribution Boolean @default(false)
+  authorId          String
+  files             Json     // Array of file URLs
+  thumbnail         String?
+  downloads         Int      @default(0)
+  rating            Float?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  author            User     @relation(fields: [authorId], references: [id])
 }
 

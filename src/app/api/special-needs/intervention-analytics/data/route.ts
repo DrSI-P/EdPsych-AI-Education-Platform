@@ -92,7 +92,7 @@ export async function POST(req: NextRequest) {
       }
       
       // Fetch data based on query
-      const userData = await prisma.user.findUnique({
+      const userData = await (prisma as any).user.findUnique({
         where: {
           id: userId,
         },
@@ -104,7 +104,7 @@ export async function POST(req: NextRequest) {
               dataPoints: true,
             },
           },
-        },
+        } as any,
       });
       
       if (userData) {
@@ -116,7 +116,7 @@ export async function POST(req: NextRequest) {
         // In a real implementation, this would involve statistical analysis
         
         // Log the analytics request
-        await prisma.analyticsLog.create({
+        await (prisma as any).analyticsLog.create({
           data: {
             userId: userId,
             action: 'data_request',

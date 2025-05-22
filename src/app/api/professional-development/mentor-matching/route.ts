@@ -266,7 +266,7 @@ async function handleRespondToRequest(body: any) {
           startDate: startDate.toISOString(),
           endDate: endDate.toISOString(),
           focusAreas: request.focusAreas,
-          goals: request.goals.map(goal => ({
+          goals: request.goals.map((goal: string) => ({
             text: goal,
             status: 'not_started' as 'not_started' | 'in_progress' | 'completed'
           })),
@@ -876,7 +876,7 @@ async function getMeetings(userId: string) {
     select: { id: true }
   });
   
-  const mentorshipIds = mentorships.map(m => m.id);
+  const mentorshipIds = mentorships.map((m: any) => m.id);
   
   // Get meetings for these mentorships
   const meetings = await prisma.mentorshipMeeting.findMany({
@@ -997,7 +997,7 @@ async function getMentorshipAnalytics(userId: string) {
   const completedMentorships = [...mentorMentorships, ...menteeMentorships].filter(m => m.status === 'completed').length;
   
   // Get all meetings
-  const mentorshipIds = [...mentorMentorships, ...menteeMentorships].map(m => m.id);
+  const mentorshipIds = [...mentorMentorships, ...menteeMentorships].map((m: any) => m.id);
   
   const meetings = await prisma.mentorshipMeeting.findMany({
     where: {
