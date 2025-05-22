@@ -450,7 +450,7 @@ async function handleUpdateMeeting(body: any) {
           where: {
             userId: mentorship.mentorId,
             type: 'Mentorship',
-            description: { contains: mentorship.menteeId }
+            title: { contains: mentorship.menteeId }
           }
         });
         
@@ -470,7 +470,7 @@ async function handleUpdateMeeting(body: any) {
           where: {
             userId: mentorship.menteeId,
             type: 'Mentorship',
-            description: { contains: mentorship.mentorId }
+            title: { contains: mentorship.mentorId }
           }
         });
         
@@ -682,7 +682,7 @@ async function handleCompleteMentorship(body: any) {
       where: {
         userId: mentorship.mentorId,
         type: 'Mentorship',
-        description: { contains: mentorship.menteeId }
+        title: { contains: mentorship.menteeId }
       }
     });
     
@@ -701,7 +701,7 @@ async function handleCompleteMentorship(body: any) {
       where: {
         userId: mentorship.menteeId,
         type: 'Mentorship',
-        description: { contains: mentorship.mentorId }
+        title: { contains: mentorship.mentorId }
       }
     });
     
