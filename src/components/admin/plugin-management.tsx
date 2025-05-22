@@ -545,21 +545,29 @@ export default function PluginManagement() {
                   <TableBody>
                     {isLoading ? (
                       <TableRow>
-                        <TableCell colSpan={5} className="text-centre py-8">
+                        <TableCell className="text-centre py-8">
                           <div className="flex flex-col items-centre justify-centre">
                             <RefreshCw className="h-8 w-8 animate-spin text-grey-400 mb-2" />
                             <p className="text-sm text-grey-500">Loading plugins...</p>
                           </div>
                         </TableCell>
+                        <TableCell></TableCell>
+                        <TableCell></TableCell>
+                        <TableCell></TableCell>
+                        <TableCell></TableCell>
                       </TableRow>
                     ) : filteredPlugins.length === 0 ? (
                       <TableRow>
-                        <TableCell colSpan={5} className="text-centre py-8">
+                        <TableCell className="text-centre py-8">
                           <div className="flex flex-col items-centre justify-centre">
                             <Info className="h-8 w-8 text-grey-400 mb-2" />
                             <p className="text-sm text-grey-500">No plugins found matching your filters.</p>
                           </div>
                         </TableCell>
+                        <TableCell></TableCell>
+                        <TableCell></TableCell>
+                        <TableCell></TableCell>
+                        <TableCell></TableCell>
                       </TableRow>
                     ) : (
                       filteredPlugins.map(plugin => (
