@@ -221,8 +221,7 @@ export default function PluginManagement() {
       }, 500);
     } catch (error) {
       console.error('Failed to fetch plugins:', error);
-      toast({
-        title: "Error",
+      toast("Error", {
         description: "Failed to fetch plugins. Please try again.",
         variant: "destructive",
       });
@@ -255,15 +254,13 @@ export default function PluginManagement() {
         setPlugins(updatedPlugins);
         setIsLoading(false);
         
-        toast({
-          title: "Success",
+        toast("Success", {
           description: `Plugin ${plugin.status === PluginStatus.ACTIVE ? 'disabled' : 'enabled'} successfully.`,
         });
       }, 500);
     } catch (error) {
       console.error('Failed to toggle plugin status:', error);
-      toast({
-        title: "Error",
+      toast("Error", {
         description: "Failed to update plugin status. Please try again.",
         variant: "destructive",
       });
@@ -304,15 +301,13 @@ export default function PluginManagement() {
         setPlugins([...plugins, newPlugin]);
         setIsLoading(false);
         
-        toast({
-          title: "Success",
+        toast("Success", {
           description: "Plugin installed successfully and pending approval.",
         });
       }, 1000);
     } catch (error) {
       console.error('Failed to install plugin:', error);
-      toast({
-        title: "Error",
+      toast("Error", {
         description: "Failed to install plugin. Please check the URL and try again.",
         variant: "destructive",
       });
@@ -350,15 +345,13 @@ export default function PluginManagement() {
         setIsLoading(false);
         setIsSettingsOpen(false);
         
-        toast({
-          title: "Success",
+        toast("Success", {
           description: "Plugin settings updated successfully.",
         });
       }, 500);
     } catch (error) {
       console.error('Failed to update plugin settings:', error);
-      toast({
-        title: "Error",
+      toast("Error", {
         description: "Failed to update plugin settings. Please try again.",
         variant: "destructive",
       });
@@ -381,15 +374,13 @@ export default function PluginManagement() {
         setPlugins(updatedPlugins);
         setIsLoading(false);
         
-        toast({
-          title: "Success",
+        toast("Success", {
           description: "Plugin uninstalled successfully.",
         });
       }, 500);
     } catch (error) {
       console.error('Failed to uninstall plugin:', error);
-      toast({
-        title: "Error",
+      toast("Error", {
         description: "Failed to uninstall plugin. Please try again.",
         variant: "destructive",
       });
