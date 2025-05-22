@@ -359,7 +359,15 @@ function generatePersonalizedRecommendations(
   });
   
   // Step 4: Generate personalized recommendations
-  const recommendations = [];
+  const recommendations: Array<{
+    id: string;
+    title: string;
+    description: string;
+    steps: string[];
+    category: string;
+    suitability: number;
+    timeRequired: string;
+  }> = [];
   
   // 4.1: Add strategies that have worked well in the past
   effectiveStrategies.forEach(strategyId => {
