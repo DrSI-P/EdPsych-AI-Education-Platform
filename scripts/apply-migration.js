@@ -22,7 +22,8 @@ const migrationNames = process.argv.slice(2).length > 0
       '20250522092700_add_restorative_training_resources',
       '20250522092920_add_duration_and_level_to_training_module',
       '20250522093140_add_type_and_duration_to_training_section',
-      '20250522093350_add_restorative_training_quiz_attempt'
+      '20250522093350_add_restorative_training_quiz_attempt',
+      '20250522102900_add_learning_difference_profile'
     ];
 
 // Path to the migrations directory
