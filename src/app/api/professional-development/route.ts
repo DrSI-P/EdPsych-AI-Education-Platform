@@ -59,7 +59,7 @@ async function handleEnrollment(body: any) {
     const { userId, courseId } = enrollmentSchema.parse(body);
 
     // Check if already enrolled
-    const existingEnrollment = await prisma.courseEnrollment.findUnique({
+    const existingEnrollment = await prisma.enrollment.findUnique({
       where: {
         userId_courseId: {
           userId,
@@ -76,13 +76,13 @@ async function handleEnrollment(body: any) {
     }
 
     // Create new enrolment
-    const enrolment = await prisma.courseEnrollment.create({
+    const enrolment = await prisma.enrollment.create({
       data: {
         userId,
         courseId,
-        enrolledAt: new Date(),
+        startDate: new Date(),
         progress: 0,
-        status: 'ENROLLED',
+        status: 'active',
       },
     });
 
@@ -150,7 +150,7 @@ async function handleProgressUpdate(body: any) {
     }
 
     // Update enrolment record
-    await prisma.courseEnrollment.update({
+    await prisma.enrollment.update({
       where: {
         userId_courseId: {
           userId,
@@ -159,8 +159,8 @@ async function handleProgressUpdate(body: any) {
       },
       data: {
         progress: overallProgress,
-        status: overallProgress >= 100 ? 'COMPLETED' : 'IN_PROGRESS',
-        lastAccessed: new Date(),
+        status: overallProgress >= 100 ? 'completed' : 'active',
+        updatedAt: new Date(),
       },
     });
 
@@ -184,7 +184,7 @@ async function handleCompletion(body: any) {
     const { userId, courseId, feedback, rating } = completionSchema.parse(body);
 
     // Update enrolment status
-    const updatedEnrollment = await prisma.courseEnrollment.update({
+    const updatedEnrollment = await prisma.enrollment.update({
       where: {
         userId_courseId: {
           userId,
@@ -192,11 +192,10 @@ async function handleCompletion(body: any) {
         },
       },
       data: {
-        status: 'COMPLETED',
-        completedAt: new Date(),
+        status: 'completed',
+        completionDate: new Date(),
         progress: 100,
-        feedback,
-        rating,
+        updatedAt: new Date(),
       },
     });
 
@@ -272,7 +271,7 @@ export async function GET(req: NextRequest) {
 }
 
 async function getUserEnrollments(userId: string, courseId?: string | null) {
-  const enrollments = await prisma.courseEnrollment.findMany({
+  const enrollments = await prisma.enrollment.findMany({
     where: {
       userId,
       ...(courseId ? { courseId } : {}),
@@ -281,7 +280,7 @@ async function getUserEnrollments(userId: string, courseId?: string | null) {
       course: true,
     },
     orderBy: {
-      enrolledAt: 'desc',
+      startDate: 'desc',
     },
   });
 
