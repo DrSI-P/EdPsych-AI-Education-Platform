@@ -1080,8 +1080,8 @@ export async function DELETE(request: NextRequest) {
         
         // Update community member count
         const memberCommunityIndex = communities.findIndex(c => c.id === communityId);
-        if (memberCommunityIndex !== -1) {
-          communities[memberCommunityIndex].members -= 1;
+        if (memberCommunityIndex !== -1 && communities[memberCommunityIndex]?.members !== undefined) {
+          communities[memberCommunityIndex].members = (communities[memberCommunityIndex].members ?? 0) - 1;
         }
         
         return NextResponse.json({ success: true, deleted: deletedMembership });
