@@ -512,10 +512,10 @@ export async function POST(request: NextRequest) {
           const newMembership = {
             userId: body.userId,
             communityId: newCommunity.id,
-            role: 'Admin',
+            role: "Admin" as "Admin" | "Member" | "Facilitator",
             joinedAt: new Date().toISOString(),
             lastActivity: new Date().toISOString(),
-            status: 'Active',
+            status: "Active" as "Active" | "Inactive" | "Pending",
           };
           
           memberships.push(newMembership);
