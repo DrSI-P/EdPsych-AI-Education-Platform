@@ -495,11 +495,11 @@ export async function POST(request: NextRequest) {
           // Create default privacy settings
           const newPrivacySettings = {
             communityId: newCommunity.id,
-            visibility: communityData.privacy,
-            discussionsAccess: 'members',
-            resourcesAccess: 'controlled',
-            eventsAccess: 'members',
-            collaborationsAccess: 'members',
+            visibility: communityData.privacy as "open" | "restricted",
+            discussionsAccess: "members" as "members" | "selected" | "all",
+            resourcesAccess: "controlled" as "members" | "controlled" | "all",
+            eventsAccess: "members" as "members" | "selected" | "public",
+            collaborationsAccess: "members" as "members" | "selected" | "all",
             enableAnonymization: true,
             requireApproval: true,
             maintainAttribution: true,
