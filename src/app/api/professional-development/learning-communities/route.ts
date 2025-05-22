@@ -273,7 +273,7 @@ let memberships: Membership[] = [];
 let privacySettings: PrivacySetting[] = [];
 
 // Integration with other professional development modules
-const integrateCPDActivity = async (userId, activityType, details) => {
+const integrateCPDActivity = async (userId: string, activityType: string, details: any): Promise<{success: boolean, points?: number, error?: string}> => {
   try {
     // In a real implementation, this would call the CPD Tracking API
     console.log(`Recording CPD activity for user ${userId}: ${activityType}`);
@@ -284,7 +284,7 @@ const integrateCPDActivity = async (userId, activityType, details) => {
   }
 };
 
-const integratePortfolio = async (userId, portfolioItem) => {
+const integratePortfolio = async (userId: string, portfolioItem: any): Promise<{success: boolean, portfolioItemId?: string, error?: string}> => {
   try {
     // In a real implementation, this would call the Professional Portfolio API
     console.log(`Adding portfolio item for user ${userId}`);
@@ -295,7 +295,7 @@ const integratePortfolio = async (userId, portfolioItem) => {
   }
 };
 
-const integrateMentorMatching = async (userId, expertise) => {
+const integrateMentorMatching = async (userId: string, expertise: string[]): Promise<{success: boolean, error?: string}> => {
   try {
     // In a real implementation, this would call the Mentor Matching API
     console.log(`Updating expertise for user ${userId}: ${expertise.join(', ')}`);
@@ -307,8 +307,8 @@ const integrateMentorMatching = async (userId, expertise) => {
 };
 
 // Helper functions
-const calculateCPDPoints = (activityType) => {
-  const pointsMap = {
+const calculateCPDPoints = (activityType: string): number => {
+  const pointsMap: {[key: string]: number} = {
     'resource_share': 2,
     'discussion_post': 1,
     'discussion_reply': 0.5,
@@ -322,7 +322,7 @@ const calculateCPDPoints = (activityType) => {
   return pointsMap[activityType] || 0;
 };
 
-const generateId = (prefix) => {
+const generateId = (prefix: string): string => {
   return `${prefix}_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 };
 
