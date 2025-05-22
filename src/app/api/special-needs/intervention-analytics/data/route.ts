@@ -28,8 +28,8 @@ export async function POST(req: NextRequest) {
     }
     
     // Fetch user's intervention data
-    let interventionData = [];
-    let studentProgress = [];
+    let interventionData: any[] = [];
+    let studentProgress: any[] = [];
     
     // If using real data (not demo data)
     if (settings.enabled) {
