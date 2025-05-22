@@ -566,10 +566,10 @@ export async function POST(request: NextRequest) {
         const newMembership = {
           userId,
           communityId,
-          role,
+          role: role as "Admin" | "Member" | "Facilitator",
           joinedAt: new Date().toISOString(),
           lastActivity: new Date().toISOString(),
-          status: community.privacy === 'restricted' ? 'Pending' : 'Active',
+          status: (community.privacy === 'restricted' ? 'Pending' : 'Active') as "Active" | "Inactive" | "Pending",
         };
         
         memberships.push(newMembership);
