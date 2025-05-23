@@ -1,26 +1,6 @@
 import React from 'react';
 
-interface BlogPostViewProps {
-  post: {
-    id: string;
-    title: string;
-    content: string;
-    author?: {
-      name?: string;
-      image?: string;
-    };
-    createdAt: string;
-    publishedAt?: string;
-    summary?: string;
-    featuredImage?: string;
-    likeCount?: number;
-  };
-  relatedPosts?: any[];
-  onLike?: () => void;
-  isLikeLoading?: boolean;
-}
-
-export function BlogPostView({ post, relatedPosts = [], onLike, isLikeLoading = false }: BlogPostViewProps) {
+export function BlogPostView({ post, relatedPosts = [], onLike, isLikeLoading = false }) {
   return (
     <div className="max-w-4xl mx-auto">
       {post.featuredImage && (
