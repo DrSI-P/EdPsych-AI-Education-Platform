@@ -204,34 +204,40 @@ async function main() {
       questions: {
         create: [
           {
-            question: 'Self-Awareness',
+            text: 'Self-Awareness',  // Changed from 'content' to 'text' to match schema
             type: 'observation',
-            options: {
+            options: JSON.stringify({  // Convert options object to JSON string
               score: 3,
               maxScore: 5,
               observations: 'Emily can identify basic emotions but struggles with more complex feelings. She is beginning to recognise physical signs of anxiety.',
               recommendations: 'Use emotion cards and body mapping activities to develop emotional vocabulary and awareness of physiological responses.'
-            }
+            }),
+            points: 5,  // Added required field
+            order: 1    // Added required field
           },
           {
-            question: 'Self-Regulation',
+            text: 'Self-Regulation',  // Changed from 'content' to 'text' to match schema
             type: 'observation',
-            options: {
+            options: JSON.stringify({  // Convert options object to JSON string
               score: 2,
               maxScore: 5,
               observations: 'Emily finds it difficult to manage strong emotions, particularly frustration during challenging tasks. She sometimes withdraws or becomes tearful.',
               recommendations: 'Teach specific calming strategies such as deep breathing and counting. Provide a quiet space for regulation when needed.'
-            }
+            }),
+            points: 5,  // Added required field
+            order: 2    // Added required field
           },
           {
-            question: 'Social Awareness',
+            text: 'Social Awareness',  // Changed from 'content' to 'text' to match schema
             type: 'observation',
-            options: {
+            options: JSON.stringify({  // Convert options object to JSON string
               score: 4,
               maxScore: 5,
               observations: 'Emily shows good empathy and can recognise how others are feeling. She is sensitive to classroom atmosphere.',
               recommendations: 'Build on this strength through peer mentoring opportunities and collaborative projects.'
-            }
+            }),
+            points: 5,  // Added required field
+            order: 3    // Added required field
           }
         ]
       }
@@ -247,34 +253,40 @@ async function main() {
       questions: {
         create: [
           {
-            question: 'Verbal Communication',
+            text: 'Verbal Communication',  // Changed from 'content' to 'text' to match schema
             type: 'observation',
-            options: {
+            options: JSON.stringify({  // Convert options object to JSON string
               score: 4,
               maxScore: 5,
               observations: 'James communicates clearly and can express his thoughts well. He sometimes uses overly formal language with peers.',
               recommendations: 'Role-play activities to practise casual conversation. Provide feedback on social language appropriate for different contexts.'
-            }
+            }),
+            points: 5,  // Added required field
+            order: 1    // Added required field
           },
           {
-            question: 'Non-verbal Communication',
+            text: 'Non-verbal Communication',  // Changed from 'content' to 'text' to match schema
             type: 'observation',
-            options: {
+            options: JSON.stringify({  // Convert options object to JSON string
               score: 3,
               maxScore: 5,
               observations: 'James has limited facial expression and sometimes stands too close to others. He misses some social cues.',
               recommendations: 'Explicit teaching of non-verbal cues through video modelling and social stories. Practise appropriate personal space.'
-            }
+            }),
+            points: 5,  // Added required field
+            order: 2    // Added required field
           },
           {
-            question: 'Friendship Skills',
+            text: 'Friendship Skills',  // Changed from 'content' to 'text' to match schema
             type: 'observation',
-            options: {
+            options: JSON.stringify({  // Convert options object to JSON string
               score: 3,
               maxScore: 5,
               observations: 'James has a small group of friends with shared interests. He struggles to join new groups or activities.',
               recommendations: 'Structured social opportunities with clear roles. Teach specific strategies for joining groups and starting conversations.'
-            }
+            }),
+            points: 5,  // Added required field
+            order: 3    // Added required field
           }
         ]
       }

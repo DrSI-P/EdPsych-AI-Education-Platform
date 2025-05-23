@@ -12,7 +12,7 @@ export async function GET(req: NextRequest) {
     }
     
     // Get rewards for the current user
-    const rewards = await prisma.behaviorReward.findMany({
+    const rewards = await (prisma as any).behaviorReward.findMany({
       where: {
         userId: session.user.id,
       },
@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
     }
     
     // Create new reward
-    const reward = await prisma.behaviorReward.create({
+    const reward = await (prisma as any).behaviorReward.create({
       data: {
         userId: session.user.id,
         name: data.name,
@@ -56,7 +56,7 @@ export async function POST(req: NextRequest) {
     });
     
     // Log the reward creation
-    await prisma.behaviorTrackingLog.create({
+    await (prisma as any).behaviorTrackingLog.create({
       data: {
         userId: session.user.id,
         action: 'REWARD_CREATED',

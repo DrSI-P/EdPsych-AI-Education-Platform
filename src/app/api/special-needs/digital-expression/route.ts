@@ -70,7 +70,7 @@ export async function GET(req: Request) {
     const searchQuery = searchParams.get('search');
     
     // Build base query with user filter
-    const baseQuery = {
+    const baseQuery: any = {
       where: {
         userId: session.user.id,
       },
@@ -108,7 +108,7 @@ export async function GET(req: Request) {
     
     switch (type) {
       case 'journal':
-        const journalEntries = await prisma.digitalJournalEntry.findMany({
+        const journalEntries = await (prisma as any).digitalJournalEntry.findMany({
           ...baseQuery,
           include: {
             responses: {
@@ -131,7 +131,7 @@ export async function GET(req: Request) {
         break;
         
       case 'artwork':
-        const artworks = await prisma.digitalArtwork.findMany({
+        const artworks = await (prisma as any).digitalArtwork.findMany({
           ...baseQuery,
           include: {
             responses: {
@@ -162,7 +162,7 @@ export async function GET(req: Request) {
           };
         }
         
-        const mediaProjects = await prisma.digitalMediaProject.findMany({
+        const mediaProjects = await (prisma as any).digitalMediaProject.findMany({
           ...baseQuery,
           include: {
             responses: {
@@ -186,7 +186,7 @@ export async function GET(req: Request) {
         
       case 'groups':
         // For groups, we need to fetch groups the user is a member of
-        const groups = await prisma.peerSupportGroup.findMany({
+        const groups = await (prisma as any).peerSupportGroup.findMany({
           where: {
             members: {
               some: {
@@ -257,22 +257,22 @@ export async function GET(req: Request) {
       default:
         // Return all data types if no specific type is requested
         const [allJournalEntries, allArtworks, allMediaProjects, allGroups] = await Promise.all([
-          prisma.digitalJournalEntry.findMany({
+          (prisma as any).digitalJournalEntry.findMany({
             where: { userId: session.user.id },
             orderBy: { createdAt: 'desc' },
             take: 5,
           }),
-          prisma.digitalArtwork.findMany({
+          (prisma as any).digitalArtwork.findMany({
             where: { userId: session.user.id },
             orderBy: { createdAt: 'desc' },
             take: 5,
           }),
-          prisma.digitalMediaProject.findMany({
+          (prisma as any).digitalMediaProject.findMany({
             where: { userId: session.user.id },
             orderBy: { createdAt: 'desc' },
             take: 5,
           }),
-          prisma.peerSupportGroup.findMany({
+          (prisma as any).peerSupportGroup.findMany({
             where: {
               members: {
                 some: {
@@ -336,7 +336,7 @@ export async function POST(req: Request) {
         const journalData = JournalEntrySchema.parse(body.data);
         
         // Create journal entry
-        const journalEntry = await prisma.digitalJournalEntry.create({
+        const journalEntry = await (prisma as any).digitalJournalEntry.create({
           data: {
             userId: session.user.id,
             title: journalData.title,
@@ -354,7 +354,7 @@ export async function POST(req: Request) {
         const artworkData = ArtworkSchema.parse(body.data);
         
         // Create artwork entry
-        const artwork = await prisma.digitalArtwork.create({
+        const artwork = await (prisma as any).digitalArtwork.create({
           data: {
             userId: session.user.id,
             title: artworkData.title,
@@ -373,7 +373,7 @@ export async function POST(req: Request) {
         const mediaData = MediaProjectSchema.parse(body.data);
         
         // Create media project
-        const mediaProject = await prisma.digitalMediaProject.create({
+        const mediaProject = await (prisma as any).digitalMediaProject.create({
           data: {
             userId: session.user.id,
             title: mediaData.title,
@@ -394,7 +394,7 @@ export async function POST(req: Request) {
         const messageData = GroupMessageSchema.parse(body.data);
         
         // Check if user is a member of the group
-        const groupMembership = await prisma.peerSupportGroupMember.findFirst({
+        const groupMembership = await (prisma as any).peerSupportGroupMember.findFirst({
           where: {
             userId: session.user.id,
             groupId: messageData.groupId,
@@ -409,7 +409,7 @@ export async function POST(req: Request) {
         }
         
         // Create group message
-        const groupMessage = await prisma.peerSupportGroupMessage.create({
+        const groupMessage = await (prisma as any).peerSupportGroupMessage.create({
           data: {
             groupId: messageData.groupId,
             authorId: session.user.id,
@@ -437,7 +437,7 @@ export async function POST(req: Request) {
         
         switch (responseData.entryType) {
           case 'journal':
-            response = await prisma.digitalJournalResponse.create({
+            response = await (prisma as any).digitalJournalResponse.create({
               data: {
                 journalEntryId: responseData.entryId,
                 authorId: session.user.id,
@@ -456,7 +456,7 @@ export async function POST(req: Request) {
             break;
             
           case 'artwork':
-            response = await prisma.digitalArtworkResponse.create({
+            response = await (prisma as any).digitalArtworkResponse.create({
               data: {
                 artworkId: responseData.entryId,
                 authorId: session.user.id,
@@ -475,7 +475,7 @@ export async function POST(req: Request) {
             break;
             
           case 'media':
-            response = await prisma.digitalMediaResponse.create({
+            response = await (prisma as any).digitalMediaResponse.create({
               data: {
                 mediaProjectId: responseData.entryId,
                 authorId: session.user.id,
@@ -494,7 +494,7 @@ export async function POST(req: Request) {
             break;
             
           case 'group':
-            response = await prisma.peerSupportGroupMessageResponse.create({
+            response = await (prisma as any).peerSupportGroupMessageResponse.create({
               data: {
                 messageId: responseData.entryId,
                 authorId: session.user.id,

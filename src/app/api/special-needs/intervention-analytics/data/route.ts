@@ -28,11 +28,23 @@ export async function POST(req: NextRequest) {
     }
     
     // Fetch user's intervention data
-    let interventionData: any[] = [];
-    let studentProgress: any[] = [];
+    let interventionData: {
+      id: string;
+      type: string;
+      startDate: string;
+      endDate: string;
+      effectiveness: number;
+      notes: string;
+    }[] = [];
+    let studentProgress: {
+      date: string;
+      score: number;
+      goal: number;
+      notes: string;
+    }[] = [];
     
     // If using real data (not demo data)
-    if (settings.enabled) {
+    if (settings?.enabled) {
       // Build query based on settings
       const query: any = {
         where: {
@@ -48,10 +60,10 @@ export async function POST(req: NextRequest) {
       };
       
       // Apply time range filter if specified
-      if (settings.timeRange !== 'all') {
+      if (settings?.timeRange !== 'all') {
         const dateFilter: any = {};
         
-        switch (settings.timeRange) {
+        switch (settings?.timeRange) {
           case 'week':
             dateFilter.gte = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
             break;
@@ -73,14 +85,14 @@ export async function POST(req: NextRequest) {
       }
       
       // Apply intervention filter if using selected interventions
-      if (settings.dataSource === 'selected' && settings.selectedInterventions?.length > 0) {
+      if (settings?.dataSource === 'selected' && settings.selectedInterventions?.length > 0) {
         query.where.interventionType = {
           in: settings.selectedInterventions,
         };
       }
       
       // Fetch data based on query
-      const userData = await prisma.user.findUnique({
+      const userData = await (prisma as any).user.findUnique({
         where: {
           id: userId,
         },
@@ -92,7 +104,7 @@ export async function POST(req: NextRequest) {
               dataPoints: true,
             },
           },
-        },
+        } as any,
       });
       
       if (userData) {
@@ -104,7 +116,7 @@ export async function POST(req: NextRequest) {
         // In a real implementation, this would involve statistical analysis
         
         // Log the analytics request
-        await prisma.analyticsLog.create({
+        await (prisma as any).analyticsLog.create({
           data: {
             userId: userId,
             action: 'data_request',

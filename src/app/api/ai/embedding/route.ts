@@ -80,7 +80,7 @@ async function handleOpenAIEmbedding(requestData: AIEmbeddingRequest) {
     });
     
     return {
-      embeddings: response.data.map(item => item.embedding),
+      embeddings: response.data.map((item: any) => item.embedding),
       provider: 'openai',
       model: requestData.model
     };
@@ -128,7 +128,7 @@ async function handleGeminiEmbedding(requestData: AIEmbeddingRequest) {
     
     // Process each text item
     const embeddings = await Promise.all(
-      textArray.map(async (text) => {
+      textArray.map(async (text: string) => {
         const result = await model.embedContent(text);
         return result.embedding.values;
       })

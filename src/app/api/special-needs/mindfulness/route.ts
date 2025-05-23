@@ -90,10 +90,10 @@ export async function GET(req: Request) {
       },
       activityHistory: activityHistory.map(log => ({
         id: log.id,
-        activityId: log.details.activityId,
+        activityId: (log.details as any)?.activityId || '',
         completedAt: log.timestamp,
-        duration: log.details.duration || 0,
-        feedback: log.details.feedback || null
+        duration: (log.details as any)?.duration || 0,
+        feedback: (log.details as any)?.feedback || null
       })),
       favoriteActivities: favoriteActivities?.favoriteActivities || []
     });
@@ -180,9 +180,12 @@ export async function POST(req: Request) {
         let favoriteActivities = userSettings?.favoriteActivities || [];
         
         // Toggle favourite status
-        if (favoriteActivities.includes(activityId)) {
+        if (Array.isArray(favoriteActivities) && favoriteActivities.includes(activityId)) {
           favoriteActivities = favoriteActivities.filter(id => id !== activityId);
         } else {
+          if (!Array.isArray(favoriteActivities)) {
+            favoriteActivities = [];
+          }
           favoriteActivities.push(activityId);
         }
         
@@ -210,7 +213,7 @@ export async function POST(req: Request) {
         return NextResponse.json({
           success: true,
           message: 'Favourite status updated successfully',
-          isFavorite: !userSettings?.favoriteActivities.includes(activityId)
+          isFavorite: Array.isArray(userSettings?.favoriteActivities) ? !userSettings.favoriteActivities.includes(activityId) : false
         });
       }
       

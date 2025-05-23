@@ -78,7 +78,8 @@ export async function POST(req: NextRequest) {
           },
           create: {
             userId,
-            settings: data
+            settings: data,
+            assessmentResults: {} // Add default empty object for assessmentResults
           }
         });
         

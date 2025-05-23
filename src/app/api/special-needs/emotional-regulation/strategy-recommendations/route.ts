@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import { db } from '@/lib/db';
+import { db, prisma } from '@/lib/db';
 
 // Schema for strategy recommendations request
 const StrategyRecommendationsRequestSchema = z.object({
@@ -65,7 +65,7 @@ export async function GET(req: Request) {
     const params = validationResult.data;
     
     // Fetch user settings
-    const userSettings = await db.emotionalRegulationSettings.findUnique({
+    const userSettings = await (prisma as any).emotionalRegulationSettings.findUnique({
       where: {
         userId: session.user.id
       }
@@ -79,7 +79,7 @@ export async function GET(req: Request) {
     }
     
     // Fetch emotion records for pattern analysis
-    const emotionRecords = await db.emotionRecord.findMany({
+    const emotionRecords = await (prisma as any).emotionRecord.findMany({
       where: {
         userId: session.user.id,
         timestamp: {
@@ -92,7 +92,7 @@ export async function GET(req: Request) {
     });
     
     // Fetch strategy usage history
-    const strategyHistory = await db.emotionalRegulationLog.findMany({
+    const strategyHistory = await (prisma as any).emotionalRegulationLog.findMany({
       where: {
         userId: session.user.id,
         action: 'strategy_feedback'
@@ -159,7 +159,7 @@ export async function POST(req: Request) {
       const preferences = validationResult.data;
       
       // Update user preferences
-      await db.emotionalRegulationSettings.update({
+      await (prisma as any).emotionalRegulationSettings.update({
         where: {
           userId: session.user.id
         },
@@ -175,7 +175,7 @@ export async function POST(req: Request) {
       });
       
       // Log the activity
-      await db.emotionalRegulationLog.create({
+      await (prisma as any).emotionalRegulationLog.create({
         data: {
           userId: session.user.id,
           action: 'update_strategy_preferences',
@@ -204,7 +204,7 @@ export async function POST(req: Request) {
       const feedback = validationResult.data;
       
       // Log the strategy feedback
-      await db.emotionalRegulationLog.create({
+      await (prisma as any).emotionalRegulationLog.create({
         data: {
           userId: session.user.id,
           action: 'strategy_feedback',
@@ -313,8 +313,8 @@ function generatePersonalizedRecommendations(
   // Step 2: Analyse strategy effectiveness
   const strategyEffectiveness: Record<string, { totalRating: number; count: number; average: number }> = {};
   strategyHistory.forEach(record => {
-    if (record.details.strategyId) {
-      const strategyId = record.details.strategyId;
+    if (record.details?.strategyId) {
+      const strategyId = record.details?.strategyId;
       if (!strategyEffectiveness[strategyId]) {
         strategyEffectiveness[strategyId] = {
           totalRating: 0,
@@ -322,7 +322,7 @@ function generatePersonalizedRecommendations(
           average: 0
         };
       }
-      strategyEffectiveness[strategyId].totalRating += record.details.effectiveness;
+      strategyEffectiveness[strategyId].totalRating += record.details?.effectiveness || 0;
       strategyEffectiveness[strategyId].count += 1;
       strategyEffectiveness[strategyId].average = 
         strategyEffectiveness[strategyId].totalRating / strategyEffectiveness[strategyId].count;
@@ -359,14 +359,31 @@ function generatePersonalizedRecommendations(
   });
   
   // Step 4: Generate personalized recommendations
-  const recommendations = [];
+  const recommendations: Array<{
+    id: string;
+    title: string;
+    description: string;
+    steps: string[];
+    category: string;
+    suitability: number;
+    timeRequired: string;
+    reason?: string;
+    reasonType?: string;
+    score?: number;
+  }> = [];
   
   // 4.1: Add strategies that have worked well in the past
   effectiveStrategies.forEach(strategyId => {
     const strategy = regulationStrategies.find(s => s.id === strategyId);
     if (strategy && filteredStrategies.some(s => s.id === strategyId)) {
       recommendations.push({
-        ...strategy,
+        id: strategy.id,
+        title: strategy.name,
+        description: strategy.description,
+        steps: strategy.steps,
+        category: strategy.category,
+        suitability: 90,
+        timeRequired: strategy.duration === 'short' ? '5 minutes' : (strategy.duration === 'medium' ? '15 minutes' : '30 minutes'),
         reason: "This has worked well for you in the past",
         reasonType: "effectiveness",
         score: strategyEffectiveness[strategyId].average * 20 // Convert to 0-100 scale
@@ -383,7 +400,13 @@ function generatePersonalizedRecommendations(
     
     suitableStrategies.slice(0, 2).forEach(strategy => {
       recommendations.push({
-        ...strategy,
+        id: strategy.id,
+        title: strategy.name,
+        description: strategy.description,
+        steps: strategy.steps,
+        category: strategy.category,
+        suitability: 85,
+        timeRequired: strategy.duration === 'short' ? '5 minutes' : (strategy.duration === 'medium' ? '15 minutes' : '30 minutes'),
         reason: `Good for managing ${emotion.toLowerCase()} feelings`,
         reasonType: "emotion",
         score: 70 + Math.random() * 15 // Random score between 70-85
@@ -403,7 +426,13 @@ function generatePersonalizedRecommendations(
   
   evidenceBasedStrategies.forEach(strategy => {
     recommendations.push({
-      ...strategy,
+      id: strategy.id,
+      title: strategy.name,
+      description: strategy.description,
+      steps: strategy.steps,
+      category: strategy.category,
+      suitability: 80,
+      timeRequired: strategy.duration === 'short' ? '5 minutes' : (strategy.duration === 'medium' ? '15 minutes' : '30 minutes'),
       reason: "Strong evidence supporting effectiveness",
       reasonType: "evidence",
       score: 65 + Math.random() * 15 // Random score between 65-80
@@ -418,7 +447,13 @@ function generatePersonalizedRecommendations(
     
     remainingStrategies.forEach(strategy => {
       recommendations.push({
-        ...strategy,
+        id: strategy.id,
+        title: strategy.name,
+        description: strategy.description,
+        steps: strategy.steps,
+        category: strategy.category,
+        suitability: 75,
+        timeRequired: strategy.duration === 'short' ? '5 minutes' : (strategy.duration === 'medium' ? '15 minutes' : '30 minutes'),
         reason: "Matches your preferences",
         reasonType: "preference",
         score: 60 + Math.random() * 10 // Random score between 60-70
@@ -427,7 +462,7 @@ function generatePersonalizedRecommendations(
   }
   
   // Sort by score
-  recommendations.sort((a, b) => b.score - a.score);
+  recommendations.sort((a, b) => (b.score || 0) - (a.score || 0));
   
   // Limit to requested number
   return recommendations.slice(0, params.limit);

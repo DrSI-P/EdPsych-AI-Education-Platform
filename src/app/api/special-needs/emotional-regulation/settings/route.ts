@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
     const userId = session.user.id;
     
     // Get emotional regulation settings for the user
-    const settings = await prisma.emotionalRegulationSettings.findUnique({
+    const settings = await (prisma as any).emotionalRegulationSettings.findUnique({
       where: { userId },
     });
     
@@ -49,7 +49,7 @@ export async function POST(request: NextRequest) {
     }
     
     // Create or update settings
-    const settings = await prisma.emotionalRegulationSettings.upsert({
+    const settings = await (prisma as any).emotionalRegulationSettings.upsert({
       where: { userId },
       update: {
         emotionVocabularyLevel: data.emotionVocabularyLevel,
@@ -70,7 +70,7 @@ export async function POST(request: NextRequest) {
     });
     
     // Log the activity
-    await prisma.emotionalRegulationLog.create({
+    await (prisma as any).emotionalRegulationLog.create({
       data: {
         userId,
         action: 'settings_updated',

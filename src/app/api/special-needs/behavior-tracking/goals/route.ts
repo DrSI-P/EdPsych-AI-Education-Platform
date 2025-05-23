@@ -12,7 +12,7 @@ export async function GET(req: NextRequest) {
     }
     
     // Get goals for the current user
-    const goals = await prisma.behaviorGoal.findMany({
+    const goals = await (prisma as any).behaviorGoal.findMany({
       where: {
         userId: session.user.id,
       },
@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
     }
     
     // Create new goal
-    const goal = await prisma.behaviorGoal.create({
+    const goal = await (prisma as any).behaviorGoal.create({
       data: {
         userId: session.user.id,
         name: data.name,
@@ -58,7 +58,7 @@ export async function POST(req: NextRequest) {
     });
     
     // Log the goal creation
-    await prisma.behaviorTrackingLog.create({
+    await (prisma as any).behaviorTrackingLog.create({
       data: {
         userId: session.user.id,
         action: 'GOAL_CREATED',

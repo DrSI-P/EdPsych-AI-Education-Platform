@@ -35,6 +35,16 @@ export async function POST(req: NextRequest) {
     // Validate settings - using only fields that exist in the AccessibilitySettings model
     // Ensure all field names and types exactly match the schema
     const validatedSettings = {
+      // Keep existing fields unchanged
+      highContrastMode: false,
+      contrastMode: "high-contrast",
+      textSize: 100,
+      contrastLevel: 100,
+      reduceAnimations: false,
+      customTextColor: "#ffffff",
+      customBackgroundColor: "#000000",
+      customLinkColor: "#ffff00",
+      // Add keyboard navigation specific settings
       keyboardNavigationOptimized: Boolean(settings.keyboardNavigation),
       focusIndicators: Boolean(settings.highlightFocus ?? true),
     };

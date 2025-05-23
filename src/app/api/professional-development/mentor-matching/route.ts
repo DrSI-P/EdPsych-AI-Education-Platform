@@ -123,14 +123,14 @@ async function handleUpdateProfile(body: any) {
     const { userId, ...profileData } = profileSchema.parse(body);
 
     // Check if profile exists
-    const existingProfile = await prisma.mentorship.findUnique({
+    const existingProfile = await prisma.mentorProfile.findUnique({
       where: { userId }
     });
 
     let profile;
     if (existingProfile) {
       // Update existing profile
-      profile = await prisma.mentorship.update({
+      profile = await prisma.mentorProfile.update({
         where: { userId },
         data: {
           ...profileData,
@@ -140,7 +140,7 @@ async function handleUpdateProfile(body: any) {
       });
     } else {
       // Create new profile
-      profile = await prisma.mentorship.create({
+      profile = await prisma.mentorProfile.create({
         data: {
           ...profileData,
           mentorshipPreferences: profileData.mentorshipPreferences || undefined,
@@ -152,7 +152,7 @@ async function handleUpdateProfile(body: any) {
     }
 
     // Update user's CPD profile with mentorship information
-    await prisma.cpdProfile.upsert({
+    await prisma.cPDProfile.upsert({
       where: { userId },
       update: {
         mentorshipRole: profileData.role,
@@ -266,7 +266,7 @@ async function handleRespondToRequest(body: any) {
           startDate: startDate.toISOString(),
           endDate: endDate.toISOString(),
           focusAreas: request.focusAreas,
-          goals: request.goals.map(goal => ({
+          goals: request.goals.map((goal: string) => ({
             text: goal,
             status: 'not_started' as 'not_started' | 'in_progress' | 'completed'
           })),
@@ -280,13 +280,12 @@ async function handleRespondToRequest(body: any) {
       await prisma.cPDActivity.create({
         data: {
           userId: request.mentorId,
-          title: `Mentorship with ${request.menteeId}`,
+          title: `Mentorship with ${request.menteeId} - Providing mentorship focusing on ${request.focusAreas.join(', ')}`,
           type: 'Mentorship',
-          description: `Providing mentorship focusing on ${request.focusAreas.join(', ')}`,
           date: startDate.toISOString(),
           duration: 0, // Will be updated as meetings occur
           status: 'In Progress',
-          evidence: [],
+          evidence: '',
           reflection: '',
           points: 0, // Will be updated as meetings occur
           createdAt: new Date()
@@ -296,13 +295,12 @@ async function handleRespondToRequest(body: any) {
       await prisma.cPDActivity.create({
         data: {
           userId: request.menteeId,
-          title: `Mentorship with ${request.mentorId}`,
+          title: `Mentorship with ${request.mentorId} - Receiving mentorship focusing on ${request.focusAreas.join(', ')}`,
           type: 'Mentorship',
-          description: `Receiving mentorship focusing on ${request.focusAreas.join(', ')}`,
           date: startDate.toISOString(),
           duration: 0, // Will be updated as meetings occur
           status: 'In Progress',
-          evidence: [],
+          evidence: '',
           reflection: '',
           points: 0, // Will be updated as meetings occur
           createdAt: new Date()
@@ -452,7 +450,7 @@ async function handleUpdateMeeting(body: any) {
           where: {
             userId: mentorship.mentorId,
             type: 'Mentorship',
-            description: { contains: mentorship.menteeId }
+            title: { contains: mentorship.menteeId }
           }
         });
         
@@ -472,7 +470,7 @@ async function handleUpdateMeeting(body: any) {
           where: {
             userId: mentorship.menteeId,
             type: 'Mentorship',
-            description: { contains: mentorship.mentorId }
+            title: { contains: mentorship.mentorId }
           }
         });
         
@@ -600,12 +598,14 @@ async function handleUpdateGoal(body: any) {
     }
     
     // Update goal status
-    const goals = mentorship.goals.map(goal => {
-      if (goal.id === goalId) {
-        return { ...goal, status };
-      }
-      return goal;
-    });
+    const goals = Array.isArray(mentorship.goals)
+      ? mentorship.goals.map((goal: any) => {
+          if (goal.id === goalId) {
+            return { ...goal, status };
+          }
+          return goal;
+        })
+      : [];
     
     const updatedMentorship = await prisma.mentorship.update({
       where: { id: mentorshipId },
@@ -618,9 +618,11 @@ async function handleUpdateGoal(body: any) {
     // If goal is completed, add to portfolio achievements
     if (status === 'completed') {
       // Get goal details
-      const goal = mentorship.goals.find(g => g.id === goalId);
+      const goal = Array.isArray(mentorship.goals)
+        ? mentorship.goals.find((g: any) => g.id === goalId)
+        : undefined;
       
-      if (goal) {
+      if (goal && typeof goal === 'object' && 'text' in goal) {
         // Add achievement to mentee's portfolio
         await prisma.portfolioAchievement.create({
           data: {
@@ -684,7 +686,7 @@ async function handleCompleteMentorship(body: any) {
       where: {
         userId: mentorship.mentorId,
         type: 'Mentorship',
-        description: { contains: mentorship.menteeId }
+        title: { contains: mentorship.menteeId }
       }
     });
     
@@ -703,7 +705,7 @@ async function handleCompleteMentorship(body: any) {
       where: {
         userId: mentorship.menteeId,
         type: 'Mentorship',
-        description: { contains: mentorship.mentorId }
+        title: { contains: mentorship.mentorId }
       }
     });
     
@@ -757,7 +759,6 @@ async function handleCompleteMentorship(body: any) {
           date: new Date().toISOString(),
           tags: ['mentorship', 'professional development'],
           visibility: 'public',
-          associatedEvidence: [],
           createdAt: new Date()
         }
       });
@@ -829,7 +830,7 @@ export async function GET(req: NextRequest) {
 }
 
 async function getProfile(userId: string) {
-  const profile = await prisma.mentorship.findUnique({
+  const profile = await prisma.mentorProfile.findUnique({
     where: { userId }
   });
   
@@ -875,7 +876,7 @@ async function getMeetings(userId: string) {
     select: { id: true }
   });
   
-  const mentorshipIds = mentorships.map(m => m.id);
+  const mentorshipIds = mentorships.map((m: any) => m.id);
   
   // Get meetings for these mentorships
   const meetings = await prisma.mentorshipMeeting.findMany({
@@ -903,7 +904,7 @@ async function getMentors(expertise: string | null, phase: string | null, subjec
     where.subjects = { has: subject };
   }
   
-  const mentors = await prisma.mentorship.findMany({
+  const mentors = await prisma.mentorProfile.findMany({
     where,
     orderBy: { createdAt: 'desc' }
   });
@@ -996,7 +997,7 @@ async function getMentorshipAnalytics(userId: string) {
   const completedMentorships = [...mentorMentorships, ...menteeMentorships].filter(m => m.status === 'completed').length;
   
   // Get all meetings
-  const mentorshipIds = [...mentorMentorships, ...menteeMentorships].map(m => m.id);
+  const mentorshipIds = [...mentorMentorships, ...menteeMentorships].map((m: any) => m.id);
   
   const meetings = await prisma.mentorshipMeeting.findMany({
     where: {
@@ -1010,9 +1011,11 @@ async function getMentorshipAnalytics(userId: string) {
     .reduce((total, meeting) => total + meeting.duration / 60, 0);
   
   // Get all goals
-  const allGoals = [...mentorMentorships, ...menteeMentorships].flatMap(m => m.goals);
-  const completedGoals = allGoals.filter(g => g.status === 'completed').length;
-  const inProgressGoals = allGoals.filter(g => g.status === 'in_progress').length;
+  const allGoals = [...mentorMentorships, ...menteeMentorships].flatMap(m =>
+    Array.isArray(m.goals) ? m.goals : []
+  );
+  const completedGoals = allGoals.filter((g: any) => g && g.status === 'completed').length;
+  const inProgressGoals = allGoals.filter((g: any) => g && g.status === 'in_progress').length;
   
   // Get CPD points from mentorship
   const cpdActivities = await prisma.cPDActivity.findMany({
