@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import { db } from '@/lib/db';
+import { prisma } from '@/lib/db';
 
 // Schema for circle template validation
 const circleTemplateSchema = z.object({
@@ -59,7 +59,7 @@ export async function GET(req: Request) {
     }
     
     // Fetch templates from database
-    const templates = await db.circleTemplate.findMany({
+    const templates = await prisma.circleTemplate.findMany({
       where: filters,
       orderBy: {
         createdAt: 'desc'
@@ -94,7 +94,7 @@ export async function POST(req: Request) {
     const validatedData = circleTemplateSchema.parse(body);
     
     // Create template in database
-    const template = await db.circleTemplate.create({
+    const template = await prisma.circleTemplate.create({
       data: {
         ...validatedData,
         userId: session.user.id
@@ -143,7 +143,7 @@ export async function PUT(req: Request) {
     const validatedData = circleTemplateSchema.parse(body);
     
     // Check if template exists and belongs to user
-    const existingTemplate = await db.circleTemplate.findUnique({
+    const existingTemplate = await prisma.circleTemplate.findUnique({
       where: {
         id: body.id
       }
@@ -164,7 +164,7 @@ export async function PUT(req: Request) {
     }
     
     // Update template
-    const updatedTemplate = await db.circleTemplate.update({
+    const updatedTemplate = await prisma.circleTemplate.update({
       where: {
         id: body.id
       },
@@ -211,7 +211,7 @@ export async function DELETE(req: Request) {
     }
     
     // Check if template exists and belongs to user
-    const existingTemplate = await db.circleTemplate.findUnique({
+    const existingTemplate = await prisma.circleTemplate.findUnique({
       where: {
         id: id
       }
@@ -232,7 +232,7 @@ export async function DELETE(req: Request) {
     }
     
     // Delete template
-    await db.circleTemplate.delete({
+    await prisma.circleTemplate.delete({
       where: {
         id: id
       }
