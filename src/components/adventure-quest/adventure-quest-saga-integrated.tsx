@@ -10,14 +10,15 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Progress } from "@/components/ui/progress";
-import { 
-  Dialog, 
-  DialogContent, 
-  DialogDescription, 
-  DialogFooter, 
-  DialogHeader, 
-  DialogTitle, 
-  DialogTrigger 
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogClose
 } from "@/components/ui/dialog";
 import { 
   Sword, 
@@ -142,16 +143,31 @@ const difficultyLevels = [
   { id: 'master', name: 'Master', color: 'bg-amber-500' }
 ];
 
-// Learning styles
-const learningStyles = [
-  { id: 'visual', name: 'Visual', icon: <Eye className="h-4 w-4" /> },
-  { id: 'auditory', name: 'Auditory', icon: <EarIcon className="h-4 w-4" /> },
-  { id: 'reading_writing', name: 'Reading/Writing', icon: <BookOpen className="h-4 w-4" /> },
-  { id: 'kinesthetic', name: 'Kinesthetic', icon: <HandIcon className="h-4 w-4" /> }
-];
-
 // Custom icons
-const EarIcon = (props) => (
+interface IconProps {
+  className?: string;
+  [key: string]: any;
+}
+
+const Eye = (props: IconProps) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+    <circle cx="12" cy="12" r="3" />
+  </svg>
+);
+
+const EarIcon = (props: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -169,7 +185,7 @@ const EarIcon = (props) => (
   </svg>
 );
 
-const HandIcon = (props) => (
+const HandIcon = (props: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -189,9 +205,48 @@ const HandIcon = (props) => (
   </svg>
 );
 
+// Learning styles
+const learningStyles = [
+  { id: 'visual', name: 'Visual', icon: <Eye className="h-4 w-4" /> },
+  { id: 'auditory', name: 'Auditory', icon: <EarIcon className="h-4 w-4" /> },
+  { id: 'reading_writing', name: 'Reading/Writing', icon: <BookOpen className="h-4 w-4" /> },
+  { id: 'kinesthetic', name: 'Kinesthetic', icon: <HandIcon className="h-4 w-4" /> }
+];
+
+// Define types for curriculum context
+interface CurriculumStandard {
+  title?: string;
+  description?: string;
+  code: string;
+  subject: string;
+  keyStage: string;
+  complexity?: number;
+  scope?: number;
+  link?: string;
+  topic?: string;
+  visualElements?: boolean;
+  auditoryElements?: boolean;
+  textualElements?: boolean;
+  practicalElements?: boolean;
+  objectives?: string[];
+  prerequisites?: any[];
+  units?: {
+    title?: string;
+    description?: string;
+    challengeCount?: number;
+  }[];
+}
+
+interface CurriculumContext {
+  standards: CurriculumStandard[];
+  subjects: string[];
+  keyStages: string[];
+  viewStandard: (code: string) => void;
+}
+
 // Integration with Curriculum Module
-const useCurriculumQuests = (curriculumContext) => {
-  const [curriculumQuests, setCurriculumQuests] = useState([]);
+const useCurriculumQuests = (curriculumContext: any) => {
+  const [curriculumQuests, setCurriculumQuests] = useState<any[]>([]);
   
   useEffect(() => {
     if (!curriculumContext) return;
@@ -203,7 +258,7 @@ const useCurriculumQuests = (curriculumContext) => {
         const { standards, subjects, keyStages } = curriculumContext;
         
         // Transform curriculum standards into quest objectives
-        const quests = standards.map((standard, index) => ({
+        const quests = standards.map((standard: CurriculumStandard, index: number) => ({
           id: `cq-${index}`,
           title: standard.title || `${standard.subject} Adventure: ${standard.code}`,
           description: standard.description || `Explore the world of ${standard.subject} through an exciting adventure aligned with curriculum standard ${standard.code}.`,
@@ -234,10 +289,25 @@ const useCurriculumQuests = (curriculumContext) => {
   return curriculumQuests;
 };
 
+// Define types for quest-related structures
+interface QuestChapter {
+  id: string;
+  title: string;
+  description: string;
+  challenges: number;
+  completed: boolean;
+}
+
+interface QuestReward {
+  type: string;
+  name: string;
+  icon: React.ReactNode;
+}
+
 // Helper functions for curriculum integration
-const mapDifficultyFromStandard = (standard) => {
+const mapDifficultyFromStandard = (standard: CurriculumStandard): string => {
   // Map curriculum complexity to quest difficulty
-  const complexityMap = {
+  const complexityMap: Record<number, string> = {
     1: 'beginner',
     2: 'beginner',
     3: 'intermediate',
@@ -250,10 +320,10 @@ const mapDifficultyFromStandard = (standard) => {
     10: 'master'
   };
   
-  return complexityMap[standard.complexity] || 'intermediate';
+  return complexityMap[standard.complexity || 0] || 'intermediate';
 };
 
-const estimateDurationFromStandard = (standard) => {
+const estimateDurationFromStandard = (standard: CurriculumStandard): string => {
   // Estimate quest duration based on standard scope
   const baseTime = 30; // minutes
   const scopeFactor = standard.scope || 1;
@@ -268,7 +338,7 @@ const estimateDurationFromStandard = (standard) => {
   }
 };
 
-const calculateXpReward = (standard) => {
+const calculateXpReward = (standard: CurriculumStandard): number => {
   // Calculate XP reward based on standard complexity and scope
   const baseXp = 50;
   const complexityFactor = standard.complexity || 1;
@@ -277,9 +347,9 @@ const calculateXpReward = (standard) => {
   return Math.round(baseXp * complexityFactor * scopeFactor);
 };
 
-const determineLearningStyles = (standard) => {
+const determineLearningStyles = (standard: CurriculumStandard): string[] => {
   // Determine appropriate learning styles based on standard content
-  const styles = [];
+  const styles: string[] = [];
   
   if (standard.visualElements) styles.push('visual');
   if (standard.auditoryElements) styles.push('auditory');
@@ -295,7 +365,7 @@ const determineLearningStyles = (standard) => {
   return styles;
 };
 
-const extractObjectives = (standard) => {
+const extractObjectives = (standard: CurriculumStandard): string[] => {
   // Extract learning objectives from curriculum standard
   if (standard.objectives && Array.isArray(standard.objectives)) {
     return standard.objectives.slice(0, 5); // Limit to 5 objectives
@@ -309,7 +379,7 @@ const extractObjectives = (standard) => {
   ];
 };
 
-const generateChaptersFromStandard = (standard) => {
+const generateChaptersFromStandard = (standard: CurriculumStandard): QuestChapter[] => {
   // Generate quest chapters based on curriculum standard structure
   if (standard.units && Array.isArray(standard.units)) {
     return standard.units.slice(0, 5).map((unit, index) => ({
@@ -347,9 +417,9 @@ const generateChaptersFromStandard = (standard) => {
   ];
 };
 
-const generateRewardsFromStandard = (standard) => {
+const generateRewardsFromStandard = (standard: CurriculumStandard): QuestReward[] => {
   // Generate rewards based on curriculum standard
-  const rewards = [];
+  const rewards: QuestReward[] = [];
   
   // Badge reward
   rewards.push({
@@ -375,7 +445,7 @@ const generateRewardsFromStandard = (standard) => {
   return rewards;
 };
 
-const isUnlocked = (standard) => {
+const isUnlocked = (standard: CurriculumStandard): boolean => {
   // Determine if quest should be unlocked based on prerequisites
   if (!standard.prerequisites || standard.prerequisites.length === 0) {
     return true; // No prerequisites, so unlocked by default
@@ -386,8 +456,81 @@ const isUnlocked = (standard) => {
   return Math.random() > 0.3;
 };
 
+// Define interfaces for gamification and character
+interface GamificationAchievement {
+  id: string;
+  name: string;
+  description: string;
+  type: string;
+  timestamp?: string;
+  questId?: string;
+}
+
+interface GamificationContext {
+  profile?: any;
+  achievements?: GamificationAchievement[];
+  points?: number;
+  level?: number;
+  awardPoints: (points: number, metadata: any) => Promise<void>;
+  awardAchievement: (achievement: GamificationAchievement) => Promise<void>;
+  trackEvent: (event: any) => void;
+}
+
+interface CharacterBadge {
+  id: string;
+  name: string;
+  description: string;
+  icon: React.ReactNode;
+}
+
+interface CharacterSkill {
+  id: string;
+  name: string;
+  level: number;
+  progress: number;
+  icon: React.ReactNode;
+}
+
+interface Character {
+  name: string;
+  type: string;
+  level: number;
+  xp: number;
+  xpToNextLevel: number;
+  stats: Record<string, number>;
+  inventory: any[];
+  badges: CharacterBadge[];
+  skills: CharacterSkill[];
+  completedQuests: number;
+  activeQuests: number;
+}
+
+interface Quest {
+  id: string;
+  title: string;
+  description: string;
+  difficulty: string;
+  subject: string;
+  keyStage: string;
+  duration: string;
+  xpReward: number;
+  learningStyles: string[];
+  objectives: string[];
+  chapters: QuestChapter[];
+  rewards: QuestReward[];
+  progress: number;
+  unlocked: boolean;
+  curriculumCode?: string;
+  curriculumLink?: string;
+  prerequisites?: QuestPrerequisite[];
+}
+
 // Integration with Gamification System
-const useGamificationIntegration = (gamificationContext, character, setCharacter) => {
+const useGamificationIntegration = (
+  gamificationContext: any,
+  character: Character | null,
+  setCharacter: React.Dispatch<React.SetStateAction<Character | null>>
+) => {
   useEffect(() => {
     if (!gamificationContext || !character) return;
     
@@ -404,7 +547,7 @@ const useGamificationIntegration = (gamificationContext, character, setCharacter
           xp: points || character.xp,
           xpToNextLevel: calculateXpToNextLevel(level || character.level),
           badges: mergeGamificationAchievements(character.badges, achievements),
-          completedQuests: achievements?.filter(a => a.type === 'quest_completion')?.length || character.completedQuests
+          completedQuests: achievements?.filter((a: GamificationAchievement) => a.type === 'quest_completion')?.length || character.completedQuests
         };
         
         setCharacter(updatedCharacter);
@@ -418,12 +561,12 @@ const useGamificationIntegration = (gamificationContext, character, setCharacter
   }, [gamificationContext, character, setCharacter]);
   
   // Function to award XP and achievements
-  const awardQuestProgress = async (quest, progressType, amount = 1) => {
+  const awardQuestProgress = async (quest: Quest, progressType: string, amount = 1) => {
     if (!gamificationContext || !character) return;
     
     try {
       // Define progress types and their XP values
-      const progressValues = {
+      const progressValues: Record<string, number> = {
         challenge_complete: 10,
         chapter_complete: 50,
         quest_complete: quest.xpReward || 100
@@ -443,8 +586,8 @@ const useGamificationIntegration = (gamificationContext, character, setCharacter
       if (progressType === 'chapter_complete' || progressType === 'quest_complete') {
         await gamificationContext.awardAchievement({
           id: `${progressType}_${quest.id}`,
-          name: progressType === 'chapter_complete' 
-            ? `${quest.title} Chapter Explorer` 
+          name: progressType === 'chapter_complete'
+            ? `${quest.title} Chapter Explorer`
             : `${quest.title} Champion`,
           description: progressType === 'chapter_complete'
             ? `Completed a chapter in the ${quest.title} quest`
@@ -457,6 +600,8 @@ const useGamificationIntegration = (gamificationContext, character, setCharacter
       
       // Update character locally for immediate feedback
       setCharacter(prev => {
+        if (!prev) return prev;
+        
         const newXp = prev.xp + xpToAward;
         const xpToNextLevel = calculateXpToNextLevel(prev.level);
         let newLevel = prev.level;
@@ -471,8 +616,8 @@ const useGamificationIntegration = (gamificationContext, character, setCharacter
           xp: newXp,
           level: newLevel,
           xpToNextLevel: calculateXpToNextLevel(newLevel),
-          completedQuests: progressType === 'quest_complete' 
-            ? prev.completedQuests + 1 
+          completedQuests: progressType === 'quest_complete'
+            ? prev.completedQuests + 1
             : prev.completedQuests
         };
       });
@@ -486,7 +631,7 @@ const useGamificationIntegration = (gamificationContext, character, setCharacter
 };
 
 // Helper functions for gamification integration
-const calculateXpToNextLevel = (currentLevel) => {
+const calculateXpToNextLevel = (currentLevel: number): number => {
   // Calculate XP required for next level using a progressive formula
   const baseXp = 100;
   const scaleFactor = 1.5;
@@ -494,7 +639,10 @@ const calculateXpToNextLevel = (currentLevel) => {
   return Math.round(baseXp * Math.pow(scaleFactor, currentLevel));
 };
 
-const mergeGamificationAchievements = (characterBadges, gamificationAchievements) => {
+const mergeGamificationAchievements = (
+  characterBadges: CharacterBadge[],
+  gamificationAchievements?: GamificationAchievement[]
+): CharacterBadge[] => {
   if (!gamificationAchievements || !Array.isArray(gamificationAchievements)) {
     return characterBadges;
   }
@@ -514,7 +662,7 @@ const mergeGamificationAchievements = (characterBadges, gamificationAchievements
   return [...characterBadges, ...newBadges];
 };
 
-const getBadgeIconForAchievement = (achievement) => {
+const getBadgeIconForAchievement = (achievement: GamificationAchievement): React.ReactNode => {
   // Select appropriate icon based on achievement type
   switch (achievement.type) {
     case 'quest_completion':
@@ -532,8 +680,44 @@ const getBadgeIconForAchievement = (achievement) => {
   }
 };
 
+// Define interfaces for assessment-related types
+interface Assessment {
+  id: string;
+  title: string;
+  description: string;
+  subject: string;
+  keyStage: string;
+  duration: number;
+  questId?: string;
+  chapterId?: string;
+  challengeIndex?: number;
+  questions: any[];
+}
+
+interface AssessmentResult {
+  assessmentId: string;
+  score: number;
+  maxScore: number;
+  completedAt: string;
+}
+
+interface AssessmentContext {
+  assessments?: Assessment[];
+  results?: AssessmentResult[];
+  createAssessment: (assessment: Omit<Assessment, 'id'>) => Promise<Assessment>;
+}
+
+interface QuestPrerequisite {
+  assessmentId: string;
+  requiredScore: number;
+}
+
 // Integration with Assessment Module
-const useAssessmentIntegration = (assessmentContext, quests, setQuests) => {
+const useAssessmentIntegration = (
+  assessmentContext: any,
+  quests: Quest[],
+  setQuests: React.Dispatch<React.SetStateAction<Quest[]>>
+) => {
   useEffect(() => {
     if (!assessmentContext || !quests || quests.length === 0) return;
     
@@ -548,22 +732,28 @@ const useAssessmentIntegration = (assessmentContext, quests, setQuests) => {
         // Update quests with assessment data
         const updatedQuests = quests.map(quest => {
           // Find related assessments for this quest
-          const relatedAssessments = assessments.filter(assessment => 
-            assessment.subject === quest.subject && 
+          const relatedAssessments = assessments.filter((assessment: Assessment) =>
+            assessment.subject === quest.subject &&
             assessment.keyStage === quest.keyStage
           );
           
+          // Define type for assessment result pair
+          interface AssessmentResultPair {
+            assessment: Assessment;
+            result: AssessmentResult;
+          }
+          
           // Find user's results for related assessments
-          const userResults = relatedAssessments.map(assessment => {
-            const result = results.find(r => r.assessmentId === assessment.id);
+          const userResults: AssessmentResultPair[] = relatedAssessments.map((assessment: Assessment) => {
+            const result = results.find((r: AssessmentResult) => r.assessmentId === assessment.id);
             return result ? { assessment, result } : null;
-          }).filter(Boolean);
+          }).filter((pair: any): pair is AssessmentResultPair => pair !== null);
           
           // Calculate quest progress based on assessment results
           let progress = 0;
           if (userResults.length > 0) {
-            const averageScore = userResults.reduce((sum, { result }) => 
-              sum + (result.score / result.maxScore) * 100, 0
+            const averageScore = userResults.reduce((sum, pair) =>
+              sum + (pair.result.score / pair.result.maxScore) * 100, 0
             ) / userResults.length;
             
             progress = Math.round(averageScore);
@@ -572,11 +762,11 @@ const useAssessmentIntegration = (assessmentContext, quests, setQuests) => {
           // Determine if quest should be unlocked based on prerequisites
           let unlocked = quest.unlocked;
           if (quest.prerequisites) {
-            const prerequisitesMet = quest.prerequisites.every(prereq => {
-              const prereqAssessment = assessments.find(a => a.id === prereq.assessmentId);
+            const prerequisitesMet = (quest.prerequisites as QuestPrerequisite[]).every(prereq => {
+              const prereqAssessment = assessments.find((a: Assessment) => a.id === prereq.assessmentId);
               if (!prereqAssessment) return false;
               
-              const prereqResult = results.find(r => r.assessmentId === prereq.assessmentId);
+              const prereqResult = results.find((r: AssessmentResult) => r.assessmentId === prereq.assessmentId);
               if (!prereqResult) return false;
               
               return (prereqResult.score / prereqResult.maxScore) * 100 >= prereq.requiredScore;
@@ -589,7 +779,7 @@ const useAssessmentIntegration = (assessmentContext, quests, setQuests) => {
             ...quest,
             progress,
             unlocked,
-            assessments: relatedAssessments.map(a => a.id),
+            assessments: relatedAssessments.map((a: Assessment) => a.id),
             results: userResults.map(({ assessment, result }) => ({
               assessmentId: assessment.id,
               score: result.score,
@@ -610,7 +800,11 @@ const useAssessmentIntegration = (assessmentContext, quests, setQuests) => {
   }, [assessmentContext, quests, setQuests]);
   
   // Function to create assessment from quest challenge
-  const createAssessmentFromChallenge = async (quest, chapter, challengeIndex) => {
+  const createAssessmentFromChallenge = async (
+    quest: Quest,
+    chapter: QuestChapter,
+    challengeIndex: number
+  ) => {
     if (!assessmentContext) return null;
     
     try {
@@ -641,8 +835,22 @@ const useAssessmentIntegration = (assessmentContext, quests, setQuests) => {
   return { createAssessmentFromChallenge };
 };
 
+// Define interface for assessment questions
+interface AssessmentQuestion {
+  type: string;
+  text: string;
+  options?: string[];
+  correctAnswer?: number | boolean | string;
+  points: number;
+  sampleAnswer?: string;
+}
+
 // Helper function for assessment integration
-const generateQuestionsForChallenge = async (quest, chapter, challengeIndex) => {
+const generateQuestionsForChallenge = async (
+  quest: Quest,
+  chapter: QuestChapter,
+  challengeIndex: number
+): Promise<AssessmentQuestion[]> => {
   // In a real implementation, this would generate questions based on the quest content
   // For now, return placeholder questions
   return [
@@ -672,6 +880,25 @@ const generateQuestionsForChallenge = async (quest, chapter, challengeIndex) => 
     }
   ];
 };
+
+// Custom search icon
+const Search = (props: IconProps) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <circle cx="11" cy="11" r="8" />
+    <path d="m21 21-4.3-4.3" />
+  </svg>
+);
 
 // Mock quests data for development
 const mockQuests = [
@@ -821,6 +1048,42 @@ const mockQuests = [
   }
 ];
 
+// Custom message circle icon
+const MessageCircleIcon = (props: IconProps) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
+  </svg>
+);
+
+// Custom shield icon
+const Shield = (props: IconProps) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
+  </svg>
+);
+
 // Mock character data for development
 const mockCharacter = {
   name: 'Alex',
@@ -856,71 +1119,24 @@ const mockCharacter = {
   activeQuests: 2
 };
 
-// Custom shield icon
-const Shield = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
-  </svg>
-);
 
-// Custom message circle icon
-const MessageCircleIcon = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
-  </svg>
-);
 
-// Custom search icon
-const Search = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <circle cx="11" cy="11" r="8" />
-    <path d="m21 21-4.3-4.3" />
-  </svg>
-);
+// Search component is already defined above
 
 // Character Creation Component
-const CharacterCreation = ({ onCreateCharacter }) => {
+interface CharacterCreationProps {
+  onCreateCharacter: (character: Character) => void;
+}
+
+const CharacterCreation = ({ onCreateCharacter }: CharacterCreationProps) => {
   const [name, setName] = useState('');
-  const [selectedType, setSelectedType] = useState(null);
+  const [selectedType, setSelectedType] = useState<string | null>(null);
   const [step, setStep] = useState(1);
   const { toast } = useToast();
   
   const handleNext = () => {
     if (step === 1 && !name.trim()) {
-      toast({
+      (toast as any)({
         title: "Name Required",
         description: "Please enter a name for your character",
         variant: "destructive",
@@ -929,7 +1145,7 @@ const CharacterCreation = ({ onCreateCharacter }) => {
     }
     
     if (step === 2 && !selectedType) {
-      toast({
+      (toast as any)({
         title: "Character Type Required",
         description: "Please select a character type",
         variant: "destructive",
@@ -943,9 +1159,18 @@ const CharacterCreation = ({ onCreateCharacter }) => {
       // Create character
       const characterType = characterTypes.find(type => type.id === selectedType);
       
-      const newCharacter = {
+      if (!characterType) {
+        (toast as any)({
+          title: "Error",
+          description: "Character type not found",
+          variant: "destructive",
+        });
+        return;
+      }
+      
+      const newCharacter: Character = {
         name,
-        type: selectedType,
+        type: selectedType as string,
         level: 1,
         xp: 0,
         xpToNextLevel: 200,
@@ -967,7 +1192,7 @@ const CharacterCreation = ({ onCreateCharacter }) => {
       
       onCreateCharacter(newCharacter);
       
-      toast({
+      (toast as any)({
         title: "Character Created",
         description: `Welcome to your adventure, ${name}!`,
         variant: "success",
@@ -1050,11 +1275,14 @@ const CharacterCreation = ({ onCreateCharacter }) => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {characterTypes.map((type) => (
-              <Card 
-                key={type.id} 
-                className={`cursor-pointer transition-all hover:border-primary ${selectedType === type.id ? 'border-2 border-primary' : ''}`}
+              <div
+                key={type.id}
                 onClick={() => setSelectedType(type.id)}
+                className="cursor-pointer"
               >
+                <Card
+                  className={`transition-all hover:border-primary ${selectedType === type.id ? 'border-2 border-primary' : ''}`}
+                >
                 <CardHeader className="pb-2">
                   <div className="flex justify-between items-start">
                     <div className="p-2 bg-primary/10 rounded-lg">
@@ -1086,7 +1314,8 @@ const CharacterCreation = ({ onCreateCharacter }) => {
                     ))}
                   </div>
                 </CardContent>
-              </Card>
+                </Card>
+              </div>
             ))}
           </div>
         </div>
@@ -1170,7 +1399,11 @@ const CharacterCreation = ({ onCreateCharacter }) => {
 };
 
 // Character Dashboard Component
-const CharacterDashboard = ({ character }) => {
+interface CharacterDashboardProps {
+  character: Character;
+}
+
+const CharacterDashboard = ({ character }: CharacterDashboardProps) => {
   return (
     <div className="space-y-6">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-centre">
@@ -1375,7 +1608,12 @@ const CharacterDashboard = ({ character }) => {
 };
 
 // Quest Card Component
-const QuestCard = ({ quest, onSelect }) => {
+interface QuestCardProps {
+  quest: Quest;
+  onSelect: (quest: Quest) => void;
+}
+
+const QuestCard = ({ quest, onSelect }: QuestCardProps) => {
   const difficultyInfo = difficultyLevels.find(d => d.id === quest.difficulty);
   
   return (
@@ -1385,7 +1623,7 @@ const QuestCard = ({ quest, onSelect }) => {
           <Badge variant="outline" className="capitalize">
             {quest.subject}
           </Badge>
-          <Badge className={`${difficultyInfo?.colour} text-white`}>
+          <Badge className={`${difficultyInfo?.color} text-white`}>
             {difficultyInfo?.name}
           </Badge>
         </div>
@@ -1464,7 +1702,13 @@ const QuestCard = ({ quest, onSelect }) => {
 };
 
 // Quest Detail Component
-const QuestDetail = ({ quest, onBack, onStart }) => {
+interface QuestDetailProps {
+  quest: Quest;
+  onBack: () => void;
+  onStart: (quest: Quest) => void;
+}
+
+const QuestDetail = ({ quest, onBack, onStart }: QuestDetailProps) => {
   const difficultyInfo = difficultyLevels.find(d => d.id === quest.difficulty);
   const curriculumContext = useCurriculum();
   
@@ -1482,7 +1726,7 @@ const QuestDetail = ({ quest, onBack, onStart }) => {
         <Badge variant="outline" className="capitalize">
           {quest.subject}
         </Badge>
-        <Badge className={`${difficultyInfo?.colour} text-white`}>
+        <Badge className={`${difficultyInfo?.color} text-white`}>
           {difficultyInfo?.name}
         </Badge>
         <Badge variant="outline">{quest.keyStage}</Badge>
@@ -1527,14 +1771,9 @@ const QuestDetail = ({ quest, onBack, onStart }) => {
                 <p className="text-xs text-muted-foreground mt-1">
                   This quest aligns with the {quest.keyStage} {quest.subject} curriculum.
                 </p>
-                <Button 
-                  variant="link" 
-                  size="sm" 
-                  className="px-0 text-xs"
-                  onClick={() => curriculumContext.viewStandard(quest.curriculumCode)}
-                >
-                  View curriculum details
-                </Button>
+                <p className="text-xs mt-1">
+                  Curriculum code: {quest.curriculumCode}
+                </p>
               </div>
             )}
           </CardContent>
@@ -1623,7 +1862,7 @@ const QuestDetail = ({ quest, onBack, onStart }) => {
 };
 
 // Custom icons
-const Target = (props) => (
+const Target = (props: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -1642,7 +1881,7 @@ const Target = (props) => (
   </svg>
 );
 
-const ChevronLeft = (props) => (
+const ChevronLeft = (props: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -1659,7 +1898,7 @@ const ChevronLeft = (props) => (
   </svg>
 );
 
-const Lock = (props) => (
+const Lock = (props: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -1677,25 +1916,9 @@ const Lock = (props) => (
   </svg>
 );
 
-const Eye = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
-    <circle cx="12" cy="12" r="3" />
-  </svg>
-);
+// Eye component is already defined above
 
-const Info = (props) => (
+const Info = (props: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -1715,9 +1938,19 @@ const Info = (props) => (
 );
 
 // Quest Hub Component
-const QuestHub = ({ quests, onSelectQuest }) => {
+interface QuestHubProps {
+  quests: Quest[];
+  onSelectQuest: (quest: Quest) => void;
+}
+
+const QuestHub = ({ quests, onSelectQuest }: QuestHubProps) => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [filters, setFilters] = useState({
+  const [filters, setFilters] = useState<{
+    difficulty: string[];
+    subject: string[];
+    keyStage: string[];
+    learningStyle: string[];
+  }>({
     difficulty: [],
     subject: [],
     keyStage: [],
@@ -1725,13 +1958,16 @@ const QuestHub = ({ quests, onSelectQuest }) => {
   });
   
   // Get unique filter options
-  const getUniqueOptions = (field) => {
-    const options = new Set();
+  const getUniqueOptions = (field: keyof Quest): string[] => {
+    const options = new Set<string>();
     quests.forEach(quest => {
       if (Array.isArray(quest[field])) {
-        quest[field].forEach(option => options.add(option));
+        quest[field].forEach(option => typeof option === 'string' && options.add(option));
       } else {
-        options.add(quest[field]);
+        const value = quest[field];
+        if (value !== undefined) {
+          options.add(String(value));
+        }
       }
     });
     return Array.from(options);
@@ -1776,7 +2012,7 @@ const QuestHub = ({ quests, onSelectQuest }) => {
   });
   
   // Toggle filter
-  const toggleFilter = (category, value) => {
+  const toggleFilter = (category: keyof typeof filters, value: string) => {
     setFilters(prev => {
       const current = [...prev[category]];
       const index = current.indexOf(value);
@@ -2014,7 +2250,7 @@ const QuestHub = ({ quests, onSelectQuest }) => {
 };
 
 // Custom filter icon
-const Filter = (props) => (
+const Filter = (props: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -2032,7 +2268,7 @@ const Filter = (props) => (
 );
 
 // Custom X icon
-const X = (props) => (
+const X = (props: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -2050,31 +2286,14 @@ const X = (props) => (
   </svg>
 );
 
-// Search icon
-const Search = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <circle cx="11" cy="11" r="8" />
-    <path d="m21 21-4.3-4.3" />
-  </svg>
-);
+// Search component is already defined above
 
 // Main Adventure Quest Saga Component
 const AdventureQuestSaga = () => {
-  const [character, setCharacter] = useState(null);
-  const [quests, setQuests] = useState([]);
-  const [selectedQuest, setSelectedQuest] = useState(null);
-  const [activeView, setActiveView] = useState('quests'); // 'quests', 'character', 'quest-detail'
+  const [character, setCharacter] = useState<Character | null>(null);
+  const [quests, setQuests] = useState<Quest[]>([]);
+  const [selectedQuest, setSelectedQuest] = useState<Quest | null>(null);
+  const [activeView, setActiveView] = useState<'quests' | 'character' | 'quest-detail'>('quests');
   const { toast } = useToast();
   const { useFeatureWithCredit, CreditPurchaseDialog } = useFairUsage();
   
@@ -2107,48 +2326,62 @@ const AdventureQuestSaga = () => {
   }, [curriculumQuests]);
   
   // Handle character creation
-  const handleCreateCharacter = (newCharacter) => {
+  const handleCreateCharacter = (newCharacter: Character) => {
     setCharacter(newCharacter);
     
     // Notify gamification system of character creation
-    if (gamificationContext) {
-      gamificationContext.awardAchievement({
-        id: 'character_creation',
-        name: 'Adventure Begins',
-        description: 'Created a character and began your educational journey',
-        type: 'character_creation',
-        timestamp: new Date().toISOString()
-      });
+    if (gamificationContext && typeof (gamificationContext as any).awardAchievement === 'function') {
+      try {
+        (gamificationContext as any).awardAchievement({
+          id: 'character_creation',
+          name: 'Adventure Begins',
+          description: 'Created a character and began your educational journey',
+          type: 'character_creation',
+          timestamp: new Date().toISOString()
+        });
+      } catch (error) {
+        console.error("Error awarding achievement:", error);
+      }
     }
   };
   
   // Handle quest selection
-  const handleSelectQuest = (quest) => {
+  const handleSelectQuest = (quest: Quest) => {
     setSelectedQuest(quest);
     setActiveView('quest-detail');
   };
   
+  // Define interface for useFeatureWithCredit result
+  interface UsageResult {
+    success: boolean;
+    usedCredits: boolean;
+  }
+
   // Handle quest start
-  const handleStartQuest = async (quest) => {
+  const handleStartQuest = async (quest: Quest) => {
     // Check if feature can be used (fair usage)
-    const usageResult = await useFeatureWithCredit('questStart');
+    const usageResult: UsageResult = await useFeatureWithCredit('questStart');
     
     if (!usageResult.success && !usageResult.usedCredits) {
       // If feature cannot be used and credits weren't used, exit
       return;
     }
     
-    toast({
+    (toast as any)({
       title: "Quest Started",
       description: `You've begun "${quest.title}"`,
       variant: "success",
     });
     
     // Update character
-    setCharacter(prev => ({
-      ...prev,
-      activeQuests: prev.activeQuests + 1
-    }));
+    setCharacter(prev => {
+      if (!prev) return prev;
+      
+      return {
+        ...prev,
+        activeQuests: prev.activeQuests + 1
+      } as Character;
+    });
     
     // Notify gamification system
     if (gamificationContext) {
@@ -2181,7 +2414,15 @@ const AdventureQuestSaga = () => {
   
   return (
     <div className="container mx-auto py-8">
-      <Tabs value={activeView} onValueChange={setActiveView} className="w-full">
+      <Tabs
+        value={activeView}
+        onValueChange={(value: string) => {
+          if (value === 'quests' || value === 'character' || value === 'quest-detail') {
+            setActiveView(value);
+          }
+        }}
+        className="w-full"
+      >
         <TabsList className="grid grid-cols-2 mb-6">
           <TabsTrigger value="quests" disabled={activeView === 'quest-detail'}>
             <Map className="h-4 w-4 mr-2" />
@@ -2194,9 +2435,9 @@ const AdventureQuestSaga = () => {
         </TabsList>
         
         <TabsContent value="quests" className="mt-0">
-          {activeView === 'quest-detail' ? (
-            <QuestDetail 
-              quest={selectedQuest} 
+          {activeView === 'quest-detail' && selectedQuest ? (
+            <QuestDetail
+              quest={selectedQuest}
               onBack={() => setActiveView('quests')}
               onStart={handleStartQuest}
             />
@@ -2220,7 +2461,7 @@ const AdventureQuestSaga = () => {
 };
 
 // Custom user icon
-const User = (props) => (
+const User = (props: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
