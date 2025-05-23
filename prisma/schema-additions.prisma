@@ -1,128 +1,89 @@
-// Blog Content Models
-model BlogPost {
-  id                String   @id @default(cuid())
-  title             String
-  slug              String   @unique
-  summary           String   @db.Text
-  content           String   @db.Text
-  featuredImage     String?
-  authorId          String
-  status            String   @default("draft") // draft, published, archived
-  publishedAt       DateTime?
-  keyStage          String?  // KS1, KS2, KS3, KS4, etc.
-  curriculumArea    String?  // Mathematics, English, Science, etc.
-  tags              String[]
-  readingTime       Int?     // Estimated reading time in minutes
-  readingLevel      String?  // Easy, Moderate, Advanced
-  aiGenerated       Boolean  @default(false)
-  aiPrompt          String?  @db.Text // The prompt used to generate content if AI-generated
-  viewCount         Int      @default(0)
-  likeCount         Int      @default(0)
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
+// FAQ Chatbot Models
+model FAQCategory {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  slug        String   @unique
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
   
-  author            User     @relation(fields: [authorId], references: [id])
-  comments          BlogComment[]
-  categories        BlogCategoryAssignment[]
-  relatedResources  BlogResourceLink[]
+  // Relations
+  questions   FAQQuestion[]
 }
 
-model BlogCategory {
-  id                String   @id @default(cuid())
-  name              String   @unique
-  slug              String   @unique
-  description       String?  @db.Text
-  parentId          String?
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
+model FAQQuestion {
+  id          String   @id @default(cuid())
+  question    String
+  answer      String   @db.Text
+  isPublished Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
   
-  parent            BlogCategory?  @relation("CategoryHierarchy", fields: [parentId], references: [id])
-  children          BlogCategory[] @relation("CategoryHierarchy")
-  posts             BlogCategoryAssignment[]
+  // Relations
+  categoryId  String
+  category    FAQCategory @relation(fields: [categoryId], references: [id])
+  
+  // Metadata
+  keywords    String[]
+  viewCount   Int      @default(0)
+  helpfulVotes Int     @default(0)
+  notHelpfulVotes Int  @default(0)
+  
+  // UK Education specific fields
+  keyStage    String?
+  curriculumArea String?
+  
+  // AI training data
+  isTrainingData Boolean @default(true)
 }
 
-model BlogCategoryAssignment {
-  postId            String
-  categoryId        String
-  assignedAt        DateTime @default(now())
+model ChatSession {
+  id          String   @id @default(cuid())
+  sessionToken String  @unique
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
   
-  post              BlogPost     @relation(fields: [postId], references: [id], onDelete: Cascade)
-  category          BlogCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  // Relations
+  userId      String?
+  user        User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  messages    ChatMessage[]
   
-  @@id([postId, categoryId])
+  // Session metadata
+  title       String?
+  isArchived  Boolean  @default(false)
+  rating      Int?     // User rating of the chat session (1-5)
+  feedback    String?  // User feedback on the chat session
 }
 
-model BlogComment {
-  id                String   @id @default(cuid())
-  postId            String
-  authorId          String
-  content           String   @db.Text
-  status            String   @default("pending") // pending, approved, rejected
-  parentId          String?
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
+model ChatMessage {
+  id          String   @id @default(cuid())
+  content     String   @db.Text
+  role        String   // 'user', 'assistant', or 'system'
+  createdAt   DateTime @default(now())
   
-  post              BlogPost     @relation(fields: [postId], references: [id], onDelete: Cascade)
-  author            User         @relation(fields: [authorId], references: [id])
-  parent            BlogComment? @relation("CommentReplies", fields: [parentId], references: [id])
-  replies           BlogComment[] @relation("CommentReplies")
+  // Relations
+  sessionId   String
+  session     ChatSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  
+  // Message metadata
+  referencedFAQs String[] // IDs of FAQs referenced in this message
+  sources     Json?    // Sources used to generate this message
 }
 
-model BlogResourceLink {
-  id                String   @id @default(cuid())
-  postId            String
-  title             String
-  url               String
-  type              String   // document, video, audio, website, etc.
-  description       String?  @db.Text
-  createdAt         DateTime @default(now())
-  
-  post              BlogPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+model ChatbotConfig {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  value       Json
+  description String?
+  updatedAt   DateTime @updatedAt
+  updatedBy   String?
 }
 
-model BlogContentSchedule {
-  id                String   @id @default(cuid())
-  title             String
-  description       String?  @db.Text
-  frequency         String   @default("weekly") // daily, weekly, monthly
-  dayOfWeek         Int?     // 0-6, where 0 is Sunday (for weekly)
-  dayOfMonth        Int?     // 1-31 (for monthly)
-  hour              Int      @default(9) // 0-23
-  minute            Int      @default(0) // 0-59
-  topicArea         String?  // Subject area to focus on
-  keyStage          String?  // Target key stage
-  aiPromptTemplate  String?  @db.Text
-  isActive          Boolean  @default(true)
-  lastRunAt         DateTime?
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  createdById       String
-  
-  createdBy         User     @relation(fields: [createdById], references: [id])
-}
-
-model BlogContentGeneration {
-  id                String   @id @default(cuid())
-  scheduleId        String?
-  prompt            String   @db.Text
-  status            String   @default("pending") // pending, processing, completed, failed
-  result            String?  @db.Text
-  error             String?  @db.Text
-  startedAt         DateTime?
-  completedAt       DateTime?
-  blogPostId        String?
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  
-  schedule          BlogContentSchedule? @relation(fields: [scheduleId], references: [id])
-  blogPost          BlogPost? @relation(fields: [blogPostId], references: [id])
-}
-
-// Add these relations to the User model
-model User {
-  // Existing fields...
-  
-  blogPosts         BlogPost[]
-  blogComments      BlogComment[]
-  contentSchedules  BlogContentSchedule[]
+model ChatbotTrainingLog {
+  id          String   @id @default(cuid())
+  startedAt   DateTime @default(now())
+  completedAt DateTime?
+  status      String   // 'pending', 'in-progress', 'completed', 'failed'
+  details     Json?
+  updatedBy   String?
 }
