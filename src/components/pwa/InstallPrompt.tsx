@@ -1,45 +1,10 @@
-import '../styles/globals.css';
-import type { AppProps } from 'next/app';
-import { SessionProvider } from 'next-auth/react';
-import { Navbar } from '../components/layout/Navbar';
-import { Footer } from '../components/layout/Footer';
-import { CookieConsentProvider } from '../components/legal/CookieConsentProvider';
-import { Toaster } from '../components/ui/toaster';
-import { useEffect, useState } from 'react';
-import Head from 'next/head';
+import React, { useEffect, useState } from 'react';
 
-// PWA head component inline implementation
-function PWAHead() {
-  return (
-    <Head>
-      <meta name="application-name" content="EdPsych Connect" />
-      <meta name="apple-mobile-web-app-capable" content="yes" />
-      <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-      <meta name="apple-mobile-web-app-title" content="EdPsych" />
-      <meta name="description" content="Educational psychology resources and tools" />
-      <meta name="format-detection" content="telephone=no" />
-      <meta name="mobile-web-app-capable" content="yes" />
-      <meta name="msapplication-config" content="/icons/browserconfig.xml" />
-      <meta name="msapplication-TileColor" content="#4f46e5" />
-      <meta name="msapplication-tap-highlight" content="no" />
-      <meta name="theme-color" content="#4f46e5" />
-
-      <link rel="apple-touch-icon" href="/icons/touch-icon-iphone.png" />
-      <link rel="apple-touch-icon" sizes="152x152" href="/icons/touch-icon-ipad.png" />
-      <link rel="apple-touch-icon" sizes="180x180" href="/icons/touch-icon-iphone-retina.png" />
-      <link rel="apple-touch-icon" sizes="167x167" href="/icons/touch-icon-ipad-retina.png" />
-
-      <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png" />
-      <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png" />
-      <link rel="manifest" href="/manifest.json" />
-      <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#4f46e5" />
-      <link rel="shortcut icon" href="/favicon.ico" />
-    </Head>
-  );
+interface InstallPromptProps {
+  className?: string;
 }
 
-// Install prompt component inline implementation
-function InstallPrompt() {
+export function InstallPrompt({ className = '' }: InstallPromptProps) {
   const [showPrompt, setShowPrompt] = useState(false);
   const [installPromptEvent, setInstallPromptEvent] = useState<any>(null);
 
@@ -89,6 +54,13 @@ function InstallPrompt() {
     
     // Record when we showed the prompt
     localStorage.setItem('installPromptLastShown', Date.now().toString());
+    
+    // Track the outcome
+    if (choiceResult.outcome === 'accepted') {
+      console.log('User accepted the install prompt');
+    } else {
+      console.log('User dismissed the install prompt');
+    }
   };
 
   const handleDismiss = () => {
@@ -100,7 +72,7 @@ function InstallPrompt() {
   if (!showPrompt) return null;
 
   return (
-    <div className="fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:w-96 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4 z-50 border border-gray-200 dark:border-gray-700">
+    <div className={`fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:w-96 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4 z-50 border border-gray-200 dark:border-gray-700 ${className}`}>
       <div className="flex items-start">
         <div className="flex-shrink-0 pt-0.5">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -131,44 +103,5 @@ function InstallPrompt() {
         </div>
       </div>
     </div>
-  );
-}
-
-export default function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
-  const [isOnline, setIsOnline] = useState(true);
-
-  useEffect(() => {
-    // Check if the app is online
-    setIsOnline(navigator.onLine);
-
-    // Add event listeners for online/offline status
-    const handleOnline = () => setIsOnline(true);
-    const handleOffline = () => setIsOnline(false);
-
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
-
-    return () => {
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
-    };
-  }, []);
-
-  return (
-    <SessionProvider session={session}>
-      <PWAHead />
-      {!isOnline && (
-        <div className="bg-yellow-500 text-white p-2 text-center">
-          You are currently offline. Some features may be limited.
-        </div>
-      )}
-      <Navbar />
-      <main className="min-h-screen">
-        <Component {...pageProps} />
-      </main>
-      <Footer />
-      <Toaster />
-      <InstallPrompt />
-    </SessionProvider>
   );
 }
