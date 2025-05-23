@@ -205,7 +205,7 @@ export async function PATCH(req) {
         userId: session.user.id,
         action: 'update',
         resourceType: 'TeacherAlertSettings',
-        resourceId: settings.id,
+        resourceId: settings?.id,
         details: 'Updated teacher alert settings',
       },
     });

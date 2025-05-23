@@ -59,12 +59,10 @@ async function handleEnrollment(body: any) {
     const { userId, courseId } = enrollmentSchema.parse(body);
 
     // Check if already enrolled
-    const existingEnrollment = await prisma.courseEnrollment.findUnique({
+    const existingEnrollment = await (prisma as any).enrollment.findFirst({
       where: {
-        userId_courseId: {
-          userId,
-          courseId,
-        },
+        userId,
+        courseId,
       },
     });
 
@@ -76,13 +74,13 @@ async function handleEnrollment(body: any) {
     }
 
     // Create new enrolment
-    const enrolment = await prisma.courseEnrollment.create({
+    const enrolment = await (prisma as any).enrollment.create({
       data: {
         userId,
         courseId,
-        enrolledAt: new Date(),
+        startDate: new Date(),
         progress: 0,
-        status: 'ENROLLED',
+        status: 'active',
       },
     });
 
@@ -107,60 +105,62 @@ async function handleProgressUpdate(body: any) {
       progressUpdateSchema.parse(body);
 
     // Update course progress
-    const updatedProgress = await prisma.courseProgress.upsert({
-      where: {
-        userId_courseId_moduleId_contentId: {
-          userId,
-          courseId,
-          moduleId: moduleId || '',
-          contentId: contentId || '',
+    const updatedProgress = await prisma.$transaction(async (tx) => {
+      return (tx as any).courseProgress.upsert({
+        where: {
+          userId_courseId_moduleId_contentId: {
+            userId,
+            courseId,
+            moduleId: moduleId || '',
+            contentId: contentId || '',
+          },
         },
-      },
       update: {
         progress,
         completed: completed || false,
         timeSpent: timeSpent ? { increment: timeSpent } : undefined,
         lastAccessed: new Date(),
       },
-      create: {
-        userId,
-        courseId,
-        moduleId: moduleId || '',
-        contentId: contentId || '',
-        progress,
-        completed: completed || false,
-        timeSpent: timeSpent || 0,
-        lastAccessed: new Date(),
-      },
+        create: {
+          userId,
+          courseId,
+          moduleId: moduleId || '',
+          contentId: contentId || '',
+          progress,
+          completed: completed || false,
+          timeSpent: timeSpent || 0,
+          lastAccessed: new Date(),
+        },
+      });
     });
 
     // Update overall course progress
-    const allModuleProgress = await prisma.courseProgress.findMany({
-      where: {
-        userId,
-        courseId,
-      },
+    const allModuleProgress = await prisma.$transaction(async (tx) => {
+      return (tx as any).courseProgress.findMany({
+        where: {
+          userId,
+          courseId,
+        },
+      });
     });
 
     // Calculate overall progress
     let overallProgress = 0;
     if (allModuleProgress.length > 0) {
-      const totalProgress = allModuleProgress.reduce((sum, item) => sum + item.progress, 0);
+      const totalProgress = allModuleProgress.reduce((sum: number, item: { progress: number }) => sum + item.progress, 0);
       overallProgress = Math.round(totalProgress / allModuleProgress.length);
     }
 
     // Update enrolment record
-    await prisma.courseEnrollment.update({
+    await (prisma as any).enrollment.updateMany({
       where: {
-        userId_courseId: {
-          userId,
-          courseId,
-        },
+        userId,
+        courseId,
       },
       data: {
         progress: overallProgress,
-        status: overallProgress >= 100 ? 'COMPLETED' : 'IN_PROGRESS',
-        lastAccessed: new Date(),
+        status: overallProgress >= 100 ? 'completed' : 'active',
+        updatedAt: new Date(),
       },
     });
 
@@ -184,28 +184,27 @@ async function handleCompletion(body: any) {
     const { userId, courseId, feedback, rating } = completionSchema.parse(body);
 
     // Update enrolment status
-    const updatedEnrollment = await prisma.courseEnrollment.update({
+    const updatedEnrollment = await (prisma as any).enrollment.updateMany({
       where: {
-        userId_courseId: {
-          userId,
-          courseId,
-        },
+        userId,
+        courseId,
       },
       data: {
-        status: 'COMPLETED',
-        completedAt: new Date(),
+        status: 'completed',
+        completionDate: new Date(),
         progress: 100,
-        feedback,
-        rating,
+        updatedAt: new Date(),
       },
     });
 
     // Generate certificate
-    const certificate = await prisma.certificate.create({
+    const certificate = await (prisma as any).certificate.create({
       data: {
         userId,
         courseId,
-        issuedAt: new Date(),
+        title: "Course Completion Certificate",
+        issuer: "EdPsych Connect",
+        issueDate: new Date().toISOString(),
         certificateUrl: `/certificates/${userId}-${courseId}-${Date.now()}.pdf`,
       },
     });
@@ -272,7 +271,7 @@ export async function GET(req: NextRequest) {
 }
 
 async function getUserEnrollments(userId: string, courseId?: string | null) {
-  const enrollments = await prisma.courseEnrollment.findMany({
+  const enrollments = await (prisma as any).enrollment.findMany({
     where: {
       userId,
       ...(courseId ? { courseId } : {}),
@@ -281,7 +280,7 @@ async function getUserEnrollments(userId: string, courseId?: string | null) {
       course: true,
     },
     orderBy: {
-      enrolledAt: 'desc',
+      startDate: 'desc',
     },
   });
 
@@ -289,15 +288,12 @@ async function getUserEnrollments(userId: string, courseId?: string | null) {
 }
 
 async function getUserCertificates(userId: string) {
-  const certificates = await prisma.certificate.findMany({
+  const certificates = await (prisma as any).certificate.findMany({
     where: {
       userId,
     },
-    include: {
-      course: true,
-    },
     orderBy: {
-      issuedAt: 'desc',
+      issueDate: 'desc',
     },
   });
 
@@ -305,14 +301,16 @@ async function getUserCertificates(userId: string) {
 }
 
 async function getUserCourseProgress(userId: string, courseId: string) {
-  const progress = await prisma.courseProgress.findMany({
-    where: {
-      userId,
-      courseId,
-    },
-    orderBy: {
-      lastAccessed: 'desc',
-    },
+  const progress = await prisma.$transaction(async (tx) => {
+    return (tx as any).courseProgress.findMany({
+      where: {
+        userId,
+        courseId,
+      },
+      orderBy: {
+        lastAccessed: 'desc',
+      },
+    });
   });
 
   return NextResponse.json({ progress }, { status: 200 });

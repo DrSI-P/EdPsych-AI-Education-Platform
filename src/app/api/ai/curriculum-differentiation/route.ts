@@ -84,13 +84,13 @@ export async function POST(req: NextRequest) {
       Year: ${planYear || 'Not specified'}
       
       Differentiation Settings:
-      - Adapt to Learning Style: ${settings.adaptToLearningStyle ? 'Yes' : 'No'}
-      - Consider Prior Knowledge: ${settings.considerPriorKnowledge ? 'Yes' : 'No'}
-      - Include Extension Activities: ${settings.includeExtensionActivities ? 'Yes' : 'No'}
-      - Include Scaffolding: ${settings.includeScaffolding ? 'Yes' : 'No'}
-      - Differentiation Level: ${settings.differentiationLevel}%
+      - Adapt to Learning Style: ${settings?.adaptToLearningStyle ? 'Yes' : 'No'}
+      - Consider Prior Knowledge: ${settings?.considerPriorKnowledge ? 'Yes' : 'No'}
+      - Include Extension Activities: ${settings?.includeExtensionActivities ? 'Yes' : 'No'}
+      - Include Scaffolding: ${settings?.includeScaffolding ? 'Yes' : 'No'}
+      - Differentiation Level: ${settings?.differentiationLevel}%
       
-      ${settings.includeAllLearningStyles ? 
+      ${settings?.includeAllLearningStyles ?
         `Create differentiated content for ALL learning styles: Visual, Auditory, Kinesthetic, and Reading/Writing.` :
         `Create differentiated content primarily for the following learning style profile:
         - Primary Style: ${settings.learningProfile?.primaryStyle || 'Not specified'}
@@ -107,13 +107,13 @@ export async function POST(req: NextRequest) {
       3. Activities that engage learners with that preferred style
       4. Assessment strategies appropriate for that learning style
       
-      ${settings.includeScaffolding ? 
+      ${settings?.includeScaffolding ?
         'Include scaffolding support for learners who need additional help.' : ''}
       
-      ${settings.includeExtensionActivities ? 
+      ${settings?.includeExtensionActivities ?
         'Include extension activities for advanced learners.' : ''}
       
-      ${settings.considerPriorKnowledge ? 
+      ${settings?.considerPriorKnowledge ?
         'Consider varying levels of prior knowledge when differentiating the content.' : ''}
       
       Return the differentiated curriculum as a JSON object with the following structure:

@@ -12,7 +12,7 @@ export async function GET(req: NextRequest) {
     }
     
     // Get behaviour tracking settings for the current user
-    const settings = await prisma.behaviorTrackingSettings.findUnique({
+    const settings = await (prisma as any).behaviorTrackingSettings.findUnique({
       where: {
         userId: session.user.id,
       },
@@ -61,7 +61,7 @@ export async function POST(req: NextRequest) {
     }
     
     // Update or create settings
-    const settings = await prisma.behaviorTrackingSettings.upsert({
+    const settings = await (prisma as any).behaviorTrackingSettings.upsert({
       where: {
         userId: session.user.id,
       },
@@ -98,7 +98,7 @@ export async function POST(req: NextRequest) {
     });
     
     // Log the settings update
-    await prisma.behaviorTrackingLog.create({
+    await (prisma as any).behaviorTrackingLog.create({
       data: {
         userId: session.user.id,
         action: 'SETTINGS_UPDATE',
