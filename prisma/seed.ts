@@ -204,7 +204,7 @@ async function main() {
       questions: {
         create: [
           {
-            content: 'Self-Awareness',  // Changed from 'question' to 'content' to match schema
+            text: 'Self-Awareness',  // Changed from 'content' to 'text' to match schema
             type: 'observation',
             options: JSON.stringify({  // Convert options object to JSON string
               score: 3,
@@ -216,7 +216,7 @@ async function main() {
             order: 1    // Added required field
           },
           {
-            content: 'Self-Regulation',  // Changed from 'question' to 'content' to match schema
+            text: 'Self-Regulation',  // Changed from 'content' to 'text' to match schema
             type: 'observation',
             options: JSON.stringify({  // Convert options object to JSON string
               score: 2,
@@ -228,7 +228,7 @@ async function main() {
             order: 2    // Added required field
           },
           {
-            content: 'Social Awareness',  // Changed from 'question' to 'content' to match schema
+            text: 'Social Awareness',  // Changed from 'content' to 'text' to match schema
             type: 'observation',
             options: JSON.stringify({  // Convert options object to JSON string
               score: 4,
@@ -253,7 +253,7 @@ async function main() {
       questions: {
         create: [
           {
-            content: 'Verbal Communication',  // Changed from 'question' to 'content' to match schema
+            text: 'Verbal Communication',  // Changed from 'content' to 'text' to match schema
             type: 'observation',
             options: JSON.stringify({  // Convert options object to JSON string
               score: 4,
@@ -265,7 +265,7 @@ async function main() {
             order: 1    // Added required field
           },
           {
-            content: 'Non-verbal Communication',  // Changed from 'question' to 'content' to match schema
+            text: 'Non-verbal Communication',  // Changed from 'content' to 'text' to match schema
             type: 'observation',
             options: JSON.stringify({  // Convert options object to JSON string
               score: 3,
@@ -277,7 +277,7 @@ async function main() {
             order: 2    // Added required field
           },
           {
-            content: 'Friendship Skills',  // Changed from 'question' to 'content' to match schema
+            text: 'Friendship Skills',  // Changed from 'content' to 'text' to match schema
             type: 'observation',
             options: JSON.stringify({  // Convert options object to JSON string
               score: 3,
