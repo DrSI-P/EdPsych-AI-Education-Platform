@@ -270,6 +270,8 @@ let discussions: Discussion[] = [];
 let events: Event[] = [];
 let collaborations: Collaboration[] = [];
 let memberships: Membership[] = [];
+let privacySettings: PrivacySetting[] = [];aboration[] = [];
+let memberships: Membership[] = [];
 let privacySettings: PrivacySetting[] = [];
 
 // Integration with other professional development modules

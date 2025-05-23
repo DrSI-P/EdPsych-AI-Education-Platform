@@ -28,12 +28,12 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'No curriculum content or plan ID provided' }, { status: 400 });
     }
     
-    // Get curriculum plan if ID is provided
+        // Get curriculum plan if ID is provided
     let planContent = curriculumContent;
     let planObjectives: string[] = objectives || [];
     let planSubject = subject;
     let planKeyStage = keyStage;
-    let planYear = year;
+    let planYear = year; year;
     
     if (curriculumPlanId) {
       try {

@@ -3,7 +3,7 @@ import AvatarService from '@/lib/ai-avatar/avatar-service';
 
 // Initialize the avatar service with API keys from environment variables
 const avatarService = new AvatarService({
-  defaultProvider: process.env.DEFAULT_AVATAR_PROVIDER as any || 'veed',
+  defaultProvider: (process.env.DEFAULT_AVATAR_PROVIDER as string) || 'veed',
   veedApiKey: process.env.VEED_API_KEY,
   simliApiKey: process.env.SIMLI_API_KEY,
   elevenLabsApiKey: process.env.ELEVENLABS_API_KEY,
