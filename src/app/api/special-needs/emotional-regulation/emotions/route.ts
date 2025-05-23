@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
     const userId = session.user.id;
     
     // Get emotion records for the user
-    const emotions = await prisma.emotionRecord.findMany({
+    const emotions = await (prisma as any).emotionRecord.findMany({
       where: { userId },
       orderBy: { createdAt: 'desc' },
       include: {
@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
     }
     
     // Create new emotion record
-    const emotion = await prisma.emotionRecord.create({
+    const emotion = await (prisma as any).emotionRecord.create({
       data: {
         userId,
         name: data.name,
@@ -58,7 +58,7 @@ export async function POST(request: NextRequest) {
     });
     
     // Log the activity
-    await prisma.emotionalRegulationLog.create({
+    await (prisma as any).emotionalRegulationLog.create({
       data: {
         userId,
         action: 'emotion_recorded',

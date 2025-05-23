@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
     const userId = session.user.id;
     
     // Get journal entries for the user
-    const journal = await prisma.emotionJournal.findMany({
+    const journal = await (prisma as any).emotionJournal.findMany({
       where: { userId },
       orderBy: { createdAt: 'desc' },
       include: {
@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
     }
     
     // Create new journal entry
-    const journal = await prisma.emotionJournal.create({
+    const journal = await (prisma as any).emotionJournal.create({
       data: {
         userId,
         title: data.title,
@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
     });
     
     // Log the activity
-    await prisma.emotionalRegulationLog.create({
+    await (prisma as any).emotionalRegulationLog.create({
       data: {
         userId,
         action: 'journal_created',

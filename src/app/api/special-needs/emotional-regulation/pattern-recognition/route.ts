@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import { db } from '@/lib/db';
+import { db, prisma } from '@/lib/db';
 
 // Schema for pattern analysis request
 const PatternAnalysisRequestSchema = z.object({
@@ -48,7 +48,7 @@ export async function GET(req: Request) {
     const params = validationResult.data;
     
     // Fetch emotion records from database
-    const emotionRecords = await db.emotionRecord.findMany({
+    const emotionRecords = await (prisma as any).emotionRecord.findMany({
       where: {
         userId: session.user.id,
         timestamp: {
@@ -65,7 +65,7 @@ export async function GET(req: Request) {
     });
     
     // Fetch emotion journals for the same period
-    const emotionJournals = await db.emotionJournal.findMany({
+    const emotionJournals = await (prisma as any).emotionJournal.findMany({
       where: {
         userId: session.user.id,
         timestamp: {
@@ -79,7 +79,7 @@ export async function GET(req: Request) {
     });
     
     // Generate pattern analysis based on the data
-    const patternAnalysis = generatePatternAnalysis(emotionRecords, emotionJournals, params.analysisType);
+    const patternAnalysis = generatePatternAnalysis(emotionRecords, emotionJournals, params.analysisType || 'all');
     
     return NextResponse.json({
       emotionRecords,
@@ -100,15 +100,25 @@ export async function GET(req: Request) {
 function generatePatternAnalysis(
   emotionRecords: any[],
   emotionJournals: any[],
-  analysisType: string
+  analysisType: string = 'all'
 ) {
   // Initialize analysis object
   const analysis = {
-    insights: [],
-    triggerPatterns: [],
-    timePatterns: { hourly: [], daily: [] },
-    emotionTrends: [],
-    emotionCorrelations: []
+    insights: [] as Array<{
+      id: string;
+      type: string;
+      title: string;
+      description: string;
+      [key: string]: any;
+    }>,
+    triggerPatterns: [] as Array<{
+      trigger: string;
+      total: number;
+      [key: string]: any;
+    }>,
+    timePatterns: { hourly: [] as Array<{hour: number, count: number}>, daily: [] as Array<{day: number, name: string, count: number}> },
+    emotionTrends: [] as Array<{date: string, [key: string]: any}>,
+    emotionCorrelations: [] as Array<{source: string, target: string, count: number, strength: number}>
   };
   
   if (emotionRecords.length === 0) {
@@ -474,7 +484,7 @@ export async function POST(req: Request) {
     const body = await req.json();
     
     // Save user preferences for pattern recognition
-    await db.emotionalRegulationSettings.update({
+    await (prisma as any).emotionalRegulationSettings.update({
       where: {
         userId: session.user.id
       },
@@ -485,7 +495,7 @@ export async function POST(req: Request) {
     });
     
     // Log the activity
-    await db.emotionalRegulationLog.create({
+    await (prisma as any).emotionalRegulationLog.create({
       data: {
         userId: session.user.id,
         action: 'update_pattern_recognition_settings',

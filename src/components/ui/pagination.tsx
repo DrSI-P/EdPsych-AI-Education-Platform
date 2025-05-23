@@ -1,13 +1,12 @@
-'use client';
-
 import React from 'react';
+import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
   onPageChange: (page: number) => void;
   siblingCount?: number;
-  className?: string;
 }
 
 export function Pagination({
@@ -15,192 +14,103 @@ export function Pagination({
   totalPages,
   onPageChange,
   siblingCount = 1,
-  className = '',
 }: PaginationProps) {
-  // Generate page numbers to display
+  // Generate page numbers to show
   const getPageNumbers = () => {
-    const totalPageNumbers = siblingCount * 2 + 3; // siblings + current + first + last
+    const pageNumbers = [];
     
-    // If total pages is less than total numbers we want to show
-    if (totalPageNumbers >= totalPages) {
-      return Array.from({ length: totalPages }, (_, i) => i + 1);
+    // Always show first page
+    pageNumbers.push(1);
+    
+    // Calculate range around current page
+    const leftSiblingIndex = Math.max(2, currentPage - siblingCount);
+    const rightSiblingIndex = Math.min(totalPages - 1, currentPage + siblingCount);
+    
+    // Add dots if there's a gap after first page
+    if (leftSiblingIndex > 2) {
+      pageNumbers.push('dots-1');
     }
     
-    const leftSiblingIndex = Math.max(currentPage - siblingCount, 1);
-    const rightSiblingIndex = Math.min(currentPage + siblingCount, totalPages);
-    
-    const shouldShowLeftDots = leftSiblingIndex > 2;
-    const shouldShowRightDots = rightSiblingIndex < totalPages - 1;
-    
-    if (!shouldShowLeftDots && shouldShowRightDots) {
-      const leftItemCount = 1 + 2 * siblingCount;
-      return [
-        ...Array.from({ length: leftItemCount }, (_, i) => i + 1),
-        '...',
-        totalPages,
-      ];
+    // Add pages around current page
+    for (let i = leftSiblingIndex; i <= rightSiblingIndex; i++) {
+      pageNumbers.push(i);
     }
     
-    if (shouldShowLeftDots && !shouldShowRightDots) {
-      const rightItemCount = 1 + 2 * siblingCount;
-      return [
-        1,
-        '...',
-        ...Array.from(
-          { length: rightItemCount },
-          (_, i) => totalPages - rightItemCount + i + 1
-        ),
-      ];
+    // Add dots if there's a gap before last page
+    if (rightSiblingIndex < totalPages - 1) {
+      pageNumbers.push('dots-2');
     }
     
-    if (shouldShowLeftDots && shouldShowRightDots) {
-      return [
-        1,
-        '...',
-        ...Array.from(
-          { length: rightSiblingIndex - leftSiblingIndex + 1 },
-          (_, i) => leftSiblingIndex + i
-        ),
-        '...',
-        totalPages,
-      ];
+    // Always show last page if more than 1 page
+    if (totalPages > 1) {
+      pageNumbers.push(totalPages);
     }
     
-    return [];
+    return pageNumbers;
   };
   
   const pageNumbers = getPageNumbers();
   
+  if (totalPages <= 1) {
+    return null;
+  }
+  
   return (
-    <nav className={`flex items-centre justify-between border-t border-grey-200 px-4 sm:px-0 ${className}`}>
-      <div className="flex w-0 flex-1">
-        <button
-          onClick={() => onPageChange(currentPage - 1)}
-          disabled={currentPage === 1}
-          className={`inline-flex items-centre border-t-2 border-transparent pr-1 pt-4 text-sm font-medium ${
-            currentPage === 1
-              ? 'cursor-not-allowed text-grey-300'
-              : 'text-grey-500 hover:border-grey-300 hover:text-grey-700'
-          }`}
-        >
-          <svg
-            className="mr-3 h-5 w-5"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-            aria-hidden="true"
+    <nav aria-label="Pagination" className="flex justify-center">
+      <ul className="flex items-center gap-1">
+        {/* Previous button */}
+        <li>
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => onPageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+            aria-label="Go to previous page"
           >
-            <path
-              fillRule="evenodd"
-              d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-              clipRule="evenodd"
-            />
-          </svg>
-          Previous
-        </button>
-      </div>
-      <div className="hidden md:flex">
-        {pageNumbers.map((page, index) => {
-          if (page === '...') {
+            <ChevronLeft className="h-4 w-4" />
+          </Button>
+        </li>
+        
+        {/* Page numbers */}
+        {pageNumbers.map((pageNumber, index) => {
+          if (pageNumber === 'dots-1' || pageNumber === 'dots-2') {
             return (
-              <span
-                key={`ellipsis-${index}`}
-                className="inline-flex items-centre border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-grey-500"
-              >
-                ...
-              </span>
+              <li key={`${pageNumber}`}>
+                <span className="flex h-9 w-9 items-center justify-center">
+                  <MoreHorizontal className="h-4 w-4" />
+                </span>
+              </li>
             );
           }
           
           return (
-            <button
-              key={`page-${page}`}
-              onClick={() => typeof page === 'number' && onPageChange(page)}
-              className={`inline-flex items-centre border-t-2 px-4 pt-4 text-sm font-medium ${
-                currentPage === page
-                  ? 'border-blue-500 text-blue-600'
-                  : 'border-transparent text-grey-500 hover:border-grey-300 hover:text-grey-700'
-              }`}
-              aria-current={currentPage === page ? 'page' : undefined}
-            >
-              {page}
-            </button>
+            <li key={index}>
+              <Button
+                variant={currentPage === pageNumber ? "default" : "outline"}
+                size="icon"
+                onClick={() => onPageChange(pageNumber as number)}
+                aria-label={`Go to page ${pageNumber}`}
+                aria-current={currentPage === pageNumber ? "page" : undefined}
+              >
+                {pageNumber}
+              </Button>
+            </li>
           );
         })}
-      </div>
-      <div className="flex w-0 flex-1 justify-end">
-        <button
-          onClick={() => onPageChange(currentPage + 1)}
-          disabled={currentPage === totalPages}
-          className={`inline-flex items-centre border-t-2 border-transparent pl-1 pt-4 text-sm font-medium ${
-            currentPage === totalPages
-              ? 'cursor-not-allowed text-grey-300'
-              : 'text-grey-500 hover:border-grey-300 hover:text-grey-700'
-          }`}
-        >
-          Next
-          <svg
-            className="ml-3 h-5 w-5"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-            aria-hidden="true"
+        
+        {/* Next button */}
+        <li>
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => onPageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            aria-label="Go to next page"
           >
-            <path
-              fillRule="evenodd"
-              d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </button>
-      </div>
-    </nav>
-  );
-}
-
-interface SimplePaginationProps {
-  currentPage: number;
-  totalPages: number;
-  onPageChange: (page: number) => void;
-  className?: string;
-}
-
-export function SimplePagination({
-  currentPage,
-  totalPages,
-  onPageChange,
-  className = '',
-}: SimplePaginationProps) {
-  return (
-    <nav className={`flex items-centre justify-between ${className}`}>
-      <div className="flex-1 flex justify-between">
-        <button
-          onClick={() => onPageChange(currentPage - 1)}
-          disabled={currentPage === 1}
-          className={`relative inline-flex items-centre px-4 py-2 border border-grey-300 text-sm font-medium rounded-md ${
-            currentPage === 1
-              ? 'bg-grey-100 text-grey-400 cursor-not-allowed'
-              : 'bg-white text-grey-700 hover:bg-grey-50'
-          }`}
-        >
-          Previous
-        </button>
-        <span className="text-sm text-grey-700">
-          Page <span className="font-medium">{currentPage}</span> of{' '}
-          <span className="font-medium">{totalPages}</span>
-        </span>
-        <button
-          onClick={() => onPageChange(currentPage + 1)}
-          disabled={currentPage === totalPages}
-          className={`relative inline-flex items-centre px-4 py-2 border border-grey-300 text-sm font-medium rounded-md ${
-            currentPage === totalPages
-              ? 'bg-grey-100 text-grey-400 cursor-not-allowed'
-              : 'bg-white text-grey-700 hover:bg-grey-50'
-          }`}
-        >
-          Next
-        </button>
-      </div>
+            <ChevronRight className="h-4 w-4" />
+          </Button>
+        </li>
+      </ul>
     </nav>
   );
 }

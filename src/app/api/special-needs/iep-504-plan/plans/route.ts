@@ -71,7 +71,7 @@ const planSchema = z.object({
 });
 
 // GET handler to retrieve all plans for a user
-export async function GET(req) {
+export async function GET(req: Request) {
   try {
     const session = await getServerSession(authOptions);
     
@@ -82,7 +82,7 @@ export async function GET(req) {
     const userId = session.user.id;
     
     // Get all plans for the user
-    const plans = await prisma.iEP504Plan.findMany({
+    const plans = await (prisma as any).iEP504Plan.findMany({
       where: {
         userId: userId
       },
@@ -105,7 +105,7 @@ export async function GET(req) {
 }
 
 // POST handler to create a new plan
-export async function POST(req) {
+export async function POST(req: Request) {
   try {
     const session = await getServerSession(authOptions);
     
@@ -122,7 +122,7 @@ export async function POST(req) {
     // Create the plan with a transaction to ensure all related records are created
     const result = await prisma.$transaction(async (prisma) => {
       // Create the main plan
-      const plan = await prisma.iEP504Plan.create({
+      const plan = await (prisma as any).iEP504Plan.create({
         data: {
           userId,
           title: validatedData.title,
@@ -145,7 +145,7 @@ export async function POST(req) {
       // Create goals if provided
       if (validatedData.goals && validatedData.goals.length > 0) {
         await Promise.all(validatedData.goals.map(goal => 
-          prisma.iEP504Goal.create({
+          (prisma as any).iEP504Goal.create({
             data: {
               planId: plan.id,
               title: goal.title,
@@ -165,7 +165,7 @@ export async function POST(req) {
       // Create accommodations if provided
       if (validatedData.accommodations && validatedData.accommodations.length > 0) {
         await Promise.all(validatedData.accommodations.map(accommodation => 
-          prisma.iEP504Accommodation.create({
+          (prisma as any).iEP504Accommodation.create({
             data: {
               planId: plan.id,
               title: accommodation.title,
@@ -183,7 +183,7 @@ export async function POST(req) {
       // Create services if provided
       if (validatedData.services && validatedData.services.length > 0) {
         await Promise.all(validatedData.services.map(service => 
-          prisma.iEP504Service.create({
+          (prisma as any).iEP504Service.create({
             data: {
               planId: plan.id,
               title: service.title,
@@ -202,7 +202,7 @@ export async function POST(req) {
       // Create team members if provided
       if (validatedData.teamMembers && validatedData.teamMembers.length > 0) {
         await Promise.all(validatedData.teamMembers.map(member => 
-          prisma.iEP504TeamMember.create({
+          (prisma as any).iEP504TeamMember.create({
             data: {
               planId: plan.id,
               name: member.name,
@@ -216,7 +216,7 @@ export async function POST(req) {
       }
       
       // Log the creation
-      await prisma.iEP504PlanLog.create({
+      await (prisma as any).iEP504PlanLog.create({
         data: {
           userId,
           planId: plan.id,

@@ -78,10 +78,10 @@ export async function POST(req: NextRequest) {
     }
     
     // Determine target complexity level
-    let targetComplexity = settings.targetComplexityLevel;
+    let targetComplexity = settings?.targetComplexityLevel;
     
     // If adapt to performance is enabled and performance metrics are available
-    if (settings.adaptToPerformance && performanceMetrics?.recommendedComplexity) {
+    if (settings?.adaptToPerformance && performanceMetrics?.recommendedComplexity) {
       targetComplexity = performanceMetrics.recommendedComplexity;
     }
     
@@ -111,13 +111,13 @@ export async function POST(req: NextRequest) {
       
       Target Complexity Level: ${targetComplexity}% (${targetComplexity < 30 ? 'Simple' : targetComplexity < 60 ? 'Moderate' : 'Complex'})
       Adaptation Type: ${adaptationType}
-      Adaptation Strength: ${settings.adaptationStrength}%
+      Adaptation Strength: ${settings?.adaptationStrength}%
       
       Adjustment Settings:
-      - Include Scaffolding: ${settings.includeScaffolding ? 'Yes' : 'No'}
-      - Include Extensions: ${settings.includeExtensions ? 'Yes' : 'No'}
-      - Preserve Multi-Modal Elements: ${settings.preserveMultiModal ? 'Yes' : 'No'}
-      - Auto-Assess Comprehension: ${settings.autoAssessComprehension ? 'Yes' : 'No'}
+      - Include Scaffolding: ${settings?.includeScaffolding ? 'Yes' : 'No'}
+      - Include Extensions: ${settings?.includeExtensions ? 'Yes' : 'No'}
+      - Preserve Multi-Modal Elements: ${settings?.preserveMultiModal ? 'Yes' : 'No'}
+      - Auto-Assess Comprehension: ${settings?.autoAssessComprehension ? 'Yes' : 'No'}
       
       ${performanceMetrics ? `
       Student Performance Metrics:
@@ -150,7 +150,7 @@ export async function POST(req: NextRequest) {
          - Explore abstract concepts and theoretical frameworks
          - Include sophisticated multi-modal elements if preserving them
       
-      ${settings.includeScaffolding ? `
+      ${settings?.includeScaffolding ? `
       If including scaffolding, please provide:
       - Key vocabulary definitions
       - Step-by-step guidance for complex procedures
@@ -158,7 +158,7 @@ export async function POST(req: NextRequest) {
       - Prompting questions to guide understanding
       ` : ''}
       
-      ${settings.includeExtensions ? `
+      ${settings?.includeExtensions ? `
       If including extensions, please provide:
       - Deeper exploration of concepts
       - Critical thinking questions
@@ -166,7 +166,7 @@ export async function POST(req: NextRequest) {
       - Independent research suggestions
       ` : ''}
       
-      ${settings.autoAssessComprehension ? `
+      ${settings?.autoAssessComprehension ? `
       If including comprehension checks, please provide:
       - Key questions to check understanding
       - Self-assessment prompts
