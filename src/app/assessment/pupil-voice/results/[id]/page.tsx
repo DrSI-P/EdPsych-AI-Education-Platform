@@ -350,7 +350,7 @@ export default function PupilVoiceResultsPage() {
   if (error) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <Alert type="error" className="mb-6">
+        <Alert variant="error" className="mb-6">
           {error}
         </Alert>
         <Button
@@ -365,7 +365,7 @@ export default function PupilVoiceResultsPage() {
   if (!survey) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <Alert type="error" className="mb-6">
+        <Alert variant="error" className="mb-6">
           Survey not found
         </Alert>
         <Button
@@ -392,7 +392,7 @@ export default function PupilVoiceResultsPage() {
           </div>
         </div>
         
-        <Alert type="info" className="mb-6">
+        <Alert variant="info" className="mb-6">
           No responses have been collected for this survey yet.
         </Alert>
       </div>

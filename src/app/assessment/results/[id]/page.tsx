@@ -716,7 +716,7 @@ export default function AssessmentResultsPage() {
   if (error) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <Alert type="error" className="mb-6">
+        <Alert variant="error" className="mb-6">
           {error}
         </Alert>
         <Button onClick={() => router.back()}>
@@ -729,7 +729,7 @@ export default function AssessmentResultsPage() {
   if (!assessment) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <Alert type="error" className="mb-6">
+        <Alert variant="error" className="mb-6">
           Assessment not found
         </Alert>
         <Button onClick={() => router.push('/assessment')}>

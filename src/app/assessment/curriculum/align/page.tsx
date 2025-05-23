@@ -160,7 +160,7 @@ export default function AlignAssessmentPage() {
   if (!standard) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <Alert type="error">
+        <Alert variant="error">
           Curriculum standard not found or you don't have permission to access it.
         </Alert>
         <div className="mt-4">
@@ -314,7 +314,7 @@ export default function AlignAssessmentPage() {
               </div>
               
               {error && (
-                <Alert type="error" className="mt-4 w-full">
+                <Alert variant="error" className="mt-4 w-full">
                   {error}
                 </Alert>
               )}

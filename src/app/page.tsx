@@ -131,7 +131,7 @@ export default function HomePage() {
         {feedbackVisible && (
           <div className="mb-8">
             <FeedbackMessage
-              type="info"
+              variant="info"
               title="Welcome Back!"
               message="Continue where you left off with your personalized learning journey."
               dismissable={true}

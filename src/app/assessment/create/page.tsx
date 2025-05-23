@@ -238,13 +238,13 @@ export default function CreateAssessmentPage() {
       </div>
       
       {error && (
-        <Alert type="error" className="mb-6">
+        <Alert variant="error" className="mb-6">
           {error}
         </Alert>
       )}
       
       {success && (
-        <Alert type="success" className="mb-6">
+        <Alert variant="success" className="mb-6">
           Assessment created successfully! Redirecting to editor...
         </Alert>
       )}
@@ -524,7 +524,7 @@ export default function CreateAssessmentPage() {
           </p>
           
           {aiError && (
-            <Alert type="error">
+            <Alert variant="error">
               {aiError}
             </Alert>
           )}

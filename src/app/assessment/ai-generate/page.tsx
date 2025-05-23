@@ -24,7 +24,7 @@ export default function AIAssessmentGeneratorPage() {
   const [keyStage, setKeyStage] = useState('');
   const [questionCount, setQuestionCount] = useState(10);
   const [assessmentType, setAssessmentType] = useState('quiz');
-  const [generatedAssessment, setGeneratedAssessment] = useState(null);
+  const [generatedAssessment, setGeneratedAssessment] = useState<any>(null);
   const [previewMode, setPreviewMode] = useState(false);
 
   const subjects = [
@@ -99,7 +99,7 @@ export default function AIAssessmentGeneratorPage() {
       const data = await response.json();
       setGeneratedAssessment(data);
       setActiveTab('preview');
-    } catch (err) {
+    } catch (err: any) {
       console.error('Error generating assessment:', err);
       setError(err.message || 'An error occurred while generating the assessment');
     } finally {
@@ -130,7 +130,7 @@ export default function AIAssessmentGeneratorPage() {
       
       // Redirect to the assessment edit page
       router.push(`/assessment/edit/${data.id}`);
-    } catch (err) {
+    } catch (err: any) {
       console.error('Error saving assessment:', err);
       setError(err.message || 'An error occurred while saving the assessment');
     } finally {
@@ -138,7 +138,7 @@ export default function AIAssessmentGeneratorPage() {
     }
   };
 
-  const handleToggleQuestionType = (type) => {
+  const handleToggleQuestionType = (type: string) => {
     if (selectedQuestionTypes.includes(type)) {
       setSelectedQuestionTypes(selectedQuestionTypes.filter(t => t !== type));
     } else {
@@ -295,7 +295,7 @@ export default function AIAssessmentGeneratorPage() {
         </div>
 
         {error && (
-          <Alert type="error" className="mt-4">
+          <Alert variant="error" className="mt-4">
             {error}
           </Alert>
         )}
@@ -437,7 +437,7 @@ export default function AIAssessmentGeneratorPage() {
         </div>
         
         {error && (
-          <Alert type="error" className="mt-4">
+          <Alert variant="error" className="mt-4">
             {error}
           </Alert>
         )}

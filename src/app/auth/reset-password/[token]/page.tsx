@@ -93,7 +93,7 @@ export default function ResetPasswordPage() {
     return (
       <div className="flex min-h-screen items-centre justify-centre bg-grey-50 py-12 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-md">
-          <Alert type="error" className="mb-4">
+          <Alert variant="error" className="mb-4">
             Invalid or missing reset token. Please request a new password reset link.
           </Alert>
           <div className="text-centre mt-4">
@@ -120,7 +120,7 @@ export default function ResetPasswordPage() {
           <CardContent className="pt-6">
             {success ? (
               <div className="text-centre py-4">
-                <Alert type="success" className="mb-4">
+                <Alert variant="success" className="mb-4">
                   Your password has been reset successfully!
                 </Alert>
                 <p className="text-sm text-grey-600 mb-4">
@@ -133,7 +133,7 @@ export default function ResetPasswordPage() {
             ) : (
               <form onSubmit={handleSubmit}>
                 {error && (
-                  <Alert type="error" className="mb-4">
+                  <Alert variant="error" className="mb-4">
                     {error}
                   </Alert>
                 )}

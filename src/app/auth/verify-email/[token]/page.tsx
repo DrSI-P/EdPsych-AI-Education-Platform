@@ -88,7 +88,7 @@ export default function VerifyEmailPage() {
                     </div>
                   </div>
                 </div>
-                <Alert type="success" className="mb-4">
+                <Alert variant="success" className="mb-4">
                   Your email has been verified successfully!
                 </Alert>
                 <p className="text-sm text-grey-600 mb-6">
@@ -122,7 +122,7 @@ export default function VerifyEmailPage() {
                     </div>
                   </div>
                 </div>
-                <Alert type="error" className="mb-4">
+                <Alert variant="error" className="mb-4">
                   {error || 'Verification failed'}
                 </Alert>
                 <p className="text-sm text-grey-600 mb-6">

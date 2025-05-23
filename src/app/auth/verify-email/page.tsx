@@ -80,7 +80,7 @@ export default function RequestVerificationPage() {
                     </div>
                   </div>
                 </div>
-                <Alert type="success" className="mb-4">
+                <Alert variant="success" className="mb-4">
                   If your email is registered, you will receive a verification link shortly.
                 </Alert>
                 <p className="text-sm text-grey-600 mb-4">
@@ -93,7 +93,7 @@ export default function RequestVerificationPage() {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
                 {error && (
-                  <Alert type="error" className="mb-4">
+                  <Alert variant="error" className="mb-4">
                     {error}
                   </Alert>
                 )}

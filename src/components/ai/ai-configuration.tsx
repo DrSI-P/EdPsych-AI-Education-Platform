@@ -573,7 +573,7 @@ export function AIConfiguration({
               )}
               
               <div className="mt-4">
-                <Alert type="info">
+                <Alert variant="info">
                   <p>Cost optimisation is enabled. The system will automatically select the most cost-effective AI provider based on the task requirements.</p>
                 </Alert>
               </div>
@@ -641,7 +641,7 @@ export function AIConfiguration({
           
           <div className="mt-6 flex justify-end">
             {saved && (
-              <Alert type="success" className="mr-4">
+              <Alert variant="success" className="mr-4">
                 Configuration saved successfully
               </Alert>
             )}

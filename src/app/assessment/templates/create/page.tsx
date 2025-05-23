@@ -265,7 +265,7 @@ export default function CreateAssessmentTemplatePage() {
         </div>
 
         {error && (
-          <Alert type="error" className="mt-4">
+          <Alert variant="error" className="mt-4">
             {error}
           </Alert>
         )}
