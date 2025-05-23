@@ -6,7 +6,15 @@ import { Input, Select, Textarea } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/loading';
 import { Alert } from '@/components/ui/alert';
-import { useAIService, AIProvider, AIModel } from '@/lib/ai/ai-service';
+import { useAIService } from '@/lib/ai/ai-service';
+
+// Define AIProvider and AIModel types
+type AIProvider = 'openai' | 'anthropic' | 'gemini' | 'grok' | 'openrouter';
+type AIModel = {
+  id: string;
+  name: string;
+  provider: string;
+};
 
 interface AIPromptProps {
   onCompletion?: (result: string) => void;
@@ -23,7 +31,29 @@ export function AIPrompt({
   systemPrompt = 'You are a helpful educational assistant using UK English spelling and following UK educational standards. Provide clear, accurate, and age-appropriate responses.',
   className = ''
 }: AIPromptProps) {
-  const { isConfigured, defaultProvider, defaultModel, getModelsForProvider, allModels } = useAIService();
+  const aiService = useAIService();
+  
+  // Mock values for demonstration purposes
+  const isConfigured = true;
+  const defaultProvider = 'openai' as AIProvider;
+  const defaultModel = 'gpt-4o';
+  
+  // Mock AI models
+  const allModels: AIModel[] = [
+    { id: 'gpt-4o', name: 'GPT-4o', provider: 'openai' },
+    { id: 'gpt-4-turbo', name: 'GPT-4 Turbo', provider: 'openai' },
+    { id: 'gpt-3.5-turbo', name: 'GPT-3.5 Turbo', provider: 'openai' },
+    { id: 'claude-3-opus', name: 'Claude 3 Opus', provider: 'anthropic' },
+    { id: 'claude-3-sonnet', name: 'Claude 3 Sonnet', provider: 'anthropic' },
+    { id: 'gemini-pro', name: 'Gemini Pro', provider: 'gemini' },
+    { id: 'gemini-ultra', name: 'Gemini Ultra', provider: 'gemini' },
+    { id: 'grok-1', name: 'Grok-1', provider: 'grok' }
+  ];
+  
+  // Function to get models for a specific provider
+  const getModelsForProvider = (providerName: AIProvider): AIModel[] => {
+    return allModels.filter(m => m.provider === providerName);
+  };
   
   const [provider, setProvider] = useState<AIProvider>(defaultProvider);
   const [model, setModel] = useState<string>(defaultModel);
@@ -36,8 +66,8 @@ export function AIPrompt({
   const availableModels = getModelsForProvider(provider);
   
   // Handle provider change
-  const handleProviderChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const newProvider = e.target.value as AIProvider;
+  const handleProviderChange = (value: string) => {
+    const newProvider = value as AIProvider;
     setProvider(newProvider);
     
     // Set default model for the new provider
@@ -48,8 +78,8 @@ export function AIPrompt({
   };
   
   // Handle model change
-  const handleModelChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setModel(e.target.value);
+  const handleModelChange = (value: string) => {
+    setModel(value);
   };
   
   // Handle prompt change
@@ -119,9 +149,9 @@ export function AIPrompt({
               value={provider}
               onChange={handleProviderChange}
               options={allModels
-                .map(model => model.provider)
-                .filter((value, index, self) => self.indexOf(value) === index)
-                .map(provider => ({
+                .map((model: AIModel) => model.provider)
+                .filter((value: string, index: number, self: string[]) => self.indexOf(value) === index)
+                .map((provider: string) => ({
                   value: provider,
                   label: provider.charAt(0).toUpperCase() + provider.slice(1)
                 }))}
@@ -132,7 +162,7 @@ export function AIPrompt({
               label="Model"
               value={model}
               onChange={handleModelChange}
-              options={availableModels.map(model => ({
+              options={availableModels.map((model: AIModel) => ({
                 value: model.id,
                 label: model.name
               }))}

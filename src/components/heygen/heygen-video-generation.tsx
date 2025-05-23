@@ -211,16 +211,21 @@ const HeyGenVideoGeneration = () => {
       const statusCheckInterval = setInterval(async () => {
         const status = await heygenService.getVideoStatus(video.id);
         
-        if (status.status === 'completed') {
+        if (status && status.status === 'completed') {
           clearInterval(statusCheckInterval);
           clearInterval(progressInterval);
           setProgress(100);
           setSuccess(true);
           setLoading(false);
-        } else if (status.status === 'failed') {
+        } else if (status && status.status === 'failed') {
           clearInterval(statusCheckInterval);
           clearInterval(progressInterval);
           setError('Video generation failed. Please try again.');
+          setLoading(false);
+        } else if (!status) {
+          clearInterval(statusCheckInterval);
+          clearInterval(progressInterval);
+          setError('Failed to get video status. Please try again.');
           setLoading(false);
         }
       }, 2000);
@@ -476,7 +481,7 @@ const HeyGenVideoGeneration = () => {
               )}
               
               {error && (
-                <Alert variant="destructive">
+                <Alert variant="error">
                   <AlertCircle className="h-4 w-4" />
                   <AlertTitle>Error</AlertTitle>
                   <AlertDescription>{error}</AlertDescription>

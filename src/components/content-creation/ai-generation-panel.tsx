@@ -91,11 +91,7 @@ export const AIGenerationPanel: React.FC<AIGenerationPanelProps> = ({
     } catch (error) {
       console.error('Failed to generate content:', error);
       setError('Failed to generate content. Please try again.');
-      toast({
-        variant: "destructive",
-        title: "Generation failed",
-        description: "There was a problem generating content with AI.",
-      });
+      toast("Generation failed: There was a problem generating content with AI.");
     } finally {
       setIsGenerating(false);
     }
@@ -119,11 +115,7 @@ export const AIGenerationPanel: React.FC<AIGenerationPanelProps> = ({
     } catch (error) {
       console.error('Failed to generate content:', error);
       setError('Failed to generate content. Please try again.');
-      toast({
-        variant: "destructive",
-        title: "Generation failed",
-        description: "There was a problem generating content with AI.",
-      });
+      toast("Generation failed: There was a problem generating content with AI.");
     } finally {
       setIsGenerating(false);
     }
@@ -190,7 +182,7 @@ export const AIGenerationPanel: React.FC<AIGenerationPanelProps> = ({
   return (
     <div className="ai-generation-panel">
       {error && (
-        <Alert variant="destructive" className="mb-4">
+        <Alert variant="error" className="mb-4">
           <AlertCircle className="h-4 w-4" />
           <AlertTitle>Error</AlertTitle>
           <AlertDescription>{error}</AlertDescription>

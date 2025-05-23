@@ -344,26 +344,17 @@ export default function SmartLessonPlanning() {
         Format your response as a ready-to-use section that the teacher can directly include in their lesson plan.
       `;
       
-      const response = await aiService.getCompletion({
-        prompt,
-        model: 'gpt-4',
-        temperature: 0.7,
-        max_tokens: 500
-      });
+      const response = await aiService.generateText(prompt);
       
       // Store the suggestion
       setAiSuggestions(prev => ({
         ...prev,
-        [section]: response
+        [section]: response.text
       }));
       
     } catch (error) {
       console.error('Error getting AI suggestion:', error);
-      toast({
-        title: "Error getting suggestion",
-        description: "There was a problem generating the suggestion. Please try again.",
-        variant: "destructive"
-      });
+      toast("There was a problem generating the suggestion. Please try again.");
     } finally {
       setIsProcessing(false);
     }
@@ -375,10 +366,7 @@ export default function SmartLessonPlanning() {
       handleSectionChange(section, aiSuggestions[section]);
       setShowingSuggestion('');
       
-      toast({
-        title: "Suggestion applied",
-        description: `The suggestion for "${section}" has been applied to your lesson plan.`,
-      });
+      toast(`The suggestion for "${section}" has been applied to your lesson plan.`);
     }
   };
   
@@ -433,23 +421,14 @@ export default function SmartLessonPlanning() {
         The final lesson plan should be ready for classroom use with minimal additional preparation.
       `;
       
-      const response = await aiService.getCompletion({
-        prompt,
-        model: 'gpt-4',
-        temperature: 0.5,
-        max_tokens: 2000
-      });
+      const response = await aiService.generateText(prompt);
       
-      setGeneratedLessonPlan(response);
+      setGeneratedLessonPlan(response.text);
       setActiveTab('preview');
       
     } catch (error) {
       console.error('Error generating lesson plan:', error);
-      toast({
-        title: "Error generating lesson plan",
-        description: "There was a problem creating your lesson plan. Please try again.",
-        variant: "destructive"
-      });
+      toast("There was a problem creating your lesson plan. Please try again.");
     } finally {
       setIsProcessing(false);
     }
@@ -476,17 +455,10 @@ export default function SmartLessonPlanning() {
     try {
       localStorage.setItem('smartLessonPlans', JSON.stringify(updatedLessonPlans));
       
-      toast({
-        title: "Lesson plan saved",
-        description: "Your lesson plan has been saved successfully.",
-      });
+      toast("Your lesson plan has been saved successfully.");
     } catch (error) {
       console.error('Error saving lesson plan:', error);
-      toast({
-        title: "Error saving lesson plan",
-        description: "There was a problem saving your lesson plan.",
-        variant: "destructive"
-      });
+      toast("There was a problem saving your lesson plan.");
     }
   };
   
@@ -494,17 +466,10 @@ export default function SmartLessonPlanning() {
   const copyToClipboard = () => {
     navigator.clipboard.writeText(generatedLessonPlan).then(
       () => {
-        toast({
-          title: "Copied to clipboard",
-          description: "The lesson plan has been copied to your clipboard.",
-        });
+        toast("The lesson plan has been copied to your clipboard.");
       },
       (err) => {
-        toast({
-          title: "Failed to copy",
-          description: "There was an error copying the lesson plan.",
-          variant: "destructive"
-        });
+        toast("There was an error copying the lesson plan.");
         console.error('Could not copy text: ', err);
       }
     );
@@ -528,10 +493,7 @@ export default function SmartLessonPlanning() {
     element.click();
     document.body.removeChild(element);
     
-    toast({
-      title: "Download started",
-      description: `Your file "${filename}" is being downloaded.`,
-    });
+    toast(`Your file "${filename}" is being downloaded.`);
   };
   
   // Delete saved lesson plan
@@ -543,10 +505,7 @@ export default function SmartLessonPlanning() {
     try {
       localStorage.setItem('smartLessonPlans', JSON.stringify(updatedLessonPlans));
       
-      toast({
-        title: "Lesson plan deleted",
-        description: "The lesson plan has been deleted.",
-      });
+      toast("The lesson plan has been deleted.");
     } catch (error) {
       console.error('Error deleting lesson plan:', error);
     }
@@ -585,30 +544,32 @@ export default function SmartLessonPlanning() {
               <h2 className="text-xl font-semibold">Select a Lesson Plan Template</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {lessonPlanTemplates.map(template => (
-                  <Card 
-                    key={template.id} 
-                    className="cursor-pointer hover:border-primary transition-colors"
+                  <div
+                    key={template.id}
+                    className="cursor-pointer"
                     onClick={() => handleTemplateSelect(template.id)}
                   >
-                    <CardHeader className="pb-2">
-                      <CardTitle>{template.name}</CardTitle>
-                      <CardDescription>{template.description}</CardDescription>
-                    </CardHeader>
-                    <CardContent className="pb-2">
-                      <p className="text-sm text-muted-foreground">Includes sections for:</p>
-                      <ul className="text-sm list-disc list-inside">
-                        {template.structure.slice(0, 3).map((section, index) => (
-                          <li key={index}>{section}</li>
-                        ))}
-                        {template.structure.length > 3 && (
-                          <li>+ {template.structure.length - 3} more sections</li>
-                        )}
-                      </ul>
-                    </CardContent>
-                    <CardFooter>
-                      <Button variant="outline" className="w-full">Select</Button>
-                    </CardFooter>
-                  </Card>
+                    <Card className="hover:border-primary transition-colors">
+                      <CardHeader className="pb-2">
+                        <CardTitle>{template.name}</CardTitle>
+                        <CardDescription>{template.description}</CardDescription>
+                      </CardHeader>
+                      <CardContent className="pb-2">
+                        <p className="text-sm text-muted-foreground">Includes sections for:</p>
+                        <ul className="text-sm list-disc list-inside">
+                          {template.structure.slice(0, 3).map((section, index) => (
+                            <li key={index}>{section}</li>
+                          ))}
+                          {template.structure.length > 3 && (
+                            <li>+ {template.structure.length - 3} more sections</li>
+                          )}
+                        </ul>
+                      </CardContent>
+                      <CardFooter>
+                        <Button variant="outline" className="w-full">Select</Button>
+                      </CardFooter>
+                    </Card>
+                  </div>
                 ))}
               </div>
             </div>

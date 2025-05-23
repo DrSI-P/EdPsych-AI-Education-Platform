@@ -237,11 +237,13 @@ export const AIAvatarVideoLibrary: React.FC = () => {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredVideos.map(video => (
-            <Card 
-              key={video.id} 
-              className="overflow-hidden hover:shadow-lg transition-shadow cursor-pointer"
+            <div
+              key={video.id}
               onClick={() => handleVideoSelect(video)}
             >
+              <Card
+                className="overflow-hidden hover:shadow-lg transition-shadow cursor-pointer"
+              >
               <div className="aspect-video bg-grey-100 relative">
                 <img 
                   src={video.thumbnailPath || `/api/ai-avatar/thumbnails/${video.id}`} 
@@ -271,7 +273,8 @@ export const AIAvatarVideoLibrary: React.FC = () => {
                   <span>{video.category.replace('_', ' ')}</span>
                 </div>
               </CardFooter>
-            </Card>
+              </Card>
+            </div>
           ))}
         </div>
       )}

@@ -6,7 +6,10 @@ import { Input, Textarea, Select } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/loading';
 import { Alert } from '@/components/ui/alert';
-import { useAIService, AIProvider } from '@/lib/ai/ai-service';
+import { useAIService } from '@/lib/ai/ai-service';
+
+// Define AIProvider type
+type AIProvider = 'openai' | 'anthropic' | 'gemini' | 'grok' | 'openrouter';
 
 interface AIFeedbackGeneratorProps {
   studentWork: string;
@@ -19,7 +22,12 @@ export function AIFeedbackGenerator({
   onFeedbackGenerated,
   className = ''
 }: AIFeedbackGeneratorProps) {
-  const { isConfigured, defaultProvider, defaultModel, getModelsForProvider } = useAIService();
+  const aiService = useAIService();
+  
+  // Mock values for demonstration purposes
+  const isConfigured = true;
+  const defaultProvider = 'openai' as AIProvider;
+  const defaultModel = 'gpt-4o';
   
   const [provider, setProvider] = useState<AIProvider>(defaultProvider);
   const [model, setModel] = useState<string>(defaultModel);
@@ -29,12 +37,43 @@ export function AIFeedbackGenerator({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   
+  // Mock function to get models for the selected provider
+  const getModelsForProvider = (provider: AIProvider) => {
+    // Mock models for each provider
+    const models = {
+      'openai': [
+        { id: 'gpt-4o', name: 'GPT-4o', provider: 'openai' },
+        { id: 'gpt-4-turbo', name: 'GPT-4 Turbo', provider: 'openai' },
+        { id: 'gpt-3.5-turbo', name: 'GPT-3.5 Turbo', provider: 'openai' }
+      ],
+      'anthropic': [
+        { id: 'claude-3-opus', name: 'Claude 3 Opus', provider: 'anthropic' },
+        { id: 'claude-3-sonnet', name: 'Claude 3 Sonnet', provider: 'anthropic' },
+        { id: 'claude-3-haiku', name: 'Claude 3 Haiku', provider: 'anthropic' }
+      ],
+      'gemini': [
+        { id: 'gemini-pro', name: 'Gemini Pro', provider: 'gemini' },
+        { id: 'gemini-ultra', name: 'Gemini Ultra', provider: 'gemini' }
+      ],
+      'grok': [
+        { id: 'grok-1', name: 'Grok-1', provider: 'grok' }
+      ],
+      'openrouter': [
+        { id: 'openai/gpt-4o', name: 'OpenAI GPT-4o', provider: 'openrouter' },
+        { id: 'anthropic/claude-3-opus', name: 'Anthropic Claude 3 Opus', provider: 'openrouter' },
+        { id: 'meta/llama-3', name: 'Meta Llama 3', provider: 'openrouter' }
+      ]
+    };
+    
+    return models[provider] || [];
+  };
+  
   // Get models for the selected provider
   const availableModels = getModelsForProvider(provider);
   
   // Handle provider change
-  const handleProviderChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const newProvider = e.target.value as AIProvider;
+  const handleProviderChange = (value: string) => {
+    const newProvider = value as AIProvider;
     setProvider(newProvider);
     
     // Set default model for the new provider
@@ -45,8 +84,8 @@ export function AIFeedbackGenerator({
   };
   
   // Handle model change
-  const handleModelChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setModel(e.target.value);
+  const handleModelChange = (value: string) => {
+    setModel(value);
   };
   
   // Generate feedback
@@ -152,7 +191,7 @@ Format your feedback with:
             <Select
               label="Feedback Type"
               value={feedbackType}
-              onChange={(e) => setFeedbackType(e.target.value)}
+              onChange={(value) => setFeedbackType(value)}
               options={[
                 { value: 'constructive', label: 'Constructive' },
                 { value: 'detailed', label: 'Detailed' },
@@ -165,7 +204,7 @@ Format your feedback with:
             <Select
               label="Age Group"
               value={ageGroup}
-              onChange={(e) => setAgeGroup(e.target.value)}
+              onChange={(value) => setAgeGroup(value)}
               options={[
                 { value: 'primary', label: 'Primary School' },
                 { value: 'secondary', label: 'Secondary School' },

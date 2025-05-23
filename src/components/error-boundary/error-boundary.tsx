@@ -75,7 +75,12 @@ class ErrorBoundary extends Component<Props, State> {
       this.state.hasError &&
       this.props.resetKeys &&
       prevProps.resetKeys &&
-      this.props.resetKeys.some((key, index) => key !== prevProps.resetKeys[index])
+      this.props.resetKeys.some((key, index) => {
+        // Ensure prevProps.resetKeys is defined and has the element at the current index
+        return prevProps.resetKeys && index < prevProps.resetKeys.length
+          ? key !== prevProps.resetKeys[index]
+          : true; // If prevProps.resetKeys doesn't have this index, consider it changed
+      })
     ) {
       this.reset();
     }
@@ -106,10 +111,10 @@ class ErrorBoundary extends Component<Props, State> {
             </CardTitle>
           </CardHeader>
           <CardContent className="pt-6">
-            <Alert variant="destructive" className="mb-4">
+            <Alert variant="error" className="mb-4">
               <AlertTitle>Error</AlertTitle>
               <AlertDescription>
-                {process.env.NODE_ENV === 'development' 
+                {process.env.NODE_ENV === 'development'
                   ? this.state.error?.message || 'An unexpected error occurred'
                   : 'We encountered a problem while displaying this content'}
               </AlertDescription>

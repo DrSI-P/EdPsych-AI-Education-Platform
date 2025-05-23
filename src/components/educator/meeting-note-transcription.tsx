@@ -384,30 +384,18 @@ Speaker 1: Let's develop an action plan. Who can take responsibility for [Action
         setIsProcessing(false);
         setActiveTab('edit');
         
-        toast({
-          title: "Recording processed",
-          description: "Your meeting has been transcribed. You can now review and edit the transcript.",
-          variant: "default"
-        });
+        toast("Your meeting has been transcribed. You can now review and edit the transcript.");
       }, 3000);
       
     } else {
       // Start recording
       if (!meetingTitle) {
-        toast({
-          title: "Meeting title required",
-          description: "Please enter a title for your meeting before starting recording.",
-          variant: "destructive"
-        });
+        toast("Please enter a title for your meeting before starting recording.");
         return;
       }
       
       if (!meetingType) {
-        toast({
-          title: "Meeting type required",
-          description: "Please select a meeting type before starting recording.",
-          variant: "destructive"
-        });
+        toast("Please select a meeting type before starting recording.");
         return;
       }
       
@@ -423,11 +411,7 @@ Speaker 1: Let's develop an action plan. Who can take responsibility for [Action
       setIsRecording(true);
       setLiveTranscript('');
       
-      toast({
-        title: "Recording started",
-        description: "Your meeting is now being recorded and transcribed in real-time.",
-        variant: "default"
-      });
+      toast("Your meeting is now being recorded and transcribed in real-time.");
     }
   };
   
@@ -441,11 +425,7 @@ Speaker 1: Let's develop an action plan. Who can take responsibility for [Action
   // Process transcript to extract key points and action items
   const processTranscript = () => {
     if (!liveTranscript.trim()) {
-      toast({
-        title: "No transcript available",
-        description: "Please record or upload a meeting before processing.",
-        variant: "destructive"
-      });
+      toast("Please record or upload a meeting before processing.");
       return;
     }
     
@@ -490,19 +470,17 @@ Speaker 1: Let's develop an action plan. Who can take responsibility for [Action
         // Add preparation for adulthood key points if applicable
         if (usePreparationForAdulthood || (studentYear && studentYear >= 9)) {
           sampleKeyPoints.push(
-            { 
-              text: 'Student expresses interest in pursuing a career in technology', 
-              category: 'interest', 
+            {
+              text: 'Student expresses interest in pursuing a career in technology',
+              category: 'interest',
               ehcnaArea: 'Preparation for Adulthood - Employment',
-              preparationForAdulthood: true,
-              highlighted: true 
+              highlighted: true
             },
-            { 
-              text: 'Student needs support with independent travel planning', 
-              category: 'development', 
+            {
+              text: 'Student needs support with independent travel planning',
+              category: 'development',
               ehcnaArea: 'Preparation for Adulthood - Independent Living',
-              preparationForAdulthood: true,
-              highlighted: true 
+              highlighted: true
             }
           );
         }
@@ -587,11 +565,7 @@ Speaker 1: Let's develop an action plan. Who can take responsibility for [Action
       setIsProcessing(false);
       setActiveTab('review');
       
-      toast({
-        title: "Transcript processed",
-        description: "Key points and action items have been extracted. You can now review and edit them.",
-        variant: "default"
-      });
+      toast("Key points and action items have been extracted. You can now review and edit them.");
     }, 2000);
   };
   
@@ -603,11 +577,7 @@ Speaker 1: Let's develop an action plan. Who can take responsibility for [Action
     const updatedMeetings = [...savedMeetings, currentMeeting];
     setSavedMeetings(updatedMeetings);
     
-    toast({
-      title: "Meeting saved",
-      description: "Your meeting transcript and notes have been saved successfully.",
-      variant: "default"
-    });
+    toast("Your meeting transcript and notes have been saved successfully.");
     
     // Reset current meeting state
     setMeetingTitle('');
@@ -637,22 +607,14 @@ Speaker 1: Let's develop an action plan. Who can take responsibility for [Action
       setActiveTab('saved');
     }
     
-    toast({
-      title: "Meeting deleted",
-      description: "The meeting has been removed from your saved meetings.",
-      variant: "default"
-    });
+    toast("The meeting has been removed from your saved meetings.");
   };
   
   // Add a new key point
   const addKeyPoint = () => {
     if (!currentMeeting) return;
     if (!newKeyPoint.text.trim()) {
-      toast({
-        title: "Empty key point",
-        description: "Please enter text for the key point.",
-        variant: "destructive"
-      });
+      toast("Please enter text for the key point.");
       return;
     }
     
@@ -662,7 +624,7 @@ Speaker 1: Let's develop an action plan. Who can take responsibility for [Action
       keyPoints: updatedKeyPoints
     });
     
-    setNewKeyPoint({ text: '', category: 'information', highlighted: false });
+    setNewKeyPoint({ text: '', category: 'information', ehcnaArea: '', preparationForAdulthood: false, highlighted: false });
   };
   
   // Remove a key point
@@ -698,11 +660,7 @@ Speaker 1: Let's develop an action plan. Who can take responsibility for [Action
   const addActionItem = () => {
     if (!currentMeeting) return;
     if (!newActionItem.text.trim()) {
-      toast({
-        title: "Empty action item",
-        description: "Please enter text for the action item.",
-        variant: "destructive"
-      });
+      toast("Please enter text for the action item.");
       return;
     }
     
@@ -712,7 +670,7 @@ Speaker 1: Let's develop an action plan. Who can take responsibility for [Action
       actionItems: updatedActionItems
     });
     
-    setNewActionItem({ text: '', assignedTo: '', dueDate: '', completed: false });
+    setNewActionItem({ text: '', assignedTo: '', dueDate: '', completed: false, ehcnaArea: '' });
   };
   
   // Remove an action item
@@ -754,39 +712,23 @@ Speaker 1: Let's develop an action plan. Who can take responsibility for [Action
     // In a real implementation, this would upload the file for processing
     // For demo purposes, we'll simulate processing
     
-    toast({
-      title: "File uploaded",
-      description: `"${file.name}" has been uploaded and is ready for processing.`,
-      variant: "default"
-    });
+    toast(`"${file.name}" has been uploaded and is ready for processing.`);
   };
   
   // Process uploaded file
   const processUploadedFile = () => {
     if (!uploadedAudioFile) {
-      toast({
-        title: "No file selected",
-        description: "Please upload an audio file before processing.",
-        variant: "destructive"
-      });
+      toast("Please upload an audio file before processing.");
       return;
     }
     
     if (!meetingTitle) {
-      toast({
-        title: "Meeting title required",
-        description: "Please enter a title for your meeting before processing.",
-        variant: "destructive"
-      });
+      toast("Please enter a title for your meeting before processing.");
       return;
     }
     
     if (!meetingType) {
-      toast({
-        title: "Meeting type required",
-        description: "Please select a meeting type before processing.",
-        variant: "destructive"
-      });
+      toast("Please select a meeting type before processing.");
       return;
     }
     
@@ -813,11 +755,7 @@ Speaker 1: Let's develop an action plan. Who can take responsibility for draftin
       setIsProcessing(false);
       setActiveTab('edit');
       
-      toast({
-        title: "File processed",
-        description: "Your audio file has been transcribed. You can now review and edit the transcript.",
-        variant: "default"
-      });
+      toast("Your audio file has been transcribed. You can now review and edit the transcript.");
     }, 3000);
   };
   
@@ -848,13 +786,9 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
       setShowTranslation(true);
       setIsProcessing(false);
       
-      toast({
-        title: "Translation generated",
-        description: `The transcript has been translated to ${
-          languages.find(lang => lang.id === translationLanguage)?.name || translationLanguage
-        }.`,
-        variant: "default"
-      });
+      toast(`The transcript has been translated to ${
+        languages.find(lang => lang.id === translationLanguage)?.name || translationLanguage
+      }.`);
     }, 2000);
   };
   
@@ -862,19 +796,11 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
   const exportAsPDF = () => {
     if (!currentMeeting) return;
     
-    toast({
-      title: "Exporting PDF",
-      description: "Your meeting transcript and notes are being exported as PDF.",
-      variant: "default"
-    });
+    toast("Your meeting transcript and notes are being exported as PDF.");
     
     // Simulate export delay
     setTimeout(() => {
-      toast({
-        title: "PDF exported",
-        description: "Your PDF has been generated and is ready for download.",
-        variant: "default"
-      });
+      toast("Your PDF has been generated and is ready for download.");
     }, 2000);
   };
   
@@ -1704,11 +1630,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
             variant="outline"
             onClick={() => {
               // Open help documentation
-              toast({
-                title: "Help & Documentation",
-                description: "Documentation would open here.",
-                variant: "default"
-              });
+              toast("Documentation would open here.");
             }}
           >
             <HelpCircle className="mr-2 h-4 w-4" />

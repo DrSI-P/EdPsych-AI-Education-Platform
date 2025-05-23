@@ -7,6 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Separator } from '@/components/ui/separator';
+import { Progress } from '@/components/ui/progress';
 import { toast } from '@/components/ui/use-toast';
 import { 
   AlertTriangle, 
@@ -36,6 +37,15 @@ import {
   ProgressReport
 } from '@/lib/ai/guidanceTypes';
 import { getAIGuidanceService } from '@/lib/ai/guidanceService';
+
+// Define learning style enum for component
+enum LearningStyle {
+  VISUAL = 'visual',
+  AUDITORY = 'auditory',
+  READING_WRITING = 'reading_writing',
+  KINESTHETIC = 'kinesthetic',
+  MULTIMODAL = 'multimodal'
+}
 
 // Mock learner profile for demonstration
 const mockLearnerProfile: LearnerProfile = {
@@ -273,14 +283,6 @@ const mockProgressReport: ProgressReport = {
   generatedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000) // 1 day ago
 };
 
-// Define learning style enum for component
-enum LearningStyle {
-  VISUAL = 'visual',
-  AUDITORY = 'auditory',
-  READING_WRITING = 'reading_writing',
-  KINESTHETIC = 'kinesthetic',
-  MULTIMODAL = 'multimodal'
-}
 
 export default function ProgressMonitoringAlerts() {
   const [activeTab, setActiveTab] = useState<string>('alerts');
@@ -307,19 +309,10 @@ export default function ProgressMonitoringAlerts() {
       // For demo purposes, we'll just use the mock data
       setInterventionAlerts([...mockInterventionAlerts]);
       
-      toast({
-        title: "Progress Monitored",
-        description: "Your learning progress has been analysed.",
-        duration: 3000,
-      });
+      toast("Progress Monitored. Your learning progress has been analysed.");
     } catch (error) {
       console.error('Failed to monitor progress:', error);
-      toast({
-        title: "Error",
-        description: "Failed to monitor progress. Please try again.",
-        variant: "destructive",
-        duration: 3000,
-      });
+      toast("Error: Failed to monitor progress. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -342,19 +335,10 @@ export default function ProgressMonitoringAlerts() {
       // For demo purposes, we'll just use the mock data
       setProgressReport(mockProgressReport);
       
-      toast({
-        title: "Progress Report Generated",
-        description: "Your learning progress report is ready.",
-        duration: 3000,
-      });
+      toast("Progress Report Generated. Your learning progress report is ready.");
     } catch (error) {
       console.error('Failed to generate progress report:', error);
-      toast({
-        title: "Error",
-        description: "Failed to generate progress report. Please try again.",
-        variant: "destructive",
-        duration: 3000,
-      });
+      toast("Error: Failed to generate progress report. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -466,33 +450,21 @@ export default function ProgressMonitoringAlerts() {
       alert.id === alertId ? { ...alert, acknowledged: true } : alert
     ));
     
-    toast({
-      title: "Alert Acknowledged",
-      description: "The alert has been marked as acknowledged.",
-      duration: 3000,
-    });
+    toast("Alert Acknowledged. The alert has been marked as acknowledged.");
   };
   
   // Mock function to take action on alert
   const takeAction = (alert: InterventionAlert, actionIndex: number) => {
     const action = alert.suggestedActions[actionIndex];
     
-    toast({
-      title: "Action Taken",
-      description: `You've chosen to ${action.description}`,
-      duration: 3000,
-    });
+    toast(`Action Taken: You've chosen to ${action.description}`);
   };
   
   // Mock function to dismiss alert
   const dismissAlert = (alertId: string) => {
     setInterventionAlerts(interventionAlerts.filter(alert => alert.id !== alertId));
     
-    toast({
-      title: "Alert Dismissed",
-      description: "The alert has been dismissed.",
-      duration: 3000,
-    });
+    toast("Alert Dismissed. The alert has been dismissed.");
   };
   
   return (

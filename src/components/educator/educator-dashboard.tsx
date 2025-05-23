@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
 import { Input, Textarea, Select, Checkbox } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
-import { Tabs } from '@/components/ui/tabs';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Spinner } from '@/components/ui/loading';
 import { Alert } from '@/components/ui/alert';
 import { useToast } from '@/components/ui/toast';
@@ -20,6 +20,8 @@ export function EducatorDashboard({
   const { showToast } = useToast();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [selectedClass, setSelectedClass] = useState('all');
+  const [selectedTimePeriod, setSelectedTimePeriod] = useState('term');
   
   // Mock data for demonstration
   const [stats, setStats] = useState({
@@ -151,18 +153,12 @@ export function EducatorDashboard({
   
   // Handle feedback generation
   const handleGenerateFeedback = (studentId: string, aiResponse: string) => {
-    showToast({
-      title: 'Feedback generated successfully',
-      type: 'success'
-    });
+    showToast({ message: 'Feedback generated successfully' });
   };
   
   // Handle lesson plan generation
   const handleGenerateLessonPlan = (classId: string, aiResponse: string) => {
-    showToast({
-      title: 'Lesson plan generated successfully',
-      type: 'success'
-    });
+    showToast({ message: 'Lesson plan generated successfully' });
   };
   
   // Define the tabs
@@ -534,6 +530,8 @@ export function EducatorDashboard({
                 <h2 className="text-xl font-semibold">Reports & Analytics</h2>
                 <div className="flex space-x-2">
                   <Select
+                    value={selectedClass}
+                    onChange={(value) => setSelectedClass(value)}
                     options={[
                       { value: 'all', label: 'All Classes' },
                       { value: '8A', label: '8A Mathematics' },
@@ -544,6 +542,8 @@ export function EducatorDashboard({
                     className="w-40"
                   />
                   <Select
+                    value={selectedTimePeriod}
+                    onChange={(value) => setSelectedTimePeriod(value)}
                     options={[
                       { value: 'term', label: 'This Term' },
                       { value: 'month', label: 'This Month' },
@@ -680,7 +680,20 @@ export function EducatorDashboard({
   
   return (
     <div className={className}>
-      <Tabs tabs={tabs} />
+      <Tabs defaultValue="overview">
+        <TabsList className="grid grid-cols-4">
+          {tabs.map(tab => (
+            <TabsTrigger key={tab.id} value={tab.id}>
+              {tab.label}
+            </TabsTrigger>
+          ))}
+        </TabsList>
+        {tabs.map(tab => (
+          <TabsContent key={tab.id} value={tab.id}>
+            {tab.content}
+          </TabsContent>
+        ))}
+      </Tabs>
     </div>
   );
 }

@@ -1,6 +1,34 @@
 'use client';
 
 import React, { useState } from 'react';
+
+// Define interfaces for our data structures
+interface CommentAuthor {
+  id: string;
+  name: string;
+  avatar: string;
+  role: string;
+}
+
+interface CommentReport {
+  id: string;
+  reason: string;
+  details: string;
+  reporterId: string;
+  createdAt: string;
+}
+
+interface Comment {
+  id: string;
+  postId: string;
+  postTitle: string;
+  content: string;
+  author: CommentAuthor;
+  publishedAt: string;
+  status: string;
+  flags: number;
+  reports: CommentReport[];
+}
 import { 
   Card, 
   CardContent, 
@@ -221,7 +249,7 @@ const moderationStats = {
 
 const CommentModerationDashboard = () => {
   const [activeTab, setActiveTab] = useState("pending");
-  const [selectedComment, setSelectedComment] = useState(null);
+  const [selectedComment, setSelectedComment] = useState<Comment | null>(null);
   const [rejectionReason, setRejectionReason] = useState("");
   const [showRejectionDialog, setShowRejectionDialog] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -229,7 +257,7 @@ const CommentModerationDashboard = () => {
   const [filteredComments, setFilteredComments] = useState(pendingComments);
   
   // Filter comments based on search query
-  const handleSearch = (e) => {
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const query = searchQuery.toLowerCase();
     const filtered = pendingComments.filter(comment => 
@@ -247,22 +275,19 @@ const CommentModerationDashboard = () => {
   };
   
   // Handle comment approval
-  const handleApprove = (comment) => {
+  const handleApprove = (comment: Comment) => {
     setIsProcessing(true);
     // Simulate API call
     setTimeout(() => {
       setIsProcessing(false);
       // Remove from list
       setFilteredComments(filteredComments.filter(c => c.id !== comment.id));
-      toast({
-        title: "Comment approved",
-        description: "The comment has been published successfully.",
-      });
+      toast("Comment approved: The comment has been published successfully.");
     }, 1000);
   };
   
   // Open rejection dialog
-  const openRejectionDialog = (comment) => {
+  const openRejectionDialog = (comment: Comment) => {
     setSelectedComment(comment);
     setRejectionReason("");
     setShowRejectionDialog(true);
@@ -270,6 +295,8 @@ const CommentModerationDashboard = () => {
   
   // Handle comment rejection
   const handleReject = () => {
+    if (!selectedComment) return;
+    
     setIsProcessing(true);
     // Simulate API call
     setTimeout(() => {
@@ -277,15 +304,12 @@ const CommentModerationDashboard = () => {
       setShowRejectionDialog(false);
       // Remove from list
       setFilteredComments(filteredComments.filter(c => c.id !== selectedComment.id));
-      toast({
-        title: "Comment rejected",
-        description: "The comment has been rejected and will not be published.",
-      });
+      toast("Comment rejected: The comment has been rejected and will not be published.");
     }, 1000);
   };
   
   // Handle comment flagging for review
-  const handleFlag = (comment) => {
+  const handleFlag = (comment: Comment) => {
     setIsProcessing(true);
     // Simulate API call
     setTimeout(() => {
@@ -295,25 +319,19 @@ const CommentModerationDashboard = () => {
         c.id === comment.id ? { ...c, status: 'flagged' } : c
       );
       setFilteredComments(updatedComments);
-      toast({
-        title: "Comment flagged",
-        description: "The comment has been flagged for further review.",
-      });
+      toast("Comment flagged: The comment has been flagged for further review.");
     }, 1000);
   };
   
   // Handle comment deletion
-  const handleDelete = (comment) => {
+  const handleDelete = (comment: Comment) => {
     setIsProcessing(true);
     // Simulate API call
     setTimeout(() => {
       setIsProcessing(false);
       // Remove from list
       setFilteredComments(filteredComments.filter(c => c.id !== comment.id));
-      toast({
-        title: "Comment deleted",
-        description: "The comment has been permanently deleted.",
-      });
+      toast("Comment deleted: The comment has been permanently deleted.");
     }, 1000);
   };
   

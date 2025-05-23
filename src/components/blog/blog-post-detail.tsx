@@ -23,15 +23,15 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
-import { 
-  BookOpen, 
-  Calendar, 
-  Clock, 
-  Heart, 
-  MessageSquare, 
-  MoreHorizontal, 
-  Share2, 
-  ThumbsUp, 
+import {
+  BookOpen,
+  Calendar,
+  Clock,
+  Heart,
+  MessageSquare,
+  MoreHorizontal,
+  Share2,
+  ThumbsUp,
   Bookmark,
   BookmarkPlus,
   Eye,
@@ -42,7 +42,8 @@ import {
   Mail,
   Printer,
   Flag,
-  AlertTriangle
+  AlertTriangle,
+  ArrowLeft
 } from 'lucide-react';
 import { toast } from "@/components/ui/use-toast";
 
@@ -245,10 +246,7 @@ const BlogPostDetail = () => {
   
   const handleBookmark = () => {
     setIsBookmarked(!isBookmarked);
-    toast({
-      title: isBookmarked ? "Removed from bookmarks" : "Added to bookmarks",
-      description: isBookmarked ? "This post has been removed from your bookmarks." : "This post has been added to your bookmarks.",
-    });
+    toast(isBookmarked ? "Removed from bookmarks" : "Added to bookmarks");
   };
   
   const handleLike = () => {
@@ -260,31 +258,22 @@ const BlogPostDetail = () => {
     setIsLiked(!isLiked);
   };
   
-  const handleShare = (platform) => {
+  const handleShare = (platform: string) => {
     // In a real implementation, this would share to the specified platform
-    toast({
-      title: `Shared on ${platform}`,
-      description: `This post has been shared on ${platform}.`,
-    });
+    toast(`Shared on ${platform}`);
   };
   
-  const handleSubmitComment = (e) => {
+  const handleSubmitComment = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (commentText.trim()) {
-      toast({
-        title: "Comment submitted",
-        description: "Your comment has been submitted for moderation.",
-      });
+      toast("Comment submitted for moderation");
       setCommentText("");
       setShowCommentForm(false);
     }
   };
   
   const handleReport = () => {
-    toast({
-      title: "Content reported",
-      description: "Thank you for your report. Our team will review this content.",
-    });
+    toast("Thank you for your report. Our team will review this content.");
   };
 
   return (
@@ -395,10 +384,7 @@ const BlogPostDetail = () => {
             </DropdownMenuItem>
             <DropdownMenuItem onClick={() => {
               navigator.clipboard.writeText(window.location.href);
-              toast({
-                title: "Link copied",
-                description: "The link to this post has been copied to your clipboard.",
-              });
+              toast("Link copied to clipboard");
             }}>
               <Copy className="h-4 w-4 mr-2" />
               Copy Link

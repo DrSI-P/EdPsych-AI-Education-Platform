@@ -11,8 +11,8 @@ import {
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { 
-  Switch,
+import { Switch } from '@/components/ui/switch';
+import {
   Select,
   SelectContent,
   SelectItem,
@@ -30,10 +30,11 @@ import {
   Loader2
 } from 'lucide-react';
 import { useI18n } from './i18n-provider';
-import { 
-  SupportedLanguage, 
+import {
+  SupportedLanguage,
   UserLanguagePreferences,
-  MultilingualAccessibilityOptions
+  MultilingualAccessibilityOptions,
+  TranslationNamespace
 } from '@/lib/i18n/types';
 import { I18nService } from '@/lib/i18n/i18nService';
 
@@ -75,7 +76,7 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
         setIsLoading(false);
       } catch (err) {
         console.error('Error loading language preferences:', err);
-        setError(t('error_loading_preferences', 'settings'));
+        setError(t('error_loading_preferences', TranslationNamespace.SETTINGS));
         setIsLoading(false);
       }
     };
@@ -99,7 +100,7 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
       await changeLanguage(language);
     } catch (err) {
       console.error('Error changing primary language:', err);
-      setError(t('error_changing_language', 'settings'));
+      setError(t('error_changing_language', TranslationNamespace.SETTINGS));
     }
   };
   
@@ -132,16 +133,16 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
       const success = await i18nService.updateUserLanguagePreferences(preferences);
       
       if (success) {
-        setSuccessMessage(t('preferences_saved', 'settings'));
+        setSuccessMessage(t('preferences_saved', TranslationNamespace.SETTINGS));
         setTimeout(() => setSuccessMessage(null), 3000);
       } else {
-        setError(t('error_saving_preferences', 'settings'));
+        setError(t('error_saving_preferences', TranslationNamespace.SETTINGS));
       }
       
       setIsSaving(false);
     } catch (err) {
       console.error('Error saving language preferences:', err);
-      setError(t('error_saving_preferences', 'settings'));
+      setError(t('error_saving_preferences', TranslationNamespace.SETTINGS));
       setIsSaving(false);
     }
   };
@@ -151,14 +152,14 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
     return (
       <Card className={className}>
         <CardHeader>
-          <CardTitle>{t('language_settings', 'settings')}</CardTitle>
+          <CardTitle>{t('language_settings', TranslationNamespace.SETTINGS)}</CardTitle>
           <CardDescription>
-            {t('language_settings_description', 'settings')}
+            {t('language_settings_description', TranslationNamespace.SETTINGS)}
           </CardDescription>
         </CardHeader>
         <CardContent className="flex items-centre justify-centre p-6">
           <Loader2 className="h-8 w-8 animate-spin mr-2" />
-          <span>{t('loading', 'common')}</span>
+          <span>{t('loading', TranslationNamespace.COMMON)}</span>
         </CardContent>
       </Card>
     );
@@ -169,9 +170,9 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
     return (
       <Card className={className}>
         <CardHeader>
-          <CardTitle>{t('language_settings', 'settings')}</CardTitle>
+          <CardTitle>{t('language_settings', TranslationNamespace.SETTINGS)}</CardTitle>
           <CardDescription>
-            {t('language_settings_description', 'settings')}
+            {t('language_settings_description', TranslationNamespace.SETTINGS)}
           </CardDescription>
         </CardHeader>
         <CardContent className="flex items-centre text-destructive p-6">
@@ -180,7 +181,7 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
         </CardContent>
         <CardFooter>
           <Button onClick={() => window.location.reload()}>
-            {t('retry', 'common')}
+            {t('retry', TranslationNamespace.COMMON)}
           </Button>
         </CardFooter>
       </Card>
@@ -195,9 +196,9 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
   return (
     <Card className={className}>
       <CardHeader>
-        <CardTitle>{t('language_settings', 'settings')}</CardTitle>
+        <CardTitle>{t('language_settings', TranslationNamespace.SETTINGS)}</CardTitle>
         <CardDescription>
-          {t('language_settings_description', 'settings')}
+          {t('language_settings_description', TranslationNamespace.SETTINGS)}
         </CardDescription>
       </CardHeader>
       
@@ -206,11 +207,11 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="general">
               <Globe className="h-4 w-4 mr-2" />
-              {t('general', 'settings')}
+              {t('general', TranslationNamespace.SETTINGS)}
             </TabsTrigger>
             <TabsTrigger value="accessibility">
               <Settings className="h-4 w-4 mr-2" />
-              {t('accessibility', 'settings')}
+              {t('accessibility', TranslationNamespace.SETTINGS)}
             </TabsTrigger>
           </TabsList>
           
@@ -218,14 +219,14 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
             {/* Primary Language */}
             <div className="space-y-2">
               <Label htmlFor="primaryLanguage">
-                {t('primary_language', 'settings')}
+                {t('primary_language', TranslationNamespace.SETTINGS)}
               </Label>
               <Select
                 value={preferences.primaryLanguage}
                 onValueChange={(value) => handlePrimaryLanguageChange(value as SupportedLanguage)}
               >
                 <SelectTrigger id="primaryLanguage">
-                  <SelectValue placeholder={t('select_language', 'settings')} />
+                  <SelectValue placeholder={t('select_language', TranslationNamespace.SETTINGS)} />
                 </SelectTrigger>
                 <SelectContent>
                   {i18nService.getEnabledLanguages().map(language => (
@@ -236,7 +237,7 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
                 </SelectContent>
               </Select>
               <p className="text-sm text-muted-foreground">
-                {t('primary_language_description', 'settings')}
+                {t('primary_language_description', TranslationNamespace.SETTINGS)}
               </p>
             </div>
             
@@ -246,10 +247,10 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
             <div className="flex items-centre justify-between">
               <div>
                 <Label htmlFor="autoDetect">
-                  {t('auto_detect_language', 'settings')}
+                  {t('auto_detect_language', TranslationNamespace.SETTINGS)}
                 </Label>
                 <p className="text-sm text-muted-foreground">
-                  {t('auto_detect_description', 'settings')}
+                  {t('auto_detect_description', TranslationNamespace.SETTINGS)}
                 </p>
               </div>
               <Switch
@@ -263,10 +264,10 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
             <div className="flex items-centre justify-between">
               <div>
                 <Label htmlFor="translateContent">
-                  {t('translate_platform_content', 'settings')}
+                  {t('translate_platform_content', TranslationNamespace.SETTINGS)}
                 </Label>
                 <p className="text-sm text-muted-foreground">
-                  {t('translate_platform_description', 'settings')}
+                  {t('translate_platform_description', TranslationNamespace.SETTINGS)}
                 </p>
               </div>
               <Switch
@@ -280,10 +281,10 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
             <div className="flex items-centre justify-between">
               <div>
                 <Label htmlFor="translateUserContent">
-                  {t('translate_user_content', 'settings')}
+                  {t('translate_user_content', TranslationNamespace.SETTINGS)}
                 </Label>
                 <p className="text-sm text-muted-foreground">
-                  {t('translate_user_description', 'settings')}
+                  {t('translate_user_description', TranslationNamespace.SETTINGS)}
                 </p>
               </div>
               <Switch
@@ -297,10 +298,10 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
             <div className="flex items-centre justify-between">
               <div>
                 <Label htmlFor="translateCommunications">
-                  {t('translate_communications', 'settings')}
+                  {t('translate_communications', TranslationNamespace.SETTINGS)}
                 </Label>
                 <p className="text-sm text-muted-foreground">
-                  {t('translate_communications_description', 'settings')}
+                  {t('translate_communications_description', TranslationNamespace.SETTINGS)}
                 </p>
               </div>
               <Switch
@@ -316,10 +317,10 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
             <div className="flex items-centre justify-between">
               <div>
                 <Label htmlFor="simplifiedLanguage">
-                  {t('simplified_language', 'accessibility')}
+                  {t('simplified_language', TranslationNamespace.ACCESSIBILITY)}
                 </Label>
                 <p className="text-sm text-muted-foreground">
-                  {t('simplified_language_description', 'accessibility')}
+                  {t('simplified_language_description', TranslationNamespace.ACCESSIBILITY)}
                 </p>
               </div>
               <Switch
@@ -333,10 +334,10 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
             <div className="flex items-centre justify-between">
               <div>
                 <Label htmlFor="glossaryTerms">
-                  {t('glossary_terms', 'accessibility')}
+                  {t('glossary_terms', TranslationNamespace.ACCESSIBILITY)}
                 </Label>
                 <p className="text-sm text-muted-foreground">
-                  {t('glossary_terms_description', 'accessibility')}
+                  {t('glossary_terms_description', TranslationNamespace.ACCESSIBILITY)}
                 </p>
               </div>
               <Switch
@@ -350,10 +351,10 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
             <div className="flex items-centre justify-between">
               <div>
                 <Label htmlFor="culturalContextNotes">
-                  {t('cultural_context_notes', 'accessibility')}
+                  {t('cultural_context_notes', TranslationNamespace.ACCESSIBILITY)}
                 </Label>
                 <p className="text-sm text-muted-foreground">
-                  {t('cultural_context_description', 'accessibility')}
+                  {t('cultural_context_description', TranslationNamespace.ACCESSIBILITY)}
                 </p>
               </div>
               <Switch
@@ -366,23 +367,23 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
             {/* Reading Level */}
             <div className="space-y-2">
               <Label htmlFor="readingLevel">
-                {t('reading_level', 'accessibility')}
+                {t('reading_level', TranslationNamespace.ACCESSIBILITY)}
               </Label>
               <Select
                 value={accessibilityOptions.readingLevel}
                 onValueChange={(value) => handleAccessibilityOptionChange('readingLevel', value)}
               >
                 <SelectTrigger id="readingLevel">
-                  <SelectValue placeholder={t('select_reading_level', 'accessibility')} />
+                  <SelectValue placeholder={t('select_reading_level', TranslationNamespace.ACCESSIBILITY)} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="beginner">{t('beginner', 'accessibility')}</SelectItem>
-                  <SelectItem value="intermediate">{t('intermediate', 'accessibility')}</SelectItem>
-                  <SelectItem value="advanced">{t('advanced', 'accessibility')}</SelectItem>
+                  <SelectItem value="beginner">{t('beginner', TranslationNamespace.ACCESSIBILITY)}</SelectItem>
+                  <SelectItem value="intermediate">{t('intermediate', TranslationNamespace.ACCESSIBILITY)}</SelectItem>
+                  <SelectItem value="advanced">{t('advanced', TranslationNamespace.ACCESSIBILITY)}</SelectItem>
                 </SelectContent>
               </Select>
               <p className="text-sm text-muted-foreground">
-                {t('reading_level_description', 'accessibility')}
+                {t('reading_level_description', TranslationNamespace.ACCESSIBILITY)}
               </p>
             </div>
             
@@ -390,10 +391,10 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
             <div className="flex items-centre justify-between">
               <div>
                 <Label htmlFor="specialEducationalNeedsAdaptations">
-                  {t('sen_adaptations', 'accessibility')}
+                  {t('sen_adaptations', TranslationNamespace.ACCESSIBILITY)}
                 </Label>
                 <p className="text-sm text-muted-foreground">
-                  {t('sen_adaptations_description', 'accessibility')}
+                  {t('sen_adaptations_description', TranslationNamespace.ACCESSIBILITY)}
                 </p>
               </div>
               <Switch
@@ -424,16 +425,16 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
       
       <CardFooter className="flex justify-between">
         <Button variant="outline" onClick={() => window.location.reload()}>
-          {t('cancel', 'common')}
+          {t('cancel', TranslationNamespace.COMMON)}
         </Button>
         <Button onClick={savePreferences} disabled={isSaving}>
           {isSaving ? (
             <>
               <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-              {t('saving', 'common')}
+              {t('saving', TranslationNamespace.COMMON)}
             </>
           ) : (
-            t('save_changes', 'common')
+            t('save_changes', TranslationNamespace.COMMON)
           )}
         </Button>
       </CardFooter>

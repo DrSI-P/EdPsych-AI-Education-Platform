@@ -286,7 +286,11 @@ export function DataVisualisationDashboard() {
                   mode="range"
                   defaultMonth={dateRange.from}
                   selected={dateRange}
-                  onSelect={setDateRange}
+                  onSelect={(range) => {
+                    if (range && range.from && range.to) {
+                      setDateRange({ from: range.from, to: range.to });
+                    }
+                  }}
                   numberOfMonths={2}
                 />
               </PopoverContent>
@@ -591,7 +595,7 @@ export function DataVisualisationDashboard() {
                     label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
                   >
                     {parentEngagementData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.colour} />
+                      <Cell key={`cell-${index}`} fill={entry.color} />
                     ))}
                   </Pie>
                   {chartSettings.showLegend && <Legend />}

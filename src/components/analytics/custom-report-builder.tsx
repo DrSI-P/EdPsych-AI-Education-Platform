@@ -19,16 +19,16 @@ import {
   Download, Filter, RefreshCw, Settings, Share2, Calendar as CalendarIcon, 
   ChevronDown, Maximize2, HelpCircle, BookOpen, BarChart2, PieChart as PieChartIcon,
   LineChart as LineChartIcon, Activity, Users, BookOpen as BookOpenIcon, Clock, 
-  Award, TrendingUp, AlertTriangle, CheckCircle, Info, FileText, Sliders, 
-  BarChart as BarChartIcon, Layers, Save, Plus, Edit, Trash2, ArrowUp, ArrowDown,
+  Award, TrendingUp, AlertTriangle, CheckCircle, Info, FileText, Sliders,
+  BarChart as BarChartIcon, Layers, Save, Plus, Edit, Trash2, ArrowUp, ArrowDown, Minus,
   ArrowRight, Target, Eye, EyeOff, Zap, Flag, User, UserPlus, UserCheck, Star,
   Lightbulb, Clipboard, Briefcase, Heart, ThumbsUp, MessageSquare, School, GraduationCap,
   FileQuestion, BookMarked, Laptop, Tablet, Smartphone, Printer, Database, Search,
-  Library, Book, Video, Music, Image, File, FilePlus, FileText2, FileCheck, Move,
+  Library, Book, Video, Music, Image, File, FilePlus, FileCheck, Move,
   Grid, List, Table, Layout, Columns, PlusCircle, MinusCircle, Copy, Scissors, Type,
   AlignLeft, AlignCenter, AlignRight, Bold, Italic, Underline, Link, Image as ImageIcon,
   FileImage, Palette, PenTool, Droplet, Aperture, Figma, Crop, Maximize, Minimize,
-  RotateCcw, RotateCw, Shuffle, DivideCircle, Percent, Hash, DollarSign, PoundSign,
+  RotateCcw, RotateCw, Shuffle, DivideCircle, Percent, Hash, DollarSign,
   ChevronsUp, ChevronsDown, ArrowUpRight, ArrowDownRight, CornerRightDown, CornerRightUp,
   ChevronRight, ChevronLeft, X, Check, Menu, MoreHorizontal, MoreVertical, ExternalLink
 } from 'lucide-react';
@@ -161,8 +161,18 @@ const allComponents = [
   ...imageComponents,
 ];
 
+// Define component interface
+interface ComponentProps {
+  id: string;
+  name: string;
+  type: string;
+  icon: React.ComponentType<any>;
+  chartType?: string;
+  dataType?: string;
+}
+
 // Draggable component for the sidebar
-const DraggableComponent = ({ component }) => {
+const DraggableComponent = ({ component }: { component: ComponentProps }) => {
   const [{ isDragging }, drag] = useDrag(() => ({
     type: component.type,
     item: { ...component, id: `${component.id}-${uuidv4()}` },
@@ -185,8 +195,37 @@ const DraggableComponent = ({ component }) => {
   );
 };
 
+// Define report item interface
+interface ReportItem extends ComponentProps {
+  position?: number;
+  content?: string;
+  headingLevel?: string;
+  title?: string;
+  value?: string;
+  change?: string;
+  url?: string;
+  alt?: string;
+  showLegend?: boolean;
+  showGrid?: boolean;
+  rowLimit?: string;
+  showPagination?: boolean;
+  enableSorting?: boolean;
+  dataSource?: string;
+  iconName?: string;
+}
+
+// Define ReportCanvas props interface
+interface ReportCanvasProps {
+  items: ReportItem[];
+  setItems: React.Dispatch<React.SetStateAction<ReportItem[]>>;
+  onEditItem: (id: string) => void;
+  onRemoveItem: (id: string) => void;
+  onMoveItem: (fromIndex: number, toIndex: number) => void;
+  onDuplicateItem: (id: string) => void;
+}
+
 // Droppable report canvas
-const ReportCanvas = ({ items, setItems, onEditItem, onRemoveItem, onMoveItem, onDuplicateItem }) => {
+const ReportCanvas = ({ items, setItems, onEditItem, onRemoveItem, onMoveItem, onDuplicateItem }: ReportCanvasProps) => {
   const [{ isOver }, drop] = useDrop(() => ({
     accept: [
       ItemTypes.CHART,
@@ -197,14 +236,14 @@ const ReportCanvas = ({ items, setItems, onEditItem, onRemoveItem, onMoveItem, o
       ItemTypes.DIVIDER,
       ItemTypes.HEADING,
     ],
-    drop: (item, monitor) => {
+    drop: (item: ComponentProps, monitor) => {
       const didDrop = monitor.didDrop();
       if (didDrop) {
         return;
       }
       
       // Add the new item to the report
-      setItems((prevItems) => [...prevItems, { ...item, position: prevItems.length }]);
+      setItems((prevItems) => [...prevItems, { ...item as ReportItem, position: prevItems.length }]);
     },
     collect: (monitor) => ({
       isOver: !!monitor.isOver({ shallow: true }),
@@ -252,8 +291,21 @@ const ReportCanvas = ({ items, setItems, onEditItem, onRemoveItem, onMoveItem, o
   );
 };
 
+// Define ReportItem props interface
+interface ReportItemProps {
+  item: ReportItem;
+  index: number;
+  onEdit: () => void;
+  onRemove: () => void;
+  onMoveUp: () => void;
+  onMoveDown: () => void;
+  onDuplicate: () => void;
+  canMoveUp: boolean;
+  canMoveDown: boolean;
+}
+
 // Individual report item
-const ReportItem = ({ item, index, onEdit, onRemove, onMoveUp, onMoveDown, onDuplicate, canMoveUp, canMoveDown }) => {
+const ReportItem = ({ item, index, onEdit, onRemove, onMoveUp, onMoveDown, onDuplicate, canMoveUp, canMoveDown }: ReportItemProps) => {
   const renderContent = () => {
     switch (item.type) {
       case ItemTypes.CHART:
@@ -345,7 +397,7 @@ const ReportItem = ({ item, index, onEdit, onRemove, onMoveUp, onMoveDown, onDup
 };
 
 // Chart preview component
-const ChartPreview = ({ chartType }) => {
+const ChartPreview = ({ chartType }: { chartType?: string }) => {
   return (
     <div className="p-4 bg-white rounded-md">
       <div className="h-60 w-full bg-muted flex flex-col items-centre justify-centre rounded-md">
@@ -355,15 +407,19 @@ const ChartPreview = ({ chartType }) => {
         {chartType === 'area' && <Activity className="h-10 w-10 text-primary" />}
         {chartType === 'scatter' && <DivideCircle className="h-10 w-10 text-primary" />}
         {chartType === 'radar' && <Target className="h-10 w-10 text-primary" />}
-        <span className="mt-2 text-sm text-muted-foreground">{chartType.charAt(0).toUpperCase() + chartType.slice(1)} Chart Preview</span>
+        <span className="mt-2 text-sm text-muted-foreground">
+          {chartType ? `${chartType.charAt(0).toUpperCase() + chartType.slice(1)} Chart Preview` : 'Chart Preview'}
+        </span>
       </div>
     </div>
   );
 };
 
 // Table preview component
-const TablePreview = ({ dataType }) => {
-  const data = sampleTableData[dataType] || sampleTableData.students;
+const TablePreview = ({ dataType }: { dataType?: string }) => {
+  const data = dataType && sampleTableData[dataType as keyof typeof sampleTableData]
+    ? sampleTableData[dataType as keyof typeof sampleTableData]
+    : sampleTableData.students;
   
   return (
     <div className="p-4 bg-white rounded-md overflow-x-auto">
@@ -418,9 +474,16 @@ const MetricPreview = () => {
   );
 };
 
+// Define ItemEditorModal props interface
+interface ItemEditorModalProps {
+  item: ReportItem;
+  onSave: (item: ReportItem) => void;
+  onCancel: () => void;
+}
+
 // Item editor modal
-const ItemEditorModal = ({ item, onSave, onCancel }) => {
-  const [editedItem, setEditedItem] = useState({ ...item });
+const ItemEditorModal = ({ item, onSave, onCancel }: ItemEditorModalProps) => {
+  const [editedItem, setEditedItem] = useState<ReportItem>({ ...item });
   
   const handleSave = () => {
     onSave(editedItem);
@@ -485,7 +548,7 @@ const ItemEditorModal = ({ item, onSave, onCancel }) => {
                 <Checkbox
                   id="show-legend"
                   checked={editedItem.showLegend !== false}
-                  onCheckedChange={(checked) => setEditedItem({ ...editedItem, showLegend: checked })}
+                  onCheckedChange={(checked) => setEditedItem({ ...editedItem, showLegend: !!checked })}
                 />
                 <Label htmlFor="show-legend">Show Legend</Label>
               </div>
@@ -496,7 +559,7 @@ const ItemEditorModal = ({ item, onSave, onCancel }) => {
                 <Checkbox
                   id="show-grid"
                   checked={editedItem.showGrid !== false}
-                  onCheckedChange={(checked) => setEditedItem({ ...editedItem, showGrid: checked })}
+                  onCheckedChange={(checked) => setEditedItem({ ...editedItem, showGrid: !!checked })}
                 />
                 <Label htmlFor="show-grid">Show Grid</Label>
               </div>
@@ -558,7 +621,7 @@ const ItemEditorModal = ({ item, onSave, onCancel }) => {
                 <Checkbox
                   id="show-pagination"
                   checked={editedItem.showPagination !== false}
-                  onCheckedChange={(checked) => setEditedItem({ ...editedItem, showPagination: checked })}
+                  onCheckedChange={(checked) => setEditedItem({ ...editedItem, showPagination: !!checked })}
                 />
                 <Label htmlFor="show-pagination">Show Pagination</Label>
               </div>
@@ -569,7 +632,7 @@ const ItemEditorModal = ({ item, onSave, onCancel }) => {
                 <Checkbox
                   id="enable-sorting"
                   checked={editedItem.enableSorting !== false}
-                  onCheckedChange={(checked) => setEditedItem({ ...editedItem, enableSorting: checked })}
+                  onCheckedChange={(checked) => setEditedItem({ ...editedItem, enableSorting: !!checked })}
                 />
                 <Label htmlFor="enable-sorting">Enable Sorting</Label>
               </div>
@@ -663,8 +726,8 @@ const ItemEditorModal = ({ item, onSave, onCancel }) => {
             <div className="space-y-2">
               <Label htmlFor="metric-icon">Icon</Label>
               <Select
-                value={editedItem.icon || 'TrendingUp'}
-                onValueChange={(value) => setEditedItem({ ...editedItem, icon: value })}
+                value={editedItem.iconName || 'TrendingUp'}
+                onValueChange={(value) => setEditedItem({ ...editedItem, iconName: value })}
               >
                 <SelectTrigger id="metric-icon">
                   <SelectValue placeholder="Select icon" />
@@ -749,8 +812,32 @@ const ItemEditorModal = ({ item, onSave, onCancel }) => {
   );
 };
 
+interface ReportSettingsModalProps {
+  settings: {
+    title: string;
+    description: string;
+    author: string;
+    layout: string;
+    theme: string;
+    includeHeader: boolean;
+    includeFooter: boolean;
+    includePageNumbers: boolean;
+  };
+  onSave: (settings: {
+    title: string;
+    description: string;
+    author: string;
+    layout: string;
+    theme: string;
+    includeHeader: boolean;
+    includeFooter: boolean;
+    includePageNumbers: boolean;
+  }) => void;
+  onCancel: () => void;
+}
+
 // Report settings modal
-const ReportSettingsModal = ({ settings, onSave, onCancel }) => {
+const ReportSettingsModal = ({ settings, onSave, onCancel }: ReportSettingsModalProps) => {
   const [editedSettings, setEditedSettings] = useState({ ...settings });
   
   const handleSave = () => {
@@ -841,7 +928,7 @@ const ReportSettingsModal = ({ settings, onSave, onCancel }) => {
               <Checkbox
                 id="include-header"
                 checked={editedSettings.includeHeader !== false}
-                onCheckedChange={(checked) => setEditedSettings({ ...editedSettings, includeHeader: checked })}
+                onCheckedChange={(checked) => setEditedSettings({ ...editedSettings, includeHeader: !!checked })}
               />
               <Label htmlFor="include-header">Include Header</Label>
             </div>
@@ -852,7 +939,7 @@ const ReportSettingsModal = ({ settings, onSave, onCancel }) => {
               <Checkbox
                 id="include-footer"
                 checked={editedSettings.includeFooter !== false}
-                onCheckedChange={(checked) => setEditedSettings({ ...editedSettings, includeFooter: checked })}
+                onCheckedChange={(checked) => setEditedSettings({ ...editedSettings, includeFooter: !!checked })}
               />
               <Label htmlFor="include-footer">Include Footer</Label>
             </div>
@@ -863,7 +950,7 @@ const ReportSettingsModal = ({ settings, onSave, onCancel }) => {
               <Checkbox
                 id="include-page-numbers"
                 checked={editedSettings.includePageNumbers !== false}
-                onCheckedChange={(checked) => setEditedSettings({ ...editedSettings, includePageNumbers: checked })}
+                onCheckedChange={(checked) => setEditedSettings({ ...editedSettings, includePageNumbers: !!checked })}
               />
               <Label htmlFor="include-page-numbers">Include Page Numbers</Label>
             </div>
@@ -883,9 +970,22 @@ const ReportSettingsModal = ({ settings, onSave, onCancel }) => {
   );
 };
 
+interface ExportSettings {
+  format: string;
+  quality: string;
+  includeInteractivity: boolean;
+  orientation: string;
+  paperSize: string;
+}
+
+interface ExportModalProps {
+  onExport: (settings: ExportSettings) => void;
+  onCancel: () => void;
+}
+
 // Export modal
-const ExportModal = ({ onExport, onCancel }) => {
-  const [exportSettings, setExportSettings] = useState({
+const ExportModal = ({ onExport, onCancel }: ExportModalProps) => {
+  const [exportSettings, setExportSettings] = useState<ExportSettings>({
     format: 'pdf',
     quality: 'high',
     includeInteractivity: true,
@@ -989,7 +1089,7 @@ const ExportModal = ({ onExport, onCancel }) => {
                 <Checkbox
                   id="include-interactivity"
                   checked={exportSettings.includeInteractivity}
-                  onCheckedChange={(checked) => setExportSettings({ ...exportSettings, includeInteractivity: checked })}
+                  onCheckedChange={(checked) => setExportSettings({ ...exportSettings, includeInteractivity: !!checked })}
                 />
                 <Label htmlFor="include-interactivity">Include Interactive Elements</Label>
               </div>
@@ -1010,9 +1110,22 @@ const ExportModal = ({ onExport, onCancel }) => {
   );
 };
 
+interface ShareSettings {
+  method: string;
+  recipients: string;
+  message: string;
+  expiryDays: string;
+  accessLevel: string;
+}
+
+interface ShareModalProps {
+  onShare: (settings: ShareSettings) => void;
+  onCancel: () => void;
+}
+
 // Share modal
-const ShareModal = ({ onShare, onCancel }) => {
-  const [shareSettings, setShareSettings] = useState({
+const ShareModal = ({ onShare, onCancel }: ShareModalProps) => {
+  const [shareSettings, setShareSettings] = useState<ShareSettings>({
     method: 'link',
     recipients: '',
     message: '',
@@ -1129,7 +1242,7 @@ const ShareModal = ({ onShare, onCancel }) => {
 // Main component
 export function CustomReportBuilder() {
   // State for report items
-  const [reportItems, setReportItems] = useState([]);
+  const [reportItems, setReportItems] = useState<ReportItem[]>([]);
   
   // State for report settings
   const [reportSettings, setReportSettings] = useState({
@@ -1144,7 +1257,7 @@ export function CustomReportBuilder() {
   });
   
   // State for modals
-  const [editingItem, setEditingItem] = useState(null);
+  const [editingItem, setEditingItem] = useState<ReportItem | null>(null);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
   const [showExportModal, setShowExportModal] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
@@ -1153,7 +1266,7 @@ export function CustomReportBuilder() {
   const [activeTab, setActiveTab] = useState('charts');
   
   // Handle edit item
-  const handleEditItem = (itemId) => {
+  const handleEditItem = (itemId: string) => {
     const item = reportItems.find((item) => item.id === itemId);
     if (item) {
       setEditingItem(item);
@@ -1161,7 +1274,7 @@ export function CustomReportBuilder() {
   };
   
   // Handle save edited item
-  const handleSaveEditedItem = (editedItem) => {
+  const handleSaveEditedItem = (editedItem: ReportItem) => {
     setReportItems((prevItems) =>
       prevItems.map((item) => (item.id === editedItem.id ? editedItem : item))
     );
@@ -1169,12 +1282,12 @@ export function CustomReportBuilder() {
   };
   
   // Handle remove item
-  const handleRemoveItem = (itemId) => {
+  const handleRemoveItem = (itemId: string) => {
     setReportItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
   };
   
   // Handle move item
-  const handleMoveItem = (fromIndex, toIndex) => {
+  const handleMoveItem = (fromIndex: number, toIndex: number) => {
     if (toIndex < 0 || toIndex >= reportItems.length) return;
     
     setReportItems((prevItems) => {
@@ -1186,10 +1299,10 @@ export function CustomReportBuilder() {
   };
   
   // Handle duplicate item
-  const handleDuplicateItem = (itemId) => {
+  const handleDuplicateItem = (itemId: string) => {
     const item = reportItems.find((item) => item.id === itemId);
     if (item) {
-      const duplicatedItem = {
+      const duplicatedItem: ReportItem = {
         ...item,
         id: `${item.id.split('-')[0]}-${uuidv4()}`,
       };
@@ -1197,14 +1310,26 @@ export function CustomReportBuilder() {
     }
   };
   
+  // Define type for report settings
+  interface ReportSettings {
+    title: string;
+    description: string;
+    author: string;
+    layout: string;
+    theme: string;
+    includeHeader: boolean;
+    includeFooter: boolean;
+    includePageNumbers: boolean;
+  }
+
   // Handle save settings
-  const handleSaveSettings = (newSettings) => {
+  const handleSaveSettings = (newSettings: ReportSettings) => {
     setReportSettings(newSettings);
     setShowSettingsModal(false);
   };
   
   // Handle export
-  const handleExport = (exportSettings) => {
+  const handleExport = (exportSettings: ExportSettings) => {
     // In a real implementation, this would trigger the export process
     console.log('Exporting report with settings:', exportSettings);
     
@@ -1216,7 +1341,7 @@ export function CustomReportBuilder() {
   };
   
   // Handle share
-  const handleShare = (shareSettings) => {
+  const handleShare = (shareSettings: ShareSettings) => {
     // In a real implementation, this would trigger the sharing process
     console.log('Sharing report with settings:', shareSettings);
     

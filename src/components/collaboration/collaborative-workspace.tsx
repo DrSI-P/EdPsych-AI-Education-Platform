@@ -364,7 +364,7 @@ export default function CollaborativeWorkspace() {
   
   // Scroll to bottom of chat when new messages arrive
   useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behaviour: 'smooth' });
+    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [chatMessages]);
   
   // Format date
@@ -481,11 +481,7 @@ export default function CollaborativeWorkspace() {
         lastEditedBy: mockUser.id
       });
       
-      toast({
-        title: "Document Saved",
-        description: "Your changes have been saved and shared with collaborators.",
-        duration: 3000,
-      });
+      toast("Document Saved: Your changes have been saved and shared with collaborators.");
     }
     
     setIsEditing(!isEditing);
@@ -493,11 +489,7 @@ export default function CollaborativeWorkspace() {
   
   // Start video call
   const startVideoCall = () => {
-    toast({
-      title: "Starting Video Call",
-      description: "Connecting to video conference...",
-      duration: 3000,
-    });
+    toast("Starting Video Call: Connecting to video conference...");
     
     // In a real implementation, this would connect to a video conferencing service
     setTimeout(() => {
@@ -510,20 +502,12 @@ export default function CollaborativeWorkspace() {
     // Copy session link to clipboard
     navigator.clipboard.writeText(`https://edpsychconnect.com/collaboration/session/${session.id}`);
     
-    toast({
-      title: "Link Copied",
-      description: "Collaboration session link copied to clipboard.",
-      duration: 3000,
-    });
+    toast("Link Copied: Collaboration session link copied to clipboard.");
   };
   
   // Invite participant
   const inviteParticipant = () => {
-    toast({
-      title: "Invite Sent",
-      description: "Invitation has been sent to the participant.",
-      duration: 3000,
-    });
+    toast("Invite Sent: Invitation has been sent to the participant.");
   };
   
   return (

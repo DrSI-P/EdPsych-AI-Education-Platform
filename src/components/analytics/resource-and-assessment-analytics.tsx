@@ -269,7 +269,13 @@ export function ResourceAndAssessmentAnalytics() {
                   mode="range"
                   defaultMonth={dateRange.from}
                   selected={dateRange}
-                  onSelect={setDateRange}
+                  onSelect={(range) => {
+                    if (range?.from && range?.to) {
+                      setDateRange({ from: range.from, to: range.to });
+                    } else if (range?.from) {
+                      setDateRange({ ...dateRange, from: range.from });
+                    }
+                  }}
                   numberOfMonths={2}
                 />
               </PopoverContent>
@@ -526,7 +532,7 @@ export function ResourceAndAssessmentAnalytics() {
                     label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
                   >
                     {assessmentTypesData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.colour} />
+                      <Cell key={`cell-${index}`} fill={entry.color} />
                     ))}
                   </Pie>
                   <Tooltip formatter={(value) => [`${value}%`, 'Percentage']} />
@@ -702,7 +708,6 @@ export function ResourceAndAssessmentAnalytics() {
                 <Treemap
                   data={resourceCategoriesData}
                   dataKey="size"
-                  ratio={4/3}
                   stroke="#fff"
                   fill="#8884d8"
                   content={<CustomizedContent colors={['#8884d8', '#82ca9d', '#ffc658']} />}
@@ -772,9 +777,14 @@ export function ResourceAndAssessmentAnalytics() {
                     nameKey="name"
                     label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
                   >
-                    {({ name, value, colour }) => (
-                      <Cell key={`cell-${name}`} fill={colour} />
-                    )}
+                    {[
+                      { name: 'Desktop/Laptop', value: 45, color: '#8884d8' },
+                      { name: 'Tablet', value: 35, color: '#82ca9d' },
+                      { name: 'Smartphone', value: 15, color: '#ffc658' },
+                      { name: 'Interactive Whiteboard', value: 5, color: '#ff8042' },
+                    ].map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
                   </Pie>
                   <Tooltip formatter={(value) => [`${value}%`, 'Percentage']} />
                   <Legend />
@@ -814,9 +824,15 @@ export function ResourceAndAssessmentAnalytics() {
                     nameKey="name"
                     label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
                   >
-                    {({ name, value, colour }) => (
-                      <Cell key={`cell-${name}`} fill={colour} />
-                    )}
+                    {[
+                      { name: 'Documents', value: 30, color: '#8884d8' },
+                      { name: 'Videos', value: 25, color: '#82ca9d' },
+                      { name: 'Interactive', value: 20, color: '#ffc658' },
+                      { name: 'Images', value: 15, color: '#ff8042' },
+                      { name: 'Audio', value: 10, color: '#0088fe' },
+                    ].map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
                   </Pie>
                   <Tooltip formatter={(value) => [`${value}%`, 'Percentage']} />
                 </PieChart>
@@ -968,7 +984,7 @@ export function ResourceAndAssessmentAnalytics() {
                   <Tooltip formatter={(value) => [`${value}x`, 'ROI']} />
                   <Legend />
                   <Bar dataKey="roi" name="Return on Investment" fill="#8884d8" />
-                  <ReferenceLine x={3} stroke="red" label="Target ROI" />
+                  <ReferenceLine x={3} y={undefined} stroke="red" label="Target ROI" />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -1098,7 +1114,7 @@ export function ResourceAndAssessmentAnalytics() {
                     data={resourceEffectivenessData} 
                     fill="#8884d8"
                   />
-                  <ReferenceLine y={80} stroke="red" label="Minimum Effectiveness" />
+                  <ReferenceLine x={undefined} y={80} stroke="red" label="Minimum Effectiveness" />
                 </ScatterChart>
               </ResponsiveContainer>
             </div>
@@ -1196,7 +1212,7 @@ export function ResourceAndAssessmentAnalytics() {
                     label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
                   >
                     {assessmentTypesData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.colour} />
+                      <Cell key={`cell-${index}`} fill={entry.color} />
                     ))}
                   </Pie>
                   <Tooltip formatter={(value) => [`${value}%`, 'Percentage']} />
@@ -1323,9 +1339,12 @@ export function ResourceAndAssessmentAnalytics() {
                     nameKey="name"
                     label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
                   >
-                    {({ name, value, colour }) => (
-                      <Cell key={`cell-${name}`} fill={colour} />
-                    )}
+                    {[
+                      { name: 'Digital', value: 65, color: '#8884d8' },
+                      { name: 'Traditional', value: 35, color: '#82ca9d' },
+                    ].map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
                   </Pie>
                   <Tooltip formatter={(value) => [`${value}%`, 'Percentage']} />
                   <Legend />
@@ -1362,9 +1381,14 @@ export function ResourceAndAssessmentAnalytics() {
                     nameKey="name"
                     label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
                   >
-                    {({ name, value, colour }) => (
-                      <Cell key={`cell-${name}`} fill={colour} />
-                    )}
+                    {[
+                      { name: 'Creation', value: 25, color: '#8884d8' },
+                      { name: 'Administration', value: 15, color: '#82ca9d' },
+                      { name: 'Marking', value: 40, color: '#ffc658' },
+                      { name: 'Feedback', value: 20, color: '#ff8042' },
+                    ].map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
                   </Pie>
                   <Tooltip formatter={(value) => [`${value}%`, 'Percentage']} />
                   <Legend />
@@ -2050,7 +2074,20 @@ export function ResourceAndAssessmentAnalytics() {
 }
 
 // Custom content component for Treemap
-const CustomizedContent = (props) => {
+interface CustomizedContentProps {
+  root?: any;
+  depth?: number;
+  x?: number;
+  y?: number;
+  width?: number;
+  height?: number;
+  index?: number;
+  colors?: string[];
+  name?: string;
+  value?: number;
+}
+
+const CustomizedContent = (props: CustomizedContentProps) => {
   const { root, depth, x, y, width, height, index, colors, name, value } = props;
 
   return (
@@ -2058,16 +2095,18 @@ const CustomizedContent = (props) => {
       <rect
         x={x}
         y={y}
-        width={width}
-        height={height}
+        width={width || 0}
+        height={height || 0}
         style={{
-          fill: depth < 2 ? colors[Math.floor(index / 5) % colors.length] : '#ffffff',
+          fill: depth !== undefined && depth < 2 && colors && index !== undefined ?
+            colors[Math.floor((index || 0) / 5) % (colors.length || 1)] :
+            '#ffffff',
           stroke: '#fff',
-          strokeWidth: 2 / (depth + 1e-10),
-          strokeOpacity: 1 / (depth + 1e-10),
+          strokeWidth: 2 / ((depth || 0) + 1e-10),
+          strokeOpacity: 1 / ((depth || 0) + 1e-10),
         }}
       />
-      {depth === 1 && width > 50 && height > 30 ? (
+      {depth === 1 && width && height && width > 50 && height > 30 && x !== undefined && y !== undefined ? (
         <text
           x={x + width / 2}
           y={y + height / 2 + 7}
@@ -2078,7 +2117,7 @@ const CustomizedContent = (props) => {
           {name}
         </text>
       ) : null}
-      {depth === 1 && width > 50 && height > 30 ? (
+      {depth === 1 && width && height && width > 50 && height > 30 && x !== undefined && y !== undefined ? (
         <text
           x={x + width / 2}
           y={y + height / 2 - 7}
@@ -2089,7 +2128,7 @@ const CustomizedContent = (props) => {
           {value}
         </text>
       ) : null}
-      {depth === 2 && width > 40 && height > 20 ? (
+      {depth === 2 && width && height && width > 40 && height > 20 && x !== undefined && y !== undefined ? (
         <text
           x={x + width / 2}
           y={y + height / 2 + 7}
@@ -2105,7 +2144,14 @@ const CustomizedContent = (props) => {
 };
 
 // Helper components
-const ReferenceLine = ({ x, y, stroke, label }) => {
+interface ReferenceLineProps {
+  x?: number;
+  y?: number;
+  stroke: string;
+  label?: string;
+}
+
+const ReferenceLine = ({ x, y, stroke, label }: ReferenceLineProps) => {
   return (
     <g>
       {x && (

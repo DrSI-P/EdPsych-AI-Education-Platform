@@ -117,11 +117,7 @@ export default function MultiModalPresentationEngine({
   
   const generateMultiModalContent = async () => {
     if (!content && !contentId && !title) {
-      toast({
-        title: "Missing content",
-        description: "Please provide content, a title, or select existing content.",
-        variant: "destructive"
-      });
+      toast("Missing content. Please provide content, a title, or select existing content.");
       return;
     }
 
@@ -154,20 +150,13 @@ export default function MultiModalPresentationEngine({
         onContentGenerated(data.multiModalContent);
       }
 
-      toast({
-        title: "Multi-modal content generated",
-        description: "Content has been successfully transformed into multiple modalities.",
-      });
+      toast("Multi-modal content generated. Content has been successfully transformed into multiple modalities.");
       
       // Reset to first slide
       setCurrentSlide(0);
     } catch (error) {
       console.error('Error generating multi-modal content:', error);
-      toast({
-        title: "Generation failed",
-        description: "Failed to generate multi-modal content. Please try again.",
-        variant: "destructive"
-      });
+      toast("Generation failed. Failed to generate multi-modal content. Please try again.");
     } finally {
       setIsGenerating(false);
     }
@@ -308,28 +297,28 @@ export default function MultiModalPresentationEngine({
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {multiModalContent.slides.map((slide: any, index: number) => (
-          <Card 
-            key={index} 
-            className={`overflow-hidden ${currentSlide === index ? 'ring-2 ring-primary' : ''}`}
-            onClick={() => setCurrentSlide(index)}
-          >
-            <div className="aspect-video bg-slate-100 dark:bg-slate-800 relative">
-              {slide.visualContent ? (
-                <img 
-                  src={slide.visualContent} 
-                  alt={slide.title || `Slide ${index + 1}`} 
-                  className="w-full h-full object-cover"
-                />
-              ) : (
-                <div className="flex items-centre justify-centre w-full h-full">
-                  <ImageIcon className="h-8 w-8 text-muted-foreground" />
+          <div key={index} onClick={() => setCurrentSlide(index)}>
+            <Card
+              className={`overflow-hidden ${currentSlide === index ? 'ring-2 ring-primary' : ''} cursor-pointer`}
+            >
+              <div className="aspect-video bg-slate-100 dark:bg-slate-800 relative">
+                {slide.visualContent ? (
+                  <img
+                    src={slide.visualContent}
+                    alt={slide.title || `Slide ${index + 1}`}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="flex items-centre justify-centre w-full h-full">
+                    <ImageIcon className="h-8 w-8 text-muted-foreground" />
+                  </div>
+                )}
+                <div className="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/70 to-transparent">
+                  <h3 className="text-white text-sm font-medium truncate">{slide.title}</h3>
                 </div>
-              )}
-              <div className="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/70 to-transparent">
-                <h3 className="text-white text-sm font-medium truncate">{slide.title}</h3>
               </div>
-            </div>
-          </Card>
+            </Card>
+          </div>
         ))}
       </div>
     );
@@ -341,29 +330,27 @@ export default function MultiModalPresentationEngine({
     return (
       <div className="space-y-4">
         {multiModalContent.slides.map((slide: any, index: number) => (
-          <Card 
-            key={index} 
-            className={`${currentSlide === index ? 'ring-2 ring-primary' : ''}`}
-            onClick={() => setCurrentSlide(index)}
-          >
-            <CardHeader className="py-3">
-              <CardTitle className="text-base">{slide.title || `Slide ${index + 1}`}</CardTitle>
-            </CardHeader>
-            <CardContent className="py-2">
-              {slide.audioContent ? (
-                <audio 
-                  src={slide.audioContent} 
-                  controls 
-                  className="w-full h-8"
-                />
-              ) : (
-                <div className="flex items-centre justify-centre p-4 bg-slate-100 dark:bg-slate-800 rounded-md">
-                  <Headphones className="h-6 w-6 text-muted-foreground mr-2" />
-                  <span className="text-muted-foreground">No audio available</span>
-                </div>
-              )}
-            </CardContent>
-          </Card>
+          <div key={index} onClick={() => setCurrentSlide(index)} className="cursor-pointer">
+            <Card className={`${currentSlide === index ? 'ring-2 ring-primary' : ''}`}>
+              <CardHeader className="py-3">
+                <CardTitle className="text-base">{slide.title || `Slide ${index + 1}`}</CardTitle>
+              </CardHeader>
+              <CardContent className="py-2">
+                {slide.audioContent ? (
+                  <audio
+                    src={slide.audioContent}
+                    controls
+                    className="w-full h-8"
+                  />
+                ) : (
+                  <div className="flex items-centre justify-centre p-4 bg-slate-100 dark:bg-slate-800 rounded-md">
+                    <Headphones className="h-6 w-6 text-muted-foreground mr-2" />
+                    <span className="text-muted-foreground">No audio available</span>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </div>
         ))}
       </div>
     );
@@ -375,27 +362,25 @@ export default function MultiModalPresentationEngine({
     return (
       <div className="space-y-4">
         {multiModalContent.slides.map((slide: any, index: number) => (
-          <Card 
-            key={index} 
-            className={`${currentSlide === index ? 'ring-2 ring-primary' : ''}`}
-            onClick={() => setCurrentSlide(index)}
-          >
-            <CardHeader className="py-3">
-              <CardTitle className="text-base">{slide.title || `Slide ${index + 1}`}</CardTitle>
-            </CardHeader>
-            <CardContent className="py-2">
-              {slide.textContent ? (
-                <div className="prose prose-sm dark:prose-invert max-w-none">
-                  <div dangerouslySetInnerHTML={{ __html: slide.textContent }} />
-                </div>
-              ) : (
-                <div className="flex items-centre justify-centre p-4 bg-slate-100 dark:bg-slate-800 rounded-md">
-                  <FileText className="h-6 w-6 text-muted-foreground mr-2" />
-                  <span className="text-muted-foreground">No text content available</span>
-                </div>
-              )}
-            </CardContent>
-          </Card>
+          <div key={index} onClick={() => setCurrentSlide(index)} className="cursor-pointer">
+            <Card className={`${currentSlide === index ? 'ring-2 ring-primary' : ''}`}>
+              <CardHeader className="py-3">
+                <CardTitle className="text-base">{slide.title || `Slide ${index + 1}`}</CardTitle>
+              </CardHeader>
+              <CardContent className="py-2">
+                {slide.textContent ? (
+                  <div className="prose prose-sm dark:prose-invert max-w-none">
+                    <div dangerouslySetInnerHTML={{ __html: slide.textContent }} />
+                  </div>
+                ) : (
+                  <div className="flex items-centre justify-centre p-4 bg-slate-100 dark:bg-slate-800 rounded-md">
+                    <FileText className="h-6 w-6 text-muted-foreground mr-2" />
+                    <span className="text-muted-foreground">No text content available</span>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </div>
         ))}
       </div>
     );
@@ -407,33 +392,31 @@ export default function MultiModalPresentationEngine({
     return (
       <div className="space-y-4">
         {multiModalContent.slides.map((slide: any, index: number) => (
-          <Card 
-            key={index} 
-            className={`${currentSlide === index ? 'ring-2 ring-primary' : ''}`}
-            onClick={() => setCurrentSlide(index)}
-          >
-            <CardHeader className="py-3">
-              <CardTitle className="text-base">{slide.title || `Slide ${index + 1}`}</CardTitle>
-            </CardHeader>
-            <CardContent className="py-2">
-              {slide.interactiveContent ? (
-                <div className="bg-slate-100 dark:bg-slate-800 p-4 rounded-md">
-                  <div className="flex items-centre justify-centre">
-                    <Hand className="h-6 w-6 text-primary mr-2" />
-                    <span>Interactive element available</span>
+          <div key={index} onClick={() => setCurrentSlide(index)} className="cursor-pointer">
+            <Card className={`${currentSlide === index ? 'ring-2 ring-primary' : ''}`}>
+              <CardHeader className="py-3">
+                <CardTitle className="text-base">{slide.title || `Slide ${index + 1}`}</CardTitle>
+              </CardHeader>
+              <CardContent className="py-2">
+                {slide.interactiveContent ? (
+                  <div className="bg-slate-100 dark:bg-slate-800 p-4 rounded-md">
+                    <div className="flex items-centre justify-centre">
+                      <Hand className="h-6 w-6 text-primary mr-2" />
+                      <span>Interactive element available</span>
+                    </div>
+                    <div className="mt-2 text-centre">
+                      <Button size="sm">Launch Interactive Element</Button>
+                    </div>
                   </div>
-                  <div className="mt-2 text-centre">
-                    <Button size="sm">Launch Interactive Element</Button>
+                ) : (
+                  <div className="flex items-centre justify-centre p-4 bg-slate-100 dark:bg-slate-800 rounded-md">
+                    <Hand className="h-6 w-6 text-muted-foreground mr-2" />
+                    <span className="text-muted-foreground">No interactive content available</span>
                   </div>
-                </div>
-              ) : (
-                <div className="flex items-centre justify-centre p-4 bg-slate-100 dark:bg-slate-800 rounded-md">
-                  <Hand className="h-6 w-6 text-muted-foreground mr-2" />
-                  <span className="text-muted-foreground">No interactive content available</span>
-                </div>
-              )}
-            </CardContent>
-          </Card>
+                )}
+              </CardContent>
+            </Card>
+          </div>
         ))}
       </div>
     );
@@ -677,10 +660,7 @@ export default function MultiModalPresentationEngine({
               variant="default" 
               size="sm"
               onClick={() => {
-                toast({
-                  title: "Content saved",
-                  description: "The multi-modal content has been saved to your account.",
-                });
+                toast("Content saved. The multi-modal content has been saved to your account.");
               }}
               className="flex items-centre gap-1"
             >

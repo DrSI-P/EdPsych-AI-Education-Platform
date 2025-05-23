@@ -249,27 +249,17 @@ export default function ReducedMotionModeEngine({
         .then(res => res.json())
         .then(data => {
           if (data.success) {
-            toast({
-              title: "Settings saved",
-              description: "Your reduced motion settings have been saved to your profile.",
-            });
+            toast("Settings saved: Your reduced motion settings have been saved to your profile.");
           } else {
             throw new Error(data.error || 'Failed to save settings');
           }
         })
         .catch(error => {
           console.error('Error saving accessibility settings:', error);
-          toast({
-            title: "Error saving settings",
-            description: "Your settings have been applied but could not be saved to your profile.",
-            variant: "destructive",
-          });
+          toast("Error saving settings: Your settings have been applied but could not be saved to your profile.");
         });
     } else {
-      toast({
-        title: "Settings applied",
-        description: "Reduced motion settings have been applied. Sign in to save these preferences.",
-      });
+      toast("Settings applied: Reduced motion settings have been applied. Sign in to save these preferences.");
     }
   };
   
@@ -289,10 +279,7 @@ export default function ReducedMotionModeEngine({
     applyReducedMotion(defaultSettings);
     setIsApplied(true);
     
-    toast({
-      title: "Settings reset",
-      description: "Reduced motion settings have been reset to defaults.",
-    });
+    toast("Settings reset: Reduced motion settings have been reset to defaults.");
     
     // Save reset settings to user profile if logged in
     if (session?.user) {

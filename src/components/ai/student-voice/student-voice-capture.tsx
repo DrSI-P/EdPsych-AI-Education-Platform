@@ -21,8 +21,8 @@ export default function StudentVoiceCapture() {
   const [audioURL, setAudioURL] = useState('');
   const [drawingMode, setDrawingMode] = useState(false);
   const [sentiment, setSentiment] = useState('');
-  const [themes, setThemes] = useState([]);
-  const [suggestions, setSuggestions] = useState([]);
+  const [themes, setThemes] = useState<string[]>([]);
+  const [suggestions, setSuggestions] = useState<string[]>([]);
   const [emotionDetected, setEmotionDetected] = useState('');
   const [confidenceScore, setConfidenceScore] = useState(0);
   const [topic, setTopic] = useState('');
@@ -32,10 +32,10 @@ export default function StudentVoiceCapture() {
   const [transcription, setTranscription] = useState('');
   
   // References for canvas and media recorder
-  const canvasRef = useRef(null);
-  const mediaRecorderRef = useRef(null);
-  const audioChunksRef = useRef([]);
-  const recognitionRef = useRef(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const audioChunksRef = useRef<any[]>([]);
+  const recognitionRef = useRef<any>(null);
   
   // Initialize speech recognition (simulated)
   useEffect(() => {
@@ -76,35 +76,39 @@ export default function StudentVoiceCapture() {
       canvas.height = canvas.offsetHeight;
       
       // Set initial canvas state
-      context.fillStyle = 'white';
-      context.fillRect(0, 0, canvas.width, canvas.height);
-      context.strokeStyle = 'black';
-      context.lineWidth = 5;
-      context.lineCap = 'round';
+      if (context) {
+        context.fillStyle = 'white';
+        context.fillRect(0, 0, canvas.width, canvas.height);
+        context.strokeStyle = 'black';
+        context.lineWidth = 5;
+        context.lineCap = 'round';
+      }
       
       let isDrawing = false;
       let lastX = 0;
       let lastY = 0;
       
       // Drawing functions
-      const startDrawing = (e) => {
+      const startDrawing = (e: any) => {
         isDrawing = true;
         const rect = canvas.getBoundingClientRect();
         lastX = e.clientX - rect.left;
         lastY = e.clientY - rect.top;
       };
       
-      const draw = (e) => {
+      const draw = (e: any) => {
         if (!isDrawing) return;
         
         const rect = canvas.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
         
-        context.beginPath();
-        context.moveTo(lastX, lastY);
-        context.lineTo(x, y);
-        context.stroke();
+        if (context) {
+          context.beginPath();
+          context.moveTo(lastX, lastY);
+          context.lineTo(x, y);
+          context.stroke();
+        }
         
         lastX = x;
         lastY = y;
@@ -230,8 +234,10 @@ export default function StudentVoiceCapture() {
     if (canvasRef.current) {
       const canvas = canvasRef.current;
       const context = canvas.getContext('2d');
-      context.fillStyle = 'white';
-      context.fillRect(0, 0, canvas.width, canvas.height);
+      if (context) {
+        context.fillStyle = 'white';
+        context.fillRect(0, 0, canvas.width, canvas.height);
+      }
     }
   };
   
@@ -243,19 +249,12 @@ export default function StudentVoiceCapture() {
         
         // In a real implementation, this would save the image
         // For now, we'll just show a success message
-        toast({
-          title: "Drawing Saved",
-          description: "Your drawing has been saved successfully.",
-        });
+        toast("Drawing Saved. Your drawing has been saved successfully.");
         
         // Simulate AI analysis of the drawing
         analyzeDrawing();
       } catch (error) {
-        toast({
-          title: "Error Saving Drawing",
-          description: "There was a problem saving your drawing. Please try again.",
-          variant: "destructive"
-        });
+        toast("Error Saving Drawing. There was a problem saving your drawing. Please try again.");
         console.error(error);
       }
     }
@@ -263,11 +262,7 @@ export default function StudentVoiceCapture() {
   
   const analyzeInput = async () => {
     if (!textInput.trim()) {
-      toast({
-        title: "Input Required",
-        description: "Please enter some text or record your voice before analysing.",
-        variant: "destructive"
-      });
+      toast("Input Required. Please enter some text or record your voice before analysing.");
       return;
     }
     
@@ -287,10 +282,10 @@ export default function StudentVoiceCapture() {
       
       // Simulate theme extraction
       const possibleThemes = [
-        'Learning Environment', 'Curriculum Content', 'Teaching Methods', 
+        'Learning Environment', 'Curriculum Content', 'Teaching Methods',
         'Social Interaction', 'Assessment', 'Support Needs', 'Emotional Well-being'
       ];
-      const selectedThemes = [];
+      const selectedThemes: string[] = [];
       const numThemes = Math.floor(Math.random() * 3) + 1; // 1-3 themes
       
       for (let i = 0; i < numThemes; i++) {
@@ -323,7 +318,7 @@ export default function StudentVoiceCapture() {
         'Create a quieter learning environment when needed'
       ];
       
-      const selectedSuggestions = [];
+      const selectedSuggestions: string[] = [];
       const numSuggestions = Math.floor(Math.random() * 3) + 1; // 1-3 suggestions
       
       for (let i = 0; i < numSuggestions; i++) {
@@ -337,11 +332,7 @@ export default function StudentVoiceCapture() {
       setSuggestions(selectedSuggestions);
       
     } catch (error) {
-      toast({
-        title: "Analysis Error",
-        description: "There was a problem analysing your input. Please try again.",
-        variant: "destructive"
-      });
+      toast("Analysis Error. There was a problem analysing your input. Please try again.");
       console.error(error);
     } finally {
       setIsProcessing(false);
@@ -369,10 +360,10 @@ export default function StudentVoiceCapture() {
       
       // Simulate theme extraction
       const possibleThemes = [
-        'Self-expression', 'Creativity', 'Emotional State', 
+        'Self-expression', 'Creativity', 'Emotional State',
         'Social Relationships', 'School Environment', 'Learning Preferences'
       ];
-      const selectedThemes = [];
+      const selectedThemes: string[] = [];
       const numThemes = Math.floor(Math.random() * 3) + 1; // 1-3 themes
       
       for (let i = 0; i < numThemes; i++) {
@@ -395,7 +386,7 @@ export default function StudentVoiceCapture() {
         'Consider the emotional impact of the learning environment'
       ];
       
-      const selectedSuggestions = [];
+      const selectedSuggestions: string[] = [];
       const numSuggestions = Math.floor(Math.random() * 3) + 1; // 1-3 suggestions
       
       for (let i = 0; i < numSuggestions; i++) {
@@ -409,11 +400,7 @@ export default function StudentVoiceCapture() {
       setSuggestions(selectedSuggestions);
       
     } catch (error) {
-      toast({
-        title: "Analysis Error",
-        description: "There was a problem analysing your drawing. Please try again.",
-        variant: "destructive"
-      });
+      toast("Analysis Error. There was a problem analysing your drawing. Please try again.");
       console.error(error);
     } finally {
       setIsProcessing(false);
@@ -421,10 +408,7 @@ export default function StudentVoiceCapture() {
   };
   
   const submitFeedback = () => {
-    toast({
-      title: "Feedback Submitted",
-      description: "Thank you for sharing your thoughts! Your voice matters and helps us improve.",
-    });
+    toast("Feedback Submitted. Thank you for sharing your thoughts! Your voice matters and helps us improve.");
     
     // Reset form
     setTextInput('');

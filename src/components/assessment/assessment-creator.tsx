@@ -6,15 +6,31 @@ import { Input, Textarea, Select } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/toast';
 
+interface Question {
+  id?: string;
+  text: string;
+  type: string;
+  options: string[];
+  correctAnswer: string;
+}
+
+interface Assessment {
+  title: string;
+  description: string;
+  type: string;
+  questions: Question[];
+  published: boolean;
+}
+
 interface AssessmentCreatorProps {
-  onSave?: (assessment: any) => void;
+  onSave?: (assessment: Assessment) => void;
   onCancel?: () => void;
-  initialData?: any;
+  initialData?: Assessment;
 }
 
 export function AssessmentCreator({ onSave, onCancel, initialData }: AssessmentCreatorProps) {
   const { showToast } = useToast();
-  const [assessment, setAssessment] = useState(initialData || {
+  const [assessment, setAssessment] = useState<Assessment>(initialData || {
     title: '',
     description: '',
     type: 'multiple-choice',
@@ -22,7 +38,7 @@ export function AssessmentCreator({ onSave, onCancel, initialData }: AssessmentC
     published: false
   });
   
-  const [currentQuestion, setCurrentQuestion] = useState({
+  const [currentQuestion, setCurrentQuestion] = useState<Question>({
     text: '',
     type: 'multiple-choice',
     options: ['', ''],
@@ -31,22 +47,32 @@ export function AssessmentCreator({ onSave, onCancel, initialData }: AssessmentC
   
   const handleAssessmentChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setAssessment(prev => ({ ...prev, [name]: value }));
+    setAssessment((prev: Assessment) => ({ ...prev, [name]: value }));
+  };
+  
+  // Wrapper for Select component
+  const handleAssessmentTypeChange = (value: string) => {
+    setAssessment((prev: Assessment) => ({ ...prev, type: value }));
   };
   
   const handleQuestionChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setCurrentQuestion(prev => ({ ...prev, [name]: value }));
+    setCurrentQuestion((prev: Question) => ({ ...prev, [name]: value }));
+  };
+  
+  // Wrapper for Select component
+  const handleQuestionTypeChange = (value: string) => {
+    setCurrentQuestion((prev: Question) => ({ ...prev, type: value }));
   };
   
   const handleOptionChange = (index: number, value: string) => {
     const newOptions = [...currentQuestion.options];
     newOptions[index] = value;
-    setCurrentQuestion(prev => ({ ...prev, options: newOptions }));
+    setCurrentQuestion((prev: Question) => ({ ...prev, options: newOptions }));
   };
   
   const addOption = () => {
-    setCurrentQuestion(prev => ({
+    setCurrentQuestion((prev: Question) => ({
       ...prev,
       options: [...prev.options, '']
     }));
@@ -55,7 +81,7 @@ export function AssessmentCreator({ onSave, onCancel, initialData }: AssessmentC
   const removeOption = (index: number) => {
     const newOptions = [...currentQuestion.options];
     newOptions.splice(index, 1);
-    setCurrentQuestion(prev => ({
+    setCurrentQuestion((prev: Question) => ({
       ...prev,
       options: newOptions
     }));
@@ -64,14 +90,14 @@ export function AssessmentCreator({ onSave, onCancel, initialData }: AssessmentC
   const addQuestion = () => {
     if (!currentQuestion.text) {
       showToast({
-        title: 'Question text is required',
+        message: 'Question text is required',
         type: 'error'
       });
       return;
     }
     
     const newQuestion = { ...currentQuestion, id: Date.now().toString() };
-    setAssessment(prev => ({
+    setAssessment((prev: Assessment) => ({
       ...prev,
       questions: [...prev.questions, newQuestion]
     }));
@@ -88,7 +114,7 @@ export function AssessmentCreator({ onSave, onCancel, initialData }: AssessmentC
   const removeQuestion = (index: number) => {
     const newQuestions = [...assessment.questions];
     newQuestions.splice(index, 1);
-    setAssessment(prev => ({
+    setAssessment((prev: Assessment) => ({
       ...prev,
       questions: newQuestions
     }));
@@ -97,7 +123,7 @@ export function AssessmentCreator({ onSave, onCancel, initialData }: AssessmentC
   const handleSave = () => {
     if (!assessment.title) {
       showToast({
-        title: 'Assessment title is required',
+        message: 'Assessment title is required',
         type: 'error'
       });
       return;
@@ -105,7 +131,7 @@ export function AssessmentCreator({ onSave, onCancel, initialData }: AssessmentC
     
     if (assessment.questions.length === 0) {
       showToast({
-        title: 'Assessment must have at least one question',
+        message: 'Assessment must have at least one question',
         type: 'error'
       });
       return;
@@ -139,9 +165,8 @@ export function AssessmentCreator({ onSave, onCancel, initialData }: AssessmentC
           
           <Select
             label="Assessment Type"
-            name="type"
             value={assessment.type}
-            onChange={handleAssessmentChange}
+            onChange={handleAssessmentTypeChange}
             options={[
               { value: 'multiple-choice', label: 'Multiple Choice' },
               { value: 'open-ended', label: 'Open Ended' },
@@ -157,7 +182,7 @@ export function AssessmentCreator({ onSave, onCancel, initialData }: AssessmentC
           <h2 className="text-xl font-semibold">Questions</h2>
         </CardHeader>
         <CardContent className="space-y-6">
-          {assessment.questions.map((question: any, index: number) => (
+          {assessment.questions.map((question: Question, index: number) => (
             <div key={question.id || index} className="p-4 border rounded-md relative">
               <button
                 type="button"
@@ -202,9 +227,8 @@ export function AssessmentCreator({ onSave, onCancel, initialData }: AssessmentC
               
               <Select
                 label="Question Type"
-                name="type"
                 value={currentQuestion.type}
-                onChange={handleQuestionChange}
+                onChange={handleQuestionTypeChange}
                 options={[
                   { value: 'multiple-choice', label: 'Multiple Choice' },
                   { value: 'open-ended', label: 'Open Ended' },

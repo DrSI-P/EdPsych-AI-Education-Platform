@@ -235,18 +235,14 @@ export default function AutomatedProgressReportGeneration() {
   // Generate reports
   const generateReports = async () => {
     if (selectedStudents.length === 0) {
-      toast({
-        title: "No students selected",
-        description: "Please select at least one student to generate reports.",
+      toast("Please select at least one student to generate reports.", {
         variant: "destructive"
       });
       return;
     }
     
     if (selectedSubjects.length === 0) {
-      toast({
-        title: "No subjects selected",
-        description: "Please select at least one subject to include in the reports.",
+      toast("Please select at least one subject to include in the reports.", {
         variant: "destructive"
       });
       return;
@@ -327,16 +323,10 @@ export default function AutomatedProgressReportGeneration() {
       setGeneratedReports(reports as any[]);
       setActiveTab('preview');
       
-      toast({
-        title: "Reports generated",
-        description: `Successfully generated ${reports.length} student reports.`,
-        variant: "default"
-      });
+      toast(`Successfully generated ${reports.length} student reports.`);
     } catch (error) {
       console.error('Error generating reports:', error);
-      toast({
-        title: "Error generating reports",
-        description: "An error occurred while generating the reports. Please try again.",
+      toast("An error occurred while generating the reports. Please try again.", {
         variant: "destructive"
       });
     } finally {
@@ -405,8 +395,8 @@ export default function AutomatedProgressReportGeneration() {
     const lowestSubjects = [...subjectReports].sort((a, b) => a.currentScore - b.currentScore).slice(0, 2);
     
     // Collect areas for development from these subjects
-    const developmentAreas = lowestSubjects.flatMap(subject => 
-      subject.areasForDevelopment.map(area => ({
+    const developmentAreas = lowestSubjects.flatMap(subject =>
+      subject.areasForDevelopment.map((area: string) => ({
         subject: subject.subject,
         area
       }))
@@ -466,11 +456,7 @@ export default function AutomatedProgressReportGeneration() {
     setCurrentReport(updatedReport);
     setEditingReport(false);
     
-    toast({
-      title: "Report updated",
-      description: "Your changes to the report have been saved.",
-      variant: "default"
-    });
+    toast("Your changes to the report have been saved.");
   };
   
   // Save report to localStorage
@@ -482,16 +468,10 @@ export default function AutomatedProgressReportGeneration() {
     try {
       localStorage.setItem('savedProgressReports', JSON.stringify(updatedSavedReports));
       
-      toast({
-        title: "Report saved",
-        description: "The report has been saved to your collection.",
-        variant: "default"
-      });
+      toast("The report has been saved to your collection.");
     } catch (error) {
       console.error('Error saving report:', error);
-      toast({
-        title: "Error saving report",
-        description: "An error occurred while saving the report. Please try again.",
+      toast("An error occurred while saving the report. Please try again.", {
         variant: "destructive"
       });
     }
@@ -506,11 +486,7 @@ export default function AutomatedProgressReportGeneration() {
     try {
       localStorage.setItem('savedProgressReports', JSON.stringify(updatedReports));
       
-      toast({
-        title: "Report deleted",
-        description: "The report has been removed from your collection.",
-        variant: "default"
-      });
+      toast("The report has been removed from your collection.");
     } catch (error) {
       console.error('Error deleting report:', error);
     }
@@ -521,19 +497,11 @@ export default function AutomatedProgressReportGeneration() {
     // In a real implementation, this would call a backend API to generate a PDF
     // For now, we'll simulate PDF generation with a toast notification
     
-    toast({
-      title: "Generating PDF",
-      description: "Your PDF report is being generated and will download shortly.",
-      variant: "default"
-    });
+    toast("Your PDF report is being generated and will download shortly.");
     
     // Simulate download delay
     setTimeout(() => {
-      toast({
-        title: "PDF Generated",
-        description: "Your PDF report has been generated successfully.",
-        variant: "default"
-      });
+      toast("Your PDF report has been generated successfully.");
     }, 2000);
   };
   
@@ -1122,11 +1090,7 @@ export default function AutomatedProgressReportGeneration() {
                         variant="outline"
                         onClick={() => {
                           // Simulate sharing functionality
-                          toast({
-                            title: "Share options",
-                            description: "Sharing functionality would open here.",
-                            variant: "default"
-                          });
+                          toast("Sharing functionality would open here.");
                         }}
                       >
                         <Share2 className="mr-2 h-4 w-4" />
@@ -1235,11 +1199,7 @@ export default function AutomatedProgressReportGeneration() {
             variant="outline"
             onClick={() => {
               // Open help documentation
-              toast({
-                title: "Help & Documentation",
-                description: "Documentation would open here.",
-                variant: "default"
-              });
+              toast("Documentation would open here.");
             }}
           >
             <HelpCircle className="mr-2 h-4 w-4" />

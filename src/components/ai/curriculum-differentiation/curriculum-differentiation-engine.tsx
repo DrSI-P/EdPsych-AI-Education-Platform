@@ -82,11 +82,7 @@ export default function CurriculumDifferentiationEngine({
 
   const generateDifferentiation = async () => {
     if (!curriculumContent && !curriculumPlanId) {
-      toast({
-        title: "Missing curriculum content",
-        description: "Please provide curriculum content or select a curriculum plan.",
-        variant: "destructive"
-      });
+      toast("Missing curriculum content. Please provide curriculum content or select a curriculum plan.");
       return;
     }
 
@@ -139,17 +135,10 @@ export default function CurriculumDifferentiationEngine({
         onDifferentiationGenerated(data.differentiatedContent);
       }
 
-      toast({
-        title: "Differentiation generated",
-        description: "Curriculum has been successfully differentiated based on learning needs.",
-      });
+      toast("Differentiation generated. Curriculum has been successfully differentiated based on learning needs.");
     } catch (error) {
       console.error('Error generating differentiation:', error);
-      toast({
-        title: "Generation failed",
-        description: "Failed to generate differentiated curriculum. Please try again.",
-        variant: "destructive"
-      });
+      toast("Generation failed. Failed to generate differentiated curriculum. Please try again.");
     } finally {
       setIsGenerating(false);
     }
@@ -482,10 +471,7 @@ export default function CurriculumDifferentiationEngine({
               variant="default" 
               size="sm"
               onClick={() => {
-                toast({
-                  title: "Differentiation saved",
-                  description: "The differentiated curriculum has been saved to your account.",
-                });
+                toast("Differentiation saved. The differentiated curriculum has been saved to your account.");
               }}
             >
               Save Differentiation

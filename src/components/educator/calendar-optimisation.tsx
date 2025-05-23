@@ -300,9 +300,7 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
   // Save new activity
   const handleSaveActivity = () => {
     if (!activityForm.title) {
-      toast({
-        title: "Title required",
-        description: "Please provide a title for the activity.",
+      toast("Please provide a title for the activity.", {
         variant: "destructive"
       });
       return;
@@ -319,18 +317,12 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
         activity.id === activityForm.id ? newActivity : activity
       ));
       
-      toast({
-        title: "Activity updated",
-        description: `"${newActivity.title}" has been updated.`
-      });
+      toast(`"${newActivity.title}" has been updated.`);
     } else {
       // Add new activity
       setActivities(prev => [...prev, newActivity]);
       
-      toast({
-        title: "Activity added",
-        description: `"${newActivity.title}" has been added to your calendar.`
-      });
+      toast(`"${newActivity.title}" has been added to your calendar.`);
     }
     
     setIsAddDialogOpen(false);
@@ -364,10 +356,7 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
     
     setActivities(prev => prev.filter(activity => activity.id !== selectedActivity.id));
     
-    toast({
-      title: "Activity deleted",
-      description: `"${selectedActivity.title}" has been removed from your calendar.`
-    });
+    toast(`"${selectedActivity.title}" has been removed from your calendar.`);
     
     setIsDeleteDialogOpen(false);
     setSelectedActivity(null);
@@ -387,10 +376,7 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
     
     setActivities(prev => [...prev, duplicatedActivity]);
     
-    toast({
-      title: "Activity duplicated",
-      description: `"${duplicatedActivity.title}" has been added to your calendar.`
-    });
+    toast(`"${duplicatedActivity.title}" has been added to your calendar.`);
     
     setSelectedActivity(null);
   };
@@ -410,15 +396,10 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
       const suggestions = generateOptimizationSuggestions(optimizationFocus);
       setOptimizationSuggestions(suggestions);
       
-      toast({
-        title: "Calendar optimized",
-        description: `${suggestions.length} suggestions generated based on your preferences.`
-      });
+      toast(`${suggestions.length} suggestions generated based on your preferences.`);
     } catch (error) {
       console.error('Error optimizing calendar:', error);
-      toast({
-        title: "Optimization failed",
-        description: "There was a problem optimizing your calendar. Please try again.",
+      toast("There was a problem optimizing your calendar. Please try again.", {
         variant: "destructive"
       });
     } finally {
@@ -471,10 +452,7 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
     // In a real implementation, this would update the activities based on the suggestion
     // For now, we'll just show a toast
     
-    toast({
-      title: "Suggestion applied",
-      description: `"${suggestion.title}" has been applied to your calendar.`
-    });
+    toast(`"${suggestion.title}" has been applied to your calendar.`);
     
     // Remove the suggestion from the list
     setOptimizationSuggestions(prev => prev.filter(s => s.id !== suggestion.id));
@@ -518,9 +496,7 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
       setAnalyticsData(data);
     } catch (error) {
       console.error('Error loading analytics:', error);
-      toast({
-        title: "Analytics failed",
-        description: "There was a problem loading your calendar analytics. Please try again.",
+      toast("There was a problem loading your calendar analytics. Please try again.", {
         variant: "destructive"
       });
     } finally {
@@ -1327,7 +1303,7 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
                               {activityTypes[type as keyof typeof activityTypes]?.label}
                             </span>
                           </div>
-                          <span className="text-sm font-medium">{percentage}%</span>
+                          <span className="text-sm font-medium">{percentage as number}%</span>
                         </div>
                         <div className="w-full bg-muted rounded-full h-2">
                           <div 
@@ -1351,7 +1327,7 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
                       <div key={day}>
                         <h4 className="text-sm font-medium mb-2 capitalize">{day}</h4>
                         <div className="flex items-center h-8">
-                          {Object.entries(activities).map(([type, hours]) => (
+                          {Object.entries(activities as Record<string, number>).map(([type, hours]) => (
                             hours > 0 && (
                               <div 
                                 key={type}
@@ -1382,7 +1358,7 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
                   <h3 className="text-sm font-medium mb-4">Calendar Insights</h3>
                   
                   <div className="space-y-3">
-                    {analyticsData.insights.map((insight, index) => (
+                    {analyticsData.insights.map((insight: string, index: number) => (
                       <div key={index} className="flex items-start">
                         <div className="mt-0.5 mr-2 text-primary">
                           <AlertCircle className="h-4 w-4" />

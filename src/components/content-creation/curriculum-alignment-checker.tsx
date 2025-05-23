@@ -95,11 +95,7 @@ export const CurriculumAlignmentChecker: React.FC<CurriculumAlignmentCheckerProp
     } catch (error) {
       console.error('Failed to check curriculum alignment:', error);
       setError('Failed to check curriculum alignment. Please try again.');
-      toast({
-        variant: "destructive",
-        title: "Curriculum check failed",
-        description: "There was a problem checking the curriculum alignment of your content.",
-      });
+      toast("Curriculum check failed: There was a problem checking the curriculum alignment of your content.");
     } finally {
       setIsChecking(false);
     }
@@ -209,7 +205,7 @@ export const CurriculumAlignmentChecker: React.FC<CurriculumAlignmentCheckerProp
   return (
     <div className="curriculum-alignment-checker">
       {error && (
-        <Alert variant="destructive" className="mb-4">
+        <Alert variant="error" className="mb-4">
           <AlertCircle className="h-4 w-4" />
           <AlertTitle>Error</AlertTitle>
           <AlertDescription>{error}</AlertDescription>

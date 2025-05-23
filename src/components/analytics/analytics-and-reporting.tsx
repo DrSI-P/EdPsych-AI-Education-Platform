@@ -12,6 +12,7 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
+import { Checkbox } from "@/components/ui/checkbox";
 import { format, subDays, subMonths } from "date-fns";
 import { 
   BarChart, Bar, LineChart, Line, AreaChart, Area, PieChart, Pie, ScatterChart, Scatter,
@@ -246,7 +247,11 @@ export default function AnalyticsAndReporting() {
                   mode="range"
                   defaultMonth={dateRange.from}
                   selected={dateRange}
-                  onSelect={setDateRange}
+                  onSelect={(range) => {
+                    if (range && range.from && range.to) {
+                      setDateRange({ from: range.from, to: range.to });
+                    }
+                  }}
                   numberOfMonths={2}
                 />
               </PopoverContent>

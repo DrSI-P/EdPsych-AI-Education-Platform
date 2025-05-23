@@ -37,8 +37,25 @@ import {
   Briefcase
 } from 'lucide-react';
 
+// Define types for the credential and related functions
+interface Credential {
+  id: string;
+  [key: string]: any; // Allow for additional properties
+}
+
+interface CPDActivity {
+  id: string;
+  title: string;
+}
+
 // Integration with portfolio module
-const PortfolioIntegration = ({ credential, onAddToPortfolio }) => {
+const PortfolioIntegration = ({
+  credential,
+  onAddToPortfolio
+}: {
+  credential: Credential;
+  onAddToPortfolio: (credential: Credential, section: string) => void;
+}) => {
   const [isAdding, setIsAdding] = useState(false);
   const [portfolioSection, setPortfolioSection] = useState('achievements');
   const { toast } = useToast();
@@ -52,18 +69,10 @@ const PortfolioIntegration = ({ credential, onAddToPortfolio }) => {
       
       onAddToPortfolio(credential, portfolioSection);
       
-      toast({
-        title: "Added to Portfolio",
-        description: `Credential added to your ${portfolioSection} section`,
-        variant: "success",
-      });
+      toast(`Credential added to your ${portfolioSection} section`);
     } catch (error) {
       console.error('Error adding to portfolio:', error);
-      toast({
-        title: "Error",
-        description: "Failed to add credential to portfolio",
-        variant: "destructive",
-      });
+      toast("Failed to add credential to portfolio");
     } finally {
       setIsAdding(false);
     }
@@ -110,7 +119,13 @@ const PortfolioIntegration = ({ credential, onAddToPortfolio }) => {
 };
 
 // Integration with CPD tracking module
-const CPDIntegration = ({ credential, onLinkToCPD }) => {
+const CPDIntegration = ({
+  credential,
+  onLinkToCPD
+}: {
+  credential: Credential;
+  onLinkToCPD: (credential: Credential, activity: CPDActivity) => void;
+}) => {
   const [isLinking, setIsLinking] = useState(false);
   const [selectedCPD, setSelectedCPD] = useState('');
   const { toast } = useToast();
@@ -126,11 +141,7 @@ const CPDIntegration = ({ credential, onLinkToCPD }) => {
   
   const handleLinkToCPD = async () => {
     if (!selectedCPD) {
-      toast({
-        title: "Selection Required",
-        description: "Please select a CPD activity to link",
-        variant: "destructive",
-      });
+      toast("Please select a CPD activity to link");
       return;
     }
     
@@ -141,20 +152,14 @@ const CPDIntegration = ({ credential, onLinkToCPD }) => {
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       const activity = cpdActivities.find(a => a.id === selectedCPD);
-      onLinkToCPD(credential, activity);
-      
-      toast({
-        title: "Linked to CPD",
-        description: `Credential linked to "${activity.title}"`,
-        variant: "success",
-      });
+      if (activity) {
+        onLinkToCPD(credential, activity);
+        
+        toast(`Credential linked to "${activity.title}"`);
+      }
     } catch (error) {
       console.error('Error linking to CPD:', error);
-      toast({
-        title: "Error",
-        description: "Failed to link credential to CPD activity",
-        variant: "destructive",
-      });
+      toast("Failed to link credential to CPD activity");
     } finally {
       setIsLinking(false);
     }
@@ -202,16 +207,22 @@ const CPDIntegration = ({ credential, onLinkToCPD }) => {
 };
 
 // Integration component for blockchain credentials
-const BlockchainCredentialIntegration = ({ credential, onClose }) => {
+const BlockchainCredentialIntegration = ({
+  credential,
+  onClose
+}: {
+  credential: Credential;
+  onClose?: () => void;
+}) => {
   const [activeTab, setActiveTab] = useState('portfolio');
   const { toast } = useToast();
   
-  const handleAddToPortfolio = (credential, section) => {
+  const handleAddToPortfolio = (credential: Credential, section: string) => {
     // In a real implementation, this would call an API to add the credential to the portfolio
     console.log(`Added credential ${credential.id} to ${section} section`);
   };
   
-  const handleLinkToCPD = (credential, activity) => {
+  const handleLinkToCPD = (credential: Credential, activity: CPDActivity) => {
     // In a real implementation, this would call an API to link the credential to CPD
     console.log(`Linked credential ${credential.id} to CPD activity ${activity.id}`);
   };

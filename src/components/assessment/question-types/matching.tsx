@@ -43,7 +43,7 @@ export default function MatchingQuestion({
     ]
   );
   const [points, setPoints] = useState(initialData?.points || 1);
-  const [shuffleOptions, setShuffleOptions] = useState(initialData?.shuffleOptions || true);
+  const [shuffleOptions, setShuffleOptions] = useState<boolean>(initialData?.shuffleOptions || true);
   const [errors, setErrors] = useState({
     content: '',
     items: ''
@@ -121,7 +121,7 @@ export default function MatchingQuestion({
       </div>
 
       {Object.values(errors).some(error => error) && (
-        <Alert type="error">
+        <Alert variant="error">
           Please correct the errors below before saving.
         </Alert>
       )}

@@ -8,12 +8,12 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Separator } from '@/components/ui/separator';
 import { toast } from '@/components/ui/use-toast';
-import { 
-  BookOpen, 
-  Clock, 
-  Star, 
-  ThumbsUp, 
-  ThumbsDown, 
+import {
+  BookOpen,
+  Clock,
+  Star,
+  ThumbsUp,
+  ThumbsDown,
   RefreshCw,
   ExternalLink,
   Bookmark,
@@ -22,7 +22,8 @@ import {
   Eye,
   Headphones,
   FileText,
-  Zap
+  Zap,
+  CheckCircle2
 } from 'lucide-react';
 
 import { 
@@ -119,19 +120,10 @@ export default function AdaptiveContentSuggestions() {
       
       setContentSuggestions(suggestions);
       
-      toast({
-        title: "Content Suggestions Generated",
-        description: "Your personalised content suggestions are ready.",
-        duration: 3000,
-      });
+      toast("Content Suggestions Generated: Your personalised content suggestions are ready.");
     } catch (error) {
       console.error('Failed to generate content suggestions:', error);
-      toast({
-        title: "Error",
-        description: "Failed to generate content suggestions. Please try again.",
-        variant: "destructive",
-        duration: 3000,
-      });
+      toast("Error: Failed to generate content suggestions. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -201,29 +193,17 @@ export default function AdaptiveContentSuggestions() {
   
   // Mock function to view content
   const viewContent = (suggestion: ContentSuggestion) => {
-    toast({
-      title: "Opening Content",
-      description: `Opening ${suggestion.title}`,
-      duration: 3000,
-    });
+    toast(`Opening Content: Opening ${suggestion.title}`);
   };
   
   // Mock function to save content
   const saveContent = (suggestion: ContentSuggestion) => {
-    toast({
-      title: "Content Saved",
-      description: `${suggestion.title} has been saved to your library.`,
-      duration: 3000,
-    });
+    toast(`Content Saved: ${suggestion.title} has been saved to your library.`);
   };
   
   // Mock function to provide feedback
   const provideFeedback = (suggestion: ContentSuggestion, helpful: boolean) => {
-    toast({
-      title: "Feedback Recorded",
-      description: `Thank you for your feedback. We'll use it to improve your suggestions.`,
-      duration: 3000,
-    });
+    toast(`Feedback Recorded: Thank you for your feedback. We'll use it to improve your suggestions.`);
   };
   
   // Get dominant learning style from suggestion

@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
 import { Input, Textarea, Select, Checkbox } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
-import { Tabs } from '@/components/ui/tabs';
+import { SimpleTabs } from '@/components/ui/tabs';
 import { Spinner } from '@/components/ui/loading';
 import { Alert } from '@/components/ui/alert';
 import { useToast } from '@/components/ui/toast';
@@ -49,6 +49,7 @@ export function AssessmentModule({
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedSubject, setSelectedSubject] = useState('all');
   const [selectedAgeRange, setSelectedAgeRange] = useState('all');
+  const [activeTab, setActiveTab] = useState('browse');
   
   // Fetch assessments on component mount
   useEffect(() => {
@@ -276,6 +277,19 @@ export function AssessmentModule({
     setCreateForm(prev => ({ ...prev, [name]: value }));
   };
   
+  // Wrapper functions for Select components
+  const handleSubjectChange = (value: string) => {
+    setCreateForm(prev => ({ ...prev, subject: value }));
+  };
+  
+  const handleAgeRangeChange = (value: string) => {
+    setCreateForm(prev => ({ ...prev, ageRange: value }));
+  };
+  
+  const handleCurriculumChange = (value: string) => {
+    setCreateForm(prev => ({ ...prev, curriculum: value }));
+  };
+  
   // Handle question text change
   const handleQuestionTextChange = (index: number, value: string) => {
     setCreateForm(prev => {
@@ -291,8 +305,8 @@ export function AssessmentModule({
       const newQuestions = [...prev.questions];
       
       // Reset options and correctAnswer based on new type
-      let options;
-      let correctAnswer;
+      let options: string[] = [];
+      let correctAnswer: string | string[] = '';
       
       if (value === 'multiple_choice') {
         options = ['', '', '', ''];
@@ -304,15 +318,21 @@ export function AssessmentModule({
         options = ['', '', ''];
         correctAnswer = ['', '', ''];
       } else {
-        options = undefined;
+        options = []; // Use empty array instead of undefined
         correctAnswer = '';
       }
       
-      newQuestions[index] = { 
-        ...newQuestions[index], 
+      // For matching questions, correctAnswer should be a string array
+      // For other question types, correctAnswer should be a string
+      const finalCorrectAnswer = value === 'matching'
+        ? (correctAnswer as string[]) // For matching questions, use string array
+        : (typeof correctAnswer === 'string' ? correctAnswer : ''); // For other types, ensure it's a string
+      
+      newQuestions[index] = {
+        ...newQuestions[index],
         type: value as any,
         options,
-        correctAnswer
+        correctAnswer: finalCorrectAnswer as any // Use type assertion to satisfy TypeScript
       };
       
       return { ...prev, questions: newQuestions };
@@ -448,7 +468,7 @@ export function AssessmentModule({
         }));
         
         showToast({
-          title: 'Questions generated successfully',
+          message: 'Questions generated successfully',
           type: 'success'
         });
       } else {
@@ -457,8 +477,18 @@ export function AssessmentModule({
     } catch (err) {
       // If JSON parsing fails, try to extract questions in a more forgiving way
       const lines = aiResponse.split('\n');
-      const questions = [];
-      let currentQuestion = null;
+      const questions: any[] = [];
+      
+      // Define a type for the question structure
+      interface ParsedQuestion {
+        type: string;
+        text: string;
+        options: string[];
+        correctAnswer: string;
+        points: number;
+      }
+      
+      let currentQuestion: ParsedQuestion | null = null;
       
       for (const line of lines) {
         const trimmedLine = line.trim();
@@ -472,7 +502,7 @@ export function AssessmentModule({
           currentQuestion = {
             type: 'multiple_choice',
             text: trimmedLine.replace(/^(Question|Q)(\s+\d+|\s*\d*:)/i, '').trim(),
-            options: [],
+            options: [] as string[],
             correctAnswer: '',
             points: 1
           };
@@ -517,12 +547,12 @@ export function AssessmentModule({
         }));
         
         showToast({
-          title: 'Questions generated successfully',
+          message: 'Questions generated successfully',
           type: 'success'
         });
       } else {
         showToast({
-          title: 'Failed to parse AI-generated questions',
+          message: 'Failed to parse AI-generated questions',
           type: 'error'
         });
       }
@@ -536,7 +566,7 @@ export function AssessmentModule({
     // Validate form
     if (!createForm.title) {
       showToast({
-        title: 'Title is required',
+        message: 'Title is required',
         type: 'error'
       });
       return;
@@ -544,7 +574,7 @@ export function AssessmentModule({
     
     if (!createForm.duration) {
       showToast({
-        title: 'Duration is required',
+        message: 'Duration is required',
         type: 'error'
       });
       return;
@@ -553,21 +583,21 @@ export function AssessmentModule({
     const hasEmptyQuestions = createForm.questions.some(q => !q.text.trim());
     if (hasEmptyQuestions) {
       showToast({
-        title: 'All questions must have text',
+        message: 'All questions must have text',
         type: 'error'
       });
       return;
     }
     
     // Validate multiple choice questions have options and correct answer
-    const invalidMultipleChoice = createForm.questions.some(q => 
-      q.type === 'multiple_choice' && 
+    const invalidMultipleChoice = createForm.questions.some(q =>
+      q.type === 'multiple_choice' &&
       (!q.options || q.options.some(o => !o.trim()) || !q.correctAnswer)
     );
     
     if (invalidMultipleChoice) {
       showToast({
-        title: 'Multiple choice questions must have all options filled and a correct answer selected',
+        message: 'Multiple choice questions must have all options filled and a correct answer selected',
         type: 'error'
       });
       return;
@@ -584,7 +614,9 @@ export function AssessmentModule({
       duration: createForm.duration,
       questions: createForm.questions.map((q, index) => ({
         ...q,
-        id: `new-${index + 1}`
+        id: `new-${index + 1}`,
+        // Ensure the type is one of the allowed values
+        type: q.type as 'multiple_choice' | 'true_false' | 'short_answer' | 'essay' | 'matching'
       })),
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
@@ -613,7 +645,7 @@ export function AssessmentModule({
     });
     
     showToast({
-      title: 'Assessment created successfully',
+      message: 'Assessment created successfully',
       type: 'success'
     });
   };
@@ -638,7 +670,7 @@ export function AssessmentModule({
               <Select
                 label="Subject"
                 value={selectedSubject}
-                onChange={(e) => setSelectedSubject(e.target.value)}
+                onChange={(value) => setSelectedSubject(value)}
                 options={[
                   { value: 'all', label: 'All Subjects' },
                   { value: 'mathematics', label: 'Mathematics' },
@@ -655,7 +687,7 @@ export function AssessmentModule({
               <Select
                 label="Age Range"
                 value={selectedAgeRange}
-                onChange={(e) => setSelectedAgeRange(e.target.value)}
+                onChange={(value) => setSelectedAgeRange(value)}
                 options={[
                   { value: 'all', label: 'All Ages' },
                   { value: 'early_years', label: 'Early Years' },
@@ -757,9 +789,8 @@ export function AssessmentModule({
               
               <Select
                 label="Subject"
-                name="subject"
                 value={createForm.subject}
-                onChange={handleCreateFormChange}
+                onChange={handleSubjectChange}
                 options={[
                   { value: 'mathematics', label: 'Mathematics' },
                   { value: 'english', label: 'English' },
@@ -774,9 +805,8 @@ export function AssessmentModule({
               
               <Select
                 label="Age Range"
-                name="ageRange"
                 value={createForm.ageRange}
-                onChange={handleCreateFormChange}
+                onChange={handleAgeRangeChange}
                 options={[
                   { value: 'early_years', label: 'Early Years' },
                   { value: 'primary', label: 'Primary' },
@@ -787,9 +817,8 @@ export function AssessmentModule({
               
               <Select
                 label="Curriculum"
-                name="curriculum"
                 value={createForm.curriculum}
-                onChange={handleCreateFormChange}
+                onChange={handleCurriculumChange}
                 options={[
                   { value: 'UK National Curriculum', label: 'UK National Curriculum' },
                   { value: 'Scottish Curriculum for Excellence', label: 'Scottish Curriculum for Excellence' },
@@ -853,7 +882,7 @@ export function AssessmentModule({
                       <Select
                         label="Question Type"
                         value={question.type}
-                        onChange={(e) => handleQuestionTypeChange(questionIndex, e.target.value)}
+                        onChange={(value) => handleQuestionTypeChange(questionIndex, value)}
                         options={[
                           { value: 'multiple_choice', label: 'Multiple Choice' },
                           { value: 'short_answer', label: 'Short Answer' },
@@ -880,7 +909,7 @@ export function AssessmentModule({
                             type="button"
                             onClick={() => addOption(questionIndex)}
                             variant="outline"
-                            size="xs"
+                            size="sm"
                           >
                             Add Option
                           </Button>
@@ -967,7 +996,7 @@ export function AssessmentModule({
                             type="button"
                             onClick={() => addOption(questionIndex)}
                             variant="outline"
-                            size="xs"
+                            size="sm"
                           >
                             Add Pair
                           </Button>
@@ -1045,7 +1074,11 @@ Use UK English spelling and follow UK educational standards.`}
   
   return (
     <div className={className}>
-      <Tabs tabs={tabs} />
+      <SimpleTabs
+        tabs={tabs}
+        activeTab={activeTab}
+        onChange={(value) => setActiveTab(value)}
+      />
     </div>
   );
 }

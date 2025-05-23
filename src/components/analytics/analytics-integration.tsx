@@ -39,12 +39,12 @@ import {
   PolarAngleAxis,
   PolarRadiusAxis
 } from 'recharts';
-import { 
-  ArrowUpRight, 
-  ArrowDownRight, 
-  Download, 
-  FileText, 
-  Filter, 
+import {
+  ArrowUpRight,
+  ArrowDownRight,
+  Download,
+  FileText,
+  Filter,
   Search,
   RefreshCw,
   Link,
@@ -53,7 +53,9 @@ import {
   Mail,
   Printer,
   Settings,
-  Sliders
+  Sliders,
+  Plus,
+  Calendar as CalendarIcon
 } from 'lucide-react';
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
@@ -68,12 +70,13 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { DateRangePicker } from "@/components/ui/date-range-picker";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { format } from "date-fns";
 import { toast } from "@/components/ui/use-toast";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -212,10 +215,10 @@ const mockExtensibilityOptions = [
 const AnalyticsIntegration = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('modules');
-  const [selectedModule, setSelectedModule] = useState(null);
+  const [selectedModule, setSelectedModule] = useState<string | null>(null);
   const [refreshing, setRefreshing] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedDateRange, setSelectedDateRange] = useState({ from: new Date(2025, 0, 1), to: new Date() });
+  const [selectedDateRange, setSelectedDateRange] = useState<{ from: Date; to: Date }>({ from: new Date(2025, 0, 1), to: new Date() });
 
   useEffect(() => {
     // Simulate data loading
@@ -231,30 +234,21 @@ const AnalyticsIntegration = () => {
     // Simulate data refresh
     setTimeout(() => {
       setRefreshing(false);
-      toast({
-        title: "Data Refreshed",
-        description: "Analytics integration data has been updated to the latest available information.",
-      });
+      toast("Data Refreshed. Analytics integration data has been updated to the latest available information.");
     }, 1200);
   };
 
-  const handleModuleSelect = (moduleId) => {
+  const handleModuleSelect = (moduleId: string) => {
     setSelectedModule(moduleId);
   };
 
-  const handleExport = (format) => {
-    toast({
-      title: `Exporting Integration Data as ${format.toUpperCase()}`,
-      description: "Your export is being prepared and will download shortly.",
-    });
+  const handleExport = (format: string) => {
+    toast(`Exporting Integration Data as ${format.toUpperCase()}. Your export is being prepared and will download shortly.`);
   };
 
-  const handleToggleSetting = (settingId, currentValue) => {
+  const handleToggleSetting = (settingId: string, currentValue: boolean) => {
     // In a real implementation, this would update the setting
-    toast({
-      title: "Setting Updated",
-      description: `${settingId} has been ${currentValue ? 'disabled' : 'enabled'}.`,
-    });
+    toast(`Setting Updated. ${settingId} has been ${currentValue ? 'disabled' : 'enabled'}.`);
   };
 
   const renderSkeleton = () => (
@@ -387,6 +381,17 @@ const AnalyticsIntegration = () => {
     }
 
     const module = mockModuleIntegrations.find(m => m.id === selectedModule);
+    
+    if (!module) {
+      return (
+        <div className="h-full flex items-centre justify-centre border border-dashed rounded-md p-8">
+          <div className="text-centre">
+            <h3 className="text-lg font-medium">Module Not Found</h3>
+            <p className="text-muted-foreground">The selected module could not be found</p>
+          </div>
+        </div>
+      );
+    }
 
     return (
       <Card>
@@ -544,10 +549,26 @@ const AnalyticsIntegration = () => {
                 Analytics data flow between platform modules
               </CardDescription>
             </div>
-            <DateRangePicker
-              value={selectedDateRange}
-              onChange={setSelectedDateRange}
-            />
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button variant="outline" size="sm">
+                  <CalendarIcon className="mr-2 h-4 w-4" />
+                  {format(selectedDateRange.from, "PPP")} - {format(selectedDateRange.to, "PPP")}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0" align="end">
+                <Calendar
+                  mode="range"
+                  selected={selectedDateRange}
+                  onSelect={(range) => {
+                    if (range && range.from && range.to) {
+                      setSelectedDateRange({ from: range.from, to: range.to });
+                    }
+                  }}
+                  initialFocus
+                />
+              </PopoverContent>
+            </Popover>
           </div>
         </CardHeader>
         <CardContent>

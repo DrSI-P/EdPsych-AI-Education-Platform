@@ -91,11 +91,7 @@ export default function AdaptiveComplexityEngine({
 
   const adjustComplexity = async () => {
     if (!content && !contentId && !title) {
-      toast({
-        title: "Missing content",
-        description: "Please provide content, a title, or select existing content.",
-        variant: "destructive"
-      });
+      toast("Missing content: Please provide content, a title, or select existing content.");
       return;
     }
 
@@ -129,20 +125,13 @@ export default function AdaptiveComplexityEngine({
         onComplexityAdjusted(data.adjustedContent);
       }
 
-      toast({
-        title: "Complexity adjusted",
-        description: "Content has been successfully adjusted to the appropriate complexity level.",
-      });
+      toast("Complexity adjusted: Content has been successfully adjusted to the appropriate complexity level.");
       
       // Switch to adjusted content tab
       setActiveTab('adjusted');
     } catch (error) {
       console.error('Error adjusting complexity:', error);
-      toast({
-        title: "Adjustment failed",
-        description: "Failed to adjust content complexity. Please try again.",
-        variant: "destructive"
-      });
+      toast("Adjustment failed: Failed to adjust content complexity. Please try again.");
     } finally {
       setIsAdjusting(false);
     }
@@ -522,10 +511,7 @@ export default function AdaptiveComplexityEngine({
               variant="default" 
               size="sm"
               onClick={() => {
-                toast({
-                  title: "Content saved",
-                  description: "The adjusted content has been saved to your account.",
-                });
+                toast("Content saved: The adjusted content has been saved to your account.");
               }}
               className="flex items-centre gap-1"
             >

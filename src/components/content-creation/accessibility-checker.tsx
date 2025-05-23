@@ -92,7 +92,7 @@ export const AccessibilityChecker: React.FC<AccessibilityCheckerProps> = ({
           const missingAlt = imageElements.some((e: any) => !e.alt || e.alt.trim() === '');
           if (missingAlt) {
             mockResults.issues.unshift({
-              severity: 'critical' as const,
+              severity: 'serious' as const,
               description: 'Images without alternative text detected',
               recommendation: 'Add descriptive alt text to all images to ensure screen reader compatibility.'
             });
@@ -125,11 +125,7 @@ export const AccessibilityChecker: React.FC<AccessibilityCheckerProps> = ({
     } catch (error) {
       console.error('Failed to check accessibility:', error);
       setError('Failed to check accessibility. Please try again.');
-      toast({
-        variant: "destructive",
-        title: "Accessibility check failed",
-        description: "There was a problem checking the accessibility of your content.",
-      });
+      toast("Accessibility check failed: There was a problem checking the accessibility of your content.");
     } finally {
       setIsChecking(false);
     }
@@ -189,7 +185,7 @@ export const AccessibilityChecker: React.FC<AccessibilityCheckerProps> = ({
   return (
     <div className="accessibility-checker">
       {error && (
-        <Alert variant="destructive" className="mb-4">
+        <Alert variant="error" className="mb-4">
           <AlertCircle className="h-4 w-4" />
           <AlertTitle>Error</AlertTitle>
           <AlertDescription>{error}</AlertDescription>

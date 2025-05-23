@@ -206,3 +206,16 @@ export function TableLoading({ colSpan, message = 'Loading...', className = '' }
     </tr>
   );
 }
+
+interface TableCaptionProps {
+  children: React.ReactNode;
+  className?: string;
+}
+
+export function TableCaption({ children, className = '' }: TableCaptionProps) {
+  return (
+    <caption className={`py-2 text-sm text-grey-500 text-left ${className}`}>
+      {children}
+    </caption>
+  );
+}

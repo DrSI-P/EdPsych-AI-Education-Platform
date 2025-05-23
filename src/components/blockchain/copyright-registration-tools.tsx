@@ -40,6 +40,7 @@ import {
   Calendar,
   User
 } from 'lucide-react';
+// Using Lock for both locked and unlocked states since Unlock is not available
 import { useFairUsage } from '../subscription/fair-usage';
 
 // Mock Web3 integration - would be replaced with actual Ethereum/Web3 implementation
@@ -50,13 +51,20 @@ const mockWeb3 = {
   },
   
   // Calculate content hash
-  calculateContentHash: async (file) => {
+  calculateContentHash: async (file: File | null) => {
     // In a real implementation, this would calculate a hash of the file content
     return '0x' + Math.random().toString(16).substring(2, 66);
   },
   
   // Register copyright for content
-  registerCopyright: async (contentHash, metadata) => {
+  registerCopyright: async (contentHash: string, metadata: {
+    title: string;
+    type: string;
+    description: string;
+    licenseType: string;
+    visibility: string;
+    aiGenerated?: boolean;
+  }) => {
     // Simulate blockchain transaction
     await new Promise(resolve => setTimeout(resolve, 2000));
     return {
@@ -68,7 +76,7 @@ const mockWeb3 = {
   },
   
   // Verify copyright registration
-  verifyCopyright: async (registrationId) => {
+  verifyCopyright: async (registrationId: string) => {
     // Simulate blockchain verification
     await new Promise(resolve => setTimeout(resolve, 1000));
     return {
@@ -76,12 +84,13 @@ const mockWeb3 = {
       owner: '0xabcd...ef12',
       registeredAt: new Date(Date.now() - Math.random() * 10000000000).toISOString(),
       contentHash: '0x' + Math.random().toString(16).substring(2, 66),
-      licenseType: 'CC BY-NC-SA'
+      licenseType: 'CC BY-NC-SA',
+      type: 'copyright' as 'copyright' | 'content'
     };
   },
   
   // Verify content hash against registered hash
-  verifyContentHash: async (contentHash, registrationId) => {
+  verifyContentHash: async (contentHash: string, registrationId?: string) => {
     // Simulate blockchain verification
     await new Promise(resolve => setTimeout(resolve, 1500));
     
@@ -197,14 +206,31 @@ const CopyrightRegistrationTools = () => {
   const [showDetailsDialog, setShowDetailsDialog] = useState(false);
   const [showLicenseDialog, setShowLicenseDialog] = useState(false);
   
-  const [selectedRegistration, setSelectedRegistration] = useState(null);
+  const [selectedRegistration, setSelectedRegistration] = useState<any>(null);
   const [verificationId, setVerificationId] = useState('');
-  const [verificationResult, setVerificationResult] = useState(null);
+  const [verificationResult, setVerificationResult] = useState<{
+    valid?: boolean;
+    matches?: boolean;
+    owner: string;
+    registeredAt: string;
+    contentHash: string;
+    licenseType?: string;
+    type: 'copyright' | 'content';
+    registrationId?: string;
+  } | null>(null);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
   
   // New copyright registration form state
-  const [newCopyright, setNewCopyright] = useState({
+  const [newCopyright, setNewCopyright] = useState<{
+    title: string;
+    type: string;
+    description: string;
+    licenseType: string;
+    visibility: string;
+    file: File | null;
+    aiGenerated: boolean;
+  }>({
     title: '',
     type: 'document',
     description: '',
@@ -226,19 +252,11 @@ const CopyrightRegistrationTools = () => {
         setWalletConnected(true);
         setWalletAddress(result.address);
         
-        toast({
-          title: "Wallet Connected",
-          description: `Connected to ${result.address}`,
-          variant: "success",
-        });
+        toast(`Connected to ${result.address}`);
       }
     } catch (error) {
       console.error('Error connecting wallet:', error);
-      toast({
-        title: "Connection Failed",
-        description: error.message || "Failed to connect wallet",
-        variant: "destructive",
-      });
+      toast((error as Error).message || "Failed to connect wallet");
     } finally {
       setIsLoading(false);
     }
@@ -307,11 +325,7 @@ const CopyrightRegistrationTools = () => {
         
         setCopyrightRegistrations(prev => [registration, ...prev]);
         
-        toast({
-          title: "Copyright Registered",
-          description: `Successfully registered copyright for: ${newCopyright.title}`,
-          variant: "success",
-        });
+        toast(`Successfully registered copyright for: ${newCopyright.title}`);
         
         // Reset form and close dialogue
         setNewCopyright({
@@ -328,11 +342,7 @@ const CopyrightRegistrationTools = () => {
       }
     } catch (error) {
       console.error('Error registering copyright:', error);
-      toast({
-        title: "Registration Failed",
-        description: error.message || "Failed to register copyright",
-        variant: "destructive",
-      });
+      toast((error as Error).message || "Failed to register copyright");
     } finally {
       setIsLoading(false);
       setIsUploading(false);
@@ -351,22 +361,14 @@ const CopyrightRegistrationTools = () => {
       
       // Verify copyright on blockchain
       const result = await mockWeb3.verifyCopyright(verificationId);
-      result.type = 'copyright';
+      // type is already set in the verifyCopyright function
       
       setVerificationResult(result);
       
-      toast({
-        title: "Verification Complete",
-        description: result.valid ? "Copyright successfully verified" : "Verification failed",
-        variant: result.valid ? "success" : "destructive",
-      });
+      toast(result.valid ? "Copyright successfully verified" : "Verification failed");
     } catch (error) {
       console.error('Error verifying copyright:', error);
-      toast({
-        title: "Verification Failed",
-        description: error.message || "Failed to verify copyright",
-        variant: "destructive",
-      });
+      toast((error as Error).message || "Failed to verify copyright");
       setVerificationResult(null);
     } finally {
       setIsLoading(false);
@@ -374,7 +376,7 @@ const CopyrightRegistrationTools = () => {
   };
   
   // Verify content hash
-  const verifyContentHash = async (file) => {
+  const verifyContentHash = async (file: File) => {
     setIsLoading(true);
     
     try {
@@ -390,18 +392,10 @@ const CopyrightRegistrationTools = () => {
         type: 'content'
       });
       
-      toast({
-        title: "Content Verification Complete",
-        description: result.matches ? "Content matches a registered copyright" : "No matching copyright found",
-        variant: result.matches ? "success" : "destructive",
-      });
+      toast(result.matches ? "Content matches a registered copyright" : "No matching copyright found");
     } catch (error) {
       console.error('Error verifying content:', error);
-      toast({
-        title: "Verification Failed",
-        description: error.message || "Failed to verify content",
-        variant: "destructive",
-      });
+      toast((error as Error).message || "Failed to verify content");
       setVerificationResult(null);
     } finally {
       setIsLoading(false);
@@ -409,39 +403,36 @@ const CopyrightRegistrationTools = () => {
   };
   
   // Copy verification link
-  const copyVerificationLink = (id) => {
+  const copyVerificationLink = (id: string) => {
     const link = `https://edpsychconnect.com/verify/${id}`;
     navigator.clipboard.writeText(link);
     
-    toast({
-      title: "Link Copied",
-      description: "Verification link copied to clipboard",
-      variant: "success",
-    });
+    toast("Verification link copied to clipboard");
   };
   
   // Get license name from ID
-  const getLicenseName = (licenseId) => {
-    const license = licenseTypes.find(l => l.id === licenseId);
-    return license ? license.name : licenseId;
+  const getLicenseName = (licenseId: string) => {
+    const licence = licenseTypes.find(l => l.id === licenseId);
+    return licence ? licence.name : licenseId;
   };
   
   // Get content type name and icon
-  const getContentTypeInfo = (typeId) => {
+  const getContentTypeInfo = (typeId: string) => {
     const type = contentTypes.find(t => t.id === typeId);
     return type || { name: typeId, icon: <FileText className="h-5 w-5" /> };
   };
   
   // Handle file upload for verification
-  const handleVerificationFileUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
+  const handleVerificationFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (files && files.length > 0) {
+      const file = files[0];
       verifyContentHash(file);
     }
   };
   
   // Render copyright registration card
-  const renderCopyrightCard = (registration) => {
+  const renderCopyrightCard = (registration: any) => {
     const typeInfo = getContentTypeInfo(registration.type);
     
     return (
@@ -458,7 +449,7 @@ const CopyrightRegistrationTools = () => {
               {registration.aiGenerated && (
                 <Badge variant="secondary">AI-Generated</Badge>
               )}
-              <Badge variant={registration.verified ? "success" : "outline"}>
+              <Badge variant={registration.verified ? "secondary" : "outline"}>
                 {registration.verified ? "Verified" : "Unverified"}
               </Badge>
             </div>
@@ -522,60 +513,7 @@ const CopyrightRegistrationTools = () => {
     );
   };
   
-  // Licence information component
-  const LicenseInfo = ({ licenseType }) => {
-    const license = licenseTypes.find(l => l.id === licenseType) || {
-      name: licenseType,
-      description: 'Custom license type'
-    };
-    
-    const getLicenseIcon = (type) => {
-      if (type === 'all_rights_reserved') return <Lock className="h-5 w-5" />;
-      if (type === 'cc0') return <Unlock className="h-5 w-5" />;
-      return <Info className="h-5 w-5" />;
-    };
-    
-    return (
-      <div className="p-4 border rounded-lg">
-        <div className="flex items-centre mb-2">
-          {getLicenseIcon(licenseType)}
-          <h3 className="text-lg font-medium ml-2">{license.name}</h3>
-        </div>
-        <p className="text-sm text-muted-foreground mb-4">{license.description}</p>
-        
-        <div className="grid grid-cols-2 gap-4">
-          <div className="flex items-centre">
-            <CheckCircle className="h-4 w-4 mr-2 text-green-500" />
-            <span className="text-sm">Attribution Required</span>
-          </div>
-          <div className="flex items-centre">
-            {licenseType.includes('nc') ? (
-              <CheckCircle className="h-4 w-4 mr-2 text-green-500" />
-            ) : (
-              <AlertCircle className="h-4 w-4 mr-2 text-amber-500" />
-            )}
-            <span className="text-sm">Non-Commercial Only</span>
-          </div>
-          <div className="flex items-centre">
-            {licenseType.includes('nd') ? (
-              <CheckCircle className="h-4 w-4 mr-2 text-green-500" />
-            ) : (
-              <AlertCircle className="h-4 w-4 mr-2 text-amber-500" />
-            )}
-            <span className="text-sm">No Derivatives</span>
-          </div>
-          <div className="flex items-centre">
-            {licenseType.includes('sa') ? (
-              <CheckCircle className="h-4 w-4 mr-2 text-green-500" />
-            ) : (
-              <AlertCircle className="h-4 w-4 mr-2 text-amber-500" />
-            )}
-            <span className="text-sm">Share-Alike Required</span>
-          </div>
-        </div>
-      </div>
-    );
-  };
+  // Reference to the LicenseInfo component defined at module level
   
   return (
     <div className="container mx-auto py-8">
@@ -601,7 +539,7 @@ const CopyrightRegistrationTools = () => {
             <Badge variant="outline" className="font-mono">
               {walletAddress}
             </Badge>
-            <Badge variant="success" className="ml-2">
+            <Badge variant="secondary" className="ml-2">
               Connected
             </Badge>
           </div>
@@ -682,8 +620,8 @@ const CopyrightRegistrationTools = () => {
                       onChange={(e) => setNewCopyright({...newCopyright, licenseType: e.target.value})}
                     >
                       {licenseTypes.map((licence) => (
-                        <option key={license.id} value={license.id}>
-                          {license.name}
+                        <option key={licence.id} value={licence.id}>
+                          {licence.name}
                         </option>
                       ))}
                     </select>
@@ -730,7 +668,12 @@ const CopyrightRegistrationTools = () => {
                     <Input
                       id="file"
                       type="file"
-                      onChange={(e) => setNewCopyright({...newCopyright, file: e.target.files[0]})}
+                      onChange={(e) => {
+                        const files = e.target.files;
+                        if (files && files.length > 0) {
+                          setNewCopyright({...newCopyright, file: files[0]});
+                        }
+                      }}
                     />
                     <p className="text-xs text-muted-foreground mt-1">
                       Supported formats: PDF, DOCX, PPTX, JPG, PNG, MP3, MP4 (max 100MB)
@@ -1091,9 +1034,9 @@ const CopyrightRegistrationTools = () => {
           <div className="py-4 max-h-[60vh] overflow-y-auto pr-2">
             <div className="space-y-4">
               {licenseTypes.map((licence) => (
-                <div key={license.id} className="border rounded-lg p-3">
-                  <h3 className="font-medium">{license.name}</h3>
-                  <p className="text-sm text-muted-foreground">{license.description}</p>
+                <div key={licence.id} className="border rounded-lg p-3">
+                  <h3 className="font-medium">{licence.name}</h3>
+                  <p className="text-sm text-muted-foreground">{licence.description}</p>
                 </div>
               ))}
             </div>
@@ -1128,7 +1071,16 @@ const CopyrightRegistrationTools = () => {
 };
 
 // Integration with resource library
-const ResourceCopyrightRegistration = ({ resource, onRegister }) => {
+interface ResourceProps {
+  resource: {
+    title: string;
+    type: string;
+    description: string;
+  };
+  onRegister: (registrationId: string, licenseType: string) => void;
+}
+
+const ResourceCopyrightRegistration = ({ resource, onRegister }: ResourceProps) => {
   const [isRegistering, setIsRegistering] = useState(false);
   const [licenseType, setLicenseType] = useState('cc_by_nc_sa');
   const { toast } = useToast();
@@ -1152,19 +1104,11 @@ const ResourceCopyrightRegistration = ({ resource, onRegister }) => {
       if (result.success) {
         onRegister(result.registrationId, licenseType);
         
-        toast({
-          title: "Copyright Registered",
-          description: `Successfully registered copyright for: ${resource.title}`,
-          variant: "success",
-        });
+        toast(`Successfully registered copyright for: ${resource.title}`);
       }
     } catch (error) {
       console.error('Error registering copyright:', error);
-      toast({
-        title: "Registration Failed",
-        description: error.message || "Failed to register copyright",
-        variant: "destructive",
-      });
+      toast((error as Error).message || "Failed to register copyright");
     } finally {
       setIsRegistering(false);
     }
@@ -1181,8 +1125,8 @@ const ResourceCopyrightRegistration = ({ resource, onRegister }) => {
           onChange={(e) => setLicenseType(e.target.value)}
         >
           {licenseTypes.map((licence) => (
-            <option key={license.id} value={license.id}>
-              {license.name}
+            <option key={licence.id} value={licence.id}>
+              {licence.name}
             </option>
           ))}
         </select>
@@ -1209,7 +1153,15 @@ const ResourceCopyrightRegistration = ({ resource, onRegister }) => {
 };
 
 // Integration with AI-generated content
-const AIContentCopyrightRegistration = ({ content, onRegister }) => {
+interface AIContentProps {
+  content: {
+    title: string;
+    description: string;
+  };
+  onRegister: (registrationId: string, licenseType: string) => void;
+}
+
+const AIContentCopyrightRegistration = ({ content, onRegister }: AIContentProps) => {
   const [isRegistering, setIsRegistering] = useState(false);
   const [licenseType, setLicenseType] = useState('cc_by');
   const { toast } = useToast();
@@ -1234,19 +1186,11 @@ const AIContentCopyrightRegistration = ({ content, onRegister }) => {
       if (result.success) {
         onRegister(result.registrationId, licenseType);
         
-        toast({
-          title: "Copyright Registered",
-          description: `Successfully registered copyright for AI-generated content: ${content.title}`,
-          variant: "success",
-        });
+        toast(`Successfully registered copyright for AI-generated content: ${content.title}`);
       }
     } catch (error) {
       console.error('Error registering copyright:', error);
-      toast({
-        title: "Registration Failed",
-        description: error.message || "Failed to register copyright",
-        variant: "destructive",
-      });
+      toast((error as Error).message || "Failed to register copyright");
     } finally {
       setIsRegistering(false);
     }
@@ -1275,8 +1219,8 @@ const AIContentCopyrightRegistration = ({ content, onRegister }) => {
           onChange={(e) => setLicenseType(e.target.value)}
         >
           {licenseTypes.map((licence) => (
-            <option key={license.id} value={license.id}>
-              {license.name}
+            <option key={licence.id} value={licence.id}>
+              {licence.name}
             </option>
           ))}
         </select>
@@ -1294,9 +1238,64 @@ const AIContentCopyrightRegistration = ({ content, onRegister }) => {
   );
 };
 
-export { 
-  CopyrightRegistrationTools, 
-  ResourceCopyrightRegistration, 
+// Licence information component
+const LicenseInfo = ({ licenseType }: { licenseType: string }) => {
+  const licence = licenseTypes.find(l => l.id === licenseType) || {
+    name: licenseType,
+    description: 'Custom license type'
+  };
+  
+  const getLicenseIcon = (type: string) => {
+    if (type === 'all_rights_reserved') return <Lock className="h-5 w-5" />;
+    if (type === 'cc0') return <Lock className="h-5 w-5" />; // Using Lock instead of Unlock
+    return <Info className="h-5 w-5" />;
+  };
+  
+  return (
+    <div className="p-4 border rounded-lg">
+      <div className="flex items-centre mb-2">
+        {getLicenseIcon(licenseType)}
+        <h3 className="text-lg font-medium ml-2">{licence.name}</h3>
+      </div>
+      <p className="text-sm text-muted-foreground mb-4">{licence.description}</p>
+      
+      <div className="grid grid-cols-2 gap-4">
+        <div className="flex items-centre">
+          <CheckCircle className="h-4 w-4 mr-2 text-green-500" />
+          <span className="text-sm">Attribution Required</span>
+        </div>
+        <div className="flex items-centre">
+          {licenseType.includes('nc') ? (
+            <CheckCircle className="h-4 w-4 mr-2 text-green-500" />
+          ) : (
+            <AlertCircle className="h-4 w-4 mr-2 text-amber-500" />
+          )}
+          <span className="text-sm">Non-Commercial Only</span>
+        </div>
+        <div className="flex items-centre">
+          {licenseType.includes('nd') ? (
+            <CheckCircle className="h-4 w-4 mr-2 text-green-500" />
+          ) : (
+            <AlertCircle className="h-4 w-4 mr-2 text-amber-500" />
+          )}
+          <span className="text-sm">No Derivatives</span>
+        </div>
+        <div className="flex items-centre">
+          {licenseType.includes('sa') ? (
+            <CheckCircle className="h-4 w-4 mr-2 text-green-500" />
+          ) : (
+            <AlertCircle className="h-4 w-4 mr-2 text-amber-500" />
+          )}
+          <span className="text-sm">Share-Alike Required</span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export {
+  CopyrightRegistrationTools,
+  ResourceCopyrightRegistration,
   AIContentCopyrightRegistration,
   LicenseInfo
 };

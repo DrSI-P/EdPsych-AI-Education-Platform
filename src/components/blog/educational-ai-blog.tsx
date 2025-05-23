@@ -1,6 +1,41 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+
+// Define interfaces for our data structures
+interface BlogAuthor {
+  name: string;
+  avatar: string;
+  role: string;
+}
+
+interface BlogPost {
+  id: number;
+  title: string;
+  excerpt: string;
+  author: BlogAuthor;
+  category: string;
+  tags: string[];
+  publishedAt: string;
+  readTime: number;
+  imageUrl: string;
+  likes: number;
+  comments: number;
+  aiGenerated: boolean;
+  featured: boolean;
+}
+
+interface Category {
+  id: number;
+  name: string;
+  count: number;
+}
+
+interface Tag {
+  id: number;
+  name: string;
+  count: number;
+}
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -164,7 +199,7 @@ const popularTags = [
 ];
 
 // Featured Blog Post Component
-const FeaturedPost = ({ post }) => {
+const FeaturedPost = ({ post }: { post: BlogPost }) => {
   return (
     <Card className="overflow-hidden">
       <div className="relative h-[300px] w-full">
@@ -217,7 +252,7 @@ const FeaturedPost = ({ post }) => {
 };
 
 // Blog Post Card Component
-const BlogPostCard = ({ post }) => {
+const BlogPostCard = ({ post }: { post: BlogPost }) => {
   return (
     <Card className="overflow-hidden h-full flex flex-col">
       <div className="relative h-48">
@@ -276,10 +311,10 @@ const BlogPostCard = ({ post }) => {
 };
 
 // Category List Component
-const CategoryList = ({ categories }) => {
+const CategoryList = ({ categories }: { categories: Category[] }) => {
   return (
     <div className="space-y-1">
-      {categories.map((category) => (
+      {categories.map((category: Category) => (
         <div 
           key={category.id}
           className="flex items-centre justify-between py-2 px-3 rounded-md hover:bg-muted cursor-pointer"
@@ -293,10 +328,10 @@ const CategoryList = ({ categories }) => {
 };
 
 // Tag Cloud Component
-const TagCloud = ({ tags }) => {
+const TagCloud = ({ tags }: { tags: Tag[] }) => {
   return (
     <div className="flex flex-wrap gap-2">
-      {tags.map((tag) => (
+      {tags.map((tag: Tag) => (
         <Badge 
           key={tag.id} 
           variant="outline"
@@ -550,13 +585,18 @@ export function EducationalAIBlog() {
 }
 
 // Simple Select Component (for demo purposes)
-const Select = ({ defaultValue, options }) => {
+interface SelectOption {
+  value: string;
+  label: string;
+}
+
+const Select = ({ defaultValue, options }: { defaultValue: string, options: SelectOption[] }) => {
   return (
-    <select 
+    <select
       defaultValue={defaultValue}
       className="bg-background border rounded-md px-3 py-1 text-sm"
     >
-      {options.map(option => (
+      {options.map((option: SelectOption) => (
         <option key={option.value} value={option.value}>
           {option.label}
         </option>

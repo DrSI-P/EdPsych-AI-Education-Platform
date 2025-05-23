@@ -97,12 +97,12 @@ interface CurriculumContextType {
 }
 
 interface GenerationParams {
-  difficulty: string;
+  difficulty: 'auto' | 'beginner' | 'intermediate' | 'advanced' | 'expert' | 'master';
   subject: string;
   keyStage: string;
   learningStyles: string[];
   focusAreas: string[];
-  duration: string;
+  duration: 'short' | 'medium' | 'long';
 }
 
 interface Quest {
@@ -208,8 +208,13 @@ const AdaptiveQuestGenerator = ({
     curriculumContext: CurriculumContextType
   ): Quest => {
     // Determine appropriate difficulty
-    let difficulty = params.difficulty;
-    if (difficulty === 'auto') {
+    let difficulty: 'beginner' | 'intermediate' | 'advanced' | 'expert' | 'master' =
+      params.difficulty === 'auto'
+        ? 'intermediate' // Default to intermediate if auto
+        : params.difficulty as 'beginner' | 'intermediate' | 'advanced' | 'expert' | 'master';
+    
+    // If auto, calculate based on assessment results
+    if (params.difficulty === 'auto') {
       // Calculate appropriate difficulty based on assessment results
       const averageScore = assessmentResults && assessmentResults.length > 0
         ? assessmentResults.reduce((sum, result) => sum + result.percentageScore, 0) / assessmentResults.length
@@ -237,6 +242,8 @@ const AdaptiveQuestGenerator = ({
       ? params.focusAreas
       : determineFocusAreas(assessmentResults);
     
+    // At this point, difficulty is guaranteed to be one of the valid difficulty levels, not 'auto'
+    
     // Determine duration
     const durationMap = {
       'short': '1-2 hours',
@@ -258,22 +265,22 @@ const AdaptiveQuestGenerator = ({
     const rewards = generateQuestRewards(subject, difficulty);
     
     // Calculate XP reward based on difficulty and duration
-    const difficultyMultiplier = {
+    const difficultyMultiplier: Record<'beginner' | 'intermediate' | 'advanced' | 'expert' | 'master', number> = {
       'beginner': 1,
       'intermediate': 1.5,
       'advanced': 2,
       'expert': 2.5,
       'master': 3
     };
-    const durationMultiplier = {
+    const durationMultiplier: Record<'short' | 'medium' | 'long', number> = {
       'short': 1,
       'medium': 1.5,
       'long': 2
     };
     const baseXp = 100;
     const xpReward = Math.round(
-      baseXp * 
-      (difficultyMultiplier[difficulty] || 1) * 
+      baseXp *
+      (difficultyMultiplier[difficulty] || 1) *
       (durationMultiplier[params.duration] || 1.5)
     );
     
@@ -371,11 +378,22 @@ const AdaptiveQuestGenerator = ({
     return sortedSkills.slice(0, 3).map(item => item.skill);
   };
   
-  const generateQuestTitleAndDescription = (subject: string, focusAreas: string[], difficulty: string): { title: string; description: string } => {
+  const generateQuestTitleAndDescription = (subject: string, focusAreas: string[], difficulty: 'beginner' | 'intermediate' | 'advanced' | 'expert' | 'master'): { title: string; description: string } => {
     // In a real implementation, this would use an AI service to generate creative titles
     // For now, use templates based on subject and focus areas
     
-    const subjectThemes = {
+    // Define a type for the theme structure
+    interface ThemeContent {
+      titles: string[];
+      descriptions: string[];
+    }
+    
+    // Define a type for the subject themes mapping
+    type SubjectThemesMap = {
+      [key: string]: ThemeContent;
+    };
+    
+    const subjectThemes: SubjectThemesMap = {
       'Mathematics': {
         titles: [
           'The Mathematical Mystery',
@@ -455,7 +473,12 @@ const AdaptiveQuestGenerator = ({
     // In a real implementation, this would generate objectives based on curriculum standards
     // For now, use templates based on subject and focus areas
     
-    const subjectObjectives = {
+    // Define a type for the subject objectives mapping
+    type SubjectObjectivesMap = {
+      [key: string]: string[];
+    };
+    
+    const subjectObjectives: SubjectObjectivesMap = {
       'Mathematics': [
         'Understand and apply mathematical concepts',
         'Develop problem-solving strategies',
@@ -516,27 +539,40 @@ const AdaptiveQuestGenerator = ({
     return selectedObjectives;
   };
   
-  const generateQuestChapters = (subject: string, focusAreas: string[], difficulty: string): any[] => {
+  const generateQuestChapters = (subject: string, focusAreas: string[], difficulty: 'beginner' | 'intermediate' | 'advanced' | 'expert' | 'master'): any[] => {
     // In a real implementation, this would generate chapters based on curriculum progression
     // For now, use templates based on subject and difficulty
     
-    const chapterCount = {
+    const chapterCountMap: Record<'beginner' | 'intermediate' | 'advanced' | 'expert' | 'master', number> = {
       'beginner': 3,
       'intermediate': 3,
       'advanced': 4,
       'expert': 4,
       'master': 5
-    }[difficulty] || 3;
+    };
+    const chapterCount = chapterCountMap[difficulty] || 3;
     
-    const challengeBase = {
+    const challengeBaseMap: Record<'beginner' | 'intermediate' | 'advanced' | 'expert' | 'master', number> = {
       'beginner': 3,
       'intermediate': 4,
       'advanced': 4,
       'expert': 5,
       'master': 5
-    }[difficulty] || 3;
+    };
+    const challengeBase = challengeBaseMap[difficulty] || 3;
     
-    const subjectChapters = {
+    // Define a type for the chapter structure
+    interface ChapterContent {
+      title: string;
+      description: string;
+    }
+    
+    // Define a type for the subject chapters mapping
+    type SubjectChaptersMap = {
+      [key: string]: ChapterContent[];
+    };
+    
+    const subjectChapters: SubjectChaptersMap = {
       'Mathematics': [
         {
           title: 'The Pattern Palace',
@@ -650,19 +686,32 @@ const AdaptiveQuestGenerator = ({
     return selectedChapters;
   };
   
-  const generateQuestRewards = (subject: string, difficulty: string): any[] => {
+  const generateQuestRewards = (subject: string, difficulty: 'beginner' | 'intermediate' | 'advanced' | 'expert' | 'master'): any[] => {
     // In a real implementation, this would generate rewards based on curriculum achievements
     // For now, use templates based on subject and difficulty
     
-    const difficultyMultiplier = {
+    const difficultyMultiplierMap: Record<'beginner' | 'intermediate' | 'advanced' | 'expert' | 'master', number> = {
       'beginner': 1,
       'intermediate': 1.5,
       'advanced': 2,
       'expert': 2.5,
       'master': 3
-    }[difficulty] || 1;
+    };
+    const difficultyMultiplier = difficultyMultiplierMap[difficulty] || 1;
     
-    const subjectRewards = {
+    // Define a type for the reward structure
+    interface RewardContent {
+      type: string;
+      name: string;
+      icon: React.ReactNode;
+    }
+    
+    // Define a type for the subject rewards mapping
+    type SubjectRewardsMap = {
+      [key: string]: RewardContent[];
+    };
+    
+    const subjectRewards: SubjectRewardsMap = {
       'Mathematics': [
         { type: 'badge', name: 'Mathematical Explorer', icon: <Puzzle className="h-4 w-4" /> },
         { type: 'item', name: 'Mathematical Compass', icon: <Compass className="h-4 w-4" /> },
@@ -713,30 +762,31 @@ const AdaptiveQuestGenerator = ({
     return rewards;
   };
   
-  const getCurriculumCode = (subject: string, keyStage: string, curriculumContext: CurriculumContextType): string | null => {
-    if (!curriculumContext) return null;
+  const getCurriculumCode = (subject: string, keyStage: string, curriculumContext: CurriculumContextType): string | undefined => {
+    if (!curriculumContext) return undefined;
     
     // In a real implementation, this would look up the appropriate curriculum code
-    const subjectPrefix = {
+    const subjectPrefixMap: Record<string, string> = {
       'Mathematics': 'MA',
       'English': 'EN',
       'Science': 'SC'
-    }[subject] || 'GEN';
+    };
+    const subjectPrefix = subjectPrefixMap[subject] || 'GEN';
     
     const keyStageNumber = keyStage.replace('KS', '');
     
     return `${subjectPrefix}${keyStageNumber}-AQ`;
   };
   
-  const getCurriculumLink = (subject: string, keyStage: string, curriculumContext: CurriculumContextType): string | null => {
-    if (!curriculumContext) return null;
+  const getCurriculumLink = (subject: string, keyStage: string, curriculumContext: CurriculumContextType): string | undefined => {
+    if (!curriculumContext) return undefined;
     
     // In a real implementation, this would generate a link to curriculum standards
     return `/curriculum/${subject.toLowerCase()}/${keyStage.toLowerCase()}/standards`;
   };
   
   // Handle parameter changes
-  const handleParamChange = (param, value) => {
+  const handleParamChange = (param: keyof GenerationParams, value: string | string[]) => {
     setGenerationParams(prev => ({
       ...prev,
       [param]: value
@@ -744,7 +794,7 @@ const AdaptiveQuestGenerator = ({
   };
   
   // Toggle learning style
-  const toggleLearningStyle = (style) => {
+  const toggleLearningStyle = (style: string) => {
     setGenerationParams(prev => {
       const current = [...prev.learningStyles];
       const index = current.indexOf(style);
@@ -763,7 +813,7 @@ const AdaptiveQuestGenerator = ({
   };
   
   // Toggle focus area
-  const toggleFocusArea = (area) => {
+  const toggleFocusArea = (area: string) => {
     setGenerationParams(prev => {
       const current = [...prev.focusAreas];
       const index = current.indexOf(area);
@@ -781,6 +831,21 @@ const AdaptiveQuestGenerator = ({
     });
   };
   
+  // Define learning styles with icons
+  interface LearningStyle {
+    id: string;
+    name: string;
+    icon: React.ReactNode;
+  }
+
+  // Available learning styles
+  const learningStyles: LearningStyle[] = [
+    { id: 'visual', name: 'Visual', icon: <Eye className="h-4 w-4 mr-1" /> },
+    { id: 'auditory', name: 'Auditory', icon: <EarIcon className="h-4 w-4 mr-1" /> },
+    { id: 'reading_writing', name: 'Reading/Writing', icon: <BookOpen className="h-4 w-4 mr-1" /> },
+    { id: 'kinesthetic', name: 'Kinesthetic', icon: <HandIcon className="h-4 w-4 mr-1" /> }
+  ];
+
   // Available subjects from curriculum
   const subjects = curriculumContext?.subjects || [
     'Mathematics',
@@ -969,7 +1034,7 @@ const AdaptiveQuestGenerator = ({
 };
 
 // Custom loader icon
-const Loader2 = (props) => (
+const Loader2 = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -1006,17 +1071,32 @@ const Search = (props: React.SVGProps<SVGSVGElement>) => (
 );
 
 // Progress Tracking Dashboard Component
-const ProgressTrackingDashboard = ({ 
-  character, 
-  completedQuests, 
-  activeQuests, 
-  learningHistory, 
-  assessmentResults 
-}) => {
+interface ProgressTrackingDashboardProps {
+  character: any;
+  completedQuests: any[];
+  activeQuests: any[];
+  learningHistory: LearningHistoryItem[];
+  assessmentResults: AssessmentResult[];
+}
+
+const ProgressTrackingDashboard = ({
+  character,
+  completedQuests,
+  activeQuests,
+  learningHistory,
+  assessmentResults
+}: ProgressTrackingDashboardProps) => {
   const [activeTab, setActiveTab] = useState('overview');
   
+  interface OverallProgressStats {
+    completionRate: number;
+    averageScore: number;
+    totalXP: number;
+    skillProgress: Record<string, number>;
+  }
+
   // Calculate overall progress statistics
-  const calculateOverallProgress = () => {
+  const calculateOverallProgress = (): OverallProgressStats => {
     if (!completedQuests || completedQuests.length === 0) {
       return {
         completionRate: 0,
@@ -1027,8 +1107,8 @@ const ProgressTrackingDashboard = ({
     }
     
     const totalQuests = completedQuests.length + (activeQuests?.length || 0);
-    const completionRate = totalQuests > 0 
-      ? (completedQuests.length / totalQuests) * 100 
+    const completionRate = totalQuests > 0
+      ? (completedQuests.length / totalQuests) * 100
       : 0;
     
     // Calculate average score from assessment results
@@ -1040,10 +1120,10 @@ const ProgressTrackingDashboard = ({
     const totalXP = completedQuests.reduce((sum, quest) => sum + (quest.xpReward || 0), 0);
     
     // Calculate skill progress
-    const skillProgress = {};
+    const skillProgress: Record<string, number> = {};
     
     if (character && character.skills) {
-      character.skills.forEach(skill => {
+      character.skills.forEach((skill: { name: string; progress: number }) => {
         skillProgress[skill.name] = skill.progress;
       });
     }
@@ -1056,13 +1136,21 @@ const ProgressTrackingDashboard = ({
     };
   };
   
+  interface SubjectProgress {
+    subject: string;
+    completed: number;
+    xpEarned: number;
+    assessmentScores: number[];
+    averageScore?: number;
+  }
+
   // Calculate subject-specific progress
-  const calculateSubjectProgress = () => {
+  const calculateSubjectProgress = (): SubjectProgress[] => {
     if (!completedQuests || completedQuests.length === 0) {
       return [];
     }
     
-    const subjectProgress = {};
+    const subjectProgress: Record<string, SubjectProgress> = {};
     
     // Group quests by subject
     completedQuests.forEach(quest => {
@@ -1102,13 +1190,20 @@ const ProgressTrackingDashboard = ({
     return Object.values(subjectProgress);
   };
   
+  interface LearningStyleEffectiveness {
+    style: string;
+    quests: number;
+    averageScore: number;
+    totalScore: number;
+  }
+
   // Calculate learning style effectiveness
-  const calculateLearningStyleEffectiveness = () => {
+  const calculateLearningStyleEffectiveness = (): LearningStyleEffectiveness[] => {
     if (!completedQuests || completedQuests.length === 0 || !assessmentResults || assessmentResults.length === 0) {
       return [];
     }
     
-    const styleEffectiveness = {
+    const styleEffectiveness: Record<string, LearningStyleEffectiveness> = {
       visual: { style: 'Visual', quests: 0, averageScore: 0, totalScore: 0 },
       auditory: { style: 'Auditory', quests: 0, averageScore: 0, totalScore: 0 },
       reading_writing: { style: 'Reading/Writing', quests: 0, averageScore: 0, totalScore: 0 },
@@ -1117,17 +1212,17 @@ const ProgressTrackingDashboard = ({
     
     // Match completed quests with assessment results
     completedQuests.forEach(quest => {
-      const relatedAssessments = assessmentResults.filter(result => 
+      const relatedAssessments = assessmentResults.filter(result =>
         result.questId === quest.id || result.subject === quest.subject
       );
       
       if (relatedAssessments.length > 0) {
-        const averageScore = relatedAssessments.reduce((sum, result) => 
+        const averageScore = relatedAssessments.reduce((sum, result) =>
           sum + result.percentageScore, 0
         ) / relatedAssessments.length;
         
         // Update effectiveness for each learning style in the quest
-        quest.learningStyles.forEach(style => {
+        quest.learningStyles.forEach((style: string) => {
           if (styleEffectiveness[style]) {
             styleEffectiveness[style].quests += 1;
             styleEffectiveness[style].totalScore += averageScore;
@@ -1138,8 +1233,8 @@ const ProgressTrackingDashboard = ({
     
     // Calculate average scores
     Object.values(styleEffectiveness).forEach(style => {
-      style.averageScore = style.quests > 0 
-        ? style.totalScore / style.quests 
+      style.averageScore = style.quests > 0
+        ? style.totalScore / style.quests
         : 0;
     });
     
@@ -1149,8 +1244,19 @@ const ProgressTrackingDashboard = ({
       .sort((a, b) => b.averageScore - a.averageScore);
   };
   
+  interface ProgressPeriod {
+    period: string;
+    completed: number;
+    xpEarned: number;
+  }
+
+  interface ProgressTrends {
+    weekly: ProgressPeriod[];
+    monthly: ProgressPeriod[];
+  }
+
   // Calculate time-based progress trends
-  const calculateProgressTrends = () => {
+  const calculateProgressTrends = (): ProgressTrends => {
     if (!completedQuests || completedQuests.length === 0) {
       return {
         weekly: [],
@@ -1159,8 +1265,8 @@ const ProgressTrackingDashboard = ({
     }
     
     // Group completed quests by week and month
-    const weeklyData = {};
-    const monthlyData = {};
+    const weeklyData: Record<string, ProgressPeriod> = {};
+    const monthlyData: Record<string, ProgressPeriod> = {};
     
     completedQuests.forEach(quest => {
       const completedAt = quest.completedAt ? new Date(quest.completedAt) : new Date();
@@ -1207,21 +1313,21 @@ const ProgressTrackingDashboard = ({
   };
   
   // Helper functions for date formatting
-  const getWeekKey = (date) => {
+  const getWeekKey = (date: Date): string => {
     const year = date.getFullYear();
     const weekNumber = getWeekNumber(date);
     return `${year}-W${weekNumber.toString().padStart(2, '0')}`;
   };
   
-  const getMonthKey = (date) => {
+  const getMonthKey = (date: Date): string => {
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
     return `${year}-${month.toString().padStart(2, '0')}`;
   };
   
-  const getWeekNumber = (date) => {
+  const getWeekNumber = (date: Date): number => {
     const firstDayOfYear = new Date(date.getFullYear(), 0, 1);
-    const pastDaysOfYear = (date - firstDayOfYear) / 86400000;
+    const pastDaysOfYear = (date.getTime() - firstDayOfYear.getTime()) / 86400000;
     return Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7);
   };
   
@@ -1328,7 +1434,7 @@ const ProgressTrackingDashboard = ({
                 <div>
                   <h3 className="text-sm font-medium mb-2">Skill Progress</h3>
                   <div className="space-y-3">
-                    {character?.skills?.map((skill) => (
+                    {character?.skills?.map((skill: { id: string; name: string; level: number; progress: number; icon: React.ReactNode }) => (
                       <div key={skill.id} className="space-y-1">
                         <div className="flex justify-between items-centre">
                           <div className="flex items-centre">
@@ -1338,7 +1444,7 @@ const ProgressTrackingDashboard = ({
                           <span className="text-sm font-medium">Level {skill.level}</span>
                         </div>
                         <div className="h-2 bg-muted rounded-full">
-                          <div 
+                          <div
                             className="h-2 bg-primary rounded-full"
                             style={{ width: `${skill.progress}%` }}
                           ></div>
@@ -1363,7 +1469,7 @@ const ProgressTrackingDashboard = ({
               <CardContent>
                 {character?.badges && character.badges.length > 0 ? (
                   <div className="space-y-3">
-                    {character.badges.slice(0, 5).map((badge) => (
+                    {character.badges.slice(0, 5).map((badge: { id: string; name: string; description: string; icon: React.ReactNode }) => (
                       <div key={badge.id} className="flex items-start p-2 border rounded-lg">
                         <div className="p-2 bg-primary/10 rounded-lg mr-3">
                           {badge.icon}
@@ -1450,22 +1556,17 @@ const ProgressTrackingDashboard = ({
                       <div>
                         <div className="flex justify-between items-centre text-xs text-muted-foreground mb-1">
                           <span>Average Score</span>
-                          <span>{Math.round(progress.averageScore)}%</span>
+                          <span>{Math.round(progress.averageScore || 0)}%</span>
                         </div>
-                        <Progress 
-                          value={progress.averageScore} 
+                        <Progress
+                          value={progress.averageScore || 0}
                           className="h-2"
-                          // Colour based on score
+                          // Use className instead of custom CSS properties
                           style={{
-                            backgroundColor: 'hsl(var(--muted))',
-                            '--progress-colour': progress.averageScore < 50 
-                              ? 'hsl(var(--destructive))' 
-                              : progress.averageScore < 70
-                                ? 'hsl(var(--warning))' 
-                                : 'hsl(var(--success))',
-                            '--progress-value': `${progress.averageScore}%`,
-                            background: 'linear-gradient(to right, var(--progress-colour) var(--progress-value), hsl(var(--muted)) var(--progress-value))'
+                            backgroundColor: 'hsl(var(--muted))'
                           }}
+                          // Use data attributes for custom styling if needed
+                          data-score={(progress.averageScore || 0)}
                         />
                       </div>
                       
@@ -1550,20 +1651,15 @@ const ProgressTrackingDashboard = ({
                           <span>Effectiveness Score</span>
                           <span>{Math.round(style.averageScore)}%</span>
                         </div>
-                        <Progress 
-                          value={style.averageScore} 
+                        <Progress
+                          value={style.averageScore}
                           className="h-2"
-                          // Colour based on effectiveness
+                          // Use className instead of custom CSS properties
                           style={{
-                            backgroundColor: 'hsl(var(--muted))',
-                            '--progress-colour': style.averageScore < 50 
-                              ? 'hsl(var(--destructive))' 
-                              : style.averageScore < 70
-                                ? 'hsl(var(--warning))' 
-                                : 'hsl(var(--success))',
-                            '--progress-value': `${style.averageScore}%`,
-                            background: 'linear-gradient(to right, var(--progress-colour) var(--progress-value), hsl(var(--muted)) var(--progress-value))'
+                            backgroundColor: 'hsl(var(--muted))'
                           }}
+                          // Use data attributes for custom styling if needed
+                          data-score={style.averageScore}
                         />
                       </div>
                       
@@ -1763,7 +1859,7 @@ const ProgressTrackingDashboard = ({
 };
 
 // Custom icons
-const Eye = (props) => (
+const Eye = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -1781,7 +1877,7 @@ const Eye = (props) => (
   </svg>
 );
 
-const EarIcon = (props) => (
+const EarIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -1799,7 +1895,7 @@ const EarIcon = (props) => (
   </svg>
 );
 
-const HandIcon = (props) => (
+const HandIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -1819,14 +1915,36 @@ const HandIcon = (props) => (
   </svg>
 );
 
+// Define types for the main component
+interface Character {
+  level?: number;
+  skills?: Array<{
+    id: string;
+    name: string;
+    level: number;
+    progress: number;
+    icon: React.ReactNode;
+  }>;
+  badges?: Array<{
+    id: string;
+    name: string;
+    description: string;
+    icon: React.ReactNode;
+  }>;
+  activeQuests: number;
+  [key: string]: any;
+}
+
+type ActiveView = 'quests' | 'character' | 'quest-detail' | 'adaptive' | 'progress';
+
 // Main Adventure Quest Saga Component with Adaptive Generation and Progress Tracking
 const AdventureQuestSagaAdaptive = () => {
-  const [character, setCharacter] = useState(null);
-  const [quests, setQuests] = useState([]);
-  const [completedQuests, setCompletedQuests] = useState([]);
-  const [activeQuests, setActiveQuests] = useState([]);
-  const [selectedQuest, setSelectedQuest] = useState(null);
-  const [activeView, setActiveView] = useState('quests'); // 'quests', 'character', 'quest-detail', 'adaptive', 'progress'
+  const [character, setCharacter] = useState<Character | null>(null);
+  const [quests, setQuests] = useState<Quest[]>([]);
+  const [completedQuests, setCompletedQuests] = useState<any[]>([]);
+  const [activeQuests, setActiveQuests] = useState<any[]>([]);
+  const [selectedQuest, setSelectedQuest] = useState<Quest | null>(null);
+  const [activeView, setActiveView] = useState<ActiveView>('quests');
   const { toast } = useToast();
   const { useFeatureWithCredit, CreditPurchaseDialog } = useFairUsage();
   
@@ -1842,6 +1960,91 @@ const AdventureQuestSagaAdaptive = () => {
   // Integration with user profile
   const userProfileContext = useUserProfile();
   
+  // Mock character data for development
+  const mockCharacter: Character = {
+    level: 5,
+    activeQuests: 2,
+    skills: [
+      {
+        id: 'skill1',
+        name: 'Problem Solving',
+        level: 4,
+        progress: 75,
+        icon: <Brain className="h-4 w-4" />
+      },
+      {
+        id: 'skill2',
+        name: 'Critical Thinking',
+        level: 3,
+        progress: 60,
+        icon: <Lightbulb className="h-4 w-4" />
+      },
+      {
+        id: 'skill3',
+        name: 'Communication',
+        level: 2,
+        progress: 40,
+        icon: <BookOpen className="h-4 w-4" />
+      }
+    ],
+    badges: [
+      {
+        id: 'badge1',
+        name: 'Mathematics Explorer',
+        description: 'Completed 3 mathematics quests',
+        icon: <Puzzle className="h-4 w-4" />
+      },
+      {
+        id: 'badge2',
+        name: 'Science Enthusiast',
+        description: 'Achieved 90% in a science quest',
+        icon: <Lightbulb className="h-4 w-4" />
+      }
+    ]
+  };
+
+  // Mock quests data for development
+  const mockQuests: Quest[] = [
+    {
+      id: 'q1',
+      title: 'The Mathematical Mystery',
+      description: 'Embark on an adventure to uncover the secrets of mathematical patterns in the world around us.',
+      difficulty: 'beginner',
+      subject: 'Mathematics',
+      keyStage: 'KS2',
+      duration: '1-2 hours',
+      xpReward: 100,
+      learningStyles: ['visual', 'reading_writing'],
+      objectives: ['Understand and apply mathematical concepts', 'Develop problem-solving strategies'],
+      chapters: [],
+      rewards: [],
+      progress: 0,
+      unlocked: true,
+      adaptive: false,
+      focusAreas: ['problem-solving'],
+      generatedAt: '2023-01-01T00:00:00Z'
+    },
+    {
+      id: 'q2',
+      title: 'The Literary Labyrinth',
+      description: 'Journey through a maze of stories, poems, and literary devices to enhance your language skills.',
+      difficulty: 'intermediate',
+      subject: 'English',
+      keyStage: 'KS2',
+      duration: '2-3 hours',
+      xpReward: 150,
+      learningStyles: ['reading_writing', 'auditory'],
+      objectives: ['Analyse different types of texts', 'Develop vocabulary and language skills'],
+      chapters: [],
+      rewards: [],
+      progress: 0,
+      unlocked: true,
+      adaptive: false,
+      focusAreas: ['creativity', 'communication'],
+      generatedAt: '2023-01-02T00:00:00Z'
+    }
+  ];
+
   // Mock learning history and assessment results for development
   const mockLearningHistory = [
     {
@@ -1870,7 +2073,7 @@ const AdventureQuestSagaAdaptive = () => {
     }
   ];
   
-  const mockAssessmentResults = [
+  const mockAssessmentResults: AssessmentResult[] = [
     {
       id: 'ar1',
       questId: 'q1',
@@ -1882,7 +2085,11 @@ const AdventureQuestSagaAdaptive = () => {
       skillBreakdown: {
         'problem-solving': 80,
         'critical-thinking': 85,
-        'application': 90
+        'application': 90,
+        'analysis': 0,
+        'creativity': 0,
+        'communication': 0,
+        'research': 0
       }
     },
     {
@@ -1894,9 +2101,13 @@ const AdventureQuestSagaAdaptive = () => {
       maxScore: 50,
       percentageScore: 78,
       skillBreakdown: {
+        'problem-solving': 0,
+        'critical-thinking': 0,
+        'application': 0,
         'analysis': 75,
         'creativity': 85,
-        'communication': 80
+        'communication': 80,
+        'research': 0
       }
     },
     {
@@ -1908,9 +2119,13 @@ const AdventureQuestSagaAdaptive = () => {
       maxScore: 50,
       percentageScore: 92,
       skillBreakdown: {
-        'research': 90,
+        'problem-solving': 0,
+        'critical-thinking': 0,
+        'application': 85,
         'analysis': 95,
-        'application': 85
+        'creativity': 0,
+        'communication': 0,
+        'research': 90
       }
     }
   ];
@@ -1977,18 +2192,18 @@ const AdventureQuestSagaAdaptive = () => {
   }, [character]);
   
   // Handle character creation
-  const handleCreateCharacter = (newCharacter) => {
+  const handleCreateCharacter = (newCharacter: Character) => {
     setCharacter(newCharacter);
   };
   
   // Handle quest selection
-  const handleSelectQuest = (quest) => {
+  const handleSelectQuest = (quest: Quest) => {
     setSelectedQuest(quest);
     setActiveView('quest-detail');
   };
   
   // Handle quest start
-  const handleStartQuest = async (quest) => {
+  const handleStartQuest = async (quest: Quest) => {
     // Check if feature can be used (fair usage)
     const usageResult = await useFeatureWithCredit('questStart');
     
@@ -2002,10 +2217,13 @@ const AdventureQuestSagaAdaptive = () => {
     });
     
     // Update character
-    setCharacter(prev => ({
-      ...prev,
-      activeQuests: prev.activeQuests + 1
-    }));
+    setCharacter(prev => {
+      if (!prev) return prev;
+      return {
+        ...prev,
+        activeQuests: prev.activeQuests + 1
+      };
+    });
     
     // Add to active quests
     setActiveQuests(prev => [
@@ -2031,7 +2249,7 @@ const AdventureQuestSagaAdaptive = () => {
   };
   
   // Handle adaptive quest generation
-  const handleAdaptiveQuestGenerated = (quest) => {
+  const handleAdaptiveQuestGenerated = (quest: Quest) => {
     // Add generated quest to quests list
     setQuests(prev => [...prev, quest]);
     
@@ -2041,6 +2259,117 @@ const AdventureQuestSagaAdaptive = () => {
   };
   
   // If no character, show character creation
+  // Simple placeholder for CharacterCreation component
+  const CharacterCreation = ({ onCreateCharacter }: { onCreateCharacter: (character: Character) => void }) => {
+    return (
+      <div className="space-y-6">
+        <h2 className="text-2xl font-bold">Create Your Character</h2>
+        <p className="text-muted-foreground">This is a placeholder for character creation.</p>
+        <Button onClick={() => onCreateCharacter(mockCharacter)}>
+          Create Default Character
+        </Button>
+      </div>
+    );
+  };
+
+  // Simple placeholder for QuestDetail component
+  const QuestDetail = ({
+    quest,
+    onBack,
+    onStart
+  }: {
+    quest: Quest | null;
+    onBack: () => void;
+    onStart: (quest: Quest) => void;
+  }) => {
+    if (!quest) return null;
+    
+    return (
+      <div className="space-y-6">
+        <div className="flex items-center justify-between">
+          <h2 className="text-2xl font-bold">{quest.title}</h2>
+          <Button variant="outline" onClick={onBack}>Back to Quests</Button>
+        </div>
+        <p>{quest.description}</p>
+        <div className="flex gap-2">
+          <Badge>{quest.difficulty}</Badge>
+          <Badge>{quest.subject}</Badge>
+          <Badge>{quest.duration}</Badge>
+        </div>
+        <Button onClick={() => quest && onStart(quest)}>Start Quest</Button>
+      </div>
+    );
+  };
+
+  // Simple placeholder for QuestHub component
+  const QuestHub = ({
+    quests,
+    onSelectQuest
+  }: {
+    quests: Quest[];
+    onSelectQuest: (quest: Quest) => void;
+  }) => {
+    return (
+      <div className="space-y-6">
+        <h2 className="text-2xl font-bold">Available Quests</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {quests.map(quest => (
+            <div key={quest.id} className="cursor-pointer" onClick={() => onSelectQuest(quest)}>
+              <Card>
+                <CardHeader>
+                  <CardTitle>{quest.title}</CardTitle>
+                  <div className="flex gap-2 mt-2">
+                    <Badge>{quest.difficulty}</Badge>
+                    <Badge>{quest.subject}</Badge>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <p className="line-clamp-2">{quest.description}</p>
+                </CardContent>
+              </Card>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
+  // Simple placeholder for CharacterDashboard component
+  const CharacterDashboard = ({ character }: { character: Character }) => {
+    return (
+      <div className="space-y-6">
+        <h2 className="text-2xl font-bold">Character Dashboard</h2>
+        <Card>
+          <CardHeader>
+            <CardTitle>Character Stats</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <div>
+                <p className="font-medium">Level: {character.level || 1}</p>
+                <p className="font-medium">Active Quests: {character.activeQuests}</p>
+              </div>
+              <div>
+                <h3 className="text-lg font-medium">Skills</h3>
+                <div className="space-y-2 mt-2">
+                  {character.skills?.map(skill => (
+                    <div key={skill.id} className="flex justify-between items-center">
+                      <div className="flex items-center">
+                        {skill.icon}
+                        <span className="ml-2">{skill.name}</span>
+                      </div>
+                      <span>Level {skill.level}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  };
+
   if (!character) {
     return (
       <div className="container mx-auto py-8">
@@ -2051,7 +2380,11 @@ const AdventureQuestSagaAdaptive = () => {
   
   return (
     <div className="container mx-auto py-8">
-      <Tabs value={activeView} onValueChange={setActiveView} className="w-full">
+      <Tabs
+        value={activeView}
+        onValueChange={(value) => setActiveView(value as ActiveView)}
+        className="w-full"
+      >
         <TabsList className="grid grid-cols-4 mb-6">
           <TabsTrigger value="quests" disabled={activeView === 'quest-detail'}>
             <Map className="h-4 w-4 mr-2" />
@@ -2073,14 +2406,14 @@ const AdventureQuestSagaAdaptive = () => {
         
         <TabsContent value="quests" className="mt-0">
           {activeView === 'quest-detail' ? (
-            <QuestDetail 
-              quest={selectedQuest} 
+            <QuestDetail
+              quest={selectedQuest}
               onBack={() => setActiveView('quests')}
               onStart={handleStartQuest}
             />
           ) : (
-            <QuestHub 
-              quests={quests} 
+            <QuestHub
+              quests={quests}
               onSelectQuest={handleSelectQuest}
             />
           )}
@@ -2091,13 +2424,16 @@ const AdventureQuestSagaAdaptive = () => {
         </TabsContent>
         
         <TabsContent value="adaptive" className="mt-0">
-          <AdaptiveQuestGenerator 
-            userProfile={userProfileContext?.profile || {
+          <AdaptiveQuestGenerator
+            userProfile={userProfileContext?.currentUser || {
               keyStage: 'KS2',
               learningStyles: ['visual', 'kinesthetic']
             }}
             learningHistory={mockLearningHistory}
-            curriculumContext={curriculumContext}
+            curriculumContext={curriculumContext || {
+              subjects: ['Mathematics', 'English', 'Science', 'History', 'Geography', 'Art'],
+              keyStages: ['KS1', 'KS2', 'KS3', 'KS4']
+            }}
             assessmentResults={mockAssessmentResults}
             onQuestGenerated={handleAdaptiveQuestGenerated}
           />
@@ -2121,7 +2457,7 @@ const AdventureQuestSagaAdaptive = () => {
 };
 
 // Custom user icon
-const User = (props) => (
+const User = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"

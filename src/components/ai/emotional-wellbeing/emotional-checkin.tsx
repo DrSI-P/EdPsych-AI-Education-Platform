@@ -76,10 +76,7 @@ export function EmotionalCheckin() {
   const toggleRecording = () => {
     if (isRecording) {
       setIsRecording(false);
-      toast({
-        title: "Voice recording stopped",
-        description: "Your spoken words have been converted to text.",
-      });
+      toast("Voice recording stopped. Your spoken words have been converted to text.");
       // In a real implementation, this would process the recorded audio
       // For now, we'll simulate by adding some text
       if (step === 2) {
@@ -90,10 +87,7 @@ export function EmotionalCheckin() {
       }
     } else {
       setIsRecording(true);
-      toast({
-        title: "Voice recording started",
-        description: "Please speak clearly about how you're feeling.",
-      });
+      toast("Voice recording started. Please speak clearly about how you're feeling.");
     }
   };
 
@@ -157,12 +151,13 @@ export function EmotionalCheckin() {
         Format each strategy as a concise, actionable suggestion.
       `;
       
-      const aiResponse = await aiService.getCompletion({
-        prompt,
+      const response = await aiService.generateText(prompt, {
         model: 'gpt-4',
         temperature: 0.7,
         max_tokens: 500
       });
+      
+      const aiResponse = response.text;
       
       // Parse the AI response to extract strategies
       const strategies = aiResponse
@@ -196,11 +191,7 @@ export function EmotionalCheckin() {
       
       setStep(4);
     } catch (error) {
-      toast({
-        title: "Error processing check-in",
-        description: "There was a problem analysing your emotional check-in. Please try again.",
-        variant: "destructive"
-      });
+      toast("Error processing check-in. There was a problem analysing your emotional check-in. Please try again.");
       console.error(error);
     } finally {
       setIsProcessing(false);
@@ -215,10 +206,7 @@ export function EmotionalCheckin() {
     
     // In a real implementation, this would update the database record
     
-    toast({
-      title: "Check-in saved",
-      description: "Your emotional check-in and selected strategies have been saved.",
-    });
+    toast("Check-in saved. Your emotional check-in and selected strategies have been saved.");
     
     // Reset form for a new check-in
     setStep(5);
@@ -240,7 +228,7 @@ export function EmotionalCheckin() {
                 >
                   <div className="flex flex-col items-start text-left">
                     <div className="flex items-centre mb-1">
-                      <div className={`w-3 h-3 rounded-full ${emotion.colour} mr-2`}></div>
+                      <div className={`w-3 h-3 rounded-full ${emotion.color} mr-2`}></div>
                       <span>{emotion.name}</span>
                     </div>
                     <span className="text-xs text-muted-foreground">{emotion.description}</span>
@@ -466,7 +454,7 @@ export function EmotionalCheckin() {
                     <div>
                       <h4 className="font-medium mb-2">Recent Moods</h4>
                       <div className="flex flex-wrap gap-2">
-                        {historicalPatterns.recentMoods.map((item, index) => (
+                        {historicalPatterns.recentMoods.map((item: {mood: string, count: number}, index: number) => (
                           <Badge key={index} variant="secondary" className="py-1.5 px-3">
                             {item.mood} ({item.count})
                           </Badge>
@@ -477,7 +465,7 @@ export function EmotionalCheckin() {
                     <div>
                       <h4 className="font-medium mb-2">Common Triggers</h4>
                       <div className="flex flex-wrap gap-2">
-                        {historicalPatterns.commonTriggers.map((item, index) => (
+                        {historicalPatterns.commonTriggers.map((item: {trigger: string, count: number}, index: number) => (
                           <Badge key={index} variant="outline" className="py-1.5 px-3">
                             {item.trigger} ({item.count})
                           </Badge>
@@ -491,13 +479,13 @@ export function EmotionalCheckin() {
                   <div>
                     <h4 className="font-medium mb-3">Strategies That Helped You</h4>
                     <div className="space-y-3">
-                      {historicalPatterns.effectiveStrategies.map((item, index) => (
+                      {historicalPatterns.effectiveStrategies.map((item: {strategy: string, effectiveness: number}, index: number) => (
                         <div key={index} className="flex items-centre justify-between p-3 border rounded-md">
                           <span>{item.strategy}</span>
                           <div className="flex items-centre">
                             <div className="w-24 h-2 bg-grey-200 rounded-full mr-2">
-                              <div 
-                                className="h-full bg-primary rounded-full" 
+                              <div
+                                className="h-full bg-primary rounded-full"
                                 style={{ width: `${item.effectiveness}%` }}
                               ></div>
                             </div>

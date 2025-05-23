@@ -29,18 +29,20 @@ import {
 } from '@/components/ui/table';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
-import { 
-  AlertCircle, 
-  CheckCircle2, 
-  Globe, 
-  Languages, 
+import {
+  AlertCircle,
+  CheckCircle2,
+  Globe,
+  Languages,
   Loader2,
   AlertTriangle,
   Info,
   FileText,
   MessageSquare,
   Headphones,
-  Mic
+  Mic,
+  Settings,
+  RefreshCw
 } from 'lucide-react';
 import { useI18n } from './i18n-provider';
 import { 

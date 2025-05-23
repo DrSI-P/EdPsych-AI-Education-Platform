@@ -141,7 +141,7 @@ export function StudentProgressTracking() {
     to: new Date(),
   });
   const [showCustomDateRange, setShowCustomDateRange] = useState(false);
-  const [selectedStudent, setSelectedStudent] = useState(null);
+  const [selectedStudent, setSelectedStudent] = useState<number | null>(null);
   
   // Handle time period selection
   useEffect(() => {
@@ -242,7 +242,11 @@ export function StudentProgressTracking() {
                   mode="range"
                   defaultMonth={dateRange.from}
                   selected={dateRange}
-                  onSelect={setDateRange}
+                  onSelect={(range) => {
+                    if (range && range.from && range.to) {
+                      setDateRange({ from: range.from, to: range.to });
+                    }
+                  }}
                   numberOfMonths={2}
                 />
               </PopoverContent>
@@ -449,7 +453,7 @@ export function StudentProgressTracking() {
                     label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
                   >
                     {progressDistributionData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.colour} />
+                      <Cell key={`cell-${index}`} fill={entry.color} />
                     ))}
                   </Pie>
                   <Tooltip formatter={(value) => [`${value} students`, 'Count']} />
@@ -1303,7 +1307,7 @@ export function StudentProgressTracking() {
                     label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
                   >
                     {progressDistributionData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.colour} />
+                      <Cell key={`cell-${index}`} fill={entry.color} />
                     ))}
                   </Pie>
                   <Tooltip formatter={(value) => [`${value}%`, 'Percentage']} />
@@ -1753,7 +1757,7 @@ export function StudentProgressTracking() {
 }
 
 // Helper components
-const Search = ({ className, ...props }) => (
+const Search = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"

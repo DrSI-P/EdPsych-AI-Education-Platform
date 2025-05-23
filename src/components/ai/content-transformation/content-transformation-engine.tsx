@@ -86,22 +86,14 @@ export default function ContentTransformationEngine({
   
   const transformContent = async () => {
     if (!originalContent && !useCustomContent) {
-      toast({
-        title: "No content to transform",
-        description: "Please provide content to transform or enable custom content input.",
-        variant: "destructive"
-      });
+      toast("No content to transform. Please provide content to transform or enable custom content input.");
       return;
     }
     
     const contentToTransform = useCustomContent ? customContent : originalContent;
     
     if (!contentToTransform) {
-      toast({
-        title: "No content to transform",
-        description: "Please provide content to transform.",
-        variant: "destructive"
-      });
+      toast("No content to transform. Please provide content to transform.");
       return;
     }
     
@@ -146,13 +138,15 @@ export default function ContentTransformationEngine({
         }
       `;
       
-      const aiResponse = await aiService.getCompletion({
-        prompt,
+      // Use generateText instead of getCompletion
+      const response = await aiService.generateText(prompt, {
         model: 'gpt-4',
         temperature: 0.7,
         max_tokens: 2500,
         response_format: { type: 'json_object' }
       });
+      
+      const aiResponse = response.text;
       
       // Parse AI response
       let result;
@@ -176,25 +170,14 @@ export default function ContentTransformationEngine({
           });
         }
         
-        toast({
-          title: "Content transformed successfully",
-          description: "Content has been adapted for different learning styles.",
-        });
+        toast("Content transformed successfully. Content has been adapted for different learning styles.");
       } catch (error) {
         console.error('Failed to parse AI response:', error);
-        toast({
-          title: "Transformation error",
-          description: "Failed to process the transformed content.",
-          variant: "destructive"
-        });
+        toast("Transformation error. Failed to process the transformed content.");
       }
     } catch (error) {
       console.error('Error transforming content:', error);
-      toast({
-        title: "Transformation failed",
-        description: "There was an error transforming the content. Please try again.",
-        variant: "destructive"
-      });
+      toast("Transformation failed. There was an error transforming the content. Please try again.");
     } finally {
       setIsTransforming(false);
     }
@@ -205,19 +188,13 @@ export default function ContentTransformationEngine({
     setIsVoiceInputActive(prev => !prev);
     
     if (!isVoiceInputActive) {
-      toast({
-        title: "Voice input activated",
-        description: "Speak clearly to input your content.",
-      });
+      toast("Voice input activated. Speak clearly to input your content.");
       
       // Simulate voice recognition after a delay
       setTimeout(() => {
         setCustomContent(prev => prev + " This is simulated voice input text that would be captured from the user's speech.");
         setIsVoiceInputActive(false);
-        toast({
-          title: "Voice input complete",
-          description: "Your speech has been converted to text.",
-        });
+        toast("Voice input complete. Your speech has been converted to text.");
       }, 3000);
     }
   };
@@ -227,24 +204,15 @@ export default function ContentTransformationEngine({
     setIsPlayingAudio(prev => !prev);
     
     if (!isPlayingAudio) {
-      toast({
-        title: "Reading content aloud",
-        description: `Volume: ${audioVolume}%`,
-      });
+      toast(`Reading content aloud. Volume: ${audioVolume}%`);
       
       // Simulate audio playback ending after a delay
       setTimeout(() => {
         setIsPlayingAudio(false);
-        toast({
-          title: "Finished reading content",
-          description: "Audio playback complete.",
-        });
+        toast("Finished reading content. Audio playback complete.");
       }, 5000);
     } else {
-      toast({
-        title: "Paused reading",
-        description: "Audio playback paused.",
-      });
+      toast("Paused reading. Audio playback paused.");
     }
   };
   

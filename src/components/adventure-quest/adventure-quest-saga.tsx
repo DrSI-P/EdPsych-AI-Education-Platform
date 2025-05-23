@@ -10,14 +10,15 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Progress } from "@/components/ui/progress";
-import { 
-  Dialog, 
-  DialogContent, 
-  DialogDescription, 
-  DialogFooter, 
-  DialogHeader, 
-  DialogTitle, 
-  DialogTrigger 
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogClose
 } from "@/components/ui/dialog";
 import { 
   Sword, 
@@ -124,16 +125,26 @@ const difficultyLevels = [
   { id: 'master', name: 'Master', color: 'bg-amber-500' }
 ];
 
-// Learning styles
-const learningStyles = [
-  { id: 'visual', name: 'Visual', icon: <Eye className="h-4 w-4" /> },
-  { id: 'auditory', name: 'Auditory', icon: <EarIcon className="h-4 w-4" /> },
-  { id: 'reading_writing', name: 'Reading/Writing', icon: <BookOpen className="h-4 w-4" /> },
-  { id: 'kinesthetic', name: 'Kinesthetic', icon: <HandIcon className="h-4 w-4" /> }
-];
+// Custom icons for learning styles
+const Eye = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+    <circle cx="12" cy="12" r="3" />
+  </svg>
+);
 
-// Custom icons
-const EarIcon = (props) => (
+const EarIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -151,7 +162,7 @@ const EarIcon = (props) => (
   </svg>
 );
 
-const HandIcon = (props) => (
+const HandIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -168,6 +179,67 @@ const HandIcon = (props) => (
     <path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2" />
     <path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8" />
     <path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15" />
+  </svg>
+);
+
+// Learning styles
+const learningStyles = [
+  { id: 'visual', name: 'Visual', icon: <Eye className="h-4 w-4" /> },
+  { id: 'auditory', name: 'Auditory', icon: <EarIcon className="h-4 w-4" /> },
+  { id: 'reading_writing', name: 'Reading/Writing', icon: <BookOpen className="h-4 w-4" /> },
+  { id: 'kinesthetic', name: 'Kinesthetic', icon: <HandIcon className="h-4 w-4" /> }
+];
+
+// Custom icons
+const Search = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <circle cx="11" cy="11" r="8" />
+    <path d="m21 21-4.3-4.3" />
+  </svg>
+);
+
+const MessageCircleIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
+  </svg>
+);
+
+const Shield = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
   </svg>
 );
 
@@ -405,23 +477,6 @@ const mockQuests = [
   }
 ];
 
-// Custom icon
-const MessageCircleIcon = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
-  </svg>
-);
 
 // Mock character data
 const mockCharacter = {
@@ -458,47 +513,22 @@ const mockCharacter = {
   activeQuests: 2
 };
 
-// Custom shield icon
-const Shield = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
-  </svg>
-);
 
 // Character Creation Component
-const CharacterCreation = ({ onCreateCharacter }) => {
+const CharacterCreation = ({ onCreateCharacter }: { onCreateCharacter: (character: any) => void }) => {
   const [name, setName] = useState('');
-  const [selectedType, setSelectedType] = useState(null);
+  const [selectedType, setSelectedType] = useState<string | null>(null);
   const [step, setStep] = useState(1);
   const { toast } = useToast();
   
   const handleNext = () => {
     if (step === 1 && !name.trim()) {
-      toast({
-        title: "Name Required",
-        description: "Please enter a name for your character",
-        variant: "destructive",
-      });
+      toast("Name Required: Please enter a name for your character");
       return;
     }
     
     if (step === 2 && !selectedType) {
-      toast({
-        title: "Character Type Required",
-        description: "Please select a character type",
-        variant: "destructive",
-      });
+      toast("Character Type Required: Please select a character type");
       return;
     }
     
@@ -507,6 +537,11 @@ const CharacterCreation = ({ onCreateCharacter }) => {
     } else {
       // Create character
       const characterType = characterTypes.find(type => type.id === selectedType);
+      
+      if (!characterType) {
+        toast("Error: Character type not found");
+        return;
+      }
       
       const newCharacter = {
         name,
@@ -532,11 +567,7 @@ const CharacterCreation = ({ onCreateCharacter }) => {
       
       onCreateCharacter(newCharacter);
       
-      toast({
-        title: "Character Created",
-        description: `Welcome to your adventure, ${name}!`,
-        variant: "success",
-      });
+      toast(`Character Created: Welcome to your adventure, ${name}!`);
     }
   };
   
@@ -615,11 +646,13 @@ const CharacterCreation = ({ onCreateCharacter }) => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {characterTypes.map((type) => (
-              <Card 
-                key={type.id} 
-                className={`cursor-pointer transition-all hover:border-primary ${selectedType === type.id ? 'border-2 border-primary' : ''}`}
+              <div
+                key={type.id}
                 onClick={() => setSelectedType(type.id)}
               >
+                <Card
+                  className={`cursor-pointer transition-all hover:border-primary ${selectedType === type.id ? 'border-2 border-primary' : ''}`}
+                >
                 <CardHeader className="pb-2">
                   <div className="flex justify-between items-start">
                     <div className="p-2 bg-primary/10 rounded-lg">
@@ -651,7 +684,8 @@ const CharacterCreation = ({ onCreateCharacter }) => {
                     ))}
                   </div>
                 </CardContent>
-              </Card>
+                </Card>
+              </div>
             ))}
           </div>
         </div>
@@ -735,7 +769,11 @@ const CharacterCreation = ({ onCreateCharacter }) => {
 };
 
 // Character Dashboard Component
-const CharacterDashboard = ({ character }) => {
+interface CharacterDashboardProps {
+  character: any;
+}
+
+const CharacterDashboard = ({ character }: CharacterDashboardProps) => {
   return (
     <div className="space-y-6">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-centre">
@@ -816,7 +854,7 @@ const CharacterDashboard = ({ character }) => {
                 <div key={stat} className="space-y-1">
                   <div className="flex justify-between items-centre">
                     <span className="text-sm capitalize">{stat}</span>
-                    <span className="text-sm font-medium">{value}/10</span>
+                    <span className="text-sm font-medium">{value as number}/10</span>
                   </div>
                   <div className="h-2 bg-muted rounded-full">
                     <div 
@@ -827,7 +865,7 @@ const CharacterDashboard = ({ character }) => {
                         stat === 'collaboration' ? 'bg-green-500' :
                         'bg-red-500'
                       }`}
-                      style={{ width: `${(value / 10) * 100}%` }}
+                      style={{ width: `${((value as number) / 10) * 100}%` }}
                     ></div>
                   </div>
                 </div>
@@ -846,7 +884,7 @@ const CharacterDashboard = ({ character }) => {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {character.skills.map((skill) => (
+              {character.skills.map((skill: any) => (
                 <div key={skill.id} className="space-y-1">
                   <div className="flex justify-between items-centre">
                     <div className="flex items-centre">
@@ -880,7 +918,7 @@ const CharacterDashboard = ({ character }) => {
           <CardContent>
             {character.inventory.length > 0 ? (
               <div className="space-y-3">
-                {character.inventory.map((item) => (
+                {character.inventory.map((item: any) => (
                   <div key={item.id} className="flex items-start p-2 border rounded-lg">
                     <div className="p-2 bg-muted rounded-lg mr-3">
                       {item.icon}
@@ -913,7 +951,7 @@ const CharacterDashboard = ({ character }) => {
           <CardContent>
             {character.badges.length > 0 ? (
               <div className="grid grid-cols-2 gap-3">
-                {character.badges.map((badge) => (
+                {character.badges.map((badge: any) => (
                   <div key={badge.id} className="flex items-start p-2 border rounded-lg">
                     <div className="p-2 bg-primary/10 rounded-lg mr-3">
                       {badge.icon}
@@ -940,7 +978,12 @@ const CharacterDashboard = ({ character }) => {
 };
 
 // Quest Card Component
-const QuestCard = ({ quest, onSelect }) => {
+interface QuestCardProps {
+  quest: any;
+  onSelect: (quest: any) => void;
+}
+
+const QuestCard = ({ quest, onSelect }: QuestCardProps) => {
   const difficultyInfo = difficultyLevels.find(d => d.id === quest.difficulty);
   
   return (
@@ -950,7 +993,7 @@ const QuestCard = ({ quest, onSelect }) => {
           <Badge variant="outline" className="capitalize">
             {quest.subject}
           </Badge>
-          <Badge className={`${difficultyInfo?.colour} text-white`}>
+          <Badge className={`${difficultyInfo?.color} text-white`}>
             {difficultyInfo?.name}
           </Badge>
         </div>
@@ -966,7 +1009,7 @@ const QuestCard = ({ quest, onSelect }) => {
           <div>
             <h4 className="text-sm font-medium mb-1">Learning Objectives</h4>
             <ul className="text-xs text-muted-foreground space-y-1">
-              {quest.objectives.map((objective, index) => (
+              {quest.objectives.map((objective: string, index: number) => (
                 <li key={index} className="flex items-start">
                   <div className="h-4 w-4 mr-2 flex items-centre justify-centre">•</div>
                   <span>{objective}</span>
@@ -978,7 +1021,7 @@ const QuestCard = ({ quest, onSelect }) => {
           <div>
             <h4 className="text-sm font-medium mb-1">Learning Styles</h4>
             <div className="flex space-x-2">
-              {quest.learningStyles.map((style) => {
+              {quest.learningStyles.map((style: string) => {
                 const styleInfo = learningStyles.find(s => s.id === style);
                 return (
                   <Badge key={style} variant="outline" className="flex items-centre">
@@ -1029,7 +1072,13 @@ const QuestCard = ({ quest, onSelect }) => {
 };
 
 // Quest Detail Component
-const QuestDetail = ({ quest, onBack, onStart }) => {
+interface QuestDetailProps {
+  quest: any;
+  onBack: () => void;
+  onStart: (quest: any) => void;
+}
+
+const QuestDetail = ({ quest, onBack, onStart }: QuestDetailProps) => {
   const difficultyInfo = difficultyLevels.find(d => d.id === quest.difficulty);
   
   return (
@@ -1046,7 +1095,7 @@ const QuestDetail = ({ quest, onBack, onStart }) => {
         <Badge variant="outline" className="capitalize">
           {quest.subject}
         </Badge>
-        <Badge className={`${difficultyInfo?.colour} text-white`}>
+        <Badge className={`${difficultyInfo?.color} text-white`}>
           {difficultyInfo?.name}
         </Badge>
         <Badge variant="outline">{quest.keyStage}</Badge>
@@ -1066,7 +1115,7 @@ const QuestDetail = ({ quest, onBack, onStart }) => {
           </CardHeader>
           <CardContent>
             <ul className="space-y-2">
-              {quest.objectives.map((objective, index) => (
+              {quest.objectives.map((objective: string, index: number) => (
                 <li key={index} className="flex items-start">
                   <div className="h-5 w-5 mr-2 flex items-centre justify-centre bg-primary/10 rounded-full text-primary">
                     {index + 1}
@@ -1093,7 +1142,7 @@ const QuestDetail = ({ quest, onBack, onStart }) => {
             </div>
             
             <div className="space-y-3">
-              {quest.rewards.map((reward, index) => (
+              {quest.rewards.map((reward: any, index: number) => (
                 <div key={index} className="flex items-start p-2 border rounded-lg">
                   <div className="p-2 bg-muted rounded-lg mr-3">
                     {reward.icon}
@@ -1123,7 +1172,7 @@ const QuestDetail = ({ quest, onBack, onStart }) => {
         </CardHeader>
         <CardContent>
           <div className="space-y-6">
-            {quest.chapters.map((chapter, index) => (
+            {quest.chapters.map((chapter: any, index: number) => (
               <div key={chapter.id} className="relative">
                 {index < quest.chapters.length - 1 && (
                   <div className="absolute left-6 top-12 bottom-0 w-0.5 bg-muted"></div>
@@ -1161,7 +1210,7 @@ const QuestDetail = ({ quest, onBack, onStart }) => {
 };
 
 // Custom icons
-const Target = (props) => (
+const Target = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -1180,7 +1229,7 @@ const Target = (props) => (
   </svg>
 );
 
-const ChevronLeft = (props) => (
+const ChevronLeft = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -1197,7 +1246,7 @@ const ChevronLeft = (props) => (
   </svg>
 );
 
-const Lock = (props) => (
+const Lock = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -1215,25 +1264,8 @@ const Lock = (props) => (
   </svg>
 );
 
-const Eye = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
-    <circle cx="12" cy="12" r="3" />
-  </svg>
-);
 
-const Info = (props) => (
+const Info = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -1253,9 +1285,19 @@ const Info = (props) => (
 );
 
 // Quest Hub Component
-const QuestHub = ({ quests, onSelectQuest }) => {
+interface QuestHubProps {
+  quests: any[];
+  onSelectQuest: (quest: any) => void;
+}
+
+const QuestHub = ({ quests, onSelectQuest }: QuestHubProps) => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [filters, setFilters] = useState({
+  const [filters, setFilters] = useState<{
+    difficulty: string[];
+    subject: string[];
+    keyStage: string[];
+    learningStyle: string[];
+  }>({
     difficulty: [],
     subject: [],
     keyStage: [],
@@ -1263,7 +1305,7 @@ const QuestHub = ({ quests, onSelectQuest }) => {
   });
   
   // Get unique filter options
-  const getUniqueOptions = (field) => {
+  const getUniqueOptions = (field: string) => {
     const options = new Set();
     quests.forEach(quest => {
       if (Array.isArray(quest[field])) {
@@ -1275,9 +1317,9 @@ const QuestHub = ({ quests, onSelectQuest }) => {
     return Array.from(options);
   };
   
-  const subjects = getUniqueOptions('subject');
-  const keyStages = getUniqueOptions('keyStage');
-  const learningStyleOptions = getUniqueOptions('learningStyles').flat();
+  const subjects = getUniqueOptions('subject') as string[];
+  const keyStages = getUniqueOptions('keyStage') as string[];
+  const learningStyleOptions = getUniqueOptions('learningStyles').flat() as string[];
   
   // Apply filters and search
   const filteredQuests = quests.filter(quest => {
@@ -1314,7 +1356,7 @@ const QuestHub = ({ quests, onSelectQuest }) => {
   });
   
   // Toggle filter
-  const toggleFilter = (category, value) => {
+  const toggleFilter = (category: 'difficulty' | 'subject' | 'keyStage' | 'learningStyle', value: string) => {
     setFilters(prev => {
       const current = [...prev[category]];
       const index = current.indexOf(value);
@@ -1552,7 +1594,7 @@ const QuestHub = ({ quests, onSelectQuest }) => {
 };
 
 // Custom filter icon
-const Filter = (props) => (
+const Filter = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -1570,7 +1612,7 @@ const Filter = (props) => (
 );
 
 // Custom X icon
-const X = (props) => (
+const X = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -1588,28 +1630,25 @@ const X = (props) => (
   </svg>
 );
 
-// Search icon
-const Search = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <circle cx="11" cy="11" r="8" />
-    <path d="m21 21-4.3-4.3" />
-  </svg>
-);
 
 // Main Adventure Quest Saga Component
+// Define a type for the character
+interface Character {
+  name: string;
+  type: string;
+  level: number;
+  xp: number;
+  xpToNextLevel: number;
+  stats: Record<string, number>;
+  inventory: any[];
+  badges: any[];
+  skills: any[];
+  completedQuests: number;
+  activeQuests: number;
+}
+
 const AdventureQuestSaga = () => {
-  const [character, setCharacter] = useState(null);
+  const [character, setCharacter] = useState<Character | null>(null);
   const [quests, setQuests] = useState(mockQuests);
   const [selectedQuest, setSelectedQuest] = useState(null);
   const [activeView, setActiveView] = useState('quests'); // 'quests', 'character', 'quest-detail'
@@ -1617,18 +1656,18 @@ const AdventureQuestSaga = () => {
   const { useFeatureWithCredit, CreditPurchaseDialog } = useFairUsage();
   
   // Handle character creation
-  const handleCreateCharacter = (newCharacter) => {
+  const handleCreateCharacter = (newCharacter: any) => {
     setCharacter(newCharacter);
   };
   
   // Handle quest selection
-  const handleSelectQuest = (quest) => {
+  const handleSelectQuest = (quest: any) => {
     setSelectedQuest(quest);
     setActiveView('quest-detail');
   };
   
   // Handle quest start
-  const handleStartQuest = async (quest) => {
+  const handleStartQuest = async (quest: any) => {
     // Check if feature can be used (fair usage)
     const usageResult = await useFeatureWithCredit('questStart');
     
@@ -1637,17 +1676,16 @@ const AdventureQuestSaga = () => {
       return;
     }
     
-    toast({
-      title: "Quest Started",
-      description: `You've begun "${quest.title}"`,
-      variant: "success",
-    });
+    toast(`Quest Started: You've begun "${quest.title}"`);
     
     // Update character
-    setCharacter(prev => ({
-      ...prev,
-      activeQuests: prev.activeQuests + 1
-    }));
+    setCharacter(prev => {
+      if (!prev) return prev;
+      return {
+        ...prev,
+        activeQuests: prev.activeQuests + 1
+      };
+    });
     
     // In a real implementation, this would navigate to the quest gameplay
     setActiveView('quests');
@@ -1703,7 +1741,7 @@ const AdventureQuestSaga = () => {
 };
 
 // Custom user icon
-const User = (props) => (
+const User = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"

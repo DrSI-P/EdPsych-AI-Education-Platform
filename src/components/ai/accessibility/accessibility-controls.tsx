@@ -231,10 +231,7 @@ export default function AccessibilityControls() {
     }
     
     // Show toast with feedback
-    toast({
-      title: "Voice Command",
-      description: commandFeedback,
-    });
+    toast(`Voice Command: ${commandFeedback}`);
   };
   
   const speakText = (text: string) => {
@@ -252,10 +249,7 @@ export default function AccessibilityControls() {
     setSpeechRate(1);
     setSpeechPitch(1);
     
-    toast({
-      title: "Settings Reset",
-      description: "All accessibility settings have been reset to default values.",
-    });
+    toast("Settings Reset: All accessibility settings have been reset to default values.");
   };
   
   return (
@@ -551,10 +545,7 @@ export default function AccessibilityControls() {
             Reset to Defaults
           </Button>
           <Button onClick={() => {
-            toast({
-              title: "Settings Saved",
-              description: "Your accessibility preferences have been saved.",
-            });
+            toast("Settings Saved: Your accessibility preferences have been saved.");
           }}>
             Save Preferences
           </Button>

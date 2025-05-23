@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
 import { Input, Textarea, Select, Checkbox } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
-import { Tabs } from '@/components/ui/tabs';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Spinner } from '@/components/ui/loading';
 import { Alert } from '@/components/ui/alert';
 import { useToast } from '@/components/ui/toast';
@@ -183,9 +183,14 @@ export function CurriculumPlanner({
     assessments: ['']
   });
   
-  // Handle form change
-  const handleCreateFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  // Handle form change for input and textarea elements
+  const handleCreateFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
+    setCreateForm(prev => ({ ...prev, [name]: value }));
+  };
+  
+  // Handle form change for select elements
+  const handleSelectChange = (name: string, value: string) => {
     setCreateForm(prev => ({ ...prev, [name]: value }));
   };
   
@@ -230,7 +235,7 @@ export function CurriculumPlanner({
       }));
       
       showToast({
-        title: 'Objectives generated successfully',
+        message: 'Objectives generated successfully',
         type: 'success'
       });
     }
@@ -243,7 +248,7 @@ export function CurriculumPlanner({
     // Validate form
     if (!createForm.title) {
       showToast({
-        title: 'Title is required',
+        message: 'Title is required',
         type: 'error'
       });
       return;
@@ -251,7 +256,7 @@ export function CurriculumPlanner({
     
     if (!createForm.objectives[0]) {
       showToast({
-        title: 'At least one learning objective is required',
+        message: 'At least one learning objective is required',
         type: 'error'
       });
       return;
@@ -290,7 +295,7 @@ export function CurriculumPlanner({
     });
     
     showToast({
-      title: 'Curriculum plan created successfully',
+      message: 'Curriculum plan created successfully',
       type: 'success'
     });
   };
@@ -315,7 +320,7 @@ export function CurriculumPlanner({
               <Select
                 label="Subject"
                 value={selectedSubject}
-                onChange={(e) => setSelectedSubject(e.target.value)}
+                onChange={(value) => setSelectedSubject(value)}
                 options={[
                   { value: 'all', label: 'All Subjects' },
                   { value: 'mathematics', label: 'Mathematics' },
@@ -332,7 +337,7 @@ export function CurriculumPlanner({
               <Select
                 label="Age Range"
                 value={selectedAgeRange}
-                onChange={(e) => setSelectedAgeRange(e.target.value)}
+                onChange={(value) => setSelectedAgeRange(value)}
                 options={[
                   { value: 'all', label: 'All Ages' },
                   { value: 'early_years', label: 'Early Years' },
@@ -431,9 +436,8 @@ export function CurriculumPlanner({
               
               <Select
                 label="Subject"
-                name="subject"
                 value={createForm.subject}
-                onChange={handleCreateFormChange}
+                onChange={(value) => handleSelectChange('subject', value)}
                 options={[
                   { value: 'mathematics', label: 'Mathematics' },
                   { value: 'english', label: 'English' },
@@ -448,9 +452,8 @@ export function CurriculumPlanner({
               
               <Select
                 label="Age Range"
-                name="ageRange"
                 value={createForm.ageRange}
-                onChange={handleCreateFormChange}
+                onChange={(value) => handleSelectChange('ageRange', value)}
                 options={[
                   { value: 'early_years', label: 'Early Years' },
                   { value: 'primary', label: 'Primary' },
@@ -461,9 +464,8 @@ export function CurriculumPlanner({
               
               <Select
                 label="Curriculum"
-                name="curriculum"
                 value={createForm.curriculum}
-                onChange={handleCreateFormChange}
+                onChange={(value) => handleSelectChange('curriculum', value)}
                 options={[
                   { value: 'UK National Curriculum', label: 'UK National Curriculum' },
                   { value: 'Scottish Curriculum for Excellence', label: 'Scottish Curriculum for Excellence' },
@@ -617,7 +619,20 @@ export function CurriculumPlanner({
   
   return (
     <div className={className}>
-      <Tabs tabs={tabs} />
+      <Tabs defaultValue={tabs[0].id}>
+        <TabsList>
+          {tabs.map(tab => (
+            <TabsTrigger key={tab.id} value={tab.id}>
+              {tab.label}
+            </TabsTrigger>
+          ))}
+        </TabsList>
+        {tabs.map(tab => (
+          <TabsContent key={tab.id} value={tab.id}>
+            {tab.content}
+          </TabsContent>
+        ))}
+      </Tabs>
     </div>
   );
 }

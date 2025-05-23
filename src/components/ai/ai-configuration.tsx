@@ -4,11 +4,14 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
 import { Input, Textarea, Select, Checkbox } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
-import { Tabs } from '@/components/ui/tabs';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Spinner } from '@/components/ui/loading';
 import { Alert } from '@/components/ui/alert';
-import { useToast } from '@/components/ui/toast';
-import { AIProvider } from '@/lib/ai/ai-service';
+import { useToast } from '@/components/ui/use-toast';
+import aiService from '@/lib/ai/ai-service';
+
+// Define AIProvider type
+type AIProvider = 'openai' | 'anthropic' | 'gemini' | 'grok' | 'openrouter';
 
 interface AIConfigurationProps {
   className?: string;
@@ -17,7 +20,7 @@ interface AIConfigurationProps {
 export function AIConfiguration({
   className = ''
 }: AIConfigurationProps) {
-  const { showToast } = useToast();
+  const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const [saved, setSaved] = useState(false);
   
@@ -102,42 +105,47 @@ export function AIConfiguration({
         }
       } catch (error) {
         console.error('Error fetching AI configuration:', error);
-        showToast({
-          title: 'Failed to load configuration',
-          type: 'error'
-        });
+        toast('Failed to load configuration');
       } finally {
         setLoading(false);
       }
     };
     
     fetchConfig();
-  }, [showToast]);
+  }, [toast]);
   
   // Handle configuration change
   const handleConfigChange = (section: string, setting: string, value: any) => {
-    setConfig(prev => ({
-      ...prev,
-      [section]: {
-        ...prev[section as keyof typeof prev],
-        [setting]: value
+    setConfig(prev => {
+      // Create a deep copy to avoid mutation
+      const newConfig = JSON.parse(JSON.stringify(prev));
+      
+      // Safely update the nested property
+      if (newConfig[section] && typeof newConfig[section] === 'object') {
+        newConfig[section][setting] = value;
       }
-    }));
+      
+      return newConfig;
+    });
     setSaved(false);
   };
   
   // Handle nested configuration change
   const handleNestedConfigChange = (section: string, subsection: string, setting: string, value: any) => {
-    setConfig(prev => ({
-      ...prev,
-      [section]: {
-        ...prev[section as keyof typeof prev],
-        [subsection]: {
-          ...prev[section as keyof typeof prev][subsection as any],
-          [setting]: value
-        }
+    setConfig(prev => {
+      // Create a deep copy to avoid mutation
+      const newConfig = JSON.parse(JSON.stringify(prev));
+      
+      // Safely update the deeply nested property
+      if (newConfig[section] &&
+          typeof newConfig[section] === 'object' &&
+          newConfig[section][subsection] &&
+          typeof newConfig[section][subsection] === 'object') {
+        newConfig[section][subsection][setting] = value;
       }
-    }));
+      
+      return newConfig;
+    });
     setSaved(false);
   };
   
@@ -173,19 +181,13 @@ export function AIConfiguration({
       
       if (response.ok) {
         setSaved(true);
-        showToast({
-          title: 'AI configuration saved',
-          type: 'success'
-        });
+        toast('AI configuration saved');
       } else {
         throw new Error('Failed to save configuration');
       }
     } catch (error) {
       console.error('Error saving AI configuration:', error);
-      showToast({
-        title: 'Failed to save configuration',
-        type: 'error'
-      });
+      toast('Failed to save configuration');
     } finally {
       setLoading(false);
     }
@@ -573,7 +575,7 @@ export function AIConfiguration({
               )}
               
               <div className="mt-4">
-                <Alert type="info">
+                <Alert>
                   <p>Cost optimisation is enabled. The system will automatically select the most cost-effective AI provider based on the task requirements.</p>
                 </Alert>
               </div>
@@ -631,26 +633,38 @@ export function AIConfiguration({
       
       {loading && (
         <div className="flex justify-centre my-8">
-          <Spinner size="large" />
+          <Spinner size="lg" />
         </div>
       )}
       
       {!loading && (
         <>
-          <Tabs tabs={tabs} />
+          <Tabs defaultValue={tabs[0].id}>
+            <TabsList>
+              {tabs.map(tab => (
+                <TabsTrigger key={tab.id} value={tab.id}>
+                  {tab.label}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+            {tabs.map(tab => (
+              <TabsContent key={tab.id} value={tab.id}>
+                {tab.content}
+              </TabsContent>
+            ))}
+          </Tabs>
           
           <div className="mt-6 flex justify-end">
             {saved && (
-              <Alert type="success" className="mr-4">
+              <Alert className="mr-4">
                 Configuration saved successfully
               </Alert>
             )}
-            <Button 
-              onClick={handleSaveConfig} 
+            <Button
+              onClick={handleSaveConfig}
               disabled={loading || saved}
-              loading={loading}
             >
-              Save Configuration
+              {loading ? 'Saving...' : 'Save Configuration'}
             </Button>
           </div>
         </>

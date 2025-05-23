@@ -8,6 +8,7 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { useToast } from "@/components/ui/use-toast";
 import { Eye, Check, RefreshCw, FileText, AlertTriangle, Info } from "lucide-react";
 import { useSession } from 'next-auth/react';
@@ -175,8 +176,8 @@ export default function ScreenReaderOptimizationEngine({
     if (settingsToApply.improvedAltText) {
       // Find images without alt text and add descriptive placeholders
       const images = document.querySelectorAll('img:not([alt])');
-      images.forEach((img: HTMLImageElement) => {
-        img.setAttribute('alt', 'Image - please contact support for description');
+      images.forEach((img) => {
+        (img as HTMLImageElement).setAttribute('alt', 'Image - please contact support for description');
       });
     }
     
@@ -219,9 +220,10 @@ export default function ScreenReaderOptimizationEngine({
     if (settingsToApply.formLabels) {
       // Ensure all form controls have labels
       const formControls = document.querySelectorAll('input, select, textarea');
-      formControls.forEach((control: HTMLElement, index) => {
-        const id = control.id || `form-control-${index}`;
-        control.id = id;
+      formControls.forEach((control, index) => {
+        const htmlControl = control as HTMLElement;
+        const id = htmlControl.id || `form-control-${index}`;
+        htmlControl.id = id;
         
         // Check if control already has a label
         const hasLabel = document.querySelector(`label[for="${id}"]`);
@@ -298,27 +300,17 @@ export default function ScreenReaderOptimizationEngine({
         .then(res => res.json())
         .then(data => {
           if (data.success) {
-            toast({
-              title: "Settings saved",
-              description: "Your screen reader optimization settings have been saved to your profile.",
-            });
+            toast("Settings saved: Your screen reader optimization settings have been saved to your profile.");
           } else {
             throw new Error(data.error || 'Failed to save settings');
           }
         })
         .catch(error => {
           console.error('Error saving accessibility settings:', error);
-          toast({
-            title: "Error saving settings",
-            description: "Your settings have been applied but could not be saved to your profile.",
-            variant: "destructive",
-          });
+          toast("Error saving settings: Your settings have been applied but could not be saved to your profile.");
         });
     } else {
-      toast({
-        title: "Settings applied",
-        description: "Screen reader optimization settings have been applied. Sign in to save these preferences.",
-      });
+      toast("Settings applied: Screen reader optimization settings have been applied. Sign in to save these preferences.");
     }
   };
   
@@ -339,10 +331,7 @@ export default function ScreenReaderOptimizationEngine({
     applyScreenReaderOptimization(defaultSettings);
     setIsApplied(true);
     
-    toast({
-      title: "Settings reset",
-      description: "Screen reader optimization settings have been reset to defaults.",
-    });
+    toast("Settings reset: Screen reader optimization settings have been reset to defaults.");
     
     // Save reset settings to user profile if logged in
     if (session?.user) {

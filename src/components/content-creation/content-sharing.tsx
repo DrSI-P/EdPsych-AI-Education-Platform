@@ -137,10 +137,7 @@ export const ContentSharing: React.FC<ContentSharingProps> = ({
       // For now, just update the local state
       setInvitations([...invitations, invitation]);
       
-      toast({
-        title: "Invitation sent",
-        description: `An invitation has been sent to ${newInvitation.inviteeEmail}.`,
-      });
+      toast(`Invitation sent: An invitation has been sent to ${newInvitation.inviteeEmail}.`);
       
       // Reset the form
       setNewInvitation({
@@ -154,11 +151,7 @@ export const ContentSharing: React.FC<ContentSharingProps> = ({
     } catch (error) {
       console.error('Failed to send invitation:', error);
       setError('Failed to send invitation. Please try again.');
-      toast({
-        variant: "destructive",
-        title: "Invitation failed",
-        description: "There was a problem sending the invitation.",
-      });
+      toast("Invitation failed: There was a problem sending the invitation.");
     } finally {
       setIsLoading(false);
     }
@@ -176,18 +169,11 @@ export const ContentSharing: React.FC<ContentSharingProps> = ({
       // For now, just update the local state
       setInvitations(invitations.filter(inv => inv.id !== invitationId));
       
-      toast({
-        title: "Invitation canceled",
-        description: "The invitation has been canceled.",
-      });
+      toast("Invitation canceled: The invitation has been canceled.");
     } catch (error) {
       console.error('Failed to cancel invitation:', error);
       setError('Failed to cancel invitation. Please try again.');
-      toast({
-        variant: "destructive",
-        title: "Cancellation failed",
-        description: "There was a problem canceling the invitation.",
-      });
+      toast("Cancellation failed: There was a problem canceling the invitation.");
     } finally {
       setIsLoading(false);
     }
@@ -207,18 +193,11 @@ export const ContentSharing: React.FC<ContentSharingProps> = ({
         collab.id === userId ? { ...collab, permission } : collab
       ));
       
-      toast({
-        title: "Permission updated",
-        description: "The collaborator's permission has been updated.",
-      });
+      toast("Permission updated: The collaborator's permission has been updated.");
     } catch (error) {
       console.error('Failed to update permission:', error);
       setError('Failed to update permission. Please try again.');
-      toast({
-        variant: "destructive",
-        title: "Update failed",
-        description: "There was a problem updating the permission.",
-      });
+      toast("Update failed: There was a problem updating the permission.");
     } finally {
       setIsLoading(false);
     }
@@ -236,18 +215,11 @@ export const ContentSharing: React.FC<ContentSharingProps> = ({
       // For now, just update the local state
       setCollaborators(collaborators.filter(collab => collab.id !== userId));
       
-      toast({
-        title: "Collaborator removed",
-        description: "The collaborator has been removed.",
-      });
+      toast("Collaborator removed: The collaborator has been removed.");
     } catch (error) {
       console.error('Failed to remove collaborator:', error);
       setError('Failed to remove collaborator. Please try again.');
-      toast({
-        variant: "destructive",
-        title: "Removal failed",
-        description: "There was a problem removing the collaborator.",
-      });
+      toast("Removal failed: There was a problem removing the collaborator.");
     } finally {
       setIsLoading(false);
     }
@@ -282,7 +254,7 @@ export const ContentSharing: React.FC<ContentSharingProps> = ({
   return (
     <div className="content-sharing">
       {error && (
-        <Alert variant="destructive" className="mb-4">
+        <Alert variant="error" className="mb-4">
           <AlertCircle className="h-4 w-4" />
           <AlertTitle>Error</AlertTitle>
           <AlertDescription>{error}</AlertDescription>
@@ -394,10 +366,7 @@ export const ContentSharing: React.FC<ContentSharingProps> = ({
                 value={contentMetadata.permission} 
                 onValueChange={(value) => {
                   // In a real implementation, this would update the content metadata
-                  toast({
-                    title: "Permission updated",
-                    description: `Content visibility changed to ${formatPermission(value as ContentPermission)}.`,
-                  });
+                  toast(`Permission updated: Content visibility changed to ${formatPermission(value as ContentPermission)}.`);
                 }}
               >
                 <SelectTrigger>
@@ -445,7 +414,7 @@ export const ContentSharing: React.FC<ContentSharingProps> = ({
                   <div className="flex items-centre gap-3">
                     <Avatar>
                       <AvatarImage src={collaborator.avatarUrl} />
-                      <AvatarFallback>{collaborator.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                      <AvatarFallback>{collaborator.name.split(' ').map((n: string) => n[0]).join('')}</AvatarFallback>
                     </Avatar>
                     <div>
                       <p className="font-medium">{collaborator.name}</p>

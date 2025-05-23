@@ -96,19 +96,10 @@ export default function LearningPathRecommendations() {
       
       setLearningPath(path);
       
-      toast({
-        title: "Learning Path Generated",
-        description: `Your personalised ${getSubjectName(selectedSubject)} learning path is ready.`,
-        duration: 3000,
-      });
+      toast(`Learning Path Generated. Your personalised ${getSubjectName(selectedSubject)} learning path is ready.`);
     } catch (error) {
       console.error('Failed to generate learning path:', error);
-      toast({
-        title: "Error",
-        description: "Failed to generate learning path. Please try again.",
-        variant: "destructive",
-        duration: 3000,
-      });
+      toast("Error: Failed to generate learning path. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -173,29 +164,17 @@ export default function LearningPathRecommendations() {
   
   // Mock function to start learning path
   const startLearningPath = () => {
-    toast({
-      title: "Learning Path Started",
-      description: "You've started your personalised learning journey.",
-      duration: 3000,
-    });
+    toast("Learning Path Started. You've started your personalised learning journey.");
   };
   
   // Mock function to save learning path
   const saveLearningPath = () => {
-    toast({
-      title: "Learning Path Saved",
-      description: "Your personalised learning path has been saved.",
-      duration: 3000,
-    });
+    toast("Learning Path Saved. Your personalised learning path has been saved.");
   };
   
   // Mock function to share learning path
   const shareLearningPath = () => {
-    toast({
-      title: "Learning Path Shared",
-      description: "Your personalised learning path has been shared with your teacher.",
-      duration: 3000,
-    });
+    toast("Learning Path Shared. Your personalised learning path has been shared with your teacher.");
   };
   
   return (

@@ -184,12 +184,13 @@ export default function LearningStyleAssessment() {
         }).join('\n')}
       `;
       
-      const aiResponse = await aiService.getCompletion({
-        prompt,
+      const response = await aiService.generateText(prompt, {
         model: 'gpt-4',
         temperature: 0.7,
         max_tokens: 1000
       });
+      
+      const aiResponse = response.text;
       
       // Parse the AI response - in a real implementation, this would be more robust
       // For now, we'll simulate the results
@@ -257,11 +258,7 @@ export default function LearningStyleAssessment() {
       
       setResults(mockResults);
     } catch (error) {
-      toast({
-        title: "Error processing results",
-        description: "There was a problem analysing your answers. Please try again.",
-        variant: "destructive"
-      });
+      toast("Error processing results. There was a problem analysing your answers. Please try again.");
       console.error(error);
     } finally {
       setIsProcessing(false);

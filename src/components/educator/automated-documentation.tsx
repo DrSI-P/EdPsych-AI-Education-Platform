@@ -378,9 +378,7 @@ export default function AutomatedDocumentation() {
       
     } catch (error) {
       console.error('Error accessing microphone:', error);
-      toast({
-        title: "Microphone access error",
-        description: "Could not access your microphone. Please check permissions.",
+      toast("Could not access your microphone. Please check permissions.", {
         variant: "destructive"
       });
     }
@@ -442,21 +440,18 @@ export default function AutomatedDocumentation() {
         Focus on improving structure, clarity, and professional presentation only.
       `;
       
-      const response = await aiService.getCompletion({
-        prompt,
+      const response = await aiService.generateText(prompt, {
         model: 'gpt-4',
         temperature: 0.5,
         max_tokens: 1500
       });
       
-      setGeneratedDocument(response);
+      setGeneratedDocument(response.text);
       setActiveTab('preview');
       
     } catch (error) {
       console.error('Error generating document:', error);
-      toast({
-        title: "Error generating document",
-        description: "There was a problem creating your document. Please try again.",
+      toast("There was a problem creating your document. Please try again.", {
         variant: "destructive"
       });
     } finally {
@@ -483,15 +478,10 @@ export default function AutomatedDocumentation() {
     try {
       localStorage.setItem('automatedDocuments', JSON.stringify(updatedDocuments));
       
-      toast({
-        title: "Document saved",
-        description: "Your document has been saved successfully.",
-      });
+      toast("Your document has been saved successfully.");
     } catch (error) {
       console.error('Error saving document:', error);
-      toast({
-        title: "Error saving document",
-        description: "There was a problem saving your document.",
+      toast("There was a problem saving your document.", {
         variant: "destructive"
       });
     }
@@ -501,15 +491,10 @@ export default function AutomatedDocumentation() {
   const copyToClipboard = () => {
     navigator.clipboard.writeText(generatedDocument).then(
       () => {
-        toast({
-          title: "Copied to clipboard",
-          description: "The document has been copied to your clipboard.",
-        });
+        toast("The document has been copied to your clipboard.");
       },
       (err) => {
-        toast({
-          title: "Failed to copy",
-          description: "There was an error copying the document.",
+        toast("There was an error copying the document.", {
           variant: "destructive"
         });
         console.error('Could not copy text: ', err);
@@ -535,10 +520,7 @@ export default function AutomatedDocumentation() {
     element.click();
     document.body.removeChild(element);
     
-    toast({
-      title: "Download started",
-      description: `Your file "${filename}" is being downloaded.`,
-    });
+    toast(`Your file "${filename}" is being downloaded.`);
   };
   
   // Delete saved document
@@ -550,10 +532,7 @@ export default function AutomatedDocumentation() {
     try {
       localStorage.setItem('automatedDocuments', JSON.stringify(updatedDocuments));
       
-      toast({
-        title: "Document deleted",
-        description: "The document has been deleted.",
-      });
+      toast("The document has been deleted.");
     } catch (error) {
       console.error('Error deleting document:', error);
     }
@@ -582,10 +561,7 @@ export default function AutomatedDocumentation() {
       handleSectionChange(sectionId, transcription);
       setIsProcessing(false);
       
-      toast({
-        title: "Audio processed",
-        description: `Audio file "${file.name}" has been transcribed.`,
-      });
+      toast(`Audio file "${file.name}" has been transcribed.`);
     }, 2000);
   };
   
@@ -610,19 +586,21 @@ export default function AutomatedDocumentation() {
               <h2 className="text-xl font-semibold">Select a Documentation Template</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {documentationTemplates.map(template => (
-                  <Card 
-                    key={template.id} 
-                    className="cursor-pointer hover:border-primary transition-colors"
+                  <div
+                    key={template.id}
+                    className="cursor-pointer"
                     onClick={() => handleTemplateSelect(template.id)}
                   >
-                    <CardHeader className="pb-2">
-                      <CardTitle>{template.name}</CardTitle>
-                      <CardDescription>{template.description}</CardDescription>
-                    </CardHeader>
-                    <CardFooter>
-                      <Button variant="outline" className="w-full">Select</Button>
-                    </CardFooter>
-                  </Card>
+                    <Card className="hover:border-primary transition-colors">
+                      <CardHeader className="pb-2">
+                        <CardTitle>{template.name}</CardTitle>
+                        <CardDescription>{template.description}</CardDescription>
+                      </CardHeader>
+                      <CardFooter>
+                        <Button variant="outline" className="w-full">Select</Button>
+                      </CardFooter>
+                    </Card>
+                  </div>
                 ))}
               </div>
             </div>

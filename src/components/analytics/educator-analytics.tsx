@@ -71,7 +71,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { DateRangePicker } from "@/components/ui/date-range-picker";
-import { toast } from "@/components/ui/use-toast";
+import { useToast } from "@/components/ui/toast";
 
 // Mock data for demonstration
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8', '#82ca9d'];
@@ -146,6 +146,7 @@ const EducatorAnalytics = () => {
   const [selectedDateRange, setSelectedDateRange] = useState({ from: new Date(2024, 8, 1), to: new Date() });
   const [refreshing, setRefreshing] = useState(false);
   const [activeTab, setActiveTab] = useState('overview');
+  const { showToast } = useToast();
 
   useEffect(() => {
     // Simulate data loading
@@ -161,17 +162,17 @@ const EducatorAnalytics = () => {
     // Simulate data refresh
     setTimeout(() => {
       setRefreshing(false);
-      toast({
-        title: "Data Refreshed",
-        description: "Educator analytics data has been updated to the latest available information.",
+      showToast({
+        message: "Data Refreshed: Educator analytics data has been updated to the latest available information.",
+        type: "success"
       });
     }, 1200);
   };
 
-  const handleExport = (format) => {
-    toast({
-      title: `Exporting Analytics as ${format.toUpperCase()}`,
-      description: "Your export is being prepared and will download shortly.",
+  const handleExport = (format: string) => {
+    showToast({
+      message: `Exporting Analytics as ${format.toUpperCase()}: Your export is being prepared and will download shortly.`,
+      type: "info"
     });
   };
 
@@ -255,6 +256,17 @@ const EducatorAnalytics = () => {
     }
 
     const educator = mockEducators.find(e => e.id === selectedEducator);
+    
+    if (!educator) {
+      return (
+        <div className="h-full flex items-centre justify-centre border border-dashed rounded-md p-8">
+          <div className="text-centre">
+            <h3 className="text-lg font-medium">Error: Educator Not Found</h3>
+            <p className="text-muted-foreground">The selected educator could not be found</p>
+          </div>
+        </div>
+      );
+    }
 
     return (
       <div className="space-y-6">

@@ -100,10 +100,7 @@ export default function ExecutiveDysfunctionSupport({
     } else if (timerRemaining === 0) {
       setTimerActive(false);
       if (!breakMode) {
-        toast({
-          title: "Time's up!",
-          description: settings.useAutomaticBreaks ? "Time for a short break." : "Your focused work time is complete.",
-        });
+        toast("Time's up! " + (settings.useAutomaticBreaks ? "Time for a short break." : "Your focused work time is complete."));
         
         if (settings.useAutomaticBreaks) {
           setBreakMode(true);
@@ -111,10 +108,7 @@ export default function ExecutiveDysfunctionSupport({
           setTimerActive(true);
         }
       } else {
-        toast({
-          title: "Break complete",
-          description: "Ready to start another focused work session?",
-        });
+        toast("Break complete. Ready to start another focused work session?");
         setBreakMode(false);
         setTimerRemaining(timerDuration * 60);
       }
@@ -142,11 +136,7 @@ export default function ExecutiveDysfunctionSupport({
       }
     } catch (error) {
       console.error('Error fetching user data:', error);
-      toast({
-        title: "Error",
-        description: "Failed to load your data. Please try again.",
-        variant: "destructive"
-      });
+      toast("Error: Failed to load your data. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -154,11 +144,7 @@ export default function ExecutiveDysfunctionSupport({
   
   const handleAddTask = async () => {
     if (!newTask.title) {
-      toast({
-        title: "Task title required",
-        description: "Please provide a title for your task.",
-        variant: "destructive"
-      });
+      toast("Task title required. Please provide a title for your task.");
       return;
     }
     
@@ -210,20 +196,13 @@ export default function ExecutiveDysfunctionSupport({
           steps: []
         });
         
-        toast({
-          title: "Task added",
-          description: "Your task has been successfully added.",
-        });
+        toast("Task added. Your task has been successfully added.");
       } else {
         throw new Error('Failed to add task');
       }
     } catch (error) {
       console.error('Error adding task:', error);
-      toast({
-        title: "Error",
-        description: "Failed to add task. Please try again.",
-        variant: "destructive"
-      });
+      toast("Error: Failed to add task. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -240,18 +219,11 @@ export default function ExecutiveDysfunctionSupport({
           task.id === taskId ? { ...task, completed: true } : task
         ));
         
-        toast({
-          title: "Task completed",
-          description: "Well done! You've completed this task.",
-        });
+        toast("Task completed. Well done! You've completed this task.");
       }
     } catch (error) {
       console.error('Error completing task:', error);
-      toast({
-        title: "Error",
-        description: "Failed to update task status. Please try again.",
-        variant: "destructive"
-      });
+      toast("Error: Failed to update task status. Please try again.");
     }
   };
   
@@ -276,11 +248,7 @@ export default function ExecutiveDysfunctionSupport({
       }
     } catch (error) {
       console.error('Error completing step:', error);
-      toast({
-        title: "Error",
-        description: "Failed to update step status. Please try again.",
-        variant: "destructive"
-      });
+      toast("Error: Failed to update step status. Please try again.");
     }
   };
   
@@ -505,12 +473,12 @@ export default function ExecutiveDysfunctionSupport({
                         <Progress value={calculateTaskProgress(task)} className="h-2" />
                       </div>
                       
-                      <Accordion type="single" collapsible className="mt-4">
-                        <AccordionItem value="steps">
-                          <AccordionTrigger className="text-sm">
+                      <Accordion className="mt-4">
+                        <AccordionItem id="steps-item">
+                          <AccordionTrigger id="steps-trigger" className="text-sm">
                             Task Steps ({task.steps.filter((step: any) => step.completed).length}/{task.steps.length})
                           </AccordionTrigger>
-                          <AccordionContent>
+                          <AccordionContent id="steps-content">
                             <div className="space-y-2 mt-2">
                               {task.steps.map((step: any, index: number) => (
                                 <div 

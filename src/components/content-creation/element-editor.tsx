@@ -27,7 +27,7 @@ import { useToast } from '@/components/ui/use-toast';
 
 interface ElementEditorProps {
   element: ContentElement;
-  onUpdate: (updatedElement: Partial<ContentElement>) => void;
+  onUpdate: (updatedElement: any) => void;
 }
 
 export const ElementEditor: React.FC<ElementEditorProps> = ({
@@ -47,7 +47,7 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
           <Textarea 
             id="textContent" 
             value={textElement.content || ''} 
-            onChange={(e) => onUpdate({ content: e.target.value })} 
+            onChange={(e) => onUpdate({ content: e.target.value } as any)}
             className="min-h-[200px]"
           />
         </div>

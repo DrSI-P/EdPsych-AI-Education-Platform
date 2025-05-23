@@ -89,11 +89,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
         }
       } catch (error) {
         console.error('Failed to load dashboards:', error);
-        toast({
-          variant: "destructive",
-          title: "Failed to load dashboards",
-          description: "There was a problem loading your dashboards. Please try again."
-        });
+        toast("Failed to load dashboards. There was a problem loading your dashboards. Please try again.");
       } finally {
         setIsLoading(false);
       }
@@ -119,11 +115,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
       }
     } catch (error) {
       console.error('Failed to load dashboard:', error);
-      toast({
-        variant: "destructive",
-        title: "Failed to load dashboard",
-        description: "There was a problem loading the selected dashboard. Please try again."
-      });
+      toast("Failed to load dashboard. There was a problem loading the selected dashboard. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -146,26 +138,31 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
   };
   
   // Handle date range change
-  const handleDateRangeChange = (range: { from: Date | undefined; to: Date | undefined }) => {
-    setDateRange(range);
-    
-    if (range.from && range.to) {
-      setFilter(prev => ({
-        ...prev,
-        timePeriod: TimePeriod.CUSTOM,
-        startDate: range.from,
-        endDate: range.to
-      }));
+  const handleDateRangeChange = (range: { from: Date | undefined; to?: Date | undefined } | undefined) => {
+    if (range) {
+      // Ensure we have both from and to for our state
+      const updatedRange = {
+        from: range.from,
+        to: range.to
+      };
+      
+      setDateRange(updatedRange);
+      
+      if (range.from && range.to) {
+        setFilter(prev => ({
+          ...prev,
+          timePeriod: TimePeriod.CUSTOM,
+          startDate: range.from,
+          endDate: range.to
+        }));
+      }
     }
   };
   
   // Handle widget refresh
   const handleWidgetRefresh = async (widgetId: string) => {
     // In a real implementation, this would refresh the specific widget data
-    toast({
-      title: "Refreshing widget",
-      description: "Widget data is being updated."
-    });
+    toast("Refreshing widget. Widget data is being updated.");
   };
   
   // Handle dashboard export
@@ -210,17 +207,10 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
         URL.revokeObjectURL(url);
       }
       
-      toast({
-        title: "Export successful",
-        description: `Dashboard exported as ${format}.`
-      });
+      toast(`Export successful. Dashboard exported as ${format}.`);
     } catch (error) {
       console.error('Failed to export dashboard:', error);
-      toast({
-        variant: "destructive",
-        title: "Export failed",
-        description: "There was a problem exporting the dashboard. Please try again."
-      });
+      toast("Export failed. There was a problem exporting the dashboard. Please try again.");
     } finally {
       setIsExporting(false);
     }
@@ -406,10 +396,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
                 Cancel
               </Button>
               <Button onClick={() => {
-                toast({
-                  title: "Filters applied",
-                  description: "Dashboard data has been updated with your filters."
-                });
+                toast("Filters applied. Dashboard data has been updated with your filters.");
                 setIsFilterOpen(false);
               }}>
                 Apply Filters
@@ -541,22 +528,13 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
             isLoading={isLoading}
             onRefresh={() => handleWidgetRefresh(widget.id)}
             onEdit={() => {
-              toast({
-                title: "Edit widget",
-                description: "Widget editing functionality will be implemented in a future update."
-              });
+              toast("Edit widget. Widget editing functionality will be implemented in a future update.");
             }}
             onDelete={() => {
-              toast({
-                title: "Delete widget",
-                description: "Widget deletion functionality will be implemented in a future update."
-              });
+              toast("Delete widget. Widget deletion functionality will be implemented in a future update.");
             }}
             onExport={() => {
-              toast({
-                title: "Export widget",
-                description: "Widget export functionality will be implemented in a future update."
-              });
+              toast("Export widget. Widget export functionality will be implemented in a future update.");
             }}
             onMaximize={() => {
               // Handle widget maximization

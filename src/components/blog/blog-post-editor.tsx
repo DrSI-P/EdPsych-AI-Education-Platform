@@ -152,9 +152,9 @@ const BlogPostEditor = () => {
   const [isGeneratingWithAI, setIsGeneratingWithAI] = useState(false);
   const [showAIDialog, setShowAIDialog] = useState(false);
   const [aiPrompt, setAiPrompt] = useState("");
-  const [selectedTags, setSelectedTags] = useState([]);
-  const [selectedCurriculumAreas, setSelectedCurriculumAreas] = useState([]);
-  const [selectedAgeRanges, setSelectedAgeRanges] = useState([]);
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [selectedCurriculumAreas, setSelectedCurriculumAreas] = useState<string[]>([]);
+  const [selectedAgeRanges, setSelectedAgeRanges] = useState<string[]>([]);
   
   // Form state
   const [postData, setPostData] = useState({
@@ -170,14 +170,14 @@ const BlogPostEditor = () => {
     isFeatured: false
   });
 
-  const handleInputChange = (field, value) => {
+  const handleInputChange = (field: string, value: string | boolean | File | null) => {
     setPostData({
       ...postData,
       [field]: value
     });
   };
 
-  const handleTagToggle = (tag) => {
+  const handleTagToggle = (tag: string) => {
     if (selectedTags.includes(tag)) {
       setSelectedTags(selectedTags.filter(t => t !== tag));
     } else {
@@ -185,7 +185,7 @@ const BlogPostEditor = () => {
     }
   };
 
-  const handleCurriculumToggle = (area) => {
+  const handleCurriculumToggle = (area: string) => {
     if (selectedCurriculumAreas.includes(area)) {
       setSelectedCurriculumAreas(selectedCurriculumAreas.filter(a => a !== area));
     } else {
@@ -193,7 +193,7 @@ const BlogPostEditor = () => {
     }
   };
 
-  const handleAgeRangeToggle = (range) => {
+  const handleAgeRangeToggle = (range: string) => {
     if (selectedAgeRanges.includes(range)) {
       setSelectedAgeRanges(selectedAgeRanges.filter(r => r !== range));
     } else {
@@ -206,10 +206,7 @@ const BlogPostEditor = () => {
     // Simulate API call
     setTimeout(() => {
       setIsSaving(false);
-      toast({
-        title: "Draft saved",
-        description: "Your blog post draft has been saved successfully.",
-      });
+      toast("Your blog post draft has been saved successfully");
     }, 1500);
   };
 
@@ -218,10 +215,7 @@ const BlogPostEditor = () => {
     // Simulate API call
     setTimeout(() => {
       setIsPublishing(false);
-      toast({
-        title: "Post published",
-        description: "Your blog post has been published successfully.",
-      });
+      toast("Your blog post has been published successfully");
     }, 2000);
   };
 
@@ -252,10 +246,7 @@ const BlogPostEditor = () => {
         setSelectedTags(["Executive Function", "Working Memory", "AI", "Cognitive Development", "Self-Regulation"]);
       }
       
-      toast({
-        title: "AI content generated",
-        description: "The AI has generated content based on your prompt.",
-      });
+      toast("The AI has generated content based on your prompt");
     }, 3000);
   };
 
@@ -564,8 +555,13 @@ const BlogPostEditor = () => {
                 }}
               />
               <Button 
-                variant="outline" 
-                onClick={() => document.getElementById("featured-image").click()}
+                variant="outline"
+                onClick={() => {
+                  const element = document.getElementById("featured-image");
+                  if (element) {
+                    element.click();
+                  }
+                }}
               >
                 Browse Files
               </Button>

@@ -211,20 +211,11 @@ export default function TeacherAutomation() {
         Format the lesson plan professionally with clear headings and sections.
       `;
       
-      const response = await aiService.getCompletion({
-        prompt,
-        model: 'gpt-4',
-        temperature: 0.7,
-        max_tokens: 1500
-      });
+      const response = await aiService.generateText(prompt);
       
-      setGeneratedContent(response);
+      setGeneratedContent(response.text);
     } catch (error) {
-      toast({
-        title: "Error generating lesson plan",
-        description: "There was a problem creating your lesson plan. Please try again.",
-        variant: "destructive"
-      });
+      toast("Error generating lesson plan. There was a problem creating your lesson plan. Please try again.");
       console.error(error);
     } finally {
       setIsProcessing(false);
@@ -259,20 +250,11 @@ export default function TeacherAutomation() {
         Format the report with clear headings and professional structure.
       `;
       
-      const response = await aiService.getCompletion({
-        prompt,
-        model: 'gpt-4',
-        temperature: 0.7,
-        max_tokens: 1000
-      });
+      const response = await aiService.generateText(prompt);
       
-      setGeneratedContent(response);
+      setGeneratedContent(response.text);
     } catch (error) {
-      toast({
-        title: "Error generating report",
-        description: "There was a problem creating the student report. Please try again.",
-        variant: "destructive"
-      });
+      toast("Error generating report. There was a problem creating the student report. Please try again.");
       console.error(error);
     } finally {
       setIsProcessing(false);
@@ -306,20 +288,11 @@ export default function TeacherAutomation() {
         Format the feedback in a clear, well-structured manner that is easy for the student to understand and apply.
       `;
       
-      const response = await aiService.getCompletion({
-        prompt,
-        model: 'gpt-4',
-        temperature: 0.7,
-        max_tokens: 1000
-      });
+      const response = await aiService.generateText(prompt);
       
-      setGeneratedContent(response);
+      setGeneratedContent(response.text);
     } catch (error) {
-      toast({
-        title: "Error generating feedback",
-        description: "There was a problem creating the assignment feedback. Please try again.",
-        variant: "destructive"
-      });
+      toast("Error generating feedback. There was a problem creating the assignment feedback. Please try again.");
       console.error(error);
     } finally {
       setIsProcessing(false);
@@ -329,17 +302,10 @@ export default function TeacherAutomation() {
   const copyToClipboard = () => {
     navigator.clipboard.writeText(generatedContent).then(
       () => {
-        toast({
-          title: "Copied to clipboard",
-          description: "The content has been copied to your clipboard.",
-        });
+        toast("Copied to clipboard. The content has been copied to your clipboard.");
       },
       (err) => {
-        toast({
-          title: "Failed to copy",
-          description: "There was an error copying the content.",
-          variant: "destructive"
-        });
+        toast("Failed to copy. There was an error copying the content.");
         console.error('Could not copy text: ', err);
       }
     );
@@ -364,10 +330,7 @@ export default function TeacherAutomation() {
     element.click();
     document.body.removeChild(element);
     
-    toast({
-      title: "Download started",
-      description: `Your file "${filename}" is being downloaded.`,
-    });
+    toast(`Download started. Your file "${filename}" is being downloaded.`);
   };
   
   const renderLessonPlanForm = () => (

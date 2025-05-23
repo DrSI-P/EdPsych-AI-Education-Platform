@@ -221,7 +221,13 @@ export function EducatorPerformanceAnalytics() {
                   mode="range"
                   defaultMonth={dateRange.from}
                   selected={dateRange}
-                  onSelect={setDateRange}
+                  onSelect={(range) => {
+                    if (range?.from && range?.to) {
+                      setDateRange({ from: range.from, to: range.to });
+                    } else if (range?.from) {
+                      setDateRange({ ...dateRange, from: range.from });
+                    }
+                  }}
                   numberOfMonths={2}
                 />
               </PopoverContent>
@@ -960,9 +966,16 @@ export function EducatorPerformanceAnalytics() {
                     nameKey="name"
                     label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
                   >
-                    {({ name, value, colour }) => (
-                      <Cell key={`cell-${name}`} fill={colour} />
-                    )}
+                    {[
+                      { name: 'Subject Knowledge', value: 30, color: '#8884d8' },
+                      { name: 'Pedagogy', value: 25, color: '#82ca9d' },
+                      { name: 'Assessment', value: 15, color: '#ffc658' },
+                      { name: 'Digital Skills', value: 10, color: '#ff8042' },
+                      { name: 'SEND', value: 12, color: '#0088fe' },
+                      { name: 'Leadership', value: 8, color: '#00C49F' },
+                    ].map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
                   </Pie>
                   <Tooltip formatter={(value) => [`${value}%`, 'Percentage']} />
                 </PieChart>
@@ -1284,9 +1297,14 @@ export function EducatorPerformanceAnalytics() {
                     nameKey="name"
                     label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
                   >
-                    {({ name, value, colour }) => (
-                      <Cell key={`cell-${name}`} fill={colour} />
-                    )}
+                    {[
+                      { name: 'Very Satisfied', value: 75, color: '#4ade80' },
+                      { name: 'Satisfied', value: 20, color: '#facc15' },
+                      { name: 'Neutral', value: 5, color: '#fb923c' },
+                      { name: 'Dissatisfied', value: 0, color: '#f87171' },
+                    ].map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
                   </Pie>
                   <Tooltip formatter={(value) => [`${value}%`, 'Percentage']} />
                 </PieChart>
@@ -1918,7 +1936,7 @@ export function EducatorPerformanceAnalytics() {
 }
 
 // Helper components
-const Search = ({ className, ...props }) => (
+const Search = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"

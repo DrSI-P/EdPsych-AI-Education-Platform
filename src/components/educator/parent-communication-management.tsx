@@ -122,20 +122,20 @@ export function ParentCommunicationManagement() {
   const [activeTab, setActiveTab] = useState("compose");
   
   // State for compose form
-  const [selectedTemplate, setSelectedTemplate] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [subject, setSubject] = useState("");
-  const [messageContent, setMessageContent] = useState("");
-  const [selectedStudents, setSelectedStudents] = useState([]);
-  const [selectedLanguage, setSelectedLanguage] = useState("en");
-  const [scheduledDate, setScheduledDate] = useState(null);
+  const [selectedTemplate, setSelectedTemplate] = useState<string>("");
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const [subject, setSubject] = useState<string>("");
+  const [messageContent, setMessageContent] = useState<string>("");
+  const [selectedStudents, setSelectedStudents] = useState<string[]>([]);
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
+  const [scheduledDate, setScheduledDate] = useState<Date | null>(null);
   
   // State for search and filters
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const [filteredTemplates, setFilteredTemplates] = useState(communicationTemplates);
   const [filteredStudents, setFilteredStudents] = useState(sampleStudents);
-  const [selectedStudent, setSelectedStudent] = useState(null);
-  const [studentCommunications, setStudentCommunications] = useState([]);
+  const [selectedStudent, setSelectedStudent] = useState<typeof sampleStudents[0] | null>(null);
+  const [studentCommunications, setStudentCommunications] = useState<typeof sampleCommunicationHistory>([]);
   
   // Filter templates when category or search term changes
   useEffect(() => {
@@ -189,7 +189,7 @@ export function ParentCommunicationManagement() {
   }, [selectedStudent]);
   
   // Handle template selection
-  const handleTemplateSelect = (templateId) => {
+  const handleTemplateSelect = (templateId: string) => {
     const template = communicationTemplates.find(t => t.id === templateId);
     if (template) {
       setSelectedTemplate(templateId);
@@ -199,7 +199,7 @@ export function ParentCommunicationManagement() {
   };
   
   // Handle student selection for communication
-  const handleStudentSelect = (studentId) => {
+  const handleStudentSelect = (studentId: string) => {
     const isSelected = selectedStudents.includes(studentId);
     
     if (isSelected) {
@@ -210,27 +210,19 @@ export function ParentCommunicationManagement() {
   };
   
   // Handle student selection for history view
-  const handleStudentHistorySelect = (student) => {
+  const handleStudentHistorySelect = (student: typeof sampleStudents[0]) => {
     setSelectedStudent(student);
   };
   
   // Handle send message
   const handleSendMessage = () => {
     if (!subject || !messageContent || selectedStudents.length === 0) {
-      toast({
-        title: "Missing Information",
-        description: "Please complete all required fields before sending.",
-        variant: "destructive"
-      });
+      toast("Please complete all required fields before sending.");
       return;
     }
     
     // In a real implementation, this would send the message via API
-    toast({
-      title: "Message Sent",
-      description: `Message sent to ${selectedStudents.length} recipient(s)${scheduledDate ? ' scheduled for ' + format(scheduledDate, 'PPP') : ''}.`,
-      variant: "default"
-    });
+    toast(`Message sent to ${selectedStudents.length} recipient(s)${scheduledDate ? ' scheduled for ' + format(scheduledDate, 'PPP') : ''}.`);
     
     // Reset form
     setSubject("");
@@ -364,8 +356,8 @@ export function ParentCommunicationManagement() {
               <PopoverContent className="w-auto p-0">
                 <Calendar
                   mode="single"
-                  selected={scheduledDate}
-                  onSelect={setScheduledDate}
+                  selected={scheduledDate || undefined}
+                  onSelect={(date: Date | undefined) => setScheduledDate(date || null)}
                   initialFocus
                   disabled={(date) => date < new Date()}
                 />

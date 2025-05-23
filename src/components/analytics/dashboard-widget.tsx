@@ -9,12 +9,11 @@ import {
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
-import { 
-  BarChart, 
-  LineChart, 
-  PieChart, 
-  DonutChart, 
-  AreaChart 
+import {
+  BarChart,
+  LineChart,
+  DonutChart,
+  AreaChart
 } from '@tremor/react';
 import { 
   Download, 
@@ -130,7 +129,7 @@ export const DashboardWidget: React.FC<DashboardWidgetProps> = ({
             index="category"
             categories={datasetNames}
             colors={colors as any}
-            valueFormatter={(value) => `${value}`}
+            valueFormatter={(value: number) => `${value}`}
             yAxisWidth={40}
             showLegend={true}
             showAnimation={true}
@@ -144,7 +143,7 @@ export const DashboardWidget: React.FC<DashboardWidgetProps> = ({
             index="category"
             categories={datasetNames}
             colors={colors as any}
-            valueFormatter={(value) => `${value}`}
+            valueFormatter={(value: number) => `${value}`}
             yAxisWidth={40}
             showLegend={true}
             showAnimation={true}
@@ -153,7 +152,7 @@ export const DashboardWidget: React.FC<DashboardWidgetProps> = ({
         );
       case ChartType.PIE:
         return (
-          <PieChart
+          <DonutChart
             data={chartData.map(item => ({
               name: item.category,
               value: item[datasetNames[0]]
@@ -161,7 +160,7 @@ export const DashboardWidget: React.FC<DashboardWidgetProps> = ({
             category="value"
             index="name"
             colors={colors as any}
-            valueFormatter={(value) => `${value}`}
+            valueFormatter={(value: number) => `${value}`}
             className="h-64"
           />
         );
@@ -175,7 +174,7 @@ export const DashboardWidget: React.FC<DashboardWidgetProps> = ({
             category="value"
             index="name"
             colors={colors as any}
-            valueFormatter={(value) => `${value}`}
+            valueFormatter={(value: number) => `${value}`}
             className="h-64"
           />
         );
@@ -186,7 +185,7 @@ export const DashboardWidget: React.FC<DashboardWidgetProps> = ({
             index="category"
             categories={datasetNames}
             colors={colors as any}
-            valueFormatter={(value) => `${value}`}
+            valueFormatter={(value: number) => `${value}`}
             yAxisWidth={40}
             showLegend={true}
             showAnimation={true}

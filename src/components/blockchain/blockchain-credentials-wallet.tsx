@@ -37,6 +37,15 @@ import {
 } from 'lucide-react';
 import { useFairUsage } from '../subscription/fair-usage';
 
+// Define types for the mock Web3 integration
+interface CredentialData {
+  type: string;
+  title: string;
+  issuer: string;
+  description: string;
+  skills: string[];
+}
+
 // Mock Web3 integration - would be replaced with actual Ethereum/Web3 implementation
 const mockWeb3 = {
   // Connect to wallet
@@ -45,7 +54,7 @@ const mockWeb3 = {
   },
   
   // Issue a credential on blockchain
-  issueCredential: async (data) => {
+  issueCredential: async (data: CredentialData) => {
     // Simulate blockchain transaction
     await new Promise(resolve => setTimeout(resolve, 1500));
     return {
@@ -57,7 +66,7 @@ const mockWeb3 = {
   },
   
   // Verify a credential
-  verifyCredential: async (id) => {
+  verifyCredential: async (id: string) => {
     // Simulate blockchain verification
     await new Promise(resolve => setTimeout(resolve, 1000));
     return {
@@ -70,7 +79,7 @@ const mockWeb3 = {
   },
   
   // Register copyright for content
-  registerCopyright: async (contentHash, metadata) => {
+  registerCopyright: async (contentHash: string, metadata: Record<string, any>) => {
     // Simulate blockchain transaction
     await new Promise(resolve => setTimeout(resolve, 2000));
     return {
@@ -82,7 +91,7 @@ const mockWeb3 = {
   },
   
   // Verify copyright registration
-  verifyCopyright: async (registrationId) => {
+  verifyCopyright: async (registrationId: string) => {
     // Simulate blockchain verification
     await new Promise(resolve => setTimeout(resolve, 1000));
     return {
@@ -211,10 +220,59 @@ const BlockchainCredentialsWallet = () => {
   const [showVerifyDialog, setShowVerifyDialog] = useState(false);
   const [showShareDialog, setShowShareDialog] = useState(false);
   
-  const [selectedCredential, setSelectedCredential] = useState(null);
-  const [selectedRegistration, setSelectedRegistration] = useState(null);
+  // Define types for credentials and registrations
+  interface Credential {
+    id: string;
+    type: string;
+    title: string;
+    issuer: string;
+    issuedAt: string;
+    expiresAt: string | null;
+    description: string;
+    skills: string[];
+    txHash: string;
+    verified: boolean;
+  }
+
+  interface Registration {
+    id: string;
+    title: string;
+    type: string;
+    registeredAt: string;
+    contentHash: string;
+    licenseType: string;
+    description: string;
+    txHash: string;
+    verified: boolean;
+  }
+
+  interface VerificationResultBase {
+    valid: boolean;
+    type?: 'credential' | 'copyright';
+  }
+
+  interface CredentialVerificationResult extends VerificationResultBase {
+    type: 'credential';
+    issuer: string;
+    issuedAt: string;
+    expiresAt: string;
+    revoked: boolean;
+  }
+
+  interface CopyrightVerificationResult extends VerificationResultBase {
+    type: 'copyright';
+    owner: string;
+    registeredAt: string;
+    contentHash: string;
+    licenseType: string;
+  }
+
+  type VerificationResult = CredentialVerificationResult | CopyrightVerificationResult;
+
+  const [selectedCredential, setSelectedCredential] = useState<Credential | null>(null);
+  const [selectedRegistration, setSelectedRegistration] = useState<Registration | null>(null);
   const [verificationId, setVerificationId] = useState('');
-  const [verificationResult, setVerificationResult] = useState(null);
+  const [verificationResult, setVerificationResult] = useState<VerificationResult | null>(null);
   
   // New credential form state
   const [newCredential, setNewCredential] = useState({
@@ -226,7 +284,13 @@ const BlockchainCredentialsWallet = () => {
   });
   
   // New copyright registration form state
-  const [newCopyright, setNewCopyright] = useState({
+  const [newCopyright, setNewCopyright] = useState<{
+    title: string;
+    type: string;
+    description: string;
+    licenseType: string;
+    file: File | null;
+  }>({
     title: '',
     type: 'document',
     description: '',
@@ -254,19 +318,12 @@ const BlockchainCredentialsWallet = () => {
         setWalletConnected(true);
         setWalletAddress(result.address);
         
-        toast({
-          title: "Wallet Connected",
-          description: `Connected to ${result.address}`,
-          variant: "success",
-        });
+        toast(`Connected to ${result.address}`);
       }
     } catch (error) {
       console.error('Error connecting wallet:', error);
-      toast({
-        title: "Connection Failed",
-        description: error.message || "Failed to connect wallet",
-        variant: "destructive",
-      });
+      const errorMessage = error instanceof Error ? error.message : "Failed to connect wallet";
+      toast(errorMessage);
     } finally {
       setIsLoading(false);
     }
@@ -316,11 +373,7 @@ const BlockchainCredentialsWallet = () => {
         
         setCredentials(prev => [credential, ...prev]);
         
-        toast({
-          title: "Credential Issued",
-          description: `Successfully issued credential: ${newCredential.title}`,
-          variant: "success",
-        });
+        toast(`Successfully issued credential: ${newCredential.title}`);
         
         // Reset form and close dialogue
         setNewCredential({
@@ -335,11 +388,8 @@ const BlockchainCredentialsWallet = () => {
       }
     } catch (error) {
       console.error('Error issuing credential:', error);
-      toast({
-        title: "Issuance Failed",
-        description: error.message || "Failed to issue credential",
-        variant: "destructive",
-      });
+      const errorMessage = error instanceof Error ? error.message : "Failed to issue credential";
+      toast(errorMessage);
     } finally {
       setIsLoading(false);
     }
@@ -390,11 +440,7 @@ const BlockchainCredentialsWallet = () => {
         
         setCopyrightRegistrations(prev => [registration, ...prev]);
         
-        toast({
-          title: "Copyright Registered",
-          description: `Successfully registered copyright for: ${newCopyright.title}`,
-          variant: "success",
-        });
+        toast(`Successfully registered copyright for: ${newCopyright.title}`);
         
         // Reset form and close dialogue
         setNewCopyright({
@@ -409,11 +455,8 @@ const BlockchainCredentialsWallet = () => {
       }
     } catch (error) {
       console.error('Error registering copyright:', error);
-      toast({
-        title: "Registration Failed",
-        description: error.message || "Failed to register copyright",
-        variant: "destructive",
-      });
+      const errorMessage = error instanceof Error ? error.message : "Failed to register copyright";
+      toast(errorMessage);
     } finally {
       setIsLoading(false);
     }
@@ -428,33 +471,30 @@ const BlockchainCredentialsWallet = () => {
         throw new Error('Please enter a valid verification ID');
       }
       
-      let result;
-      
       // Determine if it's a credential or copyright registration
       if (verificationId.startsWith('cred_')) {
-        result = await mockWeb3.verifyCredential(verificationId);
-        result.type = 'credential';
+        const credResult = await mockWeb3.verifyCredential(verificationId);
+        const result: CredentialVerificationResult = {
+          ...credResult,
+          type: 'credential'
+        };
+        setVerificationResult(result);
+        toast(result.valid ? "Item successfully verified" : "Verification failed");
       } else if (verificationId.startsWith('reg_')) {
-        result = await mockWeb3.verifyCopyright(verificationId);
-        result.type = 'copyright';
+        const copyResult = await mockWeb3.verifyCopyright(verificationId);
+        const result: CopyrightVerificationResult = {
+          ...copyResult,
+          type: 'copyright'
+        };
+        setVerificationResult(result);
+        toast(result.valid ? "Item successfully verified" : "Verification failed");
       } else {
         throw new Error('Invalid verification ID format');
       }
-      
-      setVerificationResult(result);
-      
-      toast({
-        title: "Verification Complete",
-        description: result.valid ? "Item successfully verified" : "Verification failed",
-        variant: result.valid ? "success" : "destructive",
-      });
     } catch (error) {
       console.error('Error verifying item:', error);
-      toast({
-        title: "Verification Failed",
-        description: error.message || "Failed to verify item",
-        variant: "destructive",
-      });
+      const errorMessage = error instanceof Error ? error.message : "Failed to verify item";
+      toast(errorMessage);
       setVerificationResult(null);
     } finally {
       setIsLoading(false);
@@ -462,37 +502,33 @@ const BlockchainCredentialsWallet = () => {
   };
   
   // Share credential
-  const shareCredential = (credential) => {
+  const shareCredential = (credential: Credential) => {
     setSelectedCredential(credential);
     setShowShareDialog(true);
   };
   
   // Copy verification link
-  const copyVerificationLink = (id) => {
+  const copyVerificationLink = (id: string) => {
     const link = `https://edpsychconnect.com/verify/${id}`;
     navigator.clipboard.writeText(link);
     
-    toast({
-      title: "Link Copied",
-      description: "Verification link copied to clipboard",
-      variant: "success",
-    });
+    toast("Verification link copied to clipboard");
   };
   
   // Get license name from ID
-  const getLicenseName = (licenseId) => {
+  const getLicenseName = (licenseId: string) => {
     const license = licenseTypes.find(l => l.id === licenseId);
     return license ? license.name : licenseId;
   };
   
   // Get credential type name and icon
-  const getCredentialTypeInfo = (typeId) => {
+  const getCredentialTypeInfo = (typeId: string) => {
     const type = credentialTypes.find(t => t.id === typeId);
     return type || { name: typeId, icon: <Award className="h-5 w-5" /> };
   };
   
   // Render credential card
-  const renderCredentialCard = (credential) => {
+  const renderCredentialCard = (credential: Credential) => {
     const typeInfo = getCredentialTypeInfo(credential.type);
     
     return (
@@ -505,7 +541,7 @@ const BlockchainCredentialsWallet = () => {
                 {typeInfo.name}
               </Badge>
             </div>
-            <Badge variant={credential.verified ? "success" : "outline"}>
+            <Badge variant={credential.verified ? "default" : "outline"}>
               {credential.verified ? "Verified" : "Unverified"}
             </Badge>
           </div>
@@ -519,7 +555,7 @@ const BlockchainCredentialsWallet = () => {
             <div className="mt-3">
               <p className="text-sm font-medium mb-1">Skills</p>
               <div className="flex flex-wrap gap-1">
-                {credential.skills.map((skill, index) => (
+                {credential.skills.map((skill: string, index: number) => (
                   <Badge key={index} variant="secondary" className="text-xs">
                     {skill}
                   </Badge>
@@ -556,15 +592,15 @@ const BlockchainCredentialsWallet = () => {
   };
   
   // Render copyright registration card
-  const renderCopyrightCard = (registration) => {
+  const renderCopyrightCard = (registration: Registration) => {
     return (
       <Card key={registration.id} className="mb-4">
         <CardHeader className="pb-2">
           <div className="flex justify-between items-start">
             <Badge variant="outline">
-              {registration.type.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}
+              {registration.type.replace('_', ' ').replace(/\b\w/g, (l: string) => l.toUpperCase())}
             </Badge>
-            <Badge variant={registration.verified ? "success" : "outline"}>
+            <Badge variant={registration.verified ? "default" : "outline"}>
               {registration.verified ? "Verified" : "Unverified"}
             </Badge>
           </div>
@@ -625,7 +661,7 @@ const BlockchainCredentialsWallet = () => {
             <Badge variant="outline" className="font-mono">
               {walletAddress}
             </Badge>
-            <Badge variant="success" className="ml-2">
+            <Badge variant="default" className="ml-2">
               Connected
             </Badge>
           </div>
@@ -786,7 +822,7 @@ const BlockchainCredentialsWallet = () => {
                           </div>
                           <div>
                             <p className="text-sm font-medium">Status</p>
-                            <Badge variant={verificationResult.revoked ? "destructive" : "success"}>
+                            <Badge variant={verificationResult.revoked ? "destructive" : "default"}>
                               {verificationResult.revoked ? "Revoked" : "Active"}
                             </Badge>
                           </div>
@@ -985,8 +1021,8 @@ const BlockchainCredentialsWallet = () => {
                 onChange={(e) => setNewCopyright({...newCopyright, licenseType: e.target.value})}
               >
                 {licenseTypes.map((licence) => (
-                  <option key={license.id} value={license.id}>
-                    {license.name}
+                  <option key={licence.id} value={licence.id}>
+                    {licence.name}
                   </option>
                 ))}
               </select>
@@ -1000,7 +1036,11 @@ const BlockchainCredentialsWallet = () => {
                 id="copyrightFile"
                 type="file"
                 className="col-span-3"
-                onChange={(e) => setNewCopyright({...newCopyright, file: e.target.files[0]})}
+                onChange={(e) => {
+                  if (e.target.files && e.target.files.length > 0) {
+                    setNewCopyright({...newCopyright, file: e.target.files[0]});
+                  }
+                }}
               />
             </div>
           </div>

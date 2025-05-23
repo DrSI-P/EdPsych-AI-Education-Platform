@@ -181,23 +181,11 @@ export default function AdvancedSpeechRecognition({
       setRecognitionError(event.error);
       
       if (event.error === 'no-speech') {
-        toast({
-          title: "No speech detected",
-          description: "Please try speaking again or check your microphone.",
-          variant: "destructive",
-        });
+        toast("No speech detected. Please try speaking again or check your microphone.");
       } else if (event.error === 'audio-capture') {
-        toast({
-          title: "Microphone not found",
-          description: "Please check your microphone connection and permissions.",
-          variant: "destructive",
-        });
+        toast("Microphone not found. Please check your microphone connection and permissions.");
       } else if (event.error === 'not-allowed') {
-        toast({
-          title: "Microphone access denied",
-          description: "Please allow microphone access to use speech recognition.",
-          variant: "destructive",
-        });
+        toast("Microphone access denied. Please allow microphone access to use speech recognition.");
       }
     };
     
@@ -278,11 +266,7 @@ export default function AdvancedSpeechRecognition({
       })
       .catch(error => {
         console.error('Error accessing microphone:', error);
-        toast({
-          title: "Microphone access error",
-          description: "Unable to access your microphone. Please check permissions.",
-          variant: "destructive",
-        });
+        toast("Microphone access error. Unable to access your microphone. Please check permissions.");
       });
       
     return () => {
@@ -305,11 +289,7 @@ export default function AdvancedSpeechRecognition({
       setRecognitionError(null);
     } catch (error) {
       console.error('Error starting speech recognition:', error);
-      toast({
-        title: "Speech recognition error",
-        description: "There was an error starting speech recognition. Please try again.",
-        variant: "destructive",
-      });
+      toast("Speech recognition error. There was an error starting speech recognition. Please try again.");
     }
   };
   
@@ -345,10 +325,7 @@ export default function AdvancedSpeechRecognition({
     setCalibrationProgress(0);
     setCalibrationSamples([]);
     
-    toast({
-      title: "Calibration started",
-      description: "Please read the phrases aloud when prompted.",
-    });
+    toast("Calibration started. Please read the phrases aloud when prompted.");
   };
   
   // Handle calibration step completion
@@ -373,11 +350,7 @@ export default function AdvancedSpeechRecognition({
     
     // In a real implementation, we would use the collected data to optimise the recognition
     // For this demo, we'll just show a success message
-    toast({
-      title: "Calibration complete",
-      description: "Voice profile has been optimised for better recognition.",
-      variant: "success",
-    });
+    toast("Calibration complete. Voice profile has been optimised for better recognition.");
     
     // Save calibration data to user profile
     if (session?.user) {
@@ -433,7 +406,7 @@ export default function AdvancedSpeechRecognition({
   // Render error message if speech recognition is not supported
   if (!isSupported) {
     return (
-      <Alert variant="destructive" className={className}>
+      <Alert variant="error" className={className}>
         <AlertCircle className="h-4 w-4" />
         <AlertTitle>Speech Recognition Not Supported</AlertTitle>
         <AlertDescription>
@@ -521,7 +494,7 @@ export default function AdvancedSpeechRecognition({
               </CardHeader>
               <CardContent>
                 {recognitionError && (
-                  <Alert variant="destructive" className="mb-4">
+                  <Alert variant="error" className="mb-4">
                     <AlertCircle className="h-4 w-4" />
                     <AlertTitle>Recognition Error</AlertTitle>
                     <AlertDescription>
@@ -604,7 +577,7 @@ export default function AdvancedSpeechRecognition({
                 )}
               </CardContent>
               <CardFooter>
-                <Alert variant="default" className="w-full">
+                <Alert variant="info" className="w-full">
                   <Info className="h-4 w-4" />
                   <AlertTitle>Child Voice Optimization</AlertTitle>
                   <AlertDescription>

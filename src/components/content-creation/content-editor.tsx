@@ -301,10 +301,7 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
       if (contentId) {
         // Update existing content
         await contentService.updateContent(contentId, content);
-        toast({
-          title: "Content saved",
-          description: "Your content has been successfully saved.",
-        });
+        toast("Content saved: Your content has been successfully saved.");
         
         if (onSave) {
           onSave(contentId);
@@ -313,10 +310,7 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
         // Create new content
         const newContentId = await contentService.createContent(content.metadata);
         await contentService.updateContent(newContentId, content);
-        toast({
-          title: "Content created",
-          description: "Your content has been successfully created.",
-        });
+        toast("Content created: Your content has been successfully created.");
         
         if (onSave) {
           onSave(newContentId);
@@ -327,11 +321,7 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
     } catch (error) {
       console.error('Failed to save content:', error);
       setError('Failed to save content. Please try again.');
-      toast({
-        variant: "destructive",
-        title: "Save failed",
-        description: "There was a problem saving your content.",
-      });
+      toast("Save failed: There was a problem saving your content.");
     } finally {
       setIsSaving(false);
     }
@@ -355,10 +345,7 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
       const contentService = getContentCreationService();
       await contentService.publishContent(contentId);
       
-      toast({
-        title: "Content published",
-        description: "Your content has been successfully published.",
-      });
+      toast("Content published: Your content has been successfully published.");
       
       setContent({
         ...content,
@@ -377,11 +364,7 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
     } catch (error) {
       console.error('Failed to publish content:', error);
       setError('Failed to publish content. Please try again.');
-      toast({
-        variant: "destructive",
-        title: "Publish failed",
-        description: "There was a problem publishing your content.",
-      });
+      toast("Publish failed: There was a problem publishing your content.");
     } finally {
       setIsPublishing(false);
     }
@@ -411,26 +394,17 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
     
     setShowAIPanel(false);
     
-    toast({
-      title: "Content generated",
-      description: "AI-generated content has been added to your document.",
-    });
+    toast("Content generated: AI-generated content has been added to your document.");
   };
   
   // Handle accessibility check results
   const handleAccessibilityResults = (results: any) => {
-    toast({
-      title: `Accessibility Score: ${results.accessibilityScore}/100`,
-      description: `${results.issues.length} issues found. See the accessibility panel for details.`,
-    });
+    toast(`Accessibility Score: ${results.accessibilityScore}/100 - ${results.issues.length} issues found. See the accessibility panel for details.`);
   };
   
   // Handle curriculum alignment results
   const handleCurriculumResults = (results: any) => {
-    toast({
-      title: `Curriculum Alignment Score: ${results.alignmentScore}/100`,
-      description: `${results.suggestions.length} suggestions found. See the curriculum panel for details.`,
-    });
+    toast(`Curriculum Alignment Score: ${results.alignmentScore}/100 - ${results.suggestions.length} suggestions found. See the curriculum panel for details.`);
   };
   
   if (isLoading) {
@@ -443,7 +417,7 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
   
   if (error) {
     return (
-      <Alert variant="destructive">
+      <Alert variant="error">
         <AlertCircle className="h-4 w-4" />
         <AlertTitle>Error</AlertTitle>
         <AlertDescription>{error}</AlertDescription>

@@ -89,11 +89,7 @@ export default function ProgressPacingEngine({
 
   const adjustPacing = async () => {
     if (!studentId && !curriculumId) {
-      toast({
-        title: "Missing information",
-        description: "Please provide student ID or curriculum ID.",
-        variant: "destructive"
-      });
+      toast("Missing information: Please provide student ID or curriculum ID.");
       return;
     }
 
@@ -126,20 +122,13 @@ export default function ProgressPacingEngine({
         onPacingAdjusted(data.pacingData);
       }
 
-      toast({
-        title: "Pacing adjusted",
-        description: "Learning pace has been successfully adjusted based on student progress.",
-      });
+      toast("Pacing adjusted. Learning pace has been successfully adjusted based on student progress.");
       
       // Switch to adjusted pacing tab
       setActiveTab('adjusted');
     } catch (error) {
       console.error('Error adjusting pacing:', error);
-      toast({
-        title: "Adjustment failed",
-        description: "Failed to adjust learning pace. Please try again.",
-        variant: "destructive"
-      });
+      toast("Adjustment failed. Failed to adjust learning pace. Please try again.");
     } finally {
       setIsAdjusting(false);
     }
@@ -611,10 +600,7 @@ export default function ProgressPacingEngine({
               variant="default" 
               size="sm"
               onClick={() => {
-                toast({
-                  title: "Pacing plan saved",
-                  description: "The personalized pacing plan has been saved to your account.",
-                });
+                toast("Pacing plan saved. The personalized pacing plan has been saved to your account.");
               }}
               className="flex items-centre gap-1"
             >

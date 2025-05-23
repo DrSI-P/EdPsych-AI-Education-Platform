@@ -1,5 +1,50 @@
 'use client';
 
+// Add TypeScript declarations for WebKit prefixed APIs
+interface SpeechRecognitionEvent extends Event {
+  resultIndex: number;
+  results: SpeechRecognitionResultList;
+  error?: string;
+}
+
+interface SpeechRecognitionResultList {
+  length: number;
+  item(index: number): SpeechRecognitionResult;
+  [index: number]: SpeechRecognitionResult;
+}
+
+interface SpeechRecognitionResult {
+  length: number;
+  item(index: number): SpeechRecognitionAlternative;
+  [index: number]: SpeechRecognitionAlternative;
+  isFinal?: boolean;
+}
+
+interface SpeechRecognitionAlternative {
+  transcript: string;
+  confidence: number;
+}
+
+interface SpeechRecognition extends EventTarget {
+  continuous: boolean;
+  interimResults: boolean;
+  lang: string;
+  onstart: (event: Event) => void;
+  onend: (event: Event) => void;
+  onresult: (event: SpeechRecognitionEvent) => void;
+  onerror: (event: SpeechRecognitionEvent) => void;
+  start(): void;
+  stop(): void;
+}
+
+declare global {
+  interface Window {
+    webkitSpeechRecognition: any;
+    SpeechRecognition: any;
+    webkitAudioContext: any;
+  }
+}
+
 import { useState, useEffect, useRef } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -195,23 +240,11 @@ export default function SpeechToTextEngine({
       setRecognitionError(event.error);
       
       if (event.error === 'no-speech') {
-        toast({
-          title: "No speech detected",
-          description: "Please try speaking again or check your microphone.",
-          variant: "destructive",
-        });
+        toast("No speech detected: Please try speaking again or check your microphone.");
       } else if (event.error === 'audio-capture') {
-        toast({
-          title: "Microphone not found",
-          description: "Please check your microphone connection and permissions.",
-          variant: "destructive",
-        });
+        toast("Microphone not found: Please check your microphone connection and permissions.");
       } else if (event.error === 'not-allowed') {
-        toast({
-          title: "Microphone access denied",
-          description: "Please allow microphone access to use speech recognition.",
-          variant: "destructive",
-        });
+        toast("Microphone access denied: Please allow microphone access to use speech recognition.");
       }
     };
     
@@ -276,11 +309,7 @@ export default function SpeechToTextEngine({
       })
       .catch(error => {
         console.error('Error accessing microphone:', error);
-        toast({
-          title: "Microphone access error",
-          description: "Unable to access your microphone. Please check permissions.",
-          variant: "destructive",
-        });
+        toast("Microphone access error: Unable to access your microphone. Please check permissions.");
       });
       
     return () => {
@@ -303,11 +332,7 @@ export default function SpeechToTextEngine({
       setRecognitionError(null);
     } catch (error) {
       console.error('Error starting speech recognition:', error);
-      toast({
-        title: "Speech recognition error",
-        description: "There was an error starting speech recognition. Please try again.",
-        variant: "destructive",
-      });
+      toast("Speech recognition error: There was an error starting speech recognition. Please try again.");
     }
   };
   
@@ -343,10 +368,7 @@ export default function SpeechToTextEngine({
     navigator.clipboard.writeText(text)
       .then(() => {
         setIsCopied(true);
-        toast({
-          title: "Text copied",
-          description: "The text has been copied to your clipboard.",
-        });
+        toast("Text copied: The text has been copied to your clipboard.");
         
         // Reset copied state after 2 seconds
         setTimeout(() => {
@@ -355,11 +377,7 @@ export default function SpeechToTextEngine({
       })
       .catch(error => {
         console.error('Error copying text to clipboard:', error);
-        toast({
-          title: "Copy failed",
-          description: "Failed to copy text to clipboard. Please try again.",
-          variant: "destructive",
-        });
+        toast("Copy failed: Failed to copy text to clipboard. Please try again.");
       });
   };
   
@@ -370,10 +388,7 @@ export default function SpeechToTextEngine({
     setCalibrationProgress(0);
     setCalibrationSamples([]);
     
-    toast({
-      title: "Calibration started",
-      description: "Please read the phrases aloud when prompted.",
-    });
+    toast("Calibration started: Please read the phrases aloud when prompted.");
   };
   
   // Handle calibration step completion
@@ -397,11 +412,7 @@ export default function SpeechToTextEngine({
     setCalibrationProgress(100);
     
     // In a real implementation, we would use the collected data to optimise the recognition
-    toast({
-      title: "Calibration complete",
-      description: "Voice profile has been optimised for better recognition.",
-      variant: "success",
-    });
+    toast("Calibration complete: Voice profile has been optimised for better recognition.");
     
     // Save calibration data to user profile
     if (session?.user) {
@@ -425,11 +436,7 @@ export default function SpeechToTextEngine({
         }
       } catch (error) {
         console.error('Error saving calibration data:', error);
-        toast({
-          title: "Calibration save error",
-          description: "Failed to save calibration data. Your settings will work for this session only.",
-          variant: "destructive",
-        });
+        toast("Calibration save error: Failed to save calibration data. Your settings will work for this session only.");
       }
     }
   };
@@ -514,7 +521,7 @@ export default function SpeechToTextEngine({
   // Render error message if speech recognition is not supported
   if (!isSupported) {
     return (
-      <Alert variant="destructive" className={className}>
+      <Alert variant="error" className={className}>
         <AlertCircle className="h-4 w-4" />
         <AlertTitle>Speech Recognition Not Supported</AlertTitle>
         <AlertDescription>

@@ -88,18 +88,14 @@ export default function SpeechRecognitionEngine({
           setInterimTranscript(interimTranscript);
           
           if (finalTranscript && onTranscriptChange) {
-            onTranscriptChange(prev => prev + finalTranscript);
+            onTranscriptChange(transcript + finalTranscript);
           }
         };
         
         recognitionRef.current.onerror = (event: any) => {
           console.error('Speech recognition error', event.error);
           if (event.error === 'not-allowed') {
-            toast({
-              title: "Microphone access denied",
-              description: "Please allow microphone access to use speech recognition.",
-              variant: "destructive"
-            });
+            toast("Microphone access denied. Please allow microphone access to use speech recognition.");
             setIsListening(false);
           }
         };
@@ -115,11 +111,7 @@ export default function SpeechRecognitionEngine({
         };
       } else {
         setIsSupported(false);
-        toast({
-          title: "Speech recognition not supported",
-          description: "Your browser doesn't support speech recognition. Please try Chrome, Edge, or Safari.",
-          variant: "destructive"
-        });
+        toast("Speech recognition not supported. Your browser doesn't support speech recognition. Please try Chrome, Edge, or Safari.");
       }
     }
     
@@ -189,11 +181,7 @@ export default function SpeechRecognitionEngine({
     } catch (error) {
       console.error('Error starting speech recognition:', error);
       setIsListening(false);
-      toast({
-        title: "Failed to start speech recognition",
-        description: "Please check your microphone permissions and try again.",
-        variant: "destructive"
-      });
+      toast("Failed to start speech recognition. Please check your microphone permissions and try again.");
     }
   };
   
@@ -379,10 +367,7 @@ export default function SpeechRecognitionEngine({
                     size="sm" 
                     onClick={() => {
                       if (onSpeechEnd) onSpeechEnd(transcript);
-                      toast({
-                        title: "Text copied",
-                        description: "The transcribed text has been copied to your clipboard.",
-                      });
+                      toast("Text copied. The transcribed text has been copied to your clipboard.");
                       navigator.clipboard.writeText(transcript);
                     }}
                     className="flex items-centre gap-1"

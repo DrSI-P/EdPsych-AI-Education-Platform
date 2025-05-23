@@ -31,10 +31,11 @@ import {
   Search
 } from 'lucide-react';
 import { useI18n } from './i18n-provider';
-import { 
-  SupportedLanguage, 
+import {
+  SupportedLanguage,
   TranslationRequest,
-  TranslationResponse
+  TranslationResponse,
+  TranslationNamespace
 } from '@/lib/i18n/types';
 import { I18nService } from '@/lib/i18n/i18nService';
 
@@ -84,7 +85,7 @@ export const TranslationTool: React.FC<TranslationToolProps> = ({
   // Detect language
   const detectLanguage = async () => {
     if (!sourceText.trim()) {
-      setError(t('empty_text_error', 'translation'));
+      setError(t('empty_text_error', TranslationNamespace.TRANSLATION));
       return;
     }
     
@@ -101,7 +102,7 @@ export const TranslationTool: React.FC<TranslationToolProps> = ({
       setIsTranslating(false);
     } catch (err) {
       console.error('Error detecting language:', err);
-      setError(t('detection_error', 'translation'));
+      setError(t('detection_error', TranslationNamespace.TRANSLATION));
       setIsTranslating(false);
     }
   };
@@ -109,7 +110,7 @@ export const TranslationTool: React.FC<TranslationToolProps> = ({
   // Translate text
   const translateText = async () => {
     if (!sourceText.trim()) {
-      setError(t('empty_text_error', 'translation'));
+      setError(t('empty_text_error', TranslationNamespace.TRANSLATION));
       return;
     }
     
@@ -127,12 +128,12 @@ export const TranslationTool: React.FC<TranslationToolProps> = ({
       const response = await i18nService.translateText(request);
       
       setTranslatedText(response.translatedText);
-      setConfidence(response.confidence);
+      setConfidence(response.confidence ?? null);
       
       setIsTranslating(false);
     } catch (err) {
       console.error('Error translating text:', err);
-      setError(t('translation_error', 'translation'));
+      setError(t('translation_error', TranslationNamespace.TRANSLATION));
       setIsTranslating(false);
     }
   };
@@ -168,10 +169,10 @@ export const TranslationTool: React.FC<TranslationToolProps> = ({
       <CardHeader>
         <CardTitle className="flex items-centre">
           <Languages className="h-5 w-5 mr-2" />
-          {t('translation_tool', 'translation')}
+          {t('translation_tool', TranslationNamespace.TRANSLATION)}
         </CardTitle>
         <CardDescription>
-          {t('translation_tool_description', 'translation')}
+          {t('translation_tool_description', TranslationNamespace.TRANSLATION)}
         </CardDescription>
       </CardHeader>
       
@@ -180,14 +181,14 @@ export const TranslationTool: React.FC<TranslationToolProps> = ({
         <div className="flex items-centre gap-2">
           <div className="flex-1">
             <Label htmlFor="sourceLanguage" className="mb-2 block">
-              {t('source_language', 'translation')}
+              {t('source_language', TranslationNamespace.TRANSLATION)}
             </Label>
             <Select
               value={sourceLanguage}
               onValueChange={(value) => handleSourceLanguageChange(value as SupportedLanguage)}
             >
               <SelectTrigger id="sourceLanguage">
-                <SelectValue placeholder={t('select_language', 'translation')} />
+                <SelectValue placeholder={t('select_language', TranslationNamespace.TRANSLATION)} />
               </SelectTrigger>
               <SelectContent>
                 {i18nService.getEnabledLanguages().map(language => (
@@ -205,7 +206,7 @@ export const TranslationTool: React.FC<TranslationToolProps> = ({
               size="icon" 
               onClick={swapLanguages}
               disabled={!translatedText}
-              title={t('swap_languages', 'translation')}
+              title={t('swap_languages', TranslationNamespace.TRANSLATION)}
             >
               <RefreshCw className="h-4 w-4" />
             </Button>
@@ -213,14 +214,14 @@ export const TranslationTool: React.FC<TranslationToolProps> = ({
           
           <div className="flex-1">
             <Label htmlFor="targetLanguage" className="mb-2 block">
-              {t('target_language', 'translation')}
+              {t('target_language', TranslationNamespace.TRANSLATION)}
             </Label>
             <Select
               value={targetLanguage}
               onValueChange={(value) => handleTargetLanguageChange(value as SupportedLanguage)}
             >
               <SelectTrigger id="targetLanguage">
-                <SelectValue placeholder={t('select_language', 'translation')} />
+                <SelectValue placeholder={t('select_language', TranslationNamespace.TRANSLATION)} />
               </SelectTrigger>
               <SelectContent>
                 {i18nService.getEnabledLanguages().map(language => (
@@ -237,12 +238,12 @@ export const TranslationTool: React.FC<TranslationToolProps> = ({
         <div>
           <div className="flex items-centre justify-between mb-2">
             <Label htmlFor="sourceText">
-              {t('source_text', 'translation')}
+              {t('source_text', TranslationNamespace.TRANSLATION)}
             </Label>
             <div className="flex items-centre">
               {detectedLanguage && (
                 <span className="text-xs text-muted-foreground mr-2">
-                  {t('detected', 'translation')}: {getLanguageName(detectedLanguage)}
+                  {t('detected', TranslationNamespace.TRANSLATION)}: {getLanguageName(detectedLanguage)}
                   {confidence !== null && ` (${Math.round(confidence * 100)}%)`}
                 </span>
               )}
@@ -257,7 +258,7 @@ export const TranslationTool: React.FC<TranslationToolProps> = ({
                 ) : (
                   <Search className="h-3 w-3 mr-1" />
                 )}
-                {t('detect', 'translation')}
+                {t('detect', TranslationNamespace.TRANSLATION)}
               </Button>
             </div>
           </div>
@@ -265,7 +266,7 @@ export const TranslationTool: React.FC<TranslationToolProps> = ({
             id="sourceText"
             value={sourceText}
             onChange={handleSourceTextChange}
-            placeholder={t('enter_text_to_translate', 'translation')}
+            placeholder={t('enter_text_to_translate', TranslationNamespace.TRANSLATION)}
             className="min-h-[150px]"
           />
         </div>
@@ -273,13 +274,13 @@ export const TranslationTool: React.FC<TranslationToolProps> = ({
         {/* Translated text */}
         <div>
           <Label htmlFor="translatedText" className="mb-2 block">
-            {t('translated_text', 'translation')}
+            {t('translated_text', TranslationNamespace.TRANSLATION)}
           </Label>
           <Textarea
             id="translatedText"
             value={translatedText}
             readOnly
-            placeholder={t('translation_will_appear_here', 'translation')}
+            placeholder={t('translation_will_appear_here', TranslationNamespace.TRANSLATION)}
             className="min-h-[150px]"
           />
         </div>
@@ -295,7 +296,7 @@ export const TranslationTool: React.FC<TranslationToolProps> = ({
       
       <CardFooter className="flex justify-between">
         <Button variant="outline" onClick={clearAll}>
-          {t('clear', 'common')}
+          {t('clear', TranslationNamespace.COMMON)}
         </Button>
         <Button 
           onClick={translateText} 
@@ -304,12 +305,12 @@ export const TranslationTool: React.FC<TranslationToolProps> = ({
           {isTranslating ? (
             <>
               <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-              {t('translating', 'translation')}
+              {t('translating', TranslationNamespace.TRANSLATION)}
             </>
           ) : (
             <>
               <Globe className="h-4 w-4 mr-2" />
-              {t('translate', 'translation')}
+              {t('translate', TranslationNamespace.TRANSLATION)}
             </>
           )}
         </Button>

@@ -82,7 +82,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
             description: 'Work on understanding complex texts and answering inference questions',
             category: 'academic',
             createdAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000), // 7 days ago
-            createdById: 'teacher1',
+            creatorId: 'teacher1',
             createdByRole: CommunicationRole.TEACHER,
             targetDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days from now
             status: 'in_progress',
@@ -136,7 +136,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
             description: 'Focus on turn-taking, active listening, and contributing appropriately in group settings',
             category: 'social',
             createdAt: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000), // 14 days ago
-            createdById: 'senco1',
+            creatorId: 'senco1',
             createdByRole: CommunicationRole.SENCO,
             targetDate: new Date(Date.now() + 45 * 24 * 60 * 60 * 1000), // 45 days from now
             status: 'in_progress',
@@ -208,7 +208,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
         title: formData.get('title') as string,
         description: formData.get('description') as string,
         category: formData.get('category') as any,
-        createdById: userId,
+        creatorId: userId,
         createdByRole: userRole,
         targetDate: formData.get('targetDate') ? new Date(formData.get('targetDate') as string) : undefined,
         homeActions: (formData.get('homeActions') as string).split('\n').filter(action => action.trim() !== ''),
@@ -228,7 +228,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
         description: formData.get('description') as string,
         category: formData.get('category') as any,
         createdAt: new Date(),
-        createdById: userId,
+        creatorId: userId,
         createdByRole: userRole,
         targetDate: formData.get('targetDate') ? new Date(formData.get('targetDate') as string) : undefined,
         status: 'not_started',

@@ -83,11 +83,7 @@ export default function TextToSpeechEngine({
     } else {
       // Fallback to server TTS if Web Speech API is not available
       setUseServerTTS(true);
-      toast({
-        title: "Speech Synthesis Not Available",
-        description: "Your browser doesn't support the Web Speech API. Using server-side text-to-speech instead.",
-        variant: "destructive"
-      });
+      toast("Speech Synthesis Not Available: Your browser doesn't support the Web Speech API. Using server-side text-to-speech instead.");
     }
     
     return () => {
@@ -155,11 +151,7 @@ export default function TextToSpeechEngine({
       setIsPlaying(false);
       setIsPaused(false);
       
-      toast({
-        title: "Speech Synthesis Error",
-        description: "There was an error while speaking the text. Please try again.",
-        variant: "destructive"
-      });
+      toast("Speech Synthesis Error: There was an error while speaking the text. Please try again.");
     };
     
     return utterance;
@@ -168,11 +160,7 @@ export default function TextToSpeechEngine({
   // Play text using speech synthesis
   const handlePlay = async () => {
     if (!text.trim()) {
-      toast({
-        title: "No Text to Speak",
-        description: "Please enter some text to be spoken.",
-        variant: "destructive"
-      });
+      toast("No Text to Speak: Please enter some text to be spoken.");
       return;
     }
     
@@ -203,11 +191,7 @@ export default function TextToSpeechEngine({
       }
     } catch (error) {
       console.error('Error starting speech:', error);
-      toast({
-        title: "Speech Error",
-        description: "Failed to start text-to-speech. Please try again.",
-        variant: "destructive"
-      });
+      toast("Speech Error: Failed to start text-to-speech. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -261,10 +245,7 @@ export default function TextToSpeechEngine({
       
       // In a real implementation, this would handle audio playback from the server
       // For now, we'll simulate it with a toast notification
-      toast({
-        title: "Server TTS",
-        description: `Speaking text with ${data.options.voice} voice at rate ${data.options.rate}`,
-      });
+      toast(`Server TTS: Speaking text with ${data.options.voice} voice at rate ${data.options.rate}`);
       
       // Simulate speech duration based on text length and rate
       const wordCount = text.split(/\s+/).length;
@@ -294,11 +275,7 @@ export default function TextToSpeechEngine({
       
     } catch (error) {
       console.error('Server TTS error:', error);
-      toast({
-        title: "Server TTS Error",
-        description: "Failed to process text-to-speech request on the server.",
-        variant: "destructive"
-      });
+      toast("Server TTS Error: Failed to process text-to-speech request on the server.");
     } finally {
       setIsLoading(false);
     }

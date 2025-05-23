@@ -87,7 +87,8 @@ export enum TranslationNamespace {
   COMMUNICATION = 'communication',
   CULTURAL_NOTES = 'cultural_notes',
   EDUCATIONAL_TERMS = 'educational_terms',
-  HELP = 'help'
+  HELP = 'help',
+  TRANSLATION = 'translation'
 }
 
 /**

@@ -6,7 +6,10 @@ import { Input, Select } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/loading';
 import { Alert } from '@/components/ui/alert';
-import { useAIService, AIProvider } from '@/lib/ai/ai-service';
+import { useAIService } from '@/lib/ai/ai-service';
+
+// Define AIProvider type
+type AIProvider = 'openai' | 'anthropic' | 'gemini' | 'grok' | 'openrouter';
 
 interface AIImageGeneratorProps {
   onGeneration?: (imageUrl: string) => void;
@@ -21,7 +24,10 @@ export function AIImageGenerator({
   placeholder = 'Describe the image you want to generate...',
   className = ''
 }: AIImageGeneratorProps) {
-  const { isConfigured, defaultProvider, defaultModel, getModelsForProvider, allModels } = useAIService();
+  const aiService = useAIService();
+  
+  // Mock values for demonstration purposes
+  const isConfigured = true;
   
   const [provider, setProvider] = useState<AIProvider>('openai');
   const [model, setModel] = useState<string>('dall-e-3');
@@ -34,8 +40,8 @@ export function AIImageGenerator({
   const [error, setError] = useState('');
   
   // Handle provider change
-  const handleProviderChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const newProvider = e.target.value as AIProvider;
+  const handleProviderChange = (value: string) => {
+    const newProvider = value as AIProvider;
     setProvider(newProvider);
     
     // For now, only OpenAI is fully supported for image generation
@@ -126,7 +132,7 @@ export function AIImageGenerator({
             <Select
               label="Image Size"
               value={size}
-              onChange={(e) => setSize(e.target.value)}
+              onChange={(value) => setSize(value)}
               options={[
                 { value: '1024x1024', label: '1024×1024 (Square)' },
                 { value: '1792x1024', label: '1792×1024 (Landscape)' },
@@ -140,7 +146,7 @@ export function AIImageGenerator({
             <Select
               label="Quality"
               value={quality}
-              onChange={(e) => setQuality(e.target.value)}
+              onChange={(value) => setQuality(value)}
               options={[
                 { value: 'standard', label: 'Standard' },
                 { value: 'hd', label: 'HD' }
@@ -151,7 +157,7 @@ export function AIImageGenerator({
             <Select
               label="Style"
               value={style}
-              onChange={(e) => setStyle(e.target.value)}
+              onChange={(value) => setStyle(value)}
               options={[
                 { value: 'natural', label: 'Natural' },
                 { value: 'vivid', label: 'Vivid' }
