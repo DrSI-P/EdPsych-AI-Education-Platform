@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
     let planObjectives: string[] = objectives || [];
     let planSubject = subject;
     let planKeyStage = keyStage;
-    let planYear = year; year;
+    let planYear = year;
     
     if (curriculumPlanId) {
       try {
