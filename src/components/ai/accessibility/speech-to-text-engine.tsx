@@ -3,214 +3,191 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Progress } from "@/components/ui/progress";
 import { 
-  Mic, 
-  MicOff, 
-  Play, 
-  Pause, 
-  Trash, 
-  Copy, 
-  Check,
-  Settings
+  AlertTriangle,
+  Mic,
+  MicOff,
+  Copy,
+  Check
 } from 'lucide-react';
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 
+// Define TypeScript interfaces
 interface SpeechToTextEngineProps {
   settings: {
     enabled: boolean;
     autoCapitalization: boolean;
     punctuationPrediction: boolean;
     childVoiceOptimization: boolean;
-    noiseReduction: boolean;
     continuousListening: boolean;
-    confidenceThreshold: number;
+    interimResults: boolean;
   };
-  onSettingsChange: (settings: Record<string, any>) => void;
-  onTextGenerated?: (text: string) => void;
+  onSettingsChange: (settings: Record<string, unknown>) => void;
+}
+
+interface RecognitionResult {
+  transcript: string;
+  isFinal: boolean;
+  confidence: number;
+}
+
+// Define NodeJS.Timeout for setTimeout references
+declare global {
+  interface Window {
+    SpeechRecognition: any;
+    webkitSpeechRecognition: any;
+  }
 }
 
 export const SpeechToTextEngine: React.FC<SpeechToTextEngineProps> = ({ 
   settings,
-  onSettingsChange,
-  onTextGenerated
+  onSettingsChange
 }) => {
-  // State for UI
-  const [activeTab, setActiveTab] = React.useState<string>('input');
+  // State for UI and functionality
   const [isListening, setIsListening] = React.useState<boolean>(false);
   const [transcript, setTranscript] = React.useState<string>('');
   const [interimTranscript, setInterimTranscript] = React.useState<string>('');
-  const [recognitionError, setRecognitionError] = React.useState<string | null>(null);
-  const [isCopied, setIsCopied] = React.useState<boolean>(false);
+  const [recognitionError, setRecognitionError] = React.useState<string>('');
+  const [copied, setCopied] = React.useState<boolean>(false);
+  const [recognitionSupported, setRecognitionSupported] = React.useState<boolean>(true);
   
   // Reference for speech recognition
   const recognitionRef = React.useRef<any>(null);
   
-  // Timer for continuous listening
-  const timerRef = React.useRef<NodeJS.Timeout | null>(null);
+  // Timeout reference for reset copied state
+  const copyTimeoutRef = React.useRef<number | null>(null);
   
   // Initialize speech recognition
-  const initializeSpeechRecognition = React.useCallback(() => {
-    try {
-      // Check if browser supports speech recognition
-      if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-        setRecognitionError('Speech recognition is not supported in this browser.');
-        return false;
+  React.useEffect(() => {
+    // Check if speech recognition is supported
+    if (!('SpeechRecognition' in window) && !('webkitSpeechRecognition' in window)) {
+      setRecognitionSupported(false);
+      return;
+    }
+    
+    // Create speech recognition instance
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    recognitionRef.current = new SpeechRecognition();
+    
+    // Configure speech recognition
+    recognitionRef.current.continuous = settings.continuousListening;
+    recognitionRef.current.interimResults = settings.interimResults;
+    recognitionRef.current.lang = 'en-GB'; // UK English
+    
+    // Set up event handlers
+    recognitionRef.current.onstart = () => {
+      setIsListening(true);
+      setRecognitionError('');
+    };
+    
+    recognitionRef.current.onend = () => {
+      setIsListening(false);
+      
+      // Restart if continuous listening is enabled and no error occurred
+      if (settings.continuousListening && !recognitionError && settings.enabled) {
+        try {
+          recognitionRef.current.start();
+        } catch (error) {
+          console.error('Error restarting speech recognition:', error);
+        }
+      }
+    };
+    
+    recognitionRef.current.onresult = (event: any) => {
+      let finalTranscript = '';
+      let interimTranscript = '';
+      
+      for (let i = event.resultIndex; i < event.results.length; i++) {
+        const result = event.results[i];
+        const resultTranscript = result[0].transcript;
+        
+        if (result.isFinal) {
+          // Apply auto-capitalization if enabled
+          let processedTranscript = resultTranscript;
+          
+          if (settings.autoCapitalization) {
+            // Capitalize first letter of sentences
+            processedTranscript = processedTranscript.replace(/(?:^|[.!?]\s+)([a-z])/g, (match, letter) => {
+              return match.replace(letter, letter.toUpperCase());
+            });
+            
+            // Capitalize 'I'
+            processedTranscript = processedTranscript.replace(/\si\s/g, ' I ');
+          }
+          
+          // Apply punctuation prediction if enabled
+          if (settings.punctuationPrediction) {
+            // Add period at the end if missing
+            if (!/[.!?]$/.test(processedTranscript)) {
+              processedTranscript += '.';
+            }
+          }
+          
+          finalTranscript += processedTranscript;
+        } else {
+          interimTranscript += resultTranscript;
+        }
       }
       
-      // Create speech recognition instance
-      const SpeechRecognition = window.webkitSpeechRecognition || window.SpeechRecognition;
-      recognitionRef.current = new SpeechRecognition();
+      setTranscript(prevTranscript => prevTranscript + finalTranscript);
+      setInterimTranscript(interimTranscript);
+    };
+    
+    recognitionRef.current.onerror = (event: any) => {
+      console.error('Speech recognition error:', event.error);
+      setRecognitionError(event.error);
+      setIsListening(false);
+    };
+    
+    // Clean up on unmount
+    return () => {
+      stopListening();
       
-      // Configure speech recognition
-      recognitionRef.current.continuous = true;
-      recognitionRef.current.interimResults = true;
-      recognitionRef.current.lang = 'en-GB'; // UK English
-      
-      // Set up event handlers
-      recognitionRef.current.onstart = () => {
-        setIsListening(true);
-        setRecognitionError(null);
-        console.log('Speech recognition started');
-      };
-      
-      recognitionRef.current.onend = () => {
-        setIsListening(false);
-        console.log('Speech recognition ended');
-        
-        // Restart if continuous listening is enabled
-        if (settings.continuousListening && !recognitionError) {
-          timerRef.current = setTimeout(() => {
-            startListening();
-          }, 1000);
-        }
-      };
-      
-      recognitionRef.current.onresult = (event: any) => {
-        let interim = '';
-        let final = '';
-        
-        for (let i = event.resultIndex; i < event.results.length; i++) {
-          const transcript = event.results[i][0].transcript;
-          
-          if (event.results[i].isFinal) {
-            final += transcript;
-          } else {
-            interim += transcript;
-          }
-        }
-        
-        if (final) {
-          let processedText = final;
-          
-          // Apply text processing based on settings
-          if (settings.autoCapitalization) {
-            processedText = applyAutoCapitalization(processedText);
-          }
-          
-          if (settings.punctuationPrediction) {
-            processedText = applyPunctuationPrediction(processedText);
-          }
-          
-          setTranscript(prev => prev + (prev ? ' ' : '') + processedText);
-          
-          if (onTextGenerated) {
-            onTextGenerated(processedText);
-          }
-        }
-        
-        setInterimTranscript(interim);
-      };
-      
-      recognitionRef.current.onerror = (event: any) => {
-        console.error('Speech recognition error:', event.error);
-        
-        if (event.error === 'no-speech') {
-          // This is a common error, don't show it to the user
-          return;
-        }
-        
-        setRecognitionError(`Error: ${event.error}`);
-        stopListening();
-      };
-      
-      return true;
-    } catch (error) {
-      console.error('Error initializing speech recognition:', error);
-      setRecognitionError('Failed to initialize speech recognition.');
-      return false;
-    }
-  }, [settings.autoCapitalization, settings.continuousListening, settings.punctuationPrediction, onTextGenerated]);
+      if (copyTimeoutRef.current) {
+        window.clearTimeout(copyTimeoutRef.current);
+      }
+    };
+  }, [
+    settings.enabled,
+    settings.continuousListening,
+    settings.interimResults,
+    settings.autoCapitalization,
+    settings.punctuationPrediction
+  ]);
   
   // Start listening
-  const startListening = React.useCallback(() => {
-    if (!recognitionRef.current) {
-      const initialized = initializeSpeechRecognition();
-      if (!initialized) return;
-    }
+  const startListening = () => {
+    if (!recognitionRef.current || !recognitionSupported) return;
     
     try {
       recognitionRef.current.start();
     } catch (error) {
       console.error('Error starting speech recognition:', error);
-      setRecognitionError('Failed to start speech recognition.');
+      setRecognitionError('Failed to start speech recognition');
     }
-  }, [initializeSpeechRecognition]);
-  
-  // Stop listening
-  const stopListening = React.useCallback(() => {
-    if (recognitionRef.current) {
-      try {
-        recognitionRef.current.stop();
-      } catch (error) {
-        console.error('Error stopping speech recognition:', error);
-      }
-    }
-    
-    if (timerRef.current) {
-      clearTimeout(timerRef.current);
-      timerRef.current = null;
-    }
-  }, []);
-  
-  // Clean up on unmount
-  React.useEffect(() => {
-    return () => {
-      stopListening();
-    };
-  }, [stopListening]);
-  
-  // Apply auto-capitalization
-  const applyAutoCapitalization = (text: string): string => {
-    if (!text) return text;
-    
-    // Capitalize first letter of the text
-    let processed = text.charAt(0).toUpperCase() + text.slice(1);
-    
-    // Capitalize after periods, question marks, and exclamation marks
-    processed = processed.replace(/([.!?]\s+)([a-z])/g, (match, p1, p2) => {
-      return p1 + p2.toUpperCase();
-    });
-    
-    return processed;
   };
   
-  // Apply punctuation prediction
-  const applyPunctuationPrediction = (text: string): string => {
-    if (!text) return text;
+  // Stop listening
+  const stopListening = () => {
+    if (!recognitionRef.current || !recognitionSupported) return;
     
-    // Simple punctuation rules
-    let processed = text;
-    
-    // Add period at the end if missing
-    if (!/[.!?]$/.test(processed)) {
-      processed += '.';
+    try {
+      recognitionRef.current.stop();
+    } catch (error) {
+      console.error('Error stopping speech recognition:', error);
     }
-    
-    return processed;
+  };
+  
+  // Toggle listening
+  const toggleListening = () => {
+    if (isListening) {
+      stopListening();
+    } else {
+      startListening();
+    }
   };
   
   // Clear transcript
@@ -225,20 +202,42 @@ export const SpeechToTextEngine: React.FC<SpeechToTextEngineProps> = ({
     
     navigator.clipboard.writeText(transcript)
       .then(() => {
-        setIsCopied(true);
-        setTimeout(() => setIsCopied(false), 2000);
+        setCopied(true);
+        
+        // Reset copied state after 2 seconds
+        if (copyTimeoutRef.current) {
+          window.clearTimeout(copyTimeoutRef.current);
+        }
+        
+        copyTimeoutRef.current = window.setTimeout(() => {
+          setCopied(false);
+          copyTimeoutRef.current = null;
+        }, 2000);
       })
       .catch(error => {
-        console.error('Error copying to clipboard:', error);
+        console.error('Error copying transcript:', error);
       });
   };
   
-  // Handle settings toggle
-  const handleSettingToggle = (setting: string, value: boolean | number) => {
-    onSettingsChange({
+  // Handle settings change
+  const handleSettingChange = (setting: string, value: boolean) => {
+    // Update settings
+    const updatedSettings = {
       ...settings,
       [setting]: value
-    });
+    };
+    
+    // Apply settings to recognition instance
+    if (recognitionRef.current) {
+      if (setting === 'continuousListening') {
+        recognitionRef.current.continuous = value;
+      } else if (setting === 'interimResults') {
+        recognitionRef.current.interimResults = value;
+      }
+    }
+    
+    // Notify parent component
+    onSettingsChange(updatedSettings);
   };
   
   return (
@@ -246,207 +245,187 @@ export const SpeechToTextEngine: React.FC<SpeechToTextEngineProps> = ({
       <Card className="w-full">
         <CardHeader>
           <CardTitle className="text-xl flex items-center">
-            <Mic className="mr-2" /> Voice Input
+            <Mic className="mr-2" /> Speech to Text
           </CardTitle>
           <CardDescription>
             Convert speech to text for easier input
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Tabs defaultValue="input" className="w-full">
-            <TabsList className="mb-4">
-              <TabsTrigger value="input">Voice Input</TabsTrigger>
-              <TabsTrigger value="settings">Settings</TabsTrigger>
-            </TabsList>
+          <div className="space-y-6">
+            <div className="flex items-center justify-between">
+              <Label htmlFor="enable-speech-to-text" className="flex items-center">
+                Enable Speech to Text
+              </Label>
+              <input
+                type="checkbox"
+                id="enable-speech-to-text"
+                checked={settings.enabled}
+                onChange={(e) => handleSettingChange('enabled', e.target.checked)}
+                disabled={!recognitionSupported}
+                className="toggle"
+              />
+            </div>
             
-            <TabsContent value="input">
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <Label htmlFor="enable-speech-to-text" className="flex items-center">
-                    Enable Voice Input
-                  </Label>
-                  <input
-                    type="checkbox"
-                    id="enable-speech-to-text"
-                    checked={settings.enabled}
-                    onChange={(e) => handleSettingToggle('enabled', e.target.checked)}
-                    className="toggle"
-                  />
-                </div>
-                
-                <Separator />
-                
-                <div className="relative min-h-[150px] border rounded-md p-3">
-                  <div className="space-y-2">
-                    {transcript && (
-                      <p className="text-base">{transcript}</p>
-                    )}
-                    {interimTranscript && (
-                      <p className="text-base text-muted-foreground italic">{interimTranscript}</p>
-                    )}
-                    {!transcript && !interimTranscript && (
-                      <p className="text-muted-foreground">
-                        {isListening ? 'Listening... Speak now.' : 'Click the microphone button to start speaking.'}
-                      </p>
-                    )}
-                  </div>
-                </div>
-                
-                {recognitionError && (
-                  <div className="text-sm text-red-500">
-                    {recognitionError}
-                  </div>
-                )}
-                
-                <div className="flex justify-between">
-                  <div className="space-x-2">
-                    <Button
-                      variant={isListening ? "destructive" : "default"}
-                      size="sm"
-                      onClick={isListening ? stopListening : startListening}
-                      disabled={!settings.enabled}
-                    >
-                      {isListening ? (
-                        <>
-                          <MicOff className="mr-1 h-4 w-4" /> Stop
-                        </>
-                      ) : (
-                        <>
-                          <Mic className="mr-1 h-4 w-4" /> Start
-                        </>
-                      )}
-                    </Button>
-                    
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={clearTranscript}
-                      disabled={!transcript && !interimTranscript}
-                    >
-                      <Trash className="mr-1 h-4 w-4" /> Clear
-                    </Button>
-                  </div>
-                  
-                  <Button
-                    variant="outline"
-                    size="sm"
+            {!recognitionSupported && (
+              <Alert variant="destructive">
+                <AlertTriangle className="h-4 w-4" />
+                <AlertTitle>Speech Recognition Not Supported</AlertTitle>
+                <AlertDescription>
+                  Your browser does not support the Speech Recognition API. Please try using Chrome, Edge, or Safari.
+                </AlertDescription>
+              </Alert>
+            )}
+            
+            <Separator />
+            
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <Label htmlFor="auto-capitalization" className="flex items-center text-sm">
+                  Auto-Capitalization
+                </Label>
+                <input
+                  type="checkbox"
+                  id="auto-capitalization"
+                  checked={settings.autoCapitalization}
+                  onChange={(e) => handleSettingChange('autoCapitalization', e.target.checked)}
+                  disabled={!settings.enabled || !recognitionSupported}
+                  className="toggle toggle-sm"
+                />
+              </div>
+              
+              <div className="flex items-center justify-between">
+                <Label htmlFor="punctuation-prediction" className="flex items-center text-sm">
+                  Punctuation Prediction
+                </Label>
+                <input
+                  type="checkbox"
+                  id="punctuation-prediction"
+                  checked={settings.punctuationPrediction}
+                  onChange={(e) => handleSettingChange('punctuationPrediction', e.target.checked)}
+                  disabled={!settings.enabled || !recognitionSupported}
+                  className="toggle toggle-sm"
+                />
+              </div>
+              
+              <div className="flex items-center justify-between">
+                <Label htmlFor="child-voice-optimization" className="flex items-center text-sm">
+                  Child Voice Optimization
+                </Label>
+                <input
+                  type="checkbox"
+                  id="child-voice-optimization"
+                  checked={settings.childVoiceOptimization}
+                  onChange={(e) => handleSettingChange('childVoiceOptimization', e.target.checked)}
+                  disabled={!settings.enabled || !recognitionSupported}
+                  className="toggle toggle-sm"
+                />
+              </div>
+              
+              <div className="flex items-center justify-between">
+                <Label htmlFor="continuous-listening" className="flex items-center text-sm">
+                  Continuous Listening
+                </Label>
+                <input
+                  type="checkbox"
+                  id="continuous-listening"
+                  checked={settings.continuousListening}
+                  onChange={(e) => handleSettingChange('continuousListening', e.target.checked)}
+                  disabled={!settings.enabled || !recognitionSupported}
+                  className="toggle toggle-sm"
+                />
+              </div>
+              
+              <div className="flex items-center justify-between">
+                <Label htmlFor="interim-results" className="flex items-center text-sm">
+                  Show Interim Results
+                </Label>
+                <input
+                  type="checkbox"
+                  id="interim-results"
+                  checked={settings.interimResults}
+                  onChange={(e) => handleSettingChange('interimResults', e.target.checked)}
+                  disabled={!settings.enabled || !recognitionSupported}
+                  className="toggle toggle-sm"
+                />
+              </div>
+            </div>
+            
+            <div className="space-y-2">
+              <div className="flex justify-between items-center">
+                <Label htmlFor="transcript" className="text-sm">Transcript</Label>
+                <div className="flex space-x-2">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    onClick={clearTranscript}
+                    disabled={!transcript && !interimTranscript}
+                  >
+                    Clear
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
                     onClick={copyTranscript}
                     disabled={!transcript}
+                    className="flex items-center"
                   >
-                    {isCopied ? (
-                      <>
-                        <Check className="mr-1 h-4 w-4" /> Copied
-                      </>
-                    ) : (
-                      <>
-                        <Copy className="mr-1 h-4 w-4" /> Copy
-                      </>
-                    )}
+                    {copied ? <Check className="h-4 w-4 mr-1" /> : <Copy className="h-4 w-4 mr-1" />}
+                    {copied ? 'Copied' : 'Copy'}
                   </Button>
                 </div>
               </div>
-            </TabsContent>
-            
-            <TabsContent value="settings">
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <Label htmlFor="auto-capitalization" className="flex items-center text-sm">
-                    Auto-Capitalization
-                  </Label>
-                  <input
-                    type="checkbox"
-                    id="auto-capitalization"
-                    checked={settings.autoCapitalization}
-                    onChange={(e) => handleSettingToggle('autoCapitalization', e.target.checked)}
-                    disabled={!settings.enabled}
-                    className="toggle toggle-sm"
-                  />
-                </div>
-                
-                <div className="flex items-center justify-between">
-                  <Label htmlFor="punctuation-prediction" className="flex items-center text-sm">
-                    Punctuation Prediction
-                  </Label>
-                  <input
-                    type="checkbox"
-                    id="punctuation-prediction"
-                    checked={settings.punctuationPrediction}
-                    onChange={(e) => handleSettingToggle('punctuationPrediction', e.target.checked)}
-                    disabled={!settings.enabled}
-                    className="toggle toggle-sm"
-                  />
-                </div>
-                
-                <div className="flex items-center justify-between">
-                  <Label htmlFor="child-voice-optimization" className="flex items-center text-sm">
-                    Child Voice Optimization
-                  </Label>
-                  <input
-                    type="checkbox"
-                    id="child-voice-optimization"
-                    checked={settings.childVoiceOptimization}
-                    onChange={(e) => handleSettingToggle('childVoiceOptimization', e.target.checked)}
-                    disabled={!settings.enabled}
-                    className="toggle toggle-sm"
-                  />
-                </div>
-                
-                <div className="flex items-center justify-between">
-                  <Label htmlFor="noise-reduction" className="flex items-center text-sm">
-                    Noise Reduction
-                  </Label>
-                  <input
-                    type="checkbox"
-                    id="noise-reduction"
-                    checked={settings.noiseReduction}
-                    onChange={(e) => handleSettingToggle('noiseReduction', e.target.checked)}
-                    disabled={!settings.enabled}
-                    className="toggle toggle-sm"
-                  />
-                </div>
-                
-                <div className="flex items-center justify-between">
-                  <Label htmlFor="continuous-listening" className="flex items-center text-sm">
-                    Continuous Listening
-                  </Label>
-                  <input
-                    type="checkbox"
-                    id="continuous-listening"
-                    checked={settings.continuousListening}
-                    onChange={(e) => handleSettingToggle('continuousListening', e.target.checked)}
-                    disabled={!settings.enabled}
-                    className="toggle toggle-sm"
-                  />
-                </div>
-                
-                <div className="space-y-2">
-                  <div className="flex justify-between">
-                    <Label htmlFor="confidence-threshold" className="text-sm">
-                      Confidence Threshold: {settings.confidenceThreshold}%
-                    </Label>
-                  </div>
-                  <input
-                    type="range"
-                    id="confidence-threshold"
-                    min="0"
-                    max="100"
-                    step="5"
-                    value={settings.confidenceThreshold}
-                    onChange={(e) => handleSettingToggle('confidenceThreshold', parseInt(e.target.value))}
-                    disabled={!settings.enabled}
-                    className="w-full"
-                  />
-                </div>
+              <div 
+                id="transcript" 
+                className="min-h-[100px] max-h-[200px] overflow-y-auto p-3 border rounded-md"
+              >
+                {transcript}
+                {interimTranscript && (
+                  <span className="text-gray-400">{interimTranscript}</span>
+                )}
+                {!transcript && !interimTranscript && (
+                  <span className="text-gray-400">Start speaking to see transcript here...</span>
+                )}
               </div>
-            </TabsContent>
-          </Tabs>
+            </div>
+            
+            {recognitionError && (
+              <Alert variant="destructive">
+                <AlertTriangle className="h-4 w-4" />
+                <AlertTitle>Speech Recognition Error</AlertTitle>
+                <AlertDescription>
+                  {recognitionError === 'no-speech' ? 
+                    'No speech was detected. Please try again.' : 
+                    `Error: ${recognitionError}`}
+                </AlertDescription>
+              </Alert>
+            )}
+          </div>
         </CardContent>
         <CardFooter>
-          <p className="text-xs text-muted-foreground">
-            Voice input helps children who struggle with typing to interact with the platform more easily.
-          </p>
+          <Button 
+            onClick={toggleListening} 
+            disabled={!settings.enabled || !recognitionSupported}
+            className={`w-full ${isListening ? 'bg-red-500 hover:bg-red-600' : ''}`}
+          >
+            {isListening ? (
+              <>
+                <MicOff className="mr-2" /> Stop Listening
+              </>
+            ) : (
+              <>
+                <Mic className="mr-2" /> Start Listening
+              </>
+            )}
+          </Button>
         </CardFooter>
       </Card>
+      
+      <div className="mt-4 p-4 border border-blue-200 rounded-md bg-blue-50">
+        <p className="text-sm text-blue-800">
+          <strong>Tip:</strong> For best results, speak clearly and at a moderate pace. This feature works best in a quiet environment.
+        </p>
+      </div>
     </div>
   );
 };
