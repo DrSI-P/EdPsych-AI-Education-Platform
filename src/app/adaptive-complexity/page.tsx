@@ -8,10 +8,16 @@ import { Button } from "@/components/ui/button";
 import { ArrowUpDown, BookOpen, Layers, ArrowRight, CheckCircle2, BarChart3 } from "lucide-react";
 import { useRouter, useSearchParams } from 'next/navigation';
 
+// Define interface for content structure
+interface ContentItem {
+  title: string;
+  content: string;
+}
+
 export default function AdaptiveComplexityPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [content, setContent] = useState<any>(null);
+  const [content, setContent] = useState<ContentItem | null>(null);
   const contentId = searchParams ? searchParams.get('contentId') : null;
 
   return (
