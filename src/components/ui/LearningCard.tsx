@@ -5,11 +5,16 @@ import { useTheme } from '@/components/theme-provider';
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import Link from 'next/link';
 
 interface LearningCardProps {
   title: string;
   description?: string;
   image?: string;
+  imageUrl?: string; // Added for backward compatibility with tests
+  href?: string;
+  category?: string;
+  level?: string;
   learningStyle?: 'visual' | 'auditory' | 'kinesthetic' | 'reading-writing';
   progress?: number;
   children?: React.ReactNode;
@@ -28,6 +33,10 @@ const LearningCard: React.FC<LearningCardProps> = ({
   title,
   description,
   image,
+  imageUrl, // Support both image and imageUrl for backward compatibility
+  href,
+  category,
+  level,
   learningStyle,
   progress,
   children,
@@ -136,12 +145,12 @@ const LearningCard: React.FC<LearningCardProps> = ({
   
   // Render card content
   const renderCardContent = () => {
-    return (
+    const cardContent = (
       <Card 
         className={cn(
           styles.container,
           learningStyleStyles.border,
-          onClick && 'cursor-pointer',
+          (onClick || href) && 'cursor-pointer',
           className
         )}
         onClick={onClick}
@@ -149,12 +158,14 @@ const LearningCard: React.FC<LearningCardProps> = ({
         <CardHeader className={cn(styles.header, learningStyleStyles.accent)}>
           <CardTitle className={styles.title}>{title}</CardTitle>
           {description && <p className={styles.description}>{description}</p>}
+          {category && <p className="text-sm text-muted-foreground">{category}</p>}
+          {level && <p className="text-sm text-muted-foreground">{level}</p>}
         </CardHeader>
         
         <CardContent>
-          {image && (
+          {(image || imageUrl) && (
             <div className={cn(styles.image, 'mb-4')}>
-              <img src={image} alt={title} className="w-full h-auto" />
+              <img src={image || imageUrl} alt={title} className="w-full h-auto" />
             </div>
           )}
           
@@ -173,13 +184,18 @@ const LearningCard: React.FC<LearningCardProps> = ({
           )}
         </CardContent>
         
-        {CardFooter && (
-          <CardFooter className={styles.footer}>
-            {/* Footer content */}
-          </CardFooter>
-        )}
+        <CardFooter className={styles.footer}>
+          {/* Footer content */}
+        </CardFooter>
       </Card>
     );
+
+    // If href is provided, wrap the card in a Link component
+    if (href) {
+      return <Link href={href}>{cardContent}</Link>;
+    }
+
+    return cardContent;
   };
   
   // Render with animations if enabled

@@ -2,7 +2,7 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
-import ProgressTracking from '../../components/ui/ProgressTracking';
+import ProgressTracking from '@/components/ui/ProgressTracking';
 
 // Mock the animation library
 vi.mock('framer-motion', () => ({
