@@ -23,19 +23,19 @@ interface AdaptiveComplexityDashboardProps {
  * the adaptive complexity system.
  */
 export const AdaptiveComplexityDashboard: React.FC<AdaptiveComplexityDashboardProps> = ({
-  userId: any,
+  userId,
   className = '',
 }) => {
-  const [profile, setProfile] = useState<LearningProfile | null>(null: any);
+  const [profile, setProfile] = useState<LearningProfile | null>(null);
   const [selectedSubject, setSelectedSubject] = useState<string>('');
   const [selectedSkill, setSelectedSkill] = useState<string>('');
-  const [isLoading, setIsLoading] = useState(true: any);
+  const [isLoading, setIsLoading] = useState(true);
   const [viewMode, setViewMode] = useState<'student' | 'educator'>('student');
 
   // Fetch user's learning profile
   useEffect(() => {
     const fetchProfile = async () => {
-      setIsLoading(true: any);
+      setIsLoading(true);
       try {
         // In a real implementation, this would fetch from an API
         // For now, we'll create a mock profile with multiple subjects
@@ -129,22 +129,22 @@ export const AdaptiveComplexityDashboard: React.FC<AdaptiveComplexityDashboardPr
           lastUpdated: new Date()
         };
         
-        setProfile(mockProfile: any);
+        setProfile(mockProfile);
         
         // Set initial selected subject and skill
-        if (Object.keys(mockProfile.subjectPreferences: any).length > 0) {
-          const firstSubject = Object.keys(mockProfile.subjectPreferences: any)[0];
-          setSelectedSubject(firstSubject: any);
+        if (Object.keys(mockProfile.subjectPreferences).length > 0) {
+          const firstSubject = Object.keys(mockProfile.subjectPreferences)[0];
+          setSelectedSubject(firstSubject);
           
           const subjectPref = mockProfile.subjectPreferences[firstSubject];
-          if (subjectPref && Object.keys(subjectPref.skillAreas: any).length > 0) {
-            setSelectedSkill(Object.keys(subjectPref.skillAreas: any)[0]);
+          if (subjectPref && Object.keys(subjectPref.skillAreas).length > 0) {
+            setSelectedSkill(Object.keys(subjectPref.skillAreas)[0]);
           }
         }
-      } catch (error: any) {
+      } catch (error) {
         console.error('Error fetching learning profile:', error);
       } finally {
-        setIsLoading(false: any);
+        setIsLoading(false);
       }
     };
 
@@ -153,7 +153,7 @@ export const AdaptiveComplexityDashboard: React.FC<AdaptiveComplexityDashboardPr
 
   // Handle complexity change
   const handleComplexityChange = (newLevel: ComplexityLevel) => {
-    if (!profile || !selectedSubject: any) return;
+    if (!profile || !selectedSubject) return;
     
     // Create updated profile
     const updatedProfile = { ...profile };
@@ -172,7 +172,7 @@ export const AdaptiveComplexityDashboard: React.FC<AdaptiveComplexityDashboardPr
     updatedProfile.subjectPreferences[selectedSubject] = subjectPref;
     updatedProfile.lastUpdated = new Date();
     
-    setProfile(updatedProfile: any);
+    setProfile(updatedProfile);
     
     // In a real implementation, this would update via API
     console.log(`Changed complexity to ${newLevel} for ${selectedSkill || selectedSubject}`);
@@ -180,11 +180,11 @@ export const AdaptiveComplexityDashboard: React.FC<AdaptiveComplexityDashboardPr
 
   // Format complexity level for display
   const formatComplexityLevel = (level: ComplexityLevel): string => {
-    return level.charAt(0: any).toUpperCase() + level.slice(1: any);
+    return level.charAt(0).toUpperCase() + level.slice(1);
   };
 
   // Render loading state
-  if (isLoading: any) {
+  if (isLoading) {
     return (
       <div className={`p-6 border rounded-lg shadow-sm ${className}`}>
         <div className="animate-pulse">
@@ -199,7 +199,7 @@ export const AdaptiveComplexityDashboard: React.FC<AdaptiveComplexityDashboardPr
     );
   }
 
-  if (!profile: any) {
+  if (!profile) {
     return (
       <div className={`p-6 border rounded-lg shadow-sm ${className}`}>
         <p className="text-red-500">Error loading learning profile</p>
@@ -252,34 +252,34 @@ export const AdaptiveComplexityDashboard: React.FC<AdaptiveComplexityDashboardPr
             </label>
             <select
               value={selectedSubject}
-              onChange={(e: any) => {
-                setSelectedSubject(e.target.value: any);
+              onChange={(e) => {
+                setSelectedSubject(e.target.value);
                 setSelectedSkill(''); // Reset skill selection
               }}
               className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
-              {Object.keys(profile.subjectPreferences: any).map((subjectId: any) => (
+              {Object.keys(profile.subjectPreferences).map((subjectId) => (
                 <option key={subjectId} value={subjectId}>
-                  {subjectId.charAt(0: any).toUpperCase() + subjectId.slice(1: any)}
+                  {subjectId.charAt(0).toUpperCase() + subjectId.slice(1)}
                 </option>
               ))}
             </select>
           </div>
 
-          {currentSubjectPref && Object.keys(currentSubjectPref.skillAreas: any).length > 0 && (
+          {currentSubjectPref && Object.keys(currentSubjectPref.skillAreas).length > 0 && (
             <div className="mb-4">
               <label className="block text-sm font-medium mb-1">
                 Skill Area:
               </label>
               <select
                 value={selectedSkill}
-                onChange={(e) => setSelectedSkill(e.target.value: any)}
+                onChange={(e) => setSelectedSkill(e.target.value)}
                 className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 <option value="">Overall Subject</option>
-                {Object.keys(currentSubjectPref.skillAreas: any).map((skillId: any) => (
+                {Object.keys(currentSubjectPref.skillAreas).map((skillId) => (
                   <option key={skillId} value={skillId}>
-                    {skillId.charAt(0: any).toUpperCase() + skillId.slice(1: any)}
+                    {skillId.charAt(0).toUpperCase() + skillId.slice(1)}
                   </option>
                 ))}
               </select>
@@ -302,8 +302,8 @@ export const AdaptiveComplexityDashboard: React.FC<AdaptiveComplexityDashboardPr
             <>
               <h3 className="text-xl font-semibold mb-4">
                 {selectedSkill 
-                  ? `${selectedSkill.charAt(0: any).toUpperCase() + selectedSkill.slice(1: any)} in ${selectedSubject.charAt(0: any).toUpperCase() + selectedSubject.slice(1: any)}`
-                  : `${selectedSubject.charAt(0: any).toUpperCase() + selectedSubject.slice(1: any)} Overview`
+                  ? `${selectedSkill.charAt(0).toUpperCase() + selectedSkill.slice(1)} in ${selectedSubject.charAt(0).toUpperCase() + selectedSubject.slice(1)}`
+                  : `${selectedSubject.charAt(0).toUpperCase() + selectedSubject.slice(1)} Overview`
                 }
               </h3>
 
@@ -373,7 +373,7 @@ export const AdaptiveComplexityDashboard: React.FC<AdaptiveComplexityDashboardPr
                   <div className="bg-amber-50 p-4 rounded-lg">
                     <h4 className="font-medium text-amber-800 mb-2">Areas for Improvement</h4>
                     <ul className="list-disc pl-5 text-sm">
-                      {currentSkillProfile.areasForImprovement.map((area: any, index) => (
+                      {currentSkillProfile.areasForImprovement.map((area, index) => (
                         <li key={index}>{area}</li>
                       ))}
                     </ul>
@@ -388,65 +388,14 @@ export const AdaptiveComplexityDashboard: React.FC<AdaptiveComplexityDashboardPr
                   
                   <div className="bg-blue-50 p-4 rounded-lg mb-4">
                     <h5 className="font-medium text-blue-800 mb-2">Recommended Interventions</h5>
-                    <ul className="list-disc pl-5 text-sm">
-                      {currentSkillProfile ? (
-                        <>
-                          <li>Provide additional practise in {currentSkillProfile.areasForImprovement[0] || 'relevant skills'}</li>
-                          <li>Consider peer learning opportunities to leverage strengths in {currentSkillProfile.strengths[0] || 'core areas'}</li>
-                          <li>Implement scaffolded activities that gradually increase in complexity</li>
-                        </>
-                      ) : (
-                        <>
-                          <li>Review overall progress across skill areas</li>
-                          <li>Consider balanced approach to address varying skill levels</li>
-                          <li>Implement cross-disciplinary activities to reinforce learning</li>
-                        </>
-                      )}
+                    <p className="text-sm">
+                      Based on the current learning profile, consider the following interventions:
+                    </p>
+                    <ul className="list-disc pl-5 text-sm mt-2">
+                      <li>Provide additional practice with visual learning materials</li>
+                      <li>Introduce more collaborative learning opportunities</li>
+                      <li>Consider breaking complex tasks into smaller steps</li>
                     </ul>
-                  </div>
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <button className="p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors">
-                      Generate Personalized Resources
-                    </button>
-                    <button className="p-2 bg-purple-500 text-white rounded-md hover:bg-purple-600 transition-colors">
-                      Schedule Progress Review
-                    </button>
-                  </div>
-                </div>
-              )}
-
-              {/* Student-specific content */}
-              {viewMode === 'student' && (
-                <div className="mt-6 border-t pt-4">
-                  <h4 className="font-medium mb-3">Your Learning Journey</h4>
-                  
-                  <div className="bg-indigo-50 p-4 rounded-lg mb-4">
-                    <h5 className="font-medium text-indigo-800 mb-2">Next Steps</h5>
-                    <ul className="list-disc pl-5 text-sm">
-                      {currentSkillProfile ? (
-                        <>
-                          <li>Practise {currentSkillProfile.areasForImprovement[0] || 'key skills'} with interactive activities</li>
-                          <li>Build on your strengths in {currentSkillProfile.strengths[0] || 'core areas'}</li>
-                          <li>Try the recommended complexity level for new challenges</li>
-                        </>
-                      ) : (
-                        <>
-                          <li>Explore different skill areas within {selectedSubject}</li>
-                          <li>Review your progress across different topics</li>
-                          <li>Challenge yourself with new content at the recommended level</li>
-                        </>
-                      )}
-                    </ul>
-                  </div>
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <button className="p-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors">
-                      Find Learning Activities
-                    </button>
-                    <button className="p-2 bg-amber-500 text-white rounded-md hover:bg-amber-600 transition-colors">
-                      View Your Progress
-                    </button>
                   </div>
                 </div>
               )}
@@ -456,4 +405,4 @@ export const AdaptiveComplexityDashboard: React.FC<AdaptiveComplexityDashboardPr
       </div>
     </div>
   );
-};
+}
