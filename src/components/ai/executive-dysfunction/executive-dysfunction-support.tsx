@@ -167,7 +167,7 @@ export default function ExecutiveDysfunctionSupport({
     try {
       // If task complexity is above threshold and task breakdown is enabled,
       // generate steps automatically
-      let taskWithSteps = { ...newTask };
+      const taskWithSteps = { ...newTask };
       
       if (settings.useTaskBreakdown && newTask.complexity >= settings.complexityThreshold && newTask.steps.length === 0) {
         const breakdownResponse = await fetch('/api/ai/executive-dysfunction/task-breakdown', {

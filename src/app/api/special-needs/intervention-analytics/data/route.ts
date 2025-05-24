@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
     }
     
     // Fetch user's intervention data
-    let interventionData: {
+    const interventionData: {
       id: string;
       type: string;
       startDate: string;
@@ -36,7 +36,7 @@ export async function POST(req: NextRequest) {
       effectiveness: number;
       notes: string;
     }[] = [];
-    let studentProgress: {
+    const studentProgress: {
       date: string;
       score: number;
       goal: number;

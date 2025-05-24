@@ -367,7 +367,7 @@ const AdaptiveQuestGenerator = ({
     const titleIndex = Math.floor(Math.random() * themes.titles.length);
     const descIndex = Math.floor(Math.random() * themes.descriptions.length);
     
-    let title = themes.titles[titleIndex];
+    const title = themes.titles[titleIndex];
     let description = themes.descriptions[descIndex];
     
     // Add focus area to description if available

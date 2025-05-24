@@ -110,7 +110,7 @@ export async function getPaginatedResults<T>(
   const skip = (page - 1) * pageSize;
   
   // Build where clause for search
-  let where: any = { ...filters };
+  const where: any = { ...filters };
   
   // Add search query if provided
   if (query && fields.length > 0) {

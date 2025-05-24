@@ -105,7 +105,7 @@ export const InteractiveDocumentation = ({
     if (!markdownContent) return '';
     
     // Process markdown with section IDs for headings
-    let processedMarkdown = markdownContent.replace(
+    const processedMarkdown = markdownContent.replace(
       /^(#{1,3})\s+(.+)$/gm,
       (match, hashes, text) => {
         const id = text.toLowerCase().replace(/[^\w]+/g, '-');
@@ -829,7 +829,7 @@ export const renderMarkdown = (markdown) => {
   if (!markdown) return '';
   
   // Process markdown with section IDs for headings
-  let processedMarkdown = markdown.replace(
+  const processedMarkdown = markdown.replace(
     /^(#{1,3})\s+(.+)$/gm,
     (match, hashes, text) => {
       const id = text.toLowerCase().replace(/[^\w]+/g, '-');

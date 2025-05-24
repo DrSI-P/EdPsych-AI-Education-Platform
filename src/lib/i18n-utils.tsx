@@ -180,7 +180,7 @@ export const LANGUAGE_INFO: Record<SupportedLanguage, LanguageInfo> = {
 
 // Global state
 let currentLanguage: SupportedLanguage = SupportedLanguage.EN_GB;
-let translations: Record<string, Record<string, string>> = {};
+const translations: Record<string, Record<string, string>> = {};
 let isInitialized = false;
 
 /**
@@ -370,7 +370,7 @@ export const translate = (
   // Handle interpolation
   return translation.replace(/{{([^{}]*)}}/g, (_, match) => {
     const [variable, formatter] = match.trim().split('|');
-    let value = interpolation[variable];
+    const value = interpolation[variable];
     
     if (value === undefined) {
       return `{{${variable}}}`;
