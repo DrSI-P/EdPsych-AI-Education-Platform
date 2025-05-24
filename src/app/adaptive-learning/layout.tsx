@@ -1,10 +1,9 @@
 'use client';
-
 import React from 'react';
 import { motion } from 'framer-motion';
 
 export default function AdaptiveLearningLayout({
-  children: any,
+  children,
 }: {
   children: React.ReactNode;
 }) {

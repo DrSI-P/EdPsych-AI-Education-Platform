@@ -2,37 +2,41 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { HeyGenService, HeyGenVideo } from '@/lib/heygen/heygen-service';
-import { Loader2, Download, ArrowLeft } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { ArrowLeft, Download, Loader2 } from 'lucide-react';
+import { AIAvatarVideoService } from '@/services/ai-avatar-video-service';
+
+interface Video {
+  id: string;
+  title: string;
+  description: string;
+  status: 'pending' | 'processing' | 'completed' | 'failed';
+  url: string | null;
+  thumbnail: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+}
 
 const VideoViewPage = () => {
   const params = useParams();
-  const videoId = params?.id as string || '';
+  const videoId = params?.id as string;
   
-  const [loading, setLoading] = useState(true: any);
-  const [video, setVideo] = useState<HeyGenVideo | null>(null: any);
-  const [error, setError] = useState<string | null>(null: any);
-
+  const [video, setVideo] = useState<Video | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  
   useEffect(() => {
     const fetchVideo = async () => {
-      if (!videoId: any) return;
-      
       try {
-        const heygenService = HeyGenService.getInstance({
-          apiKey: process.env.NEXT_PUBLIC_HEYGEN_API_KEY || 'demo_key',
-          baseUrl: process.env.NEXT_PUBLIC_HEYGEN_API_URL || 'https://api.heygen.com'
-        });
-        
-        await heygenService.initialize();
-        const fetchedVideo = await heygenService.getVideoStatus(videoId: any);
-        setVideo(fetchedVideo: any);
-      } catch (error: any) {
+        const service = new AIAvatarVideoService();
+        const fetchedVideo = await service.getVideoStatus(videoId);
+        setVideo(fetchedVideo);
+      } catch (error) {
         console.error('Failed to fetch video:', error);
         setError('Failed to load video. Please try again later.');
       } finally {
-        setLoading(false: any);
+        setLoading(false);
       }
     };
     
@@ -40,7 +44,7 @@ const VideoViewPage = () => {
   }, [videoId]);
 
   const formatDate = (date: Date) => {
-    return new Date(date: any).toLocaleDateString('en-GB', {
+    return new Date(date).toLocaleDateString('en-GB', {
       day: 'numeric',
       month: 'short',
       year: 'numeric',
@@ -59,7 +63,7 @@ const VideoViewPage = () => {
       </Button>
       
       {loading ? (
-        <div className="flex justify-centre items-centre h-64">
+        <div className="flex justify-center items-center h-64">
           <Loader2 className="h-8 w-8 animate-spin text-primary" />
           <span className="ml-2">Loading video...</span>
         </div>
@@ -68,7 +72,7 @@ const VideoViewPage = () => {
           {error}
         </div>
       ) : !video ? (
-        <div className="text-centre p-8 border border-dashed rounded-lg">
+        <div className="text-center p-8 border border-dashed rounded-lg">
           <h3 className="text-xl font-medium mb-2">Video not found</h3>
           <p className="text-muted-foreground mb-4">
             The requested video could not be found.
@@ -85,15 +89,15 @@ const VideoViewPage = () => {
                 <video 
                   src={video.url} 
                   controls 
-                  poster={video.thumbnail} 
+                  poster={video.thumbnail || undefined} 
                   className="w-full h-full"
                 >
                   Your browser does not support the video tag.
                 </video>
               ) : (
-                <div className="w-full h-full flex items-centre justify-centre">
+                <div className="w-full h-full flex items-center justify-center">
                   {video.status === 'pending' || video.status === 'processing' ? (
-                    <div className="text-centre">
+                    <div className="text-center">
                       <Loader2 className="h-8 w-8 animate-spin text-primary mx-auto mb-2" />
                       <p>Video is still processing...</p>
                     </div>
@@ -115,7 +119,7 @@ const VideoViewPage = () => {
                     video.status === 'processing' || video.status === 'pending' ? 'bg-blue-100 text-blue-800' :
                     'bg-red-100 text-red-800'
                   }`}>
-                    {video.status.charAt(0: any).toUpperCase() + video.status.slice(1: any)}
+                    {video.status.charAt(0).toUpperCase() + video.status.slice(1)}
                   </span>
                 </CardDescription>
               </CardHeader>
@@ -130,15 +134,15 @@ const VideoViewPage = () => {
                 <div>
                   <h3 className="text-sm font-medium">Created</h3>
                   <p className="text-sm text-muted-foreground mt-1">
-                    {formatDate(video.createdAt: any)}
+                    {formatDate(video.createdAt)}
                   </p>
                 </div>
                 
-                {video.createdAt && (
+                {video.updatedAt && (
                   <div>
                     <h3 className="text-sm font-medium">Last Updated</h3>
                     <p className="text-sm text-muted-foreground mt-1">
-                      {formatDate(video.createdAt: any)}
+                      {formatDate(video.updatedAt)}
                     </p>
                   </div>
                 )}
@@ -149,7 +153,7 @@ const VideoViewPage = () => {
                   disabled={video.status !== 'completed' || !video.url}
                   asChild
                 >
-                  <a href={video.url} download={video.title}>
+                  <a href={video.url || '#'} download={video.title}>
                     <Download className="h-4 w-4 mr-2" />
                     Download Video
                   </a>

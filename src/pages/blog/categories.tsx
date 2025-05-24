@@ -8,7 +8,22 @@ import { prisma } from '@/lib/db';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 
-export default function BlogCategoriesPage({ categories }) {
+interface Category {
+  id: string;
+  name: string;
+  slug: string;
+  description: string | null;
+  count: number;
+  children: {
+    id: string;
+  }[];
+}
+
+interface BlogCategoriesPageProps {
+  categories: Category[];
+}
+
+export default function BlogCategoriesPage({ categories }: BlogCategoriesPageProps) {
   return (
     <>
       <Head>
@@ -59,8 +74,8 @@ export default function BlogCategoriesPage({ categories }) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (context: any) => {
-  const session = await getServerSession(context.req: any, context.res, authOptions);
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getServerSession(context.req, context.res, authOptions);
   
   try {
     // Fetch categories with post counts
@@ -98,7 +113,7 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
         categories: formattedCategories,
       },
     };
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error fetching categories:', error);
     return {
       props: {

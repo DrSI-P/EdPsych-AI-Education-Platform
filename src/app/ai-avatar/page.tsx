@@ -1,30 +1,27 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useTheme } from '@/components/enhanced-theme-provider';
-import AvatarCreator from '@/components/ai-avatar/avatar-creator';
-import VideoGenerator from '@/components/ai-avatar/video-generator';
-import PageHeader from '@/components/ui/PageHeader';
+import { PageHeader } from '@/components/page-header';
+import { AvatarCreator } from '@/components/ai-avatar/avatar-creator';
+import { VideoGenerator } from '@/components/ai-avatar/video-generator';
 
-/**
- * AI Avatar Video Creation Page
- * 
- * This page provides a user interface for creating AI avatars and generating
- * educational videos using those avatars.
- */
 export default function AIAvatarPage() {
-  const { ageGroup } = useTheme();
-  const [selectedAvatarId, setSelectedAvatarId] = useState<string | null>(null: any);
-  const [generatedVideoUrl, setGeneratedVideoUrl] = useState<string | null>(null: any);
+  // Get age group from URL query parameter or default to 'secondary'
+  const ageGroup = typeof window !== 'undefined' 
+    ? new URLSearchParams(window.location.search).get('ageGroup') || 'secondary'
+    : 'secondary';
+  
+  const [selectedAvatarId, setSelectedAvatarId] = useState<string | null>(null);
+  const [generatedVideoUrl, setGeneratedVideoUrl] = useState<string | null>(null);
   
   // Handle avatar creation
   const handleAvatarCreated = (avatarId: string) => {
-    setSelectedAvatarId(avatarId: any);
+    setSelectedAvatarId(avatarId);
   };
   
   // Handle video generation
   const handleVideoGenerated = (videoUrl: string) => {
-    setGeneratedVideoUrl(videoUrl: any);
+    setGeneratedVideoUrl(videoUrl);
   };
   
   return (
@@ -61,7 +58,7 @@ export default function AIAvatarPage() {
               onVideoGenerated={handleVideoGenerated}
             />
           ) : (
-            <div className="bg-grey-50 border border-grey-200 rounded-lg p-6 text-centre">
+            <div className="bg-grey-50 border border-grey-200 rounded-lg p-6 text-center">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 mx-auto text-grey-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
               </svg>
@@ -96,8 +93,10 @@ export default function AIAvatarPage() {
             </a>
             <button 
               onClick={() => {
-                navigator.clipboard.writeText(generatedVideoUrl: any);
-                alert('Video URL copied to clipboard!');
+                if (generatedVideoUrl) {
+                  navigator.clipboard.writeText(generatedVideoUrl);
+                  alert('Video URL copied to clipboard!');
+                }
               }}
               className="px-4 py-2 bg-grey-200 text-grey-800 rounded-md hover:bg-grey-300 transition-colors"
             >
