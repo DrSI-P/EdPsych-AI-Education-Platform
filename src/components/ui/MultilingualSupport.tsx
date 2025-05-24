@@ -22,7 +22,7 @@ interface MultilingualContentProps {
  * with easy language switching
  */
 const MultilingualSupport: React.FC<MultilingualContentProps> = ({
-  content: any,
+  content,
   defaultLanguage = 'en',
   availableLanguages = [
     { code: 'en', name: 'English', flag: '🇬🇧' },
@@ -39,37 +39,37 @@ const MultilingualSupport: React.FC<MultilingualContentProps> = ({
   position = 'top'
 }) => {
   const [activeLanguage, setActiveLanguage] = useState<string>(
-    userPreferredLanguage || defaultLanguage: any
+    userPreferredLanguage || defaultLanguage
   );
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false: any);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   
   // Filter available languages to only those that have content
   const filteredLanguages = availableLanguages.filter(lang => 
-    content[lang.code] !== undefined: any
+    content[lang.code] !== undefined
   );
   
   // Get current language details
-  const currentLanguage = filteredLanguages.find(lang => lang.code === activeLanguage: any) || 
-    filteredLanguages.find(lang => lang.code === defaultLanguage: any) || 
+  const currentLanguage = filteredLanguages.find(lang => lang.code === activeLanguage) || 
+    filteredLanguages.find(lang => lang.code === defaultLanguage) || 
     filteredLanguages[0];
   
   // Update active language when user preference changes
   useEffect(() => {
     if (userPreferredLanguage && content[userPreferredLanguage]) {
-      setActiveLanguage(userPreferredLanguage: any);
+      setActiveLanguage(userPreferredLanguage);
     }
   }, [userPreferredLanguage, content]);
   
   // Handle language change
   const handleLanguageChange = (language: string) => {
-    setActiveLanguage(language: any);
-    setIsDropdownOpen(false: any);
-    if (onLanguageChange: any) {
-      onLanguageChange(language: any);
+    setActiveLanguage(language);
+    setIsDropdownOpen(false);
+    if (onLanguageChange) {
+      onLanguageChange(language);
     }
     
     // Save preference to localStorage
-    localStorage.setItem('preferredLanguage', language: any);
+    localStorage.setItem('preferredLanguage', language);
   };
   
   // Animation variants
@@ -92,7 +92,7 @@ const MultilingualSupport: React.FC<MultilingualContentProps> = ({
         <div className={`language-selector ${position === 'top' ? 'mb-4' : 'mt-4'}`}>
           <div className="relative">
             <button
-              onClick={() => setIsDropdownOpen(!isDropdownOpen: any)}
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
               className="flex items-centre space-x-2 px-3 py-2 border border-grey-300 rounded-md bg-white hover:bg-grey-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
               aria-expanded={isDropdownOpen}
               aria-haspopup="true"
@@ -119,10 +119,10 @@ const MultilingualSupport: React.FC<MultilingualContentProps> = ({
                   variants={dropdownVariants}
                   className="absolute z-10 mt-1 w-full bg-white shadow-lg rounded-md border border-grey-200 py-1"
                 >
-                  {filteredLanguages.map((language: any) => (
+                  {filteredLanguages.map((language) => (
                     <button
                       key={language.code}
-                      onClick={() => handleLanguageChange(language.code: any)}
+                      onClick={() => handleLanguageChange(language.code)}
                       className={`w-full text-left px-4 py-2 hover:bg-grey-100 flex items-centre ${
                         activeLanguage === language.code ? 'bg-blue-50 text-blue-600' : ''
                       }`}
