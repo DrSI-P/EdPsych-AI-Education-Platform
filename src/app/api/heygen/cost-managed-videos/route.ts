@@ -1,10 +1,3 @@
-/**
- * HEYGEN API Cost Management Controller
- * 
- * This API route handles the cost-effective generation and management of AI videos
- * using the HEYGEN API, with tier-based access controls and credit management.
- */
-
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth/auth-options';
@@ -12,6 +5,12 @@ import { db } from '@/lib/db';
 import { getVideoForUser, getPreGeneratedVideosByCategory } from '@/lib/heygen/cost-management';
 import { getEnv } from '@/lib/env-validator';
 
+/**
+ * HEYGEN API Cost Management Controller
+ * 
+ * This API route handles the cost-effective generation and management of AI videos
+ * using the HEYGEN API, with tier-based access controls and credit management.
+ */
 export async function POST(req: NextRequest) {
   try {
     // Get the authenticated user
