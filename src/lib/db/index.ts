@@ -1,7 +1,7 @@
 // Database index file for the EdPsych AI Education Platform
 // This file provides a centralized interface for database operations
 
-import prismaInstance from '../prisma';
+import prismaClient, { prisma as prismaInstance } from '../db';
 
 // Re-export the prisma instance as a named export for consistency
 export const prisma = prismaInstance;
