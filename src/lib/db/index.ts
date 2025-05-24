@@ -396,8 +396,98 @@ const creditPurchase = {
   }
 };
 
+
+// UserVideos model interface
+const userVideos = {
+  /**
+   * Find user videos by ID
+   */
+  findUnique: async (params: {
+    where: Prisma.UserVideosWhereUniqueInput;
+  }) => {
+    return prisma.userVideos.findUnique(params);
+  },
+
+  /**
+   * Find many user videos with optional filtering
+   */
+  findMany: async (params?: {
+    skip?: number;
+    take?: number;
+    where?: Prisma.UserVideosWhereInput;
+    orderBy?: Prisma.UserVideosOrderByWithRelationInput;
+    include?: Prisma.UserVideosInclude;
+  }) => {
+    return prisma.userVideos.findMany(params);
+  },
+
+  /**
+   * Create a new user video
+   */
+  create: async (params: {
+    data: Prisma.UserVideosCreateInput;
+  }) => {
+    return prisma.userVideos.create(params);
+  },
+
+  /**
+   * Update user videos
+   */
+  update: async (params: {
+    where: Prisma.UserVideosWhereUniqueInput;
+    data: Prisma.UserVideosUpdateInput;
+  }) => {
+    return prisma.userVideos.update(params);
+  },
+
+  /**
+   * Delete user videos
+   */
+  delete: async (params: {
+    where: Prisma.UserVideosWhereUniqueInput;
+  }) => {
+    return prisma.userVideos.delete(params);
+  }
+};
+
+
+// ActivityLogs model interface
+const activityLogs = {
+  /**
+   * Find activity logs by ID
+   */
+  findUnique: async (params: {
+    where: Prisma.ActivityLogWhereUniqueInput;
+  }) => {
+    return prisma.activityLog.findUnique(params);
+  },
+
+  /**
+   * Find many activity logs with optional filtering
+   */
+  findMany: async (params?: {
+    skip?: number;
+    take?: number;
+    where?: Prisma.ActivityLogWhereInput;
+    orderBy?: Prisma.ActivityLogOrderByWithRelationInput;
+  }) => {
+    return prisma.activityLog.findMany(params);
+  },
+
+  /**
+   * Create a new activity log
+   */
+  create: async (params: {
+    data: Prisma.ActivityLogCreateInput;
+  }) => {
+    return prisma.activityLog.create(params);
+  }
+};
+
 // Export the database interface
 const db = {
+  userVideos,
+  activityLogs,
   user,
   circleTemplate,
   reflectionPrompt,
