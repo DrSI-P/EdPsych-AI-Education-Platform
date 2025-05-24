@@ -89,28 +89,17 @@ npm warn using --force Recommended protections disabled.
 jest.config.ts(1,29): error TS2307: Cannot find module 'jest' or its corresponding type declarations.
 prisma/seed.ts(2,22): error TS7016: Could not find a declaration file for module 'bcrypt'. '/home/ubuntu/EdPsych/node_modules/bcrypt/bcrypt.js' implicitly has an 'any' type.
   Try `npm i --save-dev @types/bcrypt` if it exists or add a new declaration (.d.ts) file containing `declare module 'bcrypt';`
-src/app/accessibility/high-contrast/page.tsx(36,13): error TS2322: Type 'Dispatch<SetStateAction<{ enabled: boolean; mode: string; textSize: number; contrastLevel: number; reduceAnimations: boolean; }>>' is not assignable to type '(settings: Record<string, any>) => void'.
-  Types of parameters 'value' and 'settings' are incompatible.
-    Type 'Record<string, any>' is not assignable to type 'SetStateAction<{ enabled: boolean; mode: string; textSize: number; contrastLevel: number; reduceAnimations: boolean; }>'.
-      Type 'Record<string, any>' is missing the following properties from type '{ enabled: boolean; mode: string; textSize: number; contrastLevel: number; reduceAnimations: boolean; }': enabled, mode, textSize, contrastLevel, reduceAnimations
+src/app/accessibility/high-contrast/page.tsx(5,8): error TS2613: Module '"/home/ubuntu/EdPsych/src/components/ai/accessibility/high-contrast-mode-engine"' has no default export. Did you mean to use 'import { HighContrastModeEngine } from "/home/ubuntu/EdPsych/src/components/ai/accessibility/high-contrast-mode-engine"' instead?
 src/app/accessibility/high-contrast/page.tsx(40,18): error TS2322: Type '{ children: Element[]; className: string; }' is not assignable to type 'IntrinsicAttributes & AlertProps'.
   Property 'className' does not exist on type 'IntrinsicAttributes & AlertProps'.
-src/app/accessibility/keyboard-navigation/page.tsx(56,13): error TS2322: Type '(newSettings: KeyboardNavigationSettings) => void' is not assignable to type '(settings: Record<string, unknown>) => void'.
-  Types of parameters 'newSettings' and 'settings' are incompatible.
-    Type 'Record<string, unknown>' is missing the following properties from type 'KeyboardNavigationSettings': enabled, highlightFocus, skipLinks, keyboardShortcuts, and 4 more.
+src/app/accessibility/keyboard-navigation/page.tsx(5,8): error TS2613: Module '"/home/ubuntu/EdPsych/src/components/ai/accessibility/keyboard-navigation-engine"' has no default export. Did you mean to use 'import { KeyboardNavigationEngine } from "/home/ubuntu/EdPsych/src/components/ai/accessibility/keyboard-navigation-engine"' instead?
 src/app/accessibility/keyboard-navigation/page.tsx(60,18): error TS2322: Type '{ children: Element[]; className: string; }' is not assignable to type 'IntrinsicAttributes & AlertProps'.
   Property 'className' does not exist on type 'IntrinsicAttributes & AlertProps'.
 src/app/accessibility/page.tsx(15,8): error TS2739: Type '{}' is missing the following properties from type 'AccessibilityControlsProps': settings, onSettingsChange
-src/app/accessibility/reduced-motion/page.tsx(38,13): error TS2322: Type 'Dispatch<SetStateAction<{ enabled: boolean; level: string; allowEssentialAnimations: boolean; allowHoverEffects: boolean; allowTransitions: boolean; transitionSpeed: number; allowAutoplay: boolean; }>>' is not assignable to type '(settings: Record<string, any>) => void'.
-  Types of parameters 'value' and 'settings' are incompatible.
-    Type 'Record<string, any>' is not assignable to type 'SetStateAction<{ enabled: boolean; level: string; allowEssentialAnimations: boolean; allowHoverEffects: boolean; allowTransitions: boolean; transitionSpeed: number; allowAutoplay: boolean; }>'.
-      Type 'Record<string, any>' is missing the following properties from type '{ enabled: boolean; level: string; allowEssentialAnimations: boolean; allowHoverEffects: boolean; allowTransitions: boolean; transitionSpeed: number; allowAutoplay: boolean; }': enabled, level, allowEssentialAnimations, allowHoverEffects, and 3 more.
+src/app/accessibility/reduced-motion/page.tsx(5,8): error TS2613: Module '"/home/ubuntu/EdPsych/src/components/ai/accessibility/reduced-motion-mode-engine"' has no default export. Did you mean to use 'import { ReducedMotionModeEngine } from "/home/ubuntu/EdPsych/src/components/ai/accessibility/reduced-motion-mode-engine"' instead?
 src/app/accessibility/reduced-motion/page.tsx(42,18): error TS2322: Type '{ children: Element[]; className: string; }' is not assignable to type 'IntrinsicAttributes & AlertProps'.
   Property 'className' does not exist on type 'IntrinsicAttributes & AlertProps'.
-src/app/accessibility/screen-reader-optimization/page.tsx(51,13): error TS2322: Type 'Dispatch<SetStateAction<ScreenReaderSettings>>' is not assignable to type '(settings: Record<string, unknown>) => void'.
-  Types of parameters 'value' and 'settings' are incompatible.
-    Type 'Record<string, unknown>' is not assignable to type 'SetStateAction<ScreenReaderSettings>'.
-      Type 'Record<string, unknown>' is missing the following properties from type 'ScreenReaderSettings': enabled, enhancedAria, improvedAltText, semanticHeadings, and 4 more.
+src/app/accessibility/screen-reader-optimization/page.tsx(5,8): error TS2613: Module '"/home/ubuntu/EdPsych/src/components/ai/accessibility/screen-reader-optimization-engine"' has no default export. Did you mean to use 'import { ScreenReaderOptimizationEngine } from "/home/ubuntu/EdPsych/src/components/ai/accessibility/screen-reader-optimization-engine"' instead?
 src/app/accessibility/screen-reader-optimization/page.tsx(55,18): error TS2322: Type '{ children: Element[]; className: string; }' is not assignable to type 'IntrinsicAttributes & AlertProps'.
   Property 'className' does not exist on type 'IntrinsicAttributes & AlertProps'.
 src/app/accessibility/speech-to-text/page.tsx(37,13): error TS2322: Type '{ initialText: string; className: string; showCalibration: boolean; }' is not assignable to type 'IntrinsicAttributes & SpeechToTextEngineProps'.
@@ -119,7 +108,7 @@ src/app/accessibility/text-to-speech/page.tsx(46,13): error TS2322: Type '{ init
   Property 'initialText' does not exist on type 'IntrinsicAttributes & TextToSpeechEngineProps'.
 src/app/adaptive-complexity/page.tsx(102,17): error TS2322: Type '{ contentId: string | undefined; content: string | undefined; title: string | undefined; }' is not assignable to type 'IntrinsicAttributes & AdaptiveComplexityEngineProps'.
   Property 'contentId' does not exist on type 'IntrinsicAttributes & AdaptiveComplexityEngineProps'.
-src/app/admin/users/page.tsx(222,16): error TS2322: Type '"error"' is not assignable to type '"default" | "warning" | "info" | "success" | "destructive" | undefined'.
+src/app/admin/users/page.tsx(222,16): error TS2322: Type '"error"' is not assignable to type '"default" | "destructive" | "success" | "warning" | "info" | undefined'.
 src/app/ai-avatar-videos/view/[id]/page.tsx(7,10): error TS2724: '"@/lib/heygen/heygen-service"' has no exported member named 'HeyGenService'. Did you mean 'HeygenService'?
 src/app/ai-avatar-videos/view/[id]/page.tsx(7,25): error TS2614: Module '"@/lib/heygen/heygen-service"' has no exported member 'HeyGenVideo'. Did you mean to use 'import HeyGenVideo from "@/lib/heygen/heygen-service"' instead?
 src/app/analytics/page.tsx(9,10): error TS2614: Module '"@/components/analytics/custom-report-builder"' has no exported member 'CustomReportBuilder'. Did you mean to use 'import CustomReportBuilder from "@/components/analytics/custom-report-builder"' instead?
@@ -401,8 +390,8 @@ src/app/assessment/grade/[id]/page.tsx(91,69): error TS18047: 'params' is possib
 src/app/assessment/grade/[id]/page.tsx(135,9): error TS18047: 'params' is possibly 'null'.
 src/app/assessment/grade/[id]/page.tsx(138,7): error TS18047: 'params' is possibly 'null'.
 src/app/assessment/grade/[id]/page.tsx(207,66): error TS18047: 'params' is possibly 'null'.
-src/app/assessment/grade/[id]/page.tsx(445,16): error TS2322: Type '"error"' is not assignable to type '"default" | "warning" | "info" | "success" | "destructive" | undefined'.
-src/app/assessment/grade/[id]/page.tsx(458,16): error TS2322: Type '"error"' is not assignable to type '"default" | "warning" | "info" | "success" | "destructive" | undefined'.
+src/app/assessment/grade/[id]/page.tsx(445,16): error TS2322: Type '"error"' is not assignable to type '"default" | "destructive" | "success" | "warning" | "info" | undefined'.
+src/app/assessment/grade/[id]/page.tsx(458,16): error TS2322: Type '"error"' is not assignable to type '"default" | "destructive" | "success" | "warning" | "info" | undefined'.
 src/app/assessment/grade/[id]/page.tsx(494,34): error TS2322: Type '{ children: string; variant: "success"; className: string; }' is not assignable to type 'IntrinsicAttributes & AlertProps'.
   Property 'className' does not exist on type 'IntrinsicAttributes & AlertProps'.
 src/app/assessment/preview/[id]/page.tsx(55,57): error TS18047: 'params' is possibly 'null'.
@@ -421,7 +410,7 @@ src/app/assessment/pupil-voice/create/page.tsx(256,16): error TS18046: 'err' is 
 src/app/assessment/pupil-voice/create/page.tsx(549,16): error TS2322: Type '{ children: string; type: string; className: string; }' is not assignable to type 'IntrinsicAttributes & AlertProps'.
   Property 'type' does not exist on type 'IntrinsicAttributes & AlertProps'.
 src/app/assessment/pupil-voice/page.tsx(5,39): error TS2307: Cannot find module '@/types/assessment' or its corresponding type declarations.
-src/app/assessment/pupil-voice/page.tsx(277,16): error TS2322: Type '"error"' is not assignable to type '"default" | "warning" | "info" | "success" | "destructive" | undefined'.
+src/app/assessment/pupil-voice/page.tsx(277,16): error TS2322: Type '"error"' is not assignable to type '"default" | "destructive" | "success" | "warning" | "info" | undefined'.
 src/app/assessment/pupil-voice/preview/[id]/page.tsx(14,20): error TS18047: 'params' is possibly 'null'.
 src/app/assessment/pupil-voice/preview/[id]/page.tsx(357,16): error TS2322: Type '{ children: string; type: string; className: string; }' is not assignable to type 'IntrinsicAttributes & AlertProps'.
   Property 'type' does not exist on type 'IntrinsicAttributes & AlertProps'.
@@ -464,8 +453,8 @@ src/app/assessment/templates/[id]/use/page.tsx(15,22): error TS18047: 'params' i
 src/app/assessment/templates/[id]/use/page.tsx(73,21): error TS2339: Property 'templateData' does not exist on type 'never'.
 src/app/assessment/templates/[id]/use/page.tsx(82,31): error TS2339: Property 'id' does not exist on type 'never'.
 src/app/assessment/templates/[id]/use/page.tsx(105,16): error TS18046: 'err' is of type 'unknown'.
-src/app/assessment/templates/[id]/use/page.tsx(122,16): error TS2322: Type '"error"' is not assignable to type '"default" | "warning" | "info" | "success" | "destructive" | undefined'.
-src/app/assessment/templates/[id]/use/page.tsx(262,24): error TS2322: Type '"error"' is not assignable to type '"default" | "warning" | "info" | "success" | "destructive" | undefined'.
+src/app/assessment/templates/[id]/use/page.tsx(122,16): error TS2322: Type '"error"' is not assignable to type '"default" | "destructive" | "success" | "warning" | "info" | undefined'.
+src/app/assessment/templates/[id]/use/page.tsx(262,24): error TS2322: Type '"error"' is not assignable to type '"default" | "destructive" | "success" | "warning" | "info" | undefined'.
 src/app/assessment/templates/[id]/use/page.tsx(278,65): error TS2339: Property 'title' does not exist on type 'never'.
 src/app/assessment/templates/[id]/use/page.tsx(279,71): error TS2339: Property 'description' does not exist on type 'never'.
 src/app/assessment/templates/[id]/use/page.tsx(285,61): error TS2339: Property 'subject' does not exist on type 'never'.
@@ -525,23 +514,23 @@ src/app/auth/verify-email/page.tsx(83,24): error TS2322: Type '{ children: strin
   Property 'type' does not exist on type 'IntrinsicAttributes & AlertProps'.
 src/app/auth/verify-email/page.tsx(96,26): error TS2322: Type '{ children: string; type: string; className: string; }' is not assignable to type 'IntrinsicAttributes & AlertProps'.
   Property 'type' does not exist on type 'IntrinsicAttributes & AlertProps'.
-src/app/contact/page.tsx(214,23): error TS2322: Type '{ control: Control<{ message: string; email: string; name: string; subject: string; userType: string; }, any, { message: string; email: string; name: string; subject: string; userType: string; }>; name: string; render: ({ field }: { ...; }) => Element; }' is not assignable to type 'IntrinsicAttributes & { name: string; children: ReactNode; }'.
+src/app/contact/page.tsx(214,23): error TS2322: Type '{ control: Control<{ name: string; email: string; message: string; subject: string; userType: string; }, any, { name: string; email: string; message: string; subject: string; userType: string; }>; name: string; render: ({ field }: { ...; }) => Element; }' is not assignable to type 'IntrinsicAttributes & { name: string; children: ReactNode; }'.
   Property 'control' does not exist on type 'IntrinsicAttributes & { name: string; children: ReactNode; }'.
 src/app/contact/page.tsx(216,34): error TS7031: Binding element 'field' implicitly has an 'any' type.
 src/app/contact/page.tsx(222,28): error TS2741: Property 'children' is missing in type '{}' but required in type '{ children: ReactNode; }'.
-src/app/contact/page.tsx(228,23): error TS2322: Type '{ control: Control<{ message: string; email: string; name: string; subject: string; userType: string; }, any, { message: string; email: string; name: string; subject: string; userType: string; }>; name: string; render: ({ field }: { ...; }) => Element; }' is not assignable to type 'IntrinsicAttributes & { name: string; children: ReactNode; }'.
+src/app/contact/page.tsx(228,23): error TS2322: Type '{ control: Control<{ name: string; email: string; message: string; subject: string; userType: string; }, any, { name: string; email: string; message: string; subject: string; userType: string; }>; name: string; render: ({ field }: { ...; }) => Element; }' is not assignable to type 'IntrinsicAttributes & { name: string; children: ReactNode; }'.
   Property 'control' does not exist on type 'IntrinsicAttributes & { name: string; children: ReactNode; }'.
 src/app/contact/page.tsx(230,34): error TS7031: Binding element 'field' implicitly has an 'any' type.
 src/app/contact/page.tsx(236,28): error TS2741: Property 'children' is missing in type '{}' but required in type '{ children: ReactNode; }'.
-src/app/contact/page.tsx(242,23): error TS2322: Type '{ control: Control<{ message: string; email: string; name: string; subject: string; userType: string; }, any, { message: string; email: string; name: string; subject: string; userType: string; }>; name: string; render: ({ field }: { ...; }) => Element; }' is not assignable to type 'IntrinsicAttributes & { name: string; children: ReactNode; }'.
+src/app/contact/page.tsx(242,23): error TS2322: Type '{ control: Control<{ name: string; email: string; message: string; subject: string; userType: string; }, any, { name: string; email: string; message: string; subject: string; userType: string; }>; name: string; render: ({ field }: { ...; }) => Element; }' is not assignable to type 'IntrinsicAttributes & { name: string; children: ReactNode; }'.
   Property 'control' does not exist on type 'IntrinsicAttributes & { name: string; children: ReactNode; }'.
 src/app/contact/page.tsx(244,34): error TS7031: Binding element 'field' implicitly has an 'any' type.
 src/app/contact/page.tsx(264,28): error TS2741: Property 'children' is missing in type '{}' but required in type '{ children: ReactNode; }'.
-src/app/contact/page.tsx(270,23): error TS2322: Type '{ control: Control<{ message: string; email: string; name: string; subject: string; userType: string; }, any, { message: string; email: string; name: string; subject: string; userType: string; }>; name: string; render: ({ field }: { ...; }) => Element; }' is not assignable to type 'IntrinsicAttributes & { name: string; children: ReactNode; }'.
+src/app/contact/page.tsx(270,23): error TS2322: Type '{ control: Control<{ name: string; email: string; message: string; subject: string; userType: string; }, any, { name: string; email: string; message: string; subject: string; userType: string; }>; name: string; render: ({ field }: { ...; }) => Element; }' is not assignable to type 'IntrinsicAttributes & { name: string; children: ReactNode; }'.
   Property 'control' does not exist on type 'IntrinsicAttributes & { name: string; children: ReactNode; }'.
 src/app/contact/page.tsx(272,34): error TS7031: Binding element 'field' implicitly has an 'any' type.
 src/app/contact/page.tsx(278,28): error TS2741: Property 'children' is missing in type '{}' but required in type '{ children: ReactNode; }'.
-src/app/contact/page.tsx(284,23): error TS2322: Type '{ control: Control<{ message: string; email: string; name: string; subject: string; userType: string; }, any, { message: string; email: string; name: string; subject: string; userType: string; }>; name: string; render: ({ field }: { ...; }) => Element; }' is not assignable to type 'IntrinsicAttributes & { name: string; children: ReactNode; }'.
+src/app/contact/page.tsx(284,23): error TS2322: Type '{ control: Control<{ name: string; email: string; message: string; subject: string; userType: string; }, any, { name: string; email: string; message: string; subject: string; userType: string; }>; name: string; render: ({ field }: { ...; }) => Element; }' is not assignable to type 'IntrinsicAttributes & { name: string; children: ReactNode; }'.
   Property 'control' does not exist on type 'IntrinsicAttributes & { name: string; children: ReactNode; }'.
 src/app/contact/page.tsx(286,34): error TS7031: Binding element 'field' implicitly has an 'any' type.
 src/app/contact/page.tsx(296,28): error TS2741: Property 'children' is missing in type '{}' but required in type '{ children: ReactNode; }'.
@@ -806,14 +795,14 @@ src/components/adaptive-complexity/tests/adaptive-complexity-service.test.ts(148
 src/components/adaptive-complexity/tests/adaptive-complexity-service.test.ts(152,5): error TS2304: Cannot find name 'expect'.
 src/components/admin/admin-dashboard.tsx(216,7): error TS2353: Object literal may only specify known properties, and 'title' does not exist in type 'Omit<ToastProps, "onClose">'.
 src/components/admin/admin-dashboard.tsx(233,7): error TS2353: Object literal may only specify known properties, and 'title' does not exist in type 'Omit<ToastProps, "onClose">'.
-src/components/admin/admin-dashboard.tsx(258,20): error TS2322: Type '"error"' is not assignable to type '"default" | "warning" | "info" | "success" | "destructive" | undefined'.
-src/components/admin/admin-dashboard.tsx(280,25): error TS2322: Type '"error" | "warning" | "info"' is not assignable to type '"default" | "warning" | "info" | "success" | "destructive" | undefined'.
-  Type '"error"' is not assignable to type '"default" | "warning" | "info" | "success" | "destructive" | undefined'.
-src/components/admin/admin-dashboard.tsx(517,20): error TS2322: Type '"error"' is not assignable to type '"default" | "warning" | "info" | "success" | "destructive" | undefined'.
+src/components/admin/admin-dashboard.tsx(258,20): error TS2322: Type '"error"' is not assignable to type '"default" | "destructive" | "success" | "warning" | "info" | undefined'.
+src/components/admin/admin-dashboard.tsx(280,25): error TS2322: Type '"error" | "warning" | "info"' is not assignable to type '"default" | "destructive" | "success" | "warning" | "info" | undefined'.
+  Type '"error"' is not assignable to type '"default" | "destructive" | "success" | "warning" | "info" | undefined'.
+src/components/admin/admin-dashboard.tsx(517,20): error TS2322: Type '"error"' is not assignable to type '"default" | "destructive" | "success" | "warning" | "info" | undefined'.
 src/components/admin/admin-dashboard.tsx(529,20): error TS2739: Type '{ options: { value: string; label: string; }[]; className: string; }' is missing the following properties from type 'SelectProps': value, onChange
-src/components/admin/admin-dashboard.tsx(687,20): error TS2322: Type '"error"' is not assignable to type '"default" | "warning" | "info" | "success" | "destructive" | undefined'.
+src/components/admin/admin-dashboard.tsx(687,20): error TS2322: Type '"error"' is not assignable to type '"default" | "destructive" | "success" | "warning" | "info" | undefined'.
 src/components/admin/admin-dashboard.tsx(699,20): error TS2739: Type '{ options: { value: string; label: string; }[]; className: string; }' is missing the following properties from type 'SelectProps': value, onChange
-src/components/admin/admin-dashboard.tsx(870,20): error TS2322: Type '"error"' is not assignable to type '"default" | "warning" | "info" | "success" | "destructive" | undefined'.
+src/components/admin/admin-dashboard.tsx(870,20): error TS2322: Type '"error"' is not assignable to type '"default" | "destructive" | "success" | "warning" | "info" | undefined'.
 src/components/admin/admin-dashboard.tsx(906,24): error TS2741: Property 'onChange' is missing in type '{ options: { value: string; label: string; }[]; value: string; className: string; }' but required in type 'SelectProps'.
 src/components/admin/admin-dashboard.tsx(920,24): error TS2741: Property 'onChange' is missing in type '{ options: { value: string; label: string; }[]; value: string; className: string; }' but required in type 'SelectProps'.
 src/components/admin/admin-dashboard.tsx(932,24): error TS2741: Property 'onChange' is missing in type '{ label: string; checked: false; }' but required in type 'CheckboxProps'.
@@ -850,239 +839,38 @@ src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(55,8): error TS
 src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(56,25): error TS2307: Cannot find module './quest-detail' or its corresponding type declarations.
 src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(57,22): error TS2307: Cannot find module './quest-hub' or its corresponding type declarations.
 src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(58,32): error TS2307: Cannot find module './character-dashboard' or its corresponding type declarations.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(69,11): error TS2339: Property 'fairUsage' does not exist on type '{ isLoading: boolean; checkFeatureLimit: (feature: any) => Promise<any>; trackFeatureUsage: (feature: any, quantity?: number) => Promise<any>; useFeatureWithCredit: (feature: any, quantity?: number) => Promise<...>; getCredits: () => Promise<...>; purchaseCredits: (amount: any) => Promise<...>; CreditPurchaseDialog:...'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(123,9): error TS2349: This expression is not callable.
-  Type '{ toast: (message: string, options?: any) => void; dismiss: (toastId?: string | undefined) => void; }' has no call signatures.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(133,7): error TS2349: This expression is not callable.
-  Type '{ toast: (message: string, options?: any) => void; dismiss: (toastId?: string | undefined) => void; }' has no call signatures.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(189,16): error TS2322: Type 'any' is not assignable to type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(189,27): error TS2322: Type 'any' is not assignable to type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(201,25): error TS2322: Type 'any' is not assignable to type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(201,45): error TS2322: Type 'any' is not assignable to type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(208,36): error TS2339: Property 'id' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(213,9): error TS2698: Spread types may only be created from object types.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(214,23): error TS2339: Property 'xp' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(215,41): error TS2339: Property 'xp' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(220,5): error TS2349: This expression is not callable.
-  Type '{ toast: (message: string, options?: any) => void; dismiss: (toastId?: string | undefined) => void; }' has no call signatures.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(241,5): error TS2349: This expression is not callable.
-  Type '{ toast: (message: string, options?: any) => void; dismiss: (toastId?: string | undefined) => void; }' has no call signatures.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(259,20): error TS2345: Argument of type '{ id: string; name: string; level: number; xp: number; xpToNextLevel: number; attributes: { intelligence: number; creativity: number; persistence: number; curiosity: number; }; inventory: { id: string; name: string; description: string; quantity: number; }[]; achievements: { ...; }[]; }' is not assignable to parameter of type 'SetStateAction<null>'.
-  Type '{ id: string; name: string; level: number; xp: number; xpToNextLevel: number; attributes: { intelligence: number; creativity: number; persistence: number; curiosity: number; }; inventory: { id: string; name: string; description: string; quantity: number; }[]; achievements: { ...; }[]; }' provides no match for the signature '(prevState: null): null'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(263,15): error TS2345: Argument of type '({ id: string; title: string; description: string; subject: string; keyStage: string; difficulty: string; duration: number; xpReward: number; objectives: string[]; challenges: ({ id: string; title: string; ... 4 more ...; correctAnswer: string; } | { ...; })[]; } | { ...; } | { ...; })[]' is not assignable to parameter of type 'SetStateAction<never[]>'.
-  Type '({ id: string; title: string; description: string; subject: string; keyStage: string; difficulty: string; duration: number; xpReward: number; objectives: string[]; challenges: ({ id: string; title: string; ... 4 more ...; correctAnswer: string; } | { ...; })[]; } | { ...; } | { ...; })[]' is not assignable to type 'never[]'.
-    Type '{ id: string; title: string; description: string; subject: string; keyStage: string; difficulty: string; duration: number; xpReward: number; objectives: string[]; challenges: ({ id: string; title: string; ... 4 more ...; correctAnswer: string; } | { ...; })[]; } | { ...; } | { ...; }' is not assignable to type 'never'.
-      Type '{ id: string; title: string; description: string; subject: string; keyStage: string; difficulty: string; duration: number; xpReward: number; objectives: string[]; challenges: ({ id: string; title: string; ... 4 more ...; correctAnswer: string; } | { ...; })[]; }' is not assignable to type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(267,7): error TS2322: Type '{ id: string; title: string; subject: string; difficulty: string; xpReward: number; completedAt: string; }' is not assignable to type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(275,7): error TS2322: Type '{ id: string; title: string; subject: string; difficulty: string; xpReward: number; completedAt: string; }' is not assignable to type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(283,7): error TS2322: Type '{ id: string; title: string; subject: string; difficulty: string; xpReward: number; completedAt: string; }' is not assignable to type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(418,40): error TS2339: Property 'id' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(421,67): error TS2339: Property 'title' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(423,37): error TS2339: Property 'difficulty' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(424,37): error TS2339: Property 'difficulty' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(427,38): error TS2339: Property 'difficulty' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(430,51): error TS2339: Property 'description' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(434,61): error TS2339: Property 'subject' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(435,61): error TS2339: Property 'keyStage' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(436,61): error TS2339: Property 'duration' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(441,64): error TS2339: Property 'xpReward' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(468,58): error TS2339: Property 'name' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(471,37): error TS2339: Property 'level' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(478,45): error TS2339: Property 'xp' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(479,41): error TS2339: Property 'xpToNextLevel' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(479,86): error TS2339: Property 'level' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(481,50): error TS2339: Property 'xp' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(481,73): error TS2339: Property 'xpToNextLevel' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(494,45): error TS2339: Property 'attributes' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(496,54): error TS2339: Property 'attributes' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(503,45): error TS2339: Property 'attributes' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(505,54): error TS2339: Property 'attributes' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(512,45): error TS2339: Property 'attributes' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(514,54): error TS2339: Property 'attributes' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(521,45): error TS2339: Property 'attributes' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(523,54): error TS2339: Property 'attributes' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(532,33): error TS2339: Property 'achievements' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(532,59): error TS2339: Property 'achievements' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(534,36): error TS2339: Property 'achievements' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(534,66): error TS7006: Parameter 'achievement' implicitly has an 'any' type.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(573,60): error TS2339: Property 'title' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(575,47): error TS2339: Property 'description' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(578,29): error TS2339: Property 'difficulty' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(579,29): error TS2339: Property 'difficulty' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(582,30): error TS2339: Property 'difficulty' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(589,55): error TS2339: Property 'subject' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(590,55): error TS2339: Property 'keyStage' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(591,55): error TS2339: Property 'duration' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(594,32): error TS2339: Property 'xpReward' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(601,32): error TS2339: Property 'objectives' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(601,48): error TS7006: Parameter 'objective' implicitly has an 'any' type.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(601,59): error TS7006: Parameter 'index' implicitly has an 'any' type.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(615,32): error TS2339: Property 'challenges' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(615,48): error TS7006: Parameter 'challenge' implicitly has an 'any' type.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(615,59): error TS7006: Parameter 'index' implicitly has an 'any' type.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(631,53): error TS7006: Parameter 'option' implicitly has an 'any' type.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(631,61): error TS7006: Parameter 'i' implicitly has an 'any' type.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(678,38): error TS2339: Property 'duration' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(679,48): error TS2339: Property 'challenges' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(823,40): error TS2339: Property 'id' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(826,67): error TS2339: Property 'title' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(828,47): error TS2339: Property 'completedAt' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(834,61): error TS2339: Property 'subject' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(835,61): error TS2339: Property 'difficulty' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(838,38): error TS2339: Property 'xpReward' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(842,34): error TS2339: Property 'results' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(846,67): error TS2339: Property 'results' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(850,78): error TS2339: Property 'results' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(854,67): error TS2339: Property 'results' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(876,83): error TS2339: Property 'xpReward' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(900,86): error TS2339: Property 'results' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(903,50): error TS2339: Property 'results' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(904,75): error TS2339: Property 'results' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(905,63): error TS2339: Property 'results' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(961,53): error TS2339: Property 'name' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(964,32): error TS2339: Property 'level' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(971,40): error TS2339: Property 'xp' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(972,36): error TS2339: Property 'xpToNextLevel' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(972,71): error TS2339: Property 'level' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(974,44): error TS2339: Property 'xp' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(974,59): error TS2339: Property 'xpToNextLevel' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(986,42): error TS2339: Property 'attributes' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(988,50): error TS2339: Property 'attributes' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(995,42): error TS2339: Property 'attributes' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(997,50): error TS2339: Property 'attributes' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(1004,42): error TS2339: Property 'attributes' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(1006,50): error TS2339: Property 'attributes' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(1013,42): error TS2339: Property 'attributes' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(1015,50): error TS2339: Property 'attributes' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(1022,30): error TS2339: Property 'inventory' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(1022,53): error TS2339: Property 'inventory' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(1024,34): error TS2339: Property 'inventory' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(1024,49): error TS7006: Parameter 'item' implicitly has an 'any' type.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(1044,28): error TS2339: Property 'achievements' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(1044,54): error TS2339: Property 'achievements' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(1046,32): error TS2339: Property 'achievements' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(1046,50): error TS7006: Parameter 'achievement' implicitly has an 'any' type.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(1075,79): error TS2339: Property 'xpReward' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(1081,34): error TS2339: Property 'achievements' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(1081,59): error TS2339: Property 'achievements' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(1090,46): error TS2339: Property 'results' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(1091,72): error TS2339: Property 'results' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(1092,71): error TS2339: Property 'results' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(1129,7): error TS2349: This expression is not callable.
-  Type '{ toast: (message: string, options?: any) => void; dismiss: (toastId?: string | undefined) => void; }' has no call signatures.
+src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(128,47): error TS2503: Cannot find namespace 'JSX'.
+src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(130,11): error TS2339: Property 'fairUsage' does not exist on type '{ isLoading: boolean; checkFeatureLimit: (feature: any) => Promise<any>; trackFeatureUsage: (feature: any, quantity?: number) => Promise<any>; useFeatureWithCredit: (feature: any, quantity?: number) => Promise<...>; getCredits: () => Promise<...>; purchaseCredits: (amount: any) => Promise<...>; CreditPurchaseDialog:...'.
+src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(184,15): error TS2345: Argument of type '{ title: string; description: string; }' is not assignable to parameter of type 'string'.
+src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(194,13): error TS2345: Argument of type '{ title: string; description: string; }' is not assignable to parameter of type 'string'.
+src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(281,11): error TS2345: Argument of type '{ title: string; description: string; }' is not assignable to parameter of type 'string'.
+src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(302,11): error TS2345: Argument of type '{ title: string; description: string; }' is not assignable to parameter of type 'string'.
+src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(371,39): error TS2503: Cannot find namespace 'JSX'.
+src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(469,30): error TS2503: Cannot find namespace 'JSX'.
+src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(627,85): error TS2345: Argument of type '"character"' is not assignable to parameter of type 'SetStateAction<"generate" | "history" | "quest" | "creation" | "hub">'.
+src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(639,33): error TS2503: Cannot find namespace 'JSX'.
+src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(758,34): error TS2503: Cannot find namespace 'JSX'.
+src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(824,37): error TS2503: Cannot find namespace 'JSX'.
 src/components/adventure-quest/adventure-quest-saga-integrated.tsx(44,31): error TS2307: Cannot find module '../curriculum/curriculum-context' or its corresponding type declarations.
 src/components/adventure-quest/adventure-quest-saga-integrated.tsx(45,33): error TS2307: Cannot find module '../gamification/gamification-context' or its corresponding type declarations.
 src/components/adventure-quest/adventure-quest-saga-integrated.tsx(46,31): error TS2307: Cannot find module '../assessment/assessment-context' or its corresponding type declarations.
 src/components/adventure-quest/adventure-quest-saga-integrated.tsx(47,32): error TS2307: Cannot find module '../user/user-profile-context' or its corresponding type declarations.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(53,11): error TS2339: Property 'fairUsage' does not exist on type '{ isLoading: boolean; checkFeatureLimit: (feature: any) => Promise<any>; trackFeatureUsage: (feature: any, quantity?: number) => Promise<any>; useFeatureWithCredit: (feature: any, quantity?: number) => Promise<...>; getCredits: () => Promise<...>; purchaseCredits: (amount: any) => Promise<...>; CreditPurchaseDialog:...'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(80,30): error TS7006: Parameter 'quest' implicitly has an 'any' type.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(86,32): error TS7006: Parameter 'quest' implicitly has an 'any' type.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(86,39): error TS7006: Parameter 'results' implicitly has an 'any' type.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(88,25): error TS2322: Type 'any' is not assignable to type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(88,45): error TS2322: Type 'any' is not assignable to type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(95,36): error TS2339: Property 'id' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(100,9): error TS2698: Spread types may only be created from object types.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(101,23): error TS2339: Property 'xp' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(102,41): error TS2339: Property 'xp' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(107,5): error TS2349: This expression is not callable.
-  Type '{ toast: (message: string, options?: any) => void; dismiss: (toastId?: string | undefined) => void; }' has no call signatures.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(118,27): error TS7006: Parameter 'xp' implicitly has an 'any' type.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(124,34): error TS7006: Parameter 'newCharacter' implicitly has an 'any' type.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(128,5): error TS2349: This expression is not callable.
-  Type '{ toast: (message: string, options?: any) => void; dismiss: (toastId?: string | undefined) => void; }' has no call signatures.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(135,30): error TS7006: Parameter 'param' implicitly has an 'any' type.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(135,37): error TS7006: Parameter 'value' implicitly has an 'any' type.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(146,20): error TS2345: Argument of type '{ id: string; name: string; level: number; xp: number; xpToNextLevel: number; attributes: { intelligence: number; creativity: number; persistence: number; curiosity: number; }; inventory: { id: string; name: string; description: string; quantity: number; }[]; achievements: { ...; }[]; }' is not assignable to parameter of type 'SetStateAction<null>'.
-  Type '{ id: string; name: string; level: number; xp: number; xpToNextLevel: number; attributes: { intelligence: number; creativity: number; persistence: number; curiosity: number; }; inventory: { id: string; name: string; description: string; quantity: number; }[]; achievements: { ...; }[]; }' provides no match for the signature '(prevState: null): null'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(150,15): error TS2345: Argument of type '({ id: string; title: string; description: string; subject: string; keyStage: string; difficulty: string; duration: number; xpReward: number; objectives: string[]; challenges: ({ id: string; title: string; ... 4 more ...; correctAnswer: string; } | { ...; })[]; } | { ...; } | { ...; })[]' is not assignable to parameter of type 'SetStateAction<never[]>'.
-  Type '({ id: string; title: string; description: string; subject: string; keyStage: string; difficulty: string; duration: number; xpReward: number; objectives: string[]; challenges: ({ id: string; title: string; ... 4 more ...; correctAnswer: string; } | { ...; })[]; } | { ...; } | { ...; })[]' is not assignable to type 'never[]'.
-    Type '{ id: string; title: string; description: string; subject: string; keyStage: string; difficulty: string; duration: number; xpReward: number; objectives: string[]; challenges: ({ id: string; title: string; ... 4 more ...; correctAnswer: string; } | { ...; })[]; } | { ...; } | { ...; }' is not assignable to type 'never'.
-      Type '{ id: string; title: string; description: string; subject: string; keyStage: string; difficulty: string; duration: number; xpReward: number; objectives: string[]; challenges: ({ id: string; title: string; ... 4 more ...; correctAnswer: string; } | { ...; })[]; }' is not assignable to type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(154,7): error TS2322: Type '{ id: string; title: string; subject: string; difficulty: string; xpReward: number; completedAt: string; }' is not assignable to type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(162,7): error TS2322: Type '{ id: string; title: string; subject: string; difficulty: string; xpReward: number; completedAt: string; }' is not assignable to type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(170,7): error TS2322: Type '{ id: string; title: string; subject: string; difficulty: string; xpReward: number; completedAt: string; }' is not assignable to type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(207,40): error TS2339: Property 'id' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(210,67): error TS2339: Property 'title' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(212,37): error TS2339: Property 'difficulty' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(213,37): error TS2339: Property 'difficulty' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(216,38): error TS2339: Property 'difficulty' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(219,51): error TS2339: Property 'description' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(223,61): error TS2339: Property 'subject' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(224,61): error TS2339: Property 'keyStage' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(225,61): error TS2339: Property 'duration' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(230,64): error TS2339: Property 'xpReward' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(257,58): error TS2339: Property 'name' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(260,37): error TS2339: Property 'level' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(267,45): error TS2339: Property 'xp' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(268,41): error TS2339: Property 'xpToNextLevel' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(268,86): error TS2339: Property 'level' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(270,50): error TS2339: Property 'xp' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(270,73): error TS2339: Property 'xpToNextLevel' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(283,45): error TS2339: Property 'attributes' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(285,54): error TS2339: Property 'attributes' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(292,45): error TS2339: Property 'attributes' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(294,54): error TS2339: Property 'attributes' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(301,45): error TS2339: Property 'attributes' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(303,54): error TS2339: Property 'attributes' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(310,45): error TS2339: Property 'attributes' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(312,54): error TS2339: Property 'attributes' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(321,33): error TS2339: Property 'achievements' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(321,59): error TS2339: Property 'achievements' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(323,36): error TS2339: Property 'achievements' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(323,66): error TS7006: Parameter 'achievement' implicitly has an 'any' type.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(362,60): error TS2339: Property 'title' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(364,47): error TS2339: Property 'description' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(367,29): error TS2339: Property 'difficulty' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(368,29): error TS2339: Property 'difficulty' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(371,30): error TS2339: Property 'difficulty' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(378,55): error TS2339: Property 'subject' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(379,55): error TS2339: Property 'keyStage' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(380,55): error TS2339: Property 'duration' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(383,32): error TS2339: Property 'xpReward' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(390,32): error TS2339: Property 'objectives' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(390,48): error TS7006: Parameter 'objective' implicitly has an 'any' type.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(390,59): error TS7006: Parameter 'index' implicitly has an 'any' type.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(404,32): error TS2339: Property 'challenges' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(404,48): error TS7006: Parameter 'challenge' implicitly has an 'any' type.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(404,59): error TS7006: Parameter 'index' implicitly has an 'any' type.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(420,53): error TS7006: Parameter 'option' implicitly has an 'any' type.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(420,61): error TS7006: Parameter 'i' implicitly has an 'any' type.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(449,38): error TS2339: Property 'duration' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(450,48): error TS2339: Property 'challenges' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(488,40): error TS2339: Property 'id' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(491,67): error TS2339: Property 'title' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(493,47): error TS2339: Property 'completedAt' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(499,61): error TS2339: Property 'subject' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(500,61): error TS2339: Property 'difficulty' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(503,38): error TS2339: Property 'xpReward' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(507,34): error TS2339: Property 'results' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(511,67): error TS2339: Property 'results' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(515,78): error TS2339: Property 'results' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(519,67): error TS2339: Property 'results' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(541,83): error TS2339: Property 'xpReward' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(565,86): error TS2339: Property 'results' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(568,50): error TS2339: Property 'results' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(569,75): error TS2339: Property 'results' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(570,63): error TS2339: Property 'results' does not exist on type 'never'.
-src/components/adventure-quest/adventure-quest-saga-integrated.tsx(592,29): error TS7006: Parameter 'quest' implicitly has an 'any' type.
+src/components/adventure-quest/adventure-quest-saga-integrated.tsx(112,49): error TS2503: Cannot find namespace 'JSX'.
+src/components/adventure-quest/adventure-quest-saga-integrated.tsx(114,11): error TS2339: Property 'fairUsage' does not exist on type '{ isLoading: boolean; checkFeatureLimit: (feature: any) => Promise<any>; trackFeatureUsage: (feature: any, quantity?: number) => Promise<any>; useFeatureWithCredit: (feature: any, quantity?: number) => Promise<...>; getCredits: () => Promise<...>; purchaseCredits: (amount: any) => Promise<...>; CreditPurchaseDialog:...'.
+src/components/adventure-quest/adventure-quest-saga-integrated.tsx(168,11): error TS2345: Argument of type '{ title: string; description: string; }' is not assignable to parameter of type 'string'.
+src/components/adventure-quest/adventure-quest-saga-integrated.tsx(189,11): error TS2345: Argument of type '{ title: string; description: string; }' is not assignable to parameter of type 'string'.
+src/components/adventure-quest/adventure-quest-saga-integrated.tsx(258,30): error TS2503: Cannot find namespace 'JSX'.
+src/components/adventure-quest/adventure-quest-saga-integrated.tsx(428,33): error TS2503: Cannot find namespace 'JSX'.
 src/components/adventure-quest/adventure-quest-saga.tsx(43,31): error TS2307: Cannot find module '../curriculum/curriculum-context' or its corresponding type declarations.
 src/components/adventure-quest/adventure-quest-saga.tsx(44,33): error TS2307: Cannot find module '../gamification/gamification-context' or its corresponding type declarations.
 src/components/adventure-quest/adventure-quest-saga.tsx(45,31): error TS2307: Cannot find module '../assessment/assessment-context' or its corresponding type declarations.
 src/components/adventure-quest/adventure-quest-saga.tsx(46,32): error TS2307: Cannot find module '../user/user-profile-context' or its corresponding type declarations.
-src/components/adventure-quest/adventure-quest-saga.tsx(93,11): error TS2345: Argument of type '{ title: string; description: string; }' is not assignable to parameter of type 'string'.
-src/components/adventure-quest/adventure-quest-saga.tsx(114,11): error TS2345: Argument of type '{ title: string; description: string; }' is not assignable to parameter of type 'string'.
-src/components/adventure-quest/character-creation.tsx(6,30): error TS7031: Binding element 'onCreateCharacter' implicitly has an 'any' type.
-src/components/adventure-quest/character-creation.tsx(31,24): error TS7031: Binding element 'quest' implicitly has an 'any' type.
-src/components/adventure-quest/character-creation.tsx(31,31): error TS7031: Binding element 'onComplete' implicitly has an 'any' type.
-src/components/adventure-quest/character-creation.tsx(31,43): error TS7031: Binding element 'onBack' implicitly has an 'any' type.
-src/components/adventure-quest/character-creation.tsx(43,21): error TS7031: Binding element 'quests' implicitly has an 'any' type.
-src/components/adventure-quest/character-creation.tsx(43,29): error TS7031: Binding element 'character' implicitly has an 'any' type.
-src/components/adventure-quest/character-creation.tsx(43,40): error TS7031: Binding element 'onSelectQuest' implicitly has an 'any' type.
-src/components/adventure-quest/character-creation.tsx(43,55): error TS7031: Binding element 'onGenerateQuest' implicitly has an 'any' type.
-src/components/adventure-quest/character-creation.tsx(49,21): error TS7006: Parameter 'quest' implicitly has an 'any' type.
-src/components/adventure-quest/character-creation.tsx(60,31): error TS7031: Binding element 'character' implicitly has an 'any' type.
-src/components/adventure-quest/character-creation.tsx(60,42): error TS7031: Binding element 'completedQuests' implicitly has an 'any' type.
-src/components/adventure-quest/character-creation.tsx(60,59): error TS7031: Binding element 'onBack' implicitly has an 'any' type.
+src/components/adventure-quest/adventure-quest-saga.tsx(104,39): error TS2503: Cannot find namespace 'JSX'.
+src/components/adventure-quest/adventure-quest-saga.tsx(147,11): error TS2345: Argument of type '{ title: string; description: string; }' is not assignable to parameter of type 'string'.
+src/components/adventure-quest/adventure-quest-saga.tsx(168,11): error TS2345: Argument of type '{ title: string; description: string; }' is not assignable to parameter of type 'string'.
+src/components/adventure-quest/adventure-quest-saga.tsx(229,30): error TS2503: Cannot find namespace 'JSX'.
+src/components/adventure-quest/adventure-quest-saga.tsx(395,33): error TS2503: Cannot find namespace 'JSX'.
+src/components/adventure-quest/adventure-quest-saga.tsx(486,34): error TS2503: Cannot find namespace 'JSX'.
 src/components/ai-avatar/ai-avatar-video-library.tsx(243,15): error TS2322: Type '{ children: Element[]; key: string; className: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & CardProps'.
   Property 'onClick' does not exist on type 'IntrinsicAttributes & CardProps'.
 src/components/ai-avatar/index.ts(2,1): error TS2308: Module './types' has already exported a member named 'AIAvatarVideoService'. Consider explicitly re-exporting to resolve the ambiguity.
@@ -1090,15 +878,17 @@ src/components/ai-avatar/index.ts(3,1): error TS2308: Module './types' has alrea
 src/components/ai-avatar/index.ts(4,1): error TS2308: Module './types' has already exported a member named 'AIAvatarVideoLibrary'. Consider explicitly re-exporting to resolve the ambiguity.
 src/components/ai/accessibility/accessibility-controls.tsx(335,14): error TS2322: Type '{ children: Element[]; className: string; }' is not assignable to type 'IntrinsicAttributes & AlertProps'.
   Property 'className' does not exist on type 'IntrinsicAttributes & AlertProps'.
-src/components/ai/accessibility/keyboard-navigation-engine.tsx(361,17): error TS2339: Property 'key' does not exist on type 'Event'.
-src/components/ai/accessibility/keyboard-navigation-engine.tsx(366,17): error TS2339: Property 'shiftKey' does not exist on type 'Event'.
-src/components/ai/accessibility/keyboard-navigation-engine.tsx(372,18): error TS2339: Property 'shiftKey' does not exist on type 'Event'.
-src/components/ai/accessibility/screen-reader-optimization-engine.tsx(474,14): error TS2322: Type '{ children: Element[]; className: string; }' is not assignable to type 'IntrinsicAttributes & AlertProps'.
-  Property 'className' does not exist on type 'IntrinsicAttributes & AlertProps'.
-src/components/ai/accessibility/speech-to-text-engine.tsx(113,90): error TS7006: Parameter 'match' implicitly has an 'any' type.
-src/components/ai/accessibility/speech-to-text-engine.tsx(113,97): error TS7006: Parameter 'letter' implicitly has an 'any' type.
-src/components/ai/accessibility/text-to-speech-engine.tsx(54,5): error TS2687: All declarations of 'speechSynthesis' must have identical modifiers.
-src/components/ai/accessibility/text-to-speech-engine.tsx(54,5): error TS2717: Subsequent property declarations must have the same type.  Property 'speechSynthesis' must be of type 'SpeechSynthesis', but here has type 'SpeechSynthesisType'.
+src/components/ai/accessibility/keyboard-navigation-engine.tsx(363,17): error TS2339: Property 'key' does not exist on type 'Event'.
+src/components/ai/accessibility/keyboard-navigation-engine.tsx(368,17): error TS2339: Property 'shiftKey' does not exist on type 'Event'.
+src/components/ai/accessibility/keyboard-navigation-engine.tsx(374,18): error TS2339: Property 'shiftKey' does not exist on type 'Event'.
+src/components/ai/accessibility/speech-to-text-engine.tsx(40,31): error TS2304: Cannot find name 'SpeechRecognition'.
+src/components/ai/accessibility/speech-to-text-engine.tsx(41,37): error TS2304: Cannot find name 'SpeechRecognition'.
+src/components/ai/accessibility/speech-to-text-engine.tsx(58,33): error TS2304: Cannot find name 'SpeechRecognition'.
+src/components/ai/accessibility/speech-to-text-engine.tsx(100,49): error TS2552: Cannot find name 'SpeechRecognitionEvent'. Did you mean 'SpeechRecognitionResult'?
+src/components/ai/accessibility/speech-to-text-engine.tsx(114,92): error TS7006: Parameter 'match' implicitly has an 'any' type.
+src/components/ai/accessibility/speech-to-text-engine.tsx(114,99): error TS7006: Parameter 'letter' implicitly has an 'any' type.
+src/components/ai/accessibility/speech-to-text-engine.tsx(140,48): error TS2552: Cannot find name 'SpeechRecognitionErrorEvent'. Did you mean 'SpeechRecognitionResult'?
+src/components/ai/accessibility/text-to-speech-engine.tsx(41,5): error TS2687: All declarations of 'speechSynthesis' must have identical modifiers.
 src/components/ai/adaptive-content-suggestions.tsx(123,9): error TS2353: Object literal may only specify known properties, and 'title' does not exist in type 'ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<...> | (() => ReactNode)'.
 src/components/ai/adaptive-content-suggestions.tsx(130,9): error TS2353: Object literal may only specify known properties, and 'title' does not exist in type 'ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<...> | (() => ReactNode)'.
 src/components/ai/adaptive-content-suggestions.tsx(205,7): error TS2353: Object literal may only specify known properties, and 'title' does not exist in type 'ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<...> | (() => ReactNode)'.
@@ -1140,7 +930,7 @@ src/components/ai/ai-feedback-generator.tsx(142,15): error TS2322: Type '(e: Rea
 src/components/ai/ai-feedback-generator.tsx(143,44): error TS7006: Parameter 'model' implicitly has an 'any' type.
 src/components/ai/ai-feedback-generator.tsx(155,50): error TS2339: Property 'target' does not exist on type 'string'.
 src/components/ai/ai-feedback-generator.tsx(168,46): error TS2339: Property 'target' does not exist on type 'string'.
-src/components/ai/ai-feedback-generator.tsx(186,20): error TS2322: Type '"error"' is not assignable to type '"default" | "warning" | "info" | "success" | "destructive" | undefined'.
+src/components/ai/ai-feedback-generator.tsx(186,20): error TS2322: Type '"error"' is not assignable to type '"default" | "destructive" | "success" | "warning" | "info" | undefined'.
 src/components/ai/ai-image-generator.tsx(9,24): error TS2614: Module '"@/lib/ai/ai-service"' has no exported member 'AIProvider'. Did you mean to use 'import AIProvider from "@/lib/ai/ai-service"' instead?
 src/components/ai/ai-image-generator.tsx(24,11): error TS2339: Property 'isConfigured' does not exist on type '{ isLoading: boolean; error: Error | null; generateText: (prompt: string, options?: AIServiceOptions) => Promise<TextGenerationResponse>; analyzeSentiment: (text: string) => Promise<...>; generateEducationalContent: (topic: string, ageGroup: string, format: string) => Promise<...>; evaluateOpenEndedAnswer: (params: ...'.
 src/components/ai/ai-image-generator.tsx(24,25): error TS2339: Property 'defaultProvider' does not exist on type '{ isLoading: boolean; error: Error | null; generateText: (prompt: string, options?: AIServiceOptions) => Promise<TextGenerationResponse>; analyzeSentiment: (text: string) => Promise<...>; generateEducationalContent: (topic: string, ageGroup: string, format: string) => Promise<...>; evaluateOpenEndedAnswer: (params: ...'.
@@ -1153,7 +943,7 @@ src/components/ai/ai-image-generator.tsx(119,15): error TS2322: Type '(e: React.
 src/components/ai/ai-image-generator.tsx(129,42): error TS2339: Property 'target' does not exist on type 'string'.
 src/components/ai/ai-image-generator.tsx(143,45): error TS2339: Property 'target' does not exist on type 'string'.
 src/components/ai/ai-image-generator.tsx(154,43): error TS2339: Property 'target' does not exist on type 'string'.
-src/components/ai/ai-image-generator.tsx(172,20): error TS2322: Type '"error"' is not assignable to type '"default" | "warning" | "info" | "success" | "destructive" | undefined'.
+src/components/ai/ai-image-generator.tsx(172,20): error TS2322: Type '"error"' is not assignable to type '"default" | "destructive" | "success" | "warning" | "info" | undefined'.
 src/components/ai/ai-prompt.tsx(9,24): error TS2614: Module '"@/lib/ai/ai-service"' has no exported member 'AIProvider'. Did you mean to use 'import AIProvider from "@/lib/ai/ai-service"' instead?
 src/components/ai/ai-prompt.tsx(9,36): error TS2614: Module '"@/lib/ai/ai-service"' has no exported member 'AIModel'. Did you mean to use 'import AIModel from "@/lib/ai/ai-service"' instead?
 src/components/ai/ai-prompt.tsx(26,11): error TS2339: Property 'isConfigured' does not exist on type '{ isLoading: boolean; error: Error | null; generateText: (prompt: string, options?: AIServiceOptions) => Promise<TextGenerationResponse>; analyzeSentiment: (text: string) => Promise<...>; generateEducationalContent: (topic: string, ageGroup: string, format: string) => Promise<...>; evaluateOpenEndedAnswer: (params: ...'.
@@ -1173,7 +963,7 @@ src/components/ai/ai-prompt.tsx(134,15): error TS2322: Type '(e: React.ChangeEve
   Types of parameters 'e' and 'value' are incompatible.
     Type 'string' is not assignable to type 'ChangeEvent<HTMLSelectElement>'.
 src/components/ai/ai-prompt.tsx(135,44): error TS7006: Parameter 'model' implicitly has an 'any' type.
-src/components/ai/ai-prompt.tsx(153,20): error TS2322: Type '"error"' is not assignable to type '"default" | "warning" | "info" | "success" | "destructive" | undefined'.
+src/components/ai/ai-prompt.tsx(153,20): error TS2322: Type '"error"' is not assignable to type '"default" | "destructive" | "success" | "warning" | "info" | undefined'.
 src/components/ai/content-transformation/content-transformation-engine.tsx(89,13): error TS2345: Argument of type '{ title: string; description: string; variant: string; }' is not assignable to parameter of type 'string'.
 src/components/ai/content-transformation/content-transformation-engine.tsx(100,13): error TS2345: Argument of type '{ title: string; description: string; variant: string; }' is not assignable to parameter of type 'string'.
 src/components/ai/content-transformation/content-transformation-engine.tsx(149,42): error TS2339: Property 'getCompletion' does not exist on type '{ isLoading: boolean; error: Error | null; generateText: (prompt: string, options?: AIServiceOptions) => Promise<TextGenerationResponse>; analyzeSentiment: (text: string) => Promise<...>; generateEducationalContent: (topic: string, ageGroup: string, format: string) => Promise<...>; evaluateOpenEndedAnswer: (params: ...'.
@@ -1454,8 +1244,8 @@ src/components/analytics/resource-and-assessment-analytics.tsx(272,19): error TS
       Type 'DateRange | undefined' is not assignable to type 'SetStateAction<{ from: Date; to: Date; }>'.
         Type 'undefined' is not assignable to type 'SetStateAction<{ from: Date; to: Date; }>'.
 src/components/analytics/resource-and-assessment-analytics.tsx(529,63): error TS2551: Property 'colour' does not exist on type '{ name: string; value: number; color: string; }'. Did you mean 'color'?
-src/components/analytics/resource-and-assessment-analytics.tsx(705,19): error TS2322: Type '{ children: Element; data: { name: string; children: { name: string; size: number; }[]; }[]; dataKey: string; ratio: number; stroke: string; fill: string; content: Element; }' is not assignable to type 'IntrinsicAttributes & IntrinsicClassAttributes<Treemap> & Pick<Readonly<Props>, "fill" | "content" | ... 15 more ... | "nestIndexContent"> & InexactPartial<...> & InexactPartial<...>'.
-  Property 'ratio' does not exist on type 'IntrinsicAttributes & IntrinsicClassAttributes<Treemap> & Pick<Readonly<Props>, "fill" | "content" | ... 15 more ... | "nestIndexContent"> & InexactPartial<...> & InexactPartial<...>'.
+src/components/analytics/resource-and-assessment-analytics.tsx(705,19): error TS2322: Type '{ children: Element; data: { name: string; children: { name: string; size: number; }[]; }[]; dataKey: string; ratio: number; stroke: string; fill: string; content: Element; }' is not assignable to type 'IntrinsicAttributes & IntrinsicClassAttributes<Treemap> & Pick<Readonly<Props>, "fill" | "children" | ... 15 more ... | "nestIndexContent"> & InexactPartial<...> & InexactPartial<...>'.
+  Property 'ratio' does not exist on type 'IntrinsicAttributes & IntrinsicClassAttributes<Treemap> & Pick<Readonly<Props>, "fill" | "children" | ... 15 more ... | "nestIndexContent"> & InexactPartial<...> & InexactPartial<...>'.
 src/components/analytics/resource-and-assessment-analytics.tsx(775,22): error TS2322: Type '({ name, value, colour }: { name: any; value: any; colour: any; }) => Element' is not assignable to type 'ReactNode'.
 src/components/analytics/resource-and-assessment-analytics.tsx(775,25): error TS7031: Binding element 'name' implicitly has an 'any' type.
 src/components/analytics/resource-and-assessment-analytics.tsx(775,31): error TS7031: Binding element 'value' implicitly has an 'any' type.
@@ -1524,7 +1314,7 @@ src/components/assessment/assessment-module.tsx(585,7): error TS2322: Type '{ id
 src/components/assessment/assessment-module.tsx(616,7): error TS2353: Object literal may only specify known properties, and 'title' does not exist in type 'Omit<ToastProps, "onClose">'.
 src/components/assessment/assessment-module.tsx(641,55): error TS2339: Property 'target' does not exist on type 'string'.
 src/components/assessment/assessment-module.tsx(658,56): error TS2339: Property 'target' does not exist on type 'string'.
-src/components/assessment/assessment-module.tsx(675,20): error TS2322: Type '"error"' is not assignable to type '"default" | "warning" | "info" | "success" | "destructive" | undefined'.
+src/components/assessment/assessment-module.tsx(675,20): error TS2322: Type '"error"' is not assignable to type '"default" | "destructive" | "success" | "warning" | "info" | undefined'.
 src/components/assessment/assessment-module.tsx(762,17): error TS2322: Type '(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void' is not assignable to type '(value: string) => void'.
   Types of parameters 'e' and 'value' are incompatible.
     Type 'string' is not assignable to type 'ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>'.
@@ -1535,8 +1325,8 @@ src/components/assessment/assessment-module.tsx(792,17): error TS2322: Type '(e:
   Types of parameters 'e' and 'value' are incompatible.
     Type 'string' is not assignable to type 'ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>'.
 src/components/assessment/assessment-module.tsx(856,84): error TS2339: Property 'target' does not exist on type 'string'.
-src/components/assessment/assessment-module.tsx(883,29): error TS2322: Type '"xs"' is not assignable to type '"default" | "icon" | "sm" | "lg" | null | undefined'.
-src/components/assessment/assessment-module.tsx(970,29): error TS2322: Type '"xs"' is not assignable to type '"default" | "icon" | "sm" | "lg" | null | undefined'.
+src/components/assessment/assessment-module.tsx(883,29): error TS2322: Type '"xs"' is not assignable to type '"default" | "sm" | "lg" | "icon" | null | undefined'.
+src/components/assessment/assessment-module.tsx(970,29): error TS2322: Type '"xs"' is not assignable to type '"default" | "sm" | "lg" | "icon" | null | undefined'.
 src/components/assessment/assessment-module.tsx(1048,13): error TS2322: Type '{ tabs: { id: string; label: string; content: Element; }[]; }' is not assignable to type 'IntrinsicAttributes & TabsProps & RefAttributes<HTMLDivElement>'.
   Property 'tabs' does not exist on type 'IntrinsicAttributes & TabsProps & RefAttributes<HTMLDivElement>'.
 src/components/assessment/question-types/file-upload.tsx(136,16): error TS2322: Type '{ children: string; type: string; }' is not assignable to type 'IntrinsicAttributes & AlertProps'.
@@ -1592,15 +1382,15 @@ src/components/blockchain/blockchain-credentials-wallet.tsx(475,11): error TS234
 src/components/blockchain/blockchain-credentials-wallet.tsx(483,27): error TS7006: Parameter 'licenseId' implicitly has an 'any' type.
 src/components/blockchain/blockchain-credentials-wallet.tsx(489,34): error TS7006: Parameter 'typeId' implicitly has an 'any' type.
 src/components/blockchain/blockchain-credentials-wallet.tsx(495,33): error TS7006: Parameter 'credential' implicitly has an 'any' type.
-src/components/blockchain/blockchain-credentials-wallet.tsx(508,20): error TS2322: Type '"success" | "outline"' is not assignable to type '"default" | "secondary" | "destructive" | "outline" | null | undefined'.
-  Type '"success"' is not assignable to type '"default" | "secondary" | "destructive" | "outline" | null | undefined'.
+src/components/blockchain/blockchain-credentials-wallet.tsx(508,20): error TS2322: Type '"outline" | "success"' is not assignable to type '"default" | "destructive" | "outline" | "secondary" | null | undefined'.
+  Type '"success"' is not assignable to type '"default" | "destructive" | "outline" | "secondary" | null | undefined'.
 src/components/blockchain/blockchain-credentials-wallet.tsx(522,41): error TS7006: Parameter 'skill' implicitly has an 'any' type.
 src/components/blockchain/blockchain-credentials-wallet.tsx(522,48): error TS7006: Parameter 'index' implicitly has an 'any' type.
 src/components/blockchain/blockchain-credentials-wallet.tsx(559,32): error TS7006: Parameter 'registration' implicitly has an 'any' type.
 src/components/blockchain/blockchain-credentials-wallet.tsx(565,69): error TS7006: Parameter 'l' implicitly has an 'any' type.
-src/components/blockchain/blockchain-credentials-wallet.tsx(567,20): error TS2322: Type '"success" | "outline"' is not assignable to type '"default" | "secondary" | "destructive" | "outline" | null | undefined'.
-  Type '"success"' is not assignable to type '"default" | "secondary" | "destructive" | "outline" | null | undefined'.
-src/components/blockchain/blockchain-credentials-wallet.tsx(628,20): error TS2322: Type '"success"' is not assignable to type '"default" | "secondary" | "destructive" | "outline" | null | undefined'.
+src/components/blockchain/blockchain-credentials-wallet.tsx(567,20): error TS2322: Type '"outline" | "success"' is not assignable to type '"default" | "destructive" | "outline" | "secondary" | null | undefined'.
+  Type '"success"' is not assignable to type '"default" | "destructive" | "outline" | "secondary" | null | undefined'.
+src/components/blockchain/blockchain-credentials-wallet.tsx(628,20): error TS2322: Type '"success"' is not assignable to type '"default" | "destructive" | "outline" | "secondary" | null | undefined'.
 src/components/blockchain/blockchain-credentials-wallet.tsx(754,43): error TS2339: Property 'valid' does not exist on type 'never'.
 src/components/blockchain/blockchain-credentials-wallet.tsx(760,45): error TS2339: Property 'valid' does not exist on type 'never'.
 src/components/blockchain/blockchain-credentials-wallet.tsx(767,43): error TS2339: Property 'type' does not exist on type 'never'.
@@ -1608,8 +1398,8 @@ src/components/blockchain/blockchain-credentials-wallet.tsx(771,82): error TS233
 src/components/blockchain/blockchain-credentials-wallet.tsx(776,60): error TS2339: Property 'issuedAt' does not exist on type 'never'.
 src/components/blockchain/blockchain-credentials-wallet.tsx(782,51): error TS2339: Property 'expiresAt' does not exist on type 'never'.
 src/components/blockchain/blockchain-credentials-wallet.tsx(783,61): error TS2339: Property 'expiresAt' does not exist on type 'never'.
-src/components/blockchain/blockchain-credentials-wallet.tsx(789,36): error TS2322: Type '"success" | "destructive"' is not assignable to type '"default" | "secondary" | "destructive" | "outline" | null | undefined'.
-  Type '"success"' is not assignable to type '"default" | "secondary" | "destructive" | "outline" | null | undefined'.
+src/components/blockchain/blockchain-credentials-wallet.tsx(789,36): error TS2322: Type '"destructive" | "success"' is not assignable to type '"default" | "destructive" | "outline" | "secondary" | null | undefined'.
+  Type '"success"' is not assignable to type '"default" | "destructive" | "outline" | "secondary" | null | undefined'.
 src/components/blockchain/blockchain-credentials-wallet.tsx(789,64): error TS2339: Property 'revoked' does not exist on type 'never'.
 src/components/blockchain/blockchain-credentials-wallet.tsx(790,51): error TS2339: Property 'revoked' does not exist on type 'never'.
 src/components/blockchain/blockchain-credentials-wallet.tsx(798,82): error TS2339: Property 'owner' does not exist on type 'never'.
@@ -1654,12 +1444,12 @@ src/components/blockchain/copyright-registration-tools.tsx(424,27): error TS7006
 src/components/blockchain/copyright-registration-tools.tsx(430,31): error TS7006: Parameter 'typeId' implicitly has an 'any' type.
 src/components/blockchain/copyright-registration-tools.tsx(436,41): error TS7006: Parameter 'e' implicitly has an 'any' type.
 src/components/blockchain/copyright-registration-tools.tsx(444,32): error TS7006: Parameter 'registration' implicitly has an 'any' type.
-src/components/blockchain/copyright-registration-tools.tsx(461,22): error TS2322: Type '"success" | "outline"' is not assignable to type '"default" | "secondary" | "destructive" | "outline" | null | undefined'.
-  Type '"success"' is not assignable to type '"default" | "secondary" | "destructive" | "outline" | null | undefined'.
+src/components/blockchain/copyright-registration-tools.tsx(461,22): error TS2322: Type '"outline" | "success"' is not assignable to type '"default" | "destructive" | "outline" | "secondary" | null | undefined'.
+  Type '"success"' is not assignable to type '"default" | "destructive" | "outline" | "secondary" | null | undefined'.
 src/components/blockchain/copyright-registration-tools.tsx(526,26): error TS7031: Binding element 'licenseType' implicitly has an 'any' type.
 src/components/blockchain/copyright-registration-tools.tsx(532,29): error TS7006: Parameter 'type' implicitly has an 'any' type.
 src/components/blockchain/copyright-registration-tools.tsx(534,35): error TS2304: Cannot find name 'Unlock'.
-src/components/blockchain/copyright-registration-tools.tsx(604,20): error TS2322: Type '"success"' is not assignable to type '"default" | "secondary" | "destructive" | "outline" | null | undefined'.
+src/components/blockchain/copyright-registration-tools.tsx(604,20): error TS2322: Type '"success"' is not assignable to type '"default" | "destructive" | "outline" | "secondary" | null | undefined'.
 src/components/blockchain/copyright-registration-tools.tsx(685,38): error TS2304: Cannot find name 'license'.
 src/components/blockchain/copyright-registration-tools.tsx(685,57): error TS2304: Cannot find name 'license'.
 src/components/blockchain/copyright-registration-tools.tsx(686,28): error TS2304: Cannot find name 'license'.
@@ -1738,50 +1528,50 @@ src/components/blog/BlogEditor.tsx(134,11): error TS2322: Type '{ children: Elem
   Property 'size' does not exist on type 'IntrinsicAttributes & ToggleProps'.
 src/components/blog/BlogEditor.tsx(142,11): error TS2322: Type '{ children: Element; size: string; pressed: boolean; onPressedChange: () => boolean; "aria-label": string; }' is not assignable to type 'IntrinsicAttributes & ToggleProps'.
   Property 'size' does not exist on type 'IntrinsicAttributes & ToggleProps'.
-src/components/blog/BlogForm.tsx(50,5): error TS2322: Type 'Resolver<{ content: string; title: string; summary: string; status?: "draft" | "published" | "archived" | undefined; keyStage?: string | undefined; tags?: string[] | undefined; featuredImage?: string | undefined; curriculumArea?: string | undefined; readingLevel?: string | undefined; categoryIds?: string[] | undefin...' is not assignable to type 'Resolver<{ status: "draft" | "published" | "archived"; content: string; title: string; tags: string[]; summary: string; keyStage?: string | undefined; featuredImage?: string | undefined; curriculumArea?: string | undefined; readingLevel?: string | undefined; categoryIds?: string[] | undefined; }, any, { ...; }>'.
+src/components/blog/BlogForm.tsx(50,5): error TS2322: Type 'Resolver<{ summary: string; title: string; content: string; status?: "draft" | "published" | "archived" | undefined; keyStage?: string | undefined; tags?: string[] | undefined; featuredImage?: string | undefined; curriculumArea?: string | undefined; readingLevel?: string | undefined; categoryIds?: string[] | undefin...' is not assignable to type 'Resolver<{ summary: string; title: string; content: string; status: "draft" | "published" | "archived"; tags: string[]; keyStage?: string | undefined; featuredImage?: string | undefined; curriculumArea?: string | undefined; readingLevel?: string | undefined; categoryIds?: string[] | undefined; }, any, { ...; }>'.
   Types of parameters 'options' and 'options' are incompatible.
-    Type 'ResolverOptions<{ status: "draft" | "published" | "archived"; content: string; title: string; tags: string[]; summary: string; keyStage?: string | undefined; featuredImage?: string | undefined; curriculumArea?: string | undefined; readingLevel?: string | undefined; categoryIds?: string[] | undefined; }>' is not assignable to type 'ResolverOptions<{ content: string; title: string; summary: string; status?: "draft" | "published" | "archived" | undefined; keyStage?: string | undefined; tags?: string[] | undefined; featuredImage?: string | undefined; curriculumArea?: string | undefined; readingLevel?: string | undefined; categoryIds?: string[] | ...'.
+    Type 'ResolverOptions<{ summary: string; title: string; content: string; status: "draft" | "published" | "archived"; tags: string[]; keyStage?: string | undefined; featuredImage?: string | undefined; curriculumArea?: string | undefined; readingLevel?: string | undefined; categoryIds?: string[] | undefined; }>' is not assignable to type 'ResolverOptions<{ summary: string; title: string; content: string; status?: "draft" | "published" | "archived" | undefined; keyStage?: string | undefined; tags?: string[] | undefined; featuredImage?: string | undefined; curriculumArea?: string | undefined; readingLevel?: string | undefined; categoryIds?: string[] | ...'.
       Type '"draft" | "published" | "archived" | undefined' is not assignable to type '"draft" | "published" | "archived"'.
         Type 'undefined' is not assignable to type '"draft" | "published" | "archived"'.
-src/components/blog/BlogForm.tsx(114,41): error TS2345: Argument of type '(data: { status: "draft" | "published" | "archived"; content: string; title: string; tags: string[]; summary: string; keyStage?: string | undefined; featuredImage?: string | undefined; curriculumArea?: string | undefined; readingLevel?: string | undefined; categoryIds?: string[] | undefined; }) => void' is not assignable to parameter of type 'SubmitHandler<TFieldValues>'.
+src/components/blog/BlogForm.tsx(114,41): error TS2345: Argument of type '(data: { summary: string; title: string; content: string; status: "draft" | "published" | "archived"; tags: string[]; keyStage?: string | undefined; featuredImage?: string | undefined; curriculumArea?: string | undefined; readingLevel?: string | undefined; categoryIds?: string[] | undefined; }) => void' is not assignable to parameter of type 'SubmitHandler<TFieldValues>'.
   Types of parameters 'data' and 'data' are incompatible.
-    Type 'TFieldValues' is not assignable to type '{ status: "draft" | "published" | "archived"; content: string; title: string; tags: string[]; summary: string; keyStage?: string | undefined; featuredImage?: string | undefined; curriculumArea?: string | undefined; readingLevel?: string | undefined; categoryIds?: string[] | undefined; }'.
-      Type 'FieldValues' is missing the following properties from type '{ status: "draft" | "published" | "archived"; content: string; title: string; tags: string[]; summary: string; keyStage?: string | undefined; featuredImage?: string | undefined; curriculumArea?: string | undefined; readingLevel?: string | undefined; categoryIds?: string[] | undefined; }': status, content, title, tags, summary
-src/components/blog/BlogForm.tsx(125,15): error TS2322: Type '{ control: Control<{ status: "draft" | "published" | "archived"; content: string; title: string; tags: string[]; summary: string; keyStage?: string | undefined; featuredImage?: string | undefined; curriculumArea?: string | undefined; readingLevel?: string | undefined; categoryIds?: string[] | undefined; }, any, TFie...' is not assignable to type 'IntrinsicAttributes & { name: string; children: ReactNode; }'.
+    Type 'TFieldValues' is not assignable to type '{ summary: string; title: string; content: string; status: "draft" | "published" | "archived"; tags: string[]; keyStage?: string | undefined; featuredImage?: string | undefined; curriculumArea?: string | undefined; readingLevel?: string | undefined; categoryIds?: string[] | undefined; }'.
+      Type 'FieldValues' is missing the following properties from type '{ summary: string; title: string; content: string; status: "draft" | "published" | "archived"; tags: string[]; keyStage?: string | undefined; featuredImage?: string | undefined; curriculumArea?: string | undefined; readingLevel?: string | undefined; categoryIds?: string[] | undefined; }': summary, title, content, status, tags
+src/components/blog/BlogForm.tsx(125,15): error TS2322: Type '{ control: Control<{ summary: string; title: string; content: string; status: "draft" | "published" | "archived"; tags: string[]; keyStage?: string | undefined; featuredImage?: string | undefined; curriculumArea?: string | undefined; readingLevel?: string | undefined; categoryIds?: string[] | undefined; }, any, TFie...' is not assignable to type 'IntrinsicAttributes & { name: string; children: ReactNode; }'.
   Property 'control' does not exist on type 'IntrinsicAttributes & { name: string; children: ReactNode; }'.
 src/components/blog/BlogForm.tsx(127,26): error TS7031: Binding element 'field' implicitly has an 'any' type.
 src/components/blog/BlogForm.tsx(133,20): error TS2741: Property 'children' is missing in type '{}' but required in type '{ children: ReactNode; }'.
-src/components/blog/BlogForm.tsx(139,15): error TS2322: Type '{ control: Control<{ status: "draft" | "published" | "archived"; content: string; title: string; tags: string[]; summary: string; keyStage?: string | undefined; featuredImage?: string | undefined; curriculumArea?: string | undefined; readingLevel?: string | undefined; categoryIds?: string[] | undefined; }, any, TFie...' is not assignable to type 'IntrinsicAttributes & { name: string; children: ReactNode; }'.
+src/components/blog/BlogForm.tsx(139,15): error TS2322: Type '{ control: Control<{ summary: string; title: string; content: string; status: "draft" | "published" | "archived"; tags: string[]; keyStage?: string | undefined; featuredImage?: string | undefined; curriculumArea?: string | undefined; readingLevel?: string | undefined; categoryIds?: string[] | undefined; }, any, TFie...' is not assignable to type 'IntrinsicAttributes & { name: string; children: ReactNode; }'.
   Property 'control' does not exist on type 'IntrinsicAttributes & { name: string; children: ReactNode; }'.
 src/components/blog/BlogForm.tsx(141,26): error TS7031: Binding element 'field' implicitly has an 'any' type.
 src/components/blog/BlogForm.tsx(154,20): error TS2741: Property 'children' is missing in type '{}' but required in type '{ children: ReactNode; }'.
-src/components/blog/BlogForm.tsx(160,15): error TS2322: Type '{ control: Control<{ status: "draft" | "published" | "archived"; content: string; title: string; tags: string[]; summary: string; keyStage?: string | undefined; featuredImage?: string | undefined; curriculumArea?: string | undefined; readingLevel?: string | undefined; categoryIds?: string[] | undefined; }, any, TFie...' is not assignable to type 'IntrinsicAttributes & { name: string; children: ReactNode; }'.
+src/components/blog/BlogForm.tsx(160,15): error TS2322: Type '{ control: Control<{ summary: string; title: string; content: string; status: "draft" | "published" | "archived"; tags: string[]; keyStage?: string | undefined; featuredImage?: string | undefined; curriculumArea?: string | undefined; readingLevel?: string | undefined; categoryIds?: string[] | undefined; }, any, TFie...' is not assignable to type 'IntrinsicAttributes & { name: string; children: ReactNode; }'.
   Property 'control' does not exist on type 'IntrinsicAttributes & { name: string; children: ReactNode; }'.
 src/components/blog/BlogForm.tsx(162,26): error TS7031: Binding element 'field' implicitly has an 'any' type.
 src/components/blog/BlogForm.tsx(171,20): error TS2741: Property 'children' is missing in type '{}' but required in type '{ children: ReactNode; }'.
-src/components/blog/BlogForm.tsx(177,15): error TS2322: Type '{ control: Control<{ status: "draft" | "published" | "archived"; content: string; title: string; tags: string[]; summary: string; keyStage?: string | undefined; featuredImage?: string | undefined; curriculumArea?: string | undefined; readingLevel?: string | undefined; categoryIds?: string[] | undefined; }, any, TFie...' is not assignable to type 'IntrinsicAttributes & { name: string; children: ReactNode; }'.
+src/components/blog/BlogForm.tsx(177,15): error TS2322: Type '{ control: Control<{ summary: string; title: string; content: string; status: "draft" | "published" | "archived"; tags: string[]; keyStage?: string | undefined; featuredImage?: string | undefined; curriculumArea?: string | undefined; readingLevel?: string | undefined; categoryIds?: string[] | undefined; }, any, TFie...' is not assignable to type 'IntrinsicAttributes & { name: string; children: ReactNode; }'.
   Property 'control' does not exist on type 'IntrinsicAttributes & { name: string; children: ReactNode; }'.
 src/components/blog/BlogForm.tsx(179,26): error TS7031: Binding element 'field' implicitly has an 'any' type.
 src/components/blog/BlogForm.tsx(188,20): error TS2741: Property 'children' is missing in type '{}' but required in type '{ children: ReactNode; }'.
-src/components/blog/BlogForm.tsx(198,17): error TS2322: Type '{ control: Control<{ status: "draft" | "published" | "archived"; content: string; title: string; tags: string[]; summary: string; keyStage?: string | undefined; featuredImage?: string | undefined; curriculumArea?: string | undefined; readingLevel?: string | undefined; categoryIds?: string[] | undefined; }, any, TFie...' is not assignable to type 'IntrinsicAttributes & { name: string; children: ReactNode; }'.
+src/components/blog/BlogForm.tsx(198,17): error TS2322: Type '{ control: Control<{ summary: string; title: string; content: string; status: "draft" | "published" | "archived"; tags: string[]; keyStage?: string | undefined; featuredImage?: string | undefined; curriculumArea?: string | undefined; readingLevel?: string | undefined; categoryIds?: string[] | undefined; }, any, TFie...' is not assignable to type 'IntrinsicAttributes & { name: string; children: ReactNode; }'.
   Property 'control' does not exist on type 'IntrinsicAttributes & { name: string; children: ReactNode; }'.
 src/components/blog/BlogForm.tsx(200,28): error TS7031: Binding element 'field' implicitly has an 'any' type.
 src/components/blog/BlogForm.tsx(224,22): error TS2741: Property 'children' is missing in type '{}' but required in type '{ children: ReactNode; }'.
-src/components/blog/BlogForm.tsx(230,17): error TS2322: Type '{ control: Control<{ status: "draft" | "published" | "archived"; content: string; title: string; tags: string[]; summary: string; keyStage?: string | undefined; featuredImage?: string | undefined; curriculumArea?: string | undefined; readingLevel?: string | undefined; categoryIds?: string[] | undefined; }, any, TFie...' is not assignable to type 'IntrinsicAttributes & { name: string; children: ReactNode; }'.
+src/components/blog/BlogForm.tsx(230,17): error TS2322: Type '{ control: Control<{ summary: string; title: string; content: string; status: "draft" | "published" | "archived"; tags: string[]; keyStage?: string | undefined; featuredImage?: string | undefined; curriculumArea?: string | undefined; readingLevel?: string | undefined; categoryIds?: string[] | undefined; }, any, TFie...' is not assignable to type 'IntrinsicAttributes & { name: string; children: ReactNode; }'.
   Property 'control' does not exist on type 'IntrinsicAttributes & { name: string; children: ReactNode; }'.
 src/components/blog/BlogForm.tsx(232,28): error TS7031: Binding element 'field' implicitly has an 'any' type.
 src/components/blog/BlogForm.tsx(256,22): error TS2741: Property 'children' is missing in type '{}' but required in type '{ children: ReactNode; }'.
-src/components/blog/BlogForm.tsx(263,15): error TS2322: Type '{ control: Control<{ status: "draft" | "published" | "archived"; content: string; title: string; tags: string[]; summary: string; keyStage?: string | undefined; featuredImage?: string | undefined; curriculumArea?: string | undefined; readingLevel?: string | undefined; categoryIds?: string[] | undefined; }, any, TFie...' is not assignable to type 'IntrinsicAttributes & { name: string; children: ReactNode; }'.
+src/components/blog/BlogForm.tsx(263,15): error TS2322: Type '{ control: Control<{ summary: string; title: string; content: string; status: "draft" | "published" | "archived"; tags: string[]; keyStage?: string | undefined; featuredImage?: string | undefined; curriculumArea?: string | undefined; readingLevel?: string | undefined; categoryIds?: string[] | undefined; }, any, TFie...' is not assignable to type 'IntrinsicAttributes & { name: string; children: ReactNode; }'.
   Property 'control' does not exist on type 'IntrinsicAttributes & { name: string; children: ReactNode; }'.
 src/components/blog/BlogForm.tsx(265,26): error TS7031: Binding element 'field' implicitly has an 'any' type.
 src/components/blog/BlogForm.tsx(289,20): error TS2741: Property 'children' is missing in type '{}' but required in type '{ children: ReactNode; }'.
-src/components/blog/BlogForm.tsx(295,15): error TS2322: Type '{ control: Control<{ status: "draft" | "published" | "archived"; content: string; title: string; tags: string[]; summary: string; keyStage?: string | undefined; featuredImage?: string | undefined; curriculumArea?: string | undefined; readingLevel?: string | undefined; categoryIds?: string[] | undefined; }, any, TFie...' is not assignable to type 'IntrinsicAttributes & { name: string; children: ReactNode; }'.
+src/components/blog/BlogForm.tsx(295,15): error TS2322: Type '{ control: Control<{ summary: string; title: string; content: string; status: "draft" | "published" | "archived"; tags: string[]; keyStage?: string | undefined; featuredImage?: string | undefined; curriculumArea?: string | undefined; readingLevel?: string | undefined; categoryIds?: string[] | undefined; }, any, TFie...' is not assignable to type 'IntrinsicAttributes & { name: string; children: ReactNode; }'.
   Property 'control' does not exist on type 'IntrinsicAttributes & { name: string; children: ReactNode; }'.
 src/components/blog/BlogForm.tsx(297,26): error TS7031: Binding element 'field' implicitly has an 'any' type.
 src/components/blog/BlogForm.tsx(322,39): error TS7006: Parameter 'categoryId' implicitly has an 'any' type.
 src/components/blog/BlogForm.tsx(333,79): error TS7006: Parameter 'id' implicitly has an 'any' type.
 src/components/blog/BlogForm.tsx(342,20): error TS2741: Property 'children' is missing in type '{}' but required in type '{ children: ReactNode; }'.
-src/components/blog/BlogForm.tsx(389,15): error TS2322: Type '{ control: Control<{ status: "draft" | "published" | "archived"; content: string; title: string; tags: string[]; summary: string; keyStage?: string | undefined; featuredImage?: string | undefined; curriculumArea?: string | undefined; readingLevel?: string | undefined; categoryIds?: string[] | undefined; }, any, TFie...' is not assignable to type 'IntrinsicAttributes & { name: string; children: ReactNode; }'.
+src/components/blog/BlogForm.tsx(389,15): error TS2322: Type '{ control: Control<{ summary: string; title: string; content: string; status: "draft" | "published" | "archived"; tags: string[]; keyStage?: string | undefined; featuredImage?: string | undefined; curriculumArea?: string | undefined; readingLevel?: string | undefined; categoryIds?: string[] | undefined; }, any, TFie...' is not assignable to type 'IntrinsicAttributes & { name: string; children: ReactNode; }'.
   Property 'control' does not exist on type 'IntrinsicAttributes & { name: string; children: ReactNode; }'.
 src/components/blog/BlogForm.tsx(391,26): error TS7031: Binding element 'field' implicitly has an 'any' type.
 src/components/blog/BlogForm.tsx(413,20): error TS2741: Property 'children' is missing in type '{}' but required in type '{ children: ReactNode; }'.
@@ -1879,18 +1669,18 @@ src/components/collaboration/collaborative-workspace.tsx(514,7): error TS2353: O
 src/components/collaboration/collaborative-workspace.tsx(523,7): error TS2353: Object literal may only specify known properties, and 'title' does not exist in type 'ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<...> | (() => ReactNode)'.
 src/components/communication/shared-goal-tracker.tsx(85,13): error TS2353: Object literal may only specify known properties, and 'createdById' does not exist in type 'SharedGoal'.
 src/components/communication/shared-goal-tracker.tsx(139,13): error TS2353: Object literal may only specify known properties, and 'createdById' does not exist in type 'SharedGoal'.
-src/components/communication/shared-goal-tracker.tsx(211,9): error TS2353: Object literal may only specify known properties, and 'createdById' does not exist in type 'Omit<SharedGoal, "status" | "id" | "createdAt" | "progress" | "updates" | "isArchived">'.
+src/components/communication/shared-goal-tracker.tsx(211,9): error TS2353: Object literal may only specify known properties, and 'createdById' does not exist in type 'Omit<SharedGoal, "progress" | "id" | "status" | "createdAt" | "updates" | "isArchived">'.
 src/components/communication/shared-goal-tracker.tsx(231,9): error TS2353: Object literal may only specify known properties, and 'createdById' does not exist in type 'SharedGoal'.
 src/components/compliance/compliance-status.tsx(105,62): error TS2322: Type '{ children: Element[]; variant: "default" | "destructive"; className: string; }' is not assignable to type 'IntrinsicAttributes & AlertProps'.
   Property 'className' does not exist on type 'IntrinsicAttributes & AlertProps'.
 src/components/compliance/compliance-status.tsx(132,40): error TS2322: Type '{ children: Element[]; variant: "destructive"; className: string; }' is not assignable to type 'IntrinsicAttributes & AlertProps'.
   Property 'className' does not exist on type 'IntrinsicAttributes & AlertProps'.
-src/components/compliance/compliance-status.tsx(151,26): error TS2322: Type '"success" | "destructive"' is not assignable to type '"default" | "secondary" | "destructive" | "outline" | null | undefined'.
-  Type '"success"' is not assignable to type '"default" | "secondary" | "destructive" | "outline" | null | undefined'.
-src/components/compliance/compliance-status.tsx(162,26): error TS2322: Type '"success" | "destructive"' is not assignable to type '"default" | "secondary" | "destructive" | "outline" | null | undefined'.
-  Type '"success"' is not assignable to type '"default" | "secondary" | "destructive" | "outline" | null | undefined'.
-src/components/compliance/compliance-status.tsx(173,26): error TS2322: Type '"success" | "destructive"' is not assignable to type '"default" | "secondary" | "destructive" | "outline" | null | undefined'.
-  Type '"success"' is not assignable to type '"default" | "secondary" | "destructive" | "outline" | null | undefined'.
+src/components/compliance/compliance-status.tsx(151,26): error TS2322: Type '"destructive" | "success"' is not assignable to type '"default" | "destructive" | "outline" | "secondary" | null | undefined'.
+  Type '"success"' is not assignable to type '"default" | "destructive" | "outline" | "secondary" | null | undefined'.
+src/components/compliance/compliance-status.tsx(162,26): error TS2322: Type '"destructive" | "success"' is not assignable to type '"default" | "destructive" | "outline" | "secondary" | null | undefined'.
+  Type '"success"' is not assignable to type '"default" | "destructive" | "outline" | "secondary" | null | undefined'.
+src/components/compliance/compliance-status.tsx(173,26): error TS2322: Type '"destructive" | "success"' is not assignable to type '"default" | "destructive" | "outline" | "secondary" | null | undefined'.
+  Type '"success"' is not assignable to type '"default" | "destructive" | "outline" | "secondary" | null | undefined'.
 src/components/content-creation/accessibility-checker.tsx(95,15): error TS2322: Type '"critical"' is not assignable to type '"moderate" | "serious" | "minor"'.
 src/components/content-creation/accessibility-checker.tsx(128,13): error TS2345: Argument of type '{ variant: string; title: string; description: string; }' is not assignable to parameter of type 'string'.
 src/components/content-creation/accessibility-checker.tsx(192,38): error TS2322: Type '{ children: Element[]; variant: "destructive"; className: string; }' is not assignable to type 'IntrinsicAttributes & AlertProps'.
@@ -1972,7 +1762,7 @@ src/components/curriculum/curriculum-planner.tsx(254,9): error TS2353: Object li
 src/components/curriculum/curriculum-planner.tsx(293,7): error TS2353: Object literal may only specify known properties, and 'title' does not exist in type 'Omit<ToastProps, "onClose">'.
 src/components/curriculum/curriculum-planner.tsx(318,55): error TS2339: Property 'target' does not exist on type 'string'.
 src/components/curriculum/curriculum-planner.tsx(335,56): error TS2339: Property 'target' does not exist on type 'string'.
-src/components/curriculum/curriculum-planner.tsx(352,20): error TS2322: Type '"error"' is not assignable to type '"default" | "warning" | "info" | "success" | "destructive" | undefined'.
+src/components/curriculum/curriculum-planner.tsx(352,20): error TS2322: Type '"error"' is not assignable to type '"default" | "destructive" | "success" | "warning" | "info" | undefined'.
 src/components/curriculum/curriculum-planner.tsx(436,17): error TS2322: Type '(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void' is not assignable to type '(value: string) => void'.
   Types of parameters 'e' and 'value' are incompatible.
     Type 'string' is not assignable to type 'ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>'.
@@ -2063,10 +1853,10 @@ src/components/educator/data-visualisation-dashboard.tsx(289,19): error TS2322: 
 src/components/educator/data-visualisation-dashboard.tsx(594,63): error TS2551: Property 'colour' does not exist on type '{ name: string; value: number; color: string; }'. Did you mean 'color'?
 src/components/educator/educator-dashboard.tsx(155,7): error TS2353: Object literal may only specify known properties, and 'title' does not exist in type 'Omit<ToastProps, "onClose">'.
 src/components/educator/educator-dashboard.tsx(163,7): error TS2353: Object literal may only specify known properties, and 'title' does not exist in type 'Omit<ToastProps, "onClose">'.
-src/components/educator/educator-dashboard.tsx(180,20): error TS2322: Type '"error"' is not assignable to type '"default" | "warning" | "info" | "success" | "destructive" | undefined'.
-src/components/educator/educator-dashboard.tsx(335,20): error TS2322: Type '"error"' is not assignable to type '"default" | "warning" | "info" | "success" | "destructive" | undefined'.
-src/components/educator/educator-dashboard.tsx(434,20): error TS2322: Type '"error"' is not assignable to type '"default" | "warning" | "info" | "success" | "destructive" | undefined'.
-src/components/educator/educator-dashboard.tsx(528,20): error TS2322: Type '"error"' is not assignable to type '"default" | "warning" | "info" | "success" | "destructive" | undefined'.
+src/components/educator/educator-dashboard.tsx(180,20): error TS2322: Type '"error"' is not assignable to type '"default" | "destructive" | "success" | "warning" | "info" | undefined'.
+src/components/educator/educator-dashboard.tsx(335,20): error TS2322: Type '"error"' is not assignable to type '"default" | "destructive" | "success" | "warning" | "info" | undefined'.
+src/components/educator/educator-dashboard.tsx(434,20): error TS2322: Type '"error"' is not assignable to type '"default" | "destructive" | "success" | "warning" | "info" | undefined'.
+src/components/educator/educator-dashboard.tsx(528,20): error TS2322: Type '"error"' is not assignable to type '"default" | "destructive" | "success" | "warning" | "info" | undefined'.
 src/components/educator/educator-dashboard.tsx(536,20): error TS2739: Type '{ options: { value: string; label: string; }[]; className: string; }' is missing the following properties from type 'SelectProps': value, onChange
 src/components/educator/educator-dashboard.tsx(546,20): error TS2739: Type '{ options: { value: string; label: string; }[]; className: string; }' is missing the following properties from type 'SelectProps': value, onChange
 src/components/educator/educator-dashboard.tsx(683,13): error TS2322: Type '{ tabs: { id: string; label: string; content: Element; }[]; }' is not assignable to type 'IntrinsicAttributes & TabsProps & RefAttributes<HTMLDivElement>'.
@@ -2322,7 +2112,7 @@ src/components/immersive/immersive-learning.tsx(282,7): error TS2353: Object lit
 src/components/immersive/immersive-learning.tsx(307,55): error TS2339: Property 'target' does not exist on type 'string'.
 src/components/immersive/immersive-learning.tsx(324,56): error TS2339: Property 'target' does not exist on type 'string'.
 src/components/immersive/immersive-learning.tsx(337,52): error TS2339: Property 'target' does not exist on type 'string'.
-src/components/immersive/immersive-learning.tsx(354,20): error TS2322: Type '"error"' is not assignable to type '"default" | "warning" | "info" | "success" | "destructive" | undefined'.
+src/components/immersive/immersive-learning.tsx(354,20): error TS2322: Type '"error"' is not assignable to type '"default" | "destructive" | "success" | "warning" | "info" | undefined'.
 src/components/immersive/immersive-learning.tsx(451,17): error TS2322: Type '(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void' is not assignable to type '(value: string) => void'.
   Types of parameters 'e' and 'value' are incompatible.
     Type 'string' is not assignable to type 'ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>'.
@@ -2481,7 +2271,7 @@ src/components/parent-school/parent-school-collaboration.tsx(2148,109): error TS
   Property 'onClick' does not exist on type 'IntrinsicAttributes & CardProps'.
 src/components/parent-school/shared-goal-tracking.tsx(209,7): error TS2353: Object literal may only specify known properties, and 'title' does not exist in type 'ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<...> | (() => ReactNode)'.
 src/components/parent-school/shared-goal-tracking.tsx(218,35): error TS7006: Parameter 'targetDate' implicitly has an 'any' type.
-src/components/parent-school/shared-goal-tracking.tsx(337,32): error TS2322: Type '"success"' is not assignable to type '"default" | "secondary" | "destructive" | "outline" | null | undefined'.
+src/components/parent-school/shared-goal-tracking.tsx(337,32): error TS2322: Type '"success"' is not assignable to type '"default" | "destructive" | "outline" | "secondary" | null | undefined'.
 src/components/parent-school/shared-goal-tracking.tsx(487,58): error TS2304: Cannot find name 'Mic'.
 src/components/parent-school/virtual-conference-tools.tsx(209,7): error TS2353: Object literal may only specify known properties, and 'title' does not exist in type 'ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<...> | (() => ReactNode)'.
 src/components/parent-school/virtual-conference-tools.tsx(219,7): error TS2353: Object literal may only specify known properties, and 'title' does not exist in type 'ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<...> | (() => ReactNode)'.
@@ -2497,12 +2287,12 @@ src/components/parent-school/virtual-conference-tools.tsx(908,28): error TS2304:
 src/components/parent-school/virtual-conference-tools.tsx(931,28): error TS2304: Cannot find name 'Heart'.
 src/components/parent-school/virtual-conference-tools.tsx(1078,25): error TS2353: Object literal may only specify known properties, and 'title' does not exist in type 'ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<...> | (() => ReactNode)'.
 src/components/parent/parent-dashboard.tsx(193,7): error TS2353: Object literal may only specify known properties, and 'title' does not exist in type 'Omit<ToastProps, "onClose">'.
-src/components/parent/parent-dashboard.tsx(210,20): error TS2322: Type '"error"' is not assignable to type '"default" | "warning" | "info" | "success" | "destructive" | undefined'.
+src/components/parent/parent-dashboard.tsx(210,20): error TS2322: Type '"error"' is not assignable to type '"default" | "destructive" | "success" | "warning" | "info" | undefined'.
 src/components/parent/parent-dashboard.tsx(219,55): error TS2339: Property 'target' does not exist on type 'string'.
-src/components/parent/parent-dashboard.tsx(368,20): error TS2322: Type '"error"' is not assignable to type '"default" | "warning" | "info" | "success" | "destructive" | undefined'.
-src/components/parent/parent-dashboard.tsx(434,20): error TS2322: Type '"error"' is not assignable to type '"default" | "warning" | "info" | "success" | "destructive" | undefined'.
+src/components/parent/parent-dashboard.tsx(368,20): error TS2322: Type '"error"' is not assignable to type '"default" | "destructive" | "success" | "warning" | "info" | undefined'.
+src/components/parent/parent-dashboard.tsx(434,20): error TS2322: Type '"error"' is not assignable to type '"default" | "destructive" | "success" | "warning" | "info" | undefined'.
 src/components/parent/parent-dashboard.tsx(441,18): error TS2739: Type '{ options: { value: string; label: string; }[]; className: string; }' is missing the following properties from type 'SelectProps': value, onChange
-src/components/parent/parent-dashboard.tsx(490,20): error TS2322: Type '"error"' is not assignable to type '"default" | "warning" | "info" | "success" | "destructive" | undefined'.
+src/components/parent/parent-dashboard.tsx(490,20): error TS2322: Type '"error"' is not assignable to type '"default" | "destructive" | "success" | "warning" | "info" | undefined'.
 src/components/parent/parent-dashboard.tsx(634,13): error TS2322: Type '{ tabs: { id: string; label: string; content: Element; }[]; }' is not assignable to type 'IntrinsicAttributes & TabsProps & RefAttributes<HTMLDivElement>'.
   Property 'tabs' does not exist on type 'IntrinsicAttributes & TabsProps & RefAttributes<HTMLDivElement>'.
 src/components/professional-development/certificate-generator.tsx(75,22): error TS2345: Argument of type '{ id: string; courseTitle: string; recipientName: string; completionDate: string; cpd_points: number; instructor: string; organisation: string; certificationId: string; }' is not assignable to parameter of type 'SetStateAction<null>'.
@@ -2795,14 +2585,14 @@ src/components/professional-development/webinar-integration.tsx(392,23): error T
 src/components/professional-development/webinar-integration.tsx(635,37): error TS2345: Argument of type '{ title: string; description: string; duration: number; }' is not assignable to parameter of type 'string'.
 src/components/professional/professional-dashboard.tsx(198,7): error TS2353: Object literal may only specify known properties, and 'title' does not exist in type 'Omit<ToastProps, "onClose">'.
 src/components/professional/professional-dashboard.tsx(206,7): error TS2353: Object literal may only specify known properties, and 'title' does not exist in type 'Omit<ToastProps, "onClose">'.
-src/components/professional/professional-dashboard.tsx(223,20): error TS2322: Type '"error"' is not assignable to type '"default" | "warning" | "info" | "success" | "destructive" | undefined'.
-src/components/professional/professional-dashboard.tsx(485,20): error TS2322: Type '"error"' is not assignable to type '"default" | "warning" | "info" | "success" | "destructive" | undefined'.
+src/components/professional/professional-dashboard.tsx(223,20): error TS2322: Type '"error"' is not assignable to type '"default" | "destructive" | "success" | "warning" | "info" | undefined'.
+src/components/professional/professional-dashboard.tsx(485,20): error TS2322: Type '"error"' is not assignable to type '"default" | "destructive" | "success" | "warning" | "info" | undefined'.
 src/components/professional/professional-dashboard.tsx(497,20): error TS2739: Type '{ options: { value: string; label: string; }[]; className: string; }' is missing the following properties from type 'SelectProps': value, onChange
-src/components/professional/professional-dashboard.tsx(608,20): error TS2322: Type '"error"' is not assignable to type '"default" | "warning" | "info" | "success" | "destructive" | undefined'.
+src/components/professional/professional-dashboard.tsx(608,20): error TS2322: Type '"error"' is not assignable to type '"default" | "destructive" | "success" | "warning" | "info" | undefined'.
 src/components/professional/professional-dashboard.tsx(616,20): error TS2739: Type '{ options: { value: string; label: string; }[]; className: string; }' is missing the following properties from type 'SelectProps': value, onChange
-src/components/professional/professional-dashboard.tsx(716,20): error TS2322: Type '"error"' is not assignable to type '"default" | "warning" | "info" | "success" | "destructive" | undefined'.
+src/components/professional/professional-dashboard.tsx(716,20): error TS2322: Type '"error"' is not assignable to type '"default" | "destructive" | "success" | "warning" | "info" | undefined'.
 src/components/professional/professional-dashboard.tsx(724,20): error TS2739: Type '{ options: { value: string; label: string; }[]; className: string; }' is missing the following properties from type 'SelectProps': value, onChange
-src/components/professional/professional-dashboard.tsx(829,20): error TS2322: Type '"error"' is not assignable to type '"default" | "warning" | "info" | "success" | "destructive" | undefined'.
+src/components/professional/professional-dashboard.tsx(829,20): error TS2322: Type '"error"' is not assignable to type '"default" | "destructive" | "success" | "warning" | "info" | undefined'.
 src/components/professional/professional-dashboard.tsx(841,20): error TS2739: Type '{ options: { value: string; label: string; }[]; className: string; }' is missing the following properties from type 'SelectProps': value, onChange
 src/components/professional/professional-dashboard.tsx(920,13): error TS2322: Type '{ tabs: { id: string; label: string; content: Element; }[]; }' is not assignable to type 'IntrinsicAttributes & TabsProps & RefAttributes<HTMLDivElement>'.
   Property 'tabs' does not exist on type 'IntrinsicAttributes & TabsProps & RefAttributes<HTMLDivElement>'.
@@ -2815,7 +2605,7 @@ src/components/pupil-voice/pupil-voice-tool.tsx(328,9): error TS2353: Object lit
 src/components/pupil-voice/pupil-voice-tool.tsx(383,7): error TS2353: Object literal may only specify known properties, and 'title' does not exist in type 'Omit<ToastProps, "onClose">'.
 src/components/pupil-voice/pupil-voice-tool.tsx(408,56): error TS2339: Property 'target' does not exist on type 'string'.
 src/components/pupil-voice/pupil-voice-tool.tsx(421,57): error TS2339: Property 'target' does not exist on type 'string'.
-src/components/pupil-voice/pupil-voice-tool.tsx(437,20): error TS2322: Type '"error"' is not assignable to type '"default" | "warning" | "info" | "success" | "destructive" | undefined'.
+src/components/pupil-voice/pupil-voice-tool.tsx(437,20): error TS2322: Type '"error"' is not assignable to type '"default" | "destructive" | "success" | "warning" | "info" | undefined'.
 src/components/pupil-voice/pupil-voice-tool.tsx(523,17): error TS2322: Type '(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void' is not assignable to type '(value: string) => void'.
   Types of parameters 'e' and 'value' are incompatible.
     Type 'string' is not assignable to type 'ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>'.
@@ -2840,7 +2630,7 @@ src/components/resource/resource-library.tsx(228,7): error TS2353: Object litera
 src/components/resource/resource-library.tsx(253,55): error TS2339: Property 'target' does not exist on type 'string'.
 src/components/resource/resource-library.tsx(270,56): error TS2339: Property 'target' does not exist on type 'string'.
 src/components/resource/resource-library.tsx(283,52): error TS2339: Property 'target' does not exist on type 'string'.
-src/components/resource/resource-library.tsx(301,20): error TS2322: Type '"error"' is not assignable to type '"default" | "warning" | "info" | "success" | "destructive" | undefined'.
+src/components/resource/resource-library.tsx(301,20): error TS2322: Type '"error"' is not assignable to type '"default" | "destructive" | "success" | "warning" | "info" | undefined'.
 src/components/resource/resource-library.tsx(377,17): error TS2322: Type '(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void' is not assignable to type '(value: string) => void'.
   Types of parameters 'e' and 'value' are incompatible.
     Type 'string' is not assignable to type 'ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>'.
@@ -5769,12 +5559,12 @@ src/components/student-voice/transcription-translation-system.tsx(1203,24): erro
       Type 'HTMLImageElement' is missing the following properties from type 'Component<any, any, any>': context, setState, forceUpdate, render, and 2 more.
 src/components/student/student-dashboard.tsx(153,7): error TS2353: Object literal may only specify known properties, and 'title' does not exist in type 'Omit<ToastProps, "onClose">'.
 src/components/student/student-dashboard.tsx(170,7): error TS2353: Object literal may only specify known properties, and 'title' does not exist in type 'Omit<ToastProps, "onClose">'.
-src/components/student/student-dashboard.tsx(187,20): error TS2322: Type '"error"' is not assignable to type '"default" | "warning" | "info" | "success" | "destructive" | undefined'.
-src/components/student/student-dashboard.tsx(369,20): error TS2322: Type '"error"' is not assignable to type '"default" | "warning" | "info" | "success" | "destructive" | undefined'.
-src/components/student/student-dashboard.tsx(487,20): error TS2322: Type '"error"' is not assignable to type '"default" | "warning" | "info" | "success" | "destructive" | undefined'.
+src/components/student/student-dashboard.tsx(187,20): error TS2322: Type '"error"' is not assignable to type '"default" | "destructive" | "success" | "warning" | "info" | undefined'.
+src/components/student/student-dashboard.tsx(369,20): error TS2322: Type '"error"' is not assignable to type '"default" | "destructive" | "success" | "warning" | "info" | undefined'.
+src/components/student/student-dashboard.tsx(487,20): error TS2322: Type '"error"' is not assignable to type '"default" | "destructive" | "success" | "warning" | "info" | undefined'.
 src/components/student/student-dashboard.tsx(495,20): error TS2739: Type '{ options: { value: string; label: string; }[]; className: string; }' is missing the following properties from type 'SelectProps': value, onChange
 src/components/student/student-dashboard.tsx(504,20): error TS2739: Type '{ options: { value: string; label: string; }[]; className: string; }' is missing the following properties from type 'SelectProps': value, onChange
-src/components/student/student-dashboard.tsx(649,20): error TS2322: Type '"error"' is not assignable to type '"default" | "warning" | "info" | "success" | "destructive" | undefined'.
+src/components/student/student-dashboard.tsx(649,20): error TS2322: Type '"error"' is not assignable to type '"default" | "destructive" | "success" | "warning" | "info" | undefined'.
 src/components/student/student-dashboard.tsx(737,13): error TS2322: Type '{ tabs: { id: string; label: string; content: Element; }[]; }' is not assignable to type 'IntrinsicAttributes & TabsProps & RefAttributes<HTMLDivElement>'.
   Property 'tabs' does not exist on type 'IntrinsicAttributes & TabsProps & RefAttributes<HTMLDivElement>'.
 src/components/subscription/fair-usage.tsx(20,14): error TS2323: Cannot redeclare exported variable 'useFairUsage'.
@@ -6120,7 +5910,7 @@ src/components/ui/__tests__/VoiceInput.test.tsx(172,5): error TS2304: Cannot fin
 src/components/ui/__tests__/VoiceInput.test.tsx(175,3): error TS2582: Cannot find name 'it'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha`.
 src/components/ui/__tests__/VoiceInput.test.tsx(182,5): error TS2304: Cannot find name 'expect'.
 src/components/ui/calendar.tsx(55,9): error TS2353: Object literal may only specify known properties, and 'IconLeft' does not exist in type 'Partial<CustomComponents>'.
-src/components/ui/design-system.tsx(420,3): error TS2322: Type '"4"' is not assignable to type '0 | 1 | 10 | 3 | 5 | 2 | 4 | 60 | 0.5 | 80 | 8 | 6 | 32 | 24 | 16 | 40 | 7 | 9 | 20 | 11 | 12 | 72 | 28 | 14 | 64 | 1.5 | 36 | 3.5 | 48 | 96 | 44 | 2.5 | 52 | 56'.
+src/components/ui/design-system.tsx(420,3): error TS2322: Type '"4"' is not assignable to type '0 | 2 | 1 | 5 | 3 | 4 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 16 | 32 | 60 | 0.5 | 80 | 24 | 40 | 20 | 72 | 28 | 14 | 64 | 1.5 | 36 | 3.5 | 48 | 96 | 44 | 2.5 | 52 | 56'.
 src/components/ui/enhanced-celebration-overlay.tsx(6,22): error TS2307: Cannot find module 'canvas-confetti' or its corresponding type declarations.
 src/components/ui/form.tsx(144,31): error TS2339: Property 'id' does not exist on type '{}'.
 src/components/ui/index.ts(1,35): error TS2395: Individual declarations in merged declaration 'AlertDescription' must be all exported or all local.
@@ -6136,7 +5926,7 @@ src/components/ui/index.ts(21,27): error TS2448: Block-scoped variable 'AlertTit
 src/components/ui/modal.tsx(4,30): error TS7016: Could not find a declaration file for module 'react-dom'. '/home/ubuntu/EdPsych/node_modules/react-dom/index.js' implicitly has an 'any' type.
   Try `npm i --save-dev @types/react-dom` if it exists or add a new declaration (.d.ts) file containing `declare module 'react-dom';`
 src/components/ui/modal.tsx(7,43): error TS2307: Cannot find module './dialogue' or its corresponding type declarations.
-src/components/ui/popover.tsx(17,7): error TS2322: Type 'string' is not assignable to type '"start" | "end" | "center" | undefined'.
+src/components/ui/popover.tsx(17,7): error TS2322: Type 'string' is not assignable to type '"center" | "end" | "start" | undefined'.
 src/components/ui/tabs.tsx(114,28): error TS18046: 'firstTabId.props' is of type 'unknown'.
 src/components/ui/tabs.tsx(119,38): error TS18046: 'firstId.props' is of type 'unknown'.
 src/components/ui/tabs.tsx(226,28): error TS18046: 'firstTabId.props' is of type 'unknown'.
@@ -6228,7 +6018,7 @@ src/lib/analytics/analyticsService.ts(381,17): error TS2304: Cannot find name 'D
 src/lib/analytics/analyticsService.ts(391,17): error TS2304: Cannot find name 'DataPoint'.
 src/lib/assessment/assessmentEngineService.ts(9,30): error TS7016: Could not find a declaration file for module 'uuid'. '/home/ubuntu/EdPsych/node_modules/uuid/dist/esm-browser/index.js' implicitly has an 'any' type.
   Try `npm i --save-dev @types/uuid` if it exists or add a new declaration (.d.ts) file containing `declare module 'uuid';`
-src/lib/assessment/assessmentEngineService.ts(249,11): error TS2741: Property 'language' is missing in type '{ id: any; title: string; description: string; keyStage: UKKeyStage; subject: UKSubject; topics: string[]; assessmentType: AssessmentType; targetAgeRange: { ...; }; ... 6 more ...; adaptiveDifficulty: boolean; }' but required in type '{ id: string; title: string; subject: UKSubject; keyStage: UKKeyStage; language: SupportedLanguage; createdAt: Date; updatedAt: Date; ... 12 more ...; learningStyleFocus?: LearningStyle[] | undefined; }'.
+src/lib/assessment/assessmentEngineService.ts(249,11): error TS2741: Property 'language' is missing in type '{ id: any; title: string; description: string; keyStage: UKKeyStage; subject: UKSubject; topics: string[]; assessmentType: AssessmentType; targetAgeRange: { ...; }; ... 6 more ...; adaptiveDifficulty: boolean; }' but required in type '{ title: string; id: string; subject: UKSubject; keyStage: UKKeyStage; language: SupportedLanguage; createdAt: Date; updatedAt: Date; ... 12 more ...; learningStyleFocus?: LearningStyle[] | undefined; }'.
 src/lib/assessment/assessmentEngineService.ts(652,39): error TS2802: Type 'MapIterator<[string, number]>' can only be iterated through when using the '--downlevelIteration' flag or with a '--target' of 'es2015' or higher.
 src/lib/assessment/assessmentEngineService.ts(654,39): error TS2802: Type 'MapIterator<[QuestionType, number]>' can only be iterated through when using the '--downlevelIteration' flag or with a '--target' of 'es2015' or higher.
 src/lib/auth/auth-options.ts(5,14): error TS2741: Property 'providers' is missing in type '{ adapter: Adapter; session: { strategy: "jwt"; }; }' but required in type 'AuthOptions'.
@@ -6269,7 +6059,7 @@ src/lib/compliance/contentModerationService.ts(291,36): error TS2322: Type '"ent
 src/lib/compliance/dfeComplianceService.ts(12,3): error TS2459: Module '"./types"' declares 'UKKeyStage' locally, but it is not exported.
 src/lib/compliance/gdprComplianceService.ts(163,42): error TS2802: Type 'MapIterator<[string, { consentGiven: boolean; consentDate: Date; consentMethod: string; consentVersion: string; lastUpdated: Date; }]>' can only be iterated through when using the '--downlevelIteration' flag or with a '--target' of 'es2015' or higher.
 src/lib/compliance/gdprComplianceService.ts(501,44): error TS2339: Property 'EXPLICIT_CONSENT' does not exist on type 'typeof GDPRProcessingBasis'.
-src/lib/compliance/safeguardingService.ts(69,11): error TS2741: Property 'followUpRequired' is missing in type '{ id: string; concernType: SafeguardingConcernType; concernLevel: SafeguardingConcernLevel.MEDIUM; description: string; reportedBy: string; reportedAt: Date; involvedUsers: string[] | undefined; contentReference: string | undefined; status: "reported"; }' but required in type '{ status: "resolved" | "reported" | "under_review" | "action_taken" | "dismissed"; id: string; description: string; concernType: SafeguardingConcernType; ... 10 more ...; actionDate?: Date | undefined; }'.
+src/lib/compliance/safeguardingService.ts(69,11): error TS2741: Property 'followUpRequired' is missing in type '{ id: string; concernType: SafeguardingConcernType; concernLevel: SafeguardingConcernLevel.MEDIUM; description: string; reportedBy: string; reportedAt: Date; involvedUsers: string[] | undefined; contentReference: string | undefined; status: "reported"; }' but required in type '{ id: string; status: "resolved" | "reported" | "under_review" | "action_taken" | "dismissed"; description: string; concernType: SafeguardingConcernType; ... 10 more ...; actionDate?: Date | undefined; }'.
 src/lib/db-maintenance.ts(67,16): error TS18046: 'error' is of type 'unknown'.
 src/lib/db-maintenance.ts(193,14): error TS18046: 'error' is of type 'unknown'.
 src/lib/db-maintenance.ts(355,14): error TS18046: 'error' is of type 'unknown'.
