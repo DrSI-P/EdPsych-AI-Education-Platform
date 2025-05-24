@@ -1,7 +1,9 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 // Jest setup file
-require('@testing-library/jest-dom');
-require('whatwg-fetch');
-const { TextDecoder, TextEncoder } = require('util');
+import '@testing-library/jest-dom';
+import 'whatwg-fetch';
+import { TextDecoder, TextEncoder } from 'util';
 
 // Mock the global fetch
 global.fetch = jest.fn();
@@ -113,4 +115,5 @@ Object.defineProperty(window, 'sessionStorage', {
 });
 
 // Suppress console errors during tests
+// eslint-disable-next-line no-undef
 jest.spyOn(console, 'error').mockImplementation(() => {});
