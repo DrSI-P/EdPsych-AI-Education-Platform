@@ -1,13 +1,15 @@
+// @ts-check
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import AccessibilityControls from '../../components/ui/AccessibilityControls';
 
 describe('AccessibilityControls Component', () => {
   beforeEach(() => {
     // Reset localStorage mock before each test
     const localStorageMock = {
-      getItem: jest.fn(),
-      setItem: jest.fn(),
+      getItem: vi.fn(),
+      setItem: vi.fn(),
     };
     Object.defineProperty(window, 'localStorage', { value: localStorageMock });
   });
