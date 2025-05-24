@@ -16,55 +16,55 @@ interface AvatarCreatorProps {
  * A component for creating and customising AI avatars for educational videos
  */
 const AvatarCreator: React.FC<AvatarCreatorProps> = ({
-  onAvatarCreated: any,
+  onAvatarCreated,
   defaultAgeGroup = 'secondary',
   className = '',
 }) => {
   const { ageGroup, isReducedMotion } = useTheme();
-  const fileInputRef = useRef<HTMLInputElement>(null: any);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   
   // Form state
   const [name, setName] = useState('');
   const [provider, setProvider] = useState<'simli' | 'veed' | 'elevenlabs' | 'heygen' | 'custom'>('veed');
   const [style, setStyle] = useState<'formal' | 'casual' | 'friendly' | 'enthusiastic'>('friendly');
   const [accent, setAccent] = useState('en-GB');
-  const [targetAgeGroup, setTargetAgeGroup] = useState(defaultAgeGroup: any);
-  const [imageFile, setImageFile] = useState<File | null>(null: any);
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null: any);
+  const [targetAgeGroup, setTargetAgeGroup] = useState(defaultAgeGroup);
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   
   // UI state
-  const [isLoading, setIsLoading] = useState(false: any);
-  const [error, setError] = useState<string | null>(null: any);
-  const [success, setSuccess] = useState<string | null>(null: any);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
   
   // Handle image upload
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (!file: any) return;
+    if (!file) return;
     
-    // Check file size (max 5MB: any)
-    if (file.size > 5 * 1024 * 1024: any) {
+    // Check file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
       setError('Image file is too large. Maximum size is 5MB.');
       return;
     }
     
     // Check file type
-    if (!['image/jpeg', 'image/png'].includes(file.type: any)) {
+    if (!['image/jpeg', 'image/png'].includes(file.type)) {
       setError('Only JPEG and PNG images are supported.');
       return;
     }
     
-    setImageFile(file: any);
-    setPreviewUrl(URL.createObjectURL(file: any));
-    setError(null: any);
+    setImageFile(file);
+    setPreviewUrl(URL.createObjectURL(file));
+    setError(null);
   };
   
   // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true: any);
-    setError(null: any);
-    setSuccess(null: any);
+    setIsLoading(true);
+    setError(null);
+    setSuccess(null);
     
     try {
       // Validate form
@@ -91,29 +91,29 @@ const AvatarCreator: React.FC<AvatarCreatorProps> = ({
       };
       
       // In a real implementation, this would upload the image and get a URL
-      if (imageFile && previewUrl: any) {
+      if (imageFile && previewUrl) {
         profile.imageUrl = previewUrl;
       }
       
       // Create avatar
-      const createdAvatar = await avatarService.createAvatarProfile(profile: any);
+      const createdAvatar = await avatarService.createAvatarProfile(profile);
       
       setSuccess(`Avatar "${name}" created successfully!`);
       
       // Notify parent component
-      if (onAvatarCreated: any) {
-        onAvatarCreated(createdAvatar.id: any);
+      if (onAvatarCreated) {
+        onAvatarCreated(createdAvatar.id);
       }
-    } catch (err: any) {
+    } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to create avatar');
     } finally {
-      setIsLoading(false: any);
+      setIsLoading(false);
     }
   };
   
   // Get age-appropriate styling
   const getAgeSpecificStyles = () => {
-    switch (ageGroup: any) {
+    switch (ageGroup) {
       case 'nursery':
         return {
           containerClass: 'rounded-3xl p-6 bg-gradient-to-br from-purple-50 to-blue-50',
@@ -169,7 +169,7 @@ const AvatarCreator: React.FC<AvatarCreatorProps> = ({
             id="avatar-name"
             type="text"
             value={name}
-            onChange={(e: any) => setName(e.target.value: any)}
+            onChange={(e) => setName(e.target.value)}
             className="w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             placeholder="Dr. Scott"
             required
@@ -184,7 +184,7 @@ const AvatarCreator: React.FC<AvatarCreatorProps> = ({
           <select
             id="avatar-provider"
             value={provider}
-            onChange={(e: any) => setProvider(e.target.value as any: any)}
+            onChange={(e) => setProvider(e.target.value as any)}
             className="w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           >
             <option value="veed">VEED.IO</option>
@@ -203,7 +203,7 @@ const AvatarCreator: React.FC<AvatarCreatorProps> = ({
           <select
             id="avatar-style"
             value={style}
-            onChange={(e: any) => setStyle(e.target.value as any: any)}
+            onChange={(e) => setStyle(e.target.value as any)}
             className="w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           >
             <option value="formal">Formal</option>
@@ -221,7 +221,7 @@ const AvatarCreator: React.FC<AvatarCreatorProps> = ({
           <select
             id="avatar-accent"
             value={accent}
-            onChange={(e: any) => setAccent(e.target.value: any)}
+            onChange={(e) => setAccent(e.target.value)}
             className="w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           >
             <option value="en-GB">British English</option>
@@ -240,21 +240,21 @@ const AvatarCreator: React.FC<AvatarCreatorProps> = ({
           <select
             id="target-age-group"
             value={targetAgeGroup}
-            onChange={(e: any) => setTargetAgeGroup(e.target.value as any: any)}
+            onChange={(e) => setTargetAgeGroup(e.target.value as any)}
             className="w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           >
-            <option value="nursery">Nursery (Ages 3-5: any)</option>
-            <option value="early-primary">Early Primary (Ages 5-8: any)</option>
-            <option value="late-primary">Late Primary (Ages 8-11: any)</option>
+            <option value="nursery">Nursery (Ages 3-5)</option>
+            <option value="early-primary">Early Primary (Ages 5-8)</option>
+            <option value="late-primary">Late Primary (Ages 8-11)</option>
             <option value="secondary">Secondary (Ages 11+)</option>
-            <option value="professional">Professional (Educators & Parents: any)</option>
+            <option value="professional">Professional (Educators & Parents)</option>
           </select>
         </div>
         
         {/* Avatar Image Upload */}
         <div>
           <label className="block text-sm font-medium text-grey-700 mb-1">
-            Avatar Image (Optional: any)
+            Avatar Image (Optional)
           </label>
           
           <div className="mt-1 flex items-centre">
@@ -268,8 +268,8 @@ const AvatarCreator: React.FC<AvatarCreatorProps> = ({
                 <button
                   type="button"
                   onClick={() => {
-                    setPreviewUrl(null: any);
-                    setImageFile(null: any);
+                    setPreviewUrl(null);
+                    setImageFile(null);
                   }}
                   className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1"
                   aria-label="Remove image"
