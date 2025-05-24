@@ -2,11 +2,42 @@
 
 import React, { useState } from 'react';
 import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
-import { Input, Select } from '@/components/ui/form';
+import { Input } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/loading';
 import { Alert } from '@/components/ui/alert';
-import { useAIService, AIProvider } from '@/lib/ai/ai-service';
+import { useAIService } from '@/lib/ai/ai-service';
+
+// Define the AIProvider type if it's not exported from ai-service
+type AIProvider = 'openai';
+
+interface SelectProps {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  options: Array<{ value: string; label: string }>;
+  className?: string;
+}
+
+// Custom Select component that matches the expected interface
+const Select = ({ label, value, onChange, options, className = '' }: SelectProps) => {
+  return (
+    <div className={className}>
+      <label className="block text-sm font-medium mb-1">{label}</label>
+      <select 
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="w-full rounded-md border border-input bg-background px-3 py-2"
+      >
+        {options.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+};
 
 interface AIImageGeneratorProps {
   onGeneration?: (imageUrl: string) => void;
@@ -21,7 +52,8 @@ export function AIImageGenerator({
   placeholder = 'Describe the image you want to generate...',
   className = ''
 }: AIImageGeneratorProps) {
-  const { isConfigured, defaultProvider, defaultModel, getModelsForProvider, allModels } = useAIService();
+  // Destructure only the properties that actually exist in useAIService
+  const { isConfigured } = useAIService();
   
   const [provider, setProvider] = useState<AIProvider>('openai');
   const [model, setModel] = useState<string>('dall-e-3');
@@ -34,9 +66,8 @@ export function AIImageGenerator({
   const [error, setError] = useState('');
   
   // Handle provider change
-  const handleProviderChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const newProvider = e.target.value as AIProvider;
-    setProvider(newProvider);
+  const handleProviderChange = (newProvider: string) => {
+    setProvider(newProvider as AIProvider);
     
     // For now, only OpenAI is fully supported for image generation
     if (newProvider === 'openai') {
@@ -126,7 +157,7 @@ export function AIImageGenerator({
             <Select
               label="Image Size"
               value={size}
-              onChange={(e) => setSize(e.target.value)}
+              onChange={setSize}
               options={[
                 { value: '1024x1024', label: '1024×1024 (Square)' },
                 { value: '1792x1024', label: '1792×1024 (Landscape)' },
@@ -140,7 +171,7 @@ export function AIImageGenerator({
             <Select
               label="Quality"
               value={quality}
-              onChange={(e) => setQuality(e.target.value)}
+              onChange={setQuality}
               options={[
                 { value: 'standard', label: 'Standard' },
                 { value: 'hd', label: 'HD' }
@@ -151,7 +182,7 @@ export function AIImageGenerator({
             <Select
               label="Style"
               value={style}
-              onChange={(e) => setStyle(e.target.value)}
+              onChange={setStyle}
               options={[
                 { value: 'natural', label: 'Natural' },
                 { value: 'vivid', label: 'Vivid' }
@@ -169,7 +200,7 @@ export function AIImageGenerator({
           />
           
           {error && (
-            <Alert variant="error" dismissible>
+            <Alert variant="destructive" dismissible>
               {error}
             </Alert>
           )}
