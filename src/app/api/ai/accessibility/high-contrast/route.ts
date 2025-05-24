@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import { prisma } from '@/lib/db';
+import { db } from '@/lib/db';
 
 /**
  * API endpoint for high contrast mode settings
@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
     };
 
     // Save settings to database (upsert to create or update)
-    const updatedSettings = await prisma.accessibilitySettings.upsert({
+    const updatedSettings = await db.prisma.accessibilitySettings.upsert({
       where: {
         userId: session.user.id
       },
@@ -57,7 +57,7 @@ export async function POST(req: NextRequest) {
     });
 
     // Log the high contrast mode usage for analytics
-    await prisma.accessibilityLog.create({
+    await db.prisma.accessibilityLog.create({
       data: {
         userId: session.user.id,
         action: 'setting_changed',

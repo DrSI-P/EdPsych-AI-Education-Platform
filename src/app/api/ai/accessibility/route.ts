@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import { prisma } from '@/lib/db';
+import { db } from '@/lib/db';
 
 interface AccessibilitySettings {
   textSize: number;
@@ -47,7 +47,7 @@ export async function GET(req: NextRequest) {
     }
 
     // Get user's accessibility settings from database
-    const settings = await prisma.accessibilitySettings.findUnique({
+    const settings = await db.prisma.accessibilitySettings.findUnique({
       where: {
         userId: session.user.id
       }
@@ -125,7 +125,7 @@ export async function POST(req: NextRequest) {
     };
 
     // Save settings to database (upsert to create or update)
-    const updatedSettings = await prisma.accessibilitySettings.upsert({
+    const updatedSettings = await db.prisma.accessibilitySettings.upsert({
       where: {
         userId: session.user.id
       },

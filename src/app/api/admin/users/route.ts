@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth/auth-options';
-import prisma from '@/lib/db/prisma';
+import { db } from '@/lib/db';
 import { z } from 'zod';
 
 // Schema for query parameters
@@ -51,22 +51,14 @@ export async function GET(request: NextRequest) {
     }
     
     // Count total users matching the filter
-    const total = await prisma.user.count({ where });
+    const total = await db.prisma.user.count({ where });
     
     // Fetch users with pagination
-    const users = await prisma.user.findMany({
-      where,
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        role: true,
-        emailVerified: true,
-        // Removed non-existent fields: createdAt, updatedAt
-      },
-      orderBy: { id: 'desc' }, // Changed from createdAt to id since createdAt doesn't exist
+    const users = await db.user.findMany({
       skip: (page - 1) * limit,
       take: limit,
+      where,
+      orderBy: { id: 'desc' }, // Changed from createdAt to id since createdAt doesn't exist
     });
     
     return NextResponse.json({
@@ -122,9 +114,7 @@ export async function POST(request: NextRequest) {
     const { name, email, role, password } = parsed.data;
     
     // Check if email already exists
-    const existingUser = await prisma.user.findUnique({
-      where: { email },
-    });
+    const existingUser = await db.user.findByEmail(email);
     
     if (existingUser) {
       return NextResponse.json(
@@ -134,21 +124,11 @@ export async function POST(request: NextRequest) {
     }
     
     // Create new user
-    const newUser = await prisma.user.create({
-      data: {
-        name,
-        email,
-        role,
-        ...(password && { password }),
-      },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        role: true,
-        emailVerified: true,
-        // Removed non-existent fields: createdAt, updatedAt
-      },
+    const newUser = await db.user.create({
+      name,
+      email,
+      role,
+      ...(password && { password }),
     });
     
     return NextResponse.json(newUser, { status: 201 });
