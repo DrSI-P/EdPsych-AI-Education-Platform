@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -25,7 +25,13 @@ interface HighContrastModeEngineProps {
     highlightButtons: boolean;
     customColors: boolean;
   };
-  onSettingsChange: (settings: Record<string, any>) => void;
+  onSettingsChange: (settings: Record<string, unknown>) => void;
+}
+
+interface OptimizationResults {
+  elementsProcessed: number;
+  elementsEnhanced: number;
+  warnings: string[];
 }
 
 export const HighContrastModeEngine: React.FC<HighContrastModeEngineProps> = ({ 
@@ -33,21 +39,17 @@ export const HighContrastModeEngine: React.FC<HighContrastModeEngineProps> = ({
   onSettingsChange
 }) => {
   // State for UI
-  const [isApplying, setIsApplying] = React.useState<boolean>(false);
-  const [optimizationStatus, setOptimizationStatus] = React.useState<string>('idle');
-  const [optimizationProgress, setOptimizationProgress] = React.useState<number>(0);
-  const [optimizationResults, setOptimizationResults] = React.useState<{
-    elementsProcessed: number;
-    elementsEnhanced: number;
-    warnings: string[];
-  }>({
+  const [isApplying, setIsApplying] = useState<boolean>(false);
+  const [optimizationStatus, setOptimizationStatus] = useState<string>('idle');
+  const [optimizationProgress, setOptimizationProgress] = useState<number>(0);
+  const [optimizationResults, setOptimizationResults] = useState<OptimizationResults>({
     elementsProcessed: 0,
     elementsEnhanced: 0,
     warnings: []
   });
 
   // Apply high contrast optimizations
-  const applyHighContrastOptimizations = React.useCallback(() => {
+  const applyHighContrastOptimizations = useCallback(() => {
     if (!settings.enabled) return;
     
     setIsApplying(true);
@@ -58,7 +60,7 @@ export const HighContrastModeEngine: React.FC<HighContrastModeEngineProps> = ({
     const totalSteps = 5;
     let currentStep = 0;
     
-    const processStep = () => {
+    const processStep = (): void => {
       currentStep++;
       setOptimizationProgress(Math.floor((currentStep / totalSteps) * 100));
       
@@ -82,17 +84,17 @@ export const HighContrastModeEngine: React.FC<HighContrastModeEngineProps> = ({
     
     // Start processing
     setTimeout(processStep, 500);
-  }, [settings]);
+  }, [settings.enabled]);
   
   // Apply optimizations on settings change
-  React.useEffect(() => {
+  useEffect(() => {
     if (settings.enabled) {
       applyHighContrastOptimizations();
     }
-  }, [settings, applyHighContrastOptimizations]);
+  }, [settings.enabled, applyHighContrastOptimizations]);
   
   // Apply contrast level
-  const applyContrastLevel = React.useCallback(() => {
+  const applyContrastLevel = useCallback(() => {
     if (!settings.enabled) return;
     
     try {
@@ -127,7 +129,7 @@ export const HighContrastModeEngine: React.FC<HighContrastModeEngineProps> = ({
   }, [settings.enabled, settings.contrastLevel]);
   
   // Apply bold text
-  const applyBoldText = React.useCallback(() => {
+  const applyBoldText = useCallback(() => {
     if (!settings.enabled || !settings.boldText) return;
     
     try {
@@ -146,7 +148,7 @@ export const HighContrastModeEngine: React.FC<HighContrastModeEngineProps> = ({
   }, [settings.enabled, settings.boldText]);
   
   // Apply larger text
-  const applyLargerText = React.useCallback(() => {
+  const applyLargerText = useCallback(() => {
     if (!settings.enabled || !settings.largerText) return;
     
     try {
@@ -165,7 +167,7 @@ export const HighContrastModeEngine: React.FC<HighContrastModeEngineProps> = ({
   }, [settings.enabled, settings.largerText]);
   
   // Highlight links
-  const highlightLinks = React.useCallback(() => {
+  const highlightLinks = useCallback(() => {
     if (!settings.enabled || !settings.highlightLinks) return;
     
     try {
@@ -192,7 +194,7 @@ export const HighContrastModeEngine: React.FC<HighContrastModeEngineProps> = ({
   }, [settings.enabled, settings.highlightLinks]);
   
   // Highlight buttons
-  const highlightButtons = React.useCallback(() => {
+  const highlightButtons = useCallback(() => {
     if (!settings.enabled || !settings.highlightButtons) return;
     
     try {
@@ -217,7 +219,7 @@ export const HighContrastModeEngine: React.FC<HighContrastModeEngineProps> = ({
   }, [settings.enabled, settings.highlightButtons]);
   
   // Apply custom colors
-  const applyCustomColors = React.useCallback(() => {
+  const applyCustomColors = useCallback(() => {
     if (!settings.enabled || !settings.customColors) return;
     
     try {
@@ -231,7 +233,7 @@ export const HighContrastModeEngine: React.FC<HighContrastModeEngineProps> = ({
   }, [settings.enabled, settings.customColors]);
   
   // Apply all optimizations
-  const applyAllOptimizations = React.useCallback(() => {
+  const applyAllOptimizations = useCallback(() => {
     applyContrastLevel();
     applyBoldText();
     applyLargerText();
@@ -248,14 +250,14 @@ export const HighContrastModeEngine: React.FC<HighContrastModeEngineProps> = ({
   ]);
   
   // Apply optimizations on component mount
-  React.useEffect(() => {
+  useEffect(() => {
     if (settings.enabled) {
       applyAllOptimizations();
     }
   }, [settings.enabled, applyAllOptimizations]);
   
   // Handle settings toggle
-  const handleSettingToggle = (setting: string, value: boolean | number) => {
+  const handleSettingToggle = (setting: string, value: boolean | number): void => {
     onSettingsChange({
       ...settings,
       [setting]: value
@@ -438,12 +440,16 @@ export const HighContrastModeEngine: React.FC<HighContrastModeEngineProps> = ({
             disabled={!settings.enabled || isApplying}
             className="w-full"
           >
-            {isApplying ? 'Applying Settings...' : 'Apply Settings'}
+            {isApplying ? 'Applying...' : 'Apply High Contrast Settings'}
           </Button>
         </CardFooter>
       </Card>
+      
+      <div className="mt-4 p-4 border border-blue-200 rounded-md bg-blue-50">
+        <p className="text-sm text-blue-800">
+          <strong>Tip:</strong> High contrast mode can significantly improve readability for users with low vision or color vision deficiencies.
+        </p>
+      </div>
     </div>
   );
 };
-
-export default HighContrastModeEngine;
