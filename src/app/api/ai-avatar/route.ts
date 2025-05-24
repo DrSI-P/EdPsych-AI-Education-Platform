@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import AvatarService from '@/lib/ai-avatar/avatar-service';
+import AvatarService, { AvatarProvider } from '@/lib/ai-avatar/avatar-service';
 
 // Initialize the avatar service with API keys from environment variables
 const avatarService = new AvatarService({
-  defaultProvider: (process.env.DEFAULT_AVATAR_PROVIDER as string) || 'veed',
+  defaultProvider: (process.env.DEFAULT_AVATAR_PROVIDER as AvatarProvider) || 'veed',
   veedApiKey: process.env.VEED_API_KEY,
   simliApiKey: process.env.SIMLI_API_KEY,
   elevenLabsApiKey: process.env.ELEVENLABS_API_KEY,
@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
     // Create avatar profile
     const profile = await avatarService.createAvatarProfile({
       name: data.name,
-      provider: data.provider,
+      provider: data.provider as AvatarProvider,
       imageUrl: data.imageUrl,
       providerSpecificId: data.providerSpecificId,
       voiceId: data.voiceId,
