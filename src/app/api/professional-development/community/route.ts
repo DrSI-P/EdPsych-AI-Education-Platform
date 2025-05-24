@@ -17,7 +17,21 @@ const replyCreateSchema = z.object({
   content: z.string().min(1),
 });
 
-export async function POST(req: NextRequest) {
+// Define interfaces for request data
+interface DiscussionCreateData {
+  userId: string;
+  courseId: string;
+  title: string;
+  content: string;
+}
+
+interface ReplyCreateData {
+  userId: string;
+  discussionId: string;
+  content: string;
+}
+
+export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
     const body = await req.json();
     const { action } = body;
@@ -42,7 +56,7 @@ export async function POST(req: NextRequest) {
   }
 }
 
-async function handleCreateDiscussion(body: any) {
+async function handleCreateDiscussion(body: DiscussionCreateData): Promise<NextResponse> {
   try {
     const { userId, courseId, title, content } = discussionCreateSchema.parse(body);
 
@@ -71,7 +85,7 @@ async function handleCreateDiscussion(body: any) {
   }
 }
 
-async function handleCreateReply(body: any) {
+async function handleCreateReply(body: ReplyCreateData): Promise<NextResponse> {
   try {
     const { userId, discussionId, content } = replyCreateSchema.parse(body);
 
@@ -105,7 +119,7 @@ async function handleCreateReply(body: any) {
   }
 }
 
-export async function GET(req: NextRequest) {
+export async function GET(req: NextRequest): Promise<NextResponse> {
   try {
     const url = new URL(req.url);
     const courseId = url.searchParams.get('courseId');
@@ -144,7 +158,7 @@ export async function GET(req: NextRequest) {
   }
 }
 
-async function getCourseDiscussions(courseId: string) {
+async function getCourseDiscussions(courseId: string): Promise<NextResponse> {
   const discussions = await prisma.courseDiscussion.findMany({
     where: {
       courseId,
@@ -171,7 +185,7 @@ async function getCourseDiscussions(courseId: string) {
   return NextResponse.json({ discussions }, { status: 200 });
 }
 
-async function getDiscussionReplies(discussionId: string) {
+async function getDiscussionReplies(discussionId: string): Promise<NextResponse> {
   const replies = await prisma.discussionReply.findMany({
     where: {
       discussionId,
