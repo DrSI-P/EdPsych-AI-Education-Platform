@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -27,26 +27,28 @@ interface KeyboardNavigationEngineProps {
   onSettingsChange: (settings: Record<string, unknown>) => void;
 }
 
+interface OptimizationResults {
+  elementsProcessed: number;
+  elementsEnhanced: number;
+  warnings: string[];
+}
+
 export const KeyboardNavigationEngine: React.FC<KeyboardNavigationEngineProps> = ({ 
   settings,
   onSettingsChange
 }) => {
   // State for UI
-  const [isApplying, setIsApplying] = React.useState<boolean>(false);
-  const [optimizationStatus, setOptimizationStatus] = React.useState<string>('idle');
-  const [optimizationProgress, setOptimizationProgress] = React.useState<number>(0);
-  const [optimizationResults, setOptimizationResults] = React.useState<{
-    elementsProcessed: number;
-    elementsEnhanced: number;
-    warnings: string[];
-  }>({
+  const [isApplying, setIsApplying] = useState<boolean>(false);
+  const [optimizationStatus, setOptimizationStatus] = useState<string>('idle');
+  const [optimizationProgress, setOptimizationProgress] = useState<number>(0);
+  const [optimizationResults, setOptimizationResults] = useState<OptimizationResults>({
     elementsProcessed: 0,
     elementsEnhanced: 0,
     warnings: []
   });
 
   // Apply keyboard navigation optimizations
-  const applyKeyboardNavigationOptimizations = React.useCallback(() => {
+  const applyKeyboardNavigationOptimizations = useCallback(() => {
     if (!settings.enabled) return;
     
     setIsApplying(true);
@@ -57,7 +59,7 @@ export const KeyboardNavigationEngine: React.FC<KeyboardNavigationEngineProps> =
     const totalSteps = 5;
     let currentStep = 0;
     
-    const processStep = () => {
+    const processStep = (): void => {
       currentStep++;
       setOptimizationProgress(Math.floor((currentStep / totalSteps) * 100));
       
@@ -84,14 +86,14 @@ export const KeyboardNavigationEngine: React.FC<KeyboardNavigationEngineProps> =
   }, [settings.enabled]);
   
   // Apply optimizations on settings change
-  React.useEffect(() => {
+  useEffect(() => {
     if (settings.enabled) {
       applyKeyboardNavigationOptimizations();
     }
   }, [settings.enabled, applyKeyboardNavigationOptimizations]);
   
   // Highlight focus
-  const highlightFocus = React.useCallback(() => {
+  const highlightFocus = useCallback(() => {
     if (!settings.enabled || !settings.highlightFocus) return;
     
     try {
@@ -122,7 +124,7 @@ export const KeyboardNavigationEngine: React.FC<KeyboardNavigationEngineProps> =
   }, [settings.enabled, settings.highlightFocus]);
   
   // Add keyboard shortcuts
-  const addKeyboardShortcuts = React.useCallback(() => {
+  const addKeyboardShortcuts = useCallback(() => {
     if (!settings.enabled || !settings.keyboardShortcuts) return;
     
     try {
@@ -227,7 +229,7 @@ export const KeyboardNavigationEngine: React.FC<KeyboardNavigationEngineProps> =
   }, [settings.enabled, settings.keyboardShortcuts]);
   
   // Add skip to content link
-  const addSkipToContent = React.useCallback(() => {
+  const addSkipToContent = useCallback(() => {
     if (!settings.enabled || !settings.skipToContent) return;
     
     try {
@@ -273,7 +275,7 @@ export const KeyboardNavigationEngine: React.FC<KeyboardNavigationEngineProps> =
   }, [settings.enabled, settings.skipToContent]);
   
   // Add arrow navigation
-  const addArrowNavigation = React.useCallback(() => {
+  const addArrowNavigation = useCallback(() => {
     if (!settings.enabled || !settings.arrowNavigation) return;
     
     try {
@@ -334,7 +336,7 @@ export const KeyboardNavigationEngine: React.FC<KeyboardNavigationEngineProps> =
   }, [settings.enabled, settings.arrowNavigation]);
   
   // Add tab trap
-  const addTabTrap = React.useCallback(() => {
+  const addTabTrap = useCallback(() => {
     if (!settings.enabled || !settings.tabTrap) return;
     
     try {
@@ -381,7 +383,7 @@ export const KeyboardNavigationEngine: React.FC<KeyboardNavigationEngineProps> =
   }, [settings.enabled, settings.tabTrap]);
   
   // Apply all optimizations
-  const applyAllOptimizations = React.useCallback(() => {
+  const applyAllOptimizations = useCallback(() => {
     highlightFocus();
     addKeyboardShortcuts();
     addSkipToContent();
@@ -396,14 +398,14 @@ export const KeyboardNavigationEngine: React.FC<KeyboardNavigationEngineProps> =
   ]);
   
   // Apply optimizations on component mount
-  React.useEffect(() => {
+  useEffect(() => {
     if (settings.enabled) {
       applyAllOptimizations();
     }
   }, [settings.enabled, applyAllOptimizations]);
   
   // Handle settings change
-  const handleSettingChange = (setting: string, value: boolean) => {
+  const handleSettingChange = (setting: string, value: boolean): void => {
     onSettingsChange({
       ...settings,
       [setting]: value
@@ -469,7 +471,7 @@ export const KeyboardNavigationEngine: React.FC<KeyboardNavigationEngineProps> =
               
               <div className="flex items-center justify-between">
                 <Label htmlFor="skip-to-content" className="flex items-center text-sm">
-                  Skip to Content
+                  Skip to Content Link
                 </Label>
                 <input
                   type="checkbox"
@@ -483,7 +485,7 @@ export const KeyboardNavigationEngine: React.FC<KeyboardNavigationEngineProps> =
               
               <div className="flex items-center justify-between">
                 <Label htmlFor="arrow-navigation" className="flex items-center text-sm">
-                  Arrow Navigation
+                  Arrow Key Navigation
                 </Label>
                 <input
                   type="checkbox"
@@ -497,7 +499,7 @@ export const KeyboardNavigationEngine: React.FC<KeyboardNavigationEngineProps> =
               
               <div className="flex items-center justify-between">
                 <Label htmlFor="tab-trap" className="flex items-center text-sm">
-                  Tab Trap for Dialogs
+                  Tab Trap for Modals
                 </Label>
                 <input
                   type="checkbox"
@@ -528,24 +530,25 @@ export const KeyboardNavigationEngine: React.FC<KeyboardNavigationEngineProps> =
                 
                 <div className="grid grid-cols-2 gap-2">
                   <Card className="p-3">
-                    <p className="text-sm font-medium">Elements Processed</p>
-                    <p className="text-2xl font-bold">{optimizationResults.elementsProcessed}</p>
+                    <div className="text-center">
+                      <p className="text-2xl font-bold">{optimizationResults.elementsProcessed}</p>
+                      <p className="text-sm text-muted-foreground">Elements Processed</p>
+                    </div>
                   </Card>
                   <Card className="p-3">
-                    <p className="text-sm font-medium">Elements Enhanced</p>
-                    <p className="text-2xl font-bold">{optimizationResults.elementsEnhanced}</p>
+                    <div className="text-center">
+                      <p className="text-2xl font-bold">{optimizationResults.elementsEnhanced}</p>
+                      <p className="text-sm text-muted-foreground">Elements Enhanced</p>
+                    </div>
                   </Card>
                 </div>
                 
                 {optimizationResults.warnings.length > 0 && (
-                  <div className="space-y-2">
-                    <p className="text-sm font-medium">Warnings</p>
-                    <ul className="space-y-1">
-                      {optimizationResults.warnings.map((warning, i) => (
-                        <li key={`warning-${i}`} className="text-sm text-amber-500 flex items-start">
-                          <AlertTriangle className="h-4 w-4 mr-1 mt-0.5 flex-shrink-0" />
-                          <span>{warning}</span>
-                        </li>
+                  <div className="p-3 bg-yellow-50 border border-yellow-200 rounded-md text-yellow-800">
+                    <p className="text-sm font-medium mb-2">Warnings:</p>
+                    <ul className="text-sm list-disc pl-5">
+                      {optimizationResults.warnings.map((warning, index) => (
+                        <li key={`warning-${index}`}>{warning}</li>
                       ))}
                     </ul>
                   </div>
@@ -560,18 +563,16 @@ export const KeyboardNavigationEngine: React.FC<KeyboardNavigationEngineProps> =
             disabled={!settings.enabled || isApplying}
             className="w-full"
           >
-            {isApplying ? 'Applying Optimizations...' : 'Apply Optimizations'}
+            {isApplying ? 'Applying...' : 'Apply Optimizations'}
           </Button>
         </CardFooter>
       </Card>
       
       <div className="mt-4 p-4 border border-blue-200 rounded-md bg-blue-50">
         <p className="text-sm text-blue-800">
-          <strong>Keyboard Navigation Tip:</strong> Press Alt+? to view available keyboard shortcuts when enabled.
+          <strong>Tip:</strong> Press <kbd className="px-2 py-1 bg-white border rounded text-xs">Alt + ?</kbd> to view available keyboard shortcuts when enabled.
         </p>
       </div>
     </div>
   );
 };
-
-export default KeyboardNavigationEngine;
