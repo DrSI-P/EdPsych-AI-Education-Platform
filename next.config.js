@@ -1,39 +1,110 @@
-// Modify the Next.js config to fix alias resolution issues
-const withPWA = require('next-pwa')({
-  dest: 'public',
-  disable: process.env.NODE_ENV === 'development',
-  register: true,
-  skipWaiting: true,
-});
+# Next.js Build Optimization Configuration
 
-module.exports = withPWA({
+/**
+ * @type {import('next').NextConfig}
+ */
+const nextConfig = {
   reactStrictMode: true,
-  // Remove swcMinify as it's causing warnings
-  // swcMinify: true,
-  webpack: (config, { isServer }) => {
-    // Explicitly define alias resolution
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      '@': require('path').resolve(__dirname, './src'),
-    };
+  swcMinify: true,
+  
+  // Enable incremental builds for faster rebuilds
+  experimental: {
+    // Enable incremental compilation
+    incrementalCacheHandlerPath: require.resolve('./cache-handler.js'),
     
-    // Handle Node.js specific modules for browser context
-    if (!isServer) {
-      config.resolve.fallback = {
-        ...config.resolve.fallback,
-        fs: false,
-        net: false,
-        tls: false,
-        crypto: require.resolve('crypto-browserify'),
-        stream: require.resolve('stream-browserify'),
-        path: require.resolve('path-browserify'),
-        zlib: require.resolve('browserify-zlib'),
-        http: require.resolve('stream-http'),
-        https: require.resolve('https-browserify'),
-        os: require.resolve('os-browserify/browser'),
+    // Enable server components for better performance
+    serverComponents: true,
+    
+    // Enable concurrent features for better rendering performance
+    concurrentFeatures: true,
+    
+    // Enable optimized image loading
+    images: {
+      allowFutureImage: true,
+    },
+  },
+  
+  // Configure module resolution and transpilation
+  transpilePackages: [
+    // Add any packages that need transpilation
+  ],
+  
+  // Optimize output for production
+  output: 'standalone',
+  
+  // Configure image optimization
+  images: {
+    domains: ['api.heygen.com', 'example.com'],
+    formats: ['image/avif', 'image/webp'],
+  },
+  
+  // Configure webpack for better performance
+  webpack: (config, { dev, isServer }) => {
+    // Add optimization for production builds
+    if (!dev) {
+      config.optimization.splitChunks = {
+        chunks: 'all',
+        cacheGroups: {
+          default: false,
+          vendors: false,
+          // Vendor chunk for third-party libraries
+          vendor: {
+            name: 'vendor',
+            chunks: 'all',
+            test: /node_modules/,
+            priority: 20,
+          },
+          // Common chunk for shared code
+          common: {
+            name: 'common',
+            minChunks: 2,
+            chunks: 'all',
+            priority: 10,
+            reuseExistingChunk: true,
+            enforce: true,
+          },
+        },
       };
     }
     
+    // Add module resolution aliases for better imports
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      // Add any additional aliases here
+    };
+    
     return config;
   },
-});
+  
+  // Configure environment variables
+  env: {
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
+    NEXT_PUBLIC_HEYGEN_API_KEY: process.env.NEXT_PUBLIC_HEYGEN_API_KEY,
+    NEXT_PUBLIC_HEYGEN_API_URL: process.env.NEXT_PUBLIC_HEYGEN_API_URL,
+  },
+  
+  // Configure headers for security
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff',
+          },
+          {
+            key: 'X-Frame-Options',
+            value: 'DENY',
+          },
+          {
+            key: 'X-XSS-Protection',
+            value: '1; mode=block',
+          },
+        ],
+      },
+    ];
+  },
+};
+
+module.exports = nextConfig;
