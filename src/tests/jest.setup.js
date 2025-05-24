@@ -1,5 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
+// @ts-check
 // Jest setup file
 import '@testing-library/jest-dom';
 import 'whatwg-fetch';
@@ -8,33 +7,73 @@ import { TextDecoder, TextEncoder } from 'util';
 // Mock the global fetch
 global.fetch = jest.fn();
 
-// Mock IntersectionObserver
+/**
+ * Mock IntersectionObserver implementation
+ */
 global.IntersectionObserver = class IntersectionObserver {
+  /**
+   * @param {IntersectionObserverCallback} callback - The callback to run when intersection changes
+   */
   constructor(callback) {
     this.callback = callback;
   }
+  
+  /**
+   * Mock observe method
+   * @returns {null}
+   */
   observe() {
     return null;
   }
+  
+  /**
+   * Mock unobserve method
+   * @returns {null}
+   */
   unobserve() {
     return null;
   }
+  
+  /**
+   * Mock disconnect method
+   * @returns {null}
+   */
   disconnect() {
     return null;
   }
 };
 
-// Mock ResizeObserver
+/**
+ * Mock ResizeObserver implementation
+ */
 global.ResizeObserver = class ResizeObserver {
+  /**
+   * @param {ResizeObserverCallback} callback - The callback to run when resize occurs
+   */
   constructor(callback) {
     this.callback = callback;
   }
+  
+  /**
+   * Mock observe method
+   * @returns {null}
+   */
   observe() {
     return null;
   }
+  
+  /**
+   * Mock unobserve method
+   * @returns {null}
+   */
   unobserve() {
     return null;
   }
+  
+  /**
+   * Mock disconnect method
+   * @returns {null}
+   */
   disconnect() {
     return null;
   }
@@ -72,7 +111,9 @@ global.SpeechRecognition = jest.fn().mockImplementation(() => ({
 
 global.webkitSpeechRecognition = global.SpeechRecognition;
 
-// Mock localStorage
+/**
+ * Mock localStorage implementation
+ */
 const localStorageMock = (function() {
   let store = {};
   return {
@@ -93,7 +134,9 @@ Object.defineProperty(window, 'localStorage', {
   value: localStorageMock,
 });
 
-// Mock sessionStorage
+/**
+ * Mock sessionStorage implementation
+ */
 const sessionStorageMock = (function() {
   let store = {};
   return {
@@ -115,5 +158,4 @@ Object.defineProperty(window, 'sessionStorage', {
 });
 
 // Suppress console errors during tests
-// eslint-disable-next-line no-undef
 jest.spyOn(console, 'error').mockImplementation(() => {});
