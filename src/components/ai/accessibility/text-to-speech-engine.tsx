@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -36,22 +36,9 @@ interface SpeechSynthesisVoiceType {
   voiceURI: string;
 }
 
-// Define SpeechSynthesis interface
-interface SpeechSynthesisType {
-  speaking: boolean;
-  paused: boolean;
-  pending: boolean;
-  onvoiceschanged: ((this: SpeechSynthesis, ev: Event) => any) | null;
-  getVoices(): SpeechSynthesisVoiceType[];
-  speak(utterance: SpeechSynthesisUtterance): void;
-  cancel(): void;
-  pause(): void;
-  resume(): void;
-}
-
 declare global {
   interface Window {
-    speechSynthesis: SpeechSynthesisType;
+    speechSynthesis: SpeechSynthesis;
   }
 }
 
@@ -60,18 +47,18 @@ export const TextToSpeechEngine: React.FC<TextToSpeechEngineProps> = ({
   onSettingsChange
 }) => {
   // State for UI and functionality
-  const [isSpeaking, setIsSpeaking] = React.useState<boolean>(false);
-  const [isPaused, setIsPaused] = React.useState<boolean>(false);
-  const [text, setText] = React.useState<string>('');
-  const [availableVoices, setAvailableVoices] = React.useState<SpeechSynthesisVoiceType[]>([]);
-  const [selectedVoice, setSelectedVoice] = React.useState<SpeechSynthesisVoiceType | null>(null);
-  const [speechSupported, setSpeechSupported] = React.useState<boolean>(true);
+  const [isSpeaking, setIsSpeaking] = useState<boolean>(false);
+  const [isPaused, setIsPaused] = useState<boolean>(false);
+  const [text, setText] = useState<string>('');
+  const [availableVoices, setAvailableVoices] = useState<SpeechSynthesisVoiceType[]>([]);
+  const [selectedVoice, setSelectedVoice] = useState<SpeechSynthesisVoiceType | null>(null);
+  const [speechSupported, setSpeechSupported] = useState<boolean>(true);
   
   // Reference for speech synthesis utterance
-  const utteranceRef = React.useRef<SpeechSynthesisUtterance | null>(null);
+  const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
   
   // Initialize speech synthesis
-  React.useEffect(() => {
+  useEffect(() => {
     // Check if speech synthesis is supported
     if (!('speechSynthesis' in window)) {
       setSpeechSupported(false);
@@ -79,7 +66,7 @@ export const TextToSpeechEngine: React.FC<TextToSpeechEngineProps> = ({
     }
     
     // Get available voices
-    const getVoices = () => {
+    const getVoices = (): void => {
       const voices = window.speechSynthesis.getVoices();
       setAvailableVoices(voices);
       
@@ -119,7 +106,7 @@ export const TextToSpeechEngine: React.FC<TextToSpeechEngineProps> = ({
   }, [settings.useUKVoice]);
   
   // Start speaking
-  const startSpeaking = () => {
+  const startSpeaking = (): void => {
     if (!window.speechSynthesis || !speechSupported || !text) return;
     
     // Cancel any ongoing speech
@@ -160,7 +147,7 @@ export const TextToSpeechEngine: React.FC<TextToSpeechEngineProps> = ({
   };
   
   // Stop speaking
-  const stopSpeaking = () => {
+  const stopSpeaking = (): void => {
     if (!window.speechSynthesis || !speechSupported) return;
     
     window.speechSynthesis.cancel();
@@ -169,7 +156,7 @@ export const TextToSpeechEngine: React.FC<TextToSpeechEngineProps> = ({
   };
   
   // Pause speaking
-  const pauseSpeaking = () => {
+  const pauseSpeaking = (): void => {
     if (!window.speechSynthesis || !speechSupported || !isSpeaking) return;
     
     window.speechSynthesis.pause();
@@ -177,7 +164,7 @@ export const TextToSpeechEngine: React.FC<TextToSpeechEngineProps> = ({
   };
   
   // Resume speaking
-  const resumeSpeaking = () => {
+  const resumeSpeaking = (): void => {
     if (!window.speechSynthesis || !speechSupported || !isPaused) return;
     
     window.speechSynthesis.resume();
@@ -185,7 +172,7 @@ export const TextToSpeechEngine: React.FC<TextToSpeechEngineProps> = ({
   };
   
   // Toggle speaking
-  const toggleSpeaking = () => {
+  const toggleSpeaking = (): void => {
     if (isSpeaking) {
       if (isPaused) {
         resumeSpeaking();
@@ -198,7 +185,7 @@ export const TextToSpeechEngine: React.FC<TextToSpeechEngineProps> = ({
   };
   
   // Handle settings change
-  const handleSettingChange = (setting: string, value: number | boolean) => {
+  const handleSettingChange = (setting: string, value: number | boolean): void => {
     const updatedSettings = {
       ...settings,
       [setting]: value
