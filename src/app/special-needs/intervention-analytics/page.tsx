@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -303,7 +305,7 @@ export default function InterventionAnalyticsPage(): React.ReactNode {
                     </CardHeader>
                     <CardContent className="pt-0">
                       <p className="text-sm text-muted-foreground">
-                        Provides a concise overview of intervention effectiveness for review meetings
+                        Includes progress summaries, intervention effectiveness, and next steps
                       </p>
                     </CardContent>
                     <CardFooter>
