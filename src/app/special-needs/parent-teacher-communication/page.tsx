@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Collaborate on emotional wellbeing through secure, structured communication channels for parents, teachers, and students.',
 };
 
-export default function ParentTeacherCommunicationPage() {
+export default function ParentTeacherCommunicationPage(): React.ReactNode {
   return (
     <div className="container mx-auto py-6">
       <ParentTeacherCommunication />
