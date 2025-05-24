@@ -18,7 +18,7 @@ export interface HeygenVideo {
 }
 
 // Mock data for testing
-const MOCK_VIDEOS = [
+export const MOCK_VIDEOS = [
   { 
     id: 'video1', 
     title: 'Introduction to Mathematics',
@@ -39,7 +39,7 @@ const MOCK_VIDEOS = [
   }
 ];
 
-export const HeygenVideoLibrary = () => {
+export const HeygenVideoLibrary = ({ testMode = false, emptyState = false }) => {
   const [loading, setLoading] = useState(false);
   const [videos, setVideos] = useState<HeygenVideo[]>([]);
   const [savedVideos, setSavedVideos] = useState<HeygenVideo[]>([]);
@@ -58,24 +58,30 @@ export const HeygenVideoLibrary = () => {
         setLoading(true);
         
         // Check if we're in a test environment
-        const isTestEnv = process.env.NODE_ENV === 'test' || 
+        const isTestEnv = testMode || 
+                         process.env.NODE_ENV === 'test' || 
                          typeof window !== 'undefined' && window.navigator.userAgent.includes('Node.js') ||
                          typeof window !== 'undefined' && window.navigator.userAgent.includes('jsdom');
         
         // Use mock data directly in test environment to avoid async issues
         if (isTestEnv) {
-          setVideos(MOCK_VIDEOS);
-          
-          // Load saved videos from localStorage
-          try {
-            const savedFromStorage = localStorage.getItem('savedVideos');
-            if (savedFromStorage) {
-              const parsed = JSON.parse(savedFromStorage);
-              setSavedVideos(Array.isArray(parsed) ? parsed : []);
-            }
-          } catch (e) {
-            console.error('Failed to parse saved videos:', e);
+          if (emptyState) {
+            setVideos([]);
             setSavedVideos([]);
+          } else {
+            setVideos(MOCK_VIDEOS);
+            
+            // Load saved videos from localStorage
+            try {
+              const savedFromStorage = localStorage.getItem('savedVideos');
+              if (savedFromStorage) {
+                const parsed = JSON.parse(savedFromStorage);
+                setSavedVideos(Array.isArray(parsed) ? parsed : []);
+              }
+            } catch (e) {
+              console.error('Failed to parse saved videos:', e);
+              setSavedVideos([]);
+            }
           }
           
           setLoading(false);
@@ -106,7 +112,7 @@ export const HeygenVideoLibrary = () => {
     };
     
     fetchVideos();
-  }, []);
+  }, [testMode, emptyState]);
 
   const handleVideoClick = (video: HeygenVideo) => {
     setSelectedVideo(video);
