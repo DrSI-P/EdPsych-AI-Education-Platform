@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * AI Avatar Navigation System Component
  * 
@@ -28,7 +30,7 @@ import { HelpCircle, X, Volume2, VolumeX } from 'lucide-react';
 import { useLocalStorage } from '@/lib/hooks/use-local-storage';
 
 // Navigation context mapping
-const NAVIGATION_CONTEXTS = {
+const NAVIGATION_CONTEXTS: Record<string, string> = {
   '/': 'welcome',
   '/dashboard': 'dashboard',
   '/curriculum': 'curriculum',
@@ -43,7 +45,7 @@ const NAVIGATION_CONTEXTS = {
 };
 
 // User role mapping
-const USER_ROLES = {
+const USER_ROLES: Record<string, string> = {
   'STUDENT_PRIMARY': 'student-primary',
   'STUDENT_SECONDARY': 'student-secondary',
   'TEACHER': 'educator',
@@ -58,6 +60,15 @@ interface AvatarNavigationProps {
   size?: 'sm' | 'md' | 'lg';
 }
 
+interface NavigationVideo {
+  url: string;
+  id: string;
+}
+
+interface NavigationVideoResponse {
+  videos: NavigationVideo[];
+}
+
 export default function AvatarNavigation({
   autoShowOnFirstVisit = true,
   position = 'bottom-right',
@@ -69,7 +80,7 @@ export default function AvatarNavigation({
   const [videoUrl, setVideoUrl] = useState<string | null>(null);
   const [muted, setMuted] = useState(false);
   const [visitedPages, setVisitedPages] = useLocalStorage<Record<string, boolean>>('avatar-visited-pages', {});
-  const [disableAutoShow, setDisableAutoShow] = useLocalStorage('avatar-disable-auto-show', false);
+  const [disableAutoShow, setDisableAutoShow] = useLocalStorage<boolean>('avatar-disable-auto-show', false);
   
   const router = useRouter();
   const pathname = usePathname();
@@ -77,14 +88,16 @@ export default function AvatarNavigation({
   
   // Determine the current context based on the pathname
   const getCurrentContext = useCallback(() => {
+    if (!pathname) return 'welcome';
+    
     // Exact match
-    if (NAVIGATION_CONTEXTS[pathname as keyof typeof NAVIGATION_CONTEXTS]) {
-      return NAVIGATION_CONTEXTS[pathname as keyof typeof NAVIGATION_CONTEXTS];
+    if (NAVIGATION_CONTEXTS[pathname]) {
+      return NAVIGATION_CONTEXTS[pathname];
     }
     
     // Partial match for nested routes
     for (const [path, context] of Object.entries(NAVIGATION_CONTEXTS)) {
-      if (path !== '/' && pathname?.startsWith(path)) {
+      if (path !== '/' && pathname.startsWith(path)) {
         return context;
       }
     }
@@ -98,7 +111,7 @@ export default function AvatarNavigation({
     if (!session?.user) return 'guest';
     
     const userRole = (session.user as any).role || 'STUDENT_SECONDARY';
-    return USER_ROLES[userRole as keyof typeof USER_ROLES] || 'student-secondary';
+    return USER_ROLES[userRole] || 'student-secondary';
   }, [session]);
   
   // Load the appropriate navigation video
@@ -119,7 +132,7 @@ export default function AvatarNavigation({
         throw new Error('Failed to load navigation video');
       }
       
-      const data = await response.json();
+      const data = await response.json() as NavigationVideoResponse;
       
       if (data.videos && data.videos.length > 0) {
         // Use the first video from the results
@@ -132,7 +145,7 @@ export default function AvatarNavigation({
           throw new Error('Failed to load fallback navigation video');
         }
         
-        const fallbackData = await fallbackResponse.json();
+        const fallbackData = await fallbackResponse.json() as NavigationVideoResponse;
         
         if (fallbackData.videos && fallbackData.videos.length > 0) {
           setVideoUrl(fallbackData.videos[0].url);
@@ -180,7 +193,7 @@ export default function AvatarNavigation({
   };
   
   // Position classes
-  const positionClasses = {
+  const positionClasses: Record<string, string> = {
     'bottom-right': 'bottom-4 right-4',
     'bottom-left': 'bottom-4 left-4',
     'top-right': 'top-4 right-4',
@@ -188,14 +201,14 @@ export default function AvatarNavigation({
   };
   
   // Size classes
-  const sizeClasses = {
+  const sizeClasses: Record<string, string> = {
     sm: 'h-10 w-10',
     md: 'h-12 w-12',
     lg: 'h-14 w-14',
   };
   
   // Dialog size classes
-  const dialogSizeClasses = {
+  const dialogSizeClasses: Record<string, string> = {
     sm: 'max-w-md',
     md: 'max-w-lg',
     lg: 'max-w-xl',
@@ -260,7 +273,7 @@ export default function AvatarNavigation({
                   <Button 
                     variant="outline" 
                     className="mt-2"
-                    onClick={loadNavigationVideo}
+                    onClick={() => loadNavigationVideo()}
                   >
                     Try Again
                   </Button>
