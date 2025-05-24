@@ -31,9 +31,41 @@ interface AdaptiveComplexityEngineProps {
   subject?: string;
   keyStage?: string;
   contentId?: string;
-  studentPerformanceData?: any;
-  onComplexityAdjusted?: (adjustedContent: any) => void;
+  studentPerformanceData?: PerformanceMetrics;
+  onComplexityAdjusted?: (adjustedContent: AdjustedContent) => void;
   className?: string;
+}
+
+interface ComplexitySettings {
+  targetComplexityLevel: number;
+  adaptToPerformance: boolean;
+  includeScaffolding: boolean;
+  includeExtensions: boolean;
+  preserveMultiModal: boolean;
+  adaptationStrength: number;
+  autoAssessComprehension: boolean;
+}
+
+interface PerformanceMetrics {
+  comprehensionLevel: number;
+  engagementLevel: number;
+  completionRate: number;
+  assessmentScore: number;
+  recommendedComplexity: number;
+}
+
+interface AdjustedContent {
+  original: string;
+  adjusted: string;
+  title: string;
+  complexity: number;
+  scaffolding?: string[];
+  extensions?: string[];
+  comprehensionChecks?: {
+    question: string;
+    options: string[];
+    correctAnswer: number;
+  }[];
 }
 
 export default function AdaptiveComplexityEngine({
@@ -47,9 +79,9 @@ export default function AdaptiveComplexityEngine({
   className
 }: AdaptiveComplexityEngineProps) {
   const [isAdjusting, setIsAdjusting] = useState(false);
-  const [adjustedContent, setAdjustedContent] = useState<any>(null);
+  const [adjustedContent, setAdjustedContent] = useState<AdjustedContent | null>(null);
   const [activeTab, setActiveTab] = useState('original');
-  const [settings, setSettings] = useState({
+  const [settings, setSettings] = useState<ComplexitySettings>({
     targetComplexityLevel: 50,
     adaptToPerformance: true,
     includeScaffolding: true,
@@ -58,7 +90,7 @@ export default function AdaptiveComplexityEngine({
     adaptationStrength: 70,
     autoAssessComprehension: true
   });
-  const [performanceMetrics, setPerformanceMetrics] = useState<any>(null);
+  const [performanceMetrics, setPerformanceMetrics] = useState<PerformanceMetrics | null>(null);
   
   // Fetch student performance data if available
   useEffect(() => {
@@ -424,113 +456,148 @@ export default function AdaptiveComplexityEngine({
             <Tabs defaultValue="original" value={activeTab} onValueChange={setActiveTab}>
               <TabsList className="grid w-full grid-cols-2">
                 <TabsTrigger value="original" className="flex items-centre gap-1">
+                  <BookOpen className="h-4 w-4" />
                   Original Content
-                  <Badge variant="outline" className={getComplexityBadgeColor(adjustedContent.originalComplexity)}>
-                    {adjustedContent.originalComplexity}%
-                  </Badge>
                 </TabsTrigger>
                 <TabsTrigger value="adjusted" className="flex items-centre gap-1">
+                  <Sparkles className="h-4 w-4" />
                   Adjusted Content
-                  <Badge variant="outline" className={getComplexityBadgeColor(adjustedContent.adjustedComplexity)}>
-                    {adjustedContent.adjustedComplexity}%
-                  </Badge>
                 </TabsTrigger>
               </TabsList>
               
-              <div className="mt-4 border rounded-md p-4">
-                <TabsContent value="original">
-                  <div className="prose prose-sm dark:prose-invert max-w-none">
-                    <h3>{adjustedContent.title || 'Original Content'}</h3>
-                    <div dangerouslySetInnerHTML={{ __html: adjustedContent.originalContent }} />
+              <TabsContent value="original" className="pt-4">
+                <div className="space-y-4">
+                  <div className="flex items-centre justify-between">
+                    <h3 className="text-lg font-medium">{title || "Original Content"}</h3>
+                    <Badge variant="outline" className={getComplexityBadgeColor(100 - settings.targetComplexityLevel)}>
+                      Original Complexity
+                    </Badge>
                   </div>
-                </TabsContent>
-                
-                <TabsContent value="adjusted">
-                  <div className="prose prose-sm dark:prose-invert max-w-none">
-                    <h3>{adjustedContent.title || 'Adjusted Content'}</h3>
-                    <div dangerouslySetInnerHTML={{ __html: adjustedContent.adjustedContent }} />
-                    
-                    {adjustedContent.scaffolding && settings.includeScaffolding && (
-                      <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900/30 rounded-md">
-                        <h4 className="text-sm font-medium flex items-centre gap-2 text-blue-700 dark:text-blue-300">
-                          <Lightbulb className="h-4 w-4" />
-                          Scaffolding Support
-                        </h4>
-                        <div dangerouslySetInnerHTML={{ __html: adjustedContent.scaffolding }} />
-                      </div>
-                    )}
-                    
-                    {adjustedContent.extensions && settings.includeExtensions && (
-                      <div className="mt-4 p-3 bg-purple-50 dark:bg-purple-900/30 rounded-md">
-                        <h4 className="text-sm font-medium flex items-centre gap-2 text-purple-700 dark:text-purple-300">
-                          <Zap className="h-4 w-4" />
-                          Extension Activities
-                        </h4>
-                        <div dangerouslySetInnerHTML={{ __html: adjustedContent.extensions }} />
-                      </div>
-                    )}
-                    
-                    {adjustedContent.comprehensionChecks && settings.autoAssessComprehension && (
-                      <div className="mt-4 p-3 bg-amber-50 dark:bg-amber-900/30 rounded-md">
-                        <h4 className="text-sm font-medium flex items-centre gap-2 text-amber-700 dark:text-amber-300">
-                          <AlertCircle className="h-4 w-4" />
-                          Comprehension Checks
-                        </h4>
-                        <div dangerouslySetInnerHTML={{ __html: adjustedContent.comprehensionChecks }} />
+                  
+                  <div className="prose max-w-none dark:prose-invert border rounded-md p-4 bg-slate-50 dark:bg-slate-900">
+                    {content || adjustedContent.original || (
+                      <div className="text-muted-foreground italic">
+                        Original content not available for preview
                       </div>
                     )}
                   </div>
-                </TabsContent>
-              </div>
+                </div>
+              </TabsContent>
+              
+              <TabsContent value="adjusted" className="pt-4">
+                <div className="space-y-4">
+                  <div className="flex items-centre justify-between">
+                    <h3 className="text-lg font-medium">{adjustedContent.title || "Adjusted Content"}</h3>
+                    <Badge variant="outline" className={getComplexityBadgeColor(settings.targetComplexityLevel)}>
+                      {settings.targetComplexityLevel}% - {getComplexityLevelDescription(settings.targetComplexityLevel)}
+                    </Badge>
+                  </div>
+                  
+                  <div className="prose max-w-none dark:prose-invert border rounded-md p-4 bg-slate-50 dark:bg-slate-900">
+                    {adjustedContent.adjusted || (
+                      <div className="text-muted-foreground italic">
+                        Adjusted content not available
+                      </div>
+                    )}
+                  </div>
+                  
+                  {adjustedContent.scaffolding && adjustedContent.scaffolding.length > 0 && (
+                    <div className="mt-6">
+                      <h4 className="text-md font-medium flex items-centre gap-2 mb-2">
+                        <Layers className="h-4 w-4 text-blue-600" />
+                        Scaffolding Support
+                      </h4>
+                      <div className="border rounded-md p-4 bg-blue-50 dark:bg-blue-950">
+                        <ul className="space-y-2">
+                          {adjustedContent.scaffolding.map((item, index) => (
+                            <li key={index} className="flex items-start gap-2">
+                              <div className="rounded-full bg-blue-200 text-blue-800 w-5 h-5 flex items-centre justify-centre flex-shrink-0 mt-0.5">
+                                {index + 1}
+                              </div>
+                              <div>{item}</div>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  )}
+                  
+                  {adjustedContent.extensions && adjustedContent.extensions.length > 0 && (
+                    <div className="mt-6">
+                      <h4 className="text-md font-medium flex items-centre gap-2 mb-2">
+                        <Zap className="h-4 w-4 text-amber-600" />
+                        Extension Activities
+                      </h4>
+                      <div className="border rounded-md p-4 bg-amber-50 dark:bg-amber-950">
+                        <ul className="space-y-2">
+                          {adjustedContent.extensions.map((item, index) => (
+                            <li key={index} className="flex items-start gap-2">
+                              <div className="rounded-full bg-amber-200 text-amber-800 w-5 h-5 flex items-centre justify-centre flex-shrink-0 mt-0.5">
+                                {index + 1}
+                              </div>
+                              <div>{item}</div>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  )}
+                  
+                  {adjustedContent.comprehensionChecks && adjustedContent.comprehensionChecks.length > 0 && (
+                    <div className="mt-6">
+                      <h4 className="text-md font-medium flex items-centre gap-2 mb-2">
+                        <Brain className="h-4 w-4 text-purple-600" />
+                        Comprehension Checks
+                      </h4>
+                      <div className="border rounded-md p-4 bg-purple-50 dark:bg-purple-950">
+                        {adjustedContent.comprehensionChecks.map((check, index) => (
+                          <div key={index} className="mb-4 last:mb-0">
+                            <p className="font-medium mb-2">{check.question}</p>
+                            <ul className="space-y-1">
+                              {check.options.map((option, optIndex) => (
+                                <li key={optIndex} className="flex items-start gap-2">
+                                  <div className={`rounded-full w-5 h-5 flex items-centre justify-centre flex-shrink-0 ${
+                                    optIndex === check.correctAnswer 
+                                      ? "bg-green-200 text-green-800" 
+                                      : "bg-slate-200 text-slate-800"
+                                  }`}>
+                                    {String.fromCharCode(65 + optIndex)}
+                                  </div>
+                                  <div>{option}</div>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </TabsContent>
             </Tabs>
-            
-            <div className="mt-4 bg-slate-50 dark:bg-slate-900 p-4 rounded-md">
-              <h4 className="text-sm font-medium mb-2">Complexity Adjustment Summary</h4>
-              <div className="space-y-2">
-                <div className="flex items-centre justify-between text-sm">
-                  <span>Original Complexity:</span>
-                  <Badge variant="outline" className={getComplexityBadgeColor(adjustedContent.originalComplexity)}>
-                    {adjustedContent.originalComplexity}% - {getComplexityLevelDescription(adjustedContent.originalComplexity)}
-                  </Badge>
-                </div>
-                <div className="flex items-centre justify-between text-sm">
-                  <span>Adjusted Complexity:</span>
-                  <Badge variant="outline" className={getComplexityBadgeColor(adjustedContent.adjustedComplexity)}>
-                    {adjustedContent.adjustedComplexity}% - {getComplexityLevelDescription(adjustedContent.adjustedComplexity)}
-                  </Badge>
-                </div>
-                <div className="flex items-centre justify-between text-sm">
-                  <span>Adaptation Type:</span>
-                  <Badge variant="outline">
-                    {adjustedContent.adaptationType}
-                  </Badge>
-                </div>
-              </div>
-            </div>
           </CardContent>
           
-          <CardFooter className="flex justify-between border-t pt-4">
-            <Button 
-              variant="outline" 
-              size="sm" 
-              onClick={() => setAdjustedContent(null)}
-              className="flex items-centre gap-1"
-            >
-              Reset
-            </Button>
-            <Button 
-              variant="default" 
-              size="sm"
-              onClick={() => {
-                toast({
-                  title: "Content saved",
-                  description: "The adjusted content has been saved to your account.",
-                });
-              }}
-              className="flex items-centre gap-1"
-            >
-              Save Adjusted Content
-            </Button>
+          <CardFooter className="border-t pt-4">
+            <div className="w-full flex justify-between items-centre">
+              <Button 
+                variant="outline" 
+                onClick={() => setActiveTab('original')}
+                className="flex items-centre gap-1"
+                disabled={activeTab === 'original'}
+              >
+                <ArrowRight className="h-4 w-4 rotate-180" />
+                View Original
+              </Button>
+              
+              <Button 
+                onClick={() => setActiveTab('adjusted')}
+                className="flex items-centre gap-1"
+                disabled={activeTab === 'adjusted'}
+              >
+                View Adjusted
+                <ArrowRight className="h-4 w-4" />
+              </Button>
+            </div>
           </CardFooter>
         </Card>
       )}
