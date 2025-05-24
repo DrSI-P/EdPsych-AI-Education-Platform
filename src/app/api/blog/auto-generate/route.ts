@@ -1,10 +1,3 @@
-/**
- * Automatic Blog Post Generation API
- * 
- * This API route handles the generation, management, and retrieval of
- * automatically generated blog posts for the EdPsych AI Education Platform.
- */
-
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth/auth-options';
@@ -17,6 +10,12 @@ import {
   generateBlogPostIdeas
 } from '@/lib/blog/blog-service';
 
+/**
+ * Automatic Blog Post Generation API
+ * 
+ * This API route handles the generation, management, and retrieval of
+ * automatically generated blog posts for the EdPsych AI Education Platform.
+ */
 export async function POST(req: NextRequest) {
   try {
     // Get the authenticated user
