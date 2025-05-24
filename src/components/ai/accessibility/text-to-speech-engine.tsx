@@ -422,4 +422,4 @@ export const TextToSpeechEngine: React.FC<TextToSpeechEngineProps> = ({
   );
 };
 
-export default TextToSpeechEngine;
+export { TextToSpeechEngine };

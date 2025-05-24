@@ -569,4 +569,4 @@ export const ColorBlindnessModeEngine: React.FC<ColorBlindnessModeEngineProps> =
   );
 };
 
-export default ColorBlindnessModeEngine;
+export { ColorBlindnessModeEngine };
