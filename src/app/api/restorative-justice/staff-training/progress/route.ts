@@ -82,7 +82,6 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     // Using a type guard instead of console.error
     if (error instanceof Error) {
       // Log error in a production-safe way
-      const errorMessage = `Error retrieving progress: ${error.message}`;
       // We could use a proper logging service here instead of console
     }
     return NextResponse.json({ error: 'Failed to retrieve progress' }, { status: 500 });
@@ -252,7 +251,6 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     // Using a type guard instead of console.error
     if (error instanceof Error) {
       // Log error in a production-safe way
-      const errorMessage = `Error updating progress: ${error.message}`;
       // We could use a proper logging service here instead of console
     }
     return NextResponse.json({ error: 'Failed to update progress' }, { status: 500 });
