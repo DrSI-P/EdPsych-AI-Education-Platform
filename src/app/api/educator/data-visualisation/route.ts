@@ -1,10 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import { PrismaClient } from '@prisma/client';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-
-const prisma = new PrismaClient();
 
 // Schema for data request
 const dataRequestSchema = z.object({
@@ -33,6 +30,16 @@ const dataRequestSchema = z.object({
   customQuery: z.string().optional(),
 });
 
+// Define type for chart settings to avoid 'any'
+interface ChartSettings {
+  [key: string]: string | number | boolean | string[] | number[] | null;
+}
+
+// Define type for filters to avoid 'any'
+interface DashboardFilters {
+  [key: string]: string | number | boolean | object | null;
+}
+
 // Schema for dashboard configuration
 const dashboardConfigSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -47,14 +54,43 @@ const dashboardConfigSchema = z.object({
       chartType: z.string(),
       dataSource: z.string(),
       title: z.string(),
-      settings: z.record(z.string(), z.any()).optional(),
+      settings: z.record(z.string(), z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        z.array(z.string()),
+        z.array(z.number()),
+        z.null()
+      ])).optional(),
     })
   ),
   filters: z.record(z.string(), z.any()).optional(),
   theme: z.string().optional(),
 });
 
-export async function POST(req: NextRequest) {
+// Define interface for request body
+interface RequestBody {
+  action: string;
+  config?: unknown;
+  configId?: string;
+  dataType?: string;
+  timeRange?: {
+    from: string;
+    to: string;
+  };
+  filters?: unknown;
+  aggregation?: string;
+}
+
+// Define interface for session
+interface UserSession {
+  user: {
+    id: string;
+    [key: string]: unknown;
+  };
+}
+
+export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
     
@@ -65,18 +101,18 @@ export async function POST(req: NextRequest) {
       );
     }
     
-    const body = await req.json();
+    const body = await req.json() as RequestBody;
     const { action } = body;
     
     switch (action) {
       case "get_data":
-        return handleGetData(body, session);
+        return handleGetData(body, session as UserSession);
       case "save_dashboard_config":
-        return handleSaveDashboardConfig(body, session);
+        return handleSaveDashboardConfig(body, session as UserSession);
       case "get_dashboard_config":
-        return handleGetDashboardConfig(body, session);
+        return handleGetDashboardConfig(body, session as UserSession);
       case "delete_dashboard_config":
-        return handleDeleteDashboardConfig(body, session);
+        return handleDeleteDashboardConfig(body, session as UserSession);
       default:
         return NextResponse.json(
           { error: "Invalid action" },
@@ -84,6 +120,7 @@ export async function POST(req: NextRequest) {
         );
     }
   } catch (error) {
+    // Replace console.error with structured logging when available
     console.error("Error in data visualisation API:", error);
     return NextResponse.json(
       { error: "Internal server error" },
@@ -92,7 +129,7 @@ export async function POST(req: NextRequest) {
   }
 }
 
-async function handleGetData(body: any, session: any) {
+async function handleGetData(body: RequestBody, session: UserSession): Promise<NextResponse> {
   try {
     const { dataType, timeRange, filters, aggregation } = 
       dataRequestSchema.parse(body);
@@ -207,7 +244,7 @@ async function handleGetData(body: any, session: any) {
   }
 }
 
-async function handleSaveDashboardConfig(body: any, session: any) {
+async function handleSaveDashboardConfig(body: RequestBody, session: UserSession): Promise<NextResponse> {
   try {
     const { config } = body;
     const validatedConfig = dashboardConfigSchema.parse(config);
@@ -243,7 +280,7 @@ async function handleSaveDashboardConfig(body: any, session: any) {
   }
 }
 
-async function handleGetDashboardConfig(body: any, session: any) {
+async function handleGetDashboardConfig(body: RequestBody, session: UserSession): Promise<NextResponse> {
   const { configId } = body;
   
   // In a real implementation, this would:
@@ -381,7 +418,7 @@ async function handleGetDashboardConfig(body: any, session: any) {
   }
 }
 
-async function handleDeleteDashboardConfig(body: any, session: any) {
+async function handleDeleteDashboardConfig(body: RequestBody, session: UserSession): Promise<NextResponse> {
   const { configId } = body;
   
   // In a real implementation, this would:
@@ -397,7 +434,7 @@ async function handleDeleteDashboardConfig(body: any, session: any) {
   });
 }
 
-export async function GET(req: NextRequest) {
+export async function GET(req: NextRequest): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
     
@@ -412,8 +449,9 @@ export async function GET(req: NextRequest) {
     const url = new URL(req.url);
     const configId = url.searchParams.get("configId");
     
-    return handleGetDashboardConfig({ configId }, session);
+    return handleGetDashboardConfig({ configId, action: "get_dashboard_config" }, session as UserSession);
   } catch (error) {
+    // Replace console.error with structured logging when available
     console.error("Error in data visualisation API:", error);
     return NextResponse.json(
       { error: "Internal server error" },
