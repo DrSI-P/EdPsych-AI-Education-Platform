@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * Voice Input Accessibility Component
  * 
@@ -13,7 +15,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { Mic, MicOff, Loader2 } from 'lucide-react';
+import { Mic, MicOff } from 'lucide-react';
 import { useLocalStorage } from '@/lib/hooks/use-local-storage';
 
 interface VoiceInputProps {
@@ -25,6 +27,10 @@ interface VoiceInputProps {
   className?: string;
   buttonSize?: 'sm' | 'md' | 'lg';
   disabled?: boolean;
+}
+
+interface ButtonSizeClasses {
+  [key: string]: string;
 }
 
 export default function VoiceInput({
@@ -43,7 +49,7 @@ export default function VoiceInput({
   const [supported, setSupported] = useState(true);
   const [permission, setPermission] = useState<PermissionState | null>(null);
   const recognitionRef = useRef<any>(null);
-  const [voiceEnabled, setVoiceEnabled] = useLocalStorage('voice-input-enabled', true);
+  const [voiceEnabled, setVoiceEnabled] = useLocalStorage<boolean>('voice-input-enabled', true);
   
   // Initialize speech recognition
   useEffect(() => {
@@ -79,7 +85,7 @@ export default function VoiceInput({
       }
     };
     
-    recognitionRef.current.onresult = (event: any) => {
+    recognitionRef.current.onresult = (event: SpeechRecognitionEvent) => {
       let interimTranscript = '';
       let finalTranscript = '';
       
@@ -107,7 +113,7 @@ export default function VoiceInput({
       }
     };
     
-    recognitionRef.current.onerror = (event: any) => {
+    recognitionRef.current.onerror = (event: SpeechRecognitionErrorEvent) => {
       console.error('Speech recognition error:', event.error);
       
       switch (event.error) {
@@ -160,7 +166,7 @@ export default function VoiceInput({
         }
       }
     };
-  }, [language, continuous, autoStart, onTextCapture, voiceEnabled]);
+  }, [language, continuous, autoStart, onTextCapture, voiceEnabled, error]);
   
   // Start listening
   const startListening = () => {
@@ -209,7 +215,7 @@ export default function VoiceInput({
   };
   
   // Button size classes
-  const buttonSizeClasses = {
+  const buttonSizeClasses: ButtonSizeClasses = {
     sm: 'h-8 w-8',
     md: 'h-10 w-10',
     lg: 'h-12 w-12',
@@ -332,5 +338,33 @@ declare global {
   interface Window {
     webkitSpeechRecognition: any;
     SpeechRecognition: any;
+  }
+  
+  interface SpeechRecognitionEvent extends Event {
+    resultIndex: number;
+    results: SpeechRecognitionResultList;
+  }
+  
+  interface SpeechRecognitionResultList {
+    length: number;
+    item(index: number): SpeechRecognitionResult;
+    [index: number]: SpeechRecognitionResult;
+  }
+  
+  interface SpeechRecognitionResult {
+    length: number;
+    item(index: number): SpeechRecognitionAlternative;
+    [index: number]: SpeechRecognitionAlternative;
+    isFinal: boolean;
+  }
+  
+  interface SpeechRecognitionAlternative {
+    transcript: string;
+    confidence: number;
+  }
+  
+  interface SpeechRecognitionErrorEvent extends Event {
+    error: string;
+    message: string;
   }
 }
