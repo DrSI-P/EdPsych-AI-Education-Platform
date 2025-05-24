@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import AvatarService from '@/lib/ai-avatar/avatar-service';
+import AvatarService, { AvatarProvider } from '@/lib/ai-avatar/avatar-service';
 
 // Initialize the avatar service with API keys from environment variables
 const avatarService = new AvatarService({
-  defaultProvider: process.env.DEFAULT_AVATAR_PROVIDER as any || 'veed',
+  defaultProvider: (process.env.DEFAULT_AVATAR_PROVIDER as AvatarProvider) || 'veed',
   veedApiKey: process.env.VEED_API_KEY,
   simliApiKey: process.env.SIMLI_API_KEY,
   elevenLabsApiKey: process.env.ELEVENLABS_API_KEY,
@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
     const data = await request.json();
     
     // Validate required fields
-    if (!data.script || !data.avatarProfileId: any) {
+    if (!data.script || !data.avatarProfileId) {
       return NextResponse.json(
         { error: 'Missing required fields: script and avatarProfileId are required' },
         { status: 400 }
@@ -40,8 +40,8 @@ export async function POST(request: NextRequest) {
       callToAction: data.callToAction,
     });
     
-    return NextResponse.json(result: any);
-  } catch (error: any) {
+    return NextResponse.json(result);
+  } catch (error) {
     console.error('Error generating video:', error);
     return NextResponse.json(
       { error: 'Failed to generate video' },

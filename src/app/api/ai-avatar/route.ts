@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
     const data = await request.json();
     
     // Validate required fields
-    if (!data.name || !data.provider: any) {
+    if (!data.name || !data.provider) {
       return NextResponse.json(
         { error: 'Missing required fields: name and provider are required' },
         { status: 400 }
@@ -38,8 +38,8 @@ export async function POST(request: NextRequest) {
       accentPreference: data.accentPreference,
     });
     
-    return NextResponse.json(profile: any);
-  } catch (error: any) {
+    return NextResponse.json(profile);
+  } catch (error) {
     console.error('Error creating avatar profile:', error);
     return NextResponse.json(
       { error: 'Failed to create avatar profile' },
@@ -52,24 +52,22 @@ export async function POST(request: NextRequest) {
  * GET /api/ai-avatar/video/:id
  * Get the status of a video generation job
  */
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function GET(request: NextRequest) {
   try {
-    const videoId = params.id;
+    const { searchParams } = new URL(request.url);
+    const videoId = searchParams.get('id');
     
-    if (!videoId: any) {
+    if (!videoId) {
       return NextResponse.json(
         { error: 'Video ID is required' },
         { status: 400 }
       );
     }
     
-    const status = await avatarService.getVideoStatus(videoId: any);
+    const status = await avatarService.getVideoStatus(videoId);
     
-    return NextResponse.json(status: any);
-  } catch (error: any) {
+    return NextResponse.json(status);
+  } catch (error) {
     console.error('Error getting video status:', error);
     return NextResponse.json(
       { error: 'Failed to get video status' },
