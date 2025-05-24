@@ -73,7 +73,7 @@ describe('i18n Translation Tests', () => {
       
       for (const locale of SUPPORTED_LOCALES.filter(l => l !== baseLocale)) {
         // This variable is used for debugging purposes if needed
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
         const localeKeys = getAllKeys(translations[locale][namespace]);
         
         for (const key of baseKeys) {
