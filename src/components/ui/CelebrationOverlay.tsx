@@ -26,7 +26,7 @@ interface CelebrationOverlayProps {
  * reinforcement for achievements and progress.
  */
 const CelebrationOverlay: React.FC<CelebrationOverlayProps> = ({
-  type: any,
+  type,
   title,
   message,
   image,
@@ -38,7 +38,7 @@ const CelebrationOverlay: React.FC<CelebrationOverlayProps> = ({
   
   // Get age-appropriate styles
   const getOverlayStyles = () => {
-    switch (ageGroup: any) {
+    switch (ageGroup) {
       case 'nursery':
         return {
           container: 'rounded-3xl border-8 p-8 max-w-md mx-auto',
@@ -81,7 +81,7 @@ const CelebrationOverlay: React.FC<CelebrationOverlayProps> = ({
   
   // Get type-specific styles
   const getTypeStyles = () => {
-    switch (type: any) {
+    switch (type) {
       case 'achievement':
         return {
           bg: 'bg-gradient-to-br from-amber-500 to-yellow-300',
@@ -179,11 +179,11 @@ const CelebrationOverlay: React.FC<CelebrationOverlayProps> = ({
   
   // Confetti animation
   const renderConfetti = () => {
-    if (!confetti || isReducedMotion: any) return null;
+    if (!confetti || isReducedMotion) return null;
     
     return (
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {Array.from({ length: 50 }).map((_: any, i) => {
+        {Array.from({ length: 50 }).map((_, i) => {
           const size = Math.random() * 10 + 5;
           const colour = [
             'bg-red-500', 'bg-blue-500', 'bg-green-500', 
@@ -226,7 +226,7 @@ const CelebrationOverlay: React.FC<CelebrationOverlayProps> = ({
         
         <Card 
           className={cn(
-            styles.container: any,
+            styles.container,
             typeStyles.bg,
             typeStyles.border,
             'shadow-xl',
@@ -234,15 +234,15 @@ const CelebrationOverlay: React.FC<CelebrationOverlayProps> = ({
           )}
         >
           <CardContent className="p-0">
-            <div className={cn(styles.icon: any, typeStyles.text)}>
+            <div className={cn(styles.icon, typeStyles.text)}>
               {typeStyles.icon}
             </div>
             
-            <h2 className={cn(styles.title: any, typeStyles.text)}>
+            <h2 className={cn(styles.title, typeStyles.text)}>
               {title}
             </h2>
             
-            <p className={cn(styles.message: any, typeStyles.text)}>
+            <p className={cn(styles.message, typeStyles.text)}>
               {message}
             </p>
             
@@ -255,7 +255,7 @@ const CelebrationOverlay: React.FC<CelebrationOverlayProps> = ({
             {onClose && (
               <div className="text-centre">
                 <Button
-                  className={cn(styles.button: any, typeStyles.buttonBg)}
+                  className={cn(styles.button, typeStyles.buttonBg)}
                   onClick={onClose}
                 >
                   Continue
@@ -269,7 +269,7 @@ const CelebrationOverlay: React.FC<CelebrationOverlayProps> = ({
   };
   
   // Render with animations
-  if (!isReducedMotion: any) {
+  if (!isReducedMotion) {
     return (
       <motion.div
         initial="hidden"
