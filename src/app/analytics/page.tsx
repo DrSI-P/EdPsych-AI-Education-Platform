@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { StudentProgressTracking } from "@/components/analytics/student-progress-tracking";
 import { EducatorPerformanceAnalytics } from "@/components/analytics/educator-performance-analytics";
 import { ResourceAndAssessmentAnalytics } from "@/components/analytics/resource-and-assessment-analytics";
-import { CustomReportBuilder } from "@/components/analytics/custom-report-builder";
+import CustomReportBuilder from "@/components/analytics/custom-report-builder";
 
 export default function AnalyticsAndReportingPage() {
   return (
