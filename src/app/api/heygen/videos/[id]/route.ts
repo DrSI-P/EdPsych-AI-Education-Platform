@@ -46,12 +46,13 @@ export async function GET(
     const video = await heygenService.getVideo(videoId);
     
     // Check if user has access to this video
-    const userVideo = await db.userVideos.findMany({take: 1})[0] || {
+    const userVideo = await db.userVideos.findMany({
       where: {
         videoId,
         userId
-      }
-    });
+      },
+      take: 1
+    })[0];
     
     // If video doesn't belong to user and isn't public, deny access
     if (!userVideo && video.metadata?.userId !== userId && !video.metadata?.isPublic) {
