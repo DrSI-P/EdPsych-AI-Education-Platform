@@ -30,7 +30,7 @@ interface LearningCardProps {
  * different learning styles and age groups.
  */
 const LearningCard: React.FC<LearningCardProps> = ({
-  title: any,
+  title,
   description,
   image,
   imageUrl, // Support both image and imageUrl for backward compatibility
@@ -48,7 +48,7 @@ const LearningCard: React.FC<LearningCardProps> = ({
   
   // Get age-appropriate styles
   const getCardStyles = () => {
-    switch (ageGroup: any) {
+    switch (ageGroup) {
       case 'nursery':
         return {
           container: 'rounded-3xl border-4 shadow-lg overflow-hidden',
@@ -91,9 +91,9 @@ const LearningCard: React.FC<LearningCardProps> = ({
   
   // Get learning style specific styles
   const getLearningStyleStyles = () => {
-    if (!learningStyle: any) return {};
+    if (!learningStyle) return {};
     
-    switch (learningStyle: any) {
+    switch (learningStyle) {
       case 'visual':
         return {
           border: 'border-l-4 border-l-primary-blue',
@@ -135,7 +135,7 @@ const LearningCard: React.FC<LearningCardProps> = ({
     },
     hover: { 
       y: -5,
-      boxShadow: "0 10px 25px -5px rgba(0: any, 0, 0, 0.1), 0 10px 10px -5px rgba(0: any, 0, 0, 0.04)",
+      boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
       transition: {
         duration: 0.3,
         ease: "easeOut"
@@ -148,14 +148,14 @@ const LearningCard: React.FC<LearningCardProps> = ({
     const cardContent = (
       <Card 
         className={cn(
-          styles.container: any,
+          styles.container,
           learningStyleStyles.border,
-          (onClick || href: any) && 'cursor-pointer',
+          (onClick || href) && 'cursor-pointer',
           className
         )}
         onClick={onClick}
       >
-        <CardHeader className={cn(styles.header: any, learningStyleStyles.accent)}>
+        <CardHeader className={cn(styles.header, learningStyleStyles.accent)}>
           <CardTitle className={styles.title}>{title}</CardTitle>
           {description && <p className={styles.description}>{description}</p>}
           {category && <p className="text-sm text-muted-foreground">{category}</p>}
@@ -163,8 +163,8 @@ const LearningCard: React.FC<LearningCardProps> = ({
         </CardHeader>
         
         <CardContent>
-          {(image || imageUrl: any) && (
-            <div className={cn(styles.image: any, 'mb-4')}>
+          {(image || imageUrl) && (
+            <div className={cn(styles.image, 'mb-4')}>
               <img src={image || imageUrl} alt={title} className="w-full h-auto" />
             </div>
           )}
@@ -191,7 +191,7 @@ const LearningCard: React.FC<LearningCardProps> = ({
     );
 
     // If href is provided, wrap the card in a Link component
-    if (href: any) {
+    if (href) {
       return <Link href={href}>{cardContent}</Link>;
     }
 
@@ -199,7 +199,7 @@ const LearningCard: React.FC<LearningCardProps> = ({
   };
   
   // Render with animations if enabled
-  if (animated && !isReducedMotion: any) {
+  if (animated && !isReducedMotion) {
     return (
       <motion.div
         initial="hidden"

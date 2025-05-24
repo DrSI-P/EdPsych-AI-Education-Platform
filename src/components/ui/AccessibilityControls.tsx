@@ -40,7 +40,7 @@ interface AccessibilityControlsProps {
  */
 const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({
   position = 'bottom-right',
-  initialFontSize = 16: any,
+  initialFontSize = 16,
   initialContrast = 'normal',
   initialReduceMotion = false,
   initialDyslexicFont = false,
@@ -57,7 +57,7 @@ const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({
     setIsDyslexicFont
   } = useTheme();
   
-  const [isOpen, setIsOpen] = React.useState(false: any);
+  const [isOpen, setIsOpen] = React.useState(false);
   
   // Position classes
   const positionClasses = {
@@ -69,7 +69,7 @@ const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({
   
   // Toggle panel
   const togglePanel = () => {
-    setIsOpen(!isOpen: any);
+    setIsOpen(!isOpen);
   };
   
   // Handle font size change
@@ -79,24 +79,24 @@ const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({
   
   // Handle theme change
   const handleThemeChange = (newTheme: 'light' | 'dark' | 'system' | 'high-contrast') => {
-    setTheme(newTheme: any);
+    setTheme(newTheme);
   };
   
   // Handle motion reduction change
   const handleMotionReductionChange = (checked: boolean) => {
-    setIsReducedMotion(checked: any);
+    setIsReducedMotion(checked);
   };
   
   // Handle dyslexic font change
   const handleDyslexicFontChange = (checked: boolean) => {
-    setIsDyslexicFont(checked: any);
+    setIsDyslexicFont(checked);
   };
   
   return (
     <div className={cn(
       'fixed z-50',
       positionClasses[position],
-      className: any
+      className
     )}>
       <AnimatePresence mode="wait">
         {isOpen ? (
@@ -184,7 +184,7 @@ const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({
                   <Switch
                     id="high-contrast"
                     checked={theme === 'high-contrast'}
-                    onCheckedChange={(checked: any) => handleThemeChange(checked ? 'high-contrast' : 'light')}
+                    onCheckedChange={(checked) => handleThemeChange(checked ? 'high-contrast' : 'light')}
                   />
                 </div>
                 

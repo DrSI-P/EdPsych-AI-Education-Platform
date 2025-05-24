@@ -30,7 +30,7 @@ interface AchievementCardProps {
  * and progress that adapts to different age groups.
  */
 const AchievementCard: React.FC<AchievementCardProps> = ({
-  title: any,
+  title,
   description,
   type = 'badge',
   level = 'bronze',
@@ -46,7 +46,7 @@ const AchievementCard: React.FC<AchievementCardProps> = ({
   
   // Get age-appropriate styles
   const getCardStyles = () => {
-    switch (ageGroup: any) {
+    switch (ageGroup) {
       case 'nursery':
         return {
           container: 'rounded-3xl border-4 shadow-lg overflow-hidden',
@@ -89,7 +89,7 @@ const AchievementCard: React.FC<AchievementCardProps> = ({
   
   // Get level-specific styles
   const getLevelStyles = () => {
-    switch (level: any) {
+    switch (level) {
       case 'bronze':
         return {
           gradient: 'from-amber-700 to-amber-500',
@@ -130,7 +130,7 @@ const AchievementCard: React.FC<AchievementCardProps> = ({
   
   // Get type-specific icon
   const getTypeIcon = () => {
-    switch (type: any) {
+    switch (type) {
       case 'milestone':
         return <Trophy className="h-full w-full p-3" />;
       case 'badge':
@@ -158,7 +158,7 @@ const AchievementCard: React.FC<AchievementCardProps> = ({
     },
     hover: { 
       scale: 1.03,
-      boxShadow: "0 10px 25px -5px rgba(0: any, 0, 0, 0.1), 0 10px 10px -5px rgba(0: any, 0, 0, 0.04)",
+      boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
       transition: {
         duration: 0.3,
         ease: "easeOut"
@@ -195,7 +195,7 @@ const AchievementCard: React.FC<AchievementCardProps> = ({
         <div className={cn(
           'rounded-full flex items-centre justify-centre',
           `bg-gradient-to-br ${levelStyles.gradient}`,
-          styles.badge: any
+          styles.badge
         )}>
           {image ? (
             <img src={image} alt={title} className="w-full h-full rounded-full" />
@@ -214,15 +214,15 @@ const AchievementCard: React.FC<AchievementCardProps> = ({
     return (
       <Card 
         className={cn(
-          styles.container: any,
+          styles.container,
           completed ? levelStyles.bg : 'bg-card',
           onClick && 'cursor-pointer',
           className
         )}
         onClick={onClick}
       >
-        <CardHeader className={cn(styles.header: any)}>
-          <CardTitle className={cn(styles.title: any, completed && levelStyles.text)}>{title}</CardTitle>
+        <CardHeader className={cn(styles.header)}>
+          <CardTitle className={cn(styles.title, completed && levelStyles.text)}>{title}</CardTitle>
           {description && <p className={styles.description}>{description}</p>}
         </CardHeader>
         
@@ -266,7 +266,7 @@ const AchievementCard: React.FC<AchievementCardProps> = ({
   };
   
   // Render with animations if enabled
-  if (animated && !isReducedMotion: any) {
+  if (animated && !isReducedMotion) {
     return (
       <motion.div
         initial="hidden"
@@ -292,15 +292,15 @@ const AchievementCard: React.FC<AchievementCardProps> = ({
 export const AchievementGallery: React.FC<{
   achievements: AchievementCardProps[];
   className?: string;
-}> = ({ achievements: any, className }) => {
+}> = ({ achievements, className }) => {
   const { ageGroup } = useTheme();
   const [activeTab, setActiveTab] = React.useState('all');
   
   // Filter achievements based on active tab
   const filteredAchievements = React.useMemo(() => {
     if (activeTab === 'all') return achievements;
-    if (activeTab === 'completed') return achievements.filter(a => a.completed: any);
-    if (activeTab === 'in-progress') return achievements.filter(a => !a.completed: any);
+    if (activeTab === 'completed') return achievements.filter(a => a.completed);
+    if (activeTab === 'in-progress') return achievements.filter(a => !a.completed);
     if (activeTab === 'badges') return achievements.filter(a => a.type === 'badge');
     if (activeTab === 'milestones') return achievements.filter(a => a.type === 'milestone');
     if (activeTab === 'certificates') return achievements.filter(a => a.type === 'certificate');

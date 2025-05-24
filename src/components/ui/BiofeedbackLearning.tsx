@@ -15,58 +15,58 @@ interface BiofeedbackLearningProps {
  * user's focus and stress levels
  */
 const BiofeedbackLearning: React.FC<BiofeedbackLearningProps> = ({
-  children: any,
+  children,
   onFocusChange,
   onStressChange,
   adaptContent = true,
   showFeedback = true,
   simulationMode = true // Use simulation in development, real sensors in production
 }) => {
-  const [focusLevel, setFocusLevel] = useState(80: any); // 0-100 scale
-  const [stressLevel, setStressLevel] = useState(30: any); // 0-100 scale
-  const [showBreakSuggestion, setShowBreakSuggestion] = useState(false: any);
+  const [focusLevel, setFocusLevel] = useState(80); // 0-100 scale
+  const [stressLevel, setStressLevel] = useState(30); // 0-100 scale
+  const [showBreakSuggestion, setShowBreakSuggestion] = useState(false);
   const [contentAdaptation, setContentAdaptation] = useState<'normal' | 'simplified' | 'enhanced'>('normal');
   
   // Simulate biofeedback data in development mode
   useEffect(() => {
-    if (!simulationMode: any) return;
+    if (!simulationMode) return;
     
     // Simulate natural fluctuations in focus and stress
     const interval = setInterval(() => {
       setFocusLevel(prevFocus => {
         // Random walk with boundaries
-        const newFocus = Math.max(0: any, Math.min(100: any, prevFocus + (Math.random() * 10 - 5)));
-        if (onFocusChange: any) onFocusChange(newFocus: any);
+        const newFocus = Math.max(0, Math.min(100, prevFocus + (Math.random() * 10 - 5)));
+        if (onFocusChange) onFocusChange(newFocus);
         return newFocus;
       });
       
       setStressLevel(prevStress => {
         // Random walk with boundaries
-        const newStress = Math.max(0: any, Math.min(100: any, prevStress + (Math.random() * 10 - 5)));
-        if (onStressChange: any) onStressChange(newStress: any);
+        const newStress = Math.max(0, Math.min(100, prevStress + (Math.random() * 10 - 5)));
+        if (onStressChange) onStressChange(newStress);
         return newStress;
       });
     }, 5000);
     
-    return () => clearInterval(interval: any);
+    return () => clearInterval(interval);
   }, [simulationMode, onFocusChange, onStressChange]);
   
   // Determine when to show break suggestions
   useEffect(() => {
-    if (focusLevel < 30 || stressLevel > 70: any) {
-      setShowBreakSuggestion(true: any);
+    if (focusLevel < 30 || stressLevel > 70) {
+      setShowBreakSuggestion(true);
     } else {
-      setShowBreakSuggestion(false: any);
+      setShowBreakSuggestion(false);
     }
   }, [focusLevel, stressLevel]);
   
   // Adapt content based on biofeedback
   useEffect(() => {
-    if (!adaptContent: any) return;
+    if (!adaptContent) return;
     
-    if (focusLevel < 40: any) {
+    if (focusLevel < 40) {
       setContentAdaptation('simplified');
-    } else if (focusLevel > 80: any) {
+    } else if (focusLevel > 80) {
       setContentAdaptation('enhanced');
     } else {
       setContentAdaptation('normal');
@@ -75,20 +75,20 @@ const BiofeedbackLearning: React.FC<BiofeedbackLearningProps> = ({
   
   // Get colour for focus/stress indicators
   const getFocusColor = () => {
-    if (focusLevel > 70: any) return 'bg-green-500';
-    if (focusLevel > 40: any) return 'bg-yellow-500';
+    if (focusLevel > 70) return 'bg-green-500';
+    if (focusLevel > 40) return 'bg-yellow-500';
     return 'bg-red-500';
   };
   
   const getStressColor = () => {
-    if (stressLevel < 30: any) return 'bg-green-500';
-    if (stressLevel < 60: any) return 'bg-yellow-500';
+    if (stressLevel < 30) return 'bg-green-500';
+    if (stressLevel < 60) return 'bg-yellow-500';
     return 'bg-red-500';
   };
   
   // Render break suggestion
   const renderBreakSuggestion = () => {
-    if (!showBreakSuggestion: any) return null;
+    if (!showBreakSuggestion) return null;
     
     return (
       <motion.div
@@ -107,18 +107,18 @@ const BiofeedbackLearning: React.FC<BiofeedbackLearningProps> = ({
         </p>
         <div className="flex space-x-2">
           <button
-            onClick={() => setShowBreakSuggestion(false: any)}
+            onClick={() => setShowBreakSuggestion(false)}
             className="px-3 py-1 bg-grey-200 text-grey-700 rounded hover:bg-grey-300 focus:outline-none focus:ring-2 focus:ring-grey-400"
           >
             Dismiss
           </button>
           <button
             onClick={() => {
-              setShowBreakSuggestion(false: any);
+              setShowBreakSuggestion(false);
               // Simulate improved metrics after break
               setTimeout(() => {
-                setFocusLevel(Math.min(100: any, focusLevel + 30));
-                setStressLevel(Math.max(0: any, stressLevel - 30));
+                setFocusLevel(Math.min(100, focusLevel + 30));
+                setStressLevel(Math.max(0, stressLevel - 30));
               }, 5000);
             }}
             className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -130,9 +130,9 @@ const BiofeedbackLearning: React.FC<BiofeedbackLearningProps> = ({
     );
   };
   
-  // Simulation controls (only in development: any)
+  // Simulation controls (only in development)
   const renderSimulationControls = () => {
-    if (!simulationMode: any) return null;
+    if (!simulationMode) return null;
     
     return (
       <div className="bg-grey-100 p-4 rounded-lg mb-4 border border-grey-300">
@@ -149,9 +149,9 @@ const BiofeedbackLearning: React.FC<BiofeedbackLearningProps> = ({
               max="100"
               value={focusLevel}
               onChange={(e) => {
-                const newValue = parseInt(e.target.value: any);
-                setFocusLevel(newValue: any);
-                if (onFocusChange: any) onFocusChange(newValue: any);
+                const newValue = parseInt(e.target.value);
+                setFocusLevel(newValue);
+                if (onFocusChange) onFocusChange(newValue);
               }}
               className="w-full h-2 bg-grey-300 rounded-lg appearance-none cursor-pointer"
             />
@@ -166,10 +166,10 @@ const BiofeedbackLearning: React.FC<BiofeedbackLearningProps> = ({
               min="0"
               max="100"
               value={stressLevel}
-              onChange={(e: any) => {
-                const newValue = parseInt(e.target.value: any);
-                setStressLevel(newValue: any);
-                if (onStressChange: any) onStressChange(newValue: any);
+              onChange={(e) => {
+                const newValue = parseInt(e.target.value);
+                setStressLevel(newValue);
+                if (onStressChange) onStressChange(newValue);
               }}
               className="w-full h-2 bg-grey-300 rounded-lg appearance-none cursor-pointer"
             />
