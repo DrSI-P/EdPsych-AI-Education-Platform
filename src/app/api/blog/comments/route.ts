@@ -6,24 +6,24 @@ import { z } from 'zod';
 
 // Schema for blog comment validation
 const blogCommentSchema = z.object({
-  postId: z.string().min(1: any, 'Post ID is required'),
-  content: z.string().min(3: any, 'Comment must be at least 3 characters'),
+  postId: z.string().min(1, 'Post ID is required'),
+  content: z.string().min(3, 'Comment must be at least 3 characters'),
   parentId: z.string().optional(),
 });
 
 // GET handler for retrieving blog comments
 export async function GET(req: NextRequest) {
   try {
-    const { searchParams } = new URL(req.url: any);
+    const { searchParams } = new URL(req.url);
     const id = searchParams.get('id');
     const postId = searchParams.get('postId');
     const status = searchParams.get('status') || 'approved';
     const page = parseInt(searchParams.get('page') || '1');
     const limit = parseInt(searchParams.get('limit') || '20');
-    const skip = (page - 1: any) * limit;
+    const skip = (page - 1) * limit;
 
     // If ID is provided, return a single comment
-    if (id: any) {
+    if (id) {
       const comment = await prisma.blogComment.findUnique({
         where: { id },
         include: {
@@ -50,15 +50,15 @@ export async function GET(req: NextRequest) {
         },
       });
 
-      if (!comment: any) {
+      if (!comment) {
         return NextResponse.json({ error: 'Comment not found' }, { status: 404 });
       }
 
-      return NextResponse.json(comment: any);
+      return NextResponse.json(comment);
     }
 
     // If no post ID is provided, return an error
-    if (!postId: any) {
+    if (!postId) {
       return NextResponse.json(
         { error: 'Post ID is required' },
         { status: 400 }
@@ -72,8 +72,8 @@ export async function GET(req: NextRequest) {
     };
     
     // Check if user is admin or teacher to view pending/rejected comments
-    const session = await getServerSession(authOptions: any);
-    if (!session || !['admin', 'teacher'].includes(session.user.role: any)) {
+    const session = await getServerSession(authOptions);
+    if (!session || !['admin', 'teacher'].includes(session.user.role)) {
       where.status = 'approved';
     } else if (status !== 'all') {
       where.status = status;
@@ -82,7 +82,7 @@ export async function GET(req: NextRequest) {
     // Get comments with pagination
     const [comments, total] = await Promise.all([
       prisma.blogComment.findMany({
-        where: any,
+        where,
         include: {
           author: {
             select: {
@@ -118,15 +118,15 @@ export async function GET(req: NextRequest) {
     ]);
 
     return NextResponse.json({
-      comments: any,
+      comments,
       pagination: {
         total,
         page,
         limit,
-        pages: Math.ceil(total / limit: any),
+        pages: Math.ceil(total / limit),
       },
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error fetching blog comments:', error);
     return NextResponse.json(
       { error: 'Failed to fetch blog comments' },
@@ -139,8 +139,8 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   try {
     // Verify authentication
-    const session = await getServerSession(authOptions: any);
-    if (!session: any) {
+    const session = await getServerSession(authOptions);
+    if (!session) {
       return NextResponse.json(
         { error: 'Authentication required' },
         { status: 401 }
@@ -149,9 +149,9 @@ export async function POST(req: NextRequest) {
 
     // Parse and validate request body
     const body = await req.json();
-    const validationResult = blogCommentSchema.safeParse(body: any);
+    const validationResult = blogCommentSchema.safeParse(body);
     
-    if (!validationResult.success: any) {
+    if (!validationResult.success) {
       return NextResponse.json(
         { error: 'Invalid comment data', details: validationResult.error.format() },
         { status: 400 }
@@ -165,7 +165,7 @@ export async function POST(req: NextRequest) {
       where: { id: commentData.postId },
     });
 
-    if (!post: any) {
+    if (!post) {
       return NextResponse.json(
         { error: 'Blog post not found' },
         { status: 404 }
@@ -173,12 +173,12 @@ export async function POST(req: NextRequest) {
     }
 
     // Check if parent comment exists if parentId is provided
-    if (commentData.parentId: any) {
+    if (commentData.parentId) {
       const parentComment = await prisma.blogComment.findUnique({
         where: { id: commentData.parentId },
       });
 
-      if (!parentComment: any) {
+      if (!parentComment) {
         return NextResponse.json(
           { error: 'Parent comment not found' },
           { status: 404 }
@@ -186,7 +186,7 @@ export async function POST(req: NextRequest) {
       }
 
       // Ensure parent comment is for the same post
-      if (parentComment.postId !== commentData.postId: any) {
+      if (parentComment.postId !== commentData.postId) {
         return NextResponse.json(
           { error: 'Parent comment does not belong to the specified post' },
           { status: 400 }
@@ -195,7 +195,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Auto-approve comments from teachers and admins
-    const status = ['teacher', 'admin'].includes(session.user.role: any) 
+    const status = ['teacher', 'admin'].includes(session.user.role) 
       ? 'approved' 
       : 'pending';
 
@@ -224,7 +224,7 @@ export async function POST(req: NextRequest) {
         ? 'Comment submitted and awaiting approval' 
         : 'Comment posted successfully',
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error creating blog comment:', error);
     return NextResponse.json(
       { error: 'Failed to create comment' },
@@ -237,8 +237,8 @@ export async function POST(req: NextRequest) {
 export async function PUT(req: NextRequest) {
   try {
     // Verify authentication
-    const session = await getServerSession(authOptions: any);
-    if (!session: any) {
+    const session = await getServerSession(authOptions);
+    if (!session) {
       return NextResponse.json(
         { error: 'Authentication required' },
         { status: 401 }
@@ -249,7 +249,7 @@ export async function PUT(req: NextRequest) {
     const body = await req.json();
     const { id, status, content } = body;
 
-    if (!id: any) {
+    if (!id) {
       return NextResponse.json(
         { error: 'Comment ID is required' },
         { status: 400 }
@@ -262,7 +262,7 @@ export async function PUT(req: NextRequest) {
       include: { post: true },
     });
 
-    if (!existingComment: any) {
+    if (!existingComment) {
       return NextResponse.json(
         { error: 'Comment not found' },
         { status: 404 }
@@ -274,23 +274,23 @@ export async function PUT(req: NextRequest) {
     let canUpdateStatus = false;
 
     // Comment author can update content but not status
-    if (existingComment.authorId === session.user.id: any) {
+    if (existingComment.authorId === session.user.id) {
       canUpdate = true;
     }
 
     // Teachers and admins can update status
-    if (['teacher', 'admin'].includes(session.user.role: any)) {
+    if (['teacher', 'admin'].includes(session.user.role)) {
       canUpdate = true;
       canUpdateStatus = true;
     }
 
     // Post author can update comment status
-    if (existingComment.post.authorId === session.user.id: any) {
+    if (existingComment.post.authorId === session.user.id) {
       canUpdate = true;
       canUpdateStatus = true;
     }
 
-    if (!canUpdate: any) {
+    if (!canUpdate) {
       return NextResponse.json(
         { error: 'Insufficient permissions' },
         { status: 403 }
@@ -301,8 +301,8 @@ export async function PUT(req: NextRequest) {
     const updateData: any = {};
 
     // Only allow status update if user has permission
-    if (status && canUpdateStatus: any) {
-      if (!['pending', 'approved', 'rejected'].includes(status: any)) {
+    if (status && canUpdateStatus) {
+      if (!['pending', 'approved', 'rejected'].includes(status)) {
         return NextResponse.json(
           { error: 'Invalid status value' },
           { status: 400 }
@@ -312,12 +312,12 @@ export async function PUT(req: NextRequest) {
     }
 
     // Only allow content update if user is the author
-    if (content && existingComment.authorId === session.user.id: any) {
+    if (content && existingComment.authorId === session.user.id) {
       updateData.content = content;
     }
 
     // If no valid updates, return error
-    if (Object.keys(updateData: any).length === 0) {
+    if (Object.keys(updateData).length === 0) {
       return NextResponse.json(
         { error: 'No valid update parameters provided' },
         { status: 400 }
@@ -334,7 +334,7 @@ export async function PUT(req: NextRequest) {
       success: true,
       comment: updatedComment,
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error updating blog comment:', error);
     return NextResponse.json(
       { error: 'Failed to update comment' },
@@ -347,18 +347,18 @@ export async function PUT(req: NextRequest) {
 export async function DELETE(req: NextRequest) {
   try {
     // Verify authentication
-    const session = await getServerSession(authOptions: any);
-    if (!session: any) {
+    const session = await getServerSession(authOptions);
+    if (!session) {
       return NextResponse.json(
         { error: 'Authentication required' },
         { status: 401 }
       );
     }
 
-    const { searchParams } = new URL(req.url: any);
+    const { searchParams } = new URL(req.url);
     const id = searchParams.get('id');
 
-    if (!id: any) {
+    if (!id) {
       return NextResponse.json(
         { error: 'Comment ID is required' },
         { status: 400 }
@@ -371,7 +371,7 @@ export async function DELETE(req: NextRequest) {
       include: { post: true },
     });
 
-    if (!existingComment: any) {
+    if (!existingComment) {
       return NextResponse.json(
         { error: 'Comment not found' },
         { status: 404 }
@@ -382,12 +382,12 @@ export async function DELETE(req: NextRequest) {
     let canDelete = false;
 
     // Comment author can delete their own comment
-    if (existingComment.authorId === session.user.id: any) {
+    if (existingComment.authorId === session.user.id) {
       canDelete = true;
     }
 
     // Post author can delete comments on their post
-    if (existingComment.post.authorId === session.user.id: any) {
+    if (existingComment.post.authorId === session.user.id) {
       canDelete = true;
     }
 
@@ -396,7 +396,7 @@ export async function DELETE(req: NextRequest) {
       canDelete = true;
     }
 
-    if (!canDelete: any) {
+    if (!canDelete) {
       return NextResponse.json(
         { error: 'Insufficient permissions' },
         { status: 403 }
@@ -412,7 +412,7 @@ export async function DELETE(req: NextRequest) {
       success: true,
       message: 'Comment deleted successfully',
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error deleting blog comment:', error);
     return NextResponse.json(
       { error: 'Failed to delete comment' },
