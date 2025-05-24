@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import TextToSpeechEngine from '@/components/ai/accessibility/text-to-speech-engine';
+import { TextToSpeechEngine } from '@/components/ai/accessibility/text-to-speech-engine';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -16,10 +16,37 @@ interface SampleTexts {
   story: string;
 }
 
+interface TextToSpeechSettings {
+  enabled: boolean;
+  voice: string;
+  rate: number;
+  pitch: number;
+  volume: number;
+  autoScroll: boolean;
+  highlightText: boolean;
+}
+
 export default function TextToSpeechPage() {
   const [sampleText, setSampleText] = useState<string>(
     "Welcome to the EdPsych Connect text-to-speech feature. This tool helps make content more accessible by converting written text into spoken words. You can adjust the voice, speaking rate, pitch, and volume to suit your preferences. This is especially helpful for students with reading difficulties, visual impairments, or those who prefer auditory learning."
   );
+  
+  const [settings, setSettings] = useState<TextToSpeechSettings>({
+    enabled: false,
+    voice: 'UK English Female',
+    rate: 1,
+    pitch: 1,
+    volume: 1,
+    autoScroll: true,
+    highlightText: true
+  });
+  
+  const handleSettingsChange = (newSettings: Record<string, unknown>): void => {
+    setSettings(prevSettings => ({
+      ...prevSettings,
+      ...newSettings
+    }) as TextToSpeechSettings);
+  };
   
   const sampleTexts: SampleTexts = {
     primary: "The cat sat on the mat. It was a sunny day. The birds were singing in the trees. I like to play in the park with my friends. We can run, jump, and climb on the playground. My favourite game is hide and seek.",
@@ -43,8 +70,9 @@ export default function TextToSpeechPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
           <TextToSpeechEngine 
-            initialText={sampleText} 
-            className="mb-8"
+            settings={settings}
+            onSettingsChange={handleSettingsChange}
+            text={sampleText}
           />
           
           <Card className="mb-8">
