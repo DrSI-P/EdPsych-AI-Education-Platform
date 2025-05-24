@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import prisma from '@/lib/prisma';
+// Remove unused import
+// import prisma from '@/lib/prisma';
 
 // Schema for resource recommendation request
 const resourceRecommendationRequestSchema = z.object({
@@ -17,7 +18,40 @@ const resourceRecommendationRequestSchema = z.object({
   limit: z.number().optional(),
 });
 
-export async function POST(request: NextRequest) {
+// Define interface for recommendation data
+interface ResourceRecommendation {
+  id: string;
+  title: string;
+  description: string;
+  type: string;
+  file?: string;
+  url?: string;
+  tags: string[];
+  ageRange: string;
+  subject: string;
+  curriculum: string;
+  relevanceScore: number;
+  relevanceReason: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+// Define interface for request data
+interface RecommendationRequestData {
+  contextSource: 'lesson-plan' | 'meeting-notes' | 'student-profile' | 'manual';
+  contextId?: string;
+  contextContent?: string;
+  manualQuery?: string;
+  filters?: {
+    resourceTypes?: string[];
+    ageRange?: string;
+    subject?: string;
+    curriculum?: string;
+  };
+  limit?: number;
+}
+
+export async function POST(request: NextRequest): Promise<NextResponse> {
   try {
     // Parse and validate the request body
     const body = await request.json();
@@ -43,11 +77,11 @@ export async function POST(request: NextRequest) {
   }
 }
 
-function generateMockRecommendations(data: z.infer<typeof resourceRecommendationRequestSchema>) {
+function generateMockRecommendations(data: RecommendationRequestData): ResourceRecommendation[] {
   const { contextSource, contextContent, manualQuery } = data;
   
   // Base set of resources
-  const resources = [
+  const resources: ResourceRecommendation[] = [
     {
       id: 'rec-1',
       title: 'Fractions Visual Models Collection',
@@ -196,25 +230,25 @@ function generateMockRecommendations(data: z.infer<typeof resourceRecommendation
   if (data.filters) {
     if (data.filters.resourceTypes && data.filters.resourceTypes.length > 0) {
       filteredResources = filteredResources.filter(r => 
-        data.filters!.resourceTypes!.includes(r.type)
+        data.filters?.resourceTypes?.includes(r.type)
       );
     }
     
     if (data.filters.ageRange) {
       filteredResources = filteredResources.filter(r => 
-        r.ageRange === data.filters!.ageRange || r.ageRange === 'all'
+        r.ageRange === data.filters?.ageRange || r.ageRange === 'all'
       );
     }
     
     if (data.filters.subject) {
       filteredResources = filteredResources.filter(r => 
-        r.subject === data.filters!.subject
+        r.subject === data.filters?.subject
       );
     }
     
     if (data.filters.curriculum) {
       filteredResources = filteredResources.filter(r => 
-        r.curriculum === data.filters!.curriculum
+        r.curriculum === data.filters?.curriculum
       );
     }
   }
@@ -230,7 +264,7 @@ function generateMockRecommendations(data: z.infer<typeof resourceRecommendation
   return filteredResources;
 }
 
-export async function GET(request: NextRequest) {
+export async function GET(request: NextRequest): Promise<NextResponse> {
   try {
     // Get query parameters
     const url = new URL(request.url);
@@ -248,7 +282,7 @@ export async function GET(request: NextRequest) {
     }
     
     // Construct request data
-    const requestData = {
+    const requestData: RecommendationRequestData = {
       contextSource: contextSource as 'lesson-plan' | 'meeting-notes' | 'student-profile' | 'manual',
       contextId,
       contextContent,
@@ -261,7 +295,7 @@ export async function GET(request: NextRequest) {
     };
     
     // Generate recommendations
-    const recommendations = generateMockRecommendations(requestData as any);
+    const recommendations = generateMockRecommendations(requestData);
     
     return NextResponse.json(recommendations);
   } catch (error) {
