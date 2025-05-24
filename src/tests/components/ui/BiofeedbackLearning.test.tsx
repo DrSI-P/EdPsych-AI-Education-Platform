@@ -1,14 +1,16 @@
+// @ts-check
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import BiofeedbackLearning from '../../components/ui/BiofeedbackLearning';
 
 // Mock the WebSocket connection
-jest.mock('@/lib/websocket-service', () => ({
-  connectBiofeedbackDevice: jest.fn().mockImplementation(() => ({
-    connect: jest.fn().mockResolvedValue(true),
-    disconnect: jest.fn(),
-    onData: jest.fn(),
-    onError: jest.fn(),
+vi.mock('@/lib/websocket-service', () => ({
+  connectBiofeedbackDevice: vi.fn().mockImplementation(() => ({
+    connect: vi.fn().mockResolvedValue(true),
+    disconnect: vi.fn(),
+    onData: vi.fn(),
+    onError: vi.fn(),
   })),
 }));
 
@@ -22,7 +24,7 @@ describe('BiofeedbackLearning Component', () => {
   };
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('renders biofeedback learning component correctly', () => {
@@ -36,13 +38,14 @@ describe('BiofeedbackLearning Component', () => {
   });
 
   it('connects to biofeedback device when connect button is clicked', async () => {
-    const { connectBiofeedbackDevice } = require('@/lib/websocket-service');
-    const mockConnect = jest.fn().mockResolvedValue(true);
-    connectBiofeedbackDevice.mockImplementation(() => ({
+    // Import directly instead of using require
+    const websocketService = await import('@/lib/websocket-service');
+    const mockConnect = vi.fn().mockResolvedValue(true);
+    websocketService.connectBiofeedbackDevice.mockImplementation(() => ({
       connect: mockConnect,
-      disconnect: jest.fn(),
-      onData: jest.fn(),
-      onError: jest.fn(),
+      disconnect: vi.fn(),
+      onData: vi.fn(),
+      onError: vi.fn(),
     }));
     
     render(<BiofeedbackLearning />);
@@ -64,16 +67,17 @@ describe('BiofeedbackLearning Component', () => {
   });
 
   it('displays biofeedback metrics when data is received', async () => {
-    const { connectBiofeedbackDevice } = require('@/lib/websocket-service');
+    // Import directly instead of using require
+    const websocketService = await import('@/lib/websocket-service');
     let dataCallback;
-    connectBiofeedbackDevice.mockImplementation(() => ({
-      connect: jest.fn().mockResolvedValue(true),
-      disconnect: jest.fn(),
+    websocketService.connectBiofeedbackDevice.mockImplementation(() => ({
+      connect: vi.fn().mockResolvedValue(true),
+      disconnect: vi.fn(),
       onData: (callback) => {
         dataCallback = callback;
-        return { remove: jest.fn() };
+        return { remove: vi.fn() };
       },
-      onError: jest.fn(),
+      onError: vi.fn(),
     }));
     
     render(<BiofeedbackLearning />);
@@ -100,16 +104,17 @@ describe('BiofeedbackLearning Component', () => {
   });
 
   it('adapts content based on attention level', async () => {
-    const { connectBiofeedbackDevice } = require('@/lib/websocket-service');
+    // Import directly instead of using require
+    const websocketService = await import('@/lib/websocket-service');
     let dataCallback;
-    connectBiofeedbackDevice.mockImplementation(() => ({
-      connect: jest.fn().mockResolvedValue(true),
-      disconnect: jest.fn(),
+    websocketService.connectBiofeedbackDevice.mockImplementation(() => ({
+      connect: vi.fn().mockResolvedValue(true),
+      disconnect: vi.fn(),
       onData: (callback) => {
         dataCallback = callback;
-        return { remove: jest.fn() };
+        return { remove: vi.fn() };
       },
-      onError: jest.fn(),
+      onError: vi.fn(),
     }));
     
     render(
@@ -153,16 +158,17 @@ describe('BiofeedbackLearning Component', () => {
   });
 
   it('provides breaks based on stress levels', async () => {
-    const { connectBiofeedbackDevice } = require('@/lib/websocket-service');
+    // Import directly instead of using require
+    const websocketService = await import('@/lib/websocket-service');
     let dataCallback;
-    connectBiofeedbackDevice.mockImplementation(() => ({
-      connect: jest.fn().mockResolvedValue(true),
-      disconnect: jest.fn(),
+    websocketService.connectBiofeedbackDevice.mockImplementation(() => ({
+      connect: vi.fn().mockResolvedValue(true),
+      disconnect: vi.fn(),
       onData: (callback) => {
         dataCallback = callback;
-        return { remove: jest.fn() };
+        return { remove: vi.fn() };
       },
-      onError: jest.fn(),
+      onError: vi.fn(),
     }));
     
     render(<BiofeedbackLearning />);
@@ -198,13 +204,14 @@ describe('BiofeedbackLearning Component', () => {
   });
 
   it('handles device connection errors gracefully', async () => {
-    const { connectBiofeedbackDevice } = require('@/lib/websocket-service');
-    const mockConnect = jest.fn().mockRejectedValue(new Error('Connection failed'));
-    connectBiofeedbackDevice.mockImplementation(() => ({
+    // Import directly instead of using require
+    const websocketService = await import('@/lib/websocket-service');
+    const mockConnect = vi.fn().mockRejectedValue(new Error('Connection failed'));
+    websocketService.connectBiofeedbackDevice.mockImplementation(() => ({
       connect: mockConnect,
-      disconnect: jest.fn(),
-      onData: jest.fn(),
-      onError: jest.fn(),
+      disconnect: vi.fn(),
+      onData: vi.fn(),
+      onError: vi.fn(),
     }));
     
     render(<BiofeedbackLearning />);
@@ -223,13 +230,14 @@ describe('BiofeedbackLearning Component', () => {
   });
 
   it('disconnects from device when component unmounts', async () => {
-    const { connectBiofeedbackDevice } = require('@/lib/websocket-service');
-    const mockDisconnect = jest.fn();
-    connectBiofeedbackDevice.mockImplementation(() => ({
-      connect: jest.fn().mockResolvedValue(true),
+    // Import directly instead of using require
+    const websocketService = await import('@/lib/websocket-service');
+    const mockDisconnect = vi.fn();
+    websocketService.connectBiofeedbackDevice.mockImplementation(() => ({
+      connect: vi.fn().mockResolvedValue(true),
       disconnect: mockDisconnect,
-      onData: jest.fn(),
-      onError: jest.fn(),
+      onData: vi.fn(),
+      onError: vi.fn(),
     }));
     
     const { unmount } = render(<BiofeedbackLearning />);
