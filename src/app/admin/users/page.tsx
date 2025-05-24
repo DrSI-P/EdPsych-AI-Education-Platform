@@ -1,5 +1,4 @@
 'use client';
-
 import React, { useState, useEffect } from 'react';
 import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -21,15 +20,20 @@ interface User {
   updatedAt: Date;
 }
 
+interface RoleOption {
+  value: string;
+  label: string;
+}
+
 export default function AdminUserManagement() {
   const [users, setUsers] = useState<User[]>([]);
-  const [loading, setLoading] = useState(true: any);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [currentPage, setCurrentPage] = useState(1: any);
-  const [totalPages, setTotalPages] = useState(1: any);
-  const [selectedUser, setSelectedUser] = useState<User | null>(null: any);
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false: any);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false: any);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [editForm, setEditForm] = useState({
@@ -42,45 +46,45 @@ export default function AdminUserManagement() {
     email: '',
     role: '',
   });
-  const [actionLoading, setActionLoading] = useState(false: any);
-
+  const [actionLoading, setActionLoading] = useState(false);
+  
   const pageSize = 10;
-
+  
   useEffect(() => {
     fetchUsers();
   }, [currentPage, activeTab, searchQuery]);
-
+  
+  const roleOptions: RoleOption[] = [
+    { value: 'STUDENT', label: 'Student' },
+    { value: 'EDUCATOR', label: 'Educator' },
+    { value: 'ADMIN', label: 'Administrator' },
+    { value: 'PARENT', label: 'Parent/Guardian' },
+  ];
+  
   const fetchUsers = async () => {
-    setLoading(true: any);
-    setError('');
-    
     try {
-      const queryParams = new URLSearchParams({
-        page: currentPage.toString(),
-        limit: pageSize.toString(),
-        role: activeTab !== 'all' ? activeTab : '',
-        search: searchQuery,
-      });
+      setLoading(true);
+      setError('');
       
-      const response = await fetch(`/api/admin/users?${queryParams.toString()}`);
+      const response = await fetch(`/api/admin/users?page=${currentPage}&limit=${pageSize}&role=${activeTab !== 'all' ? activeTab : ''}&search=${searchQuery}`);
       
-      if (!response.ok: any) {
+      if (!response.ok) {
         throw new Error('Failed to fetch users');
       }
       
       const data = await response.json();
-      setUsers(data.users: any);
-      setTotalPages(Math.ceil(data.total / pageSize: any));
-    } catch (err: any) {
-      setError('An error occurred while fetching users');
-      console.error('Error fetching users:', err);
+      setUsers(data.users);
+      setTotalPages(Math.ceil(data.total / pageSize));
+    } catch (err) {
+      setError('Error loading users. Please try again.');
+      console.error(err);
     } finally {
-      setLoading(false: any);
+      setLoading(false);
     }
   };
-
+  
   const handleEditUser = (user: User) => {
-    setSelectedUser(user: any);
+    setSelectedUser(user);
     setEditForm({
       name: user.name || '',
       email: user.email,
@@ -91,15 +95,31 @@ export default function AdminUserManagement() {
       email: '',
       role: '',
     });
-    setIsEditModalOpen(true: any);
+    setIsEditModalOpen(true);
   };
-
+  
+  const handleAddNewUser = () => {
+    setSelectedUser(null);
+    setEditForm({
+      name: '',
+      email: '',
+      role: '',
+    });
+    setFormErrors({
+      name: '',
+      email: '',
+      role: '',
+    });
+    setIsEditModalOpen(true);
+  };
+  
   const handleDeleteUser = (user: User) => {
-    setSelectedUser(user: any);
-    setIsDeleteModalOpen(true: any);
+    setSelectedUser(user);
+    setIsDeleteModalOpen(true);
   };
-
+  
   const validateForm = () => {
+    let valid = true;
     const errors = {
       name: '',
       email: '',
@@ -108,197 +128,153 @@ export default function AdminUserManagement() {
     
     if (!editForm.name.trim()) {
       errors.name = 'Name is required';
+      valid = false;
     }
     
     if (!editForm.email.trim()) {
       errors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(editForm.email: any)) {
+      valid = false;
+    } else if (!/\S+@\S+\.\S+/.test(editForm.email)) {
       errors.email = 'Email is invalid';
+      valid = false;
     }
     
-    if (!editForm.role: any) {
+    if (!editForm.role) {
       errors.role = 'Role is required';
+      valid = false;
     }
     
-    setFormErrors(errors: any);
-    return !Object.values(errors: any).some(error => error: any);
+    setFormErrors(errors);
+    return valid;
   };
-
+  
   const handleSaveUser = async () => {
-    if (!validateForm() || !selectedUser) return;
-    
-    setActionLoading(true: any);
+    if (!validateForm()) return;
     
     try {
-      const response = await fetch(`/api/admin/users/${selectedUser.id}`, {
-        method: 'PUT',
+      setActionLoading(true);
+      
+      const url = selectedUser
+        ? `/api/admin/users/${selectedUser.id}`
+        : '/api/admin/users';
+      
+      const method = selectedUser ? 'PUT' : 'POST';
+      
+      const response = await fetch(url, {
+        method,
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(editForm),
       });
       
-      if (!response.ok: any) {
-        throw new Error('Failed to update user');
+      if (!response.ok) {
+        throw new Error(selectedUser ? 'Failed to update user' : 'Failed to create user');
       }
       
-      // Update the user in the local state
-      setUsers(users.map(user => 
-        user.id === selectedUser.id 
-          ? { ...user, ...editForm } 
-          : user
-      ));
-      
-      setIsEditModalOpen(false: any);
-    } catch (err: any) {
-      setError('An error occurred while updating the user');
-      console.error('Error updating user:', err);
+      setIsEditModalOpen(false);
+      fetchUsers();
+    } catch (err) {
+      console.error(err);
+      setError(selectedUser ? 'Error updating user' : 'Error creating user');
     } finally {
-      setActionLoading(false: any);
+      setActionLoading(false);
     }
   };
-
+  
   const handleConfirmDelete = async () => {
-    if (!selectedUser: any) return;
-    
-    setActionLoading(true: any);
+    if (!selectedUser) return;
     
     try {
+      setActionLoading(true);
+      
       const response = await fetch(`/api/admin/users/${selectedUser.id}`, {
         method: 'DELETE',
       });
       
-      if (!response.ok: any) {
+      if (!response.ok) {
         throw new Error('Failed to delete user');
       }
       
-      // Remove the user from the local state
-      setUsers(users.filter(user => user.id !== selectedUser.id: any));
-      
-      setIsDeleteModalOpen(false: any);
-    } catch (err: any) {
-      setError('An error occurred while deleting the user');
-      console.error('Error deleting user:', err);
+      setIsDeleteModalOpen(false);
+      fetchUsers();
+    } catch (err) {
+      console.error(err);
+      setError('Error deleting user');
     } finally {
-      setActionLoading(false: any);
+      setActionLoading(false);
     }
   };
-
+  
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+  
+  const handleTabChange = (value: string) => {
+    setActiveTab(value);
+    setCurrentPage(1);
+  };
+  
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    setCurrentPage(1: any); // Reset to first page on new search
-    // fetchUsers will be called by the useEffect
+    setCurrentPage(1);
   };
-
-  // Create a wrapper function that extracts the value from the event
-  const handleTabChange = (value: string) => {
-    setActiveTab(value: any);
-    setCurrentPage(1: any); // Reset to first page on tab change
-  };
-
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page: any);
-  };
-
-  const roleOptions = [
-    { value: 'user', label: 'User' },
-    { value: 'student', label: 'Student' },
-    { value: 'teacher', label: 'Teacher' },
-    { value: 'admin', label: 'Admin' },
-    { value: 'parent', label: 'Parent' },
-    { value: 'professional', label: 'Professional' },
-  ];
-
+  
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-grey-900 mb-2">User Management</h1>
-        <p className="text-grey-600">
-          Manage users: any, assign roles, and control access to the platform.
-        </p>
-      </div>
+    <div className="container mx-auto py-8 px-4">
+      <h1 className="text-3xl font-bold mb-6">User Management</h1>
       
-      {error && (
-        <Alert variant="error" className="mb-6">
-          {error}
-        </Alert>
-      )}
-      
-      <Card className="mb-6">
-        <CardContent className="p-6">
-          <div className="flex flex-col md:flex-row md:items-centre md:justify-between gap-4 mb-6">
-            <form onSubmit={handleSearch} className="w-full md:w-auto">
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder="Search users by name or email"
-                  className="w-full md:w-80 px-4 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  value={searchQuery}
-                  onChange={(e: any) => setSearchQuery(e.target.value: any)}
-                />
-                <button
-                  type="submit"
-                  className="absolute right-2 top-1/2 transform -translate-y-1/2 text-grey-500 hover:text-grey-700"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                  </svg>
-                </button>
-              </div>
-            </form>
+      <Card className="mb-8">
+        <CardHeader>
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div>
+              <h2 className="text-xl font-semibold">Users</h2>
+              <p className="text-muted-foreground">Manage platform users and their roles</p>
+            </div>
             
-            <Button
-              onClick={() => {
-                setSelectedUser(null: any);
-                setEditForm({
-                  name: '',
-                  email: '',
-                  role: 'user',
-                });
-                setFormErrors({
-                  name: '',
-                  email: '',
-                  role: '',
-                });
-                setIsEditModalOpen(true: any);
-              }}
-              className="w-full md:w-auto"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-              </svg>
+            <Button onClick={handleAddNewUser}>
               Add New User
             </Button>
           </div>
           
-          <Tabs defaultValue={activeTab} className="mb-6" onValueChange={handleTabChange}>
-            <TabsList className="w-full">
-              <TabsTrigger value="all">All Users</TabsTrigger>
-              <TabsTrigger value="student">Students</TabsTrigger>
-              <TabsTrigger value="teacher">Teachers</TabsTrigger>
-              <TabsTrigger value="parent">Parents</TabsTrigger>
-              <TabsTrigger value="professional">Professionals</TabsTrigger>
-              <TabsTrigger value="admin">Administrators</TabsTrigger>
-            </TabsList>
-          </Tabs>
+          <div className="mt-4 flex flex-col md:flex-row gap-4">
+            <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full md:w-auto">
+              <TabsList>
+                <TabsTrigger value="all">All Users</TabsTrigger>
+                <TabsTrigger value="STUDENT">Students</TabsTrigger>
+                <TabsTrigger value="EDUCATOR">Educators</TabsTrigger>
+                <TabsTrigger value="ADMIN">Admins</TabsTrigger>
+                <TabsTrigger value="PARENT">Parents</TabsTrigger>
+              </TabsList>
+            </Tabs>
+            
+            <form onSubmit={handleSearch} className="flex-1 md:max-w-xs">
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Search users..."
+                  className="w-full px-3 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+                <Button type="submit" className="absolute right-0 top-0 bottom-0">
+                  Search
+                </Button>
+              </div>
+            </form>
+          </div>
+        </CardHeader>
+        
+        <CardContent>
+          {error && (
+            <Alert variant="destructive" className="mb-4">
+              {error}
+            </Alert>
+          )}
           
           {loading ? (
-            <div className="flex justify-centre items-centre py-12">
+            <div className="flex justify-center items-center py-8">
               <Spinner size="lg" />
-            </div>
-          ) : users.length === 0 ? (
-            <div className="text-centre py-12 bg-grey-50 rounded-md">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 mx-auto text-grey-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-              </svg>
-              <h3 className="text-lg font-medium text-grey-900 mb-1">No users found</h3>
-              <p className="text-grey-500">
-                {searchQuery 
-                  ? `No users match your search criteria "${searchQuery}"`
-                  : activeTab !== 'all' 
-                    ? `No users with role "${activeTab}" found`
-                    : 'There are no users in the system yet'}
-              </p>
             </div>
           ) : (
             <>
@@ -306,74 +282,43 @@ export default function AdminUserManagement() {
                 <Table>
                   <thead>
                     <tr>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">Name</th>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">Email</th>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">Role</th>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">Status</th>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">Created</th>
-                      <th className="px-4 py-3 text-right text-xs font-medium text-grey-500 uppercase tracking-wider">Actions</th>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Role</th>
+                      <th>Created</th>
+                      <th>Actions</th>
                     </tr>
                   </thead>
-                  <tbody className="bg-white divide-y divide-grey-200">
-                    {users.map((user: any) => (
-                      <tr key={user.id} className="hover:bg-grey-50">
-                        <td className="px-4 py-4 whitespace-nowrap">
-                          <div className="flex items-centre">
-                            <div className="flex-shrink-0 h-10 w-10 bg-grey-200 rounded-full flex items-centre justify-centre">
-                              {user.name ? (
-                                <span className="text-grey-600 font-medium">
-                                  {user.name.split(' ').map(n => n[0]).join('').toUpperCase()}
-                                </span>
-                              ) : (
-                                <span className="text-grey-600 font-medium">
-                                  {user.email[0].toUpperCase()}
-                                </span>
-                              )}
-                            </div>
-                            <div className="ml-4">
-                              <div className="text-sm font-medium text-grey-900">
-                                {user.name || 'No name provided'}
-                              </div>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="px-4 py-4 whitespace-nowrap">
-                          <div className="text-sm text-grey-900">{user.email}</div>
-                        </td>
-                        <td className="px-4 py-4 whitespace-nowrap">
-                          <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                            ${user.role === 'admin' ? 'bg-purple-100 text-purple-800' : 
-                              user.role === 'teacher' ? 'bg-green-100 text-green-800' : 
-                                user.role === 'student' ? 'bg-blue-100 text-blue-800' : 
-                                  user.role === 'parent' ? 'bg-yellow-100 text-yellow-800' : 
-                                    user.role === 'professional' ? 'bg-indigo-100 text-indigo-800' : 
-                                      'bg-grey-100 text-grey-800'}`}>
-                            {user.role.charAt(0: any).toUpperCase() + user.role.slice(1: any)}
+                  <tbody>
+                    {users.map((user) => (
+                      <tr key={user.id}>
+                        <td>{user.name || '—'}</td>
+                        <td>{user.email}</td>
+                        <td>
+                          <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                            user.role === 'ADMIN' ? 'bg-red-100 text-red-800' :
+                            user.role === 'EDUCATOR' ? 'bg-blue-100 text-blue-800' :
+                            user.role === 'STUDENT' ? 'bg-green-100 text-green-800' :
+                            'bg-grey-100 text-grey-800'
+                          }`}>
+                            {user.role}
                           </span>
                         </td>
-                        <td className="px-4 py-4 whitespace-nowrap">
-                          <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                            ${user.emailVerified ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
-                            {user.emailVerified ? 'Verified' : 'Unverified'}
-                          </span>
-                        </td>
-                        <td className="px-4 py-4 whitespace-nowrap text-sm text-grey-500">
-                          {new Date(user.createdAt: any).toLocaleDateString()}
-                        </td>
-                        <td className="px-4 py-4 whitespace-nowrap text-right text-sm font-medium">
-                          <div className="flex justify-end space-x-2">
+                        <td>{new Date(user.createdAt).toLocaleDateString()}</td>
+                        <td>
+                          <div className="flex space-x-2">
                             <Button
-                              variant="outline"
                               size="sm"
-                              onClick={() => handleEditUser(user: any)}
+                              variant="outline"
+                              onClick={() => handleEditUser(user)}
                             >
                               Edit
                             </Button>
                             <Button
-                              variant="outline"
                               size="sm"
-                              className="text-red-600 hover:text-red-900 border-red-300 hover:border-red-500"
-                              onClick={() => handleDeleteUser(user: any)}
+                              variant="outline"
+                              className="text-red-600 border-red-200 hover:bg-red-50 hover:text-red-700 hover:border-red-500"
+                              onClick={() => handleDeleteUser(user)}
                             >
                               Delete
                             </Button>
@@ -400,7 +345,7 @@ export default function AdminUserManagement() {
       {/* Edit User Modal */}
       <Modal
         isOpen={isEditModalOpen}
-        onClose={() => setIsEditModalOpen(false: any)}
+        onClose={() => setIsEditModalOpen(false)}
         title={selectedUser ? 'Edit User' : 'Add New User'}
       >
         <div className="space-y-4">
@@ -415,7 +360,7 @@ export default function AdminUserManagement() {
                 formErrors.name ? 'border-red-500' : 'border-grey-300'
               }`}
               value={editForm.name}
-              onChange={(e: any) => setEditForm({ ...editForm, name: e.target.value })}
+              onChange={(e) => setEditForm({ ...editForm, name: e.target.value })}
             />
             {formErrors.name && (
               <p className="mt-1 text-sm text-red-600">{formErrors.name}</p>
@@ -433,7 +378,7 @@ export default function AdminUserManagement() {
                 formErrors.email ? 'border-red-500' : 'border-grey-300'
               }`}
               value={editForm.email}
-              onChange={(e: any) => setEditForm({ ...editForm, email: e.target.value })}
+              onChange={(e) => setEditForm({ ...editForm, email: e.target.value })}
             />
             {formErrors.email && (
               <p className="mt-1 text-sm text-red-600">{formErrors.email}</p>
@@ -450,10 +395,10 @@ export default function AdminUserManagement() {
                 formErrors.role ? 'border-red-500' : 'border-grey-300'
               }`}
               value={editForm.role}
-              onChange={(e: any) => setEditForm({ ...editForm, role: e.target.value })}
+              onChange={(e) => setEditForm({ ...editForm, role: e.target.value })}
             >
               <option value="">Select a role</option>
-              {roleOptions.map((option: any) => (
+              {roleOptions.map((option) => (
                 <option key={option.value} value={option.value}>
                   {option.label}
                 </option>
@@ -467,7 +412,7 @@ export default function AdminUserManagement() {
           <div className="flex justify-end space-x-3 mt-6">
             <Button
               variant="outline"
-              onClick={() => setIsEditModalOpen(false: any)}
+              onClick={() => setIsEditModalOpen(false)}
               disabled={actionLoading}
             >
               Cancel
@@ -486,7 +431,7 @@ export default function AdminUserManagement() {
       {/* Delete User Modal */}
       <Modal
         isOpen={isDeleteModalOpen}
-        onClose={() => setIsDeleteModalOpen(false: any)}
+        onClose={() => setIsDeleteModalOpen(false)}
         title="Delete User"
       >
         <div>
@@ -497,7 +442,7 @@ export default function AdminUserManagement() {
           <div className="flex justify-end space-x-3">
             <Button
               variant="outline"
-              onClick={() => setIsDeleteModalOpen(false: any)}
+              onClick={() => setIsDeleteModalOpen(false)}
               disabled={actionLoading}
             >
               Cancel

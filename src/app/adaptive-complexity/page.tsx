@@ -1,5 +1,4 @@
 'use client';
-
 import { useState } from 'react';
 import AdaptiveComplexityEngine from '@/components/ai/adaptive-complexity/adaptive-complexity-engine';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -17,9 +16,9 @@ interface ContentItem {
 export default function AdaptiveComplexityPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [content, setContent] = useState<ContentItem | null>(null: any);
+  const [content, setContent] = useState<ContentItem | null>(null);
   const contentId = searchParams ? searchParams.get('contentId') : null;
-
+  
   return (
     <div className="container mx-auto py-8 px-4">
       <div className="max-w-5xl mx-auto">
@@ -50,72 +49,63 @@ export default function AdaptiveComplexityPage() {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                       <Button 
                         variant="outline" 
-                        className="h-auto flex flex-col items-centre justify-centre p-6 gap-2"
-                        onClick={() => router.push('/curriculum')}
+                        className="h-auto py-4 px-6 flex flex-col items-center justify-center text-center"
+                        onClick={() => router.push('/curriculum/content?select=true')}
                       >
-                        <BookOpen className="h-10 w-10 text-primary mb-2" />
-                        <span className="text-lg font-medium">Curriculum Plans</span>
-                        <span className="text-sm text-muted-foreground text-centre">
-                          Adjust complexity of curriculum plans
-                        </span>
+                        <BookOpen className="h-10 w-10 mb-2" />
+                        <div>
+                          <div className="font-medium">Existing Content</div>
+                          <div className="text-sm text-muted-foreground mt-1">Adapt previously created materials</div>
+                        </div>
                       </Button>
                       
                       <Button 
                         variant="outline" 
-                        className="h-auto flex flex-col items-centre justify-centre p-6 gap-2"
-                        onClick={() => router.push('/resources')}
+                        className="h-auto py-4 px-6 flex flex-col items-center justify-center text-center"
+                        onClick={() => router.push('/curriculum/content/create?adaptive=true')}
                       >
-                        <Layers className="h-10 w-10 text-primary mb-2" />
-                        <span className="text-lg font-medium">Resources</span>
-                        <span className="text-sm text-muted-foreground text-centre">
-                          Adjust complexity of learning resources
-                        </span>
+                        <Layers className="h-10 w-10 mb-2" />
+                        <div>
+                          <div className="font-medium">New Content</div>
+                          <div className="text-sm text-muted-foreground mt-1">Create new adaptive content</div>
+                        </div>
                       </Button>
                       
                       <Button 
                         variant="outline" 
-                        className="h-auto flex flex-col items-centre justify-centre p-6 gap-2"
-                        onClick={() => router.push('/multi-modal-content')}
+                        className="h-auto py-4 px-6 flex flex-col items-center justify-center text-center"
+                        onClick={() => router.push('/curriculum/content/examples?adaptive=true')}
                       >
-                        <BarChart3 className="h-10 w-10 text-primary mb-2" />
-                        <span className="text-lg font-medium">Multi-Modal Content</span>
-                        <span className="text-sm text-muted-foreground text-centre">
-                          Adjust complexity of multi-modal content
-                        </span>
-                      </Button>
-                    </div>
-                    
-                    <div className="mt-6 text-centre">
-                      <p className="text-sm text-muted-foreground mb-4">
-                        Or create new adaptive content from scratch
-                      </p>
-                      <Button onClick={() => setContent({ title: '', content: '' })}>
-                        <ArrowUpDown className="h-4 w-4 mr-2" />
-                        Create New Content
+                        <BarChart3 className="h-10 w-10 mb-2" />
+                        <div>
+                          <div className="font-medium">View Examples</div>
+                          <div className="text-sm text-muted-foreground mt-1">See adaptive content in action</div>
+                        </div>
                       </Button>
                     </div>
                   </CardContent>
                 </Card>
               )}
               
-              <AdaptiveComplexityEngine 
-                contentId={contentId || undefined}
-                content={content?.content}
-                title={content?.title}
-              />
+              {contentId && (
+                <AdaptiveComplexityEngine 
+                  contentId={contentId}
+                  initialContent={content}
+                  onContentChange={setContent}
+                />
+              )}
             </div>
           </TabsContent>
           
           <TabsContent value="about" className="pt-4">
             <Card>
               <CardHeader>
-                <CardTitle>About Adaptive Complexity Adjustment</CardTitle>
+                <CardTitle>About Adaptive Complexity</CardTitle>
                 <CardDescription>
-                  Understanding how this feature personalizes content complexity for individual learners
+                  Understanding how our AI-powered complexity adjustment works
                 </CardDescription>
               </CardHeader>
-              
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-6">
                 <div>
                   <h3 className="text-lg font-medium mb-2">What is Adaptive Complexity Adjustment?</h3>
                   <p>
@@ -176,7 +166,7 @@ export default function AdaptiveComplexityPage() {
                 </div>
                 
                 <div className="bg-blue-50 dark:bg-blue-950 p-4 rounded-md">
-                  <h3 className="text-lg font-medium mb-2 flex items-centre">
+                  <h3 className="text-lg font-medium mb-2 flex items-center">
                     <CheckCircle2 className="h-5 w-5 text-blue-600 mr-2" />
                     Teacher Tip
                   </h3>

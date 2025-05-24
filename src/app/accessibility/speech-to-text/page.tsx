@@ -1,5 +1,4 @@
 'use client';
-
 import { useState } from 'react';
 import Image from 'next/image';
 import { SpeechToTextEngine } from '@/components/ai/accessibility/speech-to-text-engine';
@@ -44,7 +43,7 @@ export default function SpeechToTextPage() {
   
   return (
     <div className="container mx-auto py-8 px-4">
-      <h1 className="text-3xl font-bold mb-6 flex items-centre">
+      <h1 className="text-3xl font-bold mb-6 flex items-center">
         <Image 
           src="/images/speech-to-text-icon.png" 
           alt="Speech-to-Text Icon" 
@@ -60,74 +59,69 @@ export default function SpeechToTextPage() {
           <SpeechToTextEngine 
             settings={settings}
             onSettingsChange={handleSettingsChange}
+            onTranscriptUpdate={setSampleText}
           />
           
-          <Card className="mb-8">
-            <CardHeader>
-              <CardTitle>Speaking Prompts</CardTitle>
-              <CardDescription>
-                Try these prompts to practise using speech-to-text
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <Button 
-                  variant="outline" 
-                  className="flex items-centre justify-start h-auto py-4"
-                  onClick={() => setSampleText(samplePrompts.primary)}
-                >
-                  <BookOpen className="h-5 w-5 mr-2" />
-                  <div className="text-left">
-                    <div className="font-medium">Primary Level</div>
-                    <div className="text-sm text-muted-foreground">Simple topics for younger students</div>
-                  </div>
-                </Button>
-                
-                <Button 
-                  variant="outline" 
-                  className="flex items-centre justify-start h-auto py-4"
-                  onClick={() => setSampleText(samplePrompts.secondary)}
-                >
-                  <FileText className="h-5 w-5 mr-2" />
-                  <div className="text-left">
-                    <div className="font-medium">Secondary Level</div>
-                    <div className="text-sm text-muted-foreground">Academic content for older students</div>
-                  </div>
-                </Button>
-                
-                <Button 
-                  variant="outline" 
-                  className="flex items-centre justify-start h-auto py-4"
-                  onClick={() => setSampleText(samplePrompts.story)}
-                >
-                  <BookMarked className="h-5 w-5 mr-2" />
-                  <div className="text-left">
-                    <div className="font-medium">Creative Prompt</div>
-                    <div className="text-sm text-muted-foreground">Encourage creative expression</div>
-                  </div>
-                </Button>
-              </div>
-              
-              <Textarea
-                value={sampleText}
-                onChange={(e) => setSampleText(e.target.value)}
-                className="min-h-[100px]"
-                placeholder="Enter or edit a speaking prompt here..."
-              />
-            </CardContent>
-          </Card>
+          <div className="mt-6">
+            <h2 className="text-xl font-bold mb-3">Transcript</h2>
+            <Textarea 
+              value={sampleText}
+              onChange={(e) => setSampleText(e.target.value)}
+              className="min-h-[200px] font-medium"
+              placeholder="Your speech will appear here..."
+            />
+            <div className="flex justify-end mt-2">
+              <Button 
+                variant="outline" 
+                className="mr-2"
+                onClick={() => setSampleText('')}
+              >
+                <Keyboard className="mr-2 h-4 w-4" />
+                Clear
+              </Button>
+              <Button>
+                <FileText className="mr-2 h-4 w-4" />
+                Save Transcript
+              </Button>
+            </div>
+          </div>
+          
+          <div className="mt-8">
+            <h2 className="text-xl font-bold mb-3">Sample Prompts</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <Button 
+                variant="outline" 
+                className="justify-start"
+                onClick={() => setSampleText(samplePrompts.primary)}
+              >
+                <Mic className="mr-2 h-4 w-4" />
+                {samplePrompts.primary}
+              </Button>
+              <Button 
+                variant="outline" 
+                className="justify-start"
+                onClick={() => setSampleText(samplePrompts.secondary)}
+              >
+                <BookOpen className="mr-2 h-4 w-4" />
+                {samplePrompts.secondary}
+              </Button>
+              <Button 
+                variant="outline" 
+                className="justify-start"
+                onClick={() => setSampleText(samplePrompts.story)}
+              >
+                <BookMarked className="mr-2 h-4 w-4" />
+                {samplePrompts.story}
+              </Button>
+            </div>
+          </div>
         </div>
         
-        <div className="lg:col-span-1">
+        <div>
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-centre">
-                <Mic className="h-5 w-5 mr-2" />
-                About Speech-to-Text
-              </CardTitle>
-              <CardDescription>
-                Understanding the benefits and applications
-              </CardDescription>
+              <CardTitle>About Speech-to-Text</CardTitle>
+              <CardDescription>How this accessibility feature helps students with diverse learning needs</CardDescription>
             </CardHeader>
             <CardContent>
               <Tabs defaultValue="benefits">
