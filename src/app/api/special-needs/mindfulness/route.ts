@@ -30,6 +30,33 @@ const UserPreferencesSchema = z.object({
   backgroundSounds: z.boolean()
 });
 
+// Define types for activity log details
+interface ActivityCompletionDetails {
+  activityId: string;
+  duration: number;
+  completedAt: Date;
+}
+
+interface ActivityFeedbackDetails {
+  activityId: string;
+  feedback: {
+    rating: number;
+    notes: string;
+  };
+}
+
+// Define type for activity history item
+interface ActivityHistoryItem {
+  id: string;
+  activityId: string;
+  completedAt: Date;
+  duration: number;
+  feedback: {
+    rating: number;
+    notes: string;
+  } | null;
+}
+
 // GET handler for retrieving mindfulness activities
 export async function GET(req: Request) {
   try {
@@ -80,7 +107,7 @@ export async function GET(req: Request) {
     // In a real implementation, we would fetch activities from the database
     // For now, we'll return a placeholder response
     return NextResponse.json({
-      activities: [] as any[], // Would be populated from database
+      activities: [] as z.infer<typeof MindfulnessActivitySchema>[], // Would be populated from database
       userPreferences: userSettings?.preferences || {
         preferredDuration: 'medium',
         preferredThemes: ['breathing', 'body-scan', 'visualisation'],
@@ -88,13 +115,16 @@ export async function GET(req: Request) {
         reminderFrequency: 'weekly',
         backgroundSounds: true
       },
-      activityHistory: activityHistory.map(log => ({
-        id: log.id,
-        activityId: (log.details as any)?.activityId || '',
-        completedAt: log.timestamp,
-        duration: (log.details as any)?.duration || 0,
-        feedback: (log.details as any)?.feedback || null
-      })),
+      activityHistory: activityHistory.map(log => {
+        const details = log.details as ActivityCompletionDetails;
+        return {
+          id: log.id,
+          activityId: details?.activityId || '',
+          completedAt: log.timestamp,
+          duration: details?.duration || 0,
+          feedback: null
+        } as ActivityHistoryItem;
+      }),
       favoriteActivities: favoriteActivities?.favoriteActivities || []
     });
     
@@ -237,7 +267,7 @@ export async function POST(req: Request) {
               activityId,
               duration,
               completedAt: new Date()
-            },
+            } as ActivityCompletionDetails,
             timestamp: new Date()
           }
         });
@@ -271,7 +301,7 @@ export async function POST(req: Request) {
                 rating,
                 notes: notes || ''
               }
-            },
+            } as ActivityFeedbackDetails,
             timestamp: new Date()
           }
         });
