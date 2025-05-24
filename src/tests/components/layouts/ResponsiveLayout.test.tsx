@@ -1,18 +1,20 @@
+// @ts-check
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import ResponsiveLayout from '../../components/layouts/ResponsiveLayout';
 
 // Mock the useRouter hook
-jest.mock('next/navigation', () => ({
+vi.mock('next/navigation', () => ({
   useRouter: () => ({
-    push: jest.fn(),
+    push: vi.fn(),
     pathname: '/test-path',
   }),
 }));
 
 // Mock the useMediaQuery hook
-jest.mock('@/hooks/useMediaQuery', () => ({
-  useMediaQuery: jest.fn().mockImplementation((query) => {
+vi.mock('@/hooks/useMediaQuery', () => ({
+  useMediaQuery: vi.fn().mockImplementation((query) => {
     if (query === '(max-width: 768px)') return true;
     if (query === '(max-width: 1024px)') return true;
     return false;
