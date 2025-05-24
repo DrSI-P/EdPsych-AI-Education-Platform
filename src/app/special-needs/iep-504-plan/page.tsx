@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   description: 'Create and manage Individualised Education Plans (IEPs) and 504 Accommodation Plans for students with special educational needs.',
 };
 
-export default function IEP504PlanPage() {
+export default function IEP504PlanPage(): React.ReactNode {
   return (
     <div className="container mx-auto py-8 space-y-8">
       <div className="space-y-2">
@@ -23,7 +23,7 @@ export default function IEP504PlanPage() {
       <Tabs defaultValue="tool" className="space-y-4">
         <TabsList>
           <TabsTrigger value="tool">Management Tool</TabsTrigger>
-          <TabsTrigger value="about">About IEPs & 504 Plans</TabsTrigger>
+          <TabsTrigger value="about">About IEPs &amp; 504 Plans</TabsTrigger>
           <TabsTrigger value="guidance">Best Practices</TabsTrigger>
         </TabsList>
         
@@ -63,7 +63,7 @@ export default function IEP504PlanPage() {
                     <div>
                       <h3 className="font-medium">504 Accommodation Plans</h3>
                       <p className="text-sm text-grey-500">
-                        While "504 Plans" are primarily a US term, similar accommodation plans exist in the UK 
+                        While &quot;504 Plans&quot; are primarily a US term, similar accommodation plans exist in the UK 
                         for students who need reasonable adjustments but may not require an EHCP. These plans 
                         ensure equal access to education through specific accommodations.
                       </p>
@@ -77,7 +77,7 @@ export default function IEP504PlanPage() {
                     <div>
                       <h3 className="font-medium">Education, Health and Care Plans (EHCPs)</h3>
                       <p className="text-sm text-grey-500">
-                        EHCPs are legal documents that describe a child's special educational, health and social care needs, 
+                        EHCPs are legal documents that describe a child&apos;s special educational, health and social care needs, 
                         and the provision required to meet those needs. They are more comprehensive than IEPs and have 
                         statutory backing.
                       </p>
@@ -135,7 +135,7 @@ export default function IEP504PlanPage() {
                   <div className="bg-white p-3 rounded-md border border-blue-200">
                     <h4 className="font-medium text-blue-800 mb-1">1. Assess</h4>
                     <p className="text-blue-600">
-                      Clear analysis of pupil's needs, drawing on teacher assessment, experience of the pupil, and other data
+                      Clear analysis of pupil&apos;s needs, drawing on teacher assessment, experience of the pupil, and other data
                     </p>
                   </div>
                   <div className="bg-white p-3 rounded-md border border-blue-200">
@@ -191,7 +191,7 @@ export default function IEP504PlanPage() {
                     <div>
                       <h4 className="font-medium">Focus on Strengths</h4>
                       <p className="text-sm text-grey-500">
-                        Begin with a thorough assessment of the student's strengths, interests, and preferences. 
+                        Begin with a thorough assessment of the student&apos;s strengths, interests, and preferences. 
                         Build on these to develop effective strategies and increase engagement.
                       </p>
                     </div>
@@ -290,42 +290,8 @@ export default function IEP504PlanPage() {
                       Ensure communication is accessible, regular, and two-way.
                     </p>
                     <p>
-                      Consider cultural perspectives and family circumstances when planning meetings and 
-                      developing home-school strategies for consistency.
+                      Consider cultural perspectives and family circumstances when planning.
                     </p>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="border-t pt-4">
-                <h3 className="font-medium text-lg mb-3">Research-Based Resources</h3>
-                <div className="grid md:grid-cols-3 gap-4">
-                  <div className="border rounded-md p-3">
-                    <h4 className="font-medium mb-1">UK Department for Education</h4>
-                    <p className="text-sm text-grey-500 mb-2">
-                      SEND Code of Practise: 0 to 25 years
-                    </p>
-                    <a href="#" className="text-sm text-blue-600 hover:underline">
-                      View Resource
-                    </a>
-                  </div>
-                  <div className="border rounded-md p-3">
-                    <h4 className="font-medium mb-1">nasen (National Association for SEND)</h4>
-                    <p className="text-sm text-grey-500 mb-2">
-                      Effective IEP Development: A Guide for SENCOs
-                    </p>
-                    <a href="#" className="text-sm text-blue-600 hover:underline">
-                      View Resource
-                    </a>
-                  </div>
-                  <div className="border rounded-md p-3">
-                    <h4 className="font-medium mb-1">Education Endowment Foundation</h4>
-                    <p className="text-sm text-grey-500 mb-2">
-                      Special Educational Needs in Mainstream Schools
-                    </p>
-                    <a href="#" className="text-sm text-blue-600 hover:underline">
-                      View Resource
-                    </a>
                   </div>
                 </div>
               </div>
