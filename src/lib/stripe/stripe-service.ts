@@ -48,7 +48,7 @@ export const CREDIT_PACKAGES = {
 };
 
 // Subscription tier to credits mapping
-export const TIER_MONTHLY_CREDITS = {
+export const TIER_MONTHLY_CREDITS: Record<string, number> = {
   'free': 0,
   'standard': 20,
   'premium': 50,
@@ -57,6 +57,26 @@ export const TIER_MONTHLY_CREDITS = {
   'school': 1000,
   'district': 5000,
 };
+
+// Interface for subscription checkout parameters
+export interface SubscriptionCheckoutParams {
+  customerId: string;
+  planId: string;
+  successUrl: string;
+  cancelUrl: string;
+  trialDays?: number;
+  metadata?: Record<string, string>;
+}
+
+// Interface for credit purchase checkout parameters
+export interface CreditPurchaseCheckoutParams {
+  customerId: string;
+  priceId: string;
+  quantity?: number;
+  successUrl: string;
+  cancelUrl: string;
+  metadata?: Record<string, string>;
+}
 
 /**
  * Create a Stripe customer for a new user
@@ -90,14 +110,7 @@ export async function createSubscriptionCheckout({
   cancelUrl,
   trialDays = 0,
   metadata = {},
-}: {
-  customerId: string;
-  planId: string;
-  successUrl: string;
-  cancelUrl: string;
-  trialDays?: number;
-  metadata?: Record<string, string>;
-}): Promise<string> {
+}: SubscriptionCheckoutParams): Promise<string> {
   try {
     const session = await stripe.checkout.sessions.create({
       customer: customerId,
@@ -134,14 +147,7 @@ export async function createCreditPurchaseCheckout({
   successUrl,
   cancelUrl,
   metadata = {},
-}: {
-  customerId: string;
-  priceId: string;
-  quantity?: number;
-  successUrl: string;
-  cancelUrl: string;
-  metadata?: Record<string, string>;
-}): Promise<string> {
+}: CreditPurchaseCheckoutParams): Promise<string> {
   try {
     const session = await stripe.checkout.sessions.create({
       customer: customerId,
@@ -385,7 +391,7 @@ async function handleSubscriptionCreated(session: Stripe.Checkout.Session): Prom
     });
     
     // Add the monthly credits for the tier
-    const monthlyCredits = TIER_MONTHLY_CREDITS[tier as keyof typeof TIER_MONTHLY_CREDITS] || 0;
+    const monthlyCredits = TIER_MONTHLY_CREDITS[tier] || 0;
     
     // Check if user already has credits
     const existingCredits = await db.userCredits.findUnique({
@@ -573,9 +579,9 @@ async function handleInvoicePaid(invoice: Stripe.Invoice): Promise<void> {
     
     // Add the monthly credits for the tier
     const tier = user.subscriptionTier;
-    const monthlyCredits = TIER_MONTHLY_CREDITS[tier as keyof typeof TIER_MONTHLY_CREDITS] || 0;
+    const monthlyCredits = TIER_MONTHLY_CREDITS[tier] || 0;
     
-    // Update user credits
+    // Refresh the user's credits
     await db.userCredits.update({
       where: { userId: user.id },
       data: {
@@ -648,7 +654,7 @@ async function handleInvoicePaymentFailed(invoice: Stripe.Invoice): Promise<void
         stripeSubscriptionId: subscriptionId,
         metadata: {
           invoiceId: invoice.id,
-          attemptCount: invoice.attempt_count,
+          amount: invoice.amount_due,
         },
       },
     });
@@ -681,45 +687,54 @@ async function handleCreditPurchase(session: Stripe.Checkout.Session): Promise<v
       return;
     }
     
-    // Determine the number of credits from the line items
-    let creditsToAdd = 0;
+    // Determine the credit amount from the line items
+    // In a real implementation, you'd retrieve the session with line items expanded
+    // For simplicity, we'll use the metadata
+    const creditAmount = session.metadata?.creditAmount 
+      ? parseInt(session.metadata.creditAmount, 10)
+      : 0;
     
-    // This is a simplified approach - in production, you'd retrieve the session line items
-    // and calculate based on the actual products purchased
-    if (session.metadata?.creditPackage === 'small') {
-      creditsToAdd = 20;
-    } else if (session.metadata?.creditPackage === 'medium') {
-      creditsToAdd = 50;
-    } else if (session.metadata?.creditPackage === 'large') {
-      creditsToAdd = 150;
-    } else {
-      // Default fallback based on amount
-      const amount = session.amount_total || 0;
-      if (amount >= 2499) {
-        creditsToAdd = 150;
-      } else if (amount >= 999) {
-        creditsToAdd = 50;
-      } else {
-        creditsToAdd = 20;
-      }
+    if (creditAmount <= 0) {
+      console.error('Invalid credit amount in session:', session.id);
+      return;
     }
     
-    // Update user credits
-    await db.userCredits.update({
+    // Add the credits to the user's account
+    const existingCredits = await db.userCredits.findUnique({
       where: { userId: user.id },
-      data: {
-        remainingCredits: {
-          increment: creditsToAdd,
-        },
-      },
     });
+    
+    if (existingCredits) {
+      // Update existing credits
+      await db.userCredits.update({
+        where: { userId: user.id },
+        data: {
+          remainingCredits: {
+            increment: creditAmount,
+          },
+          purchasedCredits: {
+            increment: creditAmount,
+          },
+        },
+      });
+    } else {
+      // Create new credits record
+      await db.userCredits.create({
+        data: {
+          userId: user.id,
+          remainingCredits: creditAmount,
+          usedCredits: 0,
+          purchasedCredits: creditAmount,
+          lastCreditRefresh: new Date(),
+        },
+      });
+    }
     
     // Log the credit purchase
     await db.creditPurchase.create({
       data: {
         userId: user.id,
-        amount: session.amount_total || 0,
-        creditsAdded: creditsToAdd,
+        amount: creditAmount,
         stripeSessionId: session.id,
         stripePaymentIntentId: typeof session.payment_intent === 'string'
           ? session.payment_intent
@@ -731,14 +746,131 @@ async function handleCreditPurchase(session: Stripe.Checkout.Session): Promise<v
   }
 }
 
-export default {
-  createCustomer,
-  createSubscriptionCheckout,
-  createCreditPurchaseCheckout,
-  getActiveSubscriptions,
-  cancelSubscription,
-  updateSubscription,
-  getCustomerPaymentMethods,
-  createPortalSession,
-  handleWebhookEvent,
-};
+/**
+ * Get subscription details for a user
+ */
+export async function getUserSubscription(userId: string): Promise<{
+  tier: string;
+  status: string;
+  periodEnd: Date | null;
+  cancelAtPeriodEnd: boolean;
+  credits: {
+    remaining: number;
+    used: number;
+    purchased: number;
+    lastRefresh: Date | null;
+  };
+}> {
+  try {
+    // Get the user
+    const user = await db.user.findUnique({
+      where: { id: userId },
+    });
+    
+    if (!user) {
+      throw new Error('User not found');
+    }
+    
+    // Get the user's credits
+    const credits = await db.userCredits.findUnique({
+      where: { userId },
+    });
+    
+    return {
+      tier: user.subscriptionTier || 'free',
+      status: user.subscriptionStatus || 'inactive',
+      periodEnd: user.subscriptionPeriodEnd || null,
+      cancelAtPeriodEnd: user.cancelAtPeriodEnd || false,
+      credits: {
+        remaining: credits?.remainingCredits || 0,
+        used: credits?.usedCredits || 0,
+        purchased: credits?.purchasedCredits || 0,
+        lastRefresh: credits?.lastCreditRefresh || null,
+      },
+    };
+  } catch (error) {
+    console.error('Error fetching user subscription:', error);
+    throw new Error('Failed to fetch subscription details. Please try again later.');
+  }
+}
+
+/**
+ * Get subscription pricing information
+ */
+export async function getSubscriptionPricing(): Promise<{
+  standard: { monthly: number; yearly: number };
+  premium: { monthly: number; yearly: number };
+  family: { monthly: number; yearly: number };
+}> {
+  try {
+    // Fetch the prices from Stripe
+    const standardMonthly = await stripe.prices.retrieve(SUBSCRIPTION_PLANS.STANDARD.MONTHLY);
+    const standardYearly = await stripe.prices.retrieve(SUBSCRIPTION_PLANS.STANDARD.YEARLY);
+    const premiumMonthly = await stripe.prices.retrieve(SUBSCRIPTION_PLANS.PREMIUM.MONTHLY);
+    const premiumYearly = await stripe.prices.retrieve(SUBSCRIPTION_PLANS.PREMIUM.YEARLY);
+    const familyMonthly = await stripe.prices.retrieve(SUBSCRIPTION_PLANS.FAMILY.MONTHLY);
+    const familyYearly = await stripe.prices.retrieve(SUBSCRIPTION_PLANS.FAMILY.YEARLY);
+    
+    return {
+      standard: {
+        monthly: standardMonthly.unit_amount ? standardMonthly.unit_amount / 100 : 0,
+        yearly: standardYearly.unit_amount ? standardYearly.unit_amount / 100 : 0,
+      },
+      premium: {
+        monthly: premiumMonthly.unit_amount ? premiumMonthly.unit_amount / 100 : 0,
+        yearly: premiumYearly.unit_amount ? premiumYearly.unit_amount / 100 : 0,
+      },
+      family: {
+        monthly: familyMonthly.unit_amount ? familyMonthly.unit_amount / 100 : 0,
+        yearly: familyYearly.unit_amount ? familyYearly.unit_amount / 100 : 0,
+      },
+    };
+  } catch (error) {
+    console.error('Error fetching subscription pricing:', error);
+    // Return fallback pricing
+    return {
+      standard: { monthly: 9.99, yearly: 99.99 },
+      premium: { monthly: 19.99, yearly: 199.99 },
+      family: { monthly: 29.99, yearly: 299.99 },
+    };
+  }
+}
+
+/**
+ * Get credit package pricing information
+ */
+export async function getCreditPackagePricing(): Promise<{
+  small: { amount: number; price: number };
+  medium: { amount: number; price: number };
+  large: { amount: number; price: number };
+}> {
+  try {
+    // Fetch the prices from Stripe
+    const smallPackage = await stripe.prices.retrieve(CREDIT_PACKAGES.SMALL);
+    const mediumPackage = await stripe.prices.retrieve(CREDIT_PACKAGES.MEDIUM);
+    const largePackage = await stripe.prices.retrieve(CREDIT_PACKAGES.LARGE);
+    
+    return {
+      small: {
+        amount: smallPackage.metadata?.credits ? parseInt(smallPackage.metadata.credits, 10) : 50,
+        price: smallPackage.unit_amount ? smallPackage.unit_amount / 100 : 4.99,
+      },
+      medium: {
+        amount: mediumPackage.metadata?.credits ? parseInt(mediumPackage.metadata.credits, 10) : 150,
+        price: mediumPackage.unit_amount ? mediumPackage.unit_amount / 100 : 12.99,
+      },
+      large: {
+        amount: largePackage.metadata?.credits ? parseInt(largePackage.metadata.credits, 10) : 500,
+        price: largePackage.unit_amount ? largePackage.unit_amount / 100 : 39.99,
+      },
+    };
+  } catch (error) {
+    console.error('Error fetching credit package pricing:', error);
+    // Return fallback pricing
+    return {
+      small: { amount: 50, price: 4.99 },
+      medium: { amount: 150, price: 12.99 },
+      large: { amount: 500, price: 39.99 },
+    };
+  }
+}
