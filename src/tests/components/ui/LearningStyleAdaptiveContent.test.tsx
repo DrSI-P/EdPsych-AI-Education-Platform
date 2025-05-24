@@ -1,16 +1,18 @@
+// @ts-check
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import LearningStyleAdaptiveContent from '../../components/ui/LearningStyleAdaptiveContent';
 
 // Mock the learning style detection service
-jest.mock('@/lib/learning-style-service', () => ({
-  detectLearningStyle: jest.fn().mockResolvedValue({
+vi.mock('@/lib/learning-style-service', () => ({
+  detectLearningStyle: vi.fn().mockResolvedValue({
     visual: 0.7,
     auditory: 0.3,
     readWrite: 0.5,
     kinesthetic: 0.2
   }),
-  getLearningStyleRecommendations: jest.fn().mockResolvedValue({
+  getLearningStyleRecommendations: vi.fn().mockResolvedValue({
     contentTypes: ['diagrams', 'videos', 'text'],
     presentationMethods: ['visual-first', 'include-text']
   })
@@ -25,7 +27,7 @@ describe('LearningStyleAdaptiveContent Component', () => {
   };
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('renders learning style adaptive content component correctly', async () => {
@@ -44,12 +46,12 @@ describe('LearningStyleAdaptiveContent Component', () => {
   });
 
   it('detects learning style on mount', async () => {
-    const { detectLearningStyle } = require('@/lib/learning-style-service');
+    const learningStyleService = await import('@/lib/learning-style-service');
     
     render(<LearningStyleAdaptiveContent content={mockContent} />);
     
     // Check that learning style detection was called
-    expect(detectLearningStyle).toHaveBeenCalled();
+    expect(learningStyleService.detectLearningStyle).toHaveBeenCalled();
     
     // Wait for detection to complete
     await waitFor(() => {
@@ -58,8 +60,8 @@ describe('LearningStyleAdaptiveContent Component', () => {
   });
 
   it('prioritizes content based on detected learning style', async () => {
-    const { detectLearningStyle } = require('@/lib/learning-style-service');
-    detectLearningStyle.mockResolvedValue({
+    const learningStyleService = await import('@/lib/learning-style-service');
+    learningStyleService.detectLearningStyle.mockResolvedValue({
       visual: 0.9,  // Strongly visual
       auditory: 0.2,
       readWrite: 0.4,
@@ -129,7 +131,7 @@ describe('LearningStyleAdaptiveContent Component', () => {
   });
 
   it('provides learning style recommendations', async () => {
-    const { getLearningStyleRecommendations } = require('@/lib/learning-style-service');
+    const learningStyleService = await import('@/lib/learning-style-service');
     
     render(<LearningStyleAdaptiveContent content={mockContent} showRecommendations={true} />);
     
@@ -139,7 +141,7 @@ describe('LearningStyleAdaptiveContent Component', () => {
     });
     
     // Check that recommendations were requested
-    expect(getLearningStyleRecommendations).toHaveBeenCalled();
+    expect(learningStyleService.getLearningStyleRecommendations).toHaveBeenCalled();
     
     // Find and click recommendations button
     const recommendationsButton = screen.getByRole('button', { name: /View Recommendations/i });
@@ -153,8 +155,8 @@ describe('LearningStyleAdaptiveContent Component', () => {
   });
 
   it('handles learning style detection errors gracefully', async () => {
-    const { detectLearningStyle } = require('@/lib/learning-style-service');
-    detectLearningStyle.mockRejectedValue(new Error('Detection failed'));
+    const learningStyleService = await import('@/lib/learning-style-service');
+    learningStyleService.detectLearningStyle.mockRejectedValue(new Error('Detection failed'));
     
     render(<LearningStyleAdaptiveContent content={mockContent} />);
     
@@ -173,8 +175,8 @@ describe('LearningStyleAdaptiveContent Component', () => {
   it('saves learning style preferences', async () => {
     // Mock localStorage
     const localStorageMock = {
-      getItem: jest.fn(),
-      setItem: jest.fn(),
+      getItem: vi.fn(),
+      setItem: vi.fn(),
     };
     Object.defineProperty(window, 'localStorage', { value: localStorageMock });
     
@@ -202,17 +204,17 @@ describe('LearningStyleAdaptiveContent Component', () => {
     };
     
     const localStorageMock = {
-      getItem: jest.fn().mockReturnValue(JSON.stringify(savedPreferences)),
-      setItem: jest.fn(),
+      getItem: vi.fn().mockReturnValue(JSON.stringify(savedPreferences)),
+      setItem: vi.fn(),
     };
     Object.defineProperty(window, 'localStorage', { value: localStorageMock });
     
-    const { detectLearningStyle } = require('@/lib/learning-style-service');
+    const learningStyleService = await import('@/lib/learning-style-service');
     
     render(<LearningStyleAdaptiveContent content={mockContent} savePreferences={true} />);
     
     // Check that detection was not called (using saved preferences instead)
-    expect(detectLearningStyle).not.toHaveBeenCalled();
+    expect(learningStyleService.detectLearningStyle).not.toHaveBeenCalled();
     
     // Wait for content adaptation
     await waitFor(() => {
