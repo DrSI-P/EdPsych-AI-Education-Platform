@@ -1,25 +1,27 @@
+// @ts-check
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import VoiceInput from '../../components/ui/VoiceInput';
 
 // Mock the SpeechRecognition API
 const mockSpeechRecognition = {
-  start: jest.fn(),
-  stop: jest.fn(),
-  abort: jest.fn(),
-  addEventListener: jest.fn(),
-  removeEventListener: jest.fn(),
+  start: vi.fn(),
+  stop: vi.fn(),
+  abort: vi.fn(),
+  addEventListener: vi.fn(),
+  removeEventListener: vi.fn(),
 };
 
 // Mock the browser SpeechRecognition
-window.SpeechRecognition = jest.fn().mockImplementation(() => mockSpeechRecognition);
-window.webkitSpeechRecognition = jest.fn().mockImplementation(() => mockSpeechRecognition);
+window.SpeechRecognition = vi.fn().mockImplementation(() => mockSpeechRecognition);
+window.webkitSpeechRecognition = vi.fn().mockImplementation(() => mockSpeechRecognition);
 
 describe('VoiceInput Component', () => {
-  const mockOnTranscript = jest.fn();
+  const mockOnTranscript = vi.fn();
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
     
     // Setup event listeners mock implementation
     mockSpeechRecognition.addEventListener.mockImplementation((event, handler) => {
