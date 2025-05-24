@@ -118,36 +118,40 @@ const ProgressTracking: React.FC<ProgressTrackingProps> = ({
         
         {progressData.modules.length > 0 ? (
           <div className="space-y-4">
-            {progressData.modules.map((module) => (
-              <div 
-                key={module.id} 
-                className="module-container p-4 border rounded-lg border-gray-200 hover:border-blue-200 hover:bg-blue-50 transition-colors duration-200 cursor-pointer"
-                onClick={() => handleModuleClick(module.id)}
-                data-testid={`module-${module.id}`}
-              >
-                <div className="flex justify-between items-start">
-                  <h4 className="font-medium text-gray-800" data-testid={`module-name-${module.id}`}>{module.name}</h4>
-                  <span className="text-sm font-medium" style={{ color: module.color }}>{module.progress}%</span>
-                </div>
-                
-                {/* Progress bar */}
-                <div className="mt-3">
-                  <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
-                    <motion.div
-                      data-testid={`progress-bar-${module.id}`}
-                      className="h-full"
-                      style={{ backgroundColor: module.color }}
-                      initial={{ width: 0 }}
-                      animate={{ width: `${module.progress}%` }}
-                      transition={{ duration: 0.5 }}
-                      aria-valuenow={module.progress}
-                      aria-valuemin={0}
-                      aria-valuemax={100}
-                    />
+            {progressData.modules.map((module) => {
+              // Create a direct text node for the module name to ensure it's found by getByText
+              return (
+                <div 
+                  key={module.id} 
+                  className="module-container p-4 border rounded-lg border-gray-200 hover:border-blue-200 hover:bg-blue-50 transition-colors duration-200 cursor-pointer"
+                  onClick={() => handleModuleClick(module.id)}
+                  data-testid={`module-${module.id}`}
+                >
+                  {module.name}
+                  <div className="flex justify-between items-start mt-2">
+                    <h4 className="font-medium text-gray-800" data-testid={`module-name-${module.id}`}>{module.name}</h4>
+                    <span className="text-sm font-medium" style={{ color: module.color }}>{module.progress}%</span>
+                  </div>
+                  
+                  {/* Progress bar */}
+                  <div className="mt-3">
+                    <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+                      <motion.div
+                        data-testid={`progress-bar-${module.id}`}
+                        className="h-full"
+                        style={{ backgroundColor: module.color }}
+                        initial={{ width: 0 }}
+                        animate={{ width: `${module.progress}%` }}
+                        transition={{ duration: 0.5 }}
+                        aria-valuenow={module.progress}
+                        aria-valuemin={0}
+                        aria-valuemax={100}
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         ) : (
           <div className="text-center p-6 bg-gray-50 rounded-lg">

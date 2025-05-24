@@ -41,10 +41,10 @@ describe('ProgressTracking Component', () => {
     expect(screen.getByText(/65%/i)).toBeInTheDocument();
     
     // Check that module progress is displayed
-    expect(screen.getByText(/Mathematics/i)).toBeInTheDocument();
-    expect(screen.getByText(/Science/i)).toBeInTheDocument();
-    expect(screen.getByText(/English/i)).toBeInTheDocument();
-    expect(screen.getByText(/History/i)).toBeInTheDocument();
+    expect(screen.getByTestId('module-name-module1')).toHaveTextContent('Mathematics');
+    expect(screen.getByTestId('module-name-module2')).toHaveTextContent('Science');
+    expect(screen.getByTestId('module-name-module3')).toHaveTextContent('English');
+    expect(screen.getByTestId('module-name-module4')).toHaveTextContent('History');
     
     // Check that achievements are displayed
     expect(screen.getByText(/Recent Achievements/i)).toBeInTheDocument();
@@ -120,7 +120,7 @@ describe('ProgressTracking Component', () => {
     render(<ProgressTracking progressData={mockProgressData} />);
     
     // Find mathematics module
-    const mathModule = screen.getByText(/Mathematics/i).closest('div');
+    const mathModule = screen.getByTestId('module-module1');
     
     // Click on the module
     fireEvent.click(mathModule);
