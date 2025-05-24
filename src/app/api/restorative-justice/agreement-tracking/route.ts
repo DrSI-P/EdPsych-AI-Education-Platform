@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
@@ -29,8 +29,23 @@ const TermUpdateSchema = z.object({
   notes: z.string().optional()
 });
 
+// Define interfaces for request data
+interface AgreementFilters {
+  userId: string;
+  status?: string;
+  type?: string;
+}
+
+interface AgreementTerm {
+  description: string;
+  responsibleParty: string;
+  dueDate: Date;
+  status: "pending" | "in-progress" | "completed" | "at-risk";
+  notes: string;
+}
+
 // GET handler for retrieving agreements
-export async function GET(req: Request) {
+export async function GET(req: NextRequest): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
     
@@ -44,7 +59,7 @@ export async function GET(req: Request) {
     const type = searchParams.get('type');
     
     // Build query filters
-    const filters: any = { userId };
+    const filters: AgreementFilters = { userId };
     
     if (status && status !== 'all') {
       filters.status = status;
@@ -78,7 +93,7 @@ export async function GET(req: Request) {
 }
 
 // POST handler for creating a new agreement
-export async function POST(req: Request) {
+export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
     
@@ -143,7 +158,7 @@ export async function POST(req: Request) {
 }
 
 // PATCH handler for updating term status
-export async function PATCH(req: Request) {
+export async function PATCH(req: NextRequest): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
     
