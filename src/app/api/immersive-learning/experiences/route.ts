@@ -71,7 +71,7 @@ export async function GET(req: NextRequest) {
     const transformedExperiences = experiences.map(exp => {
       const reviewCount = exp.reviews.length;
       const averageRating = reviewCount > 0 
-        ? exp.reviews.reduce((sum, review) => sum + review.rating, 0) / reviewCount 
+        ? exp.reviews.reduce((sum: any, review: any) => sum + review.rating, 0) / reviewCount 
         : null;
       
       return {

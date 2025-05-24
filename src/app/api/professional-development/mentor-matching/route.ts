@@ -1008,7 +1008,7 @@ async function getMentorshipAnalytics(userId: string) {
   const completedMeetings = meetings.filter(m => m.status === 'completed').length;
   const totalMeetingHours = meetings
     .filter(m => m.status === 'completed')
-    .reduce((total, meeting) => total + meeting.duration / 60, 0);
+    .reduce((total: any, meeting: any) => total + meeting.duration / 60, 0);
   
   // Get all goals
   const allGoals = [...mentorMentorships, ...menteeMentorships].flatMap(m =>
@@ -1025,10 +1025,10 @@ async function getMentorshipAnalytics(userId: string) {
     }
   });
   
-  const totalCpdPoints = cpdActivities.reduce((total, activity) => total + activity.points, 0);
+  const totalCpdPoints = cpdActivities.reduce((total: any, activity: any) => total + activity.points, 0);
   
   // Get expertise distribution
-  const expertiseDistribution = mentorMentorships.reduce((acc, mentorship) => {
+  const expertiseDistribution = mentorMentorships.reduce((acc: any, mentorship: any) => {
     mentorship.focusAreas.forEach(area => {
       if (!acc[area]) {
         acc[area] = 0;

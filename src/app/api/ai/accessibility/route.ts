@@ -22,6 +22,7 @@ interface AccessibilitySettings {
   focusIndicators: boolean;
   reduceMotion: boolean;
   colorBlindnessType?: string;
+  voiceRecognitionActive?: boolean;
 }
 
 interface RequestBody {

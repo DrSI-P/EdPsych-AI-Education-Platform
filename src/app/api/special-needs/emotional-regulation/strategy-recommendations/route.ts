@@ -306,7 +306,7 @@ function generatePersonalizedRecommendations(
   });
   
   const commonEmotions = Object.entries(emotionFrequency)
-    .sort((a, b) => b[1] - a[1])
+    .sort((a: any, b: any) => b[1] - a[1])
     .slice(0, 3)
     .map(entry => entry[0]);
   
@@ -462,7 +462,7 @@ function generatePersonalizedRecommendations(
   }
   
   // Sort by score
-  recommendations.sort((a, b) => (b.score || 0) - (a.score || 0));
+  recommendations.sort((a: any, b: any) => (b.score || 0) - (a.score || 0));
   
   // Limit to requested number
   return recommendations.slice(0, params.limit);

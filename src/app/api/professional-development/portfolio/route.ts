@@ -1147,8 +1147,8 @@ async function getPortfolioAnalytics(userId: string) {
     recentCpdActivities: cpdActivities,
     viewsData,
     sectionViewsData,
-    totalCpdPoints: cpdActivities.reduce((sum, activity) => sum + activity.points, 0),
-    totalCpdHours: cpdActivities.reduce((sum, activity) => sum + activity.duration, 0)
+    totalCpdPoints: cpdActivities.reduce((sum: any, activity: any) => sum + activity.points, 0),
+    totalCpdHours: cpdActivities.reduce((sum: any, activity: any) => sum + activity.duration, 0)
   }, { status: 200 });
 }
 

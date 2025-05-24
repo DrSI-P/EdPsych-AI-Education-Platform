@@ -64,7 +64,7 @@ export async function GET(req: NextRequest) {
     const transformedTools = tools.map(tool => {
       const reviewCount = tool.reviews.length;
       const averageRating = reviewCount > 0 
-        ? tool.reviews.reduce((sum, review) => sum + review.rating, 0) / reviewCount 
+        ? tool.reviews.reduce((sum: any, review: any) => sum + review.rating, 0) / reviewCount 
         : null;
       
       return {
