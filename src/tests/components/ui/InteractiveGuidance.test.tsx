@@ -1,9 +1,11 @@
+// @ts-check
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import InteractiveGuidance from '../../components/ui/InteractiveGuidance';
 
 // Mock the animation library
-jest.mock('framer-motion', () => ({
+vi.mock('framer-motion', () => ({
   motion: {
     div: ({ children, ...props }) => <div data-testid="motion-div" {...props}>{children}</div>,
     path: ({ children, ...props }) => <path data-testid="motion-path" {...props}>{children}</path>,
@@ -108,7 +110,7 @@ describe('InteractiveGuidance Component', () => {
   });
 
   it('calls onComplete callback when guide is finished', async () => {
-    const mockOnComplete = jest.fn();
+    const mockOnComplete = vi.fn();
     render(<InteractiveGuidance steps={mockSteps} onComplete={mockOnComplete} />);
     
     // Go to last step
