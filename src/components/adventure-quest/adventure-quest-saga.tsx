@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -46,30 +46,84 @@ import { useAssessment } from '../assessment/assessment-context';
 import { useUserProfile } from '../user/user-profile-context';
 import { mockCharacter, mockQuests, learningStyles } from './mock-data';
 
+// Types
+interface Character {
+  id: string;
+  name: string;
+  level: number;
+  xp: number;
+  xpToNextLevel: number;
+  attributes: {
+    intelligence: number;
+    creativity: number;
+    persistence: number;
+    curiosity: number;
+  };
+  inventory: Array<{
+    id: string;
+    name: string;
+    description: string;
+    quantity: number;
+  }>;
+  achievements: Array<{
+    id: string;
+    name: string;
+    description: string;
+    earnedAt: string;
+  }>;
+}
+
+interface Quest {
+  id: string;
+  title: string;
+  description: string;
+  subject: string;
+  keyStage: string;
+  difficulty: string;
+  duration: number;
+  xpReward: number;
+  objectives: string[];
+  challenges: Array<{
+    id: string;
+    title: string;
+    description: string;
+    content: string;
+    type: string;
+    options?: string[];
+    correctAnswer?: string;
+    minScore?: number;
+  }>;
+}
+
+interface CompletedQuest extends Quest {
+  completedAt: string;
+  results?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+}
+
 // AdventureQuestSaga component
-export const AdventureQuestSaga = (): React.ReactNode => {
+export const AdventureQuestSaga = (): JSX.Element => {
   const { toast } = useToast();
   
   // State for character
-  const [character, setCharacter] = useState<any>(null);
+  const [character, setCharacter] = useState<Character | null>(null);
   
   // State for quests
-  const [quests, setQuests] = useState<any[]>([]);
-  const [activeQuest, setActiveQuest] = useState<any>(null);
-  const [completedQuests, setCompletedQuests] = useState<any[]>([]);
+  const [quests, setQuests] = useState<Quest[]>([]);
+  const [activeQuest, setActiveQuest] = useState<Quest | null>(null);
+  const [completedQuests, setCompletedQuests] = useState<CompletedQuest[]>([]);
   
   // State for UI
-  const [view, setView] = useState<string>('hub');
+  const [view, setView] = useState<'hub' | 'quest' | 'history' | 'generate' | 'character'>('hub');
   const [generating] = useState<boolean>(false);
   
   // Handle quest selection
-  const handleSelectQuest = (quest: any): void => {
+  const handleSelectQuest = (quest: Quest): void => {
     setActiveQuest(quest);
     setView('quest');
   };
   
   // Handle quest completion
-  const handleCompleteQuest = (quest: any, results: any): void => {
+  const handleCompleteQuest = (quest: Quest, results: Record<string, unknown>): void => {
     // Add quest to completed quests
     setCompletedQuests([...completedQuests, {
       ...quest,
@@ -107,7 +161,7 @@ export const AdventureQuestSaga = (): React.ReactNode => {
   };
   
   // Handle character creation
-  const handleCreateCharacter = (newCharacter: any): void => {
+  const handleCreateCharacter = (newCharacter: Character): void => {
     setCharacter(newCharacter);
     setView('hub');
     
@@ -117,8 +171,62 @@ export const AdventureQuestSaga = (): React.ReactNode => {
     });
   };
   
+  // Initialize data on component mount
+  useEffect(() => {
+    // Initialize character if not exists
+    if (!character) {
+      setCharacter(mockCharacter as Character);
+    }
+    
+    // Initialize quests
+    setQuests(mockQuests as Quest[]);
+    
+    // Initialize completed quests
+    setCompletedQuests([
+      {
+        id: 'cq1',
+        title: 'The Number Navigator',
+        subject: 'Mathematics',
+        difficulty: 'beginner',
+        xpReward: 150,
+        completedAt: '2023-01-15T12:30:00Z',
+        objectives: [],
+        challenges: [],
+        description: '',
+        keyStage: '',
+        duration: 0
+      },
+      {
+        id: 'cq2',
+        title: 'Word Wizards',
+        subject: 'English',
+        difficulty: 'intermediate',
+        xpReward: 200,
+        completedAt: '2023-02-10T14:45:00Z',
+        objectives: [],
+        challenges: [],
+        description: '',
+        keyStage: '',
+        duration: 0
+      },
+      {
+        id: 'cq3',
+        title: 'Science Explorers',
+        subject: 'Science',
+        difficulty: 'beginner',
+        xpReward: 125,
+        completedAt: '2023-03-05T09:20:00Z',
+        objectives: [],
+        challenges: [],
+        description: '',
+        keyStage: '',
+        duration: 0
+      }
+    ]);
+  }, []);
+  
   // Render quest hub view
-  const renderQuestHub = (): React.ReactNode => {
+  const renderQuestHub = (): JSX.Element => {
     return (
       <div className="adventure-quest-hub">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -255,7 +363,7 @@ export const AdventureQuestSaga = (): React.ReactNode => {
                     <h4 className="text-sm font-medium mb-2">Recent Achievements</h4>
                     {character?.achievements && character.achievements.length > 0 ? (
                       <div className="space-y-2">
-                        {character.achievements.slice(0, 3).map((achievement: any) => (
+                        {character.achievements.slice(0, 3).map((achievement) => (
                           <div key={achievement.id} className="flex items-start">
                             <Award className="h-4 w-4 mr-2 text-yellow-500 mt-0.5" />
                             <div>
@@ -284,7 +392,7 @@ export const AdventureQuestSaga = (): React.ReactNode => {
   };
   
   // Render quest detail view
-  const renderQuestDetail = (): React.ReactNode => {
+  const renderQuestDetail = (): JSX.Element | null => {
     if (!activeQuest) return null;
     
     return (
@@ -322,7 +430,7 @@ export const AdventureQuestSaga = (): React.ReactNode => {
               <div>
                 <h3 className="text-lg font-semibold mb-2">Objectives</h3>
                 <ul className="space-y-1">
-                  {activeQuest.objectives.map((objective: string, index: number) => (
+                  {activeQuest.objectives.map((objective, index) => (
                     <li key={`objective-${index}`} className="flex items-start">
                       <Star className="h-4 w-4 mr-2 text-yellow-500 mt-1" />
                       <span>{objective}</span>
@@ -334,7 +442,7 @@ export const AdventureQuestSaga = (): React.ReactNode => {
               <div>
                 <h3 className="text-lg font-semibold mb-4">Challenges</h3>
                 <div className="space-y-4">
-                  {activeQuest.challenges.map((challenge: any, index: number) => (
+                  {activeQuest.challenges.map((challenge, index) => (
                     <Card key={challenge.id}>
                       <CardHeader className="p-4">
                         <CardTitle className="text-md flex items-center">
@@ -375,7 +483,7 @@ export const AdventureQuestSaga = (): React.ReactNode => {
   };
   
   // Render quest history view
-  const renderQuestHistory = (): React.ReactNode => {
+  const renderQuestHistory = (): JSX.Element => {
     return (
       <div className="adventure-quest-history">
         <Card className="w-full">
@@ -390,46 +498,40 @@ export const AdventureQuestSaga = (): React.ReactNode => {
           <CardContent>
             {completedQuests.length === 0 ? (
               <div className="text-center p-6 border rounded-lg bg-muted/50">
-                <p className="text-muted-foreground">You haven&apos;t completed any quests yet.</p>
+                <p className="text-muted-foreground">No completed quests yet. Start a quest to begin your adventure!</p>
               </div>
             ) : (
               <div className="space-y-4">
                 {completedQuests.map((quest) => (
-                  <Card key={quest.id}>
+                  <Card key={quest.id} className="bg-muted/20">
                     <CardHeader className="p-4">
                       <div className="flex justify-between items-start">
-                        <CardTitle className="text-lg">{quest.title}</CardTitle>
-                        <Badge variant="outline">
-                          {new Date(quest.completedAt).toLocaleDateString()}
-                        </Badge>
+                        <div>
+                          <CardTitle className="text-lg flex items-center">
+                            <Trophy className="h-4 w-4 mr-2 text-yellow-500" />
+                            {quest.title}
+                          </CardTitle>
+                          <CardDescription>
+                            Completed on {new Date(quest.completedAt).toLocaleDateString()}
+                          </CardDescription>
+                        </div>
+                        <Badge variant="outline">{quest.subject}</Badge>
                       </div>
                     </CardHeader>
                     <CardContent className="p-4 pt-0">
-                      <div className="flex flex-wrap gap-2 mb-2">
-                        <Badge variant="outline">{quest.subject}</Badge>
-                        <Badge variant="outline">{quest.difficulty}</Badge>
-                        <Badge variant="outline" className="flex items-center">
-                          <Trophy className="h-3 w-3 mr-1 text-yellow-500" />
-                          {quest.xpReward} XP
+                      <div className="flex items-center justify-between">
+                        <Badge variant={
+                          quest.difficulty === 'beginner' ? 'outline' : 
+                          quest.difficulty === 'intermediate' ? 'secondary' : 
+                          'destructive'
+                        }>
+                          {quest.difficulty}
                         </Badge>
-                      </div>
-                      
-                      {quest.results && (
-                        <div className="mt-4 grid grid-cols-3 gap-2 text-center">
-                          <div className="p-2 bg-muted rounded-md">
-                            <p className="text-sm text-muted-foreground">Score</p>
-                            <p className="font-medium">{quest.results.score}%</p>
-                          </div>
-                          <div className="p-2 bg-muted rounded-md">
-                            <p className="text-sm text-muted-foreground">Time</p>
-                            <p className="font-medium">{Math.floor(quest.results.timeSpent / 60)} min</p>
-                          </div>
-                          <div className="p-2 bg-muted rounded-md">
-                            <p className="text-sm text-muted-foreground">Challenges</p>
-                            <p className="font-medium">{quest.results.completedChallenges}</p>
-                          </div>
+                        <div className="flex items-center">
+                          <Star className="h-4 w-4 mr-1 text-yellow-500" />
+                          <span className="text-sm">{quest.xpReward} XP earned</span>
                         </div>
-                      )}
+                      </div>
                     </CardContent>
                   </Card>
                 ))}
@@ -446,94 +548,23 @@ export const AdventureQuestSaga = (): React.ReactNode => {
     );
   };
   
-  // Render the appropriate view based on state
-  const renderView = (): React.ReactNode => {
-    if (!character) {
-      return (
-        <div className="adventure-quest-character-creation">
-          <Card className="w-full max-w-4xl mx-auto">
-            <CardHeader>
-              <CardTitle className="text-2xl flex items-center">
-                <Sword className="mr-2" /> Create Your Character
-              </CardTitle>
-              <CardDescription>
-                Customize your character to begin your learning adventure
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div>
-                  <Label>Learning Style</Label>
-                  <div className="grid grid-cols-2 gap-4 mt-2">
-                    {learningStyles.map((style) => (
-                      <Card key={style.id} className="cursor-pointer hover:bg-accent transition-colors">
-                        <CardHeader className="p-4">
-                          <CardTitle className="text-lg">{style.name}</CardTitle>
-                        </CardHeader>
-                        <CardContent className="p-4 pt-0">
-                          <p className="text-sm text-muted-foreground">{style.description}</p>
-                        </CardContent>
-                      </Card>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-            <CardFooter>
-              <Button 
-                onClick={() => handleCreateCharacter({
-                  id: 'char1',
-                  name: 'Alex',
-                  level: 1,
-                  xp: 0,
-                  xpToNextLevel: 1000,
-                  attributes: {
-                    intelligence: 6,
-                    creativity: 8,
-                    persistence: 5,
-                    curiosity: 9
-                  },
-                  inventory: [],
-                  achievements: []
-                })}
-                className="w-full"
-              >
-                Begin Adventure
-              </Button>
-            </CardFooter>
-          </Card>
-        </div>
-      );
-    }
-    
-    switch (view) {
-      case 'quest':
-        return renderQuestDetail();
-      case 'hub':
-        return renderQuestHub();
-      case 'history':
-        return renderQuestHistory();
-      default:
-        return renderQuestHub();
-    }
-  };
-  
+  // Render main component
   return (
-    <div className="adventure-quest-saga p-4 md:p-6">
+    <div className="adventure-quest-saga p-4">
       <div className="max-w-7xl mx-auto">
-        <div className="mb-6">
+        <div className="mb-8">
           <h1 className="text-3xl font-bold flex items-center">
             <Sword className="mr-2" /> Adventure Quest Saga
           </h1>
           <p className="text-muted-foreground">
-            Embark on personalized learning quests tailored to your abilities and interests
+            Embark on personalized learning quests tailored to your learning style and curriculum needs
           </p>
         </div>
         
-        {renderView()}
+        {view === 'hub' && renderQuestHub()}
+        {view === 'quest' && renderQuestDetail()}
+        {view === 'history' && renderQuestHistory()}
       </div>
     </div>
   );
 };
-
-export default AdventureQuestSaga;
