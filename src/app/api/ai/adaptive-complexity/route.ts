@@ -1,35 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
+import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth/auth-options';
 import { db } from '@/lib/db';
-import { getAIService } from '@/lib/ai/ai-service';
+import { aiService } from '@/lib/ai';
 
-interface ComplexitySettings {
-  targetComplexityLevel: number;
-  adaptToPerformance: boolean;
+// Define interfaces for type safety
+interface AdaptiveComplexitySettings {
+  targetComplexity: number;
+  preserveMultiModal: boolean;
   includeScaffolding: boolean;
   includeExtensions: boolean;
-  preserveMultiModal: boolean;
-  adaptationStrength: number;
   autoAssessComprehension: boolean;
-}
-
-interface PerformanceMetrics {
-  comprehensionLevel: number;
-  engagementLevel: number;
-  completionRate: number;
-  assessmentScore: number;
-  recommendedComplexity: number;
-}
-
-interface AdaptiveComplexityRequest {
-  content?: string;
-  title?: string;
-  subject?: string;
-  keyStage?: string;
-  contentId?: string;
-  settings?: ComplexitySettings;
-  performanceMetrics?: PerformanceMetrics;
 }
 
 interface AdjustedContent {
@@ -44,142 +25,103 @@ interface AdjustedContent {
   comprehensionChecks?: string;
 }
 
+interface PerformanceMetrics {
+  readingLevel: number;
+  comprehensionRate: number;
+  engagementScore: number;
+  learningPreferences: string[];
+}
+
 export async function POST(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions: any);
+    // Get the authenticated user
+    const session = await getServerSession(authOptions);
     
-    if (!session?.user?.id: any) {
+    if (!session?.user?.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
-    const data = await req.json() as AdaptiveComplexityRequest;
-    const { 
-      content, 
-      title,
-      subject,
-      keyStage,
+    // Parse request body
+    const body = await req.json();
+    
+    // Extract parameters
+    const {
+      content,
       contentId,
+      title: contentTitle,
+      subject: contentSubject,
+      keyStage: contentKeyStage,
       settings,
       performanceMetrics
-    } = data;
+    } = body;
     
-    // Validate input
-    if (!content && !contentId && !title: any) {
-      return NextResponse.json({ error: 'No content, title, or content ID provided' }, { status: 400 });
+    // Validate required fields
+    if (!content && !contentId && !title) {
+      return NextResponse.json(
+        { error: 'Either content, contentId, or title must be provided' },
+        { status: 400 }
+      );
     }
     
-    // Get content if ID is provided
+    // Get content to adjust
     let contentToAdjust = content;
-    let contentTitle = title;
-    let contentSubject = subject;
-    let contentKeyStage = keyStage;
-    const originalComplexity = 50; // Default complexity level
     
-    if (contentId: any) {
-      // Check if it's a curriculum plan - using db interface
+    if (contentId) {
+      // Fetch content from database
       const curriculumPlan = await db.prisma.curriculumPlan.findUnique({
         where: { id: contentId }
       });
       
-      if (curriculumPlan: any) {
-        contentToAdjust = curriculumPlan.content || '';
-        contentTitle = curriculumPlan.title;
-        contentSubject = curriculumPlan.subject || '';
-        contentKeyStage = curriculumPlan.keyStage || '';
+      if (curriculumPlan) {
+        contentToAdjust = curriculumPlan.content;
       } else {
-        // Check if it's a resource - using db interface
+        // Try to find as a resource
         const resource = await db.prisma.resource.findUnique({
           where: { id: contentId }
         });
         
-        if (resource: any) {
-          // Use description instead of content which doesn't exist in the schema
-          contentToAdjust = resource.description || '';
-          contentTitle = resource.title;
-          // Resource model doesn't have tags property, use provided values
-          contentSubject = subject || '';
-          contentKeyStage = keyStage || '';
+        if (resource) {
+          contentToAdjust = resource.content;
         } else {
-          // Check if it's multi-modal content - using db interface
-          const multiModalContent = await db.prisma.multiModalContent.findUnique({
-            where: { id: contentId }
-          });
-          
-          if (multiModalContent: any) {
-            contentToAdjust = multiModalContent.multiModalContent ? JSON.stringify(multiModalContent.multiModalContent: any) : '';
-            contentTitle = multiModalContent.title;
-            contentSubject = multiModalContent.subject || '';
-            contentKeyStage = multiModalContent.keyStage || '';
-          } else {
-            return NextResponse.json({ error: 'Content not found' }, { status: 404 });
-          }
+          return NextResponse.json(
+            { error: 'Content not found with the provided ID' },
+            { status: 404 }
+          );
         }
       }
     }
     
-    // Determine target complexity level
-    let targetComplexity = settings?.targetComplexityLevel ?? 50;
-    
-    // If adapt to performance is enabled and performance metrics are available
-    if (settings?.adaptToPerformance && performanceMetrics?.recommendedComplexity: any) {
-      targetComplexity = performanceMetrics.recommendedComplexity;
-    }
-    
-    // Determine adaptation type
-    let adaptationType = "Maintained";
-    if (targetComplexity < originalComplexity - 10: any) {
-      adaptationType = "Simplified";
-    } else if (targetComplexity > originalComplexity + 10: any) {
-      adaptationType = "Enhanced";
-    }
-    
-    // Get AI service
-    const aiService = getAIService();
-    
-    // Create prompt for adaptive complexity adjustment
+    // Construct prompt for AI service
     const prompt = `
-      You are an expert educational content designer specialising in adapting content complexity to meet individual student needs.
-      
-      Task: Adjust the complexity of the following educational content to match the target complexity level.
-      
-      Original Content:
-      ${contentToAdjust || 'No specific content provided. Generate appropriate content based on the title: ' + contentTitle}
-      
-      Title: ${contentTitle || 'Educational Content'}
-      Subject: ${contentSubject || 'General'}
-      Key Stage: ${contentKeyStage || 'Not specified'}
-      
-      Target Complexity Level: ${targetComplexity}% (${targetComplexity < 30 ? 'Simple' : targetComplexity < 60 ? 'Moderate' : 'Complex'})
-      Adaptation Type: ${adaptationType}
-      Adaptation Strength: ${settings?.adaptationStrength ?? 50}%
-      
-      Adjustment Settings:
-      - Include Scaffolding: ${settings?.includeScaffolding ? 'Yes' : 'No'}
-      - Include Extensions: ${settings?.includeExtensions ? 'Yes' : 'No'}
-      - Preserve Multi-Modal Elements: ${settings?.preserveMultiModal ? 'Yes' : 'No'}
-      - Auto-Assess Comprehension: ${settings?.autoAssessComprehension ? 'Yes' : 'No'}
+      You are an educational content adaptation specialist with expertise in adjusting the complexity of learning materials to meet the needs of diverse learners. Your task is to adapt the following educational content to a complexity level of ${settings?.targetComplexity || 50}% (where 0% is extremely simple and 100% is highly complex).
       
       ${performanceMetrics ? `
-      Student Performance Metrics:
-      - Comprehension Level: ${performanceMetrics.comprehensionLevel}%
-      - Engagement Level: ${performanceMetrics.engagementLevel}%
-      - Completion Rate: ${performanceMetrics.completionRate}%
-      - Assessment Score: ${performanceMetrics.assessmentScore}%
+      Consider these student performance metrics when adapting the content:
+      - Reading level: ${performanceMetrics.readingLevel}/10
+      - Comprehension rate: ${performanceMetrics.comprehensionRate}%
+      - Engagement score: ${performanceMetrics.engagementScore}/10
+      - Learning preferences: ${performanceMetrics.learningPreferences.join(', ')}
       ` : ''}
       
-      Please adjust the content complexity according to the following guidelines:
+      Original content to adapt:
+      """
+      ${contentToAdjust}
+      """
       
-      1. For Simplified content (target complexity < 40%):
-         - Use simpler vocabulary and shorter sentences
-         - Break complex concepts into smaller, more manageable parts
-         - Provide more explicit explanations and examples
-         - Reduce abstract concepts and focus on concrete examples
-         - Include more visual supports if preserving multi-modal elements
+      ${settings?.preserveMultiModal ? 'Preserve all multi-modal elements (images, videos, interactive components) while adapting the text complexity.' : 'Focus on adapting the text content; you may simplify or modify multi-modal elements as needed.'}
       
-      2. For Moderate content (target complexity 40-70%):
-         - Use balanced vocabulary appropriate for the key stage
-         - Maintain a mix of simple and more complex sentence structures
-         - Provide adequate explanations with some room for inference
+      Guidelines for complexity adjustment:
+      
+      1. For Simple content (target complexity < 30%):
+         - Use basic vocabulary and short, clear sentences
+         - Break down complex concepts into step-by-step explanations
+         - Use concrete examples rather than abstract concepts
+         - Include visual supports if preserving multi-modal elements
+      
+      2. For Moderate content (target complexity 30-70%):
+         - Use a mix of simple and more specialized vocabulary
+         - Include some compound and complex sentences
+         - Provide explanations with some room for inference
          - Balance concrete examples with some abstract concepts
          - Include a variety of presentation methods if preserving multi-modal elements
       
@@ -229,14 +171,14 @@ export async function POST(req: NextRequest) {
         "originalComplexity": 50,
         "adjustedComplexity": 30,
         "adaptationType": "Simplified",
-        "scaffolding": "HTML-formatted scaffolding content (if includeScaffolding is true: any)",
-        "extensions": "HTML-formatted extension activities (if includeExtensions is true: any)",
-        "comprehensionChecks": "HTML-formatted comprehension checks (if autoAssessComprehension is true: any)"
+        "scaffolding": "HTML-formatted scaffolding content (if includeScaffolding is true)",
+        "extensions": "HTML-formatted extension activities (if includeExtensions is true)",
+        "comprehensionChecks": "HTML-formatted comprehension checks (if autoAssessComprehension is true)"
       }
     `;
     
     // Call AI service for adaptive complexity adjustment
-    const response = await aiService.generateText(prompt: any, {
+    const response = await aiService.generateText(prompt, {
       model: 'gpt-4',
       temperature: 0.5,
       max_tokens: 4000,
@@ -246,8 +188,8 @@ export async function POST(req: NextRequest) {
     // Parse the response
     let adjustedContent: AdjustedContent;
     try {
-      adjustedContent = JSON.parse(response.text: any) as AdjustedContent;
-    } catch (error: any) {
+      adjustedContent = JSON.parse(response.text) as AdjustedContent;
+    } catch (error) {
       console.error('Error parsing AI response:', error);
       return NextResponse.json({ error: 'Failed to parse adjusted content' }, { status: 500 });
     }
@@ -273,7 +215,7 @@ export async function POST(req: NextRequest) {
       contentId: savedContent.id
     });
     
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error in adaptive complexity adjustment:', error);
     return NextResponse.json({ error: 'Failed to adjust content complexity' }, { status: 500 });
   }
@@ -281,13 +223,13 @@ export async function POST(req: NextRequest) {
 
 export async function GET(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session?.user?.id: any) {
+    if (!session?.user?.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
-    const { searchParams } = new URL(req.url: any);
+    const { searchParams } = new URL(req.url);
     const contentId = searchParams.get('contentId');
     
     // Get user's adaptive content using db interface
@@ -307,7 +249,7 @@ export async function GET(req: NextRequest) {
       adaptiveContents
     });
     
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error fetching adaptive content:', error);
     return NextResponse.json({ error: 'Failed to fetch adaptive content' }, { status: 500 });
   }
