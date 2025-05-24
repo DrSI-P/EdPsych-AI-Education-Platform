@@ -3,7 +3,19 @@ import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth/auth-options';
 import prisma from '@/lib/prisma';
 
-export async function GET(req: NextRequest) {
+// Define interface for where clause to replace any type
+interface PlanWhereClause {
+  OR?: Array<{
+    title?: { contains: string; mode: 'insensitive' };
+    description?: { contains: string; mode: 'insensitive' };
+  }>;
+  subject?: string;
+  keyStage?: string;
+  status?: string;
+  userId?: string;
+}
+
+export async function GET(req: NextRequest): Promise<NextResponse> {
   try {
     const { searchParams } = new URL(req.url);
     const page = parseInt(searchParams.get('page') || '1');
@@ -17,7 +29,7 @@ export async function GET(req: NextRequest) {
     const skip = (page - 1) * limit;
 
     // Build filter conditions
-    const where: any = {};
+    const where: PlanWhereClause = {};
 
     if (search) {
       where.OR = [
@@ -101,6 +113,7 @@ export async function GET(req: NextRequest) {
       },
     });
   } catch (error) {
+    // Replace console.error with structured logging when available
     console.error('Error fetching curriculum plans:', error);
     return NextResponse.json(
       { error: 'Failed to fetch curriculum plans' },
@@ -109,7 +122,7 @@ export async function GET(req: NextRequest) {
   }
 }
 
-export async function POST(req: NextRequest) {
+export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
 
@@ -147,6 +160,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ plan }, { status: 201 });
   } catch (error) {
+    // Replace console.error with structured logging when available
     console.error('Error creating curriculum plan:', error);
     return NextResponse.json(
       { error: 'Failed to create curriculum plan' },
