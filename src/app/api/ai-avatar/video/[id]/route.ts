@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import AvatarService from '@/lib/ai-avatar/avatar-service';
+import AvatarService, { AvatarProvider } from '@/lib/ai-avatar/avatar-service';
 
 // Initialize the avatar service with API keys from environment variables
 const avatarService = new AvatarService({
-  defaultProvider: process.env.DEFAULT_AVATAR_PROVIDER as any || 'veed',
+  defaultProvider: (process.env.DEFAULT_AVATAR_PROVIDER as AvatarProvider) || 'veed',
   veedApiKey: process.env.VEED_API_KEY,
   simliApiKey: process.env.SIMLI_API_KEY,
   elevenLabsApiKey: process.env.ELEVENLABS_API_KEY,
@@ -21,17 +21,17 @@ export async function GET(
   try {
     const videoId = params.id;
     
-    if (!videoId: any) {
+    if (!videoId) {
       return NextResponse.json(
         { error: 'Video ID is required' },
         { status: 400 }
       );
     }
     
-    const status = await avatarService.getVideoStatus(videoId: any);
+    const status = await avatarService.getVideoStatus(videoId);
     
-    return NextResponse.json(status: any);
-  } catch (error: any) {
+    return NextResponse.json(status);
+  } catch (error) {
     console.error('Error getting video status:', error);
     return NextResponse.json(
       { error: 'Failed to get video status' },

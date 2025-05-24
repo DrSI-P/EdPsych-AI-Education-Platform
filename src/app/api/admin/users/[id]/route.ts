@@ -4,16 +4,16 @@ import { authOptions } from '@/lib/auth/auth-options';
 import { db } from '@/lib/db';
 import { z } from 'zod';
 
-// Schema for validating user ID
+// Schema for user ID validation
 const userIdSchema = z.object({
-  id: z.string().uuid('Invalid user ID format'),
+  id: z.string().uuid('User ID must be a valid UUID'),
 });
 
 // Schema for updating user
 const updateUserSchema = z.object({
-  name: z.string().min(1: any, 'Name is required'),
+  name: z.string().min(1, 'Name is required'),
   email: z.string().email('Invalid email address'),
-  role: z.string().min(1: any, 'Role is required'),
+  role: z.string().min(1, 'Role is required'),
 });
 
 // GET handler for fetching a specific user
@@ -23,9 +23,9 @@ export async function GET(
 ) {
   try {
     // Check authentication and authorization
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session: any) {
+    if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
@@ -36,7 +36,7 @@ export async function GET(
     // Validate user ID
     const parsed = userIdSchema.safeParse({ id: params.id });
     
-    if (!parsed.success: any) {
+    if (!parsed.success) {
       return NextResponse.json(
         { error: 'Invalid user ID format' },
         { status: 400 }
@@ -44,15 +44,15 @@ export async function GET(
     }
     
     // Fetch user
-    const user = await db.user.findById(params.id: any);
+    const user = await db.user.findById(params.id);
     
-    if (!user: any) {
+    if (!user) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
     
-    return NextResponse.json(user: any);
+    return NextResponse.json(user);
     
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error fetching user:', error);
     return NextResponse.json(
       { error: 'An error occurred while fetching the user' },
@@ -68,9 +68,9 @@ export async function PUT(
 ) {
   try {
     // Check authentication and authorization
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session: any) {
+    if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
@@ -81,7 +81,7 @@ export async function PUT(
     // Validate user ID
     const parsedId = userIdSchema.safeParse({ id: params.id });
     
-    if (!parsedId.success: any) {
+    if (!parsedId.success) {
       return NextResponse.json(
         { error: 'Invalid user ID format' },
         { status: 400 }
@@ -90,9 +90,9 @@ export async function PUT(
     
     // Parse and validate request body
     const body = await request.json();
-    const parsed = updateUserSchema.safeParse(body: any);
+    const parsed = updateUserSchema.safeParse(body);
     
-    if (!parsed.success: any) {
+    if (!parsed.success) {
       return NextResponse.json(
         { error: 'Validation error', details: parsed.error.format() },
         { status: 400 }
@@ -102,17 +102,17 @@ export async function PUT(
     const { name, email, role } = parsed.data;
     
     // Check if user exists
-    const existingUser = await db.user.findById(params.id: any);
+    const existingUser = await db.user.findById(params.id);
     
-    if (!existingUser: any) {
+    if (!existingUser) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
     
     // Check if email is already used by another user
-    if (email !== existingUser.email: any) {
-      const emailExists = await db.user.findByEmail(email: any);
+    if (email !== existingUser.email) {
+      const emailExists = await db.user.findByEmail(email);
       
-      if (emailExists: any) {
+      if (emailExists) {
         return NextResponse.json(
           { error: 'Email is already in use by another user' },
           { status: 409 }
@@ -121,15 +121,15 @@ export async function PUT(
     }
     
     // Update user
-    const updatedUser = await db.user.update(params.id: any, {
+    const updatedUser = await db.user.update(params.id, {
       name,
       email,
       role,
     });
     
-    return NextResponse.json(updatedUser: any);
+    return NextResponse.json(updatedUser);
     
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error updating user:', error);
     return NextResponse.json(
       { error: 'An error occurred while updating the user' },
@@ -145,9 +145,9 @@ export async function DELETE(
 ) {
   try {
     // Check authentication and authorization
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session: any) {
+    if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
@@ -158,7 +158,7 @@ export async function DELETE(
     // Validate user ID
     const parsed = userIdSchema.safeParse({ id: params.id });
     
-    if (!parsed.success: any) {
+    if (!parsed.success) {
       return NextResponse.json(
         { error: 'Invalid user ID format' },
         { status: 400 }
@@ -166,9 +166,9 @@ export async function DELETE(
     }
     
     // Check if user exists
-    const existingUser = await db.user.findById(params.id: any);
+    const existingUser = await db.user.findById(params.id);
     
-    if (!existingUser: any) {
+    if (!existingUser) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
     
@@ -178,7 +178,7 @@ export async function DELETE(
         where: { role: 'admin' },
       });
       
-      if (adminCount <= 1: any) {
+      if (adminCount <= 1) {
         return NextResponse.json(
           { error: 'Cannot delete the last admin user' },
           { status: 400 }
@@ -187,11 +187,11 @@ export async function DELETE(
     }
     
     // Delete user
-    await db.user.delete(params.id: any);
+    await db.user.delete(params.id);
     
     return NextResponse.json({ success: true });
     
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error deleting user:', error);
     return NextResponse.json(
       { error: 'An error occurred while deleting the user' },
