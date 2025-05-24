@@ -3,30 +3,53 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { HeyGenService, HeyGenVideo } from '@/lib/heygen/heygen-service';
+import { getVideos, deleteVideo } from '@/lib/heygen/heygen-service';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Loader2, Play, Download, ExternalLink } from 'lucide-react';
+import { Loader2, Play, Download, Share, Trash2 } from 'lucide-react';
 
-const HeyGenVideoLibrary = () => {
-  const [loading, setLoading] = useState(true);
-  const [videos, setVideos] = useState<HeyGenVideo[]>([]);
-  const [error, setError] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState('all');
+export interface HeygenVideo {
+  id: string;
+  title: string;
+  thumbnail: string;
+  url: string;
+  created_at: string;
+  avatar: { name: string };
+  duration: number;
+}
+
+export const HeygenVideoLibrary = () => {
+  const [loading, setLoading] = useState(false);
+  const [videos, setVideos] = useState<HeygenVideo[]>([]);
+  const [savedVideos, setSavedVideos] = useState<HeygenVideo[]>([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [sortBy, setSortBy] = useState('newest');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [selectedVideo, setSelectedVideo] = useState<HeygenVideo | null>(null);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [deleteSuccess, setDeleteSuccess] = useState(false);
+  const videosPerPage = 12;
 
   useEffect(() => {
     const fetchVideos = async () => {
       try {
-        const heygenService = HeyGenService.getInstance({
-          apiKey: process.env.NEXT_PUBLIC_HEYGEN_API_KEY || 'demo_key',
-          baseUrl: process.env.NEXT_PUBLIC_HEYGEN_API_URL || 'https://api.heygen.com'
-        });
+        setLoading(true);
+        const fetchedVideos = await getVideos();
+        setVideos(fetchedVideos || []);
         
-        await heygenService.initialize();
-        const fetchedVideos = await heygenService.getAllVideos();
-        setVideos(fetchedVideos);
+        // Load saved videos from localStorage
+        const savedFromStorage = localStorage.getItem('savedVideos');
+        if (savedFromStorage) {
+          try {
+            const parsed = JSON.parse(savedFromStorage);
+            setSavedVideos(Array.isArray(parsed) ? parsed : []);
+          } catch (e) {
+            console.error('Failed to parse saved videos:', e);
+            setSavedVideos([]);
+          }
+        }
       } catch (error) {
         console.error('Failed to fetch videos:', error);
-        setError('Failed to load videos. Please try again later.');
+        setVideos([]);
       } finally {
         setLoading(false);
       }
@@ -35,146 +58,270 @@ const HeyGenVideoLibrary = () => {
     fetchVideos();
   }, []);
 
-  const getFilteredVideos = () => {
-    switch (activeTab) {
-      case 'completed':
-        return videos.filter(video => video.status === 'completed');
-      case 'processing':
-        return videos.filter(video => video.status === 'pending' || video.status === 'processing');
-      case 'failed':
-        return videos.filter(video => video.status === 'failed');
-      default:
-        return videos;
+  const handleVideoClick = (video: HeygenVideo) => {
+    setSelectedVideo(video);
+  };
+
+  const handleDeleteClick = (video: HeygenVideo) => {
+    setSelectedVideo(video);
+    setShowDeleteConfirm(true);
+  };
+
+  const confirmDelete = async () => {
+    if (selectedVideo) {
+      try {
+        await deleteVideo(selectedVideo.id);
+        setVideos(videos.filter(v => v.id !== selectedVideo.id));
+        setShowDeleteConfirm(false);
+        setDeleteSuccess(true);
+        setTimeout(() => setDeleteSuccess(false), 3000);
+      } catch (error) {
+        console.error('Failed to delete video:', error);
+      }
     }
   };
 
-  const formatDate = (date: Date) => {
-    return new Date(date).toLocaleDateString('en-GB', {
-      day: 'numeric',
-      month: 'short',
-      year: 'numeric'
-    });
+  const handleDownload = (video: HeygenVideo) => {
+    window.open(video.url, '_blank');
+  };
+
+  const handleShare = async (video: HeygenVideo) => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: video.title,
+          url: video.url
+        });
+      } catch (error) {
+        console.error('Error sharing video:', error);
+      }
+    }
+  };
+
+  // Ensure videos and savedVideos are always arrays before spreading
+  const videosArray = Array.isArray(videos) ? videos : [];
+  const savedVideosArray = Array.isArray(savedVideos) ? savedVideos : [];
+
+  const filteredVideos = [...videosArray, ...savedVideosArray].filter(video => 
+    video.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const sortedVideos = [...filteredVideos].sort((a, b) => {
+    if (sortBy === 'newest') {
+      return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+    } else if (sortBy === 'oldest') {
+      return new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
+    } else if (sortBy === 'title') {
+      return a.title.localeCompare(b.title);
+    }
+    return 0;
+  });
+
+  const paginatedVideos = sortedVideos.slice(
+    (currentPage - 1) * videosPerPage,
+    currentPage * videosPerPage
+  );
+
+  const totalPages = Math.ceil(sortedVideos.length / videosPerPage);
+
+  const formatDuration = (seconds: number) => {
+    const minutes = Math.floor(seconds / 60);
+    return `${minutes} minute${minutes !== 1 ? 's' : ''}`;
   };
 
   return (
     <div className="container mx-auto py-8">
-      <div className="flex justify-between items-centre mb-6">
-        <h1 className="text-3xl font-bold">AI Avatar Video Library</h1>
-        <Button asChild>
-          <a href="/ai-avatar-videos/generate">Create New Video</a>
-        </Button>
+      <h1 className="text-2xl font-bold mb-6">AI Avatar Video Library</h1>
+      
+      <div className="flex flex-col md:flex-row justify-between mb-6 gap-4">
+        <input
+          type="text"
+          placeholder="Search videos"
+          className="px-4 py-2 border rounded-md"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        
+        <div className="flex items-center">
+          <label htmlFor="sort-by" className="mr-2">Sort by:</label>
+          <select
+            id="sort-by"
+            className="px-4 py-2 border rounded-md"
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value)}
+          >
+            <option value="newest">Newest First</option>
+            <option value="oldest">Oldest First</option>
+            <option value="title">Title</option>
+          </select>
+        </div>
       </div>
       
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full mb-6">
-        <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger value="all">All Videos</TabsTrigger>
-          <TabsTrigger value="completed">Completed</TabsTrigger>
-          <TabsTrigger value="processing">Processing</TabsTrigger>
-          <TabsTrigger value="failed">Failed</TabsTrigger>
-        </TabsList>
-      </Tabs>
-      
       {loading ? (
-        <div className="flex justify-centre items-centre h-64">
-          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        <div className="flex justify-center items-center h-64">
+          <Loader2 className="h-8 w-8 animate-spin" />
           <span className="ml-2">Loading videos...</span>
         </div>
-      ) : error ? (
-        <div className="bg-destructive/10 text-destructive p-4 rounded-md">
-          {error}
-        </div>
-      ) : getFilteredVideos().length === 0 ? (
-        <div className="text-centre p-8 border border-dashed rounded-lg">
+      ) : paginatedVideos.length === 0 ? (
+        <div className="text-center p-8 border rounded-lg">
           <h3 className="text-xl font-medium mb-2">No videos found</h3>
-          <p className="text-muted-foreground mb-4">
-            {activeTab === 'all' 
-              ? "You haven't created any AI avatar videos yet." 
-              : `No ${activeTab} videos found.`}
+          <p className="text-gray-500 mb-4">
+            Create your first AI avatar video
           </p>
-          <Button asChild>
-            <a href="/ai-avatar-videos/generate">Create Your First Video</a>
-          </Button>
+          <button className="px-4 py-2 bg-blue-600 text-white rounded-lg">
+            Create Video
+          </button>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {getFilteredVideos().map(video => (
-            <Card key={video.id} className="overflow-hidden">
-              <div className="aspect-video bg-muted relative">
-                {video.thumbnailUrl ? (
+        <>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {paginatedVideos.map((video) => (
+              <div 
+                key={video.id} 
+                className="border rounded-lg overflow-hidden shadow-sm"
+                data-testid="video-card"
+              >
+                <div 
+                  className="aspect-video bg-gray-100 cursor-pointer relative"
+                  onClick={() => handleVideoClick(video)}
+                >
                   <img 
-                    src={video.thumbnailUrl} 
+                    src={video.thumbnail} 
                     alt={video.title} 
                     className="w-full h-full object-cover"
                   />
-                ) : (
-                  <div className="w-full h-full flex items-centre justify-centre bg-secondary/20">
-                    {video.status === 'pending' || video.status === 'processing' ? (
-                      <Loader2 className="h-8 w-8 animate-spin text-primary" />
-                    ) : (
-                      <span className="text-muted-foreground">No preview available</span>
-                    )}
+                  <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 opacity-0 hover:opacity-100 transition-opacity">
+                    <Play className="h-12 w-12 text-white" />
                   </div>
-                )}
-                {video.status === 'completed' && (
-                  <div className="absolute inset-0 flex items-centre justify-centre bg-black/30 opacity-0 hover:opacity-100 transition-opacity">
-                    <Button asChild variant="secondary" size="icon">
-                      <a href={`/ai-avatar-videos/view/${video.id}`}>
-                        <Play className="h-6 w-6" />
-                      </a>
-                    </Button>
+                </div>
+                
+                <div className="p-4">
+                  <h3 className="font-medium text-lg mb-1">{video.title}</h3>
+                  <p className="text-gray-500 text-sm mb-2">
+                    {video.avatar.name} • {formatDuration(video.duration)}
+                  </p>
+                  
+                  <div className="flex justify-between mt-4">
+                    <button 
+                      className="text-sm text-gray-600 flex items-center"
+                      onClick={() => handleDownload(video)}
+                    >
+                      <Download className="h-4 w-4 mr-1" />
+                      Download
+                    </button>
+                    
+                    <button 
+                      className="text-sm text-gray-600 flex items-center"
+                      onClick={() => handleShare(video)}
+                    >
+                      <Share className="h-4 w-4 mr-1" />
+                      Share
+                    </button>
+                    
+                    <button 
+                      className="text-sm text-red-600 flex items-center"
+                      onClick={() => handleDeleteClick(video)}
+                    >
+                      <Trash2 className="h-4 w-4 mr-1" />
+                      Delete
+                    </button>
                   </div>
-                )}
-                <div className="absolute top-2 right-2">
-                  <span className={`px-2 py-1 text-xs rounded-full ${
-                    video.status === 'completed' ? 'bg-green-100 text-green-800' :
-                    video.status === 'processing' || video.status === 'pending' ? 'bg-blue-100 text-blue-800' :
-                    'bg-red-100 text-red-800'
-                  }`}>
-                    {video.status.charAt(0).toUpperCase() + video.status.slice(1)}
-                  </span>
                 </div>
               </div>
-              <CardHeader>
-                <CardTitle className="line-clamp-1">{video.title}</CardTitle>
-                <CardDescription>
-                  Created: {formatDate(video.createdAt)}
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground line-clamp-2">
-                  {video.description || 'No description provided'}
-                </p>
-              </CardContent>
-              <CardFooter className="flex justify-between">
-                <Button 
-                  variant="outline" 
-                  size="sm" 
-                  disabled={video.status !== 'completed'}
-                  asChild
-                >
-                  <a href={video.url} download={video.title}>
-                    <Download className="h-4 w-4 mr-2" />
-                    Download
-                  </a>
-                </Button>
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  disabled={video.status !== 'completed'}
-                  asChild
-                >
-                  <a href={`/ai-avatar-videos/view/${video.id}`}>
-                    <ExternalLink className="h-4 w-4 mr-2" />
-                    View
-                  </a>
-                </Button>
-              </CardFooter>
-            </Card>
-          ))}
+            ))}
+          </div>
+          
+          {totalPages > 1 && (
+            <div className="flex justify-center mt-8">
+              <button
+                className="px-4 py-2 border rounded-md mr-2 disabled:opacity-50"
+                disabled={currentPage === 1}
+                onClick={() => setCurrentPage(currentPage - 1)}
+              >
+                Previous
+              </button>
+              
+              <span className="px-4 py-2">
+                Page {currentPage} of {totalPages}
+              </span>
+              
+              <button
+                className="px-4 py-2 border rounded-md ml-2 disabled:opacity-50"
+                disabled={currentPage === totalPages}
+                onClick={() => setCurrentPage(currentPage + 1)}
+              >
+                Next
+              </button>
+            </div>
+          )}
+        </>
+      )}
+      
+      {selectedVideo && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-auto">
+            <div className="p-4 border-b">
+              <h2 className="text-xl font-bold">{selectedVideo.title}</h2>
+              <p className="text-gray-500">
+                {selectedVideo.avatar.name} • {formatDuration(selectedVideo.duration)}
+              </p>
+            </div>
+            
+            <div className="aspect-video">
+              <video 
+                src={selectedVideo.url} 
+                controls 
+                className="w-full h-full"
+                data-testid="video-player"
+              />
+            </div>
+            
+            <div className="p-4 flex justify-end">
+              <button 
+                className="px-4 py-2 bg-gray-200 rounded-md"
+                onClick={() => setSelectedVideo(null)}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      
+      {showDeleteConfirm && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-lg p-6 max-w-md w-full">
+            <h3 className="text-xl font-bold mb-4">Confirm Deletion</h3>
+            <p className="mb-6">
+              Are you sure you want to delete this video? This action cannot be undone.
+            </p>
+            
+            <div className="flex justify-end space-x-4">
+              <button 
+                className="px-4 py-2 bg-gray-200 rounded-md"
+                onClick={() => setShowDeleteConfirm(false)}
+              >
+                Cancel
+              </button>
+              
+              <button 
+                className="px-4 py-2 bg-red-600 text-white rounded-md"
+                onClick={confirmDelete}
+              >
+                Confirm
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      
+      {deleteSuccess && (
+        <div className="fixed bottom-4 right-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
+          Video deleted successfully
         </div>
       )}
     </div>
   );
 };
 
-export default HeyGenVideoLibrary;
+export default HeygenVideoLibrary;
