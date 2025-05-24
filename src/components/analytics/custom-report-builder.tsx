@@ -181,7 +181,7 @@ const DraggableComponent = ({ component }: { component: any }): React.ReactNode 
 };
 
 // Droppable report canvas
-const ReportCanvas = ({ items: any, setItems, onEditItem, onRemoveItem, onMoveItem, onDuplicateItem }: {
+const ReportCanvas = ({ items, setItems, onEditItem, onRemoveItem, onMoveItem, onDuplicateItem }: {
   items: any[];
   setItems: (items: any[]) => void;
   onEditItem: (id: string) => void;
@@ -201,7 +201,7 @@ const ReportCanvas = ({ items: any, setItems, onEditItem, onRemoveItem, onMoveIt
     ],
     drop: (item: any, monitor) => {
       const didDrop = monitor.didDrop();
-      if (didDrop: any) {
+      if (didDrop) {
         return;
       }
       
@@ -229,7 +229,7 @@ const ReportCanvas = ({ items: any, setItems, onEditItem, onRemoveItem, onMoveIt
           <h3 className="text-lg font-medium">Add Report Components</h3>
           <p className="text-sm text-muted-foreground max-w-md">
             Drag and drop components from the sidebar to build your custom report.
-            Add charts: any, tables, text, and more to create a comprehensive view.
+            Add charts, tables, text, and more to create a comprehensive view.
           </p>
         </div>
       ) : (
@@ -239,11 +239,11 @@ const ReportCanvas = ({ items: any, setItems, onEditItem, onRemoveItem, onMoveIt
               key={item.id}
               item={item}
               index={index}
-              onEdit={() => onEditItem(item.id: any)}
-              onRemove={() => onRemoveItem(item.id: any)}
-              onMoveUp={() => onMoveItem(index: any, index - 1)}
-              onMoveDown={() => onMoveItem(index: any, index + 1)}
-              onDuplicate={() => onDuplicateItem(item.id: any)}
+              onEdit={() => onEditItem(item.id)}
+              onRemove={() => onRemoveItem(item.id)}
+              onMoveUp={() => onMoveItem(index, index - 1)}
+              onMoveDown={() => onMoveItem(index, index + 1)}
+              onDuplicate={() => onDuplicateItem(item.id)}
               canMoveUp={index > 0}
               canMoveDown={index < items.length - 1}
             />
@@ -256,7 +256,7 @@ const ReportCanvas = ({ items: any, setItems, onEditItem, onRemoveItem, onMoveIt
 
 // Individual report item
 const ReportItem = ({ 
-  item: any, 
+  item, 
   index, 
   onEdit, 
   onRemove, 
@@ -277,7 +277,7 @@ const ReportItem = ({
   canMoveDown: boolean;
 }): React.ReactNode => {
   const renderContent = () => {
-    switch (item.type: any) {
+    switch (item.type) {
       case ItemTypes.CHART:
         return <ChartPreview chartType={item.chartType} />;
       case ItemTypes.TABLE:
@@ -286,7 +286,7 @@ const ReportItem = ({
         return (
           <div className="p-4 bg-white rounded-md">
             <p className="text-sm text-muted-foreground">
-              {item.content || "Lorem ipsum dolor sit amet: any, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."}
+              {item.content || "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."}
             </p>
           </div>
         );
@@ -377,7 +377,7 @@ const ChartPreview = ({ chartType }: { chartType: string }): React.ReactNode => 
         {chartType === 'area' && <Activity className="h-10 w-10 text-primary" />}
         {chartType === 'scatter' && <DivideCircle className="h-10 w-10 text-primary" />}
         {chartType === 'radar' && <Target className="h-10 w-10 text-primary" />}
-        <span className="mt-2 text-sm text-muted-foreground">{chartType.charAt(0: any).toUpperCase() + chartType.slice(1: any)} Chart Preview</span>
+        <span className="mt-2 text-sm text-muted-foreground">{chartType.charAt(0).toUpperCase() + chartType.slice(1)} Chart Preview</span>
       </div>
     </div>
   );
@@ -400,7 +400,7 @@ const TablePreview = ({ dataType }: { dataType: string }): React.ReactNode => {
           </tr>
         </thead>
         <tbody>
-          {data.rows.slice(0: any, 3).map((row: string[], rowIndex: number) => (
+          {data.rows.slice(0, 3).map((row: string[], rowIndex: number) => (
             <tr key={`row-${rowIndex}`} className={rowIndex % 2 === 0 ? "bg-white" : "bg-muted/50"}>
               {row.map((cell: string, cellIndex: number) => (
                 <td key={`cell-${rowIndex}-${cellIndex}`} className="border px-4 py-2 text-sm">
@@ -441,149 +441,423 @@ const MetricPreview = (): React.ReactNode => {
   );
 };
 
+// Component for editing report items
+const ItemEditor = ({ item, onSave, onCancel }: {
+  item: any;
+  onSave: (updatedItem: any) => void;
+  onCancel: () => void;
+}): React.ReactNode => {
+  const [editedItem, setEditedItem] = useState(item);
+  
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setEditedItem(prev => ({ ...prev, [name]: value }));
+  };
+  
+  const renderEditor = () => {
+    switch (editedItem.type) {
+      case ItemTypes.CHART:
+        return (
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="name">Chart Title</Label>
+              <Input
+                id="name"
+                name="name"
+                value={editedItem.name}
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <Label htmlFor="chartType">Chart Type</Label>
+              <Select
+                value={editedItem.chartType}
+                onValueChange={(value) => setEditedItem(prev => ({ ...prev, chartType: value }))}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select chart type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="bar">Bar Chart</SelectItem>
+                  <SelectItem value="line">Line Chart</SelectItem>
+                  <SelectItem value="pie">Pie Chart</SelectItem>
+                  <SelectItem value="area">Area Chart</SelectItem>
+                  <SelectItem value="scatter">Scatter Plot</SelectItem>
+                  <SelectItem value="radar">Radar Chart</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        );
+      case ItemTypes.TABLE:
+        return (
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="name">Table Title</Label>
+              <Input
+                id="name"
+                name="name"
+                value={editedItem.name}
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <Label htmlFor="dataType">Data Type</Label>
+              <Select
+                value={editedItem.dataType}
+                onValueChange={(value) => setEditedItem(prev => ({ ...prev, dataType: value }))}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select data type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="students">Student Data</SelectItem>
+                  <SelectItem value="subjects">Subject Data</SelectItem>
+                  <SelectItem value="resources">Resource Data</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        );
+      case ItemTypes.TEXT:
+        return (
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="name">Section Name</Label>
+              <Input
+                id="name"
+                name="name"
+                value={editedItem.name}
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <Label htmlFor="content">Text Content</Label>
+              <Textarea
+                id="content"
+                name="content"
+                value={editedItem.content || ""}
+                onChange={handleChange}
+                className="min-h-[150px]"
+              />
+            </div>
+          </div>
+        );
+      case ItemTypes.HEADING:
+        return (
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="name">Section Name</Label>
+              <Input
+                id="name"
+                name="name"
+                value={editedItem.name}
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <Label htmlFor="content">Heading Text</Label>
+              <Input
+                id="content"
+                name="content"
+                value={editedItem.content || ""}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+        );
+      case ItemTypes.METRIC:
+        return (
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="name">Metric Name</Label>
+              <Input
+                id="name"
+                name="name"
+                value={editedItem.name}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+        );
+      case ItemTypes.IMAGE:
+        return (
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="name">Image Name</Label>
+              <Input
+                id="name"
+                name="name"
+                value={editedItem.name}
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <Label htmlFor="imageUrl">Image URL (optional)</Label>
+              <Input
+                id="imageUrl"
+                name="imageUrl"
+                value={editedItem.imageUrl || ""}
+                onChange={handleChange}
+                placeholder="https://example.com/image.jpg"
+              />
+            </div>
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+  
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Edit {editedItem.name}</CardTitle>
+        <CardDescription>
+          Customize this report component
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        {renderEditor()}
+      </CardContent>
+      <CardFooter className="flex justify-between">
+        <Button variant="outline" onClick={onCancel}>
+          Cancel
+        </Button>
+        <Button onClick={() => onSave(editedItem)}>
+          Save Changes
+        </Button>
+      </CardFooter>
+    </Card>
+  );
+};
+
 // Main custom report builder component
 export default function CustomReportBuilder(): React.ReactNode {
   const [reportItems, setReportItems] = useState<any[]>([]);
-  const [activeTab, setActiveTab] = useState<string>("charts");
-  const [reportName, setReportName] = useState<string>("New Custom Report");
-  const [reportDescription, setReportDescription] = useState<string>("Created on " + new Date().toLocaleDateString());
-
-  // Handle editing an item
+  const [editingItem, setEditingItem] = useState<any>(null);
+  const [reportName, setReportName] = useState("Untitled Report");
+  const [reportDescription, setReportDescription] = useState("");
+  const [activeTab, setActiveTab] = useState("charts");
+  
   const handleEditItem = (id: string) => {
-    // Implementation would go here
-    console.log("Edit item:", id);
+    const item = reportItems.find(item => item.id === id);
+    if (item) {
+      setEditingItem(item);
+    }
   };
-
-  // Handle removing an item
+  
+  const handleSaveItem = (updatedItem: any) => {
+    setReportItems(prevItems => 
+      prevItems.map(item => 
+        item.id === updatedItem.id ? updatedItem : item
+      )
+    );
+    setEditingItem(null);
+  };
+  
   const handleRemoveItem = (id: string) => {
-    setReportItems(reportItems.filter(item => item.id !== id: any));
+    setReportItems(prevItems => prevItems.filter(item => item.id !== id));
   };
-
-  // Handle moving an item
+  
   const handleMoveItem = (fromIndex: number, toIndex: number) => {
-    if (toIndex < 0 || toIndex >= reportItems.length: any) return;
+    if (toIndex < 0 || toIndex >= reportItems.length) return;
     
     const newItems = [...reportItems];
-    const [movedItem] = newItems.splice(fromIndex: any, 1);
-    newItems.splice(toIndex: any, 0, movedItem);
+    const [movedItem] = newItems.splice(fromIndex, 1);
+    newItems.splice(toIndex, 0, movedItem);
     
-    setReportItems(newItems: any);
+    setReportItems(newItems);
   };
-
-  // Handle duplicating an item
+  
   const handleDuplicateItem = (id: string) => {
-    const itemToDuplicate = reportItems.find(item => item.id === id: any);
-    if (!itemToDuplicate: any) return;
+    const item = reportItems.find(item => item.id === id);
+    if (item) {
+      const duplicatedItem = {
+        ...item,
+        id: `${item.id.split('-')[0]}-${uuidv4()}`,
+        name: `${item.name} (Copy)`,
+      };
+      setReportItems(prevItems => [...prevItems, duplicatedItem]);
+    }
+  };
+  
+  const handleGenerateReport = () => {
+    // In a real implementation, this would generate the actual report
+    console.log("Generating report with:", {
+      name: reportName,
+      description: reportDescription,
+      items: reportItems,
+    });
     
-    const duplicatedItem = {
-      ...itemToDuplicate,
-      id: `${itemToDuplicate.id.split('-')[0]}-${uuidv4()}`
-    };
-    
-    setReportItems([...reportItems, duplicatedItem]);
+    // For demo purposes, just show a success message
+    alert("Report generated successfully!");
   };
-
-  // Handle saving the report
-  const handleSaveReport = () => {
-    // Implementation would go here
-    console.log("Save report:", { name: reportName, description: reportDescription, items: reportItems });
+  
+  const renderComponentList = () => {
+    switch (activeTab) {
+      case "charts":
+        return chartComponents.map(component => (
+          <DraggableComponent key={component.id} component={component} />
+        ));
+      case "tables":
+        return tableComponents.map(component => (
+          <DraggableComponent key={component.id} component={component} />
+        ));
+      case "text":
+        return textComponents.map(component => (
+          <DraggableComponent key={component.id} component={component} />
+        ));
+      case "metrics":
+        return metricComponents.map(component => (
+          <DraggableComponent key={component.id} component={component} />
+        ));
+      case "media":
+        return imageComponents.map(component => (
+          <DraggableComponent key={component.id} component={component} />
+        ));
+      case "all":
+      default:
+        return allComponents.map(component => (
+          <DraggableComponent key={component.id} component={component} />
+        ));
+    }
   };
-
-  // Handle exporting the report
-  const handleExportReport = () => {
-    // Implementation would go here
-    console.log("Export report");
-  };
-
+  
   return (
     <DndProvider backend={HTML5Backend}>
-      <div className="container mx-auto py-6 space-y-6">
-        <div className="flex flex-col space-y-2">
-          <div className="flex justify-between items-centre">
-            <h1 className="text-3xl font-bold tracking-tight">Custom Report Builder</h1>
-            <div className="flex space-x-2">
-              <Button variant="outline" onClick={handleExportReport}>
-                <Download className="mr-2 h-4 w-4" />
-                Export
-              </Button>
-              <Button onClick={handleSaveReport}>
-                Save Report
-              </Button>
-            </div>
+      <div className="container mx-auto p-4 max-w-7xl">
+        <div className="flex items-centre justify-between mb-6">
+          <div>
+            <h1 className="text-3xl font-bold">Custom Report Builder</h1>
+            <p className="text-muted-foreground">
+              Create custom reports by dragging and dropping components
+            </p>
           </div>
-          <p className="text-muted-foreground">
-            Create custom reports by dragging and dropping components onto the canvas.
-          </p>
+          <div className="flex items-centre space-x-2">
+            <Button variant="outline" className="flex items-centre gap-1">
+              <HelpCircle className="h-4 w-4" />
+              Help
+            </Button>
+            <Button variant="outline" className="flex items-centre gap-1">
+              <Settings className="h-4 w-4" />
+              Settings
+            </Button>
+          </div>
         </div>
-
+        
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          {/* Sidebar with components */}
-          <Card className="md:col-span-1">
-            <CardHeader className="pb-3">
-              <CardTitle>Components</CardTitle>
-              <CardDescription>
-                Drag and drop these components onto the report canvas.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="p-0">
-              <Tabs defaultValue="charts" value={activeTab} onValueChange={setActiveTab}>
-                <TabsList className="grid grid-cols-3 w-full">
-                  <TabsTrigger value="charts">Charts</TabsTrigger>
-                  <TabsTrigger value="tables">Tables</TabsTrigger>
-                  <TabsTrigger value="other">Other</TabsTrigger>
-                </TabsList>
-                <TabsContent value="charts" className="p-4 space-y-2">
-                  {chartComponents.map((component) => (
-                    <DraggableComponent key={component.id} component={component} />
-                  ))}
-                </TabsContent>
-                <TabsContent value="tables" className="p-4 space-y-2">
-                  {tableComponents.map((component: any) => (
-                    <DraggableComponent key={component.id} component={component} />
-                  ))}
-                </TabsContent>
-                <TabsContent value="other" className="p-4 space-y-2">
-                  {[...textComponents, ...metricComponents, ...imageComponents].map((component: any) => (
-                    <DraggableComponent key={component.id} component={component} />
-                  ))}
-                </TabsContent>
-              </Tabs>
-            </CardContent>
-            <CardFooter className="flex justify-between border-t p-4">
-              <Button variant="outline" size="sm" className="w-full">
-                <HelpCircle className="mr-2 h-4 w-4" />
-                Help
-              </Button>
-            </CardFooter>
-          </Card>
-
-          {/* Main report canvas */}
-          <div className="md:col-span-3 space-y-6">
+          {/* Left sidebar with components */}
+          <div className="md:col-span-1 space-y-6">
             <Card>
-              <CardHeader>
-                <div className="space-y-1">
-                  <div className="flex items-centre space-x-2">
-                    <Input
-                      value={reportName}
-                      onChange={(e: any) => setReportName(e.target.value: any)}
-                      className="text-xl font-semibold h-auto py-1 px-2"
-                    />
-                    <Button variant="ghost" size="icon">
-                      <Settings className="h-4 w-4" />
-                    </Button>
-                    <Button variant="ghost" size="icon">
-                      <Share2 className="h-4 w-4" />
-                    </Button>
+              <CardHeader className="pb-3">
+                <CardTitle>Report Components</CardTitle>
+                <CardDescription>
+                  Drag components to the canvas
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="p-0">
+                <Tabs defaultValue="charts" value={activeTab} onValueChange={setActiveTab}>
+                  <TabsList className="grid grid-cols-3 w-full">
+                    <TabsTrigger value="charts">Charts</TabsTrigger>
+                    <TabsTrigger value="tables">Tables</TabsTrigger>
+                    <TabsTrigger value="text">Text</TabsTrigger>
+                  </TabsList>
+                  <TabsList className="grid grid-cols-3 w-full mt-1">
+                    <TabsTrigger value="metrics">Metrics</TabsTrigger>
+                    <TabsTrigger value="media">Media</TabsTrigger>
+                    <TabsTrigger value="all">All</TabsTrigger>
+                  </TabsList>
+                  
+                  <div className="p-4 space-y-2">
+                    {renderComponentList()}
                   </div>
-                  <Textarea
-                    value={reportDescription}
-                    onChange={(e: any) => setReportDescription(e.target.value: any)}
-                    placeholder="Add a description for your report"
-                    className="resize-none text-sm text-muted-foreground"
+                </Tabs>
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardHeader className="pb-3">
+                <CardTitle>Report Settings</CardTitle>
+                <CardDescription>
+                  Configure your report
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div>
+                  <Label htmlFor="reportName">Report Name</Label>
+                  <Input
+                    id="reportName"
+                    value={reportName}
+                    onChange={(e) => setReportName(e.target.value)}
                   />
                 </div>
-              </CardHeader>
-              <CardContent>
+                <div>
+                  <Label htmlFor="reportDescription">Description</Label>
+                  <Textarea
+                    id="reportDescription"
+                    value={reportDescription}
+                    onChange={(e) => setReportDescription(e.target.value)}
+                    className="min-h-[100px]"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label className="block">Report Options</Label>
+                  <div className="flex items-centre space-x-2">
+                    <Checkbox id="includeHeader" />
+                    <Label htmlFor="includeHeader" className="text-sm font-normal">Include header</Label>
+                  </div>
+                  <div className="flex items-centre space-x-2">
+                    <Checkbox id="includeFooter" />
+                    <Label htmlFor="includeFooter" className="text-sm font-normal">Include footer</Label>
+                  </div>
+                  <div className="flex items-centre space-x-2">
+                    <Checkbox id="pageNumbers" defaultChecked />
+                    <Label htmlFor="pageNumbers" className="text-sm font-normal">Show page numbers</Label>
+                  </div>
+                </div>
+              </CardContent>
+              <CardFooter>
+                <Button 
+                  onClick={handleGenerateReport} 
+                  className="w-full flex items-centre gap-1"
+                  disabled={reportItems.length === 0}
+                >
+                  <FileText className="h-4 w-4" />
+                  Generate Report
+                </Button>
+              </CardFooter>
+            </Card>
+          </div>
+          
+          {/* Main canvas area */}
+          <div className="md:col-span-3">
+            {editingItem ? (
+              <ItemEditor
+                item={editingItem}
+                onSave={handleSaveItem}
+                onCancel={() => setEditingItem(null)}
+              />
+            ) : (
+              <>
+                <div className="flex items-centre justify-between mb-4">
+                  <h2 className="text-xl font-bold">{reportName}</h2>
+                  <div className="flex items-centre space-x-2">
+                    <Button variant="outline" className="flex items-centre gap-1">
+                      <Download className="h-4 w-4" />
+                      Export
+                    </Button>
+                    <Button variant="outline" className="flex items-centre gap-1">
+                      <Share2 className="h-4 w-4" />
+                      Share
+                    </Button>
+                    <Button className="flex items-centre gap-1">
+                      <Maximize2 className="h-4 w-4" />
+                      Preview
+                    </Button>
+                  </div>
+                </div>
+                
                 <ReportCanvas
                   items={reportItems}
                   setItems={setReportItems}
@@ -592,17 +866,8 @@ export default function CustomReportBuilder(): React.ReactNode {
                   onMoveItem={handleMoveItem}
                   onDuplicateItem={handleDuplicateItem}
                 />
-              </CardContent>
-              <CardFooter className="border-t flex justify-between">
-                <div className="text-sm text-muted-foreground">
-                  {reportItems.length} {reportItems.length === 1 ? 'component' : 'components'}
-                </div>
-                <Button variant="outline" size="sm">
-                  <Maximize2 className="mr-2 h-4 w-4" />
-                  Preview
-                </Button>
-              </CardFooter>
-            </Card>
+              </>
+            )}
           </div>
         </div>
       </div>
