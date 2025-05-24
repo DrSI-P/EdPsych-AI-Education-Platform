@@ -27,7 +27,29 @@ const completionSchema = z.object({
   rating: z.number().min(1).max(5).optional(),
 });
 
-export async function POST(req: NextRequest) {
+interface EnrollmentData {
+  userId: string;
+  courseId: string;
+}
+
+interface ProgressUpdateData {
+  userId: string;
+  courseId: string;
+  moduleId?: string;
+  contentId?: string;
+  progress: number;
+  completed?: boolean;
+  timeSpent?: number;
+}
+
+interface CompletionData {
+  userId: string;
+  courseId: string;
+  feedback?: string;
+  rating?: number;
+}
+
+export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
     const body = await req.json();
     const { action } = body;
@@ -54,12 +76,12 @@ export async function POST(req: NextRequest) {
   }
 }
 
-async function handleEnrollment(body: any) {
+async function handleEnrollment(body: EnrollmentData): Promise<NextResponse> {
   try {
     const { userId, courseId } = enrollmentSchema.parse(body);
 
     // Check if already enrolled
-    const existingEnrollment = await (prisma as any).enrollment.findFirst({
+    const existingEnrollment = await prisma.enrollment.findFirst({
       where: {
         userId,
         courseId,
@@ -74,7 +96,7 @@ async function handleEnrollment(body: any) {
     }
 
     // Create new enrolment
-    const enrolment = await (prisma as any).enrollment.create({
+    const enrolment = await prisma.enrollment.create({
       data: {
         userId,
         courseId,
@@ -99,14 +121,14 @@ async function handleEnrollment(body: any) {
   }
 }
 
-async function handleProgressUpdate(body: any) {
+async function handleProgressUpdate(body: ProgressUpdateData): Promise<NextResponse> {
   try {
     const { userId, courseId, moduleId, contentId, progress, completed, timeSpent } = 
       progressUpdateSchema.parse(body);
 
     // Update course progress
     const updatedProgress = await prisma.$transaction(async (tx) => {
-      return (tx as any).courseProgress.upsert({
+      return tx.courseProgress.upsert({
         where: {
           userId_courseId_moduleId_contentId: {
             userId,
@@ -136,7 +158,7 @@ async function handleProgressUpdate(body: any) {
 
     // Update overall course progress
     const allModuleProgress = await prisma.$transaction(async (tx) => {
-      return (tx as any).courseProgress.findMany({
+      return tx.courseProgress.findMany({
         where: {
           userId,
           courseId,
@@ -152,7 +174,7 @@ async function handleProgressUpdate(body: any) {
     }
 
     // Update enrolment record
-    await (prisma as any).enrollment.updateMany({
+    await prisma.enrollment.updateMany({
       where: {
         userId,
         courseId,
@@ -179,12 +201,14 @@ async function handleProgressUpdate(body: any) {
   }
 }
 
-async function handleCompletion(body: any) {
+async function handleCompletion(body: CompletionData): Promise<NextResponse> {
   try {
-    const { userId, courseId, feedback, rating } = completionSchema.parse(body);
+    const { userId, courseId } = completionSchema.parse(body);
+    // Note: We're not using feedback and rating variables to avoid unused variable errors
+    // but they're still parsed by the schema for validation
 
     // Update enrolment status
-    const updatedEnrollment = await (prisma as any).enrollment.updateMany({
+    const updatedEnrollment = await prisma.enrollment.updateMany({
       where: {
         userId,
         courseId,
@@ -198,7 +222,7 @@ async function handleCompletion(body: any) {
     });
 
     // Generate certificate
-    const certificate = await (prisma as any).certificate.create({
+    const certificate = await prisma.certificate.create({
       data: {
         userId,
         courseId,
@@ -228,7 +252,7 @@ async function handleCompletion(body: any) {
   }
 }
 
-export async function GET(req: NextRequest) {
+export async function GET(req: NextRequest): Promise<NextResponse> {
   try {
     const url = new URL(req.url);
     const userId = url.searchParams.get('userId');
@@ -270,8 +294,8 @@ export async function GET(req: NextRequest) {
   }
 }
 
-async function getUserEnrollments(userId: string, courseId?: string | null) {
-  const enrollments = await (prisma as any).enrollment.findMany({
+async function getUserEnrollments(userId: string, courseId?: string | null): Promise<NextResponse> {
+  const enrollments = await prisma.enrollment.findMany({
     where: {
       userId,
       ...(courseId ? { courseId } : {}),
@@ -287,8 +311,8 @@ async function getUserEnrollments(userId: string, courseId?: string | null) {
   return NextResponse.json({ enrollments }, { status: 200 });
 }
 
-async function getUserCertificates(userId: string) {
-  const certificates = await (prisma as any).certificate.findMany({
+async function getUserCertificates(userId: string): Promise<NextResponse> {
+  const certificates = await prisma.certificate.findMany({
     where: {
       userId,
     },
@@ -300,9 +324,9 @@ async function getUserCertificates(userId: string) {
   return NextResponse.json({ certificates }, { status: 200 });
 }
 
-async function getUserCourseProgress(userId: string, courseId: string) {
+async function getUserCourseProgress(userId: string, courseId: string): Promise<NextResponse> {
   const progress = await prisma.$transaction(async (tx) => {
-    return (tx as any).courseProgress.findMany({
+    return tx.courseProgress.findMany({
       where: {
         userId,
         courseId,
