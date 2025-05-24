@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell } from 'recharts';
-import { Bell, BookOpen, Calendar, CheckCircle, Clock, FileText, Home, MessageSquare, Search, Settings, Star, Trophy, User } from "lucide-react";
+import { Bell, BookOpen, Calendar, CheckCircle, Clock, FileText, Home, MessageSquare, Search, Settings, Star, Trophy } from "lucide-react";
 
 const subjectProgress = [
   { name: 'English', progress: 75, target: 85 },
@@ -183,7 +183,7 @@ export default function StudentDashboard() {
                 <Bell className="h-4 w-4" />
               </Button>
               <Button variant="outline" size="icon">
-                <User className="h-4 w-4" />
+                <Bell className="h-4 w-4" />
               </Button>
             </div>
           </div>

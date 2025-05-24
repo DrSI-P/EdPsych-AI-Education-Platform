@@ -1,12 +1,12 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { 
   WidgetConfig, 
   WidgetType,
   ChartType
 } from '@/lib/analytics/types';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { 
@@ -21,8 +21,7 @@ import {
   Maximize2, 
   Minimize2, 
   MoreHorizontal, 
-  RefreshCw, 
-  HelpCircle,
+  RefreshCw,
   Info
 } from 'lucide-react';
 import {
@@ -39,7 +38,6 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
@@ -104,9 +102,9 @@ export const DashboardWidget: React.FC<DashboardWidgetProps> = ({
     
     // Transform data for Tremor charts
     const chartData = datasets[0]?.data.map(point => {
-      const dataPoint: any = { category: point.label };
+      const dataPoint: Record<string, string | number> = { category: point.label };
       
-      datasets.forEach((dataset, index) => {
+      datasets.forEach((dataset) => {
         const matchingPoint = dataset.data.find(p => p.label === point.label);
         if (matchingPoint) {
           dataPoint[dataset.label] = matchingPoint.value;

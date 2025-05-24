@@ -15,7 +15,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { format } from 'date-fns';
-import { CalendarIcon, Check, Clock, MessageSquare, Plus, Trash2, UserPlus, Users } from 'lucide-react';
+import { CalendarIcon, Check, MessageSquare, Plus, Trash2, UserPlus, Users } from 'lucide-react';
 import Link from 'next/link';
 import { toast } from '@/components/ui/use-toast';
 
