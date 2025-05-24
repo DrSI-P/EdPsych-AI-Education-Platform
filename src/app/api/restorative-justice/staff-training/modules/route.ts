@@ -63,7 +63,7 @@ interface TrainingModule {
 }
 
 // GET handler for retrieving modules
-export async function GET(_req: Request): Promise<NextResponse> {
+export async function GET(): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
     
