@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import ScreenReaderOptimizationEngine from '@/components/ai/accessibility/screen-reader-optimization-engine';
+import { ScreenReaderOptimizationEngine } from '@/components/ai/accessibility/screen-reader-optimization-engine';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -32,6 +32,13 @@ export default function ScreenReaderOptimizationPage() {
     announcementLevel: 'moderate',
   });
   
+  const handleSettingsChange = (newSettings: Record<string, unknown>): void => {
+    setSettings(prevSettings => ({
+      ...prevSettings,
+      ...newSettings
+    }) as ScreenReaderSettings);
+  };
+  
   return (
     <div className="container mx-auto py-8 px-4">
       <h1 className="text-3xl font-bold mb-6 flex items-centre">
@@ -48,11 +55,11 @@ export default function ScreenReaderOptimizationPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
           <ScreenReaderOptimizationEngine 
-            onSettingsChange={setSettings}
-            className="mb-8"
+            settings={settings}
+            onSettingsChange={handleSettingsChange}
           />
           
-          <Alert className="mb-8">
+          <Alert>
             <Info className="h-4 w-4" />
             <AlertTitle>Accessibility Tip</AlertTitle>
             <AlertDescription>
