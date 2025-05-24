@@ -8,8 +8,20 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Eye, Info, BookOpen, AlertTriangle, Lightbulb } from "lucide-react";
 
+// Define the type for screen reader optimization settings
+interface ScreenReaderSettings {
+  enabled: boolean;
+  enhancedAria: boolean;
+  improvedAltText: boolean;
+  semanticHeadings: boolean;
+  tableAccessibility: boolean;
+  formLabels: boolean;
+  readingOrder: boolean;
+  announcementLevel: string;
+}
+
 export default function ScreenReaderOptimizationPage() {
-  const [settings, setSettings] = useState({
+  const [settings, setSettings] = useState<ScreenReaderSettings>({
     enabled: false,
     enhancedAria: true,
     improvedAltText: true,
