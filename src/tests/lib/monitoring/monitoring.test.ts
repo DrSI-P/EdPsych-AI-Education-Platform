@@ -1,5 +1,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { sentry, logger, performance, healthChecks, alerting } from '../../../lib/monitoring';
+// Import directly instead of using require later
+import * as sentryNextjs from '@sentry/nextjs';
 
 // Define interfaces for monitoring components
 interface AlertConfig {
@@ -58,6 +60,7 @@ vi.mock('winston', () => ({
 }));
 
 // Use import instead of require
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { PrismaClient } from '@prisma/client';
 vi.mock('@prisma/client', () => ({
   PrismaClient: vi.fn().mockImplementation(() => ({
@@ -92,8 +95,6 @@ describe('Monitoring System', () => {
       
       sentry.initSentry(dsn, environment);
       
-      // Use import instead of require
-      const sentryNextjs = require('@sentry/nextjs');
       expect(sentryNextjs.init).toHaveBeenCalledWith(
         expect.objectContaining({
           dsn,
@@ -109,8 +110,6 @@ describe('Monitoring System', () => {
       
       sentry.captureException(error, context);
       
-      // Use import instead of require
-      const sentryNextjs = require('@sentry/nextjs');
       expect(sentryNextjs.captureException).toHaveBeenCalledWith(
         error,
         expect.objectContaining({
@@ -125,8 +124,6 @@ describe('Monitoring System', () => {
       
       sentry.setUser(userId, role);
       
-      // Use import instead of require
-      const sentryNextjs = require('@sentry/nextjs');
       expect(sentryNextjs.setUser).toHaveBeenCalledWith({
         id: userId,
         role
