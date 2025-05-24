@@ -1,10 +1,12 @@
+// @ts-check
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { HeygenVideoLibrary } from '@/components/heygen/heygen-video-library';
 
 // Mock the heygen service
-jest.mock('@/lib/heygen/heygen-service', () => ({
-  getVideos: jest.fn().mockResolvedValue([
+vi.mock('@/lib/heygen/heygen-service', () => ({
+  getVideos: vi.fn().mockResolvedValue([
     { 
       id: 'video1', 
       title: 'Introduction to Mathematics',
@@ -24,16 +26,16 @@ jest.mock('@/lib/heygen/heygen-service', () => ({
       duration: 180
     }
   ]),
-  deleteVideo: jest.fn().mockResolvedValue({ success: true })
+  deleteVideo: vi.fn().mockResolvedValue({ success: true })
 }));
 
 describe('HeygenVideoLibrary Component', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
     
     // Mock localStorage
     const localStorageMock = {
-      getItem: jest.fn().mockReturnValue(JSON.stringify([
+      getItem: vi.fn().mockReturnValue(JSON.stringify([
         { 
           id: 'saved1', 
           title: 'Saved Video 1',
@@ -44,7 +46,7 @@ describe('HeygenVideoLibrary Component', () => {
           duration: 90
         }
       ])),
-      setItem: jest.fn(),
+      setItem: vi.fn(),
     };
     Object.defineProperty(window, 'localStorage', { value: localStorageMock });
   });
@@ -66,12 +68,12 @@ describe('HeygenVideoLibrary Component', () => {
   });
 
   it('loads videos on mount', async () => {
-    const { getVideos } = require('@/lib/heygen/heygen-service');
+    const heygenService = await import('@/lib/heygen/heygen-service');
     
     render(<HeygenVideoLibrary />);
     
     // Check that video service was called
-    expect(getVideos).toHaveBeenCalled();
+    expect(heygenService.getVideos).toHaveBeenCalled();
     
     // Wait for videos to load
     await waitFor(() => {
@@ -153,7 +155,7 @@ describe('HeygenVideoLibrary Component', () => {
   });
 
   it('allows deleting videos', async () => {
-    const { deleteVideo } = require('@/lib/heygen/heygen-service');
+    const heygenService = await import('@/lib/heygen/heygen-service');
     
     render(<HeygenVideoLibrary />);
     
@@ -174,7 +176,7 @@ describe('HeygenVideoLibrary Component', () => {
     fireEvent.click(confirmButton);
     
     // Check that delete service was called
-    expect(deleteVideo).toHaveBeenCalledWith('video1');
+    expect(heygenService.deleteVideo).toHaveBeenCalledWith('video1');
     
     // Check for success message
     await waitFor(() => {
@@ -185,7 +187,7 @@ describe('HeygenVideoLibrary Component', () => {
   it('allows downloading videos', async () => {
     // Mock window.open
     const originalOpen = window.open;
-    window.open = jest.fn();
+    window.open = vi.fn();
     
     render(<HeygenVideoLibrary />);
     
@@ -207,7 +209,7 @@ describe('HeygenVideoLibrary Component', () => {
 
   it('allows sharing videos', async () => {
     // Mock navigator.share
-    const mockShare = jest.fn().mockResolvedValue({});
+    const mockShare = vi.fn().mockResolvedValue({});
     global.navigator.share = mockShare;
     
     render(<HeygenVideoLibrary />);
@@ -232,8 +234,8 @@ describe('HeygenVideoLibrary Component', () => {
   });
 
   it('displays empty state when no videos are available', async () => {
-    const { getVideos } = require('@/lib/heygen/heygen-service');
-    getVideos.mockResolvedValue([]);
+    const heygenService = await import('@/lib/heygen/heygen-service');
+    heygenService.getVideos.mockResolvedValue([]);
     
     // Clear localStorage mock
     window.localStorage.getItem.mockReturnValue(JSON.stringify([]));
@@ -252,7 +254,7 @@ describe('HeygenVideoLibrary Component', () => {
 
   it('handles pagination for large video collections', async () => {
     // Mock a large collection of videos
-    const { getVideos } = require('@/lib/heygen/heygen-service');
+    const heygenService = await import('@/lib/heygen/heygen-service');
     const manyVideos = Array(20).fill(0).map((_, i) => ({
       id: `video${i}`,
       title: `Video ${i}`,
@@ -262,7 +264,7 @@ describe('HeygenVideoLibrary Component', () => {
       avatar: { name: i % 2 === 0 ? 'Teacher Emma' : 'Professor James' },
       duration: 120 + i
     }));
-    getVideos.mockResolvedValue(manyVideos);
+    heygenService.getVideos.mockResolvedValue(manyVideos);
     
     render(<HeygenVideoLibrary />);
     
