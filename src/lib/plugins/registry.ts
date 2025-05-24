@@ -13,7 +13,7 @@ import {
   PluginEventType,
   PluginRegistry as IPluginRegistry
 } from './types';
-import { prisma } from '../db';
+import { db } from '../db';
 import { eventBus } from '../events';
 
 // Import the plugins placeholder directly
@@ -53,7 +53,7 @@ class PluginRegistry implements IPluginRegistry {
       };
       
       // Store plugin in database
-      await prisma.plugin.create({
+      await db.prisma.plugin.create({
         data: {
           id: metadata.id,
           name: metadata.name,
@@ -107,7 +107,7 @@ class PluginRegistry implements IPluginRegistry {
       await plugin.shutdown();
       
       // Remove from database
-      await prisma.plugin.delete({
+      await db.prisma.plugin.delete({
         where: { id: pluginId }
       });
       
@@ -174,7 +174,7 @@ class PluginRegistry implements IPluginRegistry {
       instance.updatedAt = new Date();
       
       // Update database
-      await prisma.plugin.update({
+      await db.prisma.plugin.update({
         where: { id: pluginId },
         data: {
           status: instance.status,
@@ -201,7 +201,7 @@ class PluginRegistry implements IPluginRegistry {
         instance.updatedAt = new Date();
         
         // Update database
-        await prisma.plugin.update({
+        await db.prisma.plugin.update({
           where: { id: pluginId },
           data: {
             status: instance.status,
@@ -244,7 +244,7 @@ class PluginRegistry implements IPluginRegistry {
       instance.updatedAt = new Date();
       
       // Update database
-      await prisma.plugin.update({
+      await db.prisma.plugin.update({
         where: { id: pluginId },
         data: {
           status: instance.status,
@@ -291,7 +291,7 @@ class PluginRegistry implements IPluginRegistry {
       instance.updatedAt = new Date();
       
       // Update database
-      await prisma.plugin.update({
+      await db.prisma.plugin.update({
         where: { id: pluginId },
         data: {
           configuredSettings: settings,
@@ -319,7 +319,7 @@ class PluginRegistry implements IPluginRegistry {
    */
   async loadPlugins(): Promise<void> {
     try {
-      const dbPlugins = await prisma.plugin.findMany();
+      const dbPlugins = await db.prisma.plugin.findMany();
       
       for (const dbPlugin of dbPlugins) {
         try {
