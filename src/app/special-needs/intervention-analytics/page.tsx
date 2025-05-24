@@ -1,16 +1,13 @@
-'use client';
-
 import { useState } from 'react';
-import { Metadata } from 'next';
-import { InterventionAnalyticsEngine } from '@/components/special-needs/intervention-analytics/intervention-analytics-engine';
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { BarChart3, FileText, Download, Info, BookOpen } from "lucide-react";
+import { FileText, Download, Info, BookOpen } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { InterventionAnalyticsEngine } from '@/components/special-needs/intervention-analytics/intervention-analytics-engine';
 
-export default function InterventionAnalyticsPage() {
+export default function InterventionAnalyticsPage(): React.ReactNode {
   const [activeTab, setActiveTab] = useState('analytics');
   
   return (
@@ -25,7 +22,7 @@ export default function InterventionAnalyticsPage() {
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
         <TabsList>
           <TabsTrigger value="analytics">Analytics Dashboard</TabsTrigger>
-          <TabsTrigger value="about">About & Research</TabsTrigger>
+          <TabsTrigger value="about">About &amp; Research</TabsTrigger>
           <TabsTrigger value="reports">Reports</TabsTrigger>
         </TabsList>
         
@@ -100,7 +97,7 @@ export default function InterventionAnalyticsPage() {
                     </CardHeader>
                     <CardContent>
                       <p className="text-sm">
-                        Our effectiveness metrics are aligned with the EEF's Teaching and Learning Toolkit, which 
+                        Our effectiveness metrics are aligned with the EEF&apos;s Teaching and Learning Toolkit, which 
                         synthesizes international research to provide evidence-based guidance on educational interventions.
                       </p>
                       <Badge variant="outline" className="mt-2">Evidence Strength: High</Badge>
@@ -143,12 +140,12 @@ export default function InterventionAnalyticsPage() {
                     <CardHeader className="pb-2">
                       <CardTitle className="text-sm font-medium flex items-centre gap-2">
                         <BookOpen className="h-4 w-4" />
-                        Hattie's Visible Learning
+                        Hattie&apos;s Visible Learning
                       </CardTitle>
                     </CardHeader>
                     <CardContent>
                       <p className="text-sm">
-                        Our effect size calculations are based on John Hattie's meta-analysis work, which synthesizes 
+                        Our effect size calculations are based on John Hattie&apos;s meta-analysis work, which synthesizes 
                         research on factors influencing student achievement.
                       </p>
                       <Badge variant="outline" className="mt-2">Evidence Strength: High</Badge>
@@ -167,7 +164,7 @@ export default function InterventionAnalyticsPage() {
                     and grouping preferences in the Settings tab.
                   </li>
                   <li>
-                    <span className="font-medium">Apply Settings:</span> Click "Apply Settings" to generate analytics based 
+                    <span className="font-medium">Apply Settings:</span> Click &quot;Apply Settings&quot; to generate analytics based 
                     on your configuration.
                   </li>
                   <li>
@@ -306,7 +303,7 @@ export default function InterventionAnalyticsPage() {
                     </CardHeader>
                     <CardContent className="pt-0">
                       <p className="text-sm text-muted-foreground">
-                        Designed for SEND reviews, parent meetings, and professional discussions
+                        Provides a concise overview of intervention effectiveness for review meetings
                       </p>
                     </CardContent>
                     <CardFooter>
@@ -316,25 +313,6 @@ export default function InterventionAnalyticsPage() {
                       </Button>
                     </CardFooter>
                   </Card>
-                </div>
-              </div>
-              
-              <Separator />
-              
-              <div className="space-y-3">
-                <h3 className="text-lg font-medium">Scheduled Reports</h3>
-                <p>
-                  Configure automatic report generation on a regular schedule. Reports can be saved to your account 
-                  and optionally emailed to specified recipients.
-                </p>
-                
-                <div className="bg-muted p-4 rounded-md">
-                  <p className="text-sm text-muted-foreground">
-                    Scheduled reports are available for users with a Professional or School subscription. 
-                    <Button variant="link" className="h-auto p-0 ml-1">
-                      Upgrade your account
-                    </Button>
-                  </p>
                 </div>
               </div>
             </CardContent>
