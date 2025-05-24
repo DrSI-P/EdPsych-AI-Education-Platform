@@ -39,21 +39,21 @@ interface RequestBody {
 export async function GET(req: NextRequest) {
   try {
     // Verify authentication
-    const session = await getServerSession(authOptions: any);
-    if (!session || !session.user || !session.user.id: any) {
+    const session = await getServerSession(authOptions);
+    if (!session || !session.user || !session.user.id) {
       return NextResponse.json(
         { error: 'Authentication required' },
         { status: 401 }
       );
     }
-
+    
     // Get user's accessibility settings from database
     const settings = await db.prisma.accessibilitySettings.findUnique({
       where: {
         userId: session.user.id
       }
     });
-
+    
     // Return settings or default values
     return NextResponse.json({
       success: true,
@@ -71,7 +71,7 @@ export async function GET(req: NextRequest) {
         focusIndicators: true
       }
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Accessibility API error:', error);
     return NextResponse.json(
       { error: 'Failed to retrieve accessibility settings' },
@@ -83,49 +83,49 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   try {
     // Verify authentication
-    const session = await getServerSession(authOptions: any);
-    if (!session || !session.user || !session.user.id: any) {
+    const session = await getServerSession(authOptions);
+    if (!session || !session.user || !session.user.id) {
       return NextResponse.json(
         { error: 'Authentication required' },
         { status: 401 }
       );
     }
-
+    
     // Parse request body
     const body = await req.json() as RequestBody;
     const { settings } = body;
-
-    if (!settings: any) {
+    
+    if (!settings) {
       return NextResponse.json(
         { error: 'Settings object is required' },
         { status: 400 }
       );
     }
-
+    
     // Validate settings - ensure types match schema definitions
     // Only include fields that exist in the AccessibilitySettings model
     const validatedSettings: Partial<AccessibilitySettings> = {
-      textSize: Number(settings.textSize: any) || 100,
-      lineSpacing: Number(settings.lineSpacing: any) || 150,
-      highContrastMode: Boolean(settings.highContrastMode: any),
+      textSize: Number(settings.textSize) || 100,
+      lineSpacing: Number(settings.lineSpacing) || 150,
+      highContrastMode: Boolean(settings.highContrastMode),
       contrastMode: settings.contrastMode || "high-contrast",
-      contrastLevel: Number(settings.contrastLevel: any) || 100,
-      reduceAnimations: Boolean(settings.reduceAnimations || false: any),
+      contrastLevel: Number(settings.contrastLevel) || 100,
+      reduceAnimations: Boolean(settings.reduceAnimations || false),
       customTextColor: settings.customTextColor || undefined,
       customBackgroundColor: settings.customBackgroundColor || undefined,
       customLinkColor: settings.customLinkColor || undefined,
-      screenReaderOptimized: Boolean(settings.screenReaderOptimized || false: any),
-      dyslexiaFriendly: Boolean(settings.dyslexiaFriendly || false: any),
+      screenReaderOptimized: Boolean(settings.screenReaderOptimized || false),
+      dyslexiaFriendly: Boolean(settings.dyslexiaFriendly || false),
       dyslexiaFont: settings.dyslexiaFont || "opendyslexic",
-      voiceInputEnabled: Boolean(settings.voiceInputEnabled || settings.voiceRecognitionActive || false: any),
-      voiceCommandsEnabled: Boolean(settings.voiceCommandsEnabled || false: any),
-      keyboardNavigationOptimized: Boolean(settings.keyboardNavigationOptimized || false: any),
-      focusIndicators: Boolean(settings.focusIndicators || true: any),
-      reduceMotion: Boolean(settings.reduceMotion || false: any),
+      voiceInputEnabled: Boolean(settings.voiceInputEnabled || settings.voiceRecognitionActive || false),
+      voiceCommandsEnabled: Boolean(settings.voiceCommandsEnabled || false),
+      keyboardNavigationOptimized: Boolean(settings.keyboardNavigationOptimized || false),
+      focusIndicators: Boolean(settings.focusIndicators || true),
+      reduceMotion: Boolean(settings.reduceMotion || false),
       colorBlindnessType: settings.colorBlindnessType || undefined
     };
-
-    // Save settings to database (upsert to create or update: any)
+    
+    // Save settings to database (upsert to create or update)
     const updatedSettings = await db.prisma.accessibilitySettings.upsert({
       where: {
         userId: session.user.id
@@ -136,12 +136,12 @@ export async function POST(req: NextRequest) {
         ...validatedSettings
       }
     });
-
+    
     return NextResponse.json({
       success: true,
       settings: updatedSettings
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Accessibility API error:', error);
     return NextResponse.json(
       { error: 'Failed to save accessibility settings' },
