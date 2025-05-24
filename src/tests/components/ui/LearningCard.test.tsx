@@ -1,14 +1,16 @@
+// @ts-check
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { ThemeProvider } from '@/components/theme-provider';
 import LearningCard from '@/components/ui/LearningCard';
 
 // Mock next/navigation
-jest.mock('next/navigation', () => ({
-  useRouter: jest.fn(() => ({
-    push: jest.fn(),
+vi.mock('next/navigation', () => ({
+  useRouter: vi.fn(() => ({
+    push: vi.fn(),
   })),
 }));
 
@@ -22,7 +24,7 @@ describe('LearningCard Component', () => {
     level: 'Intermediate',
   };
 
-  test('renders with all props correctly', () => {
+  it('renders with all props correctly', () => {
     render(
       <ThemeProvider>
         <LearningCard {...defaultProps} />
@@ -47,7 +49,7 @@ describe('LearningCard Component', () => {
     expect(link).toHaveAttribute('href', defaultProps.href);
   });
 
-  test('renders without optional props', () => {
+  it('renders without optional props', () => {
     const minimalProps = {
       title: 'Minimal Card',
       href: '/minimal',
@@ -71,7 +73,7 @@ describe('LearningCard Component', () => {
     expect(screen.queryByText('Intermediate')).not.toBeInTheDocument();
   });
 
-  test('applies age-appropriate styling based on theme context', () => {
+  it('applies age-appropriate styling based on theme context', () => {
     // This test would check if the component applies different styles based on the age group
     // For simplicity, we're just checking if the component renders within the theme provider
     render(
