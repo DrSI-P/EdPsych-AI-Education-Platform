@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/db';
+import { db } from '@/lib/db';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 
@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
     const userId = session.user.id;
     
     // Get social skills activities for the user
-    const activities = await prisma.socialSkillsActivity.findMany({
+    const activities = await db.prisma.socialSkillsActivity.findMany({
       where: { userId },
       orderBy: { createdAt: 'desc' },
     });
@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
     }
     
     // Create new activity
-    const activity = await prisma.socialSkillsActivity.create({
+    const activity = await db.prisma.socialSkillsActivity.create({
       data: {
         userId,
         title: data.title,
@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
     });
     
     // Log the activity creation
-    await prisma.socialSkillsLog.create({
+    await db.prisma.socialSkillsLog.create({
       data: {
         userId,
         action: 'activity_created',

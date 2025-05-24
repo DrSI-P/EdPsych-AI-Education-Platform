@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/db';
+import { db } from '@/lib/db';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 
@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
     const userId = session.user.id;
     
     // Get peer interactions for the user
-    const interactions = await prisma.peerInteraction.findMany({
+    const interactions = await db.prisma.peerInteraction.findMany({
       where: { userId },
       orderBy: { createdAt: 'desc' },
     });
@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
     }
     
     // Create new peer interaction
-    const interaction = await prisma.peerInteraction.create({
+    const interaction = await db.prisma.peerInteraction.create({
       data: {
         userId,
         interactionType: data.interactionType,
@@ -58,7 +58,7 @@ export async function POST(request: NextRequest) {
     });
     
     // Log the interaction creation
-    await prisma.socialSkillsLog.create({
+    await db.prisma.socialSkillsLog.create({
       data: {
         userId,
         action: 'interaction_recorded',
