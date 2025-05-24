@@ -1,8 +1,9 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
-import prisma from '@/lib/prisma';
+// Remove unused import
+// import prisma from '@/lib/prisma';
 
 // Schema for framework validation
 const FrameworkSchema = z.object({
@@ -36,8 +37,39 @@ const ConversationSchema = z.object({
   outcome: z.string().optional()
 });
 
+// Define interfaces for request data
+interface FrameworkData {
+  title: string;
+  description: string;
+  suitableFor: string[];
+  ageGroups: string[];
+  timeRequired: string;
+  participantRoles: string[];
+  steps: {
+    title: string;
+    description: string;
+    prompts: string[];
+    guidance: string;
+  }[];
+  evidence: string;
+  references: string[];
+}
+
+interface ConversationData {
+  title: string;
+  frameworkId: string;
+  participants: {
+    name: string;
+    role: string;
+  }[];
+  notes: string;
+  agreement?: string;
+  status: 'draft' | 'in progress' | 'completed' | 'cancelled';
+  outcome?: string;
+}
+
 // GET handler for retrieving frameworks and conversations
-export async function GET(req: Request) {
+export async function GET(req: Request): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
     
@@ -47,7 +79,8 @@ export async function GET(req: Request) {
     
     const { searchParams } = new URL(req.url);
     const type = searchParams.get('type');
-    const query = searchParams.get('query') || '';
+    // Remove unused variable
+    // const query = searchParams.get('query') || '';
     
     if (type === 'frameworks') {
       // In a real implementation, this would fetch from the database
@@ -120,7 +153,7 @@ export async function GET(req: Request) {
 }
 
 // POST handler for creating new frameworks or conversations
-export async function POST(req: Request) {
+export async function POST(req: Request): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
     
@@ -179,7 +212,7 @@ export async function POST(req: Request) {
 }
 
 // PATCH handler for updating existing frameworks or conversations
-export async function PATCH(req: Request) {
+export async function PATCH(req: Request): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
     
@@ -241,7 +274,7 @@ export async function PATCH(req: Request) {
 }
 
 // DELETE handler for removing frameworks or conversations
-export async function DELETE(req: Request) {
+export async function DELETE(req: Request): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
     
