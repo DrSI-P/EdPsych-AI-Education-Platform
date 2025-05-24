@@ -3,7 +3,7 @@ import { prisma } from '@/lib/prisma';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 
-export async function GET(req: NextRequest) {
+export async function GET(req: NextRequest): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
     
@@ -54,12 +54,13 @@ export async function GET(req: NextRequest) {
         });
     }
   } catch (error) {
+    // Replace console.error with structured logging when available
     console.error('Error in executive dysfunction API:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
 
-export async function POST(req: NextRequest) {
+export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
     
@@ -121,12 +122,13 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ error: 'Invalid request type' }, { status: 400 });
     }
   } catch (error) {
+    // Replace console.error with structured logging when available
     console.error('Error in executive dysfunction API:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
 
-export async function PUT(req: NextRequest) {
+export async function PUT(req: NextRequest): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
     
@@ -135,7 +137,8 @@ export async function PUT(req: NextRequest) {
     }
     
     const userId = session.user.id;
-    const { type, id, data } = await req.json();
+    const { type, data } = await req.json();
+    // Removed unused 'id' variable
     
     switch (type) {
       case 'profile':
@@ -156,6 +159,7 @@ export async function PUT(req: NextRequest) {
         return NextResponse.json({ error: 'Invalid request type' }, { status: 400 });
     }
   } catch (error) {
+    // Replace console.error with structured logging when available
     console.error('Error in executive dysfunction API:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
