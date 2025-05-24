@@ -1,6 +1,6 @@
-# Next.js Build Optimization Configuration
-
 /**
+ * Next.js Build Optimization Configuration
+ * 
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
