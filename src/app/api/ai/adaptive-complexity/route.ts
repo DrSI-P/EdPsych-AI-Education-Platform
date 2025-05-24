@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth/auth-options';
-import { prisma } from '@/lib/db';
+import { db } from '@/lib/db';
 import { getAIService } from '@/lib/ai/ai-service';
 
 interface ComplexitySettings {
@@ -76,8 +76,8 @@ export async function POST(req: NextRequest) {
     const originalComplexity = 50; // Default complexity level
     
     if (contentId) {
-      // Check if it's a curriculum plan - using Prisma's type-safe query
-      const curriculumPlan = await prisma.curriculumPlan.findUnique({
+      // Check if it's a curriculum plan - using db interface
+      const curriculumPlan = await db.prisma.curriculumPlan.findUnique({
         where: { id: contentId }
       });
       
@@ -87,8 +87,8 @@ export async function POST(req: NextRequest) {
         contentSubject = curriculumPlan.subject || '';
         contentKeyStage = curriculumPlan.keyStage || '';
       } else {
-        // Check if it's a resource - using Prisma's type-safe query
-        const resource = await prisma.resource.findUnique({
+        // Check if it's a resource - using db interface
+        const resource = await db.prisma.resource.findUnique({
           where: { id: contentId }
         });
         
@@ -100,8 +100,8 @@ export async function POST(req: NextRequest) {
           contentSubject = subject || '';
           contentKeyStage = keyStage || '';
         } else {
-          // Check if it's multi-modal content - using Prisma's type-safe query
-          const multiModalContent = await prisma.multiModalContent.findUnique({
+          // Check if it's multi-modal content - using db interface
+          const multiModalContent = await db.prisma.multiModalContent.findUnique({
             where: { id: contentId }
           });
           
@@ -252,8 +252,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Failed to parse adjusted content' }, { status: 500 });
     }
     
-    // Save the adjusted content using Prisma's type-safe query
-    const savedContent = await prisma.adaptiveContent.create({
+    // Save the adjusted content using db interface
+    const savedContent = await db.prisma.adaptiveContent.create({
       data: {
         userId: session.user.id,
         title: adjustedContent.title || contentTitle || 'Adjusted Content',
@@ -290,8 +290,8 @@ export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const contentId = searchParams.get('contentId');
     
-    // Get user's adaptive content using Prisma's type-safe query
-    const adaptiveContents = await prisma.adaptiveContent.findMany({
+    // Get user's adaptive content using db interface
+    const adaptiveContents = await db.prisma.adaptiveContent.findMany({
       where: {
         userId: session.user.id,
         ...(contentId ? { sourceContentId: contentId } : {})

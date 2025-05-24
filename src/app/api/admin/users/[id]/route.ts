@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth/auth-options';
-import prisma from '@/lib/db/prisma';
+import { db } from '@/lib/db';
 import { z } from 'zod';
 
 // Schema for validating user ID
@@ -44,17 +44,7 @@ export async function GET(
     }
     
     // Fetch user
-    const user = await prisma.user.findUnique({
-      where: { id: params.id },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        role: true,
-        emailVerified: true,
-        // Removed createdAt and updatedAt as they don't exist in the User model
-      },
-    });
+    const user = await db.user.findById(params.id);
     
     if (!user) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
@@ -112,9 +102,7 @@ export async function PUT(
     const { name, email, role } = parsed.data;
     
     // Check if user exists
-    const existingUser = await prisma.user.findUnique({
-      where: { id: params.id },
-    });
+    const existingUser = await db.user.findById(params.id);
     
     if (!existingUser) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
@@ -122,9 +110,7 @@ export async function PUT(
     
     // Check if email is already used by another user
     if (email !== existingUser.email) {
-      const emailExists = await prisma.user.findUnique({
-        where: { email },
-      });
+      const emailExists = await db.user.findByEmail(email);
       
       if (emailExists) {
         return NextResponse.json(
@@ -135,21 +121,10 @@ export async function PUT(
     }
     
     // Update user
-    const updatedUser = await prisma.user.update({
-      where: { id: params.id },
-      data: {
-        name,
-        email,
-        role,
-      },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        role: true,
-        emailVerified: true,
-        // Removed createdAt and updatedAt as they don't exist in the User model
-      },
+    const updatedUser = await db.user.update(params.id, {
+      name,
+      email,
+      role,
     });
     
     return NextResponse.json(updatedUser);
@@ -191,9 +166,7 @@ export async function DELETE(
     }
     
     // Check if user exists
-    const existingUser = await prisma.user.findUnique({
-      where: { id: params.id },
-    });
+    const existingUser = await db.user.findById(params.id);
     
     if (!existingUser) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
@@ -201,7 +174,7 @@ export async function DELETE(
     
     // Prevent deleting the last admin user
     if (existingUser.role === 'admin') {
-      const adminCount = await prisma.user.count({
+      const adminCount = await db.prisma.user.count({
         where: { role: 'admin' },
       });
       
@@ -214,9 +187,7 @@ export async function DELETE(
     }
     
     // Delete user
-    await prisma.user.delete({
-      where: { id: params.id },
-    });
+    await db.user.delete(params.id);
     
     return NextResponse.json({ success: true });
     
