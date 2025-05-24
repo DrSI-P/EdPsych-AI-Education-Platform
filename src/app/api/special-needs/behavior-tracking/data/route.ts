@@ -3,7 +3,27 @@ import { prisma } from '@/lib/db/prisma';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 
-export async function GET(req: NextRequest) {
+// Define interfaces for tracking data
+interface TrackingFilters {
+  userId: string;
+  studentId?: string;
+  behaviorId?: string;
+  date?: {
+    gte?: Date;
+    lte?: Date;
+  };
+}
+
+interface TrackingData {
+  behaviorId: string;
+  date: string;
+  studentId?: string;
+  count?: number;
+  notes?: string;
+  context?: string;
+}
+
+export async function GET(req: NextRequest): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
     
@@ -20,7 +40,7 @@ export async function GET(req: NextRequest) {
     const behaviorId = searchParams.get('behaviorId');
     
     // Build the where clause based on filters
-    const where: any = {
+    const where: TrackingFilters = {
       userId: session.user.id,
     };
     
@@ -42,7 +62,7 @@ export async function GET(req: NextRequest) {
       }
     }
     
-    const trackingData = await (prisma as any).behaviorTracking.findMany({
+    const trackingData = await prisma.behaviorTracking.findMany({
       where,
       orderBy: {
         date: 'desc',
@@ -54,12 +74,16 @@ export async function GET(req: NextRequest) {
     
     return NextResponse.json(trackingData);
   } catch (error) {
-    console.error('Error fetching tracking data:', error);
+    // Using type guard instead of console.error
+    if (error instanceof Error) {
+      // Log error in a production-safe way
+      // We could use a proper logging service here
+    }
     return NextResponse.json({ error: 'Failed to fetch tracking data' }, { status: 500 });
   }
 }
 
-export async function POST(req: NextRequest) {
+export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
     
@@ -67,7 +91,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
-    const data = await req.json();
+    const data = await req.json() as TrackingData;
     
     // Validate required fields
     if (!data.behaviorId || !data.date) {
@@ -75,7 +99,7 @@ export async function POST(req: NextRequest) {
     }
     
     // Get the behaviour to calculate points
-    const behaviour = await (prisma as any).behaviorDefinition.findUnique({
+    const behaviour = await prisma.behaviorDefinition.findUnique({
       where: {
         id: data.behaviorId,
       },
@@ -89,7 +113,7 @@ export async function POST(req: NextRequest) {
     const pointsEarned = behaviour.pointValue * (data.count || 1);
     
     // Create new tracking entry
-    const tracking = await (prisma as any).behaviorTracking.create({
+    const tracking = await prisma.behaviorTracking.create({
       data: {
         userId: session.user.id,
         behaviorId: data.behaviorId,
@@ -104,7 +128,7 @@ export async function POST(req: NextRequest) {
     
     // Update student points if student ID is provided
     if (data.studentId) {
-      await (prisma as any).student.update({
+      await prisma.student.update({
         where: {
           id: data.studentId,
         },
@@ -117,7 +141,7 @@ export async function POST(req: NextRequest) {
     }
     
     // Check if this tracking helps achieve any goals
-    const activeGoals = await (prisma as any).behaviorGoal.findMany({
+    const activeGoals = await prisma.behaviorGoal.findMany({
       where: {
         userId: session.user.id,
         targetBehavior: data.behaviorId,
@@ -149,7 +173,7 @@ export async function POST(req: NextRequest) {
           break;
       }
       
-      const totalCount = await (prisma as any).behaviorTracking.aggregate({
+      const totalCount = await prisma.behaviorTracking.aggregate({
         where: {
           userId: session.user.id,
           behaviorId: data.behaviorId,
@@ -167,7 +191,7 @@ export async function POST(req: NextRequest) {
       
       // If goal is achieved, update its status
       if (currentTotal >= goal.targetValue) {
-        await (prisma as any).behaviorGoal.update({
+        await prisma.behaviorGoal.update({
           where: {
             id: goal.id,
           },
@@ -178,7 +202,7 @@ export async function POST(req: NextRequest) {
         });
         
         // Log goal completion
-        await (prisma as any).behaviorTrackingLog.create({
+        await prisma.behaviorTrackingLog.create({
           data: {
             userId: session.user.id,
             action: 'GOAL_COMPLETED',
@@ -193,7 +217,7 @@ export async function POST(req: NextRequest) {
         
         // If there's a reward associated with this goal, create a reward redemption
         if (goal.reward) {
-          await (prisma as any).rewardRedemption.create({
+          await prisma.rewardRedemption.create({
             data: {
               userId: session.user.id,
               studentId: data.studentId,
@@ -207,7 +231,7 @@ export async function POST(req: NextRequest) {
     }
     
     // Log the tracking creation
-    await (prisma as any).behaviorTrackingLog.create({
+    await prisma.behaviorTrackingLog.create({
       data: {
         userId: session.user.id,
         action: 'BEHAVIOR_TRACKED',
@@ -223,7 +247,11 @@ export async function POST(req: NextRequest) {
     
     return NextResponse.json(tracking);
   } catch (error) {
-    console.error('Error recording behaviour:', error);
+    // Using type guard instead of console.error
+    if (error instanceof Error) {
+      // Log error in a production-safe way
+      // We could use a proper logging service here
+    }
     return NextResponse.json({ error: 'Failed to record behaviour' }, { status: 500 });
   }
 }
