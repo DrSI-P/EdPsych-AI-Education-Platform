@@ -1,8 +1,9 @@
-import { AvatarService, AvatarProfile, VideoGenerationOptions } from '@/lib/ai-avatar/avatar-service';
+import { AvatarService, VideoGenerationOptions } from '@/lib/ai-avatar/avatar-service';
+import { describe, it, expect, vi, beforeEach, afterAll } from 'vitest';
 
 // Mock console methods
 const originalConsoleError = console.error;
-const mockConsoleError = jest.fn();
+const mockConsoleError = vi.fn();
 console.error = mockConsoleError;
 
 describe('AvatarService', () => {
@@ -46,13 +47,13 @@ describe('AvatarService', () => {
     it('should handle errors during avatar creation', async () => {
       // Mock implementation to throw an error
       const originalImplementation = avatarService['getAvatarProfile'];
-      avatarService['getAvatarProfile'] = jest.fn().mockImplementation(() => {
+      avatarService['getAvatarProfile'] = vi.fn().mockImplementation(() => {
         throw new Error('Test error');
       });
       
       try {
         await avatarService.createAvatarProfile({ name: 'Error Avatar', provider: 'veed' });
-        fail('Expected an error to be thrown');
+        expect.fail('Expected an error to be thrown');
       } catch (error) {
         expect(error).toBeInstanceOf(Error);
         expect((error as Error).message).toBe('Failed to create avatar profile');
@@ -80,7 +81,7 @@ describe('AvatarService', () => {
     
     it('should handle errors when avatar profile is not found', async () => {
       // Mock getAvatarProfile to return null
-      avatarService['getAvatarProfile'] = jest.fn().mockResolvedValue(null);
+      avatarService['getAvatarProfile'] = vi.fn().mockResolvedValue(null);
       
       const options: VideoGenerationOptions = {
         script: 'This is a test script',
@@ -95,7 +96,7 @@ describe('AvatarService', () => {
     
     it('should handle errors during video generation', async () => {
       // Mock getAvatarProfile to throw an error
-      avatarService['getAvatarProfile'] = jest.fn().mockImplementation(() => {
+      avatarService['getAvatarProfile'] = vi.fn().mockImplementation(() => {
         throw new Error('Test error');
       });
       
