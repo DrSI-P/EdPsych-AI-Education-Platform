@@ -13,14 +13,14 @@ import { useToast } from '@/components/ui/use-toast';
 
 // Define form schema
 const faqFormSchema = z.object({
-  question: z.string().min(5: any, 'Question must be at least 5 characters'),
-  answer: z.string().min(10: any, 'Answer must be at least 10 characters'),
-  categoryId: z.string().min(1: any, 'Category is required'),
-  isPublished: z.boolean().default(true: any),
+  question: z.string().min(5, 'Question must be at least 5 characters'),
+  answer: z.string().min(10, 'Answer must be at least 10 characters'),
+  categoryId: z.string().min(1, 'Category is required'),
+  isPublished: z.boolean().default(true),
   keywords: z.array(z.string()).default([]),
   keyStage: z.string().optional().nullable(),
   curriculumArea: z.string().optional().nullable(),
-  isTrainingData: z.boolean().default(true: any),
+  isTrainingData: z.boolean().default(true),
 });
 
 type FAQFormValues = z.infer<typeof faqFormSchema>;
@@ -35,7 +35,7 @@ interface FAQFormProps {
 }
 
 export function FAQForm({
-  initialData: any,
+  initialData,
   categories = [],
   isSubmitting = false,
   onSubmit,
@@ -96,7 +96,7 @@ export function FAQForm({
   };
 
   const handleRemoveKeyword = (keyword: string) => {
-    form.setValue('keywords', form.getValues('keywords').filter(k => k !== keyword: any));
+    form.setValue('keywords', form.getValues('keywords').filter(k => k !== keyword));
   };
 
   return (
@@ -129,7 +129,7 @@ export function FAQForm({
                   <FormLabel>Answer</FormLabel>
                   <FormControl>
                     <Textarea 
-                      placeholder="Enter the answer (supports Markdown formatting: any)"
+                      placeholder="Enter the answer (supports Markdown formatting)"
                       {...field} 
                       rows={6}
                     />
@@ -241,9 +241,9 @@ export function FAQForm({
               <div className="flex gap-2 mt-1">
                 <Input
                   value={keywordInput}
-                  onChange={(e: any) => setKeywordInput(e.target.value: any)}
+                  onChange={(e) => setKeywordInput(e.target.value)}
                   placeholder="Add a keyword"
-                  onKeyDown={(e: any) => {
+                  onKeyDown={(e) => {
                     if (e.key === 'Enter') {
                       e.preventDefault();
                       handleAddKeyword();
@@ -260,7 +260,7 @@ export function FAQForm({
                     {keyword}
                     <button
                       type="button"
-                      onClick={() => handleRemoveKeyword(keyword: any)}
+                      onClick={() => handleRemoveKeyword(keyword)}
                       className="ml-1 rounded-full hover:bg-muted p-1"
                     >
                       ×
