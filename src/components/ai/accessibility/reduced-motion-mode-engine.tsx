@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -21,7 +21,13 @@ interface ReducedMotionModeEngineProps {
     disableParallaxEffects: boolean;
     disableScrollEffects: boolean;
   };
-  onSettingsChange: (settings: Record<string, any>) => void;
+  onSettingsChange: (settings: Record<string, unknown>) => void;
+}
+
+interface OptimizationResults {
+  elementsProcessed: number;
+  motionsReduced: number;
+  warnings: string[];
 }
 
 export const ReducedMotionModeEngine: React.FC<ReducedMotionModeEngineProps> = ({ 
@@ -29,21 +35,17 @@ export const ReducedMotionModeEngine: React.FC<ReducedMotionModeEngineProps> = (
   onSettingsChange
 }) => {
   // State for UI
-  const [isApplying, setIsApplying] = React.useState<boolean>(false);
-  const [optimizationStatus, setOptimizationStatus] = React.useState<string>('idle');
-  const [optimizationProgress, setOptimizationProgress] = React.useState<number>(0);
-  const [optimizationResults, setOptimizationResults] = React.useState<{
-    elementsProcessed: number;
-    motionsReduced: number;
-    warnings: string[];
-  }>({
+  const [isApplying, setIsApplying] = useState<boolean>(false);
+  const [optimizationStatus, setOptimizationStatus] = useState<string>('idle');
+  const [optimizationProgress, setOptimizationProgress] = useState<number>(0);
+  const [optimizationResults, setOptimizationResults] = useState<OptimizationResults>({
     elementsProcessed: 0,
     motionsReduced: 0,
     warnings: []
   });
 
   // Apply reduced motion optimizations
-  const applyReducedMotionOptimizations = React.useCallback(() => {
+  const applyReducedMotionOptimizations = useCallback(() => {
     if (!settings.enabled) return;
     
     setIsApplying(true);
@@ -54,7 +56,7 @@ export const ReducedMotionModeEngine: React.FC<ReducedMotionModeEngineProps> = (
     const totalSteps = 5;
     let currentStep = 0;
     
-    const processStep = () => {
+    const processStep = (): void => {
       currentStep++;
       setOptimizationProgress(Math.floor((currentStep / totalSteps) * 100));
       
@@ -78,17 +80,17 @@ export const ReducedMotionModeEngine: React.FC<ReducedMotionModeEngineProps> = (
     
     // Start processing
     setTimeout(processStep, 500);
-  }, [settings]);
+  }, [settings.enabled]);
   
   // Apply optimizations on settings change
-  React.useEffect(() => {
+  useEffect(() => {
     if (settings.enabled) {
       applyReducedMotionOptimizations();
     }
-  }, [settings, applyReducedMotionOptimizations]);
+  }, [settings.enabled, applyReducedMotionOptimizations]);
   
   // Reduce animations
-  const reduceAnimations = React.useCallback(() => {
+  const reduceAnimations = useCallback(() => {
     if (!settings.reduceAnimations) return;
     
     try {
@@ -110,7 +112,7 @@ export const ReducedMotionModeEngine: React.FC<ReducedMotionModeEngineProps> = (
   }, [settings.reduceAnimations]);
   
   // Disable autoplay
-  const disableAutoplay = React.useCallback(() => {
+  const disableAutoplay = useCallback(() => {
     if (!settings.disableAutoplay) return;
     
     try {
@@ -133,7 +135,7 @@ export const ReducedMotionModeEngine: React.FC<ReducedMotionModeEngineProps> = (
   }, [settings.disableAutoplay]);
   
   // Reduce transitions
-  const reduceTransitions = React.useCallback(() => {
+  const reduceTransitions = useCallback(() => {
     if (!settings.reduceTransitions) return;
     
     try {
@@ -154,7 +156,7 @@ export const ReducedMotionModeEngine: React.FC<ReducedMotionModeEngineProps> = (
   }, [settings.reduceTransitions]);
   
   // Disable parallax effects
-  const disableParallaxEffects = React.useCallback(() => {
+  const disableParallaxEffects = useCallback(() => {
     if (!settings.disableParallaxEffects) return;
     
     try {
@@ -173,7 +175,7 @@ export const ReducedMotionModeEngine: React.FC<ReducedMotionModeEngineProps> = (
   }, [settings.disableParallaxEffects]);
   
   // Disable scroll effects
-  const disableScrollEffects = React.useCallback(() => {
+  const disableScrollEffects = useCallback(() => {
     if (!settings.disableScrollEffects) return;
     
     try {
@@ -192,7 +194,7 @@ export const ReducedMotionModeEngine: React.FC<ReducedMotionModeEngineProps> = (
   }, [settings.disableScrollEffects]);
   
   // Apply all optimizations
-  const applyAllOptimizations = React.useCallback(() => {
+  const applyAllOptimizations = useCallback(() => {
     reduceAnimations();
     disableAutoplay();
     reduceTransitions();
@@ -207,14 +209,14 @@ export const ReducedMotionModeEngine: React.FC<ReducedMotionModeEngineProps> = (
   ]);
   
   // Apply optimizations on component mount
-  React.useEffect(() => {
+  useEffect(() => {
     if (settings.enabled) {
       applyAllOptimizations();
     }
   }, [settings.enabled, applyAllOptimizations]);
   
   // Handle settings toggle
-  const handleSettingToggle = (setting: string, value: boolean) => {
+  const handleSettingToggle = (setting: string, value: boolean): void => {
     onSettingsChange({
       ...settings,
       [setting]: value
@@ -382,5 +384,3 @@ export const ReducedMotionModeEngine: React.FC<ReducedMotionModeEngineProps> = (
     </div>
   );
 };
-
-export default ReducedMotionModeEngine;
