@@ -1,5 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
+// @ts-check
 import { describe, it, expect, beforeAll } from 'vitest';
 import fs from 'fs';
 import path from 'path';
@@ -8,7 +7,12 @@ import path from 'path';
 const SUPPORTED_LOCALES = ['en-GB', 'fr', 'es', 'de', 'pl', 'ur'];
 const NAMESPACES = ['common']; // Add more namespaces as they are created
 
-// Helper function to get all keys from a nested object
+/**
+ * Helper function to get all keys from a nested object
+ * @param {object} obj - The object to extract keys from
+ * @param {string} prefix - The prefix for nested keys
+ * @returns {string[]} Array of all keys in dot notation
+ */
 function getAllKeys(obj, prefix = '') {
   return Object.keys(obj).reduce((keys, key) => {
     const newPrefix = prefix ? `${prefix}.${key}` : key;
@@ -19,13 +23,19 @@ function getAllKeys(obj, prefix = '') {
   }, []);
 }
 
-// Helper function to get a nested value from an object using a dot-notation path
+/**
+ * Helper function to get a nested value from an object using a dot-notation path
+ * @param {object} obj - The object to extract value from
+ * @param {string} path - The path in dot notation
+ * @returns {*} The value at the specified path
+ */
 function getNestedValue(obj, path) {
   return path.split('.').reduce((o, key) => (o && o[key] !== undefined ? o[key] : undefined), obj);
 }
 
 describe('i18n Translation Tests', () => {
   // Store loaded translations
+  /** @type {Record<string, Record<string, object>>} */
   const translations = {};
 
   // Load all translation files before tests
@@ -39,7 +49,6 @@ describe('i18n Translation Tests', () => {
           translations[locale][namespace] = JSON.parse(content);
         } else {
           // Using console.warn for test debugging is acceptable
-          // eslint-disable-next-line no-console
           console.warn(`Translation file not found: ${filePath}`);
         }
       }
@@ -63,7 +72,6 @@ describe('i18n Translation Tests', () => {
       
       for (const locale of SUPPORTED_LOCALES.filter(l => l !== baseLocale)) {
         // This variable is used for debugging purposes if needed
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
         const localeKeys = getAllKeys(translations[locale][namespace]);
         
         for (const key of baseKeys) {
