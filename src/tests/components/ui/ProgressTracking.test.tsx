@@ -1,9 +1,11 @@
+// @ts-check
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import ProgressTracking from '../../components/ui/ProgressTracking';
 
 // Mock the animation library
-jest.mock('framer-motion', () => ({
+vi.mock('framer-motion', () => ({
   motion: {
     div: ({ children, ...props }) => <div data-testid="motion-div" {...props}>{children}</div>,
     path: ({ children, ...props }) => <path data-testid="motion-path" {...props}>{children}</path>,
@@ -129,7 +131,7 @@ describe('ProgressTracking Component', () => {
   });
 
   it('allows sharing progress report', async () => {
-    const mockShare = jest.fn();
+    const mockShare = vi.fn();
     global.navigator.share = mockShare;
     
     render(<ProgressTracking progressData={mockProgressData} />);
@@ -155,7 +157,7 @@ describe('ProgressTracking Component', () => {
     
     // Mock window.open
     const originalOpen = window.open;
-    window.open = jest.fn();
+    window.open = vi.fn();
     
     // Click download button
     fireEvent.click(downloadButton);
