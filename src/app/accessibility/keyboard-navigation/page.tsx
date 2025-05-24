@@ -8,8 +8,20 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Keyboard, Info, BookOpen, AlertTriangle, KeyRound } from "lucide-react";
 
+// Define the type for keyboard navigation settings
+interface KeyboardNavigationSettings {
+  enabled: boolean;
+  highlightFocus: boolean;
+  skipLinks: boolean;
+  keyboardShortcuts: boolean;
+  tabSize: string;
+  focusIndicatorSize: number;
+  focusIndicatorColor: string;
+  customFocusColor: string;
+}
+
 export default function KeyboardNavigationPage() {
-  const [settings, setSettings] = useState({
+  const [settings, setSettings] = useState<KeyboardNavigationSettings>({
     enabled: false,
     highlightFocus: true,
     skipLinks: true,
@@ -21,7 +33,7 @@ export default function KeyboardNavigationPage() {
   });
   
   // Create a handler function with the correct type signature
-  const handleSettingsChange = (newSettings: any) => {
+  const handleSettingsChange = (newSettings: KeyboardNavigationSettings) => {
     setSettings(newSettings);
   };
 
