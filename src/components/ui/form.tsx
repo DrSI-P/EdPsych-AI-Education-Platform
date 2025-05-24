@@ -311,3 +311,9 @@ export function FormMessage({ children }: { children: React.ReactNode }) {
   if (!children) return null;
   return <p className="text-sm font-medium text-red-500">{children}</p>;
 }
+
+// Add missing FormDescription component that's causing build errors
+export function FormDescription({ children }: { children: React.ReactNode }) {
+  if (!children) return null;
+  return <p className="text-sm text-gray-500 mt-1">{children}</p>;
+}
