@@ -28,8 +28,42 @@ const moduleSchema = z.object({
   )
 });
 
+// Define interfaces for request data
+interface User {
+  id: string;
+  role?: string;
+}
+
+interface TrainingModuleSection {
+  id: string;
+  title: string;
+  type: string;
+  content: string;
+  duration: string;
+  order: number;
+}
+
+interface TrainingModuleResource {
+  id: string;
+  title: string;
+  type: string;
+  url: string;
+  description: string;
+}
+
+interface TrainingModule {
+  id: string;
+  title: string;
+  description: string;
+  duration: string;
+  level: string;
+  order: number;
+  sections: TrainingModuleSection[];
+  resources: TrainingModuleResource[];
+}
+
 // GET handler for retrieving modules
-export async function GET(req: NextRequest) {
+export async function GET(req: NextRequest): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
     
@@ -82,7 +116,7 @@ export async function GET(req: NextRequest) {
 }
 
 // POST handler for creating a new module
-export async function POST(req: NextRequest) {
+export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
     
@@ -95,7 +129,7 @@ export async function POST(req: NextRequest) {
     const user = await prisma.user.findUnique({
       where: { id: session.user.id },
       select: { role: true }
-    });
+    }) as User | null;
     
     if (user?.role !== 'ADMIN') {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
@@ -137,7 +171,7 @@ export async function POST(req: NextRequest) {
           sections: true,
           resources: true
         }
-      });
+      }) as TrainingModule;
       
       return NextResponse.json(module, { status: 201 });
     } catch (validationError) {
@@ -153,7 +187,7 @@ export async function POST(req: NextRequest) {
 }
 
 // PUT handler for updating a module
-export async function PUT(req: NextRequest) {
+export async function PUT(req: NextRequest): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
     
@@ -166,7 +200,7 @@ export async function PUT(req: NextRequest) {
     const user = await prisma.user.findUnique({
       where: { id: session.user.id },
       select: { role: true }
-    });
+    }) as User | null;
     
     if (user?.role !== 'ADMIN') {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
@@ -216,7 +250,7 @@ export async function PUT(req: NextRequest) {
           sections: true,
           resources: true
         }
-      });
+      }) as TrainingModule;
       
       return NextResponse.json(module);
     } catch (validationError) {
@@ -232,7 +266,7 @@ export async function PUT(req: NextRequest) {
 }
 
 // DELETE handler for removing a module
-export async function DELETE(req: NextRequest) {
+export async function DELETE(req: NextRequest): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
     
@@ -245,7 +279,7 @@ export async function DELETE(req: NextRequest) {
     const user = await prisma.user.findUnique({
       where: { id: session.user.id },
       select: { role: true }
-    });
+    }) as User | null;
     
     if (user?.role !== 'ADMIN') {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
