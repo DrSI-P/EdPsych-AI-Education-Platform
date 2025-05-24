@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import HighContrastModeEngine from '@/components/ai/accessibility/high-contrast-mode-engine';
+import { HighContrastModeEngine } from '@/components/ai/accessibility/high-contrast-mode-engine';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -11,11 +11,20 @@ import { Contrast, Info, BookOpen, Eye, AlertTriangle } from "lucide-react";
 export default function HighContrastModePage() {
   const [settings, setSettings] = useState({
     enabled: false,
-    mode: 'high-contrast',
-    textSize: 100,
-    contrastLevel: 100,
-    reduceAnimations: false,
+    contrastLevel: 75,
+    boldText: false,
+    largerText: false,
+    highlightLinks: false,
+    highlightButtons: false,
+    customColors: false,
   });
+  
+  const handleSettingsChange = (newSettings: Record<string, unknown>): void => {
+    setSettings(prevSettings => ({
+      ...prevSettings,
+      ...newSettings
+    }));
+  };
   
   return (
     <div className="container mx-auto py-8 px-4">
@@ -33,11 +42,11 @@ export default function HighContrastModePage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
           <HighContrastModeEngine 
-            onSettingsChange={setSettings}
-            className="mb-8"
+            settings={settings}
+            onSettingsChange={handleSettingsChange}
           />
           
-          <Alert className="mb-8">
+          <Alert>
             <Info className="h-4 w-4" />
             <AlertTitle>Accessibility Tip</AlertTitle>
             <AlertDescription>
