@@ -2,22 +2,37 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import ReducedMotionModeEngine from '@/components/ai/accessibility/reduced-motion-mode-engine';
+import { ReducedMotionModeEngine } from '@/components/ai/accessibility/reduced-motion-mode-engine';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Activity, Info, BookOpen, AlertTriangle } from "lucide-react";
 
+interface ReducedMotionSettings {
+  enabled: boolean;
+  reduceAnimations: boolean;
+  disableAutoplay: boolean;
+  reduceTransitions: boolean;
+  disableParallaxEffects: boolean;
+  disableScrollEffects: boolean;
+}
+
 export default function ReducedMotionModePage() {
-  const [settings, setSettings] = useState({
+  const [settings, setSettings] = useState<ReducedMotionSettings>({
     enabled: false,
-    level: 'moderate',
-    allowEssentialAnimations: true,
-    allowHoverEffects: false,
-    allowTransitions: true,
-    transitionSpeed: 50,
-    allowAutoplay: false,
+    reduceAnimations: true,
+    disableAutoplay: true,
+    reduceTransitions: true,
+    disableParallaxEffects: true,
+    disableScrollEffects: false
   });
+  
+  const handleSettingsChange = (newSettings: Record<string, unknown>): void => {
+    setSettings(prevSettings => ({
+      ...prevSettings,
+      ...newSettings
+    }) as ReducedMotionSettings);
+  };
   
   return (
     <div className="container mx-auto py-8 px-4">
@@ -35,11 +50,11 @@ export default function ReducedMotionModePage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
           <ReducedMotionModeEngine 
-            onSettingsChange={setSettings}
-            className="mb-8"
+            settings={settings}
+            onSettingsChange={handleSettingsChange}
           />
           
-          <Alert className="mb-8">
+          <Alert>
             <Info className="h-4 w-4" />
             <AlertTitle>Accessibility Tip</AlertTitle>
             <AlertDescription>
