@@ -1,6 +1,6 @@
 'use client';
 
-import { hash, compare } from 'bcrypt';
+import { hash, compare } from 'bcryptjs';
 import { db } from '../db';
 
 // Export individual functions needed by API routes
