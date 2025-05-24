@@ -1,24 +1,26 @@
+// @ts-check
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { HeygenVideoGeneration } from '@/components/heygen/heygen-video-generation';
 
 // Mock the heygen service
-jest.mock('@/lib/heygen/heygen-service', () => ({
-  createVideo: jest.fn().mockResolvedValue({ 
+vi.mock('@/lib/heygen/heygen-service', () => ({
+  createVideo: vi.fn().mockResolvedValue({ 
     id: 'test-video-id',
     status: 'processing'
   }),
-  getVideoStatus: jest.fn().mockResolvedValue({
+  getVideoStatus: vi.fn().mockResolvedValue({
     id: 'test-video-id',
     status: 'completed',
     url: 'https://example.com/test-video.mp4'
   }),
-  getAvatars: jest.fn().mockResolvedValue([
+  getAvatars: vi.fn().mockResolvedValue([
     { id: 'avatar1', name: 'Teacher Emma', thumbnail: 'https://example.com/emma.jpg' },
     { id: 'avatar2', name: 'Professor James', thumbnail: 'https://example.com/james.jpg' }
   ]),
-  getVoices: jest.fn().mockResolvedValue([
+  getVoices: vi.fn().mockResolvedValue([
     { id: 'voice1', name: 'British Female', language: 'en-GB' },
     { id: 'voice2', name: 'American Male', language: 'en-US' }
   ])
@@ -26,7 +28,7 @@ jest.mock('@/lib/heygen/heygen-service', () => ({
 
 describe('HeygenVideoGeneration Component', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('renders video generation form correctly', async () => {
@@ -52,13 +54,13 @@ describe('HeygenVideoGeneration Component', () => {
   });
 
   it('loads avatars and voices on mount', async () => {
-    const { getAvatars, getVoices } = require('@/lib/heygen/heygen-service');
+    const heygenService = await import('@/lib/heygen/heygen-service');
     
     render(<HeygenVideoGeneration />);
     
     // Check that avatar and voice services were called
-    expect(getAvatars).toHaveBeenCalled();
-    expect(getVoices).toHaveBeenCalled();
+    expect(heygenService.getAvatars).toHaveBeenCalled();
+    expect(heygenService.getVoices).toHaveBeenCalled();
     
     // Wait for data to load
     await waitFor(() => {
@@ -68,7 +70,7 @@ describe('HeygenVideoGeneration Component', () => {
   });
 
   it('submits video generation request when form is submitted', async () => {
-    const { createVideo } = require('@/lib/heygen/heygen-service');
+    const heygenService = await import('@/lib/heygen/heygen-service');
     
     render(<HeygenVideoGeneration />);
     
@@ -97,7 +99,7 @@ describe('HeygenVideoGeneration Component', () => {
     
     // Check that video creation was called with correct parameters
     await waitFor(() => {
-      expect(createVideo).toHaveBeenCalledWith(
+      expect(heygenService.createVideo).toHaveBeenCalledWith(
         expect.objectContaining({
           avatar_id: 'avatar1',
           voice_id: 'voice1',
@@ -111,10 +113,10 @@ describe('HeygenVideoGeneration Component', () => {
   });
 
   it('polls for video status after submission', async () => {
-    const { createVideo, getVideoStatus } = require('@/lib/heygen/heygen-service');
+    const heygenService = await import('@/lib/heygen/heygen-service');
     
     // Mock timers for polling
-    jest.useFakeTimers();
+    vi.useFakeTimers();
     
     render(<HeygenVideoGeneration />);
     
@@ -143,16 +145,16 @@ describe('HeygenVideoGeneration Component', () => {
     
     // Wait for initial submission
     await waitFor(() => {
-      expect(createVideo).toHaveBeenCalled();
+      expect(heygenService.createVideo).toHaveBeenCalled();
     });
     
     // Advance timers to trigger polling
     await act(async () => {
-      jest.advanceTimersByTime(5000);
+      vi.advanceTimersByTime(5000);
     });
     
     // Check that status check was called
-    expect(getVideoStatus).toHaveBeenCalledWith('test-video-id');
+    expect(heygenService.getVideoStatus).toHaveBeenCalledWith('test-video-id');
     
     // Check that completed status is displayed
     await waitFor(() => {
@@ -164,12 +166,12 @@ describe('HeygenVideoGeneration Component', () => {
     expect(screen.getByTestId('video-player')).toHaveAttribute('src', 'https://example.com/test-video.mp4');
     
     // Restore real timers
-    jest.useRealTimers();
+    vi.useRealTimers();
   });
 
   it('handles video generation errors gracefully', async () => {
-    const { createVideo } = require('@/lib/heygen/heygen-service');
-    createVideo.mockRejectedValue(new Error('Video generation failed'));
+    const heygenService = await import('@/lib/heygen/heygen-service');
+    heygenService.createVideo.mockRejectedValue(new Error('Video generation failed'));
     
     render(<HeygenVideoGeneration />);
     
@@ -232,12 +234,12 @@ describe('HeygenVideoGeneration Component', () => {
   it('allows saving generated videos to library', async () => {
     // Mock localStorage
     const localStorageMock = {
-      getItem: jest.fn().mockReturnValue(JSON.stringify([])),
-      setItem: jest.fn(),
+      getItem: vi.fn().mockReturnValue(JSON.stringify([])),
+      setItem: vi.fn(),
     };
     Object.defineProperty(window, 'localStorage', { value: localStorageMock });
     
-    const { createVideo, getVideoStatus } = require('@/lib/heygen/heygen-service');
+    const heygenService = await import('@/lib/heygen/heygen-service');
     
     render(<HeygenVideoGeneration />);
     
@@ -266,11 +268,11 @@ describe('HeygenVideoGeneration Component', () => {
     
     // Wait for video to complete
     await waitFor(() => {
-      expect(createVideo).toHaveBeenCalled();
+      expect(heygenService.createVideo).toHaveBeenCalled();
     });
     
     // Mock video completion
-    getVideoStatus.mockResolvedValue({
+    heygenService.getVideoStatus.mockResolvedValue({
       id: 'test-video-id',
       status: 'completed',
       url: 'https://example.com/test-video.mp4'
