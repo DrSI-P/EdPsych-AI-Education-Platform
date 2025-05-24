@@ -3,10 +3,17 @@ import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth/auth-options';
 import prisma from '@/lib/db/prisma';
 
+// Type for route params
+type RouteParams = {
+  params: {
+    id: string;
+  };
+};
+
 // GET handler for fetching a specific assessment template
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: RouteParams
 ) {
   try {
     // Check authentication
@@ -55,7 +62,7 @@ export async function GET(
 // PUT handler for updating a specific assessment template
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: RouteParams
 ) {
   try {
     // Check authentication
@@ -125,7 +132,7 @@ export async function PUT(
 // DELETE handler for deleting a specific assessment template
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: RouteParams
 ) {
   try {
     // Check authentication
