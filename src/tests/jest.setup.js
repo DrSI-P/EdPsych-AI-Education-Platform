@@ -1,11 +1,12 @@
 // @ts-check
-// Jest setup file
+// Jest setup file for Vitest environment
 import '@testing-library/jest-dom';
 import 'whatwg-fetch';
 import { TextDecoder, TextEncoder } from 'util';
+import { vi } from 'vitest';
 
 // Mock the global fetch
-global.fetch = jest.fn();
+global.fetch = vi.fn();
 
 /**
  * Mock IntersectionObserver implementation
@@ -82,31 +83,31 @@ global.ResizeObserver = class ResizeObserver {
 // Mock window.matchMedia
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
-  value: jest.fn().mockImplementation(query => ({
+  value: vi.fn().mockImplementation(query => ({
     matches: false,
     media: query,
     onchange: null,
-    addListener: jest.fn(),
-    removeListener: jest.fn(),
-    addEventListener: jest.fn(),
-    removeEventListener: jest.fn(),
-    dispatchEvent: jest.fn(),
+    addListener: vi.fn(),
+    removeListener: vi.fn(),
+    addEventListener: vi.fn(),
+    removeEventListener: vi.fn(),
+    dispatchEvent: vi.fn(),
   })),
 });
 
 // Mock scrollTo
-window.scrollTo = jest.fn();
+window.scrollTo = vi.fn();
 
 // Mock TextEncoder/TextDecoder
 global.TextEncoder = TextEncoder;
 global.TextDecoder = TextDecoder;
 
 // Mock Speech Recognition API
-global.SpeechRecognition = jest.fn().mockImplementation(() => ({
-  start: jest.fn(),
-  stop: jest.fn(),
-  addEventListener: jest.fn(),
-  removeEventListener: jest.fn(),
+global.SpeechRecognition = vi.fn().mockImplementation(() => ({
+  start: vi.fn(),
+  stop: vi.fn(),
+  addEventListener: vi.fn(),
+  removeEventListener: vi.fn(),
 }));
 
 global.webkitSpeechRecognition = global.SpeechRecognition;
@@ -117,14 +118,14 @@ global.webkitSpeechRecognition = global.SpeechRecognition;
 const localStorageMock = (function() {
   let store = {};
   return {
-    getItem: jest.fn(key => store[key] || null),
-    setItem: jest.fn((key, value) => {
+    getItem: vi.fn(key => store[key] || null),
+    setItem: vi.fn((key, value) => {
       store[key] = value.toString();
     }),
-    removeItem: jest.fn(key => {
+    removeItem: vi.fn(key => {
       delete store[key];
     }),
-    clear: jest.fn(() => {
+    clear: vi.fn(() => {
       store = {};
     }),
   };
@@ -140,14 +141,14 @@ Object.defineProperty(window, 'localStorage', {
 const sessionStorageMock = (function() {
   let store = {};
   return {
-    getItem: jest.fn(key => store[key] || null),
-    setItem: jest.fn((key, value) => {
+    getItem: vi.fn(key => store[key] || null),
+    setItem: vi.fn((key, value) => {
       store[key] = value.toString();
     }),
-    removeItem: jest.fn(key => {
+    removeItem: vi.fn(key => {
       delete store[key];
     }),
-    clear: jest.fn(() => {
+    clear: vi.fn(() => {
       store = {};
     }),
   };
@@ -158,4 +159,4 @@ Object.defineProperty(window, 'sessionStorage', {
 });
 
 // Suppress console errors during tests
-jest.spyOn(console, 'error').mockImplementation(() => {});
+vi.spyOn(console, 'error').mockImplementation(() => {});
