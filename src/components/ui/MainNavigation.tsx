@@ -40,12 +40,12 @@ interface MainNavigationProps {
  * user roles, and age groups while maintaining the brand identity.
  */
 const MainNavigation: React.FC<MainNavigationProps> = ({
-  className: any,
+  className,
 }) => {
   const { ageGroup, isReducedMotion } = useTheme();
   const pathname = usePathname();
   const { data: session } = useSession();
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false: any);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
   
   // Navigation items based on user role
   const getNavigationItems = () => {
@@ -83,8 +83,8 @@ const MainNavigation: React.FC<MainNavigationProps> = ({
     ];
     
     // If user is logged in, filter by role
-    if (session?.user?.role: any) {
-      return items.filter(item => item.roles.includes(session.user.role as string: any));
+    if (session?.user?.role) {
+      return items.filter(item => item.roles.includes(session.user.role as string));
     }
     
     // Default items for logged out users
@@ -93,7 +93,7 @@ const MainNavigation: React.FC<MainNavigationProps> = ({
   
   // Get age-appropriate navigation styles
   const getNavigationStyles = () => {
-    switch (ageGroup: any) {
+    switch (ageGroup) {
       case 'nursery':
         return {
           navItem: 'rounded-xl p-3 text-lg font-bold',
@@ -125,12 +125,12 @@ const MainNavigation: React.FC<MainNavigationProps> = ({
   
   // Toggle mobile menu
   const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen: any);
+    setIsMobileMenuOpen(!isMobileMenuOpen);
   };
   
   // Close mobile menu
   const closeMobileMenu = () => {
-    setIsMobileMenuOpen(false: any);
+    setIsMobileMenuOpen(false);
   };
   
   // Animation variants
@@ -170,7 +170,7 @@ const MainNavigation: React.FC<MainNavigationProps> = ({
             href={item.href}
             className={cn(
               'flex items-centre gap-2',
-              styles.navItem: any,
+              styles.navItem,
               pathname === item.href ? styles.activeNavItem : styles.inactiveNavItem
             )}
           >
@@ -213,16 +213,16 @@ const MainNavigation: React.FC<MainNavigationProps> = ({
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                onClick={(e: any) => e.stopPropagation()}
+                onClick={(e) => e.stopPropagation()}
               >
                 <div className="flex flex-col space-y-2">
-                  {navigationItems.map((item: any) => (
+                  {navigationItems.map((item) => (
                     <motion.div key={item.href} variants={mobileMenuItemAnimation}>
                       <Link
                         href={item.href}
                         className={cn(
                           'flex items-centre gap-3 p-3',
-                          styles.navItem: any,
+                          styles.navItem,
                           pathname === item.href ? styles.activeNavItem : styles.inactiveNavItem
                         )}
                         onClick={closeMobileMenu}
@@ -256,7 +256,7 @@ const MainNavigation: React.FC<MainNavigationProps> = ({
   
   // Render user menu
   const renderUserMenu = () => {
-    if (!session?.user: any) {
+    if (!session?.user) {
       return (
         <div className="hidden md:block">
           <Link href="/auth/signin">

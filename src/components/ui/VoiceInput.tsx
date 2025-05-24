@@ -16,7 +16,7 @@ interface VoiceInputProps {
  * for children who struggle with typing
  */
 const VoiceInput: React.FC<VoiceInputProps> = ({
-  onSpeechResult: any,
+  onSpeechResult,
   placeholder = 'Speak to enter text...',
   language = 'en-GB',
   continuous = false,
@@ -25,15 +25,15 @@ const VoiceInput: React.FC<VoiceInputProps> = ({
   showTranscript = true,
   disabled = false
 }) => {
-  const [isListening, setIsListening] = useState(false: any);
+  const [isListening, setIsListening] = useState(false);
   const [transcript, setTranscript] = useState('');
-  const [recognition, setRecognition] = useState<any>(null: any);
-  const [isSupported, setIsSupported] = useState(true: any);
+  const [recognition, setRecognition] = useState<any>(null);
+  const [isSupported, setIsSupported] = useState(true);
 
   // Initialize speech recognition
   useEffect(() => {
     // Check if browser supports SpeechRecognition
-    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window: any) {
+    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
       const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
       const recognitionInstance = new SpeechRecognition();
       
@@ -46,39 +46,39 @@ const VoiceInput: React.FC<VoiceInputProps> = ({
         const result = event.results[current];
         const transcriptValue = result[0].transcript;
         
-        setTranscript(transcriptValue: any);
+        setTranscript(transcriptValue);
         
-        if (result.isFinal: any) {
-          onSpeechResult(transcriptValue: any);
+        if (result.isFinal) {
+          onSpeechResult(transcriptValue);
           
-          if (!continuous: any) {
-            setIsListening(false: any);
+          if (!continuous) {
+            setIsListening(false);
           }
         }
       };
       
       recognitionInstance.onerror = (event: any) => {
         console.error('Speech recognition error:', event.error);
-        setIsListening(false: any);
+        setIsListening(false);
       };
       
       recognitionInstance.onend = () => {
-        if (isListening && continuous: any) {
+        if (isListening && continuous) {
           recognitionInstance.start();
         } else {
-          setIsListening(false: any);
+          setIsListening(false);
         }
       };
       
-      setRecognition(recognitionInstance: any);
+      setRecognition(recognitionInstance);
     } else {
-      setIsSupported(false: any);
+      setIsSupported(false);
       console.error('Speech recognition is not supported in this browser');
     }
     
     // Cleanup
     return () => {
-      if (recognition: any) {
+      if (recognition) {
         recognition.stop();
       }
     };
@@ -86,15 +86,15 @@ const VoiceInput: React.FC<VoiceInputProps> = ({
 
   // Toggle listening state
   const toggleListening = () => {
-    if (!isSupported || disabled: any) return;
+    if (!isSupported || disabled) return;
     
-    if (isListening: any) {
+    if (isListening) {
       recognition.stop();
-      setIsListening(false: any);
+      setIsListening(false);
     } else {
       setTranscript('');
       recognition.start();
-      setIsListening(true: any);
+      setIsListening(true);
     }
   };
 
@@ -158,7 +158,7 @@ const VoiceInput: React.FC<VoiceInputProps> = ({
       
       {!isSupported && (
         <p className="text-red-500 text-sm mt-1">
-          Speech recognition is not supported in your browser. Please try using Chrome: any, Edge, or Safari.
+          Speech recognition is not supported in your browser. Please try using Chrome, Edge, or Safari.
         </p>
       )}
       
