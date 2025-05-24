@@ -57,15 +57,76 @@ import QuestDetail from './quest-detail';
 import QuestHub from './quest-hub';
 import CharacterDashboard from './character-dashboard';
 
+// Types
+interface Character {
+  id: string;
+  name: string;
+  level: number;
+  xp: number;
+  xpToNextLevel: number;
+  attributes: {
+    intelligence: number;
+    creativity: number;
+    persistence: number;
+    curiosity: number;
+  };
+  inventory: Array<{
+    id: string;
+    name: string;
+    description: string;
+    quantity: number;
+  }>;
+  achievements: Array<{
+    id: string;
+    name: string;
+    description: string;
+    earnedAt: string;
+  }>;
+}
+
+interface Quest {
+  id: string;
+  title: string;
+  description: string;
+  subject: string;
+  keyStage: string;
+  difficulty: string;
+  duration: number;
+  xpReward: number;
+  objectives: string[];
+  challenges: Array<{
+    id: string;
+    title: string;
+    description: string;
+    content: string;
+    type: string;
+    options?: string[];
+    correctAnswer?: string;
+    minScore?: number;
+  }>;
+}
+
+interface GenerationParams {
+  subject: string;
+  difficulty: string;
+  duration: number;
+  learningStyle: string;
+}
+
+interface CompletedQuest extends Quest {
+  completedAt: string;
+  results?: any;
+}
+
 // Custom hook for feature credit usage
-const useFeatureWithCredit = (featureName: string) => {
+const useFeatureWithCredit = (featureName: string): Promise<{ success: boolean; usedCredits: boolean }> => {
   // This would normally check if the user has credits or subscription access
   return Promise.resolve({ success: true, usedCredits: false });
 };
 
 // AdventureQuestSaga component
-export const AdventureQuestSagaAdaptive = () => {
-  const toast = useToast();
+export const AdventureQuestSagaAdaptive = (): JSX.Element => {
+  const { toast } = useToast();
   const { fairUsage } = useFairUsage();
   const { curriculum } = useCurriculum();
   const { gamification } = useGamification();
@@ -73,19 +134,19 @@ export const AdventureQuestSagaAdaptive = () => {
   const { userProfile } = useUserProfile();
   
   // State for character
-  const [character, setCharacter] = useState(null);
+  const [character, setCharacter] = useState<Character | null>(null);
   
   // State for quests
-  const [quests, setQuests] = useState([]);
-  const [activeQuest, setActiveQuest] = useState(null);
-  const [completedQuests, setCompletedQuests] = useState([]);
+  const [quests, setQuests] = useState<Quest[]>([]);
+  const [activeQuest, setActiveQuest] = useState<Quest | null>(null);
+  const [completedQuests, setCompletedQuests] = useState<CompletedQuest[]>([]);
   
   // State for UI
-  const [view, setView] = useState('hub');
-  const [generating, setGenerating] = useState(false);
+  const [view, setView] = useState<'creation' | 'hub' | 'quest' | 'history' | 'generate'>('hub');
+  const [generating, setGenerating] = useState<boolean>(false);
   
   // State for quest generation parameters
-  const [generationParams, setGenerationParams] = useState({
+  const [generationParams, setGenerationParams] = useState<GenerationParams>({
     subject: 'Mathematics',
     difficulty: 'beginner',
     duration: 20,
@@ -93,7 +154,7 @@ export const AdventureQuestSagaAdaptive = () => {
   });
   
   // Generate quest based on user profile and learning history
-  const generateAdaptiveQuest = async () => {
+  const generateAdaptiveQuest = async (): Promise<void> => {
     try {
       setGenerating(true);
       
@@ -143,9 +204,9 @@ export const AdventureQuestSagaAdaptive = () => {
     userProfile: any, 
     learningHistory: any[], 
     assessmentResults: any[], 
-    params: any,
+    params: GenerationParams,
     curriculumContext: any
-  ) => {
+  ): Quest => {
     // In a real implementation, this would use AI to generate a quest
     // For now, return a mock quest
     return {
@@ -185,18 +246,18 @@ export const AdventureQuestSagaAdaptive = () => {
   };
   
   // Handle quest generation
-  const onQuestGenerated = (quest: any) => {
+  const onQuestGenerated = (quest: Quest): void => {
     setQuests([...quests, quest]);
   };
   
   // Handle quest selection
-  const handleSelectQuest = (quest: any) => {
+  const handleSelectQuest = (quest: Quest): void => {
     setActiveQuest(quest);
     setView('quest');
   };
   
   // Handle quest completion
-  const handleCompleteQuest = (quest: any, results: any) => {
+  const handleCompleteQuest = (quest: Quest, results: any): void => {
     // Add quest to completed quests
     setCompletedQuests([...completedQuests, {
       ...quest,
@@ -228,13 +289,13 @@ export const AdventureQuestSagaAdaptive = () => {
   };
   
   // Calculate level based on XP
-  const calculateLevel = (xp: number) => {
+  const calculateLevel = (xp: number): number => {
     // Simple level calculation: level = 1 + floor(xp / 1000)
     return 1 + Math.floor(xp / 1000);
   };
   
   // Handle character creation
-  const handleCreateCharacter = (newCharacter: any) => {
+  const handleCreateCharacter = (newCharacter: Character): void => {
     setCharacter(newCharacter);
     setView('hub');
     
@@ -245,7 +306,7 @@ export const AdventureQuestSagaAdaptive = () => {
   };
   
   // Handle parameter change
-  const handleParamChange = (param: string, value: any) => {
+  const handleParamChange = (param: string, value: any): void => {
     setGenerationParams({
       ...generationParams,
       [param]: value
@@ -256,11 +317,11 @@ export const AdventureQuestSagaAdaptive = () => {
   useEffect(() => {
     // Initialize character if not exists
     if (!character) {
-      setCharacter(mockCharacter);
+      setCharacter(mockCharacter as Character);
     }
     
     // Initialize quests
-    setQuests(mockQuests);
+    setQuests(mockQuests as Quest[]);
     
     // Initialize completed quests
     setCompletedQuests([
@@ -270,7 +331,12 @@ export const AdventureQuestSagaAdaptive = () => {
         subject: 'Mathematics',
         difficulty: 'beginner',
         xpReward: 150,
-        completedAt: '2023-01-15T12:30:00Z'
+        completedAt: '2023-01-15T12:30:00Z',
+        objectives: [],
+        challenges: [],
+        description: '',
+        keyStage: '',
+        duration: 0
       },
       {
         id: 'cq2',
@@ -278,7 +344,12 @@ export const AdventureQuestSagaAdaptive = () => {
         subject: 'English',
         difficulty: 'intermediate',
         xpReward: 200,
-        completedAt: '2023-02-10T14:45:00Z'
+        completedAt: '2023-02-10T14:45:00Z',
+        objectives: [],
+        challenges: [],
+        description: '',
+        keyStage: '',
+        duration: 0
       },
       {
         id: 'cq3',
@@ -286,13 +357,18 @@ export const AdventureQuestSagaAdaptive = () => {
         subject: 'Science',
         difficulty: 'beginner',
         xpReward: 125,
-        completedAt: '2023-03-05T09:20:00Z'
+        completedAt: '2023-03-05T09:20:00Z',
+        objectives: [],
+        challenges: [],
+        description: '',
+        keyStage: '',
+        duration: 0
       }
     ]);
   }, []);
   
   // Render character creation view
-  const renderCharacterCreation = () => {
+  const renderCharacterCreation = (): JSX.Element => {
     return (
       <div className="adventure-quest-character-creation">
         <Card className="w-full max-w-4xl mx-auto">
@@ -390,7 +466,7 @@ export const AdventureQuestSagaAdaptive = () => {
   };
   
   // Render quest hub view
-  const renderQuestHub = () => {
+  const renderQuestHub = (): JSX.Element => {
     return (
       <div className="adventure-quest-hub">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -465,91 +541,91 @@ export const AdventureQuestSagaAdaptive = () => {
             <Card>
               <CardHeader>
                 <CardTitle className="text-xl flex items-center">
-                  <Sword className="mr-2" /> {character?.name || 'Character'}
+                  <Sword className="mr-2" /> Character Profile
                 </CardTitle>
-                <CardDescription>
-                  Level {character?.level || 1} Adventurer
-                </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
-                  <div>
-                    <div className="flex justify-between text-sm mb-1">
-                      <span>XP: {character?.xp || 0}</span>
-                      <span>{character?.xpToNextLevel || 1000} to level {(character?.level || 1) + 1}</span>
-                    </div>
-                    <Progress value={(character?.xp || 0) / (character?.xpToNextLevel || 1000) * 100} className="h-2" />
-                  </div>
-                  
-                  <Separator />
-                  
-                  <div>
-                    <h4 className="text-sm font-medium mb-2">Attributes</h4>
-                    <div className="space-y-2">
-                      <div>
-                        <div className="flex justify-between text-sm mb-1">
-                          <span className="flex items-center">
-                            <Brain className="mr-1 h-3 w-3" /> Intelligence
-                          </span>
-                          <span>{character?.attributes?.intelligence || 0}/10</span>
-                        </div>
-                        <Progress value={(character?.attributes?.intelligence || 0) * 10} className="h-1.5" />
+                {character && (
+                  <div className="space-y-4">
+                    <div className="flex items-center space-x-4">
+                      <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center">
+                        <Sword className="h-8 w-8 text-primary" />
                       </div>
                       <div>
-                        <div className="flex justify-between text-sm mb-1">
-                          <span className="flex items-center">
-                            <Lightbulb className="mr-1 h-3 w-3" /> Creativity
-                          </span>
-                          <span>{character?.attributes?.creativity || 0}/10</span>
-                        </div>
-                        <Progress value={(character?.attributes?.creativity || 0) * 10} className="h-1.5" />
-                      </div>
-                      <div>
-                        <div className="flex justify-between text-sm mb-1">
-                          <span className="flex items-center">
-                            <Milestone className="mr-1 h-3 w-3" /> Persistence
-                          </span>
-                          <span>{character?.attributes?.persistence || 0}/10</span>
-                        </div>
-                        <Progress value={(character?.attributes?.persistence || 0) * 10} className="h-1.5" />
-                      </div>
-                      <div>
-                        <div className="flex justify-between text-sm mb-1">
-                          <span className="flex items-center">
-                            <Puzzle className="mr-1 h-3 w-3" /> Curiosity
-                          </span>
-                          <span>{character?.attributes?.curiosity || 0}/10</span>
-                        </div>
-                        <Progress value={(character?.attributes?.curiosity || 0) * 10} className="h-1.5" />
+                        <h3 className="font-bold text-lg">{character.name}</h3>
+                        <p className="text-sm text-muted-foreground">Level {character.level} Adventurer</p>
                       </div>
                     </div>
-                  </div>
-                  
-                  <Separator />
-                  
-                  <div>
-                    <h4 className="text-sm font-medium mb-2">Recent Achievements</h4>
-                    {character?.achievements && character.achievements.length > 0 ? (
-                      <div className="space-y-2">
-                        {character.achievements.slice(0, 3).map((achievement) => (
-                          <div key={achievement.id} className="flex items-start">
-                            <Award className="h-4 w-4 mr-2 text-yellow-500 mt-0.5" />
-                            <div>
-                              <p className="text-sm font-medium">{achievement.name}</p>
-                              <p className="text-xs text-muted-foreground">{achievement.description}</p>
+                    
+                    <div>
+                      <div className="flex justify-between text-sm mb-1">
+                        <span>XP Progress</span>
+                        <span>{character.xp} / {character.xpToNextLevel}</span>
+                      </div>
+                      <Progress value={character.xp / character.xpToNextLevel * 100} className="h-2" />
+                    </div>
+                    
+                    <Separator />
+                    
+                    <div className="space-y-3">
+                      <h4 className="font-semibold">Attributes</h4>
+                      
+                      <div>
+                        <div className="flex justify-between text-sm mb-1">
+                          <span>Intelligence</span>
+                          <span>{character.attributes.intelligence}/10</span>
+                        </div>
+                        <Progress value={character.attributes.intelligence * 10} className="h-2" />
+                      </div>
+                      
+                      <div>
+                        <div className="flex justify-between text-sm mb-1">
+                          <span>Creativity</span>
+                          <span>{character.attributes.creativity}/10</span>
+                        </div>
+                        <Progress value={character.attributes.creativity * 10} className="h-2" />
+                      </div>
+                      
+                      <div>
+                        <div className="flex justify-between text-sm mb-1">
+                          <span>Persistence</span>
+                          <span>{character.attributes.persistence}/10</span>
+                        </div>
+                        <Progress value={character.attributes.persistence * 10} className="h-2" />
+                      </div>
+                      
+                      <div>
+                        <div className="flex justify-between text-sm mb-1">
+                          <span>Curiosity</span>
+                          <span>{character.attributes.curiosity}/10</span>
+                        </div>
+                        <Progress value={character.attributes.curiosity * 10} className="h-2" />
+                      </div>
+                    </div>
+                    
+                    <Separator />
+                    
+                    <div>
+                      <h4 className="font-semibold mb-2">Inventory</h4>
+                      {character.inventory && character.inventory.length > 0 ? (
+                        <div className="space-y-2">
+                          {character.inventory.map((item) => (
+                            <div key={item.id} className="flex justify-between items-center text-sm">
+                              <span>{item.name}</span>
+                              <Badge variant="outline">x{item.quantity}</Badge>
                             </div>
-                          </div>
-                        ))}
-                      </div>
-                    ) : (
-                      <p className="text-sm text-muted-foreground">Complete quests to earn achievements</p>
-                    )}
+                          ))}
+                        </div>
+                      ) : (
+                        <p className="text-sm text-muted-foreground">No items in inventory</p>
+                      )}
+                    </div>
                   </div>
-                </div>
+                )}
               </CardContent>
               <CardFooter>
                 <Button variant="outline" className="w-full" onClick={() => setView('character')}>
-                  View Character
+                  View Full Profile
                 </Button>
               </CardFooter>
             </Card>
@@ -560,12 +636,12 @@ export const AdventureQuestSagaAdaptive = () => {
   };
   
   // Render quest detail view
-  const renderQuestDetail = () => {
-    if (!activeQuest) return null;
+  const renderQuestDetail = (): JSX.Element => {
+    if (!activeQuest) return <div>No quest selected</div>;
     
     return (
       <div className="adventure-quest-detail">
-        <Card className="w-full">
+        <Card className="w-full max-w-4xl mx-auto">
           <CardHeader>
             <div className="flex justify-between items-start">
               <div>
@@ -596,11 +672,11 @@ export const AdventureQuestSagaAdaptive = () => {
               </div>
               
               <div>
-                <h3 className="text-lg font-semibold mb-2">Objectives</h3>
+                <h3 className="font-semibold mb-2">Objectives</h3>
                 <ul className="space-y-1">
                   {activeQuest.objectives.map((objective, index) => (
-                    <li key={index} className="flex items-start">
-                      <Star className="h-4 w-4 mr-2 text-yellow-500 mt-1" />
+                    <li key={`objective-${index}`} className="flex items-start">
+                      <Star className="h-4 w-4 mr-2 text-yellow-500 mt-0.5" />
                       <span>{objective}</span>
                     </li>
                   ))}
@@ -610,53 +686,45 @@ export const AdventureQuestSagaAdaptive = () => {
               <Separator />
               
               <div>
-                <h3 className="text-lg font-semibold mb-4">Challenges</h3>
+                <h3 className="font-semibold mb-3">Challenges</h3>
                 <div className="space-y-4">
-                  {activeQuest.challenges.map((challenge, index) => (
+                  {activeQuest.challenges.map((challenge) => (
                     <Card key={challenge.id}>
                       <CardHeader className="p-4">
-                        <CardTitle className="text-md flex items-center">
-                          <span className="bg-primary text-primary-foreground rounded-full w-6 h-6 flex items-center justify-center text-sm mr-2">
-                            {index + 1}
-                          </span>
-                          {challenge.title}
-                        </CardTitle>
+                        <CardTitle className="text-lg">{challenge.title}</CardTitle>
                         <CardDescription>{challenge.description}</CardDescription>
                       </CardHeader>
                       <CardContent className="p-4 pt-0">
-                        <p className="mb-4">{challenge.content}</p>
+                        <p>{challenge.content}</p>
                         
-                        {challenge.type === 'multiple-choice' && (
-                          <div className="space-y-2">
-                            {challenge.options.map((option, i) => (
-                              <div key={i} className="flex items-center">
+                        {challenge.type === 'multiple-choice' && challenge.options && (
+                          <div className="mt-4 space-y-2">
+                            {challenge.options.map((option, index) => (
+                              <div key={`option-${index}`} className="flex items-center space-x-2">
                                 <input 
                                   type="radio" 
-                                  id={`option-${i}`} 
+                                  id={`option-${index}`} 
                                   name={`challenge-${challenge.id}`} 
-                                  className="mr-2"
+                                  className="h-4 w-4" 
                                 />
-                                <Label htmlFor={`option-${i}`}>{option}</Label>
+                                <Label htmlFor={`option-${index}`}>{option}</Label>
                               </div>
                             ))}
                           </div>
                         )}
                         
                         {challenge.type === 'text-input' && (
-                          <div>
+                          <div className="mt-4">
                             <Input placeholder="Enter your answer" />
                           </div>
                         )}
                         
                         {challenge.type === 'free-text' && (
-                          <div>
+                          <div className="mt-4">
                             <textarea 
                               className="w-full min-h-[100px] p-2 border rounded-md" 
-                              placeholder="Write your response here..."
+                              placeholder="Enter your response"
                             ></textarea>
-                            <p className="text-xs text-muted-foreground mt-1">
-                              Minimum {challenge.minWords} words
-                            </p>
                           </div>
                         )}
                       </CardContent>
@@ -675,7 +743,7 @@ export const AdventureQuestSagaAdaptive = () => {
             </Button>
             <Button onClick={() => handleCompleteQuest(activeQuest, {
               score: 85,
-              timeSpent: activeQuest.duration * 60,
+              timeSpent: '15 minutes',
               completedChallenges: activeQuest.challenges.length
             })}>
               Complete Quest
@@ -686,8 +754,74 @@ export const AdventureQuestSagaAdaptive = () => {
     );
   };
   
+  // Render quest history view
+  const renderQuestHistory = (): JSX.Element => {
+    return (
+      <div className="adventure-quest-history">
+        <Card className="w-full max-w-4xl mx-auto">
+          <CardHeader>
+            <CardTitle className="text-2xl flex items-center">
+              <BookOpen className="mr-2" /> Quest History
+            </CardTitle>
+            <CardDescription>
+              Review your completed quests and achievements
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            {completedQuests.length === 0 ? (
+              <div className="text-center p-6 border rounded-lg bg-muted/50">
+                <p className="text-muted-foreground">No completed quests yet. Start a quest to begin your adventure!</p>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                {completedQuests.map((quest) => (
+                  <Card key={quest.id} className="bg-muted/20">
+                    <CardHeader className="p-4">
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <CardTitle className="text-lg flex items-center">
+                            <Trophy className="h-4 w-4 mr-2 text-yellow-500" />
+                            {quest.title}
+                          </CardTitle>
+                          <CardDescription>
+                            Completed on {new Date(quest.completedAt).toLocaleDateString()}
+                          </CardDescription>
+                        </div>
+                        <Badge variant="outline">{quest.subject}</Badge>
+                      </div>
+                    </CardHeader>
+                    <CardContent className="p-4 pt-0">
+                      <div className="flex items-center justify-between">
+                        <Badge variant={
+                          quest.difficulty === 'beginner' ? 'outline' : 
+                          quest.difficulty === 'intermediate' ? 'secondary' : 
+                          'destructive'
+                        }>
+                          {quest.difficulty}
+                        </Badge>
+                        <div className="flex items-center">
+                          <Star className="h-4 w-4 mr-1 text-yellow-500" />
+                          <span className="text-sm">{quest.xpReward} XP earned</span>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            )}
+          </CardContent>
+          <CardFooter>
+            <Button variant="outline" onClick={() => setView('hub')} className="w-full">
+              Back to Hub
+            </Button>
+          </CardFooter>
+        </Card>
+      </div>
+    );
+  };
+  
   // Render quest generation view
-  const renderQuestGeneration = () => {
+  const renderQuestGeneration = (): JSX.Element => {
     return (
       <div className="adventure-quest-generation">
         <Card className="w-full max-w-4xl mx-auto">
@@ -700,7 +834,7 @@ export const AdventureQuestSagaAdaptive = () => {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="space-y-6">
+            <div className="space-y-4">
               <div>
                 <Label htmlFor="subject">Subject</Label>
                 <select 
@@ -719,17 +853,16 @@ export const AdventureQuestSagaAdaptive = () => {
               
               <div>
                 <Label htmlFor="difficulty">Difficulty</Label>
-                <div className="flex gap-4 mt-2">
-                  {['beginner', 'intermediate', 'advanced'].map((level) => (
+                <div className="grid grid-cols-3 gap-4 mt-2">
+                  {['beginner', 'intermediate', 'advanced'].map((difficulty) => (
                     <div 
-                      key={level}
-                      className={`
-                        flex-1 p-3 border rounded-md text-center cursor-pointer transition-colors
-                        ${generationParams.difficulty === level ? 'bg-primary text-primary-foreground' : 'bg-background hover:bg-accent'}
-                      `}
-                      onClick={() => handleParamChange('difficulty', level)}
+                      key={difficulty}
+                      className={`p-3 border rounded-md cursor-pointer text-center ${
+                        generationParams.difficulty === difficulty ? 'bg-primary text-primary-foreground' : ''
+                      }`}
+                      onClick={() => handleParamChange('difficulty', difficulty)}
                     >
-                      {level.charAt(0).toUpperCase() + level.slice(1)}
+                      {difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}
                     </div>
                   ))}
                 </div>
@@ -737,18 +870,18 @@ export const AdventureQuestSagaAdaptive = () => {
               
               <div>
                 <Label htmlFor="duration">Duration (minutes)</Label>
-                <div className="flex items-center gap-4">
-                  <input 
-                    type="range" 
-                    id="duration"
-                    min="10" 
-                    max="60" 
-                    step="5"
-                    value={generationParams.duration}
-                    onChange={(e) => handleParamChange('duration', parseInt(e.target.value))}
-                    className="flex-1"
-                  />
-                  <span className="w-12 text-center">{generationParams.duration}</span>
+                <div className="grid grid-cols-4 gap-4 mt-2">
+                  {[10, 20, 30, 45].map((duration) => (
+                    <div 
+                      key={duration}
+                      className={`p-3 border rounded-md cursor-pointer text-center ${
+                        generationParams.duration === duration ? 'bg-primary text-primary-foreground' : ''
+                      }`}
+                      onClick={() => handleParamChange('duration', duration)}
+                    >
+                      {duration} mins
+                    </div>
+                  ))}
                 </div>
               </div>
               
@@ -758,14 +891,15 @@ export const AdventureQuestSagaAdaptive = () => {
                   {learningStyles.map((style) => (
                     <div 
                       key={style.id}
-                      className={`
-                        p-3 border rounded-md cursor-pointer transition-colors
-                        ${generationParams.learningStyle === style.id ? 'bg-primary text-primary-foreground' : 'bg-background hover:bg-accent'}
-                      `}
+                      className={`p-3 border rounded-md cursor-pointer ${
+                        generationParams.learningStyle === style.id ? 'bg-primary text-primary-foreground' : ''
+                      }`}
                       onClick={() => handleParamChange('learningStyle', style.id)}
                     >
-                      <h4 className="font-medium">{style.name}</h4>
-                      <p className="text-sm">{style.description}</p>
+                      <h4 className="font-semibold">{style.name}</h4>
+                      <p className={`text-sm ${generationParams.learningStyle === style.id ? 'text-primary-foreground/80' : 'text-muted-foreground'}`}>
+                        {style.description}
+                      </p>
                     </div>
                   ))}
                 </div>
@@ -779,11 +913,14 @@ export const AdventureQuestSagaAdaptive = () => {
             <Button onClick={generateAdaptiveQuest} disabled={generating}>
               {generating ? (
                 <>
-                  <span className="animate-spin mr-2">⟳</span>
+                  <Hourglass className="mr-2 h-4 w-4 animate-spin" />
                   Generating...
                 </>
               ) : (
-                'Generate Quest'
+                <>
+                  <Sparkles className="mr-2 h-4 w-4" />
+                  Generate Quest
+                </>
               )}
             </Button>
           </CardFooter>
@@ -792,387 +929,25 @@ export const AdventureQuestSagaAdaptive = () => {
     );
   };
   
-  // Render quest history view
-  const renderQuestHistory = () => {
-    return (
-      <div className="adventure-quest-history">
-        <Card className="w-full">
-          <CardHeader>
-            <CardTitle className="text-2xl flex items-center">
-              <BookOpen className="mr-2" /> Quest History
-            </CardTitle>
-            <CardDescription>
-              Review your completed quests and achievements
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Tabs defaultValue="completed">
-              <TabsList className="mb-4">
-                <TabsTrigger value="completed">Completed Quests</TabsTrigger>
-                <TabsTrigger value="stats">Statistics</TabsTrigger>
-              </TabsList>
-              
-              <TabsContent value="completed">
-                {completedQuests.length === 0 ? (
-                  <div className="text-center p-6 border rounded-lg bg-muted/50">
-                    <p className="text-muted-foreground">You haven't completed any quests yet.</p>
-                  </div>
-                ) : (
-                  <div className="space-y-4">
-                    {completedQuests.map((quest) => (
-                      <Card key={quest.id}>
-                        <CardHeader className="p-4">
-                          <div className="flex justify-between items-start">
-                            <CardTitle className="text-lg">{quest.title}</CardTitle>
-                            <Badge variant="outline">
-                              {new Date(quest.completedAt).toLocaleDateString()}
-                            </Badge>
-                          </div>
-                        </CardHeader>
-                        <CardContent className="p-4 pt-0">
-                          <div className="flex flex-wrap gap-2 mb-2">
-                            <Badge variant="outline">{quest.subject}</Badge>
-                            <Badge variant="outline">{quest.difficulty}</Badge>
-                            <Badge variant="outline" className="flex items-center">
-                              <Trophy className="h-3 w-3 mr-1 text-yellow-500" />
-                              {quest.xpReward} XP
-                            </Badge>
-                          </div>
-                          
-                          {quest.results && (
-                            <div className="mt-4 grid grid-cols-3 gap-2 text-center">
-                              <div className="p-2 bg-muted rounded-md">
-                                <p className="text-sm text-muted-foreground">Score</p>
-                                <p className="font-medium">{quest.results.score}%</p>
-                              </div>
-                              <div className="p-2 bg-muted rounded-md">
-                                <p className="text-sm text-muted-foreground">Time</p>
-                                <p className="font-medium">{Math.floor(quest.results.timeSpent / 60)} min</p>
-                              </div>
-                              <div className="p-2 bg-muted rounded-md">
-                                <p className="text-sm text-muted-foreground">Challenges</p>
-                                <p className="font-medium">{quest.results.completedChallenges}</p>
-                              </div>
-                            </div>
-                          )}
-                        </CardContent>
-                      </Card>
-                    ))}
-                  </div>
-                )}
-              </TabsContent>
-              
-              <TabsContent value="stats">
-                <div className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <Card>
-                      <CardHeader className="p-4">
-                        <CardTitle className="text-lg flex items-center">
-                          <Activity className="mr-2 h-4 w-4" /> Total XP
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent className="p-4 pt-0">
-                        <p className="text-3xl font-bold">
-                          {completedQuests.reduce((total, quest) => total + quest.xpReward, 0)}
-                        </p>
-                      </CardContent>
-                    </Card>
-                    
-                    <Card>
-                      <CardHeader className="p-4">
-                        <CardTitle className="text-lg flex items-center">
-                          <Scroll className="mr-2 h-4 w-4" /> Quests Completed
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent className="p-4 pt-0">
-                        <p className="text-3xl font-bold">{completedQuests.length}</p>
-                      </CardContent>
-                    </Card>
-                    
-                    <Card>
-                      <CardHeader className="p-4">
-                        <CardTitle className="text-lg flex items-center">
-                          <BarChart className="mr-2 h-4 w-4" /> Average Score
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent className="p-4 pt-0">
-                        <p className="text-3xl font-bold">
-                          {completedQuests.length > 0 && completedQuests.some(q => q.results?.score)
-                            ? Math.round(
-                                completedQuests
-                                  .filter(q => q.results?.score)
-                                  .reduce((total, quest) => total + quest.results.score, 0) / 
-                                completedQuests.filter(q => q.results?.score).length
-                              )
-                            : 0}%
-                        </p>
-                      </CardContent>
-                    </Card>
-                  </div>
-                  
-                  <Card>
-                    <CardHeader className="p-4">
-                      <CardTitle className="text-lg flex items-center">
-                        <PieChart className="mr-2 h-4 w-4" /> Subjects Breakdown
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="p-4 pt-0">
-                      <div className="h-[200px] flex items-center justify-center">
-                        <p className="text-muted-foreground">Subject distribution visualization would appear here</p>
-                      </div>
-                    </CardContent>
-                  </Card>
-                  
-                  <Card>
-                    <CardHeader className="p-4">
-                      <CardTitle className="text-lg flex items-center">
-                        <LineChart className="mr-2 h-4 w-4" /> Progress Over Time
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="p-4 pt-0">
-                      <div className="h-[200px] flex items-center justify-center">
-                        <p className="text-muted-foreground">Progress chart would appear here</p>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-              </TabsContent>
-            </Tabs>
-          </CardContent>
-          <CardFooter>
-            <Button variant="outline" onClick={() => setView('hub')} className="w-full">
-              Back to Hub
-            </Button>
-          </CardFooter>
-        </Card>
-      </div>
-    );
-  };
-  
-  // Render character dashboard view
-  const renderCharacterDashboard = () => {
-    if (!character) return null;
-    
-    return (
-      <div className="adventure-quest-character">
-        <Card className="w-full">
-          <CardHeader>
-            <CardTitle className="text-2xl flex items-center">
-              <Sword className="mr-2" /> {character.name}
-            </CardTitle>
-            <CardDescription>
-              Level {character.level} Adventurer
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-6">
-              <div>
-                <div className="flex justify-between text-sm mb-1">
-                  <span>XP: {character.xp}</span>
-                  <span>{character.xpToNextLevel} to level {character.level + 1}</span>
-                </div>
-                <Progress value={character.xp / character.xpToNextLevel * 100} className="h-2" />
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <h3 className="text-lg font-semibold mb-4">Attributes</h3>
-                  <div className="space-y-4">
-                    <div>
-                      <div className="flex justify-between text-sm mb-1">
-                        <span className="flex items-center">
-                          <Brain className="mr-1 h-4 w-4" /> Intelligence
-                        </span>
-                        <span>{character.attributes.intelligence}/10</span>
-                      </div>
-                      <Progress value={character.attributes.intelligence * 10} className="h-2" />
-                    </div>
-                    <div>
-                      <div className="flex justify-between text-sm mb-1">
-                        <span className="flex items-center">
-                          <Lightbulb className="mr-1 h-4 w-4" /> Creativity
-                        </span>
-                        <span>{character.attributes.creativity}/10</span>
-                      </div>
-                      <Progress value={character.attributes.creativity * 10} className="h-2" />
-                    </div>
-                    <div>
-                      <div className="flex justify-between text-sm mb-1">
-                        <span className="flex items-center">
-                          <Milestone className="mr-1 h-4 w-4" /> Persistence
-                        </span>
-                        <span>{character.attributes.persistence}/10</span>
-                      </div>
-                      <Progress value={character.attributes.persistence * 10} className="h-2" />
-                    </div>
-                    <div>
-                      <div className="flex justify-between text-sm mb-1">
-                        <span className="flex items-center">
-                          <Puzzle className="mr-1 h-4 w-4" /> Curiosity
-                        </span>
-                        <span>{character.attributes.curiosity}/10</span>
-                      </div>
-                      <Progress value={character.attributes.curiosity * 10} className="h-2" />
-                    </div>
-                  </div>
-                </div>
-                
-                <div>
-                  <h3 className="text-lg font-semibold mb-4">Inventory</h3>
-                  {character.inventory && character.inventory.length > 0 ? (
-                    <div className="space-y-2">
-                      {character.inventory.map((item) => (
-                        <div key={item.id} className="flex justify-between items-center p-2 border rounded-md">
-                          <div>
-                            <p className="font-medium">{item.name}</p>
-                            <p className="text-sm text-muted-foreground">{item.description}</p>
-                          </div>
-                          <Badge variant="outline">x{item.quantity}</Badge>
-                        </div>
-                      ))}
-                    </div>
-                  ) : (
-                    <p className="text-muted-foreground">Your inventory is empty</p>
-                  )}
-                </div>
-              </div>
-              
-              <Separator />
-              
-              <div>
-                <h3 className="text-lg font-semibold mb-4">Achievements</h3>
-                {character.achievements && character.achievements.length > 0 ? (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {character.achievements.map((achievement) => (
-                      <div key={achievement.id} className="flex items-start p-3 border rounded-md">
-                        <Award className="h-5 w-5 mr-3 text-yellow-500 mt-0.5" />
-                        <div>
-                          <p className="font-medium">{achievement.name}</p>
-                          <p className="text-sm text-muted-foreground">{achievement.description}</p>
-                          <p className="text-xs text-muted-foreground mt-1">
-                            Earned on {new Date(achievement.earnedAt).toLocaleDateString()}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <p className="text-muted-foreground">Complete quests to earn achievements</p>
-                )}
-              </div>
-              
-              <Separator />
-              
-              <div>
-                <h3 className="text-lg font-semibold mb-4">Statistics</h3>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  <div className="p-3 border rounded-md text-center">
-                    <p className="text-2xl font-bold">{completedQuests.length}</p>
-                    <p className="text-sm text-muted-foreground">Quests Completed</p>
-                  </div>
-                  <div className="p-3 border rounded-md text-center">
-                    <p className="text-2xl font-bold">
-                      {completedQuests.reduce((total, quest) => total + quest.xpReward, 0)}
-                    </p>
-                    <p className="text-sm text-muted-foreground">Total XP Earned</p>
-                  </div>
-                  <div className="p-3 border rounded-md text-center">
-                    <p className="text-2xl font-bold">
-                      {character.achievements ? character.achievements.length : 0}
-                    </p>
-                    <p className="text-sm text-muted-foreground">Achievements</p>
-                  </div>
-                  <div className="p-3 border rounded-md text-center">
-                    <p className="text-2xl font-bold">
-                      {completedQuests.length > 0
-                        ? Math.round(
-                            completedQuests
-                              .filter(q => q.results?.score)
-                              .reduce((total, quest) => total + (quest.results?.score || 0), 0) / 
-                            Math.max(1, completedQuests.filter(q => q.results?.score).length)
-                          )
-                        : 0}%
-                    </p>
-                    <p className="text-sm text-muted-foreground">Average Score</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-          <CardFooter>
-            <Button variant="outline" onClick={() => setView('hub')} className="w-full">
-              Back to Hub
-            </Button>
-          </CardFooter>
-        </Card>
-      </div>
-    );
-  };
-  
-  // Handle starting a quest
-  const handleStartQuest = async (quest: any) => {
-    try {
-      // Check if feature can be used (fair usage)
-      const usageResult = await useFeatureWithCredit('startQuest');
-      
-      if (!usageResult.success && !usageResult.usedCredits) {
-        // If feature cannot be used and credits weren't used, exit
-        return;
-      }
-      
-      // Set active quest and change view
-      setActiveQuest(quest);
-      setView('quest');
-      
-    } catch (error) {
-      console.error("Error starting quest:", error);
-      toast({
-        title: "Error",
-        description: "There was an error starting the quest. Please try again.",
-      });
-    }
-  };
-  
-  // Render the appropriate view based on state
-  const renderView = () => {
-    if (!character && view !== 'character-creation') {
-      return renderCharacterCreation();
-    }
-    
-    switch (view) {
-      case 'character-creation':
-        return <CharacterCreation onCreateCharacter={handleCreateCharacter} />;
-      case 'quest':
-        return <QuestDetail quest={activeQuest} onComplete={handleCompleteQuest} onBack={() => setView('hub')} />;
-      case 'hub':
-        return <QuestHub quests={quests} character={character} onSelectQuest={handleSelectQuest} onGenerateQuest={() => setView('generate')} />;
-      case 'generate':
-        return renderQuestGeneration();
-      case 'history':
-        return renderQuestHistory();
-      case 'character':
-        return <CharacterDashboard character={character} completedQuests={completedQuests} onBack={() => setView('hub')} />;
-      default:
-        return renderQuestHub();
-    }
-  };
-  
+  // Render main component
   return (
-    <div className="adventure-quest-saga p-4 md:p-6">
+    <div className="adventure-quest-saga p-4">
       <div className="max-w-7xl mx-auto">
-        <div className="mb-6">
+        <div className="mb-8">
           <h1 className="text-3xl font-bold flex items-center">
             <Sword className="mr-2" /> Adventure Quest Saga
           </h1>
           <p className="text-muted-foreground">
-            Embark on personalized learning quests tailored to your abilities and interests
+            Embark on personalized learning quests tailored to your learning style and curriculum needs
           </p>
         </div>
         
-        {renderView()}
+        {!character && renderCharacterCreation()}
+        {character && view === 'hub' && renderQuestHub()}
+        {character && view === 'quest' && renderQuestDetail()}
+        {character && view === 'history' && renderQuestHistory()}
+        {character && view === 'generate' && renderQuestGeneration()}
       </div>
     </div>
   );
 };
-
-export default AdventureQuestSagaAdaptive;
