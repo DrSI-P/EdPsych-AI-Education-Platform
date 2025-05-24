@@ -60,7 +60,7 @@ vi.mock('winston', () => ({
 }));
 
 // Use import instead of require
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
 import { PrismaClient } from '@prisma/client';
 vi.mock('@prisma/client', () => ({
   PrismaClient: vi.fn().mockImplementation(() => ({
