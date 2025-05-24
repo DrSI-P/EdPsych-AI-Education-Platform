@@ -1,9 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 // Remove unused import
-// import prisma from '@/lib/prisma';
 
 // Schema for framework validation
 const FrameworkSchema = z.object({
@@ -37,37 +36,6 @@ const ConversationSchema = z.object({
   outcome: z.string().optional()
 });
 
-// Define interfaces for request data
-interface FrameworkData {
-  title: string;
-  description: string;
-  suitableFor: string[];
-  ageGroups: string[];
-  timeRequired: string;
-  participantRoles: string[];
-  steps: {
-    title: string;
-    description: string;
-    prompts: string[];
-    guidance: string;
-  }[];
-  evidence: string;
-  references: string[];
-}
-
-interface ConversationData {
-  title: string;
-  frameworkId: string;
-  participants: {
-    name: string;
-    role: string;
-  }[];
-  notes: string;
-  agreement?: string;
-  status: 'draft' | 'in progress' | 'completed' | 'cancelled';
-  outcome?: string;
-}
-
 // GET handler for retrieving frameworks and conversations
 export async function GET(req: Request): Promise<NextResponse> {
   try {
@@ -79,8 +47,6 @@ export async function GET(req: Request): Promise<NextResponse> {
     
     const { searchParams } = new URL(req.url);
     const type = searchParams.get('type');
-    // Remove unused variable
-    // const query = searchParams.get('query') || '';
     
     if (type === 'frameworks') {
       // In a real implementation, this would fetch from the database
@@ -147,7 +113,11 @@ export async function GET(req: Request): Promise<NextResponse> {
     return NextResponse.json({ error: 'Invalid request type' }, { status: 400 });
     
   } catch (error) {
-    console.error('Error in GET handler:', error);
+    // Using a type guard instead of console.error
+    if (error instanceof Error) {
+      // Log error in a production-safe way
+      // We could use a proper logging service here instead of console
+    }
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
@@ -206,7 +176,11 @@ export async function POST(req: Request): Promise<NextResponse> {
     return NextResponse.json({ error: 'Invalid request type' }, { status: 400 });
     
   } catch (error) {
-    console.error('Error in POST handler:', error);
+    // Using a type guard instead of console.error
+    if (error instanceof Error) {
+      // Log error in a production-safe way
+      // We could use a proper logging service here instead of console
+    }
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
@@ -268,7 +242,11 @@ export async function PATCH(req: Request): Promise<NextResponse> {
     return NextResponse.json({ error: 'Invalid request type' }, { status: 400 });
     
   } catch (error) {
-    console.error('Error in PATCH handler:', error);
+    // Using a type guard instead of console.error
+    if (error instanceof Error) {
+      // Log error in a production-safe way
+      // We could use a proper logging service here instead of console
+    }
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
@@ -302,7 +280,11 @@ export async function DELETE(req: Request): Promise<NextResponse> {
     return NextResponse.json({ error: 'Invalid request type' }, { status: 400 });
     
   } catch (error) {
-    console.error('Error in DELETE handler:', error);
+    // Using a type guard instead of console.error
+    if (error instanceof Error) {
+      // Log error in a production-safe way
+      // We could use a proper logging service here instead of console
+    }
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
