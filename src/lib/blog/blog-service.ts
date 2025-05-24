@@ -12,7 +12,7 @@ import { authOptions } from '@/lib/auth/auth-options';
 
 // Initialize OpenAI client
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: process.env.OPENAI_API_KEY || '',
 });
 
 // Blog post types and categories
@@ -70,6 +70,106 @@ export interface BlogPost {
   readingTime?: number;
 }
 
+// Author interface
+export interface Author {
+  id: string;
+  name: string;
+  image?: string;
+}
+
+// Reviewer interface
+export interface Reviewer {
+  id: string;
+  name: string;
+}
+
+// Extended blog post interface with author and reviewer
+export interface BlogPostWithRelations extends BlogPost {
+  author: Author;
+  reviewer?: Reviewer;
+}
+
+// Blog post generation parameters
+export interface BlogPostGenerationParams {
+  topic: string;
+  audience: string[];
+  category: string;
+  keyPoints?: string[];
+  tone?: 'professional' | 'conversational' | 'academic';
+  wordCount?: number;
+}
+
+// Blog post generation result
+export interface BlogPostGenerationResult {
+  title: string;
+  content: string;
+  summary: string;
+  tags: string[];
+  seoTitle: string;
+  seoDescription: string;
+}
+
+// Blog post save parameters
+export interface BlogPostSaveParams {
+  title: string;
+  content: string;
+  summary: string;
+  category: string;
+  tags: string[];
+  targetAudience: string[];
+  status?: BlogPostStatus;
+  publishDate?: Date;
+  authorId: string;
+  featuredImage?: string;
+  aiGenerationPrompt?: string;
+  seoTitle?: string;
+  seoDescription?: string;
+}
+
+// Blog post filter parameters
+export interface BlogPostFilterParams {
+  status?: BlogPostStatus | BlogPostStatus[];
+  category?: string;
+  audience?: string;
+  page?: number;
+  limit?: number;
+  authorId?: string;
+}
+
+// Blog post filter result
+export interface BlogPostFilterResult {
+  posts: BlogPostWithRelations[];
+  total: number;
+  pages: number;
+}
+
+// SEO recommendations result
+export interface SeoRecommendationsResult {
+  title: string;
+  description: string;
+  keywords: string[];
+  suggestions: string[];
+}
+
+// Blog analytics result
+export interface BlogAnalyticsResult {
+  totalPosts: number;
+  publishedPosts: number;
+  totalViews: number;
+  topPosts: Array<{ id: string; title: string; views: number }>;
+  categoryBreakdown: Record<string, number>;
+  audienceBreakdown: Record<string, number>;
+}
+
+// Blog post idea
+export interface BlogPostIdea {
+  title: string;
+  summary: string;
+  category: string;
+  targetAudience: string[];
+  keyPoints: string[];
+}
+
 /**
  * Generate a blog post using AI based on specified parameters
  */
@@ -80,21 +180,7 @@ export async function generateBlogPost({
   keyPoints,
   tone = 'professional',
   wordCount = 800,
-}: {
-  topic: string;
-  audience: string[];
-  category: string;
-  keyPoints?: string[];
-  tone?: 'professional' | 'conversational' | 'academic';
-  wordCount?: number;
-}): Promise<{
-  title: string;
-  content: string;
-  summary: string;
-  tags: string[];
-  seoTitle: string;
-  seoDescription: string;
-}> {
+}: BlogPostGenerationParams): Promise<BlogPostGenerationResult> {
   // Construct the prompt for the AI
   const audienceStr = audience.join(', ');
   const keyPointsStr = keyPoints ? keyPoints.join('; ') : '';
@@ -189,21 +275,7 @@ export async function saveBlogPost({
   aiGenerationPrompt,
   seoTitle,
   seoDescription,
-}: {
-  title: string;
-  content: string;
-  summary: string;
-  category: string;
-  tags: string[];
-  targetAudience: string[];
-  status?: BlogPostStatus;
-  publishDate?: Date;
-  authorId: string;
-  featuredImage?: string;
-  aiGenerationPrompt?: string;
-  seoTitle?: string;
-  seoDescription?: string;
-}): Promise<string> {
+}: BlogPostSaveParams): Promise<string> {
   const slug = createSlug(title);
   const readingTime = calculateReadingTime(content);
   
@@ -276,18 +348,7 @@ export async function getBlogPosts({
   page = 1,
   limit = 10,
   authorId,
-}: {
-  status?: BlogPostStatus | BlogPostStatus[];
-  category?: string;
-  audience?: string;
-  page?: number;
-  limit?: number;
-  authorId?: string;
-}): Promise<{
-  posts: BlogPost[];
-  total: number;
-  pages: number;
-}> {
+}: BlogPostFilterParams): Promise<BlogPostFilterResult> {
   const skip = (page - 1) * limit;
   
   // Build the where clause
@@ -340,7 +401,7 @@ export async function getBlogPosts({
   });
   
   return {
-    posts: posts as unknown as BlogPost[],
+    posts: posts as unknown as BlogPostWithRelations[],
     total,
     pages: Math.ceil(total / limit)
   };
@@ -351,7 +412,7 @@ export async function getBlogPosts({
  */
 export async function getBlogPost(
   idOrSlug: string
-): Promise<BlogPost | null> {
+): Promise<BlogPostWithRelations | null> {
   // Determine if the input is an ID or slug
   const isId = idOrSlug.length === 24; // Assuming MongoDB ObjectId length
   
@@ -374,7 +435,7 @@ export async function getBlogPost(
     }
   });
   
-  return post as unknown as BlogPost | null;
+  return post as unknown as BlogPostWithRelations | null;
 }
 
 /**
@@ -415,13 +476,7 @@ export async function deleteBlogPost(id: string): Promise<void> {
 export async function generateBlogPostIdeas(
   count: number = 5,
   topics?: string[]
-): Promise<Array<{
-  title: string;
-  summary: string;
-  category: string;
-  targetAudience: string[];
-  keyPoints: string[];
-}>> {
+): Promise<BlogPostIdea[]> {
   const topicsStr = topics ? topics.join(', ') : 'educational psychology, learning strategies, special needs education, curriculum development';
   
   const prompt = `
@@ -554,12 +609,7 @@ export async function shareBlogPostToSocialMedia(
  */
 export async function generateSeoRecommendations(
   postId: string
-): Promise<{
-  title: string;
-  description: string;
-  keywords: string[];
-  suggestions: string[];
-}> {
+): Promise<SeoRecommendationsResult> {
   const post = await getBlogPost(postId);
   if (!post) {
     throw new Error("Blog post not found");
@@ -618,14 +668,7 @@ export async function generateSeoRecommendations(
  */
 export async function getBlogAnalytics(
   period: 'day' | 'week' | 'month' | 'year' = 'month'
-): Promise<{
-  totalPosts: number;
-  publishedPosts: number;
-  totalViews: number;
-  topPosts: Array<{ id: string; title: string; views: number }>;
-  categoryBreakdown: Record<string, number>;
-  audienceBreakdown: Record<string, number>;
-}> {
+): Promise<BlogAnalyticsResult> {
   // Calculate the start date based on the period
   const now = new Date();
   let startDate = new Date();
@@ -691,24 +734,24 @@ export async function getBlogAnalytics(
     take: 5
   });
   
-  // Get the actual post data for the top posts
+  // Get post titles for top posts
   const topPosts = await Promise.all(
     topPostsData.map(async (item) => {
       const post = await db.blogPost.findUnique({
         where: { id: item.blogPostId },
-        select: { id: true, title: true }
+        select: { title: true }
       });
       
       return {
-        id: post!.id,
-        title: post!.title,
+        id: item.blogPostId,
+        title: post?.title || 'Unknown',
         views: item._sum.count || 0
       };
     })
   );
   
   // Get category breakdown
-  const categories = await db.blogPost.groupBy({
+  const categoryData = await db.blogPost.groupBy({
     by: ['category'],
     where: {
       status: 'published'
@@ -717,7 +760,7 @@ export async function getBlogAnalytics(
   });
   
   const categoryBreakdown: Record<string, number> = {};
-  categories.forEach(item => {
+  categoryData.forEach(item => {
     categoryBreakdown[item.category] = item._count;
   });
   
@@ -742,7 +785,7 @@ export async function getBlogAnalytics(
   
   // Count each audience
   postsWithAudiences.forEach(post => {
-    (post.targetAudience as string[]).forEach(audience => {
+    post.targetAudience.forEach(audience => {
       audienceBreakdown[audience] = (audienceBreakdown[audience] || 0) + 1;
     });
   });
