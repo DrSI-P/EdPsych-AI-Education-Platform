@@ -1,16 +1,20 @@
+import { NextRequest, NextResponse } from 'next/server';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth/auth-options';
+import { 
+  createCustomer, 
+  createSubscriptionCheckout, 
+  getActiveSubscriptions, 
+  SUBSCRIPTION_PLANS 
+} from '@/lib/stripe/stripe-service';
+import { db } from '@/lib/db';
+
 /**
  * API Route for Stripe Subscription Management
  * 
  * This API route handles subscription creation, management, and retrieval
  * for the EdPsych AI Education Platform.
  */
-
-import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth/auth-options';
-import stripeService, { SUBSCRIPTION_PLANS } from '@/lib/stripe/stripe-service';
-import { db } from '@/lib/db';
-
 export async function POST(req: NextRequest) {
   try {
     // Get the authenticated user
@@ -50,7 +54,7 @@ export async function POST(req: NextRequest) {
     
     if (!customerId) {
       // Create a new Stripe customer
-      customerId = await stripeService.createCustomer(
+      customerId = await createCustomer(
         user.email,
         user.name || undefined,
         { userId: user.id }
@@ -90,7 +94,7 @@ export async function POST(req: NextRequest) {
     }
     
     // Create a checkout session
-    const checkoutUrl = await stripeService.createSubscriptionCheckout({
+    const checkoutUrl = await createSubscriptionCheckout({
       customerId,
       planId,
       successUrl,
@@ -148,7 +152,7 @@ export async function GET(req: NextRequest) {
     }
     
     // Get the user's active subscriptions
-    const subscriptions = await stripeService.getActiveSubscriptions(user.stripeCustomerId);
+    const subscriptions = await getActiveSubscriptions(user.stripeCustomerId);
     
     return NextResponse.json({
       subscriptions,
