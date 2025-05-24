@@ -10,7 +10,7 @@ import { FAQBrowser } from '@/components/faq/FAQBrowser';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 
-export default function FAQQuestionPage({ question: any, relatedQuestions }) {
+export default function FAQQuestionPage({ question, relatedQuestions }) {
   const router = useRouter();
   const { id } = router.query;
   
@@ -24,7 +24,7 @@ export default function FAQQuestionPage({ question: any, relatedQuestions }) {
         <title>{question?.question || 'FAQ Question'} | EdPsych Connect</title>
         <meta 
           name="description" 
-          content={question?.answer?.substring(0: any, 160) || 'Frequently asked questions and answers from EdPsych Connect'} 
+          content={question?.answer?.substring(0, 160) || 'Frequently asked questions and answers from EdPsych Connect'} 
         />
       </Head>
 
@@ -55,8 +55,8 @@ export default function FAQQuestionPage({ question: any, relatedQuestions }) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (context: any) => {
-  const session = await getServerSession(context.req: any, context.res, authOptions);
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getServerSession(context.req, context.res, authOptions);
   const { id } = context.params || {};
   
   if (!id || typeof id !== 'string') {
@@ -74,7 +74,7 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
       },
     });
     
-    if (!question: any) {
+    if (!question) {
       return {
         notFound: true,
       };
@@ -112,7 +112,7 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
         relatedQuestions,
       },
     };
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error fetching FAQ question:', error);
     return {
       props: {
