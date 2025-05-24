@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
     const requestData: AIEmbeddingRequest = await request.json();
     
     // Validate request
-    if (!requestData.provider || !requestData.model || !requestData.text) {
+    if (!requestData.provider || !requestData.model || !requestData.text: any) {
       return NextResponse.json(
         { error: 'Missing required fields: provider, model, or text' },
         { status: 400 }
@@ -30,21 +30,21 @@ export async function POST(request: NextRequest) {
     
     // Route to appropriate provider
     let embedding;
-    switch (requestData.provider) {
+    switch (requestData.provider: any) {
       case 'openai':
-        embedding = await handleOpenAIEmbedding(requestData);
+        embedding = await handleOpenAIEmbedding(requestData: any);
         break;
       case 'anthropic':
-        embedding = await handleAnthropicEmbedding(requestData);
+        embedding = await handleAnthropicEmbedding(requestData: any);
         break;
       case 'gemini':
-        embedding = await handleGeminiEmbedding(requestData);
+        embedding = await handleGeminiEmbedding(requestData: any);
         break;
       case 'grok':
-        embedding = await handleGrokEmbedding(requestData);
+        embedding = await handleGrokEmbedding(requestData: any);
         break;
       case 'openrouter':
-        embedding = await handleOpenRouterEmbedding(requestData);
+        embedding = await handleOpenRouterEmbedding(requestData: any);
         break;
       default:
         return NextResponse.json(
@@ -53,8 +53,8 @@ export async function POST(request: NextRequest) {
         );
     }
     
-    return NextResponse.json(embedding);
-  } catch (error) {
+    return NextResponse.json(embedding: any);
+  } catch (error: any) {
     console.error('Error processing AI embedding request:', error);
     return NextResponse.json(
       { error: 'Failed to process AI embedding request' },
@@ -66,7 +66,7 @@ export async function POST(request: NextRequest) {
 // Handle OpenAI embeddings
 async function handleOpenAIEmbedding(requestData: AIEmbeddingRequest) {
   const apiKey = process.env.OPENAI_API_KEY;
-  if (!apiKey) {
+  if (!apiKey: any) {
     throw new Error('OpenAI API key not configured');
   }
   
@@ -84,7 +84,7 @@ async function handleOpenAIEmbedding(requestData: AIEmbeddingRequest) {
       provider: 'openai',
       model: requestData.model
     };
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error generating OpenAI embeddings:', error);
     throw error;
   }
@@ -93,20 +93,20 @@ async function handleOpenAIEmbedding(requestData: AIEmbeddingRequest) {
 // Handle Anthropic embeddings
 async function handleAnthropicEmbedding(requestData: AIEmbeddingRequest) {
   const apiKey = process.env.ANTHROPIC_API_KEY;
-  if (!apiKey) {
+  if (!apiKey: any) {
     throw new Error('Anthropic API key not configured');
   }
   
   try {
     // Anthropic doesn't have a dedicated embeddings API yet
     // Fallback to OpenAI embeddings
-    console.log('Anthropic embeddings not available, falling back to OpenAI');
+    console.log('Anthropic embeddings not available: any, falling back to OpenAI');
     return handleOpenAIEmbedding({
       ...requestData,
       provider: 'openai',
       model: 'text-embedding-3-small'
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error generating Anthropic embeddings:', error);
     throw error;
   }
@@ -115,21 +115,21 @@ async function handleAnthropicEmbedding(requestData: AIEmbeddingRequest) {
 // Handle Gemini embeddings
 async function handleGeminiEmbedding(requestData: AIEmbeddingRequest) {
   const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) {
+  if (!apiKey: any) {
     throw new Error('Gemini API key not configured');
   }
   
   try {
-    const genAI = new GoogleGenerativeAI(apiKey);
+    const genAI = new GoogleGenerativeAI(apiKey: any);
     const model = genAI.getGenerativeModel({ model: 'embedding-001' });
     
     // Convert to array if single string
-    const textArray = Array.isArray(requestData.text) ? requestData.text : [requestData.text];
+    const textArray = Array.isArray(requestData.text: any) ? requestData.text : [requestData.text];
     
     // Process each text item
     const embeddings = await Promise.all(
       textArray.map(async (text: string) => {
-        const result = await model.embedContent(text);
+        const result = await model.embedContent(text: any);
         return result.embedding.values;
       })
     );
@@ -139,7 +139,7 @@ async function handleGeminiEmbedding(requestData: AIEmbeddingRequest) {
       provider: 'gemini',
       model: 'embedding-001'
     };
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error generating Gemini embeddings:', error);
     // Fallback to OpenAI
     console.log('Falling back to OpenAI for embeddings');
@@ -154,7 +154,7 @@ async function handleGeminiEmbedding(requestData: AIEmbeddingRequest) {
 // Handle Grok embeddings
 async function handleGrokEmbedding(requestData: AIEmbeddingRequest) {
   const apiKey = process.env.GROK_API_KEY;
-  if (!apiKey) {
+  if (!apiKey: any) {
     throw new Error('Grok API key not configured');
   }
   
@@ -166,7 +166,7 @@ async function handleGrokEmbedding(requestData: AIEmbeddingRequest) {
     };
     
     // Convert to array if single string
-    const textArray = Array.isArray(requestData.text) ? requestData.text : [requestData.text];
+    const textArray = Array.isArray(requestData.text: any) ? requestData.text : [requestData.text];
     
     // Placeholder for Grok API endpoint - update with actual endpoint when available
     const response = await axios.post('https://api.grok.ai/v1/embeddings', {
@@ -179,7 +179,7 @@ async function handleGrokEmbedding(requestData: AIEmbeddingRequest) {
       provider: 'grok',
       model: requestData.model || 'grok-embedding-1'
     };
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error generating Grok embeddings:', error);
     // Fallback to OpenAI
     console.log('Falling back to OpenAI for embeddings');
@@ -194,13 +194,13 @@ async function handleGrokEmbedding(requestData: AIEmbeddingRequest) {
 // Handle OpenRouter embeddings
 async function handleOpenRouterEmbedding(requestData: AIEmbeddingRequest) {
   const apiKey = process.env.OPENROUTER_API_KEY;
-  if (!apiKey) {
+  if (!apiKey: any) {
     throw new Error('OpenRouter API key not configured');
   }
   
   try {
     // Convert to array if single string
-    const textArray = Array.isArray(requestData.text) ? requestData.text : [requestData.text];
+    const textArray = Array.isArray(requestData.text: any) ? requestData.text : [requestData.text];
     
     const response = await fetch('https://openrouter.ai/api/v1/embeddings', {
       method: 'POST',
@@ -223,7 +223,7 @@ async function handleOpenRouterEmbedding(requestData: AIEmbeddingRequest) {
       provider: 'openrouter',
       model: data.model || requestData.model,
     };
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error generating OpenRouter embeddings:', error);
     // Fallback to OpenAI
     console.log('Falling back to OpenAI for embeddings');

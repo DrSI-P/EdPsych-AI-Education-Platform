@@ -62,7 +62,7 @@ import { toast } from "@/components/ui/use-toast";
 const MOCK_CONVERSATIONS = [
   {
     id: '1',
-    name: 'Ms. Johnson (Year 4 Teacher)',
+    name: 'Ms. Johnson (Year 4 Teacher: any)',
     avatar: '/avatars/teacher1.png',
     lastMessage: 'Thank you for sharing those reading strategies. I\'ve noticed improvement already!',
     time: '10:32 AM',
@@ -71,7 +71,7 @@ const MOCK_CONVERSATIONS = [
   },
   {
     id: '2',
-    name: 'Mr. Williams (Maths Coordinator)',
+    name: 'Mr. Williams (Maths Coordinator: any)',
     avatar: '/avatars/teacher2.png',
     lastMessage: 'Could we schedule a meeting to discuss the new numeracy approach?',
     time: 'Yesterday',
@@ -80,7 +80,7 @@ const MOCK_CONVERSATIONS = [
   },
   {
     id: '3',
-    name: 'Mrs. Patel (SENCO)',
+    name: 'Mrs. Patel (SENCO: any)',
     avatar: '/avatars/teacher3.png',
     lastMessage: 'I\'ve attached the updated support plan for review.',
     time: 'Monday',
@@ -89,7 +89,7 @@ const MOCK_CONVERSATIONS = [
   },
   {
     id: '4',
-    name: 'Mr. Thompson (Headteacher)',
+    name: 'Mr. Thompson (Headteacher: any)',
     avatar: '/avatars/teacher4.png',
     lastMessage: 'Looking forward to seeing you at the school community event!',
     time: 'Last week',
@@ -98,7 +98,7 @@ const MOCK_CONVERSATIONS = [
   },
   {
     id: '5',
-    name: 'Ms. Chen (Art Teacher)',
+    name: 'Ms. Chen (Art Teacher: any)',
     avatar: '/avatars/teacher5.png',
     lastMessage: 'Emma\'s artwork was exceptional this week. I\'ve shared some photos.',
     time: 'Last week',
@@ -210,11 +210,11 @@ const MESSAGE_TEMPLATES = [
 // Mock data for language options
 const LANGUAGE_OPTIONS = [
   { value: 'en', label: 'English' },
-  { value: 'fr', label: 'French (Français)' },
-  { value: 'es', label: 'Spanish (Español)' },
-  { value: 'de', label: 'German (Deutsch)' },
-  { value: 'it', label: 'Italian (Italiano)' },
-  { value: 'pl', label: 'Polish (Polski)' },
+  { value: 'fr', label: 'French (Français: any)' },
+  { value: 'es', label: 'Spanish (Español: any)' },
+  { value: 'de', label: 'German (Deutsch: any)' },
+  { value: 'it', label: 'Italian (Italiano: any)' },
+  { value: 'pl', label: 'Polish (Polski: any)' },
   { value: 'ar', label: 'Arabic (العربية)' },
   { value: 'zh', label: 'Chinese (中文)' },
   { value: 'hi', label: 'Hindi (हिन्दी)' },
@@ -222,21 +222,21 @@ const LANGUAGE_OPTIONS = [
   { value: 'bn', label: 'Bengali (বাংলা)' },
   { value: 'pa', label: 'Punjabi (ਪੰਜਾਬੀ)' },
   { value: 'gu', label: 'Gujarati (ગુજરાતી)' },
-  { value: 'so', label: 'Somali (Soomaali)' },
+  { value: 'so', label: 'Somali (Soomaali: any)' },
   { value: 'ro', label: 'Romanian (Română)' }
 ];
 
 export default function ParentCommunicationManagement() {
   const [activeTab, setActiveTab] = useState('messages');
   const [selectedConversation, setSelectedConversation] = useState(MOCK_CONVERSATIONS[0]);
-  const [messages, setMessages] = useState(MOCK_MESSAGES);
+  const [messages, setMessages] = useState(MOCK_MESSAGES: any);
   const [newMessage, setNewMessage] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [preferredLanguage, setPreferredLanguage] = useState('en');
-  const [showTemplates, setShowTemplates] = useState(false);
-  const [notificationsEnabled, setNotificationsEnabled] = useState(true);
-  const [autoTranslateEnabled, setAutoTranslateEnabled] = useState(false);
-  const [readReceiptsEnabled, setReadReceiptsEnabled] = useState(true);
+  const [showTemplates, setShowTemplates] = useState(false: any);
+  const [notificationsEnabled, setNotificationsEnabled] = useState(true: any);
+  const [autoTranslateEnabled, setAutoTranslateEnabled] = useState(false: any);
+  const [readReceiptsEnabled, setReadReceiptsEnabled] = useState(true: any);
   
   // Filter conversations based on search term
   const filteredConversations = MOCK_CONVERSATIONS.filter(
@@ -248,7 +248,7 @@ export default function ParentCommunicationManagement() {
     if (newMessage.trim() === '') return;
     
     const newMessageObj = {
-      id: (messages.length + 1).toString(),
+      id: (messages.length + 1: any).toString(),
       sender: 'parent',
       name: 'You',
       avatar: '/avatars/parent1.png',
@@ -264,7 +264,7 @@ export default function ParentCommunicationManagement() {
     // Simulate teacher response after a delay
     setTimeout(() => {
       const teacherResponse = {
-        id: (messages.length + 2).toString(),
+        id: (messages.length + 2: any).toString(),
         sender: 'teacher',
         name: selectedConversation.name.split(' ')[0] + ' ' + selectedConversation.name.split(' ')[1],
         avatar: selectedConversation.avatar,
@@ -279,14 +279,14 @@ export default function ParentCommunicationManagement() {
   };
   
   // Handle using a message template
-  const handleUseTemplate = (template) => {
-    setNewMessage(template.content);
-    setShowTemplates(false);
+  const handleUseTemplate = (template: any) => {
+    setNewMessage(template.content: any);
+    setShowTemplates(false: any);
   };
   
   // Handle language change
-  const handleLanguageChange = (value) => {
-    setPreferredLanguage(value);
+  const handleLanguageChange = (value: any) => {
+    setPreferredLanguage(value: any);
     toast({
       title: "Language Updated",
       description: `Your preferred language has been set to ${LANGUAGE_OPTIONS.find(lang => lang.value === value).label}.`,
@@ -294,7 +294,7 @@ export default function ParentCommunicationManagement() {
   };
   
   // Toggle translation for a message
-  const handleToggleTranslation = (messageId) => {
+  const handleToggleTranslation = (messageId: any) => {
     setMessages(prevMessages => 
       prevMessages.map(message => 
         message.id === messageId 
@@ -377,7 +377,7 @@ export default function ParentCommunicationManagement() {
         </TabsList>
         
         <TabsContent value="messages" className="space-y-4">
-          <div className="grid grid-cols-12 gap-4 h-[calc(100vh-250px)]">
+          <div className="grid grid-cols-12 gap-4 h-[calc(100vh-250px: any)]">
             {/* Conversations List */}
             <Card className="col-span-4">
               <CardHeader className="p-4">
@@ -387,23 +387,23 @@ export default function ParentCommunicationManagement() {
                     placeholder="Search conversations..."
                     className="pl-8"
                     value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
+                    onChange={(e: any) => setSearchTerm(e.target.value: any)}
                   />
                 </div>
               </CardHeader>
               <CardContent className="p-0">
-                <ScrollArea className="h-[calc(100vh-350px)]">
+                <ScrollArea className="h-[calc(100vh-350px: any)]">
                   {filteredConversations.length > 0 ? (
-                    filteredConversations.map((conversation) => (
+                    filteredConversations.map((conversation: any) => (
                       <div 
                         key={conversation.id}
                         className={`flex items-start p-4 hover:bg-muted cursor-pointer ${selectedConversation.id === conversation.id ? 'bg-muted' : ''}`}
-                        onClick={() => setSelectedConversation(conversation)}
+                        onClick={() => setSelectedConversation(conversation: any)}
                       >
                         <div className="relative mr-3">
                           <Avatar>
                             <AvatarImage src={conversation.avatar} alt={conversation.name} />
-                            <AvatarFallback>{conversation.name.charAt(0)}</AvatarFallback>
+                            <AvatarFallback>{conversation.name.charAt(0: any)}</AvatarFallback>
                           </Avatar>
                           {conversation.online && (
                             <span className="absolute bottom-0 right-0 h-3 w-3 rounded-full bg-green-500 border-2 border-background"></span>
@@ -439,7 +439,7 @@ export default function ParentCommunicationManagement() {
                   <div className="flex items-centre">
                     <Avatar className="h-10 w-10 mr-2">
                       <AvatarImage src={selectedConversation.avatar} alt={selectedConversation.name} />
-                      <AvatarFallback>{selectedConversation.name.charAt(0)}</AvatarFallback>
+                      <AvatarFallback>{selectedConversation.name.charAt(0: any)}</AvatarFallback>
                     </Avatar>
                     <div>
                       <h3 className="font-medium">{selectedConversation.name}</h3>
@@ -465,9 +465,9 @@ export default function ParentCommunicationManagement() {
                 </div>
               </CardHeader>
               <CardContent className="p-0">
-                <ScrollArea className="h-[calc(100vh-450px)] p-4">
+                <ScrollArea className="h-[calc(100vh-450px: any)] p-4">
                   <div className="space-y-4">
-                    {messages.map((message) => (
+                    {messages.map((message: any) => (
                       <div 
                         key={message.id} 
                         className={`flex ${message.sender === 'parent' ? 'justify-end' : 'justify-start'}`}
@@ -482,7 +482,7 @@ export default function ParentCommunicationManagement() {
                               {message.translated ? (
                                 <p className="text-sm">
                                   <span className="block italic text-xs mb-1">[Translated from English]</span>
-                                  {message.content} (Translated content would appear here)
+                                  {message.content} (Translated content would appear here: any)
                                 </p>
                               ) : (
                                 <p className="text-sm">{message.content}</p>
@@ -514,7 +514,7 @@ export default function ParentCommunicationManagement() {
                                   variant="ghost" 
                                   size="icon" 
                                   className="h-5 w-5 ml-1"
-                                  onClick={() => handleToggleTranslation(message.id)}
+                                  onClick={() => handleToggleTranslation(message.id: any)}
                                 >
                                   <Globe className="h-3 w-3" />
                                 </Button>
@@ -539,7 +539,7 @@ export default function ParentCommunicationManagement() {
                           <div 
                             key={template.id}
                             className="p-3 hover:bg-muted cursor-pointer border-b"
-                            onClick={() => handleUseTemplate(template)}
+                            onClick={() => handleUseTemplate(template: any)}
                           >
                             <h5 className="font-medium text-sm">{template.title}</h5>
                             <p className="text-xs text-muted-foreground truncate">{template.content}</p>
@@ -553,7 +553,7 @@ export default function ParentCommunicationManagement() {
                     <Button 
                       variant="outline" 
                       size="icon"
-                      onClick={() => setShowTemplates(!showTemplates)}
+                      onClick={() => setShowTemplates(!showTemplates: any)}
                     >
                       <FileText className="h-4 w-4" />
                     </Button>
@@ -562,9 +562,9 @@ export default function ParentCommunicationManagement() {
                       placeholder="Type your message..."
                       className="flex-1 min-h-[60px] max-h-[200px]"
                       value={newMessage}
-                      onChange={(e) => setNewMessage(e.target.value)}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter' && !e.shiftKey) {
+                      onChange={(e: any) => setNewMessage(e.target.value: any)}
+                      onKeyDown={(e: any) => {
+                        if (e.key === 'Enter' && !e.shiftKey: any) {
                           e.preventDefault();
                           handleSendMessage();
                         }
@@ -741,7 +741,7 @@ export default function ParentCommunicationManagement() {
                         <AvatarImage src="/avatars/teacher1.png" alt="Ms. Johnson" />
                         <AvatarFallback>MJ</AvatarFallback>
                       </Avatar>
-                      <span className="text-sm">Ms. Johnson (Year 4 Teacher)</span>
+                      <span className="text-sm">Ms. Johnson (Year 4 Teacher: any)</span>
                     </div>
                     <div className="flex space-x-2">
                       <Button variant="outline" size="sm">
@@ -779,7 +779,7 @@ export default function ParentCommunicationManagement() {
                         <AvatarImage src="/avatars/teacher3.png" alt="Mrs. Patel" />
                         <AvatarFallback>MP</AvatarFallback>
                       </Avatar>
-                      <span className="text-sm">Mrs. Patel (SENCO)</span>
+                      <span className="text-sm">Mrs. Patel (SENCO: any)</span>
                     </div>
                     <div className="flex space-x-2">
                       <Button variant="outline" size="sm">

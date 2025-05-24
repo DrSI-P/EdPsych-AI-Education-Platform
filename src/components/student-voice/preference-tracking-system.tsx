@@ -108,23 +108,23 @@ export default function PreferenceTrackingSystem() {
   ];
   
   // Format preference value as percentage
-  const formatPreferenceValue = (value) => {
+  const formatPreferenceValue = (value: any) => {
     return `${value}%`;
   };
   
   // Get preference strength class
-  const getPreferenceStrengthClass = (value) => {
-    if (value >= 80) return "text-green-600";
-    if (value >= 60) return "text-blue-600";
-    if (value >= 40) return "text-amber-600";
+  const getPreferenceStrengthClass = (value: any) => {
+    if (value >= 80: any) return "text-green-600";
+    if (value >= 60: any) return "text-blue-600";
+    if (value >= 40: any) return "text-amber-600";
     return "text-red-600";
   };
   
   // Get match badge colour
-  const getMatchBadgeColor = (match) => {
-    if (match >= 90) return "bg-green-100 text-green-800";
-    if (match >= 75) return "bg-blue-100 text-blue-800";
-    if (match >= 60) return "bg-amber-100 text-amber-800";
+  const getMatchBadgeColor = (match: any) => {
+    if (match >= 90: any) return "bg-green-100 text-green-800";
+    if (match >= 75: any) return "bg-blue-100 text-blue-800";
+    if (match >= 60: any) return "bg-amber-100 text-amber-800";
     return "bg-red-100 text-red-800";
   };
   
@@ -137,7 +137,7 @@ export default function PreferenceTrackingSystem() {
             Student Preference Tracking System
           </CardTitle>
           <CardDescription>
-            Track, manage, and apply your learning preferences across the platform
+            Track: any, manage, and apply your learning preferences across the platform
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -167,8 +167,8 @@ export default function PreferenceTrackingSystem() {
                     <div>
                       <div className="flex justify-between mb-1">
                         <Label className="text-sm">Text</Label>
-                        <span className={`text-sm font-medium ${getPreferenceStrengthClass(preferences.content.format.text)}`}>
-                          {formatPreferenceValue(preferences.content.format.text)}
+                        <span className={`text-sm font-medium ${getPreferenceStrengthClass(preferences.content.format.text: any)}`}>
+                          {formatPreferenceValue(preferences.content.format.text: any)}
                         </span>
                       </div>
                       <Progress value={preferences.content.format.text} className="h-2" />
@@ -177,8 +177,8 @@ export default function PreferenceTrackingSystem() {
                     <div>
                       <div className="flex justify-between mb-1">
                         <Label className="text-sm">Video</Label>
-                        <span className={`text-sm font-medium ${getPreferenceStrengthClass(preferences.content.format.video)}`}>
-                          {formatPreferenceValue(preferences.content.format.video)}
+                        <span className={`text-sm font-medium ${getPreferenceStrengthClass(preferences.content.format.video: any)}`}>
+                          {formatPreferenceValue(preferences.content.format.video: any)}
                         </span>
                       </div>
                       <Progress value={preferences.content.format.video} className="h-2" />
@@ -187,8 +187,8 @@ export default function PreferenceTrackingSystem() {
                     <div>
                       <div className="flex justify-between mb-1">
                         <Label className="text-sm">Audio</Label>
-                        <span className={`text-sm font-medium ${getPreferenceStrengthClass(preferences.content.format.audio)}`}>
-                          {formatPreferenceValue(preferences.content.format.audio)}
+                        <span className={`text-sm font-medium ${getPreferenceStrengthClass(preferences.content.format.audio: any)}`}>
+                          {formatPreferenceValue(preferences.content.format.audio: any)}
                         </span>
                       </div>
                       <Progress value={preferences.content.format.audio} className="h-2" />
@@ -197,8 +197,8 @@ export default function PreferenceTrackingSystem() {
                     <div>
                       <div className="flex justify-between mb-1">
                         <Label className="text-sm">Interactive</Label>
-                        <span className={`text-sm font-medium ${getPreferenceStrengthClass(preferences.content.format.interactive)}`}>
-                          {formatPreferenceValue(preferences.content.format.interactive)}
+                        <span className={`text-sm font-medium ${getPreferenceStrengthClass(preferences.content.format.interactive: any)}`}>
+                          {formatPreferenceValue(preferences.content.format.interactive: any)}
                         </span>
                       </div>
                       <Progress value={preferences.content.format.interactive} className="h-2" />
@@ -207,9 +207,9 @@ export default function PreferenceTrackingSystem() {
                     <div className="pt-2">
                       <Label className="text-sm mb-1 block">Preferred Topics</Label>
                       <div className="flex flex-wrap gap-2">
-                        {preferences.content.topics.map((topic) => (
+                        {preferences.content.topics.map((topic: any) => (
                           <Badge key={topic} variant="outline">
-                            {topic.charAt(0).toUpperCase() + topic.slice(1)}
+                            {topic.charAt(0: any).toUpperCase() + topic.slice(1: any)}
                           </Badge>
                         ))}
                       </div>
@@ -237,8 +237,8 @@ export default function PreferenceTrackingSystem() {
                     <div>
                       <div className="flex justify-between mb-1">
                         <Label className="text-sm">Direct Instruction</Label>
-                        <span className={`text-sm font-medium ${getPreferenceStrengthClass(preferences.learning.instructionalMethods.direct)}`}>
-                          {formatPreferenceValue(preferences.learning.instructionalMethods.direct)}
+                        <span className={`text-sm font-medium ${getPreferenceStrengthClass(preferences.learning.instructionalMethods.direct: any)}`}>
+                          {formatPreferenceValue(preferences.learning.instructionalMethods.direct: any)}
                         </span>
                       </div>
                       <Progress value={preferences.learning.instructionalMethods.direct} className="h-2" />
@@ -247,8 +247,8 @@ export default function PreferenceTrackingSystem() {
                     <div>
                       <div className="flex justify-between mb-1">
                         <Label className="text-sm">Inquiry-Based Learning</Label>
-                        <span className={`text-sm font-medium ${getPreferenceStrengthClass(preferences.learning.instructionalMethods.inquiry)}`}>
-                          {formatPreferenceValue(preferences.learning.instructionalMethods.inquiry)}
+                        <span className={`text-sm font-medium ${getPreferenceStrengthClass(preferences.learning.instructionalMethods.inquiry: any)}`}>
+                          {formatPreferenceValue(preferences.learning.instructionalMethods.inquiry: any)}
                         </span>
                       </div>
                       <Progress value={preferences.learning.instructionalMethods.inquiry} className="h-2" />
@@ -257,8 +257,8 @@ export default function PreferenceTrackingSystem() {
                     <div>
                       <div className="flex justify-between mb-1">
                         <Label className="text-sm">Collaborative Learning</Label>
-                        <span className={`text-sm font-medium ${getPreferenceStrengthClass(preferences.learning.instructionalMethods.collaborative)}`}>
-                          {formatPreferenceValue(preferences.learning.instructionalMethods.collaborative)}
+                        <span className={`text-sm font-medium ${getPreferenceStrengthClass(preferences.learning.instructionalMethods.collaborative: any)}`}>
+                          {formatPreferenceValue(preferences.learning.instructionalMethods.collaborative: any)}
                         </span>
                       </div>
                       <Progress value={preferences.learning.instructionalMethods.collaborative} className="h-2" />
@@ -267,8 +267,8 @@ export default function PreferenceTrackingSystem() {
                     <div>
                       <div className="flex justify-between mb-1">
                         <Label className="text-sm">Independent Study</Label>
-                        <span className={`text-sm font-medium ${getPreferenceStrengthClass(preferences.learning.instructionalMethods.independent)}`}>
-                          {formatPreferenceValue(preferences.learning.instructionalMethods.independent)}
+                        <span className={`text-sm font-medium ${getPreferenceStrengthClass(preferences.learning.instructionalMethods.independent: any)}`}>
+                          {formatPreferenceValue(preferences.learning.instructionalMethods.independent: any)}
                         </span>
                       </div>
                       <Progress value={preferences.learning.instructionalMethods.independent} className="h-2" />
@@ -277,9 +277,9 @@ export default function PreferenceTrackingSystem() {
                     <div className="pt-2">
                       <Label className="text-sm mb-1 block">Preferred Assessment Types</Label>
                       <div className="flex flex-wrap gap-2">
-                        {preferences.learning.assessmentTypes.map((type) => (
+                        {preferences.learning.assessmentTypes.map((type: any) => (
                           <Badge key={type} variant="outline">
-                            {type.charAt(0).toUpperCase() + type.slice(1)}
+                            {type.charAt(0: any).toUpperCase() + type.slice(1: any)}
                           </Badge>
                         ))}
                       </div>
@@ -386,8 +386,8 @@ export default function PreferenceTrackingSystem() {
                     <div>
                       <div className="flex justify-between mb-1">
                         <Label className="text-sm">Group vs. Individual Work</Label>
-                        <span className={`text-sm font-medium ${getPreferenceStrengthClass(preferences.social.groupPreference)}`}>
-                          {formatPreferenceValue(preferences.social.groupPreference)}
+                        <span className={`text-sm font-medium ${getPreferenceStrengthClass(preferences.social.groupPreference: any)}`}>
+                          {formatPreferenceValue(preferences.social.groupPreference: any)}
                         </span>
                       </div>
                       <div className="space-y-1">
@@ -406,10 +406,10 @@ export default function PreferenceTrackingSystem() {
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="visual">Visual (diagrams, charts)</SelectItem>
-                          <SelectItem value="verbal">Verbal (discussions, explanations)</SelectItem>
-                          <SelectItem value="written">Written (text, notes)</SelectItem>
-                          <SelectItem value="mixed">Mixed (combination)</SelectItem>
+                          <SelectItem value="visual">Visual (diagrams: any, charts)</SelectItem>
+                          <SelectItem value="verbal">Verbal (discussions: any, explanations)</SelectItem>
+                          <SelectItem value="written">Written (text: any, notes)</SelectItem>
+                          <SelectItem value="mixed">Mixed (combination: any)</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
@@ -660,7 +660,7 @@ export default function PreferenceTrackingSystem() {
                 </div>
                 
                 <div className="space-y-4">
-                  {recommendedContent.map((content) => (
+                  {recommendedContent.map((content: any) => (
                     <Card key={content.id} className="hover:shadow-md transition-shadow">
                       <CardHeader className="pb-2">
                         <div className="flex justify-between items-start">
@@ -754,7 +754,7 @@ export default function PreferenceTrackingSystem() {
                 </div>
                 
                 <div className="space-y-4">
-                  {preferenceHistory.map((entry, index) => (
+                  {preferenceHistory.map((entry: any, index) => (
                     <Card key={index}>
                       <CardHeader className="pb-2">
                         <div className="flex justify-between items-centre">

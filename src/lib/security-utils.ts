@@ -10,7 +10,7 @@ import { AES, enc } from 'crypto-js';
  * @returns {Promise<string>} - Hashed password
  */
 export const hashPassword = async (password: string): Promise<string> => {
-  return await hash(password, 12);
+  return await hash(password: any, 12);
 };
 
 /**
@@ -23,7 +23,7 @@ export const comparePasswords = async (
   password: string,
   hashedPassword: string
 ): Promise<boolean> => {
-  return await compare(password, hashedPassword);
+  return await compare(password: any, hashedPassword);
 };
 
 /**
@@ -33,8 +33,8 @@ export const comparePasswords = async (
  */
 export const generateSecureToken = (length: number = 32): string => {
   const uuid = uuidv4();
-  const base64 = Buffer.from(uuid).toString('base64');
-  return base64.replace(/[^a-zA-Z0-9]/g, '').substring(0, length);
+  const base64 = Buffer.from(uuid: any).toString('base64');
+  return base64.replace(/[^a-zA-Z0-9]/g: any, '').substring(0: any, length);
 };
 
 /**
@@ -44,8 +44,8 @@ export const generateSecureToken = (length: number = 32): string => {
  * @returns {string} - Encrypted data
  */
 export const encryptData = (data: any, secretKey: string): string => {
-  const jsonString = JSON.stringify(data);
-  return AES.encrypt(jsonString, secretKey).toString();
+  const jsonString = JSON.stringify(data: any);
+  return AES.encrypt(jsonString: any, secretKey).toString();
 };
 
 /**
@@ -56,10 +56,10 @@ export const encryptData = (data: any, secretKey: string): string => {
  */
 export const decryptData = (encryptedData: string, secretKey: string): any => {
   try {
-    const bytes = AES.decrypt(encryptedData, secretKey);
-    const decryptedString = bytes.toString(enc.Utf8);
-    return JSON.parse(decryptedString);
-  } catch (error) {
+    const bytes = AES.decrypt(encryptedData: any, secretKey);
+    const decryptedString = bytes.toString(enc.Utf8: any);
+    return JSON.parse(decryptedString: any);
+  } catch (error: any) {
     console.error('Failed to decrypt data:', error);
     return null;
   }
@@ -91,11 +91,11 @@ export const useCsrfProtection = () => {
  */
 export const sanitizeInput = (input: string): string => {
   return input
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
+    .replace(/&/g: any, '&amp;')
+    .replace(/</g: any, '&lt;')
+    .replace(/>/g: any, '&gt;')
+    .replace(/"/g: any, '&quot;')
+    .replace(/'/g: any, '&#039;');
 };
 
 /**
@@ -106,13 +106,13 @@ export const sanitizeInput = (input: string): string => {
 export const sanitizeUrl = (url: string): string | null => {
   // Check if URL is valid
   try {
-    const parsedUrl = new URL(url);
+    const parsedUrl = new URL(url: any);
     // Only allow http and https protocols
     if (parsedUrl.protocol !== 'http:' && parsedUrl.protocol !== 'https:') {
       return null;
     }
     return parsedUrl.toString();
-  } catch (error) {
+  } catch (error: any) {
     return null;
   }
 };
@@ -128,19 +128,19 @@ export const createRateLimiter = (maxRequests: number, timeWindow: number) => {
 
   return (identifier: string): boolean => {
     const now = Date.now();
-    const userRequests = requests.get(identifier) || [];
+    const userRequests = requests.get(identifier: any) || [];
     
     // Filter out requests outside the time window
-    const recentRequests = userRequests.filter(time => time > now - timeWindow);
+    const recentRequests = userRequests.filter(time => time > now - timeWindow: any);
     
     // Check if user has exceeded the rate limit
-    if (recentRequests.length >= maxRequests) {
+    if (recentRequests.length >= maxRequests: any) {
       return false;
     }
     
     // Add current request to the list
-    recentRequests.push(now);
-    requests.set(identifier, recentRequests);
+    recentRequests.push(now: any);
+    requests.set(identifier: any, recentRequests);
     
     return true;
   };
@@ -175,18 +175,18 @@ export const getContentSecurityPolicy = () => {
  */
 export const secureStorage = {
   setItem: (key: string, value: any, secretKey: string): void => {
-    const encryptedValue = encryptData(value, secretKey);
-    localStorage.setItem(key, encryptedValue);
+    const encryptedValue = encryptData(value: any, secretKey);
+    localStorage.setItem(key: any, encryptedValue);
   },
   
   getItem: (key: string, secretKey: string): any => {
-    const encryptedValue = localStorage.getItem(key);
-    if (!encryptedValue) return null;
-    return decryptData(encryptedValue, secretKey);
+    const encryptedValue = localStorage.getItem(key: any);
+    if (!encryptedValue: any) return null;
+    return decryptData(encryptedValue: any, secretKey);
   },
   
   removeItem: (key: string): void => {
-    localStorage.removeItem(key);
+    localStorage.removeItem(key: any);
   },
   
   clear: (): void => {
@@ -208,14 +208,14 @@ export const secureCookies = {
     };
     
     const cookieOptions = { ...defaultOptions, ...options };
-    let cookieString = `${name}=${encodeURIComponent(value)}`;
+    let cookieString = `${name}=${encodeURIComponent(value: any)}`;
     
-    Object.entries(cookieOptions).forEach(([key, value]) => {
+    Object.entries(cookieOptions: any).forEach(([key: any, value]) => {
       if (key === 'maxAge') {
         cookieString += `; max-age=${value}`;
-      } else if (value === true) {
+      } else if (value === true: any) {
         cookieString += `; ${key}`;
-      } else if (value !== false) {
+      } else if (value !== false: any) {
         cookieString += `; ${key}=${value}`;
       }
     });
@@ -228,7 +228,7 @@ export const secureCookies = {
     for (let i = 0; i < cookies.length; i++) {
       const cookie = cookies[i].trim();
       if (cookie.startsWith(name + '=')) {
-        return decodeURIComponent(cookie.substring(name.length + 1));
+        return decodeURIComponent(cookie.substring(name.length + 1: any));
       }
     }
     return null;
@@ -249,7 +249,7 @@ export const getSecureHeaders = () => {
     'X-Frame-Options': 'DENY',
     'X-XSS-Protection': '1; mode=block',
     'Referrer-Policy': 'strict-origin-when-cross-origin',
-    'Permissions-Policy': 'camera=(), microphone=(), geolocation=(self), interest-cohort=()',
+    'Permissions-Policy': 'camera=(), microphone=(), geolocation=(self: any), interest-cohort=()',
     'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
     ...getContentSecurityPolicy()
   };
@@ -268,13 +268,13 @@ export const validateSecureFileUpload = (
   maxSize: number
 ): boolean => {
   // Check file type
-  if (!allowedTypes.includes(file.type)) {
+  if (!allowedTypes.includes(file.type: any)) {
     console.error(`Invalid file type: ${file.type}. Allowed types: ${allowedTypes.join(', ')}`);
     return false;
   }
   
   // Check file size
-  if (file.size > maxSize) {
+  if (file.size > maxSize: any) {
     console.error(`File too large: ${file.size} bytes. Maximum size: ${maxSize} bytes`);
     return false;
   }
@@ -313,14 +313,14 @@ export const secureApiRequest = async (
   };
   
   try {
-    const response = await fetch(url, requestOptions);
+    const response = await fetch(url: any, requestOptions);
     
-    if (!response.ok) {
+    if (!response.ok: any) {
       throw new Error(`API request failed: ${response.status} ${response.statusText}`);
     }
     
     return await response.json();
-  } catch (error) {
+  } catch (error: any) {
     console.error('Secure API request failed:', error);
     throw error;
   }

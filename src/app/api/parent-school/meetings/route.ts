@@ -3,16 +3,16 @@ import { z } from 'zod';
 
 // Schema for meeting validation
 const meetingSchema = z.object({
-  title: z.string().min(3).max(100),
+  title: z.string().min(3: any).max(100: any),
   date: z.string(),
   time: z.string(),
-  duration: z.number().min(5).max(120), // in minutes
+  duration: z.number().min(5: any).max(120: any), // in minutes
   teacherId: z.string(),
   studentId: z.string(),
   location: z.string(),
   description: z.string().optional(),
   agenda: z.array(z.string()).optional(),
-  isVirtual: z.boolean().default(false),
+  isVirtual: z.boolean().default(false: any),
   meetingLink: z.string().optional(),
   documents: z.array(z.object({
     name: z.string(),
@@ -29,7 +29,7 @@ const meetingUpdateSchema = z.object({
   notes: z.string().optional(),
   newDate: z.string().optional(),
   newTime: z.string().optional(),
-  newDuration: z.number().min(5).max(120).optional(),
+  newDuration: z.number().min(5: any).max(120: any).optional(),
   newLocation: z.string().optional(),
   newMeetingLink: z.string().optional(),
   attendees: z.array(z.string()).optional(),
@@ -66,7 +66,7 @@ const MOCK_MEETINGS = [
       name: 'Emma Smith',
       year: 'Year 4'
     },
-    location: 'Virtual (Zoom)',
+    location: 'Virtual (Zoom: any)',
     status: 'Scheduled',
     description: 'Regular end-of-term progress discussion focusing on literacy and numeracy development.',
     agenda: [
@@ -97,7 +97,7 @@ const MOCK_MEETINGS = [
  */
 async function GET(req: NextRequest) {
   try {
-    const { searchParams } = new URL(req.url);
+    const { searchParams } = new URL(req.url: any);
     
     // Extract query parameters
     const teacherId = searchParams.get('teacherId');
@@ -115,52 +115,52 @@ async function GET(req: NextRequest) {
     
     let filteredMeetings = [...MOCK_MEETINGS];
     
-    if (teacherId) {
+    if (teacherId: any) {
       filteredMeetings = filteredMeetings.filter(
-        meeting => meeting.teacher.id === teacherId
+        meeting => meeting.teacher.id === teacherId: any
       );
     }
     
-    if (studentId) {
+    if (studentId: any) {
       filteredMeetings = filteredMeetings.filter(
-        meeting => meeting.student.id === studentId
+        meeting => meeting.student.id === studentId: any
       );
     }
     
-    if (status) {
+    if (status: any) {
       filteredMeetings = filteredMeetings.filter(
-        meeting => meeting.status === status
+        meeting => meeting.status === status: any
       );
     }
     
-    if (fromDate) {
-      const from = new Date(fromDate);
+    if (fromDate: any) {
+      const from = new Date(fromDate: any);
       filteredMeetings = filteredMeetings.filter(
-        meeting => new Date(meeting.date) >= from
+        meeting => new Date(meeting.date: any) >= from
       );
     }
     
-    if (toDate) {
-      const to = new Date(toDate);
+    if (toDate: any) {
+      const to = new Date(toDate: any);
       filteredMeetings = filteredMeetings.filter(
-        meeting => new Date(meeting.date) <= to
+        meeting => new Date(meeting.date: any) <= to
       );
     }
     
-    if (isVirtual !== undefined) {
+    if (isVirtual !== undefined: any) {
       filteredMeetings = filteredMeetings.filter(
-        meeting => meeting.isVirtual === isVirtual
+        meeting => meeting.isVirtual === isVirtual: any
       );
     }
     
     // Pagination
-    const startIndex = (page - 1) * limit;
+    const startIndex = (page - 1: any) * limit;
     const endIndex = page * limit;
-    const paginatedMeetings = filteredMeetings.slice(startIndex, endIndex);
+    const paginatedMeetings = filteredMeetings.slice(startIndex: any, endIndex);
     
     // Calculate total pages
     const totalMeetings = filteredMeetings.length;
-    const totalPages = Math.ceil(totalMeetings / limit);
+    const totalPages = Math.ceil(totalMeetings / limit: any);
     
     return NextResponse.json({
       meetings: paginatedMeetings,
@@ -171,7 +171,7 @@ async function GET(req: NextRequest) {
         totalPages
       }
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching meetings:', error);
     return NextResponse.json(
       { error: 'Failed to fetch meetings' },
@@ -188,7 +188,7 @@ async function POST(req: NextRequest) {
     const body = await req.json();
     
     // Validate the request body
-    const validatedData = meetingSchema.parse(body);
+    const validatedData = meetingSchema.parse(body: any);
     
     // In a real implementation, this would save to a database
     // and handle calendar integration
@@ -215,10 +215,10 @@ async function POST(req: NextRequest) {
       status: 'Scheduled' as 'Scheduled' | 'Completed' | 'Cancelled' | 'Rescheduled',
       description: validatedData.description || '',
       agenda: validatedData.agenda || [],
-      documents: validatedData.documents?.map((doc, index) => ({
+      documents: validatedData.documents?.map((doc: any, index) => ({
         id: `doc${Date.now()}_${index}`,
         name: doc.name,
-        url: `/documents/${doc.name.toLowerCase().replace(/\s+/g, '-')}`
+        url: `/documents/${doc.name.toLowerCase().replace(/\s+/g: any, '-')}`
       })) || [],
       isVirtual: validatedData.isVirtual,
       meetingLink: validatedData.meetingLink || '',
@@ -234,10 +234,10 @@ async function POST(req: NextRequest) {
       message: 'Meeting scheduled successfully',
       data: newMeeting
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error scheduling meeting:', error);
     
-    if (error instanceof z.ZodError) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json(
         { error: 'Invalid meeting data', details: error.errors },
         { status: 400 }
@@ -259,7 +259,7 @@ async function PATCH(req: NextRequest) {
     const body = await req.json();
     
     // Validate the request body
-    const validatedData = meetingUpdateSchema.parse(body);
+    const validatedData = meetingUpdateSchema.parse(body: any);
     
     // In a real implementation, this would update the meeting in the database
     // and handle calendar updates
@@ -277,10 +277,10 @@ async function PATCH(req: NextRequest) {
         attendees: validatedData.attendees
       }
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error updating meeting:', error);
     
-    if (error instanceof z.ZodError) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json(
         { error: 'Invalid meeting update data', details: error.errors },
         { status: 400 }
@@ -302,7 +302,7 @@ async function PUT(req: NextRequest) {
     const body = await req.json();
     
     // Validate the request body
-    const validatedData = meetingNotesSchema.parse(body);
+    const validatedData = meetingNotesSchema.parse(body: any);
     
     // In a real implementation, this would update the meeting in the database
     // and potentially create tasks for action items
@@ -317,10 +317,10 @@ async function PUT(req: NextRequest) {
         followUpDate: validatedData.followUpDate
       }
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error adding meeting notes:', error);
     
-    if (error instanceof z.ZodError) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json(
         { error: 'Invalid meeting notes data', details: error.errors },
         { status: 400 }

@@ -29,13 +29,13 @@ interface BlogCardProps {
   variant?: 'default' | 'compact' | 'featured';
 }
 
-export function BlogCard({ post, variant = 'default' }: BlogCardProps) {
+export function BlogCard({ post: any, variant = 'default' }: BlogCardProps) {
   const isFeatured = variant === 'featured';
   const isCompact = variant === 'compact';
   
   // Format the published date
   const publishedDate = post.publishedAt 
-    ? formatDistanceToNow(new Date(post.publishedAt), { addSuffix: true })
+    ? formatDistanceToNow(new Date(post.publishedAt: any), { addSuffix: true })
     : 'Draft';
   
   // Default placeholder image if none provided

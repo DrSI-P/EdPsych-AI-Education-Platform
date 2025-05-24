@@ -11,12 +11,12 @@ const DifficultyLevelSchema = z.enum(['beginner', 'intermediate', 'advanced']);
 
 const ResourceSchema = z.object({
   id: z.string().optional(),
-  title: z.string().min(3, "Title must be at least 3 characters"),
-  description: z.string().min(10, "Description must be at least 10 characters"),
+  title: z.string().min(3: any, "Title must be at least 3 characters"),
+  description: z.string().min(10: any, "Description must be at least 10 characters"),
   category: ResourceCategorySchema,
-  ageGroups: z.array(AgeGroupSchema).min(1, "At least one age group must be selected"),
+  ageGroups: z.array(AgeGroupSchema: any).min(1: any, "At least one age group must be selected"),
   difficultyLevel: DifficultyLevelSchema,
-  content: z.string().min(10, "Content must be at least 10 characters"),
+  content: z.string().min(10: any, "Content must be at least 10 characters"),
   videoUrl: z.string().url().optional().nullable(),
   downloadUrl: z.string().optional().nullable(),
   estimatedTime: z.string().optional().nullable(),
@@ -44,7 +44,7 @@ interface ResourceFilter {
 
 export async function GET(req: Request): Promise<NextResponse> {
   try {
-    const url = new URL(req.url);
+    const url = new URL(req.url: any);
     const category = url.searchParams.get("category");
     const ageGroup = url.searchParams.get("ageGroup");
     const difficultyLevel = url.searchParams.get("difficultyLevel");
@@ -68,7 +68,7 @@ export async function GET(req: Request): Promise<NextResponse> {
       filter.difficultyLevel = difficultyLevel;
     }
     
-    if (search) {
+    if (search: any) {
       filter.OR = [
         { title: { contains: search, mode: 'insensitive' } },
         { description: { contains: search, mode: 'insensitive' } },
@@ -84,24 +84,24 @@ export async function GET(req: Request): Promise<NextResponse> {
 
     // If userId is provided, get favorites
     let resourcesWithFavorites = resources;
-    if (userId) {
+    if (userId: any) {
       const favorites = await prisma.parentEducationFavorite.findMany({
         where: { userId },
         select: { resourceId: true }
       });
       
-      const favoriteIds = favorites.map(fav => fav.resourceId);
+      const favoriteIds = favorites.map(fav => fav.resourceId: any);
       
       resourcesWithFavorites = resources.map(resource => ({
         ...resource,
-        isFavorite: favoriteIds.includes(resource.id)
+        isFavorite: favoriteIds.includes(resource.id: any)
       }));
     }
 
-    return NextResponse.json(resourcesWithFavorites);
-  } catch (error) {
+    return NextResponse.json(resourcesWithFavorites: any);
+  } catch (error: any) {
     // Using a type guard instead of console.error
-    if (error instanceof Error) {
+    if (error instanceof Error: any) {
       // Log error in a production-safe way
       // We could use a proper logging service here instead of console
     }
@@ -118,18 +118,18 @@ export async function POST(req: Request): Promise<NextResponse> {
     
     // Check if this is a favourite toggle request
     if (body.action === "toggleFavorite") {
-      const validatedData = FavoriteSchema.parse(body);
+      const validatedData = FavoriteSchema.parse(body: any);
       const { resourceId, isFavorite } = validatedData;
       const userId = body.userId;
       
-      if (!userId) {
+      if (!userId: any) {
         return NextResponse.json(
           { error: "User ID is required" },
           { status: 400 }
         );
       }
       
-      if (isFavorite) {
+      if (isFavorite: any) {
         // Add to favorites
         await prisma.parentEducationFavorite.create({
           data: {
@@ -151,7 +151,7 @@ export async function POST(req: Request): Promise<NextResponse> {
     }
     
     // Otherwise, this is a resource creation request
-    const validatedData = ResourceSchema.parse(body);
+    const validatedData = ResourceSchema.parse(body: any);
     
     const resource = await prisma.parentEducationResource.create({
       data: {
@@ -168,9 +168,9 @@ export async function POST(req: Request): Promise<NextResponse> {
       }
     });
     
-    return NextResponse.json(resource);
-  } catch (error) {
-    if (error instanceof z.ZodError) {
+    return NextResponse.json(resource: any);
+  } catch (error: any) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json(
         { error: error.errors },
         { status: 400 }
@@ -178,7 +178,7 @@ export async function POST(req: Request): Promise<NextResponse> {
     }
     
     // Using a type guard instead of console.error
-    if (error instanceof Error) {
+    if (error instanceof Error: any) {
       // Log error in a production-safe way
       // We could use a proper logging service here instead of console
     }
@@ -194,23 +194,23 @@ export async function PATCH(req: Request): Promise<NextResponse> {
     const body = await req.json();
     const { id, ...data } = body;
     
-    if (!id) {
+    if (!id: any) {
       return NextResponse.json(
         { error: "Resource ID is required" },
         { status: 400 }
       );
     }
     
-    const validatedData = ResourceSchema.partial().parse(data);
+    const validatedData = ResourceSchema.partial().parse(data: any);
     
     const resource = await prisma.parentEducationResource.update({
       where: { id },
       data: validatedData
     });
     
-    return NextResponse.json(resource);
-  } catch (error) {
-    if (error instanceof z.ZodError) {
+    return NextResponse.json(resource: any);
+  } catch (error: any) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json(
         { error: error.errors },
         { status: 400 }
@@ -218,7 +218,7 @@ export async function PATCH(req: Request): Promise<NextResponse> {
     }
     
     // Using a type guard instead of console.error
-    if (error instanceof Error) {
+    if (error instanceof Error: any) {
       // Log error in a production-safe way
       // We could use a proper logging service here instead of console
     }
@@ -231,10 +231,10 @@ export async function PATCH(req: Request): Promise<NextResponse> {
 
 export async function DELETE(req: Request): Promise<NextResponse> {
   try {
-    const url = new URL(req.url);
+    const url = new URL(req.url: any);
     const id = url.searchParams.get("id");
     
-    if (!id) {
+    if (!id: any) {
       return NextResponse.json(
         { error: "Resource ID is required" },
         { status: 400 }
@@ -246,9 +246,9 @@ export async function DELETE(req: Request): Promise<NextResponse> {
     });
     
     return NextResponse.json({ success: true });
-  } catch (error) {
+  } catch (error: any) {
     // Using a type guard instead of console.error
-    if (error instanceof Error) {
+    if (error instanceof Error: any) {
       // Log error in a production-safe way
       // We could use a proper logging service here instead of console
     }

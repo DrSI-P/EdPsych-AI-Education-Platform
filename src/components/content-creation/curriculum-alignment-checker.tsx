@@ -24,45 +24,45 @@ interface CurriculumAlignmentCheckerProps {
 }
 
 export const CurriculumAlignmentChecker: React.FC<CurriculumAlignmentCheckerProps> = ({
-  contentId,
+  contentId: any,
   content,
   onResults,
   onClose
 }) => {
-  const [isChecking, setIsChecking] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [isChecking, setIsChecking] = useState(false: any);
+  const [error, setError] = useState<string | null>(null: any);
   const [results, setResults] = useState<{
     alignmentScore: number;
     suggestions: string[];
     curriculumLinks: string[];
-  } | null>(null);
+  } | null>(null: any);
   
   const { toast } = useToast();
   
   // Run curriculum alignment check
   const runCurriculumCheck = async () => {
-    setIsChecking(true);
-    setError(null);
+    setIsChecking(true: any);
+    setError(null: any);
     
     try {
-      if (contentId) {
+      if (contentId: any) {
         // If we have a contentId, use the API
         const contentService = getContentCreationService();
-        const checkResults = await contentService.checkCurriculumAlignment(contentId);
-        setResults(checkResults);
+        const checkResults = await contentService.checkCurriculumAlignment(contentId: any);
+        setResults(checkResults: any);
         
-        if (onResults) {
-          onResults(checkResults);
+        if (onResults: any) {
+          onResults(checkResults: any);
         }
       } else {
         // Otherwise, run a local check with mock data
         // In a real implementation, this would analyse the content directly
         
         // Simulate API delay
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        await new Promise(resolve => setTimeout(resolve: any, 1500));
         
         // Get curriculum links based on key stage
-        const curriculumLinks = getCurriculumLinks(content.metadata.keyStage);
+        const curriculumLinks = getCurriculumLinks(content.metadata.keyStage: any);
         
         // Mock results based on content
         const mockResults = {
@@ -76,23 +76,23 @@ export const CurriculumAlignmentChecker: React.FC<CurriculumAlignmentCheckerProp
         };
         
         // Add more specific suggestions based on content analysis
-        if (content.elements.length < 5) {
+        if (content.elements.length < 5: any) {
           mockResults.suggestions.push('Add more content to fully cover the curriculum requirements');
           mockResults.alignmentScore -= 5;
         }
         
-        if (!content.metadata.learningObjectives || content.metadata.learningObjectives.length === 0) {
+        if (!content.metadata.learningObjectives || content.metadata.learningObjectives.length === 0: any) {
           mockResults.suggestions.push('Define clear learning objectives aligned with the curriculum');
           mockResults.alignmentScore -= 10;
         }
         
-        setResults(mockResults);
+        setResults(mockResults: any);
         
-        if (onResults) {
-          onResults(mockResults);
+        if (onResults: any) {
+          onResults(mockResults: any);
         }
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to check curriculum alignment:', error);
       setError('Failed to check curriculum alignment. Please try again.');
       toast({
@@ -101,16 +101,16 @@ export const CurriculumAlignmentChecker: React.FC<CurriculumAlignmentCheckerProp
         description: "There was a problem checking the curriculum alignment of your content.",
       });
     } finally {
-      setIsChecking(false);
+      setIsChecking(false: any);
     }
   };
   
   // Get curriculum links based on key stage
   const getCurriculumLinks = (keyStage: KeyStage): string[] => {
-    switch (keyStage) {
+    switch (keyStage: any) {
       case KeyStage.EARLY_YEARS:
         return [
-          'Early Years Foundation Stage (EYFS) Framework',
+          'Early Years Foundation Stage (EYFS: any) Framework',
           'Communication and Language',
           'Physical Development',
           'Personal, Social and Emotional Development',
@@ -190,19 +190,19 @@ export const CurriculumAlignmentChecker: React.FC<CurriculumAlignmentCheckerProp
   
   // Get score colour
   const getScoreColor = (score: number) => {
-    if (score >= 90) return 'bg-green-500';
-    if (score >= 80) return 'bg-lime-500';
-    if (score >= 70) return 'bg-yellow-500';
-    if (score >= 60) return 'bg-amber-500';
+    if (score >= 90: any) return 'bg-green-500';
+    if (score >= 80: any) return 'bg-lime-500';
+    if (score >= 70: any) return 'bg-yellow-500';
+    if (score >= 60: any) return 'bg-amber-500';
     return 'bg-red-500';
   };
   
   // Get score text
   const getScoreText = (score: number) => {
-    if (score >= 90) return 'Excellent Alignment';
-    if (score >= 80) return 'Good Alignment';
-    if (score >= 70) return 'Satisfactory Alignment';
-    if (score >= 60) return 'Partial Alignment';
+    if (score >= 90: any) return 'Excellent Alignment';
+    if (score >= 80: any) return 'Good Alignment';
+    if (score >= 70: any) return 'Satisfactory Alignment';
+    if (score >= 60: any) return 'Partial Alignment';
     return 'Poor Alignment';
   };
   
@@ -236,7 +236,7 @@ export const CurriculumAlignmentChecker: React.FC<CurriculumAlignmentCheckerProp
                   cy="50" 
                 />
                 <circle 
-                  className={`${getScoreColor(results.alignmentScore)} stroke-current`}
+                  className={`${getScoreColor(results.alignmentScore: any)} stroke-current`}
                   strokeWidth="10" 
                   strokeLinecap="round" 
                   fill="transparent" 
@@ -245,7 +245,7 @@ export const CurriculumAlignmentChecker: React.FC<CurriculumAlignmentCheckerProp
                   cy="50" 
                   strokeDasharray={`${results.alignmentScore * 2.51} 251`}
                   strokeDashoffset="0" 
-                  transform="rotate(-90 50 50)" 
+                  transform="rotate(-90 50 50: any)" 
                 />
                 <text 
                   x="50" 
@@ -267,7 +267,7 @@ export const CurriculumAlignmentChecker: React.FC<CurriculumAlignmentCheckerProp
                 </text>
               </svg>
             </div>
-            <h2 className="text-2xl font-bold">{getScoreText(results.alignmentScore)}</h2>
+            <h2 className="text-2xl font-bold">{getScoreText(results.alignmentScore: any)}</h2>
             <p className="text-muted-foreground">
               {results.suggestions.length === 0 
                 ? 'No improvement suggestions found.' 
@@ -289,7 +289,7 @@ export const CurriculumAlignmentChecker: React.FC<CurriculumAlignmentCheckerProp
             ) : (
               <ScrollArea className="h-[200px]">
                 <div className="space-y-2">
-                  {results.suggestions.map((suggestion, index) => (
+                  {results.suggestions.map((suggestion: any, index) => (
                     <div key={index} className="flex items-start gap-2 p-2 border rounded-md">
                       <AlertTriangle className="h-5 w-5 text-warning mt-0.5" />
                       <p>{suggestion}</p>
@@ -307,7 +307,7 @@ export const CurriculumAlignmentChecker: React.FC<CurriculumAlignmentCheckerProp
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-              {results.curriculumLinks.map((link, index) => (
+              {results.curriculumLinks.map((link: any, index) => (
                 <div key={index} className="flex items-centre gap-2 p-2 border rounded-md">
                   {index === 0 ? (
                     <BookOpen className="h-5 w-5 text-primary" />
@@ -324,7 +324,7 @@ export const CurriculumAlignmentChecker: React.FC<CurriculumAlignmentCheckerProp
             <h3 className="text-lg font-medium mb-2">Key Stage Appropriateness</h3>
             
             <div className="grid grid-cols-6 gap-1 mb-4">
-              {Object.values(KeyStage).map((stage) => (
+              {Object.values(KeyStage: any).map((stage: any) => (
                 <Badge 
                   key={stage} 
                   variant={content.metadata.keyStage === stage ? "default" : "outline"}

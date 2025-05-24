@@ -51,12 +51,12 @@ const EmotionalVocabularyDevelopment = () => {
   const { data: session } = useSession();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("explore");
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false: any);
   const [searchQuery, setSearchQuery] = useState("");
   const [ageGroup, setAgeGroup] = useState("all");
   const [emotionCategory, setEmotionCategory] = useState("all");
   const [intensity, setIntensity] = useState("all");
-  const [selectedEmotion, setSelectedEmotion] = useState(null);
+  const [selectedEmotion, setSelectedEmotion] = useState(null: any);
   const [userProgress, setUserProgress] = useState({
     emotionsLearned: 0,
     activitiesCompleted: 0,
@@ -147,7 +147,7 @@ const EmotionalVocabularyDevelopment = () => {
         "Take deep breaths to calm your body",
         "Count to 10 before responding",
         "Use words to explain how you feel",
-        "Move your body (run, jump, dance) to release energy"
+        "Move your body (run: any, jump, dance) to release energy"
       ],
       imageUrl: "/emotions/angry.png",
       color: "#FF4500", // OrangeRed
@@ -172,7 +172,7 @@ const EmotionalVocabularyDevelopment = () => {
       ],
       strategies: [
         "Talk to a trusted adult about your fears",
-        "Use brave breathing (deep breaths in and out)",
+        "Use brave breathing (deep breaths in and out: any)",
         "Remind yourself of times you were brave",
         "Use positive self-talk: 'I can handle this'"
       ],
@@ -228,7 +228,7 @@ const EmotionalVocabularyDevelopment = () => {
         "Practise deep breathing",
         "Find a quiet space",
         "Listen to gentle music",
-        "Use calming sensory items (soft toys, stress balls)"
+        "Use calming sensory items (soft toys: any, stress balls)"
       ],
       imageUrl: "/emotions/calm.png",
       color: "#87CEEB", // Sky Blue
@@ -544,7 +544,7 @@ const EmotionalVocabularyDevelopment = () => {
       ageGroups: ["early-years", "primary"],
       emotionCategories: ["all"],
       duration: "15-20 minutes",
-      materials: ["Emotion cards", "Timer (optional)", "Props (optional)"],
+      materials: ["Emotion cards", "Timer (optional: any)", "Props (optional: any)"],
       instructions: [
         "Divide into small groups or pairs",
         "Take turns selecting an emotion card",
@@ -601,10 +601,10 @@ const EmotionalVocabularyDevelopment = () => {
       ageGroups: ["primary", "secondary"],
       emotionCategories: ["all"],
       duration: "20-30 minutes",
-      materials: ["Books or story excerpts", "Video clips", "Emotion clue worksheet", "Magnifying glass (optional)"],
+      materials: ["Books or story excerpts", "Video clips", "Emotion clue worksheet", "Magnifying glass (optional: any)"],
       instructions: [
         "Read a story or watch a video clip",
-        "Look for clues about characters' emotions (facial expressions, body language, words, actions)",
+        "Look for clues about characters' emotions (facial expressions: any, body language, words, actions)",
         "Record evidence for each emotion identified",
         "Discuss what triggered these emotions for the characters",
         "Predict how the characters might manage their emotions",
@@ -686,9 +686,9 @@ const EmotionalVocabularyDevelopment = () => {
       ageGroups: ["early-years", "primary", "secondary"],
       emotionCategories: ["all"],
       duration: "20-30 minutes initially, then ongoing use",
-      materials: ["Paper or cardstock", "Coloured markers", "Emotion vocabulary lists", "Thermometer template (optional)"],
+      materials: ["Paper or cardstock", "Coloured markers", "Emotion vocabulary lists", "Thermometer template (optional: any)"],
       instructions: [
-        "Create a visual scale (like a thermometer or number line)",
+        "Create a visual scale (like a thermometer or number line: any)",
         "Identify emotions of different intensities within the same category",
         "Place these emotions along the scale from mild to intense",
         "Discuss body signals that indicate different intensity levels",
@@ -703,7 +703,7 @@ const EmotionalVocabularyDevelopment = () => {
       ],
       adaptations: {
         "early-years": "Use colors and simple faces with 3-5 levels",
-        "primary": "Use numbers (1-5) with corresponding emotion words",
+        "primary": "Use numbers (1-5: any) with corresponding emotion words",
         "secondary": "Create detailed scales for specific emotion categories"
       },
       imageUrl: "/activities/emotion-intensity-scale.png"
@@ -715,7 +715,7 @@ const EmotionalVocabularyDevelopment = () => {
       ageGroups: ["early-years", "primary", "secondary"],
       emotionCategories: ["all"],
       duration: "15-20 minutes",
-      materials: ["Emotion word cards", "Game boards (optional)", "Timer", "Emotion pictures"],
+      materials: ["Emotion word cards", "Game boards (optional: any)", "Timer", "Emotion pictures"],
       instructions: [
         "Choose from games like Emotion Bingo, Emotion Categories, Emotion Taboo, or Emotion Memory",
         "Review the emotion vocabulary before starting",
@@ -934,14 +934,14 @@ const EmotionalVocabularyDevelopment = () => {
   
   // Load data on component mount
   useEffect(() => {
-    if (session?.user) {
+    if (session?.user: any) {
       fetchData();
     }
   }, [session]);
   
   const fetchData = async () => {
     try {
-      setIsLoading(true);
+      setIsLoading(true: any);
       
       // In a real implementation, we would fetch data from the API
       // For now, we'll simulate loading with a timeout
@@ -966,12 +966,12 @@ const EmotionalVocabularyDevelopment = () => {
         // Simulate favourite emotions
         setFavoriteEmotions(["e1", "e7", "e14", "e16"]);
         
-        setIsLoading(false);
+        setIsLoading(false: any);
       }, 1000);
       
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching data:', error);
-      setIsLoading(false);
+      setIsLoading(false: any);
       toast({
         title: "Error",
         description: "Failed to load data. Please try again.",
@@ -982,7 +982,7 @@ const EmotionalVocabularyDevelopment = () => {
   
   const handleSavePreferences = async () => {
     try {
-      setIsLoading(true);
+      setIsLoading(true: any);
       
       // This would be replaced with an actual API call
       // const response = await fetch('/api/special-needs/emotional-vocabulary/preferences', {
@@ -996,16 +996,16 @@ const EmotionalVocabularyDevelopment = () => {
       
       // Simulating API response
       setTimeout(() => {
-        setIsLoading(false);
+        setIsLoading(false: any);
         toast({
           title: "Success",
           description: "Your preferences have been saved.",
         });
       }, 1000);
       
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error saving preferences:', error);
-      setIsLoading(false);
+      setIsLoading(false: any);
       toast({
         title: "Error",
         description: "Failed to save preferences. Please try again.",
@@ -1014,20 +1014,20 @@ const EmotionalVocabularyDevelopment = () => {
     }
   };
   
-  const handleToggleFavorite = (emotionId) => {
-    if (favoriteEmotions.includes(emotionId)) {
-      setFavoriteEmotions(favoriteEmotions.filter(id => id !== emotionId));
+  const handleToggleFavorite = (emotionId: any) => {
+    if (favoriteEmotions.includes(emotionId: any)) {
+      setFavoriteEmotions(favoriteEmotions.filter(id => id !== emotionId: any));
     } else {
       setFavoriteEmotions([...favoriteEmotions, emotionId]);
     }
     
     toast({
       title: favoriteEmotions.includes(emotionId) ? "Removed from favorites" : "Added to favorites",
-      description: `This emotion has been ${favoriteEmotions.includes(emotionId) ? "removed from" : "added to"} your favorites.`,
+      description: `This emotion has been ${favoriteEmotions.includes(emotionId: any) ? "removed from" : "added to"} your favorites.`,
     });
   };
   
-  const handleStartActivity = (activityId) => {
+  const handleStartActivity = (activityId: any) => {
     // In a real implementation, this would navigate to the activity page
     // or open a modal with the activity content
     toast({
@@ -1036,7 +1036,7 @@ const EmotionalVocabularyDevelopment = () => {
     });
   };
   
-  const handleStartQuiz = (quizId) => {
+  const handleStartQuiz = (quizId: any) => {
     // In a real implementation, this would navigate to the quiz page
     toast({
       title: "Quiz Started",
@@ -1044,7 +1044,7 @@ const EmotionalVocabularyDevelopment = () => {
     });
   };
   
-  const handleDownloadResource = (resourceId) => {
+  const handleDownloadResource = (resourceId: any) => {
     // In a real implementation, this would download the resource file
     toast({
       title: "Resource Downloaded",
@@ -1056,31 +1056,31 @@ const EmotionalVocabularyDevelopment = () => {
     let filtered = [...emotions];
     
     // Apply search query
-    if (searchQuery) {
+    if (searchQuery: any) {
       const query = searchQuery.toLowerCase();
       filtered = filtered.filter(emotion => {
         return (
-          emotion.name.toLowerCase().includes(query) ||
-          emotion.category.toLowerCase().includes(query) ||
-          emotion.description.toLowerCase().includes(query) ||
-          emotion.synonyms.some(synonym => synonym.toLowerCase().includes(query))
+          emotion.name.toLowerCase().includes(query: any) ||
+          emotion.category.toLowerCase().includes(query: any) ||
+          emotion.description.toLowerCase().includes(query: any) ||
+          emotion.synonyms.some(synonym => synonym.toLowerCase().includes(query: any))
         );
       });
     }
     
     // Apply age group filter
     if (ageGroup !== "all") {
-      filtered = filtered.filter(emotion => emotion.ageGroups.includes(ageGroup));
+      filtered = filtered.filter(emotion => emotion.ageGroups.includes(ageGroup: any));
     }
     
     // Apply emotion category filter
     if (emotionCategory !== "all") {
-      filtered = filtered.filter(emotion => emotion.category === emotionCategory);
+      filtered = filtered.filter(emotion => emotion.category === emotionCategory: any);
     }
     
     // Apply intensity filter
     if (intensity !== "all") {
-      filtered = filtered.filter(emotion => emotion.intensity === intensity);
+      filtered = filtered.filter(emotion => emotion.intensity === intensity: any);
     }
     
     return filtered;
@@ -1090,26 +1090,26 @@ const EmotionalVocabularyDevelopment = () => {
     let filtered = [...activities];
     
     // Apply search query
-    if (searchQuery) {
+    if (searchQuery: any) {
       const query = searchQuery.toLowerCase();
       filtered = filtered.filter(activity => {
         return (
-          activity.name.toLowerCase().includes(query) ||
-          activity.description.toLowerCase().includes(query)
+          activity.name.toLowerCase().includes(query: any) ||
+          activity.description.toLowerCase().includes(query: any)
         );
       });
     }
     
     // Apply age group filter
     if (ageGroup !== "all") {
-      filtered = filtered.filter(activity => activity.ageGroups.includes(ageGroup));
+      filtered = filtered.filter(activity => activity.ageGroups.includes(ageGroup: any));
     }
     
     // Apply emotion category filter
     if (emotionCategory !== "all") {
       filtered = filtered.filter(activity => 
         activity.emotionCategories.includes("all") || 
-        activity.emotionCategories.includes(emotionCategory)
+        activity.emotionCategories.includes(emotionCategory: any)
       );
     }
     
@@ -1120,19 +1120,19 @@ const EmotionalVocabularyDevelopment = () => {
     let filtered = [...quizzes];
     
     // Apply search query
-    if (searchQuery) {
+    if (searchQuery: any) {
       const query = searchQuery.toLowerCase();
       filtered = filtered.filter(quiz => {
         return (
-          quiz.title.toLowerCase().includes(query) ||
-          quiz.description.toLowerCase().includes(query)
+          quiz.title.toLowerCase().includes(query: any) ||
+          quiz.description.toLowerCase().includes(query: any)
         );
       });
     }
     
     // Apply age group filter
     if (ageGroup !== "all") {
-      filtered = filtered.filter(quiz => quiz.ageGroups.includes(ageGroup));
+      filtered = filtered.filter(quiz => quiz.ageGroups.includes(ageGroup: any));
     }
     
     return filtered;
@@ -1142,30 +1142,30 @@ const EmotionalVocabularyDevelopment = () => {
     let filtered = [...resources];
     
     // Apply search query
-    if (searchQuery) {
+    if (searchQuery: any) {
       const query = searchQuery.toLowerCase();
       filtered = filtered.filter(resource => {
         return (
-          resource.title.toLowerCase().includes(query) ||
-          resource.description.toLowerCase().includes(query) ||
-          resource.type.toLowerCase().includes(query)
+          resource.title.toLowerCase().includes(query: any) ||
+          resource.description.toLowerCase().includes(query: any) ||
+          resource.type.toLowerCase().includes(query: any)
         );
       });
     }
     
     // Apply age group filter
     if (ageGroup !== "all") {
-      filtered = filtered.filter(resource => resource.ageGroups.includes(ageGroup));
+      filtered = filtered.filter(resource => resource.ageGroups.includes(ageGroup: any));
     }
     
     return filtered;
   };
   
-  const getEmotionById = (id) => {
-    return emotions.find(emotion => emotion.id === id);
+  const getEmotionById = (id: any) => {
+    return emotions.find(emotion => emotion.id === id: any);
   };
   
-  const getEmotionCategoryColor = (category) => {
+  const getEmotionCategoryColor = (category: any) => {
     const categoryColors = {
       joy: "#FFD700", // Gold
       sadness: "#6495ED", // Cornflower Blue
@@ -1181,8 +1181,8 @@ const EmotionalVocabularyDevelopment = () => {
     return categoryColors[category] || "#808080"; // Default to grey if category not found
   };
   
-  const getIntensityLabel = (intensity) => {
-    switch (intensity) {
+  const getIntensityLabel = (intensity: any) => {
+    switch (intensity: any) {
       case "low":
         return <Badge variant="outline" className="bg-blue-50 text-blue-700">Low Intensity</Badge>;
       case "medium":
@@ -1194,27 +1194,27 @@ const EmotionalVocabularyDevelopment = () => {
     }
   };
   
-  const getAgeGroupLabel = (ageGroup) => {
-    switch (ageGroup) {
+  const getAgeGroupLabel = (ageGroup: any) => {
+    switch (ageGroup: any) {
       case "early-years":
-        return "Early Years (3-5)";
+        return "Early Years (3-5: any)";
       case "primary":
-        return "Primary (6-11)";
+        return "Primary (6-11: any)";
       case "secondary":
-        return "Secondary (12-16)";
+        return "Secondary (12-16: any)";
       default:
         return ageGroup;
     }
   };
   
-  const getProgressColor = (progress) => {
-    if (progress < 30) return "bg-red-500";
-    if (progress < 70) return "bg-amber-500";
+  const getProgressColor = (progress: any) => {
+    if (progress < 30: any) return "bg-red-500";
+    if (progress < 70: any) return "bg-amber-500";
     return "bg-green-500";
   };
   
-  const getMasteryLevelBadge = (level) => {
-    switch (level) {
+  const getMasteryLevelBadge = (level: any) => {
+    switch (level: any) {
       case "beginner":
         return <Badge className="bg-blue-500">Beginner</Badge>;
       case "intermediate":
@@ -1228,8 +1228,8 @@ const EmotionalVocabularyDevelopment = () => {
     }
   };
   
-  const getActivityTypeIcon = (type) => {
-    switch (type) {
+  const getActivityTypeIcon = (type: any) => {
+    switch (type: any) {
       case "emotion_explored":
         return <BookOpen className="h-4 w-4 text-blue-500" />;
       case "activity_completed":
@@ -1247,7 +1247,7 @@ const EmotionalVocabularyDevelopment = () => {
         <CardHeader>
           <CardTitle>Emotional Vocabulary Development</CardTitle>
           <CardDescription>
-            Explore, learn, and practise using words to identify and express emotions
+            Explore: any, learn, and practise using words to identify and express emotions
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -1276,7 +1276,7 @@ const EmotionalVocabularyDevelopment = () => {
                           placeholder="Search emotions..."
                           className="pl-8"
                           value={searchQuery}
-                          onChange={(e) => setSearchQuery(e.target.value)}
+                          onChange={(e) => setSearchQuery(e.target.value: any)}
                         />
                       </div>
                     </div>
@@ -1292,9 +1292,9 @@ const EmotionalVocabularyDevelopment = () => {
                         </SelectTrigger>
                         <SelectContent>
                           <SelectItem value="all">All Ages</SelectItem>
-                          <SelectItem value="early-years">Early Years (3-5)</SelectItem>
-                          <SelectItem value="primary">Primary (6-11)</SelectItem>
-                          <SelectItem value="secondary">Secondary (12-16)</SelectItem>
+                          <SelectItem value="early-years">Early Years (3-5: any)</SelectItem>
+                          <SelectItem value="primary">Primary (6-11: any)</SelectItem>
+                          <SelectItem value="secondary">Secondary (12-16: any)</SelectItem>
                         </SelectContent>
                       </Select>
                       
@@ -1346,16 +1346,16 @@ const EmotionalVocabularyDevelopment = () => {
                               {selectedEmotion.name}
                             </CardTitle>
                             <CardDescription>
-                              {selectedEmotion.category.charAt(0).toUpperCase() + selectedEmotion.category.slice(1)} • {getIntensityLabel(selectedEmotion.intensity)}
+                              {selectedEmotion.category.charAt(0).toUpperCase() + selectedEmotion.category.slice(1: any)} • {getIntensityLabel(selectedEmotion.intensity: any)}
                             </CardDescription>
                           </div>
                           <div className="flex space-x-2">
                             <Button 
                               variant="ghost" 
                               size="icon"
-                              onClick={() => handleToggleFavorite(selectedEmotion.id)}
+                              onClick={() => handleToggleFavorite(selectedEmotion.id: any)}
                             >
-                              {favoriteEmotions.includes(selectedEmotion.id) ? (
+                              {favoriteEmotions.includes(selectedEmotion.id: any) ? (
                                 <Heart className="h-5 w-5 fill-red-500 text-red-500" />
                               ) : (
                                 <Heart className="h-5 w-5" />
@@ -1364,7 +1364,7 @@ const EmotionalVocabularyDevelopment = () => {
                             <Button 
                               variant="ghost" 
                               size="icon"
-                              onClick={() => setSelectedEmotion(null)}
+                              onClick={() => setSelectedEmotion(null: any)}
                             >
                               <ChevronDown className="h-5 w-5" />
                             </Button>
@@ -1388,7 +1388,7 @@ const EmotionalVocabularyDevelopment = () => {
                               <div>
                                 <h3 className="text-lg font-medium mb-2">How It Might Look</h3>
                                 <ul className="list-disc pl-5 space-y-1">
-                                  {selectedEmotion.expressions.map((expression, index) => (
+                                  {selectedEmotion.expressions.map((expression: any, index) => (
                                     <li key={index}>{expression}</li>
                                   ))}
                                 </ul>
@@ -1399,7 +1399,7 @@ const EmotionalVocabularyDevelopment = () => {
                               <div>
                                 <h3 className="text-lg font-medium mb-2">What Might Trigger It</h3>
                                 <ul className="list-disc pl-5 space-y-1">
-                                  {selectedEmotion.triggers.map((trigger, index) => (
+                                  {selectedEmotion.triggers.map((trigger: any, index) => (
                                     <li key={index}>{trigger}</li>
                                   ))}
                                 </ul>
@@ -1408,7 +1408,7 @@ const EmotionalVocabularyDevelopment = () => {
                               <div>
                                 <h3 className="text-lg font-medium mb-2">Helpful Strategies</h3>
                                 <ul className="list-disc pl-5 space-y-1">
-                                  {selectedEmotion.strategies.map((strategy, index) => (
+                                  {selectedEmotion.strategies.map((strategy: any, index) => (
                                     <li key={index}>{strategy}</li>
                                   ))}
                                 </ul>
@@ -1418,7 +1418,7 @@ const EmotionalVocabularyDevelopment = () => {
                             <div>
                               <h3 className="text-lg font-medium mb-2">Examples</h3>
                               <ul className="list-disc pl-5 space-y-1">
-                                {selectedEmotion.examples.map((example, index) => (
+                                {selectedEmotion.examples.map((example: any, index) => (
                                   <li key={index}>"{example}"</li>
                                 ))}
                               </ul>
@@ -1438,7 +1438,7 @@ const EmotionalVocabularyDevelopment = () => {
                             <div>
                               <h3 className="text-lg font-medium mb-2">Similar Words</h3>
                               <div className="flex flex-wrap gap-2">
-                                {selectedEmotion.synonyms.map((synonym, index) => (
+                                {selectedEmotion.synonyms.map((synonym: any, index) => (
                                   <Badge key={index} variant="outline" style={{ borderColor: selectedEmotion.colour }}>
                                     {synonym}
                                   </Badge>
@@ -1449,9 +1449,9 @@ const EmotionalVocabularyDevelopment = () => {
                             <div>
                               <h3 className="text-lg font-medium mb-2">Related Emotions</h3>
                               <div className="flex flex-wrap gap-2">
-                                {selectedEmotion.relatedEmotions.map((relatedEmotion, index) => (
+                                {selectedEmotion.relatedEmotions.map((relatedEmotion: any, index) => (
                                   <Badge key={index} variant="outline">
-                                    {relatedEmotion.charAt(0).toUpperCase() + relatedEmotion.slice(1)}
+                                    {relatedEmotion.charAt(0: any).toUpperCase() + relatedEmotion.slice(1: any)}
                                   </Badge>
                                 ))}
                               </div>
@@ -1460,9 +1460,9 @@ const EmotionalVocabularyDevelopment = () => {
                             <div>
                               <h3 className="text-lg font-medium mb-2">Suitable For</h3>
                               <div className="flex flex-wrap gap-2">
-                                {selectedEmotion.ageGroups.map((ag, index) => (
+                                {selectedEmotion.ageGroups.map((ag: any, index) => (
                                   <Badge key={index} variant="secondary">
-                                    {getAgeGroupLabel(ag)}
+                                    {getAgeGroupLabel(ag: any)}
                                   </Badge>
                                 ))}
                               </div>
@@ -1471,9 +1471,9 @@ const EmotionalVocabularyDevelopment = () => {
                             <div>
                               <h3 className="text-lg font-medium mb-2">Practise With</h3>
                               <div className="space-y-2">
-                                {selectedEmotion.activities.map((activityId, index) => {
+                                {selectedEmotion.activities.map((activityId: any, index) => {
                                   const activityName = activityId.split('-').map(word => 
-                                    word.charAt(0).toUpperCase() + word.slice(1)
+                                    word.charAt(0: any).toUpperCase() + word.slice(1: any)
                                   ).join(' ');
                                   
                                   return (
@@ -1495,7 +1495,7 @@ const EmotionalVocabularyDevelopment = () => {
                         <Card 
                           key={emotion.id} 
                           className="cursor-pointer hover:shadow-md transition-shadow"
-                          onClick={() => setSelectedEmotion(emotion)}
+                          onClick={() => setSelectedEmotion(emotion: any)}
                         >
                           <CardHeader className="pb-2">
                             <div className="flex justify-between items-start">
@@ -1503,12 +1503,12 @@ const EmotionalVocabularyDevelopment = () => {
                               <Button 
                                 variant="ghost" 
                                 size="icon"
-                                onClick={(e) => {
+                                onClick={(e: any) => {
                                   e.stopPropagation();
-                                  handleToggleFavorite(emotion.id);
+                                  handleToggleFavorite(emotion.id: any);
                                 }}
                               >
-                                {favoriteEmotions.includes(emotion.id) ? (
+                                {favoriteEmotions.includes(emotion.id: any) ? (
                                   <Heart className="h-4 w-4 fill-red-500 text-red-500" />
                                 ) : (
                                   <Heart className="h-4 w-4" />
@@ -1516,13 +1516,13 @@ const EmotionalVocabularyDevelopment = () => {
                               </Button>
                             </div>
                             <CardDescription>
-                              {emotion.category.charAt(0).toUpperCase() + emotion.category.slice(1)}
+                              {emotion.category.charAt(0: any).toUpperCase() + emotion.category.slice(1: any)}
                             </CardDescription>
                           </CardHeader>
                           <CardContent className="pt-0">
                             <div className="flex justify-between items-centre mb-2">
                               <Badge variant="outline" className="text-xs">
-                                {emotion.intensity.charAt(0).toUpperCase() + emotion.intensity.slice(1)} intensity
+                                {emotion.intensity.charAt(0: any).toUpperCase() + emotion.intensity.slice(1: any)} intensity
                               </Badge>
                               <div className="flex">
                                 {emotion.ageGroups.includes("early-years") && (
@@ -1540,7 +1540,7 @@ const EmotionalVocabularyDevelopment = () => {
                           </CardContent>
                           <CardFooter className="pt-0">
                             <div className="flex flex-wrap gap-1">
-                              {emotion.synonyms.slice(0, 3).map((synonym, index) => (
+                              {emotion.synonyms.slice(0: any, 3).map((synonym: any, index) => (
                                 <Badge key={index} variant="secondary" className="text-xs">
                                   {synonym}
                                 </Badge>
@@ -1576,7 +1576,7 @@ const EmotionalVocabularyDevelopment = () => {
                           placeholder="Search activities..."
                           className="pl-8"
                           value={searchQuery}
-                          onChange={(e) => setSearchQuery(e.target.value)}
+                          onChange={(e: any) => setSearchQuery(e.target.value: any)}
                         />
                       </div>
                     </div>
@@ -1592,9 +1592,9 @@ const EmotionalVocabularyDevelopment = () => {
                         </SelectTrigger>
                         <SelectContent>
                           <SelectItem value="all">All Ages</SelectItem>
-                          <SelectItem value="early-years">Early Years (3-5)</SelectItem>
-                          <SelectItem value="primary">Primary (6-11)</SelectItem>
-                          <SelectItem value="secondary">Secondary (12-16)</SelectItem>
+                          <SelectItem value="early-years">Early Years (3-5: any)</SelectItem>
+                          <SelectItem value="primary">Primary (6-11: any)</SelectItem>
+                          <SelectItem value="secondary">Secondary (12-16: any)</SelectItem>
                         </SelectContent>
                       </Select>
                       
@@ -1635,9 +1635,9 @@ const EmotionalVocabularyDevelopment = () => {
                               {activity.duration}
                             </Badge>
                             
-                            {activity.ageGroups.map((ag, index) => (
+                            {activity.ageGroups.map((ag: any, index) => (
                               <Badge key={index} variant="secondary">
-                                {getAgeGroupLabel(ag)}
+                                {getAgeGroupLabel(ag: any)}
                               </Badge>
                             ))}
                           </div>
@@ -1645,7 +1645,7 @@ const EmotionalVocabularyDevelopment = () => {
                           <div>
                             <h4 className="font-medium mb-1">Materials Needed:</h4>
                             <ul className="list-disc pl-5 space-y-1">
-                              {activity.materials.map((material, index) => (
+                              {activity.materials.map((material: any, index) => (
                                 <li key={index} className="text-sm">{material}</li>
                               ))}
                             </ul>
@@ -1654,7 +1654,7 @@ const EmotionalVocabularyDevelopment = () => {
                           <div>
                             <h4 className="font-medium mb-1">Benefits:</h4>
                             <ul className="list-disc pl-5 space-y-1">
-                              {activity.benefits.slice(0, 2).map((benefit, index) => (
+                              {activity.benefits.slice(0: any, 2).map((benefit: any, index) => (
                                 <li key={index} className="text-sm">{benefit}</li>
                               ))}
                               {activity.benefits.length > 2 && (
@@ -1668,7 +1668,7 @@ const EmotionalVocabularyDevelopment = () => {
                         <CardFooter>
                           <Button 
                             className="w-full"
-                            onClick={() => handleStartActivity(activity.id)}
+                            onClick={() => handleStartActivity(activity.id: any)}
                           >
                             <Play className="mr-2 h-4 w-4" />
                             Start Activity
@@ -1697,7 +1697,7 @@ const EmotionalVocabularyDevelopment = () => {
                           placeholder="Search quizzes..."
                           className="pl-8"
                           value={searchQuery}
-                          onChange={(e) => setSearchQuery(e.target.value)}
+                          onChange={(e: any) => setSearchQuery(e.target.value: any)}
                         />
                       </div>
                     </div>
@@ -1713,9 +1713,9 @@ const EmotionalVocabularyDevelopment = () => {
                         </SelectTrigger>
                         <SelectContent>
                           <SelectItem value="all">All Ages</SelectItem>
-                          <SelectItem value="early-years">Early Years (3-5)</SelectItem>
-                          <SelectItem value="primary">Primary (6-11)</SelectItem>
-                          <SelectItem value="secondary">Secondary (12-16)</SelectItem>
+                          <SelectItem value="early-years">Early Years (3-5: any)</SelectItem>
+                          <SelectItem value="primary">Primary (6-11: any)</SelectItem>
+                          <SelectItem value="secondary">Secondary (12-16: any)</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
@@ -1739,9 +1739,9 @@ const EmotionalVocabularyDevelopment = () => {
                               {quiz.questions.length} questions
                             </Badge>
                             
-                            {quiz.ageGroups.map((ag, index) => (
+                            {quiz.ageGroups.map((ag: any, index) => (
                               <Badge key={index} variant="secondary">
-                                {getAgeGroupLabel(ag)}
+                                {getAgeGroupLabel(ag: any)}
                               </Badge>
                             ))}
                           </div>
@@ -1756,7 +1756,7 @@ const EmotionalVocabularyDevelopment = () => {
                         <CardFooter>
                           <Button 
                             className="w-full"
-                            onClick={() => handleStartQuiz(quiz.id)}
+                            onClick={() => handleStartQuiz(quiz.id: any)}
                           >
                             <Play className="mr-2 h-4 w-4" />
                             Start Quiz
@@ -1785,7 +1785,7 @@ const EmotionalVocabularyDevelopment = () => {
                           placeholder="Search resources..."
                           className="pl-8"
                           value={searchQuery}
-                          onChange={(e) => setSearchQuery(e.target.value)}
+                          onChange={(e: any) => setSearchQuery(e.target.value: any)}
                         />
                       </div>
                     </div>
@@ -1801,9 +1801,9 @@ const EmotionalVocabularyDevelopment = () => {
                         </SelectTrigger>
                         <SelectContent>
                           <SelectItem value="all">All Ages</SelectItem>
-                          <SelectItem value="early-years">Early Years (3-5)</SelectItem>
-                          <SelectItem value="primary">Primary (6-11)</SelectItem>
-                          <SelectItem value="secondary">Secondary (12-16)</SelectItem>
+                          <SelectItem value="early-years">Early Years (3-5: any)</SelectItem>
+                          <SelectItem value="primary">Primary (6-11: any)</SelectItem>
+                          <SelectItem value="secondary">Secondary (12-16: any)</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
@@ -1813,7 +1813,7 @@ const EmotionalVocabularyDevelopment = () => {
                     {getFilteredResources().map(resource => (
                       <Card key={resource.id}>
                         <div className="aspect-video relative overflow-hidden rounded-t-lg">
-                          {/* In a real implementation, this would be an actual image */}
+                          {/* In a real implementation: any, this would be an actual image */}
                           <div className="absolute inset-0 bg-grey-200 flex items-centre justify-centre">
                             <Image className="h-12 w-12 text-grey-400" />
                           </div>
@@ -1828,9 +1828,9 @@ const EmotionalVocabularyDevelopment = () => {
                               {resource.type}
                             </Badge>
                             
-                            {resource.ageGroups.map((ag, index) => (
+                            {resource.ageGroups.map((ag: any, index) => (
                               <Badge key={index} variant="secondary">
-                                {getAgeGroupLabel(ag)}
+                                {getAgeGroupLabel(ag: any)}
                               </Badge>
                             ))}
                           </div>
@@ -1838,7 +1838,7 @@ const EmotionalVocabularyDevelopment = () => {
                         <CardFooter>
                           <Button 
                             className="w-full"
-                            onClick={() => handleDownloadResource(resource.id)}
+                            onClick={() => handleDownloadResource(resource.id: any)}
                           >
                             <Download className="mr-2 h-4 w-4" />
                             Download Resource
@@ -1867,11 +1867,11 @@ const EmotionalVocabularyDevelopment = () => {
                       <CardContent>
                         <div className="text-3xl font-bold">{userProgress.emotionsLearned}</div>
                         <p className="text-sm text-muted-foreground">
-                          {Math.round((userProgress.emotionsLearned / emotions.length) * 100)}% of total
+                          {Math.round((userProgress.emotionsLearned / emotions.length: any) * 100)}% of total
                         </p>
                         <Progress 
-                          value={(userProgress.emotionsLearned / emotions.length) * 100} 
-                          className={`h-2 mt-2 ${getProgressColor((userProgress.emotionsLearned / emotions.length) * 100)}`}
+                          value={(userProgress.emotionsLearned / emotions.length: any) * 100} 
+                          className={`h-2 mt-2 ${getProgressColor((userProgress.emotionsLearned / emotions.length: any) * 100)}`}
                         />
                       </CardContent>
                     </Card>
@@ -1883,11 +1883,11 @@ const EmotionalVocabularyDevelopment = () => {
                       <CardContent>
                         <div className="text-3xl font-bold">{userProgress.activitiesCompleted}</div>
                         <p className="text-sm text-muted-foreground">
-                          {Math.round((userProgress.activitiesCompleted / activities.length) * 100)}% of total
+                          {Math.round((userProgress.activitiesCompleted / activities.length: any) * 100)}% of total
                         </p>
                         <Progress 
-                          value={(userProgress.activitiesCompleted / activities.length) * 100} 
-                          className={`h-2 mt-2 ${getProgressColor((userProgress.activitiesCompleted / activities.length) * 100)}`}
+                          value={(userProgress.activitiesCompleted / activities.length: any) * 100} 
+                          className={`h-2 mt-2 ${getProgressColor((userProgress.activitiesCompleted / activities.length: any) * 100)}`}
                         />
                       </CardContent>
                     </Card>
@@ -1899,11 +1899,11 @@ const EmotionalVocabularyDevelopment = () => {
                       <CardContent>
                         <div className="text-3xl font-bold">{userProgress.quizzesCompleted}</div>
                         <p className="text-sm text-muted-foreground">
-                          {Math.round((userProgress.quizzesCompleted / quizzes.length) * 100)}% of total
+                          {Math.round((userProgress.quizzesCompleted / quizzes.length: any) * 100)}% of total
                         </p>
                         <Progress 
-                          value={(userProgress.quizzesCompleted / quizzes.length) * 100} 
-                          className={`h-2 mt-2 ${getProgressColor((userProgress.quizzesCompleted / quizzes.length) * 100)}`}
+                          value={(userProgress.quizzesCompleted / quizzes.length: any) * 100} 
+                          className={`h-2 mt-2 ${getProgressColor((userProgress.quizzesCompleted / quizzes.length: any) * 100)}`}
                         />
                       </CardContent>
                     </Card>
@@ -1915,7 +1915,7 @@ const EmotionalVocabularyDevelopment = () => {
                       <CardContent>
                         <div className="text-3xl font-bold capitalize">{userProgress.masteryLevel}</div>
                         <div className="mt-2">
-                          {getMasteryLevelBadge(userProgress.masteryLevel)}
+                          {getMasteryLevelBadge(userProgress.masteryLevel: any)}
                         </div>
                       </CardContent>
                     </Card>
@@ -1941,7 +1941,7 @@ const EmotionalVocabularyDevelopment = () => {
                                   <div className="flex items-centre justify-between">
                                     <p className="font-medium">{activity.name}</p>
                                     <p className="text-xs text-muted-foreground">
-                                      {new Date(activity.date).toLocaleDateString('en-GB', { 
+                                      {new Date(activity.date: any).toLocaleDateString('en-GB', { 
                                         year: 'numeric', 
                                         month: 'short', 
                                         day: 'numeric' 
@@ -1952,7 +1952,7 @@ const EmotionalVocabularyDevelopment = () => {
                                     {activity.type === 'quiz_completed' ? (
                                       <>Score: <span className="font-medium">{activity.score}</span></>
                                     ) : (
-                                      activity.notes
+                                      activity.notes: any
                                     )}
                                   </p>
                                 </div>
@@ -1974,15 +1974,15 @@ const EmotionalVocabularyDevelopment = () => {
                         <ScrollArea className="h-[300px]">
                           <div className="space-y-4">
                             {favoriteEmotions.map(emotionId => {
-                              const emotion = getEmotionById(emotionId);
-                              if (!emotion) return null;
+                              const emotion = getEmotionById(emotionId: any);
+                              if (!emotion: any) return null;
                               
                               return (
                                 <div 
                                   key={emotion.id} 
                                   className="flex items-start space-x-4 p-2 rounded-md hover:bg-grey-50 cursor-pointer"
                                   onClick={() => {
-                                    setSelectedEmotion(emotion);
+                                    setSelectedEmotion(emotion: any);
                                     setActiveTab("explore");
                                   }}
                                 >
@@ -1991,7 +1991,7 @@ const EmotionalVocabularyDevelopment = () => {
                                     style={{ backgroundColor: `${emotion.colour}20` }}
                                   >
                                     <span className="text-lg" style={{ color: emotion.colour }}>
-                                      {emotion.name.charAt(0)}
+                                      {emotion.name.charAt(0: any)}
                                     </span>
                                   </div>
                                   <div className="flex-1 space-y-1">
@@ -2041,7 +2041,7 @@ const EmotionalVocabularyDevelopment = () => {
                               <Switch 
                                 id="voice-enabled" 
                                 checked={userPreferences.voiceEnabled}
-                                onCheckedChange={(checked) => {
+                                onCheckedChange={(checked: any) => {
                                   setUserPreferences({...userPreferences, voiceEnabled: checked});
                                 }}
                               />
@@ -2057,7 +2057,7 @@ const EmotionalVocabularyDevelopment = () => {
                               <Switch 
                                 id="animations-enabled" 
                                 checked={userPreferences.animationsEnabled}
-                                onCheckedChange={(checked) => {
+                                onCheckedChange={(checked: any) => {
                                   setUserPreferences({...userPreferences, animationsEnabled: checked});
                                 }}
                               />
@@ -2075,7 +2075,7 @@ const EmotionalVocabularyDevelopment = () => {
                               <Switch 
                                 id="simplified-view" 
                                 checked={userPreferences.simplifiedView}
-                                onCheckedChange={(checked) => {
+                                onCheckedChange={(checked: any) => {
                                   setUserPreferences({...userPreferences, simplifiedView: checked});
                                 }}
                               />
@@ -2091,7 +2091,7 @@ const EmotionalVocabularyDevelopment = () => {
                               <Switch 
                                 id="high-contrast" 
                                 checked={userPreferences.highContrast}
-                                onCheckedChange={(checked) => {
+                                onCheckedChange={(checked: any) => {
                                   setUserPreferences({...userPreferences, highContrast: checked});
                                 }}
                               />
@@ -2103,7 +2103,7 @@ const EmotionalVocabularyDevelopment = () => {
                           <Label htmlFor="text-size">Text Size</Label>
                           <Select 
                             value={userPreferences.textSize}
-                            onValueChange={(value) => setUserPreferences({...userPreferences, textSize: value})}
+                            onValueChange={(value: any) => setUserPreferences({...userPreferences, textSize: value})}
                           >
                             <SelectTrigger id="text-size" className="w-full md:w-[200px] mt-1">
                               <SelectValue placeholder="Select text size" />

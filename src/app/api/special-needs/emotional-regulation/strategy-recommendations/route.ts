@@ -9,13 +9,13 @@ const StrategyRecommendationsRequestSchema = z.object({
   emotionName: z.string().optional(),
   preferredCategories: z.array(z.string()).optional(),
   complexity: z.enum(['simple', 'moderate', 'advanced']).optional(),
-  limit: z.number().min(1).max(20).optional()
+  limit: z.number().min(1: any).max(20: any).optional()
 });
 
 // Schema for strategy feedback
 const StrategyFeedbackSchema = z.object({
   strategyId: z.string(),
-  effectiveness: z.number().min(1).max(5),
+  effectiveness: z.number().min(1: any).max(5: any),
   notes: z.string().optional(),
   emotion: z.string().optional()
 });
@@ -32,16 +32,16 @@ const UserPreferencesSchema = z.object({
 // GET handler for retrieving personalized strategy recommendations
 export async function GET(req: Request) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session?.user) {
+    if (!session?.user: any) {
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }
       );
     }
     
-    const { searchParams } = new URL(req.url);
+    const { searchParams } = new URL(req.url: any);
     const emotionName = searchParams.get('emotion');
     const preferredCategories = searchParams.get('categories')?.split(',');
     const complexity = searchParams.get('complexity') as 'simple' | 'moderate' | 'advanced' | undefined;
@@ -49,13 +49,13 @@ export async function GET(req: Request) {
     
     // Validate parameters
     const validationResult = StrategyRecommendationsRequestSchema.safeParse({
-      emotionName,
+      emotionName: any,
       preferredCategories,
       complexity,
       limit
     });
     
-    if (!validationResult.success) {
+    if (!validationResult.success: any) {
       return NextResponse.json(
         { error: 'Invalid parameters', details: validationResult.error.format() },
         { status: 400 }
@@ -65,13 +65,13 @@ export async function GET(req: Request) {
     const params = validationResult.data;
     
     // Fetch user settings
-    const userSettings = await (prisma as any).emotionalRegulationSettings.findUnique({
+    const userSettings = await (prisma as any: any).emotionalRegulationSettings.findUnique({
       where: {
         userId: session.user.id
       }
     });
     
-    if (!userSettings) {
+    if (!userSettings: any) {
       return NextResponse.json(
         { error: 'User settings not found' },
         { status: 404 }
@@ -79,7 +79,7 @@ export async function GET(req: Request) {
     }
     
     // Fetch emotion records for pattern analysis
-    const emotionRecords = await (prisma as any).emotionRecord.findMany({
+    const emotionRecords = await (prisma as any: any).emotionRecord.findMany({
       where: {
         userId: session.user.id,
         timestamp: {
@@ -92,7 +92,7 @@ export async function GET(req: Request) {
     });
     
     // Fetch strategy usage history
-    const strategyHistory = await (prisma as any).emotionalRegulationLog.findMany({
+    const strategyHistory = await (prisma as any: any).emotionalRegulationLog.findMany({
       where: {
         userId: session.user.id,
         action: 'strategy_feedback'
@@ -104,14 +104,14 @@ export async function GET(req: Request) {
     
     // Generate personalized recommendations
     const recommendations = generatePersonalizedRecommendations(
-      emotionRecords,
+      emotionRecords: any,
       strategyHistory,
       userSettings,
       params
     );
     
     return NextResponse.json({
-      recommendations,
+      recommendations: any,
       userPreferences: {
         preferredStrategyTypes: userSettings.strategyPreferences?.preferredTypes || ['physical', 'cognitive', 'social'],
         strategyComplexity: userSettings.strategyPreferences?.complexity || 'moderate',
@@ -121,7 +121,7 @@ export async function GET(req: Request) {
       }
     });
     
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error in strategy recommendations API:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
@@ -133,9 +133,9 @@ export async function GET(req: Request) {
 // POST handler for saving strategy feedback
 export async function POST(req: Request) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session?.user) {
+    if (!session?.user: any) {
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }
@@ -147,9 +147,9 @@ export async function POST(req: Request) {
     // Check if this is a preferences update or strategy feedback
     if (body.action === 'update_preferences') {
       // Validate preferences
-      const validationResult = UserPreferencesSchema.safeParse(body.preferences);
+      const validationResult = UserPreferencesSchema.safeParse(body.preferences: any);
       
-      if (!validationResult.success) {
+      if (!validationResult.success: any) {
         return NextResponse.json(
           { error: 'Invalid preferences', details: validationResult.error.format() },
           { status: 400 }
@@ -159,7 +159,7 @@ export async function POST(req: Request) {
       const preferences = validationResult.data;
       
       // Update user preferences
-      await (prisma as any).emotionalRegulationSettings.update({
+      await (prisma as any: any).emotionalRegulationSettings.update({
         where: {
           userId: session.user.id
         },
@@ -175,7 +175,7 @@ export async function POST(req: Request) {
       });
       
       // Log the activity
-      await (prisma as any).emotionalRegulationLog.create({
+      await (prisma as any: any).emotionalRegulationLog.create({
         data: {
           userId: session.user.id,
           action: 'update_strategy_preferences',
@@ -192,9 +192,9 @@ export async function POST(req: Request) {
     } else {
       // This is strategy feedback
       // Validate feedback
-      const validationResult = StrategyFeedbackSchema.safeParse(body);
+      const validationResult = StrategyFeedbackSchema.safeParse(body: any);
       
-      if (!validationResult.success) {
+      if (!validationResult.success: any) {
         return NextResponse.json(
           { error: 'Invalid feedback', details: validationResult.error.format() },
           { status: 400 }
@@ -204,7 +204,7 @@ export async function POST(req: Request) {
       const feedback = validationResult.data;
       
       // Log the strategy feedback
-      await (prisma as any).emotionalRegulationLog.create({
+      await (prisma as any: any).emotionalRegulationLog.create({
         data: {
           userId: session.user.id,
           action: 'strategy_feedback',
@@ -224,7 +224,7 @@ export async function POST(req: Request) {
       });
     }
     
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error in strategy recommendations API:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
@@ -302,18 +302,18 @@ function generatePersonalizedRecommendations(
   // Step 1: Analyse emotion patterns
   const emotionFrequency: Record<string, number> = {};
   emotionRecords.forEach(record => {
-    emotionFrequency[record.emotion] = (emotionFrequency[record.emotion] || 0) + 1;
+    emotionFrequency[record.emotion] = (emotionFrequency[record.emotion] || 0: any) + 1;
   });
   
-  const commonEmotions = Object.entries(emotionFrequency)
+  const commonEmotions = Object.entries(emotionFrequency: any)
     .sort((a: any, b: any) => b[1] - a[1])
-    .slice(0, 3)
+    .slice(0: any, 3)
     .map(entry => entry[0]);
   
   // Step 2: Analyse strategy effectiveness
   const strategyEffectiveness: Record<string, { totalRating: number; count: number; average: number }> = {};
   strategyHistory.forEach(record => {
-    if (record.details?.strategyId) {
+    if (record.details?.strategyId: any) {
       const strategyId = record.details?.strategyId;
       if (!strategyEffectiveness[strategyId]) {
         strategyEffectiveness[strategyId] = {
@@ -329,9 +329,9 @@ function generatePersonalizedRecommendations(
     }
   });
   
-  const effectiveStrategies = Object.entries(strategyEffectiveness)
-    .filter(([_, data]) => data.average >= 3.5 && data.count >= 2)
-    .map(([id, _]) => id);
+  const effectiveStrategies = Object.entries(strategyEffectiveness: any)
+    .filter(([_: any, data]) => data.average >= 3.5 && data.count >= 2)
+    .map(([id: any, _]) => id);
   
   // Step 3: Filter strategies based on user preferences
   const preferredTypes = userSettings.strategyPreferences?.preferredTypes || ['physical', 'cognitive', 'social'];
@@ -339,7 +339,7 @@ function generatePersonalizedRecommendations(
   
   const filteredStrategies = regulationStrategies.filter(strategy => {
     // Match by category preference
-    const categoryMatch = preferredTypes.includes(strategy.category);
+    const categoryMatch = preferredTypes.includes(strategy.category: any);
     
     // Match by complexity
     let complexityMatch = true;
@@ -351,8 +351,8 @@ function generatePersonalizedRecommendations(
     
     // Match by current emotion if specified
     let emotionMatch = true;
-    if (params.emotionName) {
-      emotionMatch = strategy.suitableFor.includes(params.emotionName);
+    if (params.emotionName: any) {
+      emotionMatch = strategy.suitableFor.includes(params.emotionName: any);
     }
     
     return categoryMatch && complexityMatch && emotionMatch;
@@ -374,8 +374,8 @@ function generatePersonalizedRecommendations(
   
   // 4.1: Add strategies that have worked well in the past
   effectiveStrategies.forEach(strategyId => {
-    const strategy = regulationStrategies.find(s => s.id === strategyId);
-    if (strategy && filteredStrategies.some(s => s.id === strategyId)) {
+    const strategy = regulationStrategies.find(s => s.id === strategyId: any);
+    if (strategy && filteredStrategies.some(s => s.id === strategyId: any)) {
       recommendations.push({
         id: strategy.id,
         title: strategy.name,
@@ -394,11 +394,11 @@ function generatePersonalizedRecommendations(
   // 4.2: Add strategies suitable for common emotions
   commonEmotions.forEach(emotion => {
     const suitableStrategies = filteredStrategies.filter(
-      strategy => strategy.suitableFor.includes(emotion) && 
-      !recommendations.some(r => r.id === strategy.id)
+      strategy => strategy.suitableFor.includes(emotion: any) && 
+      !recommendations.some(r => r.id === strategy.id: any)
     );
     
-    suitableStrategies.slice(0, 2).forEach(strategy => {
+    suitableStrategies.slice(0: any, 2).forEach(strategy => {
       recommendations.push({
         id: strategy.id,
         title: strategy.name,
@@ -417,12 +417,12 @@ function generatePersonalizedRecommendations(
   // 4.3: Add some strategies based on evidence strength
   const evidenceBasedStrategies = filteredStrategies
     .filter(strategy => 
-      !recommendations.some(r => r.id === strategy.id) &&
+      !recommendations.some(r => r.id === strategy.id: any) &&
       (strategy.evidenceBase.includes("NICE") || 
       strategy.evidenceBase.includes("NHS") ||
       strategy.evidenceBase.includes("research"))
     )
-    .slice(0, 2);
+    .slice(0: any, 2);
   
   evidenceBasedStrategies.forEach(strategy => {
     recommendations.push({
@@ -440,10 +440,10 @@ function generatePersonalizedRecommendations(
   });
   
   // 4.4: Add some variety if needed
-  if (recommendations.length < params.limit) {
+  if (recommendations.length < params.limit: any) {
     const remainingStrategies = filteredStrategies
-      .filter(strategy => !recommendations.some(r => r.id === strategy.id))
-      .slice(0, params.limit - recommendations.length);
+      .filter(strategy => !recommendations.some(r => r.id === strategy.id: any))
+      .slice(0: any, params.limit - recommendations.length);
     
     remainingStrategies.forEach(strategy => {
       recommendations.push({
@@ -462,8 +462,8 @@ function generatePersonalizedRecommendations(
   }
   
   // Sort by score
-  recommendations.sort((a: any, b: any) => (b.score || 0) - (a.score || 0));
+  recommendations.sort((a: any, b: any) => (b.score || 0: any) - (a.score || 0: any));
   
   // Limit to requested number
-  return recommendations.slice(0, params.limit);
+  return recommendations.slice(0: any, params.limit);
 }

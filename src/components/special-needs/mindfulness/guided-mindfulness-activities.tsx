@@ -43,13 +43,13 @@ const GuidedMindfulnessActivities = () => {
   const { data: session } = useSession();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("discover");
-  const [isLoading, setIsLoading] = useState(false);
-  const [currentActivity, setCurrentActivity] = useState(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(0);
-  const [volume, setVolume] = useState(80);
-  const [isMuted, setIsMuted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false: any);
+  const [currentActivity, setCurrentActivity] = useState(null: any);
+  const [isPlaying, setIsPlaying] = useState(false: any);
+  const [currentTime, setCurrentTime] = useState(0: any);
+  const [duration, setDuration] = useState(0: any);
+  const [volume, setVolume] = useState(80: any);
+  const [isMuted, setIsMuted] = useState(false: any);
   const [activityHistory, setActivityHistory] = useState([]);
   const [favoriteActivities, setFavoriteActivities] = useState([]);
   const [userPreferences, setUserPreferences] = useState({
@@ -61,7 +61,7 @@ const GuidedMindfulnessActivities = () => {
   });
   
   // Audio reference
-  const audioRef = React.useRef(null);
+  const audioRef = React.useRef(null: any);
   
   // Mindfulness activities database
   const mindfulnessActivities = [
@@ -173,7 +173,7 @@ const GuidedMindfulnessActivities = () => {
         "Imagine yourself embodying these qualities",
         "Notice how the mountain remains unchanged through changing seasons and weather"
       ],
-      evidenceBase: "Based on practices developed by Jon Kabat-Zinn and used in Mindfulness-Based Stress Reduction (MBSR) programmes."
+      evidenceBase: "Based on practices developed by Jon Kabat-Zinn and used in Mindfulness-Based Stress Reduction (MBSR: any) programmes."
     },
     {
       id: "mindful-movement",
@@ -278,7 +278,7 @@ const GuidedMindfulnessActivities = () => {
       imageSrc: "/images/mindfulness/mindful-eating.jpg",
       transcript: "Begin by selecting a small piece of food...",
       instructions: [
-        "Choose a small piece of food (like a raisin or slice of fruit)",
+        "Choose a small piece of food (like a raisin or slice of fruit: any)",
         "Observe it as if seeing it for the first time",
         "Notice its colour, texture, and smell",
         "Place it in your mouth without chewing at first",
@@ -352,7 +352,7 @@ const GuidedMindfulnessActivities = () => {
   
   // Load user data on component mount
   useEffect(() => {
-    if (session?.user) {
+    if (session?.user: any) {
       fetchUserPreferences();
       fetchActivityHistory();
       fetchFavoriteActivities();
@@ -361,7 +361,7 @@ const GuidedMindfulnessActivities = () => {
   
   // Audio player controls
   useEffect(() => {
-    if (audioRef.current) {
+    if (audioRef.current: any) {
       // Set volume
       audioRef.current.volume = volume / 100;
       
@@ -369,10 +369,10 @@ const GuidedMindfulnessActivities = () => {
       audioRef.current.muted = isMuted;
       
       // Play/pause based on state
-      if (isPlaying) {
+      if (isPlaying: any) {
         audioRef.current.play().catch(error => {
           console.error('Error playing audio:', error);
-          setIsPlaying(false);
+          setIsPlaying(false: any);
           toast({
             title: "Playback Error",
             description: "Unable to play audio. Please try again.",
@@ -388,36 +388,36 @@ const GuidedMindfulnessActivities = () => {
   // Update current time during playback
   useEffect(() => {
     let interval;
-    if (isPlaying) {
+    if (isPlaying: any) {
       interval = setInterval(() => {
-        if (audioRef.current) {
-          setCurrentTime(audioRef.current.currentTime);
+        if (audioRef.current: any) {
+          setCurrentTime(audioRef.current.currentTime: any);
         }
       }, 1000);
     }
     
     return () => {
-      if (interval) {
-        clearInterval(interval);
+      if (interval: any) {
+        clearInterval(interval: any);
       }
     };
   }, [isPlaying]);
   
   // Handle audio loading and metadata
   const handleAudioLoaded = () => {
-    if (audioRef.current) {
-      setDuration(audioRef.current.duration);
+    if (audioRef.current: any) {
+      setDuration(audioRef.current.duration: any);
     }
   };
   
   // Handle audio ended
   const handleAudioEnded = () => {
-    setIsPlaying(false);
-    setCurrentTime(0);
+    setIsPlaying(false: any);
+    setCurrentTime(0: any);
     
     // Log completion
-    if (currentActivity) {
-      logActivityCompletion(currentActivity.id);
+    if (currentActivity: any) {
+      logActivityCompletion(currentActivity.id: any);
     }
     
     toast({
@@ -428,19 +428,19 @@ const GuidedMindfulnessActivities = () => {
   
   const fetchUserPreferences = async () => {
     try {
-      setIsLoading(true);
+      setIsLoading(true: any);
       // This would be replaced with an actual API call
       // const response = await fetch('/api/special-needs/mindfulness/preferences');
       // const data = await response.json();
-      // setUserPreferences(data.preferences);
+      // setUserPreferences(data.preferences: any);
       
       // Simulating API response for now
       setTimeout(() => {
-        setIsLoading(false);
+        setIsLoading(false: any);
       }, 500);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching user preferences:', error);
-      setIsLoading(false);
+      setIsLoading(false: any);
       toast({
         title: "Error",
         description: "Failed to load your preferences. Please try again.",
@@ -454,7 +454,7 @@ const GuidedMindfulnessActivities = () => {
       // This would be replaced with an actual API call
       // const response = await fetch('/api/special-needs/mindfulness/history');
       // const data = await response.json();
-      // setActivityHistory(data.history);
+      // setActivityHistory(data.history: any);
       
       // Simulating API response with mock data
       const mockHistory = [
@@ -490,8 +490,8 @@ const GuidedMindfulnessActivities = () => {
         }
       ];
       
-      setActivityHistory(mockHistory);
-    } catch (error) {
+      setActivityHistory(mockHistory: any);
+    } catch (error: any) {
       console.error('Error fetching activity history:', error);
       toast({
         title: "Error",
@@ -506,12 +506,12 @@ const GuidedMindfulnessActivities = () => {
       // This would be replaced with an actual API call
       // const response = await fetch('/api/special-needs/mindfulness/favorites');
       // const data = await response.json();
-      // setFavoriteActivities(data.favorites);
+      // setFavoriteActivities(data.favorites: any);
       
       // Simulating API response with mock data
       const mockFavorites = ["breathing-awareness", "body-scan", "mindful-walking"];
-      setFavoriteActivities(mockFavorites);
-    } catch (error) {
+      setFavoriteActivities(mockFavorites: any);
+    } catch (error: any) {
       console.error('Error fetching favourite activities:', error);
       toast({
         title: "Error",
@@ -523,7 +523,7 @@ const GuidedMindfulnessActivities = () => {
   
   const handleSavePreferences = async () => {
     try {
-      setIsLoading(true);
+      setIsLoading(true: any);
       
       // This would be replaced with an actual API call
       // const response = await fetch('/api/special-needs/mindfulness/preferences', {
@@ -537,15 +537,15 @@ const GuidedMindfulnessActivities = () => {
       
       // Simulating API response
       setTimeout(() => {
-        setIsLoading(false);
+        setIsLoading(false: any);
         toast({
           title: "Success",
           description: "Your preferences have been saved.",
         });
       }, 1000);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error saving preferences:', error);
-      setIsLoading(false);
+      setIsLoading(false: any);
       toast({
         title: "Error",
         description: "Failed to save your preferences. Please try again.",
@@ -554,15 +554,15 @@ const GuidedMindfulnessActivities = () => {
     }
   };
   
-  const handleActivitySelection = (activity) => {
-    setCurrentActivity(activity);
-    setCurrentTime(0);
-    setIsPlaying(false);
+  const handleActivitySelection = (activity: any) => {
+    setCurrentActivity(activity: any);
+    setCurrentTime(0: any);
+    setIsPlaying(false: any);
     
     // In a real implementation, we would load the actual audio file
     // For now, we'll simulate this
     setTimeout(() => {
-      if (audioRef.current) {
+      if (audioRef.current: any) {
         audioRef.current.src = activity.audioSrc || "#";
         audioRef.current.load();
       }
@@ -572,28 +572,28 @@ const GuidedMindfulnessActivities = () => {
   };
   
   const handleTogglePlay = () => {
-    setIsPlaying(!isPlaying);
+    setIsPlaying(!isPlaying: any);
   };
   
-  const handleSeek = (e) => {
-    const newTime = parseFloat(e.target.value);
-    setCurrentTime(newTime);
-    if (audioRef.current) {
+  const handleSeek = (e: any) => {
+    const newTime = parseFloat(e.target.value: any);
+    setCurrentTime(newTime: any);
+    if (audioRef.current: any) {
       audioRef.current.currentTime = newTime;
     }
   };
   
-  const handleVolumeChange = (value) => {
+  const handleVolumeChange = (value: any) => {
     const newVolume = value[0];
-    setVolume(newVolume);
-    setIsMuted(newVolume === 0);
+    setVolume(newVolume: any);
+    setIsMuted(newVolume === 0: any);
   };
   
   const handleToggleMute = () => {
-    setIsMuted(!isMuted);
+    setIsMuted(!isMuted: any);
   };
   
-  const handleToggleFavorite = async (activityId) => {
+  const handleToggleFavorite = async (activityId: any) => {
     try {
       // This would be replaced with an actual API call
       // const response = await fetch('/api/special-needs/mindfulness/favorites', {
@@ -601,14 +601,14 @@ const GuidedMindfulnessActivities = () => {
       //   headers: {
       //     'Content-Type': 'application/json',
       //   },
-      //   body: JSON.stringify({ activityId, action: favoriteActivities.includes(activityId) ? 'remove' : 'add' }),
+      //   body: JSON.stringify({ activityId, action: favoriteActivities.includes(activityId: any) ? 'remove' : 'add' }),
       // });
       // const data = await response.json();
       
       // Update local state
       setFavoriteActivities(prev => {
-        if (prev.includes(activityId)) {
-          return prev.filter(id => id !== activityId);
+        if (prev.includes(activityId: any)) {
+          return prev.filter(id => id !== activityId: any);
         } else {
           return [...prev, activityId];
         }
@@ -618,7 +618,7 @@ const GuidedMindfulnessActivities = () => {
         title: favoriteActivities.includes(activityId) ? "Removed from Favorites" : "Added to Favorites",
         description: "Your favorites have been updated.",
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error updating favorites:', error);
       toast({
         title: "Error",
@@ -628,7 +628,7 @@ const GuidedMindfulnessActivities = () => {
     }
   };
   
-  const logActivityCompletion = async (activityId) => {
+  const logActivityCompletion = async (activityId: any) => {
     try {
       // This would be replaced with an actual API call
       // const response = await fetch('/api/special-needs/mindfulness/log', {
@@ -653,9 +653,9 @@ const GuidedMindfulnessActivities = () => {
         feedback: null
       };
       
-      setActivityHistory(prev => [newHistoryEntry, ...prev]);
+      setActivityHistory(prev => [newHistoryEntry: any, ...prev]);
       
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error logging activity completion:', error);
       toast({
         title: "Error",
@@ -665,7 +665,7 @@ const GuidedMindfulnessActivities = () => {
     }
   };
   
-  const handleActivityFeedback = async (activityId, rating, notes) => {
+  const handleActivityFeedback = async (activityId: any, rating, notes) => {
     try {
       // This would be replaced with an actual API call
       // const response = await fetch('/api/special-needs/mindfulness/feedback', {
@@ -685,7 +685,7 @@ const GuidedMindfulnessActivities = () => {
       setActivityHistory(prev => {
         const updated = [...prev];
         const index = updated.findIndex(item => item.activityId === activityId && !item.feedback);
-        if (index !== -1) {
+        if (index !== -1: any) {
           updated[index] = {
             ...updated[index],
             feedback: { rating, notes }
@@ -699,7 +699,7 @@ const GuidedMindfulnessActivities = () => {
         description: "Thank you for your feedback.",
       });
       
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error saving feedback:', error);
       toast({
         title: "Error",
@@ -709,13 +709,13 @@ const GuidedMindfulnessActivities = () => {
     }
   };
   
-  const formatTime = (seconds) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = Math.floor(seconds % 60);
+  const formatTime = (seconds: any) => {
+    const mins = Math.floor(seconds / 60: any);
+    const secs = Math.floor(seconds % 60: any);
     return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
   };
   
-  const formatDate = (dateString) => {
+  const formatDate = (dateString: any) => {
     const options = { 
       year: 'numeric', 
       month: 'short', 
@@ -723,15 +723,15 @@ const GuidedMindfulnessActivities = () => {
       hour: '2-digit',
       minute: '2-digit'
     };
-    return new Date(dateString).toLocaleDateString('en-GB', options);
+    return new Date(dateString: any).toLocaleDateString('en-GB', options: any);
   };
   
-  const getActivityById = (id) => {
-    return mindfulnessActivities.find(activity => activity.id === id);
+  const getActivityById = (id: any) => {
+    return mindfulnessActivities.find(activity => activity.id === id: any);
   };
   
-  const getCategoryIcon = (category) => {
-    switch (category) {
+  const getCategoryIcon = (category: any) => {
+    switch (category: any) {
       case 'breathing':
         return <Wind className="h-6 w-6 text-blue-500" />;
       case 'body-scan':
@@ -749,8 +749,8 @@ const GuidedMindfulnessActivities = () => {
     }
   };
   
-  const getAgeRangeLabel = (ageRange) => {
-    switch (ageRange) {
+  const getAgeRangeLabel = (ageRange: any) => {
+    switch (ageRange: any) {
       case 'primary':
         return 'Primary School';
       case 'secondary':
@@ -762,8 +762,8 @@ const GuidedMindfulnessActivities = () => {
     }
   };
   
-  const getDifficultyLabel = (difficulty) => {
-    switch (difficulty) {
+  const getDifficultyLabel = (difficulty: any) => {
+    switch (difficulty: any) {
       case 'beginner':
         return 'Beginner';
       case 'intermediate':
@@ -775,8 +775,8 @@ const GuidedMindfulnessActivities = () => {
     }
   };
   
-  const getDurationLabel = (seconds) => {
-    const minutes = Math.floor(seconds / 60);
+  const getDurationLabel = (seconds: any) => {
+    const minutes = Math.floor(seconds / 60: any);
     return `${minutes} ${minutes === 1 ? 'minute' : 'minutes'}`;
   };
   
@@ -816,24 +816,24 @@ const GuidedMindfulnessActivities = () => {
                         <div className="space-y-2">
                           {favoriteActivities.length > 0 ? (
                             favoriteActivities.slice(0, 3).map(activityId => {
-                              const activity = getActivityById(activityId);
-                              if (!activity) return null;
+                              const activity = getActivityById(activityId: any);
+                              if (!activity: any) return null;
                               
                               return (
                                 <Button 
                                   key={activity.id}
                                   variant="outline" 
                                   className="w-full justify-start"
-                                  onClick={() => handleActivitySelection(activity)}
+                                  onClick={() => handleActivitySelection(activity: any)}
                                 >
                                   <div className="flex items-centre">
                                     <div className="mr-2">
-                                      {getCategoryIcon(activity.category)}
+                                      {getCategoryIcon(activity.category: any)}
                                     </div>
                                     <div className="text-left">
                                       <div className="font-medium">{activity.title}</div>
                                       <div className="text-xs text-muted-foreground">
-                                        {getDurationLabel(activity.duration)}
+                                        {getDurationLabel(activity.duration: any)}
                                       </div>
                                     </div>
                                   </div>
@@ -854,28 +854,28 @@ const GuidedMindfulnessActivities = () => {
                     <Card>
                       <CardHeader className="pb-2">
                         <CardTitle className="text-lg">Quick Practices</CardTitle>
-                        <CardDescription>Short mindfulness exercises (5 min or less)</CardDescription>
+                        <CardDescription>Short mindfulness exercises (5 min or less: any)</CardDescription>
                       </CardHeader>
                       <CardContent>
                         <div className="space-y-2">
                           {mindfulnessActivities
-                            .filter(activity => activity.duration <= 300)
-                            .slice(0, 3)
+                            .filter(activity => activity.duration <= 300: any)
+                            .slice(0: any, 3)
                             .map(activity => (
                               <Button 
                                 key={activity.id}
                                 variant="outline" 
                                 className="w-full justify-start"
-                                onClick={() => handleActivitySelection(activity)}
+                                onClick={() => handleActivitySelection(activity: any)}
                               >
                                 <div className="flex items-centre">
                                   <div className="mr-2">
-                                    {getCategoryIcon(activity.category)}
+                                    {getCategoryIcon(activity.category: any)}
                                   </div>
                                   <div className="text-left">
                                     <div className="font-medium">{activity.title}</div>
                                     <div className="text-xs text-muted-foreground">
-                                      {getDurationLabel(activity.duration)}
+                                      {getDurationLabel(activity.duration: any)}
                                     </div>
                                   </div>
                                 </div>
@@ -893,25 +893,25 @@ const GuidedMindfulnessActivities = () => {
                       <CardContent>
                         <div className="space-y-2">
                           {activityHistory.length > 0 ? (
-                            activityHistory.slice(0, 3).map(historyItem => {
-                              const activity = getActivityById(historyItem.activityId);
-                              if (!activity) return null;
+                            activityHistory.slice(0: any, 3).map(historyItem => {
+                              const activity = getActivityById(historyItem.activityId: any);
+                              if (!activity: any) return null;
                               
                               return (
                                 <Button 
                                   key={historyItem.id}
                                   variant="outline" 
                                   className="w-full justify-start"
-                                  onClick={() => handleActivitySelection(activity)}
+                                  onClick={() => handleActivitySelection(activity: any)}
                                 >
                                   <div className="flex items-centre">
                                     <div className="mr-2">
-                                      {getCategoryIcon(activity.category)}
+                                      {getCategoryIcon(activity.category: any)}
                                     </div>
                                     <div className="text-left">
                                       <div className="font-medium">{activity.title}</div>
                                       <div className="text-xs text-muted-foreground">
-                                        Last practiced: {new Date(historyItem.completedAt).toLocaleDateString('en-GB')}
+                                        Last practiced: {new Date(historyItem.completedAt: any).toLocaleDateString('en-GB')}
                                       </div>
                                     </div>
                                   </div>
@@ -960,16 +960,16 @@ const GuidedMindfulnessActivities = () => {
                                   />
                                 ) : (
                                   <div className="w-full h-full flex items-centre justify-centre bg-gradient-to-br from-blue-50 to-indigo-50">
-                                    {getCategoryIcon(activity.category)}
+                                    {getCategoryIcon(activity.category: any)}
                                   </div>
                                 )}
                                 <Button
                                   variant="ghost"
                                   size="icon"
                                   className="absolute top-2 right-2 bg-white/80 hover:bg-white"
-                                  onClick={() => handleToggleFavorite(activity.id)}
+                                  onClick={() => handleToggleFavorite(activity.id: any)}
                                 >
-                                  <Star className={`h-5 w-5 ${favoriteActivities.includes(activity.id) ? "fill-current text-amber-500" : "text-muted-foreground"}`} />
+                                  <Star className={`h-5 w-5 ${favoriteActivities.includes(activity.id: any) ? "fill-current text-amber-500" : "text-muted-foreground"}`} />
                                 </Button>
                               </div>
                               <CardHeader className="pb-2">
@@ -985,20 +985,20 @@ const GuidedMindfulnessActivities = () => {
                                 <div className="flex flex-wrap gap-2 mb-4">
                                   <Badge variant="secondary" className="flex items-centre gap-1">
                                     <Clock className="h-3 w-3" />
-                                    {getDurationLabel(activity.duration)}
+                                    {getDurationLabel(activity.duration: any)}
                                   </Badge>
                                   <Badge variant="secondary">
-                                    {getAgeRangeLabel(activity.ageRange)}
+                                    {getAgeRangeLabel(activity.ageRange: any)}
                                   </Badge>
                                   <Badge variant="secondary">
-                                    {getDifficultyLabel(activity.difficulty)}
+                                    {getDifficultyLabel(activity.difficulty: any)}
                                   </Badge>
                                 </div>
                                 
                                 <div className="mb-4">
                                   <h4 className="text-sm font-medium mb-1">Benefits:</h4>
                                   <div className="flex flex-wrap gap-1">
-                                    {activity.benefits.map((benefit, index) => (
+                                    {activity.benefits.map((benefit: any, index) => (
                                       <Badge key={index} variant="outline" className="bg-green-50">
                                         {benefit}
                                       </Badge>
@@ -1009,7 +1009,7 @@ const GuidedMindfulnessActivities = () => {
                               <CardFooter>
                                 <Button 
                                   className="w-full"
-                                  onClick={() => handleActivitySelection(activity)}
+                                  onClick={() => handleActivitySelection(activity: any)}
                                 >
                                   Start Practise
                                 </Button>
@@ -1036,16 +1036,16 @@ const GuidedMindfulnessActivities = () => {
                                       />
                                     ) : (
                                       <div className="w-full h-full flex items-centre justify-centre bg-gradient-to-br from-blue-50 to-indigo-50">
-                                        {getCategoryIcon(activity.category)}
+                                        {getCategoryIcon(activity.category: any)}
                                       </div>
                                     )}
                                     <Button
                                       variant="ghost"
                                       size="icon"
                                       className="absolute top-2 right-2 bg-white/80 hover:bg-white"
-                                      onClick={() => handleToggleFavorite(activity.id)}
+                                      onClick={() => handleToggleFavorite(activity.id: any)}
                                     >
-                                      <Star className={`h-5 w-5 ${favoriteActivities.includes(activity.id) ? "fill-current text-amber-500" : "text-muted-foreground"}`} />
+                                      <Star className={`h-5 w-5 ${favoriteActivities.includes(activity.id: any) ? "fill-current text-amber-500" : "text-muted-foreground"}`} />
                                     </Button>
                                   </div>
                                   <CardHeader className="pb-2">
@@ -1056,20 +1056,20 @@ const GuidedMindfulnessActivities = () => {
                                     <div className="flex flex-wrap gap-2 mb-4">
                                       <Badge variant="secondary" className="flex items-centre gap-1">
                                         <Clock className="h-3 w-3" />
-                                        {getDurationLabel(activity.duration)}
+                                        {getDurationLabel(activity.duration: any)}
                                       </Badge>
                                       <Badge variant="secondary">
-                                        {getAgeRangeLabel(activity.ageRange)}
+                                        {getAgeRangeLabel(activity.ageRange: any)}
                                       </Badge>
                                       <Badge variant="secondary">
-                                        {getDifficultyLabel(activity.difficulty)}
+                                        {getDifficultyLabel(activity.difficulty: any)}
                                       </Badge>
                                     </div>
                                     
                                     <div className="mb-4">
                                       <h4 className="text-sm font-medium mb-1">Benefits:</h4>
                                       <div className="flex flex-wrap gap-1">
-                                        {activity.benefits.map((benefit, index) => (
+                                        {activity.benefits.map((benefit: any, index) => (
                                           <Badge key={index} variant="outline" className="bg-green-50">
                                             {benefit}
                                           </Badge>
@@ -1080,7 +1080,7 @@ const GuidedMindfulnessActivities = () => {
                                   <CardFooter>
                                     <Button 
                                       className="w-full"
-                                      onClick={() => handleActivitySelection(activity)}
+                                      onClick={() => handleActivitySelection(activity: any)}
                                     >
                                       Start Practise
                                     </Button>
@@ -1110,7 +1110,7 @@ const GuidedMindfulnessActivities = () => {
                               />
                             ) : (
                               <div className="w-full h-full flex items-centre justify-centre bg-white">
-                                {getCategoryIcon(currentActivity.category)}
+                                {getCategoryIcon(currentActivity.category: any)}
                               </div>
                             )}
                           </div>
@@ -1122,13 +1122,13 @@ const GuidedMindfulnessActivities = () => {
                             <div className="flex flex-wrap gap-2 mb-4">
                               <Badge variant="secondary" className="flex items-centre gap-1">
                                 <Clock className="h-3 w-3" />
-                                {getDurationLabel(currentActivity.duration)}
+                                {getDurationLabel(currentActivity.duration: any)}
                               </Badge>
                               <Badge variant="secondary">
-                                {getAgeRangeLabel(currentActivity.ageRange)}
+                                {getAgeRangeLabel(currentActivity.ageRange: any)}
                               </Badge>
                               <Badge variant="secondary">
-                                {getDifficultyLabel(currentActivity.difficulty)}
+                                {getDifficultyLabel(currentActivity.difficulty: any)}
                               </Badge>
                               <Badge variant="secondary">
                                 {currentActivity.category}
@@ -1138,7 +1138,7 @@ const GuidedMindfulnessActivities = () => {
                             <div className="mb-4">
                               <h3 className="text-lg font-medium mb-2">Benefits:</h3>
                               <div className="flex flex-wrap gap-2">
-                                {currentActivity.benefits.map((benefit, index) => (
+                                {currentActivity.benefits.map((benefit: any, index) => (
                                   <Badge key={index} variant="outline" className="bg-green-50">
                                     {benefit}
                                   </Badge>
@@ -1149,7 +1149,7 @@ const GuidedMindfulnessActivities = () => {
                             <div>
                               <h3 className="text-lg font-medium mb-2">Instructions:</h3>
                               <ol className="list-decimal pl-5 space-y-1">
-                                {currentActivity.instructions.map((instruction, index) => (
+                                {currentActivity.instructions.map((instruction: any, index) => (
                                   <li key={index}>{instruction}</li>
                                 ))}
                               </ol>
@@ -1179,8 +1179,8 @@ const GuidedMindfulnessActivities = () => {
                                 variant="outline"
                                 size="icon"
                                 onClick={() => {
-                                  setCurrentTime(0);
-                                  if (audioRef.current) {
+                                  setCurrentTime(0: any);
+                                  if (audioRef.current: any) {
                                     audioRef.current.currentTime = 0;
                                   }
                                 }}
@@ -1212,8 +1212,8 @@ const GuidedMindfulnessActivities = () => {
                             
                             <div className="space-y-2">
                               <div className="flex justify-between text-sm">
-                                <span>{formatTime(currentTime)}</span>
-                                <span>{formatTime(duration)}</span>
+                                <span>{formatTime(currentTime: any)}</span>
+                                <span>{formatTime(duration: any)}</span>
                               </div>
                               <input
                                 type="range"
@@ -1258,10 +1258,10 @@ const GuidedMindfulnessActivities = () => {
                           
                           <Button
                             variant="outline"
-                            onClick={() => handleToggleFavorite(currentActivity.id)}
-                            className={favoriteActivities.includes(currentActivity.id) ? "text-amber-500" : ""}
+                            onClick={() => handleToggleFavorite(currentActivity.id: any)}
+                            className={favoriteActivities.includes(currentActivity.id: any) ? "text-amber-500" : ""}
                           >
-                            {favoriteActivities.includes(currentActivity.id) ? (
+                            {favoriteActivities.includes(currentActivity.id: any) ? (
                               <>
                                 <Star className="h-4 w-4 fill-current mr-2" />
                                 Remove from Favorites
@@ -1314,9 +1314,9 @@ const GuidedMindfulnessActivities = () => {
                       <ScrollArea className="h-[500px] pr-4">
                         <div className="space-y-6">
                           {activityHistory.length > 0 ? (
-                            activityHistory.map((historyItem) => {
-                              const activity = getActivityById(historyItem.activityId);
-                              if (!activity) return null;
+                            activityHistory.map((historyItem: any) => {
+                              const activity = getActivityById(historyItem.activityId: any);
+                              if (!activity: any) return null;
                               
                               return (
                                 <Card key={historyItem.id} className="border-l-4" style={{ 
@@ -1334,7 +1334,7 @@ const GuidedMindfulnessActivities = () => {
                                         {activity.title}
                                       </CardTitle>
                                       <div className="text-sm text-muted-foreground">
-                                        {formatDate(historyItem.completedAt)}
+                                        {formatDate(historyItem.completedAt: any)}
                                       </div>
                                     </div>
                                   </CardHeader>
@@ -1345,7 +1345,7 @@ const GuidedMindfulnessActivities = () => {
                                           {activity.category}
                                         </Badge>
                                         <Badge variant="secondary">
-                                          {getDurationLabel(historyItem.duration)}
+                                          {getDurationLabel(historyItem.duration: any)}
                                         </Badge>
                                       </div>
                                       
@@ -1353,7 +1353,7 @@ const GuidedMindfulnessActivities = () => {
                                         <div className="flex items-centre">
                                           <span className="mr-2">Rating:</span>
                                           <div className="flex">
-                                            {[1, 2, 3, 4, 5].map((star) => (
+                                            {[1, 2, 3, 4, 5].map((star: any) => (
                                               <Star 
                                                 key={star} 
                                                 className={`h-4 w-4 ${
@@ -1370,10 +1370,10 @@ const GuidedMindfulnessActivities = () => {
                                           variant="outline" 
                                           size="sm"
                                           onClick={() => {
-                                            const rating = prompt("How was this practise? Rate from 1-5 (5 being excellent)");
-                                            if (rating && !isNaN(parseInt(rating)) && parseInt(rating) >= 1 && parseInt(rating) <= 5) {
-                                              const notes = prompt("Any notes about your experience? (optional)");
-                                              handleActivityFeedback(historyItem.activityId, parseInt(rating), notes || "");
+                                            const rating = prompt("How was this practise? Rate from 1-5 (5 being excellent: any)");
+                                            if (rating && !isNaN(parseInt(rating: any)) && parseInt(rating: any) >= 1 && parseInt(rating: any) <= 5) {
+                                              const notes = prompt("Any notes about your experience? (optional: any)");
+                                              handleActivityFeedback(historyItem.activityId: any, parseInt(rating: any), notes || "");
                                             }
                                           }}
                                         >
@@ -1391,7 +1391,7 @@ const GuidedMindfulnessActivities = () => {
                                   <CardFooter>
                                     <Button 
                                       variant="outline"
-                                      onClick={() => handleActivitySelection(activity)}
+                                      onClick={() => handleActivitySelection(activity: any)}
                                       className="w-full"
                                     >
                                       Practise Again
@@ -1429,7 +1429,7 @@ const GuidedMindfulnessActivities = () => {
                           <Label htmlFor="preferred-duration">Preferred Practise Duration</Label>
                           <Select 
                             value={userPreferences.preferredDuration}
-                            onValueChange={(value) => {
+                            onValueChange={(value: any) => {
                               setUserPreferences(prev => ({
                                 ...prev,
                                 preferredDuration: value
@@ -1440,9 +1440,9 @@ const GuidedMindfulnessActivities = () => {
                               <SelectValue placeholder="Select duration" />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="short">Short (5 minutes or less)</SelectItem>
-                              <SelectItem value="medium">Medium (5-10 minutes)</SelectItem>
-                              <SelectItem value="long">Long (10+ minutes)</SelectItem>
+                              <SelectItem value="short">Short (5 minutes or less: any)</SelectItem>
+                              <SelectItem value="medium">Medium (5-10 minutes: any)</SelectItem>
+                              <SelectItem value="long">Long (10+ minutes: any)</SelectItem>
                             </SelectContent>
                           </Select>
                           <p className="text-sm text-muted-foreground mt-1">
@@ -1455,18 +1455,18 @@ const GuidedMindfulnessActivities = () => {
                         <div className="space-y-2">
                           <Label htmlFor="preferred-themes">Preferred Practise Themes</Label>
                           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                            {["breathing", "body-scan", "visualisation", "movement", "sensory", "compassion"].map((type) => (
+                            {["breathing", "body-scan", "visualisation", "movement", "sensory", "compassion"].map((type: any) => (
                               <div key={type} className="flex items-centre space-x-2">
                                 <Switch 
                                   id={`type-${type}`} 
-                                  checked={userPreferences.preferredThemes.includes(type)}
-                                  onCheckedChange={(checked) => {
+                                  checked={userPreferences.preferredThemes.includes(type: any)}
+                                  onCheckedChange={(checked: any) => {
                                     setUserPreferences(prev => {
                                       const updated = { ...prev };
                                       if (checked) {
                                         updated.preferredThemes = [...updated.preferredThemes, type];
                                       } else {
-                                        updated.preferredThemes = updated.preferredThemes.filter(t => t !== type);
+                                        updated.preferredThemes = updated.preferredThemes.filter(t => t !== type: any);
                                       }
                                       return updated;
                                     });
@@ -1484,7 +1484,7 @@ const GuidedMindfulnessActivities = () => {
                           <Label htmlFor="preferred-voice">Preferred Narration Voice</Label>
                           <Select 
                             value={userPreferences.preferredVoice}
-                            onValueChange={(value) => {
+                            onValueChange={(value: any) => {
                               setUserPreferences(prev => ({
                                 ...prev,
                                 preferredVoice: value
@@ -1508,7 +1508,7 @@ const GuidedMindfulnessActivities = () => {
                           <Label htmlFor="reminder-frequency">Practise Reminders</Label>
                           <Select 
                             value={userPreferences.reminderFrequency}
-                            onValueChange={(value) => {
+                            onValueChange={(value: any) => {
                               setUserPreferences(prev => ({
                                 ...prev,
                                 reminderFrequency: value
@@ -1535,7 +1535,7 @@ const GuidedMindfulnessActivities = () => {
                           <Switch 
                             id="background-sounds" 
                             checked={userPreferences.backgroundSounds}
-                            onCheckedChange={(checked) => {
+                            onCheckedChange={(checked: any) => {
                               setUserPreferences(prev => ({
                                 ...prev,
                                 backgroundSounds: checked

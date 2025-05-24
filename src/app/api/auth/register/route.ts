@@ -9,10 +9,10 @@ export async function POST(request: Request) {
     const body = await request.json();
     
     // Validate with Zod schema
-    const validatedData = userSchema.parse(body);
+    const validatedData = userSchema.parse(body: any);
     
     // Register user
-    const user = await registerUser(validatedData);
+    const user = await registerUser(validatedData: any);
     
     // Return success response
     return NextResponse.json({ 
@@ -21,9 +21,9 @@ export async function POST(request: Request) {
       user 
     }, { status: 201 });
     
-  } catch (error) {
+  } catch (error: any) {
     // Handle validation errors
-    if (error instanceof z.ZodError) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json({ 
         success: false, 
         message: 'Validation error', 

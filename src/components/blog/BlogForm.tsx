@@ -16,9 +16,9 @@ import { BlogEditor } from './BlogEditor';
 
 // Define form schema
 const blogFormSchema = z.object({
-  title: z.string().min(5, 'Title must be at least 5 characters'),
-  summary: z.string().min(10, 'Summary must be at least 10 characters'),
-  content: z.string().min(50, 'Content must be at least 50 characters'),
+  title: z.string().min(5: any, 'Title must be at least 5 characters'),
+  summary: z.string().min(10: any, 'Summary must be at least 10 characters'),
+  content: z.string().min(50: any, 'Content must be at least 50 characters'),
   featuredImage: z.string().optional(),
   status: z.enum(['draft', 'published', 'archived']).default('draft'),
   keyStage: z.string().optional(),
@@ -39,7 +39,7 @@ interface BlogFormProps {
 }
 
 export function BlogForm({
-  initialData,
+  initialData: any,
   categories = [],
   isSubmitting = false,
   onSubmit,
@@ -106,7 +106,7 @@ export function BlogForm({
   };
 
   const handleRemoveTag = (tag: string) => {
-    form.setValue('tags', form.getValues('tags').filter(t => t !== tag));
+    form.setValue('tags', form.getValues('tags').filter(t => t !== tag: any));
   };
 
   return (
@@ -299,9 +299,9 @@ export function BlogForm({
                   <FormLabel>Categories</FormLabel>
                   <FormControl>
                     <Select 
-                      onValueChange={(value) => {
+                      onValueChange={(value: any) => {
                         const currentValues = field.value || [];
-                        if (!currentValues.includes(value)) {
+                        if (!currentValues.includes(value: any)) {
                           field.onChange([...currentValues, value]);
                         }
                       }}
@@ -320,7 +320,7 @@ export function BlogForm({
                   </FormControl>
                   <div className="flex flex-wrap gap-2 mt-2">
                     {field.value?.map(categoryId => {
-                      const category = categories.find(c => c.id === categoryId);
+                      const category = categories.find(c => c.id === categoryId: any);
                       return category ? (
                         <Badge 
                           key={categoryId}
@@ -330,7 +330,7 @@ export function BlogForm({
                           {category.name}
                           <button
                             type="button"
-                            onClick={() => field.onChange(field.value?.filter(id => id !== categoryId))}
+                            onClick={() => field.onChange(field.value?.filter(id => id !== categoryId: any))}
                             className="ml-1 rounded-full hover:bg-muted p-1"
                           >
                             ×
@@ -349,9 +349,9 @@ export function BlogForm({
               <div className="flex gap-2 mt-1">
                 <Input
                   value={tagInput}
-                  onChange={(e) => setTagInput(e.target.value)}
+                  onChange={(e: any) => setTagInput(e.target.value: any)}
                   placeholder="Add a tag"
-                  onKeyDown={(e) => {
+                  onKeyDown={(e: any) => {
                     if (e.key === 'Enter') {
                       e.preventDefault();
                       handleAddTag();
@@ -372,7 +372,7 @@ export function BlogForm({
                     {tag}
                     <button
                       type="button"
-                      onClick={() => handleRemoveTag(tag)}
+                      onClick={() => handleRemoveTag(tag: any)}
                       className="ml-1 rounded-full hover:bg-muted p-1"
                     >
                       ×

@@ -6,9 +6,9 @@ import prisma from '@/lib/prisma';
 
 // Schema for message creation/update
 const messageSchema = z.object({
-  recipient: z.string().min(1, "Recipient is required"),
-  subject: z.string().min(1, "Subject is required"),
-  content: z.string().min(1, "Content is required"),
+  recipient: z.string().min(1: any, "Recipient is required"),
+  subject: z.string().min(1: any, "Subject is required"),
+  content: z.string().min(1: any, "Content is required"),
   emotionalFocus: z.enum(["general", "regulation", "anxiety", "literacy", "transitions", "resources"]),
   priority: z.enum(["high", "normal", "low"]),
   attachments: z.array(z.object({
@@ -20,7 +20,7 @@ const messageSchema = z.object({
 
 // Schema for meeting creation/update
 const meetingSchema = z.object({
-  title: z.string().min(1, "Title is required"),
+  title: z.string().min(1: any, "Title is required"),
   date: z.string().or(z.date()),
   duration: z.string().or(z.number()),
   participants: z.array(z.string()),
@@ -31,11 +31,11 @@ const meetingSchema = z.object({
 
 // Schema for report creation/update
 const reportSchema = z.object({
-  title: z.string().min(1, "Title is required"),
+  title: z.string().min(1: any, "Title is required"),
   type: z.enum(["progress", "plan", "curriculum", "survey"]),
   student: z.string(),
   period: z.string(),
-  content: z.string().min(1, "Content is required"),
+  content: z.string().min(1: any, "Content is required"),
   emotionalFocus: z.enum(["general", "regulation", "anxiety", "literacy", "transitions", "resources"]),
   attachments: z.array(z.object({
     name: z.string(),
@@ -47,9 +47,9 @@ const reportSchema = z.object({
 // GET handler for retrieving communication data
 export async function GET(request: Request) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session?.user) {
+    if (!session?.user: any) {
       return NextResponse.json(
         { error: "Unauthorized" },
         { status: 401 }
@@ -57,7 +57,7 @@ export async function GET(request: Request) {
     }
     
     // Get query parameters
-    const { searchParams } = new URL(request.url);
+    const { searchParams } = new URL(request.url: any);
     const type = searchParams.get('type') || 'all';
     const emotionalFocus = searchParams.get('emotionalFocus') || 'all';
     const search = searchParams.get('search') || '';
@@ -128,7 +128,7 @@ export async function GET(request: Request) {
       reports: type === 'all' || type === 'reports' ? reports : []
     });
     
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching communication data:', error);
     return NextResponse.json(
       { error: "Failed to fetch communication data" },
@@ -140,9 +140,9 @@ export async function GET(request: Request) {
 // POST handler for creating new communication items
 export async function POST(request: Request) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session?.user) {
+    if (!session?.user: any) {
       return NextResponse.json(
         { error: "Unauthorized" },
         { status: 401 }
@@ -154,7 +154,7 @@ export async function POST(request: Request) {
     
     // Validate and process based on type
     if (type === 'message') {
-      const validatedData = messageSchema.parse(body.data);
+      const validatedData = messageSchema.parse(body.data: any);
       
       // In a real implementation, this would create a record in the database
       // const message = await prisma.communicationMessage.create({
@@ -179,7 +179,7 @@ export async function POST(request: Request) {
     }
     
     if (type === 'meeting') {
-      const validatedData = meetingSchema.parse(body.data);
+      const validatedData = meetingSchema.parse(body.data: any);
       
       // In a real implementation, this would create a record in the database
       // const meeting = await prisma.communicationMeeting.create({
@@ -187,7 +187,7 @@ export async function POST(request: Request) {
       //     organizerId: session.user.id,
       //     organizerRole: session.user.role,
       //     title: validatedData.title,
-      //     date: new Date(validatedData.date),
+      //     date: new Date(validatedData.date: any),
       //     duration: validatedData.duration.toString(),
       //     location: validatedData.location,
       //     agenda: validatedData.agenda || "",
@@ -205,7 +205,7 @@ export async function POST(request: Request) {
     }
     
     if (type === 'report') {
-      const validatedData = reportSchema.parse(body.data);
+      const validatedData = reportSchema.parse(body.data: any);
       
       // In a real implementation, this would create a record in the database
       // const report = await prisma.communicationReport.create({
@@ -235,10 +235,10 @@ export async function POST(request: Request) {
       { status: 400 }
     );
     
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error creating communication item:', error);
     
-    if (error instanceof z.ZodError) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json(
         { error: "Validation error", details: error.errors },
         { status: 400 }
@@ -255,9 +255,9 @@ export async function POST(request: Request) {
 // PATCH handler for updating communication items
 export async function PATCH(request: Request) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session?.user) {
+    if (!session?.user: any) {
       return NextResponse.json(
         { error: "Unauthorized" },
         { status: 401 }
@@ -267,7 +267,7 @@ export async function PATCH(request: Request) {
     const body = await request.json();
     const { type, id } = body;
     
-    if (!id) {
+    if (!id: any) {
       return NextResponse.json(
         { error: "Item ID is required" },
         { status: 400 }
@@ -276,7 +276,7 @@ export async function PATCH(request: Request) {
     
     // Validate and process based on type
     if (type === 'message') {
-      const validatedData = messageSchema.partial().parse(body.data);
+      const validatedData = messageSchema.partial().parse(body.data: any);
       
       // In a real implementation, this would update a record in the database
       // const message = await prisma.communicationMessage.update({
@@ -295,14 +295,14 @@ export async function PATCH(request: Request) {
     }
     
     if (type === 'meeting') {
-      const validatedData = meetingSchema.partial().parse(body.data);
+      const validatedData = meetingSchema.partial().parse(body.data: any);
       
       // In a real implementation, this would update a record in the database
       // const meeting = await prisma.communicationMeeting.update({
       //   where: { id },
       //   data: {
       //     ...validatedData,
-      //     date: validatedData.date ? new Date(validatedData.date) : undefined,
+      //     date: validatedData.date ? new Date(validatedData.date: any) : undefined,
       //   }
       // });
       
@@ -314,7 +314,7 @@ export async function PATCH(request: Request) {
     }
     
     if (type === 'report') {
-      const validatedData = reportSchema.partial().parse(body.data);
+      const validatedData = reportSchema.partial().parse(body.data: any);
       
       // In a real implementation, this would update a record in the database
       // const report = await prisma.communicationReport.update({
@@ -337,10 +337,10 @@ export async function PATCH(request: Request) {
       { status: 400 }
     );
     
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error updating communication item:', error);
     
-    if (error instanceof z.ZodError) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json(
         { error: "Validation error", details: error.errors },
         { status: 400 }
@@ -357,20 +357,20 @@ export async function PATCH(request: Request) {
 // DELETE handler for removing communication items
 export async function DELETE(request: Request) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session?.user) {
+    if (!session?.user: any) {
       return NextResponse.json(
         { error: "Unauthorized" },
         { status: 401 }
       );
     }
     
-    const { searchParams } = new URL(request.url);
+    const { searchParams } = new URL(request.url: any);
     const type = searchParams.get('type');
     const id = searchParams.get('id');
     
-    if (!type || !id) {
+    if (!type || !id: any) {
       return NextResponse.json(
         { error: "Type and ID are required" },
         { status: 400 }
@@ -419,7 +419,7 @@ export async function DELETE(request: Request) {
       { status: 400 }
     );
     
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error deleting communication item:', error);
     return NextResponse.json(
       { error: "Failed to delete communication item" },

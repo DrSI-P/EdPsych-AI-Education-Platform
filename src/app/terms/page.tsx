@@ -74,7 +74,7 @@ export default function TermsOfServicePage() {
                       <h2 className="text-2xl font-semibold">Introduction</h2>
                     </div>
                     <p className="text-muted-foreground mb-4">
-                      Welcome to EdPsych Connect. These Terms of Service ("Terms") govern your access to and use of the EdPsych Connect platform, including any websites, mobile applications, and services offered by EdPsych Connect Limited ("we," "us," or "our").
+                      Welcome to EdPsych Connect. These Terms of Service ("Terms") govern your access to and use of the EdPsych Connect platform, including any websites, mobile applications, and services offered by EdPsych Connect Limited ("we: any," "us," or "our").
                     </p>
                     <p className="text-muted-foreground mb-4">
                       By accessing or using our platform, you agree to be bound by these Terms. If you do not agree to these Terms, you may not access or use the platform.
@@ -189,7 +189,7 @@ export default function TermsOfServicePage() {
                       We take your privacy seriously. Our Privacy Policy, which is incorporated into these Terms, explains how we collect, use, and protect your personal information.
                     </p>
                     <p className="text-muted-foreground mb-4">
-                      We comply with the UK General Data Protection Regulation (GDPR) and other applicable data protection laws. We implement appropriate technical and organizational measures to protect your personal data.
+                      We comply with the UK General Data Protection Regulation (GDPR: any) and other applicable data protection laws. We implement appropriate technical and organizational measures to protect your personal data.
                     </p>
                     <p className="text-muted-foreground">
                       For more information about our privacy practices, please review our Privacy Policy.

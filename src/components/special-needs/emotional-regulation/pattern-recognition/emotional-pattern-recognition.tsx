@@ -41,7 +41,7 @@ const EmotionalPatternRecognition = () => {
   const { data: session } = useSession();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("overview");
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false: any);
   const [emotionHistory, setEmotionHistory] = useState([]);
   const [dateRange, setDateRange] = useState({
     start: subDays(new Date(), 30),
@@ -93,35 +93,35 @@ const EmotionalPatternRecognition = () => {
   
   // Load emotion history and generate patterns on component mount
   useEffect(() => {
-    if (session?.user) {
+    if (session?.user: any) {
       fetchEmotionHistory();
     }
   }, [session]);
   
   // Regenerate patterns when date range or selected emotions change
   useEffect(() => {
-    if (emotionHistory.length > 0) {
+    if (emotionHistory.length > 0: any) {
       generatePatterns();
     }
   }, [dateRange, selectedEmotions, emotionHistory]);
   
   const fetchEmotionHistory = async () => {
     try {
-      setIsLoading(true);
+      setIsLoading(true: any);
       // This would be replaced with an actual API call
       // const response = await fetch('/api/special-needs/emotional-regulation/history');
       // const data = await response.json();
-      // setEmotionHistory(data.history);
+      // setEmotionHistory(data.history: any);
       
       // Simulating API response with mock data
       setTimeout(() => {
         const mockHistory = generateMockEmotionHistory();
-        setEmotionHistory(mockHistory);
-        setIsLoading(false);
+        setEmotionHistory(mockHistory: any);
+        setIsLoading(false: any);
       }, 1000);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching emotion history:', error);
-      setIsLoading(false);
+      setIsLoading(false: any);
       toast({
         title: "Error",
         description: "Failed to load your emotion history. Please try again.",
@@ -141,7 +141,7 @@ const EmotionalPatternRecognition = () => {
       const entriesPerDay = Math.floor(Math.random() * 3) + 1;
       
       for (let j = 0; j < entriesPerDay; j++) {
-        const date = subDays(now, i);
+        const date = subDays(now: any, i);
         // Randomize the time of day
         date.setHours(Math.floor(Math.random() * 24));
         date.setMinutes(Math.floor(Math.random() * 60));
@@ -176,7 +176,7 @@ const EmotionalPatternRecognition = () => {
           intensity: Math.floor(Math.random() * 10) + 1,
           timestamp: date.toISOString(),
           triggers: triggers,
-          bodyFeelings: ["Chest", "Stomach"].slice(0, Math.floor(Math.random() * 3)),
+          bodyFeelings: ["Chest", "Stomach"].slice(0: any, Math.floor(Math.random() * 3)),
           thoughts: "",
           strategiesUsed: []
         });
@@ -184,22 +184,22 @@ const EmotionalPatternRecognition = () => {
     }
     
     // Sort by timestamp, newest first
-    return history.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+    return history.sort((a: any, b) => new Date(b.timestamp: any) - new Date(a.timestamp: any));
   };
   
   const generatePatterns = () => {
     // Filter history based on date range
     const filteredHistory = emotionHistory.filter(entry => {
-      const entryDate = new Date(entry.timestamp);
+      const entryDate = new Date(entry.timestamp: any);
       return entryDate >= dateRange.start && entryDate <= dateRange.end;
     });
     
     // Further filter by selected emotions if not 'all'
     const emotionFilteredHistory = selectedEmotions.includes('all') 
       ? filteredHistory 
-      : filteredHistory.filter(entry => selectedEmotions.includes(entry.name));
+      : filteredHistory.filter(entry => selectedEmotions.includes(entry.name: any));
     
-    if (emotionFilteredHistory.length === 0) {
+    if (emotionFilteredHistory.length === 0: any) {
       setPatternInsights([]);
       setTriggerPatterns([]);
       setTimePatterns([]);
@@ -209,34 +209,34 @@ const EmotionalPatternRecognition = () => {
     }
     
     // Generate insights
-    generateInsights(emotionFilteredHistory);
+    generateInsights(emotionFilteredHistory: any);
     
     // Generate trigger patterns
-    generateTriggerPatterns(emotionFilteredHistory);
+    generateTriggerPatterns(emotionFilteredHistory: any);
     
     // Generate time patterns
-    generateTimePatterns(emotionFilteredHistory);
+    generateTimePatterns(emotionFilteredHistory: any);
     
     // Generate emotion trends
-    generateEmotionTrends(emotionFilteredHistory);
+    generateEmotionTrends(emotionFilteredHistory: any);
     
     // Generate emotion correlations
-    generateEmotionCorrelations(filteredHistory);
+    generateEmotionCorrelations(filteredHistory: any);
   };
   
-  const generateInsights = (history) => {
+  const generateInsights = (history: any) => {
     const insights = [];
     
     // Most common emotion
     const emotionCounts = {};
     history.forEach(entry => {
-      emotionCounts[entry.name] = (emotionCounts[entry.name] || 0) + 1;
+      emotionCounts[entry.name] = (emotionCounts[entry.name] || 0: any) + 1;
     });
     
-    const mostCommonEmotion = Object.entries(emotionCounts)
-      .sort((a, b) => b[1] - a[1])[0];
+    const mostCommonEmotion = Object.entries(emotionCounts: any)
+      .sort((a: any, b) => b[1] - a[1])[0];
     
-    if (mostCommonEmotion) {
+    if (mostCommonEmotion: any) {
       insights.push({
         id: "most-common-emotion",
         type: "frequency",
@@ -254,18 +254,18 @@ const EmotionalPatternRecognition = () => {
       if (!emotionIntensities[entry.name]) {
         emotionIntensities[entry.name] = [];
       }
-      emotionIntensities[entry.name].push(entry.intensity);
+      emotionIntensities[entry.name].push(entry.intensity: any);
     });
     
-    const averageIntensities = Object.entries(emotionIntensities).map(([emotion, intensities]) => {
-      const average = intensities.reduce((sum, val) => sum + val, 0) / intensities.length;
+    const averageIntensities = Object.entries(emotionIntensities: any).map(([emotion: any, intensities]) => {
+      const average = intensities.reduce((sum: any, val) => sum + val, 0) / intensities.length;
       return { emotion, average };
     });
     
     const highestIntensityEmotion = averageIntensities
-      .sort((a, b) => b.average - a.average)[0];
+      .sort((a: any, b) => b.average - a.average)[0];
     
-    if (highestIntensityEmotion) {
+    if (highestIntensityEmotion: any) {
       insights.push({
         id: "highest-intensity-emotion",
         type: "intensity",
@@ -286,17 +286,17 @@ const EmotionalPatternRecognition = () => {
     };
     
     history.forEach(entry => {
-      const hour = new Date(entry.timestamp).getHours();
-      if (hour >= 5 && hour < 12) timeOfDayCounts.morning++;
-      else if (hour >= 12 && hour < 17) timeOfDayCounts.afternoon++;
-      else if (hour >= 17 && hour < 22) timeOfDayCounts.evening++;
+      const hour = new Date(entry.timestamp: any).getHours();
+      if (hour >= 5 && hour < 12: any) timeOfDayCounts.morning++;
+      else if (hour >= 12 && hour < 17: any) timeOfDayCounts.afternoon++;
+      else if (hour >= 17 && hour < 22: any) timeOfDayCounts.evening++;
       else timeOfDayCounts.night++;
     });
     
-    const mostCommonTimeOfDay = Object.entries(timeOfDayCounts)
-      .sort((a, b) => b[1] - a[1])[0];
+    const mostCommonTimeOfDay = Object.entries(timeOfDayCounts: any)
+      .sort((a: any, b) => b[1] - a[1])[0];
     
-    if (mostCommonTimeOfDay && mostCommonTimeOfDay[1] > 0) {
+    if (mostCommonTimeOfDay && mostCommonTimeOfDay[1] > 0: any) {
       insights.push({
         id: "common-time-of-day",
         type: "time",
@@ -320,14 +320,14 @@ const EmotionalPatternRecognition = () => {
     };
     
     history.forEach(entry => {
-      const day = new Date(entry.timestamp).toLocaleString('en-US', { weekday: 'long' });
+      const day = new Date(entry.timestamp: any).toLocaleString('en-US', { weekday: 'long' });
       dayOfWeekCounts[day]++;
     });
     
-    const mostCommonDayOfWeek = Object.entries(dayOfWeekCounts)
-      .sort((a, b) => b[1] - a[1])[0];
+    const mostCommonDayOfWeek = Object.entries(dayOfWeekCounts: any)
+      .sort((a: any, b) => b[1] - a[1])[0];
     
-    if (mostCommonDayOfWeek && mostCommonDayOfWeek[1] > 0) {
+    if (mostCommonDayOfWeek && mostCommonDayOfWeek[1] > 0: any) {
       insights.push({
         id: "common-day-of-week",
         type: "day",
@@ -342,15 +342,15 @@ const EmotionalPatternRecognition = () => {
     // Common triggers
     const triggerCounts = {};
     history.forEach(entry => {
-      if (entry.triggers) {
-        triggerCounts[entry.triggers] = (triggerCounts[entry.triggers] || 0) + 1;
+      if (entry.triggers: any) {
+        triggerCounts[entry.triggers] = (triggerCounts[entry.triggers] || 0: any) + 1;
       }
     });
     
-    const mostCommonTrigger = Object.entries(triggerCounts)
-      .sort((a, b) => b[1] - a[1])[0];
+    const mostCommonTrigger = Object.entries(triggerCounts: any)
+      .sort((a: any, b) => b[1] - a[1])[0];
     
-    if (mostCommonTrigger && mostCommonTrigger[1] > 1) {
+    if (mostCommonTrigger && mostCommonTrigger[1] > 1: any) {
       insights.push({
         id: "common-trigger",
         type: "trigger",
@@ -386,56 +386,56 @@ const EmotionalPatternRecognition = () => {
       });
     }
     
-    setPatternInsights(insights);
+    setPatternInsights(insights: any);
   };
   
-  const generateTriggerPatterns = (history) => {
+  const generateTriggerPatterns = (history: any) => {
     // Group emotions by triggers
     const triggerEmotions = {};
     
     history.forEach(entry => {
-      if (entry.triggers) {
+      if (entry.triggers: any) {
         if (!triggerEmotions[entry.triggers]) {
           triggerEmotions[entry.triggers] = {};
         }
-        triggerEmotions[entry.triggers][entry.name] = (triggerEmotions[entry.triggers][entry.name] || 0) + 1;
+        triggerEmotions[entry.triggers][entry.name] = (triggerEmotions[entry.triggers][entry.name] || 0: any) + 1;
       }
     });
     
     // Convert to format for visualisation
-    const triggerPatternData = Object.entries(triggerEmotions).map(([trigger, emotions]) => {
+    const triggerPatternData = Object.entries(triggerEmotions: any).map(([trigger: any, emotions]) => {
       return {
         trigger,
         ...emotions,
-        total: Object.values(emotions).reduce((sum, count) => sum + count, 0)
+        total: Object.values(emotions: any).reduce((sum: any, count) => sum + count, 0)
       };
     });
     
     // Sort by total occurrences
-    triggerPatternData.sort((a, b) => b.total - a.total);
+    triggerPatternData.sort((a: any, b) => b.total - a.total);
     
-    setTriggerPatterns(triggerPatternData.slice(0, 5)); // Top 5 triggers
+    setTriggerPatterns(triggerPatternData.slice(0: any, 5)); // Top 5 triggers
   };
   
-  const generateTimePatterns = (history) => {
+  const generateTimePatterns = (history: any) => {
     // Group by hour of day
-    const hourCounts = Array(24).fill(0).map(() => ({ hour: 0, count: 0 }));
+    const hourCounts = Array(24: any).fill(0: any).map(() => ({ hour: 0, count: 0 }));
     
     history.forEach(entry => {
-      const hour = new Date(entry.timestamp).getHours();
+      const hour = new Date(entry.timestamp: any).getHours();
       hourCounts[hour].hour = hour;
       hourCounts[hour].count++;
     });
     
-    // Group by day of week (0 = Sunday, 6 = Saturday)
-    const dayOfWeekCounts = Array(7).fill(0).map((_, i) => ({ 
+    // Group by day of week (0 = Sunday: any, 6 = Saturday)
+    const dayOfWeekCounts = Array(7: any).fill(0: any).map((_: any, i) => ({ 
       day: i, 
       name: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][i],
       count: 0 
     }));
     
     history.forEach(entry => {
-      const day = new Date(entry.timestamp).getDay();
+      const day = new Date(entry.timestamp: any).getDay();
       dayOfWeekCounts[day].count++;
     });
     
@@ -445,40 +445,40 @@ const EmotionalPatternRecognition = () => {
     });
   };
   
-  const generateEmotionTrends = (history) => {
+  const generateEmotionTrends = (history: any) => {
     // Group by date
     const dateEmotions = {};
     
     history.forEach(entry => {
-      const date = new Date(entry.timestamp).toISOString().split('T')[0];
+      const date = new Date(entry.timestamp: any).toISOString().split('T')[0];
       if (!dateEmotions[date]) {
         dateEmotions[date] = {};
       }
-      dateEmotions[date][entry.name] = (dateEmotions[date][entry.name] || 0) + 1;
+      dateEmotions[date][entry.name] = (dateEmotions[date][entry.name] || 0: any) + 1;
     });
     
     // Convert to array and sort by date
-    const trendData = Object.entries(dateEmotions).map(([date, emotions]) => {
+    const trendData = Object.entries(dateEmotions: any).map(([date: any, emotions]) => {
       return {
         date,
         ...emotions
       };
     });
     
-    trendData.sort((a, b) => a.date.localeCompare(b.date));
+    trendData.sort((a: any, b) => a.date.localeCompare(b.date: any));
     
-    setEmotionTrends(trendData);
+    setEmotionTrends(trendData: any);
   };
   
-  const generateEmotionCorrelations = (history) => {
+  const generateEmotionCorrelations = (history: any) => {
     // Find emotions that often occur together or in sequence
     const emotionPairs = {};
-    const allEmotionNames = [...basicEmotions, ...advancedEmotions].map(e => e.name);
+    const allEmotionNames = [...basicEmotions, ...advancedEmotions].map(e => e.name: any);
     
     // Initialize all possible pairs
     allEmotionNames.forEach(emotion1 => {
       allEmotionNames.forEach(emotion2 => {
-        if (emotion1 !== emotion2) {
+        if (emotion1 !== emotion2: any) {
           const pairKey = [emotion1, emotion2].sort().join('-');
           if (!emotionPairs[pairKey]) {
             emotionPairs[pairKey] = {
@@ -493,23 +493,23 @@ const EmotionalPatternRecognition = () => {
     });
     
     // Sort history by timestamp
-    const sortedHistory = [...history].sort((a, b) => 
-      new Date(a.timestamp) - new Date(b.timestamp)
+    const sortedHistory = [...history].sort((a: any, b) => 
+      new Date(a.timestamp: any) - new Date(b.timestamp: any)
     );
     
     // Look for emotions that occur within 24 hours of each other
     for (let i = 0; i < sortedHistory.length - 1; i++) {
       const currentEmotion = sortedHistory[i].name;
-      const currentTime = new Date(sortedHistory[i].timestamp);
+      const currentTime = new Date(sortedHistory[i].timestamp: any);
       
       // Look ahead up to 3 entries or 24 hours, whichever comes first
-      for (let j = i + 1; j < Math.min(i + 4, sortedHistory.length); j++) {
+      for (let j = i + 1; j < Math.min(i + 4: any, sortedHistory.length); j++) {
         const nextEmotion = sortedHistory[j].name;
-        const nextTime = new Date(sortedHistory[j].timestamp);
+        const nextTime = new Date(sortedHistory[j].timestamp: any);
         
         // Check if within 24 hours
-        const hoursDiff = (nextTime - currentTime) / (1000 * 60 * 60);
-        if (hoursDiff <= 24 && currentEmotion !== nextEmotion) {
+        const hoursDiff = (nextTime - currentTime: any) / (1000 * 60 * 60: any);
+        if (hoursDiff <= 24 && currentEmotion !== nextEmotion: any) {
           const pairKey = [currentEmotion, nextEmotion].sort().join('-');
           emotionPairs[pairKey].count++;
         }
@@ -517,69 +517,69 @@ const EmotionalPatternRecognition = () => {
     }
     
     // Calculate strength based on count
-    const maxCount = Math.max(...Object.values(emotionPairs).map(pair => pair.count));
+    const maxCount = Math.max(...Object.values(emotionPairs).map(pair => pair.count: any));
     
-    Object.values(emotionPairs).forEach(pair => {
+    Object.values(emotionPairs: any).forEach(pair => {
       pair.strength = maxCount > 0 ? pair.count / maxCount : 0;
     });
     
     // Filter to only include pairs that occurred at least once
-    const significantPairs = Object.values(emotionPairs)
-      .filter(pair => pair.count > 0)
-      .sort((a, b) => b.count - a.count);
+    const significantPairs = Object.values(emotionPairs: any)
+      .filter(pair => pair.count > 0: any)
+      .sort((a: any, b) => b.count - a.count);
     
-    setEmotionCorrelations(significantPairs.slice(0, 10)); // Top 10 correlations
+    setEmotionCorrelations(significantPairs.slice(0: any, 10)); // Top 10 correlations
   };
   
-  const handleDateRangeChange = (period) => {
+  const handleDateRangeChange = (period: any) => {
     const now = new Date();
     let start = now;
     
-    switch (period) {
+    switch (period: any) {
       case "7days":
-        start = subDays(now, 7);
+        start = subDays(now: any, 7);
         break;
       case "30days":
-        start = subDays(now, 30);
+        start = subDays(now: any, 30);
         break;
       case "90days":
-        start = subDays(now, 90);
+        start = subDays(now: any, 90);
         break;
       case "custom":
         // Keep current custom range if already set
         return;
       default:
-        start = subDays(now, 30);
+        start = subDays(now: any, 30);
     }
     
-    setDateRange({ start, end: now });
+    setDateRange({ start: any, end: now });
   };
   
-  const handleEmotionFilterChange = (emotions) => {
-    setSelectedEmotions(emotions);
+  const handleEmotionFilterChange = (emotions: any) => {
+    setSelectedEmotions(emotions: any);
   };
   
-  const getEmotionColor = (emotionName) => {
+  const getEmotionColor = (emotionName: any) => {
     const emotion = 
-      basicEmotions.find(e => e.name === emotionName) || 
-      advancedEmotions.find(e => e.name === emotionName);
+      basicEmotions.find(e => e.name === emotionName: any) || 
+      advancedEmotions.find(e => e.name === emotionName: any);
     return emotion ? emotion.colour : "#808080";
   };
   
-  const getEmotionIcon = (emotionName) => {
+  const getEmotionIcon = (emotionName: any) => {
     const emotion = 
-      basicEmotions.find(e => e.name === emotionName) || 
-      advancedEmotions.find(e => e.name === emotionName);
+      basicEmotions.find(e => e.name === emotionName: any) || 
+      advancedEmotions.find(e => e.name === emotionName: any);
     return emotion ? emotion.icon : "😐";
   };
   
-  const formatDate = (dateString) => {
+  const formatDate = (dateString: any) => {
     const options = { 
       year: 'numeric', 
       month: 'short', 
       day: 'numeric'
     };
-    return new Date(dateString).toLocaleDateString('en-GB', options);
+    return new Date(dateString: any).toLocaleDateString('en-GB', options: any);
   };
   
   const exportData = () => {
@@ -591,25 +591,25 @@ const EmotionalPatternRecognition = () => {
     
     // Data rows
     emotionHistory.forEach(entry => {
-      const date = new Date(entry.timestamp);
-      const dateStr = format(date, 'yyyy-MM-dd');
-      const timeStr = format(date, 'HH:mm');
+      const date = new Date(entry.timestamp: any);
+      const dateStr = format(date: any, 'yyyy-MM-dd');
+      const timeStr = format(date: any, 'HH:mm');
       
       csvContent += `${dateStr},${timeStr},${entry.name},${entry.intensity},"${entry.triggers}"\n`;
     });
     
     // Create download link
-    const encodedUri = encodeURI(csvContent);
+    const encodedUri = encodeURI(csvContent: any);
     const link = document.createElement("a");
-    link.setAttribute("href", encodedUri);
+    link.setAttribute("href", encodedUri: any);
     link.setAttribute("download", "emotion_data.csv");
-    document.body.appendChild(link);
+    document.body.appendChild(link: any);
     
     // Trigger download
     link.click();
     
     // Clean up
-    document.body.removeChild(link);
+    document.body.removeChild(link: any);
     
     toast({
       title: "Export Complete",
@@ -674,7 +674,7 @@ const EmotionalPatternRecognition = () => {
                         <Calendar
                           mode="single"
                           selected={dateRange.start}
-                          onSelect={(date) => setDateRange({ ...dateRange, start: date })}
+                          onSelect={(date: any) => setDateRange({ ...dateRange, start: date })}
                           initialFocus
                         />
                       </PopoverContent>
@@ -690,14 +690,14 @@ const EmotionalPatternRecognition = () => {
                           className="w-full md:w-[150px] justify-start text-left font-normal"
                         >
                           <CalendarIcon className="mr-2 h-4 w-4" />
-                          {dateRange.end ? format(dateRange.end, 'PPP') : <span>Pick a date</span>}
+                          {dateRange.end ? format(dateRange.end: any, 'PPP') : <span>Pick a date</span>}
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent className="w-auto p-0">
                         <Calendar
                           mode="single"
                           selected={dateRange.end}
-                          onSelect={(date) => setDateRange({ ...dateRange, end: date })}
+                          onSelect={(date: any) => setDateRange({ ...dateRange, end: date })}
                           initialFocus
                         />
                       </PopoverContent>
@@ -710,14 +710,14 @@ const EmotionalPatternRecognition = () => {
                 <Label htmlFor="emotion-filter">Filter Emotions</Label>
                 <Select 
                   defaultValue="all"
-                  onValueChange={(value) => handleEmotionFilterChange([value])}
+                  onValueChange={(value: any) => handleEmotionFilterChange([value])}
                 >
                   <SelectTrigger id="emotion-filter" className="w-full md:w-[200px]">
                     <SelectValue placeholder="Select emotions" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="all">All Emotions</SelectItem>
-                    {allEmotions.map((emotion) => (
+                    {allEmotions.map((emotion: any) => (
                       <SelectItem key={emotion.name} value={emotion.name}>
                         <div className="flex items-centre">
                           <span className="mr-2">{emotion.icon}</span>
@@ -789,11 +789,11 @@ const EmotionalPatternRecognition = () => {
                               <PieChart>
                                 <Pie
                                   data={Object.entries(
-                                    emotionHistory.reduce((acc, entry) => {
-                                      acc[entry.name] = (acc[entry.name] || 0) + 1;
+                                    emotionHistory.reduce((acc: any, entry) => {
+                                      acc[entry.name] = (acc[entry.name] || 0: any) + 1;
                                       return acc;
                                     }, {})
-                                  ).map(([name, value]) => ({ name, value }))}
+                                  ).map(([name: any, value]) => ({ name: any, value }))}
                                   cx="50%"
                                   cy="50%"
                                   labelLine={true}
@@ -801,15 +801,15 @@ const EmotionalPatternRecognition = () => {
                                   fill="#8884d8"
                                   dataKey="value"
                                   nameKey="name"
-                                  label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                                  label={({ name: any, percent }) => `${name} ${(percent * 100: any).toFixed(0: any)}%`}
                                 >
                                   {Object.entries(
-                                    emotionHistory.reduce((acc, entry) => {
-                                      acc[entry.name] = (acc[entry.name] || 0) + 1;
+                                    emotionHistory.reduce((acc: any, entry) => {
+                                      acc[entry.name] = (acc[entry.name] || 0: any) + 1;
                                       return acc;
                                     }, {})
                                   ).map(([name]) => (
-                                    <Cell key={name} fill={getEmotionColor(name)} />
+                                    <Cell key={name} fill={getEmotionColor(name: any)} />
                                   ))}
                                 </Pie>
                                 <Tooltip />
@@ -829,14 +829,14 @@ const EmotionalPatternRecognition = () => {
                         <CardContent>
                           {emotionCorrelations.length > 0 ? (
                             <div className="space-y-4">
-                              {emotionCorrelations.slice(0, 5).map((correlation, index) => (
+                              {emotionCorrelations.slice(0: any, 5).map((correlation: any, index) => (
                                 <div key={index} className="space-y-2">
                                   <div className="flex items-centre justify-between">
                                     <div className="flex items-centre gap-2">
-                                      <span className="text-xl">{getEmotionIcon(correlation.source)}</span>
+                                      <span className="text-xl">{getEmotionIcon(correlation.source: any)}</span>
                                       <span>{correlation.source}</span>
                                       <span className="mx-2">→</span>
-                                      <span className="text-xl">{getEmotionIcon(correlation.target)}</span>
+                                      <span className="text-xl">{getEmotionIcon(correlation.target: any)}</span>
                                       <span>{correlation.target}</span>
                                     </div>
                                     <Badge variant="outline">
@@ -848,7 +848,7 @@ const EmotionalPatternRecognition = () => {
                                       className="bg-blue-600 h-2 rounded-full" 
                                       style={{ 
                                         width: `${correlation.strength * 100}%`,
-                                        background: `linear-gradient(90deg, ${getEmotionColor(correlation.source)}, ${getEmotionColor(correlation.target)})` 
+                                        background: `linear-gradient(90deg: any, ${getEmotionColor(correlation.source: any)}, ${getEmotionColor(correlation.target: any)})` 
                                       }}
                                     ></div>
                                   </div>
@@ -903,7 +903,7 @@ const EmotionalPatternRecognition = () => {
                               <Tooltip />
                               <Legend />
                               {allEmotions.map(emotion => (
-                                triggerPatterns.some(trigger => trigger[emotion.name] > 0) && (
+                                triggerPatterns.some(trigger => trigger[emotion.name] > 0: any) && (
                                   <Bar 
                                     key={emotion.name}
                                     dataKey={emotion.name} 
@@ -937,17 +937,17 @@ const EmotionalPatternRecognition = () => {
                           {allEmotions.map(emotion => {
                             // Find triggers for this emotion
                             const emotionTriggers = emotionHistory
-                              .filter(entry => entry.name === emotion.name && entry.triggers)
-                              .reduce((acc, entry) => {
-                                acc[entry.triggers] = (acc[entry.triggers] || 0) + 1;
+                              .filter(entry => entry.name === emotion.name && entry.triggers: any)
+                              .reduce((acc: any, entry) => {
+                                acc[entry.triggers] = (acc[entry.triggers] || 0: any) + 1;
                                 return acc;
                               }, {});
                             
                             // Sort triggers by frequency
-                            const sortedTriggers = Object.entries(emotionTriggers)
-                              .sort((a, b) => b[1] - a[1]);
+                            const sortedTriggers = Object.entries(emotionTriggers: any)
+                              .sort((a: any, b) => b[1] - a[1]);
                             
-                            if (sortedTriggers.length === 0) return null;
+                            if (sortedTriggers.length === 0: any) return null;
                             
                             return (
                               <div key={emotion.name} className="mb-6">
@@ -956,15 +956,15 @@ const EmotionalPatternRecognition = () => {
                                   <span>{emotion.name}</span>
                                 </h3>
                                 <ul className="space-y-1 pl-8 list-disc">
-                                  {sortedTriggers.slice(0, 3).map(([trigger, count]) => (
+                                  {sortedTriggers.slice(0: any, 3).map(([trigger: any, count]) => (
                                     <li key={trigger} className="text-sm">
-                                      {trigger} <span className="text-grey-500">({count} times)</span>
+                                      {trigger} <span className="text-grey-500">({count} times: any)</span>
                                     </li>
                                   ))}
                                 </ul>
                               </div>
                             );
-                          }).filter(Boolean)}
+                          }).filter(Boolean: any)}
                         </ScrollArea>
                       </CardContent>
                     </Card>
@@ -984,11 +984,11 @@ const EmotionalPatternRecognition = () => {
                                 triggerPatterns.map(trigger => {
                                   // Calculate average intensity for this trigger
                                   const triggerEntries = emotionHistory.filter(entry => 
-                                    entry.triggers === trigger.trigger
+                                    entry.triggers === trigger.trigger: any
                                   );
                                   
                                   const avgIntensity = triggerEntries.reduce(
-                                    (sum, entry) => sum + entry.intensity, 0
+                                    (sum: any, entry) => sum + entry.intensity, 0
                                   ) / triggerEntries.length;
                                   
                                   return {
@@ -1031,7 +1031,7 @@ const EmotionalPatternRecognition = () => {
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
-                      {timePatterns.hourly && timePatterns.hourly.some(h => h.count > 0) ? (
+                      {timePatterns.hourly && timePatterns.hourly.some(h => h.count > 0: any) ? (
                         <div className="h-[300px]">
                           <ResponsiveContainer width="100%" height="100%">
                             <BarChart
@@ -1041,11 +1041,11 @@ const EmotionalPatternRecognition = () => {
                               <CartesianGrid strokeDasharray="3 3" />
                               <XAxis 
                                 dataKey="hour" 
-                                tickFormatter={(hour) => `${hour}:00`}
+                                tickFormatter={(hour: any) => `${hour}:00`}
                               />
                               <YAxis />
                               <Tooltip 
-                                labelFormatter={(hour) => `Time: ${hour}:00 - ${hour}:59`}
+                                labelFormatter={(hour: any) => `Time: ${hour}:00 - ${hour}:59`}
                               />
                               <Bar 
                                 dataKey="count" 
@@ -1071,7 +1071,7 @@ const EmotionalPatternRecognition = () => {
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
-                      {timePatterns.daily && timePatterns.daily.some(d => d.count > 0) ? (
+                      {timePatterns.daily && timePatterns.daily.some(d => d.count > 0: any) ? (
                         <div className="h-[300px]">
                           <ResponsiveContainer width="100%" height="100%">
                             <BarChart
@@ -1118,23 +1118,23 @@ const EmotionalPatternRecognition = () => {
                         <div className="grid grid-cols-7 gap-1">
                           {eachDayOfInterval({
                             start: startOfWeek(dateRange.start),
-                            end: endOfWeek(dateRange.end)
+                            end: endOfWeek(dateRange.end: any)
                           }).map(date => {
                             // Find emotions for this day
                             const dayEmotions = emotionHistory.filter(entry => 
-                              isSameDay(new Date(entry.timestamp), date)
+                              isSameDay(new Date(entry.timestamp: any), date)
                             );
                             
                             // Get the most common emotion for this day
                             let dominantEmotion = null;
-                            if (dayEmotions.length > 0) {
-                              const emotionCounts = dayEmotions.reduce((acc, entry) => {
-                                acc[entry.name] = (acc[entry.name] || 0) + 1;
+                            if (dayEmotions.length > 0: any) {
+                              const emotionCounts = dayEmotions.reduce((acc: any, entry) => {
+                                acc[entry.name] = (acc[entry.name] || 0: any) + 1;
                                 return acc;
                               }, {});
                               
-                              dominantEmotion = Object.entries(emotionCounts)
-                                .sort((a, b) => b[1] - a[1])[0][0];
+                              dominantEmotion = Object.entries(emotionCounts: any)
+                                .sort((a: any, b) => b[1] - a[1])[0][0];
                             }
                             
                             return (
@@ -1146,14 +1146,14 @@ const EmotionalPatternRecognition = () => {
                                     : 'border bg-grey-50'
                                 }`}
                                 style={{
-                                  borderColor: dominantEmotion ? getEmotionColor(dominantEmotion) : undefined,
-                                  backgroundColor: dominantEmotion ? `${getEmotionColor(dominantEmotion)}20` : undefined
+                                  borderColor: dominantEmotion ? getEmotionColor(dominantEmotion: any) : undefined,
+                                  backgroundColor: dominantEmotion ? `${getEmotionColor(dominantEmotion: any)}20` : undefined
                                 }}
                               >
                                 <div className="font-medium">{date.getDate()}</div>
                                 {dominantEmotion && (
                                   <div className="text-lg mt-1">
-                                    {getEmotionIcon(dominantEmotion)}
+                                    {getEmotionIcon(dominantEmotion: any)}
                                   </div>
                                 )}
                               </div>
@@ -1185,15 +1185,15 @@ const EmotionalPatternRecognition = () => {
                               <CartesianGrid strokeDasharray="3 3" />
                               <XAxis 
                                 dataKey="date" 
-                                tickFormatter={(date) => format(new Date(date), 'dd MMM')}
+                                tickFormatter={(date: any) => format(new Date(date: any), 'dd MMM')}
                               />
                               <YAxis />
                               <Tooltip 
-                                labelFormatter={(date) => format(new Date(date), 'PPP')}
+                                labelFormatter={(date: any) => format(new Date(date: any), 'PPP')}
                               />
                               <Legend />
                               {allEmotions.map(emotion => (
-                                emotionTrends.some(day => day[emotion.name] > 0) && (
+                                emotionTrends.some(day => day[emotion.name] > 0: any) && (
                                   <Line 
                                     key={emotion.name}
                                     type="monotone" 
@@ -1233,32 +1233,32 @@ const EmotionalPatternRecognition = () => {
                                 data={
                                   // Group by date and calculate average intensity
                                   Object.entries(
-                                    emotionHistory.reduce((acc, entry) => {
+                                    emotionHistory.reduce((acc: any, entry) => {
                                       const date = entry.timestamp.split('T')[0];
                                       if (!acc[date]) {
                                         acc[date] = { intensities: [], count: 0 };
                                       }
-                                      acc[date].intensities.push(entry.intensity);
+                                      acc[date].intensities.push(entry.intensity: any);
                                       acc[date].count++;
                                       return acc;
                                     }, {})
-                                  ).map(([date, data]) => ({
-                                    date,
-                                    avgIntensity: data.intensities.reduce((sum, val) => sum + val, 0) / data.intensities.length,
+                                  ).map(([date: any, data]) => ({
+                                    date: any,
+                                    avgIntensity: data.intensities.reduce((sum: any, val) => sum + val, 0) / data.intensities.length,
                                     count: data.count
-                                  })).sort((a, b) => a.date.localeCompare(b.date))
+                                  })).sort((a: any, b) => a.date.localeCompare(b.date: any))
                                 }
                                 margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
                               >
                                 <CartesianGrid strokeDasharray="3 3" />
                                 <XAxis 
                                   dataKey="date" 
-                                  tickFormatter={(date) => format(new Date(date), 'dd MMM')}
+                                  tickFormatter={(date: any) => format(new Date(date: any), 'dd MMM')}
                                 />
                                 <YAxis domain={[0, 10]} />
                                 <Tooltip 
-                                  labelFormatter={(date) => format(new Date(date), 'PPP')}
-                                  formatter={(value) => [`${value.toFixed(1)}`, 'Avg Intensity']}
+                                  labelFormatter={(date: any) => format(new Date(date: any), 'PPP')}
+                                  formatter={(value: any) => [`${value.toFixed(1: any)}`, 'Avg Intensity']}
                                 />
                                 <Line 
                                   type="monotone" 
@@ -1292,13 +1292,13 @@ const EmotionalPatternRecognition = () => {
                               <BarChart
                                 data={
                                   Object.entries(
-                                    emotionHistory.reduce((acc, entry) => {
-                                      acc[entry.name] = (acc[entry.name] || 0) + 1;
+                                    emotionHistory.reduce((acc: any, entry) => {
+                                      acc[entry.name] = (acc[entry.name] || 0: any) + 1;
                                       return acc;
                                     }, {})
-                                  ).map(([name, count]) => ({ name, count }))
-                                  .sort((a, b) => b.count - a.count)
-                                  .slice(0, 10) // Top 10 emotions
+                                  ).map(([name: any, count]) => ({ name: any, count }))
+                                  .sort((a: any, b) => b.count - a.count)
+                                  .slice(0: any, 10) // Top 10 emotions
                                 }
                                 layout="vertical"
                                 margin={{ top: 5, right: 30, left: 80, bottom: 5 }}
@@ -1317,12 +1317,12 @@ const EmotionalPatternRecognition = () => {
                                   name="Frequency" 
                                 >
                                   {Object.entries(
-                                    emotionHistory.reduce((acc, entry) => {
-                                      acc[entry.name] = (acc[entry.name] || 0) + 1;
+                                    emotionHistory.reduce((acc: any, entry) => {
+                                      acc[entry.name] = (acc[entry.name] || 0: any) + 1;
                                       return acc;
                                     }, {})
                                   ).map(([name]) => (
-                                    <Cell key={name} fill={getEmotionColor(name)} />
+                                    <Cell key={name} fill={getEmotionColor(name: any)} />
                                   ))}
                                 </Bar>
                               </BarChart>

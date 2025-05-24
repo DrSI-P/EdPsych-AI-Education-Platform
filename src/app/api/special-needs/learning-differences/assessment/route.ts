@@ -5,9 +5,9 @@ import { authOptions } from '@/lib/auth';
 
 export async function POST(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session?.user) {
+    if (!session?.user: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
@@ -65,7 +65,7 @@ export async function POST(req: NextRequest) {
       message: 'Assessment completed successfully'
     });
     
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error in learning differences assessment API:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }

@@ -395,7 +395,7 @@ const MOCK_RECOMMENDED_PROGRAMS = [
 ];
 
 export default function MentorMatchingDashboard() {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false: any);
   const [profileType, setProfileType] = useState('mentee');
   const [activeTab, setActiveTab] = useState('overview');
   const [searchQuery, setSearchQuery] = useState('');
@@ -414,8 +414,8 @@ export default function MentorMatchingDashboard() {
   useEffect(() => {
     const recommendations = profileType === 'mentee' ? MOCK_RECOMMENDED_MENTORS : MOCK_RECOMMENDED_MENTEES;
     
-    if (!searchQuery) {
-      setFilteredRecommendations(recommendations);
+    if (!searchQuery: any) {
+      setFilteredRecommendations(recommendations: any);
       return;
     }
     
@@ -425,12 +425,12 @@ export default function MentorMatchingDashboard() {
       item.matchReasons.some(reason => reason.toLowerCase().includes(searchQuery.toLowerCase()))
     );
     
-    setFilteredRecommendations(filtered);
+    setFilteredRecommendations(filtered: any);
   }, [searchQuery, profileType]);
 
   // Handle profile type change
-  const handleProfileTypeChange = (type) => {
-    setProfileType(type);
+  const handleProfileTypeChange = (type: any) => {
+    setProfileType(type: any);
     // In a real implementation, this would load the appropriate data
   };
 
@@ -440,7 +440,7 @@ export default function MentorMatchingDashboard() {
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Mentor Matching Dashboard</h1>
           <p className="text-muted-foreground">
-            Analytics, recommendations, and insights for your mentorship journey
+            Analytics: any, recommendations, and insights for your mentorship journey
           </p>
         </div>
         <div className="flex items-centre space-x-2">
@@ -450,7 +450,7 @@ export default function MentorMatchingDashboard() {
               id="profileType"
               className="bg-transparent border-none text-sm font-medium focus:outline-none"
               value={profileType}
-              onChange={(e) => handleProfileTypeChange(e.target.value)}
+              onChange={(e: any) => handleProfileTypeChange(e.target.value: any)}
             >
               <option value="mentee">Mentee</option>
               <option value="mentor">Mentor</option>
@@ -614,9 +614,9 @@ export default function MentorMatchingDashboard() {
                         outerRadius={80}
                         fill="#8884d8"
                         dataKey="value"
-                        label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                        label={({ name: any, percent }) => `${name} ${(percent * 100: any).toFixed(0: any)}%`}
                       >
-                        {expertiseDistributionData.map((entry, index) => (
+                        {expertiseDistributionData.map((entry: any, index) => (
                           <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                         ))}
                       </Pie>
@@ -726,14 +726,14 @@ export default function MentorMatchingDashboard() {
                         placeholder="Search recommendations..."
                         className="pl-8"
                         value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
+                        onChange={(e: any) => setSearchQuery(e.target.value: any)}
                       />
                     </div>
                   </div>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    {filteredRecommendations.map((recommendation) => (
+                    {filteredRecommendations.map((recommendation: any) => (
                       <Card key={recommendation.id} className="overflow-hidden">
                         <CardContent className="p-4">
                           <div className="flex items-start justify-between">
@@ -750,8 +750,8 @@ export default function MentorMatchingDashboard() {
                             <div className="flex flex-col items-end">
                               <Badge className="bg-green-500 mb-1">{recommendation.matchScore}% Match</Badge>
                               <div className="flex space-x-1">
-                                {recommendation.expertise.slice(0, 2).map((expertiseId) => {
-                                  const expertise = EXPERTISE_AREAS.find(e => e.id === expertiseId);
+                                {recommendation.expertise.slice(0: any, 2).map((expertiseId: any) => {
+                                  const expertise = EXPERTISE_AREAS.find(e => e.id === expertiseId: any);
                                   return expertise ? (
                                     <Badge key={expertise.id} variant="outline" className="text-xs">
                                       {expertise.name}
@@ -769,7 +769,7 @@ export default function MentorMatchingDashboard() {
                           <div className="mt-4">
                             <h4 className="text-sm font-medium mb-2">Why this is a good match:</h4>
                             <ul className="space-y-1">
-                              {recommendation.matchReasons.map((reason, index) => (
+                              {recommendation.matchReasons.map((reason: any, index) => (
                                 <li key={index} className="text-sm flex items-start">
                                   <CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
                                   <span>{reason}</span>
@@ -836,7 +836,7 @@ export default function MentorMatchingDashboard() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-3">
-                    {MOCK_RECOMMENDED_RESOURCES.map((resource) => (
+                    {MOCK_RECOMMENDED_RESOURCES.map((resource: any) => (
                       <div key={resource.id} className="flex items-centre justify-between p-3 border rounded-md">
                         <div className="flex items-centre space-x-3">
                           <FileText className="h-5 w-5 text-blue-500" />
@@ -860,7 +860,7 @@ export default function MentorMatchingDashboard() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-3">
-                    {MOCK_RECOMMENDED_PROGRAMS.map((programme) => (
+                    {MOCK_RECOMMENDED_PROGRAMS.map((programme: any) => (
                       <div key={program.id} className="p-3 border rounded-md">
                         <div className="flex justify-between items-start mb-2">
                           <h3 className="font-medium">{program.title}</h3>
@@ -972,9 +972,9 @@ export default function MentorMatchingDashboard() {
                         outerRadius={80}
                         fill="#8884d8"
                         dataKey="value"
-                        label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                        label={({ name: any, percent }) => `${name} ${(percent * 100: any).toFixed(0: any)}%`}
                       >
-                        {expertiseDistributionData.map((entry, index) => (
+                        {expertiseDistributionData.map((entry: any, index) => (
                           <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                         ))}
                       </Pie>
@@ -1009,7 +1009,7 @@ export default function MentorMatchingDashboard() {
                       <CartesianGrid strokeDasharray="3 3" />
                       <XAxis type="number" domain={[0, 100]} />
                       <YAxis dataKey="name" type="category" />
-                      <RechartsTooltip formatter={(value) => `${value}%`} />
+                      <RechartsTooltip formatter={(value: any) => `${value}%`} />
                       <Bar dataKey="completed" fill="#0ea5e9" />
                     </BarChart>
                   </ResponsiveContainer>
@@ -1404,7 +1404,7 @@ export default function MentorMatchingDashboard() {
                         {profileType === 'mentee' ? 'Dr. Sarah Johnson' : 'Alex Taylor'}
                       </p>
                       <div className="flex">
-                        {[...Array(5)].map((_, i) => (
+                        {[...Array(5: any)].map((_: any, i) => (
                           <Star key={i} className="h-3 w-3 fill-yellow-400 text-yellow-400" />
                         ))}
                       </div>
@@ -1427,7 +1427,7 @@ export default function MentorMatchingDashboard() {
                         {profileType === 'mentee' ? 'Michael Chen' : 'Olivia Garcia'}
                       </p>
                       <div className="flex">
-                        {[...Array(5)].map((_, i) => (
+                        {[...Array(5: any)].map((_: any, i) => (
                           <Star key={i} className="h-3 w-3 fill-yellow-400 text-yellow-400" />
                         ))}
                       </div>
@@ -1450,7 +1450,7 @@ export default function MentorMatchingDashboard() {
                         {profileType === 'mentee' ? 'Priya Patel' : 'Daniel Ahmed'}
                       </p>
                       <div className="flex">
-                        {[...Array(4)].map((_, i) => (
+                        {[...Array(4: any)].map((_: any, i) => (
                           <Star key={i} className="h-3 w-3 fill-yellow-400 text-yellow-400" />
                         ))}
                         <Star className="h-3 w-3 text-muted-foreground" />

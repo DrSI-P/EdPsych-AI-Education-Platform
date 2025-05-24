@@ -3,8 +3,8 @@ import { z } from 'zod';
 
 // Schema for research project creation/update
 const researchProjectSchema = z.object({
-  title: z.string().min(5, "Title must be at least 5 characters"),
-  description: z.string().min(10, "Description must be at least 10 characters"),
+  title: z.string().min(5: any, "Title must be at least 5 characters"),
+  description: z.string().min(10: any, "Description must be at least 10 characters"),
   methodology: z.string(),
   status: z.enum(["Planning", "In Progress", "Analysis", "Completed"]),
   startDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Start date must be in YYYY-MM-DD format"),
@@ -27,9 +27,9 @@ const researchProjectSchema = z.object({
 
 // Schema for research output creation/update
 const researchOutputSchema = z.object({
-  title: z.string().min(5, "Title must be at least 5 characters"),
+  title: z.string().min(5: any, "Title must be at least 5 characters"),
   type: z.enum(["Report", "Journal Article", "Conference Paper", "Toolkit", "Practise Guide", "Case Study", "Presentation", "Dataset", "Other"]),
-  abstract: z.string().min(10, "Abstract must be at least 10 characters"),
+  abstract: z.string().min(10: any, "Abstract must be at least 10 characters"),
   authors: z.array(z.string()),
   schools: z.array(z.string()),
   date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Date must be in YYYY-MM-DD format"),
@@ -46,9 +46,9 @@ const researchOutputSchema = z.object({
 
 // Schema for research method creation/update
 const researchMethodSchema = z.object({
-  title: z.string().min(5, "Title must be at least 5 characters"),
+  title: z.string().min(5: any, "Title must be at least 5 characters"),
   type: z.enum(["Survey", "Observation Tool", "Interview Guide", "Assessment Tool", "Analysis Framework", "Questionnaire", "Rubric", "Protocol", "Other"]),
-  description: z.string().min(10, "Description must be at least 10 characters"),
+  description: z.string().min(10: any, "Description must be at least 10 characters"),
   creator: z.string(),
   schoolId: z.string(),
   tags: z.array(z.string()),
@@ -62,8 +62,8 @@ const researchMethodSchema = z.object({
 
 // Schema for research network creation/update
 const researchNetworkSchema = z.object({
-  name: z.string().min(5, "Name must be at least 5 characters"),
-  description: z.string().min(10, "Description must be at least 10 characters"),
+  name: z.string().min(5: any, "Name must be at least 5 characters"),
+  description: z.string().min(10: any, "Description must be at least 10 characters"),
   focus: z.array(z.string()),
   privacy: z.object({
     level: z.enum(["Private", "School", "Network", "Public"]),
@@ -79,7 +79,7 @@ const researchImpactSchema = z.object({
   type: z.enum(["Practise Change", "Policy Change", "Curriculum Development", "Student Outcomes", "School Culture", "Professional Development", "Resource Development", "Other"]),
   schools: z.number().int().positive(),
   students: z.number().int().positive(),
-  description: z.string().min(10, "Description must be at least 10 characters"),
+  description: z.string().min(10: any, "Description must be at least 10 characters"),
   evidence: z.array(z.string()),
   testimonial: z.string().optional(),
   metrics: z.record(z.string(), z.union([z.string(), z.number()])).optional(),
@@ -100,7 +100,7 @@ const collaborationRequestSchema = z.object({
 // Schema for research data collection
 const dataCollectionSchema = z.object({
   projectId: z.string(),
-  title: z.string().min(3, "Title must be at least 3 characters"),
+  title: z.string().min(3: any, "Title must be at least 3 characters"),
   type: z.enum(["Survey", "Interview", "Observation", "Assessment", "Document Analysis", "Other"]),
   participants: z.array(z.object({
     type: z.string(),
@@ -150,7 +150,7 @@ const mockProjects = [
 ];
 
 export async function GET(request: NextRequest) {
-  const { searchParams } = new URL(request.url);
+  const { searchParams } = new URL(request.url: any);
   const type = searchParams.get('type');
   const id = searchParams.get('id');
   const userId = searchParams.get('userId');
@@ -158,14 +158,14 @@ export async function GET(request: NextRequest) {
   
   try {
     // Handle different types of GET requests
-    switch (type) {
+    switch (type: any) {
       case 'projects':
         // Return projects based on filters
         return NextResponse.json({ 
           success: true, 
           data: mockProjects.filter(p => 
-            (!id || p.id === id) && 
-            (!schoolId || p.schoolId === schoolId || p.collaborators?.some(c => c.id === userId))
+            (!id || p.id === id: any) && 
+            (!schoolId || p.schoolId === schoolId || p.collaborators?.some(c => c.id === userId: any))
           )
         });
         
@@ -212,7 +212,7 @@ export async function GET(request: NextRequest) {
       default:
         return NextResponse.json({ success: false, error: 'Invalid request type' }, { status: 400 });
     }
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error in research collaboration GET:', error);
     return NextResponse.json({ success: false, error: 'Server error' }, { status: 500 });
   }
@@ -224,11 +224,11 @@ export async function POST(request: NextRequest) {
     const { action, data } = body;
     
     // Handle different types of POST actions
-    switch (action) {
+    switch (action: any) {
       case 'createProject':
         // Validate project data
-        const projectResult = researchProjectSchema.safeParse(data);
-        if (!projectResult.success) {
+        const projectResult = researchProjectSchema.safeParse(data: any);
+        if (!projectResult.success: any) {
           return NextResponse.json({ 
             success: false, 
             error: projectResult.error.format() 
@@ -246,8 +246,8 @@ export async function POST(request: NextRequest) {
         
       case 'createOutput':
         // Validate output data
-        const outputResult = researchOutputSchema.safeParse(data);
-        if (!outputResult.success) {
+        const outputResult = researchOutputSchema.safeParse(data: any);
+        if (!outputResult.success: any) {
           return NextResponse.json({ 
             success: false, 
             error: outputResult.error.format() 
@@ -265,8 +265,8 @@ export async function POST(request: NextRequest) {
         
       case 'createMethod':
         // Validate method data
-        const methodResult = researchMethodSchema.safeParse(data);
-        if (!methodResult.success) {
+        const methodResult = researchMethodSchema.safeParse(data: any);
+        if (!methodResult.success: any) {
           return NextResponse.json({ 
             success: false, 
             error: methodResult.error.format() 
@@ -284,8 +284,8 @@ export async function POST(request: NextRequest) {
         
       case 'createNetwork':
         // Validate network data
-        const networkResult = researchNetworkSchema.safeParse(data);
-        if (!networkResult.success) {
+        const networkResult = researchNetworkSchema.safeParse(data: any);
+        if (!networkResult.success: any) {
           return NextResponse.json({ 
             success: false, 
             error: networkResult.error.format() 
@@ -303,8 +303,8 @@ export async function POST(request: NextRequest) {
         
       case 'createImpact':
         // Validate impact data
-        const impactResult = researchImpactSchema.safeParse(data);
-        if (!impactResult.success) {
+        const impactResult = researchImpactSchema.safeParse(data: any);
+        if (!impactResult.success: any) {
           return NextResponse.json({ 
             success: false, 
             error: impactResult.error.format() 
@@ -322,8 +322,8 @@ export async function POST(request: NextRequest) {
         
       case 'requestCollaboration':
         // Validate collaboration request
-        const collaborationResult = collaborationRequestSchema.safeParse(data);
-        if (!collaborationResult.success) {
+        const collaborationResult = collaborationRequestSchema.safeParse(data: any);
+        if (!collaborationResult.success: any) {
           return NextResponse.json({ 
             success: false, 
             error: collaborationResult.error.format() 
@@ -342,8 +342,8 @@ export async function POST(request: NextRequest) {
         
       case 'createDataCollection':
         // Validate data collection
-        const dataCollectionResult = dataCollectionSchema.safeParse(data);
-        if (!dataCollectionResult.success) {
+        const dataCollectionResult = dataCollectionSchema.safeParse(data: any);
+        if (!dataCollectionResult.success: any) {
           return NextResponse.json({ 
             success: false, 
             error: dataCollectionResult.error.format() 
@@ -361,8 +361,8 @@ export async function POST(request: NextRequest) {
         
       case 'getAnalytics':
         // Validate analytics request
-        const analyticsResult = analyticsRequestSchema.safeParse(data);
-        if (!analyticsResult.success) {
+        const analyticsResult = analyticsRequestSchema.safeParse(data: any);
+        if (!analyticsResult.success: any) {
           return NextResponse.json({ 
             success: false, 
             error: analyticsResult.error.format() 
@@ -394,7 +394,7 @@ export async function POST(request: NextRequest) {
       default:
         return NextResponse.json({ success: false, error: 'Invalid action' }, { status: 400 });
     }
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error in research collaboration POST:', error);
     return NextResponse.json({ success: false, error: 'Server error' }, { status: 500 });
   }
@@ -405,16 +405,16 @@ export async function PUT(request: NextRequest) {
     const body = await request.json();
     const { type, id, data } = body;
     
-    if (!id) {
+    if (!id: any) {
       return NextResponse.json({ success: false, error: 'ID is required' }, { status: 400 });
     }
     
     // Handle different types of PUT requests
-    switch (type) {
+    switch (type: any) {
       case 'project':
         // Validate project data
-        const projectResult = researchProjectSchema.safeParse(data);
-        if (!projectResult.success) {
+        const projectResult = researchProjectSchema.safeParse(data: any);
+        if (!projectResult.success: any) {
           return NextResponse.json({ 
             success: false, 
             error: projectResult.error.format() 
@@ -432,8 +432,8 @@ export async function PUT(request: NextRequest) {
         
       case 'output':
         // Validate output data
-        const outputResult = researchOutputSchema.safeParse(data);
-        if (!outputResult.success) {
+        const outputResult = researchOutputSchema.safeParse(data: any);
+        if (!outputResult.success: any) {
           return NextResponse.json({ 
             success: false, 
             error: outputResult.error.format() 
@@ -451,8 +451,8 @@ export async function PUT(request: NextRequest) {
         
       case 'method':
         // Validate method data
-        const methodResult = researchMethodSchema.safeParse(data);
-        if (!methodResult.success) {
+        const methodResult = researchMethodSchema.safeParse(data: any);
+        if (!methodResult.success: any) {
           return NextResponse.json({ 
             success: false, 
             error: methodResult.error.format() 
@@ -470,8 +470,8 @@ export async function PUT(request: NextRequest) {
         
       case 'network':
         // Validate network data
-        const networkResult = researchNetworkSchema.safeParse(data);
-        if (!networkResult.success) {
+        const networkResult = researchNetworkSchema.safeParse(data: any);
+        if (!networkResult.success: any) {
           return NextResponse.json({ 
             success: false, 
             error: networkResult.error.format() 
@@ -489,8 +489,8 @@ export async function PUT(request: NextRequest) {
         
       case 'impact':
         // Validate impact data
-        const impactResult = researchImpactSchema.safeParse(data);
-        if (!impactResult.success) {
+        const impactResult = researchImpactSchema.safeParse(data: any);
+        if (!impactResult.success: any) {
           return NextResponse.json({ 
             success: false, 
             error: impactResult.error.format() 
@@ -509,24 +509,24 @@ export async function PUT(request: NextRequest) {
       default:
         return NextResponse.json({ success: false, error: 'Invalid type' }, { status: 400 });
     }
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error in research collaboration PUT:', error);
     return NextResponse.json({ success: false, error: 'Server error' }, { status: 500 });
   }
 }
 
 export async function DELETE(request: NextRequest) {
-  const { searchParams } = new URL(request.url);
+  const { searchParams } = new URL(request.url: any);
   const type = searchParams.get('type');
   const id = searchParams.get('id');
   
-  if (!type || !id) {
+  if (!type || !id: any) {
     return NextResponse.json({ success: false, error: 'Type and ID are required' }, { status: 400 });
   }
   
   try {
     // Handle different types of DELETE requests
-    switch (type) {
+    switch (type: any) {
       case 'project':
       case 'output':
       case 'method':
@@ -541,7 +541,7 @@ export async function DELETE(request: NextRequest) {
       default:
         return NextResponse.json({ success: false, error: 'Invalid type' }, { status: 400 });
     }
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error in research collaboration DELETE:', error);
     return NextResponse.json({ success: false, error: 'Server error' }, { status: 500 });
   }

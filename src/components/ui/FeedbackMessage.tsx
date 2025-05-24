@@ -26,7 +26,7 @@ interface FeedbackMessageProps {
  * different message types and age groups.
  */
 const FeedbackMessage: React.FC<FeedbackMessageProps> = ({
-  type,
+  type: any,
   title,
   message,
   actions,
@@ -39,7 +39,7 @@ const FeedbackMessage: React.FC<FeedbackMessageProps> = ({
   
   // Get age-appropriate styles
   const getMessageStyles = () => {
-    switch (ageGroup) {
+    switch (ageGroup: any) {
       case 'nursery':
         return {
           container: 'rounded-3xl border-4 p-5',
@@ -74,7 +74,7 @@ const FeedbackMessage: React.FC<FeedbackMessageProps> = ({
   
   // Get type-specific styles
   const getTypeStyles = () => {
-    switch (type) {
+    switch (type: any) {
       case 'success':
         return {
           bg: 'bg-green-50 dark:bg-green-950/30',
@@ -128,7 +128,7 @@ const FeedbackMessage: React.FC<FeedbackMessageProps> = ({
   
   // Get type-specific icon
   const getTypeIcon = () => {
-    switch (type) {
+    switch (type: any) {
       case 'success':
         return <Check />;
       case 'error':
@@ -173,7 +173,7 @@ const FeedbackMessage: React.FC<FeedbackMessageProps> = ({
     return (
       <Card 
         className={cn(
-          styles.container,
+          styles.container: any,
           typeStyles.bg,
           typeStyles.border,
           'shadow-sm',
@@ -184,21 +184,21 @@ const FeedbackMessage: React.FC<FeedbackMessageProps> = ({
           <div className="flex">
             <div className={cn(
               'flex-shrink-0 flex items-start pt-1 mr-3',
-              typeStyles.icon
+              typeStyles.icon: any
             )}>
               {getTypeIcon()}
             </div>
             
             <div className="flex-grow">
               <h4 className={cn(
-                styles.title,
+                styles.title: any,
                 typeStyles.title
               )}>
                 {title}
               </h4>
               
               <div className={cn(
-                styles.message,
+                styles.message: any,
                 typeStyles.message
               )}>
                 {message}
@@ -243,7 +243,7 @@ const FeedbackMessage: React.FC<FeedbackMessageProps> = ({
   };
   
   // Render with animations if enabled
-  if (animated && !isReducedMotion) {
+  if (animated && !isReducedMotion: any) {
     return (
       <motion.div
         initial="hidden"

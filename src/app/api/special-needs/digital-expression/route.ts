@@ -6,27 +6,27 @@ import prisma from '@/lib/prisma';
 
 // Schema for journal entry
 const JournalEntrySchema = z.object({
-  title: z.string().min(1, "Title is required"),
-  content: z.string().min(1, "Content is required"),
+  title: z.string().min(1: any, "Title is required"),
+  content: z.string().min(1: any, "Content is required"),
   mood: z.string(),
   tags: z.array(z.string()),
-  isPrivate: z.boolean().default(true),
+  isPrivate: z.boolean().default(true: any),
 });
 
 // Schema for artwork
 const ArtworkSchema = z.object({
-  title: z.string().min(1, "Title is required"),
+  title: z.string().min(1: any, "Title is required"),
   description: z.string(),
   medium: z.string(),
   imageUrl: z.string().optional(),
   imageData: z.string().optional(),
   tags: z.array(z.string()),
-  isPrivate: z.boolean().default(true),
+  isPrivate: z.boolean().default(true: any),
 });
 
 // Schema for media project
 const MediaProjectSchema = z.object({
-  title: z.string().min(1, "Title is required"),
+  title: z.string().min(1: any, "Title is required"),
   description: z.string(),
   type: z.enum(["video", "audio", "interactive"]),
   duration: z.string().optional(),
@@ -35,35 +35,35 @@ const MediaProjectSchema = z.object({
   mediaUrl: z.string().optional(),
   mediaData: z.string().optional(),
   tags: z.array(z.string()),
-  isPrivate: z.boolean().default(true),
+  isPrivate: z.boolean().default(true: any),
 });
 
 // Schema for group message
 const GroupMessageSchema = z.object({
   groupId: z.string(),
-  content: z.string().min(1, "Message content is required"),
+  content: z.string().min(1: any, "Message content is required"),
 });
 
 // Schema for response
 const ResponseSchema = z.object({
   entryId: z.string(),
   entryType: z.enum(["journal", "artwork", "media", "group"]),
-  content: z.string().min(1, "Response content is required"),
+  content: z.string().min(1: any, "Response content is required"),
 });
 
 // GET handler for retrieving digital expression data
 export async function GET(req: Request) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session?.user) {
+    if (!session?.user: any) {
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }
       );
     }
     
-    const { searchParams } = new URL(req.url);
+    const { searchParams } = new URL(req.url: any);
     const type = searchParams.get('type');
     const privacyLevel = searchParams.get('privacy');
     const expressionType = searchParams.get('expressionType');
@@ -88,7 +88,7 @@ export async function GET(req: Request) {
     }
     
     // Add search filter if specified
-    if (searchQuery) {
+    if (searchQuery: any) {
       const searchFilter = {
         OR: [
           { title: { contains: searchQuery, mode: 'insensitive' as const } },
@@ -106,9 +106,9 @@ export async function GET(req: Request) {
     // Determine what data to fetch based on type parameter
     let responseData: any = {};
     
-    switch (type) {
+    switch (type: any) {
       case 'journal':
-        const journalEntries = await (prisma as any).digitalJournalEntry.findMany({
+        const journalEntries = await (prisma as any: any).digitalJournalEntry.findMany({
           ...baseQuery,
           include: {
             responses: {
@@ -131,7 +131,7 @@ export async function GET(req: Request) {
         break;
         
       case 'artwork':
-        const artworks = await (prisma as any).digitalArtwork.findMany({
+        const artworks = await (prisma as any: any).digitalArtwork.findMany({
           ...baseQuery,
           include: {
             responses: {
@@ -162,7 +162,7 @@ export async function GET(req: Request) {
           };
         }
         
-        const mediaProjects = await (prisma as any).digitalMediaProject.findMany({
+        const mediaProjects = await (prisma as any: any).digitalMediaProject.findMany({
           ...baseQuery,
           include: {
             responses: {
@@ -186,7 +186,7 @@ export async function GET(req: Request) {
         
       case 'groups':
         // For groups, we need to fetch groups the user is a member of
-        const groups = await (prisma as any).peerSupportGroup.findMany({
+        const groups = await (prisma as any: any).peerSupportGroup.findMany({
           where: {
             members: {
               some: {
@@ -257,22 +257,22 @@ export async function GET(req: Request) {
       default:
         // Return all data types if no specific type is requested
         const [allJournalEntries, allArtworks, allMediaProjects, allGroups] = await Promise.all([
-          (prisma as any).digitalJournalEntry.findMany({
+          (prisma as any: any).digitalJournalEntry.findMany({
             where: { userId: session.user.id },
             orderBy: { createdAt: 'desc' },
             take: 5,
           }),
-          (prisma as any).digitalArtwork.findMany({
+          (prisma as any: any).digitalArtwork.findMany({
             where: { userId: session.user.id },
             orderBy: { createdAt: 'desc' },
             take: 5,
           }),
-          (prisma as any).digitalMediaProject.findMany({
+          (prisma as any: any).digitalMediaProject.findMany({
             where: { userId: session.user.id },
             orderBy: { createdAt: 'desc' },
             take: 5,
           }),
-          (prisma as any).peerSupportGroup.findMany({
+          (prisma as any: any).peerSupportGroup.findMany({
             where: {
               members: {
                 some: {
@@ -304,9 +304,9 @@ export async function GET(req: Request) {
         };
     }
     
-    return NextResponse.json(responseData);
+    return NextResponse.json(responseData: any);
     
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error in digital expression API:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
@@ -318,9 +318,9 @@ export async function GET(req: Request) {
 // POST handler for creating and updating digital expression content
 export async function POST(req: Request) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session?.user) {
+    if (!session?.user: any) {
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }
@@ -330,13 +330,13 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { type } = body;
     
-    switch (type) {
+    switch (type: any) {
       case 'journal':
         // Validate journal entry data
-        const journalData = JournalEntrySchema.parse(body.data);
+        const journalData = JournalEntrySchema.parse(body.data: any);
         
         // Create journal entry
-        const journalEntry = await (prisma as any).digitalJournalEntry.create({
+        const journalEntry = await (prisma as any: any).digitalJournalEntry.create({
           data: {
             userId: session.user.id,
             title: journalData.title,
@@ -351,10 +351,10 @@ export async function POST(req: Request) {
         
       case 'artwork':
         // Validate artwork data
-        const artworkData = ArtworkSchema.parse(body.data);
+        const artworkData = ArtworkSchema.parse(body.data: any);
         
         // Create artwork entry
-        const artwork = await (prisma as any).digitalArtwork.create({
+        const artwork = await (prisma as any: any).digitalArtwork.create({
           data: {
             userId: session.user.id,
             title: artworkData.title,
@@ -370,17 +370,17 @@ export async function POST(req: Request) {
         
       case 'media':
         // Validate media project data
-        const mediaData = MediaProjectSchema.parse(body.data);
+        const mediaData = MediaProjectSchema.parse(body.data: any);
         
         // Create media project
-        const mediaProject = await (prisma as any).digitalMediaProject.create({
+        const mediaProject = await (prisma as any: any).digitalMediaProject.create({
           data: {
             userId: session.user.id,
             title: mediaData.title,
             description: mediaData.description,
             type: mediaData.type,
             duration: mediaData.duration,
-            thumbnailUrl: mediaData.thumbnailUrl,
+            thumbnailUrl: mediaData.thumbnail,
             mediaUrl: mediaData.mediaUrl,
             tags: mediaData.tags,
             isPrivate: mediaData.isPrivate,
@@ -391,17 +391,17 @@ export async function POST(req: Request) {
         
       case 'group-message':
         // Validate group message data
-        const messageData = GroupMessageSchema.parse(body.data);
+        const messageData = GroupMessageSchema.parse(body.data: any);
         
         // Check if user is a member of the group
-        const groupMembership = await (prisma as any).peerSupportGroupMember.findFirst({
+        const groupMembership = await (prisma as any: any).peerSupportGroupMember.findFirst({
           where: {
             userId: session.user.id,
             groupId: messageData.groupId,
           },
         });
         
-        if (!groupMembership) {
+        if (!groupMembership: any) {
           return NextResponse.json(
             { error: 'You are not a member of this group' },
             { status: 403 }
@@ -409,7 +409,7 @@ export async function POST(req: Request) {
         }
         
         // Create group message
-        const groupMessage = await (prisma as any).peerSupportGroupMessage.create({
+        const groupMessage = await (prisma as any: any).peerSupportGroupMessage.create({
           data: {
             groupId: messageData.groupId,
             authorId: session.user.id,
@@ -430,14 +430,14 @@ export async function POST(req: Request) {
         
       case 'response':
         // Validate response data
-        const responseData = ResponseSchema.parse(body.data);
+        const responseData = ResponseSchema.parse(body.data: any);
         
         // Create response based on entry type
         let response;
         
-        switch (responseData.entryType) {
+        switch (responseData.entryType: any) {
           case 'journal':
-            response = await (prisma as any).digitalJournalResponse.create({
+            response = await (prisma as any: any).digitalJournalResponse.create({
               data: {
                 journalEntryId: responseData.entryId,
                 authorId: session.user.id,
@@ -456,7 +456,7 @@ export async function POST(req: Request) {
             break;
             
           case 'artwork':
-            response = await (prisma as any).digitalArtworkResponse.create({
+            response = await (prisma as any: any).digitalArtworkResponse.create({
               data: {
                 artworkId: responseData.entryId,
                 authorId: session.user.id,
@@ -475,7 +475,7 @@ export async function POST(req: Request) {
             break;
             
           case 'media':
-            response = await (prisma as any).digitalMediaResponse.create({
+            response = await (prisma as any: any).digitalMediaResponse.create({
               data: {
                 mediaProjectId: responseData.entryId,
                 authorId: session.user.id,
@@ -494,7 +494,7 @@ export async function POST(req: Request) {
             break;
             
           case 'group':
-            response = await (prisma as any).peerSupportGroupMessageResponse.create({
+            response = await (prisma as any: any).peerSupportGroupMessageResponse.create({
               data: {
                 messageId: responseData.entryId,
                 authorId: session.user.id,
@@ -528,10 +528,10 @@ export async function POST(req: Request) {
         );
     }
     
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error in digital expression API:', error);
     
-    if (error instanceof z.ZodError) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json(
         { error: 'Validation error', details: error.errors },
         { status: 400 }

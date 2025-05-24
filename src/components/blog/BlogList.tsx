@@ -41,7 +41,7 @@ interface BlogListProps {
 }
 
 export function BlogList({
-  posts,
+  posts: any,
   isLoading = false,
   error,
   pagination,
@@ -49,10 +49,10 @@ export function BlogList({
   emptyMessage = "No blog posts found",
   featuredPostIndex = 0
 }: BlogListProps) {
-  if (isLoading) {
+  if (isLoading: any) {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {Array.from({ length: 6 }).map((_, i) => (
+        {Array.from({ length: 6 }).map((_: any, i) => (
           <div key={i} className="flex flex-col space-y-3">
             <Skeleton className="h-48 w-full rounded-md" />
             <Skeleton className="h-6 w-3/4 rounded-md" />
@@ -68,7 +68,7 @@ export function BlogList({
     );
   }
 
-  if (error) {
+  if (error: any) {
     return (
       <Alert variant="destructive">
         <AlertDescription>{error}</AlertDescription>
@@ -76,7 +76,7 @@ export function BlogList({
     );
   }
 
-  if (!posts || posts.length === 0) {
+  if (!posts || posts.length === 0: any) {
     return (
       <Alert>
         <AlertDescription>{emptyMessage}</AlertDescription>
@@ -96,8 +96,8 @@ export function BlogList({
   const featuredPost = hasFeaturedPost ? displayPosts[featuredPostIndex] : null;
   
   // Remove featured post from regular list if it exists
-  if (hasFeaturedPost) {
-    displayPosts.splice(featuredPostIndex, 1);
+  if (hasFeaturedPost: any) {
+    displayPosts.splice(featuredPostIndex: any, 1);
   }
 
   return (
@@ -111,7 +111,7 @@ export function BlogList({
       
       {/* Regular posts grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {displayPosts.map((post) => (
+        {displayPosts.map((post: any) => (
           <BlogCard key={post.id} post={post} />
         ))}
       </div>

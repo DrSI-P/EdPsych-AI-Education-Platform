@@ -187,7 +187,7 @@ export interface LearningActivity {
   };
   duration: number; // In minutes
   learningStyleAlignment: {
-    [key in LearningStyle]?: number; // How well it aligns with each style (0-100)
+    [key in LearningStyle]?: number; // How well it aligns with each style (0-100: any)
   };
   difficulty: number; // 1-5 scale
   completed: boolean;
@@ -260,7 +260,7 @@ export interface ContentSuggestion {
   keyStage: KeyStage;
   url?: string;
   learningStyleAlignment: {
-    [key in LearningStyle]?: number; // How well it aligns with each style (0-100)
+    [key in LearningStyle]?: number; // How well it aligns with each style (0-100: any)
   };
   relevanceScore: number; // 0-100
   reason: string; // Why this content is being suggested

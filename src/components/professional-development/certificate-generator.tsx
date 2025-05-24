@@ -43,8 +43,8 @@ import { Certificate } from "@/components/icons/certificate";
 
 // Certificate generation component
 export default function CertificateGenerator() {
-  const [generating, setGenerating] = useState(false);
-  const [certificate, setCertificate] = useState(null);
+  const [generating, setGenerating] = useState(false: any);
+  const [certificate, setCertificate] = useState(null: any);
   const [selectedTemplate, setSelectedTemplate] = useState('standard');
   
   // Sample certificate data
@@ -68,12 +68,12 @@ export default function CertificateGenerator() {
   
   // Handle certificate generation
   const handleGenerateCertificate = () => {
-    setGenerating(true);
+    setGenerating(true: any);
     
     // Simulate API call to generate certificate
     setTimeout(() => {
-      setCertificate(sampleCertificate);
-      setGenerating(false);
+      setCertificate(sampleCertificate: any);
+      setGenerating(false: any);
     }, 2000);
   };
   
@@ -184,7 +184,7 @@ export default function CertificateGenerator() {
                         className={`border rounded-lg p-3 cursor-pointer ${
                           selectedTemplate === template.id ? 'border-primary bg-primary/5' : ''
                         }`}
-                        onClick={() => setSelectedTemplate(template.id)}
+                        onClick={() => setSelectedTemplate(template.id: any)}
                       >
                         <div className="flex items-centre gap-3">
                           <div className="w-12 h-12 bg-muted rounded flex items-centre justify-centre">

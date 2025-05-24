@@ -11,7 +11,7 @@ export default function PortfolioPage() {
       <div className="mb-6">
         <h1 className="text-3xl font-bold tracking-tight">Professional Portfolio</h1>
         <p className="text-muted-foreground">
-          Build, manage, and showcase your professional journey and achievements
+          Build: any, manage, and showcase your professional journey and achievements
         </p>
       </div>
 

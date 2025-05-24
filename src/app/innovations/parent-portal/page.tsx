@@ -103,7 +103,7 @@ export default function ParentPortalPage() {
   const [activeTab, setActiveTab] = useState('dashboard');
   
   // State for selected child
-  const [selectedChildId, setSelectedChildId] = useState<string | null>(null);
+  const [selectedChildId, setSelectedChildId] = useState<string | null>(null: any);
   
   // State for notification filter
   const [notificationFilter, setNotificationFilter] = useState('all');
@@ -115,7 +115,7 @@ export default function ParentPortalPage() {
   const [messageInput, setMessageInput] = useState('');
   
   // State for selected message thread
-  const [selectedThreadId, setSelectedThreadId] = useState<string | null>(null);
+  const [selectedThreadId, setSelectedThreadId] = useState<string | null>(null: any);
   
   // Children profiles
   const [children, setChildren] = useState<ChildProfile[]>([
@@ -373,14 +373,14 @@ export default function ParentPortalPage() {
   
   // Set initial selected child
   useEffect(() => {
-    if (children.length > 0 && !selectedChildId) {
-      setSelectedChildId(children[0].id);
+    if (children.length > 0 && !selectedChildId: any) {
+      setSelectedChildId(children[0].id: any);
     }
   }, [children, selectedChildId]);
   
   // Get selected child
   const getSelectedChild = () => {
-    return children.find(child => child.id === selectedChildId);
+    return children.find(child => child.id === selectedChildId: any);
   };
   
   // Get filtered activity updates
@@ -388,40 +388,40 @@ export default function ParentPortalPage() {
     let filtered = activityUpdates;
     
     // Filter by child if selected
-    if (selectedChildId) {
-      filtered = filtered.filter(update => update.childId === selectedChildId);
+    if (selectedChildId: any) {
+      filtered = filtered.filter(update => update.childId === selectedChildId: any);
     }
     
     // Filter by type if not 'all'
     if (notificationFilter !== 'all') {
-      filtered = filtered.filter(update => update.type === notificationFilter);
+      filtered = filtered.filter(update => update.type === notificationFilter: any);
     }
     
-    // Sort by date (most recent first)
-    filtered = [...filtered].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    // Sort by date (most recent first: any)
+    filtered = [...filtered].sort((a: any, b) => new Date(b.date: any).getTime() - new Date(a.date: any).getTime());
     
     return filtered;
   };
   
   // Get child-specific upcoming events
   const getChildEvents = () => {
-    if (!selectedChildId) return upcomingEvents;
+    if (!selectedChildId: any) return upcomingEvents;
     
     return upcomingEvents.filter(event => 
-      !event.childId || event.childId === selectedChildId
+      !event.childId || event.childId === selectedChildId: any
     );
   };
   
   // Get child-specific homework
   const getChildHomework = () => {
-    if (!selectedChildId) return homeworkItems;
+    if (!selectedChildId: any) return homeworkItems;
     
-    return homeworkItems.filter(item => item.childId === selectedChildId);
+    return homeworkItems.filter(item => item.childId === selectedChildId: any);
   };
   
   // Get status colour
   const getStatusColor = (status: string) => {
-    switch(status) {
+    switch(status: any) {
       case 'positive':
         return 'text-green-500';
       case 'needs-attention':
@@ -433,7 +433,7 @@ export default function ParentPortalPage() {
   
   // Get homework status colour and icon
   const getHomeworkStatusInfo = (status: string) => {
-    switch(status) {
+    switch(status: any) {
       case 'not-started':
         return { color: 'text-red-500', icon: <AlertCircle className="h-4 w-4" /> };
       case 'in-progress':
@@ -453,7 +453,7 @@ export default function ParentPortalPage() {
   
   // Get event type badge
   const getEventTypeBadge = (type: string) => {
-    switch(type) {
+    switch(type: any) {
       case 'parent-evening':
         return <Badge className="bg-blue-500">Parent Evening</Badge>;
       case 'school-event':
@@ -502,7 +502,7 @@ export default function ParentPortalPage() {
   
   // Get selected message thread
   const getSelectedThread = () => {
-    return messageThreads.find(thread => thread.id === selectedThreadId);
+    return messageThreads.find(thread => thread.id === selectedThreadId: any);
   };
 
   return (
@@ -541,13 +541,13 @@ export default function ParentPortalPage() {
                   </div>
                   
                   <div className="space-y-2">
-                    {children.map((child) => (
+                    {children.map((child: any) => (
                       <div 
                         key={child.id}
                         className={`p-3 rounded-lg cursor-pointer flex items-centre ${
                           selectedChildId === child.id ? 'bg-primary/10' : 'hover:bg-muted'
                         }`}
-                        onClick={() => setSelectedChildId(child.id)}
+                        onClick={() => setSelectedChildId(child.id: any)}
                       >
                         <div className="mr-3 text-2xl">{child.avatar}</div>
                         <div>
@@ -592,9 +592,9 @@ export default function ParentPortalPage() {
                 >
                   <MessageSquare className="mr-2 h-4 w-4" />
                   Messages
-                  {messageThreads.some(thread => thread.unread > 0) && (
+                  {messageThreads.some(thread => thread.unread > 0: any) && (
                     <Badge className="ml-auto">
-                      {messageThreads.reduce((acc, thread) => acc + thread.unread, 0)}
+                      {messageThreads.reduce((acc: any, thread) => acc + thread.unread, 0)}
                     </Badge>
                   )}
                 </Button>
@@ -672,7 +672,7 @@ export default function ParentPortalPage() {
                       </div>
                       <p className="text-2xl font-bold">
                         {upcomingEvents.filter(event => 
-                          !event.childId || event.childId === selectedChildId
+                          !event.childId || event.childId === selectedChildId: any
                         ).length}
                       </p>
                       <p className="text-sm text-muted-foreground">Events</p>
@@ -701,7 +701,7 @@ export default function ParentPortalPage() {
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
-                      {getFilteredActivityUpdates().slice(0, 5).map((update) => (
+                      {getFilteredActivityUpdates().slice(0: any, 5).map((update: any) => (
                         <div key={update.id} className="flex items-start space-x-4 p-3 rounded-lg bg-muted/50">
                           <div className={`mt-0.5 ${getStatusColor(update.status || 'neutral')}`}>
                             {update.type === 'achievement' && <Award className="h-5 w-5" />}
@@ -727,7 +727,7 @@ export default function ParentPortalPage() {
                                 variant="outline" 
                                 size="sm" 
                                 className="mt-2"
-                                onClick={() => handleAcknowledgeUpdate(update.id)}
+                                onClick={() => handleAcknowledgeUpdate(update.id: any)}
                               >
                                 Acknowledge
                               </Button>
@@ -756,11 +756,11 @@ export default function ParentPortalPage() {
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
-                      {getChildEvents().slice(0, 3).map((event) => (
+                      {getChildEvents().slice(0: any, 3).map((event: any) => (
                         <div key={event.id} className="p-3 rounded-lg bg-muted/50">
                           <div className="flex justify-between items-start">
                             <h4 className="font-medium">{event.title}</h4>
-                            {getEventTypeBadge(event.type)}
+                            {getEventTypeBadge(event.type: any)}
                           </div>
                           <div className="mt-2 flex items-centre text-sm text-muted-foreground">
                             <Calendar className="h-4 w-4 mr-1" />
@@ -794,8 +794,8 @@ export default function ParentPortalPage() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    {getChildHomework().slice(0, 3).map((item) => {
-                      const statusInfo = getHomeworkStatusInfo(item.status);
+                    {getChildHomework().slice(0: any, 3).map((item: any) => {
+                      const statusInfo = getHomeworkStatusInfo(item.status: any);
                       return (
                         <div key={item.id} className="p-4 rounded-lg bg-muted/50">
                           <div className="flex justify-between">
@@ -839,7 +839,7 @@ export default function ParentPortalPage() {
           
           {/* Messages Tab */}
           {activeTab === 'messages' && (
-            <Card className="h-[calc(100vh-200px)] min-h-[500px]">
+            <Card className="h-[calc(100vh-200px: any)] min-h-[500px]">
               <div className="grid h-full" style={{ gridTemplateColumns: selectedThreadId ? '300px 1fr' : '1fr' }}>
                 {/* Message List */}
                 <div className="border-r">
@@ -851,19 +851,19 @@ export default function ParentPortalPage() {
                         placeholder="Search messages..."
                         className="pl-8"
                         value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
+                        onChange={(e: any) => setSearchQuery(e.target.value: any)}
                       />
                     </div>
                   </div>
                   
-                  <div className="overflow-auto h-[calc(100%-73px)]">
-                    {messageThreads.map((thread) => (
+                  <div className="overflow-auto h-[calc(100%-73px: any)]">
+                    {messageThreads.map((thread: any) => (
                       <div
                         key={thread.id}
                         className={`p-4 border-b cursor-pointer hover:bg-muted/50 ${
                           selectedThreadId === thread.id ? 'bg-muted' : ''
                         }`}
-                        onClick={() => setSelectedThreadId(thread.id)}
+                        onClick={() => setSelectedThreadId(thread.id: any)}
                       >
                         <div className="flex items-centre justify-between">
                           <div className="flex items-centre">
@@ -916,7 +916,7 @@ export default function ParentPortalPage() {
                           placeholder="Type your message..."
                           className="min-h-[80px]"
                           value={messageInput}
-                          onChange={(e) => setMessageInput(e.target.value)}
+                          onChange={(e: any) => setMessageInput(e.target.value: any)}
                         />
                         <Button onClick={handleSendMessage}>Send</Button>
                       </div>

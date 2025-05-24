@@ -5,9 +5,9 @@ import prisma from '@/lib/prisma';
 
 export async function GET(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session?.user) {
+    if (!session?.user: any) {
       return NextResponse.json(
         { success: false, error: 'Authentication required' },
         { status: 401 }
@@ -64,18 +64,18 @@ export async function GET(req: NextRequest) {
     };
     
     // Add student filter if provided
-    if (studentId) {
+    if (studentId: any) {
       query.where.studentId = studentId;
     }
     
     // Fetch messages
-    const messages = await prisma.communicationMessage.findMany(query);
+    const messages = await prisma.communicationMessage.findMany(query: any);
     
     return NextResponse.json({
       success: true,
       messages
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching messages:', error);
     return NextResponse.json(
       { success: false, error: 'Failed to fetch messages' },
@@ -86,9 +86,9 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session?.user) {
+    if (!session?.user: any) {
       return NextResponse.json(
         { success: false, error: 'Authentication required' },
         { status: 401 }
@@ -101,7 +101,7 @@ export async function POST(req: NextRequest) {
     // Get message data from request body
     const { message } = await req.json();
     
-    if (!message || !message.content || !message.recipientId || !message.studentId) {
+    if (!message || !message.content || !message.recipientId || !message.studentId: any) {
       return NextResponse.json(
         { success: false, error: 'Missing required message data' },
         { status: 400 }
@@ -178,12 +178,12 @@ export async function POST(req: NextRequest) {
     });
     
     // Handle notifications based on recipient settings
-    if (recipientSettings?.emailNotifications) {
+    if (recipientSettings?.emailNotifications: any) {
       // In a real implementation, this would send an email notification
       console.log(`Email notification would be sent to recipient ${message.recipientId}`);
     }
     
-    if (recipientSettings?.smsNotifications && message.urgent) {
+    if (recipientSettings?.smsNotifications && message.urgent: any) {
       // In a real implementation, this would send an SMS for urgent messages
       console.log(`SMS notification would be sent to recipient ${message.recipientId} for urgent message`);
     }
@@ -192,7 +192,7 @@ export async function POST(req: NextRequest) {
       success: true,
       message: newMessage
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error sending message:', error);
     return NextResponse.json(
       { success: false, error: 'Failed to send message' },

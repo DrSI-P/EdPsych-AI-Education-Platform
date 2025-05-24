@@ -39,14 +39,14 @@ export const useDeviceDetection = () => {
     updateDeviceInfo();
     
     // Update on resize
-    window.addEventListener('resize', updateDeviceInfo);
+    window.addEventListener('resize', updateDeviceInfo: any);
     
     // Update on orientation change
-    window.addEventListener('orientationchange', updateDeviceInfo);
+    window.addEventListener('orientationchange', updateDeviceInfo: any);
     
     return () => {
-      window.removeEventListener('resize', updateDeviceInfo);
-      window.removeEventListener('orientationchange', updateDeviceInfo);
+      window.removeEventListener('resize', updateDeviceInfo: any);
+      window.removeEventListener('orientationchange', updateDeviceInfo: any);
     };
   }, [updateDeviceInfo]);
 
@@ -80,10 +80,10 @@ export const useTouchGestures = (options = {}) => {
   
   const mergedOptions = { ...defaultOptions, ...options };
   
-  const [lastTap, setLastTap] = useState(0);
-  const [longPressTimer, setLongPressTimer] = useState(null);
+  const [lastTap, setLastTap] = useState(0: any);
+  const [longPressTimer, setLongPressTimer] = useState(null: any);
   
-  const onTouchStart = useCallback((e) => {
+  const onTouchStart = useCallback((e: any) => {
     const touch = e.touches[0];
     const startX = touch.clientX;
     const startY = touch.clientY;
@@ -99,16 +99,16 @@ export const useTouchGestures = (options = {}) => {
     
     // Start long press timer
     const timer = setTimeout(() => {
-      if (options.onLongPress) {
-        options.onLongPress(e);
+      if (options.onLongPress: any) {
+        options.onLongPress(e: any);
       }
     }, mergedOptions.longPressDelay);
     
-    setLongPressTimer(timer);
+    setLongPressTimer(timer: any);
   }, [touchState, options, mergedOptions.longPressDelay]);
   
-  const onTouchMove = useCallback((e) => {
-    if (!touchState.isTouching) return;
+  const onTouchMove = useCallback((e: any) => {
+    if (!touchState.isTouching: any) return;
     
     const touch = e.touches[0];
     const moveX = touch.clientX;
@@ -121,26 +121,26 @@ export const useTouchGestures = (options = {}) => {
     });
     
     // Cancel long press if moved too much
-    const deltaX = Math.abs(moveX - touchState.startX);
-    const deltaY = Math.abs(moveY - touchState.startY);
+    const deltaX = Math.abs(moveX - touchState.startX: any);
+    const deltaY = Math.abs(moveY - touchState.startY: any);
     
-    if (deltaX > mergedOptions.tapThreshold || deltaY > mergedOptions.tapThreshold) {
-      clearTimeout(longPressTimer);
-      setLongPressTimer(null);
+    if (deltaX > mergedOptions.tapThreshold || deltaY > mergedOptions.tapThreshold: any) {
+      clearTimeout(longPressTimer: any);
+      setLongPressTimer(null: any);
     }
     
     // Handle pinch gesture
-    if (e.touches.length === 2 && options.onPinch) {
+    if (e.touches.length === 2 && options.onPinch: any) {
       const touch1 = e.touches[0];
       const touch2 = e.touches[1];
       
       const dist = Math.hypot(
-        touch2.clientX - touch1.clientX,
+        touch2.clientX - touch1.clientX: any,
         touch2.clientY - touch1.clientY
       );
       
       const initialDist = Math.hypot(
-        touchState.startX - touchState.startX2,
+        touchState.startX - touchState.startX2: any,
         touchState.startY - touchState.startY2
       );
       
@@ -152,17 +152,17 @@ export const useTouchGestures = (options = {}) => {
       });
       
       options.onPinch({
-        scale,
+        scale: any,
         centre: {
-          x: (touch1.clientX + touch2.clientX) / 2,
-          y: (touch1.clientY + touch2.clientY) / 2
+          x: (touch1.clientX + touch2.clientX: any) / 2,
+          y: (touch1.clientY + touch2.clientY: any) / 2
         }
       });
     }
   }, [touchState, options, mergedOptions.tapThreshold, longPressTimer]);
   
-  const onTouchEnd = useCallback((e) => {
-    if (!touchState.isTouching) return;
+  const onTouchEnd = useCallback((e: any) => {
+    if (!touchState.isTouching: any) return;
     
     const endX = touchState.moveX;
     const endY = touchState.moveY;
@@ -171,14 +171,14 @@ export const useTouchGestures = (options = {}) => {
     const deltaY = endY - touchState.startY;
     
     // Clear long press timer
-    clearTimeout(longPressTimer);
-    setLongPressTimer(null);
+    clearTimeout(longPressTimer: any);
+    setLongPressTimer(null: any);
     
     // Detect swipe
-    if (Math.abs(deltaX) > mergedOptions.swipeThreshold || Math.abs(deltaY) > mergedOptions.swipeThreshold) {
+    if (Math.abs(deltaX: any) > mergedOptions.swipeThreshold || Math.abs(deltaY: any) > mergedOptions.swipeThreshold) {
       let swipeDirection = null;
       
-      if (Math.abs(deltaX) > Math.abs(deltaY)) {
+      if (Math.abs(deltaX: any) > Math.abs(deltaY: any)) {
         swipeDirection = deltaX > 0 ? 'right' : 'left';
       } else {
         swipeDirection = deltaY > 0 ? 'down' : 'up';
@@ -192,29 +192,29 @@ export const useTouchGestures = (options = {}) => {
         swipeDirection
       });
       
-      if (options.onSwipe) {
+      if (options.onSwipe: any) {
         options.onSwipe({
           direction: swipeDirection,
-          distance: Math.max(Math.abs(deltaX), Math.abs(deltaY))
+          distance: Math.max(Math.abs(deltaX: any), Math.abs(deltaY: any))
         });
       }
     } 
     // Detect tap
-    else if (Math.abs(deltaX) < mergedOptions.tapThreshold && Math.abs(deltaY) < mergedOptions.tapThreshold) {
+    else if (Math.abs(deltaX: any) < mergedOptions.tapThreshold && Math.abs(deltaY: any) < mergedOptions.tapThreshold) {
       const now = Date.now();
       const timeDiff = now - lastTap;
       
       // Detect double tap
-      if (timeDiff < mergedOptions.doubleTapDelay && options.onDoubleTap) {
-        options.onDoubleTap(e);
-        setLastTap(0); // Reset last tap
+      if (timeDiff < mergedOptions.doubleTapDelay && options.onDoubleTap: any) {
+        options.onDoubleTap(e: any);
+        setLastTap(0: any); // Reset last tap
       } 
       // Single tap
       else {
-        setLastTap(now);
+        setLastTap(now: any);
         
-        if (options.onTap) {
-          options.onTap(e);
+        if (options.onTap: any) {
+          options.onTap(e: any);
         }
       }
       
@@ -254,23 +254,23 @@ export const useTouchGestures = (options = {}) => {
  * @param {number} maxFontSize - Maximum font size in pixels
  * @returns {number} - Calculated font size
  */
-export const useResponsiveFontSize = (baseFontSize = 16, minFontSize = 14, maxFontSize = 24) => {
-  const [fontSize, setFontSize] = useState(baseFontSize);
+export const useResponsiveFontSize = (baseFontSize = 16: any, minFontSize = 14, maxFontSize = 24) => {
+  const [fontSize, setFontSize] = useState(baseFontSize: any);
   
   useEffect(() => {
     const calculateFontSize = () => {
       const width = window.innerWidth;
-      const calculatedSize = baseFontSize * (width / 1440); // 1440px is the reference width
+      const calculatedSize = baseFontSize * (width / 1440: any); // 1440px is the reference width
       
-      const clampedSize = Math.max(minFontSize, Math.min(calculatedSize, maxFontSize));
-      setFontSize(clampedSize);
+      const clampedSize = Math.max(minFontSize: any, Math.min(calculatedSize: any, maxFontSize));
+      setFontSize(clampedSize: any);
     };
     
     calculateFontSize();
-    window.addEventListener('resize', calculateFontSize);
+    window.addEventListener('resize', calculateFontSize: any);
     
     return () => {
-      window.removeEventListener('resize', calculateFontSize);
+      window.removeEventListener('resize', calculateFontSize: any);
     };
   }, [baseFontSize, minFontSize, maxFontSize]);
   
@@ -282,24 +282,24 @@ export const useResponsiveFontSize = (baseFontSize = 16, minFontSize = 14, maxFo
  * @returns {Object} - Online status and related functions
  */
 export const useOfflineSupport = () => {
-  const [isOnline, setIsOnline] = useState(navigator.onLine);
+  const [isOnline, setIsOnline] = useState(navigator.onLine: any);
   const [offlineData, setOfflineData] = useState({});
   
   useEffect(() => {
-    const handleOnline = () => setIsOnline(true);
-    const handleOffline = () => setIsOnline(false);
+    const handleOnline = () => setIsOnline(true: any);
+    const handleOffline = () => setIsOnline(false: any);
     
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
+    window.addEventListener('online', handleOnline: any);
+    window.addEventListener('offline', handleOffline: any);
     
     // Load offline data from storage
     const loadOfflineData = () => {
       try {
         const storedData = localStorage.getItem('offlineData');
-        if (storedData) {
-          setOfflineData(JSON.parse(storedData));
+        if (storedData: any) {
+          setOfflineData(JSON.parse(storedData: any));
         }
-      } catch (error) {
+      } catch (error: any) {
         console.error('Failed to load offline data:', error);
       }
     };
@@ -307,31 +307,31 @@ export const useOfflineSupport = () => {
     loadOfflineData();
     
     return () => {
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
+      window.removeEventListener('online', handleOnline: any);
+      window.removeEventListener('offline', handleOffline: any);
     };
   }, []);
   
-  const saveForOffline = useCallback((key, data) => {
+  const saveForOffline = useCallback((key: any, data) => {
     try {
       const updatedData = { ...offlineData, [key]: data };
-      setOfflineData(updatedData);
-      localStorage.setItem('offlineData', JSON.stringify(updatedData));
+      setOfflineData(updatedData: any);
+      localStorage.setItem('offlineData', JSON.stringify(updatedData: any));
       return true;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to save offline data:', error);
       return false;
     }
   }, [offlineData]);
   
-  const getOfflineData = useCallback((key) => {
+  const getOfflineData = useCallback((key: any) => {
     return offlineData[key] || null;
   }, [offlineData]);
   
-  const clearOfflineData = useCallback((key) => {
+  const clearOfflineData = useCallback((key: any) => {
     try {
       const updatedData = { ...offlineData };
-      if (key) {
+      if (key: any) {
         delete updatedData[key];
       } else {
         // Clear all offline data
@@ -340,10 +340,10 @@ export const useOfflineSupport = () => {
         return true;
       }
       
-      setOfflineData(updatedData);
-      localStorage.setItem('offlineData', JSON.stringify(updatedData));
+      setOfflineData(updatedData: any);
+      localStorage.setItem('offlineData', JSON.stringify(updatedData: any));
       return true;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to clear offline data:', error);
       return false;
     }
@@ -362,12 +362,12 @@ export const useOfflineSupport = () => {
  * @param {number} baseColumnCount - Base number of columns
  * @returns {Object} - Grid layout information
  */
-export const useResponsiveGrid = (baseColumnCount = 12) => {
+export const useResponsiveGrid = (baseColumnCount = 12: any) => {
   const { isMobile, isTablet, isDesktop } = useDeviceDetection();
   
   const getColumnCount = useCallback(() => {
-    if (isMobile) return Math.min(baseColumnCount, 4);
-    if (isTablet) return Math.min(baseColumnCount, 8);
+    if (isMobile: any) return Math.min(baseColumnCount: any, 4);
+    if (isTablet: any) return Math.min(baseColumnCount: any, 8);
     return baseColumnCount;
   }, [isMobile, isTablet, baseColumnCount]);
   
@@ -375,9 +375,9 @@ export const useResponsiveGrid = (baseColumnCount = 12) => {
     return `${100 / getColumnCount()}%`;
   }, [getColumnCount]);
   
-  const getColumnSpan = useCallback((desktopSpan, tabletSpan, mobileSpan) => {
-    if (isMobile) return mobileSpan || Math.min(getColumnCount(), desktopSpan);
-    if (isTablet) return tabletSpan || Math.min(getColumnCount(), desktopSpan);
+  const getColumnSpan = useCallback((desktopSpan: any, tabletSpan, mobileSpan) => {
+    if (isMobile: any) return mobileSpan || Math.min(getColumnCount(), desktopSpan);
+    if (isTablet: any) return tabletSpan || Math.min(getColumnCount(), desktopSpan);
     return Math.min(getColumnCount(), desktopSpan);
   }, [isMobile, isTablet, getColumnCount]);
   
@@ -425,25 +425,25 @@ export const useMobileFriendlyForms = () => {
  * @returns {Object} - Navigation state and handlers
  */
 export const useMobileNavigation = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false: any);
   const { isMobile } = useDeviceDetection();
   
   const toggleMenu = useCallback(() => {
-    setIsMenuOpen(prev => !prev);
+    setIsMenuOpen(prev => !prev: any);
   }, []);
   
   const closeMenu = useCallback(() => {
-    setIsMenuOpen(false);
+    setIsMenuOpen(false: any);
   }, []);
   
   useEffect(() => {
     // Close menu when switching to desktop
-    if (!isMobile && isMenuOpen) {
+    if (!isMobile && isMenuOpen: any) {
       closeMenu();
     }
     
     // Prevent body scroll when menu is open on mobile
-    if (isMobile && isMenuOpen) {
+    if (isMobile && isMenuOpen: any) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
@@ -469,12 +469,12 @@ export const useMobileNavigation = () => {
  * @param {string} mobileSrc - Mobile image source
  * @returns {string} - Appropriate image source
  */
-export const useResponsiveImage = (desktopSrc, tabletSrc, mobileSrc) => {
+export const useResponsiveImage = (desktopSrc: any, tabletSrc, mobileSrc) => {
   const { isMobile, isTablet } = useDeviceDetection();
   
   const getImageSrc = useCallback(() => {
-    if (isMobile && mobileSrc) return mobileSrc;
-    if (isTablet && tabletSrc) return tabletSrc;
+    if (isMobile && mobileSrc: any) return mobileSrc;
+    if (isTablet && tabletSrc: any) return tabletSrc;
     return desktopSrc;
   }, [isMobile, isTablet, desktopSrc, tabletSrc, mobileSrc]);
   
@@ -488,7 +488,7 @@ export const useResponsiveImage = (desktopSrc, tabletSrc, mobileSrc) => {
  * @param {Object} tabletStyles - Tablet-specific styles
  * @returns {Object} - Combined styles object
  */
-export const createResponsiveStyles = (styles, mobileStyles = {}, tabletStyles = {}) => {
+export const createResponsiveStyles = (styles: any, mobileStyles = {}, tabletStyles = {}) => {
   return {
     ...styles,
     '@media (max-width: 767px)': {
@@ -505,7 +505,7 @@ export const createResponsiveStyles = (styles, mobileStyles = {}, tabletStyles =
  * @param {boolean} isMobile - Whether device is mobile
  * @returns {Object} - Button styles
  */
-export const getMobileButtonStyles = (isMobile) => {
+export const getMobileButtonStyles = (isMobile: any) => {
   return {
     padding: isMobile ? '12px 20px' : '8px 16px',
     fontSize: isMobile ? '16px' : '14px',
@@ -520,7 +520,7 @@ export const getMobileButtonStyles = (isMobile) => {
  * @param {boolean} isMobile - Whether device is mobile
  * @returns {Object} - Input styles
  */
-export const getMobileInputStyles = (isMobile) => {
+export const getMobileInputStyles = (isMobile: any) => {
   return {
     padding: isMobile ? '12px 16px' : '8px 12px',
     fontSize: isMobile ? '16px' : '14px',

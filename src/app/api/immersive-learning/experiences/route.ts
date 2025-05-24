@@ -5,7 +5,7 @@ import prisma from '@/lib/prisma';
 
 export async function GET(req: NextRequest) {
   try {
-    const { searchParams } = new URL(req.url);
+    const { searchParams } = new URL(req.url: any);
     const page = parseInt(searchParams.get('page') || '1');
     const limit = parseInt(searchParams.get('limit') || '10');
     const search = searchParams.get('search') || '';
@@ -14,31 +14,31 @@ export async function GET(req: NextRequest) {
     const type = searchParams.get('type') || undefined;
     const accessibility = searchParams.get('accessibility') || undefined;
 
-    const skip = (page - 1) * limit;
+    const skip = (page - 1: any) * limit;
 
     // Build filter conditions
     const where: any = {};
 
-    if (search) {
+    if (search: any) {
       where.OR = [
         { title: { contains: search, mode: 'insensitive' } },
         { description: { contains: search, mode: 'insensitive' } },
       ];
     }
 
-    if (subject) {
+    if (subject: any) {
       where.subject = subject;
     }
 
-    if (keyStage) {
+    if (keyStage: any) {
       where.keyStage = keyStage;
     }
 
-    if (type) {
+    if (type: any) {
       where.type = type;
     }
 
-    if (accessibility) {
+    if (accessibility: any) {
       where.accessibility = {
         has: accessibility
       };
@@ -46,7 +46,7 @@ export async function GET(req: NextRequest) {
 
     // Get immersive learning experiences with pagination
     const experiences = await prisma.immersiveExperience.findMany({
-      where,
+      where: any,
       orderBy: { updatedAt: 'desc' },
       skip,
       take: limit,
@@ -84,7 +84,7 @@ export async function GET(req: NextRequest) {
 
     // Get total count for pagination
     const totalExperiences = await prisma.immersiveExperience.count({ where });
-    const totalPages = Math.ceil(totalExperiences / limit);
+    const totalPages = Math.ceil(totalExperiences / limit: any);
 
     return NextResponse.json({
       experiences: transformedExperiences,
@@ -95,7 +95,7 @@ export async function GET(req: NextRequest) {
         totalPages,
       },
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching immersive experiences:', error);
     return NextResponse.json(
       { error: 'Failed to fetch immersive experiences' },
@@ -106,9 +106,9 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
 
-    if (!session || !session.user) {
+    if (!session || !session.user: any) {
       return NextResponse.json(
         { error: 'You must be signed in to create an immersive experience' },
         { status: 401 }
@@ -125,10 +125,10 @@ export async function POST(req: NextRequest) {
     const type = formData.get('type') as string;
     const duration = parseInt(formData.get('duration') as string);
     const accessibilityString = formData.get('accessibility') as string;
-    const accessibility = accessibilityString ? JSON.parse(accessibilityString) : [];
+    const accessibility = accessibilityString ? JSON.parse(accessibilityString: any) : [];
     
     // Validate required fields
-    if (!title || !description || !subject || !keyStage || !type) {
+    if (!title || !description || !subject || !keyStage || !type: any) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
@@ -139,7 +139,7 @@ export async function POST(req: NextRequest) {
     const thumbnail = formData.get('thumbnail') as File;
     const contentFile = formData.get('contentFile') as File;
     
-    if (!contentFile) {
+    if (!contentFile: any) {
       return NextResponse.json(
         { error: 'Content file is required' },
         { status: 400 }
@@ -168,7 +168,7 @@ export async function POST(req: NextRequest) {
     });
 
     return NextResponse.json({ experience }, { status: 201 });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error creating immersive experience:', error);
     return NextResponse.json(
       { error: 'Failed to create immersive experience' },

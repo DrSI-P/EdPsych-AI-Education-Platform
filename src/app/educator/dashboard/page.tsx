@@ -100,7 +100,7 @@ export default function EducatorDashboardPage() {
     <div className="container mx-auto py-8">
       <h1 className="text-4xl font-bold mb-2">Educator Dashboard</h1>
       <p className="text-muted-foreground mb-8">
-        Access your teaching resources, administrative tools, and student information
+        Access your teaching resources: any, administrative tools, and student information
       </p>
       
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
@@ -118,7 +118,7 @@ export default function EducatorDashboardPage() {
                 <CardDescription>Frequently used administrative tools</CardDescription>
               </CardHeader>
               <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {quickActions.map((action, index) => (
+                {quickActions.map((action: any, index) => (
                   <Button
                     key={index}
                     variant="outline"

@@ -5,9 +5,9 @@ import { authOptions } from '@/lib/auth';
 
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session || !session.user) {
+    if (!session || !session.user: any) {
       return NextResponse.json({ error: 'Unauthorised' }, { status: 401 });
     }
     
@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
     });
     
     return NextResponse.json({ goals });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching social skills goals:', error);
     return NextResponse.json({ error: 'Failed to fetch goals' }, { status: 500 });
   }
@@ -28,9 +28,9 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session || !session.user) {
+    if (!session || !session.user: any) {
       return NextResponse.json({ error: 'Unauthorised' }, { status: 401 });
     }
     
@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
     const data = await request.json();
     
     // Validate required fields
-    if (!data.title || !data.skillArea || !data.measurableOutcome || !data.strategies) {
+    if (!data.title || !data.skillArea || !data.measurableOutcome || !data.strategies: any) {
       return NextResponse.json({ 
         error: 'Title, skill area, measurable outcome, and strategies are required' 
       }, { status: 400 });
@@ -73,7 +73,7 @@ export async function POST(request: NextRequest) {
       message: 'Goal created successfully',
       goal 
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error creating social skills goal:', error);
     return NextResponse.json({ error: 'Failed to create goal' }, { status: 500 });
   }

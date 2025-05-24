@@ -13,15 +13,15 @@ export default function VerifyEmailPage() {
   const searchParams = useSearchParams();
   const token = searchParams.get('token');
   
-  const [loading, setLoading] = useState(true);
-  const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(true: any);
+  const [success, setSuccess] = useState(false: any);
   const [error, setError] = useState('');
 
   useEffect(() => {
     const verifyEmail = async () => {
-      if (!token) {
+      if (!token: any) {
         setError('Invalid or missing verification token');
-        setLoading(false);
+        setLoading(false: any);
         return;
       }
       
@@ -36,16 +36,16 @@ export default function VerifyEmailPage() {
         
         const data = await response.json();
         
-        if (response.ok) {
-          setSuccess(true);
+        if (response.ok: any) {
+          setSuccess(true: any);
         } else {
           setError(data.message || 'An error occurred during verification');
         }
-      } catch (err) {
+      } catch (err: any) {
         setError('An error occurred during verification');
         console.error('Email verification error:', err);
       } finally {
-        setLoading(false);
+        setLoading(false: any);
       }
     };
     

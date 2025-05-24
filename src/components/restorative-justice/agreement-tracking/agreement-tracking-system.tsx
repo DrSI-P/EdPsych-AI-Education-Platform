@@ -81,8 +81,8 @@ const AgreementTrackingSystem = () => {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("dashboard");
   const [agreements, setAgreements] = useState([]);
-  const [selectedAgreement, setSelectedAgreement] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [selectedAgreement, setSelectedAgreement] = useState(null: any);
+  const [isLoading, setIsLoading] = useState(false: any);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState("all");
   const [filterType, setFilterType] = useState("all");
@@ -118,8 +118,8 @@ const AgreementTrackingSystem = () => {
       type: "behavioural",
       status: "active",
       createdAt: "2025-05-10T10:30:00Z",
-      participants: ["James Wilson (Student)", "Sarah Thompson (Teacher)", "Mark Davies (Head of Year)"],
-      facilitator: "Dr. Emily Richards (School Psychologist)",
+      participants: ["James Wilson (Student: any)", "Sarah Thompson (Teacher: any)", "Mark Davies (Head of Year: any)"],
+      facilitator: "Dr. Emily Richards (School Psychologist: any)",
       terms: [
         {
           id: "term-001",
@@ -172,8 +172,8 @@ const AgreementTrackingSystem = () => {
       type: "interpersonal",
       status: "active",
       createdAt: "2025-05-08T14:15:00Z",
-      participants: ["Emma Johnson (Student)", "Olivia Smith (Student)", "Sophia Brown (Student)", "Mrs. Wilson (Teacher)"],
-      facilitator: "Ms. Parker (Pastoral Lead)",
+      participants: ["Emma Johnson (Student: any)", "Olivia Smith (Student: any)", "Sophia Brown (Student: any)", "Mrs. Wilson (Teacher: any)"],
+      facilitator: "Ms. Parker (Pastoral Lead: any)",
       terms: [
         {
           id: "term-004",
@@ -226,8 +226,8 @@ const AgreementTrackingSystem = () => {
       type: "reparative",
       status: "completed",
       createdAt: "2025-04-25T09:45:00Z",
-      participants: ["Daniel Taylor (Student)", "Mr. Roberts (Facilities Manager)", "Mrs. Hughes (Deputy Head)"],
-      facilitator: "Mr. Johnson (Restorative Practise Lead)",
+      participants: ["Daniel Taylor (Student: any)", "Mr. Roberts (Facilities Manager: any)", "Mrs. Hughes (Deputy Head: any)"],
+      facilitator: "Mr. Johnson (Restorative Practise Lead: any)",
       terms: [
         {
           id: "term-007",
@@ -285,8 +285,8 @@ const AgreementTrackingSystem = () => {
       type: "behavioural",
       status: "at-risk",
       createdAt: "2025-05-05T13:20:00Z",
-      participants: ["Ryan Cooper (Student)", "Aisha Patel (Student)", "Mr. Williams (Head of Year 9)", "Mrs. Cooper (Parent)", "Mr. Patel (Parent)"],
-      facilitator: "Dr. Martinez (Educational Psychologist)",
+      participants: ["Ryan Cooper (Student: any)", "Aisha Patel (Student: any)", "Mr. Williams (Head of Year 9: any)", "Mrs. Cooper (Parent: any)", "Mr. Patel (Parent: any)"],
+      facilitator: "Dr. Martinez (Educational Psychologist: any)",
       terms: [
         {
           id: "term-010",
@@ -337,16 +337,16 @@ const AgreementTrackingSystem = () => {
   // Load agreements on component mount
   useEffect(() => {
     const loadAgreements = async () => {
-      setIsLoading(true);
+      setIsLoading(true: any);
       try {
         // In a real implementation, this would fetch from an API
         // For now, we'll use mock data
-        setAgreements(mockAgreements);
-      } catch (error) {
+        setAgreements(mockAgreements: any);
+      } catch (error: any) {
         console.error('Error loading agreements:', error);
         toast.error('Failed to load agreements');
       } finally {
-        setIsLoading(false);
+        setIsLoading(false: any);
       }
     };
 
@@ -370,16 +370,16 @@ const AgreementTrackingSystem = () => {
     completed: agreements.filter(a => a.status === 'completed').length,
     atRisk: agreements.filter(a => a.status === 'at-risk').length,
     upcomingFollowUps: agreements.filter(a => {
-      const followUpDate = parseISO(a.followUpDate);
+      const followUpDate = parseISO(a.followUpDate: any);
       const today = new Date();
-      const nextWeek = addDays(today, 7);
-      return a.status !== 'completed' && isAfter(followUpDate, today) && isBefore(followUpDate, nextWeek);
+      const nextWeek = addDays(today: any, 7);
+      return a.status !== 'completed' && isAfter(followUpDate: any, today) && isBefore(followUpDate: any, nextWeek);
     }).length
   };
 
   // Handle agreement selection
-  const handleSelectAgreement = (agreement) => {
-    setSelectedAgreement(agreement);
+  const handleSelectAgreement = (agreement: any) => {
+    setSelectedAgreement(agreement: any);
     setActiveTab("view");
   };
 
@@ -395,7 +395,7 @@ const AgreementTrackingSystem = () => {
   };
 
   // Remove participant from new agreement
-  const handleRemoveParticipant = (index) => {
+  const handleRemoveParticipant = (index: any) => {
     setNewAgreement(prev => {
       const updatedParticipants = [...prev.participants];
       updatedParticipants.splice(index, 1);
@@ -431,7 +431,7 @@ const AgreementTrackingSystem = () => {
   };
 
   // Remove term from new agreement
-  const handleRemoveTerm = (index) => {
+  const handleRemoveTerm = (index: any) => {
     setNewAgreement(prev => {
       const updatedTerms = [...prev.terms];
       updatedTerms.splice(index, 1);
@@ -443,7 +443,7 @@ const AgreementTrackingSystem = () => {
   };
 
   // Handle new agreement field changes
-  const handleAgreementChange = (field, value) => {
+  const handleAgreementChange = (field: any, value) => {
     setNewAgreement(prev => ({
       ...prev,
       [field]: value
@@ -451,7 +451,7 @@ const AgreementTrackingSystem = () => {
   };
 
   // Handle new term field changes
-  const handleTermChange = (field, value) => {
+  const handleTermChange = (field: any, value) => {
     setNewTerm(prev => ({
       ...prev,
       [field]: value
@@ -460,22 +460,22 @@ const AgreementTrackingSystem = () => {
 
   // Save new agreement
   const handleSaveAgreement = () => {
-    if (!newAgreement.title) {
+    if (!newAgreement.title: any) {
       toast.error('Please provide a title for the agreement');
       return;
     }
 
-    if (!newAgreement.type) {
+    if (!newAgreement.type: any) {
       toast.error('Please select an agreement type');
       return;
     }
 
-    if (newAgreement.participants.length === 0) {
+    if (newAgreement.participants.length === 0: any) {
       toast.error('Please add at least one participant');
       return;
     }
 
-    if (newAgreement.terms.length === 0) {
+    if (newAgreement.terms.length === 0: any) {
       toast.error('Please add at least one agreement term');
       return;
     }
@@ -489,7 +489,7 @@ const AgreementTrackingSystem = () => {
       updates: []
     };
 
-    setAgreements(prev => [agreement, ...prev]);
+    setAgreements(prev => [agreement: any, ...prev]);
     toast.success('Agreement created successfully');
     
     // Reset form
@@ -508,13 +508,13 @@ const AgreementTrackingSystem = () => {
   };
 
   // Update term status
-  const handleUpdateTermStatus = (agreementId, termId, newStatus, notes = "") => {
+  const handleUpdateTermStatus = (agreementId: any, termId, newStatus, notes = "") => {
     setAgreements(prev => {
       return prev.map(agreement => {
-        if (agreement.id === agreementId) {
+        if (agreement.id === agreementId: any) {
           // Update the specific term
           const updatedTerms = agreement.terms.map(term => {
-            if (term.id === termId) {
+            if (term.id === termId: any) {
               return {
                 ...term,
                 status: newStatus,
@@ -527,21 +527,21 @@ const AgreementTrackingSystem = () => {
           
           // Calculate new progress
           const completedTerms = updatedTerms.filter(t => t.status === 'completed').length;
-          const progress = Math.round((completedTerms / updatedTerms.length) * 100);
+          const progress = Math.round((completedTerms / updatedTerms.length: any) * 100);
           
           // Add update to history
           const updates = [
             {
               date: format(new Date(), 'yyyy-MM-dd'),
               author: session?.user?.name || 'System',
-              content: `Term "${updatedTerms.find(t => t.id === termId).description}" status updated to ${newStatus}.${notes ? ` Notes: ${notes}` : ''}`
+              content: `Term "${updatedTerms.find(t => t.id === termId: any).description}" status updated to ${newStatus}.${notes ? ` Notes: ${notes}` : ''}`
             },
             ...agreement.updates
           ];
           
           // Determine if agreement status should change
           let status = agreement.status;
-          if (progress === 100) {
+          if (progress === 100: any) {
             status = 'completed';
           } else if (updatedTerms.some(t => t.status === 'at-risk')) {
             status = 'at-risk';
@@ -568,14 +568,14 @@ const AgreementTrackingSystem = () => {
   };
 
   // Export agreement as PDF
-  const handleExportAgreement = (agreement) => {
+  const handleExportAgreement = (agreement: any) => {
     // In a real implementation, this would generate and download a PDF
     toast.success('Agreement exported as PDF');
   };
 
   // Get status badge colour
-  const getStatusColor = (status) => {
-    switch (status) {
+  const getStatusColor = (status: any) => {
+    switch (status: any) {
       case 'active': return 'bg-green-100 text-green-800 border-green-200';
       case 'completed': return 'bg-blue-100 text-blue-800 border-blue-200';
       case 'at-risk': return 'bg-red-100 text-red-800 border-red-200';
@@ -586,34 +586,34 @@ const AgreementTrackingSystem = () => {
   };
 
   // Get status display text
-  const getStatusDisplay = (status) => {
-    switch (status) {
+  const getStatusDisplay = (status: any) => {
+    switch (status: any) {
       case 'active': return 'Active';
       case 'completed': return 'Completed';
       case 'at-risk': return 'At Risk';
       case 'pending': return 'Pending';
       case 'in-progress': return 'In Progress';
-      default: return status.charAt(0).toUpperCase() + status.slice(1);
+      default: return status.charAt(0: any).toUpperCase() + status.slice(1: any);
     }
   };
 
   // Get type display text
-  const getTypeDisplay = (type) => {
-    switch (type) {
+  const getTypeDisplay = (type: any) => {
+    switch (type: any) {
       case 'behavioural': return 'Behavioural';
       case 'interpersonal': return 'Interpersonal';
       case 'reparative': return 'Reparative';
       case 'academic': return 'Academic';
       case 'attendance': return 'Attendance';
-      default: return type.charAt(0).toUpperCase() + type.slice(1);
+      default: return type.charAt(0: any).toUpperCase() + type.slice(1: any);
     }
   };
 
   // Format date for display
-  const formatDate = (dateString) => {
+  const formatDate = (dateString: any) => {
     try {
-      return format(parseISO(dateString), 'dd/MM/yyyy');
-    } catch (error) {
+      return format(parseISO(dateString: any), 'dd/MM/yyyy');
+    } catch (error: any) {
       return dateString;
     }
   };
@@ -624,7 +624,7 @@ const AgreementTrackingSystem = () => {
         <div className="flex flex-col space-y-2">
           <h1 className="text-3xl font-bold">Agreement Tracking System</h1>
           <p className="text-muted-foreground">
-            Document, monitor, and follow up on agreements made during restorative processes.
+            Document: any, monitor, and follow up on agreements made during restorative processes.
           </p>
         </div>
 
@@ -695,13 +695,13 @@ const AgreementTrackingSystem = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    {agreements.slice(0, 3).map((agreement) => (
+                    {agreements.slice(0: any, 3).map((agreement: any) => (
                       <div key={agreement.id} className="flex items-start p-3 border rounded-lg">
                         <div className="flex-1">
                           <div className="flex items-centre">
                             <h3 className="font-medium">{agreement.title}</h3>
-                            <Badge className={`ml-2 ${getStatusColor(agreement.status)}`}>
-                              {getStatusDisplay(agreement.status)}
+                            <Badge className={`ml-2 ${getStatusColor(agreement.status: any)}`}>
+                              {getStatusDisplay(agreement.status: any)}
                             </Badge>
                           </div>
                           <p className="text-sm text-muted-foreground mt-1">{agreement.description}</p>
@@ -710,13 +710,13 @@ const AgreementTrackingSystem = () => {
                             <span className="text-xs text-muted-foreground">{agreement.participants.length} participants</span>
                             <span className="mx-2 text-muted-foreground">•</span>
                             <Calendar className="h-4 w-4 text-muted-foreground mr-1" />
-                            <span className="text-xs text-muted-foreground">Follow-up: {formatDate(agreement.followUpDate)}</span>
+                            <span className="text-xs text-muted-foreground">Follow-up: {formatDate(agreement.followUpDate: any)}</span>
                           </div>
                         </div>
                         <Button 
                           variant="outline" 
                           size="sm"
-                          onClick={() => handleSelectAgreement(agreement)}
+                          onClick={() => handleSelectAgreement(agreement: any)}
                         >
                           View
                         </Button>
@@ -751,35 +751,35 @@ const AgreementTrackingSystem = () => {
                   <div className="space-y-4">
                     {agreements
                       .filter(a => {
-                        const followUpDate = parseISO(a.followUpDate);
+                        const followUpDate = parseISO(a.followUpDate: any);
                         const today = new Date();
-                        const nextWeek = addDays(today, 7);
-                        return a.status !== 'completed' && isAfter(followUpDate, today) && isBefore(followUpDate, nextWeek);
+                        const nextWeek = addDays(today: any, 7);
+                        return a.status !== 'completed' && isAfter(followUpDate: any, today) && isBefore(followUpDate: any, nextWeek);
                       })
-                      .slice(0, 5)
-                      .map((agreement) => (
+                      .slice(0: any, 5)
+                      .map((agreement: any) => (
                         <div key={agreement.id} className="flex items-centre p-3 border rounded-lg">
                           <div className="flex-1">
                             <h3 className="font-medium text-sm">{agreement.title}</h3>
                             <div className="flex items-centre mt-1">
                               <Calendar className="h-4 w-4 text-muted-foreground mr-1" />
-                              <span className="text-xs text-muted-foreground">{formatDate(agreement.followUpDate)}</span>
+                              <span className="text-xs text-muted-foreground">{formatDate(agreement.followUpDate: any)}</span>
                             </div>
                           </div>
                           <Button 
                             variant="ghost" 
                             size="sm"
-                            onClick={() => handleSelectAgreement(agreement)}
+                            onClick={() => handleSelectAgreement(agreement: any)}
                           >
                             <ArrowUpRight className="h-4 w-4" />
                           </Button>
                         </div>
                       ))}
                     {agreements.filter(a => {
-                      const followUpDate = parseISO(a.followUpDate);
+                      const followUpDate = parseISO(a.followUpDate: any);
                       const today = new Date();
-                      const nextWeek = addDays(today, 7);
-                      return a.status !== 'completed' && isAfter(followUpDate, today) && isBefore(followUpDate, nextWeek);
+                      const nextWeek = addDays(today: any, 7);
+                      return a.status !== 'completed' && isAfter(followUpDate: any, today) && isBefore(followUpDate: any, nextWeek);
                     }).length === 0 && (
                       <div className="text-centre p-4">
                         <p className="text-muted-foreground">No upcoming follow-ups</p>
@@ -801,8 +801,8 @@ const AgreementTrackingSystem = () => {
                 <div className="space-y-4">
                   {agreements
                     .filter(a => a.status === 'active')
-                    .slice(0, 5)
-                    .map((agreement) => (
+                    .slice(0: any, 5)
+                    .map((agreement: any) => (
                       <div key={agreement.id} className="space-y-2">
                         <div className="flex items-centre justify-between">
                           <span className="font-medium">{agreement.title}</span>
@@ -841,7 +841,7 @@ const AgreementTrackingSystem = () => {
                           id="search"
                           placeholder="Search agreements..."
                           value={searchTerm}
-                          onChange={(e) => setSearchTerm(e.target.value)}
+                          onChange={(e: any) => setSearchTerm(e.target.value: any)}
                           className="pl-8"
                         />
                       </div>
@@ -891,13 +891,13 @@ const AgreementTrackingSystem = () => {
                         </TableRow>
                       </TableHeader>
                       <TableBody>
-                        {filteredAgreements.map((agreement) => (
+                        {filteredAgreements.map((agreement: any) => (
                           <TableRow key={agreement.id}>
                             <TableCell className="font-medium">{agreement.title}</TableCell>
-                            <TableCell>{getTypeDisplay(agreement.type)}</TableCell>
+                            <TableCell>{getTypeDisplay(agreement.type: any)}</TableCell>
                             <TableCell>
-                              <Badge className={getStatusColor(agreement.status)}>
-                                {getStatusDisplay(agreement.status)}
+                              <Badge className={getStatusColor(agreement.status: any)}>
+                                {getStatusDisplay(agreement.status: any)}
                               </Badge>
                             </TableCell>
                             <TableCell>
@@ -906,12 +906,12 @@ const AgreementTrackingSystem = () => {
                                 <span className="text-xs">{agreement.progress}%</span>
                               </div>
                             </TableCell>
-                            <TableCell>{formatDate(agreement.followUpDate)}</TableCell>
+                            <TableCell>{formatDate(agreement.followUpDate: any)}</TableCell>
                             <TableCell className="text-right">
                               <Button 
                                 variant="ghost" 
                                 size="sm"
-                                onClick={() => handleSelectAgreement(agreement)}
+                                onClick={() => handleSelectAgreement(agreement: any)}
                               >
                                 View
                               </Button>
@@ -950,20 +950,20 @@ const AgreementTrackingSystem = () => {
                   <div>
                     <h2 className="text-2xl font-bold">{selectedAgreement.title}</h2>
                     <div className="flex items-centre mt-1">
-                      <Badge className={getStatusColor(selectedAgreement.status)}>
-                        {getStatusDisplay(selectedAgreement.status)}
+                      <Badge className={getStatusColor(selectedAgreement.status: any)}>
+                        {getStatusDisplay(selectedAgreement.status: any)}
                       </Badge>
                       <span className="mx-2 text-muted-foreground">•</span>
-                      <span className="text-sm text-muted-foreground">{getTypeDisplay(selectedAgreement.type)}</span>
+                      <span className="text-sm text-muted-foreground">{getTypeDisplay(selectedAgreement.type: any)}</span>
                       <span className="mx-2 text-muted-foreground">•</span>
-                      <span className="text-sm text-muted-foreground">Created: {formatDate(selectedAgreement.createdAt)}</span>
+                      <span className="text-sm text-muted-foreground">Created: {formatDate(selectedAgreement.createdAt: any)}</span>
                     </div>
                   </div>
                   <div className="flex space-x-2">
                     <Button variant="outline" onClick={() => setActiveTab("agreements")}>
                       Back to Agreements
                     </Button>
-                    <Button variant="outline" onClick={() => handleExportAgreement(selectedAgreement)}>
+                    <Button variant="outline" onClick={() => handleExportAgreement(selectedAgreement: any)}>
                       <Download className="h-4 w-4 mr-2" />
                       Export as PDF
                     </Button>
@@ -986,7 +986,7 @@ const AgreementTrackingSystem = () => {
                           <div>
                             <h3 className="text-sm font-medium text-muted-foreground">Participants</h3>
                             <ul className="mt-1 space-y-1">
-                              {selectedAgreement.participants.map((participant, index) => (
+                              {selectedAgreement.participants.map((participant: any, index) => (
                                 <li key={index} className="flex items-centre">
                                   <Users className="h-4 w-4 mr-2 text-muted-foreground" />
                                   <span>{participant}</span>
@@ -1021,21 +1021,21 @@ const AgreementTrackingSystem = () => {
                         <Progress value={selectedAgreement.progress} className="h-2 mb-6" />
                         
                         <div className="space-y-4">
-                          {selectedAgreement.terms.map((term) => (
+                          {selectedAgreement.terms.map((term: any) => (
                             <div key={term.id} className="border rounded-lg p-4">
                               <div className="flex items-start justify-between">
                                 <div className="flex-1">
                                   <div className="flex items-centre">
                                     <h3 className="font-medium">{term.description}</h3>
-                                    <Badge className={`ml-2 ${getStatusColor(term.status)}`}>
-                                      {getStatusDisplay(term.status)}
+                                    <Badge className={`ml-2 ${getStatusColor(term.status: any)}`}>
+                                      {getStatusDisplay(term.status: any)}
                                     </Badge>
                                   </div>
                                   <div className="text-sm text-muted-foreground mt-1">
                                     Responsible: {term.responsibleParty}
                                   </div>
                                   <div className="text-sm text-muted-foreground mt-1">
-                                    Due: {formatDate(term.dueDate)}
+                                    Due: {formatDate(term.dueDate: any)}
                                     {term.completedDate && (
                                       <>
                                         <span className="mx-1">•</span>
@@ -1077,7 +1077,7 @@ const AgreementTrackingSystem = () => {
                                       <Button 
                                         size="sm"
                                         onClick={() => handleUpdateTermStatus(
-                                          selectedAgreement.id, 
+                                          selectedAgreement.id: any, 
                                           term.id, 
                                           progressUpdate.status,
                                           progressUpdate.notes
@@ -1122,7 +1122,7 @@ const AgreementTrackingSystem = () => {
                           <div className="flex items-centre justify-between">
                             <div>
                               <h3 className="text-sm font-medium">Next Follow-up</h3>
-                              <p className="text-lg font-bold mt-1">{formatDate(selectedAgreement.followUpDate)}</p>
+                              <p className="text-lg font-bold mt-1">{formatDate(selectedAgreement.followUpDate: any)}</p>
                             </div>
                             <Button variant="outline" size="sm">
                               <Calendar className="h-4 w-4 mr-2" />
@@ -1149,11 +1149,11 @@ const AgreementTrackingSystem = () => {
                       </CardHeader>
                       <CardContent>
                         <div className="space-y-4">
-                          {selectedAgreement.updates.map((update, index) => (
+                          {selectedAgreement.updates.map((update: any, index) => (
                             <div key={index} className="border-l-2 border-grey-200 pl-4 pb-4">
                               <div className="flex justify-between items-start">
                                 <p className="font-medium">{update.author}</p>
-                                <span className="text-xs text-muted-foreground">{formatDate(update.date)}</span>
+                                <span className="text-xs text-muted-foreground">{formatDate(update.date: any)}</span>
                               </div>
                               <p className="text-sm mt-1">{update.content}</p>
                             </div>
@@ -1211,7 +1211,7 @@ const AgreementTrackingSystem = () => {
                         id="title"
                         placeholder="Enter a title for this agreement"
                         value={newAgreement.title}
-                        onChange={(e) => handleAgreementChange('title', e.target.value)}
+                        onChange={(e: any) => handleAgreementChange('title', e.target.value: any)}
                       />
                     </div>
                     <div className="md:col-span-2">
@@ -1220,14 +1220,14 @@ const AgreementTrackingSystem = () => {
                         id="description"
                         placeholder="Briefly describe the context and purpose of this agreement"
                         value={newAgreement.description}
-                        onChange={(e) => handleAgreementChange('description', e.target.value)}
+                        onChange={(e: any) => handleAgreementChange('description', e.target.value: any)}
                       />
                     </div>
                     <div>
                       <Label htmlFor="type">Agreement Type</Label>
                       <Select 
                         value={newAgreement.type} 
-                        onValueChange={(value) => handleAgreementChange('type', value)}
+                        onValueChange={(value: any) => handleAgreementChange('type', value: any)}
                       >
                         <SelectTrigger id="type">
                           <SelectValue placeholder="Select agreement type" />
@@ -1247,7 +1247,7 @@ const AgreementTrackingSystem = () => {
                         id="follow-up-date"
                         type="date"
                         value={newAgreement.followUpDate}
-                        onChange={(e) => handleAgreementChange('followUpDate', e.target.value)}
+                        onChange={(e: any) => handleAgreementChange('followUpDate', e.target.value: any)}
                       />
                     </div>
                     <div className="md:col-span-2">
@@ -1256,7 +1256,7 @@ const AgreementTrackingSystem = () => {
                         id="facilitator"
                         placeholder="Name and role of the facilitator"
                         value={newAgreement.facilitator}
-                        onChange={(e) => handleAgreementChange('facilitator', e.target.value)}
+                        onChange={(e: any) => handleAgreementChange('facilitator', e.target.value: any)}
                       />
                     </div>
                   </div>
@@ -1266,9 +1266,9 @@ const AgreementTrackingSystem = () => {
                       <Label>Participants</Label>
                       <div className="flex space-x-2">
                         <Input
-                          placeholder="Add participant (name and role)"
+                          placeholder="Add participant (name and role: any)"
                           value={newParticipant}
-                          onChange={(e) => setNewParticipant(e.target.value)}
+                          onChange={(e: any) => setNewParticipant(e.target.value: any)}
                           className="w-64"
                         />
                         <Button 
@@ -1285,7 +1285,7 @@ const AgreementTrackingSystem = () => {
                     <div className="border rounded-lg p-4">
                       {newAgreement.participants.length > 0 ? (
                         <ul className="space-y-2">
-                          {newAgreement.participants.map((participant, index) => (
+                          {newAgreement.participants.map((participant: any, index) => (
                             <li key={index} className="flex items-centre justify-between p-2 bg-grey-50 rounded">
                               <div className="flex items-centre">
                                 <Users className="h-4 w-4 mr-2 text-muted-foreground" />
@@ -1294,7 +1294,7 @@ const AgreementTrackingSystem = () => {
                               <Button 
                                 variant="ghost" 
                                 size="sm"
-                                onClick={() => handleRemoveParticipant(index)}
+                                onClick={() => handleRemoveParticipant(index: any)}
                               >
                                 <Trash2 className="h-4 w-4" />
                               </Button>
@@ -1322,7 +1322,7 @@ const AgreementTrackingSystem = () => {
                             id="term-description"
                             placeholder="Describe what needs to be done"
                             value={newTerm.description}
-                            onChange={(e) => handleTermChange('description', e.target.value)}
+                            onChange={(e: any) => handleTermChange('description', e.target.value: any)}
                           />
                         </div>
                         <div>
@@ -1331,7 +1331,7 @@ const AgreementTrackingSystem = () => {
                             id="responsible-party"
                             placeholder="Who is responsible for this term"
                             value={newTerm.responsibleParty}
-                            onChange={(e) => handleTermChange('responsibleParty', e.target.value)}
+                            onChange={(e: any) => handleTermChange('responsibleParty', e.target.value: any)}
                           />
                         </div>
                         <div>
@@ -1340,7 +1340,7 @@ const AgreementTrackingSystem = () => {
                             id="due-date"
                             type="date"
                             value={newTerm.dueDate}
-                            onChange={(e) => handleTermChange('dueDate', e.target.value)}
+                            onChange={(e: any) => handleTermChange('dueDate', e.target.value: any)}
                           />
                         </div>
                       </div>
@@ -1356,7 +1356,7 @@ const AgreementTrackingSystem = () => {
                     <div className="border rounded-lg p-4">
                       {newAgreement.terms.length > 0 ? (
                         <div className="space-y-3">
-                          {newAgreement.terms.map((term, index) => (
+                          {newAgreement.terms.map((term: any, index) => (
                             <div key={index} className="flex items-start justify-between p-3 bg-grey-50 rounded">
                               <div className="flex-1">
                                 <p className="font-medium">{term.description}</p>
@@ -1370,7 +1370,7 @@ const AgreementTrackingSystem = () => {
                               <Button 
                                 variant="ghost" 
                                 size="sm"
-                                onClick={() => handleRemoveTerm(index)}
+                                onClick={() => handleRemoveTerm(index: any)}
                               >
                                 <Trash2 className="h-4 w-4" />
                               </Button>
@@ -1391,7 +1391,7 @@ const AgreementTrackingSystem = () => {
                       id="notes"
                       placeholder="Any additional notes or context about this agreement"
                       value={newAgreement.notes}
-                      onChange={(e) => handleAgreementChange('notes', e.target.value)}
+                      onChange={(e: any) => handleAgreementChange('notes', e.target.value: any)}
                     />
                   </div>
                 </div>

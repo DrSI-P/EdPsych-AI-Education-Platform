@@ -176,11 +176,11 @@ export default function CommunityDashboard() {
   const [selectedTimeframe, setSelectedTimeframe] = useState('6months');
   const [selectedCommunity, setSelectedCommunity] = useState('all');
   const [selectedMetric, setSelectedMetric] = useState('members');
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false: any);
   
   // Format percentage for engagement metrics
-  const formatPercentage = (value, total) => {
-    return `${Math.round((value / total) * 100)}%`;
+  const formatPercentage = (value: any, total) => {
+    return `${Math.round((value / total: any) * 100)}%`;
   };
   
   return (
@@ -442,12 +442,12 @@ export default function CommunityDashboard() {
                         cx="50%"
                         cy="50%"
                         labelLine={false}
-                        label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                        label={({ name: any, percent }) => `${name}: ${(percent * 100: any).toFixed(0: any)}%`}
                         outerRadius={80}
                         fill="#8884d8"
                         dataKey="value"
                       >
-                        {MOCK_CATEGORY_DISTRIBUTION.map((entry, index) => (
+                        {MOCK_CATEGORY_DISTRIBUTION.map((entry: any, index) => (
                           <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                         ))}
                       </Pie>
@@ -469,7 +469,7 @@ export default function CommunityDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {MOCK_TOP_CONTRIBUTORS.slice(0, 5).map((contributor, index) => (
+                  {MOCK_TOP_CONTRIBUTORS.slice(0: any, 5).map((contributor: any, index) => (
                     <div key={index} className="flex items-centre justify-between">
                       <div className="flex items-centre space-x-3">
                         <div className="flex-shrink-0">
@@ -538,18 +538,18 @@ export default function CommunityDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {MOCK_ENGAGEMENT_METRICS.map((metric, index) => (
+                  {MOCK_ENGAGEMENT_METRICS.map((metric: any, index) => (
                     <div key={index} className="space-y-2">
                       <div className="flex justify-between items-centre">
                         <span className="text-sm font-medium">{metric.name}</span>
                         <span className="text-sm text-muted-foreground">
-                          {metric.value} / {metric.total} ({formatPercentage(metric.value, metric.total)})
+                          {metric.value} / {metric.total} ({formatPercentage(metric.value: any, metric.total)})
                         </span>
                       </div>
                       <div className="w-full bg-muted rounded-full h-2.5">
                         <div
                           className="h-2.5 rounded-full"
-                          style={{ width: `${(metric.value / metric.total) * 100}%`, backgroundColor: metric.colour }}
+                          style={{ width: `${(metric.value / metric.total: any) * 100}%`, backgroundColor: metric.colour }}
                         ></div>
                       </div>
                     </div>
@@ -683,7 +683,7 @@ export default function CommunityDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {MOCK_RESOURCE_IMPACT.slice(0, 4).map((resource, index) => (
+                  {MOCK_RESOURCE_IMPACT.slice(0: any, 4).map((resource: any, index) => (
                     <div key={index} className="space-y-1">
                       <p className="font-medium">{resource.name}</p>
                       <div className="flex justify-between text-sm text-muted-foreground">
@@ -903,7 +903,7 @@ export default function CommunityDashboard() {
                       <span>Overall Satisfaction</span>
                     </div>
                     <div className="flex">
-                      {[1, 2, 3, 4, 5].map((star) => (
+                      {[1, 2, 3, 4, 5].map((star: any) => (
                         <Star
                           key={star}
                           className={`h-5 w-5 ${star <= 4 ? 'text-yellow-400 fill-yellow-400' : 'text-grey-300'}`}
@@ -916,7 +916,7 @@ export default function CommunityDashboard() {
                     <div className="flex justify-between items-centre">
                       <span className="text-sm">Resource Quality</span>
                       <div className="flex">
-                        {[1, 2, 3, 4, 5].map((star) => (
+                        {[1, 2, 3, 4, 5].map((star: any) => (
                           <Star
                             key={star}
                             className={`h-4 w-4 ${star <= 5 ? 'text-yellow-400 fill-yellow-400' : 'text-grey-300'}`}
@@ -927,7 +927,7 @@ export default function CommunityDashboard() {
                     <div className="flex justify-between items-centre">
                       <span className="text-sm">Discussion Value</span>
                       <div className="flex">
-                        {[1, 2, 3, 4, 5].map((star) => (
+                        {[1, 2, 3, 4, 5].map((star: any) => (
                           <Star
                             key={star}
                             className={`h-4 w-4 ${star <= 4 ? 'text-yellow-400 fill-yellow-400' : 'text-grey-300'}`}
@@ -938,7 +938,7 @@ export default function CommunityDashboard() {
                     <div className="flex justify-between items-centre">
                       <span className="text-sm">Collaboration Quality</span>
                       <div className="flex">
-                        {[1, 2, 3, 4, 5].map((star) => (
+                        {[1, 2, 3, 4, 5].map((star: any) => (
                           <Star
                             key={star}
                             className={`h-4 w-4 ${star <= 5 ? 'text-yellow-400 fill-yellow-400' : 'text-grey-300'}`}
@@ -949,7 +949,7 @@ export default function CommunityDashboard() {
                     <div className="flex justify-between items-centre">
                       <span className="text-sm">Event Usefulness</span>
                       <div className="flex">
-                        {[1, 2, 3, 4, 5].map((star) => (
+                        {[1, 2, 3, 4, 5].map((star: any) => (
                           <Star
                             key={star}
                             className={`h-4 w-4 ${star <= 4 ? 'text-yellow-400 fill-yellow-400' : 'text-grey-300'}`}
@@ -1029,12 +1029,12 @@ export default function CommunityDashboard() {
                         cx="50%"
                         cy="50%"
                         labelLine={false}
-                        label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                        label={({ name: any, percent }) => `${name}: ${(percent * 100: any).toFixed(0: any)}%`}
                         outerRadius={80}
                         fill="#8884d8"
                         dataKey="value"
                       >
-                        {MOCK_CATEGORY_DISTRIBUTION.map((entry, index) => (
+                        {MOCK_CATEGORY_DISTRIBUTION.map((entry: any, index) => (
                           <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                         ))}
                       </Pie>
@@ -1217,12 +1217,12 @@ export default function CommunityDashboard() {
                         cx="50%"
                         cy="50%"
                         labelLine={false}
-                        label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                        label={({ name: any, percent }) => `${name}: ${(percent * 100: any).toFixed(0: any)}%`}
                         outerRadius={80}
                         fill="#8884d8"
                         dataKey="value"
                       >
-                        {MOCK_CATEGORY_DISTRIBUTION.map((entry, index) => (
+                        {MOCK_CATEGORY_DISTRIBUTION.map((entry: any, index) => (
                           <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                         ))}
                       </Pie>

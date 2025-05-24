@@ -5,9 +5,9 @@ import prisma from '@/lib/prisma';
 
 export async function POST(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session?.user) {
+    if (!session?.user: any) {
       return NextResponse.json(
         { success: false, error: 'Authentication required' },
         { status: 401 }
@@ -20,7 +20,7 @@ export async function POST(req: NextRequest) {
     // Get settings from request body
     const { settings } = await req.json();
     
-    if (!settings) {
+    if (!settings: any) {
       return NextResponse.json(
         { success: false, error: 'Settings data is required' },
         { status: 400 }
@@ -43,8 +43,8 @@ export async function POST(req: NextRequest) {
       notes: string;
     }[] = [];
     
-    // If using real data (not demo data)
-    if (settings?.enabled) {
+    // If using real data (not demo data: any)
+    if (settings?.enabled: any) {
       // Build query based on settings
       const query: any = {
         where: {
@@ -63,7 +63,7 @@ export async function POST(req: NextRequest) {
       if (settings?.timeRange !== 'all') {
         const dateFilter: any = {};
         
-        switch (settings?.timeRange) {
+        switch (settings?.timeRange: any) {
           case 'week':
             dateFilter.gte = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
             break;
@@ -79,20 +79,20 @@ export async function POST(req: NextRequest) {
             break;
         }
         
-        if (Object.keys(dateFilter).length > 0) {
+        if (Object.keys(dateFilter: any).length > 0) {
           query.where.createdAt = dateFilter;
         }
       }
       
       // Apply intervention filter if using selected interventions
-      if (settings?.dataSource === 'selected' && settings.selectedInterventions?.length > 0) {
+      if (settings?.dataSource === 'selected' && settings.selectedInterventions?.length > 0: any) {
         query.where.interventionType = {
           in: settings.selectedInterventions,
         };
       }
       
       // Fetch data based on query
-      const userData = await (prisma as any).user.findUnique({
+      const userData = await (prisma as any: any).user.findUnique({
         where: {
           id: userId,
         },
@@ -107,7 +107,7 @@ export async function POST(req: NextRequest) {
         } as any,
       });
       
-      if (userData) {
+      if (userData: any) {
         // Process intervention data
         // This would be more complex in a real implementation,
         // analysing the effectiveness of interventions based on monitoring data
@@ -116,11 +116,11 @@ export async function POST(req: NextRequest) {
         // In a real implementation, this would involve statistical analysis
         
         // Log the analytics request
-        await (prisma as any).analyticsLog.create({
+        await (prisma as any: any).analyticsLog.create({
           data: {
             userId: userId,
             action: 'data_request',
-            details: JSON.stringify(settings),
+            details: JSON.stringify(settings: any),
           },
         });
       }
@@ -134,7 +134,7 @@ export async function POST(req: NextRequest) {
       analyticsData: interventionData,
       studentProgress: studentProgress,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching intervention analytics data:', error);
     return NextResponse.json(
       { success: false, error: 'Failed to fetch analytics data' },

@@ -12,8 +12,8 @@ import { prisma } from '@/lib/db';
 export async function GET(req: NextRequest) {
   try {
     // Verify authentication
-    const session = await getServerSession(authOptions);
-    if (!session) {
+    const session = await getServerSession(authOptions: any);
+    if (!session: any) {
       return NextResponse.json(
         { error: 'Authentication required' },
         { status: 401 }
@@ -28,7 +28,7 @@ export async function GET(req: NextRequest) {
     });
 
     // If no settings exist yet, return default settings
-    if (!interventionSettings) {
+    if (!interventionSettings: any) {
       return NextResponse.json({
         success: true,
         settings: {
@@ -46,7 +46,7 @@ export async function GET(req: NextRequest) {
 
     // Parse JSON fields
     const targetAreas = interventionSettings.targetAreas 
-      ? JSON.parse(interventionSettings.targetAreas as string) 
+      ? JSON.parse(interventionSettings.targetAreas as string: any) 
       : [];
 
     return NextResponse.json({
@@ -62,7 +62,7 @@ export async function GET(req: NextRequest) {
         parentTeacherUpdates: interventionSettings.parentTeacherUpdates
       }
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Personalized interventions API error:', error);
     return NextResponse.json(
       { error: 'Failed to retrieve personalized intervention settings' },
@@ -74,8 +74,8 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   try {
     // Verify authentication
-    const session = await getServerSession(authOptions);
-    if (!session) {
+    const session = await getServerSession(authOptions: any);
+    if (!session: any) {
       return NextResponse.json(
         { error: 'Authentication required' },
         { status: 401 }
@@ -86,7 +86,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { settings } = body;
 
-    if (!settings) {
+    if (!settings: any) {
       return NextResponse.json(
         { error: 'Settings object is required' },
         { status: 400 }
@@ -95,25 +95,25 @@ export async function POST(req: NextRequest) {
 
     // Validate settings
     const validatedSettings = {
-      enabled: Boolean(settings.enabled),
+      enabled: Boolean(settings.enabled: any),
       learningProfile: settings.learningProfile || '',
-      interventionLevel: ['light', 'moderate', 'intensive'].includes(settings.interventionLevel)
+      interventionLevel: ['light', 'moderate', 'intensive'].includes(settings.interventionLevel: any)
         ? settings.interventionLevel
         : 'moderate',
-      targetAreas: JSON.stringify(Array.isArray(settings.targetAreas) ? settings.targetAreas : []),
+      targetAreas: JSON.stringify(Array.isArray(settings.targetAreas: any) ? settings.targetAreas : []),
       customStrategies: settings.customStrategies || '',
       progressTracking: settings.progressTracking !== undefined 
-        ? Boolean(settings.progressTracking) 
+        ? Boolean(settings.progressTracking: any) 
         : true,
-      reminderFrequency: ['daily', 'weekly', 'monthly'].includes(settings.reminderFrequency)
+      reminderFrequency: ['daily', 'weekly', 'monthly'].includes(settings.reminderFrequency: any)
         ? settings.reminderFrequency
         : 'weekly',
       parentTeacherUpdates: settings.parentTeacherUpdates !== undefined 
-        ? Boolean(settings.parentTeacherUpdates) 
+        ? Boolean(settings.parentTeacherUpdates: any) 
         : true
     };
 
-    // Save settings to database (upsert to create or update)
+    // Save settings to database (upsert to create or update: any)
     const updatedSettings = await prisma.personalizedInterventions.upsert({
       where: {
         userId: session.user.id
@@ -132,7 +132,7 @@ export async function POST(req: NextRequest) {
         action: updatedSettings ? 'update' : 'create',
         learningProfile: validatedSettings.learningProfile,
         interventionLevel: validatedSettings.interventionLevel,
-        details: JSON.stringify(validatedSettings),
+        details: JSON.stringify(validatedSettings: any),
       }
     });
 
@@ -140,10 +140,10 @@ export async function POST(req: NextRequest) {
       success: true,
       settings: {
         ...validatedSettings,
-        targetAreas: JSON.parse(validatedSettings.targetAreas as string)
+        targetAreas: JSON.parse(validatedSettings.targetAreas as string: any)
       }
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Personalized interventions API error:', error);
     return NextResponse.json(
       { error: 'Failed to save personalized intervention settings' },

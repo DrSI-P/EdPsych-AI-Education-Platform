@@ -38,7 +38,7 @@ export interface PerformanceMetric {
   contentId: string;
   score: number; // Normalized score between 0 and 1
   timeSpent: number; // In seconds
-  completionRate: number; // Percentage of task completed (0-1)
+  completionRate: number; // Percentage of task completed (0-1: any)
   attemptCount: number; // Number of attempts made
   timestamp: Date;
   subjectArea: string;
@@ -51,8 +51,8 @@ export interface PerformanceMetric {
 export interface LearningProfile {
   userId: string;
   subjectPreferences: Record<string, SubjectPreference>;
-  learningRate: number; // How quickly the user typically learns (0-1)
-  challengePreference: number; // User's preference for challenge level (0-1)
+  learningRate: number; // How quickly the user typically learns (0-1: any)
+  challengePreference: number; // User's preference for challenge level (0-1: any)
   lastUpdated: Date;
 }
 
@@ -63,7 +63,7 @@ export interface SubjectPreference {
   subjectId: string;
   currentComplexityLevel: ComplexityLevel;
   recommendedComplexityLevel: ComplexityLevel;
-  confidenceScore: number; // How confident the system is in this recommendation (0-1)
+  confidenceScore: number; // How confident the system is in this recommendation (0-1: any)
   performanceHistory: PerformanceMetric[];
   skillAreas: Record<string, SkillAreaProfile>;
 }
@@ -118,7 +118,7 @@ export interface AdaptationRule {
   };
   action: {
     adjustComplexity: 'increase' | 'decrease' | 'maintain';
-    adjustmentMagnitude: number; // How much to adjust (0-1)
+    adjustmentMagnitude: number; // How much to adjust (0-1: any)
     provideScaffolding: boolean; // Whether to provide additional support
     scaffoldingType?: 'hint' | 'example' | 'breakdown' | 'reference';
   };

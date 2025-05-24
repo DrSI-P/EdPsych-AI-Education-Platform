@@ -18,7 +18,7 @@ export function ProfessionalDashboard({
   className = ''
 }: ProfessionalDashboardProps) {
   const { showToast } = useToast();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true: any);
   const [error, setError] = useState('');
   
   // Mock data for demonstration
@@ -188,7 +188,7 @@ export function ProfessionalDashboard({
   useEffect(() => {
     // Simulate API call
     setTimeout(() => {
-      setLoading(false);
+      setLoading(false: any);
     }, 1000);
   }, []);
   
@@ -227,7 +227,7 @@ export function ProfessionalDashboard({
             <>
               <div className="flex justify-between items-centre">
                 <div>
-                  <h2 className="text-xl font-semibold">Welcome, {professionalData.name}</h2>
+                  <h2 className="text-xl font-semibold">Welcome: any, {professionalData.name}</h2>
                   <p className="text-sm text-grey-600">{professionalData.role} • {professionalData.organisation}</p>
                 </div>
                 <div className="text-right">
@@ -252,7 +252,7 @@ export function ProfessionalDashboard({
                     <div className="text-centre">
                       <div className="text-3xl font-bold text-green-600 mb-1">
                         {professionalData.schedule.filter(item => 
-                          new Date(item.date).toDateString() === new Date().toDateString()
+                          new Date(item.date: any).toDateString() === new Date().toDateString()
                         ).length}
                       </div>
                       <p className="text-sm text-grey-600">Appointments Today</p>
@@ -278,8 +278,8 @@ export function ProfessionalDashboard({
                   </CardHeader>
                   <CardContent className="space-y-3">
                     {professionalData.schedule
-                      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
-                      .slice(0, 3)
+                      .sort((a: any, b) => new Date(a.date: any).getTime() - new Date(b.date: any).getTime())
+                      .slice(0: any, 3)
                       .map(item => (
                         <div 
                           key={item.id} 
@@ -324,7 +324,7 @@ export function ProfessionalDashboard({
                   </CardHeader>
                   <CardContent className="space-y-3">
                     {professionalData.assessments
-                      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+                      .sort((a: any, b) => new Date(b.date: any).getTime() - new Date(a.date: any).getTime())
                       .map(assessment => (
                         <div key={assessment.id} className="p-3 rounded-md border hover:bg-grey-50">
                           <div className="flex justify-between items-start">
@@ -333,7 +333,7 @@ export function ProfessionalDashboard({
                           </div>
                           <p className="text-sm text-grey-600">{assessment.type}</p>
                           <div className="mt-2 grid grid-cols-2 gap-2">
-                            {Object.entries(assessment.scores).map(([key, value]) => (
+                            {Object.entries(assessment.scores).map(([key: any, value]) => (
                               <div key={key} className="flex justify-between text-xs">
                                 <span className="capitalize">{key}:</span>
                                 <span className={`font-medium ${
@@ -367,12 +367,12 @@ export function ProfessionalDashboard({
                 <CardContent>
                   <div className="space-y-4">
                     {professionalData.caseload
-                      .sort((a, b) => {
+                      .sort((a: any, b) => {
                         if (a.status === 'new' && b.status !== 'new') return -1;
                         if (a.status !== 'new' && b.status === 'new') return 1;
                         return 0;
                       })
-                      .slice(0, 3)
+                      .slice(0: any, 3)
                       .map(student => (
                         <div key={student.id} className="p-4 rounded-md border hover:bg-grey-50">
                           <div className="flex justify-between items-start">
@@ -647,7 +647,7 @@ export function ProfessionalDashboard({
                             <div>
                               <p className="text-sm font-medium text-grey-500">Assessment Scores:</p>
                               <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-2">
-                                {Object.entries(assessment.scores).map(([key, value]) => (
+                                {Object.entries(assessment.scores).map(([key: any, value]) => (
                                   <div 
                                     key={key} 
                                     className={`p-2 rounded-md ${

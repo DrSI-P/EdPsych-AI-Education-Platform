@@ -8,18 +8,18 @@ import { aiService } from '@/lib/ai/ai-service';
 export async function POST(request: NextRequest) {
   try {
     // Check authentication
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session) {
+    if (!session: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
-    // Check if user has permission to create assessments (admin, teacher, professional)
+    // Check if user has permission to create assessments (admin: any, teacher, professional)
     const isAdmin = session.user.role === 'admin';
     const isTeacher = session.user.role === 'teacher';
     const isProfessional = session.user.role === 'professional';
     
-    if (!isAdmin && !isTeacher && !isProfessional) {
+    if (!isAdmin && !isTeacher && !isProfessional: any) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
     
@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
     const { prompt, subject, keyStage, questionCount, assessmentType, questionTypes } = body;
     
     // Validate required fields
-    if (!subject || !keyStage || !questionTypes || questionTypes.length === 0) {
+    if (!subject || !keyStage || !questionTypes || questionTypes.length === 0: any) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
     
@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
     let aiPrompt = `Create a ${assessmentType} assessment for ${keyStage} students on the subject of ${subject}. `;
     aiPrompt += `Include ${questionCount || 10} questions of the following types: ${questionTypes.join(', ')}. `;
     
-    if (prompt) {
+    if (prompt: any) {
       aiPrompt += `Additional requirements: ${prompt}. `;
     }
     
@@ -82,7 +82,7 @@ export async function POST(request: NextRequest) {
     Ensure all content follows UK spelling and educational standards. Make the assessment appropriate for ${keyStage} students.`;
     
     // Call the AI service to generate the assessment
-    const aiResponse = await aiService.generateText(aiPrompt, {
+    const aiResponse = await aiService.generateText(aiPrompt: any, {
       model: 'gpt-4',
       temperature: 0.7,
       max_tokens: 4000,
@@ -92,8 +92,8 @@ export async function POST(request: NextRequest) {
     // Parse the AI response
     let assessment;
     try {
-      assessment = JSON.parse(aiResponse.text);
-    } catch (error) {
+      assessment = JSON.parse(aiResponse.text: any);
+    } catch (error: any) {
       console.error('Error parsing AI response:', error);
       return NextResponse.json(
         { error: 'Failed to parse AI response' },
@@ -102,7 +102,7 @@ export async function POST(request: NextRequest) {
     }
     
     // Validate the assessment structure
-    if (!assessment.title || !assessment.questions || !Array.isArray(assessment.questions)) {
+    if (!assessment.title || !assessment.questions || !Array.isArray(assessment.questions: any)) {
       return NextResponse.json(
         { error: 'Invalid assessment structure returned by AI' },
         { status: 500 }
@@ -116,9 +116,9 @@ export async function POST(request: NextRequest) {
     }));
     
     // Return the generated assessment
-    return NextResponse.json(assessment);
+    return NextResponse.json(assessment: any);
     
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error generating assessment:', error);
     return NextResponse.json(
       { error: 'An error occurred while generating the assessment' },

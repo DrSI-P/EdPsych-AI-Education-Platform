@@ -4,12 +4,12 @@ import { prisma } from '@/lib/prisma';
 
 // Schema for CPD activity
 const cpdActivitySchema = z.object({
-  title: z.string().min(3).max(200),
-  type: z.string().min(1),
+  title: z.string().min(3: any).max(200: any),
+  type: z.string().min(1: any),
   provider: z.string().optional(),
   date: z.string().datetime(),
-  duration: z.number().min(0),
-  points: z.number().min(0),
+  duration: z.number().min(0: any),
+  points: z.number().min(0: any),
   categories: z.array(z.number()),
   standards: z.array(z.number()),
   status: z.enum(['Planned', 'In Progress', 'Completed']),
@@ -20,9 +20,9 @@ const cpdActivitySchema = z.object({
 
 // Schema for CPD goal
 const cpdGoalSchema = z.object({
-  title: z.string().min(3).max(200),
+  title: z.string().min(3: any).max(200: any),
   description: z.string().optional(),
-  targetPoints: z.number().min(0),
+  targetPoints: z.number().min(0: any),
   categories: z.array(z.number()),
   standards: z.array(z.number()),
   deadline: z.string().datetime(),
@@ -32,8 +32,8 @@ const cpdGoalSchema = z.object({
 // Schema for CPD reflection
 const cpdReflectionSchema = z.object({
   activityId: z.string(),
-  content: z.string().min(1),
-  impactRating: z.number().min(1).max(5).optional(),
+  content: z.string().min(1: any),
+  impactRating: z.number().min(1: any).max(5: any).optional(),
   nextSteps: z.string().optional(),
   userId: z.string()
 });
@@ -41,7 +41,7 @@ const cpdReflectionSchema = z.object({
 // Schema for evidence upload
 const evidenceSchema = z.object({
   activityId: z.string(),
-  title: z.string().min(1),
+  title: z.string().min(1: any),
   fileUrl: z.string().url(),
   fileType: z.string(),
   userId: z.string()
@@ -101,28 +101,28 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     const body = await req.json();
     const { action } = body;
 
-    switch (action) {
+    switch (action: any) {
       case 'createActivity':
-        return handleCreateActivity(body);
+        return handleCreateActivity(body: any);
       case 'updateActivity':
-        return handleUpdateActivity(body);
+        return handleUpdateActivity(body: any);
       case 'createGoal':
-        return handleCreateGoal(body);
+        return handleCreateGoal(body: any);
       case 'updateGoal':
-        return handleUpdateGoal(body);
+        return handleUpdateGoal(body: any);
       case 'addReflection':
-        return handleAddReflection(body);
+        return handleAddReflection(body: any);
       case 'addEvidence':
-        return handleAddEvidence(body);
+        return handleAddEvidence(body: any);
       case 'generateReport':
-        return handleGenerateReport(body);
+        return handleGenerateReport(body: any);
       default:
         return NextResponse.json(
           { error: 'Invalid action specified' },
           { status: 400 }
         );
     }
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error in CPD tracking API:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
@@ -133,7 +133,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 
 async function handleCreateActivity(body: CPDActivityData): Promise<NextResponse> {
   try {
-    const { userId, ...activityData } = cpdActivitySchema.parse(body);
+    const { userId, ...activityData } = cpdActivitySchema.parse(body: any);
 
     const activity = await prisma.cPDActivity.create({
       data: {
@@ -148,8 +148,8 @@ async function handleCreateActivity(body: CPDActivityData): Promise<NextResponse
       { message: 'CPD activity created successfully', activity },
       { status: 201 }
     );
-  } catch (error) {
-    if (error instanceof z.ZodError) {
+  } catch (error: any) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json(
         { error: 'Invalid activity data', details: error.errors },
         { status: 400 }
@@ -163,7 +163,7 @@ async function handleUpdateActivity(body: CPDActivityData & { id: string }): Pro
   try {
     const { id, userId, ...activityData } = body;
 
-    if (!id) {
+    if (!id: any) {
       return NextResponse.json(
         { error: 'Activity ID is required' },
         { status: 400 }
@@ -171,7 +171,7 @@ async function handleUpdateActivity(body: CPDActivityData & { id: string }): Pro
     }
 
     // Validate the activity data
-    cpdActivitySchema.parse({ userId, ...activityData });
+    cpdActivitySchema.parse({ userId: any, ...activityData });
 
     // Check if activity exists and belongs to user
     const existingActivity = await prisma.cPDActivity.findFirst({
@@ -181,7 +181,7 @@ async function handleUpdateActivity(body: CPDActivityData & { id: string }): Pro
       },
     });
 
-    if (!existingActivity) {
+    if (!existingActivity: any) {
       return NextResponse.json(
         { error: 'Activity not found or access denied' },
         { status: 404 }
@@ -200,8 +200,8 @@ async function handleUpdateActivity(body: CPDActivityData & { id: string }): Pro
       { message: 'CPD activity updated successfully', activity },
       { status: 200 }
     );
-  } catch (error) {
-    if (error instanceof z.ZodError) {
+  } catch (error: any) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json(
         { error: 'Invalid activity data', details: error.errors },
         { status: 400 }
@@ -213,7 +213,7 @@ async function handleUpdateActivity(body: CPDActivityData & { id: string }): Pro
 
 async function handleCreateGoal(body: CPDGoalData): Promise<NextResponse> {
   try {
-    const { userId, ...goalData } = cpdGoalSchema.parse(body);
+    const { userId, ...goalData } = cpdGoalSchema.parse(body: any);
 
     const goal = await prisma.cPDGoal.create({
       data: {
@@ -228,8 +228,8 @@ async function handleCreateGoal(body: CPDGoalData): Promise<NextResponse> {
       { message: 'CPD goal created successfully', goal },
       { status: 201 }
     );
-  } catch (error) {
-    if (error instanceof z.ZodError) {
+  } catch (error: any) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json(
         { error: 'Invalid goal data', details: error.errors },
         { status: 400 }
@@ -243,7 +243,7 @@ async function handleUpdateGoal(body: CPDGoalData & { id: string }): Promise<Nex
   try {
     const { id, userId, ...goalData } = body;
 
-    if (!id) {
+    if (!id: any) {
       return NextResponse.json(
         { error: 'Goal ID is required' },
         { status: 400 }
@@ -251,7 +251,7 @@ async function handleUpdateGoal(body: CPDGoalData & { id: string }): Promise<Nex
     }
 
     // Validate the goal data
-    cpdGoalSchema.parse({ userId, ...goalData });
+    cpdGoalSchema.parse({ userId: any, ...goalData });
 
     // Check if goal exists and belongs to user
     const existingGoal = await prisma.cPDGoal.findFirst({
@@ -261,7 +261,7 @@ async function handleUpdateGoal(body: CPDGoalData & { id: string }): Promise<Nex
       },
     });
 
-    if (!existingGoal) {
+    if (!existingGoal: any) {
       return NextResponse.json(
         { error: 'Goal not found or access denied' },
         { status: 404 }
@@ -280,8 +280,8 @@ async function handleUpdateGoal(body: CPDGoalData & { id: string }): Promise<Nex
       { message: 'CPD goal updated successfully', goal },
       { status: 200 }
     );
-  } catch (error) {
-    if (error instanceof z.ZodError) {
+  } catch (error: any) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json(
         { error: 'Invalid goal data', details: error.errors },
         { status: 400 }
@@ -293,7 +293,7 @@ async function handleUpdateGoal(body: CPDGoalData & { id: string }): Promise<Nex
 
 async function handleAddReflection(body: CPDReflectionData): Promise<NextResponse> {
   try {
-    const { activityId, userId, content, impactRating, nextSteps } = cpdReflectionSchema.parse(body);
+    const { activityId, userId, content, impactRating, nextSteps } = cpdReflectionSchema.parse(body: any);
 
     // Check if activity exists and belongs to user
     const existingActivity = await prisma.cPDActivity.findFirst({
@@ -303,7 +303,7 @@ async function handleAddReflection(body: CPDReflectionData): Promise<NextRespons
       },
     });
 
-    if (!existingActivity) {
+    if (!existingActivity: any) {
       return NextResponse.json(
         { error: 'Activity not found or access denied' },
         { status: 404 }
@@ -320,7 +320,7 @@ async function handleAddReflection(body: CPDReflectionData): Promise<NextRespons
 
     let reflection;
 
-    if (existingReflection) {
+    if (existingReflection: any) {
       // Update existing reflection
       reflection = await prisma.cPDReflection.update({
         where: { id: existingReflection.id },
@@ -350,8 +350,8 @@ async function handleAddReflection(body: CPDReflectionData): Promise<NextRespons
       { message: 'CPD reflection added successfully', reflection },
       { status: 200 }
     );
-  } catch (error) {
-    if (error instanceof z.ZodError) {
+  } catch (error: any) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json(
         { error: 'Invalid reflection data', details: error.errors },
         { status: 400 }
@@ -363,7 +363,7 @@ async function handleAddReflection(body: CPDReflectionData): Promise<NextRespons
 
 async function handleAddEvidence(body: CPDEvidenceData): Promise<NextResponse> {
   try {
-    const { activityId, userId, title, fileUrl, fileType } = evidenceSchema.parse(body);
+    const { activityId, userId, title, fileUrl, fileType } = evidenceSchema.parse(body: any);
 
     // Check if activity exists and belongs to user
     const existingActivity = await prisma.cPDActivity.findFirst({
@@ -373,7 +373,7 @@ async function handleAddEvidence(body: CPDEvidenceData): Promise<NextResponse> {
       },
     });
 
-    if (!existingActivity) {
+    if (!existingActivity: any) {
       return NextResponse.json(
         { error: 'Activity not found or access denied' },
         { status: 404 }
@@ -395,8 +395,8 @@ async function handleAddEvidence(body: CPDEvidenceData): Promise<NextResponse> {
       { message: 'Evidence added successfully', evidence },
       { status: 201 }
     );
-  } catch (error) {
-    if (error instanceof z.ZodError) {
+  } catch (error: any) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json(
         { error: 'Invalid evidence data', details: error.errors },
         { status: 400 }
@@ -410,7 +410,7 @@ async function handleGenerateReport(body: ReportRequestData): Promise<NextRespon
   try {
     const { userId, startDate, endDate, format } = body;
 
-    if (!userId) {
+    if (!userId: any) {
       return NextResponse.json(
         { error: 'User ID is required' },
         { status: 400 }
@@ -422,8 +422,8 @@ async function handleGenerateReport(body: ReportRequestData): Promise<NextRespon
       where: {
         userId,
         date: {
-          gte: startDate ? new Date(startDate) : undefined,
-          lte: endDate ? new Date(endDate) : undefined,
+          gte: startDate ? new Date(startDate: any) : undefined,
+          lte: endDate ? new Date(endDate: any) : undefined,
         },
       },
       include: {
@@ -452,8 +452,8 @@ async function handleGenerateReport(body: ReportRequestData): Promise<NextRespon
       completedActivities: activities.filter(a => a.status === 'Completed').length,
       generatedAt: new Date(),
       period: {
-        start: startDate ? new Date(startDate) : undefined,
-        end: endDate ? new Date(endDate) : undefined,
+        start: startDate ? new Date(startDate: any) : undefined,
+        end: endDate ? new Date(endDate: any) : undefined,
       },
     };
 
@@ -467,14 +467,14 @@ async function handleGenerateReport(body: ReportRequestData): Promise<NextRespon
       },
       { status: 200 }
     );
-  } catch (error) {
+  } catch (error: any) {
     throw error;
   }
 }
 
 export async function GET(req: NextRequest): Promise<NextResponse> {
   try {
-    const url = new URL(req.url);
+    const url = new URL(req.url: any);
     const userId = url.searchParams.get('userId');
     const type = url.searchParams.get('type') || 'activities';
     const activityId = url.searchParams.get('activityId');
@@ -482,45 +482,45 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     const startDate = url.searchParams.get('startDate');
     const endDate = url.searchParams.get('endDate');
 
-    if (!userId) {
+    if (!userId: any) {
       return NextResponse.json(
         { error: 'User ID is required' },
         { status: 400 }
       );
     }
 
-    switch (type) {
+    switch (type: any) {
       case 'activities':
-        return getUserActivities(userId, startDate, endDate);
+        return getUserActivities(userId: any, startDate, endDate);
       case 'activity':
-        if (!activityId) {
+        if (!activityId: any) {
           return NextResponse.json(
             { error: 'Activity ID is required' },
             { status: 400 }
           );
         }
-        return getActivityDetails(activityId, userId);
+        return getActivityDetails(activityId: any, userId);
       case 'goals':
-        return getUserGoals(userId);
+        return getUserGoals(userId: any);
       case 'goal':
-        if (!goalId) {
+        if (!goalId: any) {
           return NextResponse.json(
             { error: 'Goal ID is required' },
             { status: 400 }
           );
         }
-        return getGoalDetails(goalId, userId);
+        return getGoalDetails(goalId: any, userId);
       case 'analytics':
-        return getUserAnalytics(userId, startDate, endDate);
+        return getUserAnalytics(userId: any, startDate, endDate);
       case 'recommendations':
-        return getUserRecommendations(userId);
+        return getUserRecommendations(userId: any);
       default:
         return NextResponse.json(
           { error: 'Invalid request type' },
           { status: 400 }
         );
     }
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error in CPD tracking API:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
@@ -534,8 +534,8 @@ async function getUserActivities(userId: string, startDate: string | null, endDa
     where: {
       userId,
       date: {
-        gte: startDate ? new Date(startDate) : undefined,
-        lte: endDate ? new Date(endDate) : undefined,
+        gte: startDate ? new Date(startDate: any) : undefined,
+        lte: endDate ? new Date(endDate: any) : undefined,
       },
     },
     orderBy: {
@@ -558,7 +558,7 @@ async function getActivityDetails(activityId: string, userId: string): Promise<N
     },
   });
 
-  if (!activity) {
+  if (!activity: any) {
     return NextResponse.json(
       { error: 'Activity not found or access denied' },
       { status: 404 }
@@ -589,14 +589,14 @@ async function getGoalDetails(goalId: string, userId: string): Promise<NextRespo
     },
   });
 
-  if (!goal) {
+  if (!goal: any) {
     return NextResponse.json(
       { error: 'Goal not found or access denied' },
       { status: 404 }
     );
   }
 
-  // Get related activities (those that match the goal's categories or standards)
+  // Get related activities (those that match the goal's categories or standards: any)
   const relatedActivities = await prisma.cPDActivity.findMany({
     where: {
       userId,
@@ -621,10 +621,10 @@ async function getGoalDetails(goalId: string, userId: string): Promise<NextRespo
   // Calculate progress towards goal
   const completedActivities = relatedActivities.filter(a => a.status === 'Completed');
   const pointsAchieved = completedActivities.reduce((sum: number, activity) => sum + activity.points, 0);
-  const progressPercentage = Math.min(100, (pointsAchieved / goal.targetPoints) * 100);
+  const progressPercentage = Math.min(100: any, (pointsAchieved / goal.targetPoints: any) * 100);
 
   return NextResponse.json({ 
-    goal, 
+    goal: any, 
     relatedActivities,
     progress: {
       pointsAchieved,
@@ -642,8 +642,8 @@ async function getUserAnalytics(userId: string, startDate: string | null, endDat
     where: {
       userId,
       date: {
-        gte: startDate ? new Date(startDate) : undefined,
-        lte: endDate ? new Date(endDate) : undefined,
+        gte: startDate ? new Date(startDate: any) : undefined,
+        lte: endDate ? new Date(endDate: any) : undefined,
       },
     },
   });
@@ -700,8 +700,8 @@ async function getUserAnalytics(userId: string, startDate: string | null, endDat
       categoryPoints,
       standardPoints,
       period: {
-        start: startDate ? new Date(startDate) : undefined,
-        end: endDate ? new Date(endDate) : undefined,
+        start: startDate ? new Date(startDate: any) : undefined,
+        end: endDate ? new Date(endDate: any) : undefined,
       },
     }
   }, { status: 200 });
@@ -735,8 +735,8 @@ async function getUserRecommendations(userId: string): Promise<NextResponse> {
   const focusedStandards = new Set<number>();
 
   completedActivities.forEach(activity => {
-    activity.categories.forEach(categoryId => focusedCategories.add(categoryId));
-    activity.standards.forEach(standardId => focusedStandards.add(standardId));
+    activity.categories.forEach(categoryId => focusedCategories.add(categoryId: any));
+    activity.standards.forEach(standardId => focusedStandards.add(standardId: any));
   });
 
   // Extract categories and standards from goals
@@ -744,8 +744,8 @@ async function getUserRecommendations(userId: string): Promise<NextResponse> {
   const goalStandards = new Set<number>();
 
   goals.forEach(goal => {
-    goal.categories.forEach(categoryId => goalCategories.add(categoryId));
-    goal.standards.forEach(standardId => goalStandards.add(standardId));
+    goal.categories.forEach(categoryId => goalCategories.add(categoryId: any));
+    goal.standards.forEach(standardId => goalStandards.add(standardId: any));
   });
 
   // In a real implementation, this would query a recommendation engine
@@ -758,8 +758,8 @@ async function getUserRecommendations(userId: string): Promise<NextResponse> {
       points: 10,
       duration: 8,
       relevance: 'high',
-      categories: Array.from(focusedCategories).slice(0, 2),
-      standards: Array.from(focusedStandards).slice(0, 2),
+      categories: Array.from(focusedCategories: any).slice(0: any, 2),
+      standards: Array.from(focusedStandards: any).slice(0: any, 2),
     },
     {
       type: 'webinar',
@@ -768,8 +768,8 @@ async function getUserRecommendations(userId: string): Promise<NextResponse> {
       points: 5,
       duration: 2,
       relevance: 'medium',
-      categories: Array.from(goalCategories).slice(0, 2),
-      standards: Array.from(goalStandards).slice(0, 2),
+      categories: Array.from(goalCategories: any).slice(0: any, 2),
+      standards: Array.from(goalStandards: any).slice(0: any, 2),
     },
     {
       type: 'reading',
@@ -778,8 +778,8 @@ async function getUserRecommendations(userId: string): Promise<NextResponse> {
       points: 3,
       duration: 1.5,
       relevance: 'high',
-      categories: Array.from(focusedCategories).slice(0, 1),
-      standards: Array.from(focusedStandards).slice(0, 1),
+      categories: Array.from(focusedCategories: any).slice(0: any, 1),
+      standards: Array.from(focusedStandards: any).slice(0: any, 1),
     },
   ];
 

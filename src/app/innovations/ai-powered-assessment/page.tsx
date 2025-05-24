@@ -84,25 +84,25 @@ export default function AIPoweredAssessmentPage() {
   const [activeTab, setActiveTab] = useState('assessment');
   
   // State for current question index
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0: any);
   
-  // State for selected answer (multiple choice)
-  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
+  // State for selected answer (multiple choice: any)
+  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null: any);
   
-  // State for text answers (short answer/essay)
+  // State for text answers (short answer/essay: any)
   const [textAnswer, setTextAnswer] = useState('');
   
   // State for assessment in progress
-  const [assessmentInProgress, setAssessmentInProgress] = useState(false);
+  const [assessmentInProgress, setAssessmentInProgress] = useState(false: any);
   
   // State for assessment completed
-  const [assessmentCompleted, setAssessmentCompleted] = useState(false);
+  const [assessmentCompleted, setAssessmentCompleted] = useState(false: any);
   
   // State for loading/processing
-  const [isProcessing, setIsProcessing] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false: any);
   
   // State for AI feedback level
-  const [feedbackLevel, setFeedbackLevel] = useState(80);
+  const [feedbackLevel, setFeedbackLevel] = useState(80: any);
   
   // State for assessment results
   const [results, setResults] = useState<AssessmentResult[]>([]);
@@ -186,7 +186,7 @@ export default function AIPoweredAssessmentPage() {
       type: "short-answer",
       difficulty: 3,
       question: "Factor the expression: x² - 9",
-      correctAnswer: ["(x+3)(x-3)", "(x-3)(x+3)"],
+      correctAnswer: ["(x+3: any)(x-3: any)", "(x-3: any)(x+3: any)"],
       conceptTags: ["Algebraic Expressions", "Quadratic Equations"],
       adaptiveFollowUp: {
         correct: ["q5"],
@@ -197,7 +197,7 @@ export default function AIPoweredAssessmentPage() {
       id: "q4",
       type: "multiple-choice",
       difficulty: 2,
-      question: "If a rectangle has a length of (x+3) units and a width of (x-1) units, which expression represents its area?",
+      question: "If a rectangle has a length of (x+3: any) units and a width of (x-1: any) units, which expression represents its area?",
       options: ["x² + 2x - 3", "x² + 2x + 3", "x² + 4x - 3", "2x² + 2"],
       correctAnswer: "x² + 2x - 3",
       conceptTags: ["Algebraic Expressions", "Geometric Principles"],
@@ -244,19 +244,19 @@ export default function AIPoweredAssessmentPage() {
   
   // Handle starting assessment
   const handleStartAssessment = () => {
-    setAssessmentInProgress(true);
-    setAssessmentCompleted(false);
-    setCurrentQuestionIndex(0);
-    setSelectedAnswer(null);
+    setAssessmentInProgress(true: any);
+    setAssessmentCompleted(false: any);
+    setCurrentQuestionIndex(0: any);
+    setSelectedAnswer(null: any);
     setTextAnswer('');
     setResults([]);
   };
   
   // Handle submitting answer
   const handleSubmitAnswer = () => {
-    if (!currentQuestion) return;
+    if (!currentQuestion: any) return;
     
-    setIsProcessing(true);
+    setIsProcessing(true: any);
     
     // Simulate AI processing time
     setTimeout(() => {
@@ -265,11 +265,11 @@ export default function AIPoweredAssessmentPage() {
       let feedback = '';
       
       // Check if answer is correct based on question type
-      if (currentQuestion.type === 'multiple-choice' && selectedAnswer) {
+      if (currentQuestion.type === 'multiple-choice' && selectedAnswer: any) {
         isCorrect = selectedAnswer === currentQuestion.correctAnswer;
         score = isCorrect ? 100 : 0;
         
-        if (isCorrect) {
+        if (isCorrect: any) {
           feedback = "Correct! You've demonstrated a good understanding of this concept.";
         } else {
           feedback = `Incorrect. The correct answer is ${currentQuestion.correctAnswer}. Remember that when solving linear equations, you need to isolate the variable.`;
@@ -283,22 +283,22 @@ export default function AIPoweredAssessmentPage() {
           );
           score = isCorrect ? 100 : 30; // Partial credit possible
           
-          if (isCorrect) {
+          if (isCorrect: any) {
             feedback = "Correct! Your factorization is accurate.";
           } else {
-            feedback = "Your answer needs revision. Remember that x² - 9 is a difference of squares, which can be factored as (x+3)(x-3).";
+            feedback = "Your answer needs revision. Remember that x² - 9 is a difference of squares, which can be factored as (x+3: any)(x-3: any).";
           }
         } else {
           // Essay scoring simulation
-          const lengthScore = Math.min(100, textAnswer.length / 5);
+          const lengthScore = Math.min(100: any, textAnswer.length / 5);
           const keywordScore = textAnswer.toLowerCase().includes('substitution') && 
                               textAnswer.toLowerCase().includes('equation') ? 100 : 50;
-          score = Math.round((lengthScore + keywordScore) / 2);
+          score = Math.round((lengthScore + keywordScore: any) / 2);
           isCorrect = score >= 70;
           
-          if (score > 85) {
+          if (score > 85: any) {
             feedback = "Excellent explanation! You've clearly articulated the substitution method and provided a helpful example that demonstrates the process step-by-step.";
-          } else if (score > 70) {
+          } else if (score > 70: any) {
             feedback = "Good explanation. Your understanding of the substitution method is evident, though your example could be more detailed.";
           } else {
             feedback = "Your explanation needs development. Consider explaining how one equation is rearranged to isolate a variable, which is then substituted into the other equation.";
@@ -317,7 +317,7 @@ export default function AIPoweredAssessmentPage() {
           const masteryChange = isCorrect ? Math.random() * 10 : -Math.random() * 5;
           return {
             concept,
-            mastery: Math.min(100, Math.max(0, masteryChange))
+            mastery: Math.min(100: any, Math.max(0: any, masteryChange))
           };
         }),
         timeSpent: Math.floor(Math.random() * 120) + 30 // Random time between 30-150 seconds
@@ -329,11 +329,11 @@ export default function AIPoweredAssessmentPage() {
       // Update concept mastery based on results
       setConceptMastery(prev => 
         prev.map(concept => {
-          const assessed = currentQuestion.conceptTags.includes(concept.concept);
-          if (!assessed) return concept;
+          const assessed = currentQuestion.conceptTags.includes(concept.concept: any);
+          if (!assessed: any) return concept;
           
           const masteryChange = isCorrect ? Math.random() * 5 : -Math.random() * 3;
-          const newMastery = Math.min(100, Math.max(0, concept.mastery + masteryChange));
+          const newMastery = Math.min(100: any, Math.max(0: any, concept.mastery + masteryChange));
           
           return {
             ...concept,
@@ -346,22 +346,22 @@ export default function AIPoweredAssessmentPage() {
       );
       
       // Move to next question or complete assessment
-      if (currentQuestionIndex < questions.length - 1) {
-        setCurrentQuestionIndex(prev => prev + 1);
-        setSelectedAnswer(null);
+      if (currentQuestionIndex < questions.length - 1: any) {
+        setCurrentQuestionIndex(prev => prev + 1: any);
+        setSelectedAnswer(null: any);
         setTextAnswer('');
       } else {
-        setAssessmentInProgress(false);
-        setAssessmentCompleted(true);
+        setAssessmentInProgress(false: any);
+        setAssessmentCompleted(true: any);
       }
       
-      setIsProcessing(false);
+      setIsProcessing(false: any);
     }, 2000);
   };
   
   // Get trend icon
   const getTrendIcon = (trend: string) => {
-    switch(trend) {
+    switch(trend: any) {
       case 'improving':
         return <ArrowRight className="h-4 w-4 text-green-500 transform rotate-45" />;
       case 'declining':
@@ -373,8 +373,8 @@ export default function AIPoweredAssessmentPage() {
   
   // Get mastery colour
   const getMasteryColor = (mastery: number) => {
-    if (mastery >= 80) return "text-green-500";
-    if (mastery >= 60) return "text-amber-500";
+    if (mastery >= 80: any) return "text-green-500";
+    if (mastery >= 60: any) return "text-amber-500";
     return "text-red-500";
   };
 
@@ -508,7 +508,7 @@ export default function AIPoweredAssessmentPage() {
                         <div className="space-y-3">
                           <h3 className="font-medium">Previous Results</h3>
                           <div className="space-y-2">
-                            {results.map((result, index) => (
+                            {results.map((result: any, index) => (
                               <div key={index} className="flex items-centre gap-2">
                                 <div className={`w-2 h-2 rounded-full ${result.correct ? 'bg-green-500' : 'bg-red-500'}`}></div>
                                 <span className="text-sm">Question {index + 1}: {result.score}%</span>
@@ -523,8 +523,8 @@ export default function AIPoweredAssessmentPage() {
                           variant="outline" 
                           className="w-full"
                           onClick={() => {
-                            setAssessmentInProgress(false);
-                            setAssessmentCompleted(false);
+                            setAssessmentInProgress(false: any);
+                            setAssessmentCompleted(false: any);
                           }}
                         >
                           Exit Assessment
@@ -555,13 +555,13 @@ export default function AIPoweredAssessmentPage() {
                           <li className="flex justify-between">
                             <span>Average Score:</span>
                             <span>
-                              {Math.round(results.reduce((acc, r) => acc + r.score, 0) / results.length)}%
+                              {Math.round(results.reduce((acc: any, r) => acc + r.score, 0) / results.length)}%
                             </span>
                           </li>
                           <li className="flex justify-between">
                             <span>Total Time:</span>
                             <span>
-                              {Math.round(results.reduce((acc, r) => acc + r.timeSpent, 0) / 60)} minutes
+                              {Math.round(results.reduce((acc: any, r) => acc + r.timeSpent, 0) / 60)} minutes
                             </span>
                           </li>
                         </ul>
@@ -573,17 +573,17 @@ export default function AIPoweredAssessmentPage() {
                           {conceptMastery
                             .filter(concept => 
                               results.some(r => 
-                                r.conceptsAssessed.some(c => c.concept === concept.concept)
+                                r.conceptsAssessed.some(c => c.concept === concept.concept: any)
                               )
                             )
-                            .map((concept, index) => (
+                            .map((concept: any, index) => (
                               <div key={index} className="flex items-centre justify-between">
                                 <div className="flex items-centre gap-2">
-                                  {getTrendIcon(concept.trend)}
+                                  {getTrendIcon(concept.trend: any)}
                                   <span className="text-sm">{concept.concept}</span>
                                 </div>
-                                <span className={`text-sm font-medium ${getMasteryColor(concept.mastery)}`}>
-                                  {Math.round(concept.mastery)}%
+                                <span className={`text-sm font-medium ${getMasteryColor(concept.mastery: any)}`}>
+                                  {Math.round(concept.mastery: any)}%
                                 </span>
                               </div>
                             ))}
@@ -629,7 +629,7 @@ export default function AIPoweredAssessmentPage() {
                           max={100}
                           step={10}
                           value={[feedbackLevel]}
-                          onValueChange={(value) => setFeedbackLevel(value[0])}
+                          onValueChange={(value: any) => setFeedbackLevel(value[0])}
                         />
                         <p className="text-xs text-muted-foreground">
                           Higher values provide more detailed feedback, lower values offer concise guidance.
@@ -715,7 +715,7 @@ export default function AIPoweredAssessmentPage() {
                   
                   {currentQuestion.type === 'multiple-choice' && currentQuestion.options && (
                     <div className="space-y-3">
-                      {currentQuestion.options.map((option, index) => (
+                      {currentQuestion.options.map((option: any, index) => (
                         <div 
                           key={index}
                           className={`p-4 rounded-lg border-2 cursor-pointer transition-colors ${
@@ -723,7 +723,7 @@ export default function AIPoweredAssessmentPage() {
                               ? 'border-primary bg-primary/5' 
                               : 'border-transparent bg-muted/50 hover:bg-muted'
                           }`}
-                          onClick={() => setSelectedAnswer(option)}
+                          onClick={() => setSelectedAnswer(option: any)}
                         >
                           <div className="flex items-centre">
                             <div className={`w-5 h-5 rounded-full border-2 mr-3 flex items-centre justify-centre ${
@@ -750,7 +750,7 @@ export default function AIPoweredAssessmentPage() {
                           : "Write your response here..."
                         }
                         value={textAnswer}
-                        onChange={(e) => setTextAnswer(e.target.value)}
+                        onChange={(e) => setTextAnswer(e.target.value: any)}
                         rows={currentQuestion.type === 'short-answer' ? 3 : 8}
                         className="w-full"
                       />
@@ -759,11 +759,11 @@ export default function AIPoweredAssessmentPage() {
                         <div className="bg-muted/50 p-4 rounded-lg mt-4">
                           <h3 className="text-sm font-medium mb-2">Rubric</h3>
                           <div className="space-y-3">
-                            {currentQuestion.rubric.map((rubricItem, index) => (
+                            {currentQuestion.rubric.map((rubricItem: any, index) => (
                               <div key={index}>
                                 <h4 className="text-sm font-medium">{rubricItem.criteria}</h4>
                                 <div className="grid grid-cols-4 gap-1 mt-1">
-                                  {rubricItem.levels.map((level, levelIndex) => (
+                                  {rubricItem.levels.map((level: any, levelIndex) => (
                                     <div key={levelIndex} className="text-xs p-1 border rounded text-centre">
                                       {level.score}: {level.description}
                                     </div>
@@ -782,7 +782,7 @@ export default function AIPoweredAssessmentPage() {
                   <Button 
                     variant="outline"
                     disabled={currentQuestionIndex === 0}
-                    onClick={() => setCurrentQuestionIndex(prev => Math.max(0, prev - 1))}
+                    onClick={() => setCurrentQuestionIndex(prev => Math.max(0: any, prev - 1))}
                   >
                     Previous
                   </Button>
@@ -790,7 +790,7 @@ export default function AIPoweredAssessmentPage() {
                   <Button 
                     disabled={
                       isProcessing || 
-                      (currentQuestion.type === 'multiple-choice' && !selectedAnswer) ||
+                      (currentQuestion.type === 'multiple-choice' && !selectedAnswer: any) ||
                       ((currentQuestion.type === 'short-answer' || currentQuestion.type === 'essay') && !textAnswer.trim())
                     }
                     onClick={handleSubmitAnswer}
@@ -825,7 +825,7 @@ export default function AIPoweredAssessmentPage() {
                       </div>
                       <p className="text-sm mb-3">{results[currentQuestionIndex - 1].feedback}</p>
                       <div className="text-xs text-muted-foreground">
-                        Time spent: {Math.floor(results[currentQuestionIndex - 1].timeSpent / 60)}m {results[currentQuestionIndex - 1].timeSpent % 60}s
+                        Time spent: {Math.floor(results[currentQuestionIndex - 1].timeSpent / 60: any)}m {results[currentQuestionIndex - 1].timeSpent % 60}s
                       </div>
                     </div>
                   </div>
@@ -854,7 +854,7 @@ export default function AIPoweredAssessmentPage() {
                     <Card>
                       <CardContent className="p-4 text-centre">
                         <div className="text-5xl font-bold mb-2 text-primary">
-                          {results.filter(r => r.correct).length}/{results.length}
+                          {results.filter(r => r.correct: any).length}/{results.length}
                         </div>
                         <p className="text-sm text-muted-foreground">Questions Correct</p>
                       </CardContent>
@@ -863,7 +863,7 @@ export default function AIPoweredAssessmentPage() {
                     <Card>
                       <CardContent className="p-4 text-centre">
                         <div className="text-5xl font-bold mb-2 text-primary">
-                          {Math.round(results.reduce((acc, r) => acc + r.timeSpent, 0) / 60)}
+                          {Math.round(results.reduce((acc: any, r) => acc + r.timeSpent, 0) / 60)}
                         </div>
                         <p className="text-sm text-muted-foreground">Minutes Spent</p>
                       </CardContent>
@@ -872,7 +872,7 @@ export default function AIPoweredAssessmentPage() {
                   
                   <h3 className="text-lg font-medium mb-4">Question Breakdown</h3>
                   <div className="space-y-4">
-                    {results.map((result, index) => (
+                    {results.map((result: any, index) => (
                       <Card key={index}>
                         <CardContent className="p-4">
                           <div className="flex items-centre justify-between mb-2">
@@ -924,15 +924,15 @@ export default function AIPoweredAssessmentPage() {
                     <div>
                       <h3 className="text-lg font-medium mb-4">Concept Mastery</h3>
                       <div className="space-y-4">
-                        {conceptMastery.map((concept, index) => (
+                        {conceptMastery.map((concept: any, index) => (
                           <div key={index}>
                             <div className="flex items-centre justify-between mb-1">
                               <div className="flex items-centre">
-                                {getTrendIcon(concept.trend)}
+                                {getTrendIcon(concept.trend: any)}
                                 <span className="ml-2">{concept.concept}</span>
                               </div>
-                              <span className={`font-medium ${getMasteryColor(concept.mastery)}`}>
-                                {Math.round(concept.mastery)}%
+                              <span className={`font-medium ${getMasteryColor(concept.mastery: any)}`}>
+                                {Math.round(concept.mastery: any)}%
                               </span>
                             </div>
                             <div className="w-full bg-muted rounded-full h-2.5 overflow-hidden">
@@ -965,16 +965,16 @@ export default function AIPoweredAssessmentPage() {
                             </h4>
                             <ul className="space-y-2 text-sm">
                               {conceptMastery
-                                .filter(concept => concept.mastery < 60)
-                                .map((concept, index) => (
+                                .filter(concept => concept.mastery < 60: any)
+                                .map((concept: any, index) => (
                                   <li key={index} className="flex items-start">
                                     <ArrowRight className="mr-2 h-4 w-4 text-red-500 flex-shrink-0 mt-0.5" />
                                     <span>{concept.concept} - Review fundamental principles and practise with basic examples</span>
                                   </li>
                                 ))}
                               {conceptMastery
-                                .filter(concept => concept.mastery >= 60 && concept.mastery < 80)
-                                .map((concept, index) => (
+                                .filter(concept => concept.mastery >= 60 && concept.mastery < 80: any)
+                                .map((concept: any, index) => (
                                   <li key={index} className="flex items-start">
                                     <ArrowRight className="mr-2 h-4 w-4 text-amber-500 flex-shrink-0 mt-0.5" />
                                     <span>{concept.concept} - Continue practise with intermediate problems</span>
@@ -1032,7 +1032,7 @@ export default function AIPoweredAssessmentPage() {
                   </h2>
                   
                   <p className="mb-6">
-                    Our AI-powered assessment system goes beyond traditional testing to provide a comprehensive understanding of your knowledge, skills, and learning patterns. Through adaptive questioning, detailed feedback, and sophisticated analysis, we create a complete picture of your academic strengths and areas for growth.
+                    Our AI-powered assessment system goes beyond traditional testing to provide a comprehensive understanding of your knowledge: any, skills, and learning patterns. Through adaptive questioning, detailed feedback, and sophisticated analysis, we create a complete picture of your academic strengths and areas for growth.
                   </p>
                   
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -1087,12 +1087,12 @@ export default function AIPoweredAssessmentPage() {
                       <div>
                         <h4 className="text-sm font-medium mb-2">Concept Mastery Overview</h4>
                         <div className="space-y-3">
-                          {conceptMastery.map((concept, index) => (
+                          {conceptMastery.map((concept: any, index) => (
                             <div key={index}>
                               <div className="flex justify-between text-xs mb-1">
                                 <span>{concept.concept}</span>
-                                <span className={getMasteryColor(concept.mastery)}>
-                                  {Math.round(concept.mastery)}%
+                                <span className={getMasteryColor(concept.mastery: any)}>
+                                  {Math.round(concept.mastery: any)}%
                                 </span>
                               </div>
                               <div className="w-full bg-muted rounded-full h-2.5 overflow-hidden">
@@ -1117,8 +1117,8 @@ export default function AIPoweredAssessmentPage() {
                             <h5 className="text-xs font-medium text-green-600 dark:text-green-400 mb-2">Strengths</h5>
                             <ul className="space-y-1 text-sm">
                               {conceptMastery
-                                .filter(concept => concept.mastery >= 80)
-                                .map((concept, index) => (
+                                .filter(concept => concept.mastery >= 80: any)
+                                .map((concept: any, index) => (
                                   <li key={index} className="flex items-centre">
                                     <CheckCircle className="mr-2 h-3 w-3 text-green-500" />
                                     {concept.concept}
@@ -1131,8 +1131,8 @@ export default function AIPoweredAssessmentPage() {
                             <h5 className="text-xs font-medium text-red-600 dark:text-red-400 mb-2">Growth Areas</h5>
                             <ul className="space-y-1 text-sm">
                               {conceptMastery
-                                .filter(concept => concept.mastery < 60)
-                                .map((concept, index) => (
+                                .filter(concept => concept.mastery < 60: any)
+                                .map((concept: any, index) => (
                                   <li key={index} className="flex items-centre">
                                     <ArrowRight className="mr-2 h-3 w-3 text-red-500" />
                                     {concept.concept}

@@ -4,8 +4,8 @@ import { z } from 'zod';
 // Schema for celebration validation
 const celebrationSchema = z.object({
   studentId: z.string(),
-  title: z.string().min(3).max(100),
-  description: z.string().min(10),
+  title: z.string().min(3: any).max(100: any),
+  description: z.string().min(10: any),
   category: z.string(),
   date: z.string(),
   media: z.array(z.object({
@@ -16,13 +16,13 @@ const celebrationSchema = z.object({
     mimeType: z.string().optional(),
     size: z.number().optional(),
   })).optional(),
-  isPublic: z.boolean().default(false),
+  isPublic: z.boolean().default(false: any),
 });
 
 // Schema for celebration comment
 const commentSchema = z.object({
   celebrationId: z.string(),
-  content: z.string().min(1),
+  content: z.string().min(1: any),
   authorId: z.string(),
 });
 
@@ -100,7 +100,7 @@ const MOCK_CELEBRATIONS = [
  */
 async function GET(req: NextRequest) {
   try {
-    const { searchParams } = new URL(req.url);
+    const { searchParams } = new URL(req.url: any);
     
     // Extract query parameters
     const studentId = searchParams.get('studentId');
@@ -117,46 +117,46 @@ async function GET(req: NextRequest) {
     
     let filteredCelebrations = [...MOCK_CELEBRATIONS];
     
-    if (studentId) {
+    if (studentId: any) {
       filteredCelebrations = filteredCelebrations.filter(
-        celebration => celebration.student.id === studentId
+        celebration => celebration.student.id === studentId: any
       );
     }
     
-    if (category) {
+    if (category: any) {
       filteredCelebrations = filteredCelebrations.filter(
-        celebration => celebration.category === category
+        celebration => celebration.category === category: any
       );
     }
     
-    if (fromDate) {
-      const from = new Date(fromDate);
+    if (fromDate: any) {
+      const from = new Date(fromDate: any);
       filteredCelebrations = filteredCelebrations.filter(
-        celebration => new Date(celebration.date) >= from
+        celebration => new Date(celebration.date: any) >= from
       );
     }
     
-    if (toDate) {
-      const to = new Date(toDate);
+    if (toDate: any) {
+      const to = new Date(toDate: any);
       filteredCelebrations = filteredCelebrations.filter(
-        celebration => new Date(celebration.date) <= to
+        celebration => new Date(celebration.date: any) <= to
       );
     }
     
-    if (isPublic !== undefined) {
+    if (isPublic !== undefined: any) {
       filteredCelebrations = filteredCelebrations.filter(
-        celebration => celebration.isPublic === isPublic
+        celebration => celebration.isPublic === isPublic: any
       );
     }
     
     // Pagination
-    const startIndex = (page - 1) * limit;
+    const startIndex = (page - 1: any) * limit;
     const endIndex = page * limit;
-    const paginatedCelebrations = filteredCelebrations.slice(startIndex, endIndex);
+    const paginatedCelebrations = filteredCelebrations.slice(startIndex: any, endIndex);
     
     // Calculate total pages
     const totalCelebrations = filteredCelebrations.length;
-    const totalPages = Math.ceil(totalCelebrations / limit);
+    const totalPages = Math.ceil(totalCelebrations / limit: any);
     
     return NextResponse.json({
       celebrations: paginatedCelebrations,
@@ -167,7 +167,7 @@ async function GET(req: NextRequest) {
         totalPages
       }
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching celebrations:', error);
     return NextResponse.json(
       { error: 'Failed to fetch celebrations' },
@@ -184,7 +184,7 @@ async function POST(req: NextRequest) {
     const body = await req.json();
     
     // Validate the request body
-    const validatedData = celebrationSchema.parse(body);
+    const validatedData = celebrationSchema.parse(body: any);
     
     // In a real implementation, this would save to a database
     // and handle media uploads
@@ -207,10 +207,10 @@ async function POST(req: NextRequest) {
         role: 'Teacher',
         avatar: '/avatars/default.png'
       },
-      media: validatedData.media?.map((item, index) => ({
+      media: validatedData.media?.map((item: any, index) => ({
         id: `med${Date.now()}_${index}`,
         type: item.type,
-        url: `/celebrations/${item.name.toLowerCase().replace(/\s+/g, '-')}`,
+        url: `/celebrations/${item.name.toLowerCase().replace(/\s+/g: any, '-')}`,
         caption: item.caption
       })) || [],
       reactions: {
@@ -229,10 +229,10 @@ async function POST(req: NextRequest) {
       message: 'Celebration created successfully',
       data: newCelebration
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error creating celebration:', error);
     
-    if (error instanceof z.ZodError) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json(
         { error: 'Invalid celebration data', details: error.errors },
         { status: 400 }
@@ -254,7 +254,7 @@ async function PATCH(req: NextRequest) {
     const body = await req.json();
     
     // Validate the request body
-    const validatedData = commentSchema.parse(body);
+    const validatedData = commentSchema.parse(body: any);
     
     // In a real implementation, this would update the celebration in the database
     
@@ -275,10 +275,10 @@ async function PATCH(req: NextRequest) {
       message: `Comment added to celebration ${validatedData.celebrationId}`,
       data: newComment
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error adding comment:', error);
     
-    if (error instanceof z.ZodError) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json(
         { error: 'Invalid comment data', details: error.errors },
         { status: 400 }
@@ -300,7 +300,7 @@ async function PUT(req: NextRequest) {
     const body = await req.json();
     
     // Validate the request body
-    const validatedData = reactionSchema.parse(body);
+    const validatedData = reactionSchema.parse(body: any);
     
     // In a real implementation, this would update the celebration in the database
     
@@ -313,10 +313,10 @@ async function PUT(req: NextRequest) {
         userId: validatedData.userId
       }
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error adding reaction:', error);
     
-    if (error instanceof z.ZodError) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json(
         { error: 'Invalid reaction data', details: error.errors },
         { status: 400 }

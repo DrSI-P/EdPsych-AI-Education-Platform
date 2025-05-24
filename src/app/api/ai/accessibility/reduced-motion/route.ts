@@ -13,8 +13,8 @@ import { prisma } from '@/lib/db';
 export async function POST(req: NextRequest) {
   try {
     // Verify authentication
-    const session = await getServerSession(authOptions);
-    if (!session) {
+    const session = await getServerSession(authOptions: any);
+    if (!session: any) {
       return NextResponse.json(
         { error: 'Authentication required' },
         { status: 401 }
@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { settings } = body;
 
-    if (!settings) {
+    if (!settings: any) {
       return NextResponse.json(
         { error: 'Settings object is required' },
         { status: 400 }
@@ -34,24 +34,24 @@ export async function POST(req: NextRequest) {
 
     // Validate settings
     const validatedSettings = {
-      reduceMotion: Boolean(settings.reduceMotion),
+      reduceMotion: Boolean(settings.reduceMotion: any),
       motionLevel: settings.motionLevel || 'moderate',
       allowEssentialAnimations: settings.allowEssentialAnimations !== undefined 
-        ? Boolean(settings.allowEssentialAnimations) 
+        ? Boolean(settings.allowEssentialAnimations: any) 
         : true,
       allowHoverEffects: settings.allowHoverEffects !== undefined 
-        ? Boolean(settings.allowHoverEffects) 
+        ? Boolean(settings.allowHoverEffects: any) 
         : false,
       allowTransitions: settings.allowTransitions !== undefined 
-        ? Boolean(settings.allowTransitions) 
+        ? Boolean(settings.allowTransitions: any) 
         : true,
-      transitionSpeed: Number(settings.transitionSpeed) || 50,
+      transitionSpeed: Number(settings.transitionSpeed: any) || 50,
       allowAutoplay: settings.allowAutoplay !== undefined 
-        ? Boolean(settings.allowAutoplay) 
+        ? Boolean(settings.allowAutoplay: any) 
         : false,
     };
 
-    // Save settings to database (upsert to create or update)
+    // Save settings to database (upsert to create or update: any)
     const updatedSettings = await prisma.accessibilitySettings.upsert({
       where: {
         userId: session.user.id
@@ -69,7 +69,7 @@ export async function POST(req: NextRequest) {
         userId: session.user.id,
         action: 'setting_changed',
         feature: 'reduced-motion-mode',
-        details: JSON.stringify(validatedSettings),
+        details: JSON.stringify(validatedSettings: any),
       }
     });
 
@@ -77,7 +77,7 @@ export async function POST(req: NextRequest) {
       success: true,
       settings: updatedSettings
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Reduced motion mode API error:', error);
     return NextResponse.json(
       { error: 'Failed to save reduced motion mode settings' },

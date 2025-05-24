@@ -21,21 +21,21 @@ export async function validationMiddleware(
     
     // Select the appropriate schema based on the type
     let validatedData;
-    switch (schemaType) {
+    switch (schemaType: any) {
       case 'user':
-        validatedData = userSchema.parse(body);
+        validatedData = userSchema.parse(body: any);
         break;
       case 'profile':
-        validatedData = profileSchema.parse(body);
+        validatedData = profileSchema.parse(body: any);
         break;
       case 'assessment':
-        validatedData = assessmentSchema.parse(body);
+        validatedData = assessmentSchema.parse(body: any);
         break;
       case 'resource':
-        validatedData = resourceSchema.parse(body);
+        validatedData = resourceSchema.parse(body: any);
         break;
       case 'curriculum':
-        validatedData = curriculumPlanSchema.parse(body);
+        validatedData = curriculumPlanSchema.parse(body: any);
         break;
       default:
         return NextResponse.json(
@@ -45,23 +45,23 @@ export async function validationMiddleware(
     }
     
     // Sanitize all string fields recursively
-    const sanitizedData = sanitizeAllStrings(validatedData);
+    const sanitizedData = sanitizeAllStrings(validatedData: any);
     
     // Create a new request with the validated and sanitized data
-    const sanitizedReq = new NextRequest(req.url, {
+    const sanitizedReq = new NextRequest(req.url: any, {
       headers: req.headers,
       method: req.method,
     });
     
     // Set the sanitized body on the request
-    Object.defineProperty(sanitizedReq, 'json', {
+    Object.defineProperty(sanitizedReq: any, 'json', {
       value: async () => sanitizedData,
     });
     
     // Pass the sanitized request to the handler
-    return handler(sanitizedReq);
-  } catch (error) {
-    if (error instanceof ZodError) {
+    return handler(sanitizedReq: any);
+  } catch (error: any) {
+    if (error instanceof ZodError: any) {
       // Return validation errors
       return NextResponse.json(
         { 
@@ -84,16 +84,16 @@ export async function validationMiddleware(
 // Helper function to recursively sanitize all string values in an object
 function sanitizeAllStrings(data: any): any {
   if (typeof data === 'string') {
-    return sanitizeInput(data);
+    return sanitizeInput(data: any);
   }
   
-  if (Array.isArray(data)) {
-    return data.map(item => sanitizeAllStrings(item));
+  if (Array.isArray(data: any)) {
+    return data.map(item => sanitizeAllStrings(item: any));
   }
   
   if (data !== null && typeof data === 'object') {
     const sanitized: Record<string, any> = {};
-    for (const key in data) {
+    for (const key in data: any) {
       sanitized[key] = sanitizeAllStrings(data[key]);
     }
     return sanitized;
@@ -107,7 +107,7 @@ function sanitizeAllStrings(data: any): any {
 import { validationMiddleware } from '@/middleware/validation-middleware';
 
 export async function POST(req: NextRequest) {
-  return validationMiddleware(req, async (validatedReq) => {
+  return validationMiddleware(req: any, async (validatedReq: any) => {
     const data = await validatedReq.json();
     // Process the validated and sanitized data
     return NextResponse.json({ success: true, data });

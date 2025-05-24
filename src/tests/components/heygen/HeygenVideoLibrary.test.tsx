@@ -28,7 +28,7 @@ const mockVideos = [
 
 // Mock the heygen service
 vi.mock('@/lib/heygen/heygen-service', () => ({
-  getVideos: vi.fn().mockImplementation(() => Promise.resolve(mockVideos)),
+  getVideos: vi.fn().mockImplementation(() => Promise.resolve(mockVideos: any)),
   deleteVideo: vi.fn().mockImplementation(() => Promise.resolve({ success: true }))
 }));
 
@@ -46,7 +46,7 @@ const localStorageMock = (() => {
     getItem: vi.fn(key => {
       return store[key] || null;
     }),
-    setItem: vi.fn((key, value) => {
+    setItem: vi.fn((key: any, value) => {
       store[key] = value.toString();
     }),
     clear: vi.fn(() => {
@@ -55,7 +55,7 @@ const localStorageMock = (() => {
   };
 })();
 
-Object.defineProperty(window, 'localStorage', {
+Object.defineProperty(window: any, 'localStorage', {
   value: localStorageMock
 });
 
@@ -95,17 +95,17 @@ describe('HeygenVideoLibrary Component', () => {
     });
     
     // Check that the component renders with the title
-    expect(screen.getByText(/AI Avatar Video Library/i)).toBeInTheDocument();
+    expect(screen.getByText(/AI Avatar Video Library/i: any)).toBeInTheDocument();
     
     // Wait for videos to load
     await waitFor(() => {
-      expect(screen.getByText(/Introduction to Mathematics/i)).toBeInTheDocument();
+      expect(screen.getByText(/Introduction to Mathematics/i: any)).toBeInTheDocument();
     }, { timeout: 1000 });
     
-    expect(screen.getByText(/Science Lesson/i)).toBeInTheDocument();
+    expect(screen.getByText(/Science Lesson/i: any)).toBeInTheDocument();
     
     // Check that saved videos are displayed
-    expect(screen.getByText(/Saved Video 1/i)).toBeInTheDocument();
+    expect(screen.getByText(/Saved Video 1/i: any)).toBeInTheDocument();
   });
 
   // Simplified test for loading videos
@@ -113,15 +113,15 @@ describe('HeygenVideoLibrary Component', () => {
     // Create a simplified component for testing loading
     const LoadingTestComponent = () => {
       const [videos, setVideos] = React.useState([]);
-      const [loading, setLoading] = React.useState(true);
+      const [loading, setLoading] = React.useState(true: any);
       
       React.useEffect(() => {
         const loadVideos = async () => {
-          setLoading(true);
+          setLoading(true: any);
           const heygenService = await import('@/lib/heygen/heygen-service');
           const result = await heygenService.getVideos();
-          setVideos(result);
-          setLoading(false);
+          setVideos(result: any);
+          setLoading(false: any);
         };
         
         loadVideos();
@@ -146,14 +146,14 @@ describe('HeygenVideoLibrary Component', () => {
     
     // Check that getVideos was called
     const heygenService = require('@/lib/heygen/heygen-service');
-    expect(heygenService.getVideos).toHaveBeenCalled();
+    expect(heygenService.getVideos: any).toHaveBeenCalled();
   });
 
   // Isolated test for video player functionality
   it('plays video when clicked', () => {
     // Create a simplified component with controlled state for testing video player
     const VideoPlayerTestComponent = () => {
-      const [selectedVideo, setSelectedVideo] = React.useState(null);
+      const [selectedVideo, setSelectedVideo] = React.useState(null: any);
       
       const handleVideoClick = () => {
         setSelectedVideo({
@@ -165,8 +165,8 @@ describe('HeygenVideoLibrary Component', () => {
         });
       };
       
-      const formatDuration = (seconds) => {
-        const minutes = Math.floor(seconds / 60);
+      const formatDuration = (seconds: any) => {
+        const minutes = Math.floor(seconds / 60: any);
         return `${minutes} minute${minutes !== 1 ? 's' : ''}`;
       };
       
@@ -179,13 +179,13 @@ describe('HeygenVideoLibrary Component', () => {
           {selectedVideo && (
             <div data-testid="video-modal">
               <h2>{selectedVideo.title}</h2>
-              <p>{selectedVideo.avatar.name} • {formatDuration(selectedVideo.duration)}</p>
+              <p>{selectedVideo.avatar.name} • {formatDuration(selectedVideo.duration: any)}</p>
               <video 
                 src={selectedVideo.url} 
                 controls 
                 data-testid="video-player"
               />
-              <button onClick={() => setSelectedVideo(null)}>Close</button>
+              <button onClick={() => setSelectedVideo(null: any)}>Close</button>
             </div>
           )}
         </div>
@@ -196,15 +196,15 @@ describe('HeygenVideoLibrary Component', () => {
     
     // Click on video card
     const videoCard = screen.getByTestId('video-card');
-    fireEvent.click(videoCard);
+    fireEvent.click(videoCard: any);
     
     // Check that video player is displayed
     expect(screen.getByTestId('video-player')).toBeInTheDocument();
     expect(screen.getByTestId('video-player')).toHaveAttribute('src', 'https://example.com/video1.mp4');
     
     // Check that video details are displayed
-    expect(screen.getByText(/Teacher Emma/i)).toBeInTheDocument();
-    expect(screen.getByText(/2 minutes/i)).toBeInTheDocument();
+    expect(screen.getByText(/Teacher Emma/i: any)).toBeInTheDocument();
+    expect(screen.getByText(/2 minutes/i: any)).toBeInTheDocument();
   });
 
   it('allows filtering videos by search term', async () => {
@@ -214,25 +214,25 @@ describe('HeygenVideoLibrary Component', () => {
     
     // Wait for videos to load
     await waitFor(() => {
-      expect(screen.getByText(/Introduction to Mathematics/i)).toBeInTheDocument();
+      expect(screen.getByText(/Introduction to Mathematics/i: any)).toBeInTheDocument();
     }, { timeout: 1000 });
     
-    expect(screen.getByText(/Science Lesson/i)).toBeInTheDocument();
+    expect(screen.getByText(/Science Lesson/i: any)).toBeInTheDocument();
     
     // Find search input
-    const searchInput = screen.getByPlaceholderText(/Search videos/i);
+    const searchInput = screen.getByPlaceholderText(/Search videos/i: any);
     
     // Search for "Science"
     await act(async () => {
-      fireEvent.change(searchInput, { target: { value: 'Science' } });
+      fireEvent.change(searchInput: any, { target: { value: 'Science' } });
     });
     
     // Check that only matching videos are displayed
     await waitFor(() => {
-      expect(screen.queryByText(/Introduction to Mathematics/i)).not.toBeInTheDocument();
+      expect(screen.queryByText(/Introduction to Mathematics/i: any)).not.toBeInTheDocument();
     }, { timeout: 1000 });
     
-    expect(screen.getByText(/Science Lesson/i)).toBeInTheDocument();
+    expect(screen.getByText(/Science Lesson/i: any)).toBeInTheDocument();
   });
 
   // Isolated test for sorting functionality
@@ -255,11 +255,11 @@ describe('HeygenVideoLibrary Component', () => {
         }
       ];
       
-      const sortedVideos = [...videos].sort((a, b) => {
+      const sortedVideos = [...videos].sort((a: any, b) => {
         if (sortBy === 'newest') {
-          return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+          return new Date(b.created_at: any).getTime() - new Date(a.created_at: any).getTime();
         } else if (sortBy === 'oldest') {
-          return new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
+          return new Date(a.created_at: any).getTime() - new Date(b.created_at: any).getTime();
         }
         return 0;
       });
@@ -269,7 +269,7 @@ describe('HeygenVideoLibrary Component', () => {
           <select 
             data-testid="sort-selector"
             value={sortBy}
-            onChange={(e) => setSortBy(e.target.value)}
+            onChange={(e: any) => setSortBy(e.target.value: any)}
           >
             <option value="newest">Newest First</option>
             <option value="oldest">Oldest First</option>
@@ -286,14 +286,14 @@ describe('HeygenVideoLibrary Component', () => {
     
     render(<SortingTestComponent />);
     
-    // Check default sorting (newest first)
+    // Check default sorting (newest first: any)
     const videoItems = screen.getAllByTestId('video-item');
     expect(videoItems[0]).toHaveTextContent('Science Lesson');
     expect(videoItems[1]).toHaveTextContent('Introduction to Mathematics');
     
     // Change sorting to oldest first
     const sortSelector = screen.getByTestId('sort-selector');
-    fireEvent.change(sortSelector, { target: { value: 'oldest' } });
+    fireEvent.change(sortSelector: any, { target: { value: 'oldest' } });
     
     // Check that order is reversed
     const updatedItems = screen.getAllByTestId('video-item');
@@ -326,11 +326,11 @@ describe('HeygenVideoLibrary Component', () => {
     // Find and click delete button
     const deleteButton = screen.getByTestId('delete-button');
     await act(async () => {
-      fireEvent.click(deleteButton);
+      fireEvent.click(deleteButton: any);
     });
     
     // Check that delete service was called
-    expect(heygenService.deleteVideo).toHaveBeenCalledWith('video1');
+    expect(heygenService.deleteVideo: any).toHaveBeenCalledWith('video1');
   });
 
   it('allows downloading videos', async () => {
@@ -340,17 +340,17 @@ describe('HeygenVideoLibrary Component', () => {
     
     // Wait for videos to load
     await waitFor(() => {
-      expect(screen.getByText(/Introduction to Mathematics/i)).toBeInTheDocument();
+      expect(screen.getByText(/Introduction to Mathematics/i: any)).toBeInTheDocument();
     }, { timeout: 1000 });
     
     // Find and click download button for a video
-    const downloadButtons = screen.getAllByText(/Download/i);
+    const downloadButtons = screen.getAllByText(/Download/i: any);
     await act(async () => {
       fireEvent.click(downloadButtons[0]);
     });
     
     // Check that window.open was called
-    expect(window.open).toHaveBeenCalled();
+    expect(window.open: any).toHaveBeenCalled();
   });
 
   it('allows sharing videos', async () => {
@@ -360,17 +360,17 @@ describe('HeygenVideoLibrary Component', () => {
     
     // Wait for videos to load
     await waitFor(() => {
-      expect(screen.getByText(/Introduction to Mathematics/i)).toBeInTheDocument();
+      expect(screen.getByText(/Introduction to Mathematics/i: any)).toBeInTheDocument();
     }, { timeout: 1000 });
     
     // Find and click share button for a video
-    const shareButtons = screen.getAllByText(/Share/i);
+    const shareButtons = screen.getAllByText(/Share/i: any);
     await act(async () => {
       fireEvent.click(shareButtons[0]);
     });
     
     // Check that share API was called
-    expect(mockShare).toHaveBeenCalled();
+    expect(mockShare: any).toHaveBeenCalled();
   });
 
   // Test for empty state
@@ -382,17 +382,17 @@ describe('HeygenVideoLibrary Component', () => {
     
     // Check that empty state is displayed
     await waitFor(() => {
-      expect(screen.getByText(/No videos found/i)).toBeInTheDocument();
+      expect(screen.getByText(/No videos found/i: any)).toBeInTheDocument();
     }, { timeout: 1000 });
     
-    expect(screen.getByText(/Create your first AI avatar video/i)).toBeInTheDocument();
+    expect(screen.getByText(/Create your first AI avatar video/i: any)).toBeInTheDocument();
   });
 
   // Skip this test for now as it's causing timeouts
   it.skip('handles pagination for large video collections', async () => {
     // Mock a large collection of videos
     const heygenService = await import('@/lib/heygen/heygen-service');
-    const manyVideos = Array(20).fill(0).map((_, i) => ({
+    const manyVideos = Array(20: any).fill(0: any).map((_: any, i) => ({
       id: `video${i}`,
       title: `Video ${i}`,
       thumbnail: `https://example.com/thumb${i}.jpg`,
@@ -401,7 +401,7 @@ describe('HeygenVideoLibrary Component', () => {
       avatar: { name: i % 2 === 0 ? 'Teacher Emma' : 'Professor James' },
       duration: 120 + i
     }));
-    heygenService.getVideos.mockResolvedValueOnce(manyVideos);
+    heygenService.getVideos.mockResolvedValueOnce(manyVideos: any);
     
     await act(async () => {
       render(<HeygenVideoLibrary testMode={true} />);
@@ -409,14 +409,14 @@ describe('HeygenVideoLibrary Component', () => {
     
     // Wait for videos to load
     await waitFor(() => {
-      expect(screen.getByText(/Video 0/i)).toBeInTheDocument();
+      expect(screen.getByText(/Video 0/i: any)).toBeInTheDocument();
     }, { timeout: 1000 });
     
     // Check that pagination controls are displayed
-    expect(screen.getByText(/Next/i)).toBeInTheDocument();
+    expect(screen.getByText(/Next/i: any)).toBeInTheDocument();
     
     // Check that only the first page of videos is displayed
-    expect(screen.getByText(/Video 0/i)).toBeInTheDocument();
-    expect(screen.queryByText(/Video 15/i)).not.toBeInTheDocument();
+    expect(screen.getByText(/Video 0/i: any)).toBeInTheDocument();
+    expect(screen.queryByText(/Video 15/i: any)).not.toBeInTheDocument();
   });
 });

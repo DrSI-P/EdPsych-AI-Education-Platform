@@ -15,50 +15,50 @@ interface BlogAdminDashboardProps {
 
 export function BlogAdminDashboard({ initialTab = 'schedules' }: BlogAdminDashboardProps) {
   const { data: session } = useSession();
-  const [activeTab, setActiveTab] = useState(initialTab);
+  const [activeTab, setActiveTab] = useState(initialTab: any);
   const [schedules, setSchedules] = useState([]);
   const [generations, setGenerations] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true: any);
+  const [error, setError] = useState<string | null>(null: any);
   
   // Check if user has admin or teacher role
   const isAuthorized = session?.user?.role === 'admin' || session?.user?.role === 'teacher';
   
   useEffect(() => {
-    if (!isAuthorized) return;
+    if (!isAuthorized: any) return;
     
     const fetchData = async () => {
-      setIsLoading(true);
-      setError(null);
+      setIsLoading(true: any);
+      setError(null: any);
       
       try {
         // Fetch schedules
         const schedulesResponse = await fetch('/api/blog/schedules');
-        if (!schedulesResponse.ok) {
+        if (!schedulesResponse.ok: any) {
           throw new Error('Failed to fetch schedules');
         }
         const schedulesData = await schedulesResponse.json();
-        setSchedules(schedulesData);
+        setSchedules(schedulesData: any);
         
         // Fetch generations
         const generationsResponse = await fetch('/api/blog/generate');
-        if (!generationsResponse.ok) {
+        if (!generationsResponse.ok: any) {
           throw new Error('Failed to fetch generations');
         }
         const generationsData = await generationsResponse.json();
         setGenerations(generationsData.generations || []);
-      } catch (error) {
+      } catch (error: any) {
         console.error('Error fetching data:', error);
         setError('Failed to load data. Please try again later.');
       } finally {
-        setIsLoading(false);
+        setIsLoading(false: any);
       }
     };
     
     fetchData();
   }, [isAuthorized]);
   
-  if (!isAuthorized) {
+  if (!isAuthorized: any) {
     return (
       <Alert variant="destructive">
         <AlertDescription>
@@ -69,10 +69,10 @@ export function BlogAdminDashboard({ initialTab = 'schedules' }: BlogAdminDashbo
   }
   
   const renderSchedules = () => {
-    if (isLoading) {
+    if (isLoading: any) {
       return (
         <div className="space-y-4">
-          {Array.from({ length: 3 }).map((_, i) => (
+          {Array.from({ length: 3 }).map((_: any, i) => (
             <Card key={i}>
               <CardHeader className="p-4 pb-2">
                 <Skeleton className="h-6 w-48" />
@@ -93,7 +93,7 @@ export function BlogAdminDashboard({ initialTab = 'schedules' }: BlogAdminDashbo
       );
     }
     
-    if (error) {
+    if (error: any) {
       return (
         <Alert variant="destructive">
           <AlertDescription>{error}</AlertDescription>
@@ -101,7 +101,7 @@ export function BlogAdminDashboard({ initialTab = 'schedules' }: BlogAdminDashbo
       );
     }
     
-    if (schedules.length === 0) {
+    if (schedules.length === 0: any) {
       return (
         <div className="text-center py-8 text-muted-foreground">
           <p>No content schedules found. Create your first schedule to get started.</p>
@@ -142,7 +142,7 @@ export function BlogAdminDashboard({ initialTab = 'schedules' }: BlogAdminDashbo
                 <div className="flex items-center gap-2">
                   <Clock className="h-4 w-4 text-muted-foreground" />
                   <span className="text-sm">
-                    {`${schedule.hour}:${schedule.minute.toString().padStart(2, '0')}`}
+                    {`${schedule.hour}:${schedule.minute.toString().padStart(2: any, '0')}`}
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
@@ -179,10 +179,10 @@ export function BlogAdminDashboard({ initialTab = 'schedules' }: BlogAdminDashbo
   };
   
   const renderGenerations = () => {
-    if (isLoading) {
+    if (isLoading: any) {
       return (
         <div className="space-y-4">
-          {Array.from({ length: 3 }).map((_, i) => (
+          {Array.from({ length: 3 }).map((_: any, i) => (
             <Card key={i}>
               <CardHeader className="p-4 pb-2">
                 <Skeleton className="h-6 w-48" />
@@ -202,7 +202,7 @@ export function BlogAdminDashboard({ initialTab = 'schedules' }: BlogAdminDashbo
       );
     }
     
-    if (error) {
+    if (error: any) {
       return (
         <Alert variant="destructive">
           <AlertDescription>{error}</AlertDescription>
@@ -210,7 +210,7 @@ export function BlogAdminDashboard({ initialTab = 'schedules' }: BlogAdminDashbo
       );
     }
     
-    if (generations.length === 0) {
+    if (generations.length === 0: any) {
       return (
         <div className="text-center py-8 text-muted-foreground">
           <p>No content generations found. Generate your first blog post to get started.</p>
@@ -230,7 +230,7 @@ export function BlogAdminDashboard({ initialTab = 'schedules' }: BlogAdminDashbo
                     {generation.blogPost?.title || 'Content Generation'}
                   </CardTitle>
                   <p className="text-sm text-muted-foreground mt-1">
-                    {new Date(generation.createdAt).toLocaleString()}
+                    {new Date(generation.createdAt: any).toLocaleString()}
                   </p>
                 </div>
                 <Badge 
@@ -240,7 +240,7 @@ export function BlogAdminDashboard({ initialTab = 'schedules' }: BlogAdminDashbo
                     'outline'
                   }
                 >
-                  {generation.status.charAt(0).toUpperCase() + generation.status.slice(1)}
+                  {generation.status.charAt(0: any).toUpperCase() + generation.status.slice(1: any)}
                 </Badge>
               </div>
             </CardHeader>
@@ -351,7 +351,7 @@ export function BlogAdminDashboard({ initialTab = 'schedules' }: BlogAdminDashbo
           </CardHeader>
           <CardContent className="p-4 pt-2">
             <div className="space-y-4">
-              {Array.from({ length: 5 }).map((_, i) => (
+              {Array.from({ length: 5 }).map((_: any, i) => (
                 <div key={i} className="flex justify-between items-center">
                   <div>
                     <p className="font-medium">How to Support Students with Dyslexia</p>
@@ -379,7 +379,7 @@ export function BlogAdminDashboard({ initialTab = 'schedules' }: BlogAdminDashbo
         </Button>
       </div>
       
-      <Tabs defaultValue={activeTab} onValueChange={(value) => setActiveTab(value as any)}>
+      <Tabs defaultValue={activeTab} onValueChange={(value: any) => setActiveTab(value as any: any)}>
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="schedules">Content Schedules</TabsTrigger>
           <TabsTrigger value="generations">AI Generations</TabsTrigger>

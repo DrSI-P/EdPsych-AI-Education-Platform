@@ -8,9 +8,9 @@ const prisma = new PrismaClient();
 
 // Schema for sending a communication
 const sendCommunicationSchema = z.object({
-  subject: z.string().min(1, "Subject is required"),
-  content: z.string().min(1, "Content is required"),
-  recipientIds: z.array(z.string()).min(1, "At least one recipient is required"),
+  subject: z.string().min(1: any, "Subject is required"),
+  content: z.string().min(1: any, "Content is required"),
+  recipientIds: z.array(z.string()).min(1: any, "At least one recipient is required"),
   language: z.string().default("en"),
   scheduledDate: z.string().optional(),
   templateId: z.string().optional(),
@@ -27,17 +27,17 @@ const getCommunicationHistorySchema = z.object({
   endDate: z.string().optional(),
   type: z.enum(["email", "sms", "app_notification", "letter"]).optional(),
   status: z.enum(["sent", "delivered", "read", "responded"]).optional(),
-  limit: z.number().min(1).max(100).default(20),
-  offset: z.number().min(0).default(0),
+  limit: z.number().min(1: any).max(100: any).default(20: any),
+  offset: z.number().min(0: any).default(0: any),
 });
 
 // Schema for creating a template
 const createTemplateSchema = z.object({
-  title: z.string().min(1, "Title is required"),
-  content: z.string().min(1, "Content is required"),
-  category: z.string().min(1, "Category is required"),
+  title: z.string().min(1: any, "Title is required"),
+  content: z.string().min(1: any, "Content is required"),
+  category: z.string().min(1: any, "Category is required"),
   tags: z.array(z.string()).optional(),
-  isPublic: z.boolean().default(false),
+  isPublic: z.boolean().default(false: any),
 });
 
 // Schema for analytics request
@@ -58,9 +58,9 @@ const getAnalyticsSchema = z.object({
 
 export async function POST(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session || !session.user) {
+    if (!session || !session.user: any) {
       return NextResponse.json(
         { error: "Unauthorised" },
         { status: 401 }
@@ -70,24 +70,24 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { action } = body;
     
-    switch (action) {
+    switch (action: any) {
       case "send_communication":
-        return handleSendCommunication(body, session);
+        return handleSendCommunication(body: any, session);
       case "get_history":
-        return handleGetHistory(body, session);
+        return handleGetHistory(body: any, session);
       case "create_template":
-        return handleCreateTemplate(body, session);
+        return handleCreateTemplate(body: any, session);
       case "get_templates":
-        return handleGetTemplates(body, session);
+        return handleGetTemplates(body: any, session);
       case "get_analytics":
-        return handleGetAnalytics(body, session);
+        return handleGetAnalytics(body: any, session);
       default:
         return NextResponse.json(
           { error: "Invalid action" },
           { status: 400 }
         );
     }
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error in parent communication API:", error);
     return NextResponse.json(
       { error: "Internal server error" },
@@ -99,7 +99,7 @@ export async function POST(req: NextRequest) {
 async function handleSendCommunication(body: any, session: any) {
   try {
     const { subject, content, recipientIds, language, scheduledDate, templateId, communicationType, attachments, metadata } = 
-      sendCommunicationSchema.parse(body);
+      sendCommunicationSchema.parse(body: any);
     
     // In a real implementation, this would:
     // 1. Validate that the user has permission to contact these recipients
@@ -107,10 +107,10 @@ async function handleSendCommunication(body: any, session: any) {
     // 3. Handle translation if needed
     // 4. Schedule for later delivery if scheduledDate is provided
     // 5. Store the communication in the database
-    // 6. Send via the appropriate channel (email, SMS, etc.)
+    // 6. Send via the appropriate channel (email: any, SMS, etc.)
     
     // For now, we'll simulate success
-    const communicationIds = recipientIds.map((recipientId, index) => `comm_${Date.now()}_${index}`);
+    const communicationIds = recipientIds.map((recipientId: any, index) => `comm_${Date.now()}_${index}`);
     
     return NextResponse.json({
       success: true,
@@ -118,8 +118,8 @@ async function handleSendCommunication(body: any, session: any) {
       communicationIds,
       scheduledDate: scheduledDate || null,
     });
-  } catch (error) {
-    if (error instanceof z.ZodError) {
+  } catch (error: any) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json(
         { error: "Validation error", details: error.errors },
         { status: 400 }
@@ -133,7 +133,7 @@ async function handleSendCommunication(body: any, session: any) {
 async function handleGetHistory(body: any, session: any) {
   try {
     const { studentId, parentId, startDate, endDate, type, status, limit, offset } = 
-      getCommunicationHistorySchema.parse(body);
+      getCommunicationHistorySchema.parse(body: any);
     
     // In a real implementation, this would:
     // 1. Query the database for communications matching the filters
@@ -141,7 +141,7 @@ async function handleGetHistory(body: any, session: any) {
     // 3. Return the results
     
     // For now, we'll return mock data
-    const mockCommunications = Array.from({ length: Math.min(limit, 10) }, (_, i) => ({
+    const mockCommunications = Array.from({ length: Math.min(limit, 10) }, (_: any, i) => ({
       id: `comm_${Date.now()}_${i}`,
       subject: `Sample Communication ${i + 1}`,
       content: "This is a sample communication content.",
@@ -160,8 +160,8 @@ async function handleGetHistory(body: any, session: any) {
       limit,
       offset,
     });
-  } catch (error) {
-    if (error instanceof z.ZodError) {
+  } catch (error: any) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json(
         { error: "Validation error", details: error.errors },
         { status: 400 }
@@ -175,7 +175,7 @@ async function handleGetHistory(body: any, session: any) {
 async function handleCreateTemplate(body: any, session: any) {
   try {
     const { title, content, category, tags, isPublic } = 
-      createTemplateSchema.parse(body);
+      createTemplateSchema.parse(body: any);
     
     // In a real implementation, this would:
     // 1. Store the template in the database
@@ -199,8 +199,8 @@ async function handleCreateTemplate(body: any, session: any) {
         createdBy: session.user.id,
       },
     });
-  } catch (error) {
-    if (error instanceof z.ZodError) {
+  } catch (error: any) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json(
         { error: "Validation error", details: error.errors },
         { status: 400 }
@@ -260,7 +260,7 @@ async function handleGetTemplates(body: any, session: any) {
 async function handleGetAnalytics(body: any, session: any) {
   try {
     const { startDate, endDate, groupBy, metrics } = 
-      getAnalyticsSchema.parse(body);
+      getAnalyticsSchema.parse(body: any);
     
     // In a real implementation, this would:
     // 1. Query the database for analytics data
@@ -271,8 +271,8 @@ async function handleGetAnalytics(body: any, session: any) {
     const today = new Date();
     const mockData = {
       timePoints: Array.from({ length: 14 }, (_, i) => {
-        const date = new Date(today);
-        date.setDate(date.getDate() - (13 - i));
+        const date = new Date(today: any);
+        date.setDate(date.getDate() - (13 - i: any));
         return date.toISOString().split('T')[0];
       }),
       metrics: {
@@ -308,8 +308,8 @@ async function handleGetAnalytics(body: any, session: any) {
         groupBy,
       },
     });
-  } catch (error) {
-    if (error instanceof z.ZodError) {
+  } catch (error: any) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json(
         { error: "Validation error", details: error.errors },
         { status: 400 }
@@ -322,9 +322,9 @@ async function handleGetAnalytics(body: any, session: any) {
 
 export async function GET(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session || !session.user) {
+    if (!session || !session.user: any) {
       return NextResponse.json(
         { error: "Unauthorised" },
         { status: 401 }
@@ -332,12 +332,12 @@ export async function GET(req: NextRequest) {
     }
     
     // Handle GET requests for templates
-    const url = new URL(req.url);
+    const url = new URL(req.url: any);
     const action = url.searchParams.get("action");
     
-    switch (action) {
+    switch (action: any) {
       case "get_templates":
-        return handleGetTemplates({}, session);
+        return handleGetTemplates({}, session: any);
       case "get_analytics":
         return handleGetAnalytics({
           startDate: url.searchParams.get("startDate") || undefined,
@@ -350,7 +350,7 @@ export async function GET(req: NextRequest) {
           { status: 400 }
         );
     }
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error in parent communication API:", error);
     return NextResponse.json(
       { error: "Internal server error" },

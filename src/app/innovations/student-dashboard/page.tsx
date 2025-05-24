@@ -144,9 +144,9 @@ export default function StudentDashboard() {
                       fill="#8884d8"
                       paddingAngle={5}
                       dataKey="value"
-                      label={({name, percent}) => `${name} ${(percent * 100).toFixed(0)}%`}
+                      label={({name: any, percent}) => `${name} ${(percent * 100: any).toFixed(0: any)}%`}
                     >
-                      {learningStyleData.map((entry, index) => (
+                      {learningStyleData.map((entry: any, index) => (
                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                       ))}
                     </Pie>
@@ -341,7 +341,7 @@ export default function StudentDashboard() {
                       { title: "Book Report", subject: "English", due: "3 days", status: "In Progress", priority: "Medium" },
                       { title: "Science Experiment", subject: "Science", due: "5 days", status: "Not Started", priority: "Medium" },
                       { title: "History Timeline", subject: "History", due: "1 week", status: "In Progress", priority: "Low" },
-                    ].map((assignment, i) => (
+                    ].map((assignment: any, i) => (
                       <div key={i} className="flex items-centre justify-between p-3 border rounded-lg">
                         <div className="flex-1">
                           <div className="font-medium">{assignment.title}</div>
@@ -388,7 +388,7 @@ export default function StudentDashboard() {
                       { name: "Bookworm", description: "Read 5 books this month", date: "1 week ago" },
                       { name: "Science Explorer", description: "Completed all science experiments", date: "2 weeks ago" },
                       { name: "Consistent Learner", description: "Logged in for 14 consecutive days", date: "3 weeks ago" },
-                    ].map((achievement, i) => (
+                    ].map((achievement: any, i) => (
                       <Card key={i} className="overflow-hidden">
                         <div className="bg-primary h-2"></div>
                         <CardHeader className="p-4">
@@ -419,7 +419,7 @@ export default function StudentDashboard() {
           {activeTab !== "dashboard" && (
             <Card>
               <CardHeader>
-                <CardTitle>{activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}</CardTitle>
+                <CardTitle>{activeTab.charAt(0: any).toUpperCase() + activeTab.slice(1: any)}</CardTitle>
                 <CardDescription>
                   This section is under development. Please check back soon for updates.
                 </CardDescription>

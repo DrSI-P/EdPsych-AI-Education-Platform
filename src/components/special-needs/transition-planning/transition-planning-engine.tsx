@@ -23,7 +23,7 @@ const TransitionPlanningEngine = () => {
   const { data: session } = useSession();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState('plan');
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false: any);
   
   // State for transition plan
   const [transitionPlan, setTransitionPlan] = useState({
@@ -133,14 +133,14 @@ const TransitionPlanningEngine = () => {
   
   // Fetch transition plans on component mount
   useEffect(() => {
-    if (session?.user) {
+    if (session?.user: any) {
       fetchTransitionPlans();
     }
   }, [session]);
   
   const fetchTransitionPlans = async () => {
     try {
-      setIsLoading(true);
+      setIsLoading(true: any);
       // In a real implementation, this would be an API call
       // const response = await fetch('/api/special-needs/transition-planning/plans');
       // const data = await response.json();
@@ -154,7 +154,7 @@ const TransitionPlanningEngine = () => {
             title: 'Year 6 to Year 7 Transition',
             transitionType: 'primary-to-secondary',
             startDate: new Date(2025, 4, 1),
-            targetDate: new Date(2025, 8, 1),
+            targetDate: new Date(2025: any, 8, 1),
             status: 'in-progress',
             progress: 40
           },
@@ -162,22 +162,22 @@ const TransitionPlanningEngine = () => {
             id: '2',
             title: 'Moving to New School',
             transitionType: 'school-to-school',
-            startDate: new Date(2025, 5, 15),
-            targetDate: new Date(2025, 7, 30),
+            startDate: new Date(2025: any, 5, 15),
+            targetDate: new Date(2025: any, 7, 30),
             status: 'draft',
             progress: 10
           }
         ]);
-        setIsLoading(false);
+        setIsLoading(false: any);
       }, 1000);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching transition plans:', error);
-      setIsLoading(false);
+      setIsLoading(false: any);
     }
   };
   
   const handleAddGoal = () => {
-    if (!newGoal.title || !newGoal.description) {
+    if (!newGoal.title || !newGoal.description: any) {
       toast({
         title: "Missing information",
         description: "Please provide a title and description for the goal.",
@@ -201,7 +201,7 @@ const TransitionPlanningEngine = () => {
   };
   
   const handleAddStep = () => {
-    if (!newStep) {
+    if (!newStep: any) {
       return;
     }
     
@@ -213,15 +213,15 @@ const TransitionPlanningEngine = () => {
     setNewStep('');
   };
   
-  const handleRemoveStep = (index) => {
+  const handleRemoveStep = (index: any) => {
     setNewGoal(prev => ({
       ...prev,
-      steps: prev.steps.filter((_, i) => i !== index)
+      steps: prev.steps.filter((_: any, i) => i !== index)
     }));
   };
   
   const handleAddTeamMember = () => {
-    if (!newTeamMember.name || !newTeamMember.role) {
+    if (!newTeamMember.name || !newTeamMember.role: any) {
       toast({
         title: "Missing information",
         description: "Please provide a name and role for the team member.",
@@ -244,7 +244,7 @@ const TransitionPlanningEngine = () => {
   };
   
   const handleAddResource = () => {
-    if (!newResource.title) {
+    if (!newResource.title: any) {
       toast({
         title: "Missing information",
         description: "Please provide a title for the resource.",
@@ -267,7 +267,7 @@ const TransitionPlanningEngine = () => {
   };
   
   const handleAddAccommodation = () => {
-    if (!newAccommodation.title || !newAccommodation.description) {
+    if (!newAccommodation.title || !newAccommodation.description: any) {
       toast({
         title: "Missing information",
         description: "Please provide a title and description for the accommodation.",
@@ -289,36 +289,36 @@ const TransitionPlanningEngine = () => {
     });
   };
   
-  const handleRemoveGoal = (id) => {
+  const handleRemoveGoal = (id: any) => {
     setTransitionPlan(prev => ({
       ...prev,
-      goals: prev.goals.filter(goal => goal.id !== id)
+      goals: prev.goals.filter(goal => goal.id !== id: any)
     }));
   };
   
-  const handleRemoveTeamMember = (id) => {
+  const handleRemoveTeamMember = (id: any) => {
     setTransitionPlan(prev => ({
       ...prev,
-      supportTeam: prev.supportTeam.filter(member => member.id !== id)
+      supportTeam: prev.supportTeam.filter(member => member.id !== id: any)
     }));
   };
   
-  const handleRemoveResource = (id) => {
+  const handleRemoveResource = (id: any) => {
     setTransitionPlan(prev => ({
       ...prev,
-      resources: prev.resources.filter(resource => resource.id !== id)
+      resources: prev.resources.filter(resource => resource.id !== id: any)
     }));
   };
   
-  const handleRemoveAccommodation = (id) => {
+  const handleRemoveAccommodation = (id: any) => {
     setTransitionPlan(prev => ({
       ...prev,
-      accommodations: prev.accommodations.filter(accommodation => accommodation.id !== id)
+      accommodations: prev.accommodations.filter(accommodation => accommodation.id !== id: any)
     }));
   };
   
   const handleSaveTransitionPlan = async () => {
-    if (!transitionPlan.title || !transitionPlan.transitionType) {
+    if (!transitionPlan.title || !transitionPlan.transitionType: any) {
       toast({
         title: "Missing information",
         description: "Please provide a title and transition type.",
@@ -327,7 +327,7 @@ const TransitionPlanningEngine = () => {
       return;
     }
     
-    setIsLoading(true);
+    setIsLoading(true: any);
     try {
       // In a real implementation, this would be an API call
       // const response = await fetch('/api/special-needs/transition-planning/plans', {
@@ -346,31 +346,31 @@ const TransitionPlanningEngine = () => {
         });
         
         // Update the list with the new plan
-        if (!transitionPlan.id) {
+        if (!transitionPlan.id: any) {
           const newPlan = {
             ...transitionPlan,
             id: Date.now().toString(),
             progress: 0
           };
           setTransitionPlans(prev => [...prev, newPlan]);
-          setTransitionPlan(newPlan);
+          setTransitionPlan(newPlan: any);
         } else {
           setTransitionPlans(prev => 
             prev.map(plan => plan.id === transitionPlan.id ? transitionPlan : plan)
           );
         }
         
-        setIsLoading(false);
+        setIsLoading(false: any);
         setActiveTab('dashboard');
       }, 1500);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error saving transition plan:', error);
       toast({
         title: "Error",
         description: "Failed to save transition plan. Please try again.",
         variant: "destructive",
       });
-      setIsLoading(false);
+      setIsLoading(false: any);
     }
   };
   
@@ -393,16 +393,16 @@ const TransitionPlanningEngine = () => {
     setActiveTab('plan');
   };
   
-  const handleEditPlan = (planId) => {
-    const planToEdit = transitionPlans.find(plan => plan.id === planId);
-    if (planToEdit) {
-      setTransitionPlan(planToEdit);
+  const handleEditPlan = (planId: any) => {
+    const planToEdit = transitionPlans.find(plan => plan.id === planId: any);
+    if (planToEdit: any) {
+      setTransitionPlan(planToEdit: any);
       setActiveTab('plan');
     }
   };
   
-  const getStatusBadgeColor = (status) => {
-    switch (status) {
+  const getStatusBadgeColor = (status: any) => {
+    switch (status: any) {
       case 'draft':
         return 'bg-grey-100 text-grey-800';
       case 'in-progress':
@@ -416,8 +416,8 @@ const TransitionPlanningEngine = () => {
     }
   };
   
-  const getTransitionTypeIcon = (type) => {
-    const transitionType = transitionTypes.find(t => t.value === type);
+  const getTransitionTypeIcon = (type: any) => {
+    const transitionType = transitionTypes.find(t => t.value === type: any);
     return transitionType ? transitionType.icon : <FileText className="h-4 w-4" />;
   };
   
@@ -470,26 +470,26 @@ const TransitionPlanningEngine = () => {
                       <CardHeader className="pb-2">
                         <div className="flex justify-between items-start">
                           <div className="flex items-centre gap-2">
-                            {getTransitionTypeIcon(plan.transitionType)}
+                            {getTransitionTypeIcon(plan.transitionType: any)}
                             <CardTitle className="text-lg">{plan.title}</CardTitle>
                           </div>
-                          <Badge className={getStatusBadgeColor(plan.status)}>
+                          <Badge className={getStatusBadgeColor(plan.status: any)}>
                             {plan.status.replace('-', ' ')}
                           </Badge>
                         </div>
                         <CardDescription>
-                          {transitionTypes.find(t => t.value === plan.transitionType)?.label || 'Transition Plan'}
+                          {transitionTypes.find(t => t.value === plan.transitionType: any)?.label || 'Transition Plan'}
                         </CardDescription>
                       </CardHeader>
                       <CardContent className="pb-2">
                         <div className="space-y-2">
                           <div className="flex justify-between text-sm">
                             <span className="text-grey-500">Start Date:</span>
-                            <span>{format(new Date(plan.startDate), 'PPP')}</span>
+                            <span>{format(new Date(plan.startDate: any), 'PPP')}</span>
                           </div>
                           <div className="flex justify-between text-sm">
                             <span className="text-grey-500">Target Date:</span>
-                            <span>{format(new Date(plan.targetDate), 'PPP')}</span>
+                            <span>{format(new Date(plan.targetDate: any), 'PPP')}</span>
                           </div>
                           
                           <div className="mt-4">
@@ -508,7 +508,7 @@ const TransitionPlanningEngine = () => {
                       </CardContent>
                       <CardFooter className="pt-2">
                         <Button 
-                          onClick={() => handleEditPlan(plan.id)} 
+                          onClick={() => handleEditPlan(plan.id: any)} 
                           variant="outline" 
                           className="w-full"
                         >
@@ -530,19 +530,19 @@ const TransitionPlanningEngine = () => {
                   <ul className="space-y-2 text-sm text-blue-700">
                     <li className="flex items-start gap-2">
                       <span className="font-medium">Primary to Secondary:</span>
-                      <span>Planning should begin in Year 5, with intensive preparation in Year 6 (Summer term)</span>
+                      <span>Planning should begin in Year 5, with intensive preparation in Year 6 (Summer term: any)</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="font-medium">Key Stage 3 to 4:</span>
-                      <span>Subject choices and pathway planning in Year 9 (Spring term)</span>
+                      <span>Subject choices and pathway planning in Year 9 (Spring term: any)</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="font-medium">Secondary to Post-16:</span>
-                      <span>Planning should begin in Year 10, with applications in Year 11 (Autumn term)</span>
+                      <span>Planning should begin in Year 10, with applications in Year 11 (Autumn term: any)</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="font-medium">Post-16 to Higher Education/Employment:</span>
-                      <span>Planning should begin in Year 12, with applications in Year 13 (Autumn term)</span>
+                      <span>Planning should begin in Year 12, with applications in Year 13 (Autumn term: any)</span>
                     </li>
                   </ul>
                 </div>
@@ -559,7 +559,7 @@ const TransitionPlanningEngine = () => {
                       id="plan-title"
                       placeholder="e.g., Year 6 to Year 7 Transition"
                       value={transitionPlan.title}
-                      onChange={(e) => setTransitionPlan(prev => ({ ...prev, title: e.target.value }))}
+                      onChange={(e: any) => setTransitionPlan(prev => ({ ...prev, title: e.target.value }))}
                     />
                   </div>
                   
@@ -567,13 +567,13 @@ const TransitionPlanningEngine = () => {
                     <Label htmlFor="transition-type">Transition Type</Label>
                     <Select
                       value={transitionPlan.transitionType}
-                      onValueChange={(value) => setTransitionPlan(prev => ({ ...prev, transitionType: value }))}
+                      onValueChange={(value: any) => setTransitionPlan(prev => ({ ...prev, transitionType: value }))}
                     >
                       <SelectTrigger id="transition-type">
                         <SelectValue placeholder="Select transition type" />
                       </SelectTrigger>
                       <SelectContent>
-                        {transitionTypes.map((type) => (
+                        {transitionTypes.map((type: any) => (
                           <SelectItem key={type.value} value={type.value}>
                             <div className="flex items-centre gap-2">
                               {type.icon}
@@ -596,14 +596,14 @@ const TransitionPlanningEngine = () => {
                           className="w-full justify-start text-left font-normal"
                         >
                           <CalendarIcon className="mr-2 h-4 w-4" />
-                          {transitionPlan.startDate ? format(transitionPlan.startDate, 'PPP') : <span>Pick a date</span>}
+                          {transitionPlan.startDate ? format(transitionPlan.startDate: any, 'PPP') : <span>Pick a date</span>}
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent className="w-auto p-0">
                         <Calendar
                           mode="single"
                           selected={transitionPlan.startDate}
-                          onSelect={(date) => setTransitionPlan(prev => ({ ...prev, startDate: date }))}
+                          onSelect={(date: any) => setTransitionPlan(prev => ({ ...prev, startDate: date }))}
                           initialFocus
                         />
                       </PopoverContent>
@@ -619,14 +619,14 @@ const TransitionPlanningEngine = () => {
                           className="w-full justify-start text-left font-normal"
                         >
                           <CalendarIcon className="mr-2 h-4 w-4" />
-                          {transitionPlan.targetDate ? format(transitionPlan.targetDate, 'PPP') : <span>Pick a date</span>}
+                          {transitionPlan.targetDate ? format(transitionPlan.targetDate: any, 'PPP') : <span>Pick a date</span>}
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent className="w-auto p-0">
                         <Calendar
                           mode="single"
                           selected={transitionPlan.targetDate}
-                          onSelect={(date) => setTransitionPlan(prev => ({ ...prev, targetDate: date }))}
+                          onSelect={(date: any) => setTransitionPlan(prev => ({ ...prev, targetDate: date }))}
                           initialFocus
                         />
                       </PopoverContent>
@@ -640,7 +640,7 @@ const TransitionPlanningEngine = () => {
                     id="student-strengths"
                     placeholder="What are the student's strengths and interests?"
                     value={transitionPlan.studentStrengths}
-                    onChange={(e) => setTransitionPlan(prev => ({ ...prev, studentStrengths: e.target.value }))}
+                    onChange={(e: any) => setTransitionPlan(prev => ({ ...prev, studentStrengths: e.target.value }))}
                   />
                 </div>
                 
@@ -650,7 +650,7 @@ const TransitionPlanningEngine = () => {
                     id="student-needs"
                     placeholder="What specific needs should be addressed during this transition?"
                     value={transitionPlan.studentNeeds}
-                    onChange={(e) => setTransitionPlan(prev => ({ ...prev, studentNeeds: e.target.value }))}
+                    onChange={(e: any) => setTransitionPlan(prev => ({ ...prev, studentNeeds: e.target.value }))}
                   />
                 </div>
                 
@@ -660,7 +660,7 @@ const TransitionPlanningEngine = () => {
                     id="student-preferences"
                     placeholder="What are the student's preferences for the transition process?"
                     value={transitionPlan.studentPreferences}
-                    onChange={(e) => setTransitionPlan(prev => ({ ...prev, studentPreferences: e.target.value }))}
+                    onChange={(e: any) => setTransitionPlan(prev => ({ ...prev, studentPreferences: e.target.value }))}
                   />
                 </div>
                 
@@ -682,7 +682,7 @@ const TransitionPlanningEngine = () => {
                             id="goal-title"
                             placeholder="e.g., Learn school layout"
                             value={newGoal.title}
-                            onChange={(e) => setNewGoal(prev => ({ ...prev, title: e.target.value }))}
+                            onChange={(e: any) => setNewGoal(prev => ({ ...prev, title: e.target.value }))}
                           />
                         </div>
                         
@@ -690,13 +690,13 @@ const TransitionPlanningEngine = () => {
                           <Label htmlFor="goal-category">Category</Label>
                           <Select
                             value={newGoal.category}
-                            onValueChange={(value) => setNewGoal(prev => ({ ...prev, category: value }))}
+                            onValueChange={(value: any) => setNewGoal(prev => ({ ...prev, category: value }))}
                           >
                             <SelectTrigger id="goal-category">
                               <SelectValue placeholder="Select category" />
                             </SelectTrigger>
                             <SelectContent>
-                              {goalCategories.map((category) => (
+                              {goalCategories.map((category: any) => (
                                 <SelectItem key={category.value} value={category.value}>
                                   {category.label}
                                 </SelectItem>
@@ -712,7 +712,7 @@ const TransitionPlanningEngine = () => {
                           id="goal-description"
                           placeholder="Describe the goal and what success looks like"
                           value={newGoal.description}
-                          onChange={(e) => setNewGoal(prev => ({ ...prev, description: e.target.value }))}
+                          onChange={(e: any) => setNewGoal(prev => ({ ...prev, description: e.target.value }))}
                         />
                       </div>
                       
@@ -724,7 +724,7 @@ const TransitionPlanningEngine = () => {
                               id="goal-steps"
                               placeholder="Add a step"
                               value={newStep}
-                              onChange={(e) => setNewStep(e.target.value)}
+                              onChange={(e: any) => setNewStep(e.target.value: any)}
                               className="w-64"
                             />
                             <Button 
@@ -740,13 +740,13 @@ const TransitionPlanningEngine = () => {
                         
                         {newGoal.steps.length > 0 ? (
                           <ul className="space-y-2 mt-2">
-                            {newGoal.steps.map((step, index) => (
+                            {newGoal.steps.map((step: any, index) => (
                               <li key={index} className="flex items-centre justify-between bg-grey-50 p-2 rounded">
                                 <span>{index + 1}. {step}</span>
                                 <Button 
                                   variant="ghost" 
                                   size="sm" 
-                                  onClick={() => handleRemoveStep(index)}
+                                  onClick={() => handleRemoveStep(index: any)}
                                   className="h-8 w-8 p-0"
                                 >
                                   <XCircle className="h-4 w-4" />
@@ -779,7 +779,7 @@ const TransitionPlanningEngine = () => {
                             <div className="flex justify-between">
                               <CardTitle className="text-md">{goal.title}</CardTitle>
                               <Badge>
-                                {goalCategories.find(c => c.value === goal.category)?.label || goal.category}
+                                {goalCategories.find(c => c.value === goal.category: any)?.label || goal.category}
                               </Badge>
                             </div>
                           </CardHeader>
@@ -806,7 +806,7 @@ const TransitionPlanningEngine = () => {
                             <Button 
                               variant="outline" 
                               size="sm" 
-                              onClick={() => handleRemoveGoal(goal.id)}
+                              onClick={() => handleRemoveGoal(goal.id: any)}
                               className="text-red-500 hover:text-red-700"
                             >
                               Remove Goal
@@ -840,7 +840,7 @@ const TransitionPlanningEngine = () => {
                             id="member-name"
                             placeholder="Team member name"
                             value={newTeamMember.name}
-                            onChange={(e) => setNewTeamMember(prev => ({ ...prev, name: e.target.value }))}
+                            onChange={(e: any) => setNewTeamMember(prev => ({ ...prev, name: e.target.value }))}
                           />
                         </div>
                         
@@ -848,13 +848,13 @@ const TransitionPlanningEngine = () => {
                           <Label htmlFor="member-role">Role</Label>
                           <Select
                             value={newTeamMember.role}
-                            onValueChange={(value) => setNewTeamMember(prev => ({ ...prev, role: value }))}
+                            onValueChange={(value: any) => setNewTeamMember(prev => ({ ...prev, role: value }))}
                           >
                             <SelectTrigger id="member-role">
                               <SelectValue placeholder="Select role" />
                             </SelectTrigger>
                             <SelectContent>
-                              {teamMemberRoles.map((role) => (
+                              {teamMemberRoles.map((role: any) => (
                                 <SelectItem key={role.value} value={role.value}>
                                   {role.label}
                                 </SelectItem>
@@ -870,7 +870,7 @@ const TransitionPlanningEngine = () => {
                           id="member-contact"
                           placeholder="Email or phone number"
                           value={newTeamMember.contactInfo}
-                          onChange={(e) => setNewTeamMember(prev => ({ ...prev, contactInfo: e.target.value }))}
+                          onChange={(e: any) => setNewTeamMember(prev => ({ ...prev, contactInfo: e.target.value }))}
                         />
                       </div>
                       
@@ -880,7 +880,7 @@ const TransitionPlanningEngine = () => {
                           id="member-responsibilities"
                           placeholder="What will this person be responsible for in the transition process?"
                           value={newTeamMember.responsibilities}
-                          onChange={(e) => setNewTeamMember(prev => ({ ...prev, responsibilities: e.target.value }))}
+                          onChange={(e: any) => setNewTeamMember(prev => ({ ...prev, responsibilities: e.target.value }))}
                         />
                       </div>
                     </CardContent>
@@ -903,7 +903,7 @@ const TransitionPlanningEngine = () => {
                             <div className="flex justify-between items-start">
                               <CardTitle className="text-md">{member.name}</CardTitle>
                               <Badge>
-                                {teamMemberRoles.find(r => r.value === member.role)?.label || member.role}
+                                {teamMemberRoles.find(r => r.value === member.role: any)?.label || member.role}
                               </Badge>
                             </div>
                           </CardHeader>
@@ -924,7 +924,7 @@ const TransitionPlanningEngine = () => {
                             <Button 
                               variant="outline" 
                               size="sm" 
-                              onClick={() => handleRemoveTeamMember(member.id)}
+                              onClick={() => handleRemoveTeamMember(member.id: any)}
                               className="text-red-500 hover:text-red-700"
                             >
                               Remove
@@ -958,7 +958,7 @@ const TransitionPlanningEngine = () => {
                             id="resource-title"
                             placeholder="Resource title"
                             value={newResource.title}
-                            onChange={(e) => setNewResource(prev => ({ ...prev, title: e.target.value }))}
+                            onChange={(e: any) => setNewResource(prev => ({ ...prev, title: e.target.value }))}
                           />
                         </div>
                         
@@ -966,13 +966,13 @@ const TransitionPlanningEngine = () => {
                           <Label htmlFor="resource-type">Type</Label>
                           <Select
                             value={newResource.type}
-                            onValueChange={(value) => setNewResource(prev => ({ ...prev, type: value }))}
+                            onValueChange={(value: any) => setNewResource(prev => ({ ...prev, type: value }))}
                           >
                             <SelectTrigger id="resource-type">
                               <SelectValue placeholder="Select type" />
                             </SelectTrigger>
                             <SelectContent>
-                              {resourceTypes.map((type) => (
+                              {resourceTypes.map((type: any) => (
                                 <SelectItem key={type.value} value={type.value}>
                                   {type.label}
                                 </SelectItem>
@@ -988,7 +988,7 @@ const TransitionPlanningEngine = () => {
                           id="resource-link"
                           placeholder="URL, file location, or contact details"
                           value={newResource.link}
-                          onChange={(e) => setNewResource(prev => ({ ...prev, link: e.target.value }))}
+                          onChange={(e: any) => setNewResource(prev => ({ ...prev, link: e.target.value }))}
                         />
                       </div>
                       
@@ -998,7 +998,7 @@ const TransitionPlanningEngine = () => {
                           id="resource-description"
                           placeholder="How will this resource help with the transition?"
                           value={newResource.description}
-                          onChange={(e) => setNewResource(prev => ({ ...prev, description: e.target.value }))}
+                          onChange={(e: any) => setNewResource(prev => ({ ...prev, description: e.target.value }))}
                         />
                       </div>
                     </CardContent>
@@ -1021,7 +1021,7 @@ const TransitionPlanningEngine = () => {
                             <div className="flex justify-between items-start">
                               <CardTitle className="text-md">{resource.title}</CardTitle>
                               <Badge>
-                                {resourceTypes.find(t => t.value === resource.type)?.label || resource.type}
+                                {resourceTypes.find(t => t.value === resource.type: any)?.label || resource.type}
                               </Badge>
                             </div>
                           </CardHeader>
@@ -1042,7 +1042,7 @@ const TransitionPlanningEngine = () => {
                             <Button 
                               variant="outline" 
                               size="sm" 
-                              onClick={() => handleRemoveResource(resource.id)}
+                              onClick={() => handleRemoveResource(resource.id: any)}
                               className="text-red-500 hover:text-red-700"
                             >
                               Remove
@@ -1076,7 +1076,7 @@ const TransitionPlanningEngine = () => {
                             id="accommodation-title"
                             placeholder="Accommodation title"
                             value={newAccommodation.title}
-                            onChange={(e) => setNewAccommodation(prev => ({ ...prev, title: e.target.value }))}
+                            onChange={(e: any) => setNewAccommodation(prev => ({ ...prev, title: e.target.value }))}
                           />
                         </div>
                         
@@ -1084,13 +1084,13 @@ const TransitionPlanningEngine = () => {
                           <Label htmlFor="accommodation-category">Category</Label>
                           <Select
                             value={newAccommodation.category}
-                            onValueChange={(value) => setNewAccommodation(prev => ({ ...prev, category: value }))}
+                            onValueChange={(value: any) => setNewAccommodation(prev => ({ ...prev, category: value }))}
                           >
                             <SelectTrigger id="accommodation-category">
                               <SelectValue placeholder="Select category" />
                             </SelectTrigger>
                             <SelectContent>
-                              {accommodationCategories.map((category) => (
+                              {accommodationCategories.map((category: any) => (
                                 <SelectItem key={category.value} value={category.value}>
                                   {category.label}
                                 </SelectItem>
@@ -1106,7 +1106,7 @@ const TransitionPlanningEngine = () => {
                           id="accommodation-description"
                           placeholder="Describe the accommodation needed"
                           value={newAccommodation.description}
-                          onChange={(e) => setNewAccommodation(prev => ({ ...prev, description: e.target.value }))}
+                          onChange={(e: any) => setNewAccommodation(prev => ({ ...prev, description: e.target.value }))}
                         />
                       </div>
                       
@@ -1116,7 +1116,7 @@ const TransitionPlanningEngine = () => {
                           id="accommodation-notes"
                           placeholder="How should this accommodation be implemented?"
                           value={newAccommodation.implementationNotes}
-                          onChange={(e) => setNewAccommodation(prev => ({ ...prev, implementationNotes: e.target.value }))}
+                          onChange={(e: any) => setNewAccommodation(prev => ({ ...prev, implementationNotes: e.target.value }))}
                         />
                       </div>
                     </CardContent>
@@ -1139,7 +1139,7 @@ const TransitionPlanningEngine = () => {
                             <div className="flex justify-between items-start">
                               <CardTitle className="text-md">{accommodation.title}</CardTitle>
                               <Badge>
-                                {accommodationCategories.find(c => c.value === accommodation.category)?.label || accommodation.category}
+                                {accommodationCategories.find(c => c.value === accommodation.category: any)?.label || accommodation.category}
                               </Badge>
                             </div>
                           </CardHeader>
@@ -1158,7 +1158,7 @@ const TransitionPlanningEngine = () => {
                             <Button 
                               variant="outline" 
                               size="sm" 
-                              onClick={() => handleRemoveAccommodation(accommodation.id)}
+                              onClick={() => handleRemoveAccommodation(accommodation.id: any)}
                               className="text-red-500 hover:text-red-700"
                             >
                               Remove

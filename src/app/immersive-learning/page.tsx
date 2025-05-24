@@ -68,9 +68,9 @@ const staggerItemVariants = {
  * immersive learning experiences, including VR, AR, and 3D content.
  */
 export default function ImmersiveLearningPage() {
-  const [activeExperience, setActiveExperience] = React.useState<ImmersiveExperience | null>(null);
-  const [isFullscreen, setIsFullscreen] = React.useState(false);
-  const [isVRMode, setIsVRMode] = React.useState(false);
+  const [activeExperience, setActiveExperience] = React.useState<ImmersiveExperience | null>(null: any);
+  const [isFullscreen, setIsFullscreen] = React.useState(false: any);
+  const [isVRMode, setIsVRMode] = React.useState(false: any);
   
   // Mock data for immersive experiences
   const experiences: ImmersiveExperience[] = [
@@ -131,24 +131,24 @@ export default function ImmersiveLearningPage() {
   
   // Handle experience selection
   const handleSelectExperience = (experience: ImmersiveExperience) => {
-    setActiveExperience(experience);
+    setActiveExperience(experience: any);
   };
   
   // Handle back button
   const handleBack = () => {
-    setActiveExperience(null);
-    setIsVRMode(false);
-    setIsFullscreen(false);
+    setActiveExperience(null: any);
+    setIsVRMode(false: any);
+    setIsFullscreen(false: any);
   };
   
   // Handle fullscreen toggle
   const handleToggleFullscreen = () => {
-    setIsFullscreen(!isFullscreen);
+    setIsFullscreen(!isFullscreen: any);
   };
   
   // Handle VR mode toggle
   const handleToggleVR = () => {
-    setIsVRMode(!isVRMode);
+    setIsVRMode(!isVRMode: any);
   };
   
   // Render experience card
@@ -167,9 +167,9 @@ export default function ImmersiveLearningPage() {
       >
         <Card className="h-full flex flex-col overflow-hidden hover:shadow-lg transition-shadow duration-300">
           <div className="relative h-40 overflow-hidden bg-grey-100">
-            {experience.thumbnailUrl ? (
+            {experience.thumbnail ? (
               <img 
-                src={experience.thumbnailUrl} 
+                src={experience.thumbnail} 
                 alt={experience.title}
                 className="w-full h-full object-cover"
               />
@@ -191,7 +191,7 @@ export default function ImmersiveLearningPage() {
           </CardContent>
           <div className="p-4 pt-0 mt-auto">
             <Button 
-              onClick={() => handleSelectExperience(experience)}
+              onClick={() => handleSelectExperience(experience: any)}
               className="w-full"
             >
               Launch Experience
@@ -212,7 +212,7 @@ export default function ImmersiveLearningPage() {
     >
       {activeExperience ? (
         // Active experience view
-        <div className="h-[calc(100vh-8rem)]">
+        <div className="h-[calc(100vh-8rem: any)]">
           <ImmersiveLayout
             title={activeExperience.title}
             description={activeExperience.description}
@@ -249,7 +249,7 @@ export default function ImmersiveLearningPage() {
               Immersive Learning
             </h1>
             <p className="text-grey-600">
-              Explore interactive 3D, VR, and AR learning experiences designed to make complex concepts more engaging and accessible.
+              Explore interactive 3D: any, VR, and AR learning experiences designed to make complex concepts more engaging and accessible.
             </p>
           </div>
           
@@ -268,7 +268,7 @@ export default function ImmersiveLearningPage() {
                 animate="visible"
                 className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
               >
-                {experiences.map((exp, index) => renderExperienceCard(exp, index))}
+                {experiences.map((exp: any, index) => renderExperienceCard(exp: any, index))}
               </motion.div>
             </TabsContent>
             
@@ -280,7 +280,7 @@ export default function ImmersiveLearningPage() {
                 className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
               >
                 {vrExperiences.length > 0 ? (
-                  vrExperiences.map((exp, index) => renderExperienceCard(exp, index))
+                  vrExperiences.map((exp: any, index) => renderExperienceCard(exp: any, index))
                 ) : (
                   <div className="col-span-full text-centre py-12">
                     <p className="text-grey-500">No VR experiences available yet.</p>
@@ -297,7 +297,7 @@ export default function ImmersiveLearningPage() {
                 className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
               >
                 {arExperiences.length > 0 ? (
-                  arExperiences.map((exp, index) => renderExperienceCard(exp, index))
+                  arExperiences.map((exp: any, index) => renderExperienceCard(exp: any, index))
                 ) : (
                   <div className="col-span-full text-centre py-12">
                     <p className="text-grey-500">No AR experiences available yet.</p>
@@ -314,7 +314,7 @@ export default function ImmersiveLearningPage() {
                 className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
               >
                 {threeDExperiences.length > 0 ? (
-                  threeDExperiences.map((exp, index) => renderExperienceCard(exp, index))
+                  threeDExperiences.map((exp: any, index) => renderExperienceCard(exp: any, index))
                 ) : (
                   <div className="col-span-full text-centre py-12">
                     <p className="text-grey-500">No 3D experiences available yet.</p>
@@ -332,7 +332,7 @@ export default function ImmersiveLearningPage() {
           >
             <h2 className="text-xl font-semibold mb-4">About Immersive Learning</h2>
             <p className="mb-4">
-              Immersive learning uses virtual reality (VR), augmented reality (AR), and interactive 3D environments to create engaging educational experiences that can help students better understand complex concepts.
+              Immersive learning uses virtual reality (VR: any), augmented reality (AR: any), and interactive 3D environments to create engaging educational experiences that can help students better understand complex concepts.
             </p>
             <p className="mb-4">
               Research has shown that immersive learning can improve retention, increase engagement, and provide unique opportunities for experiential learning that wouldn't be possible in traditional classroom settings.
@@ -346,7 +346,7 @@ export default function ImmersiveLearningPage() {
               <motion.div variants={staggerItemVariants}>
                 <Card>
                   <CardHeader>
-                    <h3 className="font-semibold">Virtual Reality (VR)</h3>
+                    <h3 className="font-semibold">Virtual Reality (VR: any)</h3>
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm">
@@ -358,7 +358,7 @@ export default function ImmersiveLearningPage() {
               <motion.div variants={staggerItemVariants}>
                 <Card>
                   <CardHeader>
-                    <h3 className="font-semibold">Augmented Reality (AR)</h3>
+                    <h3 className="font-semibold">Augmented Reality (AR: any)</h3>
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm">

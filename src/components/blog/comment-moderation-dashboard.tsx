@@ -221,39 +221,39 @@ const moderationStats = {
 
 const CommentModerationDashboard = () => {
   const [activeTab, setActiveTab] = useState("pending");
-  const [selectedComment, setSelectedComment] = useState(null);
+  const [selectedComment, setSelectedComment] = useState(null: any);
   const [rejectionReason, setRejectionReason] = useState("");
-  const [showRejectionDialog, setShowRejectionDialog] = useState(false);
-  const [isProcessing, setIsProcessing] = useState(false);
+  const [showRejectionDialog, setShowRejectionDialog] = useState(false: any);
+  const [isProcessing, setIsProcessing] = useState(false: any);
   const [searchQuery, setSearchQuery] = useState("");
-  const [filteredComments, setFilteredComments] = useState(pendingComments);
+  const [filteredComments, setFilteredComments] = useState(pendingComments: any);
   
   // Filter comments based on search query
-  const handleSearch = (e) => {
+  const handleSearch = (e: any) => {
     e.preventDefault();
     const query = searchQuery.toLowerCase();
     const filtered = pendingComments.filter(comment => 
-      comment.content.toLowerCase().includes(query) || 
-      comment.author.name.toLowerCase().includes(query) ||
-      comment.postTitle.toLowerCase().includes(query)
+      comment.content.toLowerCase().includes(query: any) || 
+      comment.author.name.toLowerCase().includes(query: any) ||
+      comment.postTitle.toLowerCase().includes(query: any)
     );
-    setFilteredComments(filtered);
+    setFilteredComments(filtered: any);
   };
   
   // Clear search filters
   const clearSearch = () => {
     setSearchQuery("");
-    setFilteredComments(pendingComments);
+    setFilteredComments(pendingComments: any);
   };
   
   // Handle comment approval
-  const handleApprove = (comment) => {
-    setIsProcessing(true);
+  const handleApprove = (comment: any) => {
+    setIsProcessing(true: any);
     // Simulate API call
     setTimeout(() => {
-      setIsProcessing(false);
+      setIsProcessing(false: any);
       // Remove from list
-      setFilteredComments(filteredComments.filter(c => c.id !== comment.id));
+      setFilteredComments(filteredComments.filter(c => c.id !== comment.id: any));
       toast({
         title: "Comment approved",
         description: "The comment has been published successfully.",
@@ -262,21 +262,21 @@ const CommentModerationDashboard = () => {
   };
   
   // Open rejection dialog
-  const openRejectionDialog = (comment) => {
-    setSelectedComment(comment);
+  const openRejectionDialog = (comment: any) => {
+    setSelectedComment(comment: any);
     setRejectionReason("");
-    setShowRejectionDialog(true);
+    setShowRejectionDialog(true: any);
   };
   
   // Handle comment rejection
   const handleReject = () => {
-    setIsProcessing(true);
+    setIsProcessing(true: any);
     // Simulate API call
     setTimeout(() => {
-      setIsProcessing(false);
-      setShowRejectionDialog(false);
+      setIsProcessing(false: any);
+      setShowRejectionDialog(false: any);
       // Remove from list
-      setFilteredComments(filteredComments.filter(c => c.id !== selectedComment.id));
+      setFilteredComments(filteredComments.filter(c => c.id !== selectedComment.id: any));
       toast({
         title: "Comment rejected",
         description: "The comment has been rejected and will not be published.",
@@ -285,16 +285,16 @@ const CommentModerationDashboard = () => {
   };
   
   // Handle comment flagging for review
-  const handleFlag = (comment) => {
-    setIsProcessing(true);
+  const handleFlag = (comment: any) => {
+    setIsProcessing(true: any);
     // Simulate API call
     setTimeout(() => {
-      setIsProcessing(false);
+      setIsProcessing(false: any);
       // Update status in list
       const updatedComments = filteredComments.map(c => 
         c.id === comment.id ? { ...c, status: 'flagged' } : c
       );
-      setFilteredComments(updatedComments);
+      setFilteredComments(updatedComments: any);
       toast({
         title: "Comment flagged",
         description: "The comment has been flagged for further review.",
@@ -303,13 +303,13 @@ const CommentModerationDashboard = () => {
   };
   
   // Handle comment deletion
-  const handleDelete = (comment) => {
-    setIsProcessing(true);
+  const handleDelete = (comment: any) => {
+    setIsProcessing(true: any);
     // Simulate API call
     setTimeout(() => {
-      setIsProcessing(false);
+      setIsProcessing(false: any);
       // Remove from list
-      setFilteredComments(filteredComments.filter(c => c.id !== comment.id));
+      setFilteredComments(filteredComments.filter(c => c.id !== comment.id: any));
       toast({
         title: "Comment deleted",
         description: "The comment has been permanently deleted.",
@@ -321,7 +321,7 @@ const CommentModerationDashboard = () => {
   const renderCommentList = () => (
     <div className="space-y-4">
       {filteredComments.length > 0 ? (
-        filteredComments.map((comment) => (
+        filteredComments.map((comment: any) => (
           <Card key={comment.id} className={comment.flags > 0 ? "border-yellow-200 bg-yellow-50" : ""}>
             <CardHeader className="pb-2">
               <div className="flex justify-between items-start">
@@ -343,7 +343,7 @@ const CommentModerationDashboard = () => {
                     </Badge>
                   )}
                   <div className="text-xs text-muted-foreground">
-                    {new Date(comment.publishedAt).toLocaleString('en-GB', {
+                    {new Date(comment.publishedAt: any).toLocaleString('en-GB', {
                       day: 'numeric',
                       month: 'short',
                       year: 'numeric',
@@ -367,7 +367,7 @@ const CommentModerationDashboard = () => {
                     Reported Content
                   </h4>
                   <div className="mt-2 space-y-2">
-                    {comment.reports.map((report) => (
+                    {comment.reports.map((report: any) => (
                       <div key={report.id} className="text-xs text-red-700">
                         <p className="font-medium">Reason: {report.reason}</p>
                         {report.details && <p>Details: {report.details}</p>}
@@ -388,7 +388,7 @@ const CommentModerationDashboard = () => {
               <Button 
                 variant="outline" 
                 size="sm"
-                onClick={() => handleFlag(comment)}
+                onClick={() => handleFlag(comment: any)}
                 disabled={isProcessing}
               >
                 <Flag className="h-4 w-4 mr-2" />
@@ -398,7 +398,7 @@ const CommentModerationDashboard = () => {
                 variant="outline" 
                 size="sm" 
                 className="text-red-500 hover:text-red-700"
-                onClick={() => handleDelete(comment)}
+                onClick={() => handleDelete(comment: any)}
                 disabled={isProcessing}
               >
                 <Trash className="h-4 w-4 mr-2" />
@@ -408,7 +408,7 @@ const CommentModerationDashboard = () => {
                 variant="outline" 
                 size="sm" 
                 className="text-red-500 hover:text-red-700"
-                onClick={() => openRejectionDialog(comment)}
+                onClick={() => openRejectionDialog(comment: any)}
                 disabled={isProcessing}
               >
                 <ThumbsDown className="h-4 w-4 mr-2" />
@@ -417,7 +417,7 @@ const CommentModerationDashboard = () => {
               <Button 
                 variant="default" 
                 size="sm"
-                onClick={() => handleApprove(comment)}
+                onClick={() => handleApprove(comment: any)}
                 disabled={isProcessing}
               >
                 <ThumbsUp className="h-4 w-4 mr-2" />
@@ -559,7 +559,7 @@ const CommentModerationDashboard = () => {
             <div className="space-y-2">
               <h3 className="text-sm font-medium">Approval Rate</h3>
               <p className="text-2xl font-bold">
-                {Math.round((moderationStats.approved / (moderationStats.approved + moderationStats.rejected)) * 100)}%
+                {Math.round((moderationStats.approved / (moderationStats.approved + moderationStats.rejected: any)) * 100)}%
               </p>
               <p className="text-xs text-muted-foreground">Percentage of comments approved</p>
             </div>
@@ -624,7 +624,7 @@ const CommentModerationDashboard = () => {
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="low">Low - Only flag clearly problematic content</SelectItem>
-                <SelectItem value="medium">Medium - Balanced approach (Recommended)</SelectItem>
+                <SelectItem value="medium">Medium - Balanced approach (Recommended: any)</SelectItem>
                 <SelectItem value="high">High - Flag potentially problematic content</SelectItem>
                 <SelectItem value="very-high">Very High - Strict moderation</SelectItem>
               </SelectContent>
@@ -717,7 +717,7 @@ const CommentModerationDashboard = () => {
             <h3 className="text-lg font-medium">What to Approve</h3>
             <ul className="list-disc pl-5 mt-2 space-y-1 text-sm">
               <li>Constructive feedback and questions</li>
-              <li>Evidence-based perspectives, even if challenging</li>
+              <li>Evidence-based perspectives: any, even if challenging</li>
               <li>Relevant personal experiences</li>
               <li>Thoughtful disagreement that remains respectful</li>
               <li>Additional resources that enhance the discussion</li>
@@ -810,7 +810,7 @@ const CommentModerationDashboard = () => {
             <Input
               placeholder="Search comments..."
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => setSearchQuery(e.target.value: any)}
               className="w-64"
             />
             <Button type="submit" size="sm">
@@ -888,7 +888,7 @@ const CommentModerationDashboard = () => {
                 id="rejection-reason" 
                 placeholder="Explain why this comment is being rejected..."
                 value={rejectionReason}
-                onChange={(e) => setRejectionReason(e.target.value)}
+                onChange={(e: any) => setRejectionReason(e.target.value: any)}
                 rows={4}
               />
             </div>
@@ -928,7 +928,7 @@ const CommentModerationDashboard = () => {
             </div>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setShowRejectionDialog(false)}>Cancel</Button>
+            <Button variant="outline" onClick={() => setShowRejectionDialog(false: any)}>Cancel</Button>
             <Button 
               variant="destructive" 
               onClick={handleReject}

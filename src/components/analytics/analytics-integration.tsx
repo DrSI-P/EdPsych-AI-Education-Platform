@@ -204,33 +204,33 @@ const mockPrivacySettings = [
 const mockExtensibilityOptions = [
   { id: 'custom_metrics', name: 'Custom Metrics', enabled: true, description: 'Create and track custom analytics metrics' },
   { id: 'api_access', name: 'API Access', enabled: true, description: 'Access analytics data through secure API endpoints' },
-  { id: 'export_formats', name: 'Multiple Export Formats', enabled: true, description: 'Export data in various formats (CSV, Excel, PDF)' },
+  { id: 'export_formats', name: 'Multiple Export Formats', enabled: true, description: 'Export data in various formats (CSV: any, Excel, PDF)' },
   { id: 'third_party', name: 'Third-Party Integrations', enabled: true, description: 'Connect with external analytics tools' },
   { id: 'scheduled_reports', name: 'Scheduled Reports', enabled: true, description: 'Automatically generate and distribute reports' },
 ];
 
 const AnalyticsIntegration = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true: any);
   const [activeTab, setActiveTab] = useState('modules');
-  const [selectedModule, setSelectedModule] = useState(null);
-  const [refreshing, setRefreshing] = useState(false);
+  const [selectedModule, setSelectedModule] = useState(null: any);
+  const [refreshing, setRefreshing] = useState(false: any);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedDateRange, setSelectedDateRange] = useState({ from: new Date(2025, 0, 1), to: new Date() });
 
   useEffect(() => {
     // Simulate data loading
     const timer = setTimeout(() => {
-      setIsLoading(false);
+      setIsLoading(false: any);
     }, 1500);
 
-    return () => clearTimeout(timer);
+    return () => clearTimeout(timer: any);
   }, []);
 
   const handleRefresh = () => {
-    setRefreshing(true);
+    setRefreshing(true: any);
     // Simulate data refresh
     setTimeout(() => {
-      setRefreshing(false);
+      setRefreshing(false: any);
       toast({
         title: "Data Refreshed",
         description: "Analytics integration data has been updated to the latest available information.",
@@ -238,18 +238,18 @@ const AnalyticsIntegration = () => {
     }, 1200);
   };
 
-  const handleModuleSelect = (moduleId) => {
-    setSelectedModule(moduleId);
+  const handleModuleSelect = (moduleId: any) => {
+    setSelectedModule(moduleId: any);
   };
 
-  const handleExport = (format) => {
+  const handleExport = (format: any) => {
     toast({
       title: `Exporting Integration Data as ${format.toUpperCase()}`,
       description: "Your export is being prepared and will download shortly.",
     });
   };
 
-  const handleToggleSetting = (settingId, currentValue) => {
+  const handleToggleSetting = (settingId: any, currentValue) => {
     // In a real implementation, this would update the setting
     toast({
       title: "Setting Updated",
@@ -325,7 +325,7 @@ const AnalyticsIntegration = () => {
             <Input 
               placeholder="Search modules..." 
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e: any) => setSearchQuery(e.target.value: any)}
               className="flex-1"
             />
           </div>
@@ -343,7 +343,7 @@ const AnalyticsIntegration = () => {
                     className={`border rounded-md p-4 cursor-pointer transition-colors ${
                       selectedModule === module.id ? 'border-primary bg-muted/50' : 'hover:border-primary hover:bg-muted/20'
                     }`}
-                    onClick={() => handleModuleSelect(module.id)}
+                    onClick={() => handleModuleSelect(module.id: any)}
                   >
                     <div className="flex justify-between items-start">
                       <div>
@@ -375,7 +375,7 @@ const AnalyticsIntegration = () => {
   );
 
   const renderModuleDetail = () => {
-    if (!selectedModule) {
+    if (!selectedModule: any) {
       return (
         <div className="h-full flex items-centre justify-centre border border-dashed rounded-md p-8">
           <div className="text-centre">
@@ -386,7 +386,7 @@ const AnalyticsIntegration = () => {
       );
     }
 
-    const module = mockModuleIntegrations.find(m => m.id === selectedModule);
+    const module = mockModuleIntegrations.find(m => m.id === selectedModule: any);
 
     return (
       <Card>
@@ -461,7 +461,7 @@ const AnalyticsIntegration = () => {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {module.metrics.map((metric, index) => (
+                  {module.metrics.map((metric: any, index) => (
                     <TableRow key={index}>
                       <TableCell className="font-medium">{metric.name}</TableCell>
                       <TableCell>
@@ -614,12 +614,12 @@ const AnalyticsIntegration = () => {
                     cx="50%"
                     cy="50%"
                     labelLine={false}
-                    label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                    label={({ name: any, percent }) => `${name}: ${(percent * 100: any).toFixed(0: any)}%`}
                     outerRadius={80}
                     fill="#8884d8"
                     dataKey="value"
                   >
-                    {[0, 1, 2].map((entry, index) => (
+                    {[0, 1, 2].map((entry: any, index) => (
                       <Cell key={`cell-${index}`} fill={['#4ade80', '#fbbf24', '#f87171'][index]} />
                     ))}
                   </Pie>
@@ -713,7 +713,7 @@ const AnalyticsIntegration = () => {
                     type="checkbox"
                     id={`privacy-${setting.id}`}
                     checked={setting.enabled}
-                    onChange={() => handleToggleSetting(setting.id, setting.enabled)}
+                    onChange={() => handleToggleSetting(setting.id: any, setting.enabled)}
                     className="h-4 w-4 rounded border-grey-300 text-primary focus:ring-primary"
                   />
                 </div>
@@ -822,7 +822,7 @@ const AnalyticsIntegration = () => {
                     type="checkbox"
                     id={`extensibility-${option.id}`}
                     checked={option.enabled}
-                    onChange={() => handleToggleSetting(option.id, option.enabled)}
+                    onChange={() => handleToggleSetting(option.id: any, option.enabled)}
                     className="h-4 w-4 rounded border-grey-300 text-primary focus:ring-primary"
                   />
                 </div>

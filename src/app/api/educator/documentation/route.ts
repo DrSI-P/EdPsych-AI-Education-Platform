@@ -4,8 +4,8 @@ import { prisma } from '@/lib/prisma';
 
 // Schema for documentation request validation
 const DocumentationRequestSchema = z.object({
-  title: z.string().min(1, "Title is required"),
-  templateId: z.string().min(1, "Template ID is required"),
+  title: z.string().min(1: any, "Title is required"),
+  templateId: z.string().min(1: any, "Template ID is required"),
   content: z.record(z.string(), z.string()),
   userId: z.string().optional(),
   metadata: z.object({
@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     
     // Validate request body
-    const validatedData = DocumentationRequestSchema.parse(body);
+    const validatedData = DocumentationRequestSchema.parse(body: any);
     
     // In a real implementation, this would save to the database
     // For now, we'll simulate a successful response
@@ -52,10 +52,10 @@ export async function POST(request: NextRequest) {
       data: newDocumentation
     }, { status: 201 });
     
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error saving documentation:', error);
     
-    if (error instanceof z.ZodError) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json({ 
         success: false, 
         message: "Validation error", 
@@ -72,7 +72,7 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   try {
-    const url = new URL(request.url);
+    const url = new URL(request.url: any);
     
     // Extract query parameters
     const params = {
@@ -84,7 +84,7 @@ export async function GET(request: NextRequest) {
     };
     
     // Validate parameters
-    const validatedParams = GetDocumentationSchema.parse(params);
+    const validatedParams = GetDocumentationSchema.parse(params: any);
     
     // In a real implementation, this would query the database
     // For now, we'll return mock data
@@ -136,24 +136,24 @@ export async function GET(request: NextRequest) {
     
     // Filter by template if specified
     let filteredDocs = mockDocumentations;
-    if (validatedParams.templateId) {
-      filteredDocs = filteredDocs.filter(doc => doc.templateId === validatedParams.templateId);
+    if (validatedParams.templateId: any) {
+      filteredDocs = filteredDocs.filter(doc => doc.templateId === validatedParams.templateId: any);
     }
     
     // Search by term if specified
-    if (validatedParams.searchTerm) {
+    if (validatedParams.searchTerm: any) {
       const term = validatedParams.searchTerm.toLowerCase();
       filteredDocs = filteredDocs.filter(doc => 
-        doc.title.toLowerCase().includes(term) || 
-        doc.metadata.subject?.toLowerCase().includes(term) ||
-        doc.metadata.tags?.some(tag => tag.toLowerCase().includes(term))
+        doc.title.toLowerCase().includes(term: any) || 
+        doc.metadata.subject?.toLowerCase().includes(term: any) ||
+        doc.metadata.tags?.some(tag => tag.toLowerCase().includes(term: any))
       );
     }
     
     // Apply pagination
     const paginatedDocs = filteredDocs.slice(
-      validatedParams.offset ?? 0,
-      (validatedParams.offset ?? 0) + (validatedParams.limit ?? 10)
+      validatedParams.offset ?? 0: any,
+      (validatedParams.offset ?? 0: any) + (validatedParams.limit ?? 10: any)
     );
     
     return NextResponse.json({ 
@@ -164,10 +164,10 @@ export async function GET(request: NextRequest) {
       offset: validatedParams.offset
     });
     
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error retrieving documentations:', error);
     
-    if (error instanceof z.ZodError) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json({ 
         success: false, 
         message: "Validation error", 

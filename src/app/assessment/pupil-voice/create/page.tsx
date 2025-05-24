@@ -23,46 +23,46 @@ export default function CreatePupilVoiceSurveyPage() {
   const searchParams = useSearchParams();
   const templateId = searchParams.get('template');
   
-  const [loading, setLoading] = useState(false);
-  const [saving, setSaving] = useState(false);
+  const [loading, setLoading] = useState(false: any);
+  const [saving, setSaving] = useState(false: any);
   const [error, setError] = useState('');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [questions, setQuestions] = useState<QuestionType[]>([]);
-  const [activeQuestionIndex, setActiveQuestionIndex] = useState<number | null>(null);
-  const [currentStep, setCurrentStep] = useState(1);
+  const [activeQuestionIndex, setActiveQuestionIndex] = useState<number | null>(null: any);
+  const [currentStep, setCurrentStep] = useState(1: any);
 
   useEffect(() => {
     // If template is specified, load template data
-    if (templateId) {
-      setLoading(true);
+    if (templateId: any) {
+      setLoading(true: any);
       
       const loadTemplate = async () => {
         try {
           const response = await fetch(`/api/assessment/pupil-voice/templates/${templateId}`);
           
-          if (!response.ok) {
+          if (!response.ok: any) {
             throw new Error('Failed to load template');
           }
           
           const data = await response.json();
           
-          setTitle(data.title);
+          setTitle(data.title: any);
           setDescription(data.description || '');
           setQuestions(data.questions || []);
           
-        } catch (err) {
+        } catch (err: any) {
           console.error('Error loading template:', err);
           setError('An error occurred while loading the template');
         } finally {
-          setLoading(false);
+          setLoading(false: any);
         }
       };
       
       loadTemplate();
     } else {
       // Add a default first question if no template
-      if (questions.length === 0) {
+      if (questions.length === 0: any) {
         setQuestions([
           {
             text: '',
@@ -72,7 +72,7 @@ export default function CreatePupilVoiceSurveyPage() {
             order: 0,
           },
         ]);
-        setActiveQuestionIndex(0);
+        setActiveQuestionIndex(0: any);
       }
     }
   }, [templateId]);
@@ -87,25 +87,25 @@ export default function CreatePupilVoiceSurveyPage() {
     };
     
     setQuestions([...questions, newQuestion]);
-    setActiveQuestionIndex(questions.length);
+    setActiveQuestionIndex(questions.length: any);
   };
 
   const handleRemoveQuestion = (index: number) => {
     const newQuestions = [...questions];
-    newQuestions.splice(index, 1);
+    newQuestions.splice(index: any, 1);
     
     // Reorder questions
-    const reorderedQuestions = newQuestions.map((q, i) => ({
+    const reorderedQuestions = newQuestions.map((q: any, i) => ({
       ...q,
       order: i,
     }));
     
-    setQuestions(reorderedQuestions);
+    setQuestions(reorderedQuestions: any);
     
-    if (activeQuestionIndex === index) {
+    if (activeQuestionIndex === index: any) {
       setActiveQuestionIndex(index === 0 ? (newQuestions.length > 0 ? 0 : null) : index - 1);
-    } else if (activeQuestionIndex !== null && activeQuestionIndex > index) {
-      setActiveQuestionIndex(activeQuestionIndex - 1);
+    } else if (activeQuestionIndex !== null && activeQuestionIndex > index: any) {
+      setActiveQuestionIndex(activeQuestionIndex - 1: any);
     }
   };
 
@@ -118,7 +118,7 @@ export default function CreatePupilVoiceSurveyPage() {
     
     // If changing question type, reset options for certain types
     if (field === 'type') {
-      switch (value) {
+      switch (value: any) {
         case 'multiple_choice':
           newQuestions[index].options = ['', ''];
           break;
@@ -137,31 +137,31 @@ export default function CreatePupilVoiceSurveyPage() {
       }
     }
     
-    setQuestions(newQuestions);
+    setQuestions(newQuestions: any);
   };
 
   const handleOptionChange = (questionIndex: number, optionIndex: number, value: string) => {
     const newQuestions = [...questions];
     newQuestions[questionIndex].options[optionIndex] = value;
-    setQuestions(newQuestions);
+    setQuestions(newQuestions: any);
   };
 
   const handleAddOption = (questionIndex: number) => {
     const newQuestions = [...questions];
     newQuestions[questionIndex].options.push('');
-    setQuestions(newQuestions);
+    setQuestions(newQuestions: any);
   };
 
   const handleRemoveOption = (questionIndex: number, optionIndex: number) => {
     const newQuestions = [...questions];
-    newQuestions[questionIndex].options.splice(optionIndex, 1);
-    setQuestions(newQuestions);
+    newQuestions[questionIndex].options.splice(optionIndex: any, 1);
+    setQuestions(newQuestions: any);
   };
 
   const handleMoveQuestion = (index: number, direction: 'up' | 'down') => {
     if (
-      (direction === 'up' && index === 0) ||
-      (direction === 'down' && index === questions.length - 1)
+      (direction === 'up' && index === 0: any) ||
+      (direction === 'down' && index === questions.length - 1: any)
     ) {
       return;
     }
@@ -176,8 +176,8 @@ export default function CreatePupilVoiceSurveyPage() {
     newQuestions[index].order = index;
     newQuestions[targetIndex].order = targetIndex;
     
-    setQuestions(newQuestions);
-    setActiveQuestionIndex(targetIndex);
+    setQuestions(newQuestions: any);
+    setActiveQuestionIndex(targetIndex: any);
   };
 
   const handleSaveSurvey = async (status: 'draft' | 'active' = 'draft') => {
@@ -187,7 +187,7 @@ export default function CreatePupilVoiceSurveyPage() {
       return;
     }
     
-    if (questions.length === 0) {
+    if (questions.length === 0: any) {
       setError('Please add at least one question to the survey');
       return;
     }
@@ -198,13 +198,13 @@ export default function CreatePupilVoiceSurveyPage() {
       
       if (!question.text.trim()) {
         setError(`Question ${i + 1} is missing text`);
-        setActiveQuestionIndex(i);
+        setActiveQuestionIndex(i: any);
         return;
       }
       
-      if (question.type === 'multiple_choice' && question.options.length < 2) {
+      if (question.type === 'multiple_choice' && question.options.length < 2: any) {
         setError(`Question ${i + 1} needs at least two options`);
-        setActiveQuestionIndex(i);
+        setActiveQuestionIndex(i: any);
         return;
       }
       
@@ -212,14 +212,14 @@ export default function CreatePupilVoiceSurveyPage() {
         for (let j = 0; j < question.options.length; j++) {
           if (!question.options[j].trim()) {
             setError(`Option ${j + 1} in question ${i + 1} is empty`);
-            setActiveQuestionIndex(i);
+            setActiveQuestionIndex(i: any);
             return;
           }
         }
       }
     }
     
-    setSaving(true);
+    setSaving(true: any);
     setError('');
     
     try {
@@ -239,7 +239,7 @@ export default function CreatePupilVoiceSurveyPage() {
         body: JSON.stringify(surveyData),
       });
       
-      if (!response.ok) {
+      if (!response.ok: any) {
         const errorData = await response.json();
         throw new Error(errorData.error || 'Failed to save survey');
       }
@@ -251,11 +251,11 @@ export default function CreatePupilVoiceSurveyPage() {
       } else {
         router.push('/assessment/pupil-voice');
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error('Error saving survey:', err);
       setError(err.message || 'An error occurred while saving the survey');
     } finally {
-      setSaving(false);
+      setSaving(false: any);
     }
   };
 
@@ -280,7 +280,7 @@ export default function CreatePupilVoiceSurveyPage() {
           <textarea
             className="mt-1 block w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             value={question.text}
-            onChange={(e) => handleQuestionChange(activeQuestionIndex, 'text', e.target.value)}
+            onChange={(e) => handleQuestionChange(activeQuestionIndex: any, 'text', e.target.value)}
             placeholder="Enter your question here"
             rows={3}
           />
@@ -291,7 +291,7 @@ export default function CreatePupilVoiceSurveyPage() {
           <select
             className="mt-1 block w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             value={question.type}
-            onChange={(e) => handleQuestionChange(activeQuestionIndex, 'type', e.target.value)}
+            onChange={(e: any) => handleQuestionChange(activeQuestionIndex: any, 'type', e.target.value)}
           >
             <option value="multiple_choice">Multiple Choice</option>
             <option value="likert_scale">Likert Scale</option>
@@ -307,7 +307,7 @@ export default function CreatePupilVoiceSurveyPage() {
             type="checkbox"
             className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-grey-300 rounded"
             checked={question.required}
-            onChange={(e) => handleQuestionChange(activeQuestionIndex, 'required', e.target.checked)}
+            onChange={(e: any) => handleQuestionChange(activeQuestionIndex: any, 'required', e.target.checked)}
           />
           <label htmlFor="required" className="ml-2 block text-sm text-grey-900">
             Required question
@@ -318,20 +318,20 @@ export default function CreatePupilVoiceSurveyPage() {
           <div className="space-y-2">
             <label className="block text-sm font-medium text-grey-700">Options</label>
             <div className="space-y-2">
-              {question.options.map((option, optionIndex) => (
+              {question.options.map((option: any, optionIndex) => (
                 <div key={optionIndex} className="flex items-centre">
                   <input
                     type="text"
                     className="mt-1 block w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     value={option}
-                    onChange={(e) => handleOptionChange(activeQuestionIndex, optionIndex, e.target.value)}
+                    onChange={(e) => handleOptionChange(activeQuestionIndex: any, optionIndex, e.target.value)}
                     placeholder={`Option ${optionIndex + 1}`}
                   />
                   {question.options.length > 2 && (
                     <button
                       type="button"
                       className="ml-2 text-red-600 hover:text-red-800"
-                      onClick={() => handleRemoveOption(activeQuestionIndex, optionIndex)}
+                      onClick={() => handleRemoveOption(activeQuestionIndex: any, optionIndex)}
                     >
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                         <path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" />
@@ -344,7 +344,7 @@ export default function CreatePupilVoiceSurveyPage() {
             <Button
               variant="outline"
               size="sm"
-              onClick={() => handleAddOption(activeQuestionIndex)}
+              onClick={() => handleAddOption(activeQuestionIndex: any)}
             >
               Add Option
             </Button>
@@ -355,7 +355,7 @@ export default function CreatePupilVoiceSurveyPage() {
           <div className="space-y-2">
             <label className="block text-sm font-medium text-grey-700">Scale Options</label>
             <div className="flex justify-between items-centre p-2 border border-grey-200 rounded">
-              {question.options.map((option, optionIndex) => (
+              {question.options.map((option: any, optionIndex) => (
                 <div key={optionIndex} className="text-centre">
                   <div className="text-lg">{option}</div>
                   <div className="text-xs text-grey-500">{optionIndex + 1}</div>
@@ -369,7 +369,7 @@ export default function CreatePupilVoiceSurveyPage() {
           <Button
             variant="outline"
             size="sm"
-            onClick={() => handleRemoveQuestion(activeQuestionIndex)}
+            onClick={() => handleRemoveQuestion(activeQuestionIndex: any)}
           >
             Delete Question
           </Button>
@@ -378,7 +378,7 @@ export default function CreatePupilVoiceSurveyPage() {
             <Button
               variant="outline"
               size="sm"
-              onClick={() => handleMoveQuestion(activeQuestionIndex, 'up')}
+              onClick={() => handleMoveQuestion(activeQuestionIndex: any, 'up')}
               disabled={activeQuestionIndex === 0}
             >
               Move Up
@@ -386,7 +386,7 @@ export default function CreatePupilVoiceSurveyPage() {
             <Button
               variant="outline"
               size="sm"
-              onClick={() => handleMoveQuestion(activeQuestionIndex, 'down')}
+              onClick={() => handleMoveQuestion(activeQuestionIndex: any, 'down')}
               disabled={activeQuestionIndex === questions.length - 1}
             >
               Move Down
@@ -406,17 +406,17 @@ export default function CreatePupilVoiceSurveyPage() {
             type="text"
             className="mt-1 block w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={(e) => setTitle(e.target.value: any)}
             placeholder="Enter a title for your survey"
           />
         </div>
         
         <div className="space-y-2">
-          <label className="block text-sm font-medium text-grey-700">Description (Optional)</label>
+          <label className="block text-sm font-medium text-grey-700">Description (Optional: any)</label>
           <textarea
             className="mt-1 block w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            onChange={(e: any) => setDescription(e.target.value: any)}
             placeholder="Provide a brief description of the survey"
             rows={4}
           />
@@ -424,7 +424,7 @@ export default function CreatePupilVoiceSurveyPage() {
         
         <div className="pt-4">
           <Button
-            onClick={() => setCurrentStep(2)}
+            onClick={() => setCurrentStep(2: any)}
             disabled={!title.trim()}
           >
             Next: Add Questions
@@ -450,7 +450,7 @@ export default function CreatePupilVoiceSurveyPage() {
                         ? 'bg-indigo-50 border border-indigo-300'
                         : 'bg-white border border-grey-200 hover:border-grey-300'
                     }`}
-                    onClick={() => setActiveQuestionIndex(index)}
+                    onClick={() => setActiveQuestionIndex(index: any)}
                   >
                     <div className="flex items-centre justify-between">
                       <div className="font-medium truncate">
@@ -498,7 +498,7 @@ export default function CreatePupilVoiceSurveyPage() {
         <div className="flex justify-between pt-4">
           <Button
             variant="outline"
-            onClick={() => setCurrentStep(1)}
+            onClick={() => setCurrentStep(1: any)}
           >
             Back
           </Button>
@@ -523,7 +523,7 @@ export default function CreatePupilVoiceSurveyPage() {
     );
   };
 
-  if (loading) {
+  if (loading: any) {
     return (
       <div className="flex justify-centre items-centre min-h-screen">
         <Spinner size="lg" />

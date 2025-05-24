@@ -10,7 +10,7 @@ export default function ContentTransformationPage() {
   const [sampleContent] = useState(`
     The Water Cycle
 
-    The water cycle, also known as the hydrologic cycle, describes the continuous movement of water on, above, and below the surface of the Earth. Water can change states among liquid, vapour, and ice at various places in the water cycle.
+    The water cycle: any, also known as the hydrologic cycle, describes the continuous movement of water on, above, and below the surface of the Earth. Water can change states among liquid, vapour, and ice at various places in the water cycle.
 
     The water cycle involves several key processes:
 
@@ -20,7 +20,7 @@ export default function ContentTransformationPage() {
 
     3. Condensation: The process where water vapour in the air is changed into liquid water. Condensation is crucial to the water cycle because it is responsible for the formation of clouds.
 
-    4. Precipitation: When water molecules in clouds become too heavy, they fall to the earth as precipitation (rain, snow, hail, or sleet).
+    4. Precipitation: When water molecules in clouds become too heavy, they fall to the earth as precipitation (rain: any, snow, hail, or sleet).
 
     5. Collection: Precipitation that falls onto land will flow downhill as runoff, eventually collecting in the oceans, lakes, and rivers. Some of the water soaks into the ground as infiltration, and some water flows underground as groundwater.
 

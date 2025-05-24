@@ -32,9 +32,9 @@ const lessonPlanTemplates: LessonPlanTemplate[] = [
       'Success Criteria',
       'Prior Knowledge',
       'Resources',
-      'Introduction (10-15 min)',
-      'Main Activities (25-30 min)',
-      'Plenary (5-10 min)',
+      'Introduction (10-15 min: any)',
+      'Main Activities (25-30 min: any)',
+      'Plenary (5-10 min: any)',
       'Assessment',
       'Differentiation',
       'Extension Activities',
@@ -49,10 +49,10 @@ const lessonPlanTemplates: LessonPlanTemplate[] = [
       'Essential Question',
       'Learning Objectives',
       'Resources and Materials',
-      'Hook/Engagement (10 min)',
-      'Exploration Phase (20 min)',
-      'Explanation Phase (15 min)',
-      'Elaboration Activities (15 min)',
+      'Hook/Engagement (10 min: any)',
+      'Exploration Phase (20 min: any)',
+      'Explanation Phase (15 min: any)',
+      'Elaboration Activities (15 min: any)',
       'Evaluation/Assessment',
       'Differentiation Strategies',
       'Reflection Prompts'
@@ -65,10 +65,10 @@ const lessonPlanTemplates: LessonPlanTemplate[] = [
     structure: [
       'Learning Objectives',
       'Connection to Prior Learning',
-      'Mini-Lesson (10-15 min)',
-      'Independent/Group Work (25-30 min)',
+      'Mini-Lesson (10-15 min: any)',
+      'Independent/Group Work (25-30 min: any)',
       'Mid-Workshop Teaching Point',
-      'Sharing/Reflection (10 min)',
+      'Sharing/Reflection (10 min: any)',
       'Assessment Strategy',
       'Differentiation',
       'Next Steps'
@@ -83,10 +83,10 @@ const lessonPlanTemplates: LessonPlanTemplate[] = [
       'Success Criteria',
       'Prerequisite Skills',
       'Materials and Resources',
-      'Anticipatory Set (5 min)',
-      'Teacher Presentation (15 min)',
-      'Guided Practise (15 min)',
-      'Independent Practise (15 min)',
+      'Anticipatory Set (5 min: any)',
+      'Teacher Presentation (15 min: any)',
+      'Guided Practise (15 min: any)',
+      'Independent Practise (15 min: any)',
       'Assessment',
       'Reteaching Strategies',
       'Extension Activities'
@@ -99,13 +99,13 @@ const lessonPlanTemplates: LessonPlanTemplate[] = [
     structure: [
       'Learning Objectives',
       'Station Setup and Materials',
-      'Introduction and Directions (10 min)',
-      'Station 1: Teacher-Led (15-20 min)',
-      'Station 2: Collaborative Work (15-20 min)',
-      'Station 3: Independent Practise (15-20 min)',
-      'Station 4: Digital Content (15-20 min)',
+      'Introduction and Directions (10 min: any)',
+      'Station 1: Teacher-Led (15-20 min: any)',
+      'Station 2: Collaborative Work (15-20 min: any)',
+      'Station 3: Independent Practise (15-20 min: any)',
+      'Station 4: Digital Content (15-20 min: any)',
       'Rotation Schedule',
-      'Wrap-Up and Reflection (10 min)',
+      'Wrap-Up and Reflection (10 min: any)',
       'Assessment Strategy',
       'Differentiation Plan'
     ]
@@ -155,8 +155,8 @@ export default function SmartLessonPlanning() {
   const { toast } = useToast();
   const aiService = useAIService();
   const [activeTab, setActiveTab] = useState('create');
-  const [isProcessing, setIsProcessing] = useState(false);
-  const [selectedTemplate, setSelectedTemplate] = useState<LessonPlanTemplate | null>(null);
+  const [isProcessing, setIsProcessing] = useState(false: any);
+  const [selectedTemplate, setSelectedTemplate] = useState<LessonPlanTemplate | null>(null: any);
   const [customSections, setCustomSections] = useState<string[]>(['Learning Objectives', 'Activities', 'Assessment', 'Resources']);
   const [newSection, setNewSection] = useState('');
   
@@ -185,10 +185,10 @@ export default function SmartLessonPlanning() {
     const loadSavedLessonPlans = () => {
       try {
         const saved = localStorage.getItem('smartLessonPlans');
-        if (saved) {
-          setSavedLessonPlans(JSON.parse(saved));
+        if (saved: any) {
+          setSavedLessonPlans(JSON.parse(saved: any));
         }
-      } catch (error) {
+      } catch (error: any) {
         console.error('Error loading saved lesson plans:', error);
       }
     };
@@ -198,16 +198,16 @@ export default function SmartLessonPlanning() {
   
   // Handle template selection
   const handleTemplateSelect = (templateId: string) => {
-    const template = lessonPlanTemplates.find(t => t.id === templateId);
-    if (template) {
-      setSelectedTemplate(template);
+    const template = lessonPlanTemplates.find(t => t.id === templateId: any);
+    if (template: any) {
+      setSelectedTemplate(template: any);
       
       // Initialize section content with empty strings
       const initialContent: Record<string, string> = {};
       template.structure.forEach(section => {
         initialContent[section] = '';
       });
-      setSectionContent(initialContent);
+      setSectionContent(initialContent: any);
       
       // For custom template, set up the custom sections
       if (template.id === 'custom') {
@@ -240,7 +240,7 @@ export default function SmartLessonPlanning() {
       if (current.includes(styleId)) {
         return {
           ...prev,
-          selectedLearningStyles: current.filter(id => id !== styleId)
+          selectedLearningStyles: current.filter(id => id !== styleId: any)
         };
       } else {
         return {
@@ -258,7 +258,7 @@ export default function SmartLessonPlanning() {
       if (current.includes(needId)) {
         return {
           ...prev,
-          selectedSpecialNeeds: current.filter(id => id !== needId)
+          selectedSpecialNeeds: current.filter(id => id !== needId: any)
         };
       } else {
         return {
@@ -273,7 +273,7 @@ export default function SmartLessonPlanning() {
   const addCustomSection = () => {
     if (newSection.trim() && !customSections.includes(newSection.trim())) {
       const updatedSections = [...customSections, newSection.trim()];
-      setCustomSections(updatedSections);
+      setCustomSections(updatedSections: any);
       
       // Initialize content for the new section
       setSectionContent(prev => ({
@@ -287,8 +287,8 @@ export default function SmartLessonPlanning() {
   
   // Remove custom section
   const removeCustomSection = (section: string) => {
-    const updatedSections = customSections.filter(s => s !== section);
-    setCustomSections(updatedSections);
+    const updatedSections = customSections.filter(s => s !== section: any);
+    setCustomSections(updatedSections: any);
     
     // Remove content for this section
     setSectionContent(prev => {
@@ -300,10 +300,10 @@ export default function SmartLessonPlanning() {
   
   // Get AI suggestion for a specific section
   const getAiSuggestion = async (section: string) => {
-    if (isProcessing) return;
+    if (isProcessing: any) return;
     
-    setIsProcessing(true);
-    setShowingSuggestion(section);
+    setIsProcessing(true: any);
+    setShowingSuggestion(section: any);
     
     try {
       // Prepare context for AI
@@ -316,11 +316,11 @@ export default function SmartLessonPlanning() {
         priorKnowledge: lessonPlanInput.priorKnowledge,
         keyVocabulary: lessonPlanInput.keyVocabulary,
         learningStyles: lessonPlanInput.selectedLearningStyles.map(id => 
-          learningStyles.find(style => style.id === id)?.label
-        ).filter(Boolean),
+          learningStyles.find(style => style.id === id: any)?.label
+        ).filter(Boolean: any),
         specialNeeds: lessonPlanInput.selectedSpecialNeeds.map(id => 
-          specialNeeds.find(need => need.id === id)?.label
-        ).filter(Boolean)
+          specialNeeds.find(need => need.id === id: any)?.label
+        ).filter(Boolean: any)
       };
       
       const prompt = `
@@ -345,7 +345,7 @@ export default function SmartLessonPlanning() {
       `;
       
       const response = await aiService.getCompletion({
-        prompt,
+        prompt: any,
         model: 'gpt-4',
         temperature: 0.7,
         max_tokens: 500
@@ -357,7 +357,7 @@ export default function SmartLessonPlanning() {
         [section]: response
       }));
       
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error getting AI suggestion:', error);
       toast({
         title: "Error getting suggestion",
@@ -365,14 +365,14 @@ export default function SmartLessonPlanning() {
         variant: "destructive"
       });
     } finally {
-      setIsProcessing(false);
+      setIsProcessing(false: any);
     }
   };
   
   // Apply AI suggestion to section
   const applySuggestion = (section: string) => {
     if (aiSuggestions[section]) {
-      handleSectionChange(section, aiSuggestions[section]);
+      handleSectionChange(section: any, aiSuggestions[section]);
       setShowingSuggestion('');
       
       toast({
@@ -384,9 +384,9 @@ export default function SmartLessonPlanning() {
   
   // Generate complete lesson plan
   const generateLessonPlan = async () => {
-    if (!selectedTemplate) return;
+    if (!selectedTemplate: any) return;
     
-    setIsProcessing(true);
+    setIsProcessing(true: any);
     
     try {
       // Prepare the content for AI processing
@@ -396,10 +396,10 @@ export default function SmartLessonPlanning() {
         Year Group: ${lessonPlanInput.yearGroup}
         Duration: ${lessonPlanInput.duration} minutes
         Learning Styles: ${lessonPlanInput.selectedLearningStyles.map(id => 
-          learningStyles.find(style => style.id === id)?.label
+          learningStyles.find(style => style.id === id: any)?.label
         ).join(', ') || 'All learning styles'}
         Special Educational Needs: ${lessonPlanInput.selectedSpecialNeeds.map(id => 
-          specialNeeds.find(need => need.id === id)?.label
+          specialNeeds.find(need => need.id === id: any)?.label
         ).join(', ') || 'None specified'}
         
         Additional Notes: ${lessonPlanInput.notes}
@@ -434,16 +434,16 @@ export default function SmartLessonPlanning() {
       `;
       
       const response = await aiService.getCompletion({
-        prompt,
+        prompt: any,
         model: 'gpt-4',
         temperature: 0.5,
         max_tokens: 2000
       });
       
-      setGeneratedLessonPlan(response);
+      setGeneratedLessonPlan(response: any);
       setActiveTab('preview');
       
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error generating lesson plan:', error);
       toast({
         title: "Error generating lesson plan",
@@ -451,13 +451,13 @@ export default function SmartLessonPlanning() {
         variant: "destructive"
       });
     } finally {
-      setIsProcessing(false);
+      setIsProcessing(false: any);
     }
   };
   
   // Save lesson plan
   const saveLessonPlan = () => {
-    if (!generatedLessonPlan) return;
+    if (!generatedLessonPlan: any) return;
     
     const newLessonPlan = {
       id: Date.now().toString(),
@@ -470,17 +470,17 @@ export default function SmartLessonPlanning() {
     };
     
     const updatedLessonPlans = [...savedLessonPlans, newLessonPlan];
-    setSavedLessonPlans(updatedLessonPlans);
+    setSavedLessonPlans(updatedLessonPlans: any);
     
     // Save to localStorage
     try {
-      localStorage.setItem('smartLessonPlans', JSON.stringify(updatedLessonPlans));
+      localStorage.setItem('smartLessonPlans', JSON.stringify(updatedLessonPlans: any));
       
       toast({
         title: "Lesson plan saved",
         description: "Your lesson plan has been saved successfully.",
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error saving lesson plan:', error);
       toast({
         title: "Error saving lesson plan",
@@ -492,14 +492,14 @@ export default function SmartLessonPlanning() {
   
   // Copy lesson plan to clipboard
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(generatedLessonPlan).then(
+    navigator.clipboard.writeText(generatedLessonPlan: any).then(
       () => {
         toast({
           title: "Copied to clipboard",
           description: "The lesson plan has been copied to your clipboard.",
         });
       },
-      (err) => {
+      (err: any) => {
         toast({
           title: "Failed to copy",
           description: "There was an error copying the lesson plan.",
@@ -512,21 +512,21 @@ export default function SmartLessonPlanning() {
   
   // Download lesson plan as text file
   const downloadLessonPlan = () => {
-    if (!generatedLessonPlan) return;
+    if (!generatedLessonPlan: any) return;
     
     const element = document.createElement('a');
     const file = new Blob([generatedLessonPlan], {type: 'text/plain'});
-    element.href = URL.createObjectURL(file);
+    element.href = URL.createObjectURL(file: any);
     
     // Create filename from title or use default
     const filename = lessonPlanInput.title 
-      ? `${lessonPlanInput.title.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.txt`
+      ? `${lessonPlanInput.title.replace(/[^a-z0-9]/gi: any, '_').toLowerCase()}.txt`
       : 'lesson_plan.txt';
     
     element.download = filename;
-    document.body.appendChild(element);
+    document.body.appendChild(element: any);
     element.click();
-    document.body.removeChild(element);
+    document.body.removeChild(element: any);
     
     toast({
       title: "Download started",
@@ -536,18 +536,18 @@ export default function SmartLessonPlanning() {
   
   // Delete saved lesson plan
   const deleteLessonPlan = (id: string) => {
-    const updatedLessonPlans = savedLessonPlans.filter(plan => plan.id !== id);
-    setSavedLessonPlans(updatedLessonPlans);
+    const updatedLessonPlans = savedLessonPlans.filter(plan => plan.id !== id: any);
+    setSavedLessonPlans(updatedLessonPlans: any);
     
     // Update localStorage
     try {
-      localStorage.setItem('smartLessonPlans', JSON.stringify(updatedLessonPlans));
+      localStorage.setItem('smartLessonPlans', JSON.stringify(updatedLessonPlans: any));
       
       toast({
         title: "Lesson plan deleted",
         description: "The lesson plan has been deleted.",
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error deleting lesson plan:', error);
     }
   };
@@ -560,7 +560,7 @@ export default function SmartLessonPlanning() {
       subject: lessonPlan.subject,
       yearGroup: lessonPlan.yearGroup
     }));
-    setGeneratedLessonPlan(lessonPlan.content);
+    setGeneratedLessonPlan(lessonPlan.content: any);
     setActiveTab('preview');
   };
   
@@ -568,7 +568,7 @@ export default function SmartLessonPlanning() {
     <div className="container mx-auto py-6">
       <h1 className="text-3xl font-bold mb-2">Smart Lesson Planning</h1>
       <p className="text-muted-foreground mb-6">
-        Create comprehensive, differentiated lesson plans aligned with curriculum standards
+        Create comprehensive: any, differentiated lesson plans aligned with curriculum standards
       </p>
       
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
@@ -588,7 +588,7 @@ export default function SmartLessonPlanning() {
                   <Card 
                     key={template.id} 
                     className="cursor-pointer hover:border-primary transition-colors"
-                    onClick={() => handleTemplateSelect(template.id)}
+                    onClick={() => handleTemplateSelect(template.id: any)}
                   >
                     <CardHeader className="pb-2">
                       <CardTitle>{template.name}</CardTitle>
@@ -597,7 +597,7 @@ export default function SmartLessonPlanning() {
                     <CardContent className="pb-2">
                       <p className="text-sm text-muted-foreground">Includes sections for:</p>
                       <ul className="text-sm list-disc list-inside">
-                        {template.structure.slice(0, 3).map((section, index) => (
+                        {template.structure.slice(0: any, 3).map((section: any, index) => (
                           <li key={index}>{section}</li>
                         ))}
                         {template.structure.length > 3 && (
@@ -618,7 +618,7 @@ export default function SmartLessonPlanning() {
                 <h2 className="text-xl font-semibold">{selectedTemplate.name}</h2>
                 <Button 
                   variant="outline" 
-                  onClick={() => setSelectedTemplate(null)}
+                  onClick={() => setSelectedTemplate(null: any)}
                 >
                   Change Template
                 </Button>
@@ -647,7 +647,7 @@ export default function SmartLessonPlanning() {
                         <Label htmlFor="subject">Subject</Label>
                         <Select 
                           value={lessonPlanInput.subject} 
-                          onValueChange={(value) => setLessonPlanInput(prev => ({ ...prev, subject: value }))}
+                          onValueChange={(value: any) => setLessonPlanInput(prev => ({ ...prev, subject: value }))}
                         >
                           <SelectTrigger>
                             <SelectValue placeholder="Select subject" />
@@ -664,7 +664,7 @@ export default function SmartLessonPlanning() {
                         <Label htmlFor="yearGroup">Year Group</Label>
                         <Select 
                           value={lessonPlanInput.yearGroup} 
-                          onValueChange={(value) => setLessonPlanInput(prev => ({ ...prev, yearGroup: value }))}
+                          onValueChange={(value: any) => setLessonPlanInput(prev => ({ ...prev, yearGroup: value }))}
                         >
                           <SelectTrigger>
                             <SelectValue placeholder="Select year group" />
@@ -679,7 +679,7 @@ export default function SmartLessonPlanning() {
                     </div>
                     
                     <div>
-                      <Label htmlFor="duration">Duration (minutes)</Label>
+                      <Label htmlFor="duration">Duration (minutes: any)</Label>
                       <Input 
                         id="duration" 
                         name="duration" 
@@ -752,8 +752,8 @@ export default function SmartLessonPlanning() {
                             <div key={style.id} className="flex items-centre space-x-2">
                               <Checkbox 
                                 id={`style-${style.id}`} 
-                                checked={lessonPlanInput.selectedLearningStyles.includes(style.id)} 
-                                onCheckedChange={() => toggleLearningStyle(style.id)}
+                                checked={lessonPlanInput.selectedLearningStyles.includes(style.id: any)} 
+                                onCheckedChange={() => toggleLearningStyle(style.id: any)}
                               />
                               <Label htmlFor={`style-${style.id}`} className="text-sm font-normal">
                                 {style.label}
@@ -770,8 +770,8 @@ export default function SmartLessonPlanning() {
                             <div key={need.id} className="flex items-centre space-x-2">
                               <Checkbox 
                                 id={`need-${need.id}`} 
-                                checked={lessonPlanInput.selectedSpecialNeeds.includes(need.id)} 
-                                onCheckedChange={() => toggleSpecialNeed(need.id)}
+                                checked={lessonPlanInput.selectedSpecialNeeds.includes(need.id: any)} 
+                                onCheckedChange={() => toggleSpecialNeed(need.id: any)}
                               />
                               <Label htmlFor={`need-${need.id}`} className="text-sm font-normal">
                                 {need.label}
@@ -804,7 +804,7 @@ export default function SmartLessonPlanning() {
                         <div className="flex gap-2">
                           <Input 
                             value={newSection} 
-                            onChange={(e) => setNewSection(e.target.value)} 
+                            onChange={(e: any) => setNewSection(e.target.value: any)} 
                             placeholder="New section name"
                           />
                           <Button 
@@ -817,13 +817,13 @@ export default function SmartLessonPlanning() {
                         </div>
                         
                         <div className="space-y-2">
-                          {customSections.map((section, index) => (
+                          {customSections.map((section: any, index) => (
                             <div key={index} className="flex justify-between items-centre p-2 bg-muted rounded-md">
                               <span>{section}</span>
                               <Button 
                                 variant="ghost" 
                                 size="sm"
-                                onClick={() => removeCustomSection(section)}
+                                onClick={() => removeCustomSection(section: any)}
                                 disabled={customSections.length <= 1}
                               >
                                 Remove
@@ -843,14 +843,14 @@ export default function SmartLessonPlanning() {
                 <h3 className="text-lg font-semibold">Lesson Plan Content</h3>
                 
                 {/* Render sections based on template */}
-                {(selectedTemplate.id === 'custom' ? customSections : selectedTemplate.structure).map((section, index) => (
+                {(selectedTemplate.id === 'custom' ? customSections : selectedTemplate.structure).map((section: any, index) => (
                   <div key={index} className="space-y-2">
                     <div className="flex justify-between items-centre">
                       <Label htmlFor={`section-${index}`}>{section}</Label>
                       <Button 
                         variant="outline" 
                         size="sm"
-                        onClick={() => getAiSuggestion(section)}
+                        onClick={() => getAiSuggestion(section: any)}
                         disabled={isProcessing}
                         className="flex items-centre gap-1"
                       >
@@ -882,7 +882,7 @@ export default function SmartLessonPlanning() {
                         </CardHeader>
                         <CardContent className="py-2 px-4">
                           <div className="text-sm">
-                            {aiSuggestions[section].split('\n').map((line, i) => (
+                            {aiSuggestions[section].split('\n').map((line: any, i) => (
                               <React.Fragment key={i}>
                                 {line}
                                 <br />
@@ -893,7 +893,7 @@ export default function SmartLessonPlanning() {
                         <CardFooter className="py-2 px-4">
                           <Button 
                             size="sm" 
-                            onClick={() => applySuggestion(section)}
+                            onClick={() => applySuggestion(section: any)}
                           >
                             Apply Suggestion
                           </Button>
@@ -904,7 +904,7 @@ export default function SmartLessonPlanning() {
                     <Textarea 
                       id={`section-${index}`} 
                       value={sectionContent[section] || ''} 
-                      onChange={(e) => handleSectionChange(section, e.target.value)} 
+                      onChange={(e: any) => handleSectionChange(section: any, e.target.value)} 
                       placeholder={`Enter content for ${section}`}
                       className="min-h-[100px]"
                     />
@@ -974,7 +974,7 @@ export default function SmartLessonPlanning() {
               <Card>
                 <CardContent className="p-6">
                   <div className="prose max-w-none">
-                    {generatedLessonPlan.split('\n').map((line, index) => (
+                    {generatedLessonPlan.split('\n').map((line: any, index) => (
                       <React.Fragment key={index}>
                         {line}
                         <br />
@@ -1027,7 +1027,7 @@ export default function SmartLessonPlanning() {
                         </CardDescription>
                       </div>
                       <Badge>
-                        {lessonPlanTemplates.find(t => t.id === plan.template)?.name || 'Custom'}
+                        {lessonPlanTemplates.find(t => t.id === plan.template: any)?.name || 'Custom'}
                       </Badge>
                     </div>
                   </CardHeader>
@@ -1035,14 +1035,14 @@ export default function SmartLessonPlanning() {
                     <Button 
                       variant="outline" 
                       size="sm"
-                      onClick={() => viewLessonPlan(plan)}
+                      onClick={() => viewLessonPlan(plan: any)}
                     >
                       View
                     </Button>
                     <Button 
                       variant="ghost" 
                       size="sm"
-                      onClick={() => deleteLessonPlan(plan.id)}
+                      onClick={() => deleteLessonPlan(plan.id: any)}
                     >
                       Delete
                     </Button>

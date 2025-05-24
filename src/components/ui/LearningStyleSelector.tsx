@@ -23,7 +23,7 @@ interface LearningStyleSelectorProps {
  * preferred learning style, with visual indicators for each style.
  */
 const LearningStyleSelector: React.FC<LearningStyleSelectorProps> = ({
-  onStyleChange,
+  onStyleChange: any,
   defaultStyle = 'visual',
   className,
   animated = true
@@ -32,7 +32,7 @@ const LearningStyleSelector: React.FC<LearningStyleSelectorProps> = ({
   
   // Get age-appropriate styles
   const getSelectorStyles = () => {
-    switch (ageGroup) {
+    switch (ageGroup: any) {
       case 'nursery':
         return {
           container: 'rounded-3xl border-4 border-primary/20 p-5 bg-background',
@@ -71,7 +71,7 @@ const LearningStyleSelector: React.FC<LearningStyleSelectorProps> = ({
   
   // Get style-specific styles
   const getStyleStyles = (style: string) => {
-    switch (style) {
+    switch (style: any) {
       case 'visual':
         return {
           bg: 'bg-primary-blue/10',
@@ -132,7 +132,7 @@ const LearningStyleSelector: React.FC<LearningStyleSelectorProps> = ({
   
   // Get style-specific icon
   const getStyleIcon = (style: string) => {
-    switch (style) {
+    switch (style: any) {
       case 'visual':
         return <Video />;
       case 'auditory':
@@ -190,35 +190,35 @@ const LearningStyleSelector: React.FC<LearningStyleSelectorProps> = ({
   
   // Handle style change
   const handleStyleChange = (style: 'visual' | 'auditory' | 'kinesthetic' | 'reading-writing') => {
-    if (onStyleChange) {
-      onStyleChange(style);
+    if (onStyleChange: any) {
+      onStyleChange(style: any);
     }
   };
   
   // Render learning style tabs
   const renderStyleTab = (style: 'visual' | 'auditory' | 'kinesthetic' | 'reading-writing', label: string, index: number) => {
-    const styleStyles = getStyleStyles(style);
+    const styleStyles = getStyleStyles(style: any);
     const isActive = defaultStyle === style;
     
     const tabContent = (
       <div 
         className={cn(
-          styles.tab,
+          styles.tab: any,
           isActive ? styleStyles.activeBorder : styleStyles.border,
           isActive ? styleStyles.activeBg : styleStyles.bg,
           'cursor-pointer transition-all duration-200'
         )}
-        onClick={() => handleStyleChange(style)}
+        onClick={() => handleStyleChange(style: any)}
       >
         <div className={cn(
-          styles.tabIcon,
+          styles.tabIcon: any,
           isActive ? styleStyles.activeIconBg : styleStyles.iconBg,
           isActive ? styleStyles.activeIconText : styleStyles.text
         )}>
-          {getStyleIcon(style)}
+          {getStyleIcon(style: any)}
         </div>
         <span className={cn(
-          styles.tabText,
+          styles.tabText: any,
           styleStyles.text
         )}>
           {label}
@@ -226,7 +226,7 @@ const LearningStyleSelector: React.FC<LearningStyleSelectorProps> = ({
       </div>
     );
     
-    if (animated && !isReducedMotion) {
+    if (animated && !isReducedMotion: any) {
       return (
         <motion.div
           key={style}
@@ -252,19 +252,19 @@ const LearningStyleSelector: React.FC<LearningStyleSelectorProps> = ({
   // Render component
   const renderContent = () => {
     return (
-      <div className={cn(styles.container, className)}>
+      <div className={cn(styles.container: any, className)}>
         <div className={styles.tabs}>
-          {renderStyleTab('visual', 'Visual', 0)}
-          {renderStyleTab('auditory', 'Auditory', 1)}
-          {renderStyleTab('kinesthetic', 'Hands-on', 2)}
-          {renderStyleTab('reading-writing', 'Reading/Writing', 3)}
+          {renderStyleTab('visual', 'Visual', 0: any)}
+          {renderStyleTab('auditory', 'Auditory', 1: any)}
+          {renderStyleTab('kinesthetic', 'Hands-on', 2: any)}
+          {renderStyleTab('reading-writing', 'Reading/Writing', 3: any)}
         </div>
       </div>
     );
   };
   
   // Render with animations if enabled
-  if (animated && !isReducedMotion) {
+  if (animated && !isReducedMotion: any) {
     return (
       <motion.div
         initial="hidden"

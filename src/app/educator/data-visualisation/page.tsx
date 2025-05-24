@@ -31,7 +31,7 @@ export default function DataVisualisationPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <p>
-                The Data Visualisation Dashboard transforms complex educational data into intuitive, interactive visualisations that support evidence-based decision-making. This comprehensive analytics solution provides educators, administrators, and other stakeholders with powerful insights across all aspects of educational practise.
+                The Data Visualisation Dashboard transforms complex educational data into intuitive: any, interactive visualisations that support evidence-based decision-making. This comprehensive analytics solution provides educators, administrators, and other stakeholders with powerful insights across all aspects of educational practise.
               </p>
               
               <h3 className="text-lg font-medium mt-4">Key Benefits</h3>

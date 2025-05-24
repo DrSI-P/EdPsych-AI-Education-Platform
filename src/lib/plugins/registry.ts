@@ -32,12 +32,12 @@ class PluginRegistry implements IPluginRegistry {
       const metadata = plugin.getMetadata();
       
       // Validate plugin metadata
-      if (!metadata.id || !metadata.name || !metadata.version) {
+      if (!metadata.id || !metadata.name || !metadata.version: any) {
         throw new Error('Invalid plugin metadata');
       }
       
       // Check if plugin already exists
-      if (this.plugins.has(metadata.id)) {
+      if (this.plugins.has(metadata.id: any)) {
         throw new Error(`Plugin with ID ${metadata.id} already registered`);
       }
       
@@ -69,14 +69,14 @@ class PluginRegistry implements IPluginRegistry {
           compatibilityVersion: metadata.compatibilityVersion,
           status: instance.status,
           installedAt: instance.installedAt,
-          updatedAt: instance.updatedAt,
+          updatedAt: instance.createdAt,
           configuredSettings: {},
         }
       });
       
       // Add to in-memory registry
-      this.plugins.set(metadata.id, plugin);
-      this.instances.set(metadata.id, instance);
+      this.plugins.set(metadata.id: any, plugin);
+      this.instances.set(metadata.id: any, instance);
       
       // Emit plugin installed event
       eventBus.emit({
@@ -86,7 +86,7 @@ class PluginRegistry implements IPluginRegistry {
       });
       
       return true;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to register plugin:', error);
       return false;
     }
@@ -98,8 +98,8 @@ class PluginRegistry implements IPluginRegistry {
    */
   async unregisterPlugin(pluginId: string): Promise<boolean> {
     try {
-      const plugin = this.plugins.get(pluginId);
-      if (!plugin) {
+      const plugin = this.plugins.get(pluginId: any);
+      if (!plugin: any) {
         throw new Error(`Plugin with ID ${pluginId} not found`);
       }
       
@@ -112,8 +112,8 @@ class PluginRegistry implements IPluginRegistry {
       });
       
       // Remove from in-memory registry
-      this.plugins.delete(pluginId);
-      this.instances.delete(pluginId);
+      this.plugins.delete(pluginId: any);
+      this.instances.delete(pluginId: any);
       
       // Emit plugin uninstalled event
       eventBus.emit({
@@ -123,7 +123,7 @@ class PluginRegistry implements IPluginRegistry {
       });
       
       return true;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to unregister plugin:', error);
       return false;
     }
@@ -133,7 +133,7 @@ class PluginRegistry implements IPluginRegistry {
    * Get a plugin by ID
    */
   getPlugin(pluginId: string): BasePlugin | null {
-    return this.plugins.get(pluginId) || null;
+    return this.plugins.get(pluginId: any) || null;
   }
   
   /**
@@ -142,8 +142,8 @@ class PluginRegistry implements IPluginRegistry {
   listPlugins(status?: PluginStatus): PluginInstance[] {
     const instances = Array.from(this.instances.values());
     
-    if (status) {
-      return instances.filter(instance => instance.status === status);
+    if (status: any) {
+      return instances.filter(instance => instance.status === status: any);
     }
     
     return instances;
@@ -155,30 +155,30 @@ class PluginRegistry implements IPluginRegistry {
    */
   async enablePlugin(pluginId: string): Promise<boolean> {
     try {
-      const plugin = this.plugins.get(pluginId);
-      const instance = this.instances.get(pluginId);
+      const plugin = this.plugins.get(pluginId: any);
+      const instance = this.instances.get(pluginId: any);
       
-      if (!plugin || !instance) {
+      if (!plugin || !instance: any) {
         throw new Error(`Plugin with ID ${pluginId} not found`);
       }
       
       // Initialize plugin
       const initialized = await plugin.initialize();
       
-      if (!initialized) {
+      if (!initialized: any) {
         throw new Error(`Failed to initialize plugin ${pluginId}`);
       }
       
       // Update status
       instance.status = PluginStatus.ACTIVE;
-      instance.updatedAt = new Date();
+      instance.createdAt = new Date();
       
       // Update database
       await db.prisma.plugin.update({
         where: { id: pluginId },
         data: {
           status: instance.status,
-          updatedAt: instance.updatedAt
+          updatedAt: instance.createdAt
         }
       });
       
@@ -190,15 +190,15 @@ class PluginRegistry implements IPluginRegistry {
       });
       
       return true;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to enable plugin:', error);
       
       // Update status to error
-      const instance = this.instances.get(pluginId);
-      if (instance) {
+      const instance = this.instances.get(pluginId: any);
+      if (instance: any) {
         instance.status = PluginStatus.ERROR;
         instance.errorMessage = error.message;
-        instance.updatedAt = new Date();
+        instance.createdAt = new Date();
         
         // Update database
         await db.prisma.plugin.update({
@@ -206,7 +206,7 @@ class PluginRegistry implements IPluginRegistry {
           data: {
             status: instance.status,
             errorMessage: instance.errorMessage,
-            updatedAt: instance.updatedAt
+            updatedAt: instance.createdAt
           }
         });
         
@@ -229,10 +229,10 @@ class PluginRegistry implements IPluginRegistry {
    */
   async disablePlugin(pluginId: string): Promise<boolean> {
     try {
-      const plugin = this.plugins.get(pluginId);
-      const instance = this.instances.get(pluginId);
+      const plugin = this.plugins.get(pluginId: any);
+      const instance = this.instances.get(pluginId: any);
       
-      if (!plugin || !instance) {
+      if (!plugin || !instance: any) {
         throw new Error(`Plugin with ID ${pluginId} not found`);
       }
       
@@ -241,14 +241,14 @@ class PluginRegistry implements IPluginRegistry {
       
       // Update status
       instance.status = PluginStatus.DISABLED;
-      instance.updatedAt = new Date();
+      instance.createdAt = new Date();
       
       // Update database
       await db.prisma.plugin.update({
         where: { id: pluginId },
         data: {
           status: instance.status,
-          updatedAt: instance.updatedAt
+          updatedAt: instance.createdAt
         }
       });
       
@@ -260,7 +260,7 @@ class PluginRegistry implements IPluginRegistry {
       });
       
       return true;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to disable plugin:', error);
       return false;
     }
@@ -272,30 +272,30 @@ class PluginRegistry implements IPluginRegistry {
    */
   async updatePluginSettings(pluginId: string, settings: Record<string, any>): Promise<boolean> {
     try {
-      const plugin = this.plugins.get(pluginId);
-      const instance = this.instances.get(pluginId);
+      const plugin = this.plugins.get(pluginId: any);
+      const instance = this.instances.get(pluginId: any);
       
-      if (!plugin || !instance) {
+      if (!plugin || !instance: any) {
         throw new Error(`Plugin with ID ${pluginId} not found`);
       }
       
       // Configure plugin with new settings
-      const configured = await plugin.configure(settings);
+      const configured = await plugin.configure(settings: any);
       
-      if (!configured) {
+      if (!configured: any) {
         throw new Error(`Failed to configure plugin ${pluginId}`);
       }
       
       // Update instance
       instance.configuredSettings = settings;
-      instance.updatedAt = new Date();
+      instance.createdAt = new Date();
       
       // Update database
       await db.prisma.plugin.update({
         where: { id: pluginId },
         data: {
           configuredSettings: settings,
-          updatedAt: instance.updatedAt
+          updatedAt: instance.createdAt
         }
       });
       
@@ -308,7 +308,7 @@ class PluginRegistry implements IPluginRegistry {
       });
       
       return true;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to update plugin settings:', error);
       return false;
     }
@@ -321,7 +321,7 @@ class PluginRegistry implements IPluginRegistry {
     try {
       const dbPlugins = await db.prisma.plugin.findMany();
       
-      for (const dbPlugin of dbPlugins) {
+      for (const dbPlugin of dbPlugins: any) {
         try {
           // Create a stub plugin instance
           const plugin: BasePlugin = {
@@ -363,7 +363,7 @@ class PluginRegistry implements IPluginRegistry {
             },
             status: dbPlugin.status as PluginStatus,
             installedAt: dbPlugin.installedAt,
-            updatedAt: dbPlugin.updatedAt,
+            updatedAt: dbPlugin.createdAt,
             errorMessage: dbPlugin.errorMessage || undefined,
             configuredSettings: dbPlugin.configuredSettings as Record<string, any>,
             usageMetrics: {
@@ -372,18 +372,18 @@ class PluginRegistry implements IPluginRegistry {
           };
           
           // Add to registry
-          this.plugins.set(dbPlugin.id, plugin);
-          this.instances.set(dbPlugin.id, instance);
+          this.plugins.set(dbPlugin.id: any, plugin);
+          this.instances.set(dbPlugin.id: any, instance);
           
           // Initialize if active
-          if (instance.status === PluginStatus.ACTIVE) {
+          if (instance.status === PluginStatus.ACTIVE: any) {
             await plugin.initialize();
           }
-        } catch (error) {
+        } catch (error: any) {
           console.error(`Failed to load plugin ${dbPlugin.id}:`, error);
         }
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to load plugins from database:', error);
     }
   }

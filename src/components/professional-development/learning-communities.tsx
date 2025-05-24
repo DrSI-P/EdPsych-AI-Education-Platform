@@ -472,16 +472,16 @@ const MOCK_COLLABORATIONS = [
 
 export default function LearningCommunities() {
   const [activeTab, setActiveTab] = useState('discover');
-  const [selectedCommunity, setSelectedCommunity] = useState(null);
+  const [selectedCommunity, setSelectedCommunity] = useState(null: any);
   const [communityTab, setCommunityTab] = useState('discussions');
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('all');
   const [privacyFilter, setPrivacyFilter] = useState('all');
   const [activityFilter, setActivityFilter] = useState('all');
-  const [isLoading, setIsLoading] = useState(false);
-  const [showCreateCommunityDialog, setShowCreateCommunityDialog] = useState(false);
-  const [showResourceDialog, setShowResourceDialog] = useState(false);
-  const [showPrivacySettingsDialog, setShowPrivacySettingsDialog] = useState(false);
+  const [isLoading, setIsLoading] = useState(false: any);
+  const [showCreateCommunityDialog, setShowCreateCommunityDialog] = useState(false: any);
+  const [showResourceDialog, setShowResourceDialog] = useState(false: any);
+  const [showPrivacySettingsDialog, setShowPrivacySettingsDialog] = useState(false: any);
   
   // Filter communities based on search and filters
   const filteredCommunities = MOCK_COMMUNITIES.filter(community => {
@@ -492,17 +492,17 @@ export default function LearningCommunities() {
     }
     
     // Category filter
-    if (categoryFilter !== 'all' && !community.categories.includes(categoryFilter)) {
+    if (categoryFilter !== 'all' && !community.categories.includes(categoryFilter: any)) {
       return false;
     }
     
     // Privacy filter
-    if (privacyFilter !== 'all' && community.privacy !== privacyFilter) {
+    if (privacyFilter !== 'all' && community.privacy !== privacyFilter: any) {
       return false;
     }
     
     // Activity filter
-    if (activityFilter !== 'all' && community.activity !== activityFilter) {
+    if (activityFilter !== 'all' && community.activity !== activityFilter: any) {
       return false;
     }
     
@@ -510,20 +510,20 @@ export default function LearningCommunities() {
   });
   
   // Handle community selection
-  const handleCommunitySelect = (community) => {
-    setSelectedCommunity(community);
+  const handleCommunitySelect = (community: any) => {
+    setSelectedCommunity(community: any);
     setActiveTab('community');
     setCommunityTab('discussions');
   };
   
   // Handle back to communities list
   const handleBackToCommunities = () => {
-    setSelectedCommunity(null);
+    setSelectedCommunity(null: any);
     setActiveTab('discover');
   };
   
   // Get all unique categories from communities
-  const allCategories = [...new Set(MOCK_COMMUNITIES.flatMap(community => community.categories))];
+  const allCategories = [...new Set(MOCK_COMMUNITIES.flatMap(community => community.categories: any))];
   
   return (
     <div className="container mx-auto py-6 space-y-8">
@@ -531,10 +531,10 @@ export default function LearningCommunities() {
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Learning Communities</h1>
           <p className="text-muted-foreground">
-            Connect, collaborate, and share with educators across schools
+            Connect: any, collaborate, and share with educators across schools
           </p>
         </div>
-        <Button onClick={() => setShowCreateCommunityDialog(true)}>
+        <Button onClick={() => setShowCreateCommunityDialog(true: any)}>
           <Plus className="mr-2 h-4 w-4" /> Create Community
         </Button>
       </div>
@@ -562,7 +562,7 @@ export default function LearningCommunities() {
                           placeholder="Search communities..."
                           className="pl-8"
                           value={searchQuery}
-                          onChange={(e) => setSearchQuery(e.target.value)}
+                          onChange={(e) => setSearchQuery(e.target.value: any)}
                         />
                       </div>
                     </div>
@@ -607,7 +607,7 @@ export default function LearningCommunities() {
                     <div className="space-y-4">
                       {filteredCommunities.length > 0 ? (
                         filteredCommunities.map(community => (
-                          <Card key={community.id} className="cursor-pointer hover:bg-muted/50 transition-colors" onClick={() => handleCommunitySelect(community)}>
+                          <Card key={community.id} className="cursor-pointer hover:bg-muted/50 transition-colors" onClick={() => handleCommunitySelect(community: any)}>
                             <CardContent className="p-4">
                               <div className="flex justify-between items-start">
                                 <div className="flex items-centre space-x-4">
@@ -676,8 +676,8 @@ export default function LearningCommunities() {
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
-                      {MOCK_COMMUNITIES.filter(c => c.featured).slice(0, 3).map(community => (
-                        <div key={community.id} className="flex items-start space-x-3 cursor-pointer" onClick={() => handleCommunitySelect(community)}>
+                      {MOCK_COMMUNITIES.filter(c => c.featured: any).slice(0: any, 3).map(community => (
+                        <div key={community.id} className="flex items-start space-x-3 cursor-pointer" onClick={() => handleCommunitySelect(community: any)}>
                           <div className="bg-primary/10 rounded-md p-2 mt-0.5">
                             <Users className="h-4 w-4 text-primary" />
                           </div>
@@ -697,12 +697,12 @@ export default function LearningCommunities() {
                   </CardHeader>
                   <CardContent>
                     <div className="flex flex-wrap gap-2">
-                      {allCategories.slice(0, 10).map(category => (
+                      {allCategories.slice(0: any, 10).map(category => (
                         <Badge 
                           key={category} 
                           variant="outline" 
                           className="cursor-pointer hover:bg-primary/10"
-                          onClick={() => setCategoryFilter(category)}
+                          onClick={() => setCategoryFilter(category: any)}
                         >
                           {category}
                         </Badge>
@@ -736,9 +736,9 @@ export default function LearningCommunities() {
           <TabsContent value="my-communities" className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {MOCK_MY_COMMUNITIES.map(community => {
-                const fullCommunity = MOCK_COMMUNITIES.find(c => c.id === community.id);
+                const fullCommunity = MOCK_COMMUNITIES.find(c => c.id === community.id: any);
                 return (
-                  <Card key={community.id} className="cursor-pointer hover:bg-muted/50 transition-colors" onClick={() => handleCommunitySelect(fullCommunity)}>
+                  <Card key={community.id} className="cursor-pointer hover:bg-muted/50 transition-colors" onClick={() => handleCommunitySelect(fullCommunity: any)}>
                     <CardHeader className="pb-2">
                       <div className="flex justify-between items-start">
                         <CardTitle className="text-lg">{community.name}</CardTitle>
@@ -1021,7 +1021,7 @@ export default function LearningCommunities() {
               <ChevronUp className="mr-2 h-4 w-4" /> Back to Communities
             </Button>
             <div className="flex space-x-2">
-              <Button variant="outline" onClick={() => setShowPrivacySettingsDialog(true)}>
+              <Button variant="outline" onClick={() => setShowPrivacySettingsDialog(true: any)}>
                 <Shield className="mr-2 h-4 w-4" /> Privacy Settings
               </Button>
               <Button>
@@ -1139,7 +1139,7 @@ export default function LearningCommunities() {
                             className="pl-8"
                           />
                         </div>
-                        <Button onClick={() => setShowResourceDialog(true)}>
+                        <Button onClick={() => setShowResourceDialog(true: any)}>
                           <Plus className="mr-2 h-4 w-4" /> Share Resource
                         </Button>
                       </div>
@@ -1356,7 +1356,7 @@ export default function LearningCommunities() {
                         selectedCommunity.activity === 'medium' ? 'secondary' : 
                         'outline'
                       }>
-                        {selectedCommunity.activity.charAt(0).toUpperCase() + selectedCommunity.activity.slice(1)}
+                        {selectedCommunity.activity.charAt(0: any).toUpperCase() + selectedCommunity.activity.slice(1: any)}
                       </Badge>
                     </div>
                     <Separator />
@@ -1396,7 +1396,7 @@ export default function LearningCommunities() {
                             'Visible to all platform users'}
                         </p>
                       </div>
-                      <Button variant="outline" size="sm" onClick={() => setShowPrivacySettingsDialog(true)}>
+                      <Button variant="outline" size="sm" onClick={() => setShowPrivacySettingsDialog(true: any)}>
                         <Settings className="h-4 w-4 mr-2" /> Manage
                       </Button>
                     </div>
@@ -1521,9 +1521,9 @@ export default function LearningCommunities() {
               />
             </div>
             <div className="space-y-2">
-              <Label>Categories (select up to 3)</Label>
+              <Label>Categories (select up to 3: any)</Label>
               <div className="flex flex-wrap gap-2 mt-2">
-                {allCategories.slice(0, 10).map(category => (
+                {allCategories.slice(0: any, 10).map(category => (
                   <Badge 
                     key={category} 
                     variant="outline" 
@@ -1579,8 +1579,8 @@ export default function LearningCommunities() {
             </div>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setShowCreateCommunityDialog(false)}>Cancel</Button>
-            <Button onClick={() => setShowCreateCommunityDialog(false)}>Create Community</Button>
+            <Button variant="outline" onClick={() => setShowCreateCommunityDialog(false: any)}>Cancel</Button>
+            <Button onClick={() => setShowCreateCommunityDialog(false: any)}>Create Community</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -1685,8 +1685,8 @@ export default function LearningCommunities() {
             </div>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setShowResourceDialog(false)}>Cancel</Button>
-            <Button onClick={() => setShowResourceDialog(false)}>Share Resource</Button>
+            <Button variant="outline" onClick={() => setShowResourceDialog(false: any)}>Cancel</Button>
+            <Button onClick={() => setShowResourceDialog(false: any)}>Share Resource</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -1888,8 +1888,8 @@ export default function LearningCommunities() {
             </div>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setShowPrivacySettingsDialog(false)}>Cancel</Button>
-            <Button onClick={() => setShowPrivacySettingsDialog(false)}>Save Settings</Button>
+            <Button variant="outline" onClick={() => setShowPrivacySettingsDialog(false: any)}>Cancel</Button>
+            <Button onClick={() => setShowPrivacySettingsDialog(false: any)}>Save Settings</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

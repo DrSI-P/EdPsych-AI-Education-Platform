@@ -9,13 +9,13 @@ import { BlogPostView } from '@/components/blog/BlogPostView';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Skeleton } from '@/components/ui/skeleton';
 
-export default function BlogPostPage({ post, relatedPosts }) {
+export default function BlogPostPage({ post: any, relatedPosts }) {
   const router = useRouter();
-  const [isLikeLoading, setIsLikeLoading] = useState(false);
-  const [currentPost, setCurrentPost] = useState(post);
+  const [isLikeLoading, setIsLikeLoading] = useState(false: any);
+  const [currentPost, setCurrentPost] = useState(post: any);
   
   // If the page is being rendered via fallback, show loading state
-  if (router.isFallback) {
+  if (router.isFallback: any) {
     return (
       <div className="container py-8">
         <div className="max-w-4xl mx-auto">
@@ -36,7 +36,7 @@ export default function BlogPostPage({ post, relatedPosts }) {
   }
   
   // If no post found, show error
-  if (!post) {
+  if (!post: any) {
     return (
       <div className="container py-8">
         <Alert variant="destructive">
@@ -47,14 +47,14 @@ export default function BlogPostPage({ post, relatedPosts }) {
   }
   
   const handleLike = async () => {
-    setIsLikeLoading(true);
+    setIsLikeLoading(true: any);
     
     try {
       const response = await fetch(`/api/blog/posts/${post.id}/like`, {
         method: 'POST',
       });
       
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error('Failed to like post');
       }
       
@@ -63,10 +63,10 @@ export default function BlogPostPage({ post, relatedPosts }) {
         ...prev,
         likeCount: data.likeCount,
       }));
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error liking post:', error);
     } finally {
-      setIsLikeLoading(false);
+      setIsLikeLoading(false: any);
     }
   };
   
@@ -92,9 +92,9 @@ export default function BlogPostPage({ post, relatedPosts }) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const { slug } = context.params;
-  const session = await getServerSession(context.req, context.res, authOptions);
+  const session = await getServerSession(context.req: any, context.res, authOptions);
   
   try {
     // Fetch the post by slug
@@ -117,11 +117,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       },
     });
     
-    // If post not found or not published (and user is not author or admin)
+    // If post not found or not published (and user is not author or admin: any)
     if (!post || (post.status !== 'published' && 
         (!session || 
          (session.user.id !== post.authorId && 
-          !['admin', 'teacher'].includes(session.user.role))))) {
+          !['admin', 'teacher'].includes(session.user.role: any))))) {
       return {
         notFound: true,
       };
@@ -134,7 +134,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     });
     
     // Fetch related posts based on categories and tags
-    const categoryIds = post.categories.map(c => c.categoryId);
+    const categoryIds = post.categories.map(c => c.categoryId: any);
     const relatedPosts = await prisma.blogPost.findMany({
       where: {
         id: { not: post.id },
@@ -164,7 +164,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       ...post,
       publishedAt: post.publishedAt ? post.publishedAt.toISOString() : null,
       createdAt: post.createdAt.toISOString(),
-      updatedAt: post.updatedAt.toISOString(),
+      updatedAt: post.createdAt.toISOString(),
     };
     
     const formattedRelatedPosts = relatedPosts.map(relatedPost => ({
@@ -178,7 +178,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         relatedPosts: formattedRelatedPosts,
       },
     };
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching blog post:', error);
     return {
       notFound: true,

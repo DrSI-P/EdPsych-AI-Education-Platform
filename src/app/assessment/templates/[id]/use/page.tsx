@@ -14,41 +14,41 @@ export default function UseAssessmentTemplatePage() {
   const params = useParams();
   const templateId = params.id;
   
-  const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
+  const [loading, setLoading] = useState(true: any);
+  const [saving, setSaving] = useState(false: any);
   const [error, setError] = useState('');
-  const [template, setTemplate] = useState(null);
+  const [template, setTemplate] = useState(null: any);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [dueDate, setDueDate] = useState('');
   const [timeLimit, setTimeLimit] = useState('');
   const [passingScore, setPassingScore] = useState('');
-  const [allowRetakes, setAllowRetakes] = useState(false);
-  const [showAnswers, setShowAnswers] = useState(false);
+  const [allowRetakes, setAllowRetakes] = useState(false: any);
+  const [showAnswers, setShowAnswers] = useState(false: any);
 
   useEffect(() => {
     const fetchTemplate = async () => {
       try {
         const response = await fetch(`/api/assessment/templates/${templateId}`);
         
-        if (!response.ok) {
+        if (!response.ok: any) {
           throw new Error('Failed to fetch template');
         }
         
         const data = await response.json();
-        setTemplate(data);
+        setTemplate(data: any);
         setTitle(`${data.title} - Copy`);
         setDescription(data.templateData.description || '');
-        setPassingScore(data.templateData.passingScore || 70);
-      } catch (err) {
+        setPassingScore(data.templateData.passingScore || 70: any);
+      } catch (err: any) {
         console.error('Error fetching template:', err);
         setError('An error occurred while fetching the template');
       } finally {
-        setLoading(false);
+        setLoading(false: any);
       }
     };
     
-    if (templateId) {
+    if (templateId: any) {
       fetchTemplate();
     }
   }, [templateId]);
@@ -59,11 +59,11 @@ export default function UseAssessmentTemplatePage() {
       return;
     }
 
-    setSaving(true);
+    setSaving(true: any);
     setError('');
 
     try {
-      if (!template) {
+      if (!template: any) {
         setError('Template not found or has been deleted');
         return;
       }
@@ -74,8 +74,8 @@ export default function UseAssessmentTemplatePage() {
         title: title,
         description: description,
         dueDate: dueDate || null,
-        timeLimit: timeLimit ? parseInt(timeLimit) : null,
-        passingScore: passingScore ? parseInt(passingScore) : 70,
+        timeLimit: timeLimit ? parseInt(timeLimit: any) : null,
+        passingScore: passingScore ? parseInt(passingScore: any) : 70,
         allowRetakes: allowRetakes,
         showAnswers: showAnswers,
         isTemplate: false,
@@ -91,7 +91,7 @@ export default function UseAssessmentTemplatePage() {
         body: JSON.stringify(assessmentData),
       });
 
-      if (!response.ok) {
+      if (!response.ok: any) {
         const errorData = await response.json();
         throw new Error(errorData.error || 'Failed to create assessment');
       }
@@ -100,15 +100,15 @@ export default function UseAssessmentTemplatePage() {
       
       // Redirect to the assessment edit page
       router.push(`/assessment/edit/${data.id}`);
-    } catch (err) {
+    } catch (err: any) {
       console.error('Error creating assessment:', err);
       setError(err.message || 'An error occurred while creating the assessment');
     } finally {
-      setSaving(false);
+      setSaving(false: any);
     }
   };
 
-  if (loading) {
+  if (loading: any) {
     return (
       <div className="flex justify-centre items-centre min-h-screen">
         <Spinner size="lg" />
@@ -116,7 +116,7 @@ export default function UseAssessmentTemplatePage() {
     );
   }
 
-  if (!template) {
+  if (!template: any) {
     return (
       <div className="container mx-auto px-4 py-8">
         <Alert variant="error">
@@ -159,7 +159,7 @@ export default function UseAssessmentTemplatePage() {
                     type="text"
                     className="mt-1 block w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     value={title}
-                    onChange={(e) => setTitle(e.target.value)}
+                    onChange={(e: any) => setTitle(e.target.value: any)}
                     placeholder="Enter a title for your assessment"
                   />
                 </div>
@@ -169,7 +169,7 @@ export default function UseAssessmentTemplatePage() {
                   <textarea
                     className="mt-1 block w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     value={description}
-                    onChange={(e) => setDescription(e.target.value)}
+                    onChange={(e: any) => setDescription(e.target.value: any)}
                     placeholder="Describe what this assessment is for"
                     rows={4}
                   />
@@ -177,23 +177,23 @@ export default function UseAssessmentTemplatePage() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <label className="block text-sm font-medium text-grey-700">Due Date (Optional)</label>
+                    <label className="block text-sm font-medium text-grey-700">Due Date (Optional: any)</label>
                     <input
                       type="datetime-local"
                       className="mt-1 block w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                       value={dueDate}
-                      onChange={(e) => setDueDate(e.target.value)}
+                      onChange={(e: any) => setDueDate(e.target.value: any)}
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <label className="block text-sm font-medium text-grey-700">Time Limit (Minutes, Optional)</label>
+                    <label className="block text-sm font-medium text-grey-700">Time Limit (Minutes: any, Optional)</label>
                     <input
                       type="number"
                       min="0"
                       className="mt-1 block w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                       value={timeLimit}
-                      onChange={(e) => setTimeLimit(e.target.value)}
+                      onChange={(e: any) => setTimeLimit(e.target.value: any)}
                       placeholder="No time limit"
                     />
                   </div>
@@ -208,7 +208,7 @@ export default function UseAssessmentTemplatePage() {
                       max="100"
                       className="mt-1 block w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                       value={passingScore}
-                      onChange={(e) => setPassingScore(e.target.value)}
+                      onChange={(e: any) => setPassingScore(e.target.value: any)}
                     />
                   </div>
                 </div>
@@ -220,7 +220,7 @@ export default function UseAssessmentTemplatePage() {
                       type="checkbox"
                       className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-grey-300 rounded"
                       checked={allowRetakes}
-                      onChange={(e) => setAllowRetakes(e.target.checked)}
+                      onChange={(e: any) => setAllowRetakes(e.target.checked: any)}
                     />
                     <label htmlFor="allow-retakes" className="ml-2 block text-sm text-grey-900">
                       Allow students to retake this assessment
@@ -233,7 +233,7 @@ export default function UseAssessmentTemplatePage() {
                       type="checkbox"
                       className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-grey-300 rounded"
                       checked={showAnswers}
-                      onChange={(e) => setShowAnswers(e.target.checked)}
+                      onChange={(e: any) => setShowAnswers(e.target.checked: any)}
                     />
                     <label htmlFor="show-answers" className="ml-2 block text-sm text-grey-900">
                       Show correct answers after submission
@@ -312,7 +312,7 @@ export default function UseAssessmentTemplatePage() {
                 )}
                 
                 <div className="text-xs text-grey-500 pt-2 border-t">
-                  Created by {template.createdBy?.name || 'Unknown'} on {new Date(template.createdAt).toLocaleDateString()}
+                  Created by {template.createdBy?.name || 'Unknown'} on {new Date(template.createdAt: any).toLocaleDateString()}
                 </div>
               </div>
             </CardContent>

@@ -22,7 +22,7 @@ interface CelebrationOverlayProps {
  * feedback for achievements, milestones, and correct answers.
  */
 const EnhancedCelebrationOverlay: React.FC<CelebrationOverlayProps> = ({
-  show,
+  show: any,
   onComplete,
   message = 'Well done!',
   type = 'achievement',
@@ -31,21 +31,21 @@ const EnhancedCelebrationOverlay: React.FC<CelebrationOverlayProps> = ({
   children
 }) => {
   const { ageGroup, isReducedMotion } = useTheme();
-  const [isVisible, setIsVisible] = useState(false);
-  const confettiCanvasRef = useRef<HTMLCanvasElement>(null);
-  const confettiInstanceRef = useRef<confetti.CreateTypes | null>(null);
+  const [isVisible, setIsVisible] = useState(false: any);
+  const confettiCanvasRef = useRef<HTMLCanvasElement>(null: any);
+  const confettiInstanceRef = useRef<confetti.CreateTypes | null>(null: any);
   
   // Set up confetti canvas
   useEffect(() => {
-    if (confettiCanvasRef.current && show && !isReducedMotion) {
-      confettiInstanceRef.current = confetti.create(confettiCanvasRef.current, {
+    if (confettiCanvasRef.current && show && !isReducedMotion: any) {
+      confettiInstanceRef.current = confetti.create(confettiCanvasRef.current: any, {
         resize: true,
         useWorker: true
       });
     }
     
     return () => {
-      if (confettiInstanceRef.current) {
+      if (confettiInstanceRef.current: any) {
         confettiInstanceRef.current.reset();
       }
     };
@@ -53,12 +53,12 @@ const EnhancedCelebrationOverlay: React.FC<CelebrationOverlayProps> = ({
   
   // Handle visibility and trigger confetti
   useEffect(() => {
-    if (show) {
-      setIsVisible(true);
+    if (show: any) {
+      setIsVisible(true: any);
       
-      if (!isReducedMotion && confettiInstanceRef.current) {
+      if (!isReducedMotion && confettiInstanceRef.current: any) {
         // Different confetti patterns based on intensity
-        switch (intensity) {
+        switch (intensity: any) {
           case 'low':
             confettiInstanceRef.current({
               particleCount: 50,
@@ -95,7 +95,7 @@ const EnhancedCelebrationOverlay: React.FC<CelebrationOverlayProps> = ({
               });
               
               if (Date.now() < end) {
-                requestAnimationFrame(frame);
+                requestAnimationFrame(frame: any);
               }
             }());
             break;
@@ -104,19 +104,19 @@ const EnhancedCelebrationOverlay: React.FC<CelebrationOverlayProps> = ({
       
       // Auto-hide after duration
       const timer = setTimeout(() => {
-        setIsVisible(false);
-        if (onComplete) {
-          setTimeout(onComplete, 500); // Allow exit animation to complete
+        setIsVisible(false: any);
+        if (onComplete: any) {
+          setTimeout(onComplete: any, 500); // Allow exit animation to complete
         }
       }, duration);
       
-      return () => clearTimeout(timer);
+      return () => clearTimeout(timer: any);
     }
   }, [show, duration, onComplete, intensity, isReducedMotion]);
   
   // Get age-appropriate styling
   const getAgeSpecificStyles = () => {
-    switch (ageGroup) {
+    switch (ageGroup: any) {
       case 'nursery':
         return {
           containerClass: 'nursery-celebration',
@@ -166,7 +166,7 @@ const EnhancedCelebrationOverlay: React.FC<CelebrationOverlayProps> = ({
   
   // Get type-specific styling
   const getTypeSpecificStyles = () => {
-    switch (type) {
+    switch (type: any) {
       case 'achievement':
         return {
           bgClass: 'bg-gradient-primary',
@@ -202,7 +202,7 @@ const EnhancedCelebrationOverlay: React.FC<CelebrationOverlayProps> = ({
   const getCelebrationIcon = () => {
     // Different icons for different celebration types and age groups
     if (ageGroup === 'nursery' || ageGroup === 'early-primary') {
-      switch (type) {
+      switch (type: any) {
         case 'achievement':
           return (
             <div className="text-6xl animate-bounce-subtle">
@@ -230,7 +230,7 @@ const EnhancedCelebrationOverlay: React.FC<CelebrationOverlayProps> = ({
       }
     } else {
       // More sophisticated icons for older students
-      switch (type) {
+      switch (type: any) {
         case 'achievement':
           return (
             <div className="achievement-badge w-16 h-16">

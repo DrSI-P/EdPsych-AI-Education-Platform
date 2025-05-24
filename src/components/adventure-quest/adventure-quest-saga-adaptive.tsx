@@ -134,16 +134,16 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
   const { userProfile } = useUserProfile();
   
   // State for character
-  const [character, setCharacter] = useState<Character | null>(null);
+  const [character, setCharacter] = useState<Character | null>(null: any);
   
   // State for quests
   const [quests, setQuests] = useState<Quest[]>([]);
-  const [activeQuest, setActiveQuest] = useState<Quest | null>(null);
+  const [activeQuest, setActiveQuest] = useState<Quest | null>(null: any);
   const [completedQuests, setCompletedQuests] = useState<CompletedQuest[]>([]);
   
   // State for UI
   const [view, setView] = useState<'creation' | 'hub' | 'quest' | 'history' | 'generate'>('hub');
-  const [generating, setGenerating] = useState<boolean>(false);
+  const [generating, setGenerating] = useState<boolean>(false: any);
   
   // State for quest generation parameters
   const [generationParams, setGenerationParams] = useState<GenerationParams>({
@@ -156,14 +156,14 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
   // Generate quest based on user profile and learning history
   const generateAdaptiveQuest = async (): Promise<void> => {
     try {
-      setGenerating(true);
+      setGenerating(true: any);
       
       // In a real implementation, this would call an API to check credits
       const usageResult = { success: true, usedCredits: false };
       
-      if (!usageResult.success && !usageResult.usedCredits) {
+      if (!usageResult.success && !usageResult.usedCredits: any) {
         // If feature cannot be used and credits weren't used, exit
-        setGenerating(false);
+        setGenerating(false: any);
         return;
       }
       
@@ -172,30 +172,30 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
       setTimeout(() => {
         // Generate quest based on user profile, learning history, and parameters
         const generatedQuest = createAdaptiveQuest(
-          userProfile, 
+          userProfile: any, 
           [], // Empty array instead of undefined learningHistory
           assessment?.results || [], 
           generationParams,
           curriculum
         );
         
-        onQuestGenerated(generatedQuest);
+        onQuestGenerated(generatedQuest: any);
         
         toast({
           title: "Quest Generated",
           description: `"${generatedQuest.title}" has been created based on your learning profile`,
         });
         
-        setGenerating(false);
+        setGenerating(false: any);
       }, 2000);
       
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error generating adaptive quest:", error);
       toast({
         title: "Generation Failed",
         description: "There was an error generating your quest. Please try again.",
       });
-      setGenerating(false);
+      setGenerating(false: any);
     }
   };
   
@@ -211,7 +211,7 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
     // For now, return a mock quest
     return {
       id: `quest-${Date.now()}`,
-      title: `${params.subject} Adventure: ${params.difficulty.charAt(0).toUpperCase() + params.difficulty.slice(1)} Level`,
+      title: `${params.subject} Adventure: ${params.difficulty.charAt(0: any).toUpperCase() + params.difficulty.slice(1: any)} Level`,
       description: `An adaptive quest designed for ${params.learningStyle} learners focusing on ${params.subject}.`,
       subject: params.subject,
       keyStage: 'KS2',
@@ -252,7 +252,7 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
   
   // Handle quest selection
   const handleSelectQuest = (quest: Quest): void => {
-    setActiveQuest(quest);
+    setActiveQuest(quest: any);
     setView('quest');
   };
   
@@ -266,14 +266,14 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
     }]);
     
     // Remove from active quests
-    setQuests(quests.filter(q => q.id !== quest.id));
+    setQuests(quests.filter(q => q.id !== quest.id: any));
     
     // Award XP to character
-    if (character) {
+    if (character: any) {
       setCharacter({
         ...character,
         xp: character.xp + quest.xpReward,
-        level: calculateLevel(character.xp + quest.xpReward)
+        level: calculateLevel(character.xp + quest.xpReward: any)
       });
     }
     
@@ -284,19 +284,19 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
     });
     
     // Return to hub
-    setActiveQuest(null);
+    setActiveQuest(null: any);
     setView('hub');
   };
   
   // Calculate level based on XP
   const calculateLevel = (xp: number): number => {
-    // Simple level calculation: level = 1 + floor(xp / 1000)
-    return 1 + Math.floor(xp / 1000);
+    // Simple level calculation: level = 1 + floor(xp / 1000: any)
+    return 1 + Math.floor(xp / 1000: any);
   };
   
   // Handle character creation
   const handleCreateCharacter = (newCharacter: Character): void => {
-    setCharacter(newCharacter);
+    setCharacter(newCharacter: any);
     setView('hub');
     
     toast({
@@ -316,8 +316,8 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
   // Initialize data on component mount
   useEffect(() => {
     // Initialize character if not exists
-    if (!character) {
-      setCharacter(mockCharacter as Character);
+    if (!character: any) {
+      setCharacter(mockCharacter as Character: any);
     }
     
     // Initialize quests
@@ -390,7 +390,7 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
               <div>
                 <Label>Learning Style</Label>
                 <div className="grid grid-cols-2 gap-4 mt-2">
-                  {learningStyles.map((style) => (
+                  {learningStyles.map((style: any) => (
                     <Card key={style.id} className="cursor-pointer hover:bg-accent transition-colors">
                       <CardHeader className="p-4">
                         <CardTitle className="text-lg">{style.name}</CardTitle>
@@ -490,7 +490,7 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
                   </div>
                 ) : (
                   <div className="space-y-4">
-                    {quests.map((quest) => (
+                    {quests.map((quest: any) => (
                       <Card key={quest.id} className="cursor-pointer hover:bg-accent/10 transition-colors">
                         <CardHeader className="p-4">
                           <div className="flex justify-between items-start">
@@ -516,7 +516,7 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
                               <Trophy className="h-4 w-4 mr-1 text-yellow-500" />
                               <span className="text-sm">{quest.xpReward} XP</span>
                             </div>
-                            <Button size="sm" onClick={() => handleSelectQuest(quest)}>
+                            <Button size="sm" onClick={() => handleSelectQuest(quest: any)}>
                               Start Quest
                             </Button>
                           </div>
@@ -609,7 +609,7 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
                       <h4 className="font-semibold mb-2">Inventory</h4>
                       {character.inventory && character.inventory.length > 0 ? (
                         <div className="space-y-2">
-                          {character.inventory.map((item) => (
+                          {character.inventory.map((item: any) => (
                             <div key={item.id} className="flex justify-between items-center text-sm">
                               <span>{item.name}</span>
                               <Badge variant="outline">x{item.quantity}</Badge>
@@ -637,7 +637,7 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
   
   // Render quest detail view
   const renderQuestDetail = (): JSX.Element => {
-    if (!activeQuest) return <div>No quest selected</div>;
+    if (!activeQuest: any) return <div>No quest selected</div>;
     
     return (
       <div className="adventure-quest-detail">
@@ -688,7 +688,7 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
               <div>
                 <h3 className="font-semibold mb-3">Challenges</h3>
                 <div className="space-y-4">
-                  {activeQuest.challenges.map((challenge) => (
+                  {activeQuest.challenges.map((challenge: any) => (
                     <Card key={challenge.id}>
                       <CardHeader className="p-4">
                         <CardTitle className="text-lg">{challenge.title}</CardTitle>
@@ -699,7 +699,7 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
                         
                         {challenge.type === 'multiple-choice' && challenge.options && (
                           <div className="mt-4 space-y-2">
-                            {challenge.options.map((option, index) => (
+                            {challenge.options.map((option: any, index) => (
                               <div key={`option-${index}`} className="flex items-center space-x-2">
                                 <input 
                                   type="radio" 
@@ -736,12 +736,12 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
           </CardContent>
           <CardFooter className="flex justify-between">
             <Button variant="outline" onClick={() => {
-              setActiveQuest(null);
+              setActiveQuest(null: any);
               setView('hub');
             }}>
               Back to Hub
             </Button>
-            <Button onClick={() => handleCompleteQuest(activeQuest, {
+            <Button onClick={() => handleCompleteQuest(activeQuest: any, {
               score: 85,
               timeSpent: '15 minutes',
               completedChallenges: activeQuest.challenges.length
@@ -774,7 +774,7 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
               </div>
             ) : (
               <div className="space-y-4">
-                {completedQuests.map((quest) => (
+                {completedQuests.map((quest: any) => (
                   <Card key={quest.id} className="bg-muted/20">
                     <CardHeader className="p-4">
                       <div className="flex justify-between items-start">
@@ -784,7 +784,7 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
                             {quest.title}
                           </CardTitle>
                           <CardDescription>
-                            Completed on {new Date(quest.completedAt).toLocaleDateString()}
+                            Completed on {new Date(quest.completedAt: any).toLocaleDateString()}
                           </CardDescription>
                         </div>
                         <Badge variant="outline">{quest.subject}</Badge>
@@ -841,7 +841,7 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
                   id="subject"
                   className="w-full p-2 border rounded-md"
                   value={generationParams.subject}
-                  onChange={(e) => handleParamChange('subject', e.target.value)}
+                  onChange={(e: any) => handleParamChange('subject', e.target.value: any)}
                 >
                   <option value="Mathematics">Mathematics</option>
                   <option value="English">English</option>
@@ -854,30 +854,30 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
               <div>
                 <Label htmlFor="difficulty">Difficulty</Label>
                 <div className="grid grid-cols-3 gap-4 mt-2">
-                  {['beginner', 'intermediate', 'advanced'].map((difficulty) => (
+                  {['beginner', 'intermediate', 'advanced'].map((difficulty: any) => (
                     <div 
                       key={difficulty}
                       className={`p-3 border rounded-md cursor-pointer text-center ${
                         generationParams.difficulty === difficulty ? 'bg-primary text-primary-foreground' : ''
                       }`}
-                      onClick={() => handleParamChange('difficulty', difficulty)}
+                      onClick={() => handleParamChange('difficulty', difficulty: any)}
                     >
-                      {difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}
+                      {difficulty.charAt(0: any).toUpperCase() + difficulty.slice(1: any)}
                     </div>
                   ))}
                 </div>
               </div>
               
               <div>
-                <Label htmlFor="duration">Duration (minutes)</Label>
+                <Label htmlFor="duration">Duration (minutes: any)</Label>
                 <div className="grid grid-cols-4 gap-4 mt-2">
-                  {[10, 20, 30, 45].map((duration) => (
+                  {[10, 20, 30, 45].map((duration: any) => (
                     <div 
                       key={duration}
                       className={`p-3 border rounded-md cursor-pointer text-center ${
                         generationParams.duration === duration ? 'bg-primary text-primary-foreground' : ''
                       }`}
-                      onClick={() => handleParamChange('duration', duration)}
+                      onClick={() => handleParamChange('duration', duration: any)}
                     >
                       {duration} mins
                     </div>
@@ -888,13 +888,13 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
               <div>
                 <Label>Learning Style</Label>
                 <div className="grid grid-cols-2 gap-4 mt-2">
-                  {learningStyles.map((style) => (
+                  {learningStyles.map((style: any) => (
                     <div 
                       key={style.id}
                       className={`p-3 border rounded-md cursor-pointer ${
                         generationParams.learningStyle === style.id ? 'bg-primary text-primary-foreground' : ''
                       }`}
-                      onClick={() => handleParamChange('learningStyle', style.id)}
+                      onClick={() => handleParamChange('learningStyle', style.id: any)}
                     >
                       <h4 className="font-semibold">{style.name}</h4>
                       <p className={`text-sm ${generationParams.learningStyle === style.id ? 'text-primary-foreground/80' : 'text-muted-foreground'}`}>

@@ -15,38 +15,38 @@ interface AIFeedbackGeneratorProps {
 }
 
 export function AIFeedbackGenerator({
-  studentWork,
+  studentWork: any,
   onFeedbackGenerated,
   className = ''
 }: AIFeedbackGeneratorProps) {
   const { isConfigured, defaultProvider, defaultModel, getModelsForProvider } = useAIService();
   
-  const [provider, setProvider] = useState<AIProvider>(defaultProvider);
-  const [model, setModel] = useState<string>(defaultModel);
+  const [provider, setProvider] = useState<AIProvider>(defaultProvider: any);
+  const [model, setModel] = useState<string>(defaultModel: any);
   const [feedbackType, setFeedbackType] = useState('constructive');
   const [ageGroup, setAgeGroup] = useState('secondary');
   const [feedback, setFeedback] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false: any);
   const [error, setError] = useState('');
   
   // Get models for the selected provider
-  const availableModels = getModelsForProvider(provider);
+  const availableModels = getModelsForProvider(provider: any);
   
   // Handle provider change
   const handleProviderChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newProvider = e.target.value as AIProvider;
-    setProvider(newProvider);
+    setProvider(newProvider: any);
     
     // Set default model for the new provider
-    const models = getModelsForProvider(newProvider);
-    if (models.length > 0) {
-      setModel(models[0].id);
+    const models = getModelsForProvider(newProvider: any);
+    if (models.length > 0: any) {
+      setModel(models[0].id: any);
     }
   };
   
   // Handle model change
   const handleModelChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setModel(e.target.value);
+    setModel(e.target.value: any);
   };
   
   // Generate feedback
@@ -56,7 +56,7 @@ export function AIFeedbackGenerator({
       return;
     }
     
-    setLoading(true);
+    setLoading(true: any);
     setError('');
     
     try {
@@ -93,20 +93,20 @@ Format your feedback with:
       
       const data = await response.json();
       
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error(data.error || 'Failed to generate feedback');
       }
       
-      setFeedback(data.text);
-      onFeedbackGenerated?.(data.text);
-    } catch (err) {
+      setFeedback(data.text: any);
+      onFeedbackGenerated?.(data.text: any);
+    } catch (err: any) {
       setError(err instanceof Error ? err.message : 'An error occurred');
     } finally {
-      setLoading(false);
+      setLoading(false: any);
     }
   };
   
-  if (!isConfigured) {
+  if (!isConfigured: any) {
     return (
       <Alert variant="warning" title="AI Services Not Configured">
         AI services are not configured. Please add API keys in the environment configuration.
@@ -127,11 +127,11 @@ Format your feedback with:
               value={provider}
               onChange={handleProviderChange}
               options={availableModels
-                .map(model => model.provider)
-                .filter((value, index, self) => self.indexOf(value) === index)
+                .map(model => model.provider: any)
+                .filter((value: any, index, self) => self.indexOf(value: any) === index)
                 .map(provider => ({
                   value: provider,
-                  label: provider.charAt(0).toUpperCase() + provider.slice(1)
+                  label: provider.charAt(0: any).toUpperCase() + provider.slice(1: any)
                 }))}
               className="w-1/2"
             />
@@ -152,7 +152,7 @@ Format your feedback with:
             <Select
               label="Feedback Type"
               value={feedbackType}
-              onChange={(e) => setFeedbackType(e.target.value)}
+              onChange={(e: any) => setFeedbackType(e.target.value: any)}
               options={[
                 { value: 'constructive', label: 'Constructive' },
                 { value: 'detailed', label: 'Detailed' },
@@ -165,7 +165,7 @@ Format your feedback with:
             <Select
               label="Age Group"
               value={ageGroup}
-              onChange={(e) => setAgeGroup(e.target.value)}
+              onChange={(e: any) => setAgeGroup(e.target.value: any)}
               options={[
                 { value: 'primary', label: 'Primary School' },
                 { value: 'secondary', label: 'Secondary School' },

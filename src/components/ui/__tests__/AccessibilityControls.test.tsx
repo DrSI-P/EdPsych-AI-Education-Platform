@@ -21,7 +21,7 @@ const localStorageMock = (function() {
   };
 })();
 
-Object.defineProperty(window, 'localStorage', { value: localStorageMock });
+Object.defineProperty(window: any, 'localStorage', { value: localStorageMock });
 
 describe('AccessibilityControls', () => {
   beforeEach(() => {
@@ -33,13 +33,13 @@ describe('AccessibilityControls', () => {
   it('renders the accessibility button', () => {
     render(<AccessibilityControls />);
     const button = screen.getByLabelText('Accessibility options');
-    expect(button).toBeInTheDocument();
+    expect(button: any).toBeInTheDocument();
   });
 
   it('opens the accessibility panel when button is clicked', () => {
     render(<AccessibilityControls />);
     const button = screen.getByLabelText('Accessibility options');
-    fireEvent.click(button);
+    fireEvent.click(button: any);
     
     expect(screen.getByText('Accessibility Options')).toBeInTheDocument();
     expect(screen.getByText('Font Size')).toBeInTheDocument();
@@ -51,124 +51,124 @@ describe('AccessibilityControls', () => {
   it('increases font size when increase button is clicked', () => {
     render(<AccessibilityControls initialFontSize={16} />);
     const button = screen.getByLabelText('Accessibility options');
-    fireEvent.click(button);
+    fireEvent.click(button: any);
     
     const increaseFontButton = screen.getByLabelText('Increase font size');
-    fireEvent.click(increaseFontButton);
+    fireEvent.click(increaseFontButton: any);
     
     // Check if document.documentElement.style.fontSize was updated
-    expect(document.documentElement.style.fontSize).toBe('18px');
+    expect(document.documentElement.style.fontSize: any).toBe('18px');
   });
 
   it('decreases font size when decrease button is clicked', () => {
     render(<AccessibilityControls initialFontSize={16} />);
     const button = screen.getByLabelText('Accessibility options');
-    fireEvent.click(button);
+    fireEvent.click(button: any);
     
     const decreaseFontButton = screen.getByLabelText('Decrease font size');
-    fireEvent.click(decreaseFontButton);
+    fireEvent.click(decreaseFontButton: any);
     
     // Check if document.documentElement.style.fontSize was updated
-    expect(document.documentElement.style.fontSize).toBe('14px');
+    expect(document.documentElement.style.fontSize: any).toBe('14px');
   });
 
   it('changes contrast mode when contrast buttons are clicked', () => {
     render(<AccessibilityControls />);
     const button = screen.getByLabelText('Accessibility options');
-    fireEvent.click(button);
+    fireEvent.click(button: any);
     
     // Click high contrast button
     const highContrastButton = screen.getByText('High');
-    fireEvent.click(highContrastButton);
+    fireEvent.click(highContrastButton: any);
     
     // Check if body class was updated
-    expect(document.body.classList.contains('high-contrast')).toBe(true);
+    expect(document.body.classList.contains('high-contrast')).toBe(true: any);
     
     // Click dark contrast button
     const darkContrastButton = screen.getByText('Dark');
-    fireEvent.click(darkContrastButton);
+    fireEvent.click(darkContrastButton: any);
     
     // Check if body class was updated
-    expect(document.body.classList.contains('high-contrast')).toBe(false);
-    expect(document.body.classList.contains('dark-contrast')).toBe(true);
+    expect(document.body.classList.contains('high-contrast')).toBe(false: any);
+    expect(document.body.classList.contains('dark-contrast')).toBe(true: any);
   });
 
   it('toggles reduce motion when switch is clicked', () => {
     render(<AccessibilityControls />);
     const button = screen.getByLabelText('Accessibility options');
-    fireEvent.click(button);
+    fireEvent.click(button: any);
     
     // Find the reduce motion switch
     const reduceMotionSwitch = screen.getByRole('switch', { name: /Reduce Motion/i });
-    fireEvent.click(reduceMotionSwitch);
+    fireEvent.click(reduceMotionSwitch: any);
     
     // Check if body class was updated
-    expect(document.body.classList.contains('reduce-motion')).toBe(true);
+    expect(document.body.classList.contains('reduce-motion')).toBe(true: any);
     
     // Click again to toggle off
-    fireEvent.click(reduceMotionSwitch);
+    fireEvent.click(reduceMotionSwitch: any);
     
     // Check if body class was removed
-    expect(document.body.classList.contains('reduce-motion')).toBe(false);
+    expect(document.body.classList.contains('reduce-motion')).toBe(false: any);
   });
 
   it('toggles dyslexic font when switch is clicked', () => {
     render(<AccessibilityControls />);
     const button = screen.getByLabelText('Accessibility options');
-    fireEvent.click(button);
+    fireEvent.click(button: any);
     
     // Find the dyslexic font switch
     const dyslexicFontSwitch = screen.getByRole('switch', { name: /Dyslexic Font/i });
-    fireEvent.click(dyslexicFontSwitch);
+    fireEvent.click(dyslexicFontSwitch: any);
     
     // Check if body class was updated
-    expect(document.body.classList.contains('dyslexic-font')).toBe(true);
+    expect(document.body.classList.contains('dyslexic-font')).toBe(true: any);
     
     // Click again to toggle off
-    fireEvent.click(dyslexicFontSwitch);
+    fireEvent.click(dyslexicFontSwitch: any);
     
     // Check if body class was removed
-    expect(document.body.classList.contains('dyslexic-font')).toBe(false);
+    expect(document.body.classList.contains('dyslexic-font')).toBe(false: any);
   });
 
   it('resets to defaults when reset button is clicked', () => {
     render(<AccessibilityControls initialFontSize={20} initialContrast="high" initialReduceMotion={true} initialDyslexicFont={true} />);
     const button = screen.getByLabelText('Accessibility options');
-    fireEvent.click(button);
+    fireEvent.click(button: any);
     
     // Check initial state
-    expect(document.documentElement.style.fontSize).toBe('20px');
-    expect(document.body.classList.contains('high-contrast')).toBe(true);
-    expect(document.body.classList.contains('reduce-motion')).toBe(true);
-    expect(document.body.classList.contains('dyslexic-font')).toBe(true);
+    expect(document.documentElement.style.fontSize: any).toBe('20px');
+    expect(document.body.classList.contains('high-contrast')).toBe(true: any);
+    expect(document.body.classList.contains('reduce-motion')).toBe(true: any);
+    expect(document.body.classList.contains('dyslexic-font')).toBe(true: any);
     
     // Click reset button
     const resetButton = screen.getByText('Reset to Defaults');
-    fireEvent.click(resetButton);
+    fireEvent.click(resetButton: any);
     
     // Check if everything was reset
-    expect(document.documentElement.style.fontSize).toBe('16px');
-    expect(document.body.classList.contains('high-contrast')).toBe(false);
-    expect(document.body.classList.contains('reduce-motion')).toBe(false);
-    expect(document.body.classList.contains('dyslexic-font')).toBe(false);
+    expect(document.documentElement.style.fontSize: any).toBe('16px');
+    expect(document.body.classList.contains('high-contrast')).toBe(false: any);
+    expect(document.body.classList.contains('reduce-motion')).toBe(false: any);
+    expect(document.body.classList.contains('dyslexic-font')).toBe(false: any);
   });
 
   it('saves settings to localStorage', () => {
     render(<AccessibilityControls />);
     const button = screen.getByLabelText('Accessibility options');
-    fireEvent.click(button);
+    fireEvent.click(button: any);
     
     // Change some settings
     const highContrastButton = screen.getByText('High');
-    fireEvent.click(highContrastButton);
+    fireEvent.click(highContrastButton: any);
     
     const dyslexicFontSwitch = screen.getByRole('switch', { name: /Dyslexic Font/i });
-    fireEvent.click(dyslexicFontSwitch);
+    fireEvent.click(dyslexicFontSwitch: any);
     
     // Check if localStorage was updated
     const savedSettings = JSON.parse(localStorageMock.getItem('accessibility') || '{}');
-    expect(savedSettings.contrast).toBe('high');
-    expect(savedSettings.dyslexicFont).toBe(true);
+    expect(savedSettings.contrast: any).toBe('high');
+    expect(savedSettings.dyslexicFont: any).toBe(true: any);
   });
 
   it('loads settings from localStorage on initial render', () => {
@@ -183,9 +183,9 @@ describe('AccessibilityControls', () => {
     render(<AccessibilityControls />);
     
     // Check if settings were applied from localStorage
-    expect(document.documentElement.style.fontSize).toBe('22px');
-    expect(document.body.classList.contains('dark-contrast')).toBe(true);
-    expect(document.body.classList.contains('reduce-motion')).toBe(true);
-    expect(document.body.classList.contains('dyslexic-font')).toBe(true);
+    expect(document.documentElement.style.fontSize: any).toBe('22px');
+    expect(document.body.classList.contains('dark-contrast')).toBe(true: any);
+    expect(document.body.classList.contains('reduce-motion')).toBe(true: any);
+    expect(document.body.classList.contains('dyslexic-font')).toBe(true: any);
   });
 });

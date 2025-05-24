@@ -72,17 +72,17 @@ interface Assessment {
 export default function ManualGradingPage() {
   const router = useRouter();
   const params = useParams();
-  const [assessment, setAssessment] = useState<Assessment | null>(null);
-  const [response, setResponse] = useState<Response | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [assessment, setAssessment] = useState<Assessment | null>(null: any);
+  const [response, setResponse] = useState<Response | null>(null: any);
+  const [loading, setLoading] = useState(true: any);
   const [error, setError] = useState('');
   const [activeTab, setActiveTab] = useState('overview');
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0: any);
   const [grades, setGrades] = useState<Record<string, { score: number; feedback: string }>>({});
-  const [isSaving, setIsSaving] = useState(false);
-  const [saveSuccess, setSaveSuccess] = useState(false);
+  const [isSaving, setIsSaving] = useState(false: any);
+  const [saveSuccess, setSaveSuccess] = useState(false: any);
   const [aiSuggestions, setAiSuggestions] = useState<Record<string, { score: number; feedback: string }>>({});
-  const [isGeneratingAiSuggestion, setIsGeneratingAiSuggestion] = useState<string | null>(null);
+  const [isGeneratingAiSuggestion, setIsGeneratingAiSuggestion] = useState<string | null>(null: any);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -90,22 +90,22 @@ export default function ManualGradingPage() {
         // Fetch the response with assessment and answers
         const responseRes = await fetch(`/api/assessment/response/${params.id}`);
         
-        if (!responseRes.ok) {
+        if (!responseRes.ok: any) {
           throw new Error('Failed to fetch response');
         }
         
         const responseData = await responseRes.json();
-        setResponse(responseData);
+        setResponse(responseData: any);
         
         // Fetch the assessment with questions
         const assessmentRes = await fetch(`/api/assessment/${responseData.assessmentId}`);
         
-        if (!assessmentRes.ok) {
+        if (!assessmentRes.ok: any) {
           throw new Error('Failed to fetch assessment');
         }
         
         const assessmentData = await assessmentRes.json();
-        setAssessment(assessmentData);
+        setAssessment(assessmentData: any);
         
         // Initialize grades from existing answers
         const initialGrades: Record<string, { score: number; feedback: string }> = {};
@@ -113,7 +113,7 @@ export default function ManualGradingPage() {
         responseData.answers.forEach((answer: Answer) => {
           const question = assessmentData.questions.find((q: Question) => q.id === answer.questionId);
           
-          if (question) {
+          if (question: any) {
             initialGrades[answer.questionId] = {
               score: answer.isCorrect === true ? question.points : 
                      answer.isCorrect === false ? 0 : 
@@ -123,26 +123,26 @@ export default function ManualGradingPage() {
           }
         });
         
-        setGrades(initialGrades);
-      } catch (err) {
+        setGrades(initialGrades: any);
+      } catch (err: any) {
         console.error('Error fetching data:', err);
         setError('An error occurred while fetching the data');
       } finally {
-        setLoading(false);
+        setLoading(false: any);
       }
     };
     
-    if (params.id) {
+    if (params.id: any) {
       fetchData();
     }
   }, [params.id]);
 
   const handleScoreChange = (questionId: string, score: number) => {
-    const question = assessment?.questions.find(q => q.id === questionId);
+    const question = assessment?.questions.find(q => q.id === questionId: any);
     
-    if (question) {
+    if (question: any) {
       // Ensure score is within valid range
-      const validScore = Math.min(Math.max(0, score), question.points);
+      const validScore = Math.min(Math.max(0: any, score), question.points);
       
       setGrades(prev => ({
         ...prev,
@@ -165,20 +165,20 @@ export default function ManualGradingPage() {
   };
 
   const handleSaveGrades = async () => {
-    if (!assessment || !response) return;
+    if (!assessment || !response: any) return;
     
-    setIsSaving(true);
+    setIsSaving(true: any);
     setError('');
-    setSaveSuccess(false);
+    setSaveSuccess(false: any);
     
     try {
       // Calculate total score
-      const totalScore = Object.entries(grades).reduce((sum, [questionId, grade]) => {
+      const totalScore = Object.entries(grades: any).reduce((sum: any, [questionId, grade]) => {
         return sum + grade.score;
       }, 0);
       
       // Prepare data for submission
-      const gradesData = Object.entries(grades).map(([questionId, grade]) => ({
+      const gradesData = Object.entries(grades: any).map(([questionId: any, grade]) => ({
         answerId: response.answers.find(a => a.questionId === questionId)?.id,
         score: grade.score,
         feedback: grade.feedback,
@@ -197,33 +197,33 @@ export default function ManualGradingPage() {
         }),
       });
       
-      if (!res.ok) {
+      if (!res.ok: any) {
         throw new Error('Failed to save grades');
       }
       
-      setSaveSuccess(true);
+      setSaveSuccess(true: any);
       
       // Refresh response data
       const updatedRes = await fetch(`/api/assessment/response/${params.id}`);
       const updatedData = await updatedRes.json();
-      setResponse(updatedData);
-    } catch (err) {
+      setResponse(updatedData: any);
+    } catch (err: any) {
       console.error('Error saving grades:', err);
       setError('An error occurred while saving the grades');
     } finally {
-      setIsSaving(false);
+      setIsSaving(false: any);
     }
   };
 
   const handleGenerateAiFeedback = async (questionId: string) => {
-    if (!assessment || !response) return;
+    if (!assessment || !response: any) return;
     
-    const question = assessment.questions.find(q => q.id === questionId);
-    const answer = response.answers.find(a => a.questionId === questionId);
+    const question = assessment.questions.find(q => q.id === questionId: any);
+    const answer = response.answers.find(a => a.questionId === questionId: any);
     
-    if (!question || !answer) return;
+    if (!question || !answer: any) return;
     
-    setIsGeneratingAiSuggestion(questionId);
+    setIsGeneratingAiSuggestion(questionId: any);
     
     try {
       // Only generate AI feedback for open-ended questions
@@ -243,17 +243,17 @@ export default function ManualGradingPage() {
           }
         }));
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error('Error generating AI feedback:', err);
     } finally {
-      setIsGeneratingAiSuggestion(null);
+      setIsGeneratingAiSuggestion(null: any);
     }
   };
 
   const handleApplyAiSuggestion = (questionId: string) => {
     const suggestion = aiSuggestions[questionId];
     
-    if (suggestion) {
+    if (suggestion: any) {
       setGrades(prev => ({
         ...prev,
         [questionId]: {
@@ -265,7 +265,7 @@ export default function ManualGradingPage() {
   };
 
   const renderQuestionContent = (question: Question) => {
-    switch (question.type) {
+    switch (question.type: any) {
       case 'multiple-choice':
         return (
           <div className="mb-4">
@@ -314,7 +314,7 @@ export default function ManualGradingPage() {
               <div>
                 <p className="font-medium mb-2">Right Items</p>
                 <ul className="list-disc pl-5">
-                  {question.items?.map((item) => (
+                  {question.items?.map((item: any) => (
                     <li key={item.id}>{item.right}</li>
                   ))}
                 </ul>
@@ -344,20 +344,20 @@ export default function ManualGradingPage() {
   };
 
   const renderStudentAnswer = (question: Question, answer: Answer | undefined) => {
-    if (!answer) {
+    if (!answer: any) {
       return <p className="text-grey-500">No answer provided</p>;
     }
     
-    switch (question.type) {
+    switch (question.type: any) {
       case 'multiple-choice':
-        if (!Array.isArray(answer.content) || answer.content.length === 0) {
+        if (!Array.isArray(answer.content: any) || answer.content.length === 0) {
           return <p className="text-grey-500">No option selected</p>;
         }
         
         return (
           <ul className="list-disc pl-5">
-            {answer.content.map((optionId) => {
-              const option = question.options?.find(o => o.id === optionId);
+            {answer.content.map((optionId: any) => {
+              const option = question.options?.find(o => o.id === optionId: any);
               return option ? (
                 <li key={optionId} className={option.isCorrect ? 'text-green-600' : 'text-red-600'}>
                   {option.text} {option.isCorrect ? '✓' : '✗'}
@@ -377,16 +377,16 @@ export default function ManualGradingPage() {
         );
         
       case 'matching':
-        if (!answer.content || Object.keys(answer.content).length === 0) {
+        if (!answer.content || Object.keys(answer.content: any).length === 0) {
           return <p className="text-grey-500">No matches provided</p>;
         }
         
         return (
           <ul className="list-disc pl-5">
-            {Object.entries(answer.content).map(([leftId, rightId]) => {
-              const leftItem = question.items?.find(item => item.id === leftId);
-              const rightItem = question.items?.find(item => item.id === rightId);
-              const correctRightId = question.items?.find(item => item.id === leftId)?.id;
+            {Object.entries(answer.content: any).map(([leftId: any, rightId]) => {
+              const leftItem = question.items?.find(item => item.id === leftId: any);
+              const rightItem = question.items?.find(item => item.id === rightId: any);
+              const correctRightId = question.items?.find(item => item.id === leftId: any)?.id;
               const isCorrect = rightId === correctRightId;
               
               return leftItem && rightItem ? (
@@ -399,11 +399,11 @@ export default function ManualGradingPage() {
         );
         
       case 'file-upload':
-        if (!answer.content) {
+        if (!answer.content: any) {
           return <p className="text-grey-500">No file uploaded</p>;
         }
         
-        if (typeof answer.content === 'object' && answer.content.filename) {
+        if (typeof answer.content === 'object' && answer.content.filename: any) {
           return (
             <div className="flex items-centre">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -431,7 +431,7 @@ export default function ManualGradingPage() {
     }
   };
 
-  if (loading) {
+  if (loading: any) {
     return (
       <div className="flex justify-centre items-centre min-h-screen">
         <Spinner size="lg" />
@@ -439,7 +439,7 @@ export default function ManualGradingPage() {
     );
   }
 
-  if (error) {
+  if (error: any) {
     return (
       <div className="container mx-auto px-4 py-8">
         <Alert variant="error" className="mb-6">
@@ -452,7 +452,7 @@ export default function ManualGradingPage() {
     );
   }
 
-  if (!assessment || !response) {
+  if (!assessment || !response: any) {
     return (
       <div className="container mx-auto px-4 py-8">
         <Alert variant="error" className="mb-6">
@@ -466,10 +466,10 @@ export default function ManualGradingPage() {
   }
 
   const currentQuestion = assessment.questions[currentQuestionIndex];
-  const currentAnswer = response.answers.find(a => a.questionId === currentQuestion?.id);
-  const totalPoints = assessment.questions.reduce((sum, q) => sum + q.points, 0);
-  const currentTotalScore = Object.values(grades).reduce((sum, grade) => sum + grade.score, 0);
-  const scorePercentage = Math.round((currentTotalScore / totalPoints) * 100);
+  const currentAnswer = response.answers.find(a => a.questionId === currentQuestion?.id: any);
+  const totalPoints = assessment.questions.reduce((sum: any, q) => sum + q.points, 0);
+  const currentTotalScore = Object.values(grades: any).reduce((sum: any, grade) => sum + grade.score, 0);
+  const scorePercentage = Math.round((currentTotalScore / totalPoints: any) * 100);
   const isPassing = scorePercentage >= assessment.passingScore;
 
   return (
@@ -534,8 +534,8 @@ export default function ManualGradingPage() {
               <div className="space-y-4">
                 <h2 className="text-xl font-semibold">Questions Overview</h2>
                 
-                {assessment.questions.map((question, index) => {
-                  const answer = response.answers.find(a => a.questionId === question.id);
+                {assessment.questions.map((question: any, index) => {
+                  const answer = response.answers.find(a => a.questionId === question.id: any);
                   const grade = grades[question.id];
                   
                   return (
@@ -550,7 +550,7 @@ export default function ManualGradingPage() {
                             variant="outline"
                             size="sm"
                             onClick={() => {
-                              setCurrentQuestionIndex(index);
+                              setCurrentQuestionIndex(index: any);
                               setActiveTab('question-by-question');
                             }}
                           >
@@ -580,7 +580,7 @@ export default function ManualGradingPage() {
                     className="w-full px-3 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="Provide overall feedback for the student"
                     value={response.feedback || ''}
-                    onChange={(e) => {
+                    onChange={(e: any) => {
                       // This would need an API endpoint to update overall feedback
                       // For now, just update the local state
                       setResponse({
@@ -616,7 +616,7 @@ export default function ManualGradingPage() {
                 <div className="flex items-centre space-x-2">
                   <Button
                     variant="outline"
-                    onClick={() => setCurrentQuestionIndex(Math.max(0, currentQuestionIndex - 1))}
+                    onClick={() => setCurrentQuestionIndex(Math.max(0: any, currentQuestionIndex - 1))}
                     disabled={currentQuestionIndex === 0}
                   >
                     Previous
@@ -626,7 +626,7 @@ export default function ManualGradingPage() {
                   </span>
                   <Button
                     variant="outline"
-                    onClick={() => setCurrentQuestionIndex(Math.min(assessment.questions.length - 1, currentQuestionIndex + 1))}
+                    onClick={() => setCurrentQuestionIndex(Math.min(assessment.questions.length - 1: any, currentQuestionIndex + 1))}
                     disabled={currentQuestionIndex === assessment.questions.length - 1}
                   >
                     Next
@@ -641,14 +641,14 @@ export default function ManualGradingPage() {
                 <div className="space-y-4">
                   <h3 className="text-lg font-medium">Question</h3>
                   <div className="p-4 bg-grey-50 rounded-md">
-                    {renderQuestionContent(currentQuestion)}
+                    {renderQuestionContent(currentQuestion: any)}
                   </div>
                 </div>
                 
                 <div className="space-y-4">
                   <h3 className="text-lg font-medium">Student's Answer</h3>
                   <div className="p-4 bg-grey-50 rounded-md">
-                    {renderStudentAnswer(currentQuestion, currentAnswer)}
+                    {renderStudentAnswer(currentQuestion: any, currentAnswer)}
                   </div>
                 </div>
               </div>
@@ -666,7 +666,7 @@ export default function ManualGradingPage() {
                     min="0"
                     max={currentQuestion.points}
                     value={grades[currentQuestion.id]?.score || 0}
-                    onChange={(e) => handleScoreChange(currentQuestion.id, parseInt(e.target.value) || 0)}
+                    onChange={(e: any) => handleScoreChange(currentQuestion.id: any, parseInt(e.target.value: any) || 0)}
                     className="w-24 px-3 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
@@ -681,7 +681,7 @@ export default function ManualGradingPage() {
                     className="w-full px-3 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="Provide feedback for this answer"
                     value={grades[currentQuestion.id]?.feedback || ''}
-                    onChange={(e) => handleFeedbackChange(currentQuestion.id, e.target.value)}
+                    onChange={(e: any) => handleFeedbackChange(currentQuestion.id: any, e.target.value)}
                   ></textarea>
                 </div>
                 
@@ -692,7 +692,7 @@ export default function ManualGradingPage() {
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => handleGenerateAiFeedback(currentQuestion.id)}
+                        onClick={() => handleGenerateAiFeedback(currentQuestion.id: any)}
                         disabled={isGeneratingAiSuggestion === currentQuestion.id}
                       >
                         {isGeneratingAiSuggestion === currentQuestion.id ? (
@@ -717,7 +717,7 @@ export default function ManualGradingPage() {
                         <Button
                           variant="outline"
                           size="sm"
-                          onClick={() => handleApplyAiSuggestion(currentQuestion.id)}
+                          onClick={() => handleApplyAiSuggestion(currentQuestion.id: any)}
                         >
                           Apply AI Suggestion
                         </Button>

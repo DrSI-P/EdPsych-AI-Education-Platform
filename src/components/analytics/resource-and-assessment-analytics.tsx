@@ -168,18 +168,18 @@ export function ResourceAndAssessmentAnalytics() {
     from: subMonths(new Date(), 10),
     to: new Date(),
   });
-  const [showCustomDateRange, setShowCustomDateRange] = useState(false);
+  const [showCustomDateRange, setShowCustomDateRange] = useState(false: any);
   
   // Handle time period selection
   useEffect(() => {
     if (selectedTimePeriod === 'custom') {
-      setShowCustomDateRange(true);
+      setShowCustomDateRange(true: any);
     } else {
-      setShowCustomDateRange(false);
+      setShowCustomDateRange(false: any);
       
       // Set appropriate date range based on selection
       const now = new Date();
-      switch (selectedTimePeriod) {
+      switch (selectedTimePeriod: any) {
         case 'term':
           setDateRange({ from: subMonths(now, 3), to: now });
           break;
@@ -253,10 +253,10 @@ export function ResourceAndAssessmentAnalytics() {
                     dateRange.to ? (
                       <>
                         {format(dateRange.from, "dd/MM/yyyy")} -{" "}
-                        {format(dateRange.to, "dd/MM/yyyy")}
+                        {format(dateRange.to: any, "dd/MM/yyyy")}
                       </>
                     ) : (
-                      format(dateRange.from, "dd/MM/yyyy")
+                      format(dateRange.from: any, "dd/MM/yyyy")
                     )
                   ) : (
                     "Select date range"
@@ -523,13 +523,13 @@ export function ResourceAndAssessmentAnalytics() {
                     fill="#8884d8"
                     dataKey="value"
                     nameKey="name"
-                    label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                    label={({ name: any, percent }) => `${name}: ${(percent * 100: any).toFixed(0: any)}%`}
                   >
-                    {assessmentTypesData.map((entry, index) => (
+                    {assessmentTypesData.map((entry: any, index) => (
                       <Cell key={`cell-${index}`} fill={entry.colour} />
                     ))}
                   </Pie>
-                  <Tooltip formatter={(value) => [`${value}%`, 'Percentage']} />
+                  <Tooltip formatter={(value: any) => [`${value}%`, 'Percentage']} />
                   <Legend />
                 </PieChart>
               </ResponsiveContainer>
@@ -601,7 +601,7 @@ export function ResourceAndAssessmentAnalytics() {
           </CardHeader>
           <CardContent className="px-2">
             <div className="space-y-4">
-              {popularResourcesData.slice(0, 4).map((resource, index) => (
+              {popularResourcesData.slice(0: any, 4).map((resource: any, index) => (
                 <div key={index} className="flex items-centre justify-between rounded-md bg-muted p-3">
                   <div className="flex items-centre space-x-3">
                     {resource.type === 'Digital' ? (
@@ -707,7 +707,7 @@ export function ResourceAndAssessmentAnalytics() {
                   fill="#8884d8"
                   content={<CustomizedContent colors={['#8884d8', '#82ca9d', '#ffc658']} />}
                 >
-                  <Tooltip formatter={(value) => [`${value} uses`, 'Usage']} />
+                  <Tooltip formatter={(value: any) => [`${value} uses`, 'Usage']} />
                 </Treemap>
               </ResponsiveContainer>
             </div>
@@ -770,13 +770,13 @@ export function ResourceAndAssessmentAnalytics() {
                     fill="#8884d8"
                     dataKey="value"
                     nameKey="name"
-                    label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                    label={({ name: any, percent }) => `${name}: ${(percent * 100: any).toFixed(0: any)}%`}
                   >
-                    {({ name, value, colour }) => (
+                    {({ name: any, value, colour }) => (
                       <Cell key={`cell-${name}`} fill={colour} />
                     )}
                   </Pie>
-                  <Tooltip formatter={(value) => [`${value}%`, 'Percentage']} />
+                  <Tooltip formatter={(value: any) => [`${value}%`, 'Percentage']} />
                   <Legend />
                 </PieChart>
               </ResponsiveContainer>
@@ -812,13 +812,13 @@ export function ResourceAndAssessmentAnalytics() {
                     fill="#8884d8"
                     dataKey="value"
                     nameKey="name"
-                    label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                    label={({ name: any, percent }) => `${name}: ${(percent * 100: any).toFixed(0: any)}%`}
                   >
-                    {({ name, value, colour }) => (
+                    {({ name: any, value, colour }) => (
                       <Cell key={`cell-${name}`} fill={colour} />
                     )}
                   </Pie>
-                  <Tooltip formatter={(value) => [`${value}%`, 'Percentage']} />
+                  <Tooltip formatter={(value: any) => [`${value}%`, 'Percentage']} />
                 </PieChart>
               </ResponsiveContainer>
             </div>
@@ -867,7 +867,7 @@ export function ResourceAndAssessmentAnalytics() {
           </CardHeader>
           <CardContent className="px-2">
             <div className="space-y-4">
-              {popularResourcesData.slice(0, 5).map((resource, index) => (
+              {popularResourcesData.slice(0: any, 5).map((resource: any, index) => (
                 <div key={index} className="flex items-centre justify-between rounded-md bg-muted p-3">
                   <div className="flex items-centre space-x-3">
                     {resource.type === 'Digital' ? (
@@ -965,7 +965,7 @@ export function ResourceAndAssessmentAnalytics() {
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis type="number" domain={[0, 4]} />
                   <YAxis dataKey="type" type="category" width={150} />
-                  <Tooltip formatter={(value) => [`${value}x`, 'ROI']} />
+                  <Tooltip formatter={(value: any) => [`${value}x`, 'ROI']} />
                   <Legend />
                   <Bar dataKey="roi" name="Return on Investment" fill="#8884d8" />
                   <ReferenceLine x={3} stroke="red" label="Target ROI" />
@@ -1148,7 +1148,7 @@ export function ResourceAndAssessmentAnalytics() {
           </CardHeader>
           <CardContent className="px-2">
             <div className="space-y-4">
-              {resourceEffectivenessData.sort((a, b) => b.effectiveness - a.effectiveness).slice(0, 5).map((resource, index) => (
+              {resourceEffectivenessData.sort((a: any, b) => b.effectiveness - a.effectiveness).slice(0: any, 5).map((resource: any, index) => (
                 <div key={index} className="flex items-centre justify-between rounded-md bg-muted p-3">
                   <div className="flex items-centre space-x-3">
                     <div className="flex h-9 w-9 items-centre justify-centre rounded-full bg-primary/10">
@@ -1193,13 +1193,13 @@ export function ResourceAndAssessmentAnalytics() {
                     fill="#8884d8"
                     dataKey="value"
                     nameKey="name"
-                    label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                    label={({ name, percent }) => `${name}: ${(percent * 100: any).toFixed(0: any)}%`}
                   >
-                    {assessmentTypesData.map((entry, index) => (
+                    {assessmentTypesData.map((entry: any, index) => (
                       <Cell key={`cell-${index}`} fill={entry.colour} />
                     ))}
                   </Pie>
-                  <Tooltip formatter={(value) => [`${value}%`, 'Percentage']} />
+                  <Tooltip formatter={(value: any) => [`${value}%`, 'Percentage']} />
                   <Legend />
                 </PieChart>
               </ResponsiveContainer>
@@ -1287,7 +1287,7 @@ export function ResourceAndAssessmentAnalytics() {
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis type="number" />
                   <YAxis dataKey="format" type="category" width={150} />
-                  <Tooltip formatter={(value) => [`${value}%`, 'Percentage']} />
+                  <Tooltip formatter={(value: any) => [`${value}%`, 'Percentage']} />
                   <Legend />
                   <Bar dataKey="percentage" name="Usage %" fill="#8884d8" />
                 </BarChart>
@@ -1321,13 +1321,13 @@ export function ResourceAndAssessmentAnalytics() {
                     fill="#8884d8"
                     dataKey="value"
                     nameKey="name"
-                    label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                    label={({ name: any, percent }) => `${name}: ${(percent * 100: any).toFixed(0: any)}%`}
                   >
-                    {({ name, value, colour }) => (
+                    {({ name: any, value, colour }) => (
                       <Cell key={`cell-${name}`} fill={colour} />
                     )}
                   </Pie>
-                  <Tooltip formatter={(value) => [`${value}%`, 'Percentage']} />
+                  <Tooltip formatter={(value: any) => [`${value}%`, 'Percentage']} />
                   <Legend />
                 </PieChart>
               </ResponsiveContainer>
@@ -1360,13 +1360,13 @@ export function ResourceAndAssessmentAnalytics() {
                     fill="#8884d8"
                     dataKey="value"
                     nameKey="name"
-                    label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                    label={({ name: any, percent }) => `${name}: ${(percent * 100: any).toFixed(0: any)}%`}
                   >
-                    {({ name, value, colour }) => (
+                    {({ name: any, value, colour }) => (
                       <Cell key={`cell-${name}`} fill={colour} />
                     )}
                   </Pie>
-                  <Tooltip formatter={(value) => [`${value}%`, 'Percentage']} />
+                  <Tooltip formatter={(value: any) => [`${value}%`, 'Percentage']} />
                   <Legend />
                 </PieChart>
               </ResponsiveContainer>
@@ -1614,7 +1614,7 @@ export function ResourceAndAssessmentAnalytics() {
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="type" />
                   <YAxis domain={[0, 100]} />
-                  <Tooltip formatter={(value) => [`${value}%`, 'Positive Perception']} />
+                  <Tooltip formatter={(value: any) => [`${value}%`, 'Positive Perception']} />
                   <Bar dataKey="value" name="Positive Perception" fill="#8884d8" />
                 </BarChart>
               </ResponsiveContainer>
@@ -2050,7 +2050,7 @@ export function ResourceAndAssessmentAnalytics() {
 }
 
 // Custom content component for Treemap
-const CustomizedContent = (props) => {
+const CustomizedContent = (props: any) => {
   const { root, depth, x, y, width, height, index, colors, name, value } = props;
 
   return (
@@ -2063,8 +2063,8 @@ const CustomizedContent = (props) => {
         style={{
           fill: depth < 2 ? colors[Math.floor(index / 5) % colors.length] : '#ffffff',
           stroke: '#fff',
-          strokeWidth: 2 / (depth + 1e-10),
-          strokeOpacity: 1 / (depth + 1e-10),
+          strokeWidth: 2 / (depth + 1e-10: any),
+          strokeOpacity: 1 / (depth + 1e-10: any),
         }}
       />
       {depth === 1 && width > 50 && height > 30 ? (
@@ -2105,7 +2105,7 @@ const CustomizedContent = (props) => {
 };
 
 // Helper components
-const ReferenceLine = ({ x, y, stroke, label }) => {
+const ReferenceLine = ({ x: any, y, stroke, label }) => {
   return (
     <g>
       {x && (

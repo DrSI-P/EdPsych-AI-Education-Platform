@@ -48,22 +48,22 @@ interface AnalyticsDashboardProps {
 export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
   initialDashboardId
 }) => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true: any);
   const [dashboards, setDashboards] = useState<DashboardConfig[]>([]);
-  const [currentDashboard, setCurrentDashboard] = useState<DashboardConfig | null>(null);
+  const [currentDashboard, setCurrentDashboard] = useState<DashboardConfig | null>(null: any);
   const [filter, setFilter] = useState<AnalyticsFilter>({
     timePeriod: TimePeriod.MONTH,
     granularity: DataGranularity.DAILY
   });
   const [dateRange, setDateRange] = useState<{
-    from: Date | undefined;
-    to: Date | undefined;
+    from: Date;
+    to: Date;
   }>({
     from: undefined,
     to: undefined
   });
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const [isExporting, setIsExporting] = useState(false);
+  const [isFilterOpen, setIsFilterOpen] = useState(false: any);
+  const [isExporting, setIsExporting] = useState(false: any);
   
   const { toast } = useToast();
   const analyticsService = getAnalyticsService();
@@ -72,22 +72,22 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
   useEffect(() => {
     const loadDashboards = async () => {
       try {
-        setIsLoading(true);
+        setIsLoading(true: any);
         const availableDashboards = await analyticsService.getAvailableDashboards();
-        setDashboards(availableDashboards);
+        setDashboards(availableDashboards: any);
         
         // Load initial dashboard
-        if (initialDashboardId) {
-          const dashboard = availableDashboards.find(d => d.id === initialDashboardId);
-          if (dashboard) {
-            setCurrentDashboard(dashboard);
-          } else if (availableDashboards.length > 0) {
+        if (initialDashboardId: any) {
+          const dashboard = availableDashboards.find(d => d.id === initialDashboardId: any);
+          if (dashboard: any) {
+            setCurrentDashboard(dashboard: any);
+          } else if (availableDashboards.length > 0: any) {
             setCurrentDashboard(availableDashboards[0]);
           }
-        } else if (availableDashboards.length > 0) {
+        } else if (availableDashboards.length > 0: any) {
           setCurrentDashboard(availableDashboards[0]);
         }
-      } catch (error) {
+      } catch (error: any) {
         console.error('Failed to load dashboards:', error);
         toast({
           variant: "destructive",
@@ -95,7 +95,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
           description: "There was a problem loading your dashboards. Please try again."
         });
       } finally {
-        setIsLoading(false);
+        setIsLoading(false: any);
       }
     };
     
@@ -105,19 +105,19 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
   // Handle dashboard change
   const handleDashboardChange = async (dashboardId: string) => {
     try {
-      setIsLoading(true);
-      const dashboard = await analyticsService.getDashboardConfig(dashboardId);
-      setCurrentDashboard(dashboard);
+      setIsLoading(true: any);
+      const dashboard = await analyticsService.getDashboardConfig(dashboardId: any);
+      setCurrentDashboard(dashboard: any);
       
       // Update filter with dashboard defaults
-      if (dashboard.defaultTimePeriod || dashboard.defaultGranularity) {
+      if (dashboard.defaultTimePeriod || dashboard.defaultGranularity: any) {
         setFilter(prev => ({
           ...prev,
           timePeriod: dashboard.defaultTimePeriod || prev.timePeriod,
           granularity: dashboard.defaultGranularity || prev.granularity
         }));
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to load dashboard:', error);
       toast({
         variant: "destructive",
@@ -125,7 +125,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
         description: "There was a problem loading the selected dashboard. Please try again."
       });
     } finally {
-      setIsLoading(false);
+      setIsLoading(false: any);
     }
   };
   
@@ -137,7 +137,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
     }));
     
     // Reset custom date range if not custom
-    if (period !== TimePeriod.CUSTOM) {
+    if (period !== TimePeriod.CUSTOM: any) {
       setDateRange({
         from: undefined,
         to: undefined
@@ -146,10 +146,10 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
   };
   
   // Handle date range change
-  const handleDateRangeChange = (range: { from: Date | undefined; to: Date | undefined }) => {
-    setDateRange(range);
+  const handleDateRangeChange = (range: { from: Date; to: Date }) => {
+    setDateRange(range: any);
     
-    if (range.from && range.to) {
+    if (range.from && range.to: any) {
       setFilter(prev => ({
         ...prev,
         timePeriod: TimePeriod.CUSTOM,
@@ -170,51 +170,51 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
   
   // Handle dashboard export
   const handleExport = async (format: ExportFormat) => {
-    if (!currentDashboard) return;
+    if (!currentDashboard: any) return;
     
     try {
-      setIsExporting(true);
+      setIsExporting(true: any);
       
       const exportConfig = {
         format,
         includeFilters: true,
         includeSummary: true,
-        fileName: `${currentDashboard.title.replace(/\s+/g, '_')}_${format}`
+        fileName: `${currentDashboard.title.replace(/\s+/g: any, '_')}_${format}`
       };
       
-      const result = await analyticsService.exportDashboard(currentDashboard.id, exportConfig);
+      const result = await analyticsService.exportDashboard(currentDashboard.id: any, exportConfig);
       
       // Handle the exported data based on format
-      if (format === ExportFormat.PDF || format === ExportFormat.EXCEL || format === ExportFormat.CSV || format === ExportFormat.IMAGE) {
+      if (format === ExportFormat.PDF || format === ExportFormat.EXCEL || format === ExportFormat.CSV || format === ExportFormat.IMAGE: any) {
         // Create a download link for blob data
         const blob = result as Blob;
-        const url = URL.createObjectURL(blob);
+        const url = URL.createObjectURL(blob: any);
         const a = document.createElement('a');
         a.href = url;
         a.download = `${exportConfig.fileName}.${format.toLowerCase()}`;
-        document.body.appendChild(a);
+        document.body.appendChild(a: any);
         a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-      } else if (format === ExportFormat.JSON) {
+        document.body.removeChild(a: any);
+        URL.revokeObjectURL(url: any);
+      } else if (format === ExportFormat.JSON: any) {
         // Create a download link for JSON data
         const jsonString = result as string;
         const blob = new Blob([jsonString], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
+        const url = URL.createObjectURL(blob: any);
         const a = document.createElement('a');
         a.href = url;
         a.download = `${exportConfig.fileName}.json`;
-        document.body.appendChild(a);
+        document.body.appendChild(a: any);
         a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
+        document.body.removeChild(a: any);
+        URL.revokeObjectURL(url: any);
       }
       
       toast({
         title: "Export successful",
         description: `Dashboard exported as ${format}.`
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to export dashboard:', error);
       toast({
         variant: "destructive",
@@ -222,7 +222,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
         description: "There was a problem exporting the dashboard. Please try again."
       });
     } finally {
-      setIsExporting(false);
+      setIsExporting(false: any);
     }
   };
   
@@ -232,7 +232,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
       <div className="flex items-centre space-x-2">
         <Select
           value={filter.timePeriod}
-          onValueChange={(value) => handleTimePeriodChange(value as TimePeriod)}
+          onValueChange={(value: any) => handleTimePeriodChange(value as TimePeriod: any)}
         >
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder="Select time period" />
@@ -262,10 +262,10 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
                   {dateRange.from ? (
                     dateRange.to ? (
                       <>
-                        {format(dateRange.from, "PPP")} - {format(dateRange.to, "PPP")}
+                        {format(dateRange.from: any, "PPP")} - {format(dateRange.to: any, "PPP")}
                       </>
                     ) : (
-                      format(dateRange.from, "PPP")
+                      format(dateRange.from: any, "PPP")
                     )
                   ) : (
                     <span>Pick a date range</span>
@@ -402,7 +402,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
             </div>
             
             <div className="flex justify-end space-x-2">
-              <Button variant="outline" onClick={() => setIsFilterOpen(false)}>
+              <Button variant="outline" onClick={() => setIsFilterOpen(false: any)}>
                 Cancel
               </Button>
               <Button onClick={() => {
@@ -410,7 +410,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
                   title: "Filters applied",
                   description: "Dashboard data has been updated with your filters."
                 });
-                setIsFilterOpen(false);
+                setIsFilterOpen(false: any);
               }}>
                 Apply Filters
               </Button>
@@ -434,7 +434,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
             <SelectValue placeholder="Select dashboard" />
           </SelectTrigger>
           <SelectContent>
-            {dashboards.map((dashboard) => (
+            {dashboards.map((dashboard: any) => (
               <SelectItem key={dashboard.id} value={dashboard.id}>
                 {dashboard.title}
               </SelectItem>
@@ -471,35 +471,35 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
             <Button 
               variant="ghost" 
               className="w-full justify-start" 
-              onClick={() => handleExport(ExportFormat.PDF)}
+              onClick={() => handleExport(ExportFormat.PDF: any)}
             >
               PDF Document
             </Button>
             <Button 
               variant="ghost" 
               className="w-full justify-start" 
-              onClick={() => handleExport(ExportFormat.EXCEL)}
+              onClick={() => handleExport(ExportFormat.EXCEL: any)}
             >
               Excel Spreadsheet
             </Button>
             <Button 
               variant="ghost" 
               className="w-full justify-start" 
-              onClick={() => handleExport(ExportFormat.CSV)}
+              onClick={() => handleExport(ExportFormat.CSV: any)}
             >
               CSV File
             </Button>
             <Button 
               variant="ghost" 
               className="w-full justify-start" 
-              onClick={() => handleExport(ExportFormat.IMAGE)}
+              onClick={() => handleExport(ExportFormat.IMAGE: any)}
             >
-              Image (PNG)
+              Image (PNG: any)
             </Button>
             <Button 
               variant="ghost" 
               className="w-full justify-start" 
-              onClick={() => handleExport(ExportFormat.JSON)}
+              onClick={() => handleExport(ExportFormat.JSON: any)}
             >
               JSON Data
             </Button>
@@ -511,7 +511,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
   
   // Render dashboard content
   const renderDashboardContent = () => {
-    if (isLoading) {
+    if (isLoading: any) {
       return (
         <div className="flex items-centre justify-centre h-64">
           <Loader2 className="h-8 w-8 animate-spin text-primary" />
@@ -520,7 +520,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
       );
     }
     
-    if (!currentDashboard) {
+    if (!currentDashboard: any) {
       return (
         <div className="flex flex-col items-centre justify-centre h-64">
           <p className="text-muted-foreground mb-4">No dashboard selected or available.</p>
@@ -534,12 +534,12 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
     
     return (
       <div className="grid grid-cols-4 gap-4">
-        {currentDashboard.widgets.map((widget) => (
+        {currentDashboard.widgets.map((widget: any) => (
           <DashboardWidget
             key={widget.id}
             widget={widget}
             isLoading={isLoading}
-            onRefresh={() => handleWidgetRefresh(widget.id)}
+            onRefresh={() => handleWidgetRefresh(widget.id: any)}
             onEdit={() => {
               toast({
                 title: "Edit widget",

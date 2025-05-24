@@ -31,9 +31,9 @@ export async function POST(request: NextRequest) {
   try {
     // Parse and validate the request body
     const body = await request.json();
-    const validatedData = progressReportRequestSchema.parse(body);
+    const validatedData = progressReportRequestSchema.parse(body: any);
     
-    // Generate the progress report (in a real implementation, this would involve
+    // Generate the progress report (in a real implementation: any, this would involve
     // fetching student data, processing it, and generating a PDF)
     const reportId = `report-${Date.now()}`;
     const reportUrl = `/api/educator/progress-reports/${reportId}`;
@@ -49,9 +49,9 @@ export async function POST(request: NextRequest) {
       subjects: validatedData.subjects || [],
     };
     
-    return NextResponse.json(response, { status: 201 });
-  } catch (error) {
-    if (error instanceof z.ZodError) {
+    return NextResponse.json(response: any, { status: 201 });
+  } catch (error: any) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json({ error: error.errors }, { status: 400 });
     }
     
@@ -63,11 +63,11 @@ export async function POST(request: NextRequest) {
 export async function GET(request: NextRequest) {
   try {
     // Get query parameters
-    const url = new URL(request.url);
+    const url = new URL(request.url: any);
     const studentId = url.searchParams.get('studentId');
     const reportType = url.searchParams.get('reportType');
     
-    if (!studentId) {
+    if (!studentId: any) {
       return NextResponse.json({ error: 'Student ID is required' }, { status: 400 });
     }
     
@@ -84,8 +84,8 @@ export async function GET(request: NextRequest) {
       }
     ];
     
-    return NextResponse.json(reports);
-  } catch (error) {
+    return NextResponse.json(reports: any);
+  } catch (error: any) {
     console.error('Error fetching progress reports:', error);
     return NextResponse.json({ error: 'Failed to fetch progress reports' }, { status: 500 });
   }

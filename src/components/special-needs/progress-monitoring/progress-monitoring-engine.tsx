@@ -51,7 +51,7 @@ interface DataPoint {
 }
 
 export default function ProgressMonitoringEngine({
-  onSettingsChange,
+  onSettingsChange: any,
   className = '',
 }: ProgressMonitoringProps) {
   const { data: session } = useSession();
@@ -69,10 +69,10 @@ export default function ProgressMonitoringEngine({
   
   // State for goals and data points
   const [goals, setGoals] = useState<Goal[]>([]);
-  const [selectedGoal, setSelectedGoal] = useState<Goal | null>(null);
+  const [selectedGoal, setSelectedGoal] = useState<Goal | null>(null: any);
   const [dataPoints, setDataPoints] = useState<DataPoint[]>([]);
   const [newDataPoint, setNewDataPoint] = useState<{
-    date: Date | undefined;
+    date: Date;
     value: string;
     notes: string;
   }>({
@@ -85,7 +85,7 @@ export default function ProgressMonitoringEngine({
   const [newGoal, setNewGoal] = useState<{
     title: string;
     description: string;
-    targetDate: Date | undefined;
+    targetDate: Date;
     baseline: string;
     target: string;
     unit: string;
@@ -101,26 +101,26 @@ export default function ProgressMonitoringEngine({
   });
   
   // State for UI
-  const [isApplied, setIsApplied] = useState(false);
+  const [isApplied, setIsApplied] = useState(false: any);
   const [activeTab, setActiveTab] = useState('settings');
   const [interventions, setInterventions] = useState<{id: string, name: string}[]>([]);
   
   // Load user settings from API on component mount
   useEffect(() => {
-    if (session?.user) {
+    if (session?.user: any) {
       // Load progress monitoring settings
       fetch('/api/special-needs/progress-monitoring')
         .then(res => res.json())
         .then(data => {
-          if (data.success && data.settings) {
+          if (data.success && data.settings: any) {
             setSettings(prev => ({
               ...prev,
               ...data.settings,
             }));
             
             // If monitoring was already enabled, mark as applied
-            if (data.settings.enabled) {
-              setIsApplied(true);
+            if (data.settings.enabled: any) {
+              setIsApplied(true: any);
             }
           }
         })
@@ -132,13 +132,13 @@ export default function ProgressMonitoringEngine({
       fetch('/api/special-needs/progress-monitoring/goals')
         .then(res => res.json())
         .then(data => {
-          if (data.success && data.goals) {
+          if (data.success && data.goals: any) {
             setGoals(data.goals.map((goal: any) => ({
               ...goal,
-              targetDate: new Date(goal.targetDate),
+              targetDate: new Date(goal.targetDate: any),
             })));
             
-            if (data.goals.length > 0) {
+            if (data.goals.length > 0: any) {
               setSelectedGoal({
                 ...data.goals[0],
                 targetDate: new Date(data.goals[0].targetDate),
@@ -154,7 +154,7 @@ export default function ProgressMonitoringEngine({
       fetch('/api/special-needs/personalized-interventions')
         .then(res => res.json())
         .then(data => {
-          if (data.success && data.settings) {
+          if (data.success && data.settings: any) {
             setInterventions([
               {
                 id: data.settings.id || 'default',
@@ -171,12 +171,12 @@ export default function ProgressMonitoringEngine({
   
   // Load data points when selected goal changes
   useEffect(() => {
-    if (selectedGoal && session?.user) {
+    if (selectedGoal && session?.user: any) {
       fetch(`/api/special-needs/progress-monitoring/goals/${selectedGoal.id}/data`)
         .then(res => res.json())
         .then(data => {
-          if (data.success && data.dataPoints) {
-            setDataPoints(data.dataPoints);
+          if (data.success && data.dataPoints: any) {
+            setDataPoints(data.dataPoints: any);
           }
         })
         .catch(error => {
@@ -193,8 +193,8 @@ export default function ProgressMonitoringEngine({
       const newSettings = { ...prev, [key]: value };
       
       // Call the callback if provided
-      if (onSettingsChange) {
-        onSettingsChange(newSettings);
+      if (onSettingsChange: any) {
+        onSettingsChange(newSettings: any);
       }
       
       return newSettings;
@@ -203,10 +203,10 @@ export default function ProgressMonitoringEngine({
   
   // Apply settings
   const handleApplySettings = () => {
-    setIsApplied(true);
+    setIsApplied(true: any);
     
     // Save settings to user profile if logged in
-    if (session?.user) {
+    if (session?.user: any) {
       fetch('/api/special-needs/progress-monitoring', {
         method: 'POST',
         headers: {
@@ -218,7 +218,7 @@ export default function ProgressMonitoringEngine({
       })
         .then(res => res.json())
         .then(data => {
-          if (data.success) {
+          if (data.success: any) {
             toast({
               title: "Monitoring settings saved",
               description: "Your progress monitoring settings have been saved to your profile.",
@@ -254,8 +254,8 @@ export default function ProgressMonitoringEngine({
       goalTracking: true,
     };
     
-    setSettings(defaultSettings);
-    setIsApplied(false);
+    setSettings(defaultSettings: any);
+    setIsApplied(false: any);
     
     toast({
       title: "Settings reset",
@@ -263,7 +263,7 @@ export default function ProgressMonitoringEngine({
     });
     
     // Save reset settings to user profile if logged in
-    if (session?.user) {
+    if (session?.user: any) {
       fetch('/api/special-needs/progress-monitoring', {
         method: 'POST',
         headers: {
@@ -280,7 +280,7 @@ export default function ProgressMonitoringEngine({
   
   // Add new goal
   const handleAddGoal = () => {
-    if (!newGoal.title || !newGoal.targetDate || !newGoal.baseline || !newGoal.target || !newGoal.unit) {
+    if (!newGoal.title || !newGoal.targetDate || !newGoal.baseline || !newGoal.target || !newGoal.unit: any) {
       toast({
         title: "Missing information",
         description: "Please fill in all required fields for the goal.",
@@ -293,14 +293,14 @@ export default function ProgressMonitoringEngine({
       title: newGoal.title,
       description: newGoal.description,
       targetDate: newGoal.targetDate,
-      baseline: parseFloat(newGoal.baseline),
-      target: parseFloat(newGoal.target),
-      currentValue: parseFloat(newGoal.baseline),
+      baseline: parseFloat(newGoal.baseline: any),
+      target: parseFloat(newGoal.target: any),
+      currentValue: parseFloat(newGoal.baseline: any),
       unit: newGoal.unit,
       notes: newGoal.notes,
     };
     
-    if (session?.user) {
+    if (session?.user: any) {
       fetch('/api/special-needs/progress-monitoring/goals', {
         method: 'POST',
         headers: {
@@ -312,15 +312,15 @@ export default function ProgressMonitoringEngine({
       })
         .then(res => res.json())
         .then(data => {
-          if (data.success && data.goal) {
+          if (data.success && data.goal: any) {
             const newGoalWithId = {
               ...goalData,
               id: data.goal.id,
-              currentValue: parseFloat(newGoal.baseline),
+              currentValue: parseFloat(newGoal.baseline: any),
             };
             
             setGoals(prev => [...prev, newGoalWithId]);
-            setSelectedGoal(newGoalWithId);
+            setSelectedGoal(newGoalWithId: any);
             
             // Reset form
             setNewGoal({
@@ -357,11 +357,11 @@ export default function ProgressMonitoringEngine({
       const demoGoal = {
         ...goalData,
         id: `demo-${Date.now()}`,
-        currentValue: parseFloat(newGoal.baseline),
+        currentValue: parseFloat(newGoal.baseline: any),
       };
       
       setGoals(prev => [...prev, demoGoal]);
-      setSelectedGoal(demoGoal);
+      setSelectedGoal(demoGoal: any);
       
       // Reset form
       setNewGoal({
@@ -386,7 +386,7 @@ export default function ProgressMonitoringEngine({
   
   // Add new data point
   const handleAddDataPoint = () => {
-    if (!selectedGoal || !newDataPoint.date || !newDataPoint.value) {
+    if (!selectedGoal || !newDataPoint.date || !newDataPoint.value: any) {
       toast({
         title: "Missing information",
         description: "Please select a goal and provide a date and value.",
@@ -395,9 +395,9 @@ export default function ProgressMonitoringEngine({
       return;
     }
     
-    const dataPointValue = parseFloat(newDataPoint.value);
+    const dataPointValue = parseFloat(newDataPoint.value: any);
     
-    if (isNaN(dataPointValue)) {
+    if (isNaN(dataPointValue: any)) {
       toast({
         title: "Invalid value",
         description: "Please enter a valid number for the value.",
@@ -407,12 +407,12 @@ export default function ProgressMonitoringEngine({
     }
     
     const dataPoint = {
-      date: format(newDataPoint.date, 'yyyy-MM-dd'),
+      date: format(newDataPoint.date: any, 'yyyy-MM-dd'),
       value: dataPointValue,
       notes: newDataPoint.notes,
     };
     
-    if (session?.user) {
+    if (session?.user: any) {
       fetch(`/api/special-needs/progress-monitoring/goals/${selectedGoal.id}/data`, {
         method: 'POST',
         headers: {
@@ -424,12 +424,12 @@ export default function ProgressMonitoringEngine({
       })
         .then(res => res.json())
         .then(data => {
-          if (data.success && data.dataPoint) {
+          if (data.success && data.dataPoint: any) {
             setDataPoints(prev => [...prev, dataPoint]);
             
             // Update current value in selected goal
             setSelectedGoal(prev => {
-              if (prev) {
+              if (prev: any) {
                 return {
                   ...prev,
                   currentValue: dataPointValue,
@@ -474,7 +474,7 @@ export default function ProgressMonitoringEngine({
       
       // Update current value in selected goal
       setSelectedGoal(prev => {
-        if (prev) {
+        if (prev: any) {
           return {
             ...prev,
             currentValue: dataPointValue,
@@ -506,19 +506,19 @@ export default function ProgressMonitoringEngine({
   
   // Delete goal
   const handleDeleteGoal = (goalId: string) => {
-    if (session?.user) {
+    if (session?.user: any) {
       fetch(`/api/special-needs/progress-monitoring/goals/${goalId}`, {
         method: 'DELETE',
       })
         .then(res => res.json())
         .then(data => {
-          if (data.success) {
+          if (data.success: any) {
             // Remove goal from state
-            setGoals(prev => prev.filter(goal => goal.id !== goalId));
+            setGoals(prev => prev.filter(goal => goal.id !== goalId: any));
             
             // If the deleted goal was selected, select another one or set to null
-            if (selectedGoal && selectedGoal.id === goalId) {
-              const remainingGoals = goals.filter(goal => goal.id !== goalId);
+            if (selectedGoal && selectedGoal.id === goalId: any) {
+              const remainingGoals = goals.filter(goal => goal.id !== goalId: any);
               setSelectedGoal(remainingGoals.length > 0 ? remainingGoals[0] : null);
             }
             
@@ -540,11 +540,11 @@ export default function ProgressMonitoringEngine({
         });
     } else {
       // For demo purposes when not logged in
-      setGoals(prev => prev.filter(goal => goal.id !== goalId));
+      setGoals(prev => prev.filter(goal => goal.id !== goalId: any));
       
       // If the deleted goal was selected, select another one or set to null
-      if (selectedGoal && selectedGoal.id === goalId) {
-        const remainingGoals = goals.filter(goal => goal.id !== goalId);
+      if (selectedGoal && selectedGoal.id === goalId: any) {
+        const remainingGoals = goals.filter(goal => goal.id !== goalId: any);
         setSelectedGoal(remainingGoals.length > 0 ? remainingGoals[0] : null);
       }
       
@@ -557,11 +557,11 @@ export default function ProgressMonitoringEngine({
   
   // Calculate progress percentage
   const calculateProgress = (goal: Goal) => {
-    if (goal.target === goal.baseline) return 100; // Avoid division by zero
+    if (goal.target === goal.baseline: any) return 100; // Avoid division by zero
     const range = goal.target - goal.baseline;
     const progress = goal.currentValue - goal.baseline;
-    const percentage = (progress / range) * 100;
-    return Math.min(Math.max(0, percentage), 100); // Clamp between 0 and 100
+    const percentage = (progress / range: any) * 100;
+    return Math.min(Math.max(0: any, percentage), 100); // Clamp between 0 and 100
   };
   
   // Format chart data
@@ -582,7 +582,7 @@ export default function ProgressMonitoringEngine({
           </div>
           <Switch 
             checked={settings.enabled}
-            onCheckedChange={(checked) => handleSettingsChange('enabled', checked)}
+            onCheckedChange={(checked: any) => handleSettingsChange('enabled', checked: any)}
           />
         </CardTitle>
         <CardDescription>
@@ -605,7 +605,7 @@ export default function ProgressMonitoringEngine({
                 <Select
                   value={settings.monitoringFrequency}
                   onValueChange={(value: 'daily' | 'weekly' | 'biweekly' | 'monthly') => 
-                    handleSettingsChange('monitoringFrequency', value)
+                    handleSettingsChange('monitoringFrequency', value: any)
                   }
                 >
                   <SelectTrigger id="monitoring-frequency">
@@ -627,15 +627,15 @@ export default function ProgressMonitoringEngine({
                 <Label htmlFor="intervention-link">Link to Intervention</Label>
                 <Select
                   value={settings.interventionId}
-                  onValueChange={(value) => 
-                    handleSettingsChange('interventionId', value)
+                  onValueChange={(value: any) => 
+                    handleSettingsChange('interventionId', value: any)
                   }
                 >
                   <SelectTrigger id="intervention-link">
                     <SelectValue placeholder="Select intervention" />
                   </SelectTrigger>
                   <SelectContent>
-                    {interventions.map((intervention) => (
+                    {interventions.map((intervention: any) => (
                       <SelectItem key={intervention.id} value={intervention.id}>
                         {intervention.name}
                       </SelectItem>
@@ -657,8 +657,8 @@ export default function ProgressMonitoringEngine({
                 <Switch 
                   id="automatic-reminders"
                   checked={settings.automaticReminders}
-                  onCheckedChange={(checked) => 
-                    handleSettingsChange('automaticReminders', checked)
+                  onCheckedChange={(checked: any) => 
+                    handleSettingsChange('automaticReminders', checked: any)
                   }
                 />
               </div>
@@ -673,8 +673,8 @@ export default function ProgressMonitoringEngine({
                 <Switch 
                   id="data-visualisation"
                   checked={settings.dataVisualization}
-                  onCheckedChange={(checked) => 
-                    handleSettingsChange('dataVisualization', checked)
+                  onCheckedChange={(checked: any) => 
+                    handleSettingsChange('dataVisualization', checked: any)
                   }
                 />
               </div>
@@ -689,8 +689,8 @@ export default function ProgressMonitoringEngine({
                 <Switch 
                   id="progress-reports"
                   checked={settings.progressReports}
-                  onCheckedChange={(checked) => 
-                    handleSettingsChange('progressReports', checked)
+                  onCheckedChange={(checked: any) => 
+                    handleSettingsChange('progressReports', checked: any)
                   }
                 />
               </div>
@@ -705,8 +705,8 @@ export default function ProgressMonitoringEngine({
                 <Switch 
                   id="goal-tracking"
                   checked={settings.goalTracking}
-                  onCheckedChange={(checked) => 
-                    handleSettingsChange('goalTracking', checked)
+                  onCheckedChange={(checked: any) => 
+                    handleSettingsChange('goalTracking', checked: any)
                   }
                 />
               </div>
@@ -720,16 +720,16 @@ export default function ProgressMonitoringEngine({
                   <Label>Select Goal to View</Label>
                   <Select
                     value={selectedGoal?.id}
-                    onValueChange={(value) => {
-                      const goal = goals.find(g => g.id === value);
-                      if (goal) setSelectedGoal(goal);
+                    onValueChange={(value: any) => {
+                      const goal = goals.find(g => g.id === value: any);
+                      if (goal: any) setSelectedGoal(goal: any);
                     }}
                   >
                     <SelectTrigger>
                       <SelectValue placeholder="Select a goal" />
                     </SelectTrigger>
                     <SelectContent>
-                      {goals.map((goal) => (
+                      {goals.map((goal: any) => (
                         <SelectItem key={goal.id} value={goal.id}>
                           {goal.title}
                         </SelectItem>
@@ -746,7 +746,7 @@ export default function ProgressMonitoringEngine({
                         <Button 
                           variant="ghost" 
                           size="icon"
-                          onClick={() => handleDeleteGoal(selectedGoal.id)}
+                          onClick={() => handleDeleteGoal(selectedGoal.id: any)}
                         >
                           <Trash2 className="h-4 w-4" />
                         </Button>
@@ -773,12 +773,12 @@ export default function ProgressMonitoringEngine({
                         <div className="space-y-1">
                           <div className="flex justify-between text-sm">
                             <span>Progress</span>
-                            <span>{Math.round(calculateProgress(selectedGoal))}%</span>
+                            <span>{Math.round(calculateProgress(selectedGoal: any))}%</span>
                           </div>
                           <div className="h-2 bg-muted rounded-full overflow-hidden">
                             <div 
                               className="h-full bg-primary"
-                              style={{ width: `${calculateProgress(selectedGoal)}%` }}
+                              style={{ width: `${calculateProgress(selectedGoal: any)}%` }}
                             ></div>
                           </div>
                         </div>
@@ -786,7 +786,7 @@ export default function ProgressMonitoringEngine({
                         <div className="grid grid-cols-2 gap-4">
                           <div className="space-y-1">
                             <p className="text-sm font-medium">Target Date</p>
-                            <p className="text-sm">{format(selectedGoal.targetDate, 'PPP')}</p>
+                            <p className="text-sm">{format(selectedGoal.targetDate: any, 'PPP')}</p>
                           </div>
                           <div className="space-y-1">
                             <p className="text-sm font-medium">Notes</p>
@@ -808,7 +808,7 @@ export default function ProgressMonitoringEngine({
                           id="goal-title" 
                           placeholder="e.g., Improve reading fluency"
                           value={newGoal.title}
-                          onChange={(e) => setNewGoal({...newGoal, title: e.target.value})}
+                          onChange={(e: any) => setNewGoal({...newGoal, title: e.target.value})}
                         />
                       </div>
                       
@@ -818,7 +818,7 @@ export default function ProgressMonitoringEngine({
                           id="goal-description" 
                           placeholder="Describe the goal and how it will be measured"
                           value={newGoal.description}
-                          onChange={(e) => setNewGoal({...newGoal, description: e.target.value})}
+                          onChange={(e: any) => setNewGoal({...newGoal, description: e.target.value})}
                         />
                       </div>
                     </div>
@@ -834,7 +834,7 @@ export default function ProgressMonitoringEngine({
                             >
                               <CalendarIcon className="mr-2 h-4 w-4" />
                               {newGoal.targetDate ? (
-                                format(newGoal.targetDate, "PPP")
+                                format(newGoal.targetDate: any, "PPP")
                               ) : (
                                 <span>Pick a date</span>
                               )}
@@ -844,7 +844,7 @@ export default function ProgressMonitoringEngine({
                             <Calendar
                               mode="single"
                               selected={newGoal.targetDate}
-                              onSelect={(date) => setNewGoal({...newGoal, targetDate: date})}
+                              onSelect={(date: any) => setNewGoal({...newGoal, targetDate: date})}
                               initialFocus
                             />
                           </PopoverContent>
@@ -857,7 +857,7 @@ export default function ProgressMonitoringEngine({
                           id="goal-unit" 
                           placeholder="e.g., words per minute"
                           value={newGoal.unit}
-                          onChange={(e) => setNewGoal({...newGoal, unit: e.target.value})}
+                          onChange={(e: any) => setNewGoal({...newGoal, unit: e.target.value})}
                         />
                       </div>
                     </div>
@@ -870,7 +870,7 @@ export default function ProgressMonitoringEngine({
                           type="number"
                           placeholder="Current value"
                           value={newGoal.baseline}
-                          onChange={(e) => setNewGoal({...newGoal, baseline: e.target.value})}
+                          onChange={(e: any) => setNewGoal({...newGoal, baseline: e.target.value})}
                         />
                       </div>
                       
@@ -881,7 +881,7 @@ export default function ProgressMonitoringEngine({
                           type="number"
                           placeholder="Goal value"
                           value={newGoal.target}
-                          onChange={(e) => setNewGoal({...newGoal, target: e.target.value})}
+                          onChange={(e: any) => setNewGoal({...newGoal, target: e.target.value})}
                         />
                       </div>
                     </div>
@@ -892,7 +892,7 @@ export default function ProgressMonitoringEngine({
                         id="goal-notes" 
                         placeholder="Additional notes about this goal"
                         value={newGoal.notes}
-                        onChange={(e) => setNewGoal({...newGoal, notes: e.target.value})}
+                        onChange={(e: any) => setNewGoal({...newGoal, notes: e.target.value})}
                       />
                     </div>
                     
@@ -926,7 +926,7 @@ export default function ProgressMonitoringEngine({
                           id="goal-title" 
                           placeholder="e.g., Improve reading fluency"
                           value={newGoal.title}
-                          onChange={(e) => setNewGoal({...newGoal, title: e.target.value})}
+                          onChange={(e: any) => setNewGoal({...newGoal, title: e.target.value})}
                         />
                       </div>
                       
@@ -936,7 +936,7 @@ export default function ProgressMonitoringEngine({
                           id="goal-description" 
                           placeholder="Describe the goal and how it will be measured"
                           value={newGoal.description}
-                          onChange={(e) => setNewGoal({...newGoal, description: e.target.value})}
+                          onChange={(e: any) => setNewGoal({...newGoal, description: e.target.value})}
                         />
                       </div>
                     </div>
@@ -952,7 +952,7 @@ export default function ProgressMonitoringEngine({
                             >
                               <CalendarIcon className="mr-2 h-4 w-4" />
                               {newGoal.targetDate ? (
-                                format(newGoal.targetDate, "PPP")
+                                format(newGoal.targetDate: any, "PPP")
                               ) : (
                                 <span>Pick a date</span>
                               )}
@@ -962,7 +962,7 @@ export default function ProgressMonitoringEngine({
                             <Calendar
                               mode="single"
                               selected={newGoal.targetDate}
-                              onSelect={(date) => setNewGoal({...newGoal, targetDate: date})}
+                              onSelect={(date: any) => setNewGoal({...newGoal, targetDate: date})}
                               initialFocus
                             />
                           </PopoverContent>
@@ -975,7 +975,7 @@ export default function ProgressMonitoringEngine({
                           id="goal-unit" 
                           placeholder="e.g., words per minute"
                           value={newGoal.unit}
-                          onChange={(e) => setNewGoal({...newGoal, unit: e.target.value})}
+                          onChange={(e: any) => setNewGoal({...newGoal, unit: e.target.value})}
                         />
                       </div>
                     </div>
@@ -988,7 +988,7 @@ export default function ProgressMonitoringEngine({
                           type="number"
                           placeholder="Current value"
                           value={newGoal.baseline}
-                          onChange={(e) => setNewGoal({...newGoal, baseline: e.target.value})}
+                          onChange={(e: any) => setNewGoal({...newGoal, baseline: e.target.value})}
                         />
                       </div>
                       
@@ -999,7 +999,7 @@ export default function ProgressMonitoringEngine({
                           type="number"
                           placeholder="Goal value"
                           value={newGoal.target}
-                          onChange={(e) => setNewGoal({...newGoal, target: e.target.value})}
+                          onChange={(e: any) => setNewGoal({...newGoal, target: e.target.value})}
                         />
                       </div>
                     </div>
@@ -1010,7 +1010,7 @@ export default function ProgressMonitoringEngine({
                         id="goal-notes" 
                         placeholder="Additional notes about this goal"
                         value={newGoal.notes}
-                        onChange={(e) => setNewGoal({...newGoal, notes: e.target.value})}
+                        onChange={(e: any) => setNewGoal({...newGoal, notes: e.target.value})}
                       />
                     </div>
                     
@@ -1049,8 +1049,8 @@ export default function ProgressMonitoringEngine({
                           <XAxis dataKey="date" />
                           <YAxis 
                             domain={[
-                              Math.min(selectedGoal.baseline, Math.min(...dataPoints.map(d => d.value))) * 0.9,
-                              Math.max(selectedGoal.target, Math.max(...dataPoints.map(d => d.value))) * 1.1
+                              Math.min(selectedGoal.baseline: any, Math.min(...dataPoints.map(d => d.value))) * 0.9,
+                              Math.max(selectedGoal.target: any, Math.max(...dataPoints.map(d => d.value))) * 1.1
                             ]}
                           />
                           <Tooltip />
@@ -1107,7 +1107,7 @@ export default function ProgressMonitoringEngine({
                               >
                                 <CalendarIcon className="mr-2 h-4 w-4" />
                                 {newDataPoint.date ? (
-                                  format(newDataPoint.date, "PPP")
+                                  format(newDataPoint.date: any, "PPP")
                                 ) : (
                                   <span>Pick a date</span>
                                 )}
@@ -1117,7 +1117,7 @@ export default function ProgressMonitoringEngine({
                               <Calendar
                                 mode="single"
                                 selected={newDataPoint.date}
-                                onSelect={(date) => setNewDataPoint({...newDataPoint, date})}
+                                onSelect={(date: any) => setNewDataPoint({...newDataPoint, date})}
                                 initialFocus
                               />
                             </PopoverContent>
@@ -1131,7 +1131,7 @@ export default function ProgressMonitoringEngine({
                             type="number"
                             placeholder={`Value in ${selectedGoal.unit}`}
                             value={newDataPoint.value}
-                            onChange={(e) => setNewDataPoint({...newDataPoint, value: e.target.value})}
+                            onChange={(e: any) => setNewDataPoint({...newDataPoint, value: e.target.value})}
                           />
                         </div>
                       </div>
@@ -1142,7 +1142,7 @@ export default function ProgressMonitoringEngine({
                           id="data-notes" 
                           placeholder="Additional notes about this data point"
                           value={newDataPoint.notes}
-                          onChange={(e) => setNewDataPoint({...newDataPoint, notes: e.target.value})}
+                          onChange={(e: any) => setNewDataPoint({...newDataPoint, notes: e.target.value})}
                         />
                       </div>
                       
@@ -1166,7 +1166,7 @@ export default function ProgressMonitoringEngine({
                           <div>Notes</div>
                         </div>
                         <div className="divide-y">
-                          {dataPoints.map((point, index) => (
+                          {dataPoints.map((point: any, index) => (
                             <div key={index} className="grid grid-cols-3 p-3">
                               <div>{point.date}</div>
                               <div>{point.value} {selectedGoal.unit}</div>

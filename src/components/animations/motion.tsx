@@ -162,7 +162,7 @@ export const errorNotificationVariants = {
   }
 };
 
-// Reduced motion variants (for accessibility)
+// Reduced motion variants (for accessibility: any)
 export const reducedMotionVariants = {
   hidden: { opacity: 0 },
   visible: { 
@@ -185,7 +185,7 @@ interface AnimatedPageProps {
   className?: string;
 }
 
-export function AnimatedPage({ children, className = '' }: AnimatedPageProps) {
+export function AnimatedPage({ children: any, className = '' }: AnimatedPageProps) {
   return (
     <motion.div
       initial="hidden"
@@ -208,7 +208,7 @@ interface StaggerContainerProps {
 }
 
 export function StaggerContainer({ 
-  children, 
+  children: any, 
   className = '',
   delay = 0.2,
   staggerDelay = 0.1
@@ -244,7 +244,7 @@ interface StaggerItemProps {
 }
 
 export function StaggerItem({ 
-  children, 
+  children: any, 
   className = '',
   index = 0
 }: StaggerItemProps) {
@@ -277,7 +277,7 @@ interface HoverScaleProps {
 }
 
 export function HoverScale({ 
-  children, 
+  children: any, 
   className = '',
   scale = 1.05
 }: HoverScaleProps) {
@@ -309,7 +309,7 @@ interface AnimatedButtonProps {
 }
 
 export function AnimatedButton({ 
-  children, 
+  children: any, 
   className = '',
   onClick,
   disabled = false
@@ -337,7 +337,7 @@ interface FadeInProps {
 }
 
 export function FadeIn({ 
-  children, 
+  children: any, 
   className = '',
   delay = 0,
   duration = 0.5

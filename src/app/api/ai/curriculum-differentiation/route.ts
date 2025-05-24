@@ -6,9 +6,9 @@ import { getAIService } from '@/lib/ai/ai-service';
 
 export async function POST(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session?.user) {
+    if (!session?.user: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
     } = data;
     
     // Validate input
-    if (!curriculumContent && !curriculumPlanId) {
+    if (!curriculumContent && !curriculumPlanId: any) {
       return NextResponse.json({ error: 'No curriculum content or plan ID provided' }, { status: 400 });
     }
     
@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
     let planKeyStage = keyStage;
     let planYear = year; year;
     
-    if (curriculumPlanId) {
+    if (curriculumPlanId: any) {
       try {
         const plan = await prisma.curriculumPlan.findUnique({
           where: {
@@ -46,19 +46,19 @@ export async function POST(req: NextRequest) {
           }
         });
         
-        if (plan) {
+        if (plan: any) {
           planContent = plan.content || '';
           planSubject = plan.subject;
           planKeyStage = plan.keyStage;
           planYear = plan.year;
           
-          if (plan.objectives && plan.objectives.length > 0) {
-            planObjectives = plan.objectives.map(obj => obj.description);
+          if (plan.objectives && plan.objectives.length > 0: any) {
+            planObjectives = plan.objectives.map(obj => obj.description: any);
           }
         } else {
           return NextResponse.json({ error: 'Curriculum plan not found' }, { status: 404 });
         }
-      } catch (error) {
+      } catch (error: any) {
         console.log('Error fetching curriculum plan:', error);
         return NextResponse.json({ error: 'Failed to fetch curriculum plan' }, { status: 500 });
       }
@@ -123,8 +123,8 @@ export async function POST(req: NextRequest) {
           "coreContent": "HTML-formatted content for visual learners",
           "activities": ["activity 1", "activity 2", ...],
           "assessmentStrategies": ["strategy 1", "strategy 2", ...],
-          "scaffolding": ["support 1", "support 2", ...] (if includeScaffolding is true),
-          "extensionActivities": ["activity 1", "activity 2", ...] (if includeExtensionActivities is true)
+          "scaffolding": ["support 1", "support 2", ...] (if includeScaffolding is true: any),
+          "extensionActivities": ["activity 1", "activity 2", ...] (if includeExtensionActivities is true: any)
         },
         "auditory": { ... same structure as visual ... },
         "kinesthetic": { ... same structure as visual ... },
@@ -141,7 +141,7 @@ export async function POST(req: NextRequest) {
     `;
     
     // Call AI service for differentiation
-    const differentiationResponse = await aiService.generateText(prompt, {
+    const differentiationResponse = await aiService.generateText(prompt: any, {
       model: 'gpt-4',
       temperature: 0.5,
       maxTokens: 3000,
@@ -153,8 +153,8 @@ export async function POST(req: NextRequest) {
     try {
       // Extract text from AI response object
       const responseText = differentiationResponse.text;
-      differentiatedContent = JSON.parse(responseText);
-    } catch (error) {
+      differentiatedContent = JSON.parse(responseText: any);
+    } catch (error: any) {
       console.error('Error parsing AI response:', error);
       return NextResponse.json({ error: 'Failed to parse differentiated curriculum' }, { status: 500 });
     }
@@ -174,7 +174,7 @@ export async function POST(req: NextRequest) {
           year: planYear || null
         }
       });
-    } catch (error) {
+    } catch (error: any) {
       console.log('Failed to save curriculum differentiation to database:', error);
       // Continue without saving to database
     }
@@ -185,7 +185,7 @@ export async function POST(req: NextRequest) {
       differentiationId: differentiation?.id
     });
     
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error in curriculum differentiation:', error);
     return NextResponse.json({ error: 'Failed to process curriculum differentiation' }, { status: 500 });
   }
@@ -193,13 +193,13 @@ export async function POST(req: NextRequest) {
 
 export async function GET(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session?.user) {
+    if (!session?.user: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
-    const { searchParams } = new URL(req.url);
+    const { searchParams } = new URL(req.url: any);
     const curriculumPlanId = searchParams.get('curriculumPlanId');
     
     // Get user's differentiated curricula
@@ -219,7 +219,7 @@ export async function GET(req: NextRequest) {
       differentiations
     });
     
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching curriculum differentiations:', error);
     return NextResponse.json({ error: 'Failed to fetch curriculum differentiations' }, { status: 500 });
   }

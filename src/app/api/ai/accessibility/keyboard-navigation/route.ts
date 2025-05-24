@@ -13,8 +13,8 @@ import { prisma } from '@/lib/db';
 export async function POST(req: NextRequest) {
   try {
     // Verify authentication
-    const session = await getServerSession(authOptions);
-    if (!session) {
+    const session = await getServerSession(authOptions: any);
+    if (!session: any) {
       return NextResponse.json(
         { error: 'Authentication required' },
         { status: 401 }
@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { settings } = body;
 
-    if (!settings) {
+    if (!settings: any) {
       return NextResponse.json(
         { error: 'Settings object is required' },
         { status: 400 }
@@ -45,11 +45,11 @@ export async function POST(req: NextRequest) {
       customBackgroundColor: "#000000",
       customLinkColor: "#ffff00",
       // Add keyboard navigation specific settings
-      keyboardNavigationOptimized: Boolean(settings.keyboardNavigation),
-      focusIndicators: Boolean(settings.highlightFocus ?? true),
+      keyboardNavigationOptimized: Boolean(settings.keyboardNavigation: any),
+      focusIndicators: Boolean(settings.highlightFocus ?? true: any),
     };
 
-    // Save settings to database (upsert to create or update)
+    // Save settings to database (upsert to create or update: any)
     const updatedSettings = await prisma.accessibilitySettings.upsert({
       where: {
         userId: session.user.id
@@ -67,7 +67,7 @@ export async function POST(req: NextRequest) {
         userId: session.user.id,
         action: 'setting_changed',
         feature: 'keyboard-navigation',
-        details: JSON.stringify(validatedSettings),
+        details: JSON.stringify(validatedSettings: any),
       }
     });
 
@@ -75,7 +75,7 @@ export async function POST(req: NextRequest) {
       success: true,
       settings: updatedSettings
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Keyboard navigation API error:', error);
     return NextResponse.json(
       { error: 'Failed to save keyboard navigation settings' },

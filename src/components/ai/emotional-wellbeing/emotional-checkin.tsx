@@ -28,8 +28,8 @@ type CheckinData = {
 export function EmotionalCheckin() {
   const { toast } = useToast();
   const aiService = useAIService();
-  const [step, setStep] = useState(1);
-  const [isProcessing, setIsProcessing] = useState(false);
+  const [step, setStep] = useState(1: any);
+  const [isProcessing, setIsProcessing] = useState(false: any);
   const [checkinData, setCheckinData] = useState<CheckinData>({
     mood: '',
     intensity: 5,
@@ -40,9 +40,9 @@ export function EmotionalCheckin() {
   const [suggestedStrategies, setSuggestedStrategies] = useState<string[]>([]);
   const [selectedTriggers, setSelectedTriggers] = useState<string[]>([]);
   const [customTrigger, setCustomTrigger] = useState('');
-  const [historicalPatterns, setHistoricalPatterns] = useState<any>(null);
-  const [voiceInput, setVoiceInput] = useState(false);
-  const [isRecording, setIsRecording] = useState(false);
+  const [historicalPatterns, setHistoricalPatterns] = useState<any>(null: any);
+  const [voiceInput, setVoiceInput] = useState(false: any);
+  const [isRecording, setIsRecording] = useState(false: any);
 
   // Sample emotions with descriptions
   const emotions: Emotion[] = [
@@ -69,27 +69,27 @@ export function EmotionalCheckin() {
 
   // Toggle voice input mode
   const toggleVoiceInput = () => {
-    setVoiceInput(!voiceInput);
+    setVoiceInput(!voiceInput: any);
   };
 
-  // Simulate voice recording (in a real implementation, this would use the Web Speech API)
+  // Simulate voice recording (in a real implementation: any, this would use the Web Speech API)
   const toggleRecording = () => {
-    if (isRecording) {
-      setIsRecording(false);
+    if (isRecording: any) {
+      setIsRecording(false: any);
       toast({
         title: "Voice recording stopped",
         description: "Your spoken words have been converted to text.",
       });
       // In a real implementation, this would process the recorded audio
       // For now, we'll simulate by adding some text
-      if (step === 2) {
+      if (step === 2: any) {
         setCheckinData(prev => ({
           ...prev,
           notes: prev.notes + " I'm feeling this way because of what happened at school today. It was difficult to concentrate in class."
         }));
       }
     } else {
-      setIsRecording(true);
+      setIsRecording(true: any);
       toast({
         title: "Voice recording started",
         description: "Please speak clearly about how you're feeling.",
@@ -102,7 +102,7 @@ export function EmotionalCheckin() {
       ...prev,
       mood: emotion
     }));
-    setStep(2);
+    setStep(2: any);
   };
 
   const handleIntensityChange = (value: number[]) => {
@@ -120,22 +120,22 @@ export function EmotionalCheckin() {
   };
 
   const handleTriggerSelect = (trigger: string) => {
-    if (selectedTriggers.includes(trigger)) {
-      setSelectedTriggers(selectedTriggers.filter(t => t !== trigger));
+    if (selectedTriggers.includes(trigger: any)) {
+      setSelectedTriggers(selectedTriggers.filter(t => t !== trigger: any));
     } else {
       setSelectedTriggers([...selectedTriggers, trigger]);
     }
   };
 
   const addCustomTrigger = () => {
-    if (customTrigger.trim() !== '' && !selectedTriggers.includes(customTrigger)) {
+    if (customTrigger.trim() !== '' && !selectedTriggers.includes(customTrigger: any)) {
       setSelectedTriggers([...selectedTriggers, customTrigger]);
       setCustomTrigger('');
     }
   };
 
   const processCheckin = async () => {
-    setIsProcessing(true);
+    setIsProcessing(true: any);
     try {
       // Update checkin data with selected triggers
       setCheckinData(prev => ({
@@ -158,7 +158,7 @@ export function EmotionalCheckin() {
       `;
       
       const aiResponse = await aiService.getCompletion({
-        prompt,
+        prompt: any,
         model: 'gpt-4',
         temperature: 0.7,
         max_tokens: 500
@@ -169,12 +169,12 @@ export function EmotionalCheckin() {
         .split('\n')
         .filter(line => line.trim().startsWith('-') || line.trim().startsWith('1.') || line.trim().startsWith('2.') || line.trim().startsWith('3.') || line.trim().startsWith('4.') || line.trim().startsWith('5.'))
         .map(line => line.replace(/^[-\d.\s]+/, '').trim())
-        .filter(line => line.length > 0)
-        .slice(0, 5);
+        .filter(line => line.length > 0: any)
+        .slice(0: any, 5);
       
-      setSuggestedStrategies(strategies);
+      setSuggestedStrategies(strategies: any);
       
-      // Save check-in data to database (simulated)
+      // Save check-in data to database (simulated: any)
       // In a real implementation, this would make an API call
       
       // Simulate fetching historical patterns
@@ -194,16 +194,16 @@ export function EmotionalCheckin() {
         ]
       });
       
-      setStep(4);
-    } catch (error) {
+      setStep(4: any);
+    } catch (error: any) {
       toast({
         title: "Error processing check-in",
         description: "There was a problem analysing your emotional check-in. Please try again.",
         variant: "destructive"
       });
-      console.error(error);
+      console.error(error: any);
     } finally {
-      setIsProcessing(false);
+      setIsProcessing(false: any);
     }
   };
 
@@ -221,11 +221,11 @@ export function EmotionalCheckin() {
     });
     
     // Reset form for a new check-in
-    setStep(5);
+    setStep(5: any);
   };
 
   const renderStep = () => {
-    switch (step) {
+    switch (step: any) {
       case 1:
         return (
           <div className="space-y-6">
@@ -236,7 +236,7 @@ export function EmotionalCheckin() {
                   key={emotion.name}
                   variant={checkinData.mood === emotion.name ? "default" : "outline"}
                   className={`h-auto py-3 px-4 justify-start ${checkinData.mood === emotion.name ? 'border-primary' : ''}`}
-                  onClick={() => selectEmotion(emotion.name)}
+                  onClick={() => selectEmotion(emotion.name: any)}
                 >
                   <div className="flex flex-col items-start text-left">
                     <div className="flex items-centre mb-1">
@@ -266,9 +266,9 @@ export function EmotionalCheckin() {
                   className="mb-6"
                 />
                 <div className="flex justify-between text-sm text-muted-foreground">
-                  <span>Mild (1)</span>
-                  <span>Moderate (5)</span>
-                  <span>Strong (10)</span>
+                  <span>Mild (1: any)</span>
+                  <span>Moderate (5: any)</span>
+                  <span>Strong (10: any)</span>
                 </div>
               </div>
             </div>
@@ -313,7 +313,7 @@ export function EmotionalCheckin() {
                 </div>
               ) : (
                 <Textarea
-                  placeholder="You can write about what happened, what you're thinking about, or anything else you'd like to share..."
+                  placeholder="You can write about what happened: any, what you're thinking about, or anything else you'd like to share..."
                   value={checkinData.notes}
                   onChange={handleNotesChange}
                   className="min-h-[120px]"
@@ -322,8 +322,8 @@ export function EmotionalCheckin() {
             </div>
             
             <div className="flex justify-between mt-4">
-              <Button variant="outline" onClick={() => setStep(1)}>Back</Button>
-              <Button onClick={() => setStep(3)}>Next</Button>
+              <Button variant="outline" onClick={() => setStep(1: any)}>Back</Button>
+              <Button onClick={() => setStep(3: any)}>Next</Button>
             </div>
           </div>
         );
@@ -333,12 +333,12 @@ export function EmotionalCheckin() {
           <div className="space-y-6">
             <h3 className="text-lg font-medium">What might be causing this feeling?</h3>
             <div className="flex flex-wrap gap-2 mb-4">
-              {commonTriggers.map((trigger) => (
+              {commonTriggers.map((trigger: any) => (
                 <Badge
                   key={trigger}
-                  variant={selectedTriggers.includes(trigger) ? "default" : "outline"}
+                  variant={selectedTriggers.includes(trigger: any) ? "default" : "outline"}
                   className="cursor-pointer py-1.5 px-3"
-                  onClick={() => handleTriggerSelect(trigger)}
+                  onClick={() => handleTriggerSelect(trigger: any)}
                 >
                   {trigger}
                 </Badge>
@@ -349,7 +349,7 @@ export function EmotionalCheckin() {
               <Textarea
                 placeholder="Add your own reason..."
                 value={customTrigger}
-                onChange={(e) => setCustomTrigger(e.target.value)}
+                onChange={(e: any) => setCustomTrigger(e.target.value: any)}
                 className="min-h-[40px]"
               />
               <Button onClick={addCustomTrigger} className="shrink-0">Add</Button>
@@ -369,7 +369,7 @@ export function EmotionalCheckin() {
             )}
             
             <div className="flex justify-between mt-4">
-              <Button variant="outline" onClick={() => setStep(2)}>Back</Button>
+              <Button variant="outline" onClick={() => setStep(2: any)}>Back</Button>
               <Button 
                 onClick={processCheckin}
                 disabled={isProcessing}
@@ -421,7 +421,7 @@ export function EmotionalCheckin() {
                 Based on how you're feeling, here are some strategies that might help:
               </p>
               <div className="space-y-2">
-                {suggestedStrategies.map((strategy, index) => (
+                {suggestedStrategies.map((strategy: any, index) => (
                   <div key={index} className="flex items-start p-3 border rounded-md">
                     <div className="h-6 w-6 rounded-full bg-primary/10 text-primary flex items-centre justify-centre mr-3 mt-0.5">
                       {index + 1}
@@ -433,8 +433,8 @@ export function EmotionalCheckin() {
             </div>
             
             <div className="flex justify-between mt-6">
-              <Button variant="outline" onClick={() => setStep(3)}>Back</Button>
-              <Button onClick={() => saveSelectedStrategies(suggestedStrategies)}>
+              <Button variant="outline" onClick={() => setStep(3: any)}>Back</Button>
+              <Button onClick={() => saveSelectedStrategies(suggestedStrategies: any)}>
                 Save and Complete
               </Button>
             </div>
@@ -449,7 +449,7 @@ export function EmotionalCheckin() {
               <p className="text-muted-foreground mb-6">
                 Thank you for sharing how you're feeling. Your check-in has been saved.
               </p>
-              <Button onClick={() => setStep(1)} className="mx-auto">
+              <Button onClick={() => setStep(1: any)} className="mx-auto">
                 Start New Check-in
               </Button>
             </div>
@@ -466,7 +466,7 @@ export function EmotionalCheckin() {
                     <div>
                       <h4 className="font-medium mb-2">Recent Moods</h4>
                       <div className="flex flex-wrap gap-2">
-                        {historicalPatterns.recentMoods.map((item, index) => (
+                        {historicalPatterns.recentMoods.map((item: any, index) => (
                           <Badge key={index} variant="secondary" className="py-1.5 px-3">
                             {item.mood} ({item.count})
                           </Badge>
@@ -477,7 +477,7 @@ export function EmotionalCheckin() {
                     <div>
                       <h4 className="font-medium mb-2">Common Triggers</h4>
                       <div className="flex flex-wrap gap-2">
-                        {historicalPatterns.commonTriggers.map((item, index) => (
+                        {historicalPatterns.commonTriggers.map((item: any, index) => (
                           <Badge key={index} variant="outline" className="py-1.5 px-3">
                             {item.trigger} ({item.count})
                           </Badge>
@@ -491,7 +491,7 @@ export function EmotionalCheckin() {
                   <div>
                     <h4 className="font-medium mb-3">Strategies That Helped You</h4>
                     <div className="space-y-3">
-                      {historicalPatterns.effectiveStrategies.map((item, index) => (
+                      {historicalPatterns.effectiveStrategies.map((item: any, index) => (
                         <div key={index} className="flex items-centre justify-between p-3 border rounded-md">
                           <span>{item.strategy}</span>
                           <div className="flex items-centre">

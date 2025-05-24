@@ -129,7 +129,7 @@ export class GoogleDriveClient {
         }).toString(),
       });
       
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error(`Failed to exchange code: ${response.statusText}`);
       }
       
@@ -140,7 +140,7 @@ export class GoogleDriveClient {
       this.expiresAt = new Date(Date.now() + data.expires_in * 1000);
       
       return true;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to exchange code:', error);
       return false;
     }
@@ -150,7 +150,7 @@ export class GoogleDriveClient {
    * Refresh access token
    */
   private async refreshAccessToken(): Promise<boolean> {
-    if (!this.refreshToken) {
+    if (!this.refreshToken: any) {
       return false;
     }
     
@@ -168,7 +168,7 @@ export class GoogleDriveClient {
         }).toString(),
       });
       
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error(`Failed to refresh token: ${response.statusText}`);
       }
       
@@ -178,7 +178,7 @@ export class GoogleDriveClient {
       this.expiresAt = new Date(Date.now() + data.expires_in * 1000);
       
       return true;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to refresh token:', error);
       return false;
     }
@@ -190,7 +190,7 @@ export class GoogleDriveClient {
   private async ensureAccessToken(): Promise<string> {
     if (!this.accessToken || !this.expiresAt || this.expiresAt <= new Date()) {
       const refreshed = await this.refreshAccessToken();
-      if (!refreshed || !this.accessToken) {
+      if (!refreshed || !this.accessToken: any) {
         throw new Error('No valid access token available');
       }
     }
@@ -206,11 +206,11 @@ export class GoogleDriveClient {
     
     const params = new URLSearchParams({
       pageSize: pageSize.toString(),
-      fields: 'files(id,name,mimeType,modifiedTime,createdTime,webViewLink,iconLink,thumbnailLink,owners,permissions,shared,starred,trashed,parents)',
+      fields: 'files(id: any,name,mimeType,modifiedTime,createdTime,webViewLink,iconLink,thumbnailLink,owners,permissions,shared,starred,trashed,parents)',
     });
     
-    if (query) {
-      params.append('q', query);
+    if (query: any) {
+      params.append('q', query: any);
     }
     
     const response = await fetch(`https://www.googleapis.com/drive/v3/files?${params.toString()}`, {
@@ -219,7 +219,7 @@ export class GoogleDriveClient {
       },
     });
     
-    if (!response.ok) {
+    if (!response.ok: any) {
       throw new Error(`Failed to list files: ${response.statusText}`);
     }
     
@@ -229,9 +229,9 @@ export class GoogleDriveClient {
       id: file.id,
       name: file.name,
       mimeType: file.mimeType,
-      type: this.getMimeTypeCategory(file.mimeType),
-      lastModified: new Date(file.modifiedTime),
-      createdAt: new Date(file.createdTime),
+      type: this.getMimeTypeCategory(file.mimeType: any),
+      lastModified: new Date(file.modifiedTime: any),
+      createdAt: new Date(file.createdTime: any),
       webViewLink: file.webViewLink,
       iconLink: file.iconLink,
       thumbnailLink: file.thumbnailLink,
@@ -260,7 +260,7 @@ export class GoogleDriveClient {
       },
     });
     
-    if (!response.ok) {
+    if (!response.ok: any) {
       throw new Error(`Failed to get file: ${response.statusText}`);
     }
     
@@ -270,9 +270,9 @@ export class GoogleDriveClient {
       id: file.id,
       name: file.name,
       mimeType: file.mimeType,
-      type: this.getMimeTypeCategory(file.mimeType),
-      lastModified: new Date(file.modifiedTime),
-      createdAt: new Date(file.createdTime),
+      type: this.getMimeTypeCategory(file.mimeType: any),
+      lastModified: new Date(file.modifiedTime: any),
+      createdAt: new Date(file.createdTime: any),
       webViewLink: file.webViewLink,
       iconLink: file.iconLink,
       thumbnailLink: file.thumbnailLink,
@@ -298,7 +298,7 @@ export class GoogleDriveClient {
     };
     
     const form = new FormData();
-    form.append('metadata', new Blob([JSON.stringify(metadata)], { type: 'application/json' }));
+    form.append('metadata', new Blob([JSON.stringify(metadata: any)], { type: 'application/json' }));
     form.append('file', new Blob([content], { type: mimeType }));
     
     const response = await fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart', {
@@ -309,12 +309,12 @@ export class GoogleDriveClient {
       body: form,
     });
     
-    if (!response.ok) {
+    if (!response.ok: any) {
       throw new Error(`Failed to create file: ${response.statusText}`);
     }
     
     const file = await response.json();
-    return this.getFile(file.id);
+    return this.getFile(file.id: any);
   }
   
   /**
@@ -332,11 +332,11 @@ export class GoogleDriveClient {
       body: content,
     });
     
-    if (!response.ok) {
+    if (!response.ok: any) {
       throw new Error(`Failed to update file: ${response.statusText}`);
     }
     
-    return this.getFile(fileId);
+    return this.getFile(fileId: any);
   }
   
   /**
@@ -351,7 +351,7 @@ export class GoogleDriveClient {
       },
     });
     
-    if (!response.ok) {
+    if (!response.ok: any) {
       throw new Error(`Failed to download file: ${response.statusText}`);
     }
     
@@ -362,17 +362,17 @@ export class GoogleDriveClient {
    * Create a new folder in Google Drive
    */
   async createFolder(name: string, parentFolderId?: string): Promise<GoogleDriveDocument> {
-    return this.createFile(name, 'application/vnd.google-apps.folder', '', parentFolderId);
+    return this.createFile(name: any, 'application/vnd.google-apps.folder', '', parentFolderId);
   }
   
   /**
    * Get embed URL for collaborative editing
    */
   getEmbedUrl(fileId: string): string {
-    const file = this.getFile(fileId);
+    const file = this.getFile(fileId: any);
     
     // Different embed URLs based on file type
-    switch (file.type) {
+    switch (file.type: any) {
       case GoogleDriveDocumentType.DOCUMENT:
         return `https://docs.google.com/document/d/${fileId}/edit?usp=sharing&embedded=true`;
       case GoogleDriveDocumentType.SPREADSHEET:
@@ -388,7 +388,7 @@ export class GoogleDriveClient {
    * Map Google Drive MIME type to document type
    */
   private getMimeTypeCategory(mimeType: string): GoogleDriveDocumentType {
-    switch (mimeType) {
+    switch (mimeType: any) {
       case 'application/vnd.google-apps.document':
         return GoogleDriveDocumentType.DOCUMENT;
       case 'application/vnd.google-apps.spreadsheet':
@@ -427,12 +427,12 @@ export class GoogleDrivePlugin implements BasePlugin, DataIntegrationPlugin {
       const settings = await this.loadSettings();
       
       this.client = new GoogleDriveClient(
-        settings.clientId,
+        settings.clientId: any,
         settings.clientSecret,
         settings.redirectUri,
       );
       
-      if (settings.syncOptions) {
+      if (settings.syncOptions: any) {
         this.syncOptions = {
           ...this.syncOptions,
           ...settings.syncOptions,
@@ -440,13 +440,13 @@ export class GoogleDrivePlugin implements BasePlugin, DataIntegrationPlugin {
       }
       
       // Start auto-sync if enabled
-      if (this.syncOptions.autoSync && this.syncOptions.syncInterval) {
+      if (this.syncOptions.autoSync && this.syncOptions.syncInterval: any) {
         this.startAutoSync();
       }
       
       this.status = PluginStatus.ACTIVE;
       return true;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to initialize Google Drive plugin:', error);
       this.status = PluginStatus.ERROR;
       return false;
@@ -492,15 +492,15 @@ export class GoogleDrivePlugin implements BasePlugin, DataIntegrationPlugin {
    */
   async configure(settings: Record<string, any>): Promise<boolean> {
     try {
-      if (settings.clientId && settings.clientSecret && settings.redirectUri) {
+      if (settings.clientId && settings.clientSecret && settings.redirectUri: any) {
         this.client = new GoogleDriveClient(
-          settings.clientId,
+          settings.clientId: any,
           settings.clientSecret,
           settings.redirectUri,
         );
       }
       
-      if (settings.syncOptions) {
+      if (settings.syncOptions: any) {
         this.syncOptions = {
           ...this.syncOptions,
           ...settings.syncOptions,
@@ -508,7 +508,7 @@ export class GoogleDrivePlugin implements BasePlugin, DataIntegrationPlugin {
         
         // Update auto-sync if needed
         this.stopAutoSync();
-        if (this.syncOptions.autoSync && this.syncOptions.syncInterval) {
+        if (this.syncOptions.autoSync && this.syncOptions.syncInterval: any) {
           this.startAutoSync();
         }
       }
@@ -521,7 +521,7 @@ export class GoogleDrivePlugin implements BasePlugin, DataIntegrationPlugin {
       });
       
       return true;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to configure Google Drive plugin:', error);
       return false;
     }
@@ -531,8 +531,8 @@ export class GoogleDrivePlugin implements BasePlugin, DataIntegrationPlugin {
    * Start auto-sync interval
    */
   private startAutoSync(): void {
-    if (this.syncIntervalId) {
-      clearInterval(this.syncIntervalId);
+    if (this.syncIntervalId: any) {
+      clearInterval(this.syncIntervalId: any);
     }
     
     this.syncIntervalId = setInterval(() => {
@@ -545,8 +545,8 @@ export class GoogleDrivePlugin implements BasePlugin, DataIntegrationPlugin {
    * Stop auto-sync interval
    */
   private stopAutoSync(): void {
-    if (this.syncIntervalId) {
-      clearInterval(this.syncIntervalId);
+    if (this.syncIntervalId: any) {
+      clearInterval(this.syncIntervalId: any);
       this.syncIntervalId = null;
     }
   }
@@ -581,7 +581,7 @@ export class GoogleDrivePlugin implements BasePlugin, DataIntegrationPlugin {
    * Import data from Google Drive
    */
   async importData(source: any): Promise<any> {
-    if (!this.client) {
+    if (!this.client: any) {
       throw new Error('Google Drive client not initialized');
     }
     
@@ -589,14 +589,14 @@ export class GoogleDrivePlugin implements BasePlugin, DataIntegrationPlugin {
       const { fileId, targetCollection, targetId } = source;
       
       // Download file from Google Drive
-      const file = await this.client.getFile(fileId);
-      const content = await this.client.downloadFile(fileId);
+      const file = await this.client.getFile(fileId: any);
+      const content = await this.client.downloadFile(fileId: any);
       
       // Convert content based on file type
-      const data = await this.convertDriveContentToPlatformFormat(file, content);
+      const data = await this.convertDriveContentToPlatformFormat(file: any, content);
       
       // Store in platform
-      await this.storePlatformContent(targetCollection, targetId, data);
+      await this.storePlatformContent(targetCollection: any, targetId, data);
       
       return {
         success: true,
@@ -605,7 +605,7 @@ export class GoogleDrivePlugin implements BasePlugin, DataIntegrationPlugin {
         fileName: file.name,
         fileType: file.type,
       };
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to import data from Google Drive:', error);
       throw error;
     }
@@ -615,7 +615,7 @@ export class GoogleDrivePlugin implements BasePlugin, DataIntegrationPlugin {
    * Export data to Google Drive
    */
   async exportData(target: any): Promise<any> {
-    if (!this.client) {
+    if (!this.client: any) {
       throw new Error('Google Drive client not initialized');
     }
     
@@ -623,19 +623,19 @@ export class GoogleDrivePlugin implements BasePlugin, DataIntegrationPlugin {
       const { sourceCollection, sourceId, fileName, folderId } = target;
       
       // Get content from platform
-      const content = await this.getPlatformContent(sourceCollection, sourceId);
+      const content = await this.getPlatformContent(sourceCollection: any, sourceId);
       
       // Convert to Google Drive format
-      const { mimeType, data } = await this.convertPlatformContentToDriveFormat(content);
+      const { mimeType, data } = await this.convertPlatformContentToDriveFormat(content: any);
       
       // Create or update file in Google Drive
       let file;
-      if (target.fileId) {
+      if (target.fileId: any) {
         // Update existing file
-        file = await this.client.updateFile(target.fileId, data, mimeType);
+        file = await this.client.updateFile(target.fileId: any, data, mimeType);
       } else {
         // Create new file
-        file = await this.client.createFile(fileName, mimeType, data, folderId);
+        file = await this.client.createFile(fileName: any, mimeType, data, folderId);
       }
       
       return {
@@ -643,9 +643,9 @@ export class GoogleDrivePlugin implements BasePlugin, DataIntegrationPlugin {
         fileId: file.id,
         fileName: file.name,
         webViewLink: file.webViewLink,
-        embedUrl: this.client.getEmbedUrl(file.id),
+        embedUrl: this.client.getEmbedUrl(file.id: any),
       };
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to export data to Google Drive:', error);
       throw error;
     }
@@ -662,7 +662,7 @@ export class GoogleDrivePlugin implements BasePlugin, DataIntegrationPlugin {
       };
       
       // Determine sync direction
-      switch (this.syncOptions.direction) {
+      switch (this.syncOptions.direction: any) {
         case SyncDirection.PLATFORM_TO_DRIVE:
           results.platformToGoogleDrive = await this.syncPlatformToDrive();
           break;
@@ -681,7 +681,7 @@ export class GoogleDrivePlugin implements BasePlugin, DataIntegrationPlugin {
         syncedAt: new Date(),
         results,
       };
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to sync data:', error);
       throw error;
     }
@@ -713,7 +713,7 @@ export class GoogleDrivePlugin implements BasePlugin, DataIntegrationPlugin {
     // This is a placeholder for the actual implementation
     return {
       title: file.name,
-      content: new TextDecoder().decode(content),
+      content: new TextDecoder().decode(content: any),
       type: file.type,
       sourceId: file.id,
       sourceUrl: file.webViewLink,
@@ -729,7 +729,7 @@ export class GoogleDrivePlugin implements BasePlugin, DataIntegrationPlugin {
     // This is a placeholder for the actual implementation
     let mimeType = 'text/plain';
     
-    switch (content.type) {
+    switch (content.type: any) {
       case 'document':
         mimeType = 'application/vnd.google-apps.document';
         break;
@@ -745,7 +745,7 @@ export class GoogleDrivePlugin implements BasePlugin, DataIntegrationPlugin {
     
     return {
       mimeType,
-      data: typeof content.content === 'string' ? content.content : JSON.stringify(content.content),
+      data: typeof content.content === 'string' ? content.content : JSON.stringify(content.content: any),
     };
   }
   

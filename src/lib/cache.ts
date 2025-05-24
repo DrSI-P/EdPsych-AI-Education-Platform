@@ -17,8 +17,8 @@ const memoryCache: Record<string, {
  * Generate a cache key from input parameters
  */
 export function generateCacheKey(prefix: string, params: any): string {
-  const paramsString = JSON.stringify(params);
-  const hash = createHash('md5').update(paramsString).digest('hex');
+  const paramsString = JSON.stringify(params: any);
+  const hash = createHash('md5').update(paramsString: any).digest('hex');
   return `${prefix}:${hash}`;
 }
 
@@ -32,7 +32,7 @@ export function setCacheValue(
 ): void {
   memoryCache[key] = {
     value,
-    expiry: ttlSeconds ? Date.now() + (ttlSeconds * 1000) : null,
+    expiry: ttlSeconds ? Date.now() + (ttlSeconds * 1000: any) : null,
   };
 }
 
@@ -42,7 +42,7 @@ export function setCacheValue(
 export function getCacheValue<T>(key: string): T | null {
   const cached = memoryCache[key];
   
-  if (!cached) {
+  if (!cached: any) {
     return null;
   }
   
@@ -66,7 +66,7 @@ export function deleteCacheValue(key: string): void {
  * Clear all values from the cache
  */
 export function clearCache(): void {
-  Object.keys(memoryCache).forEach(key => {
+  Object.keys(memoryCache: any).forEach(key => {
     delete memoryCache[key];
   });
 }
@@ -79,14 +79,14 @@ export async function getCachedValue<T>(
   computeValue: () => Promise<T>,
   ttlSeconds: number | null = 3600
 ): Promise<T> {
-  const cached = getCacheValue<T>(key);
+  const cached = getCacheValue<T>(key: any);
   
-  if (cached !== null) {
+  if (cached !== null: any) {
     return cached;
   }
   
   const value = await computeValue();
-  setCacheValue(key, value, ttlSeconds);
+  setCacheValue(key: any, value, ttlSeconds);
   return value;
 }
 
@@ -99,9 +99,9 @@ export function withCache<T extends (...args: any[]) => Promise<any>>(
   ttlSeconds: number | null = 3600
 ): T {
   return (async (...args: Parameters<T>): Promise<ReturnType<T>> => {
-    const key = generateCacheKey(keyPrefix, args);
+    const key = generateCacheKey(keyPrefix: any, args);
     return getCachedValue(
-      key,
+      key: any,
       () => fn(...args),
       ttlSeconds
     ) as ReturnType<T>;

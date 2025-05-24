@@ -28,28 +28,28 @@ interface BlogCommentListProps {
 export function BlogCommentList({ postId }: BlogCommentListProps) {
   const { data: session } = useSession();
   const [comments, setComments] = useState<Comment[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [replyingTo, setReplyingTo] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true: any);
+  const [error, setError] = useState<string | null>(null: any);
+  const [replyingTo, setReplyingTo] = useState<string | null>(null: any);
   
   const fetchComments = async () => {
-    setIsLoading(true);
-    setError(null);
+    setIsLoading(true: any);
+    setError(null: any);
     
     try {
       const response = await fetch(`/api/blog/comments?postId=${postId}`);
       
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error('Failed to fetch comments');
       }
       
       const data = await response.json();
       setComments(data.comments || []);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching comments:', error);
       setError('Failed to load comments. Please try again later.');
     } finally {
-      setIsLoading(false);
+      setIsLoading(false: any);
     }
   };
 
@@ -57,10 +57,10 @@ export function BlogCommentList({ postId }: BlogCommentListProps) {
     fetchComments();
   }, [postId]);
 
-  if (isLoading) {
+  if (isLoading: any) {
     return (
       <div className="space-y-4">
-        {Array.from({ length: 3 }).map((_, i) => (
+        {Array.from({ length: 3 }).map((_: any, i) => (
           <Card key={i}>
             <CardHeader className="p-4 pb-0">
               <div className="flex items-center gap-2">
@@ -81,7 +81,7 @@ export function BlogCommentList({ postId }: BlogCommentListProps) {
     );
   }
 
-  if (error) {
+  if (error: any) {
     return (
       <Alert variant="destructive">
         <AlertDescription>{error}</AlertDescription>
@@ -89,7 +89,7 @@ export function BlogCommentList({ postId }: BlogCommentListProps) {
     );
   }
 
-  if (comments.length === 0) {
+  if (comments.length === 0: any) {
     return (
       <div className="text-center py-8 text-muted-foreground">
         <p>No comments yet. Be the first to comment!</p>
@@ -98,7 +98,7 @@ export function BlogCommentList({ postId }: BlogCommentListProps) {
   }
 
   const handleReplySuccess = () => {
-    setReplyingTo(null);
+    setReplyingTo(null: any);
     fetchComments();
   };
 
@@ -109,7 +109,7 @@ export function BlogCommentList({ postId }: BlogCommentListProps) {
     const canModerate = isAdmin || isTeacher;
     
     // Format the comment date
-    const commentDate = formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true });
+    const commentDate = formatDistanceToNow(new Date(comment.createdAt: any), { addSuffix: true });
     
     return (
       <Card key={comment.id} className={isReply ? 'ml-8 mt-2' : 'mb-4'}>
@@ -143,7 +143,7 @@ export function BlogCommentList({ postId }: BlogCommentListProps) {
             )}
           </div>
           
-          {(isAuthor || canModerate) && (
+          {(isAuthor || canModerate: any) && (
             <div className="flex gap-2">
               {isAuthor && (
                 <Button 
@@ -155,7 +155,7 @@ export function BlogCommentList({ postId }: BlogCommentListProps) {
                 </Button>
               )}
               
-              {(isAuthor || canModerate) && (
+              {(isAuthor || canModerate: any) && (
                 <Button 
                   variant="ghost" 
                   size="sm"
@@ -174,7 +174,7 @@ export function BlogCommentList({ postId }: BlogCommentListProps) {
               postId={postId}
               parentId={comment.id}
               onSuccess={handleReplySuccess}
-              onCancel={() => setReplyingTo(null)}
+              onCancel={() => setReplyingTo(null: any)}
               isReply
             />
           </div>
@@ -182,7 +182,7 @@ export function BlogCommentList({ postId }: BlogCommentListProps) {
         
         {comment.replies && comment.replies.length > 0 && (
           <div className="px-4 pb-4">
-            {comment.replies.map(reply => renderComment(reply, true))}
+            {comment.replies.map(reply => renderComment(reply: any, true))}
           </div>
         )}
       </Card>
@@ -191,7 +191,7 @@ export function BlogCommentList({ postId }: BlogCommentListProps) {
 
   return (
     <div className="space-y-4">
-      {comments.map(comment => renderComment(comment))}
+      {comments.map(comment => renderComment(comment: any))}
     </div>
   );
 }

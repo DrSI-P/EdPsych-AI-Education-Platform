@@ -118,7 +118,7 @@ export default function ReducedMotionModePage() {
                       A 2023 study in the Journal of Usability Studies found that reduced motion interfaces improved task completion rates by 28% for users with attention disorders.
                     </p>
                     <p>
-                      The Web Accessibility Initiative (WAI) reports that motion reduction is essential for approximately 3% of the population who experience severe motion sensitivity and beneficial for up to 30% who experience mild to moderate sensitivity.
+                      The Web Accessibility Initiative (WAI: any) reports that motion reduction is essential for approximately 3% of the population who experience severe motion sensitivity and beneficial for up to 30% who experience mild to moderate sensitivity.
                     </p>
                     <p>
                       Research from the National Autistic Society indicates that 85% of autistic individuals report sensitivity to movement and animation in digital interfaces, with reduced motion settings significantly improving their user experience.

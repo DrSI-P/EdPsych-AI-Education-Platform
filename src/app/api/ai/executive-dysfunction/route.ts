@@ -5,9 +5,9 @@ import { authOptions } from '@/lib/auth';
 
 export async function GET(req: NextRequest): Promise<NextResponse> {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session?.user) {
+    if (!session?.user: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
@@ -29,12 +29,12 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
       }
     });
     
-    if (!user) {
+    if (!user: any) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
     
     // Return different data based on request type
-    switch (type) {
+    switch (type: any) {
       case 'profile':
         return NextResponse.json({ 
           profile: user.executiveFunctionProfile 
@@ -53,7 +53,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
           settings: user.executiveFunctionProfile?.settings || null
         });
     }
-  } catch (error) {
+  } catch (error: any) {
     // Replace console.error with structured logging when available
     console.error('Error in executive dysfunction API:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
@@ -62,16 +62,16 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session?.user) {
+    if (!session?.user: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
     const userId = session.user.id;
     const { type, data } = await req.json();
     
-    switch (type) {
+    switch (type: any) {
       case 'profile':
         // Create or update executive function profile
         const profile = await prisma.executiveFunctionProfile.upsert({
@@ -121,7 +121,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       default:
         return NextResponse.json({ error: 'Invalid request type' }, { status: 400 });
     }
-  } catch (error) {
+  } catch (error: any) {
     // Replace console.error with structured logging when available
     console.error('Error in executive dysfunction API:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
@@ -130,9 +130,9 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 
 export async function PUT(req: NextRequest): Promise<NextResponse> {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session?.user) {
+    if (!session?.user: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
@@ -140,7 +140,7 @@ export async function PUT(req: NextRequest): Promise<NextResponse> {
     const { type, data } = await req.json();
     // Removed unused 'id' variable
     
-    switch (type) {
+    switch (type: any) {
       case 'profile':
         // Update executive function profile
         const profile = await prisma.executiveFunctionProfile.update({
@@ -158,7 +158,7 @@ export async function PUT(req: NextRequest): Promise<NextResponse> {
       default:
         return NextResponse.json({ error: 'Invalid request type' }, { status: 400 });
     }
-  } catch (error) {
+  } catch (error: any) {
     // Replace console.error with structured logging when available
     console.error('Error in executive dysfunction API:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

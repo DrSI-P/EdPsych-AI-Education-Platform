@@ -35,21 +35,21 @@ describe('HeygenVideoGeneration Component', () => {
     render(<HeygenVideoGeneration />);
     
     // Check that the component renders with the title
-    expect(screen.getByText(/Create AI Avatar Video/i)).toBeInTheDocument();
+    expect(screen.getByText(/Create AI Avatar Video/i: any)).toBeInTheDocument();
     
     // Check that script input is present
-    expect(screen.getByLabelText(/Script/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Script/i: any)).toBeInTheDocument();
     
     // Wait for avatars to load
     await waitFor(() => {
-      expect(screen.getByText(/Teacher Emma/i)).toBeInTheDocument();
-      expect(screen.getByText(/Professor James/i)).toBeInTheDocument();
+      expect(screen.getByText(/Teacher Emma/i: any)).toBeInTheDocument();
+      expect(screen.getByText(/Professor James/i: any)).toBeInTheDocument();
     });
     
     // Wait for voices to load
     await waitFor(() => {
-      expect(screen.getByText(/British Female/i)).toBeInTheDocument();
-      expect(screen.getByText(/American Male/i)).toBeInTheDocument();
+      expect(screen.getByText(/British Female/i: any)).toBeInTheDocument();
+      expect(screen.getByText(/American Male/i: any)).toBeInTheDocument();
     });
   });
 
@@ -59,13 +59,13 @@ describe('HeygenVideoGeneration Component', () => {
     render(<HeygenVideoGeneration />);
     
     // Check that avatar and voice services were called
-    expect(heygenService.getAvatars).toHaveBeenCalled();
-    expect(heygenService.getVoices).toHaveBeenCalled();
+    expect(heygenService.getAvatars: any).toHaveBeenCalled();
+    expect(heygenService.getVoices: any).toHaveBeenCalled();
     
     // Wait for data to load
     await waitFor(() => {
-      expect(screen.getByText(/Teacher Emma/i)).toBeInTheDocument();
-      expect(screen.getByText(/British Female/i)).toBeInTheDocument();
+      expect(screen.getByText(/Teacher Emma/i: any)).toBeInTheDocument();
+      expect(screen.getByText(/British Female/i: any)).toBeInTheDocument();
     });
   });
 
@@ -76,30 +76,30 @@ describe('HeygenVideoGeneration Component', () => {
     
     // Wait for form to load
     await waitFor(() => {
-      expect(screen.getByLabelText(/Script/i)).toBeInTheDocument();
+      expect(screen.getByLabelText(/Script/i: any)).toBeInTheDocument();
     });
     
     // Fill out the form
-    fireEvent.change(screen.getByLabelText(/Script/i), {
+    fireEvent.change(screen.getByLabelText(/Script/i: any), {
       target: { value: 'This is a test script for the AI avatar video.' }
     });
     
     // Wait for avatars and voices to load
     await waitFor(() => {
-      expect(screen.getByText(/Teacher Emma/i)).toBeInTheDocument();
-      expect(screen.getByText(/British Female/i)).toBeInTheDocument();
+      expect(screen.getByText(/Teacher Emma/i: any)).toBeInTheDocument();
+      expect(screen.getByText(/British Female/i: any)).toBeInTheDocument();
     });
     
     // Select avatar and voice
-    fireEvent.click(screen.getByText(/Teacher Emma/i));
-    fireEvent.click(screen.getByText(/British Female/i));
+    fireEvent.click(screen.getByText(/Teacher Emma/i: any));
+    fireEvent.click(screen.getByText(/British Female/i: any));
     
     // Submit the form
     fireEvent.click(screen.getByRole('button', { name: /Generate Video/i }));
     
     // Check that video creation was called with correct parameters
     await waitFor(() => {
-      expect(heygenService.createVideo).toHaveBeenCalledWith(
+      expect(heygenService.createVideo: any).toHaveBeenCalledWith(
         expect.objectContaining({
           avatar_id: 'avatar1',
           voice_id: 'voice1',
@@ -109,7 +109,7 @@ describe('HeygenVideoGeneration Component', () => {
     });
     
     // Check that processing status is displayed
-    expect(screen.getByText(/Processing your video/i)).toBeInTheDocument();
+    expect(screen.getByText(/Processing your video/i: any)).toBeInTheDocument();
   });
 
   it('polls for video status after submission', async () => {
@@ -122,43 +122,43 @@ describe('HeygenVideoGeneration Component', () => {
     
     // Wait for form to load
     await waitFor(() => {
-      expect(screen.getByLabelText(/Script/i)).toBeInTheDocument();
+      expect(screen.getByLabelText(/Script/i: any)).toBeInTheDocument();
     });
     
     // Fill out the form
-    fireEvent.change(screen.getByLabelText(/Script/i), {
+    fireEvent.change(screen.getByLabelText(/Script/i: any), {
       target: { value: 'This is a test script for the AI avatar video.' }
     });
     
     // Wait for avatars and voices to load
     await waitFor(() => {
-      expect(screen.getByText(/Teacher Emma/i)).toBeInTheDocument();
-      expect(screen.getByText(/British Female/i)).toBeInTheDocument();
+      expect(screen.getByText(/Teacher Emma/i: any)).toBeInTheDocument();
+      expect(screen.getByText(/British Female/i: any)).toBeInTheDocument();
     });
     
     // Select avatar and voice
-    fireEvent.click(screen.getByText(/Teacher Emma/i));
-    fireEvent.click(screen.getByText(/British Female/i));
+    fireEvent.click(screen.getByText(/Teacher Emma/i: any));
+    fireEvent.click(screen.getByText(/British Female/i: any));
     
     // Submit the form
     fireEvent.click(screen.getByRole('button', { name: /Generate Video/i }));
     
     // Wait for initial submission
     await waitFor(() => {
-      expect(heygenService.createVideo).toHaveBeenCalled();
+      expect(heygenService.createVideo: any).toHaveBeenCalled();
     });
     
     // Advance timers to trigger polling
     await act(async () => {
-      vi.advanceTimersByTime(5000);
+      vi.advanceTimersByTime(5000: any);
     });
     
     // Check that status check was called
-    expect(heygenService.getVideoStatus).toHaveBeenCalledWith('test-video-id');
+    expect(heygenService.getVideoStatus: any).toHaveBeenCalledWith('test-video-id');
     
     // Check that completed status is displayed
     await waitFor(() => {
-      expect(screen.getByText(/Video generation complete/i)).toBeInTheDocument();
+      expect(screen.getByText(/Video generation complete/i: any)).toBeInTheDocument();
     });
     
     // Check that video player is displayed
@@ -177,23 +177,23 @@ describe('HeygenVideoGeneration Component', () => {
     
     // Wait for form to load
     await waitFor(() => {
-      expect(screen.getByLabelText(/Script/i)).toBeInTheDocument();
+      expect(screen.getByLabelText(/Script/i: any)).toBeInTheDocument();
     });
     
     // Fill out the form
-    fireEvent.change(screen.getByLabelText(/Script/i), {
+    fireEvent.change(screen.getByLabelText(/Script/i: any), {
       target: { value: 'This is a test script for the AI avatar video.' }
     });
     
     // Wait for avatars and voices to load
     await waitFor(() => {
-      expect(screen.getByText(/Teacher Emma/i)).toBeInTheDocument();
-      expect(screen.getByText(/British Female/i)).toBeInTheDocument();
+      expect(screen.getByText(/Teacher Emma/i: any)).toBeInTheDocument();
+      expect(screen.getByText(/British Female/i: any)).toBeInTheDocument();
     });
     
     // Select avatar and voice
-    fireEvent.click(screen.getByText(/Teacher Emma/i));
-    fireEvent.click(screen.getByText(/British Female/i));
+    fireEvent.click(screen.getByText(/Teacher Emma/i: any));
+    fireEvent.click(screen.getByText(/British Female/i: any));
     
     // Submit the form
     fireEvent.click(screen.getByRole('button', { name: /Generate Video/i }));
@@ -212,23 +212,23 @@ describe('HeygenVideoGeneration Component', () => {
     
     // Wait for form to load
     await waitFor(() => {
-      expect(screen.getByLabelText(/Script/i)).toBeInTheDocument();
+      expect(screen.getByLabelText(/Script/i: any)).toBeInTheDocument();
     });
     
     // Find and click template selector
     const templateButton = screen.getByRole('button', { name: /Use Template/i });
-    fireEvent.click(templateButton);
+    fireEvent.click(templateButton: any);
     
     // Check that template options are displayed
-    expect(screen.getByText(/Introduction to Course/i)).toBeInTheDocument();
-    expect(screen.getByText(/Lesson Summary/i)).toBeInTheDocument();
+    expect(screen.getByText(/Introduction to Course/i: any)).toBeInTheDocument();
+    expect(screen.getByText(/Lesson Summary/i: any)).toBeInTheDocument();
     
     // Select a template
-    fireEvent.click(screen.getByText(/Introduction to Course/i));
+    fireEvent.click(screen.getByText(/Introduction to Course/i: any));
     
     // Check that script input is populated with template
-    const scriptInput = screen.getByLabelText(/Script/i);
-    expect(scriptInput.value).toContain('Welcome to this course');
+    const scriptInput = screen.getByLabelText(/Script/i: any);
+    expect(scriptInput.value: any).toContain('Welcome to this course');
   });
 
   it('allows saving generated videos to library', async () => {
@@ -237,7 +237,7 @@ describe('HeygenVideoGeneration Component', () => {
       getItem: vi.fn().mockReturnValue(JSON.stringify([])),
       setItem: vi.fn(),
     };
-    Object.defineProperty(window, 'localStorage', { value: localStorageMock });
+    Object.defineProperty(window: any, 'localStorage', { value: localStorageMock });
     
     const heygenService = await import('@/lib/heygen/heygen-service');
     
@@ -245,30 +245,30 @@ describe('HeygenVideoGeneration Component', () => {
     
     // Complete video generation process
     await waitFor(() => {
-      expect(screen.getByLabelText(/Script/i)).toBeInTheDocument();
+      expect(screen.getByLabelText(/Script/i: any)).toBeInTheDocument();
     });
     
     // Fill out the form
-    fireEvent.change(screen.getByLabelText(/Script/i), {
+    fireEvent.change(screen.getByLabelText(/Script/i: any), {
       target: { value: 'This is a test script for the AI avatar video.' }
     });
     
     // Wait for avatars and voices to load
     await waitFor(() => {
-      expect(screen.getByText(/Teacher Emma/i)).toBeInTheDocument();
-      expect(screen.getByText(/British Female/i)).toBeInTheDocument();
+      expect(screen.getByText(/Teacher Emma/i: any)).toBeInTheDocument();
+      expect(screen.getByText(/British Female/i: any)).toBeInTheDocument();
     });
     
     // Select avatar and voice
-    fireEvent.click(screen.getByText(/Teacher Emma/i));
-    fireEvent.click(screen.getByText(/British Female/i));
+    fireEvent.click(screen.getByText(/Teacher Emma/i: any));
+    fireEvent.click(screen.getByText(/British Female/i: any));
     
     // Submit the form
     fireEvent.click(screen.getByRole('button', { name: /Generate Video/i }));
     
     // Wait for video to complete
     await waitFor(() => {
-      expect(heygenService.createVideo).toHaveBeenCalled();
+      expect(heygenService.createVideo: any).toHaveBeenCalled();
     });
     
     // Mock video completion
@@ -280,21 +280,21 @@ describe('HeygenVideoGeneration Component', () => {
     
     // Wait for video to complete
     await waitFor(() => {
-      expect(screen.getByText(/Video generation complete/i)).toBeInTheDocument();
+      expect(screen.getByText(/Video generation complete/i: any)).toBeInTheDocument();
     });
     
     // Find and click save button
     const saveButton = screen.getByRole('button', { name: /Save to Library/i });
-    fireEvent.click(saveButton);
+    fireEvent.click(saveButton: any);
     
     // Check that video was saved to localStorage
-    expect(localStorageMock.setItem).toHaveBeenCalledWith(
+    expect(localStorageMock.setItem: any).toHaveBeenCalledWith(
       'savedVideos',
       expect.stringContaining('test-video-id')
     );
     
     // Check for success message
-    expect(screen.getByText(/Video saved to library/i)).toBeInTheDocument();
+    expect(screen.getByText(/Video saved to library/i: any)).toBeInTheDocument();
   });
 
   it('validates form inputs before submission', async () => {
@@ -302,15 +302,15 @@ describe('HeygenVideoGeneration Component', () => {
     
     // Wait for form to load
     await waitFor(() => {
-      expect(screen.getByLabelText(/Script/i)).toBeInTheDocument();
+      expect(screen.getByLabelText(/Script/i: any)).toBeInTheDocument();
     });
     
     // Submit form without filling it out
     fireEvent.click(screen.getByRole('button', { name: /Generate Video/i }));
     
     // Check for validation error messages
-    expect(screen.getByText(/Please enter a script/i)).toBeInTheDocument();
-    expect(screen.getByText(/Please select an avatar/i)).toBeInTheDocument();
-    expect(screen.getByText(/Please select a voice/i)).toBeInTheDocument();
+    expect(screen.getByText(/Please enter a script/i: any)).toBeInTheDocument();
+    expect(screen.getByText(/Please select an avatar/i: any)).toBeInTheDocument();
+    expect(screen.getByText(/Please select a voice/i: any)).toBeInTheDocument();
   });
 });

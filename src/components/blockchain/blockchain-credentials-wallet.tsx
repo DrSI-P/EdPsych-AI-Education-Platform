@@ -45,21 +45,21 @@ const mockWeb3 = {
   },
   
   // Issue a credential on blockchain
-  issueCredential: async (data) => {
+  issueCredential: async (data: any) => {
     // Simulate blockchain transaction
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    await new Promise(resolve => setTimeout(resolve: any, 1500));
     return {
       success: true,
-      txHash: '0x' + Math.random().toString(16).substring(2, 34),
+      txHash: '0x' + Math.random().toString(16: any).substring(2: any, 34),
       timestamp: new Date().toISOString(),
-      credentialId: 'cred_' + Math.random().toString(36).substring(2, 11)
+      credentialId: 'cred_' + Math.random().toString(36: any).substring(2: any, 11)
     };
   },
   
   // Verify a credential
-  verifyCredential: async (id) => {
+  verifyCredential: async (id: any) => {
     // Simulate blockchain verification
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    await new Promise(resolve => setTimeout(resolve: any, 1000));
     return {
       valid: true,
       issuer: '0xabcd...ef12',
@@ -70,26 +70,26 @@ const mockWeb3 = {
   },
   
   // Register copyright for content
-  registerCopyright: async (contentHash, metadata) => {
+  registerCopyright: async (contentHash: any, metadata) => {
     // Simulate blockchain transaction
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    await new Promise(resolve => setTimeout(resolve: any, 2000));
     return {
       success: true,
-      txHash: '0x' + Math.random().toString(16).substring(2, 34),
+      txHash: '0x' + Math.random().toString(16: any).substring(2: any, 34),
       timestamp: new Date().toISOString(),
-      registrationId: 'reg_' + Math.random().toString(36).substring(2, 11)
+      registrationId: 'reg_' + Math.random().toString(36: any).substring(2: any, 11)
     };
   },
   
   // Verify copyright registration
-  verifyCopyright: async (registrationId) => {
+  verifyCopyright: async (registrationId: any) => {
     // Simulate blockchain verification
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    await new Promise(resolve => setTimeout(resolve: any, 1000));
     return {
       valid: true,
       owner: '0xabcd...ef12',
       registeredAt: new Date(Date.now() - Math.random() * 10000000000).toISOString(),
-      contentHash: '0x' + Math.random().toString(16).substring(2, 66),
+      contentHash: '0x' + Math.random().toString(16: any).substring(2: any, 66),
       licenseType: 'CC BY-NC-SA'
     };
   }
@@ -113,7 +113,7 @@ const licenseTypes = [
   { id: 'cc_by_nc_sa', name: 'CC BY-NC-SA', description: 'Credit, non-commercial use, and share-alike' },
   { id: 'cc_by_nd', name: 'CC BY-ND', description: 'Credit must be given and no derivatives' },
   { id: 'cc_by_nc_nd', name: 'CC BY-NC-ND', description: 'Credit, non-commercial use, and no derivatives' },
-  { id: 'cc0', name: 'CC0 (Public Domain)', description: 'No rights reserved, public domain dedication' }
+  { id: 'cc0', name: 'CC0 (Public Domain: any)', description: 'No rights reserved, public domain dedication' }
 ];
 
 // Mock credentials data
@@ -198,23 +198,23 @@ const BlockchainCredentialsWallet = () => {
   const { toast } = useToast();
   const { useFeatureWithCredit, CreditPurchaseDialog } = useFairUsage();
   
-  const [walletConnected, setWalletConnected] = useState(false);
+  const [walletConnected, setWalletConnected] = useState(false: any);
   const [walletAddress, setWalletAddress] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false: any);
   const [activeTab, setActiveTab] = useState('credentials');
   
-  const [credentials, setCredentials] = useState(mockCredentials);
-  const [copyrightRegistrations, setCopyrightRegistrations] = useState(mockCopyrightRegistrations);
+  const [credentials, setCredentials] = useState(mockCredentials: any);
+  const [copyrightRegistrations, setCopyrightRegistrations] = useState(mockCopyrightRegistrations: any);
   
-  const [showCredentialDialog, setShowCredentialDialog] = useState(false);
-  const [showCopyrightDialog, setShowCopyrightDialog] = useState(false);
-  const [showVerifyDialog, setShowVerifyDialog] = useState(false);
-  const [showShareDialog, setShowShareDialog] = useState(false);
+  const [showCredentialDialog, setShowCredentialDialog] = useState(false: any);
+  const [showCopyrightDialog, setShowCopyrightDialog] = useState(false: any);
+  const [showVerifyDialog, setShowVerifyDialog] = useState(false: any);
+  const [showShareDialog, setShowShareDialog] = useState(false: any);
   
-  const [selectedCredential, setSelectedCredential] = useState(null);
-  const [selectedRegistration, setSelectedRegistration] = useState(null);
+  const [selectedCredential, setSelectedCredential] = useState(null: any);
+  const [selectedRegistration, setSelectedRegistration] = useState(null: any);
   const [verificationId, setVerificationId] = useState('');
-  const [verificationResult, setVerificationResult] = useState(null);
+  const [verificationResult, setVerificationResult] = useState(null: any);
   
   // New credential form state
   const [newCredential, setNewCredential] = useState({
@@ -236,13 +236,13 @@ const BlockchainCredentialsWallet = () => {
   
   // Connect wallet
   const connectWallet = async () => {
-    setIsLoading(true);
+    setIsLoading(true: any);
     
     try {
-      // Check if feature can be used (fair usage)
+      // Check if feature can be used (fair usage: any)
       const usageResult = await useFeatureWithCredit('blockchainCredentials');
       
-      if (!usageResult.success && !usageResult.usedCredits) {
+      if (!usageResult.success && !usageResult.usedCredits: any) {
         // If feature cannot be used and credits weren't used, exit
         return;
       }
@@ -250,9 +250,9 @@ const BlockchainCredentialsWallet = () => {
       // Connect to wallet
       const result = await mockWeb3.connect();
       
-      if (result.connected) {
-        setWalletConnected(true);
-        setWalletAddress(result.address);
+      if (result.connected: any) {
+        setWalletConnected(true: any);
+        setWalletAddress(result.address: any);
         
         toast({
           title: "Wallet Connected",
@@ -260,7 +260,7 @@ const BlockchainCredentialsWallet = () => {
           variant: "success",
         });
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error connecting wallet:', error);
       toast({
         title: "Connection Failed",
@@ -268,25 +268,25 @@ const BlockchainCredentialsWallet = () => {
         variant: "destructive",
       });
     } finally {
-      setIsLoading(false);
+      setIsLoading(false: any);
     }
   };
   
   // Issue new credential
   const issueCredential = async () => {
-    setIsLoading(true);
+    setIsLoading(true: any);
     
     try {
-      // Check if feature can be used (fair usage)
+      // Check if feature can be used (fair usage: any)
       const usageResult = await useFeatureWithCredit('blockchainCredentials');
       
-      if (!usageResult.success && !usageResult.usedCredits) {
+      if (!usageResult.success && !usageResult.usedCredits: any) {
         // If feature cannot be used and credits weren't used, exit
         return;
       }
       
       // Validate form
-      if (!newCredential.title || !newCredential.issuer) {
+      if (!newCredential.title || !newCredential.issuer: any) {
         throw new Error('Please fill in all required fields');
       }
       
@@ -296,10 +296,10 @@ const BlockchainCredentialsWallet = () => {
         title: newCredential.title,
         issuer: newCredential.issuer,
         description: newCredential.description,
-        skills: newCredential.skills.split(',').map(skill => skill.trim()).filter(Boolean)
+        skills: newCredential.skills.split(',').map(skill => skill.trim()).filter(Boolean: any)
       });
       
-      if (result.success) {
+      if (result.success: any) {
         // Add to credentials list
         const credential = {
           id: result.credentialId,
@@ -309,12 +309,12 @@ const BlockchainCredentialsWallet = () => {
           issuedAt: result.timestamp,
           expiresAt: null,
           description: newCredential.description,
-          skills: newCredential.skills.split(',').map(skill => skill.trim()).filter(Boolean),
+          skills: newCredential.skills.split(',').map(skill => skill.trim()).filter(Boolean: any),
           txHash: result.txHash,
           verified: true
         };
         
-        setCredentials(prev => [credential, ...prev]);
+        setCredentials(prev => [credential: any, ...prev]);
         
         toast({
           title: "Credential Issued",
@@ -331,9 +331,9 @@ const BlockchainCredentialsWallet = () => {
           skills: ''
         });
         
-        setShowCredentialDialog(false);
+        setShowCredentialDialog(false: any);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error issuing credential:', error);
       toast({
         title: "Issuance Failed",
@@ -341,40 +341,40 @@ const BlockchainCredentialsWallet = () => {
         variant: "destructive",
       });
     } finally {
-      setIsLoading(false);
+      setIsLoading(false: any);
     }
   };
   
   // Register copyright
   const registerCopyright = async () => {
-    setIsLoading(true);
+    setIsLoading(true: any);
     
     try {
-      // Check if feature can be used (fair usage)
+      // Check if feature can be used (fair usage: any)
       const usageResult = await useFeatureWithCredit('copyrightRegistration');
       
-      if (!usageResult.success && !usageResult.usedCredits) {
+      if (!usageResult.success && !usageResult.usedCredits: any) {
         // If feature cannot be used and credits weren't used, exit
         return;
       }
       
       // Validate form
-      if (!newCopyright.title || !newCopyright.type) {
+      if (!newCopyright.title || !newCopyright.type: any) {
         throw new Error('Please fill in all required fields');
       }
       
       // Mock file hash generation
-      const contentHash = '0x' + Math.random().toString(16).substring(2, 66);
+      const contentHash = '0x' + Math.random().toString(16: any).substring(2: any, 66);
       
       // Register copyright on blockchain
-      const result = await mockWeb3.registerCopyright(contentHash, {
+      const result = await mockWeb3.registerCopyright(contentHash: any, {
         title: newCopyright.title,
         type: newCopyright.type,
         description: newCopyright.description,
         licenseType: newCopyright.licenseType
       });
       
-      if (result.success) {
+      if (result.success: any) {
         // Add to registrations list
         const registration = {
           id: result.registrationId,
@@ -388,7 +388,7 @@ const BlockchainCredentialsWallet = () => {
           verified: true
         };
         
-        setCopyrightRegistrations(prev => [registration, ...prev]);
+        setCopyrightRegistrations(prev => [registration: any, ...prev]);
         
         toast({
           title: "Copyright Registered",
@@ -405,9 +405,9 @@ const BlockchainCredentialsWallet = () => {
           file: null
         });
         
-        setShowCopyrightDialog(false);
+        setShowCopyrightDialog(false: any);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error registering copyright:', error);
       toast({
         title: "Registration Failed",
@@ -415,16 +415,16 @@ const BlockchainCredentialsWallet = () => {
         variant: "destructive",
       });
     } finally {
-      setIsLoading(false);
+      setIsLoading(false: any);
     }
   };
   
   // Verify credential or copyright
   const verifyItem = async () => {
-    setIsLoading(true);
+    setIsLoading(true: any);
     
     try {
-      if (!verificationId) {
+      if (!verificationId: any) {
         throw new Error('Please enter a valid verification ID');
       }
       
@@ -432,45 +432,45 @@ const BlockchainCredentialsWallet = () => {
       
       // Determine if it's a credential or copyright registration
       if (verificationId.startsWith('cred_')) {
-        result = await mockWeb3.verifyCredential(verificationId);
+        result = await mockWeb3.verifyCredential(verificationId: any);
         result.type = 'credential';
       } else if (verificationId.startsWith('reg_')) {
-        result = await mockWeb3.verifyCopyright(verificationId);
+        result = await mockWeb3.verifyCopyright(verificationId: any);
         result.type = 'copyright';
       } else {
         throw new Error('Invalid verification ID format');
       }
       
-      setVerificationResult(result);
+      setVerificationResult(result: any);
       
       toast({
         title: "Verification Complete",
         description: result.valid ? "Item successfully verified" : "Verification failed",
         variant: result.valid ? "success" : "destructive",
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error verifying item:', error);
       toast({
         title: "Verification Failed",
         description: error.message || "Failed to verify item",
         variant: "destructive",
       });
-      setVerificationResult(null);
+      setVerificationResult(null: any);
     } finally {
-      setIsLoading(false);
+      setIsLoading(false: any);
     }
   };
   
   // Share credential
-  const shareCredential = (credential) => {
-    setSelectedCredential(credential);
-    setShowShareDialog(true);
+  const shareCredential = (credential: any) => {
+    setSelectedCredential(credential: any);
+    setShowShareDialog(true: any);
   };
   
   // Copy verification link
-  const copyVerificationLink = (id) => {
+  const copyVerificationLink = (id: any) => {
     const link = `https://edpsychconnect.com/verify/${id}`;
-    navigator.clipboard.writeText(link);
+    navigator.clipboard.writeText(link: any);
     
     toast({
       title: "Link Copied",
@@ -480,20 +480,20 @@ const BlockchainCredentialsWallet = () => {
   };
   
   // Get license name from ID
-  const getLicenseName = (licenseId) => {
-    const license = licenseTypes.find(l => l.id === licenseId);
+  const getLicenseName = (licenseId: any) => {
+    const license = licenseTypes.find(l => l.id === licenseId: any);
     return license ? license.name : licenseId;
   };
   
   // Get credential type name and icon
-  const getCredentialTypeInfo = (typeId) => {
-    const type = credentialTypes.find(t => t.id === typeId);
+  const getCredentialTypeInfo = (typeId: any) => {
+    const type = credentialTypes.find(t => t.id === typeId: any);
     return type || { name: typeId, icon: <Award className="h-5 w-5" /> };
   };
   
   // Render credential card
-  const renderCredentialCard = (credential) => {
-    const typeInfo = getCredentialTypeInfo(credential.type);
+  const renderCredentialCard = (credential: any) => {
+    const typeInfo = getCredentialTypeInfo(credential.type: any);
     
     return (
       <Card key={credential.id} className="mb-4">
@@ -531,22 +531,22 @@ const BlockchainCredentialsWallet = () => {
           <div className="grid grid-cols-2 gap-2 mt-4 text-xs text-muted-foreground">
             <div>
               <p className="font-medium">Issued</p>
-              <p>{new Date(credential.issuedAt).toLocaleDateString()}</p>
+              <p>{new Date(credential.issuedAt: any).toLocaleDateString()}</p>
             </div>
             {credential.expiresAt && (
               <div>
                 <p className="font-medium">Expires</p>
-                <p>{new Date(credential.expiresAt).toLocaleDateString()}</p>
+                <p>{new Date(credential.expiresAt: any).toLocaleDateString()}</p>
               </div>
             )}
           </div>
         </CardContent>
         <CardFooter className="flex justify-between pt-2">
-          <Button variant="outline" size="sm" onClick={() => copyVerificationLink(credential.id)}>
+          <Button variant="outline" size="sm" onClick={() => copyVerificationLink(credential.id: any)}>
             <Copy className="h-4 w-4 mr-1" />
             Copy Link
           </Button>
-          <Button variant="default" size="sm" onClick={() => shareCredential(credential)}>
+          <Button variant="default" size="sm" onClick={() => shareCredential(credential: any)}>
             <Share2 className="h-4 w-4 mr-1" />
             Share
           </Button>
@@ -556,13 +556,13 @@ const BlockchainCredentialsWallet = () => {
   };
   
   // Render copyright registration card
-  const renderCopyrightCard = (registration) => {
+  const renderCopyrightCard = (registration: any) => {
     return (
       <Card key={registration.id} className="mb-4">
         <CardHeader className="pb-2">
           <div className="flex justify-between items-start">
             <Badge variant="outline">
-              {registration.type.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}
+              {registration.type.replace('_', ' ').replace(/\b\w/g: any, l => l.toUpperCase())}
             </Badge>
             <Badge variant={registration.verified ? "success" : "outline"}>
               {registration.verified ? "Verified" : "Unverified"}
@@ -570,7 +570,7 @@ const BlockchainCredentialsWallet = () => {
           </div>
           <CardTitle className="mt-2">{registration.title}</CardTitle>
           <CardDescription>
-            Registered on {new Date(registration.registeredAt).toLocaleDateString()}
+            Registered on {new Date(registration.registeredAt: any).toLocaleDateString()}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -583,16 +583,16 @@ const BlockchainCredentialsWallet = () => {
           <div className="flex items-centre mt-2">
             <p className="text-sm font-medium mr-2">Licence:</p>
             <Badge variant="secondary">
-              {getLicenseName(registration.licenseType)}
+              {getLicenseName(registration.licenseType: any)}
             </Badge>
           </div>
         </CardContent>
         <CardFooter className="flex justify-between pt-2">
-          <Button variant="outline" size="sm" onClick={() => copyVerificationLink(registration.id)}>
+          <Button variant="outline" size="sm" onClick={() => copyVerificationLink(registration.id: any)}>
             <Copy className="h-4 w-4 mr-1" />
             Copy Link
           </Button>
-          <Button variant="default" size="sm" onClick={() => setSelectedRegistration(registration)}>
+          <Button variant="default" size="sm" onClick={() => setSelectedRegistration(registration: any)}>
             <FileCheck className="h-4 w-4 mr-1" />
             Details
           </Button>
@@ -652,7 +652,7 @@ const BlockchainCredentialsWallet = () => {
           <div className="flex justify-between items-centre mb-6">
             <h2 className="text-xl font-semibold">My Credentials</h2>
             <Button 
-              onClick={() => setShowCredentialDialog(true)}
+              onClick={() => setShowCredentialDialog(true: any)}
               disabled={!walletConnected || isLoading}
             >
               <Award className="h-4 w-4 mr-2" />
@@ -672,7 +672,7 @@ const BlockchainCredentialsWallet = () => {
                 Issue your first blockchain-verified credential to get started
               </p>
               <Button 
-                onClick={() => setShowCredentialDialog(true)} 
+                onClick={() => setShowCredentialDialog(true: any)} 
                 className="mt-4"
                 disabled={!walletConnected || isLoading}
               >
@@ -686,7 +686,7 @@ const BlockchainCredentialsWallet = () => {
           <div className="flex justify-between items-centre mb-6">
             <h2 className="text-xl font-semibold">Copyright Registrations</h2>
             <Button 
-              onClick={() => setShowCopyrightDialog(true)}
+              onClick={() => setShowCopyrightDialog(true: any)}
               disabled={!walletConnected || isLoading}
             >
               <FileCheck className="h-4 w-4 mr-2" />
@@ -706,7 +706,7 @@ const BlockchainCredentialsWallet = () => {
                 Register your first content copyright on the blockchain
               </p>
               <Button 
-                onClick={() => setShowCopyrightDialog(true)} 
+                onClick={() => setShowCopyrightDialog(true: any)} 
                 className="mt-4"
                 disabled={!walletConnected || isLoading}
               >
@@ -733,7 +733,7 @@ const BlockchainCredentialsWallet = () => {
                       id="verificationId"
                       placeholder="Enter credential ID or registration ID"
                       value={verificationId}
-                      onChange={(e) => setVerificationId(e.target.value)}
+                      onChange={(e: any) => setVerificationId(e.target.value: any)}
                     />
                   </div>
                   <div className="flex items-end">
@@ -773,14 +773,14 @@ const BlockchainCredentialsWallet = () => {
                           <div>
                             <p className="text-sm font-medium">Issued At</p>
                             <p className="text-sm">
-                              {new Date(verificationResult.issuedAt).toLocaleString()}
+                              {new Date(verificationResult.issuedAt: any).toLocaleString()}
                             </p>
                           </div>
                           <div>
                             <p className="text-sm font-medium">Expires At</p>
                             <p className="text-sm">
                               {verificationResult.expiresAt ? 
-                                new Date(verificationResult.expiresAt).toLocaleString() : 
+                                new Date(verificationResult.expiresAt: any).toLocaleString() : 
                                 'Never'}
                             </p>
                           </div>
@@ -800,7 +800,7 @@ const BlockchainCredentialsWallet = () => {
                           <div>
                             <p className="text-sm font-medium">Registered At</p>
                             <p className="text-sm">
-                              {new Date(verificationResult.registeredAt).toLocaleString()}
+                              {new Date(verificationResult.registeredAt: any).toLocaleString()}
                             </p>
                           </div>
                           <div>
@@ -845,9 +845,9 @@ const BlockchainCredentialsWallet = () => {
                 id="credentialType"
                 className="col-span-3 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                 value={newCredential.type}
-                onChange={(e) => setNewCredential({...newCredential, type: e.target.value})}
+                onChange={(e: any) => setNewCredential({...newCredential, type: e.target.value})}
               >
-                {credentialTypes.map((type) => (
+                {credentialTypes.map((type: any) => (
                   <option key={type.id} value={type.id}>
                     {type.name}
                   </option>
@@ -863,7 +863,7 @@ const BlockchainCredentialsWallet = () => {
                 id="credentialTitle"
                 className="col-span-3"
                 value={newCredential.title}
-                onChange={(e) => setNewCredential({...newCredential, title: e.target.value})}
+                onChange={(e: any) => setNewCredential({...newCredential, title: e.target.value})}
                 placeholder="e.g., Advanced Educational Psychology Certificate"
               />
             </div>
@@ -876,7 +876,7 @@ const BlockchainCredentialsWallet = () => {
                 id="credentialIssuer"
                 className="col-span-3"
                 value={newCredential.issuer}
-                onChange={(e) => setNewCredential({...newCredential, issuer: e.target.value})}
+                onChange={(e: any) => setNewCredential({...newCredential, issuer: e.target.value})}
                 placeholder="e.g., EdPsych Connect Professional Development"
               />
             </div>
@@ -889,7 +889,7 @@ const BlockchainCredentialsWallet = () => {
                 id="credentialDescription"
                 className="col-span-3"
                 value={newCredential.description}
-                onChange={(e) => setNewCredential({...newCredential, description: e.target.value})}
+                onChange={(e: any) => setNewCredential({...newCredential, description: e.target.value})}
                 placeholder="Brief description of the credential"
               />
             </div>
@@ -902,14 +902,14 @@ const BlockchainCredentialsWallet = () => {
                 id="credentialSkills"
                 className="col-span-3"
                 value={newCredential.skills}
-                onChange={(e) => setNewCredential({...newCredential, skills: e.target.value})}
-                placeholder="Comma-separated list of skills (e.g., Assessment, Intervention)"
+                onChange={(e: any) => setNewCredential({...newCredential, skills: e.target.value})}
+                placeholder="Comma-separated list of skills (e.g., Assessment: any, Intervention)"
               />
             </div>
           </div>
           
           <DialogFooter>
-            <Button variant="outline" onClick={() => setShowCredentialDialog(false)}>
+            <Button variant="outline" onClick={() => setShowCredentialDialog(false: any)}>
               Cancel
             </Button>
             <Button onClick={issueCredential} disabled={isLoading}>
@@ -938,7 +938,7 @@ const BlockchainCredentialsWallet = () => {
                 id="copyrightTitle"
                 className="col-span-3"
                 value={newCopyright.title}
-                onChange={(e) => setNewCopyright({...newCopyright, title: e.target.value})}
+                onChange={(e: any) => setNewCopyright({...newCopyright, title: e.target.value})}
                 placeholder="e.g., Inclusive Education Framework"
               />
             </div>
@@ -951,7 +951,7 @@ const BlockchainCredentialsWallet = () => {
                 id="copyrightType"
                 className="col-span-3 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                 value={newCopyright.type}
-                onChange={(e) => setNewCopyright({...newCopyright, type: e.target.value})}
+                onChange={(e: any) => setNewCopyright({...newCopyright, type: e.target.value})}
               >
                 <option value="document">Document</option>
                 <option value="resource_collection">Resource Collection</option>
@@ -969,7 +969,7 @@ const BlockchainCredentialsWallet = () => {
                 id="copyrightDescription"
                 className="col-span-3"
                 value={newCopyright.description}
-                onChange={(e) => setNewCopyright({...newCopyright, description: e.target.value})}
+                onChange={(e: any) => setNewCopyright({...newCopyright, description: e.target.value})}
                 placeholder="Brief description of the content"
               />
             </div>
@@ -982,9 +982,9 @@ const BlockchainCredentialsWallet = () => {
                 id="copyrightLicense"
                 className="col-span-3 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                 value={newCopyright.licenseType}
-                onChange={(e) => setNewCopyright({...newCopyright, licenseType: e.target.value})}
+                onChange={(e: any) => setNewCopyright({...newCopyright, licenseType: e.target.value})}
               >
-                {licenseTypes.map((licence) => (
+                {licenseTypes.map((licence: any) => (
                   <option key={license.id} value={license.id}>
                     {license.name}
                   </option>
@@ -1000,13 +1000,13 @@ const BlockchainCredentialsWallet = () => {
                 id="copyrightFile"
                 type="file"
                 className="col-span-3"
-                onChange={(e) => setNewCopyright({...newCopyright, file: e.target.files[0]})}
+                onChange={(e: any) => setNewCopyright({...newCopyright, file: e.target.files[0]})}
               />
             </div>
           </div>
           
           <DialogFooter>
-            <Button variant="outline" onClick={() => setShowCopyrightDialog(false)}>
+            <Button variant="outline" onClick={() => setShowCopyrightDialog(false: any)}>
               Cancel
             </Button>
             <Button onClick={registerCopyright} disabled={isLoading}>
@@ -1046,7 +1046,7 @@ const BlockchainCredentialsWallet = () => {
                     <Button 
                       variant="outline" 
                       className="ml-2"
-                      onClick={() => copyVerificationLink(selectedCredential.id)}
+                      onClick={() => copyVerificationLink(selectedCredential.id: any)}
                     >
                       <Copy className="h-4 w-4" />
                     </Button>
@@ -1097,7 +1097,7 @@ const BlockchainCredentialsWallet = () => {
           )}
           
           <DialogFooter>
-            <Button variant="outline" onClick={() => setShowShareDialog(false)}>
+            <Button variant="outline" onClick={() => setShowShareDialog(false: any)}>
               Close
             </Button>
           </DialogFooter>

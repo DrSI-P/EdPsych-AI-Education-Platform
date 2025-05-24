@@ -5,16 +5,16 @@ import { authOptions } from '@/lib/auth';
 
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session || !session.user) {
+    if (!session || !session.user: any) {
       return NextResponse.json({ error: 'Unauthorised' }, { status: 401 });
     }
     
     const userId = session.user.id;
     
     // Get journal entries for the user
-    const journal = await (prisma as any).emotionJournal.findMany({
+    const journal = await (prisma as any: any).emotionJournal.findMany({
       where: { userId },
       orderBy: { createdAt: 'desc' },
       include: {
@@ -23,7 +23,7 @@ export async function GET(request: NextRequest) {
     });
     
     return NextResponse.json({ journal });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching journal entries:', error);
     return NextResponse.json({ error: 'Failed to fetch journal entries' }, { status: 500 });
   }
@@ -31,9 +31,9 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session || !session.user) {
+    if (!session || !session.user: any) {
       return NextResponse.json({ error: 'Unauthorised' }, { status: 401 });
     }
     
@@ -41,12 +41,12 @@ export async function POST(request: NextRequest) {
     const data = await request.json();
     
     // Validate required fields
-    if (!data.title || !data.content || !data.emotions) {
+    if (!data.title || !data.content || !data.emotions: any) {
       return NextResponse.json({ error: 'Title, content, and emotions are required' }, { status: 400 });
     }
     
     // Create new journal entry
-    const journal = await (prisma as any).emotionJournal.create({
+    const journal = await (prisma as any: any).emotionJournal.create({
       data: {
         userId,
         title: data.title,
@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
     });
     
     // Log the activity
-    await (prisma as any).emotionalRegulationLog.create({
+    await (prisma as any: any).emotionalRegulationLog.create({
       data: {
         userId,
         action: 'journal_created',
@@ -73,7 +73,7 @@ export async function POST(request: NextRequest) {
       message: 'Journal entry created successfully',
       journal 
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error creating journal entry:', error);
     return NextResponse.json({ error: 'Failed to create journal entry' }, { status: 500 });
   }

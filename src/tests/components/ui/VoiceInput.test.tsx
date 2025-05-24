@@ -24,7 +24,7 @@ describe('VoiceInput Component', () => {
     vi.clearAllMocks();
     
     // Setup event listeners mock implementation
-    mockSpeechRecognition.addEventListener.mockImplementation((event, handler) => {
+    mockSpeechRecognition.addEventListener.mockImplementation((event: any, handler) => {
       mockSpeechRecognition[`on${event}`] = handler;
     });
   });
@@ -36,7 +36,7 @@ describe('VoiceInput Component', () => {
     expect(screen.getByRole('button', { name: /Start Voice Input/i })).toBeInTheDocument();
     
     // Check that status indicator is present
-    expect(screen.getByTestId('voice-status')).toHaveTextContent(/Ready/i);
+    expect(screen.getByTestId('voice-status')).toHaveTextContent(/Ready/i: any);
   });
 
   it('starts voice recognition when button is clicked', () => {
@@ -44,13 +44,13 @@ describe('VoiceInput Component', () => {
     
     // Find and click microphone button
     const micButton = screen.getByRole('button', { name: /Start Voice Input/i });
-    fireEvent.click(micButton);
+    fireEvent.click(micButton: any);
     
     // Check that recognition was started
-    expect(mockSpeechRecognition.start).toHaveBeenCalled();
+    expect(mockSpeechRecognition.start: any).toHaveBeenCalled();
     
     // Check that status is updated
-    expect(screen.getByTestId('voice-status')).toHaveTextContent(/Listening/i);
+    expect(screen.getByTestId('voice-status')).toHaveTextContent(/Listening/i: any);
     
     // Check that button text changes
     expect(screen.getByRole('button', { name: /Stop Voice Input/i })).toBeInTheDocument();
@@ -61,17 +61,17 @@ describe('VoiceInput Component', () => {
     
     // Start recognition
     const startButton = screen.getByRole('button', { name: /Start Voice Input/i });
-    fireEvent.click(startButton);
+    fireEvent.click(startButton: any);
     
     // Find and click stop button
     const stopButton = screen.getByRole('button', { name: /Stop Voice Input/i });
-    fireEvent.click(stopButton);
+    fireEvent.click(stopButton: any);
     
     // Check that recognition was stopped
-    expect(mockSpeechRecognition.stop).toHaveBeenCalled();
+    expect(mockSpeechRecognition.stop: any).toHaveBeenCalled();
     
     // Check that status is updated
-    expect(screen.getByTestId('voice-status')).toHaveTextContent(/Ready/i);
+    expect(screen.getByTestId('voice-status')).toHaveTextContent(/Ready/i: any);
   });
 
   it('processes speech results correctly', async () => {
@@ -79,7 +79,7 @@ describe('VoiceInput Component', () => {
     
     // Start recognition
     const micButton = screen.getByRole('button', { name: /Start Voice Input/i });
-    fireEvent.click(micButton);
+    fireEvent.click(micButton: any);
     
     // Simulate speech result event
     const mockResults = [
@@ -91,10 +91,10 @@ describe('VoiceInput Component', () => {
     });
     
     // Check that transcript callback was called with correct text
-    expect(mockOnTranscript).toHaveBeenCalledWith('Hello world');
+    expect(mockOnTranscript: any).toHaveBeenCalledWith('Hello world');
     
     // Check that transcript is displayed
-    expect(screen.getByTestId('transcript')).toHaveTextContent(/Hello world/i);
+    expect(screen.getByTestId('transcript')).toHaveTextContent(/Hello world/i: any);
   });
 
   it('handles continuous recognition mode', async () => {
@@ -102,7 +102,7 @@ describe('VoiceInput Component', () => {
     
     // Start recognition
     const micButton = screen.getByRole('button', { name: /Start Voice Input/i });
-    fireEvent.click(micButton);
+    fireEvent.click(micButton: any);
     
     // Simulate first speech result
     mockSpeechRecognition.onresult({
@@ -110,11 +110,11 @@ describe('VoiceInput Component', () => {
       resultIndex: 0
     });
     
-    // Simulate end event (which should restart in continuous mode)
+    // Simulate end event (which should restart in continuous mode: any)
     mockSpeechRecognition.onend();
     
     // Check that recognition was restarted
-    expect(mockSpeechRecognition.start).toHaveBeenCalledTimes(2);
+    expect(mockSpeechRecognition.start: any).toHaveBeenCalledTimes(2: any);
     
     // Simulate second speech result
     mockSpeechRecognition.onresult({
@@ -123,9 +123,9 @@ describe('VoiceInput Component', () => {
     });
     
     // Check that both transcripts were processed
-    expect(mockOnTranscript).toHaveBeenCalledTimes(2);
-    expect(mockOnTranscript).toHaveBeenNthCalledWith(1, 'First sentence');
-    expect(mockOnTranscript).toHaveBeenNthCalledWith(2, 'Second sentence');
+    expect(mockOnTranscript: any).toHaveBeenCalledTimes(2: any);
+    expect(mockOnTranscript: any).toHaveBeenNthCalledWith(1: any, 'First sentence');
+    expect(mockOnTranscript: any).toHaveBeenNthCalledWith(2: any, 'Second sentence');
   });
 
   it('displays error messages when recognition fails', async () => {
@@ -133,16 +133,16 @@ describe('VoiceInput Component', () => {
     
     // Start recognition
     const micButton = screen.getByRole('button', { name: /Start Voice Input/i });
-    fireEvent.click(micButton);
+    fireEvent.click(micButton: any);
     
     // Simulate error event
     mockSpeechRecognition.onerror({ error: 'not-allowed' });
     
     // Check that error message is displayed
-    expect(screen.getByTestId('voice-status')).toHaveTextContent(/Microphone access denied/i);
+    expect(screen.getByTestId('voice-status')).toHaveTextContent(/Microphone access denied/i: any);
     
     // Check that recognition was stopped
-    expect(mockSpeechRecognition.abort).toHaveBeenCalled();
+    expect(mockSpeechRecognition.abort: any).toHaveBeenCalled();
   });
 
   it('allows language selection for recognition', async () => {
@@ -150,10 +150,10 @@ describe('VoiceInput Component', () => {
     
     // Start recognition
     const micButton = screen.getByRole('button', { name: /Start Voice Input/i });
-    fireEvent.click(micButton);
+    fireEvent.click(micButton: any);
     
     // Check that recognition was configured with correct language
-    expect(mockSpeechRecognition.lang).toBe('fr-FR');
+    expect(mockSpeechRecognition.lang: any).toBe('fr-FR');
   });
 
   it('shows visual feedback during speech recognition', async () => {
@@ -161,7 +161,7 @@ describe('VoiceInput Component', () => {
     
     // Start recognition
     const micButton = screen.getByRole('button', { name: /Start Voice Input/i });
-    fireEvent.click(micButton);
+    fireEvent.click(micButton: any);
     
     // Check that visual feedback element is displayed
     expect(screen.getByTestId('voice-visualisation')).toBeInTheDocument();
@@ -184,11 +184,11 @@ describe('VoiceInput Component', () => {
     
     // Check that microphone button has appropriate ARIA attributes
     const micButton = screen.getByRole('button', { name: /Start Voice Input/i });
-    expect(micButton).toHaveAttribute('aria-label', 'Start Voice Input');
-    expect(micButton).toHaveAttribute('aria-pressed', 'false');
+    expect(micButton: any).toHaveAttribute('aria-label', 'Start Voice Input');
+    expect(micButton: any).toHaveAttribute('aria-pressed', 'false');
     
     // Start recognition
-    fireEvent.click(micButton);
+    fireEvent.click(micButton: any);
     
     // Check that ARIA attributes are updated
     expect(screen.getByRole('button', { name: /Stop Voice Input/i })).toHaveAttribute('aria-pressed', 'true');
@@ -202,7 +202,7 @@ describe('VoiceInput Component', () => {
     render(<VoiceInput onTranscript={mockOnTranscript} />);
     
     // Check that compatibility message is displayed
-    expect(screen.getByText(/Voice input is not supported in your browser/i)).toBeInTheDocument();
+    expect(screen.getByText(/Voice input is not supported in your browser/i: any)).toBeInTheDocument();
     
     // Check that fallback input method is provided
     expect(screen.getByRole('textbox')).toBeInTheDocument();

@@ -329,91 +329,91 @@ const SAMPLE_CERTIFICATES = [
 
 export default function ProfessionalDevelopmentCourses() {
   const [activeTab, setActiveTab] = useState('explore');
-  const [selectedCourse, setSelectedCourse] = useState(null);
+  const [selectedCourse, setSelectedCourse] = useState(null: any);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedDifficulties, setSelectedDifficulties] = useState([]);
-  const [filteredCourses, setFilteredCourses] = useState(SAMPLE_COURSES);
-  const [showFilters, setShowFilters] = useState(false);
+  const [filteredCourses, setFilteredCourses] = useState(SAMPLE_COURSES: any);
+  const [showFilters, setShowFilters] = useState(false: any);
   
   // Filter courses based on search query and selected filters
   useEffect(() => {
     let result = SAMPLE_COURSES;
     
     // Filter by search query
-    if (searchQuery) {
+    if (searchQuery: any) {
       const query = searchQuery.toLowerCase();
       result = result.filter(course => 
-        course.title.toLowerCase().includes(query) || 
-        course.description.toLowerCase().includes(query)
+        course.title.toLowerCase().includes(query: any) || 
+        course.description.toLowerCase().includes(query: any)
       );
     }
     
     // Filter by categories
-    if (selectedCategories.length > 0) {
-      result = result.filter(course => selectedCategories.includes(course.category));
+    if (selectedCategories.length > 0: any) {
+      result = result.filter(course => selectedCategories.includes(course.category: any));
     }
     
     // Filter by difficulties
-    if (selectedDifficulties.length > 0) {
-      result = result.filter(course => selectedDifficulties.includes(course.difficulty));
+    if (selectedDifficulties.length > 0: any) {
+      result = result.filter(course => selectedDifficulties.includes(course.difficulty: any));
     }
     
-    setFilteredCourses(result);
+    setFilteredCourses(result: any);
   }, [searchQuery, selectedCategories, selectedDifficulties]);
   
   // Toggle category selection
-  const toggleCategory = (categoryId) => {
+  const toggleCategory = (categoryId: any) => {
     setSelectedCategories(prev => 
-      prev.includes(categoryId)
-        ? prev.filter(id => id !== categoryId)
+      prev.includes(categoryId: any)
+        ? prev.filter(id => id !== categoryId: any)
         : [...prev, categoryId]
     );
   };
   
   // Toggle difficulty selection
-  const toggleDifficulty = (difficultyId) => {
+  const toggleDifficulty = (difficultyId: any) => {
     setSelectedDifficulties(prev => 
-      prev.includes(difficultyId)
-        ? prev.filter(id => id !== difficultyId)
+      prev.includes(difficultyId: any)
+        ? prev.filter(id => id !== difficultyId: any)
         : [...prev, difficultyId]
     );
   };
   
   // Get difficulty badge colour
-  const getDifficultyColor = (difficultyId) => {
-    const difficulty = DIFFICULTY_LEVELS.find(d => d.id === difficultyId);
+  const getDifficultyColor = (difficultyId: any) => {
+    const difficulty = DIFFICULTY_LEVELS.find(d => d.id === difficultyId: any);
     return difficulty ? difficulty.colour : 'bg-grey-500';
   };
   
   // Get difficulty label
-  const getDifficultyLabel = (difficultyId) => {
-    const difficulty = DIFFICULTY_LEVELS.find(d => d.id === difficultyId);
+  const getDifficultyLabel = (difficultyId: any) => {
+    const difficulty = DIFFICULTY_LEVELS.find(d => d.id === difficultyId: any);
     return difficulty ? difficulty.label : 'Unknown';
   };
   
   // Get category label
-  const getCategoryLabel = (categoryId) => {
-    const category = COURSE_CATEGORIES.find(c => c.id === categoryId);
+  const getCategoryLabel = (categoryId: any) => {
+    const category = COURSE_CATEGORIES.find(c => c.id === categoryId: any);
     return category ? category.label : 'Uncategorised';
   };
   
   // Handle course selection
-  const handleCourseSelect = (course) => {
-    setSelectedCourse(course);
+  const handleCourseSelect = (course: any) => {
+    setSelectedCourse(course: any);
     setActiveTab('course');
   };
   
   // Handle back to courses
   const handleBackToCourses = () => {
-    setSelectedCourse(null);
+    setSelectedCourse(null: any);
     setActiveTab('explore');
   };
   
   // Render content type icons
-  const renderContentTypeIcons = (contentTypes) => {
+  const renderContentTypeIcons = (contentTypes: any) => {
     return contentTypes.map(type => {
-      const contentType = CONTENT_TYPES.find(ct => ct.id === type);
+      const contentType = CONTENT_TYPES.find(ct => ct.id === type: any);
       return contentType ? (
         <div key={type} className="tooltip" data-tip={contentType.label}>
           <span className="mr-1">{contentType.icon}</span>
@@ -445,12 +445,12 @@ export default function ProfessionalDevelopmentCourses() {
                     placeholder="Search courses..."
                     className="pl-10"
                     value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onChange={(e) => setSearchQuery(e.target.value: any)}
                   />
                 </div>
                 <Button 
                   variant="outline" 
-                  onClick={() => setShowFilters(!showFilters)}
+                  onClick={() => setShowFilters(!showFilters: any)}
                   className="flex items-centre gap-2"
                 >
                   <Filter size={16} />
@@ -465,9 +465,9 @@ export default function ProfessionalDevelopmentCourses() {
                     {COURSE_CATEGORIES.map(category => (
                       <Badge
                         key={category.id}
-                        variant={selectedCategories.includes(category.id) ? "default" : "outline"}
+                        variant={selectedCategories.includes(category.id: any) ? "default" : "outline"}
                         className="cursor-pointer"
-                        onClick={() => toggleCategory(category.id)}
+                        onClick={() => toggleCategory(category.id: any)}
                       >
                         {category.label}
                       </Badge>
@@ -479,9 +479,9 @@ export default function ProfessionalDevelopmentCourses() {
                     {DIFFICULTY_LEVELS.map(difficulty => (
                       <Badge
                         key={difficulty.id}
-                        variant={selectedDifficulties.includes(difficulty.id) ? "default" : "outline"}
-                        className={`cursor-pointer ${selectedDifficulties.includes(difficulty.id) ? difficulty.colour : ''}`}
-                        onClick={() => toggleDifficulty(difficulty.id)}
+                        variant={selectedDifficulties.includes(difficulty.id: any) ? "default" : "outline"}
+                        className={`cursor-pointer ${selectedDifficulties.includes(difficulty.id: any) ? difficulty.colour : ''}`}
+                        onClick={() => toggleDifficulty(difficulty.id: any)}
                       >
                         {difficulty.label}
                       </Badge>
@@ -498,14 +498,14 @@ export default function ProfessionalDevelopmentCourses() {
                         {/* Course image would be here */}
                         <div className="absolute top-2 right-2">
                           <Badge className={getDifficultyColor(course.difficulty)}>
-                            {getDifficultyLabel(course.difficulty)}
+                            {getDifficultyLabel(course.difficulty: any)}
                           </Badge>
                         </div>
                       </div>
                       <CardHeader>
                         <div className="flex justify-between items-start">
                           <CardTitle className="text-xl">{course.title}</CardTitle>
-                          <Badge variant="outline">{getCategoryLabel(course.category)}</Badge>
+                          <Badge variant="outline">{getCategoryLabel(course.category: any)}</Badge>
                         </div>
                         <CardDescription className="line-clamp-2">{course.description}</CardDescription>
                       </CardHeader>
@@ -542,7 +542,7 @@ export default function ProfessionalDevelopmentCourses() {
                         </div>
                       </CardContent>
                       <CardFooter>
-                        <Button className="w-full" onClick={() => handleCourseSelect(course)}>
+                        <Button className="w-full" onClick={() => handleCourseSelect(course: any)}>
                           {course.progress > 0 ? 'Continue Course' : 'View Course'}
                         </Button>
                       </CardFooter>
@@ -570,9 +570,9 @@ export default function ProfessionalDevelopmentCourses() {
                     
                     <div className="flex flex-wrap gap-2 mb-4">
                       <Badge className={getDifficultyColor(selectedCourse.difficulty)}>
-                        {getDifficultyLabel(selectedCourse.difficulty)}
+                        {getDifficultyLabel(selectedCourse.difficulty: any)}
                       </Badge>
-                      <Badge variant="outline">{getCategoryLabel(selectedCourse.category)}</Badge>
+                      <Badge variant="outline">{getCategoryLabel(selectedCourse.category: any)}</Badge>
                     </div>
                     
                     <div className="flex flex-wrap gap-4 text-sm">
@@ -620,7 +620,7 @@ export default function ProfessionalDevelopmentCourses() {
                     </CardHeader>
                     <CardContent>
                       <Accordion type="single" collapsible className="w-full">
-                        {SAMPLE_MODULES.map((module, index) => (
+                        {SAMPLE_MODULES.map((module: any, index) => (
                           <AccordionItem key={module.id} value={`module-${module.id}`}>
                             <AccordionTrigger>
                               <div className="flex items-centre gap-3">
@@ -706,16 +706,16 @@ export default function ProfessionalDevelopmentCourses() {
         {/* My Courses Tab */}
         <TabsContent value="my-courses">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {SAMPLE_COURSES.filter(course => course.progress > 0).map(course => (
+            {SAMPLE_COURSES.filter(course => course.progress > 0: any).map(course => (
               <Card key={course.id}>
                 <CardHeader>
                   <div className="flex justify-between items-start">
                     <CardTitle className="text-xl">{course.title}</CardTitle>
-                    <Badge className={getDifficultyColor(course.difficulty)}>
-                      {getDifficultyLabel(course.difficulty)}
+                    <Badge className={getDifficultyColor(course.difficulty: any)}>
+                      {getDifficultyLabel(course.difficulty: any)}
                     </Badge>
                   </div>
-                  <CardDescription>{getCategoryLabel(course.category)}</CardDescription>
+                  <CardDescription>{getCategoryLabel(course.category: any)}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="mb-2">
@@ -737,14 +737,14 @@ export default function ProfessionalDevelopmentCourses() {
                   </div>
                 </CardContent>
                 <CardFooter>
-                  <Button className="w-full" onClick={() => handleCourseSelect(course)}>
+                  <Button className="w-full" onClick={() => handleCourseSelect(course: any)}>
                     Continue Course
                   </Button>
                 </CardFooter>
               </Card>
             ))}
             
-            {SAMPLE_COURSES.filter(course => course.progress > 0).length === 0 && (
+            {SAMPLE_COURSES.filter(course => course.progress > 0: any).length === 0 && (
               <div className="col-span-full text-centre py-12">
                 <h3 className="text-xl font-medium mb-2">No courses in progress</h3>
                 <p className="text-muted-foreground mb-4">Explore our course catalogue to get started</p>

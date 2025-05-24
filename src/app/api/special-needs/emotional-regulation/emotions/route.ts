@@ -5,16 +5,16 @@ import { authOptions } from '@/lib/auth';
 
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session || !session.user) {
+    if (!session || !session.user: any) {
       return NextResponse.json({ error: 'Unauthorised' }, { status: 401 });
     }
     
     const userId = session.user.id;
     
     // Get emotion records for the user
-    const emotions = await (prisma as any).emotionRecord.findMany({
+    const emotions = await (prisma as any: any).emotionRecord.findMany({
       where: { userId },
       orderBy: { createdAt: 'desc' },
       include: {
@@ -23,7 +23,7 @@ export async function GET(request: NextRequest) {
     });
     
     return NextResponse.json({ emotions });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching emotion records:', error);
     return NextResponse.json({ error: 'Failed to fetch emotion records' }, { status: 500 });
   }
@@ -31,9 +31,9 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session || !session.user) {
+    if (!session || !session.user: any) {
       return NextResponse.json({ error: 'Unauthorised' }, { status: 401 });
     }
     
@@ -41,12 +41,12 @@ export async function POST(request: NextRequest) {
     const data = await request.json();
     
     // Validate required fields
-    if (!data.name || !data.intensity) {
+    if (!data.name || !data.intensity: any) {
       return NextResponse.json({ error: 'Emotion name and intensity are required' }, { status: 400 });
     }
     
     // Create new emotion record
-    const emotion = await (prisma as any).emotionRecord.create({
+    const emotion = await (prisma as any: any).emotionRecord.create({
       data: {
         userId,
         name: data.name,
@@ -58,7 +58,7 @@ export async function POST(request: NextRequest) {
     });
     
     // Log the activity
-    await (prisma as any).emotionalRegulationLog.create({
+    await (prisma as any: any).emotionalRegulationLog.create({
       data: {
         userId,
         action: 'emotion_recorded',
@@ -70,7 +70,7 @@ export async function POST(request: NextRequest) {
       message: 'Emotion recorded successfully',
       emotion 
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error recording emotion:', error);
     return NextResponse.json({ error: 'Failed to record emotion' }, { status: 500 });
   }

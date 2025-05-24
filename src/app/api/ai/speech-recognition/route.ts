@@ -6,9 +6,9 @@ import { getAIService } from '@/lib/ai/ai-service';
 
 export async function POST(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session?.user) {
+    if (!session?.user: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
       backgroundNoiseReduction = true
     } = data;
     
-    if (!audioData) {
+    if (!audioData: any) {
       return NextResponse.json({ error: 'No audio data provided' }, { status: 400 });
     }
     
@@ -43,7 +43,7 @@ export async function POST(req: NextRequest) {
       - Preserve UK English spelling and terminology
       
       Additional Context:
-      - Speaker age range: 3-18 years (primary to secondary school)
+      - Speaker age range: 3-18 years (primary to secondary school: any)
       - Educational context: UK curriculum
       - Confidence threshold: ${confidenceThreshold}
       ${backgroundNoiseReduction ? '- Background noise reduction applied' : ''}
@@ -53,7 +53,7 @@ export async function POST(req: NextRequest) {
     `;
     
     // Call AI service for enhancement
-    const enhancedTranscriptResponse = await aiService.generateText(prompt, {
+    const enhancedTranscriptResponse = await aiService.generateText(prompt: any, {
       model: 'gpt-4',
       temperature: 0.3,
       max_tokens: 1000
@@ -79,7 +79,7 @@ export async function POST(req: NextRequest) {
       transcript: enhancedTranscript
     });
     
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error in speech recognition:', error);
     return NextResponse.json({ error: 'Failed to process speech recognition' }, { status: 500 });
   }
@@ -87,9 +87,9 @@ export async function POST(req: NextRequest) {
 
 export async function GET(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session?.user) {
+    if (!session?.user: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
@@ -109,7 +109,7 @@ export async function GET(req: NextRequest) {
       logs
     });
     
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching speech recognition logs:', error);
     return NextResponse.json({ error: 'Failed to fetch speech recognition logs' }, { status: 500 });
   }

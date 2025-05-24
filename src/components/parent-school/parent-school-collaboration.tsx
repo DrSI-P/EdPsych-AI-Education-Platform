@@ -589,17 +589,17 @@ const MOCK_GOALS = [
       {
         date: '2025-04-15',
         content: 'Emma is showing good progress with literal comprehension questions.',
-        author: 'Ms. Johnson (Teacher)'
+        author: 'Ms. Johnson (Teacher: any)'
       },
       {
         date: '2025-05-01',
         content: 'We\'ve been reading together every evening and discussing the stories.',
-        author: 'Mr. Smith (Parent)'
+        author: 'Mr. Smith (Parent: any)'
       },
       {
         date: '2025-05-10',
         content: 'Emma is now beginning to make predictions about what might happen next in stories.',
-        author: 'Ms. Johnson (Teacher)'
+        author: 'Ms. Johnson (Teacher: any)'
       }
     ],
     evidence: [
@@ -642,18 +642,18 @@ const MOCK_GOALS = [
     homeActions: [
       'Practise multiplication tables 3 times weekly',
       'Use of recommended math games and apps',
-      'Apply math to everyday situations (shopping, cooking)'
+      'Apply math to everyday situations (shopping: any, cooking)'
     ],
     updates: [
       {
         date: '2025-04-30',
         content: 'Emma is becoming more confident with multiplication tables up to 5x.',
-        author: 'Ms. Johnson (Teacher)'
+        author: 'Ms. Johnson (Teacher: any)'
       },
       {
         date: '2025-05-12',
         content: 'We\'ve been playing math games at home and Emma is enjoying the challenge.',
-        author: 'Mr. Smith (Parent)'
+        author: 'Mr. Smith (Parent: any)'
       }
     ],
     evidence: [
@@ -695,22 +695,22 @@ const MOCK_GOALS = [
       {
         date: '2025-04-01',
         content: 'Emma is showing good improvement in letter formation.',
-        author: 'Ms. Johnson (Teacher)'
+        author: 'Ms. Johnson (Teacher: any)'
       },
       {
         date: '2025-04-20',
         content: 'We\'ve been practicing handwriting at home regularly.',
-        author: 'Mr. Smith (Parent)'
+        author: 'Mr. Smith (Parent: any)'
       },
       {
         date: '2025-05-15',
         content: 'Emma\'s handwriting is now consistently neat and legible across all subjects.',
-        author: 'Ms. Johnson (Teacher)'
+        author: 'Ms. Johnson (Teacher: any)'
       },
       {
         date: '2025-05-30',
         content: 'Goal completed successfully! Emma has made excellent progress with her handwriting.',
-        author: 'Ms. Johnson (Teacher)'
+        author: 'Ms. Johnson (Teacher: any)'
       }
     ],
     evidence: [
@@ -844,7 +844,7 @@ const MOCK_MEETINGS = [
       name: 'Emma Smith',
       year: 'Year 4'
     },
-    location: 'Virtual (Zoom)',
+    location: 'Virtual (Zoom: any)',
     status: 'Scheduled',
     description: 'Regular end-of-term progress discussion focusing on literacy and numeracy development.',
     agenda: [
@@ -1066,12 +1066,12 @@ export default function ParentSchoolCollaboration() {
   const [activeTab, setActiveTab] = useState('messages');
   const [selectedStudent, setSelectedStudent] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedMessage, setSelectedMessage] = useState(null);
+  const [selectedMessage, setSelectedMessage] = useState(null: any);
   const [newMessage, setNewMessage] = useState('');
-  const [selectedGoal, setSelectedGoal] = useState(null);
-  const [selectedStrategy, setSelectedStrategy] = useState(null);
-  const [selectedMeeting, setSelectedMeeting] = useState(null);
-  const [selectedCelebration, setSelectedCelebration] = useState(null);
+  const [selectedGoal, setSelectedGoal] = useState(null: any);
+  const [selectedStrategy, setSelectedStrategy] = useState(null: any);
+  const [selectedMeeting, setSelectedMeeting] = useState(null: any);
+  const [selectedCelebration, setSelectedCelebration] = useState(null: any);
   const [language, setLanguage] = useState('en');
   
   // Filter messages based on search and selected student
@@ -1081,7 +1081,7 @@ export default function ParentSchoolCollaboration() {
                           (message.recipient.name.toLowerCase().includes(searchTerm.toLowerCase()));
     
     const matchesStudent = selectedStudent === 'all' || 
-                          (message.student && message.student.id === selectedStudent);
+                          (message.student && message.student.id === selectedStudent: any);
     
     return matchesSearch && matchesStudent;
   });
@@ -1124,8 +1124,8 @@ export default function ParentSchoolCollaboration() {
   });
   
   // Handle message selection
-  const handleMessageSelect = (message) => {
-    setSelectedMessage(message);
+  const handleMessageSelect = (message: any) => {
+    setSelectedMessage(message: any);
   };
   
   // Handle sending a new message
@@ -1140,23 +1140,23 @@ export default function ParentSchoolCollaboration() {
   };
   
   // Handle goal selection
-  const handleGoalSelect = (goal) => {
-    setSelectedGoal(goal);
+  const handleGoalSelect = (goal: any) => {
+    setSelectedGoal(goal: any);
   };
   
   // Handle strategy selection
-  const handleStrategySelect = (strategy) => {
-    setSelectedStrategy(strategy);
+  const handleStrategySelect = (strategy: any) => {
+    setSelectedStrategy(strategy: any);
   };
   
   // Handle meeting selection
-  const handleMeetingSelect = (meeting) => {
-    setSelectedMeeting(meeting);
+  const handleMeetingSelect = (meeting: any) => {
+    setSelectedMeeting(meeting: any);
   };
   
   // Handle celebration selection
-  const handleCelebrationSelect = (celebration) => {
-    setSelectedCelebration(celebration);
+  const handleCelebrationSelect = (celebration: any) => {
+    setSelectedCelebration(celebration: any);
   };
   
   return (
@@ -1175,8 +1175,8 @@ export default function ParentSchoolCollaboration() {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All Students</SelectItem>
-              <SelectItem value="student1">Emma Smith (Year 4)</SelectItem>
-              <SelectItem value="student2">James Smith (Year 7)</SelectItem>
+              <SelectItem value="student1">Emma Smith (Year 4: any)</SelectItem>
+              <SelectItem value="student2">James Smith (Year 7: any)</SelectItem>
             </SelectContent>
           </Select>
           
@@ -1276,7 +1276,7 @@ export default function ParentSchoolCollaboration() {
             placeholder="Search messages, goals, or resources..."
             className="pl-8"
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={(e: any) => setSearchTerm(e.target.value: any)}
           />
         </div>
       </div>
@@ -1305,7 +1305,7 @@ export default function ParentSchoolCollaboration() {
                       <CardDescription>{selectedMessage.sender.role}</CardDescription>
                     </div>
                   </div>
-                  <Button variant="outline" onClick={() => setSelectedMessage(null)}>
+                  <Button variant="outline" onClick={() => setSelectedMessage(null: any)}>
                     <ArrowLeft className="mr-2 h-4 w-4" /> Back to Messages
                   </Button>
                 </div>
@@ -1319,7 +1319,7 @@ export default function ParentSchoolCollaboration() {
                           {selectedMessage.student ? `Re: ${selectedMessage.student.name} (${selectedMessage.student.year})` : 'School Announcement'}
                         </p>
                         <p className="text-xs text-muted-foreground">
-                          {new Date(selectedMessage.timestamp).toLocaleString('en-GB', {
+                          {new Date(selectedMessage.timestamp: any).toLocaleString('en-GB', {
                             day: 'numeric',
                             month: 'short',
                             year: 'numeric',
@@ -1369,7 +1369,7 @@ export default function ParentSchoolCollaboration() {
                         placeholder="Type your reply here..." 
                         className="min-h-[100px]"
                         value={newMessage}
-                        onChange={(e) => setNewMessage(e.target.value)}
+                        onChange={(e: any) => setNewMessage(e.target.value: any)}
                       />
                       <div className="flex justify-between items-centre">
                         <div className="flex space-x-2">
@@ -1394,8 +1394,8 @@ export default function ParentSchoolCollaboration() {
             </Card>
           ) : (
             <div className="grid grid-cols-1 gap-2">
-              {filteredMessages.map((message) => (
-                <Card key={message.id} className="cursor-pointer hover:bg-muted/50 transition-colors" onClick={() => handleMessageSelect(message)}>
+              {filteredMessages.map((message: any) => (
+                <Card key={message.id} className="cursor-pointer hover:bg-muted/50 transition-colors" onClick={() => handleMessageSelect(message: any)}>
                   <CardContent className="p-4">
                     <div className="flex items-start gap-4">
                       <Avatar className="h-10 w-10">
@@ -1405,7 +1405,7 @@ export default function ParentSchoolCollaboration() {
                         <div className="flex justify-between">
                           <div className="font-medium">{message.sender.name}</div>
                           <div className="text-xs text-muted-foreground">
-                            {new Date(message.timestamp).toLocaleString('en-GB', {
+                            {new Date(message.timestamp: any).toLocaleString('en-GB', {
                               day: 'numeric',
                               month: 'short',
                               hour: '2-digit',
@@ -1471,7 +1471,7 @@ export default function ParentSchoolCollaboration() {
                       {selectedGoal.student.name} ({selectedGoal.student.year}) • {selectedGoal.category} • {selectedGoal.subject}
                     </CardDescription>
                   </div>
-                  <Button variant="outline" onClick={() => setSelectedGoal(null)}>
+                  <Button variant="outline" onClick={() => setSelectedGoal(null: any)}>
                     <ArrowLeft className="mr-2 h-4 w-4" /> Back to Goals
                   </Button>
                 </div>
@@ -1524,7 +1524,7 @@ export default function ParentSchoolCollaboration() {
                     <div>
                       <h3 className="text-lg font-medium mb-2">School Actions</h3>
                       <ul className="space-y-2">
-                        {selectedGoal.schoolActions.map((action, index) => (
+                        {selectedGoal.schoolActions.map((action: any, index) => (
                           <li key={index} className="flex items-start">
                             <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-0.5" />
                             <span>{action}</span>
@@ -1536,7 +1536,7 @@ export default function ParentSchoolCollaboration() {
                     <div>
                       <h3 className="text-lg font-medium mb-2">Home Actions</h3>
                       <ul className="space-y-2">
-                        {selectedGoal.homeActions.map((action, index) => (
+                        {selectedGoal.homeActions.map((action: any, index) => (
                           <li key={index} className="flex items-start">
                             <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-0.5" />
                             <span>{action}</span>
@@ -1549,7 +1549,7 @@ export default function ParentSchoolCollaboration() {
                   <div>
                     <h3 className="text-lg font-medium mb-2">Updates</h3>
                     <div className="space-y-4">
-                      {selectedGoal.updates.map((update, index) => (
+                      {selectedGoal.updates.map((update: any, index) => (
                         <div key={index} className="bg-muted/50 p-4 rounded-lg">
                           <div className="flex justify-between items-start">
                             <p>{update.content}</p>
@@ -1617,8 +1617,8 @@ export default function ParentSchoolCollaboration() {
                 </Button>
               </div>
               
-              {filteredGoals.map((goal) => (
-                <Card key={goal.id} className="cursor-pointer hover:bg-muted/50 transition-colors" onClick={() => handleGoalSelect(goal)}>
+              {filteredGoals.map((goal: any) => (
+                <Card key={goal.id} className="cursor-pointer hover:bg-muted/50 transition-colors" onClick={() => handleGoalSelect(goal: any)}>
                   <CardContent className="p-6">
                     <div className="flex justify-between">
                       <div className="space-y-1">
@@ -1686,7 +1686,7 @@ export default function ParentSchoolCollaboration() {
                       {selectedStrategy.category} • {selectedStrategy.ageRange} • {selectedStrategy.format}
                     </CardDescription>
                   </div>
-                  <Button variant="outline" onClick={() => setSelectedStrategy(null)}>
+                  <Button variant="outline" onClick={() => setSelectedStrategy(null: any)}>
                     <ArrowLeft className="mr-2 h-4 w-4" /> Back to Strategies
                   </Button>
                 </div>
@@ -1712,7 +1712,7 @@ export default function ParentSchoolCollaboration() {
                       <div className="flex items-centre">
                         <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                         <span className="ml-1 font-medium">{selectedStrategy.rating}</span>
-                        <span className="text-xs text-muted-foreground ml-1">({selectedStrategy.downloads} downloads)</span>
+                        <span className="text-xs text-muted-foreground ml-1">({selectedStrategy.downloads} downloads: any)</span>
                       </div>
                     </div>
                     <div className="space-y-1">
@@ -1728,7 +1728,7 @@ export default function ParentSchoolCollaboration() {
                   <div>
                     <h3 className="text-lg font-medium mb-2">Tags</h3>
                     <div className="flex flex-wrap gap-2">
-                      {selectedStrategy.tags.map((tag, index) => (
+                      {selectedStrategy.tags.map((tag: any, index) => (
                         <Badge key={index} variant="secondary">{tag}</Badge>
                       ))}
                     </div>
@@ -1752,7 +1752,7 @@ export default function ParentSchoolCollaboration() {
                       <div className="flex items-centre">
                         <p className="text-sm mr-2">Rate this resource:</p>
                         <div className="flex">
-                          {[1, 2, 3, 4, 5].map((star) => (
+                          {[1, 2, 3, 4, 5].map((star: any) => (
                             <Star key={star} className="h-5 w-5 text-muted-foreground cursor-pointer hover:text-yellow-400" />
                           ))}
                         </div>
@@ -1800,7 +1800,7 @@ export default function ParentSchoolCollaboration() {
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {filteredStrategies.map((strategy) => (
-                  <Card key={strategy.id} className="cursor-pointer hover:bg-muted/50 transition-colors" onClick={() => handleStrategySelect(strategy)}>
+                  <Card key={strategy.id} className="cursor-pointer hover:bg-muted/50 transition-colors" onClick={() => handleStrategySelect(strategy: any)}>
                     <div className="aspect-video bg-muted">
                       <img 
                         src={strategy.thumbnail} 
@@ -1854,7 +1854,7 @@ export default function ParentSchoolCollaboration() {
                       {selectedMeeting.date} • {selectedMeeting.time} • {selectedMeeting.location}
                     </CardDescription>
                   </div>
-                  <Button variant="outline" onClick={() => setSelectedMeeting(null)}>
+                  <Button variant="outline" onClick={() => setSelectedMeeting(null: any)}>
                     <ArrowLeft className="mr-2 h-4 w-4" /> Back to Meetings
                   </Button>
                 </div>
@@ -1897,7 +1897,7 @@ export default function ParentSchoolCollaboration() {
                   <div>
                     <h3 className="text-lg font-medium mb-2">Agenda</h3>
                     <ul className="space-y-2">
-                      {selectedMeeting.agenda.map((item, index) => (
+                      {selectedMeeting.agenda.map((item: any, index) => (
                         <li key={index} className="flex items-start">
                           <div className="h-5 w-5 rounded-full bg-primary/10 text-primary flex items-centre justify-centre mr-2 mt-0.5 text-xs font-medium">
                             {index + 1}
@@ -1912,7 +1912,7 @@ export default function ParentSchoolCollaboration() {
                     <div>
                       <h3 className="text-lg font-medium mb-2">Documents</h3>
                       <div className="space-y-2">
-                        {selectedMeeting.documents.map((doc) => (
+                        {selectedMeeting.documents.map((doc: any) => (
                           <div key={doc.id} className="bg-muted/30 p-3 rounded-lg flex items-centre">
                             <FileText className="h-6 w-6 mr-2 text-primary" />
                             <span className="flex-1">{doc.name}</span>
@@ -1952,8 +1952,8 @@ export default function ParentSchoolCollaboration() {
               </div>
               
               <div className="grid grid-cols-1 gap-4">
-                {filteredMeetings.map((meeting) => (
-                  <Card key={meeting.id} className="cursor-pointer hover:bg-muted/50 transition-colors" onClick={() => handleMeetingSelect(meeting)}>
+                {filteredMeetings.map((meeting: any) => (
+                  <Card key={meeting.id} className="cursor-pointer hover:bg-muted/50 transition-colors" onClick={() => handleMeetingSelect(meeting: any)}>
                     <CardContent className="p-6">
                       <div className="flex justify-between">
                         <div className="space-y-1">
@@ -2030,14 +2030,14 @@ export default function ParentSchoolCollaboration() {
                       {selectedCelebration.student.name} ({selectedCelebration.student.year}) • {selectedCelebration.category} • {selectedCelebration.date}
                     </CardDescription>
                   </div>
-                  <Button variant="outline" onClick={() => setSelectedCelebration(null)}>
+                  <Button variant="outline" onClick={() => setSelectedCelebration(null: any)}>
                     <ArrowLeft className="mr-2 h-4 w-4" /> Back to Celebrations
                   </Button>
                 </div>
               </CardHeader>
               <CardContent>
                 <div className="space-y-6">
-                  {selectedCelebration.media.map((item) => (
+                  {selectedCelebration.media.map((item: any) => (
                     <div key={item.id} className="aspect-video bg-muted rounded-lg overflow-hidden">
                       {item.type === 'image' ? (
                         <img 
@@ -2098,7 +2098,7 @@ export default function ParentSchoolCollaboration() {
                   <div>
                     <h3 className="text-lg font-medium mb-2">Comments</h3>
                     <div className="space-y-4">
-                      {selectedCelebration.comments.map((comment) => (
+                      {selectedCelebration.comments.map((comment: any) => (
                         <div key={comment.id} className="bg-muted/50 p-4 rounded-lg">
                           <div className="flex items-centre mb-2">
                             <Avatar className="h-6 w-6 mr-2">
@@ -2111,7 +2111,7 @@ export default function ParentSchoolCollaboration() {
                           </div>
                           <p className="text-sm">{comment.content}</p>
                           <p className="text-xs text-muted-foreground mt-1">
-                            {new Date(comment.timestamp).toLocaleString('en-GB', {
+                            {new Date(comment.timestamp: any).toLocaleString('en-GB', {
                               day: 'numeric',
                               month: 'short',
                               hour: '2-digit',
@@ -2144,8 +2144,8 @@ export default function ParentSchoolCollaboration() {
               </div>
               
               <div className="grid grid-cols-1 gap-4">
-                {filteredCelebrations.map((celebration) => (
-                  <Card key={celebration.id} className="cursor-pointer hover:bg-muted/50 transition-colors" onClick={() => handleCelebrationSelect(celebration)}>
+                {filteredCelebrations.map((celebration: any) => (
+                  <Card key={celebration.id} className="cursor-pointer hover:bg-muted/50 transition-colors" onClick={() => handleCelebrationSelect(celebration: any)}>
                     <CardContent className="p-6">
                       <div className="flex gap-4">
                         {celebration.media.length > 0 && celebration.media[0].type === 'image' && (

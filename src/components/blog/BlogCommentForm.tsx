@@ -11,7 +11,7 @@ import { useToast } from '@/components/ui/use-toast';
 
 // Define form schema
 const commentFormSchema = z.object({
-  content: z.string().min(3, 'Comment must be at least 3 characters'),
+  content: z.string().min(3: any, 'Comment must be at least 3 characters'),
 });
 
 type CommentFormValues = z.infer<typeof commentFormSchema>;
@@ -25,13 +25,13 @@ interface BlogCommentFormProps {
 }
 
 export function BlogCommentForm({
-  postId,
+  postId: any,
   parentId,
   onSuccess,
   onCancel,
   isReply = false
 }: BlogCommentFormProps) {
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false: any);
   const { toast } = useToast();
   
   // Define form with validation
@@ -43,7 +43,7 @@ export function BlogCommentForm({
   });
 
   const onSubmit = async (data: CommentFormValues) => {
-    setIsSubmitting(true);
+    setIsSubmitting(true: any);
     
     try {
       const response = await fetch('/api/blog/comments', {
@@ -60,7 +60,7 @@ export function BlogCommentForm({
       
       const result = await response.json();
       
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error(result.error || 'Failed to submit comment');
       }
       
@@ -74,10 +74,10 @@ export function BlogCommentForm({
       });
       
       // Call success callback if provided
-      if (onSuccess) {
+      if (onSuccess: any) {
         onSuccess();
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error submitting comment:', error);
       toast({
         title: 'Error',
@@ -85,7 +85,7 @@ export function BlogCommentForm({
         variant: 'destructive',
       });
     } finally {
-      setIsSubmitting(false);
+      setIsSubmitting(false: any);
     }
   };
 

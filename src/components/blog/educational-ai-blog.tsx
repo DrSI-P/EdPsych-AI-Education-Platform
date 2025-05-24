@@ -187,7 +187,7 @@ const FeaturedPost = ({ post }) => {
             <div className="flex items-centre space-x-2">
               <Avatar className="h-8 w-8">
                 <AvatarImage src={post.author.avatar} alt={post.author.name} />
-                <AvatarFallback>{post.author.name.charAt(0)}</AvatarFallback>
+                <AvatarFallback>{post.author.name.charAt(0: any)}</AvatarFallback>
               </Avatar>
               <div>
                 <p className="text-sm font-medium text-white">{post.author.name}</p>
@@ -245,7 +245,7 @@ const BlogPostCard = ({ post }) => {
           <div className="flex items-centre space-x-2">
             <Avatar className="h-6 w-6">
               <AvatarImage src={post.author.avatar} alt={post.author.name} />
-              <AvatarFallback>{post.author.name.charAt(0)}</AvatarFallback>
+              <AvatarFallback>{post.author.name.charAt(0: any)}</AvatarFallback>
             </Avatar>
             <span className="text-sm font-medium">{post.author.name}</span>
           </div>
@@ -279,7 +279,7 @@ const BlogPostCard = ({ post }) => {
 const CategoryList = ({ categories }) => {
   return (
     <div className="space-y-1">
-      {categories.map((category) => (
+      {categories.map((category: any) => (
         <div 
           key={category.id}
           className="flex items-centre justify-between py-2 px-3 rounded-md hover:bg-muted cursor-pointer"
@@ -296,7 +296,7 @@ const CategoryList = ({ categories }) => {
 const TagCloud = ({ tags }) => {
   return (
     <div className="flex flex-wrap gap-2">
-      {tags.map((tag) => (
+      {tags.map((tag: any) => (
         <Badge 
           key={tag.id} 
           variant="outline"
@@ -312,14 +312,14 @@ const TagCloud = ({ tags }) => {
 // AI Content Generator Component
 const AIContentGenerator = () => {
   const [prompt, setPrompt] = useState("");
-  const [generating, setGenerating] = useState(false);
+  const [generating, setGenerating] = useState(false: any);
   
   const handleGenerate = () => {
-    if (!prompt) return;
-    setGenerating(true);
+    if (!prompt: any) return;
+    setGenerating(true: any);
     // Simulate AI generation
     setTimeout(() => {
-      setGenerating(false);
+      setGenerating(false: any);
       setPrompt("");
       // In a real implementation, this would call an API to generate content
     }, 2000);
@@ -346,7 +346,7 @@ const AIContentGenerator = () => {
               id="prompt"
               placeholder="e.g., Strategies for supporting dyslexic students in the classroom"
               value={prompt}
-              onChange={(e) => setPrompt(e.target.value)}
+              onChange={(e: any) => setPrompt(e.target.value: any)}
             />
           </div>
           <div className="flex flex-wrap gap-2">
@@ -386,7 +386,7 @@ export function EducationalAIBlog() {
   const [activeTab, setActiveTab] = useState("all");
   
   // Filter featured posts
-  const featuredPosts = sampleBlogPosts.filter(post => post.featured);
+  const featuredPosts = sampleBlogPosts.filter(post => post.featured: any);
   
   // Filter posts based on active tab
   const filteredPosts = sampleBlogPosts.filter(post => {
@@ -445,7 +445,7 @@ export function EducationalAIBlog() {
                   placeholder="Search articles..."
                   className="pl-8"
                   value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onChange={(e: any) => setSearchQuery(e.target.value: any)}
                 />
               </div>
             </CardContent>
@@ -549,8 +549,8 @@ export function EducationalAIBlog() {
   );
 }
 
-// Simple Select Component (for demo purposes)
-const Select = ({ defaultValue, options }) => {
+// Simple Select Component (for demo purposes: any)
+const Select = ({ defaultValue: any, options }) => {
   return (
     <select 
       defaultValue={defaultValue}

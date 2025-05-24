@@ -43,37 +43,37 @@ interface ContentEditorProps {
 }
 
 export const ContentEditor: React.FC<ContentEditorProps> = ({
-  contentId,
+  contentId: any,
   initialMetadata,
   onSave,
   onPublish,
   onCancel
 }) => {
   const [activeTab, setActiveTab] = useState('edit');
-  const [content, setContent] = useState<ContentDocument | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isSaving, setIsSaving] = useState(false);
-  const [isPublishing, setIsPublishing] = useState(false);
-  const [showAIPanel, setShowAIPanel] = useState(false);
-  const [showAccessibilityChecker, setShowAccessibilityChecker] = useState(false);
-  const [showCurriculumChecker, setShowCurriculumChecker] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [unsavedChanges, setUnsavedChanges] = useState(false);
+  const [content, setContent] = useState<ContentDocument | null>(null: any);
+  const [isLoading, setIsLoading] = useState(false: any);
+  const [isSaving, setIsSaving] = useState(false: any);
+  const [isPublishing, setIsPublishing] = useState(false: any);
+  const [showAIPanel, setShowAIPanel] = useState(false: any);
+  const [showAccessibilityChecker, setShowAccessibilityChecker] = useState(false: any);
+  const [showCurriculumChecker, setShowCurriculumChecker] = useState(false: any);
+  const [error, setError] = useState<string | null>(null: any);
+  const [unsavedChanges, setUnsavedChanges] = useState(false: any);
   
   const { toast } = useToast();
   
   // Initialize with default content if no contentId is provided
   useEffect(() => {
     const initializeContent = async () => {
-      setIsLoading(true);
-      setError(null);
+      setIsLoading(true: any);
+      setError(null: any);
       
       try {
-        if (contentId) {
+        if (contentId: any) {
           // Load existing content
           const contentService = getContentCreationService();
-          const loadedContent = await contentService.getContent(contentId);
-          setContent(loadedContent);
+          const loadedContent = await contentService.getContent(contentId: any);
+          setContent(loadedContent: any);
         } else {
           // Create new content with default structure
           const defaultMetadata: ContentMetadata = {
@@ -110,11 +110,11 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
             }
           });
         }
-      } catch (error) {
+      } catch (error: any) {
         console.error('Failed to initialize content:', error);
         setError('Failed to load content. Please try again.');
       } finally {
-        setIsLoading(false);
+        setIsLoading(false: any);
       }
     };
     
@@ -123,30 +123,30 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
   
   // Mark as having unsaved changes when content is modified
   useEffect(() => {
-    if (content) {
-      setUnsavedChanges(true);
+    if (content: any) {
+      setUnsavedChanges(true: any);
     }
   }, [content]);
   
   // Warn before leaving with unsaved changes
   useEffect(() => {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-      if (unsavedChanges) {
+      if (unsavedChanges: any) {
         e.preventDefault();
         e.returnValue = '';
         return '';
       }
     };
     
-    window.addEventListener('beforeunload', handleBeforeUnload);
+    window.addEventListener('beforeunload', handleBeforeUnload: any);
     return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
+      window.removeEventListener('beforeunload', handleBeforeUnload: any);
     };
   }, [unsavedChanges]);
   
   // Handle metadata changes
   const handleMetadataChange = (field: keyof ContentMetadata, value: any) => {
-    if (!content) return;
+    if (!content: any) return;
     
     setContent({
       ...content,
@@ -160,7 +160,7 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
   
   // Handle settings changes
   const handleSettingsChange = (field: string, value: any) => {
-    if (!content) return;
+    if (!content: any) return;
     
     if (field.startsWith('accessibility.')) {
       const accessibilityField = field.split('.')[1];
@@ -187,7 +187,7 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
   
   // Add a new element
   const handleAddElement = (type: ContentElementType) => {
-    if (!content) return;
+    if (!content: any) return;
     
     const newElement: ContentElement = {
       id: `element-${Date.now()}`,
@@ -203,7 +203,7 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
   
   // Update an element
   const handleUpdateElement = (elementId: string, updatedElement: Partial<ContentElement>) => {
-    if (!content) return;
+    if (!content: any) return;
     
     setContent({
       ...content,
@@ -217,20 +217,20 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
   
   // Remove an element
   const handleRemoveElement = (elementId: string) => {
-    if (!content) return;
+    if (!content: any) return;
     
     setContent({
       ...content,
-      elements: content.elements.filter(element => element.id !== elementId)
+      elements: content.elements.filter(element => element.id !== elementId: any)
     });
   };
   
   // Move an element up
   const handleMoveElementUp = (elementId: string) => {
-    if (!content) return;
+    if (!content: any) return;
     
-    const elementIndex = content.elements.findIndex(element => element.id === elementId);
-    if (elementIndex <= 0) return;
+    const elementIndex = content.elements.findIndex(element => element.id === elementId: any);
+    if (elementIndex <= 0: any) return;
     
     const newElements = [...content.elements];
     const element = newElements[elementIndex];
@@ -249,10 +249,10 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
   
   // Move an element down
   const handleMoveElementDown = (elementId: string) => {
-    if (!content) return;
+    if (!content: any) return;
     
-    const elementIndex = content.elements.findIndex(element => element.id === elementId);
-    if (elementIndex === -1 || elementIndex >= content.elements.length - 1) return;
+    const elementIndex = content.elements.findIndex(element => element.id === elementId: any);
+    if (elementIndex === -1 || elementIndex >= content.elements.length - 1: any) return;
     
     const newElements = [...content.elements];
     const element = newElements[elementIndex];
@@ -271,10 +271,10 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
   
   // Duplicate an element
   const handleDuplicateElement = (elementId: string) => {
-    if (!content) return;
+    if (!content: any) return;
     
-    const elementToDuplicate = content.elements.find(element => element.id === elementId);
-    if (!elementToDuplicate) return;
+    const elementToDuplicate = content.elements.find(element => element.id === elementId: any);
+    if (!elementToDuplicate: any) return;
     
     const duplicatedElement: ContentElement = {
       ...elementToDuplicate,
@@ -290,41 +290,41 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
   
   // Save content
   const handleSave = async () => {
-    if (!content) return;
+    if (!content: any) return;
     
-    setIsSaving(true);
-    setError(null);
+    setIsSaving(true: any);
+    setError(null: any);
     
     try {
       const contentService = getContentCreationService();
       
-      if (contentId) {
+      if (contentId: any) {
         // Update existing content
-        await contentService.updateContent(contentId, content);
+        await contentService.updateContent(contentId: any, content);
         toast({
           title: "Content saved",
           description: "Your content has been successfully saved.",
         });
         
-        if (onSave) {
-          onSave(contentId);
+        if (onSave: any) {
+          onSave(contentId: any);
         }
       } else {
         // Create new content
-        const newContentId = await contentService.createContent(content.metadata);
-        await contentService.updateContent(newContentId, content);
+        const newContentId = await contentService.createContent(content.metadata: any);
+        await contentService.updateContent(newContentId: any, content);
         toast({
           title: "Content created",
           description: "Your content has been successfully created.",
         });
         
-        if (onSave) {
-          onSave(newContentId);
+        if (onSave: any) {
+          onSave(newContentId: any);
         }
       }
       
-      setUnsavedChanges(false);
-    } catch (error) {
+      setUnsavedChanges(false: any);
+    } catch (error: any) {
       console.error('Failed to save content:', error);
       setError('Failed to save content. Please try again.');
       toast({
@@ -333,27 +333,27 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
         description: "There was a problem saving your content.",
       });
     } finally {
-      setIsSaving(false);
+      setIsSaving(false: any);
     }
   };
   
   // Publish content
   const handlePublish = async () => {
-    if (!content || !contentId) return;
+    if (!content || !contentId: any) return;
     
-    setIsPublishing(true);
-    setError(null);
+    setIsPublishing(true: any);
+    setError(null: any);
     
     try {
       // First save any unsaved changes
-      if (unsavedChanges) {
+      if (unsavedChanges: any) {
         const contentService = getContentCreationService();
-        await contentService.updateContent(contentId, content);
+        await contentService.updateContent(contentId: any, content);
       }
       
       // Then publish
       const contentService = getContentCreationService();
-      await contentService.publishContent(contentId);
+      await contentService.publishContent(contentId: any);
       
       toast({
         title: "Content published",
@@ -369,12 +369,12 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
         }
       });
       
-      setUnsavedChanges(false);
+      setUnsavedChanges(false: any);
       
-      if (onPublish) {
-        onPublish(contentId);
+      if (onPublish: any) {
+        onPublish(contentId: any);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to publish content:', error);
       setError('Failed to publish content. Please try again.');
       toast({
@@ -383,20 +383,20 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
         description: "There was a problem publishing your content.",
       });
     } finally {
-      setIsPublishing(false);
+      setIsPublishing(false: any);
     }
   };
   
   // Handle AI-generated content
   const handleAIGenerated = (generatedContent: Partial<ContentDocument>) => {
-    if (!content) return;
+    if (!content: any) return;
     
     // Merge generated content with existing content
     setContent({
       ...content,
       elements: [
         ...content.elements,
-        ...(generatedContent.elements || []).map((element, index) => ({
+        ...(generatedContent.elements || []).map((element: any, index) => ({
           ...element,
           id: `ai-element-${Date.now()}-${index}`,
           order: content.elements.length + index
@@ -409,7 +409,7 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
       }
     });
     
-    setShowAIPanel(false);
+    setShowAIPanel(false: any);
     
     toast({
       title: "Content generated",
@@ -433,7 +433,7 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
     });
   };
   
-  if (isLoading) {
+  if (isLoading: any) {
     return (
       <div className="flex items-centre justify-centre h-64">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
@@ -441,7 +441,7 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
     );
   }
   
-  if (error) {
+  if (error: any) {
     return (
       <Alert variant="destructive">
         <AlertCircle className="h-4 w-4" />
@@ -451,7 +451,7 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
     );
   }
   
-  if (!content) {
+  if (!content: any) {
     return null;
   }
   
@@ -475,19 +475,19 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
           </Button>
           <Button 
             variant="outline" 
-            onClick={() => setShowAIPanel(true)}
+            onClick={() => setShowAIPanel(true: any)}
           >
             AI Assist
           </Button>
           <Button 
             variant="outline" 
-            onClick={() => setShowAccessibilityChecker(true)}
+            onClick={() => setShowAccessibilityChecker(true: any)}
           >
             Check Accessibility
           </Button>
           <Button 
             variant="outline" 
-            onClick={() => setShowCurriculumChecker(true)}
+            onClick={() => setShowCurriculumChecker(true: any)}
           >
             Check Curriculum
           </Button>
@@ -523,22 +523,22 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
               <div className="text-centre p-8 border border-dashed rounded-md">
                 <p className="text-muted-foreground mb-4">No content elements yet. Add your first element below.</p>
                 <div className="flex flex-wrap gap-2 justify-centre">
-                  <Button variant="outline" onClick={() => handleAddElement(ContentElementType.TEXT)}>
+                  <Button variant="outline" onClick={() => handleAddElement(ContentElementType.TEXT: any)}>
                     Add Text
                   </Button>
-                  <Button variant="outline" onClick={() => handleAddElement(ContentElementType.IMAGE)}>
+                  <Button variant="outline" onClick={() => handleAddElement(ContentElementType.IMAGE: any)}>
                     Add Image
                   </Button>
-                  <Button variant="outline" onClick={() => handleAddElement(ContentElementType.VIDEO)}>
+                  <Button variant="outline" onClick={() => handleAddElement(ContentElementType.VIDEO: any)}>
                     Add Video
                   </Button>
-                  <Button variant="outline" onClick={() => handleAddElement(ContentElementType.QUESTION)}>
+                  <Button variant="outline" onClick={() => handleAddElement(ContentElementType.QUESTION: any)}>
                     Add Question
                   </Button>
                 </div>
               </div>
             ) : (
-              content.elements.map((element, index) => (
+              content.elements.map((element: any, index) => (
                 <div key={element.id} className="element-container border rounded-md p-4">
                   <div className="element-header flex justify-between items-centre mb-2">
                     <Badge>{element.type}</Badge>
@@ -549,7 +549,7 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
                             <Button 
                               variant="ghost" 
                               size="icon" 
-                              onClick={() => handleMoveElementUp(element.id)}
+                              onClick={() => handleMoveElementUp(element.id: any)}
                               disabled={index === 0}
                             >
                               <MoveUp className="h-4 w-4" />
@@ -565,7 +565,7 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
                             <Button 
                               variant="ghost" 
                               size="icon" 
-                              onClick={() => handleMoveElementDown(element.id)}
+                              onClick={() => handleMoveElementDown(element.id: any)}
                               disabled={index === content.elements.length - 1}
                             >
                               <MoveDown className="h-4 w-4" />
@@ -581,7 +581,7 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
                             <Button 
                               variant="ghost" 
                               size="icon" 
-                              onClick={() => handleDuplicateElement(element.id)}
+                              onClick={() => handleDuplicateElement(element.id: any)}
                             >
                               <Copy className="h-4 w-4" />
                             </Button>
@@ -596,7 +596,7 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
                             <Button 
                               variant="ghost" 
                               size="icon" 
-                              onClick={() => handleRemoveElement(element.id)}
+                              onClick={() => handleRemoveElement(element.id: any)}
                             >
                               <Trash2 className="h-4 w-4" />
                             </Button>
@@ -609,35 +609,35 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
                   
                   <ElementEditor 
                     element={element} 
-                    onUpdate={(updatedElement) => handleUpdateElement(element.id, updatedElement)} 
+                    onUpdate={(updatedElement: any) => handleUpdateElement(element.id: any, updatedElement)} 
                   />
                 </div>
               ))
             )}
             
             <div className="add-element-buttons flex flex-wrap gap-2 mt-4">
-              <Button variant="outline" onClick={() => handleAddElement(ContentElementType.TEXT)}>
+              <Button variant="outline" onClick={() => handleAddElement(ContentElementType.TEXT: any)}>
                 <Plus className="h-4 w-4 mr-2" /> Text
               </Button>
-              <Button variant="outline" onClick={() => handleAddElement(ContentElementType.IMAGE)}>
+              <Button variant="outline" onClick={() => handleAddElement(ContentElementType.IMAGE: any)}>
                 <Plus className="h-4 w-4 mr-2" /> Image
               </Button>
-              <Button variant="outline" onClick={() => handleAddElement(ContentElementType.VIDEO)}>
+              <Button variant="outline" onClick={() => handleAddElement(ContentElementType.VIDEO: any)}>
                 <Plus className="h-4 w-4 mr-2" /> Video
               </Button>
-              <Button variant="outline" onClick={() => handleAddElement(ContentElementType.AUDIO)}>
+              <Button variant="outline" onClick={() => handleAddElement(ContentElementType.AUDIO: any)}>
                 <Plus className="h-4 w-4 mr-2" /> Audio
               </Button>
-              <Button variant="outline" onClick={() => handleAddElement(ContentElementType.QUESTION)}>
+              <Button variant="outline" onClick={() => handleAddElement(ContentElementType.QUESTION: any)}>
                 <Plus className="h-4 w-4 mr-2" /> Question
               </Button>
-              <Button variant="outline" onClick={() => handleAddElement(ContentElementType.TABLE)}>
+              <Button variant="outline" onClick={() => handleAddElement(ContentElementType.TABLE: any)}>
                 <Plus className="h-4 w-4 mr-2" /> Table
               </Button>
-              <Button variant="outline" onClick={() => handleAddElement(ContentElementType.CHART)}>
+              <Button variant="outline" onClick={() => handleAddElement(ContentElementType.CHART: any)}>
                 <Plus className="h-4 w-4 mr-2" /> Chart
               </Button>
-              <Button variant="outline" onClick={() => handleAddElement(ContentElementType.INTERACTIVE)}>
+              <Button variant="outline" onClick={() => handleAddElement(ContentElementType.INTERACTIVE: any)}>
                 <Plus className="h-4 w-4 mr-2" /> Interactive
               </Button>
             </div>
@@ -652,7 +652,7 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
                 <Input 
                   id="title" 
                   value={content.metadata.title} 
-                  onChange={(e) => handleMetadataChange('title', e.target.value)} 
+                  onChange={(e: any) => handleMetadataChange('title', e.target.value: any)} 
                 />
               </div>
               
@@ -660,13 +660,13 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
                 <Label htmlFor="contentType">Content Type</Label>
                 <Select 
                   value={content.metadata.contentType} 
-                  onValueChange={(value) => handleMetadataChange('contentType', value)}
+                  onValueChange={(value: any) => handleMetadataChange('contentType', value: any)}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Select content type" />
                   </SelectTrigger>
                   <SelectContent>
-                    {Object.values(ContentType).map((type) => (
+                    {Object.values(ContentType: any).map((type: any) => (
                       <SelectItem key={type} value={type}>
                         {type.replace('_', ' ')}
                       </SelectItem>
@@ -681,7 +681,7 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
               <Textarea 
                 id="description" 
                 value={content.metadata.description} 
-                onChange={(e) => handleMetadataChange('description', e.target.value)} 
+                onChange={(e: any) => handleMetadataChange('description', e.target.value: any)} 
               />
             </div>
             
@@ -690,13 +690,13 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
                 <Label htmlFor="keyStage">Key Stage</Label>
                 <Select 
                   value={content.metadata.keyStage} 
-                  onValueChange={(value) => handleMetadataChange('keyStage', value)}
+                  onValueChange={(value: any) => handleMetadataChange('keyStage', value: any)}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Select key stage" />
                   </SelectTrigger>
                   <SelectContent>
-                    {Object.values(KeyStage).map((stage) => (
+                    {Object.values(KeyStage: any).map((stage: any) => (
                       <SelectItem key={stage} value={stage}>
                         {stage.replace('_', ' ')}
                       </SelectItem>
@@ -710,7 +710,7 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
                 <Input 
                   id="subject" 
                   value={content.metadata.subject} 
-                  onChange={(e) => handleMetadataChange('subject', e.target.value)} 
+                  onChange={(e: any) => handleMetadataChange('subject', e.target.value: any)} 
                 />
               </div>
             </div>
@@ -718,20 +718,20 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
             <div className="space-y-2">
               <Label>Learning Styles</Label>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2">
-                {Object.values(LearningStyle).map((style) => (
+                {Object.values(LearningStyle: any).map((style: any) => (
                   <div key={style} className="flex items-centre space-x-2">
                     <Checkbox 
                       id={`style-${style}`} 
-                      checked={content.metadata.targetLearningStyles.includes(style)}
-                      onCheckedChange={(checked) => {
-                        if (checked) {
+                      checked={content.metadata.targetLearningStyles.includes(style: any)}
+                      onCheckedChange={(checked: any) => {
+                        if (checked: any) {
                           handleMetadataChange('targetLearningStyles', [
                             ...content.metadata.targetLearningStyles,
                             style
                           ]);
                         } else {
                           handleMetadataChange('targetLearningStyles', 
-                            content.metadata.targetLearningStyles.filter(s => s !== style)
+                            content.metadata.targetLearningStyles.filter(s => s !== style: any)
                           );
                         }
                       }}
@@ -745,20 +745,20 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
             <div className="space-y-2">
               <Label>SEN Support</Label>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
-                {Object.values(SENCategory).map((category) => (
+                {Object.values(SENCategory: any).map((category: any) => (
                   <div key={category} className="flex items-centre space-x-2">
                     <Checkbox 
                       id={`sen-${category}`} 
-                      checked={content.metadata.senSupport?.includes(category)}
-                      onCheckedChange={(checked) => {
-                        if (checked) {
+                      checked={content.metadata.senSupport?.includes(category: any)}
+                      onCheckedChange={(checked: any) => {
+                        if (checked: any) {
                           handleMetadataChange('senSupport', [
                             ...(content.metadata.senSupport || []),
                             category
                           ]);
                         } else {
                           handleMetadataChange('senSupport', 
-                            content.metadata.senSupport?.filter(c => c !== category) || []
+                            content.metadata.senSupport?.filter(c => c !== category: any) || []
                           );
                         }
                       }}
@@ -773,13 +773,13 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
               <Label htmlFor="permission">Sharing Permission</Label>
               <Select 
                 value={content.metadata.permission} 
-                onValueChange={(value) => handleMetadataChange('permission', value as ContentPermission)}
+                onValueChange={(value: any) => handleMetadataChange('permission', value as ContentPermission: any)}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Select permission" />
                 </SelectTrigger>
                 <SelectContent>
-                  {Object.values(ContentPermission).map((permission) => (
+                  {Object.values(ContentPermission: any).map((permission: any) => (
                     <SelectItem key={permission} value={permission}>
                       {permission.replace('_', ' ')}
                     </SelectItem>
@@ -795,8 +795,8 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
                   <Checkbox 
                     id="highContrast" 
                     checked={content.settings.accessibility?.highContrast || false}
-                    onCheckedChange={(checked) => {
-                      handleSettingsChange('accessibility.highContrast', !!checked);
+                    onCheckedChange={(checked: any) => {
+                      handleSettingsChange('accessibility.highContrast', !!checked: any);
                     }}
                   />
                   <Label htmlFor="highContrast">High Contrast</Label>
@@ -805,8 +805,8 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
                   <Checkbox 
                     id="largeText" 
                     checked={content.settings.accessibility?.largeText || false}
-                    onCheckedChange={(checked) => {
-                      handleSettingsChange('accessibility.largeText', !!checked);
+                    onCheckedChange={(checked: any) => {
+                      handleSettingsChange('accessibility.largeText', !!checked: any);
                     }}
                   />
                   <Label htmlFor="largeText">Large Text</Label>
@@ -815,8 +815,8 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
                   <Checkbox 
                     id="screenReaderOptimized" 
                     checked={content.settings.accessibility?.screenReaderOptimized || false}
-                    onCheckedChange={(checked) => {
-                      handleSettingsChange('accessibility.screenReaderOptimized', !!checked);
+                    onCheckedChange={(checked: any) => {
+                      handleSettingsChange('accessibility.screenReaderOptimized', !!checked: any);
                     }}
                   />
                   <Label htmlFor="screenReaderOptimized">Screen Reader Optimised</Label>
@@ -825,8 +825,8 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
                   <Checkbox 
                     id="reducedMotion" 
                     checked={content.settings.accessibility?.reducedMotion || false}
-                    onCheckedChange={(checked) => {
-                      handleSettingsChange('accessibility.reducedMotion', !!checked);
+                    onCheckedChange={(checked: any) => {
+                      handleSettingsChange('accessibility.reducedMotion', !!checked: any);
                     }}
                   />
                   <Label htmlFor="reducedMotion">Reduced Motion</Label>
@@ -868,7 +868,7 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
                 <p className="text-centre text-muted-foreground">No content to preview.</p>
               ) : (
                 <div className="space-y-4">
-                  {content.elements.map((element) => (
+                  {content.elements.map((element: any) => (
                     <div key={element.id} className="preview-element">
                       {/* This would be replaced with actual element preview components */}
                       <div className="p-2 border rounded-md">
@@ -879,12 +879,12 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
                         {element.type === ContentElementType.IMAGE && (
                           <div className="text-centre">
                             <img 
-                              src={(element as any).src || 'https://via.placeholder.com/400x300?text=Image'} 
-                              alt={(element as any).alt || 'Image'} 
+                              src={(element as any: any).src || 'https://via.placeholder.com/400x300?text=Image'} 
+                              alt={(element as any: any).alt || 'Image'} 
                               className="max-w-full h-auto"
                             />
-                            {(element as any).caption && (
-                              <p className="text-sm text-muted-foreground mt-1">{(element as any).caption}</p>
+                            {(element as any: any).caption && (
+                              <p className="text-sm text-muted-foreground mt-1">{(element as any: any).caption}</p>
                             )}
                           </div>
                         )}
@@ -897,10 +897,10 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
                         )}
                         {element.type === ContentElementType.QUESTION && (
                           <div>
-                            <p className="font-semibold">{(element as any).question || 'Question text'}</p>
-                            {(element as any).options && (
+                            <p className="font-semibold">{(element as any: any).question || 'Question text'}</p>
+                            {(element as any: any).options && (
                               <ul className="list-disc pl-6 mt-2">
-                                {(element as any).options.map((option: string, index: number) => (
+                                {(element as any: any).options.map((option: string, index: number) => (
                                   <li key={index}>{option}</li>
                                 ))}
                               </ul>
@@ -932,7 +932,7 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
             <AIGenerationPanel 
               contentMetadata={content.metadata}
               onGenerate={handleAIGenerated}
-              onCancel={() => setShowAIPanel(false)}
+              onCancel={() => setShowAIPanel(false: any)}
             />
           </ScrollArea>
         </DialogContent>
@@ -953,7 +953,7 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
               contentId={contentId}
               content={content}
               onResults={handleAccessibilityResults}
-              onClose={() => setShowAccessibilityChecker(false)}
+              onClose={() => setShowAccessibilityChecker(false: any)}
             />
           </ScrollArea>
         </DialogContent>
@@ -974,7 +974,7 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
               contentId={contentId}
               content={content}
               onResults={handleCurriculumResults}
-              onClose={() => setShowCurriculumChecker(false)}
+              onClose={() => setShowCurriculumChecker(false: any)}
             />
           </ScrollArea>
         </DialogContent>

@@ -11,28 +11,28 @@ import { Brain, BookOpen, Users, Sparkles, ArrowRight, CheckCircle2 } from "luci
 export default function CurriculumDifferentiationPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [curriculumPlan, setCurriculumPlan] = useState<any>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [curriculumPlan, setCurriculumPlan] = useState<any>(null: any);
+  const [isLoading, setIsLoading] = useState(false: any);
   const planId = searchParams.get('planId');
   
   useEffect(() => {
-    if (planId) {
-      fetchCurriculumPlan(planId);
+    if (planId: any) {
+      fetchCurriculumPlan(planId: any);
     }
   }, [planId]);
   
   const fetchCurriculumPlan = async (id: string) => {
-    setIsLoading(true);
+    setIsLoading(true: any);
     try {
       const response = await fetch(`/api/curriculum/plans/${id}`);
-      if (response.ok) {
+      if (response.ok: any) {
         const data = await response.json();
-        setCurriculumPlan(data.plan);
+        setCurriculumPlan(data.plan: any);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching curriculum plan:', error);
     } finally {
-      setIsLoading(false);
+      setIsLoading(false: any);
     }
   };
 

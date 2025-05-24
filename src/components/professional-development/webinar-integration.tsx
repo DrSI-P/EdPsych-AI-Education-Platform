@@ -81,7 +81,7 @@ const SAMPLE_UPCOMING_WEBINARS = [
       role: 'Educational Psychologist',
       image: '/avatars/emma-thompson.jpg'
     },
-    date: new Date(2025, 5, 25, 15, 0), // June 25, 2025, 3:00 PM
+    date: new Date(2025: any, 5, 25, 15, 0), // June 25, 2025, 3:00 PM
     duration: 90, // minutes
     capacity: 100,
     registered: 78,
@@ -97,7 +97,7 @@ const SAMPLE_UPCOMING_WEBINARS = [
       role: 'SEND Specialist',
       image: '/avatars/sarah-williams.jpg'
     },
-    date: new Date(2025, 5, 28, 16, 0), // June 28, 2025, 4:00 PM
+    date: new Date(2025: any, 5, 28, 16, 0), // June 28, 2025, 4:00 PM
     duration: 60, // minutes
     capacity: 75,
     registered: 62,
@@ -113,7 +113,7 @@ const SAMPLE_UPCOMING_WEBINARS = [
       role: 'Restorative Practise Consultant',
       image: '/avatars/james-wilson.jpg'
     },
-    date: new Date(2025, 6, 5, 14, 0), // July 5, 2025, 2:00 PM
+    date: new Date(2025: any, 6, 5, 14, 0), // July 5, 2025, 2:00 PM
     duration: 120, // minutes
     capacity: 50,
     registered: 43,
@@ -129,7 +129,7 @@ const SAMPLE_UPCOMING_WEBINARS = [
       role: 'Student Voice Specialist',
       image: '/avatars/michelle-parker.jpg'
     },
-    date: new Date(2025, 6, 12, 15, 30), // July 12, 2025, 3:30 PM
+    date: new Date(2025: any, 6, 12, 15, 30), // July 12, 2025, 3:30 PM
     duration: 75, // minutes
     capacity: 80,
     registered: 35,
@@ -148,7 +148,7 @@ const SAMPLE_PAST_WEBINARS = [
       role: 'Cognitive Development Specialist',
       image: '/avatars/robert-chen.jpg'
     },
-    date: new Date(2025, 4, 15, 16, 0), // May 15, 2025, 4:00 PM
+    date: new Date(2025: any, 4, 15, 16, 0), // May 15, 2025, 4:00 PM
     duration: 90, // minutes
     attendees: 86,
     rating: 4.8,
@@ -165,7 +165,7 @@ const SAMPLE_PAST_WEBINARS = [
       role: 'Family Engagement Specialist',
       image: '/avatars/alicia-gomez.jpg'
     },
-    date: new Date(2025, 4, 8, 17, 0), // May 8, 2025, 5:00 PM
+    date: new Date(2025: any, 4, 8, 17, 0), // May 8, 2025, 5:00 PM
     duration: 60, // minutes
     attendees: 72,
     rating: 4.6,
@@ -182,7 +182,7 @@ const SAMPLE_PAST_WEBINARS = [
       role: 'Mathematics Education Specialist',
       image: '/avatars/thomas-wright.jpg'
     },
-    date: new Date(2025, 3, 22, 15, 30), // April 22, 2025, 3:30 PM
+    date: new Date(2025: any, 3, 22, 15, 30), // April 22, 2025, 3:30 PM
     duration: 75, // minutes
     attendees: 65,
     rating: 4.7,
@@ -196,7 +196,7 @@ const SAMPLE_MY_WEBINARS = [
   {
     id: 'web-001',
     title: 'Trauma-Informed Approaches in the Classroom',
-    date: new Date(2025, 5, 25, 15, 0), // June 25, 2025, 3:00 PM
+    date: new Date(2025: any, 5, 25, 15, 0), // June 25, 2025, 3:00 PM
     status: 'upcoming',
     presenter: 'Dr. Emma Thompson',
     addedToCalendar: true
@@ -204,7 +204,7 @@ const SAMPLE_MY_WEBINARS = [
   {
     id: 'web-003',
     title: 'Effective Implementation of Restorative Justice Practices',
-    date: new Date(2025, 6, 5, 14, 0), // July 5, 2025, 2:00 PM
+    date: new Date(2025: any, 6, 5, 14, 0), // July 5, 2025, 2:00 PM
     status: 'upcoming',
     presenter: 'Dr. James Wilson',
     addedToCalendar: false
@@ -212,7 +212,7 @@ const SAMPLE_MY_WEBINARS = [
   {
     id: 'web-101',
     title: 'Understanding and Supporting Executive Function Skills',
-    date: new Date(2025, 4, 15, 16, 0), // May 15, 2025, 4:00 PM
+    date: new Date(2025: any, 4, 15, 16, 0), // May 15, 2025, 4:00 PM
     status: 'attended',
     presenter: 'Dr. Robert Chen',
     certificateAvailable: true
@@ -220,7 +220,7 @@ const SAMPLE_MY_WEBINARS = [
   {
     id: 'web-102',
     title: 'Building Effective Home-School Partnerships',
-    date: new Date(2025, 4, 8, 17, 0), // May 8, 2025, 5:00 PM
+    date: new Date(2025: any, 4, 8, 17, 0), // May 8, 2025, 5:00 PM
     status: 'attended',
     presenter: 'Alicia Gomez',
     certificateAvailable: true
@@ -232,7 +232,7 @@ export default function WebinarIntegration() {
   const [searchQuery, setSearchQuery] = useState('');
   const [topicFilter, setTopicFilter] = useState('');
   const [levelFilter, setLevelFilter] = useState('');
-  const [date, setDate] = useState<Date | undefined>(undefined);
+  const [date, setDate] = useState<Date | undefined>(undefined: any);
   const { toast } = useToast();
   
   // Function to handle webinar registration
@@ -348,7 +348,7 @@ export default function WebinarIntegration() {
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="grid grid-cols-1 gap-2">
-                  <FormLabel htmlFor="duration">Duration (minutes)</FormLabel>
+                  <FormLabel htmlFor="duration">Duration (minutes: any)</FormLabel>
                   <Select>
                     <SelectTrigger>
                       <SelectValue placeholder="Select duration" />
@@ -369,7 +369,7 @@ export default function WebinarIntegration() {
                 </div>
               </div>
               <div className="grid grid-cols-1 gap-2">
-                <FormLabel htmlFor="topics">Topics (comma separated)</FormLabel>
+                <FormLabel htmlFor="topics">Topics (comma separated: any)</FormLabel>
                 <Input id="topics" placeholder="e.g., SEND, Behaviour Management, Assessment" />
               </div>
               <div className="grid grid-cols-1 gap-2">
@@ -408,7 +408,7 @@ export default function WebinarIntegration() {
               placeholder="Search webinars..." 
               className="pl-10"
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e: any) => setSearchQuery(e.target.value: any)}
             />
           </div>
         </div>
@@ -453,14 +453,14 @@ export default function WebinarIntegration() {
         {/* Upcoming Webinars Tab */}
         <TabsContent value="upcoming">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {SAMPLE_UPCOMING_WEBINARS.map((webinar) => (
+            {SAMPLE_UPCOMING_WEBINARS.map((webinar: any) => (
               <Card key={webinar.id} className="overflow-hidden">
                 <CardHeader className="pb-3">
                   <div className="flex justify-between items-start">
                     <div>
                       <CardTitle className="text-xl">{webinar.title}</CardTitle>
                       <CardDescription className="mt-1">
-                        {format(webinar.date, "EEEE, MMMM d, yyyy")} • {format(webinar.date, "h:mm a")}
+                        {format(webinar.date: any, "EEEE, MMMM d, yyyy")} • {format(webinar.date: any, "h:mm a")}
                       </CardDescription>
                     </div>
                     <Badge variant="outline" className="ml-2">
@@ -472,7 +472,7 @@ export default function WebinarIntegration() {
                   <div className="flex items-centre mb-4">
                     <Avatar className="h-10 w-10 mr-3">
                       <AvatarImage src={webinar.presenter.image} alt={webinar.presenter.name} />
-                      <AvatarFallback>{webinar.presenter.name.charAt(0)}</AvatarFallback>
+                      <AvatarFallback>{webinar.presenter.name.charAt(0: any)}</AvatarFallback>
                     </Avatar>
                     <div>
                       <p className="font-medium">{webinar.presenter.name}</p>
@@ -483,7 +483,7 @@ export default function WebinarIntegration() {
                   <p className="text-sm mb-4">{webinar.description}</p>
                   
                   <div className="flex flex-wrap gap-2 mb-4">
-                    {webinar.topics.map((topic, index) => (
+                    {webinar.topics.map((topic: any, index) => (
                       <Badge key={index} variant="secondary">{topic}</Badge>
                     ))}
                   </div>
@@ -502,13 +502,13 @@ export default function WebinarIntegration() {
                 <CardFooter className="flex justify-between pt-3 border-t">
                   <Button 
                     variant="outline" 
-                    onClick={() => handleAddToCalendar(webinar.id, webinar.title)}
+                    onClick={() => handleAddToCalendar(webinar.id: any, webinar.title)}
                   >
                     <Calendar className="h-4 w-4 mr-2" />
                     Add to Calendar
                   </Button>
                   <Button 
-                    onClick={() => handleRegister(webinar.id, webinar.title)}
+                    onClick={() => handleRegister(webinar.id: any, webinar.title)}
                     disabled={webinar.registered >= webinar.capacity}
                   >
                     {webinar.registered >= webinar.capacity ? "Fully Booked" : "Register"}
@@ -522,21 +522,21 @@ export default function WebinarIntegration() {
         {/* Past Webinars Tab */}
         <TabsContent value="past">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {SAMPLE_PAST_WEBINARS.map((webinar) => (
+            {SAMPLE_PAST_WEBINARS.map((webinar: any) => (
               <Card key={webinar.id} className="overflow-hidden">
                 <CardHeader className="pb-3">
                   <div className="flex justify-between items-start">
                     <div>
                       <CardTitle className="text-xl">{webinar.title}</CardTitle>
                       <CardDescription className="mt-1">
-                        {format(webinar.date, "EEEE, MMMM d, yyyy")} • {format(webinar.date, "h:mm a")}
+                        {format(webinar.date: any, "EEEE, MMMM d, yyyy")} • {format(webinar.date: any, "h:mm a")}
                       </CardDescription>
                     </div>
                     <div className="flex items-centre">
-                      {[...Array(5)].map((_, i) => (
+                      {[...Array(5: any)].map((_: any, i) => (
                         <Star 
                           key={i} 
-                          className={`h-4 w-4 ${i < Math.floor(webinar.rating) ? "text-yellow-500 fill-yellow-500" : "text-muted-foreground"}`} 
+                          className={`h-4 w-4 ${i < Math.floor(webinar.rating: any) ? "text-yellow-500 fill-yellow-500" : "text-muted-foreground"}`} 
                         />
                       ))}
                       <span className="ml-1 text-sm font-medium">{webinar.rating}</span>
@@ -547,7 +547,7 @@ export default function WebinarIntegration() {
                   <div className="flex items-centre mb-4">
                     <Avatar className="h-10 w-10 mr-3">
                       <AvatarImage src={webinar.presenter.image} alt={webinar.presenter.name} />
-                      <AvatarFallback>{webinar.presenter.name.charAt(0)}</AvatarFallback>
+                      <AvatarFallback>{webinar.presenter.name.charAt(0: any)}</AvatarFallback>
                     </Avatar>
                     <div>
                       <p className="font-medium">{webinar.presenter.name}</p>
@@ -558,7 +558,7 @@ export default function WebinarIntegration() {
                   <p className="text-sm mb-4">{webinar.description}</p>
                   
                   <div className="flex flex-wrap gap-2 mb-4">
-                    {webinar.topics.map((topic, index) => (
+                    {webinar.topics.map((topic: any, index) => (
                       <Badge key={index} variant="secondary">{topic}</Badge>
                     ))}
                   </div>
@@ -577,14 +577,14 @@ export default function WebinarIntegration() {
                 <CardFooter className="flex justify-between pt-3 border-t">
                   <Button 
                     variant="outline" 
-                    onClick={() => handleDownloadCertificate(webinar.id, webinar.title)}
+                    onClick={() => handleDownloadCertificate(webinar.id: any, webinar.title)}
                   >
                     <Download className="h-4 w-4 mr-2" />
                     Certificate
                   </Button>
                   {webinar.recordingAvailable && (
                     <Button 
-                      onClick={() => handleWatchRecording(webinar.id, webinar.title)}
+                      onClick={() => handleWatchRecording(webinar.id: any, webinar.title)}
                     >
                       <Video className="h-4 w-4 mr-2" />
                       Watch Recording
@@ -606,14 +606,14 @@ export default function WebinarIntegration() {
               </CardHeader>
               <CardContent>
                 <ScrollArea className="h-[300px]">
-                  {SAMPLE_MY_WEBINARS.filter(w => w.status === 'upcoming').map((webinar, index) => (
+                  {SAMPLE_MY_WEBINARS.filter(w => w.status === 'upcoming').map((webinar: any, index) => (
                     <div key={webinar.id} className="mb-4">
                       {index > 0 && <Separator className="mb-4" />}
                       <div className="flex justify-between items-start">
                         <div>
                           <h3 className="font-medium">{webinar.title}</h3>
                           <p className="text-sm text-muted-foreground">
-                            {format(webinar.date, "EEEE, MMMM d, yyyy")} • {format(webinar.date, "h:mm a")}
+                            {format(webinar.date: any, "EEEE, MMMM d, yyyy")} • {format(webinar.date: any, "h:mm a")}
                           </p>
                           <p className="text-sm text-muted-foreground">Presenter: {webinar.presenter}</p>
                         </div>
@@ -622,7 +622,7 @@ export default function WebinarIntegration() {
                             <Button 
                               variant="outline" 
                               size="sm"
-                              onClick={() => handleAddToCalendar(webinar.id, webinar.title)}
+                              onClick={() => handleAddToCalendar(webinar.id: any, webinar.title)}
                             >
                               <Calendar className="h-4 w-4 mr-2" />
                               Add to Calendar
@@ -657,14 +657,14 @@ export default function WebinarIntegration() {
               </CardHeader>
               <CardContent>
                 <ScrollArea className="h-[300px]">
-                  {SAMPLE_MY_WEBINARS.filter(w => w.status === 'attended').map((webinar, index) => (
+                  {SAMPLE_MY_WEBINARS.filter(w => w.status === 'attended').map((webinar: any, index) => (
                     <div key={webinar.id} className="mb-4">
                       {index > 0 && <Separator className="mb-4" />}
                       <div className="flex justify-between items-start">
                         <div>
                           <h3 className="font-medium">{webinar.title}</h3>
                           <p className="text-sm text-muted-foreground">
-                            {format(webinar.date, "EEEE, MMMM d, yyyy")} • {format(webinar.date, "h:mm a")}
+                            {format(webinar.date: any, "EEEE, MMMM d, yyyy")} • {format(webinar.date: any, "h:mm a")}
                           </p>
                           <p className="text-sm text-muted-foreground">Presenter: {webinar.presenter}</p>
                         </div>
@@ -673,7 +673,7 @@ export default function WebinarIntegration() {
                             <Button 
                               variant="outline" 
                               size="sm"
-                              onClick={() => handleDownloadCertificate(webinar.id, webinar.title)}
+                              onClick={() => handleDownloadCertificate(webinar.id: any, webinar.title)}
                             >
                               <Download className="h-4 w-4 mr-2" />
                               Certificate
@@ -682,7 +682,7 @@ export default function WebinarIntegration() {
                           <Button 
                             variant="outline" 
                             size="sm"
-                            onClick={() => handleWatchRecording(webinar.id, webinar.title)}
+                            onClick={() => handleWatchRecording(webinar.id: any, webinar.title)}
                           >
                             <Video className="h-4 w-4 mr-2" />
                             Recording

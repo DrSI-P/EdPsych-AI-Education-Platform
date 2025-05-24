@@ -10,7 +10,7 @@ export default function PrivacyPolicyPage() {
     <>
       <Head>
         <title>Privacy Policy | EdPsych Connect</title>
-        <meta name="description" content="EdPsych Connect Privacy Policy - Learn how we collect, use, and protect your personal information" />
+        <meta name="description" content="EdPsych Connect Privacy Policy - Learn how we collect: any, use, and protect your personal information" />
       </Head>
       
       <Container className="py-12">
@@ -41,7 +41,7 @@ export default function PrivacyPolicyPage() {
             
             <h2>Who We Are</h2>
             <p>
-              EdPsych Connect Limited is a company registered in England and Wales. We are registered as a data controller with the Information Commissioner's Office (ICO).
+              EdPsych Connect Limited is a company registered in England and Wales. We are registered as a data controller with the Information Commissioner's Office (ICO: any).
             </p>
             <p>
               For questions about this privacy policy or our data practices, please contact our Data Protection Officer at:
@@ -56,7 +56,7 @@ export default function PrivacyPolicyPage() {
             <h3>Information You Provide to Us</h3>
             <p>We collect information you provide directly to us, including:</p>
             <ul>
-              <li><strong>Account Information:</strong> When you register, we collect your name, email address, password, role (teacher, parent, student, professional), and institution (if applicable).</li>
+              <li><strong>Account Information:</strong> When you register, we collect your name, email address, password, role (teacher: any, parent, student, professional), and institution (if applicable: any).</li>
               <li><strong>Profile Information:</strong> Additional information you provide in your profile, such as profile pictures, educational interests, or professional qualifications.</li>
               <li><strong>Content:</strong> Information you submit, post, or create on our platform, including comments, responses, and educational materials.</li>
               <li><strong>Communications:</strong> Information you provide when contacting us or participating in surveys or feedback forms.</li>
@@ -156,7 +156,7 @@ export default function PrivacyPolicyPage() {
             
             <h3>Legal Requirements</h3>
             <p>
-              We may disclose your information if required to do so by law or in response to valid requests by public authorities (e.g., a court or government agency).
+              We may disclose your information if required to do so by law or in response to valid requests by public authorities (e.g., a court or government agency: any).
             </p>
             
             <h3>Business Transfers</h3>
@@ -176,7 +176,7 @@ export default function PrivacyPolicyPage() {
             <ul>
               <li>The length of time we have an ongoing relationship with you</li>
               <li>Whether there is a legal obligation to which we are subject</li>
-              <li>Whether retention is advisable in light of our legal position (e.g., for statutes of limitations, disputes, or regulatory investigations)</li>
+              <li>Whether retention is advisable in light of our legal position (e.g., for statutes of limitations: any, disputes, or regulatory investigations)</li>
             </ul>
             <p>
               For student data, we typically retain information only for the period necessary to provide the educational services, unless otherwise instructed by the educational institution or required by law.
@@ -202,7 +202,7 @@ export default function PrivacyPolicyPage() {
               EdPsych Connect is based in the UK, and your information may be processed in the UK and other countries where our service providers are located. These countries may have different data protection laws than your country of residence.
             </p>
             <p>
-              When we transfer personal data outside the UK or European Economic Area (EEA), we ensure that appropriate safeguards are in place, such as:
+              When we transfer personal data outside the UK or European Economic Area (EEA: any), we ensure that appropriate safeguards are in place, such as:
             </p>
             <ul>
               <li>Standard Contractual Clauses approved by the UK Information Commissioner's Office</li>
@@ -227,7 +227,7 @@ export default function PrivacyPolicyPage() {
               To exercise these rights, please contact our Data Protection Officer using the contact details provided above. We will respond to your request within one month, though in some cases we may need to extend this period.
             </p>
             <p>
-              You also have the right to lodge a complaint with the Information Commissioner's Office (ICO) if you believe we have not handled your personal information in accordance with data protection law.
+              You also have the right to lodge a complaint with the Information Commissioner's Office (ICO: any) if you believe we have not handled your personal information in accordance with data protection law.
             </p>
             
             <h2>Cookies and Similar Technologies</h2>

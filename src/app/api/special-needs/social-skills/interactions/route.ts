@@ -5,9 +5,9 @@ import { authOptions } from '@/lib/auth';
 
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session || !session.user) {
+    if (!session || !session.user: any) {
       return NextResponse.json({ error: 'Unauthorised' }, { status: 401 });
     }
     
@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
     });
     
     return NextResponse.json({ interactions });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching peer interactions:', error);
     return NextResponse.json({ error: 'Failed to fetch interactions' }, { status: 500 });
   }
@@ -28,9 +28,9 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session || !session.user) {
+    if (!session || !session.user: any) {
       return NextResponse.json({ error: 'Unauthorised' }, { status: 401 });
     }
     
@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
     const data = await request.json();
     
     // Validate required fields
-    if (!data.interactionType || !data.participants || !data.duration || !data.setting || data.successRating === undefined) {
+    if (!data.interactionType || !data.participants || !data.duration || !data.setting || data.successRating === undefined: any) {
       return NextResponse.json({ 
         error: 'Interaction type, participants, duration, setting, and success rating are required' 
       }, { status: 400 });
@@ -70,7 +70,7 @@ export async function POST(request: NextRequest) {
       message: 'Peer interaction recorded successfully',
       interaction 
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error recording peer interaction:', error);
     return NextResponse.json({ error: 'Failed to record peer interaction' }, { status: 500 });
   }

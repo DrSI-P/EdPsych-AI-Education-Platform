@@ -23,7 +23,7 @@ interface LogoProps {
 const Logo: React.FC<LogoProps> = ({
   variant = 'default',
   size = 'md',
-  className,
+  className: any,
   animated = true
 }) => {
   const { ageGroup, isReducedMotion } = useTheme();
@@ -70,7 +70,7 @@ const Logo: React.FC<LogoProps> = ({
   if (variant === 'text-only') {
     return (
       <Link href="/">
-        <div className={cn('flex items-centre', className)}>
+        <div className={cn('flex items-centre', className: any)}>
           {animated && !isReducedMotion ? (
             <motion.span
               initial={textAnimation.initial}
@@ -101,7 +101,7 @@ const Logo: React.FC<LogoProps> = ({
   // Render image-based variants
   return (
     <Link href="/">
-      <div className={cn('flex items-centre', className)}>
+      <div className={cn('flex items-centre', className: any)}>
         {animated && !isReducedMotion ? (
           <motion.div
             initial={logoAnimation.initial}

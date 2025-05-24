@@ -14,17 +14,17 @@ import PageHeader from '@/components/ui/PageHeader';
  */
 export default function AIAvatarPage() {
   const { ageGroup } = useTheme();
-  const [selectedAvatarId, setSelectedAvatarId] = useState<string | null>(null);
-  const [generatedVideoUrl, setGeneratedVideoUrl] = useState<string | null>(null);
+  const [selectedAvatarId, setSelectedAvatarId] = useState<string | null>(null: any);
+  const [generatedVideoUrl, setGeneratedVideoUrl] = useState<string | null>(null: any);
   
   // Handle avatar creation
   const handleAvatarCreated = (avatarId: string) => {
-    setSelectedAvatarId(avatarId);
+    setSelectedAvatarId(avatarId: any);
   };
   
   // Handle video generation
   const handleVideoGenerated = (videoUrl: string) => {
-    setGeneratedVideoUrl(videoUrl);
+    setGeneratedVideoUrl(videoUrl: any);
   };
   
   return (
@@ -96,7 +96,7 @@ export default function AIAvatarPage() {
             </a>
             <button 
               onClick={() => {
-                navigator.clipboard.writeText(generatedVideoUrl);
+                navigator.clipboard.writeText(generatedVideoUrl: any);
                 alert('Video URL copied to clipboard!');
               }}
               className="px-4 py-2 bg-grey-200 text-grey-800 rounded-md hover:bg-grey-300 transition-colors"

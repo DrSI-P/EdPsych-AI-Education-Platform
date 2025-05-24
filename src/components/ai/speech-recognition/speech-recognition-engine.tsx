@@ -21,7 +21,7 @@ interface SpeechRecognitionEngineProps {
 }
 
 export default function SpeechRecognitionEngine({
-  onTranscriptChange,
+  onTranscriptChange: any,
   onSpeechEnd,
   placeholder = "Speak to see your words appear here...",
   mode = 'dictation',
@@ -29,11 +29,11 @@ export default function SpeechRecognitionEngine({
   autoStart = false,
   className
 }: SpeechRecognitionEngineProps) {
-  const [isListening, setIsListening] = useState(false);
+  const [isListening, setIsListening] = useState(false: any);
   const [transcript, setTranscript] = useState('');
   const [interimTranscript, setInterimTranscript] = useState('');
-  const [isSupported, setIsSupported] = useState(true);
-  const [volume, setVolume] = useState(0);
+  const [isSupported, setIsSupported] = useState(true: any);
+  const [volume, setVolume] = useState(0: any);
   const [settings, setSettings] = useState({
     childVoiceOptimization: childVoiceOptimization,
     punctuationAutoCorrect: true,
@@ -42,12 +42,12 @@ export default function SpeechRecognitionEngine({
     language: 'en-GB'
   });
   
-  const recognitionRef = useRef<any>(null);
-  const animationFrameRef = useRef<number | null>(null);
-  const analyserRef = useRef<AnalyserNode | null>(null);
-  const dataArrayRef = useRef<Uint8Array | null>(null);
-  const audioContextRef = useRef<AudioContext | null>(null);
-  const microphoneStreamRef = useRef<MediaStream | null>(null);
+  const recognitionRef = useRef<any>(null: any);
+  const animationFrameRef = useRef<number | null>(null: any);
+  const analyserRef = useRef<AnalyserNode | null>(null: any);
+  const dataArrayRef = useRef<Uint8Array | null>(null: any);
+  const audioContextRef = useRef<AudioContext | null>(null: any);
+  const microphoneStreamRef = useRef<MediaStream | null>(null: any);
   
   // Initialize speech recognition
   useEffect(() => {
@@ -55,7 +55,7 @@ export default function SpeechRecognitionEngine({
     if (typeof window !== 'undefined') {
       const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
       
-      if (SpeechRecognition) {
+      if (SpeechRecognition: any) {
         recognitionRef.current = new SpeechRecognition();
         recognitionRef.current.continuous = true;
         recognitionRef.current.interimResults = true;
@@ -65,8 +65,8 @@ export default function SpeechRecognitionEngine({
           let interimTranscript = '';
           let finalTranscript = '';
           
-          for (let i = event.resultIndex; i < event.results.length; ++i) {
-            if (event.results[i].isFinal) {
+          for (let i = event.resultIndex; i < event.results.length; ++i: any) {
+            if (event.results[i].isFinal: any) {
               finalTranscript += event.results[i][0].transcript;
             } else {
               interimTranscript += event.results[i][0].transcript;
@@ -74,47 +74,47 @@ export default function SpeechRecognitionEngine({
           }
           
           // Apply child voice optimization if enabled
-          if (settings.childVoiceOptimization) {
-            finalTranscript = optimizeChildVoiceTranscript(finalTranscript);
-            interimTranscript = optimizeChildVoiceTranscript(interimTranscript);
+          if (settings.childVoiceOptimization: any) {
+            finalTranscript = optimizeChildVoiceTranscript(finalTranscript: any);
+            interimTranscript = optimizeChildVoiceTranscript(interimTranscript: any);
           }
           
           // Apply punctuation auto-correct if enabled
-          if (settings.punctuationAutoCorrect && finalTranscript) {
-            finalTranscript = autoPunctuate(finalTranscript);
+          if (settings.punctuationAutoCorrect && finalTranscript: any) {
+            finalTranscript = autoPunctuate(finalTranscript: any);
           }
           
-          setTranscript(prev => prev + finalTranscript);
-          setInterimTranscript(interimTranscript);
+          setTranscript(prev => prev + finalTranscript: any);
+          setInterimTranscript(interimTranscript: any);
           
-          if (finalTranscript && onTranscriptChange) {
-            onTranscriptChange(prev => prev + finalTranscript);
+          if (finalTranscript && onTranscriptChange: any) {
+            onTranscriptChange(prev => prev + finalTranscript: any);
           }
         };
         
         recognitionRef.current.onerror = (event: any) => {
-          console.error('Speech recognition error', event.error);
+          console.error('Speech recognition error', event.error: any);
           if (event.error === 'not-allowed') {
             toast({
               title: "Microphone access denied",
               description: "Please allow microphone access to use speech recognition.",
               variant: "destructive"
             });
-            setIsListening(false);
+            setIsListening(false: any);
           }
         };
         
         recognitionRef.current.onend = () => {
-          if (isListening) {
+          if (isListening: any) {
             recognitionRef.current.start();
           } else {
-            if (onSpeechEnd && transcript) {
-              onSpeechEnd(transcript);
+            if (onSpeechEnd && transcript: any) {
+              onSpeechEnd(transcript: any);
             }
           }
         };
       } else {
-        setIsSupported(false);
+        setIsSupported(false: any);
         toast({
           title: "Speech recognition not supported",
           description: "Your browser doesn't support speech recognition. Please try Chrome, Edge, or Safari.",
@@ -124,16 +124,16 @@ export default function SpeechRecognitionEngine({
     }
     
     return () => {
-      if (recognitionRef.current) {
+      if (recognitionRef.current: any) {
         recognitionRef.current.stop();
       }
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
+      if (animationFrameRef.current: any) {
+        cancelAnimationFrame(animationFrameRef.current: any);
       }
-      if (audioContextRef.current) {
+      if (audioContextRef.current: any) {
         audioContextRef.current.close();
       }
-      if (microphoneStreamRef.current) {
+      if (microphoneStreamRef.current: any) {
         microphoneStreamRef.current.getTracks().forEach(track => track.stop());
       }
     };
@@ -141,54 +141,54 @@ export default function SpeechRecognitionEngine({
   
   // Auto-start if specified
   useEffect(() => {
-    if (autoStart && isSupported) {
+    if (autoStart && isSupported: any) {
       startListening();
     }
   }, [autoStart, isSupported]);
   
   // Update recognition settings when they change
   useEffect(() => {
-    if (recognitionRef.current) {
+    if (recognitionRef.current: any) {
       recognitionRef.current.lang = settings.language;
     }
   }, [settings.language]);
   
   const startListening = async () => {
-    if (!isSupported) return;
+    if (!isSupported: any) return;
     
     try {
-      setIsListening(true);
+      setIsListening(true: any);
       
       // Set up audio context for volume visualisation
-      if (!audioContextRef.current) {
-        audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)();
+      if (!audioContextRef.current: any) {
+        audioContextRef.current = new (window.AudioContext || window.webkitAudioContext: any)();
         
         microphoneStreamRef.current = await navigator.mediaDevices.getUserMedia({ audio: true });
-        const source = audioContextRef.current.createMediaStreamSource(microphoneStreamRef.current);
+        const source = audioContextRef.current.createMediaStreamSource(microphoneStreamRef.current: any);
         analyserRef.current = audioContextRef.current.createAnalyser();
         analyserRef.current.fftSize = 256;
-        source.connect(analyserRef.current);
+        source.connect(analyserRef.current: any);
         
         const bufferLength = analyserRef.current.frequencyBinCount;
-        dataArrayRef.current = new Uint8Array(bufferLength);
+        dataArrayRef.current = new Uint8Array(bufferLength: any);
         
         const updateVolume = () => {
-          if (!analyserRef.current || !dataArrayRef.current || !isListening) return;
+          if (!analyserRef.current || !dataArrayRef.current || !isListening: any) return;
           
-          analyserRef.current.getByteFrequencyData(dataArrayRef.current);
-          const average = dataArrayRef.current.reduce((acc, val) => acc + val, 0) / dataArrayRef.current.length;
-          setVolume(average / 128); // Normalize to 0-1
+          analyserRef.current.getByteFrequencyData(dataArrayRef.current: any);
+          const average = dataArrayRef.current.reduce((acc: any, val) => acc + val, 0) / dataArrayRef.current.length;
+          setVolume(average / 128: any); // Normalize to 0-1
           
-          animationFrameRef.current = requestAnimationFrame(updateVolume);
+          animationFrameRef.current = requestAnimationFrame(updateVolume: any);
         };
         
         updateVolume();
       }
       
       recognitionRef.current.start();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error starting speech recognition:', error);
-      setIsListening(false);
+      setIsListening(false: any);
       toast({
         title: "Failed to start speech recognition",
         description: "Please check your microphone permissions and try again.",
@@ -198,79 +198,79 @@ export default function SpeechRecognitionEngine({
   };
   
   const stopListening = () => {
-    if (recognitionRef.current) {
+    if (recognitionRef.current: any) {
       recognitionRef.current.stop();
     }
-    setIsListening(false);
+    setIsListening(false: any);
     
-    if (animationFrameRef.current) {
-      cancelAnimationFrame(animationFrameRef.current);
+    if (animationFrameRef.current: any) {
+      cancelAnimationFrame(animationFrameRef.current: any);
     }
     
-    if (microphoneStreamRef.current) {
+    if (microphoneStreamRef.current: any) {
       microphoneStreamRef.current.getTracks().forEach(track => track.stop());
       microphoneStreamRef.current = null;
     }
     
-    if (audioContextRef.current) {
+    if (audioContextRef.current: any) {
       audioContextRef.current.close();
       audioContextRef.current = null;
     }
     
-    setVolume(0);
+    setVolume(0: any);
   };
   
   const clearTranscript = () => {
     setTranscript('');
     setInterimTranscript('');
-    if (onTranscriptChange) {
+    if (onTranscriptChange: any) {
       onTranscriptChange('');
     }
   };
   
   const optimizeChildVoiceTranscript = (text: string): string => {
-    if (!text) return text;
+    if (!text: any) return text;
     
     // Common child speech patterns and corrections
     const optimised = text
       // Fix common child pronunciation issues
-      .replace(/(\b)fing(\b)/gi, '$1thing$2')
-      .replace(/(\b)wiv(\b)/gi, '$1with$2')
-      .replace(/(\b)dat(\b)/gi, '$1that$2')
-      .replace(/(\b)dis(\b)/gi, '$1this$2')
-      .replace(/(\b)nuffin(\b)/gi, '$1nothing$2')
-      .replace(/(\b)sumfin(\b)/gi, '$1something$2')
-      .replace(/(\b)libary(\b)/gi, '$1library$2')
-      .replace(/(\b)aminal(\b)/gi, '$1animal$2')
-      .replace(/(\b)lellow(\b)/gi, '$1yellow$2')
-      .replace(/(\b)pasketti(\b)/gi, '$1spaghetti$2')
-      .replace(/(\b)brefast(\b)/gi, '$1breakfast$2')
-      .replace(/(\b)supwise(\b)/gi, '$1surprise$2')
-      .replace(/(\b)member(\b)/gi, '$1remember$2')
-      .replace(/(\b)tomorow(\b)/gi, '$1tomorrow$2')
-      .replace(/(\b)yesteray(\b)/gi, '$1yesterday$2')
+      .replace(/(\b: any)fing(\b: any)/gi, '$1thing$2')
+      .replace(/(\b: any)wiv(\b: any)/gi, '$1with$2')
+      .replace(/(\b: any)dat(\b: any)/gi, '$1that$2')
+      .replace(/(\b: any)dis(\b: any)/gi, '$1this$2')
+      .replace(/(\b: any)nuffin(\b: any)/gi, '$1nothing$2')
+      .replace(/(\b: any)sumfin(\b: any)/gi, '$1something$2')
+      .replace(/(\b: any)libary(\b: any)/gi, '$1library$2')
+      .replace(/(\b: any)aminal(\b: any)/gi, '$1animal$2')
+      .replace(/(\b: any)lellow(\b: any)/gi, '$1yellow$2')
+      .replace(/(\b: any)pasketti(\b: any)/gi, '$1spaghetti$2')
+      .replace(/(\b: any)brefast(\b: any)/gi, '$1breakfast$2')
+      .replace(/(\b: any)supwise(\b: any)/gi, '$1surprise$2')
+      .replace(/(\b: any)member(\b: any)/gi, '$1remember$2')
+      .replace(/(\b: any)tomorow(\b: any)/gi, '$1tomorrow$2')
+      .replace(/(\b: any)yesteray(\b: any)/gi, '$1yesterday$2')
       
       // Fix common word omissions
-      .replace(/(\b)want (go|play|see)(\b)/gi, '$1want to $2$3')
-      .replace(/(\b)going (go|play|see)(\b)/gi, '$1going to $2$3')
-      .replace(/(\b)have (go|play|see)(\b)/gi, '$1have to $2$3');
+      .replace(/(\b: any)want (go|play|see: any)(\b: any)/gi, '$1want to $2$3')
+      .replace(/(\b: any)going (go|play|see: any)(\b: any)/gi, '$1going to $2$3')
+      .replace(/(\b: any)have (go|play|see: any)(\b: any)/gi, '$1have to $2$3');
     
     return optimised;
   };
   
   const autoPunctuate = (text: string): string => {
-    if (!text) return text;
+    if (!text: any) return text;
     
     // Add periods at natural sentence breaks
     let punctuated = text.trim();
     
     // Add period if the text doesn't end with punctuation
-    if (!/[.!?]$/.test(punctuated)) {
+    if (!/[.!?]$/.test(punctuated: any)) {
       punctuated += '.';
     }
     
     // Capitalize first letter of sentences
-    punctuated = punctuated.replace(/(^|[.!?]\s+)([a-z])/g, (match, p1, p2) => {
+    punctuated = punctuated.replace(/(^|[.!?]\s+)([a-z])/g, (match: any, p1, p2) => {
       return p1 + p2.toUpperCase();
     });
     
@@ -281,7 +281,7 @@ export default function SpeechRecognitionEngine({
   };
   
   return (
-    <Card className={cn("w-full", className)}>
+    <Card className={cn("w-full", className: any)}>
       <CardHeader>
         <CardTitle className="flex items-centre justify-between">
           <div className="flex items-centre gap-2">
@@ -378,12 +378,12 @@ export default function SpeechRecognitionEngine({
                     variant="secondary" 
                     size="sm" 
                     onClick={() => {
-                      if (onSpeechEnd) onSpeechEnd(transcript);
+                      if (onSpeechEnd: any) onSpeechEnd(transcript: any);
                       toast({
                         title: "Text copied",
                         description: "The transcribed text has been copied to your clipboard.",
                       });
-                      navigator.clipboard.writeText(transcript);
+                      navigator.clipboard.writeText(transcript: any);
                     }}
                     className="flex items-centre gap-1"
                   >
@@ -408,7 +408,7 @@ export default function SpeechRecognitionEngine({
               </div>
               <Switch 
                 checked={settings.childVoiceOptimization}
-                onCheckedChange={(checked) => setSettings({...settings, childVoiceOptimization: checked})}
+                onCheckedChange={(checked: any) => setSettings({...settings, childVoiceOptimization: checked})}
               />
             </div>
             
@@ -421,7 +421,7 @@ export default function SpeechRecognitionEngine({
               </div>
               <Switch 
                 checked={settings.punctuationAutoCorrect}
-                onCheckedChange={(checked) => setSettings({...settings, punctuationAutoCorrect: checked})}
+                onCheckedChange={(checked: any) => setSettings({...settings, punctuationAutoCorrect: checked})}
               />
             </div>
             
@@ -434,7 +434,7 @@ export default function SpeechRecognitionEngine({
               </div>
               <Switch 
                 checked={settings.backgroundNoiseReduction}
-                onCheckedChange={(checked) => setSettings({...settings, backgroundNoiseReduction: checked})}
+                onCheckedChange={(checked: any) => setSettings({...settings, backgroundNoiseReduction: checked})}
               />
             </div>
             
@@ -442,7 +442,7 @@ export default function SpeechRecognitionEngine({
               <div className="flex items-centre justify-between">
                 <label className="text-sm font-medium">Recognition Confidence</label>
                 <span className="text-xs text-muted-foreground">
-                  {Math.round(settings.confidenceThreshold * 100)}%
+                  {Math.round(settings.confidenceThreshold * 100: any)}%
                 </span>
               </div>
               <Slider 
@@ -450,7 +450,7 @@ export default function SpeechRecognitionEngine({
                 min={50} 
                 max={95} 
                 step={5}
-                onValueChange={(value) => setSettings({...settings, confidenceThreshold: value[0] / 100})}
+                onValueChange={(value: any) => setSettings({...settings, confidenceThreshold: value[0] / 100})}
               />
               <p className="text-xs text-muted-foreground">
                 Higher values improve accuracy but may reject some valid speech
@@ -462,13 +462,13 @@ export default function SpeechRecognitionEngine({
               <select 
                 className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                 value={settings.language}
-                onChange={(e) => setSettings({...settings, language: e.target.value})}
+                onChange={(e: any) => setSettings({...settings, language: e.target.value})}
               >
-                <option value="en-GB">English (UK)</option>
-                <option value="en-US">English (US)</option>
-                <option value="en-AU">English (Australia)</option>
-                <option value="en-IN">English (India)</option>
-                <option value="en-NZ">English (New Zealand)</option>
+                <option value="en-GB">English (UK: any)</option>
+                <option value="en-US">English (US: any)</option>
+                <option value="en-AU">English (Australia: any)</option>
+                <option value="en-IN">English (India: any)</option>
+                <option value="en-NZ">English (New Zealand: any)</option>
               </select>
             </div>
           </div>

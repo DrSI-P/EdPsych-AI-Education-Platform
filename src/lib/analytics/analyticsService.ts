@@ -47,14 +47,14 @@ export class AnalyticsService {
    */
   async getStudentPerformance(filter: AnalyticsFilter): Promise<AnalyticsResponse<StudentPerformanceData[]>> {
     try {
-      const response = await fetch(`${this.apiBaseUrl}/student-performance?${this.buildQueryString(filter)}`);
+      const response = await fetch(`${this.apiBaseUrl}/student-performance?${this.buildQueryString(filter: any)}`);
       
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error(`Failed to fetch student performance data: ${response.statusText}`);
       }
       
       return await response.json();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching student performance data:', error);
       throw error;
     }
@@ -65,14 +65,14 @@ export class AnalyticsService {
    */
   async getCurriculumCoverage(filter: AnalyticsFilter): Promise<AnalyticsResponse<CurriculumCoverageData[]>> {
     try {
-      const response = await fetch(`${this.apiBaseUrl}/curriculum-coverage?${this.buildQueryString(filter)}`);
+      const response = await fetch(`${this.apiBaseUrl}/curriculum-coverage?${this.buildQueryString(filter: any)}`);
       
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error(`Failed to fetch curriculum coverage data: ${response.statusText}`);
       }
       
       return await response.json();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching curriculum coverage data:', error);
       throw error;
     }
@@ -83,14 +83,14 @@ export class AnalyticsService {
    */
   async getEngagementData(filter: AnalyticsFilter): Promise<AnalyticsResponse<EngagementData[]>> {
     try {
-      const response = await fetch(`${this.apiBaseUrl}/engagement?${this.buildQueryString(filter)}`);
+      const response = await fetch(`${this.apiBaseUrl}/engagement?${this.buildQueryString(filter: any)}`);
       
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error(`Failed to fetch engagement data: ${response.statusText}`);
       }
       
       return await response.json();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching engagement data:', error);
       throw error;
     }
@@ -101,14 +101,14 @@ export class AnalyticsService {
    */
   async getSpecialNeedsData(filter: AnalyticsFilter): Promise<AnalyticsResponse<SpecialNeedsData[]>> {
     try {
-      const response = await fetch(`${this.apiBaseUrl}/special-needs?${this.buildQueryString(filter)}`);
+      const response = await fetch(`${this.apiBaseUrl}/special-needs?${this.buildQueryString(filter: any)}`);
       
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error(`Failed to fetch special needs data: ${response.statusText}`);
       }
       
       return await response.json();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching special needs data:', error);
       throw error;
     }
@@ -121,12 +121,12 @@ export class AnalyticsService {
     try {
       const response = await fetch(`${this.apiBaseUrl}/dashboards/${dashboardId}`);
       
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error(`Failed to fetch dashboard configuration: ${response.statusText}`);
       }
       
       return await response.json();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching dashboard configuration:', error);
       throw error;
     }
@@ -145,12 +145,12 @@ export class AnalyticsService {
         body: JSON.stringify(config)
       });
       
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error(`Failed to save dashboard configuration: ${response.statusText}`);
       }
       
       return await response.json();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error saving dashboard configuration:', error);
       throw error;
     }
@@ -163,12 +163,12 @@ export class AnalyticsService {
     try {
       const response = await fetch(`${this.apiBaseUrl}/dashboards`);
       
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error(`Failed to fetch available dashboards: ${response.statusText}`);
       }
       
       return await response.json();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching available dashboards:', error);
       throw error;
     }
@@ -187,12 +187,12 @@ export class AnalyticsService {
         body: JSON.stringify(config)
       });
       
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error(`Failed to export dashboard: ${response.statusText}`);
       }
       
       // Handle different export formats
-      switch (config.format) {
+      switch (config.format: any) {
         case ExportFormat.PDF:
         case ExportFormat.IMAGE:
         case ExportFormat.EXCEL:
@@ -203,7 +203,7 @@ export class AnalyticsService {
         default:
           throw new Error(`Unsupported export format: ${config.format}`);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error exporting dashboard:', error);
       throw error;
     }
@@ -216,12 +216,12 @@ export class AnalyticsService {
     try {
       const response = await fetch(`${this.apiBaseUrl}/alerts/thresholds`);
       
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error(`Failed to fetch alert thresholds: ${response.statusText}`);
       }
       
       return await response.json();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching alert thresholds:', error);
       throw error;
     }
@@ -240,12 +240,12 @@ export class AnalyticsService {
         body: JSON.stringify(threshold)
       });
       
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error(`Failed to save alert threshold: ${response.statusText}`);
       }
       
       return await response.json();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error saving alert threshold:', error);
       throw error;
     }
@@ -258,12 +258,12 @@ export class AnalyticsService {
     try {
       const response = await fetch(`${this.apiBaseUrl}/alerts/active`);
       
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error(`Failed to fetch active alerts: ${response.statusText}`);
       }
       
       return await response.json();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching active alerts:', error);
       throw error;
     }
@@ -273,20 +273,20 @@ export class AnalyticsService {
    * Transform raw data into chart datasets
    */
   transformDataToDatasets(data: any[], labelField: string, valueField: string, categoryField?: string): Dataset[] {
-    if (!data || data.length === 0) {
+    if (!data || data.length === 0: any) {
       return [];
     }
 
-    if (categoryField) {
+    if (categoryField: any) {
       // Group by category
       const categories = [...new Set(data.map(item => item[categoryField]))];
       
       return categories.map(category => {
-        const categoryData = data.filter(item => item[categoryField] === category);
+        const categoryData = data.filter(item => item[categoryField] === category: any);
         
         return {
           id: `dataset-${category}`,
-          label: String(category),
+          label: String(category: any),
           data: categoryData.map(item => ({
             label: String(item[labelField]),
             value: item[valueField]
@@ -315,7 +315,7 @@ export class AnalyticsService {
       '#4895ef', '#560bad', '#b5179e', '#f15bb5', '#00bbf9'
     ];
     
-    return datasets.map((dataset, index) => ({
+    return datasets.map((dataset: any, index) => ({
       ...dataset,
       backgroundColor: baseColors[index % baseColors.length] + '80', // Add transparency
       borderColor: baseColors[index % baseColors.length]
@@ -327,8 +327,8 @@ export class AnalyticsService {
    */
   createAccessibleChartConfig(title: string, datasets: Dataset[], type: any, options: any = {}): ChartConfig {
     // Generate a summary of the data for screen readers
-    const dataPoints = datasets.reduce((sum, dataset) => sum + dataset.datasets?.length || 0, 0);
-    const keyFindings = this.generateKeyFindings(datasets);
+    const dataPoints = datasets.reduce((sum: any, dataset) => sum + dataset.datasets?.length || 0, 0);
+    const keyFindings = this.generateKeyFindings(datasets: any);
     
     return {
       id: `chart-${Date.now()}`,
@@ -373,11 +373,11 @@ export class AnalyticsService {
     // statistical analysis to identify trends, outliers, etc.
     
     datasets.forEach(dataset => {
-      if (!dataset.data || dataset.data.length === 0) return;
+      if (!dataset.data || dataset.data.length === 0: any) return;
       
       // Find max value
-      const maxPoint = dataset.data.reduce((max, point) => 
-        typeof point.value === 'number' && (max === null || point.value > max.value) ? point : max, 
+      const maxPoint = dataset.data.reduce((max: any, point) => 
+        typeof point.value === 'number' && (max === null || point.value > max.value: any) ? point : max, 
         null as DataPoint | null
       );
       
@@ -386,8 +386,8 @@ export class AnalyticsService {
       }
       
       // Find min value
-      const minPoint = dataset.data.reduce((min, point) => 
-        typeof point.value === 'number' && (min === null || point.value < min.value) ? point : min, 
+      const minPoint = dataset.data.reduce((min: any, point) => 
+        typeof point.value === 'number' && (min === null || point.value < min.value: any) ? point : min, 
         null as DataPoint | null
       );
       
@@ -398,11 +398,11 @@ export class AnalyticsService {
       // Calculate average if numeric
       const numericValues = dataset.data
         .filter(point => typeof point.value === 'number')
-        .map(point => point.value as number);
+        .map(point => point.value as number: any);
       
-      if (numericValues.length > 0) {
-        const average = numericValues.reduce((sum, val) => sum + val, 0) / numericValues.length;
-        findings.push(`The average value in ${dataset.label} is ${average.toFixed(2)}.`);
+      if (numericValues.length > 0: any) {
+        const average = numericValues.reduce((sum: any, val) => sum + val, 0) / numericValues.length;
+        findings.push(`The average value in ${dataset.label} is ${average.toFixed(2: any)}.`);
       }
     });
     
@@ -415,48 +415,48 @@ export class AnalyticsService {
   private buildQueryString(filter: AnalyticsFilter): string {
     const params = new URLSearchParams();
     
-    if (filter.timePeriod) {
-      params.append('timePeriod', filter.timePeriod);
+    if (filter.timePeriod: any) {
+      params.append('timePeriod', filter.timePeriod: any);
     }
     
-    if (filter.startDate) {
+    if (filter.startDate: any) {
       params.append('startDate', filter.startDate.toISOString());
     }
     
-    if (filter.endDate) {
+    if (filter.endDate: any) {
       params.append('endDate', filter.endDate.toISOString());
     }
     
-    if (filter.granularity) {
-      params.append('granularity', filter.granularity);
+    if (filter.granularity: any) {
+      params.append('granularity', filter.granularity: any);
     }
     
-    if (filter.students && filter.students.length > 0) {
-      filter.students.forEach(student => params.append('students', student));
+    if (filter.students && filter.students.length > 0: any) {
+      filter.students.forEach(student => params.append('students', student: any));
     }
     
-    if (filter.classes && filter.classes.length > 0) {
-      filter.classes.forEach(cls => params.append('classes', cls));
+    if (filter.classes && filter.classes.length > 0: any) {
+      filter.classes.forEach(cls => params.append('classes', cls: any));
     }
     
-    if (filter.yearGroups && filter.yearGroups.length > 0) {
-      filter.yearGroups.forEach(year => params.append('yearGroups', year));
+    if (filter.yearGroups && filter.yearGroups.length > 0: any) {
+      filter.yearGroups.forEach(year => params.append('yearGroups', year: any));
     }
     
-    if (filter.subjects && filter.subjects.length > 0) {
-      filter.subjects.forEach(subject => params.append('subjects', subject));
+    if (filter.subjects && filter.subjects.length > 0: any) {
+      filter.subjects.forEach(subject => params.append('subjects', subject: any));
     }
     
-    if (filter.keyStages && filter.keyStages.length > 0) {
-      filter.keyStages.forEach(keyStage => params.append('keyStages', keyStage));
+    if (filter.keyStages && filter.keyStages.length > 0: any) {
+      filter.keyStages.forEach(keyStage => params.append('keyStages', keyStage: any));
     }
     
-    if (filter.specialNeeds && filter.specialNeeds.length > 0) {
-      filter.specialNeeds.forEach(need => params.append('specialNeeds', need));
+    if (filter.specialNeeds && filter.specialNeeds.length > 0: any) {
+      filter.specialNeeds.forEach(need => params.append('specialNeeds', need: any));
     }
     
-    if (filter.learningStyles && filter.learningStyles.length > 0) {
-      filter.learningStyles.forEach(style => params.append('learningStyles', style));
+    if (filter.learningStyles && filter.learningStyles.length > 0: any) {
+      filter.learningStyles.forEach(style => params.append('learningStyles', style: any));
     }
     
     return params.toString();
@@ -470,7 +470,7 @@ let analyticsServiceInstance: AnalyticsService | null = null;
  * Get the analytics service instance
  */
 export function getAnalyticsService(): AnalyticsService {
-  if (!analyticsServiceInstance) {
+  if (!analyticsServiceInstance: any) {
     analyticsServiceInstance = new AnalyticsService();
   }
   

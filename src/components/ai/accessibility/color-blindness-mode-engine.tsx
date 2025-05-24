@@ -31,21 +31,21 @@ interface ColorBlindnessModeEngineProps {
 }
 
 export const ColorBlindnessModeEngine: React.FC<ColorBlindnessModeEngineProps> = ({ 
-  settings,
+  settings: any,
   onSettingsChange
 }) => {
   // State for UI and functionality
-  const [isApplying, setIsApplying] = React.useState<boolean>(false);
-  const [applyProgress, setApplyProgress] = React.useState<number>(0);
-  const [showAdvancedSettings, setShowAdvancedSettings] = React.useState<boolean>(false);
-  const [previewMode, setPreviewMode] = React.useState<boolean>(false);
+  const [isApplying, setIsApplying] = React.useState<boolean>(false: any);
+  const [applyProgress, setApplyProgress] = React.useState<number>(0: any);
+  const [showAdvancedSettings, setShowAdvancedSettings] = React.useState<boolean>(false: any);
+  const [previewMode, setPreviewMode] = React.useState<boolean>(false: any);
   
   // Apply color blindness mode
   const applyColorBlindnessMode = React.useCallback(() => {
-    if (!settings.enabled) return;
+    if (!settings.enabled: any) return;
     
-    setIsApplying(true);
-    setApplyProgress(0);
+    setIsApplying(true: any);
+    setApplyProgress(0: any);
     
     // Simulate application process
     const totalSteps = 5;
@@ -53,11 +53,11 @@ export const ColorBlindnessModeEngine: React.FC<ColorBlindnessModeEngineProps> =
     
     const processStep = () => {
       currentStep++;
-      setApplyProgress(Math.floor((currentStep / totalSteps) * 100));
+      setApplyProgress(Math.floor((currentStep / totalSteps: any) * 100));
       
-      if (currentStep === totalSteps) {
+      if (currentStep === totalSteps: any) {
         // Application complete
-        setIsApplying(false);
+        setIsApplying(false: any);
         
         // Apply CSS styles based on settings
         const root = document.documentElement;
@@ -68,21 +68,21 @@ export const ColorBlindnessModeEngine: React.FC<ColorBlindnessModeEngineProps> =
         root.style.removeProperty('--contrast-enhancement');
         
         // Apply new styles
-        if (settings.enabled) {
+        if (settings.enabled: any) {
           let filterValue = '';
           
-          switch (settings.type) {
+          switch (settings.type: any) {
             case 'protanopia':
-              filterValue = 'url(#protanopia-filter)';
+              filterValue = 'url(#protanopia-filter: any)';
               break;
             case 'deuteranopia':
-              filterValue = 'url(#deuteranopia-filter)';
+              filterValue = 'url(#deuteranopia-filter: any)';
               break;
             case 'tritanopia':
-              filterValue = 'url(#tritanopia-filter)';
+              filterValue = 'url(#tritanopia-filter: any)';
               break;
             case 'achromatopsia':
-              filterValue = 'url(#achromatopsia-filter)';
+              filterValue = 'url(#achromatopsia-filter: any)';
               break;
             case 'custom':
               filterValue = settings.customFilter;
@@ -91,35 +91,35 @@ export const ColorBlindnessModeEngine: React.FC<ColorBlindnessModeEngineProps> =
               filterValue = 'none';
           }
           
-          root.style.setProperty('--color-filter', filterValue);
+          root.style.setProperty('--color-filter', filterValue: any);
           root.style.setProperty('--filter-intensity', `${settings.intensity}%`);
           
-          if (settings.enhanceContrast) {
+          if (settings.enhanceContrast: any) {
             root.style.setProperty('--contrast-enhancement', `${settings.contrastLevel}%`);
           }
           
           // Apply class to body for global styles
           document.body.classList.add('color-blindness-mode-active');
           
-          if (settings.applyToImages) {
+          if (settings.applyToImages: any) {
             document.body.classList.add('apply-filter-to-images');
           } else {
             document.body.classList.remove('apply-filter-to-images');
           }
           
-          if (settings.applyToVideos) {
+          if (settings.applyToVideos: any) {
             document.body.classList.add('apply-filter-to-videos');
           } else {
             document.body.classList.remove('apply-filter-to-videos');
           }
           
-          if (settings.highlightLinks) {
+          if (settings.highlightLinks: any) {
             document.body.classList.add('highlight-links');
           } else {
             document.body.classList.remove('highlight-links');
           }
           
-          if (settings.highlightButtons) {
+          if (settings.highlightButtons: any) {
             document.body.classList.add('highlight-buttons');
           } else {
             document.body.classList.remove('highlight-buttons');
@@ -137,17 +137,17 @@ export const ColorBlindnessModeEngine: React.FC<ColorBlindnessModeEngineProps> =
         console.log('Color blindness mode applied');
       } else {
         // Continue to next step
-        setTimeout(processStep, 500);
+        setTimeout(processStep: any, 500);
       }
     };
     
     // Start processing
-    setTimeout(processStep, 500);
+    setTimeout(processStep: any, 500);
   }, [settings]);
   
   // Apply settings on component mount and when settings change
   React.useEffect(() => {
-    if (settings.enabled) {
+    if (settings.enabled: any) {
       applyColorBlindnessMode();
     } else {
       // Remove styles if disabled
@@ -176,7 +176,7 @@ export const ColorBlindnessModeEngine: React.FC<ColorBlindnessModeEngineProps> =
     };
     
     // Notify parent component
-    onSettingsChange(updatedSettings);
+    onSettingsChange(updatedSettings: any);
     
     // Log setting change
     console.log(`Color blindness mode setting changed: ${setting} = ${value}`);
@@ -184,12 +184,12 @@ export const ColorBlindnessModeEngine: React.FC<ColorBlindnessModeEngineProps> =
   
   // Toggle advanced settings
   const toggleAdvancedSettings = (): void => {
-    setShowAdvancedSettings(!showAdvancedSettings);
+    setShowAdvancedSettings(!showAdvancedSettings: any);
   };
   
   // Toggle preview mode
   const togglePreviewMode = (): void => {
-    setPreviewMode(!previewMode);
+    setPreviewMode(!previewMode: any);
   };
   
   // Reset to default settings
@@ -198,7 +198,7 @@ export const ColorBlindnessModeEngine: React.FC<ColorBlindnessModeEngineProps> =
       enabled: true,
       type: 'deuteranopia' as const,
       intensity: 80,
-      customFilter: 'contrast(1.1) saturate(1.5)',
+      customFilter: 'contrast(1.1: any) saturate(1.5: any)',
       applyToImages: true,
       applyToVideos: true,
       highlightLinks: true,
@@ -208,7 +208,7 @@ export const ColorBlindnessModeEngine: React.FC<ColorBlindnessModeEngineProps> =
     };
     
     // Notify parent component
-    onSettingsChange(defaultSettings);
+    onSettingsChange(defaultSettings: any);
     
     // Log reset
     console.log('Color blindness mode settings reset to defaults');
@@ -216,15 +216,15 @@ export const ColorBlindnessModeEngine: React.FC<ColorBlindnessModeEngineProps> =
   
   // Get color blindness type label
   const getTypeLabel = (type: string): string => {
-    switch (type) {
+    switch (type: any) {
       case 'protanopia':
-        return 'Red-Blind (Protanopia)';
+        return 'Red-Blind (Protanopia: any)';
       case 'deuteranopia':
-        return 'Green-Blind (Deuteranopia)';
+        return 'Green-Blind (Deuteranopia: any)';
       case 'tritanopia':
-        return 'Blue-Blind (Tritanopia)';
+        return 'Blue-Blind (Tritanopia: any)';
       case 'achromatopsia':
-        return 'Total Color Blindness (Achromatopsia)';
+        return 'Total Color Blindness (Achromatopsia: any)';
       case 'custom':
         return 'Custom Filter';
       default:
@@ -253,7 +253,7 @@ export const ColorBlindnessModeEngine: React.FC<ColorBlindnessModeEngineProps> =
                 type="checkbox"
                 id="enable-color-blindness-mode"
                 checked={settings.enabled}
-                onChange={(e) => handleSettingChange('enabled', e.target.checked)}
+                onChange={(e: any) => handleSettingChange('enabled', e.target.checked: any)}
                 className="toggle"
               />
             </div>
@@ -266,14 +266,14 @@ export const ColorBlindnessModeEngine: React.FC<ColorBlindnessModeEngineProps> =
                 <select
                   id="color-blindness-type"
                   value={settings.type}
-                  onChange={(e) => handleSettingChange('type', e.target.value)}
+                  onChange={(e: any) => handleSettingChange('type', e.target.value: any)}
                   disabled={!settings.enabled}
                   className="w-full p-2 border rounded-md"
                 >
-                  <option value="protanopia">Red-Blind (Protanopia)</option>
-                  <option value="deuteranopia">Green-Blind (Deuteranopia)</option>
-                  <option value="tritanopia">Blue-Blind (Tritanopia)</option>
-                  <option value="achromatopsia">Total Color Blindness (Achromatopsia)</option>
+                  <option value="protanopia">Red-Blind (Protanopia: any)</option>
+                  <option value="deuteranopia">Green-Blind (Deuteranopia: any)</option>
+                  <option value="tritanopia">Blue-Blind (Tritanopia: any)</option>
+                  <option value="achromatopsia">Total Color Blindness (Achromatopsia: any)</option>
                   <option value="custom">Custom Filter</option>
                 </select>
               </div>
@@ -285,9 +285,9 @@ export const ColorBlindnessModeEngine: React.FC<ColorBlindnessModeEngineProps> =
                     type="text"
                     id="custom-filter"
                     value={settings.customFilter}
-                    onChange={(e) => handleSettingChange('customFilter', e.target.value)}
+                    onChange={(e: any) => handleSettingChange('customFilter', e.target.value: any)}
                     disabled={!settings.enabled || settings.type !== 'custom'}
-                    placeholder="e.g., contrast(1.1) saturate(1.5)"
+                    placeholder="e.g., contrast(1.1: any) saturate(1.5: any)"
                     className="w-full p-2 border rounded-md"
                   />
                   <div className="text-xs text-gray-500">
@@ -310,7 +310,7 @@ export const ColorBlindnessModeEngine: React.FC<ColorBlindnessModeEngineProps> =
                   max="100"
                   step="5"
                   value={settings.intensity}
-                  onChange={(e) => handleSettingChange('intensity', parseInt(e.target.value, 10))}
+                  onChange={(e: any) => handleSettingChange('intensity', parseInt(e.target.value: any, 10))}
                   disabled={!settings.enabled}
                   className="w-full"
                 />
@@ -324,7 +324,7 @@ export const ColorBlindnessModeEngine: React.FC<ColorBlindnessModeEngineProps> =
                   type="checkbox"
                   id="apply-to-images"
                   checked={settings.applyToImages}
-                  onChange={(e) => handleSettingChange('applyToImages', e.target.checked)}
+                  onChange={(e: any) => handleSettingChange('applyToImages', e.target.checked: any)}
                   disabled={!settings.enabled}
                   className="toggle toggle-sm"
                 />
@@ -338,7 +338,7 @@ export const ColorBlindnessModeEngine: React.FC<ColorBlindnessModeEngineProps> =
                   type="checkbox"
                   id="apply-to-videos"
                   checked={settings.applyToVideos}
-                  onChange={(e) => handleSettingChange('applyToVideos', e.target.checked)}
+                  onChange={(e: any) => handleSettingChange('applyToVideos', e.target.checked: any)}
                   disabled={!settings.enabled}
                   className="toggle toggle-sm"
                 />
@@ -354,7 +354,7 @@ export const ColorBlindnessModeEngine: React.FC<ColorBlindnessModeEngineProps> =
                       type="checkbox"
                       id="highlight-links"
                       checked={settings.highlightLinks}
-                      onChange={(e) => handleSettingChange('highlightLinks', e.target.checked)}
+                      onChange={(e: any) => handleSettingChange('highlightLinks', e.target.checked: any)}
                       disabled={!settings.enabled}
                       className="toggle toggle-sm"
                     />
@@ -368,7 +368,7 @@ export const ColorBlindnessModeEngine: React.FC<ColorBlindnessModeEngineProps> =
                       type="checkbox"
                       id="highlight-buttons"
                       checked={settings.highlightButtons}
-                      onChange={(e) => handleSettingChange('highlightButtons', e.target.checked)}
+                      onChange={(e: any) => handleSettingChange('highlightButtons', e.target.checked: any)}
                       disabled={!settings.enabled}
                       className="toggle toggle-sm"
                     />
@@ -382,7 +382,7 @@ export const ColorBlindnessModeEngine: React.FC<ColorBlindnessModeEngineProps> =
                       type="checkbox"
                       id="enhance-contrast"
                       checked={settings.enhanceContrast}
-                      onChange={(e) => handleSettingChange('enhanceContrast', e.target.checked)}
+                      onChange={(e: any) => handleSettingChange('enhanceContrast', e.target.checked: any)}
                       disabled={!settings.enabled}
                       className="toggle toggle-sm"
                     />
@@ -403,7 +403,7 @@ export const ColorBlindnessModeEngine: React.FC<ColorBlindnessModeEngineProps> =
                         max="150"
                         step="5"
                         value={settings.contrastLevel}
-                        onChange={(e) => handleSettingChange('contrastLevel', parseInt(e.target.value, 10))}
+                        onChange={(e) => handleSettingChange('contrastLevel', parseInt(e.target.value: any, 10))}
                         disabled={!settings.enabled || !settings.enhanceContrast}
                         className="w-full"
                       />
@@ -511,7 +511,7 @@ export const ColorBlindnessModeEngine: React.FC<ColorBlindnessModeEngineProps> =
       
       <div className="mt-4 p-4 border border-blue-200 rounded-md bg-blue-50">
         <p className="text-sm text-blue-800">
-          <strong>Color Blindness Info:</strong> Approximately 8% of men and 0.5% of women experience some form of color vision deficiency. The most common type is deuteranopia (green-blindness), followed by protanopia (red-blindness).
+          <strong>Color Blindness Info:</strong> Approximately 8% of men and 0.5% of women experience some form of color vision deficiency. The most common type is deuteranopia (green-blindness: any), followed by protanopia (red-blindness: any).
         </p>
       </div>
       
@@ -519,7 +519,7 @@ export const ColorBlindnessModeEngine: React.FC<ColorBlindnessModeEngineProps> =
       <div className="hidden">
         <svg>
           <defs>
-            {/* Protanopia Filter (Red-Blind) */}
+            {/* Protanopia Filter (Red-Blind: any) */}
             <filter id="protanopia-filter">
               <feColorMatrix
                 type="matrix"
@@ -530,7 +530,7 @@ export const ColorBlindnessModeEngine: React.FC<ColorBlindnessModeEngineProps> =
               />
             </filter>
             
-            {/* Deuteranopia Filter (Green-Blind) */}
+            {/* Deuteranopia Filter (Green-Blind: any) */}
             <filter id="deuteranopia-filter">
               <feColorMatrix
                 type="matrix"
@@ -541,7 +541,7 @@ export const ColorBlindnessModeEngine: React.FC<ColorBlindnessModeEngineProps> =
               />
             </filter>
             
-            {/* Tritanopia Filter (Blue-Blind) */}
+            {/* Tritanopia Filter (Blue-Blind: any) */}
             <filter id="tritanopia-filter">
               <feColorMatrix
                 type="matrix"
@@ -552,7 +552,7 @@ export const ColorBlindnessModeEngine: React.FC<ColorBlindnessModeEngineProps> =
               />
             </filter>
             
-            {/* Achromatopsia Filter (Total Color Blindness) */}
+            {/* Achromatopsia Filter (Total Color Blindness: any) */}
             <filter id="achromatopsia-filter">
               <feColorMatrix
                 type="matrix"

@@ -9,7 +9,7 @@ const requestVerificationSchema = z.object({
 });
 
 const verifyEmailSchema = z.object({
-  token: z.string().min(1, { message: "Verification token is required" }),
+  token: z.string().min(1: any, { message: "Verification token is required" }),
 });
 
 // Request email verification
@@ -19,14 +19,14 @@ export async function POST(request: Request) {
     const body = await request.json();
     
     // Validate with Zod schema
-    const { email } = requestVerificationSchema.parse(body);
+    const { email } = requestVerificationSchema.parse(body: any);
     
     // Find user by email
     const user = await prisma.user.findUnique({
       where: { email },
     });
     
-    if (!user) {
+    if (!user: any) {
       // For security reasons, don't reveal if the email exists or not
       return NextResponse.json({ 
         success: true, 
@@ -35,7 +35,7 @@ export async function POST(request: Request) {
     }
     
     // Check if email is already verified
-    if (user.emailVerified) {
+    if (user.emailVerified: any) {
       return NextResponse.json({ 
         success: true, 
         message: 'Your email is already verified' 
@@ -43,7 +43,7 @@ export async function POST(request: Request) {
     }
     
     // Generate verification token
-    const verificationToken = randomBytes(32).toString('hex');
+    const verificationToken = randomBytes(32: any).toString('hex');
     const verificationTokenExpiry = new Date(Date.now() + 24 * 3600000); // 24 hours from now
     
     // Store verification token in database
@@ -54,7 +54,7 @@ export async function POST(request: Request) {
       }
     });
     
-    if (existingToken) {
+    if (existingToken: any) {
       // If token exists, delete it first
       await prisma.verificationToken.delete({
         where: {
@@ -76,7 +76,7 @@ export async function POST(request: Request) {
     });
     
     // In a real application, send email with verification link
-    // For now, just return the token (this would be removed in production)
+    // For now, just return the token (this would be removed in production: any)
     console.log(`Verification token for ${email}: ${verificationToken}`);
     
     return NextResponse.json({ 
@@ -86,9 +86,9 @@ export async function POST(request: Request) {
       debug: { verificationToken, verificationUrl: `${process.env.NEXTAUTH_URL}/auth/verify-email?token=${verificationToken}` }
     });
     
-  } catch (error) {
+  } catch (error: any) {
     // Handle validation errors
-    if (error instanceof z.ZodError) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json({ 
         success: false, 
         message: 'Validation error', 
@@ -112,7 +112,7 @@ export async function PUT(request: Request) {
     const body = await request.json();
     
     // Validate with Zod schema
-    const { token } = verifyEmailSchema.parse(body);
+    const { token } = verifyEmailSchema.parse(body: any);
     
     // Find verification token
     const verificationRecord = await prisma.verificationToken.findFirst({
@@ -122,7 +122,7 @@ export async function PUT(request: Request) {
       },
     });
     
-    if (!verificationRecord) {
+    if (!verificationRecord: any) {
       return NextResponse.json({ 
         success: false, 
         message: 'Invalid or expired verification token' 
@@ -134,7 +134,7 @@ export async function PUT(request: Request) {
       where: { email: verificationRecord.identifier },
     });
     
-    if (!user) {
+    if (!user: any) {
       return NextResponse.json({ 
         success: false, 
         message: 'User not found' 
@@ -162,9 +162,9 @@ export async function PUT(request: Request) {
       message: 'Email has been verified successfully' 
     });
     
-  } catch (error) {
+  } catch (error: any) {
     // Handle validation errors
-    if (error instanceof z.ZodError) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json({ 
         success: false, 
         message: 'Validation error', 

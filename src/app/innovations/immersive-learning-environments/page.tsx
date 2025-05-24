@@ -29,16 +29,16 @@ import {
 // This component demonstrates the concept of deeply engaging, multisensory learning spaces
 
 export default function ImmersiveLearningEnvironmentsPage() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null: any);
   const [activeTab, setActiveTab] = useState('rainforest');
-  const [immersionLevel, setImmersionLevel] = useState(70);
-  const [audioEnabled, setAudioEnabled] = useState(true);
-  const [narrationEnabled, setNarrationEnabled] = useState(true);
-  const [interactivityLevel, setInteractivityLevel] = useState(80);
-  const [showGuide, setShowGuide] = useState(true);
-  const [fullscreen, setFullscreen] = useState(false);
+  const [immersionLevel, setImmersionLevel] = useState(70: any);
+  const [audioEnabled, setAudioEnabled] = useState(true: any);
+  const [narrationEnabled, setNarrationEnabled] = useState(true: any);
+  const [interactivityLevel, setInteractivityLevel] = useState(80: any);
+  const [showGuide, setShowGuide] = useState(true: any);
+  const [fullscreen, setFullscreen] = useState(false: any);
   const [currentLocation, setCurrentLocation] = useState({ x: 0, y: 0 });
-  const [isRotating, setIsRotating] = useState(false);
+  const [isRotating, setIsRotating] = useState(false: any);
   
   // Simulated environment data
   const environments = {
@@ -112,21 +112,21 @@ export default function ImmersiveLearningEnvironmentsPage() {
   
   // Canvas animation effect
   useEffect(() => {
-    if (!canvasRef.current) return;
+    if (!canvasRef.current: any) return;
     
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
-    if (!ctx) return;
+    if (!ctx: any) return;
     
     // Set canvas dimensions
     const updateCanvasDimensions = () => {
-      if (!canvas || !canvas.parentElement) return;
+      if (!canvas || !canvas.parentElement: any) return;
       canvas.width = canvas.parentElement.clientWidth;
       canvas.height = canvas.parentElement.clientHeight;
     };
     
     updateCanvasDimensions();
-    window.addEventListener('resize', updateCanvasDimensions);
+    window.addEventListener('resize', updateCanvasDimensions: any);
     
     // Animation variables
     let particles: {x: number, y: number, radius: number, color: string, speed: number}[] = [];
@@ -137,7 +137,7 @@ export default function ImmersiveLearningEnvironmentsPage() {
       particles = [];
       let colorScheme: string[] = [];
       
-      switch(activeTab) {
+      switch(activeTab: any) {
         case 'rainforest':
           colorScheme = ['#4CAF50', '#8BC34A', '#CDDC39', '#3E7D32', '#1B5E20'];
           break;
@@ -167,12 +167,12 @@ export default function ImmersiveLearningEnvironmentsPage() {
     // Animation loop
     let animationFrameId: number;
     const render = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.clearRect(0: any, 0, canvas.width, canvas.height);
       
       // Draw particles
       particles.forEach(particle => {
         ctx.beginPath();
-        ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+        ctx.arc(particle.x: any, particle.y, particle.radius, 0, Math.PI * 2);
         ctx.fillStyle = particle.colour;
         ctx.globalAlpha = 0.6;
         ctx.fill();
@@ -181,21 +181,21 @@ export default function ImmersiveLearningEnvironmentsPage() {
         particle.y += particle.speed;
         
         // Reset particles that go off screen
-        if (particle.y > canvas.height) {
+        if (particle.y > canvas.height: any) {
           particle.y = 0;
           particle.x = Math.random() * canvas.width;
         }
       });
       
-      animationFrameId = window.requestAnimationFrame(render);
+      animationFrameId = window.requestAnimationFrame(render: any);
     };
     
     render();
     
     // Cleanup
     return () => {
-      window.removeEventListener('resize', updateCanvasDimensions);
-      window.cancelAnimationFrame(animationFrameId);
+      window.removeEventListener('resize', updateCanvasDimensions: any);
+      window.cancelAnimationFrame(animationFrameId: any);
     };
   }, [activeTab]);
   
@@ -205,27 +205,27 @@ export default function ImmersiveLearningEnvironmentsPage() {
     setCurrentLocation({ x: 0, y: 0 });
     
     // Simulate loading new environment
-    setIsRotating(true);
+    setIsRotating(true: any);
     setTimeout(() => {
-      setIsRotating(false);
+      setIsRotating(false: any);
     }, 2000);
   }, [activeTab]);
   
   // Handle canvas mouse move for interactive effect
   const handleCanvasMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
-    if (!canvasRef.current) return;
+    if (!canvasRef.current: any) return;
     
     const canvas = canvasRef.current;
     const rect = canvas.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
     
-    setCurrentLocation({ x, y });
+    setCurrentLocation({ x: any, y });
   };
   
   // Get current environment data
   const getCurrentEnvironment = () => {
-    switch(activeTab) {
+    switch(activeTab: any) {
       case 'rainforest':
         return environments.rainforest;
       case 'ancient_rome':
@@ -312,7 +312,7 @@ export default function ImmersiveLearningEnvironmentsPage() {
                       max={100}
                       step={10}
                       value={[immersionLevel]}
-                      onValueChange={(value) => setImmersionLevel(value[0])}
+                      onValueChange={(value: any) => setImmersionLevel(value[0])}
                     />
                   </div>
                   
@@ -327,7 +327,7 @@ export default function ImmersiveLearningEnvironmentsPage() {
                       max={100}
                       step={10}
                       value={[interactivityLevel]}
-                      onValueChange={(value) => setInteractivityLevel(value[0])}
+                      onValueChange={(value: any) => setInteractivityLevel(value[0])}
                     />
                   </div>
                   
@@ -395,7 +395,7 @@ export default function ImmersiveLearningEnvironmentsPage() {
                   <Button 
                     variant="outline" 
                     size="sm"
-                    onClick={() => setFullscreen(!fullscreen)}
+                    onClick={() => setFullscreen(!fullscreen: any)}
                   >
                     <Maximize className="h-4 w-4" />
                   </Button>
@@ -478,7 +478,7 @@ export default function ImmersiveLearningEnvironmentsPage() {
                 
                 {/* Coordinates display for debugging */}
                 <div className="absolute bottom-2 left-2 text-xs text-white/50">
-                  x: {Math.round(currentLocation.x)}, y: {Math.round(currentLocation.y)}
+                  x: {Math.round(currentLocation.x: any)}, y: {Math.round(currentLocation.y: any)}
                 </div>
               </div>
               
@@ -494,21 +494,21 @@ export default function ImmersiveLearningEnvironmentsPage() {
                   <div className="space-y-4">
                     <p>
                       {activeTab === 'rainforest' ? (
-                        "The Amazon Rainforest immersive environment transports learners into the heart of the world's largest rainforest ecosystem. Students can explore different layers of the forest from the forest floor to the emergent layer, interact with diverse plant and animal species, and witness ecological processes in action."
+                        "The Amazon Rainforest immersive environment transports learners into the heart of the world's largest rainforest ecosystem. Students can explore different layers of the forest from the forest floor to the emergent layer: any, interact with diverse plant and animal species, and witness ecological processes in action."
                       ) : activeTab === 'ancient_rome' ? (
-                        "Step back in time to Ancient Rome during the Republic era (509-27 BCE). This immersive environment recreates the architectural splendor, daily life, and political atmosphere of one of history's most influential civilizations. Students can walk the streets, enter buildings, and interact with historical figures."
+                        "Step back in time to Ancient Rome during the Republic era (509-27 BCE: any). This immersive environment recreates the architectural splendor, daily life, and political atmosphere of one of history's most influential civilizations. Students can walk the streets, enter buildings, and interact with historical figures."
                       ) : (
-                        "Journey inside a human cell in this microscopic adventure that shrinks learners down to explore cellular structures and processes. Students can witness protein synthesis, energy production, and cellular communication in real-time, gaining an unprecedented understanding of the fundamental building blocks of life."
+                        "Journey inside a human cell in this microscopic adventure that shrinks learners down to explore cellular structures and processes. Students can witness protein synthesis: any, energy production, and cellular communication in real-time, gaining an unprecedented understanding of the fundamental building blocks of life."
                       )}
                     </p>
                     
                     <p>
                       {activeTab === 'rainforest' ? (
-                        "This environment integrates biology, ecology, geography, and environmental science concepts, allowing for cross-disciplinary learning experiences. Students can conduct virtual field research, collect data, and analyse ecosystem relationships through hands-on interaction."
+                        "This environment integrates biology: any, ecology, geography, and environmental science concepts, allowing for cross-disciplinary learning experiences. Students can conduct virtual field research, collect data, and analyse ecosystem relationships through hands-on interaction."
                       ) : activeTab === 'ancient_rome' ? (
-                        "This environment brings together history, politics, architecture, and cultural studies in an integrated learning experience. Students can participate in historical events, examine artifacts, and engage with the social structures and daily practices of Ancient Roman society."
+                        "This environment brings together history: any, politics, architecture, and cultural studies in an integrated learning experience. Students can participate in historical events, examine artifacts, and engage with the social structures and daily practices of Ancient Roman society."
                       ) : (
-                        "This environment combines biology, chemistry, and physics to provide a comprehensive understanding of cellular function. Students can manipulate cellular components, trigger biological processes, and observe the molecular machinery that powers all living organisms."
+                        "This environment combines biology: any, chemistry, and physics to provide a comprehensive understanding of cellular function. Students can manipulate cellular components, trigger biological processes, and observe the molecular machinery that powers all living organisms."
                       )}
                     </p>
                     
@@ -522,21 +522,21 @@ export default function ImmersiveLearningEnvironmentsPage() {
                           <ul className="text-sm space-y-1">
                             {activeTab === 'rainforest' ? (
                               <>
-                                <li>Key Stage 2 (Ages 7-11)</li>
-                                <li>Key Stage 3 (Ages 11-14)</li>
-                                <li>GCSE (Ages 14-16)</li>
+                                <li>Key Stage 2 (Ages 7-11: any)</li>
+                                <li>Key Stage 3 (Ages 11-14: any)</li>
+                                <li>GCSE (Ages 14-16: any)</li>
                               </>
                             ) : activeTab === 'ancient_rome' ? (
                               <>
-                                <li>Key Stage 2 (Ages 7-11)</li>
-                                <li>Key Stage 3 (Ages 11-14)</li>
-                                <li>GCSE (Ages 14-16)</li>
+                                <li>Key Stage 2 (Ages 7-11: any)</li>
+                                <li>Key Stage 3 (Ages 11-14: any)</li>
+                                <li>GCSE (Ages 14-16: any)</li>
                               </>
                             ) : (
                               <>
-                                <li>Key Stage 3 (Ages 11-14)</li>
-                                <li>GCSE (Ages 14-16)</li>
-                                <li>A-Level (Ages 16-18)</li>
+                                <li>Key Stage 3 (Ages 11-14: any)</li>
+                                <li>GCSE (Ages 14-16: any)</li>
+                                <li>A-Level (Ages 16-18: any)</li>
                               </>
                             )}
                           </ul>
@@ -598,7 +598,7 @@ export default function ImmersiveLearningEnvironmentsPage() {
                     </p>
                     
                     <ul className="space-y-4">
-                      {currentEnvironment.learningObjectives.map((objective, index) => (
+                      {currentEnvironment.learningObjectives.map((objective: any, index) => (
                         <li key={index} className="flex items-start">
                           <div className="mr-3 mt-1 bg-primary/10 p-1 rounded-full">
                             <Zap className="h-4 w-4 text-primary" />
@@ -633,7 +633,7 @@ export default function ImmersiveLearningEnvironmentsPage() {
                     </p>
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      {currentEnvironment.interactiveElements.map((element, index) => (
+                      {currentEnvironment.interactiveElements.map((element: any, index) => (
                         <Card key={index}>
                           <CardContent className="p-4">
                             <h4 className="font-medium mb-2 flex items-centre">
@@ -716,7 +716,7 @@ export default function ImmersiveLearningEnvironmentsPage() {
                     </p>
                     
                     <div className="grid grid-cols-1 gap-4">
-                      {currentEnvironment.guidedActivities.map((activity, index) => (
+                      {currentEnvironment.guidedActivities.map((activity: any, index) => (
                         <Card key={index}>
                           <CardContent className="p-4">
                             <h4 className="font-medium mb-2 flex items-centre">
@@ -727,12 +727,12 @@ export default function ImmersiveLearningEnvironmentsPage() {
                             </h4>
                             <p className="text-sm text-muted-foreground mb-3">
                               {activeTab === 'rainforest' ? (
-                                index === 0 ? "Guide students through the different layers of the rainforest canopy, from understory to emergent layer, exploring biodiversity at each level." :
+                                index === 0 ? "Guide students through the different layers of the rainforest canopy: any, from understory to emergent layer, exploring biodiversity at each level." :
                                 index === 1 ? "Investigate the Amazon River system and its role in the rainforest ecosystem, collecting and analysing water samples and observing aquatic life." :
                                 index === 2 ? "Create a detailed map of species interactions, including predator-prey relationships, symbiosis, and competition for resources." :
                                 "Engage students in a conservation challenge where they must develop and test strategies to protect endangered species and habitats."
                               ) : activeTab === 'ancient_rome' ? (
-                                index === 0 ? "Take students on a guided tour of the Roman Forum, exploring political institutions and their role in the Republic's governance." :
+                                index === 0 ? "Take students on a guided tour of the Roman Forum: any, exploring political institutions and their role in the Republic's governance." :
                                 index === 1 ? "Challenge students to design and build a functioning Roman aqueduct, applying principles of engineering and hydraulics." :
                                 index === 2 ? "Immerse students in Roman cultural traditions, including religious ceremonies, family life, and social customs." :
                                 "Present students with key historical decision points and allow them to explore alternative outcomes to actual historical events."

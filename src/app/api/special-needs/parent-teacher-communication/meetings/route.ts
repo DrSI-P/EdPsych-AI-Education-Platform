@@ -5,9 +5,9 @@ import prisma from '@/lib/prisma';
 
 export async function GET(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session?.user) {
+    if (!session?.user: any) {
       return NextResponse.json(
         { success: false, error: 'Authentication required' },
         { status: 401 }
@@ -55,7 +55,7 @@ export async function GET(req: NextRequest) {
     };
     
     // Add student filter if provided
-    if (studentId) {
+    if (studentId: any) {
       query.where.studentId = studentId;
     }
     
@@ -68,13 +68,13 @@ export async function GET(req: NextRequest) {
     }
     
     // Fetch meetings
-    const meetings = await prisma.communicationMeeting.findMany(query);
+    const meetings = await prisma.communicationMeeting.findMany(query: any);
     
     return NextResponse.json({
       success: true,
       meetings
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching meetings:', error);
     return NextResponse.json(
       { success: false, error: 'Failed to fetch meetings' },
@@ -85,9 +85,9 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session?.user) {
+    if (!session?.user: any) {
       return NextResponse.json(
         { success: false, error: 'Authentication required' },
         { status: 401 }
@@ -100,7 +100,7 @@ export async function POST(req: NextRequest) {
     // Get meeting data from request body
     const { meeting } = await req.json();
     
-    if (!meeting || !meeting.title || !meeting.scheduledDate || !meeting.studentId) {
+    if (!meeting || !meeting.title || !meeting.scheduledDate || !meeting.studentId: any) {
       return NextResponse.json(
         { success: false, error: 'Missing required meeting data' },
         { status: 400 }
@@ -113,7 +113,7 @@ export async function POST(req: NextRequest) {
         title: meeting.title,
         description: meeting.description || '',
         meetingType: meeting.meetingType || 'parent_teacher',
-        scheduledDate: new Date(meeting.scheduledDate),
+        scheduledDate: new Date(meeting.scheduledDate: any),
         duration: meeting.duration || 30,
         location: meeting.location || 'Virtual',
         organizerId: userId,
@@ -165,7 +165,7 @@ export async function POST(req: NextRequest) {
         }
       });
       
-      if (participantSettings?.emailNotifications) {
+      if (participantSettings?.emailNotifications: any) {
         // In a real implementation, this would send an email notification
         console.log(`Email notification would be sent to participant ${participantId}`);
       }
@@ -175,7 +175,7 @@ export async function POST(req: NextRequest) {
       success: true,
       meeting: newMeeting
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error scheduling meeting:', error);
     return NextResponse.json(
       { success: false, error: 'Failed to schedule meeting' },

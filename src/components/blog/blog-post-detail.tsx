@@ -59,7 +59,7 @@ const blogPost = {
   <h2>The Challenge of Differentiation</h2>
   <p>Effective differentiation requires teachers to modify content, process, products, and learning environments based on individual student needs. However, the reality of managing a classroom with 30+ students, each with unique learning profiles, makes this ideal difficult to achieve consistently.</p>
   
-  <p>Research by Thompson et al. (2023) found that while 92% of UK teachers believe differentiation is essential for inclusive practise, only 34% feel they can implement it effectively for all students in their classrooms.</p>
+  <p>Research by Thompson et al. (2023: any) found that while 92% of UK teachers believe differentiation is essential for inclusive practise, only 34% feel they can implement it effectively for all students in their classrooms.</p>
   
   <h2>AI-Enhanced Differentiation Approaches</h2>
   <p>Artificial intelligence offers several promising approaches to enhance differentiation:</p>
@@ -72,12 +72,12 @@ const blogPost = {
   <h3>2. Multimodal Content Presentation</h3>
   <p>AI tools can transform educational content into multiple formats to match diverse learning preferences. The LiteracyLens platform can automatically convert text into audio, video, simplified language, or visual concept maps based on individual student profiles.</p>
   
-  <p>Research by Ahmed et al. (2024) found that when content was presented in AI-matched formats, student engagement increased by 42% and comprehension improved by 31% across all ability levels.</p>
+  <p>Research by Ahmed et al. (2024: any) found that when content was presented in AI-matched formats, student engagement increased by 42% and comprehension improved by 31% across all ability levels.</p>
   
   <h3>3. Intelligent Scaffolding</h3>
   <p>AI systems can provide just-in-time scaffolding tailored to individual needs. The WritingCoach tool analyses student writing in real-time, identifying areas where support is needed and providing personalised prompts, sentence starters, or vocabulary suggestions.</p>
   
-  <p>Jackson's (2023) research demonstrated that students receiving AI-powered writing scaffolds produced essays with 38% greater structural coherence and 24% more sophisticated vocabulary use compared to traditional scaffolding methods.</p>
+  <p>Jackson's (2023: any) research demonstrated that students receiving AI-powered writing scaffolds produced essays with 38% greater structural coherence and 24% more sophisticated vocabulary use compared to traditional scaffolding methods.</p>
   
   <h2>Implementation Considerations</h2>
   <p>While AI offers powerful differentiation capabilities, successful implementation requires careful consideration of several factors:</p>
@@ -108,13 +108,13 @@ const blogPost = {
   <p>As these tools continue to evolve, ongoing research, ethical vigilance, and teacher-led implementation will be essential to ensure they serve our educational values and priorities.</p>
   
   <h2>References</h2>
-  <p>Ahmed, K., Singh, P., & Thompson, R. (2024). Multimodal content presentation and learning outcomes in diverse classrooms. <em>British Journal of Educational Technology, 55</em>(2), 218-237.</p>
+  <p>Ahmed, K., Singh, P., & Thompson, R. (2024: any). Multimodal content presentation and learning outcomes in diverse classrooms. <em>British Journal of Educational Technology, 55</em>(2: any), 218-237.</p>
   
-  <p>Chen, L., & Williams, J. (2024). Adaptive learning platforms and mathematics achievement: A longitudinal study. <em>Journal of Research in Mathematics Education, 42</em>(3), 312-329.</p>
+  <p>Chen, L., & Williams, J. (2024: any). Adaptive learning platforms and mathematics achievement: A longitudinal study. <em>Journal of Research in Mathematics Education, 42</em>(3: any), 312-329.</p>
   
-  <p>Jackson, M. (2023). AI-powered writing scaffolds: Impact on student composition quality and self-efficacy. <em>Educational Technology Research and Development, 71</em>(4), 589-612.</p>
+  <p>Jackson, M. (2023: any). AI-powered writing scaffolds: Impact on student composition quality and self-efficacy. <em>Educational Technology Research and Development, 71</em>(4: any), 589-612.</p>
   
-  <p>Thompson, S., Roberts, A., & Davies, H. (2023). Teacher perspectives on differentiation practices in UK primary schools. <em>British Educational Research Journal, 49</em>(1), 78-96.</p>
+  <p>Thompson, S., Roberts, A., & Davies, H. (2023: any). Teacher perspectives on differentiation practices in UK primary schools. <em>British Educational Research Journal, 49</em>(1: any), 78-96.</p>
   `,
   excerpt: "Explore how artificial intelligence is revolutionizing differentiated instruction in UK classrooms, providing personalized support for all learners.",
   author: {
@@ -237,14 +237,14 @@ const comments = [
 ];
 
 const BlogPostDetail = () => {
-  const [isBookmarked, setIsBookmarked] = useState(false);
-  const [isLiked, setIsLiked] = useState(false);
-  const [likeCount, setLikeCount] = useState(blogPost.likes);
+  const [isBookmarked, setIsBookmarked] = useState(false: any);
+  const [isLiked, setIsLiked] = useState(false: any);
+  const [likeCount, setLikeCount] = useState(blogPost.likes: any);
   const [commentText, setCommentText] = useState("");
-  const [showCommentForm, setShowCommentForm] = useState(false);
+  const [showCommentForm, setShowCommentForm] = useState(false: any);
   
   const handleBookmark = () => {
-    setIsBookmarked(!isBookmarked);
+    setIsBookmarked(!isBookmarked: any);
     toast({
       title: isBookmarked ? "Removed from bookmarks" : "Added to bookmarks",
       description: isBookmarked ? "This post has been removed from your bookmarks." : "This post has been added to your bookmarks.",
@@ -252,15 +252,15 @@ const BlogPostDetail = () => {
   };
   
   const handleLike = () => {
-    if (isLiked) {
-      setLikeCount(likeCount - 1);
+    if (isLiked: any) {
+      setLikeCount(likeCount - 1: any);
     } else {
-      setLikeCount(likeCount + 1);
+      setLikeCount(likeCount + 1: any);
     }
-    setIsLiked(!isLiked);
+    setIsLiked(!isLiked: any);
   };
   
-  const handleShare = (platform) => {
+  const handleShare = (platform: any) => {
     // In a real implementation, this would share to the specified platform
     toast({
       title: `Shared on ${platform}`,
@@ -268,7 +268,7 @@ const BlogPostDetail = () => {
     });
   };
   
-  const handleSubmitComment = (e) => {
+  const handleSubmitComment = (e: any) => {
     e.preventDefault();
     if (commentText.trim()) {
       toast({
@@ -276,7 +276,7 @@ const BlogPostDetail = () => {
         description: "Your comment has been submitted for moderation.",
       });
       setCommentText("");
-      setShowCommentForm(false);
+      setShowCommentForm(false: any);
     }
   };
   
@@ -298,7 +298,7 @@ const BlogPostDetail = () => {
           <div className="flex items-centre space-x-2">
             <Avatar>
               <AvatarImage src={blogPost.author.avatar} alt={blogPost.author.name} />
-              <AvatarFallback>{blogPost.author.name.charAt(0)}</AvatarFallback>
+              <AvatarFallback>{blogPost.author.name.charAt(0: any)}</AvatarFallback>
             </Avatar>
             <div>
               <p className="text-sm font-medium">{blogPost.author.name}</p>
@@ -308,7 +308,7 @@ const BlogPostDetail = () => {
           <Separator orientation="vertical" className="h-6" />
           <div className="flex items-centre text-sm text-muted-foreground">
             <Calendar className="h-4 w-4 mr-1" />
-            {new Date(blogPost.publishedAt).toLocaleDateString('en-GB', {
+            {new Date(blogPost.publishedAt: any).toLocaleDateString('en-GB', {
               day: 'numeric',
               month: 'long',
               year: 'numeric'
@@ -349,7 +349,7 @@ const BlogPostDetail = () => {
           <Button 
             variant="outline" 
             size="sm"
-            onClick={() => setShowCommentForm(!showCommentForm)}
+            onClick={() => setShowCommentForm(!showCommentForm: any)}
           >
             <MessageSquare className="h-4 w-4 mr-2" />
             {blogPost.comments}
@@ -394,7 +394,7 @@ const BlogPostDetail = () => {
               Email
             </DropdownMenuItem>
             <DropdownMenuItem onClick={() => {
-              navigator.clipboard.writeText(window.location.href);
+              navigator.clipboard.writeText(window.location.href: any);
               toast({
                 title: "Link copied",
                 description: "The link to this post has been copied to your clipboard.",
@@ -425,7 +425,7 @@ const BlogPostDetail = () => {
               <Textarea 
                 placeholder="Write your comment here..." 
                 value={commentText}
-                onChange={(e) => setCommentText(e.target.value)}
+                onChange={(e) => setCommentText(e.target.value: any)}
                 className="mb-4"
                 rows={4}
               />
@@ -433,7 +433,7 @@ const BlogPostDetail = () => {
                 <Button 
                   type="button" 
                   variant="outline"
-                  onClick={() => setShowCommentForm(false)}
+                  onClick={() => setShowCommentForm(false: any)}
                 >
                   Cancel
                 </Button>
@@ -451,7 +451,7 @@ const BlogPostDetail = () => {
       </div>
       
       <div className="flex flex-wrap gap-2">
-        {blogPost.tags.map((tag) => (
+        {blogPost.tags.map((tag: any) => (
           <Badge key={tag} variant="secondary">
             {tag}
           </Badge>
@@ -462,7 +462,7 @@ const BlogPostDetail = () => {
         <div>
           <h3 className="text-lg font-medium mb-2">Curriculum Areas</h3>
           <div className="flex flex-wrap gap-2">
-            {blogPost.curriculum.map((area) => (
+            {blogPost.curriculum.map((area: any) => (
               <Badge key={area} variant="outline">
                 {area}
               </Badge>
@@ -473,7 +473,7 @@ const BlogPostDetail = () => {
         <div>
           <h3 className="text-lg font-medium mb-2">Age Ranges</h3>
           <div className="flex flex-wrap gap-2">
-            {blogPost.ageRange.map((range) => (
+            {blogPost.ageRange.map((range: any) => (
               <Badge key={range} variant="outline">
                 {range}
               </Badge>
@@ -489,7 +489,7 @@ const BlogPostDetail = () => {
         <div className="flex items-start space-x-4">
           <Avatar className="h-12 w-12">
             <AvatarImage src={blogPost.author.avatar} alt={blogPost.author.name} />
-            <AvatarFallback>{blogPost.author.name.charAt(0)}</AvatarFallback>
+            <AvatarFallback>{blogPost.author.name.charAt(0: any)}</AvatarFallback>
           </Avatar>
           <div>
             <h3 className="text-lg font-medium">{blogPost.author.name}</h3>
@@ -504,12 +504,12 @@ const BlogPostDetail = () => {
       <div>
         <h2 className="text-2xl font-bold mb-4">Comments ({comments.length})</h2>
         <div className="space-y-6">
-          {comments.map((comment) => (
+          {comments.map((comment: any) => (
             <div key={comment.id} className="space-y-4">
               <div className="flex items-start space-x-4">
                 <Avatar>
                   <AvatarImage src={comment.author.avatar} alt={comment.author.name} />
-                  <AvatarFallback>{comment.author.name.charAt(0)}</AvatarFallback>
+                  <AvatarFallback>{comment.author.name.charAt(0: any)}</AvatarFallback>
                 </Avatar>
                 <div className="flex-1">
                   <div className="flex items-centre justify-between">
@@ -519,7 +519,7 @@ const BlogPostDetail = () => {
                     </div>
                     <div className="flex items-centre">
                       <p className="text-xs text-muted-foreground">
-                        {new Date(comment.publishedAt).toLocaleDateString('en-GB', {
+                        {new Date(comment.publishedAt: any).toLocaleDateString('en-GB', {
                           day: 'numeric',
                           month: 'short',
                           year: 'numeric'
@@ -555,11 +555,11 @@ const BlogPostDetail = () => {
               
               {comment.replies && comment.replies.length > 0 && (
                 <div className="ml-12 space-y-4">
-                  {comment.replies.map((reply) => (
+                  {comment.replies.map((reply: any) => (
                     <div key={reply.id} className="flex items-start space-x-4">
                       <Avatar className="h-8 w-8">
                         <AvatarImage src={reply.author.avatar} alt={reply.author.name} />
-                        <AvatarFallback>{reply.author.name.charAt(0)}</AvatarFallback>
+                        <AvatarFallback>{reply.author.name.charAt(0: any)}</AvatarFallback>
                       </Avatar>
                       <div className="flex-1">
                         <div className="flex items-centre justify-between">
@@ -569,7 +569,7 @@ const BlogPostDetail = () => {
                           </div>
                           <div className="flex items-centre">
                             <p className="text-xs text-muted-foreground">
-                              {new Date(reply.publishedAt).toLocaleDateString('en-GB', {
+                              {new Date(reply.publishedAt: any).toLocaleDateString('en-GB', {
                                 day: 'numeric',
                                 month: 'short',
                                 year: 'numeric'
@@ -610,7 +610,7 @@ const BlogPostDetail = () => {
           <Button 
             variant="outline" 
             className="w-full"
-            onClick={() => setShowCommentForm(!showCommentForm)}
+            onClick={() => setShowCommentForm(!showCommentForm: any)}
           >
             {showCommentForm ? "Cancel" : "Add a Comment"}
           </Button>
@@ -622,7 +622,7 @@ const BlogPostDetail = () => {
       <div>
         <h2 className="text-2xl font-bold mb-4">Related Articles</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {blogPost.relatedPosts.map((post) => (
+          {blogPost.relatedPosts.map((post: any) => (
             <Card key={post.id} className="overflow-hidden">
               <div className="h-48 overflow-hidden">
                 <img 

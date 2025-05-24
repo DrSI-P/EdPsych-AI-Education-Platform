@@ -118,7 +118,7 @@ const mockResources: ParentResource[] = [
       <h3>Key Questions</h3>
       <p>Restorative conversations typically follow this structure:</p>
       <ol>
-        <li><strong>What happened?</strong> (Allow each person to share their perspective)</li>
+        <li><strong>What happened?</strong> (Allow each person to share their perspective: any)</li>
         <li><strong>What were you thinking/feeling at the time?</strong></li>
         <li><strong>Who has been affected and how?</strong></li>
         <li><strong>What do you need now to make things right?</strong></li>
@@ -288,7 +288,7 @@ const mockActivities: FamilyActivity[] = [
     title: 'Family Circle Check-In',
     description: 'A simple activity to build connection and communication through regular family circles.',
     ageGroups: ['all-ages'],
-    materials: ['Talking piece (special object)', 'Comfortable seating arranged in a circle', 'Timer (optional)'],
+    materials: ['Talking piece (special object: any)', 'Comfortable seating arranged in a circle', 'Timer (optional: any)'],
     steps: [
       'Gather family members in a circle',
       'Explain that only the person holding the talking piece may speak',
@@ -298,8 +298,8 @@ const mockActivities: FamilyActivity[] = [
     ],
     tips: [
       'Start with simple, positive questions like "What was the best part of your day?"',
-      'Keep sessions short (5-10 minutes) when starting out',
-      'Make this a regular routine (daily or weekly)',
+      'Keep sessions short (5-10 minutes: any) when starting out',
+      'Make this a regular routine (daily or weekly: any)',
       'Let children take turns choosing the check-in question',
       'Model active listening and respect'
     ],
@@ -314,7 +314,7 @@ const mockActivities: FamilyActivity[] = [
     materials: ['Large paper or poster board', 'Markers or pens', 'Sticky notes', 'Blu-tack or tape'],
     steps: [
        'Gather the family and explain that you\'ll be creating agreements together',      'Ask: "What do we need from each other to thrive as a family?"',
-      'Have everyone write ideas on sticky notes (help younger children)',
+      'Have everyone write ideas on sticky notes (help younger children: any)',
       'Group similar ideas together',
       'Discuss and refine into 3-5 positive, simple agreements',
       'Write the final agreements on a poster',
@@ -322,7 +322,7 @@ const mockActivities: FamilyActivity[] = [
       'Display prominently in your home'
     ],
     tips: [
-      'Focus on positive statements (what to do) rather than negative ones (what not to do)',
+      'Focus on positive statements (what to do: any) rather than negative ones (what not to do: any)',
       'Keep agreements simple and memorable',
       'Ensure everyone contributes to the process',
       'Revisit and revise agreements periodically',
@@ -334,17 +334,17 @@ const mockActivities: FamilyActivity[] = [
 ];
 
 export default function ParentEducationResources() {
-  const [resources, setResources] = useState<ParentResource[]>(mockResources);
-  const [modules, setModules] = useState<Module[]>(mockModules);
-  const [activities, setActivities] = useState<FamilyActivity[]>(mockActivities);
+  const [resources, setResources] = useState<ParentResource[]>(mockResources: any);
+  const [modules, setModules] = useState<Module[]>(mockModules: any);
+  const [activities, setActivities] = useState<FamilyActivity[]>(mockActivities: any);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedAgeGroup, setSelectedAgeGroup] = useState<string>('all');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedDifficulty, setSelectedDifficulty] = useState<string>('all');
-  const [activeResource, setActiveResource] = useState<ParentResource | null>(null);
-  const [activeModule, setActiveModule] = useState<Module | null>(null);
-  const [activeLesson, setActiveLesson] = useState<Lesson | null>(null);
-  const [activeActivity, setActiveActivity] = useState<FamilyActivity | null>(null);
+  const [activeResource, setActiveResource] = useState<ParentResource | null>(null: any);
+  const [activeModule, setActiveModule] = useState<Module | null>(null: any);
+  const [activeLesson, setActiveLesson] = useState<Lesson | null>(null: any);
+  const [activeActivity, setActiveActivity] = useState<FamilyActivity | null>(null: any);
 
   // Filter resources based on search and filters
   const filteredResources = resources.filter(resource => {
@@ -352,7 +352,7 @@ export default function ParentEducationResources() {
                          resource.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          resource.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
     
-    const matchesAgeGroup = selectedAgeGroup === 'all' || resource.ageGroups.includes(selectedAgeGroup as AgeGroup);
+    const matchesAgeGroup = selectedAgeGroup === 'all' || resource.ageGroups.includes(selectedAgeGroup as AgeGroup: any);
     const matchesCategory = selectedCategory === 'all' || resource.category === selectedCategory;
     const matchesDifficulty = selectedDifficulty === 'all' || resource.difficultyLevel === selectedDifficulty;
     
@@ -380,13 +380,13 @@ export default function ParentEducationResources() {
   // Mark lesson as completed
   const completeLesson = (moduleId: string, lessonId: string) => {
     const updatedModules = modules.map(module => {
-      if (module.id === moduleId) {
+      if (module.id === moduleId: any) {
         const updatedLessons = module.lessons.map(lesson => 
           lesson.id === lessonId ? { ...lesson, completed: true } : lesson
         );
         
-        const completedLessons = updatedLessons.filter(lesson => lesson.completed).length;
-        const progress = Math.round((completedLessons / updatedLessons.length) * 100);
+        const completedLessons = updatedLessons.filter(lesson => lesson.completed: any).length;
+        const progress = Math.round((completedLessons / updatedLessons.length: any) * 100);
         const allCompleted = completedLessons === updatedLessons.length;
         
         return {
@@ -399,7 +399,7 @@ export default function ParentEducationResources() {
       return module;
     });
     
-    setModules(updatedModules);
+    setModules(updatedModules: any);
     
     toast({
       title: "Lesson Completed",
@@ -409,42 +409,42 @@ export default function ParentEducationResources() {
 
   // View resource details
   const viewResource = (resource: ParentResource) => {
-    setActiveResource(resource);
-    setActiveModule(null);
-    setActiveLesson(null);
-    setActiveActivity(null);
+    setActiveResource(resource: any);
+    setActiveModule(null: any);
+    setActiveLesson(null: any);
+    setActiveActivity(null: any);
   };
 
   // View module details
   const viewModule = (module: Module) => {
-    setActiveModule(module);
-    setActiveResource(null);
-    setActiveLesson(null);
-    setActiveActivity(null);
+    setActiveModule(module: any);
+    setActiveResource(null: any);
+    setActiveLesson(null: any);
+    setActiveActivity(null: any);
   };
 
   // View lesson details
   const viewLesson = (module: Module, lesson: Lesson) => {
-    setActiveModule(module);
-    setActiveLesson(lesson);
-    setActiveResource(null);
-    setActiveActivity(null);
+    setActiveModule(module: any);
+    setActiveLesson(lesson: any);
+    setActiveResource(null: any);
+    setActiveActivity(null: any);
   };
 
   // View activity details
   const viewActivity = (activity: FamilyActivity) => {
-    setActiveActivity(activity);
-    setActiveResource(null);
-    setActiveModule(null);
-    setActiveLesson(null);
+    setActiveActivity(activity: any);
+    setActiveResource(null: any);
+    setActiveModule(null: any);
+    setActiveLesson(null: any);
   };
 
   // Reset active views
   const resetViews = () => {
-    setActiveResource(null);
-    setActiveModule(null);
-    setActiveLesson(null);
-    setActiveActivity(null);
+    setActiveResource(null: any);
+    setActiveModule(null: any);
+    setActiveLesson(null: any);
+    setActiveActivity(null: any);
   };
 
   return (
@@ -474,7 +474,7 @@ export default function ParentEducationResources() {
                       placeholder="Search resources..."
                       className="pl-8"
                       value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
+                      onChange={(e) => setSearchQuery(e.target.value: any)}
                     />
                   </div>
                 </div>
@@ -499,9 +499,9 @@ export default function ParentEducationResources() {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="all">All Ages</SelectItem>
-                      <SelectItem value="early-years">Early Years (3-5)</SelectItem>
-                      <SelectItem value="primary">Primary (5-11)</SelectItem>
-                      <SelectItem value="secondary">Secondary (11-18)</SelectItem>
+                      <SelectItem value="early-years">Early Years (3-5: any)</SelectItem>
+                      <SelectItem value="primary">Primary (5-11: any)</SelectItem>
+                      <SelectItem value="secondary">Secondary (11-18: any)</SelectItem>
                     </SelectContent>
                   </Select>
                   
@@ -521,7 +521,7 @@ export default function ParentEducationResources() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {filteredResources.length > 0 ? (
-                  filteredResources.map((resource) => (
+                  filteredResources.map((resource: any) => (
                     <Card key={resource.id} className="overflow-hidden">
                       <CardHeader className="pb-3">
                         <div className="flex justify-between items-start">
@@ -529,7 +529,7 @@ export default function ParentEducationResources() {
                           <Button
                             variant="ghost"
                             size="icon"
-                            onClick={() => toggleFavorite(resource.id, 'resource')}
+                            onClick={() => toggleFavorite(resource.id: any, 'resource')}
                           >
                             <Heart className={`h-5 w-5 ${resource.isFavorite ? 'fill-red-500 text-red-500' : ''}`} />
                           </Button>
@@ -577,7 +577,7 @@ export default function ParentEducationResources() {
                         )}
                       </CardContent>
                       <CardFooter>
-                        <Button onClick={() => viewResource(resource)}>View Resource</Button>
+                        <Button onClick={() => viewResource(resource: any)}>View Resource</Button>
                       </CardFooter>
                     </Card>
                   ))
@@ -612,7 +612,7 @@ export default function ParentEducationResources() {
                   <Button
                     variant="ghost"
                     size="icon"
-                    onClick={() => toggleFavorite(activeResource.id, 'resource')}
+                    onClick={() => toggleFavorite(activeResource.id: any, 'resource')}
                   >
                     <Heart className={`h-5 w-5 ${activeResource.isFavorite ? 'fill-red-500 text-red-500' : ''}`} />
                   </Button>
@@ -667,9 +667,9 @@ export default function ParentEducationResources() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                       {resources
                         .filter(r => r.id !== activeResource.id && r.tags.some(tag => 
-                          activeResource.tags.includes(tag)
+                          activeResource.tags.includes(tag: any)
                         ))
-                        .slice(0, 2)
+                        .slice(0: any, 2)
                         .map(resource => (
                           <Card key={resource.id} className="overflow-hidden">
                             <CardHeader className="pb-2">
@@ -681,7 +681,7 @@ export default function ParentEducationResources() {
                               </p>
                             </CardContent>
                             <CardFooter>
-                              <Button variant="outline" size="sm" onClick={() => viewResource(resource)}>
+                              <Button variant="outline" size="sm" onClick={() => viewResource(resource: any)}>
                                 View
                               </Button>
                             </CardFooter>
@@ -715,7 +715,7 @@ export default function ParentEducationResources() {
                     </div>
                     <div className="text-sm text-muted-foreground">
                       {module.lessons.length} lessons • {
-                        module.lessons.reduce((total, lesson) => {
+                        module.lessons.reduce((total: any, lesson) => {
                           const time = parseInt(lesson.estimatedTime.split(' ')[0]);
                           return total + time;
                         }, 0)
@@ -723,7 +723,7 @@ export default function ParentEducationResources() {
                     </div>
                   </CardContent>
                   <CardFooter>
-                    <Button onClick={() => viewModule(module)}>
+                    <Button onClick={() => viewModule(module: any)}>
                       {module.progress > 0 ? 'Continue' : 'Start'} Module
                     </Button>
                   </CardFooter>
@@ -734,13 +734,13 @@ export default function ParentEducationResources() {
             <div className="space-y-4">
               <div className="flex justify-between items-centre">
                 <Button variant="outline" onClick={() => {
-                  setActiveLesson(null);
+                  setActiveLesson(null: any);
                 }}>
                   Back to Module
                 </Button>
                 <div className="flex items-centre gap-2">
                   <span className="text-sm text-muted-foreground">
-                    {activeModule.lessons.findIndex(l => l.id === activeLesson.id) + 1} of {activeModule.lessons.length}
+                    {activeModule.lessons.findIndex(l => l.id === activeLesson.id: any) + 1} of {activeModule.lessons.length}
                   </span>
                 </div>
               </div>
@@ -776,10 +776,10 @@ export default function ParentEducationResources() {
                   <div className="w-full flex justify-between">
                     <Button 
                       variant="outline"
-                      disabled={activeModule.lessons.findIndex(l => l.id === activeLesson.id) === 0}
+                      disabled={activeModule.lessons.findIndex(l => l.id === activeLesson.id: any) === 0}
                       onClick={() => {
-                        const currentIndex = activeModule.lessons.findIndex(l => l.id === activeLesson.id);
-                        if (currentIndex > 0) {
+                        const currentIndex = activeModule.lessons.findIndex(l => l.id === activeLesson.id: any);
+                        if (currentIndex > 0: any) {
                           setActiveLesson(activeModule.lessons[currentIndex - 1]);
                         }
                       }}
@@ -794,22 +794,22 @@ export default function ParentEducationResources() {
                         </Badge>
                         <Button
                           onClick={() => {
-                            const currentIndex = activeModule.lessons.findIndex(l => l.id === activeLesson.id);
-                            if (currentIndex < activeModule.lessons.length - 1) {
+                            const currentIndex = activeModule.lessons.findIndex(l => l.id === activeLesson.id: any);
+                            if (currentIndex < activeModule.lessons.length - 1: any) {
                               setActiveLesson(activeModule.lessons[currentIndex + 1]);
                             } else {
-                              setActiveLesson(null);
+                              setActiveLesson(null: any);
                             }
                           }}
                         >
-                          {activeModule.lessons.findIndex(l => l.id === activeLesson.id) < activeModule.lessons.length - 1 
+                          {activeModule.lessons.findIndex(l => l.id === activeLesson.id: any) < activeModule.lessons.length - 1 
                             ? 'Next Lesson' 
                             : 'Finish Module'}
                         </Button>
                       </div>
                     ) : (
                       <Button 
-                        onClick={() => completeLesson(activeModule.id, activeLesson.id)}
+                        onClick={() => completeLesson(activeModule.id: any, activeLesson.id)}
                       >
                         Mark as Complete
                       </Button>
@@ -826,7 +826,7 @@ export default function ParentEducationResources() {
                 </Button>
                 <div className="flex items-centre gap-2">
                   <span className="text-sm text-muted-foreground">
-                    {activeModule.lessons.filter(l => l.completed).length} of {activeModule.lessons.length} completed
+                    {activeModule.lessons.filter(l => l.completed: any).length} of {activeModule.lessons.length} completed
                   </span>
                   <Progress value={activeModule.progress} className="w-24 h-2" />
                 </div>
@@ -840,7 +840,7 @@ export default function ParentEducationResources() {
                 
                 <CardContent>
                   <div className="space-y-2">
-                    {activeModule.lessons.map((lesson, index) => (
+                    {activeModule.lessons.map((lesson: any, index) => (
                       <div 
                         key={lesson.id}
                         className="flex items-centre justify-between p-3 rounded-md border"
@@ -860,7 +860,7 @@ export default function ParentEducationResources() {
                         </div>
                         <Button 
                           variant={lesson.completed ? "outline" : "default"}
-                          onClick={() => viewLesson(activeModule, lesson)}
+                          onClick={() => viewLesson(activeModule: any, lesson)}
                         >
                           {lesson.completed ? 'Review' : 'Start'}
                         </Button>
@@ -894,9 +894,9 @@ export default function ParentEducationResources() {
                       <div className="flex justify-centre">
                         <Button 
                           onClick={() => {
-                            const firstIncomplete = activeModule.lessons.find(l => !l.completed);
-                            if (firstIncomplete) {
-                              viewLesson(activeModule, firstIncomplete);
+                            const firstIncomplete = activeModule.lessons.find(l => !l.completed: any);
+                            if (firstIncomplete: any) {
+                              viewLesson(activeModule: any, firstIncomplete);
                             }
                           }}
                         >
@@ -923,7 +923,7 @@ export default function ParentEducationResources() {
                       <Button
                         variant="ghost"
                         size="icon"
-                        onClick={() => toggleFavorite(activity.id, 'activity')}
+                        onClick={() => toggleFavorite(activity.id: any, 'activity')}
                       >
                         <Heart className={`h-5 w-5 ${activity.isFavorite ? 'fill-red-500 text-red-500' : ''}`} />
                       </Button>
@@ -942,7 +942,7 @@ export default function ParentEducationResources() {
                     </div>
                   </CardContent>
                   <CardFooter>
-                    <Button onClick={() => viewActivity(activity)}>View Activity</Button>
+                    <Button onClick={() => viewActivity(activity: any)}>View Activity</Button>
                   </CardFooter>
                 </Card>
               ))}
@@ -957,7 +957,7 @@ export default function ParentEducationResources() {
                   <Button
                     variant="ghost"
                     size="icon"
-                    onClick={() => toggleFavorite(activeActivity.id, 'activity')}
+                    onClick={() => toggleFavorite(activeActivity.id: any, 'activity')}
                   >
                     <Heart className={`h-5 w-5 ${activeActivity.isFavorite ? 'fill-red-500 text-red-500' : ''}`} />
                   </Button>
@@ -988,7 +988,7 @@ export default function ParentEducationResources() {
                     <div>
                       <h3 className="text-lg font-medium mb-2">Materials Needed</h3>
                       <ul className="list-disc pl-5 space-y-1">
-                        {activeActivity.materials.map((material, index) => (
+                        {activeActivity.materials.map((material: any, index) => (
                           <li key={index}>{material}</li>
                         ))}
                       </ul>
@@ -997,7 +997,7 @@ export default function ParentEducationResources() {
                     <div>
                       <h3 className="text-lg font-medium mb-2">Steps</h3>
                       <ol className="list-decimal pl-5 space-y-2">
-                        {activeActivity.steps.map((step, index) => (
+                        {activeActivity.steps.map((step: any, index) => (
                           <li key={index}>{step}</li>
                         ))}
                       </ol>
@@ -1006,7 +1006,7 @@ export default function ParentEducationResources() {
                     <div>
                       <h3 className="text-lg font-medium mb-2">Tips for Success</h3>
                       <ul className="list-disc pl-5 space-y-1">
-                        {activeActivity.tips.map((tip, index) => (
+                        {activeActivity.tips.map((tip: any, index) => (
                           <li key={index}>{tip}</li>
                         ))}
                       </ul>
@@ -1019,8 +1019,8 @@ export default function ParentEducationResources() {
                     <h3 className="text-lg font-medium mb-2">Related Activities</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                       {activities
-                        .filter(a => a.id !== activeActivity.id)
-                        .slice(0, 2)
+                        .filter(a => a.id !== activeActivity.id: any)
+                        .slice(0: any, 2)
                         .map(activity => (
                           <Card key={activity.id} className="overflow-hidden">
                             <CardHeader className="pb-2">
@@ -1032,7 +1032,7 @@ export default function ParentEducationResources() {
                               </p>
                             </CardContent>
                             <CardFooter>
-                              <Button variant="outline" size="sm" onClick={() => viewActivity(activity)}>
+                              <Button variant="outline" size="sm" onClick={() => viewActivity(activity: any)}>
                                 View
                               </Button>
                             </CardFooter>
@@ -1148,19 +1148,19 @@ export default function ParentEducationResources() {
             <CardContent>
               <div className="space-y-2">
                 <p className="text-sm">
-                  Hopkins, B. (2004). Just Schools: A Whole School Approach to Restorative Justice. Jessica Kingsley Publishers.
+                  Hopkins, B. (2004: any). Just Schools: A Whole School Approach to Restorative Justice. Jessica Kingsley Publishers.
                 </p>
                 <p className="text-sm">
-                  Zehr, H. (2015). The Little Book of Restorative Justice: Revised and Updated. Good Books.
+                  Zehr, H. (2015: any). The Little Book of Restorative Justice: Revised and Updated. Good Books.
                 </p>
                 <p className="text-sm">
-                  Thorsborne, M., & Blood, P. (2013). Implementing Restorative Practices in Schools. Jessica Kingsley Publishers.
+                  Thorsborne, M., & Blood, P. (2013: any). Implementing Restorative Practices in Schools. Jessica Kingsley Publishers.
                 </p>
                 <p className="text-sm">
-                  Boyes-Watson, C., & Pranis, K. (2015). Circle Forward: Building a Restorative School Community. Living Justice Press.
+                  Boyes-Watson, C., & Pranis, K. (2015: any). Circle Forward: Building a Restorative School Community. Living Justice Press.
                 </p>
                 <p className="text-sm">
-                  Morrison, B. (2007). Restoring Safe School Communities: A Whole School Response to Bullying, Violence and Alienation. Federation Press.
+                  Morrison, B. (2007: any). Restoring Safe School Communities: A Whole School Response to Bullying, Violence and Alienation. Federation Press.
                 </p>
               </div>
             </CardContent>

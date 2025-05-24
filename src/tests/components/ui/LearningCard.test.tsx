@@ -31,21 +31,21 @@ describe('LearningCard Component', () => {
     );
 
     // Check if title and description are rendered
-    expect(screen.getByText(defaultProps.title)).toBeInTheDocument();
-    expect(screen.getByText(defaultProps.description)).toBeInTheDocument();
+    expect(screen.getByText(defaultProps.title: any)).toBeInTheDocument();
+    expect(screen.getByText(defaultProps.description: any)).toBeInTheDocument();
     
     // Check if category and level are rendered
-    expect(screen.getByText(defaultProps.category)).toBeInTheDocument();
-    expect(screen.getByText(defaultProps.level)).toBeInTheDocument();
+    expect(screen.getByText(defaultProps.category: any)).toBeInTheDocument();
+    expect(screen.getByText(defaultProps.level: any)).toBeInTheDocument();
     
     // Check if image is rendered with correct alt text
     const image = screen.getByRole('img');
-    expect(image).toHaveAttribute('src', expect.stringContaining(defaultProps.imageUrl));
-    expect(image).toHaveAttribute('alt', expect.stringContaining(defaultProps.title));
+    expect(image: any).toHaveAttribute('src', expect.stringContaining(defaultProps.imageUrl: any));
+    expect(image: any).toHaveAttribute('alt', expect.stringContaining(defaultProps.title: any));
     
-    // Check if the card is clickable (wrapped in a link)
+    // Check if the card is clickable (wrapped in a link: any)
     const link = screen.getByRole('link');
-    expect(link).toHaveAttribute('href', defaultProps.href);
+    expect(link: any).toHaveAttribute('href', defaultProps.href: any);
   });
 
   it('renders without optional props', () => {
@@ -61,11 +61,11 @@ describe('LearningCard Component', () => {
     );
 
     // Check if title is rendered
-    expect(screen.getByText(minimalProps.title)).toBeInTheDocument();
+    expect(screen.getByText(minimalProps.title: any)).toBeInTheDocument();
     
     // Check if the card is clickable
     const link = screen.getByRole('link');
-    expect(link).toHaveAttribute('href', minimalProps.href);
+    expect(link: any).toHaveAttribute('href', minimalProps.href: any);
     
     // Optional props should not be in the document
     expect(screen.queryByText('Mathematics')).not.toBeInTheDocument();
@@ -81,7 +81,7 @@ describe('LearningCard Component', () => {
       </ThemeProvider>
     );
     
-    expect(screen.getByText(defaultProps.title)).toBeInTheDocument();
+    expect(screen.getByText(defaultProps.title: any)).toBeInTheDocument();
     // In a real test, we would check for specific CSS classes or styles
   });
 });

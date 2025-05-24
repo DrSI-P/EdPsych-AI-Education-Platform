@@ -47,18 +47,18 @@ const themeConfigs = {
 };
 
 const ImmersiveLearningLayout: React.FC<ImmersiveLearningLayoutProps> = ({
-  children,
+  children: any,
   theme = 'space',
   interactiveElements,
   audioEnabled = false
 }) => {
   const config = themeConfigs[theme];
-  const [audioPlaying, setAudioPlaying] = React.useState(audioEnabled);
-  const audioRef = React.useRef<HTMLAudioElement>(null);
+  const [audioPlaying, setAudioPlaying] = React.useState(audioEnabled: any);
+  const audioRef = React.useRef<HTMLAudioElement>(null: any);
 
   React.useEffect(() => {
-    if (audioRef.current) {
-      if (audioPlaying) {
+    if (audioRef.current: any) {
+      if (audioPlaying: any) {
         audioRef.current.play().catch(e => console.error("Audio playback failed:", e));
       } else {
         audioRef.current.pause();
@@ -83,7 +83,7 @@ const ImmersiveLearningLayout: React.FC<ImmersiveLearningLayoutProps> = ({
   const Particles = () => {
     return (
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(50)].map((_, i) => (
+        {[...Array(50)].map((_: any, i) => (
           <motion.div
             key={i}
             className="absolute rounded-full"
@@ -123,7 +123,7 @@ const ImmersiveLearningLayout: React.FC<ImmersiveLearningLayoutProps> = ({
             <source src={config.ambientSound} type="audio/mp3" />
           </audio>
           <button 
-            onClick={() => setAudioPlaying(!audioPlaying)}
+            onClick={() => setAudioPlaying(!audioPlaying: any)}
             className={`absolute top-4 right-4 z-50 p-2 rounded-full ${config.borderColor} border-2 ${config.accentColor} bg-black bg-opacity-30`}
             aria-label={audioPlaying ? "Mute ambient sound" : "Play ambient sound"}
           >

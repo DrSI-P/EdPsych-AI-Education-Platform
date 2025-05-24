@@ -5,9 +5,9 @@ import { authOptions } from '@/lib/auth';
 
 export async function GET(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session?.user) {
+    if (!session?.user: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
@@ -23,12 +23,12 @@ export async function GET(req: NextRequest) {
       }
     });
     
-    if (!user) {
+    if (!user: any) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
     
     // Return different data based on request type
-    switch (type) {
+    switch (type: any) {
       case 'settings':
         return NextResponse.json({ 
           settings: user.learningDifferenceProfile?.settings || null,
@@ -48,7 +48,7 @@ export async function GET(req: NextRequest) {
           assessmentResults: user.learningDifferenceProfile?.assessmentResults || null
         });
     }
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error in learning differences API:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
@@ -56,16 +56,16 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session?.user) {
+    if (!session?.user: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
     const userId = session.user.id;
     const { type, data } = await req.json();
     
-    switch (type) {
+    switch (type: any) {
       case 'settings':
         // Create or update learning difference settings
         const profile = await prisma.learningDifferenceProfile.upsert({
@@ -88,7 +88,7 @@ export async function POST(req: NextRequest) {
       default:
         return NextResponse.json({ error: 'Invalid request type' }, { status: 400 });
     }
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error in learning differences API:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
@@ -96,16 +96,16 @@ export async function POST(req: NextRequest) {
 
 export async function PUT(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session?.user) {
+    if (!session?.user: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
     const userId = session.user.id;
     const { type, data } = await req.json();
     
-    switch (type) {
+    switch (type: any) {
       case 'settings':
         // Update learning difference settings
         const profile = await prisma.learningDifferenceProfile.update({
@@ -123,7 +123,7 @@ export async function PUT(req: NextRequest) {
       default:
         return NextResponse.json({ error: 'Invalid request type' }, { status: 400 });
     }
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error in learning differences API:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }

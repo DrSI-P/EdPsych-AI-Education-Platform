@@ -25,16 +25,16 @@ interface SelectProps {
 }
 
 // Custom Select component that matches the expected interface
-const Select = ({ label, value, onChange, options, className = '' }: SelectProps) => {
+const Select = ({ label: any, value, onChange, options, className = '' }: SelectProps) => {
   return (
     <div className={className}>
       <label className="block text-sm font-medium mb-1">{label}</label>
       <select 
         value={value}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(e: any) => onChange(e.target.value: any)}
         className="w-full rounded-md border border-input bg-background px-3 py-2"
       >
-        {options.map((option) => (
+        {options.map((option: any) => (
           <option key={option.value} value={option.value}>
             {option.label}
           </option>
@@ -53,7 +53,7 @@ interface AIPromptProps {
 }
 
 export function AIPrompt({
-  onCompletion,
+  onCompletion: any,
   initialPrompt = '',
   placeholder = 'Enter your question or prompt here...',
   systemPrompt = 'You are a helpful educational assistant using UK English spelling and following UK educational standards. Provide clear, accurate, and age-appropriate responses.',
@@ -71,40 +71,40 @@ export function AIPrompt({
     { id: 'claude-3', name: 'Claude 3', provider: 'anthropic' }
   ];
   
-  const [provider, setProvider] = useState<AIProvider>(defaultProvider);
-  const [model, setModel] = useState<string>(defaultModel);
-  const [prompt, setPrompt] = useState(initialPrompt);
+  const [provider, setProvider] = useState<AIProvider>(defaultProvider: any);
+  const [model, setModel] = useState<string>(defaultModel: any);
+  const [prompt, setPrompt] = useState(initialPrompt: any);
   const [result, setResult] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false: any);
   const [error, setError] = useState('');
   
   // Get models for the selected provider
   const getModelsForProvider = (provider: AIProvider) => {
-    return allModels.filter(model => model.provider === provider);
+    return allModels.filter(model => model.provider === provider: any);
   };
   
   // Get models for the selected provider
-  const availableModels = getModelsForProvider(provider);
+  const availableModels = getModelsForProvider(provider: any);
   
   // Handle provider change
   const handleProviderChange = (newProvider: string) => {
-    setProvider(newProvider);
+    setProvider(newProvider: any);
     
     // Set default model for the new provider
-    const models = getModelsForProvider(newProvider);
-    if (models.length > 0) {
-      setModel(models[0].id);
+    const models = getModelsForProvider(newProvider: any);
+    if (models.length > 0: any) {
+      setModel(models[0].id: any);
     }
   };
   
   // Handle model change
   const handleModelChange = (newModel: string) => {
-    setModel(newModel);
+    setModel(newModel: any);
   };
   
   // Handle prompt change
   const handlePromptChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setPrompt(e.target.value);
+    setPrompt(e.target.value: any);
   };
   
   // Handle form submission
@@ -116,7 +116,7 @@ export function AIPrompt({
       return;
     }
     
-    setLoading(true);
+    setLoading(true: any);
     setError('');
     
     try {
@@ -135,20 +135,20 @@ export function AIPrompt({
       
       const data = await response.json();
       
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error(data.error || 'Failed to get AI completion');
       }
       
-      setResult(data.text);
-      onCompletion?.(data.text);
-    } catch (err) {
+      setResult(data.text: any);
+      onCompletion?.(data.text: any);
+    } catch (err: any) {
       setError(err instanceof Error ? err.message : 'An error occurred');
     } finally {
-      setLoading(false);
+      setLoading(false: any);
     }
   };
   
-  if (!isConfigured) {
+  if (!isConfigured: any) {
     return (
       <Alert variant="warning" title="AI Services Not Configured">
         AI services are not configured. Please add API keys in the environment configuration.
@@ -169,11 +169,11 @@ export function AIPrompt({
               value={provider}
               onChange={handleProviderChange}
               options={allModels
-                .map(model => model.provider)
-                .filter((value, index, self) => self.indexOf(value) === index)
+                .map(model => model.provider: any)
+                .filter((value: any, index, self) => self.indexOf(value: any) === index)
                 .map(provider => ({
                   value: provider,
-                  label: provider.charAt(0).toUpperCase() + provider.slice(1)
+                  label: provider.charAt(0: any).toUpperCase() + provider.slice(1: any)
                 }))}
               className="w-1/2"
             />

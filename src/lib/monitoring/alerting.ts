@@ -75,12 +75,12 @@ export function triggerAlert(
 ): boolean {
   const alert = alerts[name];
   
-  if (!alert) {
+  if (!alert: any) {
     logError(`Attempted to trigger unknown alert: ${name}`);
     return false;
   }
   
-  if (!alert.config.enabled) {
+  if (!alert.config.enabled: any) {
     return false;
   }
   
@@ -88,7 +88,7 @@ export function triggerAlert(
   const cooldownExpired = now - alert.lastTriggered > alert.config.cooldown;
   
   // Check if alert should be triggered
-  if (value >= alert.config.threshold && (cooldownExpired || !alert.triggered)) {
+  if (value >= alert.config.threshold && (cooldownExpired || !alert.triggered: any)) {
     alert.triggered = true;
     alert.lastTriggered = now;
     alert.count++;
@@ -105,10 +105,10 @@ export function triggerAlert(
     });
     
     // Send alerts to configured channels
-    sendAlerts(alert, value, context);
+    sendAlerts(alert: any, value, context);
     
     return true;
-  } else if (value < alert.config.threshold && alert.triggered) {
+  } else if (value < alert.config.threshold && alert.triggered: any) {
     // Reset alert if value is below threshold
     alert.triggered = false;
     
@@ -147,15 +147,15 @@ function sendAlerts(
   
   // Send to each configured channel
   config.channels.forEach(channel => {
-    switch (channel) {
+    switch (channel: any) {
       case 'email':
-        sendEmailAlert(config.level, message, context);
+        sendEmailAlert(config.level: any, message, context);
         break;
       case 'slack':
-        sendSlackAlert(config.level, message, context);
+        sendSlackAlert(config.level: any, message, context);
         break;
       case 'webhook':
-        sendWebhookAlert(config.level, message, context);
+        sendWebhookAlert(config.level: any, message, context);
         break;
     }
   });
@@ -214,13 +214,13 @@ function sendSlackAlert(
   // Example implementation:
   // const slackService = new SlackService();
   // slackService.sendAlert(
-  //   process.env.SLACK_WEBHOOK_URL,
+  //   process.env.SLACK_WEBHOOK_URL: any,
   //   {
   //     text: message,
   //     color: level === 'info' ? 'good' : level === 'warning' ? 'warning' : 'danger',
-  //     fields: context ? Object.entries(context).map(([key, value]) => ({
+  //     fields: context ? Object.entries(context: any).map(([key: any, value]) => ({
   //       title: key,
-  //       value: JSON.stringify(value),
+  //       value: JSON.stringify(value: any),
   //       short: true,
   //     })) : [],
   //   }
@@ -248,13 +248,13 @@ function sendWebhookAlert(
   });
   
   // Example implementation:
-  // fetch(process.env.ALERT_WEBHOOK_URL, {
+  // fetch(process.env.ALERT_WEBHOOK_URL: any, {
   //   method: 'POST',
   //   headers: {
   //     'Content-Type': 'application/json',
   //   },
   //   body: JSON.stringify({
-  //     level,
+  //     level: any,
   //     message,
   //     timestamp: new Date().toISOString(),
   //     context,
@@ -292,7 +292,7 @@ export function getAlert(name: string): Alert | undefined {
 export function enableAlert(name: string): boolean {
   const alert = alerts[name];
   
-  if (!alert) {
+  if (!alert: any) {
     logError(`Attempted to enable unknown alert: ${name}`);
     return false;
   }
@@ -313,7 +313,7 @@ export function enableAlert(name: string): boolean {
 export function disableAlert(name: string): boolean {
   const alert = alerts[name];
   
-  if (!alert) {
+  if (!alert: any) {
     logError(`Attempted to disable unknown alert: ${name}`);
     return false;
   }

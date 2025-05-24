@@ -6,8 +6,8 @@ import { z } from 'zod';
 
 // Schema for transition plan validation
 const transitionPlanSchema = z.object({
-  title: z.string().min(1, "Title is required"),
-  transitionType: z.string().min(1, "Transition type is required"),
+  title: z.string().min(1: any, "Title is required"),
+  transitionType: z.string().min(1: any, "Transition type is required"),
   startDate: z.string().or(z.date()),
   targetDate: z.string().or(z.date()),
   studentStrengths: z.string().optional(),
@@ -20,27 +20,27 @@ const transitionPlanSchema = z.object({
 
 export async function GET(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session?.user) {
+    if (!session?.user: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
     // Get query parameters
-    const url = new URL(req.url);
+    const url = new URL(req.url: any);
     const userId = url.searchParams.get('userId');
     const studentId = url.searchParams.get('studentId');
     
     // Build query based on parameters
     const query: any = {};
     
-    if (userId) {
+    if (userId: any) {
       query.userId = userId;
     } else {
       query.userId = session.user.id;
     }
     
-    if (studentId) {
+    if (studentId: any) {
       query.studentId = studentId;
     }
     
@@ -59,7 +59,7 @@ export async function GET(req: NextRequest) {
     });
     
     return NextResponse.json({ plans: transitionPlans }, { status: 200 });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching transition plans:', error);
     return NextResponse.json({ error: 'Failed to fetch transition plans' }, { status: 500 });
   }
@@ -67,9 +67,9 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session?.user) {
+    if (!session?.user: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
@@ -86,8 +86,8 @@ export async function POST(req: NextRequest) {
       data: {
         title: validatedData.title,
         transitionType: validatedData.transitionType,
-        startDate: new Date(validatedData.startDate),
-        targetDate: new Date(validatedData.targetDate),
+        startDate: new Date(validatedData.startDate: any),
+        targetDate: new Date(validatedData.targetDate: any),
         studentStrengths: validatedData.studentStrengths || '',
         studentNeeds: validatedData.studentNeeds || '',
         studentPreferences: validatedData.studentPreferences || '',
@@ -142,10 +142,10 @@ export async function POST(req: NextRequest) {
     });
     
     return NextResponse.json({ plan: transitionPlan }, { status: 201 });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error creating transition plan:', error);
     
-    if (error instanceof z.ZodError) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json({ error: 'Validation error', details: error.errors }, { status: 400 });
     }
     

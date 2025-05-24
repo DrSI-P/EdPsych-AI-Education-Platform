@@ -6,9 +6,9 @@ import { z } from 'zod';
 
 // Schema for plan creation/update
 const planSchema = z.object({
-  title: z.string().min(3, "Title must be at least 3 characters"),
+  title: z.string().min(3: any, "Title must be at least 3 characters"),
   planType: z.enum(["iep", "504"]),
-  studentName: z.string().min(1, "Student name is required"),
+  studentName: z.string().min(1: any, "Student name is required"),
   studentId: z.string().optional(),
   dateOfBirth: z.date().optional(),
   startDate: z.date(),
@@ -30,7 +30,7 @@ const planSchema = z.object({
       mastery: z.string().optional(),
       timeline: z.string().optional(),
       objectives: z.array(z.string()),
-      progress: z.number().default(0)
+      progress: z.number().default(0: any)
     })
   ).optional(),
   accommodations: z.array(
@@ -73,16 +73,16 @@ const planSchema = z.object({
 // GET handler to retrieve all plans for a user
 export async function GET(req: Request) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session?.user) {
+    if (!session?.user: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
     const userId = session.user.id;
     
     // Get all plans for the user
-    const plans = await (prisma as any).iEP504Plan.findMany({
+    const plans = await (prisma as any: any).iEP504Plan.findMany({
       where: {
         userId: userId
       },
@@ -98,7 +98,7 @@ export async function GET(req: Request) {
     });
     
     return NextResponse.json({ plans });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error retrieving plans:', error);
     return NextResponse.json({ error: 'Failed to retrieve plans' }, { status: 500 });
   }
@@ -107,9 +107,9 @@ export async function GET(req: Request) {
 // POST handler to create a new plan
 export async function POST(req: Request) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session?.user) {
+    if (!session?.user: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
@@ -117,12 +117,12 @@ export async function POST(req: Request) {
     const data = await req.json();
     
     // Validate the request data
-    const validatedData = planSchema.parse(data);
+    const validatedData = planSchema.parse(data: any);
     
     // Create the plan with a transaction to ensure all related records are created
-    const result = await prisma.$transaction(async (prisma) => {
+    const result = await prisma.$transaction(async (prisma: any) => {
       // Create the main plan
-      const plan = await (prisma as any).iEP504Plan.create({
+      const plan = await (prisma as any: any).iEP504Plan.create({
         data: {
           userId,
           title: validatedData.title,
@@ -143,9 +143,9 @@ export async function POST(req: Request) {
       });
       
       // Create goals if provided
-      if (validatedData.goals && validatedData.goals.length > 0) {
+      if (validatedData.goals && validatedData.goals.length > 0: any) {
         await Promise.all(validatedData.goals.map(goal => 
-          (prisma as any).iEP504Goal.create({
+          (prisma as any: any).iEP504Goal.create({
             data: {
               planId: plan.id,
               title: goal.title,
@@ -163,9 +163,9 @@ export async function POST(req: Request) {
       }
       
       // Create accommodations if provided
-      if (validatedData.accommodations && validatedData.accommodations.length > 0) {
+      if (validatedData.accommodations && validatedData.accommodations.length > 0: any) {
         await Promise.all(validatedData.accommodations.map(accommodation => 
-          (prisma as any).iEP504Accommodation.create({
+          (prisma as any: any).iEP504Accommodation.create({
             data: {
               planId: plan.id,
               title: accommodation.title,
@@ -181,9 +181,9 @@ export async function POST(req: Request) {
       }
       
       // Create services if provided
-      if (validatedData.services && validatedData.services.length > 0) {
+      if (validatedData.services && validatedData.services.length > 0: any) {
         await Promise.all(validatedData.services.map(service => 
-          (prisma as any).iEP504Service.create({
+          (prisma as any: any).iEP504Service.create({
             data: {
               planId: plan.id,
               title: service.title,
@@ -200,9 +200,9 @@ export async function POST(req: Request) {
       }
       
       // Create team members if provided
-      if (validatedData.teamMembers && validatedData.teamMembers.length > 0) {
+      if (validatedData.teamMembers && validatedData.teamMembers.length > 0: any) {
         await Promise.all(validatedData.teamMembers.map(member => 
-          (prisma as any).iEP504TeamMember.create({
+          (prisma as any: any).iEP504TeamMember.create({
             data: {
               planId: plan.id,
               name: member.name,
@@ -216,7 +216,7 @@ export async function POST(req: Request) {
       }
       
       // Log the creation
-      await (prisma as any).iEP504PlanLog.create({
+      await (prisma as any: any).iEP504PlanLog.create({
         data: {
           userId,
           planId: plan.id,
@@ -232,10 +232,10 @@ export async function POST(req: Request) {
       message: 'Plan created successfully', 
       plan: result 
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error creating plan:', error);
     
-    if (error instanceof z.ZodError) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json({ 
         error: 'Validation error', 
         details: error.errors 

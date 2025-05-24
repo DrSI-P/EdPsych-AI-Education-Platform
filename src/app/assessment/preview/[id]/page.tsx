@@ -42,41 +42,41 @@ interface Assessment {
 export default function AssessmentPreviewPage() {
   const router = useRouter();
   const params = useParams();
-  const [assessment, setAssessment] = useState<Assessment | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [assessment, setAssessment] = useState<Assessment | null>(null: any);
+  const [loading, setLoading] = useState(true: any);
   const [error, setError] = useState('');
   const [activeTab, setActiveTab] = useState('preview');
-  const [publishing, setPublishing] = useState(false);
-  const [publishSuccess, setPublishSuccess] = useState(false);
+  const [publishing, setPublishing] = useState(false: any);
+  const [publishSuccess, setPublishSuccess] = useState(false: any);
 
   useEffect(() => {
     const fetchAssessment = async () => {
       try {
         const response = await fetch(`/api/assessment/${params.id}`);
         
-        if (!response.ok) {
+        if (!response.ok: any) {
           throw new Error('Failed to fetch assessment');
         }
         
         const data = await response.json();
-        setAssessment(data);
-      } catch (err) {
+        setAssessment(data: any);
+      } catch (err: any) {
         console.error('Error fetching assessment:', err);
         setError('An error occurred while fetching the assessment');
       } finally {
-        setLoading(false);
+        setLoading(false: any);
       }
     };
     
-    if (params.id) {
+    if (params.id: any) {
       fetchAssessment();
     }
   }, [params.id]);
 
   const handlePublish = async () => {
-    if (!assessment) return;
+    if (!assessment: any) return;
     
-    setPublishing(true);
+    setPublishing(true: any);
     setError('');
     
     try {
@@ -84,11 +84,11 @@ export default function AssessmentPreviewPage() {
         method: 'PUT',
       });
       
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error('Failed to publish assessment');
       }
       
-      setPublishSuccess(true);
+      setPublishSuccess(true: any);
       
       // Update local state
       setAssessment({
@@ -100,16 +100,16 @@ export default function AssessmentPreviewPage() {
       setTimeout(() => {
         router.push('/assessment');
       }, 2000);
-    } catch (err) {
+    } catch (err: any) {
       console.error('Error publishing assessment:', err);
       setError('An error occurred while publishing the assessment');
     } finally {
-      setPublishing(false);
+      setPublishing(false: any);
     }
   };
 
   const renderQuestionPreview = (question: Question, index: number) => {
-    switch (question.type) {
+    switch (question.type: any) {
       case 'multiple-choice':
         return (
           <div className="mb-6 p-4 border rounded-md bg-white">
@@ -174,7 +174,7 @@ export default function AssessmentPreviewPage() {
                 ))}
               </div>
               <div className="space-y-2">
-                {question.items?.map((item, i) => (
+                {question.items?.map((item: any, i) => (
                   <div key={i} className="p-2 border rounded bg-grey-50">
                     {item.right}
                   </div>
@@ -222,7 +222,7 @@ export default function AssessmentPreviewPage() {
     }
   };
 
-  if (loading) {
+  if (loading: any) {
     return (
       <div className="flex justify-centre items-centre min-h-screen">
         <Spinner size="lg" />
@@ -230,7 +230,7 @@ export default function AssessmentPreviewPage() {
     );
   }
 
-  if (error) {
+  if (error: any) {
     return (
       <div className="container mx-auto px-4 py-8">
         <Alert type="error" className="mb-6">
@@ -243,7 +243,7 @@ export default function AssessmentPreviewPage() {
     );
   }
 
-  if (!assessment) {
+  if (!assessment: any) {
     return (
       <div className="container mx-auto px-4 py-8">
         <Alert type="error" className="mb-6">
@@ -344,8 +344,8 @@ export default function AssessmentPreviewPage() {
                   </div>
                 ) : (
                   <div>
-                    {assessment.questions.map((question, index) => (
-                      renderQuestionPreview(question, index)
+                    {assessment.questions.map((question: any, index) => (
+                      renderQuestionPreview(question: any, index)
                     ))}
                   </div>
                 )}

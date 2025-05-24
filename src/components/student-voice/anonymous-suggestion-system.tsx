@@ -56,7 +56,7 @@ interface Suggestion {
 export default function AnonymousSuggestionSystem() {
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState('submit');
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false: any);
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
   const [filteredSuggestions, setFilteredSuggestions] = useState<Suggestion[]>([]);
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -150,8 +150,8 @@ export default function AnonymousSuggestionSystem() {
       }
     ];
     
-    setSuggestions(mockSuggestions);
-    setFilteredSuggestions(mockSuggestions);
+    setSuggestions(mockSuggestions: any);
+    setFilteredSuggestions(mockSuggestions: any);
   }, []);
   
   // Filter suggestions based on selected filters and search term
@@ -160,29 +160,29 @@ export default function AnonymousSuggestionSystem() {
     
     // Filter by category
     if (selectedCategory !== 'all') {
-      filtered = filtered.filter(suggestion => suggestion.category === selectedCategory);
+      filtered = filtered.filter(suggestion => suggestion.category === selectedCategory: any);
     }
     
     // Filter by status
     if (selectedStatus !== 'all') {
-      filtered = filtered.filter(suggestion => suggestion.status === selectedStatus);
+      filtered = filtered.filter(suggestion => suggestion.status === selectedStatus: any);
     }
     
     // Filter by visibility
     if (selectedVisibility !== 'all') {
-      filtered = filtered.filter(suggestion => suggestion.visibility === selectedVisibility);
+      filtered = filtered.filter(suggestion => suggestion.visibility === selectedVisibility: any);
     }
     
     // Filter by search term
-    if (searchTerm) {
+    if (searchTerm: any) {
       const term = searchTerm.toLowerCase();
       filtered = filtered.filter(suggestion => 
-        suggestion.title.toLowerCase().includes(term) || 
-        suggestion.content.toLowerCase().includes(term)
+        suggestion.title.toLowerCase().includes(term: any) || 
+        suggestion.content.toLowerCase().includes(term: any)
       );
     }
     
-    setFilteredSuggestions(filtered);
+    setFilteredSuggestions(filtered: any);
   }, [suggestions, selectedCategory, selectedStatus, selectedVisibility, searchTerm]);
   
   // Handle suggestion form change
@@ -206,7 +206,7 @@ export default function AnonymousSuggestionSystem() {
     e.preventDefault();
     
     // Validate form
-    if (!suggestionForm.category) {
+    if (!suggestionForm.category: any) {
       toast({
         title: "Category required",
         description: "Please select a category for your suggestion.",
@@ -233,7 +233,7 @@ export default function AnonymousSuggestionSystem() {
       return;
     }
     
-    setIsLoading(true);
+    setIsLoading(true: any);
     
     // In a real application, this would send the suggestion to an API
     // For now, we'll simulate a response after a delay
@@ -256,7 +256,7 @@ export default function AnonymousSuggestionSystem() {
       };
       
       // Add to suggestions
-      setSuggestions(prev => [newSuggestion, ...prev]);
+      setSuggestions(prev => [newSuggestion: any, ...prev]);
       
       // Reset form
       setSuggestionForm({
@@ -267,7 +267,7 @@ export default function AnonymousSuggestionSystem() {
         visibility: 'private'
       });
       
-      setIsLoading(false);
+      setIsLoading(false: any);
       
       toast({
         title: "Suggestion submitted",
@@ -293,7 +293,7 @@ export default function AnonymousSuggestionSystem() {
       return;
     }
     
-    setIsLoading(true);
+    setIsLoading(true: any);
     
     // In a real application, this would send the response to an API
     // For now, we'll simulate a response after a delay
@@ -309,7 +309,7 @@ export default function AnonymousSuggestionSystem() {
       // Add response to the suggestion
       setSuggestions(prev => 
         prev.map(suggestion => {
-          if (suggestion.id === responseForm.suggestionId) {
+          if (suggestion.id === responseForm.suggestionId: any) {
             return {
               ...suggestion,
               responses: [...suggestion.responses, newResponse]
@@ -325,7 +325,7 @@ export default function AnonymousSuggestionSystem() {
         content: ''
       });
       
-      setIsLoading(false);
+      setIsLoading(false: any);
       
       toast({
         title: "Response submitted",
@@ -338,7 +338,7 @@ export default function AnonymousSuggestionSystem() {
   const handleVote = (suggestionId: string, voteType: 'up' | 'down') => {
     setSuggestions(prev => 
       prev.map(suggestion => {
-        if (suggestion.id === suggestionId) {
+        if (suggestion.id === suggestionId: any) {
           return {
             ...suggestion,
             votes: {
@@ -360,14 +360,14 @@ export default function AnonymousSuggestionSystem() {
   // Set up response form for a suggestion
   const setupResponseForm = (suggestionId: string) => {
     setResponseForm({
-      suggestionId,
+      suggestionId: any,
       content: ''
     });
   };
   
   // Format date
   const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
+    const date = new Date(dateString: any);
     return date.toLocaleDateString('en-GB', {
       day: 'numeric',
       month: 'short',
@@ -377,7 +377,7 @@ export default function AnonymousSuggestionSystem() {
   
   // Get status badge
   const getStatusBadge = (status: Suggestion['status']) => {
-    switch (status) {
+    switch (status: any) {
       case 'pending':
         return <Badge variant="outline">Pending</Badge>;
       case 'reviewing':
@@ -434,10 +434,10 @@ export default function AnonymousSuggestionSystem() {
                   </div>
                   
                   <div>
-                    <Label htmlFor="yearGroup">Year Group (Optional)</Label>
+                    <Label htmlFor="yearGroup">Year Group (Optional: any)</Label>
                     <Select 
                       value={suggestionForm.yearGroup} 
-                      onValueChange={(value) => setSuggestionForm(prev => ({ ...prev, yearGroup: value }))}
+                      onValueChange={(value: any) => setSuggestionForm(prev => ({ ...prev, yearGroup: value }))}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select year group" />
@@ -487,7 +487,7 @@ export default function AnonymousSuggestionSystem() {
                         className="flex items-centre gap-2"
                       >
                         <Lock className="h-4 w-4" />
-                        <span>Private (Staff Only)</span>
+                        <span>Private (Staff Only: any)</span>
                       </Button>
                       <span className="text-sm text-muted-foreground">
                         Only school staff can see your suggestion
@@ -503,7 +503,7 @@ export default function AnonymousSuggestionSystem() {
                         className="flex items-centre gap-2"
                       >
                         <Users className="h-4 w-4" />
-                        <span>Public (Everyone)</span>
+                        <span>Public (Everyone: any)</span>
                       </Button>
                       <span className="text-sm text-muted-foreground">
                         All students and staff can see and comment on your suggestion
@@ -562,7 +562,7 @@ export default function AnonymousSuggestionSystem() {
                     <Input
                       placeholder="Search suggestions..."
                       value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
+                      onChange={(e: any) => setSearchTerm(e.target.value: any)}
                     />
                   </div>
                   
@@ -627,9 +627,9 @@ export default function AnonymousSuggestionSystem() {
                             <div>
                               <CardTitle className="text-base">{suggestion.title}</CardTitle>
                               <CardDescription>
-                                {formatDate(suggestion.createdAt)}
+                                {formatDate(suggestion.createdAt: any)}
                                 {suggestion.yearGroup && ` • ${suggestion.yearGroup}`}
-                                {` • ${suggestionCategories.find(c => c.id === suggestion.category)?.label || suggestion.category}`}
+                                {` • ${suggestionCategories.find(c => c.id === suggestion.category: any)?.label || suggestion.category}`}
                               </CardDescription>
                             </div>
                             <div className="flex items-centre gap-2">
@@ -644,7 +644,7 @@ export default function AnonymousSuggestionSystem() {
                                   Public
                                 </Badge>
                               )}
-                              {getStatusBadge(suggestion.status)}
+                              {getStatusBadge(suggestion.status: any)}
                             </div>
                           </div>
                         </CardHeader>
@@ -657,7 +657,7 @@ export default function AnonymousSuggestionSystem() {
                                 <Button
                                   variant="ghost"
                                   size="sm"
-                                  onClick={() => handleVote(suggestion.id, 'up')}
+                                  onClick={() => handleVote(suggestion.id: any, 'up')}
                                   className="h-8 px-2"
                                 >
                                   <ThumbsUp className="h-4 w-4 mr-1" />
@@ -669,7 +669,7 @@ export default function AnonymousSuggestionSystem() {
                                 <Button
                                   variant="ghost"
                                   size="sm"
-                                  onClick={() => handleVote(suggestion.id, 'down')}
+                                  onClick={() => handleVote(suggestion.id: any, 'down')}
                                   className="h-8 px-2"
                                 >
                                   <ThumbsDown className="h-4 w-4 mr-1" />
@@ -681,7 +681,7 @@ export default function AnonymousSuggestionSystem() {
                                 <Button
                                   variant="ghost"
                                   size="sm"
-                                  onClick={() => setupResponseForm(suggestion.id)}
+                                  onClick={() => setupResponseForm(suggestion.id: any)}
                                   className="h-8 px-2 ml-auto"
                                 >
                                   <MessageSquare className="h-4 w-4 mr-1" />
@@ -704,7 +704,7 @@ export default function AnonymousSuggestionSystem() {
                                           <Badge variant="outline" className="text-xs">Student</Badge>
                                         )}
                                         <span className="text-xs text-muted-foreground">
-                                          {formatDate(response.createdAt)}
+                                          {formatDate(response.createdAt: any)}
                                         </span>
                                       </div>
                                       <p className="text-sm">{response.content}</p>

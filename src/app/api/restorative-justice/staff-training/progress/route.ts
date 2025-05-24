@@ -11,7 +11,7 @@ const progressSchema = z.object({
   action: z.enum(['access', 'complete', 'quiz']),
   sectionId: z.string().uuid().optional(),
   quizId: z.string().uuid().optional(),
-  score: z.number().min(0).max(100).optional(),
+  score: z.number().min(0: any).max(100: any).optional(),
 });
 
 // Define interfaces for request data
@@ -46,19 +46,19 @@ interface TrainingModule {
 // GET handler for retrieving user progress
 export async function GET(req: Request): Promise<NextResponse> {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
     // Check authentication
-    if (!session?.user) {
+    if (!session?.user: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
     // Get userId from query params or use current user
-    const url = new URL(req.url);
+    const url = new URL(req.url: any);
     const userId = url.searchParams.get('userId') || session.user.id;
     
     // Check if requesting user is the same as the target user or has admin role
-    if (userId !== session.user.id) {
+    if (userId !== session.user.id: any) {
       const user = await prisma.user.findUnique({
         where: { id: session.user.id },
         select: { role: true }
@@ -77,10 +77,10 @@ export async function GET(req: Request): Promise<NextResponse> {
       }
     });
     
-    return NextResponse.json(progress);
-  } catch (error) {
+    return NextResponse.json(progress: any);
+  } catch (error: any) {
     // Using a type guard instead of console.error
-    if (error instanceof Error) {
+    if (error instanceof Error: any) {
       // Log error in a production-safe way
       // We could use a proper logging service here instead of console
     }
@@ -91,10 +91,10 @@ export async function GET(req: Request): Promise<NextResponse> {
 // POST handler for updating user progress
 export async function POST(req: Request): Promise<NextResponse> {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
     // Check authentication
-    if (!session?.user) {
+    if (!session?.user: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
@@ -102,10 +102,10 @@ export async function POST(req: Request): Promise<NextResponse> {
     const body = await req.json();
     
     try {
-      const validatedData = progressSchema.parse(body);
+      const validatedData = progressSchema.parse(body: any);
       
       // Check if user is updating their own progress or has admin role
-      if (validatedData.userId !== session.user.id) {
+      if (validatedData.userId !== session.user.id: any) {
         const user = await prisma.user.findUnique({
           where: { id: session.user.id },
           select: { role: true }
@@ -117,7 +117,7 @@ export async function POST(req: Request): Promise<NextResponse> {
       }
       
       // Handle different action types
-      switch (validatedData.action) {
+      switch (validatedData.action: any) {
         case 'access': {
           // Record module access
           const existingProgress = await prisma.restorativeTrainingProgress.findFirst({
@@ -127,7 +127,7 @@ export async function POST(req: Request): Promise<NextResponse> {
             }
           }) as TrainingProgress | null;
           
-          if (!existingProgress) {
+          if (!existingProgress: any) {
             await prisma.restorativeTrainingProgress.create({
               data: {
                 userId: validatedData.userId,
@@ -148,7 +148,7 @@ export async function POST(req: Request): Promise<NextResponse> {
           
         case 'complete': {
           // Mark section as complete
-          if (!validatedData.sectionId) {
+          if (!validatedData.sectionId: any) {
             return NextResponse.json({ error: 'Section ID is required for complete action' }, { status: 400 });
           }
           
@@ -160,7 +160,7 @@ export async function POST(req: Request): Promise<NextResponse> {
             }
           }) as TrainingProgress | null;
           
-          if (!progress) {
+          if (!progress: any) {
             progress = await prisma.restorativeTrainingProgress.create({
               data: {
                 userId: validatedData.userId,
@@ -172,8 +172,8 @@ export async function POST(req: Request): Promise<NextResponse> {
           } else {
             // Update existing progress
             const completedSections = [...progress.completedSections];
-            if (!completedSections.includes(validatedData.sectionId)) {
-              completedSections.push(validatedData.sectionId);
+            if (!completedSections.includes(validatedData.sectionId: any)) {
+              completedSections.push(validatedData.sectionId: any);
             }
             
             progress = await prisma.restorativeTrainingProgress.update({
@@ -191,19 +191,19 @@ export async function POST(req: Request): Promise<NextResponse> {
             include: { sections: true }
           }) as TrainingModule | null;
           
-          if (trainingModule && progress.completedSections.length === trainingModule.sections.length) {
+          if (trainingModule && progress.completedSections.length === trainingModule.sections.length: any) {
             await prisma.restorativeTrainingProgress.update({
               where: { id: progress.id },
               data: { certificateIssued: true }
             });
           }
           
-          return NextResponse.json(progress);
+          return NextResponse.json(progress: any);
         }
           
         case 'quiz': {
           // Record quiz attempt
-          if (!validatedData.quizId || validatedData.score === undefined) {
+          if (!validatedData.quizId || validatedData.score === undefined: any) {
             return NextResponse.json({ error: 'Quiz ID and score are required for quiz action' }, { status: 400 });
           }
           
@@ -215,7 +215,7 @@ export async function POST(req: Request): Promise<NextResponse> {
             }
           }) as TrainingProgress | null;
           
-          if (!quizProgress) {
+          if (!quizProgress: any) {
             quizProgress = await prisma.restorativeTrainingProgress.create({
               data: {
                 userId: validatedData.userId,
@@ -244,15 +244,15 @@ export async function POST(req: Request): Promise<NextResponse> {
       }
       
       return NextResponse.json({ success: true });
-    } catch (validationError) {
-      if (validationError instanceof z.ZodError) {
+    } catch (validationError: any) {
+      if (validationError instanceof z.ZodError: any) {
         return NextResponse.json({ error: validationError.errors }, { status: 400 });
       }
       throw validationError;
     }
-  } catch (error) {
+  } catch (error: any) {
     // Using a type guard instead of console.error
-    if (error instanceof Error) {
+    if (error instanceof Error: any) {
       // Log error in a production-safe way
       // We could use a proper logging service here instead of console
     }

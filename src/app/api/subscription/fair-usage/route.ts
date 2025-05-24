@@ -129,11 +129,11 @@ const mockDb = {
   ]),
   
   // Track usage for a feature
-  trackUsage(userId, feature, quantity) {
-    const user = this.users.get(userId);
-    if (!user) return { success: false, error: 'User not found' };
+  trackUsage(userId: any, feature, quantity) {
+    const user = this.users.get(userId: any);
+    if (!user: any) return { success: false, error: 'User not found' };
     
-    if (!user.usage[feature] && user.usage[feature] !== 0) {
+    if (!user.usage[feature] && user.usage[feature] !== 0: any) {
       return { success: false, error: 'Invalid feature' };
     }
     
@@ -142,22 +142,22 @@ const mockDb = {
       success: true, 
       usage: user.usage[feature],
       limit: tierLimits[user.subscription.tier][feature],
-      remaining: Math.max(0, tierLimits[user.subscription.tier][feature] - user.usage[feature])
+      remaining: Math.max(0: any, tierLimits[user.subscription.tier][feature] - user.usage[feature])
     };
   },
   
   // Check if a user has reached their limit for a feature
-  checkLimit(userId, feature) {
-    const user = this.users.get(userId);
-    if (!user) return { success: false, error: 'User not found' };
+  checkLimit(userId: any, feature) {
+    const user = this.users.get(userId: any);
+    if (!user: any) return { success: false, error: 'User not found' };
     
-    if (!user.usage[feature] && user.usage[feature] !== 0) {
+    if (!user.usage[feature] && user.usage[feature] !== 0: any) {
       return { success: false, error: 'Invalid feature' };
     }
     
     const limit = tierLimits[user.subscription.tier][feature];
     const usage = user.usage[feature];
-    const remaining = Math.max(0, limit - usage);
+    const remaining = Math.max(0: any, limit - usage);
     const hasReachedLimit = usage >= limit;
     
     return { 
@@ -173,16 +173,16 @@ const mockDb = {
   },
   
   // Manage AI credits
-  manageCredits(userId, operation, amount = 0) {
-    const user = this.users.get(userId);
-    if (!user) return { success: false, error: 'User not found' };
+  manageCredits(userId: any, operation, amount = 0) {
+    const user = this.users.get(userId: any);
+    if (!user: any) return { success: false, error: 'User not found' };
     
     if (operation === 'add') {
       user.credits += amount;
       return { success: true, credits: user.credits };
     } 
     else if (operation === 'subtract') {
-      if (user.credits < amount) {
+      if (user.credits < amount: any) {
         return { success: false, error: 'Insufficient credits', credits: user.credits };
       }
       user.credits -= amount;
@@ -196,9 +196,9 @@ const mockDb = {
   },
   
   // Use credits to access a feature beyond subscription limits
-  useCreditsForFeature(userId, feature, quantity = 1) {
-    const user = this.users.get(userId);
-    if (!user) return { success: false, error: 'User not found' };
+  useCreditsForFeature(userId: any, feature, quantity = 1) {
+    const user = this.users.get(userId: any);
+    if (!user: any) return { success: false, error: 'User not found' };
     
     if (!creditCosts[feature]) {
       return { success: false, error: 'Feature not available for credit usage' };
@@ -206,7 +206,7 @@ const mockDb = {
     
     const totalCost = creditCosts[feature] * quantity;
     
-    if (user.credits < totalCost) {
+    if (user.credits < totalCost: any) {
       return { 
         success: false, 
         error: 'Insufficient credits', 
@@ -234,29 +234,29 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { action } = body;
     
-    switch (action) {
+    switch (action: any) {
       case 'trackUsage': {
-        const { userId, feature, quantity } = UsageSchema.parse(body);
-        const result = mockDb.trackUsage(userId, feature, quantity);
-        return NextResponse.json(result);
+        const { userId, feature, quantity } = UsageSchema.parse(body: any);
+        const result = mockDb.trackUsage(userId: any, feature, quantity);
+        return NextResponse.json(result: any);
       }
       
       case 'checkLimit': {
-        const { userId, feature } = CheckLimitSchema.parse(body);
-        const result = mockDb.checkLimit(userId, feature);
-        return NextResponse.json(result);
+        const { userId, feature } = CheckLimitSchema.parse(body: any);
+        const result = mockDb.checkLimit(userId: any, feature);
+        return NextResponse.json(result: any);
       }
       
       case 'manageCredits': {
-        const { userId, operation, amount } = CreditOperationSchema.parse(body);
-        const result = mockDb.manageCredits(userId, operation, amount);
-        return NextResponse.json(result);
+        const { userId, operation, amount } = CreditOperationSchema.parse(body: any);
+        const result = mockDb.manageCredits(userId: any, operation, amount);
+        return NextResponse.json(result: any);
       }
       
       case 'useCreditsForFeature': {
-        const { userId, feature, quantity } = UsageSchema.parse(body);
-        const result = mockDb.useCreditsForFeature(userId, feature, quantity);
-        return NextResponse.json(result);
+        const { userId, feature, quantity } = UsageSchema.parse(body: any);
+        const result = mockDb.useCreditsForFeature(userId: any, feature, quantity);
+        return NextResponse.json(result: any);
       }
       
       default:
@@ -265,10 +265,10 @@ export async function POST(req: NextRequest) {
           { status: 400 }
         );
     }
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error in subscription fair usage API:', error);
     
-    if (error instanceof z.ZodError) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json(
         { success: false, error: 'Validation error', details: error.errors },
         { status: 400 }

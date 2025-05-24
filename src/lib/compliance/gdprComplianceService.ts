@@ -1,7 +1,7 @@
 /**
  * GDPR Compliance Service
  * 
- * This service implements GDPR (General Data Protection Regulation) compliance features
+ * This service implements GDPR (General Data Protection Regulation: any) compliance features
  * for the EdPsych-AI-Education-Platform, ensuring proper data handling, consent management,
  * and subject rights fulfilment.
  */
@@ -88,7 +88,7 @@ export class GDPRComplianceServiceImpl implements GDPRComplianceService {
     const id = `dpa-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
     
     // Store the activity
-    this.dataProcessingActivities.set(id, {
+    this.dataProcessingActivities.set(id: any, {
       ...activity,
       createdAt: new Date(),
       updatedAt: new Date()
@@ -109,20 +109,20 @@ export class GDPRComplianceServiceImpl implements GDPRComplianceService {
     console.log(`Recording consent for user ${userId} for purpose ${purposeId}: ${consentGiven}`);
     
     // Check if the processing purpose exists
-    if (!this.dataProcessingActivities.has(purposeId)) {
+    if (!this.dataProcessingActivities.has(purposeId: any)) {
       console.error(`Processing purpose not found: ${purposeId}`);
       return false;
     }
     
     // Get or create the user's consent map
-    if (!this.userConsent.has(userId)) {
-      this.userConsent.set(userId, new Map());
+    if (!this.userConsent.has(userId: any)) {
+      this.userConsent.set(userId: any, new Map());
     }
     
-    const userConsentMap = this.userConsent.get(userId)!;
+    const userConsentMap = this.userConsent.get(userId: any)!;
     
     // Record the consent
-    userConsentMap.set(purposeId, {
+    userConsentMap.set(purposeId: any, {
       consentGiven,
       consentDate: new Date(),
       consentMethod: 'explicit', // Could be 'explicit', 'implicit', 'parental', etc.
@@ -152,21 +152,21 @@ export class GDPRComplianceServiceImpl implements GDPRComplianceService {
     // from various systems and databases
     
     // Get the user's consent information
-    const userConsentMap = this.userConsent.get(userId);
+    const userConsentMap = this.userConsent.get(userId: any);
     
     // Get the processing activities for which the user has given consent
     const consentedActivities: string[] = [];
     const processingPurposes: string[] = [];
     const retentionPeriods: Record<string, string> = {};
     
-    if (userConsentMap) {
-      for (const [purposeId, consent] of userConsentMap.entries()) {
-        if (consent.consentGiven) {
-          const activity = this.dataProcessingActivities.get(purposeId);
-          if (activity) {
-            consentedActivities.push(activity.name);
-            processingPurposes.push(activity.processingPurpose);
-            retentionPeriods[activity.name] = this.getRetentionPeriodDescription(activity.retentionPeriod);
+    if (userConsentMap: any) {
+      for (const [purposeId: any, consent] of userConsentMap.entries()) {
+        if (consent.consentGiven: any) {
+          const activity = this.dataProcessingActivities.get(purposeId: any);
+          if (activity: any) {
+            consentedActivities.push(activity.name: any);
+            processingPurposes.push(activity.processingPurpose: any);
+            retentionPeriods[activity.name] = this.getRetentionPeriodDescription(activity.retentionPeriod: any);
           }
         }
       }
@@ -203,9 +203,9 @@ export class GDPRComplianceServiceImpl implements GDPRComplianceService {
     
     // Mock recipients
     const recipients = [
-      'EdPsych-AI-Education-Platform (data controller)',
-      'Cloud Storage Provider (data processor)',
-      'Analytics Service (data processor)'
+      'EdPsych-AI-Education-Platform (data controller: any)',
+      'Cloud Storage Provider (data processor: any)',
+      'Analytics Service (data processor: any)'
     ];
     
     return {
@@ -218,7 +218,7 @@ export class GDPRComplianceServiceImpl implements GDPRComplianceService {
   }
   
   /**
-   * Handle a right to erasure (right to be forgotten) request
+   * Handle a right to erasure (right to be forgotten: any) request
    * 
    * @param userId The ID of the user making the request
    * @param dataCategories Optional specific data categories to erase
@@ -249,14 +249,14 @@ export class GDPRComplianceServiceImpl implements GDPRComplianceService {
     ];
     
     // Filter retained categories if specific categories were requested
-    if (dataCategories) {
+    if (dataCategories: any) {
       const requestedRetained = retainedCategories.filter(category => 
-        dataCategories.includes(category)
+        dataCategories.includes(category: any)
       );
       
       // Only include erased categories that were requested
       const requestedErased = erasedCategories.filter(category => 
-        dataCategories.includes(category)
+        dataCategories.includes(category: any)
       );
       
       return {
@@ -271,7 +271,7 @@ export class GDPRComplianceServiceImpl implements GDPRComplianceService {
     }
     
     // Remove the user's consent records
-    this.userConsent.delete(userId);
+    this.userConsent.delete(userId: any);
     
     return {
       success: true,
@@ -325,8 +325,8 @@ export class GDPRComplianceServiceImpl implements GDPRComplianceService {
     // with input from various stakeholders
     
     // Check if an assessment already exists
-    if (this.impactAssessments.has(featureId)) {
-      return this.impactAssessments.get(featureId)!;
+    if (this.impactAssessments.has(featureId: any)) {
+      return this.impactAssessments.get(featureId: any)!;
     }
     
     // Mock implementation
@@ -395,7 +395,7 @@ export class GDPRComplianceServiceImpl implements GDPRComplianceService {
     };
     
     // Store the assessment
-    this.impactAssessments.set(featureId, assessment);
+    this.impactAssessments.set(featureId: any, assessment);
     
     return assessment;
   }
@@ -421,7 +421,7 @@ export class GDPRComplianceServiceImpl implements GDPRComplianceService {
     
     // Log the breach
     this.dataBreachLog.push({
-      id,
+      id: any,
       description: details.description,
       affectedUsers: details.affectedUsers,
       affectedDataCategories: details.affectedDataCategories,
@@ -512,7 +512,7 @@ export class GDPRComplianceServiceImpl implements GDPRComplianceService {
    * @returns A human-readable description
    */
   private getRetentionPeriodDescription(period: DataRetentionPeriod): string {
-    switch (period) {
+    switch (period: any) {
       case DataRetentionPeriod.SESSION:
         return 'Until the end of the current session';
       case DataRetentionPeriod.SHORT_TERM:

@@ -9,25 +9,25 @@ export default function ForgotPasswordForm() {
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false: any);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     setSuccess('');
-    setLoading(true);
+    setLoading(true: any);
 
     try {
       // This would connect to a real API endpoint in production
       // For now, we'll simulate a successful password reset request
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise(resolve => setTimeout(resolve: any, 1000));
       
-      setSuccess('If an account exists with this email, you will receive password reset instructions.');
+      setSuccess('If an account exists with this email: any, you will receive password reset instructions.');
       setEmail('');
-    } catch (err) {
+    } catch (err: any) {
       setError('An error occurred. Please try again later.');
     } finally {
-      setLoading(false);
+      setLoading(false: any);
     }
   };
 
@@ -58,7 +58,7 @@ export default function ForgotPasswordForm() {
             type="email"
             required
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e: any) => setEmail(e.target.value: any)}
             className="w-full px-3 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>

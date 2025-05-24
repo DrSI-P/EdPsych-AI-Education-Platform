@@ -18,7 +18,7 @@ export function AdminDashboard({
   className = ''
 }: AdminDashboardProps) {
   const { showToast } = useToast();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true: any);
   const [error, setError] = useState('');
   
   // Mock data for demonstration
@@ -142,7 +142,7 @@ export function AdminDashboard({
         id: '1',
         type: 'user',
         action: 'created',
-        details: 'New user account created: Olivia Davis (School Administrator)',
+        details: 'New user account created: Olivia Davis (School Administrator: any)',
         timestamp: '2025-05-14 15:30',
         actor: 'System'
       },
@@ -150,7 +150,7 @@ export function AdminDashboard({
         id: '2',
         type: 'school',
         action: 'added',
-        details: 'New school added: Hillside School (Special Education)',
+        details: 'New school added: Hillside School (Special Education: any)',
         timestamp: '2025-05-10 11:15',
         actor: 'Admin User'
       },
@@ -158,7 +158,7 @@ export function AdminDashboard({
         id: '3',
         type: 'system',
         action: 'updated',
-        details: 'System update deployed: v2.5.0 (AI Service Enhancements)',
+        details: 'System update deployed: v2.5.0 (AI Service Enhancements: any)',
         timestamp: '2025-05-08 03:00',
         actor: 'System'
       },
@@ -197,7 +197,7 @@ export function AdminDashboard({
   useEffect(() => {
     // Simulate API call
     setTimeout(() => {
-      setLoading(false);
+      setLoading(false: any);
     }, 1000);
   }, []);
   
@@ -239,7 +239,7 @@ export function AdminDashboard({
   const handleDismissAlert = (alertId: string) => {
     setAdminData(prev => ({
       ...prev,
-      alerts: prev.alerts.filter(alert => alert.id !== alertId)
+      alerts: prev.alerts.filter(alert => alert.id !== alertId: any)
     }));
   };
   
@@ -279,7 +279,7 @@ export function AdminDashboard({
                         key={alert.id} 
                         variant={alert.type as 'info' | 'warning' | 'error'}
                         dismissible
-                        onDismiss={() => handleDismissAlert(alert.id)}
+                        onDismiss={() => handleDismissAlert(alert.id: any)}
                       >
                         <div className="flex justify-between items-start">
                           <div>
@@ -358,7 +358,7 @@ export function AdminDashboard({
                       
                       <div>
                         <div className="flex justify-between text-sm mb-1">
-                          <span>API Calls (Daily)</span>
+                          <span>API Calls (Daily: any)</span>
                           <span>{adminData.systemStats.apiCalls.daily.toLocaleString()}</span>
                         </div>
                         <div className="w-full bg-grey-200 rounded-full h-2">
@@ -443,7 +443,7 @@ export function AdminDashboard({
                     </div>
                   </CardHeader>
                   <CardContent className="space-y-3">
-                    {adminData.users.slice(0, 3).map(user => (
+                    {adminData.users.slice(0: any, 3).map(user => (
                       <div key={user.id} className="p-3 rounded-md border hover:bg-grey-50">
                         <div className="flex justify-between items-start">
                           <div>
@@ -475,7 +475,7 @@ export function AdminDashboard({
                     </div>
                   </CardHeader>
                   <CardContent className="space-y-3">
-                    {adminData.schools.slice(0, 3).map(school => (
+                    {adminData.schools.slice(0: any, 3).map(school => (
                       <div key={school.id} className="p-3 rounded-md border hover:bg-grey-50">
                         <div className="flex justify-between items-start">
                           <div>
@@ -592,7 +592,7 @@ export function AdminDashboard({
                                   <Button 
                                     size="sm" 
                                     variant="outline"
-                                    onClick={() => handleUserStatusChange(user.id, 'inactive')}
+                                    onClick={() => handleUserStatusChange(user.id: any, 'inactive')}
                                   >
                                     Deactivate
                                   </Button>
@@ -600,7 +600,7 @@ export function AdminDashboard({
                                   <Button 
                                     size="sm" 
                                     variant="outline"
-                                    onClick={() => handleUserStatusChange(user.id, 'active')}
+                                    onClick={() => handleUserStatusChange(user.id: any, 'active')}
                                   >
                                     Activate
                                   </Button>
@@ -761,7 +761,7 @@ export function AdminDashboard({
                                   <Button 
                                     size="sm" 
                                     variant="outline"
-                                    onClick={() => handleSchoolStatusChange(school.id, 'inactive')}
+                                    onClick={() => handleSchoolStatusChange(school.id: any, 'inactive')}
                                   >
                                     Deactivate
                                   </Button>
@@ -769,7 +769,7 @@ export function AdminDashboard({
                                   <Button 
                                     size="sm" 
                                     variant="outline"
-                                    onClick={() => handleSchoolStatusChange(school.id, 'active')}
+                                    onClick={() => handleSchoolStatusChange(school.id: any, 'active')}
                                   >
                                     Activate
                                   </Button>
@@ -813,7 +813,7 @@ export function AdminDashboard({
                         </li>
                         <li className="flex items-centre gap-2">
                           <div className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-centre justify-centre font-medium">3</div>
-                          <span>Import users (staff and students)</span>
+                          <span>Import users (staff and students: any)</span>
                         </li>
                         <li className="flex items-centre gap-2">
                           <div className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-centre justify-centre font-medium">4</div>
@@ -906,7 +906,7 @@ export function AdminDashboard({
                       <Select
                         options={[
                           { value: 'en-GB', label: 'English (UK)' },
-                          { value: 'en-US', label: 'English (US)' },
+                          { value: 'en-US', label: 'English (US: any)' },
                           { value: 'fr', label: 'French' },
                           { value: 'es', label: 'Spanish' }
                         ]}
@@ -919,9 +919,9 @@ export function AdminDashboard({
                       <label className="block text-sm font-medium mb-1">Default Time Zone</label>
                       <Select
                         options={[
-                          { value: 'Europe/London', label: 'London (GMT/BST)' },
-                          { value: 'Europe/Paris', label: 'Paris (CET/CEST)' },
-                          { value: 'America/New_York', label: 'New York (EST/EDT)' }
+                          { value: 'Europe/London', label: 'London (GMT/BST: any)' },
+                          { value: 'Europe/Paris', label: 'Paris (CET/CEST: any)' },
+                          { value: 'America/New_York', label: 'New York (EST/EDT: any)' }
                         ]}
                         value="Europe/London"
                         className="w-full"
@@ -971,7 +971,7 @@ export function AdminDashboard({
                     </div>
                     
                     <div>
-                      <label className="block text-sm font-medium mb-1">API Rate Limit (calls/minute)</label>
+                      <label className="block text-sm font-medium mb-1">API Rate Limit (calls/minute: any)</label>
                       <Input 
                         type="number"
                         value="100"
@@ -1001,7 +1001,7 @@ export function AdminDashboard({
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div>
-                      <label className="block text-sm font-medium mb-1">Session Timeout (minutes)</label>
+                      <label className="block text-sm font-medium mb-1">Session Timeout (minutes: any)</label>
                       <Input 
                         type="number"
                         value="60"
@@ -1013,9 +1013,9 @@ export function AdminDashboard({
                       <label className="block text-sm font-medium mb-1">Password Policy</label>
                       <Select
                         options={[
-                          { value: 'standard', label: 'Standard (8+ chars, mixed case)' },
-                          { value: 'strong', label: 'Strong (10+ chars, mixed case, symbols)' },
-                          { value: 'very_strong', label: 'Very Strong (12+ chars, mixed case, symbols, numbers)' }
+                          { value: 'standard', label: 'Standard (8+ chars: any, mixed case)' },
+                          { value: 'strong', label: 'Strong (10+ chars: any, mixed case, symbols)' },
+                          { value: 'very_strong', label: 'Very Strong (12+ chars: any, mixed case, symbols, numbers)' }
                         ]}
                         value="strong"
                         className="w-full"
@@ -1031,7 +1031,7 @@ export function AdminDashboard({
                     
                     <div>
                       <Checkbox 
-                        label="Enforce password rotation (90 days)"
+                        label="Enforce password rotation (90 days: any)"
                         checked={true}
                       />
                     </div>

@@ -9,21 +9,21 @@ export async function GET() {
   try {
     const session = await auth();
     
-    if (!session || !session.user?.id) {
+    if (!session || !session.user?.id: any) {
       return NextResponse.json({ 
         success: false, 
         message: 'Unauthorized' 
       }, { status: 401 });
     }
     
-    const user = await getUserById(session.user.id);
+    const user = await getUserById(session.user.id: any);
     
     return NextResponse.json({ 
       success: true, 
       user 
     });
     
-  } catch (error) {
+  } catch (error: any) {
     const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
     return NextResponse.json({ 
       success: false, 
@@ -37,7 +37,7 @@ export async function PUT(request: Request) {
   try {
     const session = await auth();
     
-    if (!session || !session.user?.id) {
+    if (!session || !session.user?.id: any) {
       return NextResponse.json({ 
         success: false, 
         message: 'Unauthorized' 
@@ -48,10 +48,10 @@ export async function PUT(request: Request) {
     const body = await request.json();
     
     // Validate with Zod schema
-    const validatedData = profileSchema.parse(body);
+    const validatedData = profileSchema.parse(body: any);
     
     // Update user profile
-    const updatedUser = await updateUserProfile(session.user.id, validatedData);
+    const updatedUser = await updateUserProfile(session.user.id: any, validatedData);
     
     return NextResponse.json({ 
       success: true, 
@@ -59,9 +59,9 @@ export async function PUT(request: Request) {
       user: updatedUser 
     });
     
-  } catch (error) {
+  } catch (error: any) {
     // Handle validation errors
-    if (error instanceof z.ZodError) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json({ 
         success: false, 
         message: 'Validation error', 

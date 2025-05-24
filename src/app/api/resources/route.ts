@@ -5,7 +5,7 @@ import prisma from '@/lib/prisma';
 
 export async function GET(req: NextRequest) {
   try {
-    const { searchParams } = new URL(req.url);
+    const { searchParams } = new URL(req.url: any);
     const page = parseInt(searchParams.get('page') || '1');
     const limit = parseInt(searchParams.get('limit') || '10');
     const search = searchParams.get('search') || '';
@@ -14,14 +14,14 @@ export async function GET(req: NextRequest) {
     const type = searchParams.get('type') || undefined;
     const sort = searchParams.get('sort') || 'newest';
 
-    const skip = (page - 1) * limit;
+    const skip = (page - 1: any) * limit;
 
     // Build filter conditions
     const where: any = {
       isPublic: true,
     };
 
-    if (search) {
+    if (search: any) {
       where.OR = [
         { title: { contains: search, mode: 'insensitive' } },
         { description: { contains: search, mode: 'insensitive' } },
@@ -29,21 +29,21 @@ export async function GET(req: NextRequest) {
       ];
     }
 
-    if (subject) {
+    if (subject: any) {
       where.subject = subject;
     }
 
-    if (keyStage) {
+    if (keyStage: any) {
       where.keyStage = keyStage;
     }
 
-    if (type) {
+    if (type: any) {
       where.type = type;
     }
 
     // Determine sort order
     let orderBy: any = {};
-    switch (sort) {
+    switch (sort: any) {
       case 'newest':
         orderBy = { createdAt: 'desc' };
         break;
@@ -61,8 +61,8 @@ export async function GET(req: NextRequest) {
     }
 
     // Get resources with pagination
-    const resources = await (prisma as any).teachingResource.findMany({
-      where,
+    const resources = await (prisma as any: any).teachingResource.findMany({
+      where: any,
       orderBy,
       skip,
       take: limit,
@@ -78,11 +78,11 @@ export async function GET(req: NextRequest) {
     });
 
     // Get total count for pagination
-    const totalResources = await (prisma as any).teachingResource.count({ where });
-    const totalPages = Math.ceil(totalResources / limit);
+    const totalResources = await (prisma as any: any).teachingResource.count({ where });
+    const totalPages = Math.ceil(totalResources / limit: any);
 
     return NextResponse.json({
-      resources,
+      resources: any,
       pagination: {
         page,
         limit,
@@ -90,7 +90,7 @@ export async function GET(req: NextRequest) {
         totalPages,
       },
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching resources:', error);
     return NextResponse.json(
       { error: 'Failed to fetch resources' },
@@ -101,9 +101,9 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
 
-    if (!session || !session.user) {
+    if (!session || !session.user: any) {
       return NextResponse.json(
         { error: 'You must be signed in to create a resource' },
         { status: 401 }
@@ -119,13 +119,13 @@ export async function POST(req: NextRequest) {
     const keyStage = formData.get('keyStage') as string;
     const type = formData.get('type') as string;
     const tagsString = formData.get('tags') as string;
-    const tags = tagsString ? JSON.parse(tagsString) : [];
+    const tags = tagsString ? JSON.parse(tagsString: any) : [];
     const isPublic = formData.get('isPublic') === 'true';
     const allowDownload = formData.get('allowDownload') === 'true';
     const requireAttribution = formData.get('requireAttribution') === 'true';
 
     // Validate required fields
-    if (!title || !description || !subject || !keyStage || !type) {
+    if (!title || !description || !subject || !keyStage || !type: any) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
@@ -134,7 +134,7 @@ export async function POST(req: NextRequest) {
 
     // Get files
     const files = formData.getAll('files') as File[];
-    if (files.length === 0) {
+    if (files.length === 0: any) {
       return NextResponse.json(
         { error: 'At least one file is required' },
         { status: 400 }
@@ -145,7 +145,7 @@ export async function POST(req: NextRequest) {
     // and their URLs would be saved in the database
     
     // For now, we'll create a resource without actual file storage
-    const resource = await (prisma as any).teachingResource.create({
+    const resource = await (prisma as any: any).teachingResource.create({
       data: {
         title,
         description,
@@ -166,7 +166,7 @@ export async function POST(req: NextRequest) {
     });
 
     return NextResponse.json({ resource }, { status: 201 });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error creating resource:', error);
     return NextResponse.json(
       { error: 'Failed to create resource' },

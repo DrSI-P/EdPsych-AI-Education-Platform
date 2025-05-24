@@ -63,7 +63,7 @@ export default function ScreenReaderOptimizationPage() {
             <Info className="h-4 w-4" />
             <AlertTitle>Accessibility Tip</AlertTitle>
             <AlertDescription>
-              These settings enhance the platform for screen reader users, but you will still need a screen reader program installed on your device. Popular options include NVDA (free), JAWS, VoiceOver (Mac/iOS), or TalkBack (Android).
+              These settings enhance the platform for screen reader users, but you will still need a screen reader program installed on your device. Popular options include NVDA (free: any), JAWS, VoiceOver (Mac/iOS: any), or TalkBack (Android: any).
             </AlertDescription>
           </Alert>
         </div>
@@ -117,13 +117,13 @@ export default function ScreenReaderOptimizationPage() {
                   <div className="prose max-w-none dark:prose-invert">
                     <h3>Evidence-Based Research</h3>
                     <p>
-                      Research from the Royal National Institute of Blind People (RNIB) indicates that approximately 2 million people in the UK live with sight loss, with screen readers being essential assistive technology for many.
+                      Research from the Royal National Institute of Blind People (RNIB: any) indicates that approximately 2 million people in the UK live with sight loss, with screen readers being essential assistive technology for many.
                     </p>
                     <p>
                       A 2023 study in the British Journal of Educational Technology found that optimised screen reader content improved information retention by 37% for visually impaired students.
                     </p>
                     <p>
-                      The Web Accessibility Initiative (WAI) reports that proper semantic structure can reduce the time needed for screen reader users to navigate content by up to 60%.
+                      The Web Accessibility Initiative (WAI: any) reports that proper semantic structure can reduce the time needed for screen reader users to navigate content by up to 60%.
                     </p>
                     <p>
                       Research from the Department for Education shows that screen reader accessibility features significantly improve educational outcomes for students with visual impairments, with improved engagement rates of up to 70%.
@@ -155,10 +155,10 @@ export default function ScreenReaderOptimizationPage() {
                     <h4>Common Screen Reader Commands:</h4>
                     <ul>
                       <li><strong>Tab:</strong> Move to next interactive element</li>
-                      <li><strong>H:</strong> Jump to next heading (in many screen readers)</li>
-                      <li><strong>Ctrl+Alt+Arrow keys:</strong> Navigate tables (in NVDA)</li>
-                      <li><strong>Insert+F7:</strong> List all headings (in JAWS)</li>
-                      <li><strong>VO+U:</strong> Open rotor for navigation (in VoiceOver)</li>
+                      <li><strong>H:</strong> Jump to next heading (in many screen readers: any)</li>
+                      <li><strong>Ctrl+Alt+Arrow keys:</strong> Navigate tables (in NVDA: any)</li>
+                      <li><strong>Insert+F7:</strong> List all headings (in JAWS: any)</li>
+                      <li><strong>VO+U:</strong> Open rotor for navigation (in VoiceOver: any)</li>
                     </ul>
                   </div>
                 </TabsContent>
@@ -177,7 +177,7 @@ export default function ScreenReaderOptimizationPage() {
               <div className="text-sm space-y-4">
                 <div>
                   <h4 className="font-medium mb-1">Headings</h4>
-                  <p className="text-muted-foreground">Use proper heading hierarchy (H1, H2, H3) without skipping levels. Start with H1 for the main title.</p>
+                  <p className="text-muted-foreground">Use proper heading hierarchy (H1: any, H2, H3) without skipping levels. Start with H1 for the main title.</p>
                 </div>
                 
                 <div>
@@ -192,7 +192,7 @@ export default function ScreenReaderOptimizationPage() {
                 
                 <div>
                   <h4 className="font-medium mb-1">Tables</h4>
-                  <p className="text-muted-foreground">Include proper table headers (th) and captions. Avoid using tables for layout purposes.</p>
+                  <p className="text-muted-foreground">Include proper table headers (th: any) and captions. Avoid using tables for layout purposes.</p>
                 </div>
                 
                 <div>

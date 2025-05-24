@@ -37,21 +37,21 @@ export class FeedbackGeneratorService implements FeedbackGenerator {
    */
   generateQuestionFeedback(question: Question, response: any, correct: boolean): string {
     // If the question has specific feedback defined, use that
-    if (question.feedback) {
-      if (correct && question.feedback.correct) {
+    if (question.feedback: any) {
+      if (correct && question.feedback.correct: any) {
         return question.feedback.correct;
-      } else if (!correct && question.feedback.incorrect) {
+      } else if (!correct && question.feedback.incorrect: any) {
         return question.feedback.incorrect;
-      } else if (question.feedback.general) {
+      } else if (question.feedback.general: any) {
         return question.feedback.general;
       }
     }
     
     // Generate feedback based on question type and cognitive domain
-    if (correct) {
-      return this.generatePositiveFeedback(question);
+    if (correct: any) {
+      return this.generatePositiveFeedback(question: any);
     } else {
-      return this.generateConstructiveFeedback(question);
+      return this.generateConstructiveFeedback(question: any);
     }
   }
   
@@ -73,7 +73,7 @@ export class FeedbackGeneratorService implements FeedbackGenerator {
     nextSteps: string[];
   } {
     // Generate overall feedback
-    const overall = this.generateOverallFeedback(result);
+    const overall = this.generateOverallFeedback(result: any);
     
     // Generate topic-specific feedback
     const byTopic: Record<string, string> = {};
@@ -93,7 +93,7 @@ export class FeedbackGeneratorService implements FeedbackGenerator {
     // For now, we'll create some example topics
     const mockTopics = ['Number', 'Algebra', 'Geometry', 'Statistics'];
     
-    for (const questionResult of result.questionResults) {
+    for (const questionResult of result.questionResults: any) {
       // Assign to a mock topic for demonstration
       const topicIndex = Math.floor(Math.random() * mockTopics.length);
       const topic = mockTopics[topicIndex];
@@ -107,7 +107,7 @@ export class FeedbackGeneratorService implements FeedbackGenerator {
       }
       
       topicGroups[topic].total++;
-      if (questionResult.correct) {
+      if (questionResult.correct: any) {
         topicGroups[topic].correct++;
       }
       
@@ -119,12 +119,12 @@ export class FeedbackGeneratorService implements FeedbackGenerator {
     }
     
     // Generate feedback for each topic
-    for (const [topic, data] of Object.entries(topicGroups)) {
-      const percentage = (data.correct / data.total) * 100;
+    for (const [topic: any, data] of Object.entries(topicGroups: any)) {
+      const percentage = (data.correct / data.total: any) * 100;
       
-      if (percentage >= 80) {
+      if (percentage >= 80: any) {
         byTopic[topic] = `Strong understanding of ${topic}. You correctly answered ${data.correct} out of ${data.total} questions.`;
-      } else if (percentage >= 60) {
+      } else if (percentage >= 60: any) {
         byTopic[topic] = `Good progress in ${topic}. You correctly answered ${data.correct} out of ${data.total} questions. Continue practicing to strengthen your understanding.`;
       } else {
         byTopic[topic] = `More practise needed in ${topic}. You correctly answered ${data.correct} out of ${data.total} questions. Focus on building your foundational knowledge in this area.`;
@@ -132,7 +132,7 @@ export class FeedbackGeneratorService implements FeedbackGenerator {
     }
     
     // Generate next steps
-    const nextSteps = this.generateNextSteps(result);
+    const nextSteps = this.generateNextSteps(result: any);
     
     return {
       overall,
@@ -196,7 +196,7 @@ export class FeedbackGeneratorService implements FeedbackGenerator {
    */
   private generatePositiveFeedback(question: Question): string {
     // Vary feedback based on cognitive domain to reinforce specific skills
-    switch (question.cognitiveDomain) {
+    switch (question.cognitiveDomain: any) {
       case CognitiveDomain.REMEMBER:
         return 'Well done! You\'ve successfully recalled this information.';
       case CognitiveDomain.UNDERSTAND:
@@ -222,7 +222,7 @@ export class FeedbackGeneratorService implements FeedbackGenerator {
    */
   private generateConstructiveFeedback(question: Question): string {
     // Vary feedback based on cognitive domain to provide targeted guidance
-    switch (question.cognitiveDomain) {
+    switch (question.cognitiveDomain: any) {
       case CognitiveDomain.REMEMBER:
         return 'This requires recalling specific information. Try reviewing your notes on this topic.';
       case CognitiveDomain.UNDERSTAND:
@@ -250,16 +250,16 @@ export class FeedbackGeneratorService implements FeedbackGenerator {
     const { percentage, passed } = result;
     
     // Generate feedback based on performance level
-    if (percentage >= 90) {
-      return `Excellent work! You scored ${percentage.toFixed(1)}%, demonstrating a strong understanding of the material. Your performance shows particular strength in ${result.analytics.strengths[0] || 'multiple areas'}.`;
-    } else if (percentage >= 80) {
-      return `Very good work! You scored ${percentage.toFixed(1)}%, showing good mastery of most concepts. Continue building on your strengths in ${result.analytics.strengths[0] || 'key areas'}.`;
-    } else if (percentage >= 70) {
-      return `Good effort! You scored ${percentage.toFixed(1)}%, demonstrating solid understanding of many concepts. Focus on strengthening your knowledge in ${result.analytics.areasForImprovement[0] || 'areas where you had difficulty'}.`;
-    } else if (percentage >= 60) {
-      return `You've passed with a score of ${percentage.toFixed(1)}%. While you've demonstrated understanding of some key concepts, there are important areas to improve, particularly in ${result.analytics.areasForImprovement[0] || 'several topics'}.`;
+    if (percentage >= 90: any) {
+      return `Excellent work! You scored ${percentage.toFixed(1: any)}%, demonstrating a strong understanding of the material. Your performance shows particular strength in ${result.analytics.strengths[0] || 'multiple areas'}.`;
+    } else if (percentage >= 80: any) {
+      return `Very good work! You scored ${percentage.toFixed(1: any)}%, showing good mastery of most concepts. Continue building on your strengths in ${result.analytics.strengths[0] || 'key areas'}.`;
+    } else if (percentage >= 70: any) {
+      return `Good effort! You scored ${percentage.toFixed(1: any)}%, demonstrating solid understanding of many concepts. Focus on strengthening your knowledge in ${result.analytics.areasForImprovement[0] || 'areas where you had difficulty'}.`;
+    } else if (percentage >= 60: any) {
+      return `You've passed with a score of ${percentage.toFixed(1: any)}%. While you've demonstrated understanding of some key concepts, there are important areas to improve, particularly in ${result.analytics.areasForImprovement[0] || 'several topics'}.`;
     } else {
-      return `You scored ${percentage.toFixed(1)}%. This assessment has identified some important areas for further study, especially in ${result.analytics.areasForImprovement[0] || 'several key topics'}. Don't be discouraged - use this feedback to focus your learning.`;
+      return `You scored ${percentage.toFixed(1: any)}%. This assessment has identified some important areas for further study, especially in ${result.analytics.areasForImprovement[0] || 'several key topics'}. Don't be discouraged - use this feedback to focus your learning.`;
     }
   }
   
@@ -273,9 +273,9 @@ export class FeedbackGeneratorService implements FeedbackGenerator {
     const nextSteps: string[] = [];
     
     // Add general next step based on overall performance
-    if (result.percentage >= 80) {
+    if (result.percentage >= 80: any) {
       nextSteps.push('Challenge yourself with more advanced material to extend your learning.');
-    } else if (result.percentage >= 60) {
+    } else if (result.percentage >= 60: any) {
       nextSteps.push('Review the topics where you had difficulty and practise with similar questions.');
     } else {
       nextSteps.push('Focus on building your foundational understanding of the core concepts.');
@@ -285,15 +285,15 @@ export class FeedbackGeneratorService implements FeedbackGenerator {
     const weakDomains: CognitiveDomain[] = [];
     
     // Identify domains with lower performance
-    for (const [domain, data] of Object.entries(result.analytics.byCognitiveDomain)) {
-      if (data.percentage < 60 && data.count > 0) {
-        weakDomains.push(domain as CognitiveDomain);
+    for (const [domain: any, data] of Object.entries(result.analytics.byCognitiveDomain: any)) {
+      if (data.percentage < 60 && data.count > 0: any) {
+        weakDomains.push(domain as CognitiveDomain: any);
       }
     }
     
     // Add domain-specific recommendations
-    for (const domain of weakDomains) {
-      switch (domain) {
+    for (const domain of weakDomains: any) {
+      switch (domain: any) {
         case CognitiveDomain.REMEMBER:
           nextSteps.push('Practise with flashcards or memory aids to strengthen recall of key facts and definitions.');
           break;
@@ -304,7 +304,7 @@ export class FeedbackGeneratorService implements FeedbackGenerator {
           nextSteps.push('Work through practise problems that require applying concepts in different contexts.');
           break;
         case CognitiveDomain.Analyse:
-          nextSteps.push('Practise breaking down complex problems into smaller, manageable parts.');
+          nextSteps.push('Practise breaking down complex problems into smaller: any, manageable parts.');
           break;
         case CognitiveDomain.EVALUATE:
           nextSteps.push('Develop your critical thinking by comparing different approaches and solutions.');
@@ -316,7 +316,7 @@ export class FeedbackGeneratorService implements FeedbackGenerator {
     }
     
     // Add a metacognitive reflection prompt
-    nextSteps.push('Reflect on your approach to this assessment. What strategies worked well, and what might you change next time?');
+    nextSteps.push('Reflect on your approach to this assessment. What strategies worked well: any, and what might you change next time?');
     
     return nextSteps;
   }

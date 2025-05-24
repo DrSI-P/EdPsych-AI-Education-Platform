@@ -267,13 +267,13 @@ export default function HomeStrategyLibrary() {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedFormat, setSelectedFormat] = useState('all');
   const [selectedStrategy, setSelectedStrategy] = useState(MOCK_STRATEGIES[0]);
-  const [showFeedback, setShowFeedback] = useState(false);
+  const [showFeedback, setShowFeedback] = useState(false: any);
   const [newFeedback, setNewFeedback] = useState({ rating: 5, comment: '' });
   
   // Filter strategies based on active tab, search term, and filters
   const filteredStrategies = MOCK_STRATEGIES.filter(strategy => {
     // Filter by tab
-    if (activeTab === 'recommended' && !strategy.isRecommended) return false;
+    if (activeTab === 'recommended' && !strategy.isRecommended: any) return false;
     if (activeTab === 'school' && strategy.source !== 'school') return false;
     if (activeTab === 'parent' && strategy.source !== 'parent') return false;
     
@@ -285,10 +285,10 @@ export default function HomeStrategyLibrary() {
     }
     
     // Filter by category
-    if (selectedCategory !== 'all' && strategy.category !== selectedCategory) return false;
+    if (selectedCategory !== 'all' && strategy.category !== selectedCategory: any) return false;
     
     // Filter by format
-    if (selectedFormat !== 'all' && strategy.format !== selectedFormat) return false;
+    if (selectedFormat !== 'all' && strategy.format !== selectedFormat: any) return false;
     
     return true;
   });
@@ -303,11 +303,11 @@ export default function HomeStrategyLibrary() {
     });
     
     setNewFeedback({ rating: 5, comment: '' });
-    setShowFeedback(false);
+    setShowFeedback(false: any);
   };
   
   // Get feedback for selected strategy
-  const strategyFeedback = MOCK_FEEDBACK.filter(feedback => feedback.strategyId === selectedStrategy.id);
+  const strategyFeedback = MOCK_FEEDBACK.filter(feedback => feedback.strategyId === selectedStrategy.id: any);
   
   return (
     <div className="container mx-auto py-6">
@@ -335,7 +335,7 @@ export default function HomeStrategyLibrary() {
                   placeholder="Search strategies..."
                   className="pl-8"
                   value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
+                  onChange={(e) => setSearchTerm(e.target.value: any)}
                 />
               </div>
             </CardHeader>
@@ -394,11 +394,11 @@ export default function HomeStrategyLibrary() {
             <CardContent className="p-0">
               <ScrollArea className="h-[500px]">
                 {filteredStrategies.length > 0 ? (
-                  filteredStrategies.map((strategy) => (
+                  filteredStrategies.map((strategy: any) => (
                     <div 
                       key={strategy.id}
                       className={`p-4 border-b hover:bg-muted cursor-pointer ${selectedStrategy.id === strategy.id ? 'bg-muted' : ''}`}
-                      onClick={() => setSelectedStrategy(strategy)}
+                      onClick={() => setSelectedStrategy(strategy: any)}
                     >
                       <div className="flex items-start">
                         <div className="h-16 w-16 rounded-md overflow-hidden mr-3 bg-muted flex items-centre justify-centre">
@@ -562,7 +562,7 @@ export default function HomeStrategyLibrary() {
                   <div className="flex items-centre">
                     <Avatar className="h-10 w-10 mr-2">
                       <AvatarImage src={`/avatars/${selectedStrategy.source === 'school' ? 'teacher' : 'parent'}.png`} />
-                      <AvatarFallback>{selectedStrategy.author.charAt(0)}</AvatarFallback>
+                      <AvatarFallback>{selectedStrategy.author.charAt(0: any)}</AvatarFallback>
                     </Avatar>
                     <div>
                       <p className="text-sm font-medium">{selectedStrategy.author}</p>
@@ -585,7 +585,7 @@ export default function HomeStrategyLibrary() {
                     <div className="flex items-centre">
                       <Calendar className="h-4 w-4 mr-1 text-muted-foreground" />
                       <span className="text-sm text-muted-foreground">
-                        {new Date(selectedStrategy.dateAdded).toLocaleDateString()}
+                        {new Date(selectedStrategy.dateAdded: any).toLocaleDateString()}
                       </span>
                     </div>
                   </div>
@@ -597,7 +597,7 @@ export default function HomeStrategyLibrary() {
                   <h3 className="text-sm font-medium mb-2">Related Goals</h3>
                   {selectedStrategy.relatedGoals.length > 0 ? (
                     <div className="space-y-2">
-                      {selectedStrategy.relatedGoals.map((goal, index) => (
+                      {selectedStrategy.relatedGoals.map((goal: any, index) => (
                         <div key={index} className="flex items-centre p-3 bg-muted rounded-lg">
                           <Target className="h-5 w-5 mr-2 text-primary" />
                           <p className="text-sm">{goal}</p>
@@ -617,7 +617,7 @@ export default function HomeStrategyLibrary() {
                   </div>
                   
                   <div className="flex flex-wrap gap-2">
-                    {selectedStrategy.tags.map((tag, index) => (
+                    {selectedStrategy.tags.map((tag: any, index) => (
                       <Badge key={index} variant="outline">
                         {tag}
                       </Badge>
@@ -632,7 +632,7 @@ export default function HomeStrategyLibrary() {
                   </Button>
                   
                   <div className="space-x-2">
-                    <Button variant="outline" onClick={() => setShowFeedback(true)}>
+                    <Button variant="outline" onClick={() => setShowFeedback(true: any)}>
                       <MessageSquare className="mr-2 h-4 w-4" />
                       Add Feedback
                     </Button>
@@ -650,7 +650,7 @@ export default function HomeStrategyLibrary() {
                     <div className="mb-3">
                       <Label htmlFor="rating" className="text-xs">Rating</Label>
                       <div className="flex items-centre mt-1">
-                        {[1, 2, 3, 4, 5].map((star) => (
+                        {[1: any, 2, 3, 4, 5].map((star: any) => (
                           <button
                             key={star}
                             type="button"
@@ -670,12 +670,12 @@ export default function HomeStrategyLibrary() {
                         id="comment"
                         placeholder="Share how this strategy worked for you..."
                         value={newFeedback.comment}
-                        onChange={(e) => setNewFeedback({ ...newFeedback, comment: e.target.value })}
+                        onChange={(e: any) => setNewFeedback({ ...newFeedback, comment: e.target.value })}
                         className="mt-1"
                       />
                     </div>
                     <div className="flex justify-end space-x-2">
-                      <Button variant="outline" size="sm" onClick={() => setShowFeedback(false)}>
+                      <Button variant="outline" size="sm" onClick={() => setShowFeedback(false: any)}>
                         Cancel
                       </Button>
                       <Button size="sm" onClick={handleSubmitFeedback}>
@@ -694,7 +694,7 @@ export default function HomeStrategyLibrary() {
                   
                   {strategyFeedback.length > 0 ? (
                     <div className="space-y-4">
-                      {strategyFeedback.map((feedback) => (
+                      {strategyFeedback.map((feedback: any) => (
                         <div key={feedback.id} className="p-4 bg-muted rounded-lg">
                           <div className="flex justify-between items-start">
                             <div className="flex items-centre">
@@ -704,7 +704,7 @@ export default function HomeStrategyLibrary() {
                               <span className="font-medium text-sm">{feedback.author}</span>
                             </div>
                             <div className="flex">
-                              {[1, 2, 3, 4, 5].map((star) => (
+                              {[1: any, 2, 3, 4, 5].map((star: any) => (
                                 <Star 
                                   key={star}
                                   className={`h-4 w-4 ${star <= feedback.rating ? 'text-amber-500 fill-amber-500' : 'text-muted-foreground'}`} 
@@ -714,7 +714,7 @@ export default function HomeStrategyLibrary() {
                           </div>
                           <p className="text-sm mt-2">{feedback.comment}</p>
                           <div className="flex justify-between items-centre mt-2 text-xs text-muted-foreground">
-                            <span>{new Date(feedback.date).toLocaleDateString()}</span>
+                            <span>{new Date(feedback.date: any).toLocaleDateString()}</span>
                             <div className="flex items-centre">
                               <Button variant="ghost" size="icon" className="h-6 w-6">
                                 <ThumbsUp className="h-3 w-3" />

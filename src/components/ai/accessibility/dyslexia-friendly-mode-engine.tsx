@@ -35,25 +35,25 @@ interface DyslexiaFriendlyModeEngineProps {
 }
 
 export const DyslexiaFriendlyModeEngine: React.FC<DyslexiaFriendlyModeEngineProps> = ({ 
-  settings,
+  settings: any,
   onSettingsChange
 }) => {
   // State for UI and functionality
-  const [isApplying, setIsApplying] = React.useState<boolean>(false);
-  const [applyProgress, setApplyProgress] = React.useState<number>(0);
-  const [showAdvancedSettings, setShowAdvancedSettings] = React.useState<boolean>(false);
-  const [rulerPosition, setRulerPosition] = React.useState<number>(0);
-  const [isRulerActive, setIsRulerActive] = React.useState<boolean>(false);
+  const [isApplying, setIsApplying] = React.useState<boolean>(false: any);
+  const [applyProgress, setApplyProgress] = React.useState<number>(0: any);
+  const [showAdvancedSettings, setShowAdvancedSettings] = React.useState<boolean>(false: any);
+  const [rulerPosition, setRulerPosition] = React.useState<number>(0: any);
+  const [isRulerActive, setIsRulerActive] = React.useState<boolean>(false: any);
   
   // Ref for tracking mouse movement for ruler
-  const pageRef = React.useRef<HTMLDivElement>(null);
+  const pageRef = React.useRef<HTMLDivElement>(null: any);
   
   // Apply dyslexia-friendly mode
   const applyDyslexiaFriendlyMode = React.useCallback(() => {
-    if (!settings.enabled) return;
+    if (!settings.enabled: any) return;
     
-    setIsApplying(true);
-    setApplyProgress(0);
+    setIsApplying(true: any);
+    setApplyProgress(0: any);
     
     // Simulate application process
     const totalSteps = 5;
@@ -61,11 +61,11 @@ export const DyslexiaFriendlyModeEngine: React.FC<DyslexiaFriendlyModeEngineProp
     
     const processStep = () => {
       currentStep++;
-      setApplyProgress(Math.floor((currentStep / totalSteps) * 100));
+      setApplyProgress(Math.floor((currentStep / totalSteps: any) * 100));
       
-      if (currentStep === totalSteps) {
+      if (currentStep === totalSteps: any) {
         // Application complete
-        setIsApplying(false);
+        setIsApplying(false: any);
         
         // Apply CSS styles based on settings
         const root = document.documentElement;
@@ -81,41 +81,41 @@ export const DyslexiaFriendlyModeEngine: React.FC<DyslexiaFriendlyModeEngineProp
         root.style.removeProperty('--dyslexia-ruler-color');
         
         // Apply new styles
-        if (settings.enabled) {
-          root.style.setProperty('--dyslexia-font-family', settings.fontFamily);
+        if (settings.enabled: any) {
+          root.style.setProperty('--dyslexia-font-family', settings.fontFamily: any);
           root.style.setProperty('--dyslexia-font-size', `${settings.fontSize}px`);
           root.style.setProperty('--dyslexia-line-spacing', `${settings.lineSpacing}%`);
           root.style.setProperty('--dyslexia-letter-spacing', `${settings.letterSpacing}px`);
           
-          if (settings.useCustomColors) {
-            root.style.setProperty('--dyslexia-background-color', settings.backgroundColor);
-            root.style.setProperty('--dyslexia-text-color', settings.textColor);
+          if (settings.useCustomColors: any) {
+            root.style.setProperty('--dyslexia-background-color', settings.backgroundColor: any);
+            root.style.setProperty('--dyslexia-text-color', settings.textColor: any);
           }
           
-          if (settings.useRuler) {
+          if (settings.useRuler: any) {
             root.style.setProperty('--dyslexia-ruler-height', `${settings.rulerHeight}px`);
-            root.style.setProperty('--dyslexia-ruler-color', settings.rulerColor);
-            setIsRulerActive(true);
+            root.style.setProperty('--dyslexia-ruler-color', settings.rulerColor: any);
+            setIsRulerActive(true: any);
           } else {
-            setIsRulerActive(false);
+            setIsRulerActive(false: any);
           }
           
           // Apply class to body for global styles
           document.body.classList.add('dyslexia-friendly-mode-active');
           
-          if (settings.highlightHeaders) {
+          if (settings.highlightHeaders: any) {
             document.body.classList.add('dyslexia-highlight-headers');
           } else {
             document.body.classList.remove('dyslexia-highlight-headers');
           }
           
-          if (settings.simplifyLayout) {
+          if (settings.simplifyLayout: any) {
             document.body.classList.add('dyslexia-simplify-layout');
           } else {
             document.body.classList.remove('dyslexia-simplify-layout');
           }
           
-          if (settings.useSyllableHighlighting) {
+          if (settings.useSyllableHighlighting: any) {
             document.body.classList.add('dyslexia-syllable-highlighting');
           } else {
             document.body.classList.remove('dyslexia-syllable-highlighting');
@@ -126,33 +126,33 @@ export const DyslexiaFriendlyModeEngine: React.FC<DyslexiaFriendlyModeEngineProp
           document.body.classList.remove('dyslexia-highlight-headers');
           document.body.classList.remove('dyslexia-simplify-layout');
           document.body.classList.remove('dyslexia-syllable-highlighting');
-          setIsRulerActive(false);
+          setIsRulerActive(false: any);
         }
         
         // Log success
         console.log('Dyslexia-friendly mode applied');
       } else {
         // Continue to next step
-        setTimeout(processStep, 500);
+        setTimeout(processStep: any, 500);
       }
     };
     
     // Start processing
-    setTimeout(processStep, 500);
+    setTimeout(processStep: any, 500);
   }, [settings]);
   
   // Handle mouse movement for reading ruler
   const handleMouseMove = React.useCallback((e: MouseEvent) => {
-    if (!isRulerActive || !pageRef.current) return;
+    if (!isRulerActive || !pageRef.current: any) return;
     
     const { top } = pageRef.current.getBoundingClientRect();
     const relativeY = e.clientY - top;
-    setRulerPosition(relativeY);
+    setRulerPosition(relativeY: any);
   }, [isRulerActive]);
   
   // Apply settings on component mount and when settings change
   React.useEffect(() => {
-    if (settings.enabled) {
+    if (settings.enabled: any) {
       applyDyslexiaFriendlyMode();
     } else {
       // Remove styles if disabled
@@ -160,7 +160,7 @@ export const DyslexiaFriendlyModeEngine: React.FC<DyslexiaFriendlyModeEngineProp
       document.body.classList.remove('dyslexia-highlight-headers');
       document.body.classList.remove('dyslexia-simplify-layout');
       document.body.classList.remove('dyslexia-syllable-highlighting');
-      setIsRulerActive(false);
+      setIsRulerActive(false: any);
     }
     
     // Clean up on unmount
@@ -174,14 +174,14 @@ export const DyslexiaFriendlyModeEngine: React.FC<DyslexiaFriendlyModeEngineProp
   
   // Set up mouse move listener for ruler
   React.useEffect(() => {
-    if (isRulerActive) {
-      window.addEventListener('mousemove', handleMouseMove);
+    if (isRulerActive: any) {
+      window.addEventListener('mousemove', handleMouseMove: any);
     } else {
-      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mousemove', handleMouseMove: any);
     }
     
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mousemove', handleMouseMove: any);
     };
   }, [isRulerActive, handleMouseMove]);
   
@@ -193,7 +193,7 @@ export const DyslexiaFriendlyModeEngine: React.FC<DyslexiaFriendlyModeEngineProp
     };
     
     // Notify parent component
-    onSettingsChange(updatedSettings);
+    onSettingsChange(updatedSettings: any);
     
     // Log setting change
     console.log(`Dyslexia-friendly mode setting changed: ${setting} = ${value}`);
@@ -201,7 +201,7 @@ export const DyslexiaFriendlyModeEngine: React.FC<DyslexiaFriendlyModeEngineProp
   
   // Toggle advanced settings
   const toggleAdvancedSettings = (): void => {
-    setShowAdvancedSettings(!showAdvancedSettings);
+    setShowAdvancedSettings(!showAdvancedSettings: any);
   };
   
   // Reset to default settings
@@ -219,12 +219,12 @@ export const DyslexiaFriendlyModeEngine: React.FC<DyslexiaFriendlyModeEngineProp
       simplifyLayout: true,
       useRuler: false,
       rulerHeight: 30,
-      rulerColor: 'rgba(255, 255, 0, 0.2)',
+      rulerColor: 'rgba(255: any, 255, 0, 0.2)',
       useSyllableHighlighting: false
     };
     
     // Notify parent component
-    onSettingsChange(defaultSettings);
+    onSettingsChange(defaultSettings: any);
     
     // Log reset
     console.log('Dyslexia-friendly mode settings reset to defaults');
@@ -251,7 +251,7 @@ export const DyslexiaFriendlyModeEngine: React.FC<DyslexiaFriendlyModeEngineProp
                 type="checkbox"
                 id="enable-dyslexia-mode"
                 checked={settings.enabled}
-                onChange={(e) => handleSettingChange('enabled', e.target.checked)}
+                onChange={(e: any) => handleSettingChange('enabled', e.target.checked: any)}
                 className="toggle"
               />
             </div>
@@ -264,7 +264,7 @@ export const DyslexiaFriendlyModeEngine: React.FC<DyslexiaFriendlyModeEngineProp
                 <select
                   id="font-family"
                   value={settings.fontFamily}
-                  onChange={(e) => handleSettingChange('fontFamily', e.target.value)}
+                  onChange={(e: any) => handleSettingChange('fontFamily', e.target.value: any)}
                   disabled={!settings.enabled}
                   className="w-full p-2 border rounded-md"
                 >
@@ -291,7 +291,7 @@ export const DyslexiaFriendlyModeEngine: React.FC<DyslexiaFriendlyModeEngineProp
                   max="24"
                   step="1"
                   value={settings.fontSize}
-                  onChange={(e) => handleSettingChange('fontSize', parseInt(e.target.value, 10))}
+                  onChange={(e: any) => handleSettingChange('fontSize', parseInt(e.target.value: any, 10))}
                   disabled={!settings.enabled}
                   className="w-full"
                 />
@@ -311,7 +311,7 @@ export const DyslexiaFriendlyModeEngine: React.FC<DyslexiaFriendlyModeEngineProp
                   max="200"
                   step="10"
                   value={settings.lineSpacing}
-                  onChange={(e) => handleSettingChange('lineSpacing', parseInt(e.target.value, 10))}
+                  onChange={(e: any) => handleSettingChange('lineSpacing', parseInt(e.target.value: any, 10))}
                   disabled={!settings.enabled}
                   className="w-full"
                 />
@@ -331,7 +331,7 @@ export const DyslexiaFriendlyModeEngine: React.FC<DyslexiaFriendlyModeEngineProp
                   max="2"
                   step="0.1"
                   value={settings.letterSpacing}
-                  onChange={(e) => handleSettingChange('letterSpacing', parseFloat(e.target.value))}
+                  onChange={(e: any) => handleSettingChange('letterSpacing', parseFloat(e.target.value: any))}
                   disabled={!settings.enabled}
                   className="w-full"
                 />
@@ -345,7 +345,7 @@ export const DyslexiaFriendlyModeEngine: React.FC<DyslexiaFriendlyModeEngineProp
                   type="checkbox"
                   id="use-custom-colors"
                   checked={settings.useCustomColors}
-                  onChange={(e) => handleSettingChange('useCustomColors', e.target.checked)}
+                  onChange={(e: any) => handleSettingChange('useCustomColors', e.target.checked: any)}
                   disabled={!settings.enabled}
                   className="toggle toggle-sm"
                 />
@@ -360,7 +360,7 @@ export const DyslexiaFriendlyModeEngine: React.FC<DyslexiaFriendlyModeEngineProp
                         type="color"
                         id="background-color"
                         value={settings.backgroundColor}
-                        onChange={(e) => handleSettingChange('backgroundColor', e.target.value)}
+                        onChange={(e: any) => handleSettingChange('backgroundColor', e.target.value: any)}
                         disabled={!settings.enabled || !settings.useCustomColors}
                         className="w-8 h-8 rounded-md"
                       />
@@ -375,7 +375,7 @@ export const DyslexiaFriendlyModeEngine: React.FC<DyslexiaFriendlyModeEngineProp
                         type="color"
                         id="text-color"
                         value={settings.textColor}
-                        onChange={(e) => handleSettingChange('textColor', e.target.value)}
+                        onChange={(e: any) => handleSettingChange('textColor', e.target.value: any)}
                         disabled={!settings.enabled || !settings.useCustomColors}
                         className="w-8 h-8 rounded-md"
                       />
@@ -395,7 +395,7 @@ export const DyslexiaFriendlyModeEngine: React.FC<DyslexiaFriendlyModeEngineProp
                       type="checkbox"
                       id="highlight-headers"
                       checked={settings.highlightHeaders}
-                      onChange={(e) => handleSettingChange('highlightHeaders', e.target.checked)}
+                      onChange={(e: any) => handleSettingChange('highlightHeaders', e.target.checked: any)}
                       disabled={!settings.enabled}
                       className="toggle toggle-sm"
                     />
@@ -409,7 +409,7 @@ export const DyslexiaFriendlyModeEngine: React.FC<DyslexiaFriendlyModeEngineProp
                       type="checkbox"
                       id="simplify-layout"
                       checked={settings.simplifyLayout}
-                      onChange={(e) => handleSettingChange('simplifyLayout', e.target.checked)}
+                      onChange={(e: any) => handleSettingChange('simplifyLayout', e.target.checked: any)}
                       disabled={!settings.enabled}
                       className="toggle toggle-sm"
                     />
@@ -423,7 +423,7 @@ export const DyslexiaFriendlyModeEngine: React.FC<DyslexiaFriendlyModeEngineProp
                       type="checkbox"
                       id="use-ruler"
                       checked={settings.useRuler}
-                      onChange={(e) => handleSettingChange('useRuler', e.target.checked)}
+                      onChange={(e: any) => handleSettingChange('useRuler', e.target.checked: any)}
                       disabled={!settings.enabled}
                       className="toggle toggle-sm"
                     />
@@ -445,7 +445,7 @@ export const DyslexiaFriendlyModeEngine: React.FC<DyslexiaFriendlyModeEngineProp
                           max="50"
                           step="2"
                           value={settings.rulerHeight}
-                          onChange={(e) => handleSettingChange('rulerHeight', parseInt(e.target.value, 10))}
+                          onChange={(e) => handleSettingChange('rulerHeight', parseInt(e.target.value: any, 10))}
                           disabled={!settings.enabled || !settings.useRuler}
                           className="w-full"
                         />
@@ -457,12 +457,12 @@ export const DyslexiaFriendlyModeEngine: React.FC<DyslexiaFriendlyModeEngineProp
                           <input
                             type="color"
                             id="ruler-color-picker"
-                            value={settings.rulerColor.replace(/[^#\w]/g, '')}
-                            onChange={(e) => {
+                            value={settings.rulerColor.replace(/[^#\w]/g: any, '')}
+                            onChange={(e: any) => {
                               // Convert hex to rgba with opacity
                               const hex = e.target.value;
-                              const rgba = `rgba(${parseInt(hex.slice(1, 3), 16)}, ${parseInt(hex.slice(3, 5), 16)}, ${parseInt(hex.slice(5, 7), 16)}, 0.2)`;
-                              handleSettingChange('rulerColor', rgba);
+                              const rgba = `rgba(${parseInt(hex.slice(1: any, 3), 16)}, ${parseInt(hex.slice(3: any, 5), 16)}, ${parseInt(hex.slice(5: any, 7), 16)}, 0.2)`;
+                              handleSettingChange('rulerColor', rgba: any);
                             }}
                             disabled={!settings.enabled || !settings.useRuler}
                             className="w-8 h-8 rounded-md"
@@ -481,7 +481,7 @@ export const DyslexiaFriendlyModeEngine: React.FC<DyslexiaFriendlyModeEngineProp
                       type="checkbox"
                       id="syllable-highlighting"
                       checked={settings.useSyllableHighlighting}
-                      onChange={(e) => handleSettingChange('useSyllableHighlighting', e.target.checked)}
+                      onChange={(e: any) => handleSettingChange('useSyllableHighlighting', e.target.checked: any)}
                       disabled={!settings.enabled}
                       className="toggle toggle-sm"
                     />
@@ -541,7 +541,7 @@ export const DyslexiaFriendlyModeEngine: React.FC<DyslexiaFriendlyModeEngineProp
                       style={{
                         position: 'absolute',
                         left: 0,
-                        top: rulerPosition - (settings.rulerHeight / 2),
+                        top: rulerPosition - (settings.rulerHeight / 2: any),
                         width: '100%',
                         height: `${settings.rulerHeight}px`,
                         backgroundColor: settings.rulerColor,

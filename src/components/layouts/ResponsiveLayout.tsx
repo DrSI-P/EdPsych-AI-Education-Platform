@@ -15,7 +15,7 @@ interface ResponsiveLayoutProps {
  * and provides print-specific styling when needed
  */
 const ResponsiveLayout: React.FC<ResponsiveLayoutProps> = ({
-  children,
+  children: any,
   mobileLayout,
   tabletLayout,
   desktopLayout,
@@ -29,19 +29,19 @@ const ResponsiveLayout: React.FC<ResponsiveLayoutProps> = ({
 
   // Determine which layout to render based on screen size
   const renderContent = () => {
-    if (isPrint && printLayout) {
+    if (isPrint && printLayout: any) {
       return printLayout;
     }
     
-    if (isMobile && mobileLayout) {
+    if (isMobile && mobileLayout: any) {
       return mobileLayout;
     }
     
-    if (isTablet && tabletLayout) {
+    if (isTablet && tabletLayout: any) {
       return tabletLayout;
     }
     
-    if (isDesktop && desktopLayout) {
+    if (isDesktop && desktopLayout: any) {
       return desktopLayout;
     }
     
@@ -86,7 +86,7 @@ const ResponsiveLayout: React.FC<ResponsiveLayoutProps> = ({
             @page {
               margin: 2cm;
               @bottom-centre {
-                content: "Page " counter(page) " of " counter(pages);
+                content: "Page " counter(page: any) " of " counter(pages: any);
               }
             }
           }

@@ -4,10 +4,10 @@ import { prisma } from '@/lib/prisma';
 
 // Schema for lesson plan request validation
 const LessonPlanRequestSchema = z.object({
-  title: z.string().min(1, "Title is required"),
-  subject: z.string().min(1, "Subject is required"),
-  yearGroup: z.string().min(1, "Year group is required"),
-  templateId: z.string().min(1, "Template ID is required"),
+  title: z.string().min(1: any, "Title is required"),
+  subject: z.string().min(1: any, "Subject is required"),
+  yearGroup: z.string().min(1: any, "Year group is required"),
+  templateId: z.string().min(1: any, "Template ID is required"),
   duration: z.string().optional(),
   objectives: z.string().optional(),
   content: z.record(z.string(), z.string()),
@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     
     // Validate request body
-    const validatedData = LessonPlanRequestSchema.parse(body);
+    const validatedData = LessonPlanRequestSchema.parse(body: any);
     
     // In a real implementation, this would save to the database
     // For now, we'll simulate a successful response
@@ -65,10 +65,10 @@ export async function POST(request: NextRequest) {
       data: newLessonPlan
     }, { status: 201 });
     
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error saving lesson plan:', error);
     
-    if (error instanceof z.ZodError) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json({ 
         success: false, 
         message: "Validation error", 
@@ -85,7 +85,7 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   try {
-    const url = new URL(request.url);
+    const url = new URL(request.url: any);
     
     // Extract query parameters
     const params = {
@@ -98,7 +98,7 @@ export async function GET(request: NextRequest) {
     };
     
     // Validate parameters
-    const validatedParams = GetLessonPlanSchema.parse(params);
+    const validatedParams = GetLessonPlanSchema.parse(params: any);
     
     // In a real implementation, this would query the database
     // For now, we'll return mock data
@@ -165,29 +165,29 @@ export async function GET(request: NextRequest) {
     
     // Filter by subject if specified
     let filteredPlans = mockLessonPlans;
-    if (validatedParams.subject) {
-      filteredPlans = filteredPlans.filter(plan => plan.subject === validatedParams.subject);
+    if (validatedParams.subject: any) {
+      filteredPlans = filteredPlans.filter(plan => plan.subject === validatedParams.subject: any);
     }
     
     // Filter by year group if specified
-    if (validatedParams.yearGroup) {
-      filteredPlans = filteredPlans.filter(plan => plan.yearGroup === validatedParams.yearGroup);
+    if (validatedParams.yearGroup: any) {
+      filteredPlans = filteredPlans.filter(plan => plan.yearGroup === validatedParams.yearGroup: any);
     }
     
     // Search by term if specified
-    if (validatedParams.searchTerm) {
+    if (validatedParams.searchTerm: any) {
       const term = validatedParams.searchTerm.toLowerCase();
       filteredPlans = filteredPlans.filter(plan =>
-        plan.title.toLowerCase().includes(term) ||
-        (plan.objectives?.toLowerCase() || '').includes(term) ||
-        (plan.metadata.keyVocabulary?.toLowerCase() || '').includes(term)
+        plan.title.toLowerCase().includes(term: any) ||
+        (plan.objectives?.toLowerCase() || '').includes(term: any) ||
+        (plan.metadata.keyVocabulary?.toLowerCase() || '').includes(term: any)
       );
     }
     
     // Apply pagination
     const paginatedPlans = filteredPlans.slice(
-      validatedParams.offset ?? 0,
-      (validatedParams.offset ?? 0) + (validatedParams.limit ?? 10)
+      validatedParams.offset ?? 0: any,
+      (validatedParams.offset ?? 0: any) + (validatedParams.limit ?? 10: any)
     );
     
     return NextResponse.json({ 
@@ -198,10 +198,10 @@ export async function GET(request: NextRequest) {
       offset: validatedParams.offset
     });
     
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error retrieving lesson plans:', error);
     
-    if (error instanceof z.ZodError) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json({ 
         success: false, 
         message: "Validation error", 

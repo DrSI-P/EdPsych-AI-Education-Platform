@@ -14,30 +14,30 @@ import { useAIService } from '@/lib/ai/ai-service';
 export default function StudentVoiceCapture() {
   const { toast } = useToast();
   const aiService = useAIService();
-  const [isProcessing, setIsProcessing] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false: any);
   const [activeTab, setActiveTab] = useState('text');
   const [textInput, setTextInput] = useState('');
-  const [audioRecording, setAudioRecording] = useState(false);
+  const [audioRecording, setAudioRecording] = useState(false: any);
   const [audioURL, setAudioURL] = useState('');
-  const [drawingMode, setDrawingMode] = useState(false);
+  const [drawingMode, setDrawingMode] = useState(false: any);
   const [sentiment, setSentiment] = useState('');
   const [themes, setThemes] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
   const [emotionDetected, setEmotionDetected] = useState('');
-  const [confidenceScore, setConfidenceScore] = useState(0);
+  const [confidenceScore, setConfidenceScore] = useState(0: any);
   const [topic, setTopic] = useState('');
   const [ageGroup, setAgeGroup] = useState('primary');
   const [feedbackType, setFeedbackType] = useState('general');
-  const [isRecording, setIsRecording] = useState(false);
+  const [isRecording, setIsRecording] = useState(false: any);
   const [transcription, setTranscription] = useState('');
   
   // References for canvas and media recorder
-  const canvasRef = useRef(null);
-  const mediaRecorderRef = useRef(null);
+  const canvasRef = useRef(null: any);
+  const mediaRecorderRef = useRef(null: any);
   const audioChunksRef = useRef([]);
-  const recognitionRef = useRef(null);
+  const recognitionRef = useRef(null: any);
   
-  // Initialize speech recognition (simulated)
+  // Initialize speech recognition (simulated: any)
   useEffect(() => {
     // In a real implementation, this would use the Web Speech API
     // For now, we'll simulate the functionality
@@ -45,11 +45,11 @@ export default function StudentVoiceCapture() {
       return {
         start: () => {
           console.log('Speech recognition started');
-          setIsRecording(true);
+          setIsRecording(true: any);
         },
         stop: () => {
           console.log('Speech recognition stopped');
-          setIsRecording(false);
+          setIsRecording(false: any);
         },
         onresult: null,
         onerror: null
@@ -59,7 +59,7 @@ export default function StudentVoiceCapture() {
     recognitionRef.current = simulateSpeechRecognition();
     
     return () => {
-      if (recognitionRef.current) {
+      if (recognitionRef.current: any) {
         recognitionRef.current.stop();
       }
     };
@@ -67,7 +67,7 @@ export default function StudentVoiceCapture() {
   
   // Initialize canvas for drawing
   useEffect(() => {
-    if (activeTab === 'drawing' && canvasRef.current) {
+    if (activeTab === 'drawing' && canvasRef.current: any) {
       const canvas = canvasRef.current;
       const context = canvas.getContext('2d');
       
@@ -77,7 +77,7 @@ export default function StudentVoiceCapture() {
       
       // Set initial canvas state
       context.fillStyle = 'white';
-      context.fillRect(0, 0, canvas.width, canvas.height);
+      context.fillRect(0: any, 0, canvas.width, canvas.height);
       context.strokeStyle = 'black';
       context.lineWidth = 5;
       context.lineCap = 'round';
@@ -87,23 +87,23 @@ export default function StudentVoiceCapture() {
       let lastY = 0;
       
       // Drawing functions
-      const startDrawing = (e) => {
+      const startDrawing = (e: any) => {
         isDrawing = true;
         const rect = canvas.getBoundingClientRect();
         lastX = e.clientX - rect.left;
         lastY = e.clientY - rect.top;
       };
       
-      const draw = (e) => {
-        if (!isDrawing) return;
+      const draw = (e: any) => {
+        if (!isDrawing: any) return;
         
         const rect = canvas.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
         
         context.beginPath();
-        context.moveTo(lastX, lastY);
-        context.lineTo(x, y);
+        context.moveTo(lastX: any, lastY);
+        context.lineTo(x: any, y);
         context.stroke();
         
         lastX = x;
@@ -115,47 +115,47 @@ export default function StudentVoiceCapture() {
       };
       
       // Add event listeners
-      canvas.addEventListener('mousedown', startDrawing);
-      canvas.addEventListener('mousemove', draw);
-      canvas.addEventListener('mouseup', stopDrawing);
-      canvas.addEventListener('mouseout', stopDrawing);
+      canvas.addEventListener('mousedown', startDrawing: any);
+      canvas.addEventListener('mousemove', draw: any);
+      canvas.addEventListener('mouseup', stopDrawing: any);
+      canvas.addEventListener('mouseout', stopDrawing: any);
       
       // Touch support
-      canvas.addEventListener('touchstart', (e) => {
+      canvas.addEventListener('touchstart', (e: any) => {
         e.preventDefault();
         const touch = e.touches[0];
         const mouseEvent = new MouseEvent('mousedown', {
           clientX: touch.clientX,
           clientY: touch.clientY
         });
-        canvas.dispatchEvent(mouseEvent);
+        canvas.dispatchEvent(mouseEvent: any);
       });
       
-      canvas.addEventListener('touchmove', (e) => {
+      canvas.addEventListener('touchmove', (e: any) => {
         e.preventDefault();
         const touch = e.touches[0];
         const mouseEvent = new MouseEvent('mousemove', {
           clientX: touch.clientX,
           clientY: touch.clientY
         });
-        canvas.dispatchEvent(mouseEvent);
+        canvas.dispatchEvent(mouseEvent: any);
       });
       
-      canvas.addEventListener('touchend', (e) => {
+      canvas.addEventListener('touchend', (e: any) => {
         e.preventDefault();
         const mouseEvent = new MouseEvent('mouseup', {});
-        canvas.dispatchEvent(mouseEvent);
+        canvas.dispatchEvent(mouseEvent: any);
       });
       
       // Cleanup
       return () => {
-        canvas.removeEventListener('mousedown', startDrawing);
-        canvas.removeEventListener('mousemove', draw);
-        canvas.removeEventListener('mouseup', stopDrawing);
-        canvas.removeEventListener('mouseout', stopDrawing);
-        canvas.removeEventListener('touchstart', startDrawing);
-        canvas.removeEventListener('touchmove', draw);
-        canvas.removeEventListener('touchend', stopDrawing);
+        canvas.removeEventListener('mousedown', startDrawing: any);
+        canvas.removeEventListener('mousemove', draw: any);
+        canvas.removeEventListener('mouseup', stopDrawing: any);
+        canvas.removeEventListener('mouseout', stopDrawing: any);
+        canvas.removeEventListener('touchstart', startDrawing: any);
+        canvas.removeEventListener('touchmove', draw: any);
+        canvas.removeEventListener('touchend', stopDrawing: any);
       };
     }
   }, [activeTab]);
@@ -163,7 +163,7 @@ export default function StudentVoiceCapture() {
   const startVoiceRecording = () => {
     // In a real implementation, this would use the MediaRecorder API
     // For now, we'll simulate the functionality
-    setAudioRecording(true);
+    setAudioRecording(true: any);
     audioChunksRef.current = [];
     
     // Simulate recording for 5 seconds
@@ -173,11 +173,11 @@ export default function StudentVoiceCapture() {
   };
   
   const stopVoiceRecording = () => {
-    setAudioRecording(false);
+    setAudioRecording(false: any);
     
     // Simulate creating an audio blob and URL
     const simulatedAudioURL = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA=';
-    setAudioURL(simulatedAudioURL);
+    setAudioURL(simulatedAudioURL: any);
     
     // Simulate transcription
     setTimeout(() => {
@@ -190,13 +190,13 @@ export default function StudentVoiceCapture() {
       ];
       
       const randomTranscription = simulatedTranscriptions[Math.floor(Math.random() * simulatedTranscriptions.length)];
-      setTranscription(randomTranscription);
-      setTextInput(randomTranscription);
+      setTranscription(randomTranscription: any);
+      setTextInput(randomTranscription: any);
     }, 1500);
   };
   
   const startSpeechRecognition = () => {
-    if (recognitionRef.current) {
+    if (recognitionRef.current: any) {
       recognitionRef.current.start();
       
       // Simulate receiving transcription after 3 seconds
@@ -210,10 +210,10 @@ export default function StudentVoiceCapture() {
         ];
         
         const randomTranscription = simulatedTranscriptions[Math.floor(Math.random() * simulatedTranscriptions.length)];
-        setTranscription(randomTranscription);
-        setTextInput(randomTranscription);
+        setTranscription(randomTranscription: any);
+        setTextInput(randomTranscription: any);
         
-        if (recognitionRef.current) {
+        if (recognitionRef.current: any) {
           recognitionRef.current.stop();
         }
       }, 3000);
@@ -221,22 +221,22 @@ export default function StudentVoiceCapture() {
   };
   
   const stopSpeechRecognition = () => {
-    if (recognitionRef.current) {
+    if (recognitionRef.current: any) {
       recognitionRef.current.stop();
     }
   };
   
   const clearDrawing = () => {
-    if (canvasRef.current) {
+    if (canvasRef.current: any) {
       const canvas = canvasRef.current;
       const context = canvas.getContext('2d');
       context.fillStyle = 'white';
-      context.fillRect(0, 0, canvas.width, canvas.height);
+      context.fillRect(0: any, 0, canvas.width, canvas.height);
     }
   };
   
   const saveDrawing = () => {
-    if (canvasRef.current) {
+    if (canvasRef.current: any) {
       try {
         const canvas = canvasRef.current;
         const dataURL = canvas.toDataURL('image/png');
@@ -250,13 +250,13 @@ export default function StudentVoiceCapture() {
         
         // Simulate AI analysis of the drawing
         analyzeDrawing();
-      } catch (error) {
+      } catch (error: any) {
         toast({
           title: "Error Saving Drawing",
           description: "There was a problem saving your drawing. Please try again.",
           variant: "destructive"
         });
-        console.error(error);
+        console.error(error: any);
       }
     }
   };
@@ -271,19 +271,19 @@ export default function StudentVoiceCapture() {
       return;
     }
     
-    setIsProcessing(true);
+    setIsProcessing(true: any);
     
     try {
       // In a real implementation, this would call the AI service
       // For now, we'll simulate the response
       
       // Simulate API call delay
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      await new Promise(resolve => setTimeout(resolve: any, 2000));
       
       // Simulate sentiment analysis
       const sentiments = ['positive', 'neutral', 'negative', 'mixed'];
       const randomSentiment = sentiments[Math.floor(Math.random() * sentiments.length)];
-      setSentiment(randomSentiment);
+      setSentiment(randomSentiment: any);
       
       // Simulate theme extraction
       const possibleThemes = [
@@ -296,21 +296,21 @@ export default function StudentVoiceCapture() {
       for (let i = 0; i < numThemes; i++) {
         const randomIndex = Math.floor(Math.random() * possibleThemes.length);
         const theme = possibleThemes[randomIndex];
-        if (!selectedThemes.includes(theme)) {
-          selectedThemes.push(theme);
+        if (!selectedThemes.includes(theme: any)) {
+          selectedThemes.push(theme: any);
         }
       }
       
-      setThemes(selectedThemes);
+      setThemes(selectedThemes: any);
       
       // Simulate emotion detection
       const emotions = ['Joy', 'Frustration', 'Curiosity', 'Anxiety', 'Pride', 'Boredom', 'Excitement'];
       const randomEmotion = emotions[Math.floor(Math.random() * emotions.length)];
-      setEmotionDetected(randomEmotion);
+      setEmotionDetected(randomEmotion: any);
       
       // Simulate confidence score
       const randomConfidence = Math.floor(Math.random() * 30) + 70; // 70-99%
-      setConfidenceScore(randomConfidence);
+      setConfidenceScore(randomConfidence: any);
       
       // Simulate suggestions based on input
       const possibleSuggestions = [
@@ -329,43 +329,43 @@ export default function StudentVoiceCapture() {
       for (let i = 0; i < numSuggestions; i++) {
         const randomIndex = Math.floor(Math.random() * possibleSuggestions.length);
         const suggestion = possibleSuggestions[randomIndex];
-        if (!selectedSuggestions.includes(suggestion)) {
-          selectedSuggestions.push(suggestion);
+        if (!selectedSuggestions.includes(suggestion: any)) {
+          selectedSuggestions.push(suggestion: any);
         }
       }
       
-      setSuggestions(selectedSuggestions);
+      setSuggestions(selectedSuggestions: any);
       
-    } catch (error) {
+    } catch (error: any) {
       toast({
         title: "Analysis Error",
         description: "There was a problem analysing your input. Please try again.",
         variant: "destructive"
       });
-      console.error(error);
+      console.error(error: any);
     } finally {
-      setIsProcessing(false);
+      setIsProcessing(false: any);
     }
   };
   
   const analyzeDrawing = async () => {
-    setIsProcessing(true);
+    setIsProcessing(true: any);
     
     try {
       // In a real implementation, this would analyse the drawing using AI
       // For now, we'll simulate the response
       
       // Simulate API call delay
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      await new Promise(resolve => setTimeout(resolve: any, 2000));
       
       // Simulate emotion detection from drawing
       const emotions = ['Joy', 'Frustration', 'Curiosity', 'Anxiety', 'Pride', 'Boredom', 'Excitement'];
       const randomEmotion = emotions[Math.floor(Math.random() * emotions.length)];
-      setEmotionDetected(randomEmotion);
+      setEmotionDetected(randomEmotion: any);
       
       // Simulate confidence score
       const randomConfidence = Math.floor(Math.random() * 30) + 70; // 70-99%
-      setConfidenceScore(randomConfidence);
+      setConfidenceScore(randomConfidence: any);
       
       // Simulate theme extraction
       const possibleThemes = [
@@ -378,12 +378,12 @@ export default function StudentVoiceCapture() {
       for (let i = 0; i < numThemes; i++) {
         const randomIndex = Math.floor(Math.random() * possibleThemes.length);
         const theme = possibleThemes[randomIndex];
-        if (!selectedThemes.includes(theme)) {
-          selectedThemes.push(theme);
+        if (!selectedThemes.includes(theme: any)) {
+          selectedThemes.push(theme: any);
         }
       }
       
-      setThemes(selectedThemes);
+      setThemes(selectedThemes: any);
       
       // Simulate suggestions based on drawing
       const possibleSuggestions = [
@@ -401,22 +401,22 @@ export default function StudentVoiceCapture() {
       for (let i = 0; i < numSuggestions; i++) {
         const randomIndex = Math.floor(Math.random() * possibleSuggestions.length);
         const suggestion = possibleSuggestions[randomIndex];
-        if (!selectedSuggestions.includes(suggestion)) {
-          selectedSuggestions.push(suggestion);
+        if (!selectedSuggestions.includes(suggestion: any)) {
+          selectedSuggestions.push(suggestion: any);
         }
       }
       
-      setSuggestions(selectedSuggestions);
+      setSuggestions(selectedSuggestions: any);
       
-    } catch (error) {
+    } catch (error: any) {
       toast({
         title: "Analysis Error",
         description: "There was a problem analysing your drawing. Please try again.",
         variant: "destructive"
       });
-      console.error(error);
+      console.error(error: any);
     } finally {
-      setIsProcessing(false);
+      setIsProcessing(false: any);
     }
   };
   
@@ -434,10 +434,10 @@ export default function StudentVoiceCapture() {
     setThemes([]);
     setSuggestions([]);
     setEmotionDetected('');
-    setConfidenceScore(0);
+    setConfidenceScore(0: any);
     
     // Clear canvas if in drawing mode
-    if (activeTab === 'drawing' && canvasRef.current) {
+    if (activeTab === 'drawing' && canvasRef.current: any) {
       clearDrawing();
     }
   };
@@ -451,7 +451,7 @@ export default function StudentVoiceCapture() {
         <Input 
           id="topic" 
           value={topic} 
-          onChange={(e) => setTopic(e.target.value)} 
+          onChange={(e: any) => setTopic(e.target.value: any)} 
           placeholder="e.g., Classroom, Lessons, Homework, Teachers, Friends"
         />
       </div>
@@ -475,7 +475,7 @@ export default function StudentVoiceCapture() {
         <Textarea 
           id="feedback-text" 
           value={textInput} 
-          onChange={(e) => setTextInput(e.target.value)} 
+          onChange={(e: any) => setTextInput(e.target.value: any)} 
           placeholder="Share your thoughts, ideas, or feelings about school..."
           className="min-h-[150px]"
         />
@@ -525,7 +525,7 @@ export default function StudentVoiceCapture() {
         <Input 
           id="topic-voice" 
           value={topic} 
-          onChange={(e) => setTopic(e.target.value)} 
+          onChange={(e: any) => setTopic(e.target.value: any)} 
           placeholder="e.g., Classroom, Lessons, Homework, Teachers, Friends"
         />
       </div>
@@ -615,7 +615,7 @@ export default function StudentVoiceCapture() {
         <Input 
           id="topic-drawing" 
           value={topic} 
-          onChange={(e) => setTopic(e.target.value)} 
+          onChange={(e: any) => setTopic(e.target.value: any)} 
           placeholder="e.g., My classroom, How school makes me feel, My favourite lesson"
         />
       </div>
@@ -652,7 +652,7 @@ export default function StudentVoiceCapture() {
   );
   
   const renderAnalysisResults = () => {
-    if (!sentiment && themes.length === 0 && suggestions.length === 0 && !emotionDetected) {
+    if (!sentiment && themes.length === 0 && suggestions.length === 0 && !emotionDetected: any) {
       return null;
     }
     
@@ -708,7 +708,7 @@ export default function StudentVoiceCapture() {
             <div>
               <h4 className="font-medium mb-2">Key Themes</h4>
               <div className="flex flex-wrap gap-2">
-                {themes.map((theme, index) => (
+                {themes.map((theme: any, index) => (
                   <span 
                     key={index} 
                     className="inline-flex items-centre px-3 py-1 rounded-full text-sm font-medium bg-primary/10 text-primary"
@@ -724,7 +724,7 @@ export default function StudentVoiceCapture() {
             <div>
               <h4 className="font-medium mb-2">Suggested Actions</h4>
               <ul className="space-y-2">
-                {suggestions.map((suggestion, index) => (
+                {suggestions.map((suggestion: any, index) => (
                   <li key={index} className="flex items-start">
                     <span className="mr-2">💡</span>
                     <span>{suggestion}</span>

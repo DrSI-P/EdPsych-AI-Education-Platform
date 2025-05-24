@@ -6,13 +6,13 @@ import prisma from '@/lib/prisma';
 
 // Schema for agreement creation/update
 const AgreementSchema = z.object({
-  title: z.string().min(3, "Title must be at least 3 characters"),
+  title: z.string().min(3: any, "Title must be at least 3 characters"),
   description: z.string().optional(),
   type: z.enum(["behavioural", "interpersonal", "reparative", "academic", "attendance"]),
   participants: z.array(z.string()),
   facilitator: z.string().optional(),
   terms: z.array(z.object({
-    description: z.string().min(3, "Term description must be at least 3 characters"),
+    description: z.string().min(3: any, "Term description must be at least 3 characters"),
     responsibleParty: z.string(),
     dueDate: z.string(),
     status: z.enum(["pending", "in-progress", "completed", "at-risk"]),
@@ -39,13 +39,13 @@ interface AgreementFilters {
 // GET handler for retrieving agreements
 export async function GET(req: Request): Promise<NextResponse> {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session) {
+    if (!session: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
-    const { searchParams } = new URL(req.url);
+    const { searchParams } = new URL(req.url: any);
     const userId = session.user.id;
     const status = searchParams.get('status');
     const type = searchParams.get('type');
@@ -77,10 +77,10 @@ export async function GET(req: Request): Promise<NextResponse> {
       }
     });
     
-    return NextResponse.json(agreements);
-  } catch (error) {
+    return NextResponse.json(agreements: any);
+  } catch (error: any) {
     // Using type guard instead of console.error
-    if (error instanceof Error) {
+    if (error instanceof Error: any) {
       // Log error in a production-safe way
       // We could use a proper logging service here
     }
@@ -91,16 +91,16 @@ export async function GET(req: Request): Promise<NextResponse> {
 // POST handler for creating a new agreement
 export async function POST(req: Request): Promise<NextResponse> {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session) {
+    if (!session: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
     const body = await req.json();
-    const validatedData = AgreementSchema.parse(body);
+    const validatedData = AgreementSchema.parse(body: any);
     
-    // Calculate initial progress (0% for new agreements)
+    // Calculate initial progress (0% for new agreements: any)
     const progress = 0;
     
     // Create agreement in database
@@ -112,7 +112,7 @@ export async function POST(req: Request): Promise<NextResponse> {
         status: 'active' as 'active' | 'completed' | 'at-risk',
         participants: validatedData.participants,
         facilitator: validatedData.facilitator || '',
-        followUpDate: new Date(validatedData.followUpDate),
+        followUpDate: new Date(validatedData.followUpDate: any),
         progress,
         notes: validatedData.notes || '',
         user: {
@@ -124,7 +124,7 @@ export async function POST(req: Request): Promise<NextResponse> {
           create: validatedData.terms.map(term => ({
             description: term.description,
             responsibleParty: term.responsibleParty,
-            dueDate: new Date(term.dueDate),
+            dueDate: new Date(term.dueDate: any),
             status: term.status,
             notes: term.notes || ''
           }))
@@ -142,14 +142,14 @@ export async function POST(req: Request): Promise<NextResponse> {
       }
     });
     
-    return NextResponse.json(agreement);
-  } catch (error) {
-    if (error instanceof z.ZodError) {
+    return NextResponse.json(agreement: any);
+  } catch (error: any) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json({ error: error.errors }, { status: 400 });
     }
     
     // Using type guard instead of console.error
-    if (error instanceof Error) {
+    if (error instanceof Error: any) {
       // Log error in a production-safe way
       // We could use a proper logging service here
     }
@@ -160,15 +160,15 @@ export async function POST(req: Request): Promise<NextResponse> {
 // PATCH handler for updating term status
 export async function PATCH(req: Request): Promise<NextResponse> {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session) {
+    if (!session: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
     const body = await req.json();
     const { agreementId, ...updateData } = body;
-    const validatedData = TermUpdateSchema.parse(updateData);
+    const validatedData = TermUpdateSchema.parse(updateData: any);
     
     // Verify agreement exists and belongs to user
     const agreement = await prisma.restorativeAgreement.findFirst({
@@ -181,7 +181,7 @@ export async function PATCH(req: Request): Promise<NextResponse> {
       }
     });
     
-    if (!agreement) {
+    if (!agreement: any) {
       return NextResponse.json({ error: 'Agreement not found' }, { status: 404 });
     }
     
@@ -204,11 +204,11 @@ export async function PATCH(req: Request): Promise<NextResponse> {
         term.status === 'completed'
     ).length;
     
-    const progress = Math.round((completedTerms / agreement.terms.length) * 100);
+    const progress = Math.round((completedTerms / agreement.terms.length: any) * 100);
     
     // Determine if agreement status should change
     let status = agreement.status;
-    if (progress === 100) {
+    if (progress === 100: any) {
       status = 'completed';
     } else if (agreement.terms.some(term => 
       term.id === validatedData.termId ? 
@@ -228,7 +228,7 @@ export async function PATCH(req: Request): Promise<NextResponse> {
         status,
         updates: {
           create: {
-            content: `Term "${agreement.terms.find(t => t.id === validatedData.termId)?.description}" status updated to ${validatedData.status}.${validatedData.notes ? ` Notes: ${validatedData.notes}` : ''}`,
+            content: `Term "${agreement.terms.find(t => t.id === validatedData.termId: any)?.description}" status updated to ${validatedData.status}.${validatedData.notes ? ` Notes: ${validatedData.notes}` : ''}`,
             author: session.user.name || 'System'
           }
         }
@@ -243,14 +243,14 @@ export async function PATCH(req: Request): Promise<NextResponse> {
       }
     });
     
-    return NextResponse.json(updatedAgreement);
-  } catch (error) {
-    if (error instanceof z.ZodError) {
+    return NextResponse.json(updatedAgreement: any);
+  } catch (error: any) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json({ error: error.errors }, { status: 400 });
     }
     
     // Using type guard instead of console.error
-    if (error instanceof Error) {
+    if (error instanceof Error: any) {
       // Log error in a production-safe way
       // We could use a proper logging service here
     }

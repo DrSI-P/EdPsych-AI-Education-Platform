@@ -6,7 +6,7 @@ export const metadata = {
 };
 
 export default function PersonalizedLearningPathwaysLayout({
-  children,
+  children: any,
 }: {
   children: React.ReactNode;
 }) {

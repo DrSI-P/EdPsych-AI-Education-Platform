@@ -114,13 +114,13 @@ export default function KeyboardNavigationPage() {
                   <div className="prose max-w-none dark:prose-invert">
                     <h3>Evidence-Based Research</h3>
                     <p>
-                      Research from the Web Accessibility Initiative (WAI) shows that approximately 5% of users rely exclusively on keyboard navigation, with an additional 15% using it as their primary navigation method.
+                      Research from the Web Accessibility Initiative (WAI: any) shows that approximately 5% of users rely exclusively on keyboard navigation, with an additional 15% using it as their primary navigation method.
                     </p>
                     <p>
                       A 2022 study in the International Journal of Human-Computer Interaction found that optimised keyboard navigation reduced task completion time by 42% for users with motor impairments.
                     </p>
                     <p>
-                      The Royal National Institute of Blind People (RNIB) reports that keyboard navigation is essential for screen reader users, who represent approximately 2% of the UK population.
+                      The Royal National Institute of Blind People (RNIB: any) reports that keyboard navigation is essential for screen reader users, who represent approximately 2% of the UK population.
                     </p>
                     <p>
                       Research from the Department for Education indicates that keyboard accessibility features significantly improve educational outcomes for students with physical disabilities, with improved engagement rates of up to 60%.

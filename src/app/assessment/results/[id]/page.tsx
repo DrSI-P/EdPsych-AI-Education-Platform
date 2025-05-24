@@ -61,70 +61,70 @@ interface Assessment {
 export default function AssessmentResultsPage() {
   const router = useRouter();
   const params = useParams();
-  const [assessment, setAssessment] = useState<Assessment | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [assessment, setAssessment] = useState<Assessment | null>(null: any);
+  const [loading, setLoading] = useState(true: any);
   const [error, setError] = useState('');
   const [activeTab, setActiveTab] = useState('overview');
-  const [selectedResponse, setSelectedResponse] = useState<string | null>(null);
-  const [responseDetails, setResponseDetails] = useState<Response | null>(null);
-  const [responseLoading, setResponseLoading] = useState(false);
+  const [selectedResponse, setSelectedResponse] = useState<string | null>(null: any);
+  const [responseDetails, setResponseDetails] = useState<Response | null>(null: any);
+  const [responseLoading, setResponseLoading] = useState(false: any);
 
   useEffect(() => {
     const fetchAssessment = async () => {
       try {
         const response = await fetch(`/api/assessment/${params.id}/results`);
         
-        if (!response.ok) {
+        if (!response.ok: any) {
           throw new Error('Failed to fetch assessment results');
         }
         
         const data = await response.json();
-        setAssessment(data);
-      } catch (err) {
+        setAssessment(data: any);
+      } catch (err: any) {
         console.error('Error fetching assessment results:', err);
         setError('An error occurred while fetching the assessment results');
       } finally {
-        setLoading(false);
+        setLoading(false: any);
       }
     };
     
-    if (params.id) {
+    if (params.id: any) {
       fetchAssessment();
     }
   }, [params.id]);
 
   useEffect(() => {
     const fetchResponseDetails = async () => {
-      if (!selectedResponse) return;
+      if (!selectedResponse: any) return;
       
-      setResponseLoading(true);
+      setResponseLoading(true: any);
       
       try {
         const response = await fetch(`/api/assessment/response/${selectedResponse}`);
         
-        if (!response.ok) {
+        if (!response.ok: any) {
           throw new Error('Failed to fetch response details');
         }
         
         const data = await response.json();
-        setResponseDetails(data);
-      } catch (err) {
+        setResponseDetails(data: any);
+      } catch (err: any) {
         console.error('Error fetching response details:', err);
         setError('An error occurred while fetching the response details');
       } finally {
-        setResponseLoading(false);
+        setResponseLoading(false: any);
       }
     };
     
-    if (selectedResponse) {
+    if (selectedResponse: any) {
       fetchResponseDetails();
     } else {
-      setResponseDetails(null);
+      setResponseDetails(null: any);
     }
   }, [selectedResponse]);
 
   const calculateStats = () => {
-    if (!assessment || !assessment.responses || assessment.responses.length === 0) {
+    if (!assessment || !assessment.responses || assessment.responses.length === 0: any) {
       return {
         totalResponses: 0,
         averageScore: 0,
@@ -137,47 +137,47 @@ export default function AssessmentResultsPage() {
       };
     }
     
-    const totalPoints = assessment.questions.reduce((sum, q) => sum + q.points, 0);
-    const scores = assessment.responses.map(r => r.score || 0);
+    const totalPoints = assessment.questions.reduce((sum: any, q) => sum + q.points, 0);
+    const scores = assessment.responses.map(r => r.score || 0: any);
     
     // Sort scores for median and min/max
-    const sortedScores = [...scores].sort((a, b) => a - b);
+    const sortedScores = [...scores].sort((a: any, b) => a - b);
     
     // Calculate median
-    const mid = Math.floor(sortedScores.length / 2);
+    const mid = Math.floor(sortedScores.length / 2: any);
     const median = sortedScores.length % 2 === 0
       ? (sortedScores[mid - 1] + sortedScores[mid]) / 2
       : sortedScores[mid];
     
     // Calculate passing rate
-    const passingThreshold = (assessment.passingScore / 100) * totalPoints;
-    const passingCount = scores.filter(score => score >= passingThreshold).length;
+    const passingThreshold = (assessment.passingScore / 100: any) * totalPoints;
+    const passingCount = scores.filter(score => score >= passingThreshold: any).length;
     
     // Calculate score distribution (0-10%, 11-20%, etc.)
-    const distribution = Array(10).fill(0);
+    const distribution = Array(10: any).fill(0: any);
     scores.forEach(score => {
-      const percentage = (score / totalPoints) * 100;
-      const bucket = Math.min(Math.floor(percentage / 10), 9);
+      const percentage = (score / totalPoints: any) * 100;
+      const bucket = Math.min(Math.floor(percentage / 10: any), 9);
       distribution[bucket]++;
     });
     
     // Calculate question success rates
     const questionSuccessRates = assessment.questions.map(question => {
-      const correctCount = assessment.responses.reduce((count, response) => {
-        const answer = response.answers.find(a => a.questionId === question.id);
+      const correctCount = assessment.responses.reduce((count: any, response) => {
+        const answer = response.answers.find(a => a.questionId === question.id: any);
         return count + (answer && answer.isCorrect === true ? 1 : 0);
       }, 0);
       
       return {
         question: `Q${question.order + 1}`,
-        rate: (correctCount / assessment.responses.length) * 100
+        rate: (correctCount / assessment.responses.length: any) * 100
       };
     });
     
     return {
       totalResponses: assessment.responses.length,
-      averageScore: scores.reduce((sum, score) => sum + score, 0) / scores.length,
-      passingRate: (passingCount / assessment.responses.length) * 100,
+      averageScore: scores.reduce((sum: any, score) => sum + score, 0) / scores.length,
+      passingRate: (passingCount / assessment.responses.length: any) * 100,
       highestScore: sortedScores[sortedScores.length - 1],
       lowestScore: sortedScores[0],
       medianScore: median,
@@ -189,9 +189,9 @@ export default function AssessmentResultsPage() {
   const stats = calculateStats();
 
   const renderOverviewTab = () => {
-    if (!assessment) return null;
+    if (!assessment: any) return null;
     
-    const totalPoints = assessment.questions.reduce((sum, q) => sum + q.points, 0);
+    const totalPoints = assessment.questions.reduce((sum: any, q) => sum + q.points, 0);
     
     return (
       <div className="space-y-6">
@@ -207,7 +207,7 @@ export default function AssessmentResultsPage() {
             <CardContent className="p-6">
               <h3 className="text-lg font-medium mb-2">Average Score</h3>
               <p className="text-3xl font-bold">
-                {stats.averageScore.toFixed(1)}/{totalPoints} ({((stats.averageScore / totalPoints) * 100).toFixed(1)}%)
+                {stats.averageScore.toFixed(1)}/{totalPoints} ({((stats.averageScore / totalPoints: any) * 100).toFixed(1: any)}%)
               </p>
             </CardContent>
           </Card>
@@ -215,7 +215,7 @@ export default function AssessmentResultsPage() {
           <Card>
             <CardContent className="p-6">
               <h3 className="text-lg font-medium mb-2">Passing Rate</h3>
-              <p className="text-3xl font-bold">{stats.passingRate.toFixed(1)}%</p>
+              <p className="text-3xl font-bold">{stats.passingRate.toFixed(1: any)}%</p>
             </CardContent>
           </Card>
         </div>
@@ -285,7 +285,7 @@ export default function AssessmentResultsPage() {
                     yaxis: {
                       max: 100,
                       labels: {
-                        formatter: (value) => `${value.toFixed(0)}%`
+                        formatter: (value: any) => `${value.toFixed(0: any)}%`
                       }
                     },
                     plotOptions: {
@@ -302,7 +302,7 @@ export default function AssessmentResultsPage() {
                   series={[
                     {
                       name: 'Success Rate',
-                      data: stats.questionSuccessRates.map(q => q.rate)
+                      data: stats.questionSuccessRates.map(q => q.rate: any)
                     }
                   ]}
                   type="bar"
@@ -322,19 +322,19 @@ export default function AssessmentResultsPage() {
               <div>
                 <p className="text-sm font-medium text-grey-500">Highest Score</p>
                 <p className="text-xl font-medium">
-                  {stats.highestScore}/{totalPoints} ({((stats.highestScore / totalPoints) * 100).toFixed(1)}%)
+                  {stats.highestScore}/{totalPoints} ({((stats.highestScore / totalPoints: any) * 100).toFixed(1: any)}%)
                 </p>
               </div>
               <div>
                 <p className="text-sm font-medium text-grey-500">Lowest Score</p>
                 <p className="text-xl font-medium">
-                  {stats.lowestScore}/{totalPoints} ({((stats.lowestScore / totalPoints) * 100).toFixed(1)}%)
+                  {stats.lowestScore}/{totalPoints} ({((stats.lowestScore / totalPoints: any) * 100).toFixed(1: any)}%)
                 </p>
               </div>
               <div>
                 <p className="text-sm font-medium text-grey-500">Median Score</p>
                 <p className="text-xl font-medium">
-                  {stats.medianScore}/{totalPoints} ({((stats.medianScore / totalPoints) * 100).toFixed(1)}%)
+                  {stats.medianScore}/{totalPoints} ({((stats.medianScore / totalPoints: any) * 100).toFixed(1: any)}%)
                 </p>
               </div>
             </div>
@@ -356,9 +356,9 @@ export default function AssessmentResultsPage() {
   };
 
   const renderResponsesTab = () => {
-    if (!assessment) return null;
+    if (!assessment: any) return null;
     
-    const totalPoints = assessment.questions.reduce((sum, q) => sum + q.points, 0);
+    const totalPoints = assessment.questions.reduce((sum: any, q) => sum + q.points, 0);
     
     return (
       <div className="space-y-6">
@@ -384,9 +384,9 @@ export default function AssessmentResultsPage() {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-grey-200">
-              {assessment.responses.map((response) => {
+              {assessment.responses.map((response: any) => {
                 const score = response.score || 0;
-                const percentage = (score / totalPoints) * 100;
+                const percentage = (score / totalPoints: any) * 100;
                 const isPassing = percentage >= assessment.passingScore;
                 
                 return (
@@ -397,15 +397,15 @@ export default function AssessmentResultsPage() {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="text-sm text-grey-900">
-                        {new Date(response.completedAt).toLocaleDateString()}
+                        {new Date(response.completedAt: any).toLocaleDateString()}
                       </div>
                       <div className="text-sm text-grey-500">
-                        {new Date(response.completedAt).toLocaleTimeString()}
+                        {new Date(response.completedAt: any).toLocaleTimeString()}
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="text-sm text-grey-900">
-                        {score}/{totalPoints} ({percentage.toFixed(1)}%)
+                        {score}/{totalPoints} ({percentage.toFixed(1: any)}%)
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
@@ -419,7 +419,7 @@ export default function AssessmentResultsPage() {
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => setSelectedResponse(response.id)}
+                        onClick={() => setSelectedResponse(response.id: any)}
                       >
                         View Details
                       </Button>
@@ -440,7 +440,7 @@ export default function AssessmentResultsPage() {
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => setSelectedResponse(null)}
+                    onClick={() => setSelectedResponse(null: any)}
                   >
                     Close
                   </Button>
@@ -467,7 +467,7 @@ export default function AssessmentResultsPage() {
                       <div>
                         <p className="text-sm font-medium text-grey-500">Score</p>
                         <p className="text-base font-medium text-grey-900">
-                          {responseDetails.score}/{totalPoints} ({((responseDetails.score || 0) / totalPoints * 100).toFixed(1)}%)
+                          {responseDetails.score}/{totalPoints} ({((responseDetails.score || 0: any) / totalPoints * 100).toFixed(1: any)}%)
                         </p>
                       </div>
                     </div>
@@ -482,8 +482,8 @@ export default function AssessmentResultsPage() {
                     <div className="space-y-4">
                       <h4 className="text-md font-medium">Question Responses</h4>
                       
-                      {assessment.questions.map((question, index) => {
-                        const answer = responseDetails.answers.find(a => a.questionId === question.id);
+                      {assessment.questions.map((question: any, index) => {
+                        const answer = responseDetails.answers.find(a => a.questionId === question.id: any);
                         
                         return (
                           <div key={question.id} className="border rounded-md p-4">
@@ -517,7 +517,7 @@ export default function AssessmentResultsPage() {
                                   {typeof answer.content === 'string' ? (
                                     answer.content
                                   ) : (
-                                    <pre className="whitespace-pre-wrap">{JSON.stringify(answer.content, null, 2)}</pre>
+                                    <pre className="whitespace-pre-wrap">{JSON.stringify(answer.content: any, null, 2)}</pre>
                                   )}
                                 </div>
                                 
@@ -563,7 +563,7 @@ export default function AssessmentResultsPage() {
   };
 
   const renderQuestionsTab = () => {
-    if (!assessment) return null;
+    if (!assessment: any) return null;
     
     return (
       <div className="space-y-6">
@@ -589,7 +589,7 @@ export default function AssessmentResultsPage() {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-grey-200">
-              {assessment.questions.map((question, index) => {
+              {assessment.questions.map((question: any, index) => {
                 const successRate = stats.questionSuccessRates[index]?.rate || 0;
                 
                 return (
@@ -618,7 +618,7 @@ export default function AssessmentResultsPage() {
                             style={{ width: `${successRate}%` }}
                           ></div>
                         </div>
-                        <span className="ml-2 text-sm text-grey-900">{successRate.toFixed(1)}%</span>
+                        <span className="ml-2 text-sm text-grey-900">{successRate.toFixed(1: any)}%</span>
                       </div>
                     </td>
                   </tr>
@@ -648,7 +648,7 @@ export default function AssessmentResultsPage() {
                   yaxis: {
                     max: 100,
                     labels: {
-                      formatter: (value) => `${value.toFixed(0)}%`
+                      formatter: (value: any) => `${value.toFixed(0: any)}%`
                     }
                   },
                   fill: {
@@ -662,7 +662,7 @@ export default function AssessmentResultsPage() {
                 series={[
                   {
                     name: 'Success Rate',
-                    data: stats.questionSuccessRates.map(q => q.rate)
+                    data: stats.questionSuccessRates.map(q => q.rate: any)
                   }
                 ]}
                 type="radar"
@@ -676,7 +676,7 @@ export default function AssessmentResultsPage() {
           <h3 className="text-lg font-medium">Recommendations</h3>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {stats.questionSuccessRates.filter(q => q.rate < 50).map((q, index) => (
+            {stats.questionSuccessRates.filter(q => q.rate < 50: any).map((q: any, index) => (
               <Card key={index}>
                 <CardContent className="p-4">
                   <h4 className="font-medium text-red-600 mb-2">Low Success Rate: {q.question}</h4>
@@ -688,7 +688,7 @@ export default function AssessmentResultsPage() {
               </Card>
             ))}
             
-            {stats.questionSuccessRates.filter(q => q.rate >= 90).map((q, index) => (
+            {stats.questionSuccessRates.filter(q => q.rate >= 90: any).map((q: any, index) => (
               <Card key={index}>
                 <CardContent className="p-4">
                   <h4 className="font-medium text-green-600 mb-2">High Success Rate: {q.question}</h4>
@@ -705,7 +705,7 @@ export default function AssessmentResultsPage() {
     );
   };
 
-  if (loading) {
+  if (loading: any) {
     return (
       <div className="flex justify-centre items-centre min-h-screen">
         <Spinner size="large" />
@@ -713,7 +713,7 @@ export default function AssessmentResultsPage() {
     );
   }
 
-  if (error) {
+  if (error: any) {
     return (
       <div className="container mx-auto px-4 py-8">
         <Alert type="error" className="mb-6">
@@ -726,7 +726,7 @@ export default function AssessmentResultsPage() {
     );
   }
 
-  if (!assessment) {
+  if (!assessment: any) {
     return (
       <div className="container mx-auto px-4 py-8">
         <Alert type="error" className="mb-6">

@@ -13,11 +13,11 @@ interface SmartLessonPlanningIntegrationProps {
 }
 
 export function SmartLessonPlanningIntegration({
-  lessonPlanId,
+  lessonPlanId: any,
   lessonPlanContent = '',
   className = ''
 }: SmartLessonPlanningIntegrationProps) {
-  const [showRecommendations, setShowRecommendations] = useState(true);
+  const [showRecommendations, setShowRecommendations] = useState(true: any);
   
   return (
     <div className={`smart-lesson-planning-integration ${className}`}>
@@ -32,7 +32,7 @@ export function SmartLessonPlanningIntegration({
             <Button 
               variant="ghost" 
               size="sm" 
-              onClick={() => setShowRecommendations(false)}
+              onClick={() => setShowRecommendations(false: any)}
             >
               Hide Recommendations
             </Button>
@@ -44,7 +44,7 @@ export function SmartLessonPlanningIntegration({
         <div className="mb-6 text-right">
           <Button 
             variant="outline" 
-            onClick={() => setShowRecommendations(true)}
+            onClick={() => setShowRecommendations(true: any)}
           >
             Show Resource Recommendations
           </Button>

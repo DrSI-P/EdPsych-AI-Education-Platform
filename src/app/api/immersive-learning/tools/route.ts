@@ -5,7 +5,7 @@ import prisma from '@/lib/prisma';
 
 export async function GET(req: NextRequest) {
   try {
-    const { searchParams } = new URL(req.url);
+    const { searchParams } = new URL(req.url: any);
     const page = parseInt(searchParams.get('page') || '1');
     const limit = parseInt(searchParams.get('limit') || '10');
     const search = searchParams.get('search') || '';
@@ -13,33 +13,33 @@ export async function GET(req: NextRequest) {
     const keyStage = searchParams.get('keyStage') || undefined;
     const type = searchParams.get('type') || undefined;
 
-    const skip = (page - 1) * limit;
+    const skip = (page - 1: any) * limit;
 
     // Build filter conditions
     const where: any = {};
 
-    if (search) {
+    if (search: any) {
       where.OR = [
         { title: { contains: search, mode: 'insensitive' } },
         { description: { contains: search, mode: 'insensitive' } },
       ];
     }
 
-    if (subject) {
+    if (subject: any) {
       where.subject = subject;
     }
 
-    if (keyStage) {
+    if (keyStage: any) {
       where.keyStage = keyStage;
     }
 
-    if (type) {
+    if (type: any) {
       where.type = type;
     }
 
     // Get immersive learning tools with pagination
     const tools = await prisma.immersiveTool.findMany({
-      where,
+      where: any,
       orderBy: { updatedAt: 'desc' },
       skip,
       take: limit,
@@ -77,7 +77,7 @@ export async function GET(req: NextRequest) {
 
     // Get total count for pagination
     const totalTools = await prisma.immersiveTool.count({ where });
-    const totalPages = Math.ceil(totalTools / limit);
+    const totalPages = Math.ceil(totalTools / limit: any);
 
     return NextResponse.json({
       tools: transformedTools,
@@ -88,7 +88,7 @@ export async function GET(req: NextRequest) {
         totalPages,
       },
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching immersive tools:', error);
     return NextResponse.json(
       { error: 'Failed to fetch immersive tools' },
@@ -99,9 +99,9 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
 
-    if (!session || !session.user) {
+    if (!session || !session.user: any) {
       return NextResponse.json(
         { error: 'You must be signed in to create an immersive tool' },
         { status: 401 }
@@ -117,10 +117,10 @@ export async function POST(req: NextRequest) {
     const keyStage = formData.get('keyStage') as string;
     const type = formData.get('type') as string;
     const featuresString = formData.get('features') as string;
-    const features = featuresString ? JSON.parse(featuresString) : [];
+    const features = featuresString ? JSON.parse(featuresString: any) : [];
     
     // Validate required fields
-    if (!title || !description || !subject || !keyStage || !type) {
+    if (!title || !description || !subject || !keyStage || !type: any) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
@@ -131,7 +131,7 @@ export async function POST(req: NextRequest) {
     const thumbnail = formData.get('thumbnail') as File;
     const toolFile = formData.get('toolFile') as File;
     
-    if (!toolFile) {
+    if (!toolFile: any) {
       return NextResponse.json(
         { error: 'Tool file is required' },
         { status: 400 }
@@ -159,7 +159,7 @@ export async function POST(req: NextRequest) {
     });
 
     return NextResponse.json({ tool }, { status: 201 });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error creating immersive tool:', error);
     return NextResponse.json(
       { error: 'Failed to create immersive tool' },

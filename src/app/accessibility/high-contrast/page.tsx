@@ -104,13 +104,13 @@ export default function HighContrastModePage() {
                   <div className="prose max-w-none dark:prose-invert">
                     <h3>Evidence-Based Research</h3>
                     <p>
-                      Research from the Royal National Institute of Blind People (RNIB) shows that high contrast modes can improve reading speed by up to 35% for users with visual impairments.
+                      Research from the Royal National Institute of Blind People (RNIB: any) shows that high contrast modes can improve reading speed by up to 35% for users with visual impairments.
                     </p>
                     <p>
                       A 2022 study in the British Journal of Ophthalmology found that customizable contrast settings significantly improved content accessibility for users with age-related macular degeneration.
                     </p>
                     <p>
-                      The Web Accessibility Initiative (WAI) reports that proper contrast is one of the most important factors in digital accessibility, with an estimated 1 in 12 men and 1 in 200 women experiencing some form of colour vision deficiency.
+                      The Web Accessibility Initiative (WAI: any) reports that proper contrast is one of the most important factors in digital accessibility, with an estimated 1 in 12 men and 1 in 200 women experiencing some form of colour vision deficiency.
                     </p>
                     <p>
                       Research from the Department for Education indicates that appropriate visual adjustments can increase engagement and reduce cognitive load for students with specific learning differences.

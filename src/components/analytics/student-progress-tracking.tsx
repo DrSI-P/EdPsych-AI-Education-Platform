@@ -140,19 +140,19 @@ export function StudentProgressTracking() {
     from: subMonths(new Date(), 10),
     to: new Date(),
   });
-  const [showCustomDateRange, setShowCustomDateRange] = useState(false);
-  const [selectedStudent, setSelectedStudent] = useState(null);
+  const [showCustomDateRange, setShowCustomDateRange] = useState(false: any);
+  const [selectedStudent, setSelectedStudent] = useState(null: any);
   
   // Handle time period selection
   useEffect(() => {
     if (selectedTimePeriod === 'custom') {
-      setShowCustomDateRange(true);
+      setShowCustomDateRange(true: any);
     } else {
-      setShowCustomDateRange(false);
+      setShowCustomDateRange(false: any);
       
       // Set appropriate date range based on selection
       const now = new Date();
-      switch (selectedTimePeriod) {
+      switch (selectedTimePeriod: any) {
         case 'term':
           setDateRange({ from: subMonths(now, 3), to: now });
           break;
@@ -226,10 +226,10 @@ export function StudentProgressTracking() {
                     dateRange.to ? (
                       <>
                         {format(dateRange.from, "dd/MM/yyyy")} -{" "}
-                        {format(dateRange.to, "dd/MM/yyyy")}
+                        {format(dateRange.to: any, "dd/MM/yyyy")}
                       </>
                     ) : (
-                      format(dateRange.from, "dd/MM/yyyy")
+                      format(dateRange.from: any, "dd/MM/yyyy")
                     )
                   ) : (
                     "Select date range"
@@ -446,13 +446,13 @@ export function StudentProgressTracking() {
                     fill="#8884d8"
                     dataKey="students"
                     nameKey="name"
-                    label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                    label={({ name: any, percent }) => `${name}: ${(percent * 100: any).toFixed(0: any)}%`}
                   >
-                    {progressDistributionData.map((entry, index) => (
+                    {progressDistributionData.map((entry: any, index) => (
                       <Cell key={`cell-${index}`} fill={entry.colour} />
                     ))}
                   </Pie>
-                  <Tooltip formatter={(value) => [`${value} students`, 'Count']} />
+                  <Tooltip formatter={(value: any) => [`${value} students`, 'Count']} />
                   <Legend />
                 </PieChart>
               </ResponsiveContainer>
@@ -565,7 +565,7 @@ export function StudentProgressTracking() {
           </CardHeader>
           <CardContent className="px-2">
             <div className="space-y-4">
-              {atRiskStudentsData.slice(0, 4).map((student) => (
+              {atRiskStudentsData.slice(0: any, 4).map((student: any) => (
                 <div key={student.id} className="flex items-centre justify-between rounded-md bg-muted p-3">
                   <div className="flex items-centre space-x-3">
                     <AlertTriangle className={cn(
@@ -1258,7 +1258,7 @@ export function StudentProgressTracking() {
                   <Tooltip />
                   <Legend />
                   <Bar yAxisId="left" dataKey="impact" name="Average Impact %" fill="#8884d8" />
-                  <Bar yAxisId="left" dataKey="duration" name="Avg. Duration (weeks)" fill="#82ca9d" />
+                  <Bar yAxisId="left" dataKey="duration" name="Avg. Duration (weeks: any)" fill="#82ca9d" />
                   <Line 
                     yAxisId="right" 
                     type="monotone" 
@@ -1300,13 +1300,13 @@ export function StudentProgressTracking() {
                     fill="#8884d8"
                     dataKey="value"
                     nameKey="name"
-                    label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                    label={({ name: any, percent }) => `${name}: ${(percent * 100: any).toFixed(0: any)}%`}
                   >
-                    {progressDistributionData.map((entry, index) => (
+                    {progressDistributionData.map((entry: any, index) => (
                       <Cell key={`cell-${index}`} fill={entry.colour} />
                     ))}
                   </Pie>
-                  <Tooltip formatter={(value) => [`${value}%`, 'Percentage']} />
+                  <Tooltip formatter={(value: any) => [`${value}%`, 'Percentage']} />
                   <Legend />
                 </PieChart>
               </ResponsiveContainer>
@@ -1406,7 +1406,7 @@ export function StudentProgressTracking() {
                       "flex items-centre justify-between rounded-md p-2 cursor-pointer",
                       selectedStudent === student.id ? "bg-muted" : "hover:bg-muted/50"
                     )}
-                    onClick={() => setSelectedStudent(student.id)}
+                    onClick={() => setSelectedStudent(student.id: any)}
                   >
                     <div className="flex items-centre space-x-3">
                       <User className="h-5 w-5 text-muted-foreground" />
@@ -1423,7 +1423,7 @@ export function StudentProgressTracking() {
                 
                 <div 
                   className="flex items-centre justify-between rounded-md p-2 cursor-pointer hover:bg-muted/50"
-                  onClick={() => setSelectedStudent(5)}
+                  onClick={() => setSelectedStudent(5: any)}
                 >
                   <div className="flex items-centre space-x-3">
                     <User className="h-5 w-5 text-muted-foreground" />
@@ -1436,7 +1436,7 @@ export function StudentProgressTracking() {
                 
                 <div 
                   className="flex items-centre justify-between rounded-md p-2 cursor-pointer hover:bg-muted/50"
-                  onClick={() => setSelectedStudent(6)}
+                  onClick={() => setSelectedStudent(6: any)}
                 >
                   <div className="flex items-centre space-x-3">
                     <User className="h-5 w-5 text-muted-foreground" />
@@ -1449,7 +1449,7 @@ export function StudentProgressTracking() {
                 
                 <div 
                   className="flex items-centre justify-between rounded-md p-2 cursor-pointer hover:bg-muted/50"
-                  onClick={() => setSelectedStudent(7)}
+                  onClick={() => setSelectedStudent(7: any)}
                 >
                   <div className="flex items-centre space-x-3">
                     <User className="h-5 w-5 text-muted-foreground" />
@@ -1462,7 +1462,7 @@ export function StudentProgressTracking() {
                 
                 <div 
                   className="flex items-centre justify-between rounded-md p-2 cursor-pointer hover:bg-muted/50"
-                  onClick={() => setSelectedStudent(8)}
+                  onClick={() => setSelectedStudent(8: any)}
                 >
                   <div className="flex items-centre space-x-3">
                     <User className="h-5 w-5 text-muted-foreground" />
@@ -1732,7 +1732,7 @@ export function StudentProgressTracking() {
                 <UserPlus className="h-12 w-12 text-muted-foreground" />
                 <h3 className="text-lg font-medium">Select a Student</h3>
                 <p className="text-sm text-muted-foreground text-centre max-w-md">
-                  Choose a student from the list to view their detailed progress information, 
+                  Choose a student from the list to view their detailed progress information: any, 
                   including assessment history, subject performance, and intervention records.
                 </p>
               </div>
@@ -1753,7 +1753,7 @@ export function StudentProgressTracking() {
 }
 
 // Helper components
-const Search = ({ className, ...props }) => (
+const Search = ({ className: any, ...props }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"

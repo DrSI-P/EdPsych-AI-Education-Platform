@@ -19,7 +19,7 @@ interface MultilingualLayoutProps {
  * and language settings.
  */
 export const MultilingualLayout: React.FC<MultilingualLayoutProps> = ({
-  children,
+  children: any,
   initialLanguage = SupportedLanguage.ENGLISH_UK
 }) => {
   // Set HTML dir attribute based on language direction

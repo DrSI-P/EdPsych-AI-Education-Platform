@@ -5,14 +5,14 @@ import { authOptions } from '@/lib/auth';
 
 export async function GET(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session) {
+    if (!session: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
     // Get rewards for the current user
-    const rewards = await (prisma as any).behaviorReward.findMany({
+    const rewards = await (prisma as any: any).behaviorReward.findMany({
       where: {
         userId: session.user.id,
       },
@@ -21,8 +21,8 @@ export async function GET(req: NextRequest) {
       },
     });
     
-    return NextResponse.json(rewards);
-  } catch (error) {
+    return NextResponse.json(rewards: any);
+  } catch (error: any) {
     console.error('Error fetching rewards:', error);
     return NextResponse.json({ error: 'Failed to fetch rewards' }, { status: 500 });
   }
@@ -30,21 +30,21 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session) {
+    if (!session: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
     const data = await req.json();
     
     // Validate required fields
-    if (!data.name || !data.pointCost) {
+    if (!data.name || !data.pointCost: any) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
     
     // Create new reward
-    const reward = await (prisma as any).behaviorReward.create({
+    const reward = await (prisma as any: any).behaviorReward.create({
       data: {
         userId: session.user.id,
         name: data.name,
@@ -56,16 +56,16 @@ export async function POST(req: NextRequest) {
     });
     
     // Log the reward creation
-    await (prisma as any).behaviorTrackingLog.create({
+    await (prisma as any: any).behaviorTrackingLog.create({
       data: {
         userId: session.user.id,
         action: 'REWARD_CREATED',
-        details: JSON.stringify(reward),
+        details: JSON.stringify(reward: any),
       },
     });
     
-    return NextResponse.json(reward);
-  } catch (error) {
+    return NextResponse.json(reward: any);
+  } catch (error: any) {
     console.error('Error creating reward:', error);
     return NextResponse.json({ error: 'Failed to create reward' }, { status: 500 });
   }

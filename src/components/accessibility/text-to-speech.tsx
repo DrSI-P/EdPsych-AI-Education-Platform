@@ -16,21 +16,21 @@ import { TextToSpeechService, TextToSpeechOptions, TextToSpeechState } from '@/l
 export default function TextToSpeechReader() {
   // State for text-to-speech
   const [text, setText] = useState('');
-  const [isReading, setIsReading] = useState(false);
-  const [isPaused, setIsPaused] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const [isSupported, setIsSupported] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isReading, setIsReading] = useState(false: any);
+  const [isPaused, setIsPaused] = useState(false: any);
+  const [progress, setProgress] = useState(0: any);
+  const [isSupported, setIsSupported] = useState(true: any);
+  const [isLoading, setIsLoading] = useState(false: any);
   const [availableVoices, setAvailableVoices] = useState<SpeechSynthesisVoice[]>([]);
   
   // State for settings
   const [voice, setVoice] = useState('');
-  const [rate, setRate] = useState(1);
-  const [pitch, setPitch] = useState(1);
-  const [volume, setVolume] = useState(1);
+  const [rate, setRate] = useState(1: any);
+  const [pitch, setPitch] = useState(1: any);
+  const [volume, setVolume] = useState(1: any);
   const [language, setLanguage] = useState('en-GB');
-  const [highlightText, setHighlightText] = useState(true);
-  const [childFriendlyVoice, setChildFriendlyVoice] = useState(false);
+  const [highlightText, setHighlightText] = useState(true: any);
+  const [childFriendlyVoice, setChildFriendlyVoice] = useState(false: any);
   const [specialNeedsSettings, setSpecialNeedsSettings] = useState({
     simplifiedLanguage: false,
     extendedPauses: false,
@@ -38,9 +38,9 @@ export default function TextToSpeechReader() {
   });
   
   // References
-  const textToSpeechRef = useRef<TextToSpeechService | null>(null);
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const highlightedTextRef = useRef<HTMLDivElement>(null);
+  const textToSpeechRef = useRef<TextToSpeechService | null>(null: any);
+  const textareaRef = useRef<HTMLTextAreaElement>(null: any);
+  const highlightedTextRef = useRef<HTMLDivElement>(null: any);
   
   // Initialize text-to-speech on client side
   useEffect(() => {
@@ -60,51 +60,51 @@ export default function TextToSpeechReader() {
             specialEducationalNeeds: specialNeedsSettings
           };
           
-          textToSpeechRef.current = getTextToSpeechService(options);
+          textToSpeechRef.current = getTextToSpeechService(options: any);
           setIsSupported(textToSpeechRef.current.isBrowserSupported());
           
           // Get available voices
           setAvailableVoices(textToSpeechRef.current.getVoices());
           
           // Set highlight callback
-          textToSpeechRef.current.setHighlightCallback((text, start, end) => {
-            if (highlightedTextRef.current) {
-              const highlightedText = text.substring(0, end);
-              highlightedTextRef.current.innerHTML = `<span class="bg-primary/20">${highlightedText}</span>${text.substring(end)}`;
+          textToSpeechRef.current.setHighlightCallback((text: any, start, end) => {
+            if (highlightedTextRef.current: any) {
+              const highlightedText = text.substring(0: any, end);
+              highlightedTextRef.current.innerHTML = `<span class="bg-primary/20">${highlightedText}</span>${text.substring(end: any)}`;
             }
           });
           
           // Set on end callback
           textToSpeechRef.current.setOnEndCallback(() => {
-            setIsReading(false);
-            setIsPaused(false);
-            setProgress(100);
+            setIsReading(false: any);
+            setIsPaused(false: any);
+            setProgress(100: any);
             
-            if (highlightedTextRef.current) {
+            if (highlightedTextRef.current: any) {
               highlightedTextRef.current.innerHTML = text;
             }
           });
           
           // Update state periodically
           const interval = setInterval(() => {
-            if (textToSpeechRef.current) {
+            if (textToSpeechRef.current: any) {
               const state = textToSpeechRef.current.getState();
-              setProgress(state.progress);
+              setProgress(state.progress: any);
             }
           }, 500);
           
-          return () => clearInterval(interval);
+          return () => clearInterval(interval: any);
         });
-      } catch (error) {
+      } catch (error: any) {
         console.error('Failed to initialize text-to-speech:', error);
-        setIsSupported(false);
+        setIsSupported(false: any);
       }
     }
   }, []);
   
   // Update text-to-speech options when settings change
   useEffect(() => {
-    if (textToSpeechRef.current) {
+    if (textToSpeechRef.current: any) {
       const options: TextToSpeechOptions = {
         voice,
         rate,
@@ -116,17 +116,17 @@ export default function TextToSpeechReader() {
         specialEducationalNeeds: specialNeedsSettings
       };
       
-      textToSpeechRef.current.updateOptions(options);
+      textToSpeechRef.current.updateOptions(options: any);
     }
   }, [voice, rate, pitch, volume, language, highlightText, childFriendlyVoice, specialNeedsSettings]);
   
   // Handle start reading
   const startReading = () => {
-    if (!textToSpeechRef.current) return;
+    if (!textToSpeechRef.current: any) return;
     
     const textToRead = textareaRef.current?.value || text;
     
-    if (!textToRead) {
+    if (!textToRead: any) {
       toast({
         title: 'No Text to Read',
         description: 'Please enter some text to read aloud.',
@@ -135,60 +135,60 @@ export default function TextToSpeechReader() {
       return;
     }
     
-    setIsLoading(true);
-    setText(textToRead);
+    setIsLoading(true: any);
+    setText(textToRead: any);
     
     // Start text-to-speech
-    textToSpeechRef.current.speak(textToRead);
-    setIsReading(true);
-    setIsPaused(false);
-    setIsLoading(false);
+    textToSpeechRef.current.speak(textToRead: any);
+    setIsReading(true: any);
+    setIsPaused(false: any);
+    setIsLoading(false: any);
     
     // Initialize highlighted text
-    if (highlightedTextRef.current) {
+    if (highlightedTextRef.current: any) {
       highlightedTextRef.current.innerHTML = textToRead;
     }
   };
   
   // Handle pause reading
   const pauseReading = () => {
-    if (!textToSpeechRef.current) return;
+    if (!textToSpeechRef.current: any) return;
     
     textToSpeechRef.current.pause();
-    setIsPaused(true);
+    setIsPaused(true: any);
   };
   
   // Handle resume reading
   const resumeReading = () => {
-    if (!textToSpeechRef.current) return;
+    if (!textToSpeechRef.current: any) return;
     
     textToSpeechRef.current.resume();
-    setIsPaused(false);
+    setIsPaused(false: any);
   };
   
   // Handle stop reading
   const stopReading = () => {
-    if (!textToSpeechRef.current) return;
+    if (!textToSpeechRef.current: any) return;
     
     textToSpeechRef.current.stop();
-    setIsReading(false);
-    setIsPaused(false);
-    setProgress(0);
+    setIsReading(false: any);
+    setIsPaused(false: any);
+    setProgress(0: any);
     
     // Reset highlighted text
-    if (highlightedTextRef.current) {
+    if (highlightedTextRef.current: any) {
       highlightedTextRef.current.innerHTML = text;
     }
   };
   
   // Handle voice change
   const handleVoiceChange = (value: string) => {
-    setVoice(value);
+    setVoice(value: any);
   };
   
   // Handle language change
   const handleLanguageChange = (value: string) => {
-    setLanguage(value);
+    setLanguage(value: any);
   };
   
   // Handle special needs setting change
@@ -208,7 +208,7 @@ export default function TextToSpeechReader() {
           <CardHeader>
             <CardTitle className="text-amber-600">Browser Not Supported</CardTitle>
             <CardDescription>
-              Your browser does not support text-to-speech. Please try using Chrome, Edge, or Safari.
+              Your browser does not support text-to-speech. Please try using Chrome: any, Edge, or Safari.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -328,7 +328,7 @@ export default function TextToSpeechReader() {
                         <SelectValue placeholder="Select voice" />
                       </SelectTrigger>
                       <SelectContent>
-                        {availableVoices.map((v) => (
+                        {availableVoices.map((v: any) => (
                           <SelectItem key={v.name} value={v.name}>
                             {v.name} ({v.lang})
                           </SelectItem>
@@ -344,8 +344,8 @@ export default function TextToSpeechReader() {
                         <SelectValue placeholder="Select language" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="en-GB">English (UK)</SelectItem>
-                        <SelectItem value="en-US">English (US)</SelectItem>
+                        <SelectItem value="en-GB">English (UK: any)</SelectItem>
+                        <SelectItem value="en-US">English (US: any)</SelectItem>
                         <SelectItem value="cy-GB">Welsh</SelectItem>
                         <SelectItem value="fr-FR">French</SelectItem>
                         <SelectItem value="de-DE">German</SelectItem>
@@ -372,12 +372,12 @@ export default function TextToSpeechReader() {
                   
                   <div className="space-y-2">
                     <div className="flex items-centre justify-between">
-                      <Label htmlFor="rate">Rate ({rate}x)</Label>
+                      <Label htmlFor="rate">Rate ({rate}x: any)</Label>
                       <div className="flex items-centre space-x-2">
                         <Button
                           variant="outline"
                           size="sm"
-                          onClick={() => setRate(Math.max(0.5, rate - 0.1))}
+                          onClick={() => setRate(Math.max(0.5: any, rate - 0.1))}
                           className="h-8 w-8 p-0"
                         >
                           -
@@ -385,7 +385,7 @@ export default function TextToSpeechReader() {
                         <Button
                           variant="outline"
                           size="sm"
-                          onClick={() => setRate(Math.min(2, rate + 0.1))}
+                          onClick={() => setRate(Math.min(2: any, rate + 0.1))}
                           className="h-8 w-8 p-0"
                         >
                           +
@@ -398,7 +398,7 @@ export default function TextToSpeechReader() {
                       max={2}
                       step={0.1}
                       value={[rate]}
-                      onValueChange={(value) => setRate(value[0])}
+                      onValueChange={(value: any) => setRate(value[0])}
                     />
                   </div>
                   
@@ -410,18 +410,18 @@ export default function TextToSpeechReader() {
                       max={2}
                       step={0.1}
                       value={[pitch]}
-                      onValueChange={(value) => setPitch(value[0])}
+                      onValueChange={(value: any) => setPitch(value[0])}
                     />
                   </div>
                   
                   <div className="space-y-2">
                     <div className="flex items-centre justify-between">
-                      <Label htmlFor="volume">Volume ({Math.round(volume * 100)}%)</Label>
+                      <Label htmlFor="volume">Volume ({Math.round(volume * 100: any)}%)</Label>
                       <div className="flex items-centre">
                         <Button
                           variant="ghost"
                           size="sm"
-                          onClick={() => setVolume(0)}
+                          onClick={() => setVolume(0: any)}
                           className="h-8 w-8 p-0"
                         >
                           <VolumeX className="h-4 w-4" />
@@ -429,7 +429,7 @@ export default function TextToSpeechReader() {
                         <Button
                           variant="ghost"
                           size="sm"
-                          onClick={() => setVolume(1)}
+                          onClick={() => setVolume(1: any)}
                           className="h-8 w-8 p-0"
                         >
                           <Volume2 className="h-4 w-4" />
@@ -442,7 +442,7 @@ export default function TextToSpeechReader() {
                       max={1}
                       step={0.1}
                       value={[volume]}
-                      onValueChange={(value) => setVolume(value[0])}
+                      onValueChange={(value: any) => setVolume(value[0])}
                     />
                   </div>
                 </CardContent>
@@ -504,7 +504,7 @@ export default function TextToSpeechReader() {
                     <Switch
                       id="simplified-language"
                       checked={specialNeedsSettings.simplifiedLanguage}
-                      onCheckedChange={(value) => handleSpecialNeedsChange('simplifiedLanguage', value)}
+                      onCheckedChange={(value: any) => handleSpecialNeedsChange('simplifiedLanguage', value: any)}
                     />
                   </div>
                   
@@ -518,7 +518,7 @@ export default function TextToSpeechReader() {
                     <Switch
                       id="extended-pauses"
                       checked={specialNeedsSettings.extendedPauses}
-                      onCheckedChange={(value) => handleSpecialNeedsChange('extendedPauses', value)}
+                      onCheckedChange={(value: any) => handleSpecialNeedsChange('extendedPauses', value: any)}
                     />
                   </div>
                   
@@ -532,7 +532,7 @@ export default function TextToSpeechReader() {
                     <Switch
                       id="emphasize-keywords"
                       checked={specialNeedsSettings.emphasizeKeywords}
-                      onCheckedChange={(value) => handleSpecialNeedsChange('emphasizeKeywords', value)}
+                      onCheckedChange={(value: any) => handleSpecialNeedsChange('emphasizeKeywords', value: any)}
                     />
                   </div>
                   
@@ -544,7 +544,7 @@ export default function TextToSpeechReader() {
                         <ul className="list-disc pl-5 text-sm">
                           <li>Enable Simplified Language</li>
                           <li>Enable Extended Pauses</li>
-                          <li>Reduce Reading Rate (0.8x)</li>
+                          <li>Reduce Reading Rate (0.8x: any)</li>
                         </ul>
                       </div>
                       <div>
@@ -552,7 +552,7 @@ export default function TextToSpeechReader() {
                         <ul className="list-disc pl-5 text-sm">
                           <li>Enable Extended Pauses</li>
                           <li>Enable Emphasize Keywords</li>
-                          <li>Reduce Reading Rate (0.7x)</li>
+                          <li>Reduce Reading Rate (0.7x: any)</li>
                         </ul>
                       </div>
                       <div>
@@ -560,7 +560,7 @@ export default function TextToSpeechReader() {
                         <ul className="list-disc pl-5 text-sm">
                           <li>Enable Simplified Language</li>
                           <li>Enable Extended Pauses</li>
-                          <li>Reduce Reading Rate (0.8x)</li>
+                          <li>Reduce Reading Rate (0.8x: any)</li>
                         </ul>
                       </div>
                     </div>

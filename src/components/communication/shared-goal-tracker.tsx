@@ -52,17 +52,17 @@ interface SharedGoalTrackerProps {
 }
 
 export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
-  studentId,
+  studentId: any,
   studentName,
   userId,
   userRole
 }) => {
   const [goals, setGoals] = useState<SharedGoal[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isCreatingGoal, setIsCreatingGoal] = useState(false);
-  const [selectedGoal, setSelectedGoal] = useState<SharedGoal | null>(null);
+  const [isLoading, setIsLoading] = useState(true: any);
+  const [isCreatingGoal, setIsCreatingGoal] = useState(false: any);
+  const [selectedGoal, setSelectedGoal] = useState<SharedGoal | null>(null: any);
   const [updateContent, setUpdateContent] = useState('');
-  const [newProgress, setNewProgress] = useState<number | null>(null);
+  const [newProgress, setNewProgress] = useState<number | null>(null: any);
   const [filter, setFilter] = useState<'all' | 'active' | 'completed'>('active');
   
   const communicationService = new CommunicationService();
@@ -184,11 +184,11 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
           }
         ];
         
-        setGoals(mockGoals);
-        setIsLoading(false);
-      } catch (error) {
+        setGoals(mockGoals: any);
+        setIsLoading(false: any);
+      } catch (error: any) {
         console.error('Error fetching goals:', error);
-        setIsLoading(false);
+        setIsLoading(false: any);
       }
     };
     
@@ -199,11 +199,11 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
   const handleCreateGoal = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
-    const formData = new FormData(form);
+    const formData = new FormData(form: any);
     
     try {
       const newGoal = await communicationService.createSharedGoal({
-        studentId,
+        studentId: any,
         studentName,
         title: formData.get('title') as string,
         description: formData.get('description') as string,
@@ -217,7 +217,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
       
       // In a real implementation, this would add the new goal to the state
       // For now, we'll just close the dialogue
-      setIsCreatingGoal(false);
+      setIsCreatingGoal(false: any);
       
       // Mock adding the goal to the state
       const mockNewGoal: SharedGoal = {
@@ -240,17 +240,17 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
       };
       
       setGoals([...goals, mockNewGoal]);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error creating goal:', error);
     }
   };
   
   // Add an update to a goal
   const handleAddUpdate = async () => {
-    if (!selectedGoal || !updateContent) return;
+    if (!selectedGoal || !updateContent: any) return;
     
     try {
-      await communicationService.updateGoalProgress(selectedGoal.id, {
+      await communicationService.updateGoalProgress(selectedGoal.id: any, {
         content: updateContent,
         updatedById: userId,
         updatedByRole: userRole,
@@ -260,7 +260,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
       // In a real implementation, this would update the goal in the state
       // For now, we'll just update it manually
       const updatedGoals = goals.map(goal => {
-        if (goal.id === selectedGoal.id) {
+        if (goal.id === selectedGoal.id: any) {
           const newUpdate: GoalUpdate = {
             id: `update${Date.now()}`,
             goalId: selectedGoal.id,
@@ -281,11 +281,11 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
         return goal;
       });
       
-      setGoals(updatedGoals);
+      setGoals(updatedGoals: any);
       setUpdateContent('');
-      setNewProgress(null);
-      setSelectedGoal(null);
-    } catch (error) {
+      setNewProgress(null: any);
+      setSelectedGoal(null: any);
+    } catch (error: any) {
       console.error('Error adding update:', error);
     }
   };
@@ -300,7 +300,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
   
   // Get badge colour based on category
   const getCategoryBadge = (category: string) => {
-    switch (category) {
+    switch (category: any) {
       case 'academic':
         return <Badge className="bg-blue-500">Academic</Badge>;
       case 'behavioural':
@@ -320,12 +320,12 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
       day: 'numeric',
       month: 'short',
       year: 'numeric'
-    }).format(date);
+    }).format(date: any);
   };
   
   // Get role icon
   const getRoleIcon = (role: CommunicationRole) => {
-    switch (role) {
+    switch (role: any) {
       case CommunicationRole.TEACHER:
         return <School className="h-4 w-4 mr-1" />;
       case CommunicationRole.PARENT:
@@ -339,7 +339,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
   
   // Get role name
   const getRoleName = (role: CommunicationRole) => {
-    switch (role) {
+    switch (role: any) {
       case CommunicationRole.TEACHER:
         return 'Teacher';
       case CommunicationRole.PARENT:
@@ -357,7 +357,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
     }
   };
   
-  if (isLoading) {
+  if (isLoading: any) {
     return (
       <div className="flex items-centre justify-centre p-8">
         <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent"></div>
@@ -377,7 +377,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
         </div>
         
         <div className="flex items-centre gap-4">
-          <Select value={filter} onValueChange={(value: any) => setFilter(value)}>
+          <Select value={filter} onValueChange={(value: any) => setFilter(value: any)}>
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Filter goals" />
             </SelectTrigger>
@@ -468,7 +468,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
                     <Textarea
                       id="homeActions"
                       name="homeActions"
-                      placeholder="List actions to be taken at home (one per line)"
+                      placeholder="List actions to be taken at home (one per line: any)"
                       className="col-span-3"
                       required
                     />
@@ -481,7 +481,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
                     <Textarea
                       id="schoolActions"
                       name="schoolActions"
-                      placeholder="List actions to be taken at school (one per line)"
+                      placeholder="List actions to be taken at school (one per line: any)"
                       className="col-span-3"
                       required
                     />
@@ -489,7 +489,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
                 </div>
                 
                 <DialogFooter>
-                  <Button type="button" variant="outline" onClick={() => setIsCreatingGoal(false)}>
+                  <Button type="button" variant="outline" onClick={() => setIsCreatingGoal(false: any)}>
                     Cancel
                   </Button>
                   <Button type="submit">Create Goal</Button>
@@ -511,7 +511,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
                 ? "No active goals found. All goals may be completed or you can create a new goal."
                 : "No completed goals found. Keep working on your active goals!"}
           </p>
-          <Button onClick={() => setIsCreatingGoal(true)}>
+          <Button onClick={() => setIsCreatingGoal(true: any)}>
             <PlusCircle className="h-4 w-4 mr-2" />
             Create First Goal
           </Button>
@@ -526,7 +526,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
                     <CardTitle>{goal.title}</CardTitle>
                     <CardDescription className="flex items-centre mt-1">
                       <Calendar className="h-4 w-4 mr-1" />
-                      Created {formatDate(goal.createdAt)}
+                      Created {formatDate(goal.createdAt: any)}
                       {goal.targetDate && (
                         <>
                           <span className="mx-1">•</span>
@@ -536,7 +536,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
                       )}
                     </CardDescription>
                   </div>
-                  {getCategoryBadge(goal.category)}
+                  {getCategoryBadge(goal.category: any)}
                 </div>
               </CardHeader>
               
@@ -565,14 +565,14 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
                       </p>
                     ) : (
                       <div className="space-y-3 py-2">
-                        {goal.updates.map((update) => (
+                        {goal.updates.map((update: any) => (
                           <div key={update.id} className="border-l-2 border-primary pl-4 py-1">
                             <div className="flex items-centre text-sm text-muted-foreground mb-1">
-                              {getRoleIcon(update.updatedByRole)}
-                              <span>{getRoleName(update.updatedByRole)}</span>
+                              {getRoleIcon(update.updatedByRole: any)}
+                              <span>{getRoleName(update.updatedByRole: any)}</span>
                               <span className="mx-1">•</span>
                               <Clock className="h-3 w-3 mr-1" />
-                              <span>{formatDate(update.updatedAt)}</span>
+                              <span>{formatDate(update.createdAt: any)}</span>
                               {update.newProgress !== undefined && (
                                 <>
                                   <span className="mx-1">•</span>
@@ -589,7 +589,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
                   
                   <TabsContent value="home">
                     <ul className="list-disc pl-5 space-y-1 py-2">
-                      {goal.homeActions.map((action, index) => (
+                      {goal.homeActions.map((action: any, index) => (
                         <li key={index}>{action}</li>
                       ))}
                     </ul>
@@ -597,7 +597,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
                   
                   <TabsContent value="school">
                     <ul className="list-disc pl-5 space-y-1 py-2">
-                      {goal.schoolActions.map((action, index) => (
+                      {goal.schoolActions.map((action: any, index) => (
                         <li key={index}>{action}</li>
                       ))}
                     </ul>
@@ -621,12 +621,12 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
                   )}
                 </div>
                 
-                <Dialog open={selectedGoal?.id === goal.id} onOpenChange={(open) => {
-                  if (!open) setSelectedGoal(null);
-                  else setSelectedGoal(goal);
+                <Dialog open={selectedGoal?.id === goal.id} onOpenChange={(open: any) => {
+                  if (!open: any) setSelectedGoal(null: any);
+                  else setSelectedGoal(goal: any);
                 }}>
                   <DialogTrigger asChild>
-                    <Button variant="outline" onClick={() => setSelectedGoal(goal)}>
+                    <Button variant="outline" onClick={() => setSelectedGoal(goal: any)}>
                       Add Update
                     </Button>
                   </DialogTrigger>
@@ -647,7 +647,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
                           id="updateContent"
                           placeholder="Share your observations, progress, or next steps..."
                           value={updateContent}
-                          onChange={(e) => setUpdateContent(e.target.value)}
+                          onChange={(e: any) => setUpdateContent(e.target.value: any)}
                           className="min-h-[100px]"
                           required
                         />
@@ -655,7 +655,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
                       
                       <div>
                         <label htmlFor="newProgress" className="block font-medium mb-2">
-                          Update Progress (Optional)
+                          Update Progress (Optional: any)
                         </label>
                         <div className="flex items-centre gap-4">
                           <Input
@@ -665,7 +665,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
                             max="100"
                             step="5"
                             value={newProgress !== null ? newProgress : goal.progress}
-                            onChange={(e) => setNewProgress(parseInt(e.target.value))}
+                            onChange={(e: any) => setNewProgress(parseInt(e.target.value: any))}
                             className="flex-1"
                           />
                           <span className="w-12 text-centre">
@@ -676,7 +676,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
                     </div>
                     
                     <DialogFooter>
-                      <Button variant="outline" onClick={() => setSelectedGoal(null)}>
+                      <Button variant="outline" onClick={() => setSelectedGoal(null: any)}>
                         Cancel
                       </Button>
                       <Button onClick={handleAddUpdate} disabled={!updateContent}>

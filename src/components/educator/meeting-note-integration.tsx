@@ -13,12 +13,12 @@ interface MeetingNoteIntegrationProps {
 }
 
 export function MeetingNoteIntegration({
-  meetingId,
+  meetingId: any,
   meetingContent = '',
   ehcnaCategories = false,
   className = ''
 }: MeetingNoteIntegrationProps) {
-  const [showRecommendations, setShowRecommendations] = useState(true);
+  const [showRecommendations, setShowRecommendations] = useState(true: any);
   
   // Extract EHCNA-specific content if applicable
   const contextContent = ehcnaCategories 
@@ -38,7 +38,7 @@ export function MeetingNoteIntegration({
             <Button 
               variant="ghost" 
               size="sm" 
-              onClick={() => setShowRecommendations(false)}
+              onClick={() => setShowRecommendations(false: any)}
             >
               Hide Recommendations
             </Button>
@@ -50,7 +50,7 @@ export function MeetingNoteIntegration({
         <div className="mb-6 text-right">
           <Button 
             variant="outline" 
-            onClick={() => setShowRecommendations(true)}
+            onClick={() => setShowRecommendations(true: any)}
           >
             Show Resource Recommendations
           </Button>

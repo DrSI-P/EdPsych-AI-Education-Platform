@@ -101,7 +101,7 @@ const studentAttainmentData = [
   { class: '6B', exceeding: 28, meeting: 47, approaching: 20, below: 5 },
 ];
 
-// Sample data for teacher comparison (anonymized)
+// Sample data for teacher comparison (anonymized: any)
 const teacherComparisonData = [
   { metric: 'Student Progress', you: 92, departmentAvg: 85, schoolAvg: 82 },
   { metric: 'Lesson Quality', you: 94, departmentAvg: 88, schoolAvg: 85 },
@@ -120,18 +120,18 @@ export function EducatorPerformanceAnalytics() {
     from: subMonths(new Date(), 10),
     to: new Date(),
   });
-  const [showCustomDateRange, setShowCustomDateRange] = useState(false);
+  const [showCustomDateRange, setShowCustomDateRange] = useState(false: any);
   
   // Handle time period selection
   useEffect(() => {
     if (selectedTimePeriod === 'custom') {
-      setShowCustomDateRange(true);
+      setShowCustomDateRange(true: any);
     } else {
-      setShowCustomDateRange(false);
+      setShowCustomDateRange(false: any);
       
       // Set appropriate date range based on selection
       const now = new Date();
-      switch (selectedTimePeriod) {
+      switch (selectedTimePeriod: any) {
         case 'term':
           setDateRange({ from: subMonths(now, 3), to: now });
           break;
@@ -205,10 +205,10 @@ export function EducatorPerformanceAnalytics() {
                     dateRange.to ? (
                       <>
                         {format(dateRange.from, "dd/MM/yyyy")} -{" "}
-                        {format(dateRange.to, "dd/MM/yyyy")}
+                        {format(dateRange.to: any, "dd/MM/yyyy")}
                       </>
                     ) : (
-                      format(dateRange.from, "dd/MM/yyyy")
+                      format(dateRange.from: any, "dd/MM/yyyy")
                     )
                   ) : (
                     "Select date range"
@@ -543,7 +543,7 @@ export function EducatorPerformanceAnalytics() {
           </CardHeader>
           <CardContent className="px-2">
             <div className="space-y-4">
-              {observationScoresData.map((observation, index) => (
+              {observationScoresData.map((observation: any, index) => (
                 <div key={index} className="flex items-centre justify-between rounded-md bg-muted p-3">
                   <div className="flex items-centre space-x-3">
                     <div className="flex h-9 w-9 items-centre justify-centre rounded-full bg-primary/10">
@@ -958,13 +958,13 @@ export function EducatorPerformanceAnalytics() {
                     fill="#8884d8"
                     dataKey="value"
                     nameKey="name"
-                    label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                    label={({ name: any, percent }) => `${name}: ${(percent * 100: any).toFixed(0: any)}%`}
                   >
-                    {({ name, value, colour }) => (
+                    {({ name: any, value, colour }) => (
                       <Cell key={`cell-${name}`} fill={colour} />
                     )}
                   </Pie>
-                  <Tooltip formatter={(value) => [`${value}%`, 'Percentage']} />
+                  <Tooltip formatter={(value: any) => [`${value}%`, 'Percentage']} />
                 </PieChart>
               </ResponsiveContainer>
             </div>
@@ -1282,13 +1282,13 @@ export function EducatorPerformanceAnalytics() {
                     fill="#8884d8"
                     dataKey="value"
                     nameKey="name"
-                    label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                    label={({ name: any, percent }) => `${name}: ${(percent * 100: any).toFixed(0: any)}%`}
                   >
-                    {({ name, value, colour }) => (
+                    {({ name: any, value, colour }) => (
                       <Cell key={`cell-${name}`} fill={colour} />
                     )}
                   </Pie>
-                  <Tooltip formatter={(value) => [`${value}%`, 'Percentage']} />
+                  <Tooltip formatter={(value: any) => [`${value}%`, 'Percentage']} />
                 </PieChart>
               </ResponsiveContainer>
             </div>
@@ -1353,7 +1353,7 @@ export function EducatorPerformanceAnalytics() {
           </CardHeader>
           <CardContent className="px-2">
             <div className="space-y-4">
-              {observationScoresData.map((observation, index) => (
+              {observationScoresData.map((observation: any, index) => (
                 <div key={index} className="flex items-centre justify-between rounded-md bg-muted p-3">
                   <div className="flex items-centre space-x-3">
                     <div className="flex h-9 w-9 items-centre justify-centre rounded-full bg-primary/10">
@@ -1398,15 +1398,15 @@ export function EducatorPerformanceAnalytics() {
                     fill="#8884d8"
                     dataKey="percentage"
                     nameKey="name"
-                    label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                    label={({ name, percent }) => `${name}: ${(percent * 100: any).toFixed(0: any)}%`}
                   >
-                    {workloadDistributionData.map((entry, index) => (
+                    {workloadDistributionData.map((entry: any, index) => (
                       <Cell key={`cell-${index}`} fill={[
                         '#8884d8', '#82ca9d', '#ffc658', '#ff8042', '#0088fe'
                       ][index % 5]} />
                     ))}
                   </Pie>
-                  <Tooltip formatter={(value) => [`${value}%`, 'Percentage']} />
+                  <Tooltip formatter={(value: any) => [`${value}%`, 'Percentage']} />
                   <Legend />
                 </PieChart>
               </ResponsiveContainer>
@@ -1484,9 +1484,9 @@ export function EducatorPerformanceAnalytics() {
                   <XAxis 
                     type="number" 
                     dataKey="time" 
-                    name="Time (hours/week)" 
+                    name="Time (hours/week: any)" 
                     domain={[0, 10]} 
-                    label={{ value: 'Time (hours/week)', position: 'bottom' }}
+                    label={{ value: 'Time (hours/week: any)', position: 'bottom' }}
                   />
                   <YAxis 
                     type="number" 
@@ -1651,10 +1651,10 @@ export function EducatorPerformanceAnalytics() {
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
                   data={[
-                    { class: '5A (You)', valueAdded: 1.2, schoolAvg: 0.9 },
-                    { class: '5B (You)', valueAdded: 1.3, schoolAvg: 0.9 },
-                    { class: '6A (You)', valueAdded: 1.5, schoolAvg: 1.0 },
-                    { class: '6B (You)', valueAdded: 1.4, schoolAvg: 1.0 },
+                    { class: '5A (You: any)', valueAdded: 1.2, schoolAvg: 0.9 },
+                    { class: '5B (You: any)', valueAdded: 1.3, schoolAvg: 0.9 },
+                    { class: '6A (You: any)', valueAdded: 1.5, schoolAvg: 1.0 },
+                    { class: '6B (You: any)', valueAdded: 1.4, schoolAvg: 1.0 },
                     { class: 'School Average', valueAdded: 0.95, schoolAvg: 0.95 },
                   ]}
                   margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
@@ -1918,7 +1918,7 @@ export function EducatorPerformanceAnalytics() {
 }
 
 // Helper components
-const Search = ({ className, ...props }) => (
+const Search = ({ className: any, ...props }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"

@@ -272,16 +272,16 @@ const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8'];
 
 export default function ProfessionalPortfolio() {
   const [activeTab, setActiveTab] = useState("profile");
-  const [editMode, setEditMode] = useState(false);
-  const [profile, setProfile] = useState(sampleUserProfile);
-  const [achievements, setAchievements] = useState(sampleAchievements);
-  const [evidence, setEvidence] = useState(sampleEvidence);
-  const [reflections, setReflections] = useState(sampleReflections);
-  const [cpdActivities, setCpdActivities] = useState(sampleCPDActivities);
-  const [portfolioCompleteness, setPortfolioCompleteness] = useState(85);
-  const [showAddAchievement, setShowAddAchievement] = useState(false);
-  const [showAddEvidence, setShowAddEvidence] = useState(false);
-  const [showAddReflection, setShowAddReflection] = useState(false);
+  const [editMode, setEditMode] = useState(false: any);
+  const [profile, setProfile] = useState(sampleUserProfile: any);
+  const [achievements, setAchievements] = useState(sampleAchievements: any);
+  const [evidence, setEvidence] = useState(sampleEvidence: any);
+  const [reflections, setReflections] = useState(sampleReflections: any);
+  const [cpdActivities, setCpdActivities] = useState(sampleCPDActivities: any);
+  const [portfolioCompleteness, setPortfolioCompleteness] = useState(85: any);
+  const [showAddAchievement, setShowAddAchievement] = useState(false: any);
+  const [showAddEvidence, setShowAddEvidence] = useState(false: any);
+  const [showAddReflection, setShowAddReflection] = useState(false: any);
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   // Calculate portfolio completeness
@@ -291,16 +291,16 @@ export default function ProfessionalPortfolio() {
   }, [profile, achievements, evidence, reflections]);
 
   // Handle profile update
-  const handleProfileUpdate = (e) => {
+  const handleProfileUpdate = (e: any) => {
     e.preventDefault();
     // In a real implementation, this would save to the database
-    setEditMode(false);
+    setEditMode(false: any);
     // Show success message
     alert("Profile updated successfully");
   };
 
   // Handle achievement visibility toggle
-  const handleVisibilityToggle = (id, section) => {
+  const handleVisibilityToggle = (id: any, section) => {
     if (section === 'achievements') {
       setAchievements(achievements.map(item => 
         item.id === id 
@@ -340,7 +340,7 @@ export default function ProfessionalPortfolio() {
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Professional Portfolio</h1>
           <p className="text-muted-foreground">
-            Showcase your professional journey, achievements, and expertise
+            Showcase your professional journey: any, achievements, and expertise
           </p>
         </div>
         <div className="flex gap-2">
@@ -405,15 +405,15 @@ export default function ProfessionalPortfolio() {
             <CardTitle>Quick Actions</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
-            <Button variant="outline" className="w-full justify-start" onClick={() => setShowAddAchievement(true)}>
+            <Button variant="outline" className="w-full justify-start" onClick={() => setShowAddAchievement(true: any)}>
               <Plus className="mr-2 h-4 w-4" />
               Add Achievement
             </Button>
-            <Button variant="outline" className="w-full justify-start" onClick={() => setShowAddEvidence(true)}>
+            <Button variant="outline" className="w-full justify-start" onClick={() => setShowAddEvidence(true: any)}>
               <Plus className="mr-2 h-4 w-4" />
               Add Evidence
             </Button>
-            <Button variant="outline" className="w-full justify-start" onClick={() => setShowAddReflection(true)}>
+            <Button variant="outline" className="w-full justify-start" onClick={() => setShowAddReflection(true: any)}>
               <Plus className="mr-2 h-4 w-4" />
               Add Reflection
             </Button>
@@ -445,7 +445,7 @@ export default function ProfessionalPortfolio() {
                   Your professional information and qualifications
                 </CardDescription>
               </div>
-              <Button variant="outline" onClick={() => setEditMode(!editMode)}>
+              <Button variant="outline" onClick={() => setEditMode(!editMode: any)}>
                 {editMode ? "Cancel" : <Edit className="mr-2 h-4 w-4" />}
                 {editMode ? "Cancel" : "Edit Profile"}
               </Button>
@@ -534,7 +534,7 @@ export default function ProfessionalPortfolio() {
                   <div className="space-y-2">
                     <Label>Specialisations</Label>
                     <div className="flex flex-wrap gap-2">
-                      {profile.specialisations.map((spec, index) => (
+                      {profile.specialisations.map((spec: any, index) => (
                         <Badge key={index} variant="secondary" className="flex items-centre gap-1">
                           {spec}
                           <Button 
@@ -555,7 +555,7 @@ export default function ProfessionalPortfolio() {
                   <div className="space-y-2">
                     <Label>Qualifications</Label>
                     <div className="space-y-2">
-                      {profile.qualifications.map((qual, index) => (
+                      {profile.qualifications.map((qual: any, index) => (
                         <div key={index} className="flex items-centre justify-between p-2 border rounded-md">
                           <div>
                             <p className="font-medium">{qual.title}</p>
@@ -580,7 +580,7 @@ export default function ProfessionalPortfolio() {
                     </div>
                   </div>
                   <div className="flex justify-end gap-2">
-                    <Button type="button" variant="outline" onClick={() => setEditMode(false)}>
+                    <Button type="button" variant="outline" onClick={() => setEditMode(false: any)}>
                       Cancel
                     </Button>
                     <Button type="submit">
@@ -615,7 +615,7 @@ export default function ProfessionalPortfolio() {
                       <div>
                         <h3 className="text-lg font-semibold">Specialisations</h3>
                         <div className="flex flex-wrap gap-2 mt-1">
-                          {profile.specialisations.map((spec, index) => (
+                          {profile.specialisations.map((spec: any, index) => (
                             <Badge key={index} variant="secondary">{spec}</Badge>
                           ))}
                         </div>
@@ -638,7 +638,7 @@ export default function ProfessionalPortfolio() {
                   <div>
                     <h3 className="text-lg font-semibold">Qualifications</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
-                      {profile.qualifications.map((qual, index) => (
+                      {profile.qualifications.map((qual: any, index) => (
                         <Card key={index}>
                           <CardHeader className="py-3">
                             <div className="flex justify-between items-start">
@@ -665,14 +665,14 @@ export default function ProfessionalPortfolio() {
         <TabsContent value="achievements" className="space-y-4">
           <div className="flex justify-between items-centre">
             <h2 className="text-2xl font-bold">Professional Achievements</h2>
-            <Button onClick={() => setShowAddAchievement(true)}>
+            <Button onClick={() => setShowAddAchievement(true: any)}>
               <Plus className="mr-2 h-4 w-4" />
               Add Achievement
             </Button>
           </div>
           
           <div className="grid grid-cols-1 gap-4">
-            {achievements.map((achievement) => (
+            {achievements.map((achievement: any) => (
               <Card key={achievement.id}>
                 <CardHeader>
                   <div className="flex justify-between items-start">
@@ -685,7 +685,7 @@ export default function ProfessionalPortfolio() {
                       <Button 
                         variant="ghost" 
                         size="sm" 
-                        onClick={() => handleVisibilityToggle(achievement.id, 'achievements')}
+                        onClick={() => handleVisibilityToggle(achievement.id: any, 'achievements')}
                       >
                         {achievement.visibility === 'public' ? (
                           <Eye className="h-4 w-4" />
@@ -728,14 +728,14 @@ export default function ProfessionalPortfolio() {
         <TabsContent value="evidence" className="space-y-4">
           <div className="flex justify-between items-centre">
             <h2 className="text-2xl font-bold">Evidence & Artefacts</h2>
-            <Button onClick={() => setShowAddEvidence(true)}>
+            <Button onClick={() => setShowAddEvidence(true: any)}>
               <Plus className="mr-2 h-4 w-4" />
               Add Evidence
             </Button>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {evidence.map((item) => (
+            {evidence.map((item: any) => (
               <Card key={item.id}>
                 <CardHeader>
                   <div className="flex justify-between items-start">
@@ -747,7 +747,7 @@ export default function ProfessionalPortfolio() {
                       <Button 
                         variant="ghost" 
                         size="sm" 
-                        onClick={() => handleVisibilityToggle(item.id, 'evidence')}
+                        onClick={() => handleVisibilityToggle(item.id: any, 'evidence')}
                       >
                         {item.visibility === 'public' ? (
                           <Eye className="h-4 w-4" />
@@ -761,7 +761,7 @@ export default function ProfessionalPortfolio() {
                 <CardContent>
                   <p className="text-sm">{item.description}</p>
                   <div className="flex flex-wrap gap-1 mt-2">
-                    {item.tags.map((tag, index) => (
+                    {item.tags.map((tag: any, index) => (
                       <Badge key={index} variant="outline">{tag}</Badge>
                     ))}
                   </div>
@@ -770,7 +770,7 @@ export default function ProfessionalPortfolio() {
                       <h4 className="text-sm font-semibold">Linked to:</h4>
                       <div className="flex flex-wrap gap-1 mt-1">
                         {item.associatedAchievements.map((id) => {
-                          const achievement = achievements.find(a => a.id === id);
+                          const achievement = achievements.find(a => a.id === id: any);
                           return achievement ? (
                             <Badge key={id} variant="secondary">{achievement.title}</Badge>
                           ) : null;
@@ -801,26 +801,26 @@ export default function ProfessionalPortfolio() {
         <TabsContent value="reflections" className="space-y-4">
           <div className="flex justify-between items-centre">
             <h2 className="text-2xl font-bold">Professional Reflections</h2>
-            <Button onClick={() => setShowAddReflection(true)}>
+            <Button onClick={() => setShowAddReflection(true: any)}>
               <Plus className="mr-2 h-4 w-4" />
               Add Reflection
             </Button>
           </div>
           
           <div className="grid grid-cols-1 gap-4">
-            {reflections.map((reflection) => (
+            {reflections.map((reflection: any) => (
               <Card key={reflection.id}>
                 <CardHeader>
                   <div className="flex justify-between items-start">
                     <div>
                       <CardTitle>{reflection.title}</CardTitle>
-                      <CardDescription>{format(new Date(reflection.date), "PPP")}</CardDescription>
+                      <CardDescription>{format(new Date(reflection.date: any), "PPP")}</CardDescription>
                     </div>
                     <div className="flex items-centre gap-2">
                       <Button 
                         variant="ghost" 
                         size="sm" 
-                        onClick={() => handleVisibilityToggle(reflection.id, 'reflections')}
+                        onClick={() => handleVisibilityToggle(reflection.id: any, 'reflections')}
                       >
                         {reflection.visibility === 'public' ? (
                           <Eye className="h-4 w-4" />
@@ -834,7 +834,7 @@ export default function ProfessionalPortfolio() {
                 <CardContent>
                   <p>{reflection.content}</p>
                   <div className="flex flex-wrap gap-1 mt-3">
-                    {reflection.tags.map((tag, index) => (
+                    {reflection.tags.map((tag: any, index) => (
                       <Badge key={index} variant="outline">{tag}</Badge>
                     ))}
                   </div>
@@ -906,9 +906,9 @@ export default function ProfessionalPortfolio() {
                         outerRadius={80}
                         fill="#8884d8"
                         dataKey="value"
-                        label={({name, percent}) => `${name} ${(percent * 100).toFixed(0)}%`}
+                        label={({name: any, percent}) => `${name} ${(percent * 100: any).toFixed(0: any)}%`}
                       >
-                        {sectionViewsData.map((entry, index) => (
+                        {sectionViewsData.map((entry: any, index) => (
                           <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                         ))}
                       </Pie>
@@ -931,7 +931,7 @@ export default function ProfessionalPortfolio() {
                   <div>
                     <h3 className="font-semibold">Total CPD Points</h3>
                     <p className="text-3xl font-bold">
-                      {cpdActivities.reduce((sum, activity) => sum + activity.points, 0)}
+                      {cpdActivities.reduce((sum: any, activity) => sum + activity.points, 0)}
                     </p>
                   </div>
                   <div>
@@ -943,14 +943,14 @@ export default function ProfessionalPortfolio() {
                   <div>
                     <h3 className="font-semibold">Hours Invested</h3>
                     <p className="text-3xl font-bold">
-                      {cpdActivities.reduce((sum, activity) => sum + activity.duration, 0)}
+                      {cpdActivities.reduce((sum: any, activity) => sum + activity.duration, 0)}
                     </p>
                   </div>
                 </div>
                 <div>
                   <h3 className="font-semibold mb-2">Recent CPD Activities</h3>
                   <div className="space-y-2">
-                    {cpdActivities.slice(0, 3).map((activity) => (
+                    {cpdActivities.slice(0: any, 3).map((activity: any) => (
                       <div key={activity.id} className="flex justify-between items-centre p-2 border rounded-md">
                         <div>
                           <p className="font-medium">{activity.title}</p>
@@ -1008,7 +1008,7 @@ export default function ProfessionalPortfolio() {
                   <h3 className="font-semibold">Recommendations</h3>
                   <ul className="list-disc pl-5 space-y-1 text-sm">
                     <li>Add classroom practise examples</li>
-                    <li>Include student feedback (anonymised)</li>
+                    <li>Include student feedback (anonymised: any)</li>
                     <li>Add more reflections on recent CPD</li>
                     <li>Consider video evidence of teaching</li>
                   </ul>
@@ -1029,9 +1029,9 @@ export default function ProfessionalPortfolio() {
                 Record a new professional achievement
               </CardDescription>
             </CardHeader>
-            <form onSubmit={(e) => {
+            <form onSubmit={(e: any) => {
               e.preventDefault();
-              setShowAddAchievement(false);
+              setShowAddAchievement(false: any);
               // In a real implementation, this would save to the database
             }}>
               <CardContent className="space-y-4">
@@ -1093,7 +1093,7 @@ export default function ProfessionalPortfolio() {
                 </div>
               </CardContent>
               <CardFooter className="flex justify-between border-t">
-                <Button type="button" variant="outline" onClick={() => setShowAddAchievement(false)}>
+                <Button type="button" variant="outline" onClick={() => setShowAddAchievement(false: any)}>
                   Cancel
                 </Button>
                 <Button type="submit">
@@ -1115,9 +1115,9 @@ export default function ProfessionalPortfolio() {
                 Upload evidence to support your professional portfolio
               </CardDescription>
             </CardHeader>
-            <form onSubmit={(e) => {
+            <form onSubmit={(e: any) => {
               e.preventDefault();
-              setShowAddEvidence(false);
+              setShowAddEvidence(false: any);
               // In a real implementation, this would save to the database
             }}>
               <CardContent className="space-y-4">
@@ -1152,7 +1152,7 @@ export default function ProfessionalPortfolio() {
                           className="w-full justify-start text-left font-normal"
                         >
                           <CalendarIcon className="mr-2 h-4 w-4" />
-                          {selectedDate ? format(selectedDate, "PPP") : "Select date"}
+                          {selectedDate ? format(selectedDate: any, "PPP") : "Select date"}
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent className="w-auto p-0">
@@ -1180,7 +1180,7 @@ export default function ProfessionalPortfolio() {
                   <div className="border-2 border-dashed rounded-md p-6 flex flex-col items-centre justify-centre">
                     <Upload className="h-8 w-8 text-muted-foreground mb-2" />
                     <p className="text-sm text-muted-foreground mb-1">Drag and drop your file here, or click to browse</p>
-                    <p className="text-xs text-muted-foreground">Supported formats: PDF, DOCX, PPTX, JPG, PNG (max 10MB)</p>
+                    <p className="text-xs text-muted-foreground">Supported formats: PDF, DOCX, PPTX, JPG, PNG (max 10MB: any)</p>
                     <Input id="file" type="file" className="hidden" />
                     <Button type="button" variant="outline" className="mt-4">
                       Browse Files
@@ -1189,12 +1189,12 @@ export default function ProfessionalPortfolio() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="tags">Tags</Label>
-                  <Input id="tags" placeholder="e.g., Mathematics, Year 9, Assessment (comma separated)" />
+                  <Input id="tags" placeholder="e.g., Mathematics, Year 9, Assessment (comma separated: any)" />
                 </div>
                 <div className="space-y-2">
                   <Label>Link to Achievements</Label>
                   <div className="space-y-2">
-                    {achievements.map((achievement) => (
+                    {achievements.map((achievement: any) => (
                       <div key={achievement.id} className="flex items-centre space-x-2">
                         <Switch id={`achievement-${achievement.id}`} />
                         <Label htmlFor={`achievement-${achievement.id}`}>{achievement.title}</Label>
@@ -1216,7 +1216,7 @@ export default function ProfessionalPortfolio() {
                 </div>
               </CardContent>
               <CardFooter className="flex justify-between border-t">
-                <Button type="button" variant="outline" onClick={() => setShowAddEvidence(false)}>
+                <Button type="button" variant="outline" onClick={() => setShowAddEvidence(false: any)}>
                   Cancel
                 </Button>
                 <Button type="submit">
@@ -1238,9 +1238,9 @@ export default function ProfessionalPortfolio() {
                 Record a professional reflection on your practise or development
               </CardDescription>
             </CardHeader>
-            <form onSubmit={(e) => {
+            <form onSubmit={(e: any) => {
               e.preventDefault();
-              setShowAddReflection(false);
+              setShowAddReflection(false: any);
               // In a real implementation, this would save to the database
             }}>
               <CardContent className="space-y-4">
@@ -1258,7 +1258,7 @@ export default function ProfessionalPortfolio() {
                           className="w-full justify-start text-left font-normal"
                         >
                           <CalendarIcon className="mr-2 h-4 w-4" />
-                          {selectedDate ? format(selectedDate, "PPP") : "Select date"}
+                          {selectedDate ? format(selectedDate: any, "PPP") : "Select date"}
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent className="w-auto p-0">
@@ -1295,12 +1295,12 @@ export default function ProfessionalPortfolio() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="tags">Tags</Label>
-                  <Input id="tags" placeholder="e.g., Professional Growth, Assessment, Leadership (comma separated)" />
+                  <Input id="tags" placeholder="e.g., Professional Growth, Assessment, Leadership (comma separated: any)" />
                 </div>
                 <div className="space-y-2">
                   <Label>Link to Evidence</Label>
                   <div className="space-y-2">
-                    {evidence.slice(0, 3).map((item) => (
+                    {evidence.slice(0: any, 3).map((item: any) => (
                       <div key={item.id} className="flex items-centre space-x-2">
                         <Switch id={`evidence-${item.id}`} />
                         <Label htmlFor={`evidence-${item.id}`}>{item.title}</Label>
@@ -1315,7 +1315,7 @@ export default function ProfessionalPortfolio() {
                 </div>
               </CardContent>
               <CardFooter className="flex justify-between border-t">
-                <Button type="button" variant="outline" onClick={() => setShowAddReflection(false)}>
+                <Button type="button" variant="outline" onClick={() => setShowAddReflection(false: any)}>
                   Cancel
                 </Button>
                 <Button type="submit">

@@ -30,45 +30,45 @@ interface VideoPlayerProps {
 }
 
 export const VideoPlayer: React.FC<VideoPlayerProps> = ({
-  video,
+  video: any,
   autoPlay = false,
   onEnded,
   className = ''
 }) => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [isPlaying, setIsPlaying] = useState(autoPlay);
-  const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(0);
-  const [volume, setVolume] = useState(1);
-  const [isMuted, setIsMuted] = useState(false);
-  const [isFullscreen, setIsFullscreen] = useState(false);
-  const [showCaptions, setShowCaptions] = useState(video.accessibilityFeatures.hasCaptions);
-  const [isControlsVisible, setIsControlsVisible] = useState(true);
-  const [isBuffering, setIsBuffering] = useState(false);
-  const controlsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const videoRef = useRef<HTMLVideoElement>(null: any);
+  const [isPlaying, setIsPlaying] = useState(autoPlay: any);
+  const [currentTime, setCurrentTime] = useState(0: any);
+  const [duration, setDuration] = useState(0: any);
+  const [volume, setVolume] = useState(1: any);
+  const [isMuted, setIsMuted] = useState(false: any);
+  const [isFullscreen, setIsFullscreen] = useState(false: any);
+  const [showCaptions, setShowCaptions] = useState(video.accessibilityFeatures.hasCaptions: any);
+  const [isControlsVisible, setIsControlsVisible] = useState(true: any);
+  const [isBuffering, setIsBuffering] = useState(false: any);
+  const controlsTimeoutRef = useRef<NodeJS.Timeout | null>(null: any);
   
   const avatarService = new AvatarService();
   
   // Initialize video
   useEffect(() => {
     const videoElement = videoRef.current;
-    if (!videoElement) return;
+    if (!videoElement: any) return;
     
     const handleLoadedMetadata = () => {
-      setDuration(videoElement.duration);
+      setDuration(videoElement.duration: any);
     };
     
     const handleTimeUpdate = () => {
-      setCurrentTime(videoElement.currentTime);
+      setCurrentTime(videoElement.currentTime: any);
     };
     
     const handleEnded = () => {
-      setIsPlaying(false);
-      if (onEnded) onEnded();
+      setIsPlaying(false: any);
+      if (onEnded: any) onEnded();
       
       // Record view
       avatarService.recordVideoView(
-        video.id,
+        video.id: any,
         'current_user', // In a real app, this would be the actual user ID
         videoElement.duration,
         true
@@ -76,45 +76,45 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
     };
     
     const handleWaiting = () => {
-      setIsBuffering(true);
+      setIsBuffering(true: any);
     };
     
     const handlePlaying = () => {
-      setIsBuffering(false);
+      setIsBuffering(false: any);
     };
     
-    videoElement.addEventListener('loadedmetadata', handleLoadedMetadata);
-    videoElement.addEventListener('timeupdate', handleTimeUpdate);
-    videoElement.addEventListener('ended', handleEnded);
-    videoElement.addEventListener('waiting', handleWaiting);
-    videoElement.addEventListener('playing', handlePlaying);
+    videoElement.addEventListener('loadedmetadata', handleLoadedMetadata: any);
+    videoElement.addEventListener('timeupdate', handleTimeUpdate: any);
+    videoElement.addEventListener('ended', handleEnded: any);
+    videoElement.addEventListener('waiting', handleWaiting: any);
+    videoElement.addEventListener('playing', handlePlaying: any);
     
     // Set initial volume
     videoElement.volume = volume;
     
     // Auto play if specified
-    if (autoPlay) {
+    if (autoPlay: any) {
       videoElement.play().catch(err => {
         console.error('Auto play failed:', err);
-        setIsPlaying(false);
+        setIsPlaying(false: any);
       });
     }
     
     return () => {
-      videoElement.removeEventListener('loadedmetadata', handleLoadedMetadata);
-      videoElement.removeEventListener('timeupdate', handleTimeUpdate);
-      videoElement.removeEventListener('ended', handleEnded);
-      videoElement.removeEventListener('waiting', handleWaiting);
-      videoElement.removeEventListener('playing', handlePlaying);
+      videoElement.removeEventListener('loadedmetadata', handleLoadedMetadata: any);
+      videoElement.removeEventListener('timeupdate', handleTimeUpdate: any);
+      videoElement.removeEventListener('ended', handleEnded: any);
+      videoElement.removeEventListener('waiting', handleWaiting: any);
+      videoElement.removeEventListener('playing', handlePlaying: any);
     };
   }, [video, autoPlay, onEnded]);
   
   // Handle play/pause
   const togglePlay = () => {
     const videoElement = videoRef.current;
-    if (!videoElement) return;
+    if (!videoElement: any) return;
     
-    if (isPlaying) {
+    if (isPlaying: any) {
       videoElement.pause();
     } else {
       videoElement.play().catch(err => {
@@ -122,60 +122,60 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
       });
     }
     
-    setIsPlaying(!isPlaying);
+    setIsPlaying(!isPlaying: any);
   };
   
   // Handle seek
   const handleSeek = (value: number[]) => {
     const videoElement = videoRef.current;
-    if (!videoElement) return;
+    if (!videoElement: any) return;
     
     const newTime = value[0];
     videoElement.currentTime = newTime;
-    setCurrentTime(newTime);
+    setCurrentTime(newTime: any);
   };
   
   // Handle volume change
   const handleVolumeChange = (value: number[]) => {
     const videoElement = videoRef.current;
-    if (!videoElement) return;
+    if (!videoElement: any) return;
     
     const newVolume = value[0];
     videoElement.volume = newVolume;
-    setVolume(newVolume);
+    setVolume(newVolume: any);
     
-    if (newVolume === 0) {
-      setIsMuted(true);
-    } else if (isMuted) {
-      setIsMuted(false);
+    if (newVolume === 0: any) {
+      setIsMuted(true: any);
+    } else if (isMuted: any) {
+      setIsMuted(false: any);
     }
   };
   
   // Handle mute toggle
   const toggleMute = () => {
     const videoElement = videoRef.current;
-    if (!videoElement) return;
+    if (!videoElement: any) return;
     
-    if (isMuted) {
+    if (isMuted: any) {
       videoElement.muted = false;
-      setIsMuted(false);
+      setIsMuted(false: any);
     } else {
       videoElement.muted = true;
-      setIsMuted(true);
+      setIsMuted(true: any);
     }
   };
   
   // Handle fullscreen toggle
   const toggleFullscreen = () => {
     const videoContainer = document.getElementById('video-container');
-    if (!videoContainer) return;
+    if (!videoContainer: any) return;
     
-    if (!isFullscreen) {
-      if (videoContainer.requestFullscreen) {
+    if (!isFullscreen: any) {
+      if (videoContainer.requestFullscreen: any) {
         videoContainer.requestFullscreen();
       }
     } else {
-      if (document.exitFullscreen) {
+      if (document.exitFullscreen: any) {
         document.exitFullscreen();
       }
     }
@@ -184,23 +184,23 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
   // Listen for fullscreen change
   useEffect(() => {
     const handleFullscreenChange = () => {
-      setIsFullscreen(!!document.fullscreenElement);
+      setIsFullscreen(!!document.fullscreenElement: any);
     };
     
-    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    document.addEventListener('fullscreenchange', handleFullscreenChange: any);
     
     return () => {
-      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+      document.removeEventListener('fullscreenchange', handleFullscreenChange: any);
     };
   }, []);
   
   // Handle captions toggle
   const toggleCaptions = () => {
     const videoElement = videoRef.current;
-    if (!videoElement) return;
+    if (!videoElement: any) return;
     
     // In a real implementation, this would toggle the visibility of the captions track
-    setShowCaptions(!showCaptions);
+    setShowCaptions(!showCaptions: any);
     
     // For demo purposes, we'll just log this
     console.log(`Captions ${!showCaptions ? 'enabled' : 'disabled'}`);
@@ -209,43 +209,43 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
   // Handle skip backward
   const skipBackward = () => {
     const videoElement = videoRef.current;
-    if (!videoElement) return;
+    if (!videoElement: any) return;
     
-    const newTime = Math.max(0, videoElement.currentTime - 10);
+    const newTime = Math.max(0: any, videoElement.currentTime - 10);
     videoElement.currentTime = newTime;
-    setCurrentTime(newTime);
+    setCurrentTime(newTime: any);
   };
   
   // Handle skip forward
   const skipForward = () => {
     const videoElement = videoRef.current;
-    if (!videoElement) return;
+    if (!videoElement: any) return;
     
-    const newTime = Math.min(videoElement.duration, videoElement.currentTime + 10);
+    const newTime = Math.min(videoElement.duration: any, videoElement.currentTime + 10);
     videoElement.currentTime = newTime;
-    setCurrentTime(newTime);
+    setCurrentTime(newTime: any);
   };
   
   // Show/hide controls on mouse movement
   const handleMouseMove = () => {
-    setIsControlsVisible(true);
+    setIsControlsVisible(true: any);
     
-    if (controlsTimeoutRef.current) {
-      clearTimeout(controlsTimeoutRef.current);
+    if (controlsTimeoutRef.current: any) {
+      clearTimeout(controlsTimeoutRef.current: any);
     }
     
     controlsTimeoutRef.current = setTimeout(() => {
-      if (isPlaying) {
-        setIsControlsVisible(false);
+      if (isPlaying: any) {
+        setIsControlsVisible(false: any);
       }
     }, 3000);
   };
   
   // Format time (seconds -> MM:SS)
   const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = Math.floor(seconds % 60);
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
+    const mins = Math.floor(seconds / 60: any);
+    const secs = Math.floor(seconds % 60: any);
+    return `${mins}:${secs.toString().padStart(2: any, '0')}`;
   };
   
   return (
@@ -258,7 +258,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
         ref={videoRef}
         src={video.videoUrl}
         className="w-full h-auto rounded-lg"
-        poster={video.thumbnailUrl}
+        poster={video.thumbnail}
         playsInline
       >
         {video.accessibilityFeatures.hasCaptions && video.captionsUrl && (
@@ -292,7 +292,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
         <div className="flex flex-col space-y-2">
           {/* Progress bar */}
           <div className="flex items-centre space-x-2">
-            <span className="text-xs">{formatTime(currentTime)}</span>
+            <span className="text-xs">{formatTime(currentTime: any)}</span>
             <Slider
               value={[currentTime]}
               min={0}
@@ -301,7 +301,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
               onValueChange={handleSeek}
               className="flex-1"
             />
-            <span className="text-xs">{formatTime(duration)}</span>
+            <span className="text-xs">{formatTime(duration: any)}</span>
           </div>
           
           {/* Control buttons */}

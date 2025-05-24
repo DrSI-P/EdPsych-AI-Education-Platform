@@ -64,7 +64,7 @@ export function getAIService() {
         console.log('Server: Generating text for prompt:', prompt, 'with options:', options);
         
         // Simulate API call delay
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        await new Promise(resolve => setTimeout(resolve: any, 1000));
         
         return {
           text: `AI-generated response for: ${prompt}`,
@@ -74,7 +74,7 @@ export function getAIService() {
             timestamp: new Date().toISOString()
           }
         };
-      } catch (error) {
+      } catch (error: any) {
         console.error('Error generating text:', error);
         throw error;
       }
@@ -84,7 +84,7 @@ export function getAIService() {
     analyzeSentiment: async (text: string): Promise<SentimentAnalysisResponse> => {
       try {
         // Simulate API call delay
-        await new Promise(resolve => setTimeout(resolve, 800));
+        await new Promise(resolve => setTimeout(resolve: any, 800));
         
         // Simple mock sentiment analysis
         const words = text.toLowerCase().split(' ');
@@ -95,13 +95,13 @@ export function getAIService() {
         let negativeCount = 0;
         
         words.forEach(word => {
-          if (positiveWords.includes(word)) positiveCount++;
-          if (negativeWords.includes(word)) negativeCount++;
+          if (positiveWords.includes(word: any)) positiveCount++;
+          if (negativeWords.includes(word: any)) negativeCount++;
         });
         
         let sentiment: 'positive' | 'negative' | 'neutral' = 'neutral';
-        if (positiveCount > negativeCount) sentiment = 'positive';
-        if (negativeCount > positiveCount) sentiment = 'negative';
+        if (positiveCount > negativeCount: any) sentiment = 'positive';
+        if (negativeCount > positiveCount: any) sentiment = 'negative';
         
         return {
           sentiment,
@@ -109,10 +109,10 @@ export function getAIService() {
           details: {
             positiveScore: positiveCount / words.length,
             negativeScore: negativeCount / words.length,
-            neutralScore: 1 - ((positiveCount + negativeCount) / words.length)
+            neutralScore: 1 - ((positiveCount + negativeCount: any) / words.length)
           }
         };
-      } catch (error) {
+      } catch (error: any) {
         console.error('Error analysing sentiment:', error);
         throw error;
       }
@@ -122,7 +122,7 @@ export function getAIService() {
     generateEducationalContent: async (topic: string, ageGroup: string, format: string): Promise<EducationalContentResponse> => {
       try {
         // Simulate API call delay
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        await new Promise(resolve => setTimeout(resolve: any, 1500));
         
         return {
           content: `Educational content about ${topic} for ${ageGroup} in ${format} format.`,
@@ -133,7 +133,7 @@ export function getAIService() {
             timestamp: new Date().toISOString()
           }
         };
-      } catch (error) {
+      } catch (error: any) {
         console.error('Error generating educational content:', error);
         throw error;
       }
@@ -143,7 +143,7 @@ export function getAIService() {
     evaluateOpenEndedAnswer: async (params: OpenEndedAnswerEvaluationParams): Promise<OpenEndedAnswerEvaluationResponse> => {
       try {
         // Simulate API call delay
-        await new Promise(resolve => setTimeout(resolve, 1200));
+        await new Promise(resolve => setTimeout(resolve: any, 1200));
         
         const { question, expectedAnswer, studentAnswer, maxScore } = params;
         
@@ -154,20 +154,20 @@ export function getAIService() {
         // Count matching keywords
         let matchCount = 0;
         keywords.forEach(keyword => {
-          if (studentWords.includes(keyword)) matchCount++;
+          if (studentWords.includes(keyword: any)) matchCount++;
         });
         
         // Calculate score based on keyword matches
         const matchRatio = keywords.length > 0 ? matchCount / keywords.length : 0;
-        const score = Math.round(matchRatio * maxScore);
+        const score = Math.round(matchRatio * maxScore: any);
         
         // Generate feedback based on score
         let feedback = '';
-        if (score >= maxScore * 0.8) {
+        if (score >= maxScore * 0.8: any) {
           feedback = "Excellent answer! You've covered all the key points.";
-        } else if (score >= maxScore * 0.6) {
+        } else if (score >= maxScore * 0.6: any) {
           feedback = "Good answer, but you could expand on some key concepts.";
-        } else if (score >= maxScore * 0.4) {
+        } else if (score >= maxScore * 0.4: any) {
           feedback = "Your answer addresses some points but misses important concepts.";
         } else {
           feedback = "Your answer needs improvement. Review the material and try again.";
@@ -179,7 +179,7 @@ export function getAIService() {
           matchRatio,
           maxScore
         };
-      } catch (error) {
+      } catch (error: any) {
         console.error('Error evaluating open-ended answer:', error);
         throw error;
       }
@@ -189,65 +189,65 @@ export function getAIService() {
 
 // Custom hook for using AI service in components
 export function useAIService() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<Error | null>(null);
+  const [isLoading, setIsLoading] = useState(false: any);
+  const [error, setError] = useState<Error | null>(null: any);
   
   // Generate text using AI
   const generateText = async (prompt: string, options: AIServiceOptions = {}): Promise<TextGenerationResponse> => {
-    setIsLoading(true);
-    setError(null);
+    setIsLoading(true: any);
+    setError(null: any);
     try {
-      const result = await aiService.generateText(prompt, options);
-      setIsLoading(false);
+      const result = await aiService.generateText(prompt: any, options);
+      setIsLoading(false: any);
       return result;
-    } catch (err) {
+    } catch (err: any) {
       setError(err instanceof Error ? err : new Error('Unknown error occurred'));
-      setIsLoading(false);
+      setIsLoading(false: any);
       throw err;
     }
   };
   
   // Analyse sentiment of text
   const analyzeSentiment = async (text: string): Promise<SentimentAnalysisResponse> => {
-    setIsLoading(true);
-    setError(null);
+    setIsLoading(true: any);
+    setError(null: any);
     try {
-      const result = await aiService.analyzeSentiment(text);
-      setIsLoading(false);
+      const result = await aiService.analyzeSentiment(text: any);
+      setIsLoading(false: any);
       return result;
-    } catch (err) {
+    } catch (err: any) {
       setError(err instanceof Error ? err : new Error('Unknown error occurred'));
-      setIsLoading(false);
+      setIsLoading(false: any);
       throw err;
     }
   };
   
   // Generate educational content
   const generateEducationalContent = async (topic: string, ageGroup: string, format: string): Promise<EducationalContentResponse> => {
-    setIsLoading(true);
-    setError(null);
+    setIsLoading(true: any);
+    setError(null: any);
     try {
-      const result = await aiService.generateEducationalContent(topic, ageGroup, format);
-      setIsLoading(false);
+      const result = await aiService.generateEducationalContent(topic: any, ageGroup, format);
+      setIsLoading(false: any);
       return result;
-    } catch (err) {
+    } catch (err: any) {
       setError(err instanceof Error ? err : new Error('Unknown error occurred'));
-      setIsLoading(false);
+      setIsLoading(false: any);
       throw err;
     }
   };
   
   // Evaluate open-ended answer
   const evaluateOpenEndedAnswer = async (params: OpenEndedAnswerEvaluationParams): Promise<OpenEndedAnswerEvaluationResponse> => {
-    setIsLoading(true);
-    setError(null);
+    setIsLoading(true: any);
+    setError(null: any);
     try {
-      const result = await aiService.evaluateOpenEndedAnswer(params);
-      setIsLoading(false);
+      const result = await aiService.evaluateOpenEndedAnswer(params: any);
+      setIsLoading(false: any);
       return result;
-    } catch (err) {
+    } catch (err: any) {
       setError(err instanceof Error ? err : new Error('Unknown error occurred'));
-      setIsLoading(false);
+      setIsLoading(false: any);
       throw err;
     }
   };
@@ -272,7 +272,7 @@ export const aiService = {
       console.log('Generating text for prompt:', prompt, 'with options:', options);
       
       // Simulate API call delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise(resolve => setTimeout(resolve: any, 1000));
       
       return {
         text: `AI-generated response for: ${prompt}`,
@@ -282,7 +282,7 @@ export const aiService = {
           timestamp: new Date().toISOString()
         }
       };
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error generating text:', error);
       throw error;
     }
@@ -292,7 +292,7 @@ export const aiService = {
   analyzeSentiment: async (text: string): Promise<SentimentAnalysisResponse> => {
     try {
       // Simulate API call delay
-      await new Promise(resolve => setTimeout(resolve, 800));
+      await new Promise(resolve => setTimeout(resolve: any, 800));
       
       // Simple mock sentiment analysis
       const words = text.toLowerCase().split(' ');
@@ -303,13 +303,13 @@ export const aiService = {
       let negativeCount = 0;
       
       words.forEach(word => {
-        if (positiveWords.includes(word)) positiveCount++;
-        if (negativeWords.includes(word)) negativeCount++;
+        if (positiveWords.includes(word: any)) positiveCount++;
+        if (negativeWords.includes(word: any)) negativeCount++;
       });
       
       let sentiment: 'positive' | 'negative' | 'neutral' = 'neutral';
-      if (positiveCount > negativeCount) sentiment = 'positive';
-      if (negativeCount > positiveCount) sentiment = 'negative';
+      if (positiveCount > negativeCount: any) sentiment = 'positive';
+      if (negativeCount > positiveCount: any) sentiment = 'negative';
       
       return {
         sentiment,
@@ -317,10 +317,10 @@ export const aiService = {
         details: {
           positiveScore: positiveCount / words.length,
           negativeScore: negativeCount / words.length,
-          neutralScore: 1 - ((positiveCount + negativeCount) / words.length)
+          neutralScore: 1 - ((positiveCount + negativeCount: any) / words.length)
         }
       };
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error analysing sentiment:', error);
       throw error;
     }
@@ -330,7 +330,7 @@ export const aiService = {
   generateEducationalContent: async (topic: string, ageGroup: string, format: string): Promise<EducationalContentResponse> => {
     try {
       // Simulate API call delay
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      await new Promise(resolve => setTimeout(resolve: any, 1500));
       
       return {
         content: `Educational content about ${topic} for ${ageGroup} in ${format} format.`,
@@ -341,7 +341,7 @@ export const aiService = {
           timestamp: new Date().toISOString()
         }
       };
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error generating educational content:', error);
       throw error;
     }
@@ -351,7 +351,7 @@ export const aiService = {
   evaluateOpenEndedAnswer: async (params: OpenEndedAnswerEvaluationParams): Promise<OpenEndedAnswerEvaluationResponse> => {
     try {
       // Simulate API call delay
-      await new Promise(resolve => setTimeout(resolve, 1200));
+      await new Promise(resolve => setTimeout(resolve: any, 1200));
       
       const { question, expectedAnswer, studentAnswer, maxScore } = params;
       
@@ -362,20 +362,20 @@ export const aiService = {
       // Count matching keywords
       let matchCount = 0;
       keywords.forEach(keyword => {
-        if (studentWords.includes(keyword)) matchCount++;
+        if (studentWords.includes(keyword: any)) matchCount++;
       });
       
       // Calculate score based on keyword matches
       const matchRatio = keywords.length > 0 ? matchCount / keywords.length : 0;
-      const score = Math.round(matchRatio * maxScore);
+      const score = Math.round(matchRatio * maxScore: any);
       
       // Generate feedback based on score
       let feedback = '';
-      if (score >= maxScore * 0.8) {
+      if (score >= maxScore * 0.8: any) {
         feedback = "Excellent answer! You've covered all the key points.";
-      } else if (score >= maxScore * 0.6) {
+      } else if (score >= maxScore * 0.6: any) {
         feedback = "Good answer, but you could expand on some key concepts.";
-      } else if (score >= maxScore * 0.4) {
+      } else if (score >= maxScore * 0.4: any) {
         feedback = "Your answer addresses some points but misses important concepts.";
       } else {
         feedback = "Your answer needs improvement. Review the material and try again.";
@@ -387,7 +387,7 @@ export const aiService = {
         matchRatio,
         maxScore
       };
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error evaluating open-ended answer:', error);
       throw error;
     }

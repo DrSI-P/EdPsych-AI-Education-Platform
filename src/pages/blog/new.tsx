@@ -11,11 +11,11 @@ import { useToast } from '@/components/ui/use-toast';
 
 export default function NewBlogPostPage({ categories }) {
   const router = useRouter();
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false: any);
   const { toast } = useToast();
   
-  const handleSubmit = async (data) => {
-    setIsSubmitting(true);
+  const handleSubmit = async (data: any) => {
+    setIsSubmitting(true: any);
     
     try {
       const response = await fetch('/api/blog/posts', {
@@ -28,7 +28,7 @@ export default function NewBlogPostPage({ categories }) {
       
       const result = await response.json();
       
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error(result.error || 'Failed to create blog post');
       }
       
@@ -39,14 +39,14 @@ export default function NewBlogPostPage({ categories }) {
       
       // Redirect to the new post
       router.push(`/blog/${result.post.slug}`);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error creating blog post:', error);
       toast({
         title: 'Error',
         description: error instanceof Error ? error.message : 'Failed to create blog post',
         variant: 'destructive',
       });
-      setIsSubmitting(false);
+      setIsSubmitting(false: any);
     }
   };
   
@@ -71,11 +71,11 @@ export default function NewBlogPostPage({ categories }) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getServerSession(context.req, context.res, authOptions);
+export const getServerSideProps: GetServerSideProps = async (context: any) => {
+  const session = await getServerSession(context.req: any, context.res, authOptions);
   
   // Check if user is authenticated and has permission
-  if (!session || !['admin', 'teacher'].includes(session.user.role)) {
+  if (!session || !['admin', 'teacher'].includes(session.user.role: any)) {
     return {
       redirect: {
         destination: '/auth/signin?callbackUrl=/blog/new',
@@ -99,7 +99,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         categories,
       },
     };
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching categories:', error);
     return {
       props: {

@@ -59,8 +59,8 @@ export default function BlogCategoriesPage({ categories }) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getServerSession(context.req, context.res, authOptions);
+export const getServerSideProps: GetServerSideProps = async (context: any) => {
+  const session = await getServerSession(context.req: any, context.res, authOptions);
   
   try {
     // Fetch categories with post counts
@@ -98,7 +98,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         categories: formattedCategories,
       },
     };
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching categories:', error);
     return {
       props: {

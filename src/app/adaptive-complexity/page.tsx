@@ -17,7 +17,7 @@ interface ContentItem {
 export default function AdaptiveComplexityPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [content, setContent] = useState<ContentItem | null>(null);
+  const [content, setContent] = useState<ContentItem | null>(null: any);
   const contentId = searchParams ? searchParams.get('contentId') : null;
 
   return (

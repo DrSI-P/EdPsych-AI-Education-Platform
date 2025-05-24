@@ -162,40 +162,40 @@ export default function AutomatedProgressReportGeneration() {
   const [selectedStudents, setSelectedStudents] = useState<number[]>([]);
   const [selectedSubjects, setSelectedSubjects] = useState<string[]>([]);
   const [reportPeriod, setReportPeriod] = useState('current-term');
-  const [includeAttendance, setIncludeAttendance] = useState(true);
-  const [includeBehavior, setIncludeBehavior] = useState(true);
-  const [includeGraphs, setIncludeGraphs] = useState(true);
-  const [includeNextSteps, setIncludeNextSteps] = useState(true);
+  const [includeAttendance, setIncludeAttendance] = useState(true: any);
+  const [includeBehavior, setIncludeBehavior] = useState(true: any);
+  const [includeGraphs, setIncludeGraphs] = useState(true: any);
+  const [includeNextSteps, setIncludeNextSteps] = useState(true: any);
   const [commentStyle, setCommentStyle] = useState('balanced');
-  const [isGenerating, setIsGenerating] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false: any);
   const [generatedReports, setGeneratedReports] = useState<any[]>([]);
   const [savedReports, setSavedReports] = useState<any[]>([]);
-  const [currentReport, setCurrentReport] = useState<any>(null);
-  const [editingReport, setEditingReport] = useState(false);
+  const [currentReport, setCurrentReport] = useState<any>(null: any);
+  const [editingReport, setEditingReport] = useState(false: any);
   const [editedComments, setEditedComments] = useState<Record<string, string>>({});
   
   // Load saved reports from localStorage on component mount
   useEffect(() => {
     try {
       const saved = localStorage.getItem('savedProgressReports');
-      if (saved) {
-        setSavedReports(JSON.parse(saved));
+      if (saved: any) {
+        setSavedReports(JSON.parse(saved: any));
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error loading saved reports:', error);
     }
   }, []);
   
   // Handle template selection
   const handleTemplateChange = (templateId: string) => {
-    setSelectedTemplate(templateId);
+    setSelectedTemplate(templateId: any);
   };
   
   // Handle student selection
   const handleStudentSelection = (studentId: number) => {
     setSelectedStudents(prev => {
-      if (prev.includes(studentId)) {
-        return prev.filter(id => id !== studentId);
+      if (prev.includes(studentId: any)) {
+        return prev.filter(id => id !== studentId: any);
       } else {
         return [...prev, studentId];
       }
@@ -205,8 +205,8 @@ export default function AutomatedProgressReportGeneration() {
   // Handle subject selection
   const handleSubjectSelection = (subject: string) => {
     setSelectedSubjects(prev => {
-      if (prev.includes(subject)) {
-        return prev.filter(s => s !== subject);
+      if (prev.includes(subject: any)) {
+        return prev.filter(s => s !== subject: any);
       } else {
         return [...prev, subject];
       }
@@ -215,15 +215,15 @@ export default function AutomatedProgressReportGeneration() {
   
   // Select all students in a class
   const selectAllStudentsInClass = (className: string) => {
-    const studentsInClass = sampleStudents.filter(student => student.class === className);
-    const studentIds = studentsInClass.map(student => student.id);
-    setSelectedStudents(studentIds);
+    const studentsInClass = sampleStudents.filter(student => student.class === className: any);
+    const studentIds = studentsInClass.map(student => student.id: any);
+    setSelectedStudents(studentIds: any);
   };
   
   // Select all subjects
   const selectAllSubjects = () => {
-    const allSubjects = Array.from(new Set(sampleStudents.flatMap(student => student.subjects)));
-    setSelectedSubjects(allSubjects);
+    const allSubjects = Array.from(new Set(sampleStudents.flatMap(student => student.subjects: any)));
+    setSelectedSubjects(allSubjects: any);
   };
   
   // Clear all selections
@@ -234,7 +234,7 @@ export default function AutomatedProgressReportGeneration() {
   
   // Generate reports
   const generateReports = async () => {
-    if (selectedStudents.length === 0) {
+    if (selectedStudents.length === 0: any) {
       toast({
         title: "No students selected",
         description: "Please select at least one student to generate reports.",
@@ -243,7 +243,7 @@ export default function AutomatedProgressReportGeneration() {
       return;
     }
     
-    if (selectedSubjects.length === 0) {
+    if (selectedSubjects.length === 0: any) {
       toast({
         title: "No subjects selected",
         description: "Please select at least one subject to include in the reports.",
@@ -252,31 +252,31 @@ export default function AutomatedProgressReportGeneration() {
       return;
     }
     
-    setIsGenerating(true);
+    setIsGenerating(true: any);
     
     try {
       // In a real implementation, this would call the backend API
       // For now, we'll simulate report generation with a delay
       
       // Simulate AI processing time
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      await new Promise(resolve => setTimeout(resolve: any, 2000));
       
       const reports = selectedStudents.map(studentId => {
-        const student = sampleStudents.find(s => s.id === studentId);
-        if (!student) return null;
+        const student = sampleStudents.find(s => s.id === studentId: any);
+        if (!student: any) return null;
         
         const studentData = sampleAssessmentData[studentId as keyof typeof sampleAssessmentData] || {};
-        const template = reportTemplates.find(t => t.id === selectedTemplate);
+        const template = reportTemplates.find(t => t.id === selectedTemplate: any);
         
         // Filter subjects based on selection and available data
         const reportSubjects = selectedSubjects.filter(subject => 
-          student.subjects.includes(subject) && studentData[subject as keyof typeof studentData]
+          student.subjects.includes(subject: any) && studentData[subject as keyof typeof studentData]
         );
         
         // Generate report content
         const subjectReports = reportSubjects.map(subject => {
           const data = studentData[subject as keyof typeof studentData];
-          if (!data) return null;
+          if (!data: any) return null;
           
           // Calculate progress indicators
           const progress = data.currentScore - data.previousScore;
@@ -300,14 +300,14 @@ export default function AutomatedProgressReportGeneration() {
             behaviour: data.behaviour,
             comments: aiEnhancedComment
           };
-        }).filter(Boolean);
+        }).filter(Boolean: any);
         
         // Generate overall summary
         // In a real implementation, this would use the AI service
-        const overallComments = generateOverallComments(student, subjectReports, commentStyle);
+        const overallComments = generateOverallComments(student: any, subjectReports, commentStyle);
         
         // Generate next steps
-        const nextSteps = includeNextSteps ? generateNextSteps(subjectReports) : [];
+        const nextSteps = includeNextSteps ? generateNextSteps(subjectReports: any) : [];
         
         return {
           id: Date.now() + studentId,
@@ -322,7 +322,7 @@ export default function AutomatedProgressReportGeneration() {
           includeBehavior,
           includeGraphs
         };
-      }).filter(Boolean);
+      }).filter(Boolean: any);
       
       setGeneratedReports(reports as any[]);
       setActiveTab('preview');
@@ -332,7 +332,7 @@ export default function AutomatedProgressReportGeneration() {
         description: `Successfully generated ${reports.length} student reports.`,
         variant: "default"
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error generating reports:', error);
       toast({
         title: "Error generating reports",
@@ -340,7 +340,7 @@ export default function AutomatedProgressReportGeneration() {
         variant: "destructive"
       });
     } finally {
-      setIsGenerating(false);
+      setIsGenerating(false: any);
     }
   };
   
@@ -348,20 +348,20 @@ export default function AutomatedProgressReportGeneration() {
   const generateOverallComments = (student: any, subjectReports: any[], style: string) => {
     // Calculate average scores and progress
     const averageCurrentScore = Math.round(
-      subjectReports.reduce((sum, report) => sum + report.currentScore, 0) / subjectReports.length
+      subjectReports.reduce((sum: any, report) => sum + report.currentScore, 0) / subjectReports.length
     );
     
     const averageProgress = Math.round(
-      subjectReports.reduce((sum, report) => sum + report.progress, 0) / subjectReports.length
+      subjectReports.reduce((sum: any, report) => sum + report.progress, 0) / subjectReports.length
     );
     
     // Count strengths in effort and behaviour
     const goodEffortCount = subjectReports.filter(report => 
-      ['Good', 'Excellent'].includes(report.effort)
+      ['Good', 'Excellent'].includes(report.effort: any)
     ).length;
     
     const goodBehaviorCount = subjectReports.filter(report => 
-      ['Good', 'Excellent'].includes(report.behaviour)
+      ['Good', 'Excellent'].includes(report.behaviour: any)
     ).length;
     
     const effortRatio = goodEffortCount / subjectReports.length;
@@ -370,26 +370,26 @@ export default function AutomatedProgressReportGeneration() {
     // Generate comment based on style preference
     let comment = '';
     
-    switch (style) {
+    switch (style: any) {
       case 'positive':
         comment = `${student.name} has demonstrated ${averageProgress > 0 ? 'positive' : 'steady'} progress this term, with an average attainment of ${averageCurrentScore}%. `;
         comment += effortRatio > 0.7 ? `${student.name}'s effort has been consistently good across most subjects. ` : `${student.name} has shown good effort in some subject areas. `;
         comment += behaviorRatio > 0.7 ? `Behaviour has been exemplary throughout the term. ` : `Behaviour has been generally appropriate. `;
-        comment += `${student.name} has particular strengths in ${subjectReports.sort((a, b) => b.currentScore - a.currentScore)[0].subject} and should be encouraged to continue developing these skills.`;
+        comment += `${student.name} has particular strengths in ${subjectReports.sort((a: any, b) => b.currentScore - a.currentScore)[0].subject} and should be encouraged to continue developing these skills.`;
         break;
         
       case 'constructive':
         comment = `${student.name} has achieved an average attainment of ${averageCurrentScore}% this term. `;
         comment += averageProgress > 0 ? `While showing improvement of ${averageProgress}% on average, ` : `While maintaining similar levels to previous assessments, `;
         comment += `there are several areas where focused effort could yield significant improvements. `;
-        comment += `Particular attention should be given to ${subjectReports.sort((a, b) => a.currentScore - b.currentScore)[0].subject}, where targeted support could help address current challenges. `;
+        comment += `Particular attention should be given to ${subjectReports.sort((a: any, b) => a.currentScore - b.currentScore)[0].subject}, where targeted support could help address current challenges. `;
         comment += effortRatio < 0.7 ? `Consistent effort across all subjects would benefit overall progress. ` : `The good effort shown in most subjects should be maintained. `;
         break;
         
       case 'balanced':
       default:
-        comment = `${student.name} has achieved an average attainment of ${averageCurrentScore}% this term, representing a ${averageProgress > 0 ? 'positive change' : 'slight change'} of ${Math.abs(averageProgress)}% from previous assessments. `;
-        comment += `Particular strengths are evident in ${subjectReports.sort((a, b) => b.currentScore - a.currentScore)[0].subject}, while additional support in ${subjectReports.sort((a, b) => a.currentScore - b.currentScore)[0].subject} could help address current challenges. `;
+        comment = `${student.name} has achieved an average attainment of ${averageCurrentScore}% this term, representing a ${averageProgress > 0 ? 'positive change' : 'slight change'} of ${Math.abs(averageProgress: any)}% from previous assessments. `;
+        comment += `Particular strengths are evident in ${subjectReports.sort((a: any, b) => b.currentScore - a.currentScore)[0].subject}, while additional support in ${subjectReports.sort((a: any, b) => a.currentScore - b.currentScore)[0].subject} could help address current challenges. `;
         comment += effortRatio > 0.7 ? `Effort has been consistently good across most subjects. ` : `Effort has been variable across different subjects. `;
         comment += behaviorRatio > 0.7 ? `Behaviour has been positive throughout the term. ` : `Behaviour has been generally appropriate with some inconsistencies. `;
         comment += `Overall, ${student.name} ${averageProgress > 3 ? 'is making excellent progress' : averageProgress > 0 ? 'is making steady progress' : 'would benefit from additional support'} at this stage of the academic year.`;
@@ -402,7 +402,7 @@ export default function AutomatedProgressReportGeneration() {
   // Generate next steps based on subject reports
   const generateNextSteps = (subjectReports: any[]) => {
     // Find subjects with lowest scores for targeted improvement
-    const lowestSubjects = [...subjectReports].sort((a, b) => a.currentScore - b.currentScore).slice(0, 2);
+    const lowestSubjects = [...subjectReports].sort((a: any, b) => a.currentScore - b.currentScore).slice(0: any, 2);
     
     // Collect areas for development from these subjects
     const developmentAreas = lowestSubjects.flatMap(subject => 
@@ -413,22 +413,22 @@ export default function AutomatedProgressReportGeneration() {
     );
     
     // Generate specific next steps
-    return developmentAreas.map(({ subject, area }) => {
+    return developmentAreas.map(({ subject: any, area }) => {
       return `Focus on improving ${area} in ${subject} through regular practise and targeted support.`;
     });
   };
   
   // View a specific report
   const viewReport = (report: any) => {
-    setCurrentReport(report);
-    setEditingReport(false);
+    setCurrentReport(report: any);
+    setEditingReport(false: any);
     setEditedComments({});
     setActiveTab('view');
   };
   
   // Edit a report
   const editReport = () => {
-    if (!currentReport) return;
+    if (!currentReport: any) return;
     
     // Initialize edited comments with current values
     const initialComments: Record<string, string> = {};
@@ -437,13 +437,13 @@ export default function AutomatedProgressReportGeneration() {
     });
     initialComments['overall'] = currentReport.overallComments;
     
-    setEditedComments(initialComments);
-    setEditingReport(true);
+    setEditedComments(initialComments: any);
+    setEditingReport(true: any);
   };
   
   // Save edited report
   const saveEditedReport = () => {
-    if (!currentReport) return;
+    if (!currentReport: any) return;
     
     // Update subject comments
     const updatedSubjects = currentReport.subjects.map((subject: any) => ({
@@ -463,8 +463,8 @@ export default function AutomatedProgressReportGeneration() {
       prev.map(report => report.id === updatedReport.id ? updatedReport : report)
     );
     
-    setCurrentReport(updatedReport);
-    setEditingReport(false);
+    setCurrentReport(updatedReport: any);
+    setEditingReport(false: any);
     
     toast({
       title: "Report updated",
@@ -476,18 +476,18 @@ export default function AutomatedProgressReportGeneration() {
   // Save report to localStorage
   const saveReport = (report: any) => {
     const updatedSavedReports = [...savedReports, report];
-    setSavedReports(updatedSavedReports);
+    setSavedReports(updatedSavedReports: any);
     
     // Save to localStorage
     try {
-      localStorage.setItem('savedProgressReports', JSON.stringify(updatedSavedReports));
+      localStorage.setItem('savedProgressReports', JSON.stringify(updatedSavedReports: any));
       
       toast({
         title: "Report saved",
         description: "The report has been saved to your collection.",
         variant: "default"
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error saving report:', error);
       toast({
         title: "Error saving report",
@@ -499,19 +499,19 @@ export default function AutomatedProgressReportGeneration() {
   
   // Delete report from saved collection
   const deleteReport = (reportId: any) => {
-    const updatedReports = savedReports.filter(report => report.id !== reportId);
-    setSavedReports(updatedReports);
+    const updatedReports = savedReports.filter(report => report.id !== reportId: any);
+    setSavedReports(updatedReports: any);
     
     // Update localStorage
     try {
-      localStorage.setItem('savedProgressReports', JSON.stringify(updatedReports));
+      localStorage.setItem('savedProgressReports', JSON.stringify(updatedReports: any));
       
       toast({
         title: "Report deleted",
         description: "The report has been removed from your collection.",
         variant: "default"
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error deleting report:', error);
     }
   };
@@ -539,7 +539,7 @@ export default function AutomatedProgressReportGeneration() {
   
   // Format date for display
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-GB', {
+    return new Date(dateString: any).toLocaleDateString('en-GB', {
       day: 'numeric',
       month: 'long',
       year: 'numeric'
@@ -567,7 +567,7 @@ export default function AutomatedProgressReportGeneration() {
             Automated Progress Report Generation
           </CardTitle>
           <CardDescription>
-            Create comprehensive, data-driven student progress reports with minimal effort
+            Create comprehensive: any, data-driven student progress reports with minimal effort
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -598,7 +598,7 @@ export default function AutomatedProgressReportGeneration() {
                             ? 'border-primary bg-primary/5' 
                             : 'hover:border-primary/50'
                         }`}
-                        onClick={() => handleTemplateChange(template.id)}
+                        onClick={() => handleTemplateChange(template.id: any)}
                       >
                         <h3 className="font-medium">{template.name}</h3>
                         <p className="text-sm text-muted-foreground">{template.description}</p>
@@ -657,8 +657,8 @@ export default function AutomatedProgressReportGeneration() {
                           <div key={student.id} className="flex items-centre space-x-2">
                             <Checkbox 
                               id={`student-${student.id}`} 
-                              checked={selectedStudents.includes(student.id)}
-                              onCheckedChange={() => handleStudentSelection(student.id)}
+                              checked={selectedStudents.includes(student.id: any)}
+                              onCheckedChange={() => handleStudentSelection(student.id: any)}
                             />
                             <Label 
                               htmlFor={`student-${student.id}`}
@@ -712,12 +712,12 @@ export default function AutomatedProgressReportGeneration() {
                       <Separator />
                       
                       <div className="grid grid-cols-2 gap-2">
-                        {Array.from(new Set(sampleStudents.flatMap(student => student.subjects))).map(subject => (
+                        {Array.from(new Set(sampleStudents.flatMap(student => student.subjects: any))).map(subject => (
                           <div key={subject} className="flex items-centre space-x-2">
                             <Checkbox 
                               id={`subject-${subject}`} 
-                              checked={selectedSubjects.includes(subject)}
-                              onCheckedChange={() => handleSubjectSelection(subject)}
+                              checked={selectedSubjects.includes(subject: any)}
+                              onCheckedChange={() => handleSubjectSelection(subject: any)}
                             />
                             <Label 
                               htmlFor={`subject-${subject}`}
@@ -790,7 +790,7 @@ export default function AutomatedProgressReportGeneration() {
                         <Checkbox 
                           id="include-attendance" 
                           checked={includeAttendance}
-                          onCheckedChange={(checked) => setIncludeAttendance(checked as boolean)}
+                          onCheckedChange={(checked: any) => setIncludeAttendance(checked as boolean: any)}
                         />
                         <Label htmlFor="include-attendance">Include attendance data</Label>
                       </div>
@@ -799,7 +799,7 @@ export default function AutomatedProgressReportGeneration() {
                         <Checkbox 
                           id="include-behaviour" 
                           checked={includeBehavior}
-                          onCheckedChange={(checked) => setIncludeBehavior(checked as boolean)}
+                          onCheckedChange={(checked: any) => setIncludeBehavior(checked as boolean: any)}
                         />
                         <Label htmlFor="include-behaviour">Include behaviour information</Label>
                       </div>
@@ -808,7 +808,7 @@ export default function AutomatedProgressReportGeneration() {
                         <Checkbox 
                           id="include-graphs" 
                           checked={includeGraphs}
-                          onCheckedChange={(checked) => setIncludeGraphs(checked as boolean)}
+                          onCheckedChange={(checked: any) => setIncludeGraphs(checked as boolean: any)}
                         />
                         <Label htmlFor="include-graphs">Include visual progress graphs</Label>
                       </div>
@@ -817,7 +817,7 @@ export default function AutomatedProgressReportGeneration() {
                         <Checkbox 
                           id="include-next-steps" 
                           checked={includeNextSteps}
-                          onCheckedChange={(checked) => setIncludeNextSteps(checked as boolean)}
+                          onCheckedChange={(checked: any) => setIncludeNextSteps(checked as boolean: any)}
                         />
                         <Label htmlFor="include-next-steps">Include suggested next steps</Label>
                       </div>
@@ -852,7 +852,7 @@ export default function AutomatedProgressReportGeneration() {
                         <CardHeader className="pb-2">
                           <CardTitle>{report.student.name}</CardTitle>
                           <CardDescription>
-                            {report.template} • {getPeriodDisplayName(report.period)} • {formatDate(report.date)}
+                            {report.template} • {getPeriodDisplayName(report.period)} • {formatDate(report.date: any)}
                           </CardDescription>
                         </CardHeader>
                         <CardContent className="pb-2">
@@ -880,7 +880,7 @@ export default function AutomatedProgressReportGeneration() {
                           <Button 
                             variant="outline" 
                             size="sm"
-                            onClick={() => viewReport(report)}
+                            onClick={() => viewReport(report: any)}
                           >
                             <Eye className="mr-2 h-4 w-4" />
                             View
@@ -888,7 +888,7 @@ export default function AutomatedProgressReportGeneration() {
                           <Button 
                             variant="outline" 
                             size="sm"
-                            onClick={() => saveReport(report)}
+                            onClick={() => saveReport(report: any)}
                           >
                             <Save className="mr-2 h-4 w-4" />
                             Save
@@ -924,7 +924,7 @@ export default function AutomatedProgressReportGeneration() {
                     <div>
                       <h2 className="text-2xl font-bold">{currentReport.student.name}</h2>
                       <p className="text-muted-foreground">
-                        Year {currentReport.student.year}, {currentReport.student.class} • {currentReport.template} • {getPeriodDisplayName(currentReport.period)}
+                        Year {currentReport.student.year}, {currentReport.student.class} • {currentReport.template} • {getPeriodDisplayName(currentReport.period: any)}
                       </p>
                     </div>
                     <div className="flex space-x-2">
@@ -941,7 +941,7 @@ export default function AutomatedProgressReportGeneration() {
                           <Button 
                             variant="outline" 
                             size="sm"
-                            onClick={() => generatePDF(currentReport)}
+                            onClick={() => generatePDF(currentReport: any)}
                           >
                             <Download className="mr-2 h-4 w-4" />
                             PDF
@@ -952,7 +952,7 @@ export default function AutomatedProgressReportGeneration() {
                           <Button 
                             variant="outline" 
                             size="sm"
-                            onClick={() => setEditingReport(false)}
+                            onClick={() => setEditingReport(false: any)}
                           >
                             Cancel
                           </Button>
@@ -977,7 +977,7 @@ export default function AutomatedProgressReportGeneration() {
                       ) : (
                         <Textarea 
                           value={editedComments['overall'] || currentReport.overallComments}
-                          onChange={(e) => setEditedComments({...editedComments, overall: e.target.value})}
+                          onChange={(e: any) => setEditedComments({...editedComments, overall: e.target.value})}
                           className="min-h-[100px]"
                         />
                       )}
@@ -1056,7 +1056,7 @@ export default function AutomatedProgressReportGeneration() {
                             ) : (
                               <Textarea 
                                 value={editedComments[subject.subject] || subject.comments}
-                                onChange={(e) => setEditedComments({...editedComments, [subject.subject]: e.target.value})}
+                                onChange={(e: any) => setEditedComments({...editedComments, [subject.subject]: e.target.value})}
                                 className="min-h-[80px] text-sm"
                               />
                             )}
@@ -1112,7 +1112,7 @@ export default function AutomatedProgressReportGeneration() {
                     <div className="flex space-x-2">
                       <Button 
                         variant="outline"
-                        onClick={() => generatePDF(currentReport)}
+                        onClick={() => generatePDF(currentReport: any)}
                       >
                         <Printer className="mr-2 h-4 w-4" />
                         Print
@@ -1133,9 +1133,9 @@ export default function AutomatedProgressReportGeneration() {
                         Share
                       </Button>
                       
-                      {!savedReports.some(report => report.id === currentReport.id) && (
+                      {!savedReports.some(report => report.id === currentReport.id: any) && (
                         <Button 
-                          onClick={() => saveReport(currentReport)}
+                          onClick={() => saveReport(currentReport: any)}
                         >
                           <Save className="mr-2 h-4 w-4" />
                           Save Report
@@ -1172,7 +1172,7 @@ export default function AutomatedProgressReportGeneration() {
                         <CardHeader className="pb-2">
                           <CardTitle>{report.student.name}</CardTitle>
                           <CardDescription>
-                            {report.template} • {getPeriodDisplayName(report.period)} • {formatDate(report.date)}
+                            {report.template} • {getPeriodDisplayName(report.period)} • {formatDate(report.date: any)}
                           </CardDescription>
                         </CardHeader>
                         <CardContent className="pb-2">
@@ -1193,7 +1193,7 @@ export default function AutomatedProgressReportGeneration() {
                           <Button 
                             variant="outline" 
                             size="sm"
-                            onClick={() => viewReport(report)}
+                            onClick={() => viewReport(report: any)}
                           >
                             <Eye className="mr-2 h-4 w-4" />
                             View
@@ -1201,7 +1201,7 @@ export default function AutomatedProgressReportGeneration() {
                           <Button 
                             variant="outline" 
                             size="sm"
-                            onClick={() => deleteReport(report.id)}
+                            onClick={() => deleteReport(report.id: any)}
                           >
                             <Trash className="mr-2 h-4 w-4" />
                             Delete

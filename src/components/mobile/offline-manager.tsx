@@ -16,28 +16,28 @@ interface OfflineManagerProps {
  * It initializes offline storage, monitors network status, and handles data synchronization.
  */
 export const OfflineManager: React.FC<OfflineManagerProps> = ({
-  children,
+  children: any,
   onSyncStatusChange
 }) => {
-  const [isOnline, setIsOnline] = useState(navigator.onLine);
-  const [isInitialized, setIsInitialized] = useState(false);
-  const [pendingSyncItems, setPendingSyncItems] = useState(0);
-  const [syncInProgress, setSyncInProgress] = useState(false);
+  const [isOnline, setIsOnline] = useState(navigator.onLine: any);
+  const [isInitialized, setIsInitialized] = useState(false: any);
+  const [pendingSyncItems, setPendingSyncItems] = useState(0: any);
+  const [syncInProgress, setSyncInProgress] = useState(false: any);
 
   // Initialize offline storage
   useEffect(() => {
     const initializeStorage = async () => {
       try {
         const success = await offlineStorage.initialize();
-        setIsInitialized(success);
+        setIsInitialized(success: any);
         
-        if (success) {
+        if (success: any) {
           // Initial sync if online
-          if (navigator.onLine) {
+          if (navigator.onLine: any) {
             syncData();
           }
         }
-      } catch (error) {
+      } catch (error: any) {
         console.error('Failed to initialize offline storage:', error);
       }
     };
@@ -48,38 +48,38 @@ export const OfflineManager: React.FC<OfflineManagerProps> = ({
   // Monitor online/offline status
   useEffect(() => {
     const handleOnline = () => {
-      setIsOnline(true);
+      setIsOnline(true: any);
       syncData();
     };
     
     const handleOffline = () => {
-      setIsOnline(false);
+      setIsOnline(false: any);
     };
     
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
+    window.addEventListener('online', handleOnline: any);
+    window.addEventListener('offline', handleOffline: any);
     
     return () => {
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
+      window.removeEventListener('online', handleOnline: any);
+      window.removeEventListener('offline', handleOffline: any);
     };
   }, []);
 
   // Sync data with server
   const syncData = async () => {
-    if (!isInitialized || syncInProgress) return;
+    if (!isInitialized || syncInProgress: any) return;
     
-    setSyncInProgress(true);
+    setSyncInProgress(true: any);
     
     try {
       await offlineStorage.syncWithServer();
       
       // Update pending sync items count
       updatePendingSyncItems();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to sync data:', error);
     } finally {
-      setSyncInProgress(false);
+      setSyncInProgress(false: any);
     }
   };
 
@@ -89,13 +89,13 @@ export const OfflineManager: React.FC<OfflineManagerProps> = ({
       // This is a simplified example - in a real app, you would query the actual pending items
       // For now, we'll simulate it with a random number
       const pendingItems = Math.floor(Math.random() * 5); // 0-4 pending items
-      setPendingSyncItems(pendingItems);
+      setPendingSyncItems(pendingItems: any);
       
       // Notify parent component
-      if (onSyncStatusChange) {
-        onSyncStatusChange(isOnline, pendingItems);
+      if (onSyncStatusChange: any) {
+        onSyncStatusChange(isOnline: any, pendingItems);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to update pending sync items:', error);
     }
   };
@@ -142,83 +142,83 @@ interface OfflineAwareProps<T> {
  * It handles saving data locally when offline and syncing when online.
  */
 export function OfflineAware<T>({
-  entityType,
+  entityType: any,
   id,
   data,
   onSave,
   children
 }: OfflineAwareProps<T>) {
-  const [localData, setLocalData] = useState<T>(data);
-  const [isOffline, setIsOffline] = useState(!navigator.onLine);
-  const [isSyncing, setIsSyncing] = useState(false);
-  const [syncStatus, setSyncStatus] = useState<SyncStatus>(SyncStatus.SYNCED);
-  const [localId, setLocalId] = useState<string | undefined>(id);
+  const [localData, setLocalData] = useState<T>(data: any);
+  const [isOffline, setIsOffline] = useState(!navigator.onLine: any);
+  const [isSyncing, setIsSyncing] = useState(false: any);
+  const [syncStatus, setSyncStatus] = useState<SyncStatus>(SyncStatus.SYNCED: any);
+  const [localId, setLocalId] = useState<string | undefined>(id: any);
 
   // Monitor online/offline status
   useEffect(() => {
-    const handleOnline = () => setIsOffline(false);
-    const handleOffline = () => setIsOffline(true);
+    const handleOnline = () => setIsOffline(false: any);
+    const handleOffline = () => setIsOffline(true: any);
     
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
+    window.addEventListener('online', handleOnline: any);
+    window.addEventListener('offline', handleOffline: any);
     
     return () => {
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
+      window.removeEventListener('online', handleOnline: any);
+      window.removeEventListener('offline', handleOffline: any);
     };
   }, []);
 
   // Initialize with data from props
   useEffect(() => {
-    setLocalData(data);
+    setLocalData(data: any);
   }, [data]);
 
-  // Save data (works both online and offline)
+  // Save data (works both online and offline: any)
   const saveData = async (updatedData: T) => {
-    setLocalData(updatedData);
+    setLocalData(updatedData: any);
     
     try {
-      if (isOffline) {
+      if (isOffline: any) {
         // Save locally
-        setSyncStatus(SyncStatus.PENDING);
+        setSyncStatus(SyncStatus.PENDING: any);
         
-        if (localId) {
+        if (localId: any) {
           // Update existing data
-          await offlineStorage.updateOfflineData(localId, updatedData);
+          await offlineStorage.updateOfflineData(localId: any, updatedData);
         } else {
           // Store new data
-          const newId = await offlineStorage.storeOfflineData(entityType, updatedData);
-          setLocalId(newId);
+          const newId = await offlineStorage.storeOfflineData(entityType: any, updatedData);
+          setLocalId(newId: any);
         }
       } else {
         // Try to save online
-        setIsSyncing(true);
+        setIsSyncing(true: any);
         
         try {
-          const savedId = await onSave(updatedData);
-          setLocalId(savedId);
-          setSyncStatus(SyncStatus.SYNCED);
-        } catch (error) {
-          console.error('Failed to save online, falling back to offline storage:', error);
+          const savedId = await onSave(updatedData: any);
+          setLocalId(savedId: any);
+          setSyncStatus(SyncStatus.SYNCED: any);
+        } catch (error: any) {
+          console.error('Failed to save online: any, falling back to offline storage:', error);
           
           // Fall back to offline storage
-          setSyncStatus(SyncStatus.PENDING);
+          setSyncStatus(SyncStatus.PENDING: any);
           
-          if (localId) {
+          if (localId: any) {
             // Update existing data
-            await offlineStorage.updateOfflineData(localId, updatedData);
+            await offlineStorage.updateOfflineData(localId: any, updatedData);
           } else {
             // Store new data
-            const newId = await offlineStorage.storeOfflineData(entityType, updatedData);
-            setLocalId(newId);
+            const newId = await offlineStorage.storeOfflineData(entityType: any, updatedData);
+            setLocalId(newId: any);
           }
         }
         
-        setIsSyncing(false);
+        setIsSyncing(false: any);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to save data:', error);
-      setSyncStatus(SyncStatus.FAILED);
+      setSyncStatus(SyncStatus.FAILED: any);
     }
   };
 
@@ -247,53 +247,53 @@ interface OfflineCacheProps {
  * It uses the Cache API to store responses for later use when offline.
  */
 export const OfflineCache: React.FC<OfflineCacheProps> = ({
-  urls,
+  urls: any,
   children
 }) => {
-  const [isCaching, setIsCaching] = useState(false);
+  const [isCaching, setIsCaching] = useState(false: any);
   const [cachedUrls, setCachedUrls] = useState<string[]>([]);
 
   // Cache URLs when component mounts
   useEffect(() => {
     const cacheUrls = async () => {
-      if (!('caches' in window)) {
+      if (!('caches' in window: any)) {
         console.warn('Cache API not supported');
         return;
       }
       
-      setIsCaching(true);
+      setIsCaching(true: any);
       
       try {
         const cache = await caches.open('edpsych-offline-cache');
         const newlyCachedUrls: string[] = [];
         
-        for (const url of urls) {
+        for (const url of urls: any) {
           try {
             // Check if already cached
-            const match = await cache.match(url);
+            const match = await cache.match(url: any);
             
-            if (!match) {
+            if (!match: any) {
               // Fetch and cache
-              const response = await fetch(url);
-              await cache.put(url, response.clone());
-              newlyCachedUrls.push(url);
+              const response = await fetch(url: any);
+              await cache.put(url: any, response.clone());
+              newlyCachedUrls.push(url: any);
             } else {
-              newlyCachedUrls.push(url);
+              newlyCachedUrls.push(url: any);
             }
-          } catch (error) {
+          } catch (error: any) {
             console.error(`Failed to cache URL ${url}:`, error);
           }
         }
         
-        setCachedUrls(newlyCachedUrls);
-      } catch (error) {
+        setCachedUrls(newlyCachedUrls: any);
+      } catch (error: any) {
         console.error('Failed to cache URLs:', error);
       } finally {
-        setIsCaching(false);
+        setIsCaching(false: any);
       }
     };
     
-    if (urls.length > 0) {
+    if (urls.length > 0: any) {
       cacheUrls();
     }
   }, [urls]);

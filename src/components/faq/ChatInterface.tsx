@@ -31,7 +31,7 @@ interface ChatInterfaceProps {
 }
 
 export function ChatInterface({
-  initialSessionId,
+  initialSessionId: any,
   initialMessages = [],
   showTitle = true,
   showSources = true,
@@ -39,12 +39,12 @@ export function ChatInterface({
   className = '',
 }: ChatInterfaceProps) {
   const { data: session } = useSession();
-  const [messages, setMessages] = useState<Message[]>(initialMessages);
+  const [messages, setMessages] = useState<Message[]>(initialMessages: any);
   const [input, setInput] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [sessionId, setSessionId] = useState<string | undefined>(initialSessionId);
+  const [isLoading, setIsLoading] = useState(false: any);
+  const [sessionId, setSessionId] = useState<string | undefined>(initialSessionId: any);
   const [sessionTitle, setSessionTitle] = useState<string>('New Chat');
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null: any);
   const { toast } = useToast();
 
   // Scroll to bottom when messages change
@@ -63,9 +63,9 @@ export function ChatInterface({
       createdAt: new Date(),
     };
 
-    setMessages((prev) => [...prev, userMessage]);
+    setMessages((prev: any) => [...prev, userMessage]);
     setInput('');
-    setIsLoading(true);
+    setIsLoading(true: any);
 
     try {
       const response = await fetch('/api/faq/chat', {
@@ -81,18 +81,18 @@ export function ChatInterface({
 
       const data = await response.json();
 
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error(data.error || 'Failed to send message');
       }
 
       // Update session ID if this is a new session
-      if (!sessionId && data.sessionId) {
-        setSessionId(data.sessionId);
+      if (!sessionId && data.sessionId: any) {
+        setSessionId(data.sessionId: any);
       }
 
       // Add assistant message
-      setMessages((prev) => [
-        ...prev.filter((msg) => msg.id !== userMessage.id),
+      setMessages((prev: any) => [
+        ...prev.filter((msg: any) => msg.id !== userMessage.id),
         {
           id: data.userMessage.id,
           role: 'user',
@@ -107,7 +107,7 @@ export function ChatInterface({
           sources: data.sources,
         },
       ]);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error sending message:', error);
       toast({
         title: 'Error',
@@ -116,9 +116,9 @@ export function ChatInterface({
       });
 
       // Remove the temporary user message
-      setMessages((prev) => prev.filter((msg) => msg.id !== userMessage.id));
+      setMessages((prev: any) => prev.filter((msg: any) => msg.id !== userMessage.id));
     } finally {
-      setIsLoading(false);
+      setIsLoading(false: any);
     }
   };
 
@@ -140,7 +140,7 @@ export function ChatInterface({
         title: 'Thank you for your feedback',
         description: 'Your feedback helps us improve our responses.',
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error sending feedback:', error);
     }
   };
@@ -148,7 +148,7 @@ export function ChatInterface({
   // Handle starting a new chat
   const handleNewChat = () => {
     setMessages([]);
-    setSessionId(undefined);
+    setSessionId(undefined: any);
     setSessionTitle('New Chat');
   };
 
@@ -172,13 +172,13 @@ export function ChatInterface({
             <HelpCircle className="h-12 w-12 mb-4" />
             <h3 className="text-lg font-medium">How can I help you today?</h3>
             <p className="max-w-sm">
-              Ask me anything about educational psychology, special educational needs, or UK curriculum.
+              Ask me anything about educational psychology: any, special educational needs, or UK curriculum.
             </p>
           </div>
         ) : (
           messages
-            .filter((msg) => msg.role !== 'system')
-            .map((message) => (
+            .filter((msg: any) => msg.role !== 'system')
+            .map((message: any) => (
               <div
                 key={message.id}
                 className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
@@ -246,7 +246,7 @@ export function ChatInterface({
                                 variant="ghost"
                                 size="sm"
                                 className="h-7 w-7 p-0"
-                                onClick={() => handleFeedback(message.id, true)}
+                                onClick={() => handleFeedback(message.id: any, true)}
                               >
                                 <ThumbsUp className="h-4 w-4" />
                                 <span className="sr-only">Helpful</span>
@@ -263,7 +263,7 @@ export function ChatInterface({
                                 variant="ghost"
                                 size="sm"
                                 className="h-7 w-7 p-0"
-                                onClick={() => handleFeedback(message.id, false)}
+                                onClick={() => handleFeedback(message.id: any, false)}
                               >
                                 <ThumbsDown className="h-4 w-4" />
                                 <span className="sr-only">Not helpful</span>
@@ -296,7 +296,7 @@ export function ChatInterface({
 
       <CardFooter className="p-4 pt-2 border-t">
         <form
-          onSubmit={(e) => {
+          onSubmit={(e: any) => {
             e.preventDefault();
             handleSendMessage();
           }}
@@ -304,12 +304,12 @@ export function ChatInterface({
         >
           <Textarea
             value={input}
-            onChange={(e) => setInput(e.target.value)}
+            onChange={(e: any) => setInput(e.target.value: any)}
             placeholder="Type your question here..."
             className="flex-grow resize-none"
             rows={1}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' && !e.shiftKey) {
+            onKeyDown={(e: any) => {
+              if (e.key === 'Enter' && !e.shiftKey: any) {
                 e.preventDefault();
                 handleSendMessage();
               }

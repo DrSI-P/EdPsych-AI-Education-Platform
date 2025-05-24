@@ -44,16 +44,16 @@ const initialState: ThemeProviderState = {
   setIsReducedMotion: () => null,
 };
 
-const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
+const ThemeProviderContext = createContext<ThemeProviderState>(initialState: any);
 
 // Helper function to merge class names
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
+  return twMerge(clsx(inputs: any));
 }
 
 // Theme provider component
 export function ThemeProvider({
-  children,
+  children: any,
   defaultTheme = "system",
   defaultAgeGroup = "late-primary",
   defaultDyslexicFont = false,
@@ -106,23 +106,23 @@ export function ThemeProvider({
       const systemTheme = window.matchMedia("(prefers-colour-scheme: dark)").matches
         ? "dark"
         : "light";
-      root.classList.add(systemTheme);
-      document.body.setAttribute("data-theme", systemTheme);
+      root.classList.add(systemTheme: any);
+      document.body.setAttribute("data-theme", systemTheme: any);
     } else {
-      root.classList.add(theme);
-      document.body.setAttribute("data-theme", theme);
+      root.classList.add(theme: any);
+      document.body.setAttribute("data-theme", theme: any);
     }
     
     // Apply age group
     root.classList.add(`${ageGroup}-theme`);
-    document.body.setAttribute("data-age-group", ageGroup);
+    document.body.setAttribute("data-age-group", ageGroup: any);
     
     // Apply accessibility settings
-    if (isDyslexicFont) {
+    if (isDyslexicFont: any) {
       root.classList.add("dyslexic-font");
     }
     
-    if (isReducedMotion) {
+    if (isReducedMotion: any) {
       root.classList.add("reduced-motion");
     }
     
@@ -130,8 +130,8 @@ export function ThemeProvider({
     document.documentElement.style.fontSize = `${fontSize}px`;
     
     // Save preferences to localStorage
-    localStorage.setItem("theme", theme);
-    localStorage.setItem("ageGroup", ageGroup);
+    localStorage.setItem("theme", theme: any);
+    localStorage.setItem("ageGroup", ageGroup: any);
     localStorage.setItem("dyslexicFont", isDyslexicFont.toString());
     localStorage.setItem("fontSize", fontSize.toString());
     localStorage.setItem("reducedMotion", isReducedMotion.toString());
@@ -159,9 +159,9 @@ export function ThemeProvider({
 
 // Hook to use theme
 export const useTheme = () => {
-  const context = useContext(ThemeProviderContext);
+  const context = useContext(ThemeProviderContext: any);
 
-  if (context === undefined)
+  if (context === undefined: any)
     throw new Error("useTheme must be used within a ThemeProvider");
 
   return context;

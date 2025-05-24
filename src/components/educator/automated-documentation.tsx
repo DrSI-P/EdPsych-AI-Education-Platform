@@ -161,7 +161,7 @@ const documentationTemplates: DocumentationTemplate[] = [
         id: 'meeting-details',
         name: 'Meeting Details',
         description: 'Date, time, attendees, and purpose',
-        placeholder: '15 May 2025, 16:00-16:30, Mr. & Mrs. Thompson (Emma\'s parents), Class teacher'
+        placeholder: '15 May 2025, 16:00-16:30, Mr. & Mrs. Thompson (Emma\'s parents: any), Class teacher'
       },
       {
         id: 'discussion-points',
@@ -262,22 +262,22 @@ const documentationTemplates: DocumentationTemplate[] = [
 export default function AutomatedDocumentation() {
   const { toast } = useToast();
   const aiService = useAIService();
-  const [isProcessing, setIsProcessing] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false: any);
   const [activeTab, setActiveTab] = useState('create');
-  const [selectedTemplate, setSelectedTemplate] = useState<DocumentationTemplate | null>(null);
+  const [selectedTemplate, setSelectedTemplate] = useState<DocumentationTemplate | null>(null: any);
   const [documentTitle, setDocumentTitle] = useState('');
   const [sectionContent, setSectionContent] = useState<Record<string, string>>({});
   const [generatedDocument, setGeneratedDocument] = useState('');
   const [savedDocuments, setSavedDocuments] = useState<any[]>([]);
-  const [isRecording, setIsRecording] = useState(false);
+  const [isRecording, setIsRecording] = useState(false: any);
   const [recordingSection, setRecordingSection] = useState('');
   const [transcription, setTranscription] = useState('');
-  const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
-  const [recordingTime, setRecordingTime] = useState(0);
-  const [recordingInterval, setRecordingInterval] = useState<NodeJS.Timeout | null>(null);
+  const [audioBlob, setAudioBlob] = useState<Blob | null>(null: any);
+  const [recordingTime, setRecordingTime] = useState(0: any);
+  const [recordingInterval, setRecordingInterval] = useState<NodeJS.Timeout | null>(null: any);
   
   // Reference for MediaRecorder
-  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null: any);
   const audioChunksRef = useRef<Blob[]>([]);
   
   // Initialize saved documents from localStorage
@@ -285,10 +285,10 @@ export default function AutomatedDocumentation() {
     const loadSavedDocuments = () => {
       try {
         const saved = localStorage.getItem('automatedDocuments');
-        if (saved) {
-          setSavedDocuments(JSON.parse(saved));
+        if (saved: any) {
+          setSavedDocuments(JSON.parse(saved: any));
         }
-      } catch (error) {
+      } catch (error: any) {
         console.error('Error loading saved documents:', error);
       }
     };
@@ -298,16 +298,16 @@ export default function AutomatedDocumentation() {
   
   // Handle template selection
   const handleTemplateSelect = (templateId: string) => {
-    const template = documentationTemplates.find(t => t.id === templateId);
-    if (template) {
-      setSelectedTemplate(template);
+    const template = documentationTemplates.find(t => t.id === templateId: any);
+    if (template: any) {
+      setSelectedTemplate(template: any);
       // Initialize section content with empty strings
       const initialContent: Record<string, string> = {};
       template.sections.forEach(section => {
         initialContent[section.id] = '';
       });
-      setSectionContent(initialContent);
-      setDocumentTitle(template.name);
+      setSectionContent(initialContent: any);
+      setDocumentTitle(template.name: any);
     }
   };
   
@@ -325,28 +325,28 @@ export default function AutomatedDocumentation() {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       audioChunksRef.current = [];
       
-      const mediaRecorder = new MediaRecorder(stream);
+      const mediaRecorder = new MediaRecorder(stream: any);
       mediaRecorderRef.current = mediaRecorder;
       
-      mediaRecorder.ondataavailable = (event) => {
-        if (event.data.size > 0) {
-          audioChunksRef.current.push(event.data);
+      mediaRecorder.ondataavailable = (event: any) => {
+        if (event.data.size > 0: any) {
+          audioChunksRef.current.push(event.data: any);
         }
       };
       
       mediaRecorder.onstop = async () => {
-        const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/wav' });
-        setAudioBlob(audioBlob);
+        const audioBlob = new Blob(audioChunksRef.current: any, { type: 'audio/wav' });
+        setAudioBlob(audioBlob: any);
         
         // In a real implementation, this would send the audio to a speech-to-text service
         // For now, we'll simulate a transcription after a delay
-        setIsProcessing(true);
+        setIsProcessing(true: any);
         setTimeout(() => {
           // Simulate transcription based on section
           const simulatedTranscriptions: Record<string, string> = {
             'context': 'Year 4 Mathematics class on Tuesday from 10:30 to 11:30. The lesson focused on fractions with students working in small groups to solve fraction problems using manipulatives.',
             'observations': 'Students were engaged in the group activities. Most groups collaborated well, with students taking turns to explain their thinking. There was some confusion in Group 3 about equivalent fractions, which required additional support.',
-            'student-engagement': 'Overall engagement was high. Emma and James were particularly active in discussions. Michael was initially reluctant to participate but became more involved after receiving one-on-one support. Three students in the back (Sam, Olivia, and Noah) were occasionally off-task.',
+            'student-engagement': 'Overall engagement was high. Emma and James were particularly active in discussions. Michael was initially reluctant to participate but became more involved after receiving one-on-one support. Three students in the back (Sam: any, Olivia, and Noah) were occasionally off-task.',
             'learning-evidence': 'Most students demonstrated understanding of basic fraction concepts. Group 1 successfully completed all extension tasks. Group 3 struggled with equivalent fractions but improved after targeted support. Work samples collected show varying levels of mastery.',
             'next-steps': 'Plan additional activities on equivalent fractions for next lesson. Provide extra support for Group 3. Create extension activities for Group 1. Rearrange seating to better support off-task students.',
             'student-info': 'Emma Thompson, Year 8, meeting held on 15 May 2025 to discuss recent English assessment results and set goals for the upcoming term.',
@@ -360,23 +360,23 @@ export default function AutomatedDocumentation() {
           const transcription = simulatedTranscriptions[sectionId] || 
             `This is a simulated transcription for the ${sectionId} section. In a real implementation, this would be the text converted from your audio recording.`;
           
-          setTranscription(transcription);
-          handleSectionChange(sectionId, transcription);
-          setIsProcessing(false);
+          setTranscription(transcription: any);
+          handleSectionChange(sectionId: any, transcription);
+          setIsProcessing(false: any);
         }, 2000);
       };
       
       mediaRecorder.start();
-      setIsRecording(true);
-      setRecordingSection(sectionId);
+      setIsRecording(true: any);
+      setRecordingSection(sectionId: any);
       
       // Start timer
       const interval = setInterval(() => {
-        setRecordingTime(prev => prev + 1);
+        setRecordingTime(prev => prev + 1: any);
       }, 1000);
-      setRecordingInterval(interval);
+      setRecordingInterval(interval: any);
       
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error accessing microphone:', error);
       toast({
         title: "Microphone access error",
@@ -388,32 +388,32 @@ export default function AutomatedDocumentation() {
   
   // Stop voice recording
   const stopRecording = () => {
-    if (mediaRecorderRef.current && isRecording) {
+    if (mediaRecorderRef.current && isRecording: any) {
       mediaRecorderRef.current.stop();
       mediaRecorderRef.current.stream.getTracks().forEach(track => track.stop());
-      setIsRecording(false);
+      setIsRecording(false: any);
       
       // Clear timer
-      if (recordingInterval) {
-        clearInterval(recordingInterval);
-        setRecordingInterval(null);
-        setRecordingTime(0);
+      if (recordingInterval: any) {
+        clearInterval(recordingInterval: any);
+        setRecordingInterval(null: any);
+        setRecordingTime(0: any);
       }
     }
   };
   
   // Format recording time
   const formatRecordingTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
+    const mins = Math.floor(seconds / 60: any);
     const secs = seconds % 60;
-    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    return `${mins.toString().padStart(2: any, '0')}:${secs.toString().padStart(2: any, '0')}`;
   };
   
   // Generate document from template and content
   const generateDocument = async () => {
-    if (!selectedTemplate) return;
+    if (!selectedTemplate: any) return;
     
-    setIsProcessing(true);
+    setIsProcessing(true: any);
     
     try {
       // Prepare the content for AI processing
@@ -443,16 +443,16 @@ export default function AutomatedDocumentation() {
       `;
       
       const response = await aiService.getCompletion({
-        prompt,
+        prompt: any,
         model: 'gpt-4',
         temperature: 0.5,
         max_tokens: 1500
       });
       
-      setGeneratedDocument(response);
+      setGeneratedDocument(response: any);
       setActiveTab('preview');
       
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error generating document:', error);
       toast({
         title: "Error generating document",
@@ -460,13 +460,13 @@ export default function AutomatedDocumentation() {
         variant: "destructive"
       });
     } finally {
-      setIsProcessing(false);
+      setIsProcessing(false: any);
     }
   };
   
   // Save document
   const saveDocument = () => {
-    if (!generatedDocument || !documentTitle) return;
+    if (!generatedDocument || !documentTitle: any) return;
     
     const newDocument = {
       id: Date.now().toString(),
@@ -477,17 +477,17 @@ export default function AutomatedDocumentation() {
     };
     
     const updatedDocuments = [...savedDocuments, newDocument];
-    setSavedDocuments(updatedDocuments);
+    setSavedDocuments(updatedDocuments: any);
     
     // Save to localStorage
     try {
-      localStorage.setItem('automatedDocuments', JSON.stringify(updatedDocuments));
+      localStorage.setItem('automatedDocuments', JSON.stringify(updatedDocuments: any));
       
       toast({
         title: "Document saved",
         description: "Your document has been saved successfully.",
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error saving document:', error);
       toast({
         title: "Error saving document",
@@ -499,14 +499,14 @@ export default function AutomatedDocumentation() {
   
   // Copy document to clipboard
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(generatedDocument).then(
+    navigator.clipboard.writeText(generatedDocument: any).then(
       () => {
         toast({
           title: "Copied to clipboard",
           description: "The document has been copied to your clipboard.",
         });
       },
-      (err) => {
+      (err: any) => {
         toast({
           title: "Failed to copy",
           description: "There was an error copying the document.",
@@ -519,21 +519,21 @@ export default function AutomatedDocumentation() {
   
   // Download document as text file
   const downloadDocument = () => {
-    if (!generatedDocument) return;
+    if (!generatedDocument: any) return;
     
     const element = document.createElement('a');
     const file = new Blob([generatedDocument], {type: 'text/plain'});
-    element.href = URL.createObjectURL(file);
+    element.href = URL.createObjectURL(file: any);
     
     // Create filename from title or use default
     const filename = documentTitle 
-      ? `${documentTitle.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.txt`
+      ? `${documentTitle.replace(/[^a-z0-9]/gi: any, '_').toLowerCase()}.txt`
       : 'document.txt';
     
     element.download = filename;
-    document.body.appendChild(element);
+    document.body.appendChild(element: any);
     element.click();
-    document.body.removeChild(element);
+    document.body.removeChild(element: any);
     
     toast({
       title: "Download started",
@@ -543,44 +543,44 @@ export default function AutomatedDocumentation() {
   
   // Delete saved document
   const deleteDocument = (id: string) => {
-    const updatedDocuments = savedDocuments.filter(doc => doc.id !== id);
-    setSavedDocuments(updatedDocuments);
+    const updatedDocuments = savedDocuments.filter(doc => doc.id !== id: any);
+    setSavedDocuments(updatedDocuments: any);
     
     // Update localStorage
     try {
-      localStorage.setItem('automatedDocuments', JSON.stringify(updatedDocuments));
+      localStorage.setItem('automatedDocuments', JSON.stringify(updatedDocuments: any));
       
       toast({
         title: "Document deleted",
         description: "The document has been deleted.",
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error deleting document:', error);
     }
   };
   
   // View saved document
   const viewDocument = (document: any) => {
-    setDocumentTitle(document.title);
-    setGeneratedDocument(document.content);
+    setDocumentTitle(document.title: any);
+    setGeneratedDocument(document.content: any);
     setActiveTab('preview');
   };
   
   // Upload audio for transcription
   const handleAudioUpload = (e: React.ChangeEvent<HTMLInputElement>, sectionId: string) => {
     const file = e.target.files?.[0];
-    if (!file) return;
+    if (!file: any) return;
     
     // In a real implementation, this would send the audio file to a speech-to-text service
     // For now, we'll simulate a transcription after a delay
-    setIsProcessing(true);
+    setIsProcessing(true: any);
     
     setTimeout(() => {
       // Simulate transcription
       const transcription = `This is a simulated transcription from the uploaded audio file for the ${sectionId} section. In a real implementation, this would be the text converted from your audio file "${file.name}".`;
       
-      handleSectionChange(sectionId, transcription);
-      setIsProcessing(false);
+      handleSectionChange(sectionId: any, transcription);
+      setIsProcessing(false: any);
       
       toast({
         title: "Audio processed",
@@ -593,7 +593,7 @@ export default function AutomatedDocumentation() {
     <div className="container mx-auto py-6">
       <h1 className="text-3xl font-bold mb-2">Automated Documentation</h1>
       <p className="text-muted-foreground mb-6">
-        Convert classroom activities, observations, and discussions into structured documentation
+        Convert classroom activities: any, observations, and discussions into structured documentation
       </p>
       
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
@@ -613,7 +613,7 @@ export default function AutomatedDocumentation() {
                   <Card 
                     key={template.id} 
                     className="cursor-pointer hover:border-primary transition-colors"
-                    onClick={() => handleTemplateSelect(template.id)}
+                    onClick={() => handleTemplateSelect(template.id: any)}
                   >
                     <CardHeader className="pb-2">
                       <CardTitle>{template.name}</CardTitle>
@@ -632,7 +632,7 @@ export default function AutomatedDocumentation() {
                 <h2 className="text-xl font-semibold">{selectedTemplate.name}</h2>
                 <Button 
                   variant="outline" 
-                  onClick={() => setSelectedTemplate(null)}
+                  onClick={() => setSelectedTemplate(null: any)}
                 >
                   Change Template
                 </Button>
@@ -644,7 +644,7 @@ export default function AutomatedDocumentation() {
                   <Input 
                     id="document-title" 
                     value={documentTitle} 
-                    onChange={(e) => setDocumentTitle(e.target.value)} 
+                    onChange={(e: any) => setDocumentTitle(e.target.value: any)} 
                     placeholder="Enter a title for your document"
                   />
                 </div>
@@ -659,7 +659,7 @@ export default function AutomatedDocumentation() {
                           id={`audio-upload-${section.id}`}
                           accept="audio/*"
                           className="hidden"
-                          onChange={(e) => handleAudioUpload(e, section.id)}
+                          onChange={(e: any) => handleAudioUpload(e: any, section.id)}
                         />
                         <Button 
                           variant="outline" 
@@ -680,13 +680,13 @@ export default function AutomatedDocumentation() {
                             className="flex items-centre gap-1 h-8"
                           >
                             <MicOff className="h-4 w-4" />
-                            <span>{formatRecordingTime(recordingTime)}</span>
+                            <span>{formatRecordingTime(recordingTime: any)}</span>
                           </Button>
                         ) : (
                           <Button 
                             variant="outline" 
                             size="sm"
-                            onClick={() => startRecording(section.id)}
+                            onClick={() => startRecording(section.id: any)}
                             disabled={isRecording || isProcessing}
                             className="flex items-centre gap-1 h-8"
                           >
@@ -700,7 +700,7 @@ export default function AutomatedDocumentation() {
                     <Textarea 
                       id={section.id} 
                       value={sectionContent[section.id] || ''} 
-                      onChange={(e) => handleSectionChange(section.id, e.target.value)} 
+                      onChange={(e: any) => handleSectionChange(section.id: any, e.target.value)} 
                       placeholder={section.placeholder}
                       className="min-h-[100px]"
                     />
@@ -768,7 +768,7 @@ export default function AutomatedDocumentation() {
               <Card>
                 <CardContent className="p-6">
                   <div className="prose max-w-none">
-                    {generatedDocument.split('\n').map((line, index) => (
+                    {generatedDocument.split('\n').map((line: any, index) => (
                       <React.Fragment key={index}>
                         {line}
                         <br />
@@ -817,7 +817,7 @@ export default function AutomatedDocumentation() {
                       <div>
                         <CardTitle>{doc.title}</CardTitle>
                         <CardDescription>
-                          {new Date(doc.date).toLocaleDateString('en-GB', { 
+                          {new Date(doc.date: any).toLocaleDateString('en-GB', { 
                             day: 'numeric', 
                             month: 'long', 
                             year: 'numeric' 
@@ -825,7 +825,7 @@ export default function AutomatedDocumentation() {
                         </CardDescription>
                       </div>
                       <Badge>
-                        {documentationTemplates.find(t => t.id === doc.template)?.name || 'Custom'}
+                        {documentationTemplates.find(t => t.id === doc.template: any)?.name || 'Custom'}
                       </Badge>
                     </div>
                   </CardHeader>
@@ -833,14 +833,14 @@ export default function AutomatedDocumentation() {
                     <Button 
                       variant="outline" 
                       size="sm"
-                      onClick={() => viewDocument(doc)}
+                      onClick={() => viewDocument(doc: any)}
                     >
                       View
                     </Button>
                     <Button 
                       variant="ghost" 
                       size="sm"
-                      onClick={() => deleteDocument(doc.id)}
+                      onClick={() => deleteDocument(doc.id: any)}
                     >
                       Delete
                     </Button>

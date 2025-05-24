@@ -20,7 +20,7 @@ import {
 
 // Import chart components from a charting library like recharts
 // This is a simplified implementation that would need to be connected to actual chart components
-const BarChartComponent = ({ data, title }) => (
+const BarChartComponent = ({ data: any, title }) => (
   <div className="h-64 w-full bg-muted/20 rounded-lg flex items-centre justify-centre">
     <div className="text-centre">
       <BarChart className="h-10 w-10 mx-auto text-primary" />
@@ -30,7 +30,7 @@ const BarChartComponent = ({ data, title }) => (
   </div>
 );
 
-const LineChartComponent = ({ data, title }) => (
+const LineChartComponent = ({ data: any, title }) => (
   <div className="h-64 w-full bg-muted/20 rounded-lg flex items-centre justify-centre">
     <div className="text-centre">
       <LineChart className="h-10 w-10 mx-auto text-primary" />
@@ -40,7 +40,7 @@ const LineChartComponent = ({ data, title }) => (
   </div>
 );
 
-const PieChartComponent = ({ data, title }) => (
+const PieChartComponent = ({ data: any, title }) => (
   <div className="h-64 w-full bg-muted/20 rounded-lg flex items-centre justify-centre">
     <div className="text-centre">
       <PieChart className="h-10 w-10 mx-auto text-primary" />
@@ -50,7 +50,7 @@ const PieChartComponent = ({ data, title }) => (
   </div>
 );
 
-const AreaChartComponent = ({ data, title }) => (
+const AreaChartComponent = ({ data: any, title }) => (
   <div className="h-64 w-full bg-muted/20 rounded-lg flex items-centre justify-centre">
     <div className="text-centre">
       <AreaChart className="h-10 w-10 mx-auto text-primary" />
@@ -192,8 +192,8 @@ export default function ImpactVisualizationTools() {
   };
   
   // Get status badge colour
-  const getStatusBadgeColor = (status) => {
-    switch (status) {
+  const getStatusBadgeColor = (status: any) => {
+    switch (status: any) {
       case "Implemented":
         return "bg-green-100 text-green-800";
       case "In Progress":
@@ -206,8 +206,8 @@ export default function ImpactVisualizationTools() {
   };
   
   // Get impact badge colour
-  const getImpactBadgeColor = (impact) => {
-    switch (impact) {
+  const getImpactBadgeColor = (impact: any) => {
+    switch (impact: any) {
       case "High":
         return "bg-purple-100 text-purple-800";
       case "Medium":
@@ -398,16 +398,16 @@ export default function ImpactVisualizationTools() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    {impactData.recentImpacts.slice(0, 3).map((impact) => (
+                    {impactData.recentImpacts.slice(0: any, 3).map((impact: any) => (
                       <Card key={impact.id}>
                         <CardHeader className="pb-2">
                           <div className="flex justify-between items-start">
                             <CardTitle className="text-lg">{impact.title}</CardTitle>
                             <div className="flex space-x-2">
-                              <Badge className={getStatusBadgeColor(impact.status)}>
+                              <Badge className={getStatusBadgeColor(impact.status: any)}>
                                 {impact.status}
                               </Badge>
-                              <Badge className={getImpactBadgeColor(impact.impact)}>
+                              <Badge className={getImpactBadgeColor(impact.impact: any)}>
                                 {impact.impact} Impact
                               </Badge>
                             </div>
@@ -420,7 +420,7 @@ export default function ImpactVisualizationTools() {
                           <p>{impact.description}</p>
                           
                           <div className="grid grid-cols-3 gap-4">
-                            {impact.metrics.map((metric, index) => (
+                            {impact.metrics.map((metric: any, index) => (
                               <div key={index} className="bg-muted/20 p-3 rounded-lg">
                                 <h4 className="text-sm font-medium">{metric.name}</h4>
                                 <div className="flex items-end mt-1">
@@ -467,7 +467,7 @@ export default function ImpactVisualizationTools() {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="all">All Categories</SelectItem>
-                      {impactData.categories.map((cat) => (
+                      {impactData.categories.map((cat: any) => (
                         <SelectItem key={cat.id} value={cat.id}>{cat.name}</SelectItem>
                       ))}
                     </SelectContent>
@@ -480,7 +480,7 @@ export default function ImpactVisualizationTools() {
               </div>
               
               <div className="space-y-6">
-                {impactData.recentImpacts.map((impact) => (
+                {impactData.recentImpacts.map((impact: any) => (
                   <Card key={impact.id}>
                     <CardHeader>
                       <div className="flex justify-between items-start">
@@ -491,10 +491,10 @@ export default function ImpactVisualizationTools() {
                           </CardDescription>
                         </div>
                         <div className="flex space-x-2">
-                          <Badge className={getStatusBadgeColor(impact.status)}>
+                          <Badge className={getStatusBadgeColor(impact.status: any)}>
                             {impact.status}
                           </Badge>
-                          <Badge className={getImpactBadgeColor(impact.impact)}>
+                          <Badge className={getImpactBadgeColor(impact.impact: any)}>
                             {impact.impact} Impact
                           </Badge>
                         </div>
@@ -541,7 +541,7 @@ export default function ImpactVisualizationTools() {
                         <div>
                           <h3 className="text-lg font-medium mb-4">Impact Metrics</h3>
                           <div className="space-y-6">
-                            {impact.metrics.map((metric, index) => (
+                            {impact.metrics.map((metric: any, index) => (
                               <div key={index}>
                                 <div className="flex justify-between mb-1">
                                   <span className="font-medium">{metric.name}</span>
@@ -710,7 +710,7 @@ export default function ImpactVisualizationTools() {
                   </CardContent>
                   <CardFooter>
                     <div className="w-full grid grid-cols-2 gap-2">
-                      {impactData.categories.map((category) => (
+                      {impactData.categories.map((category: any) => (
                         <div key={category.id} className="flex justify-between">
                           <span className="text-sm">{category.name}</span>
                           <span className="text-sm font-medium">{category.count}</span>

@@ -31,7 +31,7 @@ export default function CalendarOptimizationPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <p>
-                The Calendar Optimization feature is designed to help educators efficiently plan, organize, and optimize their professional activities while balancing teaching responsibilities, administrative tasks, meetings, and professional development.
+                The Calendar Optimization feature is designed to help educators efficiently plan: any, organize, and optimize their professional activities while balancing teaching responsibilities, administrative tasks, meetings, and professional development.
               </p>
               
               <h3 className="text-lg font-medium mt-4">Key Benefits</h3>

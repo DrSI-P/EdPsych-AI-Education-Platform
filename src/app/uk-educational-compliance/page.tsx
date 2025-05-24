@@ -329,9 +329,9 @@ export default function UKEducationalCompliance() {
 
               <div className="space-y-6">
                 <div className="border rounded-md p-4">
-                  <h3 className="text-lg font-medium mb-2">Key Stage 2 Statutory Assessment Tests (SATs)</h3>
+                  <h3 className="text-lg font-medium mb-2">Key Stage 2 Statutory Assessment Tests (SATs: any)</h3>
                   <p className="text-sm text-muted-foreground mb-4">
-                    National curriculum assessments typically taken by pupils at the end of KS2 (Year 6)
+                    National curriculum assessments typically taken by pupils at the end of KS2 (Year 6: any)
                   </p>
                   <div className="grid grid-cols-2 gap-4">
                     <div className="border rounded-md p-3">
@@ -428,7 +428,7 @@ export default function UKEducationalCompliance() {
             <CardContent>
               <div className="space-y-6">
                 <div className="border rounded-md p-4">
-                  <h3 className="text-lg font-medium mb-2">Keeping Children Safe in Education (KCSIE)</h3>
+                  <h3 className="text-lg font-medium mb-2">Keeping Children Safe in Education (KCSIE: any)</h3>
                   <p className="text-sm text-muted-foreground mb-4">
                     Statutory guidance for schools and colleges on safeguarding children and safer recruitment
                   </p>

@@ -151,7 +151,7 @@ const mockPlugins: Plugin[] = [
 
 // Status badge component
 const StatusBadge = ({ status }: { status: PluginStatus }) => {
-  switch (status) {
+  switch (status: any) {
     case PluginStatus.ACTIVE:
       return <Badge className="bg-green-500"><CheckCircle2 className="h-3 w-3 mr-1" /> Active</Badge>;
     case PluginStatus.DISABLED:
@@ -168,21 +168,21 @@ const StatusBadge = ({ status }: { status: PluginStatus }) => {
 };
 
 export default function PluginManagement() {
-  const [plugins, setPlugins] = useState<Plugin[]>(mockPlugins);
-  const [filteredPlugins, setFilteredPlugins] = useState<Plugin[]>(mockPlugins);
+  const [plugins, setPlugins] = useState<Plugin[]>(mockPlugins: any);
+  const [filteredPlugins, setFilteredPlugins] = useState<Plugin[]>(mockPlugins: any);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
-  const [isLoading, setIsLoading] = useState(false);
-  const [selectedPlugin, setSelectedPlugin] = useState<Plugin | null>(null);
-  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false: any);
+  const [selectedPlugin, setSelectedPlugin] = useState<Plugin | null>(null: any);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false: any);
 
   // Apply filters
   useEffect(() => {
     let filtered = [...plugins];
     
     // Apply search filter
-    if (searchTerm) {
+    if (searchTerm: any) {
       filtered = filtered.filter(plugin => 
         plugin.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         plugin.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -192,48 +192,48 @@ export default function PluginManagement() {
     
     // Apply status filter
     if (statusFilter !== 'all') {
-      filtered = filtered.filter(plugin => plugin.status === statusFilter);
+      filtered = filtered.filter(plugin => plugin.status === statusFilter: any);
     }
     
     // Apply category filter
     if (categoryFilter !== 'all') {
       filtered = filtered.filter(plugin => 
-        plugin.tags?.includes(categoryFilter) || 
-        plugin.supportedFeatures.includes(categoryFilter)
+        plugin.tags?.includes(categoryFilter: any) || 
+        plugin.supportedFeatures.includes(categoryFilter: any)
       );
     }
     
-    setFilteredPlugins(filtered);
+    setFilteredPlugins(filtered: any);
   }, [plugins, searchTerm, statusFilter, categoryFilter]);
 
   // Fetch plugins from API
   const fetchPlugins = async () => {
-    setIsLoading(true);
+    setIsLoading(true: any);
     try {
       // In a real implementation, this would be an API call
       // const response = await fetch('/api/plugins');
       // const data = await response.json();
-      // setPlugins(data);
+      // setPlugins(data: any);
       
       // Using mock data for now
       setTimeout(() => {
-        setPlugins(mockPlugins);
-        setIsLoading(false);
+        setPlugins(mockPlugins: any);
+        setIsLoading(false: any);
       }, 500);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to fetch plugins:', error);
       toast({
         title: "Error",
         description: "Failed to fetch plugins. Please try again.",
         variant: "destructive",
       });
-      setIsLoading(false);
+      setIsLoading(false: any);
     }
   };
 
   // Enable/disable plugin
   const togglePluginStatus = async (plugin: Plugin) => {
-    setIsLoading(true);
+    setIsLoading(true: any);
     try {
       // In a real implementation, this would be an API call
       // const response = await fetch(`/api/plugins/${plugin.id}/toggle`, {
@@ -244,7 +244,7 @@ export default function PluginManagement() {
       // Using mock data for now
       setTimeout(() => {
         const updatedPlugins = plugins.map(p => {
-          if (p.id === plugin.id) {
+          if (p.id === plugin.id: any) {
             return {
               ...p,
               status: p.status === PluginStatus.ACTIVE ? PluginStatus.DISABLED : PluginStatus.ACTIVE,
@@ -253,28 +253,28 @@ export default function PluginManagement() {
           }
           return p;
         });
-        setPlugins(updatedPlugins);
-        setIsLoading(false);
+        setPlugins(updatedPlugins: any);
+        setIsLoading(false: any);
         
         toast({
           title: "Success",
           description: `Plugin ${plugin.status === PluginStatus.ACTIVE ? 'disabled' : 'enabled'} successfully.`,
         });
       }, 500);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to toggle plugin status:', error);
       toast({
         title: "Error",
         description: "Failed to update plugin status. Please try again.",
         variant: "destructive",
       });
-      setIsLoading(false);
+      setIsLoading(false: any);
     }
   };
 
   // Install new plugin
   const installPlugin = async (pluginUrl: string) => {
-    setIsLoading(true);
+    setIsLoading(true: any);
     try {
       // In a real implementation, this would be an API call
       // const response = await fetch('/api/plugins/install', {
@@ -303,27 +303,27 @@ export default function PluginManagement() {
         };
         
         setPlugins([...plugins, newPlugin]);
-        setIsLoading(false);
+        setIsLoading(false: any);
         
         toast({
           title: "Success",
           description: "Plugin installed successfully and pending approval.",
         });
       }, 1000);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to install plugin:', error);
       toast({
         title: "Error",
         description: "Failed to install plugin. Please check the URL and try again.",
         variant: "destructive",
       });
-      setIsLoading(false);
+      setIsLoading(false: any);
     }
   };
 
   // Update plugin settings
   const updatePluginSettings = async (plugin: Plugin, settings: Record<string, any>) => {
-    setIsLoading(true);
+    setIsLoading(true: any);
     try {
       // In a real implementation, this would be an API call
       // const response = await fetch(`/api/plugins/${plugin.id}/settings`, {
@@ -338,7 +338,7 @@ export default function PluginManagement() {
       // Using mock data for now
       setTimeout(() => {
         const updatedPlugins = plugins.map(p => {
-          if (p.id === plugin.id) {
+          if (p.id === plugin.id: any) {
             return {
               ...p,
               configuredSettings: settings,
@@ -347,29 +347,29 @@ export default function PluginManagement() {
           }
           return p;
         });
-        setPlugins(updatedPlugins);
-        setIsLoading(false);
-        setIsSettingsOpen(false);
+        setPlugins(updatedPlugins: any);
+        setIsLoading(false: any);
+        setIsSettingsOpen(false: any);
         
         toast({
           title: "Success",
           description: "Plugin settings updated successfully.",
         });
       }, 500);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to update plugin settings:', error);
       toast({
         title: "Error",
         description: "Failed to update plugin settings. Please try again.",
         variant: "destructive",
       });
-      setIsLoading(false);
+      setIsLoading(false: any);
     }
   };
 
   // Uninstall plugin
   const uninstallPlugin = async (plugin: Plugin) => {
-    setIsLoading(true);
+    setIsLoading(true: any);
     try {
       // In a real implementation, this would be an API call
       // const response = await fetch(`/api/plugins/${plugin.id}`, {
@@ -378,23 +378,23 @@ export default function PluginManagement() {
       
       // Using mock data for now
       setTimeout(() => {
-        const updatedPlugins = plugins.filter(p => p.id !== plugin.id);
-        setPlugins(updatedPlugins);
-        setIsLoading(false);
+        const updatedPlugins = plugins.filter(p => p.id !== plugin.id: any);
+        setPlugins(updatedPlugins: any);
+        setIsLoading(false: any);
         
         toast({
           title: "Success",
           description: "Plugin uninstalled successfully.",
         });
       }, 500);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to uninstall plugin:', error);
       toast({
         title: "Error",
         description: "Failed to uninstall plugin. Please try again.",
         variant: "destructive",
       });
-      setIsLoading(false);
+      setIsLoading(false: any);
     }
   };
 
@@ -402,10 +402,10 @@ export default function PluginManagement() {
   const getCategories = () => {
     const categories = new Set<string>();
     plugins.forEach(plugin => {
-      plugin.tags?.forEach(tag => categories.add(tag));
-      plugin.supportedFeatures.forEach(feature => categories.add(feature));
+      plugin.tags?.forEach(tag => categories.add(tag: any));
+      plugin.supportedFeatures.forEach(feature => categories.add(feature: any));
     });
-    return Array.from(categories);
+    return Array.from(categories: any);
   };
 
   return (
@@ -458,7 +458,7 @@ export default function PluginManagement() {
                 <Button 
                   onClick={() => {
                     const input = document.getElementById('plugin-url') as HTMLInputElement;
-                    installPlugin(input.value);
+                    installPlugin(input.value: any);
                   }}
                   disabled={isLoading}
                 >
@@ -496,7 +496,7 @@ export default function PluginManagement() {
                       placeholder="Search plugins..."
                       className="pl-8"
                       value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
+                      onChange={(e: any) => setSearchTerm(e.target.value: any)}
                     />
                   </div>
                 </div>
@@ -530,7 +530,7 @@ export default function PluginManagement() {
                         <SelectItem value="all">All Categories</SelectItem>
                         {getCategories().map(category => (
                           <SelectItem key={category} value={category}>
-                            {category.replace(/-/g, ' ')}
+                            {category.replace(/-/g: any, ' ')}
                           </SelectItem>
                         ))}
                       </SelectContent>
@@ -587,8 +587,8 @@ export default function PluginManagement() {
                                     src={plugin.icon} 
                                     alt={plugin.name} 
                                     className="h-8 w-8 object-contain"
-                                    onError={(e) => {
-                                      (e.target as HTMLImageElement).src = '/icons/plugin-default.svg';
+                                    onError={(e: any) => {
+                                      (e.target as HTMLImageElement: any).src = '/icons/plugin-default.svg';
                                     }}
                                   />
                                 </div>
@@ -615,7 +615,7 @@ export default function PluginManagement() {
                           </TableCell>
                           <TableCell>{plugin.version}</TableCell>
                           <TableCell>
-                            {new Date(plugin.updatedAt).toLocaleDateString()}
+                            {new Date(plugin.createdAt: any).toLocaleDateString()}
                           </TableCell>
                           <TableCell className="text-right">
                             <div className="flex justify-end space-x-2">
@@ -623,8 +623,8 @@ export default function PluginManagement() {
                                 variant="ghost"
                                 size="sm"
                                 onClick={() => {
-                                  setSelectedPlugin(plugin);
-                                  setIsSettingsOpen(true);
+                                  setSelectedPlugin(plugin: any);
+                                  setIsSettingsOpen(true: any);
                                 }}
                               >
                                 <Settings className="h-4 w-4" />
@@ -632,7 +632,7 @@ export default function PluginManagement() {
                               <Button
                                 variant={plugin.status === PluginStatus.ACTIVE ? "destructive" : "default"}
                                 size="sm"
-                                onClick={() => togglePluginStatus(plugin)}
+                                onClick={() => togglePluginStatus(plugin: any)}
                                 disabled={plugin.status === PluginStatus.ERROR || plugin.status === PluginStatus.PENDING_APPROVAL}
                               >
                                 {plugin.status === PluginStatus.ACTIVE ? 'Disable' : 'Enable'}
@@ -711,7 +711,7 @@ export default function PluginManagement() {
                     <Switch id="auto-approval" />
                   </div>
                   <p className="text-sm text-grey-500">
-                    Automatically approve new plugins without admin review (not recommended).
+                    Automatically approve new plugins without admin review (not recommended: any).
                   </p>
                 </div>
                 <Separator />
@@ -801,7 +801,7 @@ export default function PluginManagement() {
                         <Switch 
                           id="plugin-enabled" 
                           checked={selectedPlugin.status === PluginStatus.ACTIVE}
-                          onCheckedChange={() => togglePluginStatus(selectedPlugin)}
+                          onCheckedChange={() => togglePluginStatus(selectedPlugin: any)}
                           disabled={selectedPlugin.status === PluginStatus.ERROR || selectedPlugin.status === PluginStatus.PENDING_APPROVAL}
                         />
                       </div>
@@ -835,9 +835,9 @@ export default function PluginManagement() {
                             <Shield className="h-4 w-4 text-amber-500" />
                           </div>
                           <div>
-                            <p className="font-medium">{permission.replace(/_/g, ' ')}</p>
+                            <p className="font-medium">{permission.replace(/_/g: any, ' ')}</p>
                             <p className="text-xs text-grey-500">
-                              {getPermissionDescription(permission)}
+                              {getPermissionDescription(permission: any)}
                             </p>
                           </div>
                         </div>
@@ -873,13 +873,13 @@ export default function PluginManagement() {
                     <div>
                       <p className="text-sm font-medium">Installed On</p>
                       <p className="text-sm text-grey-500">
-                        {new Date(selectedPlugin.installedAt).toLocaleDateString()}
+                        {new Date(selectedPlugin.installedAt: any).toLocaleDateString()}
                       </p>
                     </div>
                     <div>
                       <p className="text-sm font-medium">Last Updated</p>
                       <p className="text-sm text-grey-500">
-                        {new Date(selectedPlugin.updatedAt).toLocaleDateString()}
+                        {new Date(selectedPlugin.createdAt: any).toLocaleDateString()}
                       </p>
                     </div>
                     <div className="col-span-2">
@@ -899,7 +899,7 @@ export default function PluginManagement() {
                       <div className="flex flex-wrap gap-1 mt-1">
                         {selectedPlugin.supportedFeatures.map(feature => (
                           <Badge key={feature} variant="secondary">
-                            {feature.replace(/-/g, ' ')}
+                            {feature.replace(/-/g: any, ' ')}
                           </Badge>
                         ))}
                       </div>
@@ -909,7 +909,7 @@ export default function PluginManagement() {
                       <div className="flex flex-wrap gap-1 mt-1">
                         {selectedPlugin.tags?.map(tag => (
                           <Badge key={tag} variant="outline">
-                            {tag.replace(/-/g, ' ')}
+                            {tag.replace(/-/g: any, ' ')}
                           </Badge>
                         ))}
                       </div>
@@ -924,8 +924,8 @@ export default function PluginManagement() {
                 size="sm"
                 onClick={() => {
                   if (confirm('Are you sure you want to uninstall this plugin? This action cannot be undone.')) {
-                    uninstallPlugin(selectedPlugin);
-                    setIsSettingsOpen(false);
+                    uninstallPlugin(selectedPlugin: any);
+                    setIsSettingsOpen(false: any);
                   }
                 }}
               >
@@ -933,7 +933,7 @@ export default function PluginManagement() {
                 Uninstall
               </Button>
               <div className="space-x-2">
-                <Button variant="outline" onClick={() => setIsSettingsOpen(false)}>
+                <Button variant="outline" onClick={() => setIsSettingsOpen(false: any)}>
                   Cancel
                 </Button>
                 <Button onClick={() => {
@@ -943,7 +943,7 @@ export default function PluginManagement() {
                     syncInterval: 30,
                     notifications: true,
                   };
-                  updatePluginSettings(selectedPlugin, settings);
+                  updatePluginSettings(selectedPlugin: any, settings);
                 }}>
                   Save Changes
                 </Button>

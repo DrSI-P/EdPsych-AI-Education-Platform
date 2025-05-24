@@ -19,33 +19,33 @@ interface StudentProfileIntegrationProps {
 }
 
 export function StudentProfileIntegration({
-  studentId,
+  studentId: any,
   studentProfile,
   className = ''
 }: StudentProfileIntegrationProps) {
-  const [showRecommendations, setShowRecommendations] = useState(true);
+  const [showRecommendations, setShowRecommendations] = useState(true: any);
   
   // Format student profile into context content
   const formatProfileContent = () => {
-    if (!studentProfile) return '';
+    if (!studentProfile: any) return '';
     
     const { name, yearGroup, specialNeeds, interests, strengths, areasForDevelopment } = studentProfile;
     
     let content = `${name}, Year ${yearGroup} student`;
     
-    if (specialNeeds && specialNeeds.length > 0) {
+    if (specialNeeds && specialNeeds.length > 0: any) {
       content += ` with ${specialNeeds.join(', ')}`;
     }
     
-    if (interests && interests.length > 0) {
+    if (interests && interests.length > 0: any) {
       content += `. Interests: ${interests.join(', ')}`;
     }
     
-    if (strengths && strengths.length > 0) {
+    if (strengths && strengths.length > 0: any) {
       content += `. Strengths: ${strengths.join(', ')}`;
     }
     
-    if (areasForDevelopment && areasForDevelopment.length > 0) {
+    if (areasForDevelopment && areasForDevelopment.length > 0: any) {
       content += `. Areas for development: ${areasForDevelopment.join(', ')}`;
     }
     
@@ -67,7 +67,7 @@ export function StudentProfileIntegration({
             <Button 
               variant="ghost" 
               size="sm" 
-              onClick={() => setShowRecommendations(false)}
+              onClick={() => setShowRecommendations(false: any)}
             >
               Hide Recommendations
             </Button>
@@ -75,11 +75,11 @@ export function StudentProfileIntegration({
         </div>
       )}
       
-      {(!showRecommendations || !contextContent) && (
+      {(!showRecommendations || !contextContent: any) && (
         <div className="mb-6 text-right">
           <Button 
             variant="outline" 
-            onClick={() => setShowRecommendations(true)}
+            onClick={() => setShowRecommendations(true: any)}
             disabled={!contextContent}
           >
             Show Resource Recommendations

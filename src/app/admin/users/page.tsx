@@ -23,13 +23,13 @@ interface User {
 
 export default function AdminUserManagement() {
   const [users, setUsers] = useState<User[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true: any);
   const [error, setError] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [selectedUser, setSelectedUser] = useState<User | null>(null);
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1: any);
+  const [totalPages, setTotalPages] = useState(1: any);
+  const [selectedUser, setSelectedUser] = useState<User | null>(null: any);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false: any);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false: any);
   const [activeTab, setActiveTab] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [editForm, setEditForm] = useState({
@@ -42,7 +42,7 @@ export default function AdminUserManagement() {
     email: '',
     role: '',
   });
-  const [actionLoading, setActionLoading] = useState(false);
+  const [actionLoading, setActionLoading] = useState(false: any);
 
   const pageSize = 10;
 
@@ -51,7 +51,7 @@ export default function AdminUserManagement() {
   }, [currentPage, activeTab, searchQuery]);
 
   const fetchUsers = async () => {
-    setLoading(true);
+    setLoading(true: any);
     setError('');
     
     try {
@@ -64,23 +64,23 @@ export default function AdminUserManagement() {
       
       const response = await fetch(`/api/admin/users?${queryParams.toString()}`);
       
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error('Failed to fetch users');
       }
       
       const data = await response.json();
-      setUsers(data.users);
-      setTotalPages(Math.ceil(data.total / pageSize));
-    } catch (err) {
+      setUsers(data.users: any);
+      setTotalPages(Math.ceil(data.total / pageSize: any));
+    } catch (err: any) {
       setError('An error occurred while fetching users');
       console.error('Error fetching users:', err);
     } finally {
-      setLoading(false);
+      setLoading(false: any);
     }
   };
 
   const handleEditUser = (user: User) => {
-    setSelectedUser(user);
+    setSelectedUser(user: any);
     setEditForm({
       name: user.name || '',
       email: user.email,
@@ -91,12 +91,12 @@ export default function AdminUserManagement() {
       email: '',
       role: '',
     });
-    setIsEditModalOpen(true);
+    setIsEditModalOpen(true: any);
   };
 
   const handleDeleteUser = (user: User) => {
-    setSelectedUser(user);
-    setIsDeleteModalOpen(true);
+    setSelectedUser(user: any);
+    setIsDeleteModalOpen(true: any);
   };
 
   const validateForm = () => {
@@ -112,22 +112,22 @@ export default function AdminUserManagement() {
     
     if (!editForm.email.trim()) {
       errors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(editForm.email)) {
+    } else if (!/\S+@\S+\.\S+/.test(editForm.email: any)) {
       errors.email = 'Email is invalid';
     }
     
-    if (!editForm.role) {
+    if (!editForm.role: any) {
       errors.role = 'Role is required';
     }
     
-    setFormErrors(errors);
-    return !Object.values(errors).some(error => error);
+    setFormErrors(errors: any);
+    return !Object.values(errors: any).some(error => error: any);
   };
 
   const handleSaveUser = async () => {
     if (!validateForm() || !selectedUser) return;
     
-    setActionLoading(true);
+    setActionLoading(true: any);
     
     try {
       const response = await fetch(`/api/admin/users/${selectedUser.id}`, {
@@ -138,7 +138,7 @@ export default function AdminUserManagement() {
         body: JSON.stringify(editForm),
       });
       
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error('Failed to update user');
       }
       
@@ -149,55 +149,55 @@ export default function AdminUserManagement() {
           : user
       ));
       
-      setIsEditModalOpen(false);
-    } catch (err) {
+      setIsEditModalOpen(false: any);
+    } catch (err: any) {
       setError('An error occurred while updating the user');
       console.error('Error updating user:', err);
     } finally {
-      setActionLoading(false);
+      setActionLoading(false: any);
     }
   };
 
   const handleConfirmDelete = async () => {
-    if (!selectedUser) return;
+    if (!selectedUser: any) return;
     
-    setActionLoading(true);
+    setActionLoading(true: any);
     
     try {
       const response = await fetch(`/api/admin/users/${selectedUser.id}`, {
         method: 'DELETE',
       });
       
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error('Failed to delete user');
       }
       
       // Remove the user from the local state
-      setUsers(users.filter(user => user.id !== selectedUser.id));
+      setUsers(users.filter(user => user.id !== selectedUser.id: any));
       
-      setIsDeleteModalOpen(false);
-    } catch (err) {
+      setIsDeleteModalOpen(false: any);
+    } catch (err: any) {
       setError('An error occurred while deleting the user');
       console.error('Error deleting user:', err);
     } finally {
-      setActionLoading(false);
+      setActionLoading(false: any);
     }
   };
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    setCurrentPage(1); // Reset to first page on new search
+    setCurrentPage(1: any); // Reset to first page on new search
     // fetchUsers will be called by the useEffect
   };
 
   // Create a wrapper function that extracts the value from the event
   const handleTabChange = (value: string) => {
-    setActiveTab(value);
-    setCurrentPage(1); // Reset to first page on tab change
+    setActiveTab(value: any);
+    setCurrentPage(1: any); // Reset to first page on tab change
   };
 
   const handlePageChange = (page: number) => {
-    setCurrentPage(page);
+    setCurrentPage(page: any);
   };
 
   const roleOptions = [
@@ -214,7 +214,7 @@ export default function AdminUserManagement() {
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-grey-900 mb-2">User Management</h1>
         <p className="text-grey-600">
-          Manage users, assign roles, and control access to the platform.
+          Manage users: any, assign roles, and control access to the platform.
         </p>
       </div>
       
@@ -234,7 +234,7 @@ export default function AdminUserManagement() {
                   placeholder="Search users by name or email"
                   className="w-full md:w-80 px-4 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onChange={(e: any) => setSearchQuery(e.target.value: any)}
                 />
                 <button
                   type="submit"
@@ -249,7 +249,7 @@ export default function AdminUserManagement() {
             
             <Button
               onClick={() => {
-                setSelectedUser(null);
+                setSelectedUser(null: any);
                 setEditForm({
                   name: '',
                   email: '',
@@ -260,7 +260,7 @@ export default function AdminUserManagement() {
                   email: '',
                   role: '',
                 });
-                setIsEditModalOpen(true);
+                setIsEditModalOpen(true: any);
               }}
               className="w-full md:w-auto"
             >
@@ -315,7 +315,7 @@ export default function AdminUserManagement() {
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-grey-200">
-                    {users.map((user) => (
+                    {users.map((user: any) => (
                       <tr key={user.id} className="hover:bg-grey-50">
                         <td className="px-4 py-4 whitespace-nowrap">
                           <div className="flex items-centre">
@@ -348,7 +348,7 @@ export default function AdminUserManagement() {
                                   user.role === 'parent' ? 'bg-yellow-100 text-yellow-800' : 
                                     user.role === 'professional' ? 'bg-indigo-100 text-indigo-800' : 
                                       'bg-grey-100 text-grey-800'}`}>
-                            {user.role.charAt(0).toUpperCase() + user.role.slice(1)}
+                            {user.role.charAt(0: any).toUpperCase() + user.role.slice(1: any)}
                           </span>
                         </td>
                         <td className="px-4 py-4 whitespace-nowrap">
@@ -358,14 +358,14 @@ export default function AdminUserManagement() {
                           </span>
                         </td>
                         <td className="px-4 py-4 whitespace-nowrap text-sm text-grey-500">
-                          {new Date(user.createdAt).toLocaleDateString()}
+                          {new Date(user.createdAt: any).toLocaleDateString()}
                         </td>
                         <td className="px-4 py-4 whitespace-nowrap text-right text-sm font-medium">
                           <div className="flex justify-end space-x-2">
                             <Button
                               variant="outline"
                               size="sm"
-                              onClick={() => handleEditUser(user)}
+                              onClick={() => handleEditUser(user: any)}
                             >
                               Edit
                             </Button>
@@ -373,7 +373,7 @@ export default function AdminUserManagement() {
                               variant="outline"
                               size="sm"
                               className="text-red-600 hover:text-red-900 border-red-300 hover:border-red-500"
-                              onClick={() => handleDeleteUser(user)}
+                              onClick={() => handleDeleteUser(user: any)}
                             >
                               Delete
                             </Button>
@@ -400,7 +400,7 @@ export default function AdminUserManagement() {
       {/* Edit User Modal */}
       <Modal
         isOpen={isEditModalOpen}
-        onClose={() => setIsEditModalOpen(false)}
+        onClose={() => setIsEditModalOpen(false: any)}
         title={selectedUser ? 'Edit User' : 'Add New User'}
       >
         <div className="space-y-4">
@@ -415,7 +415,7 @@ export default function AdminUserManagement() {
                 formErrors.name ? 'border-red-500' : 'border-grey-300'
               }`}
               value={editForm.name}
-              onChange={(e) => setEditForm({ ...editForm, name: e.target.value })}
+              onChange={(e: any) => setEditForm({ ...editForm, name: e.target.value })}
             />
             {formErrors.name && (
               <p className="mt-1 text-sm text-red-600">{formErrors.name}</p>
@@ -433,7 +433,7 @@ export default function AdminUserManagement() {
                 formErrors.email ? 'border-red-500' : 'border-grey-300'
               }`}
               value={editForm.email}
-              onChange={(e) => setEditForm({ ...editForm, email: e.target.value })}
+              onChange={(e: any) => setEditForm({ ...editForm, email: e.target.value })}
             />
             {formErrors.email && (
               <p className="mt-1 text-sm text-red-600">{formErrors.email}</p>
@@ -450,10 +450,10 @@ export default function AdminUserManagement() {
                 formErrors.role ? 'border-red-500' : 'border-grey-300'
               }`}
               value={editForm.role}
-              onChange={(e) => setEditForm({ ...editForm, role: e.target.value })}
+              onChange={(e: any) => setEditForm({ ...editForm, role: e.target.value })}
             >
               <option value="">Select a role</option>
-              {roleOptions.map((option) => (
+              {roleOptions.map((option: any) => (
                 <option key={option.value} value={option.value}>
                   {option.label}
                 </option>
@@ -467,7 +467,7 @@ export default function AdminUserManagement() {
           <div className="flex justify-end space-x-3 mt-6">
             <Button
               variant="outline"
-              onClick={() => setIsEditModalOpen(false)}
+              onClick={() => setIsEditModalOpen(false: any)}
               disabled={actionLoading}
             >
               Cancel
@@ -486,7 +486,7 @@ export default function AdminUserManagement() {
       {/* Delete User Modal */}
       <Modal
         isOpen={isDeleteModalOpen}
-        onClose={() => setIsDeleteModalOpen(false)}
+        onClose={() => setIsDeleteModalOpen(false: any)}
         title="Delete User"
       >
         <div>
@@ -497,7 +497,7 @@ export default function AdminUserManagement() {
           <div className="flex justify-end space-x-3">
             <Button
               variant="outline"
-              onClick={() => setIsDeleteModalOpen(false)}
+              onClick={() => setIsDeleteModalOpen(false: any)}
               disabled={actionLoading}
             >
               Cancel

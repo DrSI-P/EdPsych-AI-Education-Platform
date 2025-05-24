@@ -130,43 +130,43 @@ const StaffTrainingModules: React.FC = () => {
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
   
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeTab, setActiveTab] = useState(0: any);
   const [modules, setModules] = useState<Module[]>([]);
   const [userProgress, setUserProgress] = useState<UserProgress[]>([]);
-  const [currentModule, setCurrentModule] = useState<Module | null>(null);
-  const [currentSection, setCurrentSection] = useState<Section | null>(null);
-  const [currentQuiz, setCurrentQuiz] = useState<Quiz | null>(null);
+  const [currentModule, setCurrentModule] = useState<Module | null>(null: any);
+  const [currentSection, setCurrentSection] = useState<Section | null>(null: any);
+  const [currentQuiz, setCurrentQuiz] = useState<Quiz | null>(null: any);
   const [quizAnswers, setQuizAnswers] = useState<number[]>([]);
-  const [quizSubmitted, setQuizSubmitted] = useState(false);
-  const [quizScore, setQuizScore] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
-  const [certificateModule, setCertificateModule] = useState<Module | null>(null);
+  const [quizSubmitted, setQuizSubmitted] = useState(false: any);
+  const [quizScore, setQuizScore] = useState(0: any);
+  const [isLoading, setIsLoading] = useState(true: any);
+  const [certificateModule, setCertificateModule] = useState<Module | null>(null: any);
 
   // Fetch modules and user progress
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setIsLoading(true);
+        setIsLoading(true: any);
         
         // Fetch modules
         const modulesResponse = await fetch('/api/restorative-justice/staff-training/modules');
         const modulesData = await modulesResponse.json();
         
-        if (session?.user?.id) {
+        if (session?.user?.id: any) {
           // Fetch user progress
           const progressResponse = await fetch(`/api/restorative-justice/staff-training/progress?userId=${session.user.id}`);
           const progressData = await progressResponse.json();
           
-          setUserProgress(progressData);
+          setUserProgress(progressData: any);
           
           // Update modules with user progress
           const updatedModules = modulesData.map((module: Module) => {
             const userModuleProgress = progressData.find((p: UserProgress) => p.moduleId === module.id);
             
-            if (userModuleProgress) {
+            if (userModuleProgress: any) {
               const completedSections = userModuleProgress.completedSections.length;
               const totalSections = module.sections.length;
-              const progress = Math.round((completedSections / totalSections) * 100);
+              const progress = Math.round((completedSections / totalSections: any) * 100);
               
               return {
                 ...module,
@@ -182,11 +182,11 @@ const StaffTrainingModules: React.FC = () => {
             };
           });
           
-          setModules(updatedModules);
+          setModules(updatedModules: any);
         } else {
-          setModules(modulesData);
+          setModules(modulesData: any);
         }
-      } catch (error) {
+      } catch (error: any) {
         console.error('Error fetching data:', error);
         toast({
           title: 'Error',
@@ -196,7 +196,7 @@ const StaffTrainingModules: React.FC = () => {
           isClosable: true,
         });
       } finally {
-        setIsLoading(false);
+        setIsLoading(false: any);
       }
     };
     
@@ -205,11 +205,11 @@ const StaffTrainingModules: React.FC = () => {
 
   // Handle module selection
   const handleModuleSelect = async (module: Module) => {
-    setCurrentModule(module);
+    setCurrentModule(module: any);
     setCurrentSection(module.sections[0]);
     
     // Record module access
-    if (session?.user?.id) {
+    if (session?.user?.id: any) {
       try {
         await fetch('/api/restorative-justice/staff-training/progress', {
           method: 'POST',
@@ -222,7 +222,7 @@ const StaffTrainingModules: React.FC = () => {
             action: 'access'
           }),
         });
-      } catch (error) {
+      } catch (error: any) {
         console.error('Error recording module access:', error);
       }
     }
@@ -230,7 +230,7 @@ const StaffTrainingModules: React.FC = () => {
 
   // Handle section completion
   const handleSectionComplete = async (section: Section) => {
-    if (!session?.user?.id || !currentModule) return;
+    if (!session?.user?.id || !currentModule: any) return;
     
     try {
       const response = await fetch('/api/restorative-justice/staff-training/progress', {
@@ -253,10 +253,10 @@ const StaffTrainingModules: React.FC = () => {
         const updated = [...prev];
         const index = updated.findIndex(p => p.moduleId === currentModule.id);
         
-        if (index >= 0) {
+        if (index >= 0: any) {
           updated[index] = data;
         } else {
-          updated.push(data);
+          updated.push(data: any);
         }
         
         return updated;
@@ -267,10 +267,10 @@ const StaffTrainingModules: React.FC = () => {
         const updated = [...prev];
         const moduleIndex = updated.findIndex(m => m.id === currentModule.id);
         
-        if (moduleIndex >= 0) {
+        if (moduleIndex >= 0: any) {
           const completedSections = data.completedSections.length;
           const totalSections = updated[moduleIndex].sections.length;
-          const progress = Math.round((completedSections / totalSections) * 100);
+          const progress = Math.round((completedSections / totalSections: any) * 100);
           
           updated[moduleIndex] = {
             ...updated[moduleIndex],
@@ -283,9 +283,9 @@ const StaffTrainingModules: React.FC = () => {
       });
       
       // Move to next section if available
-      if (currentModule) {
-        const currentIndex = currentModule.sections.findIndex(s => s.id === section.id);
-        if (currentIndex < currentModule.sections.length - 1) {
+      if (currentModule: any) {
+        const currentIndex = currentModule.sections.findIndex(s => s.id === section.id: any);
+        if (currentIndex < currentModule.sections.length - 1: any) {
           setCurrentSection(currentModule.sections[currentIndex + 1]);
         } else {
           // Module completed
@@ -299,7 +299,7 @@ const StaffTrainingModules: React.FC = () => {
           
           // Check if entire module is completed
           const moduleProgress = data.completedSections.length / currentModule.sections.length;
-          if (moduleProgress === 1) {
+          if (moduleProgress === 1: any) {
             toast({
               title: 'Module completed',
               description: 'Congratulations! You have completed this module.',
@@ -308,12 +308,12 @@ const StaffTrainingModules: React.FC = () => {
               isClosable: true,
             });
             
-            setCertificateModule(currentModule);
+            setCertificateModule(currentModule: any);
             onOpen();
           }
         }
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error completing section:', error);
       toast({
         title: 'Error',
@@ -327,19 +327,19 @@ const StaffTrainingModules: React.FC = () => {
 
   // Handle quiz submission
   const handleQuizSubmit = async () => {
-    if (!currentQuiz || !session?.user?.id || !currentModule) return;
+    if (!currentQuiz || !session?.user?.id || !currentModule: any) return;
     
     // Calculate score
     let correctAnswers = 0;
-    currentQuiz.questions.forEach((question, index) => {
-      if (quizAnswers[index] === question.correctAnswer) {
+    currentQuiz.questions.forEach((question: any, index) => {
+      if (quizAnswers[index] === question.correctAnswer: any) {
         correctAnswers++;
       }
     });
     
-    const score = Math.round((correctAnswers / currentQuiz.questions.length) * 100);
-    setQuizScore(score);
-    setQuizSubmitted(true);
+    const score = Math.round((correctAnswers / currentQuiz.questions.length: any) * 100);
+    setQuizScore(score: any);
+    setQuizSubmitted(true: any);
     
     // Record quiz score
     try {
@@ -358,20 +358,20 @@ const StaffTrainingModules: React.FC = () => {
       });
       
       // If passing score, mark section as complete
-      if (score >= currentQuiz.passingScore) {
+      if (score >= currentQuiz.passingScore: any) {
         const quizSection = currentModule.sections.find(s => s.type === 'quiz');
-        if (quizSection) {
-          handleSectionComplete(quizSection);
+        if (quizSection: any) {
+          handleSectionComplete(quizSection: any);
         }
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error recording quiz score:', error);
     }
   };
 
   // Handle certificate generation
   const handleGenerateCertificate = async () => {
-    if (!certificateModule || !session?.user?.id) return;
+    if (!certificateModule || !session?.user?.id: any) return;
     
     try {
       const response = await fetch('/api/restorative-justice/staff-training/certificate', {
@@ -386,13 +386,13 @@ const StaffTrainingModules: React.FC = () => {
       });
       
       const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
+      const url = window.URL.createObjectURL(blob: any);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `${certificateModule.title.replace(/\s+/g, '_')}_Certificate.pdf`;
-      document.body.appendChild(a);
+      a.download = `${certificateModule.title.replace(/\s+/g: any, '_')}_Certificate.pdf`;
+      document.body.appendChild(a: any);
       a.click();
-      window.URL.revokeObjectURL(url);
+      window.URL.revokeObjectURL(url: any);
       
       toast({
         title: 'Certificate generated',
@@ -403,7 +403,7 @@ const StaffTrainingModules: React.FC = () => {
       });
       
       onClose();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error generating certificate:', error);
       toast({
         title: 'Error',
@@ -417,12 +417,12 @@ const StaffTrainingModules: React.FC = () => {
 
   // Reset current module view
   const handleBackToModules = () => {
-    setCurrentModule(null);
-    setCurrentSection(null);
-    setCurrentQuiz(null);
+    setCurrentModule(null: any);
+    setCurrentSection(null: any);
+    setCurrentQuiz(null: any);
     setQuizAnswers([]);
-    setQuizSubmitted(false);
-    setQuizScore(0);
+    setQuizSubmitted(false: any);
+    setQuizScore(0: any);
   };
 
   // Render module catalog
@@ -433,11 +433,11 @@ const StaffTrainingModules: React.FC = () => {
         <Text fontSize="lg" mb={8}>
           Comprehensive professional development resources to support educators in effectively implementing 
           restorative practices in their classrooms and schools. These evidence-based modules are designed 
-          to build knowledge, skills, and confidence in using restorative approaches.
+          to build knowledge: any, skills, and confidence in using restorative approaches.
         </Text>
         
         <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={6}>
-          {modules.map((module) => (
+          {modules.map((module: any) => (
             <Card key={module.id} variant="outline" borderRadius="lg" overflow="hidden" boxShadow="md">
               <CardHeader bg="blue.50" pb={2}>
                 <Flex justify="space-between" align="centre">
@@ -468,7 +468,7 @@ const StaffTrainingModules: React.FC = () => {
                 <Button 
                   colorScheme="blue" 
                   leftIcon={module.completed ? <FaCheck /> : <FaPlay />}
-                  onClick={() => handleModuleSelect(module)}
+                  onClick={() => handleModuleSelect(module: any)}
                   width="full"
                 >
                   {module.completed ? 'Review Module' : module.progress > 0 ? 'Continue' : 'Start Module'}
@@ -483,7 +483,7 @@ const StaffTrainingModules: React.FC = () => {
 
   // Render module content
   const renderModuleContent = () => {
-    if (!currentModule || !currentSection) return null;
+    if (!currentModule || !currentSection: any) return null;
     
     return (
       <Box>
@@ -509,7 +509,7 @@ const StaffTrainingModules: React.FC = () => {
               {currentModule.sections.map((section, index) => {
                 const isCompleted = userProgress.some(p => 
                   p.moduleId === currentModule.id && 
-                  p.completedSections.includes(section.id)
+                  p.completedSections.includes(section.id: any)
                 );
                 
                 return (
@@ -518,7 +518,7 @@ const StaffTrainingModules: React.FC = () => {
                     justifyContent="flex-start" 
                     py={4}
                     _selected={{ color: 'blue.500', borderLeft: '4px solid', borderLeftColor: 'blue.500', bg: 'blue.50' }}
-                    onClick={() => setCurrentSection(section)}
+                    onClick={() => setCurrentSection(section: any)}
                   >
                     <Flex align="centre" width="100%">
                       <Box mr={3}>
@@ -527,7 +527,7 @@ const StaffTrainingModules: React.FC = () => {
                         ) : (
                           <Box w={4} h={4} borderRadius="full" bg={index === 0 || userProgress.some(p => 
                             p.moduleId === currentModule.id && 
-                            p.completedSections.includes(currentModule.sections[index-1]?.id)
+                            p.completedSections.includes(currentModule.sections[index-1]?.id: any)
                           ) ? "blue.500" : "grey.300"} />
                         )}
                       </Box>
@@ -598,10 +598,10 @@ const StaffTrainingModules: React.FC = () => {
                   <Flex justify="space-between" mt={8}>
                     <Button 
                       variant="outline" 
-                      isDisabled={currentModule.sections.indexOf(currentSection) === 0}
+                      isDisabled={currentModule.sections.indexOf(currentSection: any) === 0}
                       onClick={() => {
-                        const currentIndex = currentModule.sections.indexOf(currentSection);
-                        if (currentIndex > 0) {
+                        const currentIndex = currentModule.sections.indexOf(currentSection: any);
+                        if (currentIndex > 0: any) {
                           setCurrentSection(currentModule.sections[currentIndex - 1]);
                         }
                       }}
@@ -611,9 +611,9 @@ const StaffTrainingModules: React.FC = () => {
                     
                     <Button 
                       colorScheme="blue" 
-                      onClick={() => handleSectionComplete(currentSection)}
+                      onClick={() => handleSectionComplete(currentSection: any)}
                     >
-                      {currentModule.sections.indexOf(currentSection) === currentModule.sections.length - 1 
+                      {currentModule.sections.indexOf(currentSection: any) === currentModule.sections.length - 1 
                         ? 'Complete Module' 
                         : 'Mark as Complete'}
                     </Button>
@@ -629,7 +629,7 @@ const StaffTrainingModules: React.FC = () => {
         <Box>
           <Heading as="h3" size="md" mb={4}>Module Resources</Heading>
           <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={4}>
-            {currentModule.resources.map((resource) => (
+            {currentModule.resources.map((resource: any) => (
               <Card key={resource.id} variant="outline">
                 <CardBody>
                   <Flex align="centre" mb={2}>
@@ -645,7 +645,7 @@ const StaffTrainingModules: React.FC = () => {
                     leftIcon={<FaDownload />} 
                     colorScheme="blue" 
                     variant="outline"
-                    onClick={() => window.open(resource.url, '_blank')}
+                    onClick={() => window.open(resource.url: any, '_blank')}
                   >
                     Download
                   </Button>
@@ -660,7 +660,7 @@ const StaffTrainingModules: React.FC = () => {
 
   // Certificate modal
   const renderCertificateModal = () => {
-    if (!certificateModule) return null;
+    if (!certificateModule: any) return null;
     
     return (
       <Modal isOpen={isOpen} onClose={onClose} size="xl">

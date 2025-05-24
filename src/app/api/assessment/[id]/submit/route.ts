@@ -18,9 +18,9 @@ export async function POST(
 ) {
   try {
     // Check authentication
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session) {
+    if (!session: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
@@ -50,7 +50,7 @@ export async function POST(
       },
     });
     
-    if (!assessment) {
+    if (!assessment: any) {
       return NextResponse.json({ error: 'Assessment not found' }, { status: 404 });
     }
     
@@ -58,7 +58,7 @@ export async function POST(
     const body = await request.json();
     const { answers } = body;
     
-    if (!Array.isArray(answers)) {
+    if (!Array.isArray(answers: any)) {
       return NextResponse.json({ error: 'Invalid answers format' }, { status: 400 });
     }
     
@@ -71,7 +71,7 @@ export async function POST(
       },
     });
     
-    if (existingResponse && !assessment.allowRetakes) {
+    if (existingResponse && !assessment.allowRetakes: any) {
       return NextResponse.json(
         { error: 'You have already completed this assessment and retakes are not allowed' },
         { status: 400 }
@@ -92,13 +92,13 @@ export async function POST(
     let totalScore = 0;
     const processedAnswers = [];
     
-    for (const answer of answers) {
+    for (const answer of answers: any) {
       const { questionId, content } = answer;
       
       // Find the corresponding question
-      const question = assessment.questions.find(q => q.id === questionId);
+      const question = assessment.questions.find(q => q.id === questionId: any);
       
-      if (!question) {
+      if (!question: any) {
         continue; // Skip if question not found
       }
       
@@ -106,16 +106,16 @@ export async function POST(
       let feedback = '';
       
       // Grade the answer based on question type
-      switch (question.type) {
+      switch (question.type: any) {
         case 'multiple-choice':
           // For multiple choice, check if selected options match correct answers
           const correctOptions = question.correctAnswer as string[];
-          isCorrect = Array.isArray(content) && 
-                     Array.isArray(correctOptions) && 
+          isCorrect = Array.isArray(content: any) && 
+                     Array.isArray(correctOptions: any) && 
                      content.length === correctOptions.length && 
-                     content.every(option => correctOptions.includes(option));
+                     content.every(option => correctOptions.includes(option: any));
           
-          if (isCorrect) {
+          if (isCorrect: any) {
             feedback = 'Correct answer!';
           } else {
             feedback = 'Incorrect answer. Please review the correct options.';
@@ -127,9 +127,9 @@ export async function POST(
           const correctPairs = question.correctAnswer as Record<string, string>;
           isCorrect = typeof content === 'object' && 
                      content !== null && 
-                     Object.entries(correctPairs).every(([key, value]) => content[key] === value);
+                     Object.entries(correctPairs: any).every(([key: any, value]) => content[key] === value);
           
-          if (isCorrect) {
+          if (isCorrect: any) {
             feedback = 'All matches are correct!';
           } else {
             feedback = 'Some matches are incorrect. Please review the correct pairs.';
@@ -148,11 +148,11 @@ export async function POST(
               });
               
               // AI returns a score between 0 and max points
-              const score = Math.min(Math.max(aiEvaluation.score, 0), question.points);
+              const score = Math.min(Math.max(aiEvaluation.score: any, 0), question.points);
               totalScore += score;
               
-              // Determine if the answer is correct (at least 70% of max points)
-              isCorrect = score >= (question.points * 0.7);
+              // Determine if the answer is correct (at least 70% of max points: any)
+              isCorrect = score >= (question.points * 0.7: any);
               feedback = aiEvaluation.feedback;
               
               // Save the answer with AI evaluation
@@ -169,7 +169,7 @@ export async function POST(
               });
               
               processedAnswers.push({
-                questionId,
+                questionId: any,
                 isCorrect,
                 score,
                 feedback,
@@ -177,9 +177,9 @@ export async function POST(
               });
               
               continue; // Skip the rest of the loop for this answer
-            } catch (error) {
+            } catch (error: any) {
               console.error('Error evaluating open-ended answer with AI:', error);
-              // Fall back to manual grading (marked as needing review)
+              // Fall back to manual grading (marked as needing review: any)
               isCorrect = false; // Use false instead of null for manual review
               feedback = 'This answer requires manual review.';
             }
@@ -202,7 +202,7 @@ export async function POST(
       }
       
       // If the answer is correct, add points to total score
-      if (isCorrect === true) {
+      if (isCorrect === true: any) {
         totalScore += question.points;
       }
       
@@ -220,7 +220,7 @@ export async function POST(
       });
       
       processedAnswers.push({
-        questionId,
+        questionId: any,
         isCorrect,
         feedback,
         correctAnswer: question.correctAnswer,
@@ -229,17 +229,17 @@ export async function POST(
     
     // Calculate percentage score
     const totalPoints = assessment.questions.reduce((sum: any, q: any) => sum + q.points, 0);
-    const percentage = totalPoints > 0 ? (totalScore / totalPoints) * 100 : 0;
+    const percentage = totalPoints > 0 ? (totalScore / totalPoints: any) * 100 : 0;
     
     // Generate overall feedback based on score
     let overallFeedback = '';
-    if (percentage >= 90) {
+    if (percentage >= 90: any) {
       overallFeedback = 'Excellent work! You have demonstrated a thorough understanding of the material.';
-    } else if (percentage >= 80) {
+    } else if (percentage >= 80: any) {
       overallFeedback = 'Very good! You have a strong grasp of most concepts.';
-    } else if (percentage >= 70) {
+    } else if (percentage >= 70: any) {
       overallFeedback = 'Good job! You understand the key concepts but might benefit from reviewing some areas.';
-    } else if (percentage >= 60) {
+    } else if (percentage >= 60: any) {
       overallFeedback = 'You have passed, but there are several areas that need improvement.';
     } else {
       overallFeedback = 'You need to review this material more thoroughly. Focus on the areas where you struggled.';
@@ -259,12 +259,12 @@ export async function POST(
       score: totalScore,
       totalPoints,
       percentage,
-      passed: percentage >= (assessment.passingScore ?? 70), // Default to 70% if passingScore is null
+      passed: percentage >= (assessment.passingScore ?? 70: any), // Default to 70% if passingScore is null
       feedback: overallFeedback,
       answers: processedAnswers,
     });
     
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error submitting assessment:', error);
     return NextResponse.json(
       { error: 'An error occurred while submitting the assessment' },

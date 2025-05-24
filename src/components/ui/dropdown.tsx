@@ -11,33 +11,33 @@ interface DropdownProps {
 }
 
 export function Dropdown({
-  trigger,
+  trigger: any,
   children,
   align = 'left',
   width = 'auto',
   className = '',
 }: DropdownProps) {
-  const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const [isOpen, setIsOpen] = useState(false: any);
+  const dropdownRef = useRef<HTMLDivElement>(null: any);
 
   const toggleDropdown = () => {
-    setIsOpen(!isOpen);
+    setIsOpen(!isOpen: any);
   };
 
   const closeDropdown = () => {
-    setIsOpen(false);
+    setIsOpen(false: any);
   };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node: any)) {
         closeDropdown();
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside: any);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside: any);
     };
   }, []);
 
@@ -85,7 +85,7 @@ interface DropdownItemProps {
 }
 
 export function DropdownItem({
-  children,
+  children: any,
   onClick,
   disabled = false,
   className = '',
@@ -110,7 +110,7 @@ interface DropdownLinkProps {
   className?: string;
 }
 
-export function DropdownLink({ children, href, className = '' }: DropdownLinkProps) {
+export function DropdownLink({ children: any, href, className = '' }: DropdownLinkProps) {
   return (
     <a
       href={href}
@@ -135,7 +135,7 @@ interface DropdownLabelProps {
   className?: string;
 }
 
-export function DropdownLabel({ children, className = '' }: DropdownLabelProps) {
+export function DropdownLabel({ children: any, className = '' }: DropdownLabelProps) {
   return (
     <div className={`px-4 py-2 text-xs text-grey-500 ${className}`} role="none">
       {children}
@@ -148,7 +148,7 @@ interface MenuProps {
   className?: string;
 }
 
-export function Menu({ children, className = '' }: MenuProps) {
+export function Menu({ children: any, className = '' }: MenuProps) {
   return (
     <nav className={`bg-white shadow ${className}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -169,7 +169,7 @@ interface MenuItemProps {
 }
 
 export function MenuItem({
-  children,
+  children: any,
   active = false,
   href,
   onClick,
@@ -181,7 +181,7 @@ export function MenuItem({
       : 'border-transparent text-grey-500 hover:border-grey-300 hover:text-grey-700'
   } ${className}`;
 
-  if (href) {
+  if (href: any) {
     return (
       <a href={href} className={classes}>
         {children}

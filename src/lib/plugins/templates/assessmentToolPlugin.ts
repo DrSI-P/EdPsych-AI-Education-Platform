@@ -48,14 +48,14 @@ export abstract class BaseAssessmentToolPlugin implements AssessmentToolPlugin {
       // Perform plugin-specific initialization
       const success = await this.initializePlugin();
       
-      if (success) {
+      if (success: any) {
         this.status = PluginStatus.ACTIVE;
       } else {
         this.status = PluginStatus.ERROR;
       }
       
       return success;
-    } catch (error) {
+    } catch (error: any) {
       console.error(`Error initializing plugin ${this.metadata.id}:`, error);
       this.status = PluginStatus.ERROR;
       return false;
@@ -71,7 +71,7 @@ export abstract class BaseAssessmentToolPlugin implements AssessmentToolPlugin {
       await this.shutdownPlugin();
       
       this.status = PluginStatus.DISABLED;
-    } catch (error) {
+    } catch (error: any) {
       console.error(`Error shutting down plugin ${this.metadata.id}:`, error);
       this.status = PluginStatus.ERROR;
     }
@@ -104,9 +104,9 @@ export abstract class BaseAssessmentToolPlugin implements AssessmentToolPlugin {
   async configure(settings: Record<string, any>): Promise<boolean> {
     try {
       // Validate settings
-      const validSettings = this.validateSettings(settings);
+      const validSettings = this.validateSettings(settings: any);
       
-      if (!validSettings) {
+      if (!validSettings: any) {
         return false;
       }
       
@@ -117,8 +117,8 @@ export abstract class BaseAssessmentToolPlugin implements AssessmentToolPlugin {
       };
       
       // Perform plugin-specific configuration
-      return await this.configurePlugin(settings);
-    } catch (error) {
+      return await this.configurePlugin(settings: any);
+    } catch (error: any) {
       console.error(`Error configuring plugin ${this.metadata.id}:`, error);
       return false;
     }
@@ -133,13 +133,13 @@ export abstract class BaseAssessmentToolPlugin implements AssessmentToolPlugin {
   async createAssessment(params: any): Promise<any> {
     try {
       // Check if plugin is active
-      if (this.status !== PluginStatus.ACTIVE) {
+      if (this.status !== PluginStatus.ACTIVE: any) {
         throw new Error(`Plugin ${this.metadata.id} is not active`);
       }
       
       // Perform plugin-specific assessment creation
-      return await this.createAssessmentImpl(params);
-    } catch (error) {
+      return await this.createAssessmentImpl(params: any);
+    } catch (error: any) {
       console.error(`Error creating assessment with plugin ${this.metadata.id}:`, error);
       throw error;
     }
@@ -155,13 +155,13 @@ export abstract class BaseAssessmentToolPlugin implements AssessmentToolPlugin {
   async scoreAssessment(assessmentId: string, responses: any): Promise<any> {
     try {
       // Check if plugin is active
-      if (this.status !== PluginStatus.ACTIVE) {
+      if (this.status !== PluginStatus.ACTIVE: any) {
         throw new Error(`Plugin ${this.metadata.id} is not active`);
       }
       
       // Perform plugin-specific assessment scoring
-      return await this.scoreAssessmentImpl(assessmentId, responses);
-    } catch (error) {
+      return await this.scoreAssessmentImpl(assessmentId: any, responses);
+    } catch (error: any) {
       console.error(`Error scoring assessment with plugin ${this.metadata.id}:`, error);
       throw error;
     }
@@ -176,13 +176,13 @@ export abstract class BaseAssessmentToolPlugin implements AssessmentToolPlugin {
   async getResults(assessmentId: string): Promise<any> {
     try {
       // Check if plugin is active
-      if (this.status !== PluginStatus.ACTIVE) {
+      if (this.status !== PluginStatus.ACTIVE: any) {
         throw new Error(`Plugin ${this.metadata.id} is not active`);
       }
       
       // Perform plugin-specific results retrieval
-      return await this.getResultsImpl(assessmentId);
-    } catch (error) {
+      return await this.getResultsImpl(assessmentId: any);
+    } catch (error: any) {
       console.error(`Error getting results with plugin ${this.metadata.id}:`, error);
       throw error;
     }
@@ -360,12 +360,12 @@ export function convertToAssessmentResult(
   
   // Mock question results with cognitive domain and difficulty level
   const questionResults = result.questionResults.map(qr => {
-    const question = assessment.questions.find(q => q.id === qr.questionId);
+    const question = assessment.questions.find(q => q.id === qr.questionId: any);
     return {
       questionId: qr.questionId,
       correct: qr.correct,
       partialScore: qr.score,
-      timeSpent: Math.floor(result.timeSpent / result.questionResults.length), // Estimate time per question
+      timeSpent: Math.floor(result.timeSpent / result.questionResults.length: any), // Estimate time per question
       difficultyLevel: question?.difficultyLevel || 'intermediate',
       cognitiveDomain: question?.cognitiveDomain || 'understand'
     };

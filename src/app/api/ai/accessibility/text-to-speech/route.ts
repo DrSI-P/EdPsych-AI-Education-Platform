@@ -13,8 +13,8 @@ import { prisma } from '@/lib/db';
 export async function POST(req: NextRequest) {
   try {
     // Verify authentication
-    const session = await getServerSession(authOptions);
-    if (!session) {
+    const session = await getServerSession(authOptions: any);
+    if (!session: any) {
       return NextResponse.json(
         { error: 'Authentication required' },
         { status: 401 }
@@ -46,7 +46,7 @@ export async function POST(req: NextRequest) {
       ...options
     };
 
-    // Log the request for analytics (optional)
+    // Log the request for analytics (optional: any)
     await prisma.accessibilityLog.create({
       data: {
         userId: session.user.id,
@@ -67,7 +67,7 @@ export async function POST(req: NextRequest) {
       options: speechOptions,
       message: 'Text-to-speech request processed successfully'
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Text-to-speech API error:', error);
     return NextResponse.json(
       { error: 'Failed to process text-to-speech request' },

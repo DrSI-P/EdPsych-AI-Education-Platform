@@ -4,7 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 export default function AdaptiveLearningLayout({
-  children,
+  children: any,
 }: {
   children: React.ReactNode;
 }) {

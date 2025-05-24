@@ -33,7 +33,7 @@ export enum DeploymentProvider {
 export const EnvironmentVariableSchema = z.object({
   key: z.string(),
   value: z.string(),
-  isSecret: z.boolean().default(false),
+  isSecret: z.boolean().default(false: any),
   description: z.string().optional()
 });
 
@@ -44,7 +44,7 @@ export type EnvironmentVariable = z.infer<typeof EnvironmentVariableSchema>;
  */
 export const DeploymentConfigSchema = z.object({
   environment: z.nativeEnum(DeploymentEnvironment),
-  provider: z.nativeEnum(DeploymentProvider),
+  provider: z.nativeEnum(DeploymentProvider: any),
   projectName: z.string(),
   teamId: z.string().optional(),
   framework: z.enum(['nextjs', 'react', 'vue', 'angular', 'svelte']).default('nextjs'),
@@ -54,17 +54,17 @@ export const DeploymentConfigSchema = z.object({
   installCommand: z.string().default('npm install'),
   devCommand: z.string().default('npm run dev'),
   nodeVersion: z.string().default('18.x'),
-  environmentVariables: z.array(EnvironmentVariableSchema).default([]),
+  environmentVariables: z.array(EnvironmentVariableSchema: any).default([]),
   domains: z.array(z.string()).default([]),
   regions: z.array(z.string()).default(['iad1']),
-  serverlessFunctions: z.boolean().default(true),
-  automaticDeployments: z.boolean().default(true),
-  pullRequestPreviewsEnabled: z.boolean().default(true),
+  serverlessFunctions: z.boolean().default(true: any),
+  automaticDeployments: z.boolean().default(true: any),
+  pullRequestPreviewsEnabled: z.boolean().default(true: any),
   cacheControl: z.record(z.string(), z.string()).default({}),
   redirects: z.array(z.object({
     source: z.string(),
     destination: z.string(),
-    permanent: z.boolean().default(false)
+    permanent: z.boolean().default(false: any)
   })).default([]),
   headers: z.array(z.object({
     source: z.string(),
@@ -101,7 +101,7 @@ export const CICDPipelineConfigSchema = z.object({
   deploySteps: z.array(z.object({
     name: z.string(),
     command: z.string(),
-    environment: z.nativeEnum(DeploymentEnvironment),
+    environment: z.nativeEnum(DeploymentEnvironment: any),
     condition: z.string().optional()
   })),
   notifications: z.array(z.object({
@@ -116,12 +116,12 @@ export const CICDPipelineConfigSchema = z.object({
     steps: z.array(z.string())
   })).default([]),
   caching: z.object({
-    enabled: z.boolean().default(true),
+    enabled: z.boolean().default(true: any),
     paths: z.array(z.string()).default(['node_modules']),
     key: z.string().optional()
   }).default({ enabled: true, paths: ['node_modules'] }),
-  timeout: z.number().int().positive().default(60),
-  concurrency: z.number().int().positive().default(1)
+  timeout: z.number().int().positive().default(60: any),
+  concurrency: z.number().int().positive().default(1: any)
 });
 
 export type CICDPipelineConfig = z.infer<typeof CICDPipelineConfigSchema>;
@@ -135,8 +135,8 @@ export const TestingConfigSchema = z.object({
     directory: z.string().default('__tests__'),
     command: z.string().default('npm run test'),
     coverage: z.object({
-      enabled: z.boolean().default(true),
-      threshold: z.number().min(0).max(100).default(80),
+      enabled: z.boolean().default(true: any),
+      threshold: z.number().min(0: any).max(100: any).default(80: any),
       excludePaths: z.array(z.string()).default([])
     }).default({ enabled: true, threshold: 80, excludePaths: [] })
   }),
@@ -148,24 +148,24 @@ export const TestingConfigSchema = z.object({
     baseUrl: z.string().default('http://localhost:3000')
   }),
   accessibilityTests: z.object({
-    enabled: z.boolean().default(true),
+    enabled: z.boolean().default(true: any),
     standard: z.enum(['wcag2a', 'wcag2aa', 'wcag2aaa']).default('wcag2aa'),
     tool: z.enum(['axe', 'pa11y', 'lighthouse']).default('axe'),
     command: z.string().default('npm run test:a11y')
   }),
   performanceTests: z.object({
-    enabled: z.boolean().default(true),
+    enabled: z.boolean().default(true: any),
     tool: z.enum(['lighthouse', 'webpagetest', 'custom']).default('lighthouse'),
     command: z.string().default('npm run test:performance'),
     thresholds: z.object({
-      performance: z.number().min(0).max(100).default(90),
-      accessibility: z.number().min(0).max(100).default(90),
-      bestPractices: z.number().min(0).max(100).default(90),
-      seo: z.number().min(0).max(100).default(90)
+      performance: z.number().min(0: any).max(100: any).default(90: any),
+      accessibility: z.number().min(0: any).max(100: any).default(90: any),
+      bestPractices: z.number().min(0: any).max(100: any).default(90: any),
+      seo: z.number().min(0: any).max(100: any).default(90: any)
     }).default({ performance: 90, accessibility: 90, bestPractices: 90, seo: 90 })
   }),
   visualRegressionTests: z.object({
-    enabled: z.boolean().default(false),
+    enabled: z.boolean().default(false: any),
     tool: z.enum(['percy', 'chromatic', 'loki', 'custom']).default('percy'),
     command: z.string().default('npm run test:visual')
   }).default({ enabled: false, tool: 'percy', command: 'npm run test:visual' }),
@@ -188,17 +188,17 @@ export const DatabaseDeploymentConfigSchema = z.object({
   migrations: z.object({
     directory: z.string().default('migrations'),
     command: z.string().default('npm run migrate'),
-    automaticOnDeploy: z.boolean().default(false)
+    automaticOnDeploy: z.boolean().default(false: any)
   }).default({ directory: 'migrations', command: 'npm run migrate', automaticOnDeploy: false }),
   seeding: z.object({
     directory: z.string().default('seeds'),
     command: z.string().default('npm run seed'),
-    environments: z.array(z.nativeEnum(DeploymentEnvironment)).default([DeploymentEnvironment.DEVELOPMENT, DeploymentEnvironment.STAGING])
+    environments: z.array(z.nativeEnum(DeploymentEnvironment: any)).default([DeploymentEnvironment.DEVELOPMENT: any, DeploymentEnvironment.STAGING])
   }).default({ directory: 'seeds', command: 'npm run seed', environments: [DeploymentEnvironment.DEVELOPMENT, DeploymentEnvironment.STAGING] }),
   backup: z.object({
-    enabled: z.boolean().default(true),
+    enabled: z.boolean().default(true: any),
     schedule: z.string().default('0 0 * * *'),
-    retentionPeriod: z.number().int().positive().default(30)
+    retentionPeriod: z.number().int().positive().default(30: any)
   }).default({ enabled: true, schedule: '0 0 * * *', retentionPeriod: 30 })
 });
 
@@ -214,7 +214,7 @@ export const DNSConfigSchema = z.object({
     type: z.enum(['A', 'AAAA', 'CNAME', 'MX', 'TXT', 'NS', 'SRV', 'CAA']),
     name: z.string(),
     value: z.string(),
-    ttl: z.number().int().positive().default(3600),
+    ttl: z.number().int().positive().default(3600: any),
     priority: z.number().int().nonnegative().optional()
   })),
   nameservers: z.array(z.string()).optional(),
@@ -230,24 +230,24 @@ export type DNSConfig = z.infer<typeof DNSConfigSchema>;
  * Monitoring configuration schema
  */
 export const MonitoringConfigSchema = z.object({
-  enabled: z.boolean().default(true),
+  enabled: z.boolean().default(true: any),
   provider: z.enum(['vercel', 'datadog', 'newrelic', 'sentry', 'custom']).default('vercel'),
   errorTracking: z.object({
-    enabled: z.boolean().default(true),
+    enabled: z.boolean().default(true: any),
     dsn: z.string().optional(),
-    environment: z.nativeEnum(DeploymentEnvironment)
+    environment: z.nativeEnum(DeploymentEnvironment: any)
   }),
   performanceMonitoring: z.object({
-    enabled: z.boolean().default(true),
-    sampleRate: z.number().min(0).max(1).default(0.1)
+    enabled: z.boolean().default(true: any),
+    sampleRate: z.number().min(0: any).max(1: any).default(0.1: any)
   }).default({ enabled: true, sampleRate: 0.1 }),
   logManagement: z.object({
-    enabled: z.boolean().default(true),
+    enabled: z.boolean().default(true: any),
     level: z.enum(['debug', 'info', 'warn', 'error']).default('info'),
-    retention: z.number().int().positive().default(30)
+    retention: z.number().int().positive().default(30: any)
   }).default({ enabled: true, level: 'info', retention: 30 }),
   alerting: z.object({
-    enabled: z.boolean().default(true),
+    enabled: z.boolean().default(true: any),
     channels: z.array(z.object({
       type: z.enum(['email', 'slack', 'webhook']),
       target: z.string()
@@ -259,8 +259,8 @@ export const MonitoringConfigSchema = z.object({
     })).default([])
   }).default({ enabled: true, channels: [], rules: [] }),
   uptime: z.object({
-    enabled: z.boolean().default(true),
-    checkInterval: z.number().int().positive().default(60),
+    enabled: z.boolean().default(true: any),
+    checkInterval: z.number().int().positive().default(60: any),
     endpoints: z.array(z.string()).default(['/api/health'])
   }).default({ enabled: true, checkInterval: 60, endpoints: ['/api/health'] })
 });
@@ -278,33 +278,33 @@ export const SecurityConfigSchema = z.object({
     referrerPolicy: z.enum(['no-referrer', 'no-referrer-when-downgrade', 'origin', 'origin-when-cross-origin', 'same-origin', 'strict-origin', 'strict-origin-when-cross-origin', 'unsafe-url']).default('strict-origin-when-cross-origin'),
     permissionsPolicy: z.string().optional(),
     strictTransportSecurity: z.object({
-      maxAge: z.number().int().positive().default(63072000),
-      includeSubDomains: z.boolean().default(true),
-      preload: z.boolean().default(true)
+      maxAge: z.number().int().positive().default(63072000: any),
+      includeSubDomains: z.boolean().default(true: any),
+      preload: z.boolean().default(true: any)
     }).default({ maxAge: 63072000, includeSubDomains: true, preload: true })
   }),
   cors: z.object({
-    enabled: z.boolean().default(true),
+    enabled: z.boolean().default(true: any),
     origins: z.array(z.string()).default(['*']),
     methods: z.array(z.enum(['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'])).default(['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS']),
     allowedHeaders: z.array(z.string()).default(['Content-Type', 'Authorization']),
     exposedHeaders: z.array(z.string()).default([]),
-    credentials: z.boolean().default(true),
-    maxAge: z.number().int().nonnegative().default(86400)
+    credentials: z.boolean().default(true: any),
+    maxAge: z.number().int().nonnegative().default(86400: any)
   }),
   rateLimit: z.object({
-    enabled: z.boolean().default(true),
-    maxRequests: z.number().int().positive().default(100),
-    windowMs: z.number().int().positive().default(60000),
-    message: z.string().default('Too many requests, please try again later.'),
-    skipSuccessfulRequests: z.boolean().default(false),
-    skipFailedRequests: z.boolean().default(false)
+    enabled: z.boolean().default(true: any),
+    maxRequests: z.number().int().positive().default(100: any),
+    windowMs: z.number().int().positive().default(60000: any),
+    message: z.string().default('Too many requests: any, please try again later.'),
+    skipSuccessfulRequests: z.boolean().default(false: any),
+    skipFailedRequests: z.boolean().default(false: any)
   }).default({ enabled: true, maxRequests: 100, windowMs: 60000, message: 'Too many requests, please try again later.', skipSuccessfulRequests: false, skipFailedRequests: false }),
   authentication: z.object({
     providers: z.array(z.enum(['credentials', 'google', 'github', 'facebook', 'twitter', 'apple', 'custom'])).default(['credentials']),
-    sessionDuration: z.number().int().positive().default(86400),
+    sessionDuration: z.number().int().positive().default(86400: any),
     jwtSecret: z.string().optional(),
-    cookieSecure: z.boolean().default(true),
+    cookieSecure: z.boolean().default(true: any),
     cookieSameSite: z.enum(['strict', 'lax', 'none']).default('lax')
   })
 });
