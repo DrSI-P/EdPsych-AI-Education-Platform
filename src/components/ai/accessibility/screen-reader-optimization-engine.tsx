@@ -28,6 +28,12 @@ interface ScreenReaderOptimizationEngineProps {
   onSettingsChange: (settings: Record<string, unknown>) => void;
 }
 
+interface OptimizationResults {
+  elementsProcessed: number;
+  elementsEnhanced: number;
+  warnings: string[];
+}
+
 export const ScreenReaderOptimizationEngine: React.FC<ScreenReaderOptimizationEngineProps> = ({ 
   settings,
   onSettingsChange
@@ -36,11 +42,7 @@ export const ScreenReaderOptimizationEngine: React.FC<ScreenReaderOptimizationEn
   const [isOptimizing, setIsOptimizing] = React.useState<boolean>(false);
   const [optimizationStatus, setOptimizationStatus] = React.useState<string>('idle');
   const [optimizationProgress, setOptimizationProgress] = React.useState<number>(0);
-  const [optimizationResults, setOptimizationResults] = React.useState<{
-    elementsProcessed: number;
-    elementsEnhanced: number;
-    warnings: string[];
-  }>({
+  const [optimizationResults, setOptimizationResults] = React.useState<OptimizationResults>({
     elementsProcessed: 0,
     elementsEnhanced: 0,
     warnings: []
@@ -154,8 +156,8 @@ export const ScreenReaderOptimizationEngine: React.FC<ScreenReaderOptimizationEn
           const figure = image.closest('figure');
           if (figure) {
             const figcaption = figure.querySelector('figcaption');
-            if (figcaption) {
-              altText = figcaption.textContent || 'Image';
+            if (figcaption && figcaption.textContent) {
+              altText = figcaption.textContent;
             }
           }
           
@@ -208,8 +210,8 @@ export const ScreenReaderOptimizationEngine: React.FC<ScreenReaderOptimizationEn
             if (hasIcon) {
               // Try to get context from parent elements
               const parent = element.parentElement;
-              if (parent) {
-                const parentText = parent.textContent?.trim();
+              if (parent && parent.textContent) {
+                const parentText = parent.textContent.trim();
                 if (parentText) {
                   element.setAttribute('aria-label', `${parentText} button`);
                 } else {
@@ -306,7 +308,7 @@ export const ScreenReaderOptimizationEngine: React.FC<ScreenReaderOptimizationEn
   }, [settings.enabled, applyAllOptimizations]);
   
   // Handle settings change
-  const handleSettingChange = (setting: string, value: boolean | string) => {
+  const handleSettingChange = (setting: string, value: boolean | string): void => {
     onSettingsChange({
       ...settings,
       [setting]: value
@@ -428,33 +430,37 @@ export const ScreenReaderOptimizationEngine: React.FC<ScreenReaderOptimizationEn
             
             {optimizationStatus === 'complete' && (
               <div className="space-y-4">
-                <div className="p-3 bg-green-50 border border-green-200 rounded-md text-green-800">
-                  <p className="text-sm font-medium">Screen reader optimizations applied successfully</p>
-                </div>
+                <Alert variant="success">
+                  <AlertTitle>Screen reader optimizations applied successfully</AlertTitle>
+                </Alert>
                 
                 <div className="grid grid-cols-2 gap-2">
                   <Card className="p-3">
-                    <p className="text-sm font-medium">Elements Processed</p>
-                    <p className="text-2xl font-bold">{optimizationResults.elementsProcessed}</p>
+                    <div className="text-center">
+                      <p className="text-2xl font-bold">{optimizationResults.elementsProcessed}</p>
+                      <p className="text-sm text-muted-foreground">Elements Processed</p>
+                    </div>
                   </Card>
                   <Card className="p-3">
-                    <p className="text-sm font-medium">Elements Enhanced</p>
-                    <p className="text-2xl font-bold">{optimizationResults.elementsEnhanced}</p>
+                    <div className="text-center">
+                      <p className="text-2xl font-bold">{optimizationResults.elementsEnhanced}</p>
+                      <p className="text-sm text-muted-foreground">Elements Enhanced</p>
+                    </div>
                   </Card>
                 </div>
                 
                 {optimizationResults.warnings.length > 0 && (
-                  <div className="space-y-2">
-                    <p className="text-sm font-medium">Warnings</p>
-                    <ul className="space-y-1">
-                      {optimizationResults.warnings.map((warning, i) => (
-                        <li key={`warning-${i}`} className="text-sm text-amber-500 flex items-start">
-                          <AlertTriangle className="h-4 w-4 mr-1 mt-0.5 flex-shrink-0" />
-                          <span>{warning}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                  <Alert variant="warning">
+                    <AlertTriangle className="h-4 w-4" />
+                    <AlertTitle>Warnings</AlertTitle>
+                    <AlertDescription>
+                      <ul className="list-disc pl-5 mt-2">
+                        {optimizationResults.warnings.map((warning, index) => (
+                          <li key={`warning-${index}`}>{warning}</li>
+                        ))}
+                      </ul>
+                    </AlertDescription>
+                  </Alert>
                 )}
               </div>
             )}
@@ -466,21 +472,10 @@ export const ScreenReaderOptimizationEngine: React.FC<ScreenReaderOptimizationEn
             disabled={!settings.enabled || isOptimizing}
             className="w-full"
           >
-            {isOptimizing ? 'Applying Optimizations...' : 'Apply Optimizations'}
+            {isOptimizing ? 'Optimizing...' : 'Apply Optimizations'}
           </Button>
         </CardFooter>
       </Card>
-      
-      <Alert className="mt-4">
-        <AlertTriangle className="h-4 w-4" />
-        <AlertTitle>Important Accessibility Note</AlertTitle>
-        <AlertDescription>
-          Automated optimizations are helpful but not a replacement for manual testing with actual screen readers. 
-          We recommend testing with NVDA, JAWS, or VoiceOver for the best accessibility results.
-        </AlertDescription>
-      </Alert>
     </div>
   );
 };
-
-export default ScreenReaderOptimizationEngine;
