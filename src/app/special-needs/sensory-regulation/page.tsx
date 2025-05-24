@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { SensoryRegulationEngine } from '@/components/special-needs/sensory-regulation/sensory-regulation-engine';
-import { Metadata } from 'next';
 import { 
   Card, 
   CardContent, 
@@ -15,7 +14,7 @@ import { Separator } from '@/components/ui/separator';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Info, Vibrate, BookOpen, Lightbulb } from 'lucide-react';
 
-export default function SensoryRegulationPage() {
+export default function SensoryRegulationPage(): React.ReactNode {
   return (
     <div className="container mx-auto py-6 space-y-6">
       <div className="flex flex-col space-y-2">
@@ -51,7 +50,7 @@ export default function SensoryRegulationPage() {
               <div className="space-y-2">
                 <h3 className="text-sm font-medium">Alert Programme®</h3>
                 <p className="text-sm text-muted-foreground">
-                  Incorporates principles from the Alert Programme® ("How Does Your Engine Run?") to help students recognise and regulate their alertness levels for optimal learning.
+                  Incorporates principles from the Alert Programme® (&quot;How Does Your Engine Run?&quot;) to help students recognise and regulate their alertness levels for optimal learning.
                 </p>
               </div>
               <div className="space-y-2">
