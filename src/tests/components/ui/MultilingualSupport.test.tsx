@@ -1,10 +1,12 @@
+// @ts-check
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import MultilingualSupport from '../../components/ui/MultilingualSupport';
 
 // Mock the translation service
-jest.mock('@/lib/translation-service', () => ({
-  translateContent: jest.fn().mockImplementation((content, targetLang) => {
+vi.mock('@/lib/translation-service', () => ({
+  translateContent: vi.fn().mockImplementation((content, targetLang) => {
     const translations = {
       en: { title: 'Welcome', description: 'This is the welcome page.' },
       fr: { title: 'Bienvenue', description: 'Ceci est la page d\'accueil.' },
@@ -14,8 +16,8 @@ jest.mock('@/lib/translation-service', () => ({
     };
     return Promise.resolve(translations[targetLang] || translations.en);
   }),
-  detectLanguage: jest.fn().mockResolvedValue('en'),
-  getSupportedLanguages: jest.fn().mockResolvedValue([
+  detectLanguage: vi.fn().mockResolvedValue('en'),
+  getSupportedLanguages: vi.fn().mockResolvedValue([
     { code: 'en', name: 'English' },
     { code: 'fr', name: 'French' },
     { code: 'es', name: 'Spanish' },
@@ -31,7 +33,7 @@ describe('MultilingualSupport Component', () => {
   };
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('renders multilingual support component correctly', async () => {
@@ -46,12 +48,13 @@ describe('MultilingualSupport Component', () => {
   });
 
   it('loads supported languages on mount', async () => {
-    const { getSupportedLanguages } = require('@/lib/translation-service');
+    // Import directly instead of using require
+    const translationService = await import('@/lib/translation-service');
     
     render(<MultilingualSupport content={mockContent} />);
     
     // Check that supported languages were requested
-    expect(getSupportedLanguages).toHaveBeenCalled();
+    expect(translationService.getSupportedLanguages).toHaveBeenCalled();
     
     // Check that language options are displayed
     await waitFor(() => {
@@ -64,7 +67,8 @@ describe('MultilingualSupport Component', () => {
   });
 
   it('changes language when selector is changed', async () => {
-    const { translateContent } = require('@/lib/translation-service');
+    // Import directly instead of using require
+    const translationService = await import('@/lib/translation-service');
     
     render(<MultilingualSupport content={mockContent} />);
     
@@ -75,7 +79,7 @@ describe('MultilingualSupport Component', () => {
     fireEvent.change(languageSelector, { target: { value: 'fr' } });
     
     // Check that translation was requested
-    expect(translateContent).toHaveBeenCalledWith(mockContent, 'fr');
+    expect(translationService.translateContent).toHaveBeenCalledWith(mockContent, 'fr');
     
     // Check that content is updated with French translation
     await waitFor(() => {
@@ -85,13 +89,14 @@ describe('MultilingualSupport Component', () => {
   });
 
   it('detects user language automatically', async () => {
-    const { detectLanguage } = require('@/lib/translation-service');
-    detectLanguage.mockResolvedValue('es');
+    // Import directly instead of using require
+    const translationService = await import('@/lib/translation-service');
+    translationService.detectLanguage.mockResolvedValue('es');
     
     render(<MultilingualSupport content={mockContent} autoDetectLanguage={true} />);
     
     // Check that language detection was called
-    expect(detectLanguage).toHaveBeenCalled();
+    expect(translationService.detectLanguage).toHaveBeenCalled();
     
     // Check that content is translated to detected language (Spanish)
     await waitFor(() => {
@@ -105,8 +110,9 @@ describe('MultilingualSupport Component', () => {
   });
 
   it('handles translation errors gracefully', async () => {
-    const { translateContent } = require('@/lib/translation-service');
-    translateContent.mockRejectedValue(new Error('Translation failed'));
+    // Import directly instead of using require
+    const translationService = await import('@/lib/translation-service');
+    translationService.translateContent.mockRejectedValue(new Error('Translation failed'));
     
     render(<MultilingualSupport content={mockContent} />);
     
@@ -129,8 +135,8 @@ describe('MultilingualSupport Component', () => {
   it('saves language preference', async () => {
     // Mock localStorage
     const localStorageMock = {
-      getItem: jest.fn(),
-      setItem: jest.fn(),
+      getItem: vi.fn(),
+      setItem: vi.fn(),
     };
     Object.defineProperty(window, 'localStorage', { value: localStorageMock });
     
@@ -152,18 +158,19 @@ describe('MultilingualSupport Component', () => {
   it('loads saved language preference', async () => {
     // Mock localStorage with saved preference
     const localStorageMock = {
-      getItem: jest.fn().mockReturnValue('fr'),
-      setItem: jest.fn(),
+      getItem: vi.fn().mockReturnValue('fr'),
+      setItem: vi.fn(),
     };
     Object.defineProperty(window, 'localStorage', { value: localStorageMock });
     
-    const { translateContent } = require('@/lib/translation-service');
+    // Import directly instead of using require
+    const translationService = await import('@/lib/translation-service');
     
     render(<MultilingualSupport content={mockContent} savePreference={true} />);
     
     // Check that translation was requested with saved preference
     await waitFor(() => {
-      expect(translateContent).toHaveBeenCalledWith(mockContent, 'fr');
+      expect(translationService.translateContent).toHaveBeenCalledWith(mockContent, 'fr');
     });
     
     // Check that content is translated to French
@@ -187,14 +194,14 @@ describe('MultilingualSupport Component', () => {
     };
     
     const mockSpeechSynthesis = {
-      speak: jest.fn(),
-      getVoices: jest.fn().mockReturnValue([
+      speak: vi.fn(),
+      getVoices: vi.fn().mockReturnValue([
         { lang: 'en-US', name: 'English Voice' },
         { lang: 'fr-FR', name: 'French Voice' },
       ]),
     };
     
-    global.SpeechSynthesisUtterance = jest.fn().mockImplementation((text) => {
+    global.SpeechSynthesisUtterance = vi.fn().mockImplementation((text) => {
       mockUtterance.text = text;
       return mockUtterance;
     });
@@ -245,8 +252,9 @@ describe('MultilingualSupport Component', () => {
       }
     };
     
-    const { translateContent } = require('@/lib/translation-service');
-    translateContent.mockImplementation((content, targetLang) => {
+    // Import directly instead of using require
+    const translationService = await import('@/lib/translation-service');
+    translationService.translateContent.mockImplementation((content, targetLang) => {
       if (targetLang === 'fr') {
         return Promise.resolve({
           header: {
