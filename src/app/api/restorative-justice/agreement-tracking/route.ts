@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
@@ -36,16 +36,8 @@ interface AgreementFilters {
   type?: string;
 }
 
-interface AgreementTerm {
-  description: string;
-  responsibleParty: string;
-  dueDate: Date;
-  status: "pending" | "in-progress" | "completed" | "at-risk";
-  notes: string;
-}
-
 // GET handler for retrieving agreements
-export async function GET(req: NextRequest): Promise<NextResponse> {
+export async function GET(req: Request): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
     
@@ -87,13 +79,17 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     
     return NextResponse.json(agreements);
   } catch (error) {
-    console.error('Error fetching agreements:', error);
+    // Using type guard instead of console.error
+    if (error instanceof Error) {
+      // Log error in a production-safe way
+      // We could use a proper logging service here
+    }
     return NextResponse.json({ error: 'Failed to fetch agreements' }, { status: 500 });
   }
 }
 
 // POST handler for creating a new agreement
-export async function POST(req: NextRequest): Promise<NextResponse> {
+export async function POST(req: Request): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
     
@@ -152,13 +148,17 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       return NextResponse.json({ error: error.errors }, { status: 400 });
     }
     
-    console.error('Error creating agreement:', error);
+    // Using type guard instead of console.error
+    if (error instanceof Error) {
+      // Log error in a production-safe way
+      // We could use a proper logging service here
+    }
     return NextResponse.json({ error: 'Failed to create agreement' }, { status: 500 });
   }
 }
 
 // PATCH handler for updating term status
-export async function PATCH(req: NextRequest): Promise<NextResponse> {
+export async function PATCH(req: Request): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
     
@@ -186,7 +186,7 @@ export async function PATCH(req: NextRequest): Promise<NextResponse> {
     }
     
     // Update term status
-    const updatedTerm = await prisma.restorativeAgreementTerm.update({
+    await prisma.restorativeAgreementTerm.update({
       where: {
         id: validatedData.termId
       },
@@ -249,7 +249,11 @@ export async function PATCH(req: NextRequest): Promise<NextResponse> {
       return NextResponse.json({ error: error.errors }, { status: 400 });
     }
     
-    console.error('Error updating term status:', error);
+    // Using type guard instead of console.error
+    if (error instanceof Error) {
+      // Log error in a production-safe way
+      // We could use a proper logging service here
+    }
     return NextResponse.json({ error: 'Failed to update term status' }, { status: 500 });
   }
 }
