@@ -1,20 +1,22 @@
+// @ts-check
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import ImmersiveLearningLayout from '../../components/layouts/ImmersiveLearningLayout';
 
 // Mock the useRouter hook
-jest.mock('next/navigation', () => ({
+vi.mock('next/navigation', () => ({
   useRouter: () => ({
-    push: jest.fn(),
+    push: vi.fn(),
     pathname: '/test-path',
   }),
 }));
 
 // Mock the theme context
-jest.mock('@/contexts/ThemeContext', () => ({
+vi.mock('@/contexts/ThemeContext', () => ({
   useTheme: () => ({
     theme: 'space',
-    setTheme: jest.fn(),
+    setTheme: vi.fn(),
     themes: ['space', 'ocean', 'forest', 'desert'],
   }),
 }));
