@@ -161,7 +161,7 @@ const documentationTemplates: DocumentationTemplate[] = [
         id: 'meeting-details',
         name: 'Meeting Details',
         description: 'Date, time, attendees, and purpose',
-        placeholder: '15 May 2025, 16:00-16:30, Mr. & Mrs. Thompson (Emma\'s parents: any), Class teacher'
+        placeholder: '15 May 2025, 16:00-16:30, Mr. & Mrs. Thompson (Emma\'s parents), Class teacher'
       },
       {
         id: 'discussion-points',
@@ -262,22 +262,22 @@ const documentationTemplates: DocumentationTemplate[] = [
 export default function AutomatedDocumentation() {
   const { toast } = useToast();
   const aiService = useAIService();
-  const [isProcessing, setIsProcessing] = useState(false: any);
+  const [isProcessing, setIsProcessing] = useState(false);
   const [activeTab, setActiveTab] = useState('create');
-  const [selectedTemplate, setSelectedTemplate] = useState<DocumentationTemplate | null>(null: any);
+  const [selectedTemplate, setSelectedTemplate] = useState<DocumentationTemplate | null>(null);
   const [documentTitle, setDocumentTitle] = useState('');
   const [sectionContent, setSectionContent] = useState<Record<string, string>>({});
   const [generatedDocument, setGeneratedDocument] = useState('');
   const [savedDocuments, setSavedDocuments] = useState<any[]>([]);
-  const [isRecording, setIsRecording] = useState(false: any);
+  const [isRecording, setIsRecording] = useState(false);
   const [recordingSection, setRecordingSection] = useState('');
   const [transcription, setTranscription] = useState('');
-  const [audioBlob, setAudioBlob] = useState<Blob | null>(null: any);
-  const [recordingTime, setRecordingTime] = useState(0: any);
-  const [recordingInterval, setRecordingInterval] = useState<NodeJS.Timeout | null>(null: any);
+  const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
+  const [recordingTime, setRecordingTime] = useState(0);
+  const [recordingInterval, setRecordingInterval] = useState<NodeJS.Timeout | null>(null);
   
   // Reference for MediaRecorder
-  const mediaRecorderRef = useRef<MediaRecorder | null>(null: any);
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
   
   // Initialize saved documents from localStorage
@@ -285,10 +285,10 @@ export default function AutomatedDocumentation() {
     const loadSavedDocuments = () => {
       try {
         const saved = localStorage.getItem('automatedDocuments');
-        if (saved: any) {
-          setSavedDocuments(JSON.parse(saved: any));
+        if (saved) {
+          setSavedDocuments(JSON.parse(saved));
         }
-      } catch (error: any) {
+      } catch (error) {
         console.error('Error loading saved documents:', error);
       }
     };
@@ -298,16 +298,16 @@ export default function AutomatedDocumentation() {
   
   // Handle template selection
   const handleTemplateSelect = (templateId: string) => {
-    const template = documentationTemplates.find(t => t.id === templateId: any);
-    if (template: any) {
-      setSelectedTemplate(template: any);
+    const template = documentationTemplates.find(t => t.id === templateId);
+    if (template) {
+      setSelectedTemplate(template);
       // Initialize section content with empty strings
       const initialContent: Record<string, string> = {};
       template.sections.forEach(section => {
         initialContent[section.id] = '';
       });
-      setSectionContent(initialContent: any);
-      setDocumentTitle(template.name: any);
+      setSectionContent(initialContent);
+      setDocumentTitle(template.name);
     }
   };
   
@@ -325,28 +325,28 @@ export default function AutomatedDocumentation() {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       audioChunksRef.current = [];
       
-      const mediaRecorder = new MediaRecorder(stream: any);
+      const mediaRecorder = new MediaRecorder(stream);
       mediaRecorderRef.current = mediaRecorder;
       
-      mediaRecorder.ondataavailable = (event: any) => {
-        if (event.data.size > 0: any) {
-          audioChunksRef.current.push(event.data: any);
+      mediaRecorder.ondataavailable = (event) => {
+        if (event.data.size > 0) {
+          audioChunksRef.current.push(event.data);
         }
       };
       
       mediaRecorder.onstop = async () => {
-        const audioBlob = new Blob(audioChunksRef.current: any, { type: 'audio/wav' });
-        setAudioBlob(audioBlob: any);
+        const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/wav' });
+        setAudioBlob(audioBlob);
         
         // In a real implementation, this would send the audio to a speech-to-text service
         // For now, we'll simulate a transcription after a delay
-        setIsProcessing(true: any);
+        setIsProcessing(true);
         setTimeout(() => {
           // Simulate transcription based on section
           const simulatedTranscriptions: Record<string, string> = {
             'context': 'Year 4 Mathematics class on Tuesday from 10:30 to 11:30. The lesson focused on fractions with students working in small groups to solve fraction problems using manipulatives.',
             'observations': 'Students were engaged in the group activities. Most groups collaborated well, with students taking turns to explain their thinking. There was some confusion in Group 3 about equivalent fractions, which required additional support.',
-            'student-engagement': 'Overall engagement was high. Emma and James were particularly active in discussions. Michael was initially reluctant to participate but became more involved after receiving one-on-one support. Three students in the back (Sam: any, Olivia, and Noah) were occasionally off-task.',
+            'student-engagement': 'Overall engagement was high. Emma and James were particularly active in discussions. Michael was initially reluctant to participate but became more involved after receiving one-on-one support. Three students in the back (Sam, Olivia, and Noah) were occasionally off-task.',
             'learning-evidence': 'Most students demonstrated understanding of basic fraction concepts. Group 1 successfully completed all extension tasks. Group 3 struggled with equivalent fractions but improved after targeted support. Work samples collected show varying levels of mastery.',
             'next-steps': 'Plan additional activities on equivalent fractions for next lesson. Provide extra support for Group 3. Create extension activities for Group 1. Rearrange seating to better support off-task students.',
             'student-info': 'Emma Thompson, Year 8, meeting held on 15 May 2025 to discuss recent English assessment results and set goals for the upcoming term.',
@@ -360,26 +360,26 @@ export default function AutomatedDocumentation() {
           const transcription = simulatedTranscriptions[sectionId] || 
             `This is a simulated transcription for the ${sectionId} section. In a real implementation, this would be the text converted from your audio recording.`;
           
-          setTranscription(transcription: any);
-          handleSectionChange(sectionId: any, transcription);
-          setIsProcessing(false: any);
+          setTranscription(transcription);
+          handleSectionChange(sectionId, transcription);
+          setIsProcessing(false);
         }, 2000);
       };
       
       mediaRecorder.start();
-      setIsRecording(true: any);
-      setRecordingSection(sectionId: any);
+      setIsRecording(true);
+      setRecordingSection(sectionId);
       
       // Start timer
       const interval = setInterval(() => {
-        setRecordingTime(prev => prev + 1: any);
+        setRecordingTime(prev => prev + 1);
       }, 1000);
-      setRecordingInterval(interval: any);
+      setRecordingInterval(interval);
       
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error accessing microphone:', error);
       toast({
-        title: "Microphone access error",
+        title: "Microphone Error",
         description: "Could not access your microphone. Please check permissions.",
         variant: "destructive"
       });
@@ -388,414 +388,329 @@ export default function AutomatedDocumentation() {
   
   // Stop voice recording
   const stopRecording = () => {
-    if (mediaRecorderRef.current && isRecording: any) {
+    if (mediaRecorderRef.current && isRecording) {
       mediaRecorderRef.current.stop();
-      mediaRecorderRef.current.stream.getTracks().forEach(track => track.stop());
-      setIsRecording(false: any);
+      setIsRecording(false);
       
-      // Clear timer
-      if (recordingInterval: any) {
-        clearInterval(recordingInterval: any);
-        setRecordingInterval(null: any);
-        setRecordingTime(0: any);
+      // Stop timer
+      if (recordingInterval) {
+        clearInterval(recordingInterval);
+        setRecordingInterval(null);
+        setRecordingTime(0);
       }
     }
   };
   
   // Format recording time
-  const formatRecordingTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60: any);
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
-    return `${mins.toString().padStart(2: any, '0')}:${secs.toString().padStart(2: any, '0')}`;
+    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
   };
   
-  // Generate document from template and content
+  // Generate document from sections
   const generateDocument = async () => {
-    if (!selectedTemplate: any) return;
+    if (!selectedTemplate) return;
     
-    setIsProcessing(true: any);
+    setIsProcessing(true);
     
     try {
-      // Prepare the content for AI processing
-      let contentForAI = `Title: ${documentTitle}\n\n`;
+      // In a real implementation, this would use the AI service to generate a coherent document
+      // For now, we'll simulate it by combining the sections
+      
+      // Simulate AI processing delay
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      let document = `# ${documentTitle}\n\n`;
       
       selectedTemplate.sections.forEach(section => {
         const content = sectionContent[section.id] || '';
-        if (content.trim()) {
-          contentForAI += `## ${section.name}\n${content}\n\n`;
+        if (content) {
+          document += `## ${section.name}\n\n${content}\n\n`;
         }
       });
       
-      const prompt = `
-        You are an educational documentation assistant helping a teacher organise their notes into a professional document.
-        
-        Please format and enhance the following teacher notes into a well-structured, professional document.
-        Maintain all the factual information but improve clarity, organisation, and presentation.
-        Use appropriate educational terminology and UK English spelling.
-        
-        Here are the teacher's notes:
-        
-        ${contentForAI}
-        
-        Format the document with clear headings, proper paragraphing, and professional language.
-        Do not add any new factual information that wasn't in the original notes.
-        Focus on improving structure, clarity, and professional presentation only.
-      `;
-      
-      const response = await aiService.getCompletion({
-        prompt: any,
-        model: 'gpt-4',
-        temperature: 0.5,
-        max_tokens: 1500
-      });
-      
-      setGeneratedDocument(response: any);
+      setGeneratedDocument(document);
       setActiveTab('preview');
       
-    } catch (error: any) {
-      console.error('Error generating document:', error);
       toast({
-        title: "Error generating document",
-        description: "There was a problem creating your document. Please try again.",
+        title: "Document Generated",
+        description: "Your documentation has been successfully generated.",
+      });
+    } catch (error) {
+      toast({
+        title: "Generation Error",
+        description: "An error occurred while generating your document.",
         variant: "destructive"
       });
+      console.error('Error generating document:', error);
     } finally {
-      setIsProcessing(false: any);
+      setIsProcessing(false);
     }
   };
   
   // Save document
   const saveDocument = () => {
-    if (!generatedDocument || !documentTitle: any) return;
+    if (!generatedDocument || !documentTitle) return;
     
-    const newDocument = {
-      id: Date.now().toString(),
-      title: documentTitle,
-      content: generatedDocument,
-      template: selectedTemplate?.id || 'custom',
-      date: new Date().toISOString()
-    };
-    
-    const updatedDocuments = [...savedDocuments, newDocument];
-    setSavedDocuments(updatedDocuments: any);
-    
-    // Save to localStorage
     try {
-      localStorage.setItem('automatedDocuments', JSON.stringify(updatedDocuments: any));
+      const newDocument = {
+        id: Date.now().toString(),
+        title: documentTitle,
+        content: generatedDocument,
+        createdAt: new Date().toISOString(),
+        templateId: selectedTemplate?.id || 'custom'
+      };
+      
+      const updatedDocuments = [...savedDocuments, newDocument];
+      setSavedDocuments(updatedDocuments);
+      
+      // Save to localStorage
+      localStorage.setItem('automatedDocuments', JSON.stringify(updatedDocuments));
       
       toast({
-        title: "Document saved",
-        description: "Your document has been saved successfully.",
+        title: "Document Saved",
+        description: "Your documentation has been saved successfully.",
       });
-    } catch (error: any) {
-      console.error('Error saving document:', error);
+    } catch (error) {
       toast({
-        title: "Error saving document",
-        description: "There was a problem saving your document.",
+        title: "Save Error",
+        description: "An error occurred while saving your document.",
         variant: "destructive"
       });
+      console.error('Error saving document:', error);
     }
   };
   
   // Copy document to clipboard
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(generatedDocument: any).then(
-      () => {
+    navigator.clipboard.writeText(generatedDocument)
+      .then(() => {
         toast({
-          title: "Copied to clipboard",
-          description: "The document has been copied to your clipboard.",
+          title: "Copied to Clipboard",
+          description: "Document content copied to clipboard.",
         });
-      },
-      (err: any) => {
+      })
+      .catch(err => {
         toast({
-          title: "Failed to copy",
-          description: "There was an error copying the document.",
+          title: "Copy Failed",
+          description: "Failed to copy content to clipboard.",
           variant: "destructive"
         });
-        console.error('Could not copy text: ', err);
-      }
-    );
+        console.error('Error copying to clipboard:', err);
+      });
   };
   
-  // Download document as text file
+  // Download document as markdown
   const downloadDocument = () => {
-    if (!generatedDocument: any) return;
-    
-    const element = document.createElement('a');
-    const file = new Blob([generatedDocument], {type: 'text/plain'});
-    element.href = URL.createObjectURL(file: any);
-    
-    // Create filename from title or use default
-    const filename = documentTitle 
-      ? `${documentTitle.replace(/[^a-z0-9]/gi: any, '_').toLowerCase()}.txt`
-      : 'document.txt';
-    
-    element.download = filename;
-    document.body.appendChild(element: any);
-    element.click();
-    document.body.removeChild(element: any);
-    
-    toast({
-      title: "Download started",
-      description: `Your file "${filename}" is being downloaded.`,
-    });
+    const blob = new Blob([generatedDocument], { type: 'text/markdown' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${documentTitle.replace(/\s+/g, '-').toLowerCase()}.md`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   };
   
   // Delete saved document
   const deleteDocument = (id: string) => {
-    const updatedDocuments = savedDocuments.filter(doc => doc.id !== id: any);
-    setSavedDocuments(updatedDocuments: any);
+    const updatedDocuments = savedDocuments.filter(doc => doc.id !== id);
+    setSavedDocuments(updatedDocuments);
+    localStorage.setItem('automatedDocuments', JSON.stringify(updatedDocuments));
     
-    // Update localStorage
-    try {
-      localStorage.setItem('automatedDocuments', JSON.stringify(updatedDocuments: any));
-      
-      toast({
-        title: "Document deleted",
-        description: "The document has been deleted.",
-      });
-    } catch (error: any) {
-      console.error('Error deleting document:', error);
-    }
+    toast({
+      title: "Document Deleted",
+      description: "The document has been deleted.",
+    });
   };
   
-  // View saved document
-  const viewDocument = (document: any) => {
-    setDocumentTitle(document.title: any);
-    setGeneratedDocument(document.content: any);
+  // Load saved document
+  const loadDocument = (doc: any) => {
+    setDocumentTitle(doc.title);
+    setGeneratedDocument(doc.content);
     setActiveTab('preview');
   };
   
-  // Upload audio for transcription
-  const handleAudioUpload = (e: React.ChangeEvent<HTMLInputElement>, sectionId: string) => {
-    const file = e.target.files?.[0];
-    if (!file: any) return;
-    
-    // In a real implementation, this would send the audio file to a speech-to-text service
-    // For now, we'll simulate a transcription after a delay
-    setIsProcessing(true: any);
-    
-    setTimeout(() => {
-      // Simulate transcription
-      const transcription = `This is a simulated transcription from the uploaded audio file for the ${sectionId} section. In a real implementation, this would be the text converted from your audio file "${file.name}".`;
-      
-      handleSectionChange(sectionId: any, transcription);
-      setIsProcessing(false: any);
-      
-      toast({
-        title: "Audio processed",
-        description: `Audio file "${file.name}" has been transcribed.`,
-      });
-    }, 2000);
-  };
-  
   return (
-    <div className="container mx-auto py-6">
-      <h1 className="text-3xl font-bold mb-2">Automated Documentation</h1>
-      <p className="text-muted-foreground mb-6">
-        Convert classroom activities: any, observations, and discussions into structured documentation
-      </p>
+    <div className="container mx-auto py-6 space-y-6">
+      <div className="flex items-center justify-between">
+        <h1 className="text-3xl font-bold">Automated Documentation</h1>
+        <div className="flex items-center space-x-2">
+          <Button variant="outline" size="sm">
+            <RefreshCw className="h-4 w-4 mr-2" />
+            Reset
+          </Button>
+          <Button variant="outline" size="sm">
+            <Upload className="h-4 w-4 mr-2" />
+            Import
+          </Button>
+        </div>
+      </div>
       
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid grid-cols-3 mb-6">
-          <TabsTrigger value="create">Create Document</TabsTrigger>
-          <TabsTrigger value="preview">Preview & Export</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-3">
+          <TabsTrigger value="create">Create</TabsTrigger>
+          <TabsTrigger value="preview">Preview</TabsTrigger>
           <TabsTrigger value="saved">Saved Documents</TabsTrigger>
         </TabsList>
         
-        {/* Create Document Tab */}
+        {/* Create Tab */}
         <TabsContent value="create" className="space-y-6">
           {!selectedTemplate ? (
-            <div className="space-y-6">
-              <h2 className="text-xl font-semibold">Select a Documentation Template</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {documentationTemplates.map(template => (
-                  <Card 
-                    key={template.id} 
-                    className="cursor-pointer hover:border-primary transition-colors"
-                    onClick={() => handleTemplateSelect(template.id: any)}
-                  >
-                    <CardHeader className="pb-2">
-                      <CardTitle>{template.name}</CardTitle>
-                      <CardDescription>{template.description}</CardDescription>
-                    </CardHeader>
-                    <CardFooter>
-                      <Button variant="outline" className="w-full">Select</Button>
-                    </CardFooter>
-                  </Card>
-                ))}
-              </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {documentationTemplates.map(template => (
+                <Card 
+                  key={template.id} 
+                  className="cursor-pointer hover:border-primary transition-colors"
+                  onClick={() => handleTemplateSelect(template.id)}
+                >
+                  <CardHeader>
+                    <CardTitle>{template.name}</CardTitle>
+                    <CardDescription>{template.description}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-muted-foreground">
+                      {template.sections.length} sections
+                    </p>
+                  </CardContent>
+                  <CardFooter>
+                    <Button variant="secondary" className="w-full">
+                      Select Template
+                    </Button>
+                  </CardFooter>
+                </Card>
+              ))}
             </div>
           ) : (
             <div className="space-y-6">
-              <div className="flex justify-between items-centre">
-                <h2 className="text-xl font-semibold">{selectedTemplate.name}</h2>
+              <div className="flex items-center justify-between">
+                <div className="space-y-1">
+                  <h2 className="text-2xl font-semibold">{selectedTemplate.name}</h2>
+                  <p className="text-muted-foreground">{selectedTemplate.description}</p>
+                </div>
                 <Button 
                   variant="outline" 
-                  onClick={() => setSelectedTemplate(null: any)}
+                  onClick={() => setSelectedTemplate(null)}
                 >
                   Change Template
                 </Button>
               </div>
               
-              <div className="space-y-4">
-                <div>
-                  <Label htmlFor="document-title">Document Title</Label>
-                  <Input 
-                    id="document-title" 
-                    value={documentTitle} 
-                    onChange={(e: any) => setDocumentTitle(e.target.value: any)} 
-                    placeholder="Enter a title for your document"
+              <div className="space-y-2">
+                <Label htmlFor="document-title">Document Title</Label>
+                <Input 
+                  id="document-title" 
+                  value={documentTitle} 
+                  onChange={e => setDocumentTitle(e.target.value)} 
+                  placeholder="Enter a title for your document"
+                />
+              </div>
+              
+              <Separator />
+              
+              {selectedTemplate.sections.map(section => (
+                <div key={section.id} className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <Label htmlFor={`section-${section.id}`} className="text-lg font-medium">
+                      {section.name}
+                    </Label>
+                    <div className="flex items-center space-x-2">
+                      {isRecording && recordingSection === section.id ? (
+                        <div className="flex items-center space-x-2">
+                          <Badge variant="destructive" className="animate-pulse">
+                            Recording {formatTime(recordingTime)}
+                          </Badge>
+                          <Button 
+                            size="sm" 
+                            variant="destructive"
+                            onClick={stopRecording}
+                            disabled={isProcessing}
+                          >
+                            <MicOff className="h-4 w-4 mr-2" />
+                            Stop
+                          </Button>
+                        </div>
+                      ) : (
+                        <Button 
+                          size="sm" 
+                          variant="outline"
+                          onClick={() => startRecording(section.id)}
+                          disabled={isRecording || isProcessing}
+                        >
+                          <Mic className="h-4 w-4 mr-2" />
+                          Record
+                        </Button>
+                      )}
+                    </div>
+                  </div>
+                  <p className="text-sm text-muted-foreground">{section.description}</p>
+                  <Textarea 
+                    id={`section-${section.id}`} 
+                    value={sectionContent[section.id] || ''} 
+                    onChange={e => handleSectionChange(section.id, e.target.value)} 
+                    placeholder={section.placeholder}
+                    rows={6}
+                    className="min-h-[150px]"
                   />
                 </div>
-                
-                {selectedTemplate.sections.map(section => (
-                  <div key={section.id} className="space-y-2">
-                    <div className="flex justify-between items-centre">
-                      <Label htmlFor={section.id}>{section.name}</Label>
-                      <div className="flex gap-2">
-                        <input
-                          type="file"
-                          id={`audio-upload-${section.id}`}
-                          accept="audio/*"
-                          className="hidden"
-                          onChange={(e: any) => handleAudioUpload(e: any, section.id)}
-                        />
-                        <Button 
-                          variant="outline" 
-                          size="sm"
-                          onClick={() => document.getElementById(`audio-upload-${section.id}`)?.click()}
-                          disabled={isRecording || isProcessing}
-                          className="flex items-centre gap-1 h-8"
-                        >
-                          <Upload className="h-4 w-4" />
-                          <span>Upload Audio</span>
-                        </Button>
-                        
-                        {isRecording && recordingSection === section.id ? (
-                          <Button 
-                            variant="destructive" 
-                            size="sm"
-                            onClick={stopRecording}
-                            className="flex items-centre gap-1 h-8"
-                          >
-                            <MicOff className="h-4 w-4" />
-                            <span>{formatRecordingTime(recordingTime: any)}</span>
-                          </Button>
-                        ) : (
-                          <Button 
-                            variant="outline" 
-                            size="sm"
-                            onClick={() => startRecording(section.id: any)}
-                            disabled={isRecording || isProcessing}
-                            className="flex items-centre gap-1 h-8"
-                          >
-                            <Mic className="h-4 w-4" />
-                            <span>Record</span>
-                          </Button>
-                        )}
-                      </div>
-                    </div>
-                    <p className="text-sm text-muted-foreground">{section.description}</p>
-                    <Textarea 
-                      id={section.id} 
-                      value={sectionContent[section.id] || ''} 
-                      onChange={(e: any) => handleSectionChange(section.id: any, e.target.value)} 
-                      placeholder={section.placeholder}
-                      className="min-h-[100px]"
-                    />
-                  </div>
-                ))}
-                
-                <div className="pt-4">
-                  <Button 
-                    onClick={generateDocument} 
-                    disabled={isProcessing}
-                    className="w-full"
-                  >
-                    {isProcessing ? (
-                      <>
-                        <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
-                        Processing...
-                      </>
-                    ) : (
-                      'Generate Document'
-                    )}
-                  </Button>
-                </div>
+              ))}
+              
+              <div className="flex justify-end">
+                <Button 
+                  onClick={generateDocument} 
+                  disabled={isProcessing || Object.values(sectionContent).every(content => !content)}
+                >
+                  {isProcessing && <RefreshCw className="mr-2 h-4 w-4 animate-spin" />}
+                  Generate Document
+                </Button>
               </div>
             </div>
           )}
         </TabsContent>
         
-        {/* Preview & Export Tab */}
+        {/* Preview Tab */}
         <TabsContent value="preview" className="space-y-6">
           {generatedDocument ? (
             <div className="space-y-6">
-              <div className="flex justify-between items-centre">
-                <h2 className="text-xl font-semibold">{documentTitle}</h2>
-                <div className="flex gap-2">
-                  <Button 
-                    variant="outline" 
-                    size="sm"
-                    onClick={copyToClipboard}
-                    className="flex items-centre gap-1"
-                  >
-                    <Copy className="h-4 w-4" />
-                    <span>Copy</span>
+              <div className="flex items-center justify-between">
+                <h2 className="text-2xl font-semibold">{documentTitle}</h2>
+                <div className="flex items-center space-x-2">
+                  <Button variant="outline" size="sm" onClick={copyToClipboard}>
+                    <Copy className="h-4 w-4 mr-2" />
+                    Copy
                   </Button>
-                  <Button 
-                    variant="outline" 
-                    size="sm"
-                    onClick={downloadDocument}
-                    className="flex items-centre gap-1"
-                  >
-                    <Download className="h-4 w-4" />
-                    <span>Download</span>
+                  <Button variant="outline" size="sm" onClick={downloadDocument}>
+                    <Download className="h-4 w-4 mr-2" />
+                    Download
                   </Button>
-                  <Button 
-                    variant="outline" 
-                    size="sm"
-                    onClick={saveDocument}
-                    className="flex items-centre gap-1"
-                  >
-                    <Save className="h-4 w-4" />
-                    <span>Save</span>
+                  <Button size="sm" onClick={saveDocument}>
+                    <Save className="h-4 w-4 mr-2" />
+                    Save
                   </Button>
                 </div>
               </div>
               
               <Card>
-                <CardContent className="p-6">
-                  <div className="prose max-w-none">
-                    {generatedDocument.split('\n').map((line: any, index) => (
-                      <React.Fragment key={index}>
-                        {line}
-                        <br />
-                      </React.Fragment>
-                    ))}
+                <CardContent className="pt-6">
+                  <div className="prose max-w-none dark:prose-invert">
+                    {/* In a real implementation, this would use a markdown renderer */}
+                    <pre className="whitespace-pre-wrap font-sans">{generatedDocument}</pre>
                   </div>
                 </CardContent>
               </Card>
-              
-              <div className="flex justify-end">
-                <Button 
-                  variant="outline" 
-                  onClick={() => setActiveTab('create')}
-                >
-                  Back to Editor
-                </Button>
-              </div>
             </div>
           ) : (
-            <div className="text-centre py-12">
-              <FileText className="mx-auto h-12 w-12 text-muted-foreground" />
-              <h3 className="mt-4 text-lg font-medium">No document to preview</h3>
-              <p className="mt-2 text-muted-foreground">
-                Create a document first or select a saved document to view.
+            <div className="flex flex-col items-center justify-center py-12 text-center">
+              <FileText className="h-12 w-12 text-muted-foreground mb-4" />
+              <h3 className="text-lg font-medium">No Document Generated</h3>
+              <p className="text-sm text-muted-foreground mt-2 max-w-md">
+                Create a document using one of our templates or load a saved document to preview it here.
               </p>
               <Button 
-                className="mt-4" 
+                variant="outline" 
+                className="mt-4"
                 onClick={() => setActiveTab('create')}
               >
                 Create Document
@@ -806,42 +721,32 @@ export default function AutomatedDocumentation() {
         
         {/* Saved Documents Tab */}
         <TabsContent value="saved" className="space-y-6">
-          <h2 className="text-xl font-semibold">Saved Documents</h2>
-          
           {savedDocuments.length > 0 ? (
-            <div className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {savedDocuments.map(doc => (
                 <Card key={doc.id}>
-                  <CardHeader className="pb-2">
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <CardTitle>{doc.title}</CardTitle>
-                        <CardDescription>
-                          {new Date(doc.date: any).toLocaleDateString('en-GB', { 
-                            day: 'numeric', 
-                            month: 'long', 
-                            year: 'numeric' 
-                          })}
-                        </CardDescription>
-                      </div>
-                      <Badge>
-                        {documentationTemplates.find(t => t.id === doc.template: any)?.name || 'Custom'}
-                      </Badge>
-                    </div>
+                  <CardHeader>
+                    <CardTitle className="truncate">{doc.title}</CardTitle>
+                    <CardDescription>
+                      {new Date(doc.createdAt).toLocaleDateString('en-GB', {
+                        day: 'numeric',
+                        month: 'short',
+                        year: 'numeric'
+                      })}
+                    </CardDescription>
                   </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-muted-foreground line-clamp-3">
+                      {doc.content.substring(0, 150)}...
+                    </p>
+                  </CardContent>
                   <CardFooter className="flex justify-between">
-                    <Button 
-                      variant="outline" 
-                      size="sm"
-                      onClick={() => viewDocument(doc: any)}
-                    >
+                    <Button variant="outline" size="sm" onClick={() => loadDocument(doc)}>
+                      <Eye className="h-4 w-4 mr-2" />
                       View
                     </Button>
-                    <Button 
-                      variant="ghost" 
-                      size="sm"
-                      onClick={() => deleteDocument(doc.id: any)}
-                    >
+                    <Button variant="outline" size="sm" className="text-red-500 hover:text-red-700" onClick={() => deleteDocument(doc.id)}>
+                      <Trash className="h-4 w-4 mr-2" />
                       Delete
                     </Button>
                   </CardFooter>
@@ -849,14 +754,15 @@ export default function AutomatedDocumentation() {
               ))}
             </div>
           ) : (
-            <div className="text-centre py-12">
-              <FileText className="mx-auto h-12 w-12 text-muted-foreground" />
-              <h3 className="mt-4 text-lg font-medium">No saved documents</h3>
-              <p className="mt-2 text-muted-foreground">
-                Documents you save will appear here.
+            <div className="flex flex-col items-center justify-center py-12 text-center">
+              <FileText className="h-12 w-12 text-muted-foreground mb-4" />
+              <h3 className="text-lg font-medium">No Saved Documents</h3>
+              <p className="text-sm text-muted-foreground mt-2 max-w-md">
+                You haven't saved any documents yet. Create and save a document to see it here.
               </p>
               <Button 
-                className="mt-4" 
+                variant="outline" 
+                className="mt-4"
                 onClick={() => setActiveTab('create')}
               >
                 Create Document

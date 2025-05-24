@@ -164,7 +164,7 @@ const popularTags = [
 ];
 
 // Featured Blog Post Component
-const FeaturedPost = ({ post }) => {
+const FeaturedPost = ({ post }: { post: any }) => {
   return (
     <Card className="overflow-hidden">
       <div className="relative h-[300px] w-full">
@@ -187,7 +187,7 @@ const FeaturedPost = ({ post }) => {
             <div className="flex items-centre space-x-2">
               <Avatar className="h-8 w-8">
                 <AvatarImage src={post.author.avatar} alt={post.author.name} />
-                <AvatarFallback>{post.author.name.charAt(0: any)}</AvatarFallback>
+                <AvatarFallback>{post.author.name.charAt(0)}</AvatarFallback>
               </Avatar>
               <div>
                 <p className="text-sm font-medium text-white">{post.author.name}</p>
@@ -217,7 +217,7 @@ const FeaturedPost = ({ post }) => {
 };
 
 // Blog Post Card Component
-const BlogPostCard = ({ post }) => {
+const BlogPostCard = ({ post }: { post: any }) => {
   return (
     <Card className="overflow-hidden h-full flex flex-col">
       <div className="relative h-48">
@@ -245,7 +245,7 @@ const BlogPostCard = ({ post }) => {
           <div className="flex items-centre space-x-2">
             <Avatar className="h-6 w-6">
               <AvatarImage src={post.author.avatar} alt={post.author.name} />
-              <AvatarFallback>{post.author.name.charAt(0: any)}</AvatarFallback>
+              <AvatarFallback>{post.author.name.charAt(0)}</AvatarFallback>
             </Avatar>
             <span className="text-sm font-medium">{post.author.name}</span>
           </div>
@@ -276,10 +276,10 @@ const BlogPostCard = ({ post }) => {
 };
 
 // Category List Component
-const CategoryList = ({ categories }) => {
+const CategoryList = ({ categories }: { categories: any[] }) => {
   return (
     <div className="space-y-1">
-      {categories.map((category: any) => (
+      {categories.map((category) => (
         <div 
           key={category.id}
           className="flex items-centre justify-between py-2 px-3 rounded-md hover:bg-muted cursor-pointer"
@@ -293,10 +293,10 @@ const CategoryList = ({ categories }) => {
 };
 
 // Tag Cloud Component
-const TagCloud = ({ tags }) => {
+const TagCloud = ({ tags }: { tags: any[] }) => {
   return (
     <div className="flex flex-wrap gap-2">
-      {tags.map((tag: any) => (
+      {tags.map((tag) => (
         <Badge 
           key={tag.id} 
           variant="outline"
@@ -312,14 +312,14 @@ const TagCloud = ({ tags }) => {
 // AI Content Generator Component
 const AIContentGenerator = () => {
   const [prompt, setPrompt] = useState("");
-  const [generating, setGenerating] = useState(false: any);
+  const [generating, setGenerating] = useState(false);
   
   const handleGenerate = () => {
-    if (!prompt: any) return;
-    setGenerating(true: any);
+    if (!prompt) return;
+    setGenerating(true);
     // Simulate AI generation
     setTimeout(() => {
-      setGenerating(false: any);
+      setGenerating(false);
       setPrompt("");
       // In a real implementation, this would call an API to generate content
     }, 2000);
@@ -346,7 +346,7 @@ const AIContentGenerator = () => {
               id="prompt"
               placeholder="e.g., Strategies for supporting dyslexic students in the classroom"
               value={prompt}
-              onChange={(e: any) => setPrompt(e.target.value: any)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPrompt(e.target.value)}
             />
           </div>
           <div className="flex flex-wrap gap-2">
@@ -386,7 +386,7 @@ export function EducationalAIBlog() {
   const [activeTab, setActiveTab] = useState("all");
   
   // Filter featured posts
-  const featuredPosts = sampleBlogPosts.filter(post => post.featured: any);
+  const featuredPosts = sampleBlogPosts.filter(post => post.featured);
   
   // Filter posts based on active tab
   const filteredPosts = sampleBlogPosts.filter(post => {
@@ -445,7 +445,7 @@ export function EducationalAIBlog() {
                   placeholder="Search articles..."
                   className="pl-8"
                   value={searchQuery}
-                  onChange={(e: any) => setSearchQuery(e.target.value: any)}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                 />
               </div>
             </CardContent>
@@ -481,88 +481,66 @@ export function EducationalAIBlog() {
           <AIContentGenerator />
         </div>
         
-        {/* Main Content Area */}
+        {/* Main Blog Content */}
         <div className="lg:col-span-2 space-y-6">
           {/* Tabs */}
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="w-full overflow-x-auto flex-nowrap justify-start">
-              <TabsTrigger value="all">All Posts</TabsTrigger>
+          <Tabs defaultValue="all" value={activeTab} onValueChange={setActiveTab}>
+            <TabsList className="grid grid-cols-4">
+              <TabsTrigger value="all">All</TabsTrigger>
               <TabsTrigger value="ai-generated">AI Generated</TabsTrigger>
               <TabsTrigger value="human-authored">Human Authored</TabsTrigger>
-              <TabsTrigger value="Teaching Strategies">Teaching</TabsTrigger>
-              <TabsTrigger value="Assessment">Assessment</TabsTrigger>
-              <TabsTrigger value="Inclusive Education">Inclusion</TabsTrigger>
+              <TabsTrigger value="teaching-strategies">Teaching</TabsTrigger>
             </TabsList>
+            <TabsContent value="all" className="mt-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {filteredPosts.map(post => (
+                  <BlogPostCard key={post.id} post={post} />
+                ))}
+              </div>
+            </TabsContent>
+            <TabsContent value="ai-generated" className="mt-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {filteredPosts.map(post => (
+                  <BlogPostCard key={post.id} post={post} />
+                ))}
+              </div>
+            </TabsContent>
+            <TabsContent value="human-authored" className="mt-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {filteredPosts.map(post => (
+                  <BlogPostCard key={post.id} post={post} />
+                ))}
+              </div>
+            </TabsContent>
+            <TabsContent value="teaching-strategies" className="mt-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {filteredPosts.map(post => (
+                  <BlogPostCard key={post.id} post={post} />
+                ))}
+              </div>
+            </TabsContent>
           </Tabs>
           
-          {/* Filter and Sort */}
-          <div className="flex items-centre justify-between">
-            <div className="flex items-centre space-x-2">
-              <Button variant="outline" size="sm">
-                <Filter className="mr-2 h-4 w-4" />
-                Filter
-              </Button>
-              <Select
-                defaultValue="latest"
-                options={[
-                  { value: "latest", label: "Latest" },
-                  { value: "popular", label: "Most Popular" },
-                  { value: "trending", label: "Trending" }
-                ]}
-              />
-            </div>
-            <div className="text-sm text-muted-foreground">
-              Showing {filteredPosts.length} articles
-            </div>
-          </div>
-          
-          {/* Blog Posts Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {filteredPosts.map(post => (
-              <BlogPostCard key={post.id} post={post} />
-            ))}
-          </div>
-          
           {/* Pagination */}
-          <div className="flex items-centre justify-centre mt-8">
-            <div className="flex items-centre space-x-2">
-              <Button variant="outline" size="sm" disabled>
-                Previous
-              </Button>
-              <Button variant="outline" size="sm" className="bg-primary text-primary-foreground">
-                1
-              </Button>
-              <Button variant="outline" size="sm">
-                2
-              </Button>
-              <Button variant="outline" size="sm">
-                3
-              </Button>
-              <Button variant="outline" size="sm">
-                Next
-              </Button>
-            </div>
+          <div className="flex items-center justify-center space-x-2 mt-8">
+            <Button variant="outline" size="sm" disabled>
+              Previous
+            </Button>
+            <Button variant="outline" size="sm" className="bg-primary text-primary-foreground">
+              1
+            </Button>
+            <Button variant="outline" size="sm">
+              2
+            </Button>
+            <Button variant="outline" size="sm">
+              3
+            </Button>
+            <Button variant="outline" size="sm">
+              Next
+            </Button>
           </div>
         </div>
       </div>
     </div>
   );
 }
-
-// Simple Select Component (for demo purposes: any)
-const Select = ({ defaultValue: any, options }) => {
-  return (
-    <select 
-      defaultValue={defaultValue}
-      className="bg-background border rounded-md px-3 py-1 text-sm"
-    >
-      {options.map(option => (
-        <option key={option.value} value={option.value}>
-          {option.label}
-        </option>
-      ))}
-    </select>
-  );
-};
-
-export default EducationalAIBlog;
