@@ -5,24 +5,6 @@
  */
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
-  
-  // Enable incremental builds for faster rebuilds
-  experimental: {
-    // Enable incremental compilation
-    incrementalCacheHandlerPath: require.resolve('./cache-handler.js'),
-    
-    // Enable server components for better performance
-    serverComponents: true,
-    
-    // Enable concurrent features for better rendering performance
-    concurrentFeatures: true,
-    
-    // Enable optimized image loading
-    images: {
-      allowFutureImage: true,
-    },
-  },
   
   // Configure module resolution and transpilation
   transpilePackages: [
