@@ -1,64 +1,65 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
-import { describe, it, expect, jest, beforeEach, afterEach } from '@jest/globals';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { sentry, logger, performance, healthChecks, alerting } from '../../../lib/monitoring';
 
 // Mock dependencies
-jest.mock('@sentry/nextjs', () => ({
-  init: jest.fn(),
-  captureException: jest.fn(),
-  captureMessage: jest.fn(),
-  setUser: jest.fn(),
-  setTag: jest.fn(),
-  startTransaction: jest.fn().mockReturnValue({
-    startChild: jest.fn().mockReturnValue({
-      finish: jest.fn()
+vi.mock('@sentry/nextjs', () => ({
+  init: vi.fn(),
+  captureException: vi.fn(),
+  captureMessage: vi.fn(),
+  setUser: vi.fn(),
+  setTag: vi.fn(),
+  startTransaction: vi.fn().mockReturnValue({
+    startChild: vi.fn().mockReturnValue({
+      finish: vi.fn()
     }),
-    finish: jest.fn()
+    finish: vi.fn()
   })
 }));
 
-jest.mock('winston', () => ({
-  createLogger: jest.fn().mockReturnValue({
-    error: jest.fn(),
-    warn: jest.fn(),
-    info: jest.fn(),
-    http: jest.fn(),
-    debug: jest.fn(),
-    add: jest.fn()
+vi.mock('winston', () => ({
+  createLogger: vi.fn().mockReturnValue({
+    error: vi.fn(),
+    warn: vi.fn(),
+    info: vi.fn(),
+    http: vi.fn(),
+    debug: vi.fn(),
+    add: vi.fn()
   }),
   format: {
-    timestamp: jest.fn().mockReturnValue({}),
-    errors: jest.fn().mockReturnValue({}),
-    splat: jest.fn().mockReturnValue({}),
-    json: jest.fn().mockReturnValue({}),
-    combine: jest.fn().mockReturnValue({}),
-    colorize: jest.fn().mockReturnValue({}),
-    simple: jest.fn().mockReturnValue({})
+    timestamp: vi.fn().mockReturnValue({}),
+    errors: vi.fn().mockReturnValue({}),
+    splat: vi.fn().mockReturnValue({}),
+    json: vi.fn().mockReturnValue({}),
+    combine: vi.fn().mockReturnValue({}),
+    colorize: vi.fn().mockReturnValue({}),
+    simple: vi.fn().mockReturnValue({})
   },
   transports: {
-    File: jest.fn(),
-    Console: jest.fn()
+    File: vi.fn(),
+    Console: vi.fn()
   }
 }));
 
 // Use import instead of require
 import { PrismaClient } from '@prisma/client';
-jest.mock('@prisma/client', () => ({
-  PrismaClient: jest.fn().mockImplementation(() => ({
-    $queryRaw: jest.fn().mockResolvedValue([{ 1: 1 }])
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+vi.mock('@prisma/client', () => ({
+  PrismaClient: vi.fn().mockImplementation(() => ({
+    $queryRaw: vi.fn().mockResolvedValue([{ 1: 1 }])
   }))
 }));
 
 // Mock global fetch
-global.fetch = jest.fn().mockResolvedValue({
+global.fetch = vi.fn().mockResolvedValue({
   ok: true,
   status: 200
 });
 
 describe('Monitoring System', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
     
     // Set up a deterministic timing function for tests
     let mockTimeCounter = 100;
@@ -66,7 +67,7 @@ describe('Monitoring System', () => {
   });
 
   afterEach(() => {
-    jest.resetAllMocks();
+    vi.resetAllMocks();
     performance.resetTimingFunction();
   });
 
@@ -188,7 +189,7 @@ describe('Monitoring System', () => {
     it('should perform memory usage health check', () => {
       // Mock process.memoryUsage
       const originalMemoryUsage = process.memoryUsage;
-      process.memoryUsage = jest.fn().mockReturnValue({
+      process.memoryUsage = vi.fn().mockReturnValue({
         heapUsed: 50 * 1024 * 1024, // 50MB
         heapTotal: 100 * 1024 * 1024 // 100MB
       });
