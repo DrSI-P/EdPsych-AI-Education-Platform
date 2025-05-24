@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -34,11 +34,11 @@ interface RecognitionResult {
   confidence: number;
 }
 
-// Define NodeJS.Timeout for setTimeout references
+// Define SpeechRecognition types
 declare global {
   interface Window {
-    SpeechRecognition: any;
-    webkitSpeechRecognition: any;
+    SpeechRecognition: typeof SpeechRecognition;
+    webkitSpeechRecognition: typeof SpeechRecognition;
   }
 }
 
@@ -47,21 +47,21 @@ export const SpeechToTextEngine: React.FC<SpeechToTextEngineProps> = ({
   onSettingsChange
 }) => {
   // State for UI and functionality
-  const [isListening, setIsListening] = React.useState<boolean>(false);
-  const [transcript, setTranscript] = React.useState<string>('');
-  const [interimTranscript, setInterimTranscript] = React.useState<string>('');
-  const [recognitionError, setRecognitionError] = React.useState<string>('');
-  const [copied, setCopied] = React.useState<boolean>(false);
-  const [recognitionSupported, setRecognitionSupported] = React.useState<boolean>(true);
+  const [isListening, setIsListening] = useState<boolean>(false);
+  const [transcript, setTranscript] = useState<string>('');
+  const [interimTranscript, setInterimTranscript] = useState<string>('');
+  const [recognitionError, setRecognitionError] = useState<string>('');
+  const [copied, setCopied] = useState<boolean>(false);
+  const [recognitionSupported, setRecognitionSupported] = useState<boolean>(true);
   
   // Reference for speech recognition
-  const recognitionRef = React.useRef<any>(null);
+  const recognitionRef = useRef<SpeechRecognition | null>(null);
   
   // Timeout reference for reset copied state
-  const copyTimeoutRef = React.useRef<number | null>(null);
+  const copyTimeoutRef = useRef<number | null>(null);
   
   // Initialize speech recognition
-  React.useEffect(() => {
+  useEffect(() => {
     // Check if speech recognition is supported
     if (!('SpeechRecognition' in window) && !('webkitSpeechRecognition' in window)) {
       setRecognitionSupported(false);
@@ -73,74 +73,76 @@ export const SpeechToTextEngine: React.FC<SpeechToTextEngineProps> = ({
     recognitionRef.current = new SpeechRecognition();
     
     // Configure speech recognition
-    recognitionRef.current.continuous = settings.continuousListening;
-    recognitionRef.current.interimResults = settings.interimResults;
-    recognitionRef.current.lang = 'en-GB'; // UK English
-    
-    // Set up event handlers
-    recognitionRef.current.onstart = () => {
-      setIsListening(true);
-      setRecognitionError('');
-    };
-    
-    recognitionRef.current.onend = () => {
-      setIsListening(false);
+    if (recognitionRef.current) {
+      recognitionRef.current.continuous = settings.continuousListening;
+      recognitionRef.current.interimResults = settings.interimResults;
+      recognitionRef.current.lang = 'en-GB'; // UK English
       
-      // Restart if continuous listening is enabled and no error occurred
-      if (settings.continuousListening && !recognitionError && settings.enabled) {
-        try {
-          recognitionRef.current.start();
-        } catch (error) {
-          console.error('Error restarting speech recognition:', error);
-        }
-      }
-    };
-    
-    recognitionRef.current.onresult = (event: any) => {
-      let finalTranscript = '';
-      let interimTranscript = '';
+      // Set up event handlers
+      recognitionRef.current.onstart = () => {
+        setIsListening(true);
+        setRecognitionError('');
+      };
       
-      for (let i = event.resultIndex; i < event.results.length; i++) {
-        const result = event.results[i];
-        const resultTranscript = result[0].transcript;
+      recognitionRef.current.onend = () => {
+        setIsListening(false);
         
-        if (result.isFinal) {
-          // Apply auto-capitalization if enabled
-          let processedTranscript = resultTranscript;
-          
-          if (settings.autoCapitalization) {
-            // Capitalize first letter of sentences
-            processedTranscript = processedTranscript.replace(/(?:^|[.!?]\s+)([a-z])/g, (match, letter) => {
-              return match.replace(letter, letter.toUpperCase());
-            });
-            
-            // Capitalize 'I'
-            processedTranscript = processedTranscript.replace(/\si\s/g, ' I ');
+        // Restart if continuous listening is enabled and no error occurred
+        if (settings.continuousListening && !recognitionError && settings.enabled && recognitionRef.current) {
+          try {
+            recognitionRef.current.start();
+          } catch (error) {
+            console.error('Error restarting speech recognition:', error);
           }
-          
-          // Apply punctuation prediction if enabled
-          if (settings.punctuationPrediction) {
-            // Add period at the end if missing
-            if (!/[.!?]$/.test(processedTranscript)) {
-              processedTranscript += '.';
-            }
-          }
-          
-          finalTranscript += processedTranscript;
-        } else {
-          interimTranscript += resultTranscript;
         }
-      }
+      };
       
-      setTranscript(prevTranscript => prevTranscript + finalTranscript);
-      setInterimTranscript(interimTranscript);
-    };
-    
-    recognitionRef.current.onerror = (event: any) => {
-      console.error('Speech recognition error:', event.error);
-      setRecognitionError(event.error);
-      setIsListening(false);
-    };
+      recognitionRef.current.onresult = (event: SpeechRecognitionEvent) => {
+        let finalTranscript = '';
+        let currentInterimTranscript = '';
+        
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          const result = event.results[i];
+          const resultTranscript = result[0].transcript;
+          
+          if (result.isFinal) {
+            // Apply auto-capitalization if enabled
+            let processedTranscript = resultTranscript;
+            
+            if (settings.autoCapitalization) {
+              // Capitalize first letter of sentences
+              processedTranscript = processedTranscript.replace(/(?:^|[.!?]\s+)([a-z])/g, (match, letter) => {
+                return match.replace(letter, letter.toUpperCase());
+              });
+              
+              // Capitalize 'I'
+              processedTranscript = processedTranscript.replace(/\si\s/g, ' I ');
+            }
+            
+            // Apply punctuation prediction if enabled
+            if (settings.punctuationPrediction) {
+              // Add period at the end if missing
+              if (!/[.!?]$/.test(processedTranscript)) {
+                processedTranscript += '.';
+              }
+            }
+            
+            finalTranscript += processedTranscript;
+          } else {
+            currentInterimTranscript += resultTranscript;
+          }
+        }
+        
+        setTranscript(prevTranscript => prevTranscript + finalTranscript);
+        setInterimTranscript(currentInterimTranscript);
+      };
+      
+      recognitionRef.current.onerror = (event: SpeechRecognitionErrorEvent) => {
+        console.error('Speech recognition error:', event.error);
+        setRecognitionError(event.error);
+        setIsListening(false);
+      };
+    }
     
     // Clean up on unmount
     return () => {
@@ -155,11 +157,12 @@ export const SpeechToTextEngine: React.FC<SpeechToTextEngineProps> = ({
     settings.continuousListening,
     settings.interimResults,
     settings.autoCapitalization,
-    settings.punctuationPrediction
+    settings.punctuationPrediction,
+    recognitionError
   ]);
   
   // Start listening
-  const startListening = () => {
+  const startListening = (): void => {
     if (!recognitionRef.current || !recognitionSupported) return;
     
     try {
@@ -171,7 +174,7 @@ export const SpeechToTextEngine: React.FC<SpeechToTextEngineProps> = ({
   };
   
   // Stop listening
-  const stopListening = () => {
+  const stopListening = (): void => {
     if (!recognitionRef.current || !recognitionSupported) return;
     
     try {
@@ -182,7 +185,7 @@ export const SpeechToTextEngine: React.FC<SpeechToTextEngineProps> = ({
   };
   
   // Toggle listening
-  const toggleListening = () => {
+  const toggleListening = (): void => {
     if (isListening) {
       stopListening();
     } else {
@@ -191,13 +194,13 @@ export const SpeechToTextEngine: React.FC<SpeechToTextEngineProps> = ({
   };
   
   // Clear transcript
-  const clearTranscript = () => {
+  const clearTranscript = (): void => {
     setTranscript('');
     setInterimTranscript('');
   };
   
   // Copy transcript to clipboard
-  const copyTranscript = () => {
+  const copyTranscript = (): void => {
     if (!transcript) return;
     
     navigator.clipboard.writeText(transcript)
@@ -220,7 +223,7 @@ export const SpeechToTextEngine: React.FC<SpeechToTextEngineProps> = ({
   };
   
   // Handle settings change
-  const handleSettingChange = (setting: string, value: boolean) => {
+  const handleSettingChange = (setting: string, value: boolean): void => {
     // Update settings
     const updatedSettings = {
       ...settings,
