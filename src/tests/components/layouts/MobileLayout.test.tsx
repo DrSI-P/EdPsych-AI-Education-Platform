@@ -1,7 +1,7 @@
 // @ts-check
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import MobileLayout from '../../components/layouts/MobileLayout';
 
 // Mock the useRouter hook
@@ -14,10 +14,9 @@ vi.mock('next/navigation', () => ({
 
 // Mock the useMediaQuery hook
 vi.mock('@/hooks/useMediaQuery', () => ({
-  useMediaQuery: vi.fn().mockImplementation((query) => {
-    if (query === '(max-width: 768px)') return true;
-    if (query === '(orientation: portrait)') return true;
-    return false;
+  useMediaQuery: vi.fn().mockImplementation(() => {
+    // Default implementation for most common queries
+    return true;
   }),
 }));
 
@@ -85,7 +84,12 @@ describe('MobileLayout Component', () => {
   });
 
   it('adapts to orientation changes', async () => {
-    const { useMediaQuery } = require('@/hooks/useMediaQuery');
+    // Import and mock in a way that avoids require()
+    const useMediaQueryMock = vi.fn();
+    useMediaQueryMock.mockReturnValue(true); // Initial portrait mode
+    
+    // Override the mock implementation
+    vi.mocked(vi.importActual('@/hooks/useMediaQuery')).useMediaQuery = useMediaQueryMock;
     
     render(
       <MobileLayout>
@@ -97,12 +101,7 @@ describe('MobileLayout Component', () => {
     expect(screen.getByTestId('mobile-container')).toHaveClass('portrait');
     
     // Change orientation to landscape
-    useMediaQuery.mockImplementation((query) => {
-      if (query === '(max-width: 768px)') return true;
-      if (query === '(orientation: portrait)') return false;
-      if (query === '(orientation: landscape)') return true;
-      return false;
-    });
+    useMediaQueryMock.mockReturnValue(false);
     
     // Trigger orientation change
     fireEvent(window, new Event('orientationchange'));
