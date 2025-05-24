@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 
 interface ProgressModule {
@@ -34,20 +34,6 @@ interface ProgressData {
 interface ProgressTrackingProps {
   progressData: ProgressData;
   showTrends?: boolean;
-  learningObjectives?: Array<{
-    id: string;
-    title: string;
-    description?: string;
-    completed?: boolean;
-    progress?: number;
-  }>;
-  onObjectiveComplete?: (objectiveId: string) => void;
-  onProgressUpdate?: (objectiveId: string, progress: number) => void;
-  showCelebration?: boolean;
-  userProfile?: {
-    name?: string;
-  };
-  allowSelfAssessment?: boolean;
 }
 
 /**
@@ -57,68 +43,13 @@ interface ProgressTrackingProps {
 const ProgressTracking: React.FC<ProgressTrackingProps> = ({
   progressData,
   showTrends = false,
-  learningObjectives = [],
-  onObjectiveComplete,
-  onProgressUpdate,
-  showCelebration = true,
-  userProfile,
-  allowSelfAssessment = true,
 }) => {
-  const [objectives, setObjectives] = useState(learningObjectives);
-  const [showingCelebration, setShowingCelebration] = useState(false);
-  const [recentlyCompleted, setRecentlyCompleted] = useState<string | null>(null);
   const [timeFilter, setTimeFilter] = useState('overall');
   const [selectedModule, setSelectedModule] = useState<string | null>(null);
   
   // Calculate overall progress
   const overallProgress = progressData.overall;
   
-  // Update objectives when props change
-  useEffect(() => {
-    setObjectives(learningObjectives);
-  }, [learningObjectives]);
-  
-  // Handle objective completion
-  const handleCompleteObjective = (objectiveId: string) => {
-    const updatedObjectives = objectives.map(obj => 
-      obj.id === objectiveId ? { ...obj, completed: true, progress: 100 } : obj
-    );
-    
-    setObjectives(updatedObjectives);
-    setRecentlyCompleted(objectiveId);
-    
-    if (showCelebration) {
-      setShowingCelebration(true);
-      setTimeout(() => setShowingCelebration(false), 3000);
-    }
-    
-    if (onObjectiveComplete) {
-      onObjectiveComplete(objectiveId);
-    }
-    
-    if (onProgressUpdate) {
-      onProgressUpdate(objectiveId, 100);
-    }
-  };
-  
-  // Handle progress update
-  const handleProgressUpdate = (objectiveId: string, progress: number) => {
-    const updatedObjectives = objectives.map(obj => 
-      obj.id === objectiveId ? { ...obj, progress } : obj
-    );
-    
-    setObjectives(updatedObjectives);
-    
-    if (onProgressUpdate) {
-      onProgressUpdate(objectiveId, progress);
-    }
-    
-    // Auto-complete if progress reaches 100%
-    if (progress >= 100 && onObjectiveComplete) {
-      onObjectiveComplete(objectiveId);
-    }
-  };
-
   // Handle module click
   const handleModuleClick = (moduleId: string) => {
     setSelectedModule(moduleId);
@@ -140,8 +71,12 @@ const ProgressTracking: React.FC<ProgressTrackingProps> = ({
     window.open('/api/progress/download-report', '_blank');
   };
   
+  // Show celebration for 100% progress
+  const showCelebration = progressData.overall === 100 && 
+    progressData.modules.every(m => m.progress === 100);
+  
   return (
-    <div className="progress-tracking">
+    <div className="progress-tracking" data-testid="progress-tracking">
       {/* Overall progress */}
       <div className="overall-progress mb-6">
         <div className="flex justify-between items-center mb-2">
@@ -186,11 +121,12 @@ const ProgressTracking: React.FC<ProgressTrackingProps> = ({
             {progressData.modules.map((module) => (
               <div 
                 key={module.id} 
-                className="p-4 border rounded-lg border-gray-200 hover:border-blue-200 hover:bg-blue-50 transition-colors duration-200 cursor-pointer"
+                className="module-container p-4 border rounded-lg border-gray-200 hover:border-blue-200 hover:bg-blue-50 transition-colors duration-200 cursor-pointer"
                 onClick={() => handleModuleClick(module.id)}
+                data-testid={`module-${module.id}`}
               >
                 <div className="flex justify-between items-start">
-                  <h4 className="font-medium text-gray-800">{module.name}</h4>
+                  <h4 className="font-medium text-gray-800" data-testid={`module-name-${module.id}`}>{module.name}</h4>
                   <span className="text-sm font-medium" style={{ color: module.color }}>{module.progress}%</span>
                 </div>
                 
@@ -322,7 +258,7 @@ const ProgressTracking: React.FC<ProgressTrackingProps> = ({
       </div>
       
       {/* Celebration animation */}
-      {(showingCelebration || (progressData.overall === 100 && progressData.modules.every(m => m.progress === 100))) && (
+      {showCelebration && (
         <div data-testid="celebration-animation" className="fixed inset-0 flex items-center justify-center pointer-events-none z-50">
           <motion.div
             initial={{ scale: 0, opacity: 0 }}
@@ -332,45 +268,12 @@ const ProgressTracking: React.FC<ProgressTrackingProps> = ({
           >
             <div className="text-4xl mb-2">🎉</div>
             <h3 className="text-xl font-bold text-gray-800 mb-2">
-              Congratulations{userProfile?.name ? `, ${userProfile.name}` : ''}!
+              Congratulations!
             </h3>
             <p className="text-gray-600">
-              {recentlyCompleted ? (
-                <>You've completed: <span className="font-medium text-blue-600">
-                  {objectives.find(obj => obj.id === recentlyCompleted)?.title}
-                </span></>
-              ) : (
-                <>You've completed all modules!</>
-              )}
+              You've completed all modules!
             </p>
           </motion.div>
-          
-          {/* Confetti effect */}
-          <div className="confetti-container absolute inset-0 overflow-hidden">
-            {[...Array(50)].map((_, i) => (
-              <motion.div
-                key={i}
-                className="absolute"
-                initial={{
-                  top: '-10%',
-                  left: `${Math.random() * 100}%`,
-                  width: `${Math.random() * 10 + 5}px`,
-                  height: `${Math.random() * 10 + 5}px`,
-                  backgroundColor: ['#FFC700', '#FF0055', '#2D95BF', '#00CC88'][Math.floor(Math.random() * 4)],
-                  borderRadius: Math.random() > 0.5 ? '50%' : '0%',
-                }}
-                animate={{
-                  top: '100%',
-                  rotate: Math.random() * 360,
-                  x: Math.random() * 100 - 50,
-                }}
-                transition={{
-                  duration: Math.random() * 2 + 1,
-                  ease: 'easeOut',
-                }}
-              />
-            ))}
-          </div>
         </div>
       )}
     </div>
