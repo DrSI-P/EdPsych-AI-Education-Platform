@@ -2,15 +2,39 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import SpeechToTextEngine from '@/components/ai/accessibility/speech-to-text-engine';
+import { SpeechToTextEngine } from '@/components/ai/accessibility/speech-to-text-engine';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Keyboard, Mic, BookOpen, FileText, BookMarked } from "lucide-react";
 
+interface SpeechToTextSettings {
+  enabled: boolean;
+  language: string;
+  dialect: string;
+  continuous: boolean;
+  interimResults: boolean;
+  autoStart: boolean;
+}
+
 export default function SpeechToTextPage() {
   const [sampleText, setSampleText] = useState('');
+  const [settings, setSettings] = useState<SpeechToTextSettings>({
+    enabled: false,
+    language: 'en-GB',
+    dialect: 'British English',
+    continuous: true,
+    interimResults: true,
+    autoStart: false
+  });
+  
+  const handleSettingsChange = (newSettings: Record<string, unknown>): void => {
+    setSettings(prevSettings => ({
+      ...prevSettings,
+      ...newSettings
+    }) as SpeechToTextSettings);
+  };
   
   const samplePrompts = {
     primary: "Tell me about your favourite animal",
@@ -34,9 +58,8 @@ export default function SpeechToTextPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
           <SpeechToTextEngine 
-            initialText={sampleText} 
-            className="mb-8"
-            showCalibration={true}
+            settings={settings}
+            onSettingsChange={handleSettingsChange}
           />
           
           <Card className="mb-8">
