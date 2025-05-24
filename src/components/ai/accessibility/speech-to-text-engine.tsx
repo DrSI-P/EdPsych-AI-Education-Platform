@@ -439,7 +439,7 @@ export default function SpeechToTextEngine({
     if (!text) return text;
     
     // Common child speech patterns and corrections
-    let optimised = text
+    const optimised = text
       // Fix common child pronunciation issues
       .replace(/(\b)fing(\b)/gi, '$1thing$2')
       .replace(/(\b)wiv(\b)/gi, '$1with$2')

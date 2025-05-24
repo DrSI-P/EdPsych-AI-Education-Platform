@@ -73,7 +73,7 @@ export async function POST(req: NextRequest) {
     let contentTitle = title;
     let contentSubject = subject;
     let contentKeyStage = keyStage;
-    let originalComplexity = 50; // Default complexity level
+    const originalComplexity = 50; // Default complexity level
     
     if (contentId) {
       // Check if it's a curriculum plan - using Prisma's type-safe query

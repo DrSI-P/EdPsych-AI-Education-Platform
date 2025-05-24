@@ -87,7 +87,7 @@ export async function GET(request: NextRequest) {
     ];
     
     // Filter by status
-    let filteredComments = mockComments.filter(c => c.status === status && c.postId === postId);
+    const filteredComments = mockComments.filter(c => c.status === status && c.postId === postId);
     
     // Pagination
     const startIndex = (page - 1) * limit;

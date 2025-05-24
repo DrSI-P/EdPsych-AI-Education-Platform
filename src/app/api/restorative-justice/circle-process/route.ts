@@ -46,7 +46,7 @@ export async function GET(req: Request) {
     const purpose = url.searchParams.get('purpose');
     
     // Build query filters
-    let filters: any = {
+    const filters: any = {
       userId: session.user.id
     };
     

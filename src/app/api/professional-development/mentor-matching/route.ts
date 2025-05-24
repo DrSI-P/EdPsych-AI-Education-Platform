@@ -890,7 +890,7 @@ async function getMeetings(userId: string) {
 }
 
 async function getMentors(expertise: string | null, phase: string | null, subject: string | null) {
-  let where: any = { role: { in: ['mentor', 'both'] } };
+  const where: any = { role: { in: ['mentor', 'both'] } };
   
   if (expertise) {
     where.expertise = { has: parseInt(expertise) };

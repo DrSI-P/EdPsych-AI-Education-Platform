@@ -264,7 +264,7 @@ const MembershipSchema = z.object({
 // Mock data storage (would be replaced with database in production)
 // Using the exported interfaces defined above
 
-let communities: Community[] = [];
+const communities: Community[] = [];
 let resources: Resource[] = [];
 let discussions: Discussion[] = [];
 let events: Event[] = [];
@@ -487,7 +487,7 @@ export async function POST(request: NextRequest) {
             updatedAt: new Date().toISOString(),
             members: 1,
             schoolCount: 1,
-            activity: "low" as "low",
+            activity: "low" as const,
           };
           
           communities.push(newCommunity);
