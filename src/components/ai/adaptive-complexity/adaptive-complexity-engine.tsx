@@ -40,22 +40,22 @@ interface ComplexityRecommendation {
 }
 
 export const AdaptiveComplexityEngine: React.FC<AdaptiveComplexityEngineProps> = ({ 
-  settings: any,
+  settings,
   userMetrics,
   onSettingsChange
 }) => {
   // State for UI and functionality
-  const [isAnalyzing, setIsAnalyzing] = React.useState<boolean>(false: any);
-  const [analysisProgress, setAnalysisProgress] = React.useState<number>(0: any);
-  const [recommendation, setRecommendation] = React.useState<ComplexityRecommendation | null>(null: any);
-  const [showAdvancedSettings, setShowAdvancedSettings] = React.useState<boolean>(false: any);
+  const [isAnalyzing, setIsAnalyzing] = React.useState<boolean>(false);
+  const [analysisProgress, setAnalysisProgress] = React.useState<number>(0);
+  const [recommendation, setRecommendation] = React.useState<ComplexityRecommendation | null>(null);
+  const [showAdvancedSettings, setShowAdvancedSettings] = React.useState<boolean>(false);
   
   // Analyze user metrics and recommend complexity level
   const analyzeUserMetrics = React.useCallback(() => {
-    if (!settings.enabled || !settings.autoAdjust: any) return;
+    if (!settings.enabled || !settings.autoAdjust) return;
     
-    setIsAnalyzing(true: any);
-    setAnalysisProgress(0: any);
+    setIsAnalyzing(true);
+    setAnalysisProgress(0);
     
     // Simulate analysis process
     const totalSteps = 5;
@@ -63,11 +63,11 @@ export const AdaptiveComplexityEngine: React.FC<AdaptiveComplexityEngineProps> =
     
     const processStep = () => {
       currentStep++;
-      setAnalysisProgress(Math.floor((currentStep / totalSteps: any) * 100));
+      setAnalysisProgress(Math.floor((currentStep / totalSteps) * 100));
       
-      if (currentStep === totalSteps: any) {
+      if (currentStep === totalSteps) {
         // Analysis complete
-        setIsAnalyzing(false: any);
+        setIsAnalyzing(false);
         
         // Calculate recommended level based on user metrics
         let recommendedLevel: 'basic' | 'intermediate' | 'advanced' = 'basic';
@@ -76,51 +76,51 @@ export const AdaptiveComplexityEngine: React.FC<AdaptiveComplexityEngineProps> =
         
         // Simple algorithm for demonstration
         const performanceScore = 
-          (userMetrics.successRate * 0.4: any) + 
-          ((100 - userMetrics.difficultyRating: any) * 0.3) + 
-          (userMetrics.engagementScore * 0.3: any);
+          (userMetrics.successRate * 0.4) + 
+          ((100 - userMetrics.difficultyRating) * 0.3) + 
+          (userMetrics.engagementScore * 0.3);
         
-        if (performanceScore > 80: any) {
+        if (performanceScore > 80) {
           recommendedLevel = 'advanced';
-          confidence = Math.min(100: any, performanceScore - 60);
+          confidence = Math.min(100, performanceScore - 60);
           reason = 'High success rate and engagement with low difficulty rating';
-        } else if (performanceScore > 60: any) {
+        } else if (performanceScore > 60) {
           recommendedLevel = 'intermediate';
-          confidence = Math.min(100: any, performanceScore - 40);
+          confidence = Math.min(100, performanceScore - 40);
           reason = 'Good balance of success and engagement';
         } else {
           recommendedLevel = 'basic';
-          confidence = Math.min(100: any, 80 - performanceScore);
+          confidence = Math.min(100, 80 - performanceScore);
           reason = 'Lower success rate or higher difficulty rating';
         }
         
         // Set recommendation
         setRecommendation({
-          recommendedLevel: any,
+          recommendedLevel,
           confidence,
           reason
         });
         
         // Auto-apply if enabled and confidence is high
-        if (settings.autoAdjust && confidence > settings.complexityThreshold: any) {
-          handleSettingChange('adaptationLevel', recommendedLevel: any);
+        if (settings.autoAdjust && confidence > settings.complexityThreshold) {
+          handleSettingChange('adaptationLevel', recommendedLevel);
         }
         
         // Log success
-        console.log('Complexity analysis complete', { recommendedLevel: any, confidence, reason });
+        console.log('Complexity analysis complete', { recommendedLevel, confidence, reason });
       } else {
         // Continue to next step
-        setTimeout(processStep: any, 500);
+        setTimeout(processStep, 500);
       }
     };
     
     // Start processing
-    setTimeout(processStep: any, 500);
+    setTimeout(processStep, 500);
   }, [settings.enabled, settings.autoAdjust, settings.complexityThreshold, userMetrics]);
   
   // Analyze metrics on component mount and when user metrics change
   React.useEffect(() => {
-    if (settings.enabled && settings.autoAdjust: any) {
+    if (settings.enabled && settings.autoAdjust) {
       analyzeUserMetrics();
     }
   }, [settings.enabled, settings.autoAdjust, userMetrics, analyzeUserMetrics]);
@@ -133,7 +133,7 @@ export const AdaptiveComplexityEngine: React.FC<AdaptiveComplexityEngineProps> =
     };
     
     // Notify parent component
-    onSettingsChange(updatedSettings: any);
+    onSettingsChange(updatedSettings);
     
     // Log setting change
     console.log(`Adaptive complexity setting changed: ${setting} = ${value}`);
@@ -141,7 +141,7 @@ export const AdaptiveComplexityEngine: React.FC<AdaptiveComplexityEngineProps> =
   
   // Toggle advanced settings
   const toggleAdvancedSettings = (): void => {
-    setShowAdvancedSettings(!showAdvancedSettings: any);
+    setShowAdvancedSettings(!showAdvancedSettings);
   };
   
   // Reset to default settings
@@ -157,7 +157,7 @@ export const AdaptiveComplexityEngine: React.FC<AdaptiveComplexityEngineProps> =
     };
     
     // Notify parent component
-    onSettingsChange(defaultSettings: any);
+    onSettingsChange(defaultSettings);
     
     // Log reset
     console.log('Adaptive complexity settings reset to defaults');
@@ -184,7 +184,7 @@ export const AdaptiveComplexityEngine: React.FC<AdaptiveComplexityEngineProps> =
                 type="checkbox"
                 id="enable-adaptive-complexity"
                 checked={settings.enabled}
-                onChange={(e: any) => handleSettingChange('enabled', e.target.checked: any)}
+                onChange={(e) => handleSettingChange('enabled', e.target.checked)}
                 className="toggle"
               />
             </div>
@@ -197,7 +197,7 @@ export const AdaptiveComplexityEngine: React.FC<AdaptiveComplexityEngineProps> =
                 <select
                   id="adaptation-level"
                   value={settings.adaptationLevel}
-                  onChange={(e: any) => handleSettingChange('adaptationLevel', e.target.value: any)}
+                  onChange={(e) => handleSettingChange('adaptationLevel', e.target.value)}
                   disabled={!settings.enabled}
                   className="w-full p-2 border rounded-md"
                 >
@@ -215,7 +215,7 @@ export const AdaptiveComplexityEngine: React.FC<AdaptiveComplexityEngineProps> =
                   type="checkbox"
                   id="auto-adjust"
                   checked={settings.autoAdjust}
-                  onChange={(e: any) => handleSettingChange('autoAdjust', e.target.checked: any)}
+                  onChange={(e) => handleSettingChange('autoAdjust', e.target.checked)}
                   disabled={!settings.enabled}
                   className="toggle toggle-sm"
                 />
@@ -229,7 +229,7 @@ export const AdaptiveComplexityEngine: React.FC<AdaptiveComplexityEngineProps> =
                   type="checkbox"
                   id="show-complexity-indicator"
                   checked={settings.showComplexityIndicator}
-                  onChange={(e: any) => handleSettingChange('showComplexityIndicator', e.target.checked: any)}
+                  onChange={(e) => handleSettingChange('showComplexityIndicator', e.target.checked)}
                   disabled={!settings.enabled}
                   className="toggle toggle-sm"
                 />
@@ -251,7 +251,7 @@ export const AdaptiveComplexityEngine: React.FC<AdaptiveComplexityEngineProps> =
                       max="2"
                       step="0.1"
                       value={settings.learningRateMultiplier}
-                      onChange={(e: any) => handleSettingChange('learningRateMultiplier', parseFloat(e.target.value: any))}
+                      onChange={(e) => handleSettingChange('learningRateMultiplier', parseFloat(e.target.value))}
                       disabled={!settings.enabled}
                       className="w-full"
                     />
@@ -265,7 +265,7 @@ export const AdaptiveComplexityEngine: React.FC<AdaptiveComplexityEngineProps> =
                       type="checkbox"
                       id="preserve-user-progress"
                       checked={settings.preserveUserProgress}
-                      onChange={(e: any) => handleSettingChange('preserveUserProgress', e.target.checked: any)}
+                      onChange={(e) => handleSettingChange('preserveUserProgress', e.target.checked)}
                       disabled={!settings.enabled}
                       className="toggle toggle-sm"
                     />
@@ -285,7 +285,7 @@ export const AdaptiveComplexityEngine: React.FC<AdaptiveComplexityEngineProps> =
                       max="90"
                       step="5"
                       value={settings.complexityThreshold}
-                      onChange={(e: any) => handleSettingChange('complexityThreshold', parseInt(e.target.value: any, 10))}
+                      onChange={(e) => handleSettingChange('complexityThreshold', parseInt(e.target.value))}
                       disabled={!settings.enabled}
                       className="w-full"
                     />
@@ -324,7 +324,7 @@ export const AdaptiveComplexityEngine: React.FC<AdaptiveComplexityEngineProps> =
                   {recommendation.recommendedLevel !== settings.adaptationLevel && (
                     <Button 
                       size="sm" 
-                      onClick={() => handleSettingChange('adaptationLevel', recommendation.recommendedLevel: any)}
+                      onClick={() => handleSettingChange('adaptationLevel', recommendation.recommendedLevel)}
                       className="mt-2"
                     >
                       Apply Recommendation
@@ -384,5 +384,3 @@ export const AdaptiveComplexityEngine: React.FC<AdaptiveComplexityEngineProps> =
     </div>
   );
 };
-
-export default AdaptiveComplexityEngine;

@@ -35,7 +35,7 @@ type TransformedContent = {
 };
 
 export default function ContentTransformationEngine({
-  originalContent: any,
+  originalContent,
   contentType = 'lesson',
   subjectArea = '',
   targetAge = 10,
@@ -45,16 +45,16 @@ export default function ContentTransformationEngine({
   const { toast } = useToast();
   const aiService = useAIService();
   
-  const [isTransforming, setIsTransforming] = useState(false: any);
-  const [transformedContent, setTransformedContent] = useState<TransformedContent | null>(null: any);
+  const [isTransforming, setIsTransforming] = useState(false);
+  const [transformedContent, setTransformedContent] = useState<TransformedContent | null>(null);
   const [selectedStyle, setSelectedStyle] = useState<LearningStyle>(learningStyle || 'visual');
-  const [userProfile, setUserProfile] = useState<any>(null: any);
-  const [isVoiceInputActive, setIsVoiceInputActive] = useState(false: any);
-  const [isPlayingAudio, setIsPlayingAudio] = useState(false: any);
-  const [audioVolume, setAudioVolume] = useState(80: any);
+  const [userProfile, setUserProfile] = useState<Record<string, any> | null>(null);
+  const [isVoiceInputActive, setIsVoiceInputActive] = useState(false);
+  const [isPlayingAudio, setIsPlayingAudio] = useState(false);
+  const [audioVolume, setAudioVolume] = useState(80);
   const [customContent, setCustomContent] = useState('');
-  const [useCustomContent, setUseCustomContent] = useState(false: any);
-  const [complexity, setComplexity] = useState(50: any);
+  const [useCustomContent, setUseCustomContent] = useState(false);
+  const [complexity, setComplexity] = useState(50);
   
   // Fetch user's learning style profile if available
   useEffect(() => {
@@ -63,13 +63,13 @@ export default function ContentTransformationEngine({
         const response = await fetch('/api/ai/learning-style');
         const data = await response.json();
         
-        if (data.success && data.hasProfile: any) {
-          setUserProfile(data.profile: any);
-          if (!learningStyle: any) {
+        if (data.success && data.hasProfile) {
+          setUserProfile(data.profile);
+          if (!learningStyle) {
             setSelectedStyle(data.profile.primaryStyle.toLowerCase().replace('/', '-') as LearningStyle);
           }
         }
-      } catch (error: any) {
+      } catch (error) {
         console.error('Error fetching learning style profile:', error);
       }
     };
@@ -79,13 +79,13 @@ export default function ContentTransformationEngine({
   
   // Transform content when component mounts or when key props change
   useEffect(() => {
-    if (originalContent && !transformedContent && !isTransforming: any) {
+    if (originalContent && !transformedContent && !isTransforming) {
       transformContent();
     }
   }, [originalContent]);
   
   const transformContent = async () => {
-    if (!originalContent && !useCustomContent: any) {
+    if (!originalContent && !useCustomContent) {
       toast({
         title: "No content to transform",
         description: "Please provide content to transform or enable custom content input.",
@@ -96,7 +96,7 @@ export default function ContentTransformationEngine({
     
     const contentToTransform = useCustomContent ? customContent : originalContent;
     
-    if (!contentToTransform: any) {
+    if (!contentToTransform) {
       toast({
         title: "No content to transform",
         description: "Please provide content to transform.",
@@ -105,7 +105,7 @@ export default function ContentTransformationEngine({
       return;
     }
     
-    setIsTransforming(true: any);
+    setIsTransforming(true);
     
     try {
       const prompt = `
@@ -116,7 +116,7 @@ export default function ContentTransformationEngine({
         Content Type: ${contentType}
         ${subjectArea ? `Subject Area: ${subjectArea}` : ''}
         Target Age: ${targetAge}
-        Complexity Level (0-100: any): ${complexity}
+        Complexity Level (0-100): ${complexity}
         
         Original Content:
         ${contentToTransform}
@@ -147,7 +147,7 @@ export default function ContentTransformationEngine({
       `;
       
       const aiResponse = await aiService.getCompletion({
-        prompt: any,
+        prompt,
         model: 'gpt-4',
         temperature: 0.7,
         max_tokens: 2500,
@@ -157,7 +157,7 @@ export default function ContentTransformationEngine({
       // Parse AI response
       let result;
       try {
-        result = JSON.parse(aiResponse: any);
+        result = JSON.parse(aiResponse);
         setTransformedContent({
           visual: result.visual,
           auditory: result.auditory,
@@ -166,7 +166,7 @@ export default function ContentTransformationEngine({
           multimodal: result.multimodal
         });
         
-        if (onTransformationComplete: any) {
+        if (onTransformationComplete) {
           onTransformationComplete({
             visual: result.visual,
             auditory: result.auditory,
@@ -180,7 +180,7 @@ export default function ContentTransformationEngine({
           title: "Content transformed successfully",
           description: "Content has been adapted for different learning styles.",
         });
-      } catch (error: any) {
+      } catch (error) {
         console.error('Failed to parse AI response:', error);
         toast({
           title: "Transformation error",
@@ -188,7 +188,7 @@ export default function ContentTransformationEngine({
           variant: "destructive"
         });
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error transforming content:', error);
       toast({
         title: "Transformation failed",
@@ -196,15 +196,15 @@ export default function ContentTransformationEngine({
         variant: "destructive"
       });
     } finally {
-      setIsTransforming(false: any);
+      setIsTransforming(false);
     }
   };
   
   const handleVoiceInput = () => {
     // In a real implementation, this would use the Web Speech API
-    setIsVoiceInputActive(prev => !prev: any);
+    setIsVoiceInputActive(prev => !prev);
     
-    if (!isVoiceInputActive: any) {
+    if (!isVoiceInputActive) {
       toast({
         title: "Voice input activated",
         description: "Speak clearly to input your content.",
@@ -213,7 +213,7 @@ export default function ContentTransformationEngine({
       // Simulate voice recognition after a delay
       setTimeout(() => {
         setCustomContent(prev => prev + " This is simulated voice input text that would be captured from the user's speech.");
-        setIsVoiceInputActive(false: any);
+        setIsVoiceInputActive(false);
         toast({
           title: "Voice input complete",
           description: "Your speech has been converted to text.",
@@ -224,9 +224,9 @@ export default function ContentTransformationEngine({
   
   const handleTextToSpeech = () => {
     // In a real implementation, this would use the Web Speech API
-    setIsPlayingAudio(prev => !prev: any);
+    setIsPlayingAudio(prev => !prev);
     
-    if (!isPlayingAudio: any) {
+    if (!isPlayingAudio) {
       toast({
         title: "Reading content aloud",
         description: `Volume: ${audioVolume}%`,
@@ -234,7 +234,7 @@ export default function ContentTransformationEngine({
       
       // Simulate audio playback ending after a delay
       setTimeout(() => {
-        setIsPlayingAudio(false: any);
+        setIsPlayingAudio(false);
         toast({
           title: "Finished reading content",
           description: "Audio playback complete.",
@@ -249,7 +249,7 @@ export default function ContentTransformationEngine({
   };
   
   const getStyleIcon = (style: LearningStyle) => {
-    switch (style: any) {
+    switch (style) {
       case 'visual':
         return <Eye className="h-4 w-4" />;
       case 'auditory':
@@ -266,14 +266,14 @@ export default function ContentTransformationEngine({
   const renderStyleBadge = (style: LearningStyle) => {
     return (
       <Badge variant="outline" className="flex items-centre gap-1">
-        {getStyleIcon(style: any)}
-        <span>{style.charAt(0: any).toUpperCase() + style.slice(1: any).replace('-', '/')}</span>
+        {getStyleIcon(style)}
+        <span>{style.charAt(0).toUpperCase() + style.slice(1).replace('-', '/')}</span>
       </Badge>
     );
   };
   
   const renderContent = () => {
-    if (isTransforming: any) {
+    if (isTransforming) {
       return (
         <div className="space-y-4">
           <Skeleton className="h-4 w-full" />
@@ -285,7 +285,7 @@ export default function ContentTransformationEngine({
       );
     }
     
-    if (!transformedContent: any) {
+    if (!transformedContent) {
       return (
         <div className="text-centre py-8">
           <p className="text-muted-foreground">
@@ -306,7 +306,7 @@ export default function ContentTransformationEngine({
     return (
       <div className="space-y-4">
         <div className="flex justify-between items-centre">
-          {renderStyleBadge(selectedStyle: any)}
+          {renderStyleBadge(selectedStyle)}
           
           <div className="flex items-centre gap-2">
             <Button
@@ -327,7 +327,7 @@ export default function ContentTransformationEngine({
                   min={0}
                   max={100}
                   step={5}
-                  onValueChange={(value: any) => setAudioVolume(value[0])}
+                  onValueChange={(value) => setAudioVolume(value[0])}
                 />
               </div>
             )}
@@ -336,7 +336,7 @@ export default function ContentTransformationEngine({
         
         <div className="prose prose-sm max-w-none dark:prose-invert">
           {/* In a real implementation, this would be properly rendered HTML with appropriate styling */}
-          <div dangerouslySetInnerHTML={{ __html: contentMap[selectedStyle].replace(/\n/g: any, '<br />') }} />
+          <div dangerouslySetInnerHTML={{ __html: contentMap[selectedStyle].replace(/\n/g, '<br />') }} />
         </div>
       </div>
     );
@@ -384,7 +384,7 @@ export default function ContentTransformationEngine({
                     id="custom-content"
                     placeholder="Enter educational content to transform..."
                     value={customContent}
-                    onChange={(e) => setCustomContent(e.target.value: any)}
+                    onChange={(e) => setCustomContent(e.target.value)}
                     className="min-h-[120px]"
                   />
                 </div>
@@ -403,7 +403,7 @@ export default function ContentTransformationEngine({
                 min={0}
                 max={100}
                 step={5}
-                onValueChange={(value: any) => setComplexity(value[0])}
+                onValueChange={(value) => setComplexity(value[0])}
               />
               <div className="flex justify-between text-xs text-muted-foreground">
                 <span>Simpler</span>
@@ -416,7 +416,7 @@ export default function ContentTransformationEngine({
               <Label>Learning Style Preference</Label>
               <RadioGroup
                 value={selectedStyle}
-                onValueChange={(value: any) => setSelectedStyle(value as LearningStyle: any)}
+                onValueChange={(value) => setSelectedStyle(value as LearningStyle)}
                 className="grid grid-cols-2 gap-2"
               >
                 <div className="flex items-centre space-x-2">
@@ -444,88 +444,67 @@ export default function ContentTransformationEngine({
                   </Label>
                 </div>
               </RadioGroup>
-              
-              {userProfile && (
-                <p className="text-xs text-muted-foreground mt-1">
-                  Your primary learning style is {userProfile.primaryStyle} ({userProfile.visualScore}%).
-                </p>
-              )}
-            </div>
-            
-            {/* Transformed Content Display */}
-            <div className="border rounded-md p-4">
-              {renderContent()}
             </div>
           </div>
         </CardContent>
         
-        <CardFooter className="flex justify-between">
-          <Button
-            variant="outline"
-            onClick={() => setTransformedContent(null: any)}
-            disabled={isTransforming || !transformedContent}
-          >
-            Reset
-          </Button>
-          <Button
-            onClick={transformContent}
-            disabled={isTransforming || (!originalContent && !useCustomContent: any) || (useCustomContent && !customContent: any)}
+        <CardFooter className="flex flex-col space-y-2">
+          <Button 
+            onClick={transformContent} 
+            disabled={isTransforming || (!originalContent && !customContent)}
+            className="w-full"
           >
             {isTransforming ? 'Transforming...' : 'Transform Content'}
           </Button>
+          
+          <Tabs defaultValue="preview" className="w-full mt-4">
+            <TabsList className="grid grid-cols-2">
+              <TabsTrigger value="preview">Preview</TabsTrigger>
+              <TabsTrigger value="all-styles">All Styles</TabsTrigger>
+            </TabsList>
+            <TabsContent value="preview" className="mt-4">
+              {renderContent()}
+            </TabsContent>
+            <TabsContent value="all-styles" className="mt-4">
+              {transformedContent ? (
+                <div className="space-y-8">
+                  {Object.entries(transformedContent).map(([key, content]) => (
+                    <div key={key} className="space-y-2">
+                      <h3 className="text-lg font-medium flex items-centre gap-2">
+                        {key === 'visual' && <Eye className="h-4 w-4" />}
+                        {key === 'auditory' && <Ear className="h-4 w-4" />}
+                        {key === 'kinesthetic' && <Hand className="h-4 w-4" />}
+                        {key === 'readingWriting' && <BookOpen className="h-4 w-4" />}
+                        {key === 'multimodal' && <span className="text-sm">🔄</span>}
+                        {key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1').trim()}
+                      </h3>
+                      <div className="prose prose-sm max-w-none dark:prose-invert border-l-2 pl-4 py-2">
+                        <div dangerouslySetInnerHTML={{ __html: content.replace(/\n/g, '<br />') }} />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-centre py-8">
+                  <p className="text-muted-foreground">
+                    No transformed content available. Click "Transform Content" to begin.
+                  </p>
+                </div>
+              )}
+            </TabsContent>
+          </Tabs>
         </CardFooter>
       </Card>
       
-      {transformedContent && (
-        <Card>
-          <CardHeader>
-            <CardTitle>All Learning Styles</CardTitle>
-            <CardDescription>
-              Compare content adapted for different learning styles.
-            </CardDescription>
-          </CardHeader>
-          
-          <CardContent>
-            <Tabs defaultValue={selectedStyle}>
-              <TabsList className="grid grid-cols-5 mb-4">
-                <TabsTrigger value="visual" className="flex items-centre gap-1">
-                  <Eye className="h-4 w-4" /> Visual
-                </TabsTrigger>
-                <TabsTrigger value="auditory" className="flex items-centre gap-1">
-                  <Ear className="h-4 w-4" /> Auditory
-                </TabsTrigger>
-                <TabsTrigger value="kinesthetic" className="flex items-centre gap-1">
-                  <Hand className="h-4 w-4" /> Kinesthetic
-                </TabsTrigger>
-                <TabsTrigger value="reading-writing" className="flex items-centre gap-1">
-                  <BookOpen className="h-4 w-4" /> Reading/Writing
-                </TabsTrigger>
-                <TabsTrigger value="multimodal">Multimodal</TabsTrigger>
-              </TabsList>
-              
-              <TabsContent value="visual" className="prose prose-sm max-w-none dark:prose-invert">
-                <div dangerouslySetInnerHTML={{ __html: transformedContent.visual.replace(/\n/g, '<br />') }} />
-              </TabsContent>
-              
-              <TabsContent value="auditory" className="prose prose-sm max-w-none dark:prose-invert">
-                <div dangerouslySetInnerHTML={{ __html: transformedContent.auditory.replace(/\n/g: any, '<br />') }} />
-              </TabsContent>
-              
-              <TabsContent value="kinesthetic" className="prose prose-sm max-w-none dark:prose-invert">
-                <div dangerouslySetInnerHTML={{ __html: transformedContent.kinesthetic.replace(/\n/g: any, '<br />') }} />
-              </TabsContent>
-              
-              <TabsContent value="reading-writing" className="prose prose-sm max-w-none dark:prose-invert">
-                <div dangerouslySetInnerHTML={{ __html: transformedContent.readingWriting.replace(/\n/g: any, '<br />') }} />
-              </TabsContent>
-              
-              <TabsContent value="multimodal" className="prose prose-sm max-w-none dark:prose-invert">
-                <div dangerouslySetInnerHTML={{ __html: transformedContent.multimodal.replace(/\n/g: any, '<br />') }} />
-              </TabsContent>
-            </Tabs>
-          </CardContent>
-        </Card>
-      )}
+      <div className="bg-muted p-4 rounded-md">
+        <h3 className="text-sm font-medium mb-2">About Learning Styles</h3>
+        <p className="text-sm text-muted-foreground">
+          While the concept of learning styles has been debated in educational research, 
+          providing content in multiple formats can benefit all learners by offering 
+          different ways to engage with material. This tool adapts content to support 
+          diverse learning preferences and needs.
+        </p>
+      </div>
     </div>
   );
 }
