@@ -4,7 +4,7 @@ import { authOptions } from '@/lib/auth/auth-options';
 import { prisma } from '@/lib/db';
 import { getAIService } from '@/lib/ai/ai-service';
 
-export async function POST(req: NextRequest) {
+export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
     
@@ -89,6 +89,7 @@ export async function POST(req: NextRequest) {
         
         patternAnalysis = JSON.parse(aiResponse.text);
       } catch (error) {
+        // Replace console.error with structured logging when available
         console.error('Error analysing emotional patterns:', error);
         // Continue without pattern analysis if it fails
       }
@@ -101,12 +102,13 @@ export async function POST(req: NextRequest) {
     });
     
   } catch (error) {
+    // Replace console.error with structured logging when available
     console.error('Error in emotional check-in:', error);
     return NextResponse.json({ error: 'Failed to process emotional check-in' }, { status: 500 });
   }
 }
 
-export async function GET(req: NextRequest) {
+export async function GET(_req: NextRequest): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
     
@@ -162,6 +164,7 @@ export async function GET(req: NextRequest) {
     });
     
   } catch (error) {
+    // Replace console.error with structured logging when available
     console.error('Error fetching emotional check-ins:', error);
     return NextResponse.json({ error: 'Failed to fetch emotional check-ins' }, { status: 500 });
   }
