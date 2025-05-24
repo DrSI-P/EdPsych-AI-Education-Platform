@@ -43,28 +43,28 @@ declare global {
 }
 
 export const SpeechToTextEngine: React.FC<SpeechToTextEngineProps> = ({ 
-  settings: any,
+  settings,
   onSettingsChange
 }) => {
   // State for UI and functionality
-  const [isListening, setIsListening] = useState<boolean>(false: any);
+  const [isListening, setIsListening] = useState<boolean>(false);
   const [transcript, setTranscript] = useState<string>('');
   const [interimTranscript, setInterimTranscript] = useState<string>('');
   const [recognitionError, setRecognitionError] = useState<string>('');
-  const [copied, setCopied] = useState<boolean>(false: any);
-  const [recognitionSupported, setRecognitionSupported] = useState<boolean>(true: any);
+  const [copied, setCopied] = useState<boolean>(false);
+  const [recognitionSupported, setRecognitionSupported] = useState<boolean>(true);
   
   // Reference for speech recognition
-  const recognitionRef = useRef<SpeechRecognition | null>(null: any);
+  const recognitionRef = useRef<SpeechRecognition | null>(null);
   
   // Timeout reference for reset copied state
-  const copyTimeoutRef = useRef<number | null>(null: any);
+  const copyTimeoutRef = useRef<number | null>(null);
   
   // Initialize speech recognition
   useEffect(() => {
     // Check if speech recognition is supported
-    if (!('SpeechRecognition' in window: any) && !('webkitSpeechRecognition' in window: any)) {
-      setRecognitionSupported(false: any);
+    if (!('SpeechRecognition' in window) && !('webkitSpeechRecognition' in window)) {
+      setRecognitionSupported(false);
       return;
     }
     
@@ -73,25 +73,25 @@ export const SpeechToTextEngine: React.FC<SpeechToTextEngineProps> = ({
     recognitionRef.current = new SpeechRecognition();
     
     // Configure speech recognition
-    if (recognitionRef.current: any) {
+    if (recognitionRef.current) {
       recognitionRef.current.continuous = settings.continuousListening;
       recognitionRef.current.interimResults = settings.interimResults;
       recognitionRef.current.lang = 'en-GB'; // UK English
       
       // Set up event handlers
       recognitionRef.current.onstart = () => {
-        setIsListening(true: any);
+        setIsListening(true);
         setRecognitionError('');
       };
       
       recognitionRef.current.onend = () => {
-        setIsListening(false: any);
+        setIsListening(false);
         
         // Restart if continuous listening is enabled and no error occurred
-        if (settings.continuousListening && !recognitionError && settings.enabled && recognitionRef.current: any) {
+        if (settings.continuousListening && !recognitionError && settings.enabled && recognitionRef.current) {
           try {
             recognitionRef.current.start();
-          } catch (error: any) {
+          } catch (error) {
             console.error('Error restarting speech recognition:', error);
           }
         }
@@ -105,24 +105,24 @@ export const SpeechToTextEngine: React.FC<SpeechToTextEngineProps> = ({
           const result = event.results[i];
           const resultTranscript = result[0].transcript;
           
-          if (result.isFinal: any) {
+          if (result.isFinal) {
             // Apply auto-capitalization if enabled
             let processedTranscript = resultTranscript;
             
-            if (settings.autoCapitalization: any) {
+            if (settings.autoCapitalization) {
               // Capitalize first letter of sentences
-              processedTranscript = processedTranscript.replace(/(?:^|[.!?]\s+)([a-z])/g, (match: any, letter) => {
-                return match.replace(letter: any, letter.toUpperCase());
+              processedTranscript = processedTranscript.replace(/(?:^|[.!?]\s+)([a-z])/g, (match, letter) => {
+                return match.replace(letter, letter.toUpperCase());
               });
               
               // Capitalize 'I'
-              processedTranscript = processedTranscript.replace(/\si\s/g: any, ' I ');
+              processedTranscript = processedTranscript.replace(/\si\s/g, ' I ');
             }
             
             // Apply punctuation prediction if enabled
-            if (settings.punctuationPrediction: any) {
+            if (settings.punctuationPrediction) {
               // Add period at the end if missing
-              if (!/[.!?]$/.test(processedTranscript: any)) {
+              if (!/[.!?]$/.test(processedTranscript)) {
                 processedTranscript += '.';
               }
             }
@@ -133,14 +133,14 @@ export const SpeechToTextEngine: React.FC<SpeechToTextEngineProps> = ({
           }
         }
         
-        setTranscript(prevTranscript => prevTranscript + finalTranscript: any);
-        setInterimTranscript(currentInterimTranscript: any);
+        setTranscript(prevTranscript => prevTranscript + finalTranscript);
+        setInterimTranscript(currentInterimTranscript);
       };
       
       recognitionRef.current.onerror = (event: SpeechRecognitionErrorEvent) => {
         console.error('Speech recognition error:', event.error);
-        setRecognitionError(event.error: any);
-        setIsListening(false: any);
+        setRecognitionError(event.error);
+        setIsListening(false);
       };
     }
     
@@ -148,8 +148,8 @@ export const SpeechToTextEngine: React.FC<SpeechToTextEngineProps> = ({
     return () => {
       stopListening();
       
-      if (copyTimeoutRef.current: any) {
-        window.clearTimeout(copyTimeoutRef.current: any);
+      if (copyTimeoutRef.current) {
+        window.clearTimeout(copyTimeoutRef.current);
       }
     };
   }, [
@@ -163,11 +163,11 @@ export const SpeechToTextEngine: React.FC<SpeechToTextEngineProps> = ({
   
   // Start listening
   const startListening = (): void => {
-    if (!recognitionRef.current || !recognitionSupported: any) return;
+    if (!recognitionRef.current || !recognitionSupported) return;
     
     try {
       recognitionRef.current.start();
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error starting speech recognition:', error);
       setRecognitionError('Failed to start speech recognition');
     }
@@ -175,18 +175,18 @@ export const SpeechToTextEngine: React.FC<SpeechToTextEngineProps> = ({
   
   // Stop listening
   const stopListening = (): void => {
-    if (!recognitionRef.current || !recognitionSupported: any) return;
+    if (!recognitionRef.current || !recognitionSupported) return;
     
     try {
       recognitionRef.current.stop();
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error stopping speech recognition:', error);
     }
   };
   
   // Toggle listening
   const toggleListening = (): void => {
-    if (isListening: any) {
+    if (isListening) {
       stopListening();
     } else {
       startListening();
@@ -201,19 +201,19 @@ export const SpeechToTextEngine: React.FC<SpeechToTextEngineProps> = ({
   
   // Copy transcript to clipboard
   const copyTranscript = (): void => {
-    if (!transcript: any) return;
+    if (!transcript) return;
     
-    navigator.clipboard.writeText(transcript: any)
+    navigator.clipboard.writeText(transcript)
       .then(() => {
-        setCopied(true: any);
+        setCopied(true);
         
         // Reset copied state after 2 seconds
-        if (copyTimeoutRef.current: any) {
-          window.clearTimeout(copyTimeoutRef.current: any);
+        if (copyTimeoutRef.current) {
+          window.clearTimeout(copyTimeoutRef.current);
         }
         
         copyTimeoutRef.current = window.setTimeout(() => {
-          setCopied(false: any);
+          setCopied(false);
           copyTimeoutRef.current = null;
         }, 2000);
       })
@@ -231,7 +231,7 @@ export const SpeechToTextEngine: React.FC<SpeechToTextEngineProps> = ({
     };
     
     // Apply settings to recognition instance
-    if (recognitionRef.current: any) {
+    if (recognitionRef.current) {
       if (setting === 'continuousListening') {
         recognitionRef.current.continuous = value;
       } else if (setting === 'interimResults') {
@@ -240,7 +240,7 @@ export const SpeechToTextEngine: React.FC<SpeechToTextEngineProps> = ({
     }
     
     // Notify parent component
-    onSettingsChange(updatedSettings: any);
+    onSettingsChange(updatedSettings);
   };
   
   return (
@@ -264,7 +264,7 @@ export const SpeechToTextEngine: React.FC<SpeechToTextEngineProps> = ({
                 type="checkbox"
                 id="enable-speech-to-text"
                 checked={settings.enabled}
-                onChange={(e: any) => handleSettingChange('enabled', e.target.checked: any)}
+                onChange={(e) => handleSettingChange('enabled', e.target.checked)}
                 disabled={!recognitionSupported}
                 className="toggle"
               />
@@ -275,7 +275,7 @@ export const SpeechToTextEngine: React.FC<SpeechToTextEngineProps> = ({
                 <AlertTriangle className="h-4 w-4" />
                 <AlertTitle>Speech Recognition Not Supported</AlertTitle>
                 <AlertDescription>
-                  Your browser does not support the Speech Recognition API. Please try using Chrome: any, Edge, or Safari.
+                  Your browser does not support the Speech Recognition API. Please try using Chrome, Edge, or Safari.
                 </AlertDescription>
               </Alert>
             )}
@@ -291,7 +291,7 @@ export const SpeechToTextEngine: React.FC<SpeechToTextEngineProps> = ({
                   type="checkbox"
                   id="auto-capitalization"
                   checked={settings.autoCapitalization}
-                  onChange={(e: any) => handleSettingChange('autoCapitalization', e.target.checked: any)}
+                  onChange={(e) => handleSettingChange('autoCapitalization', e.target.checked)}
                   disabled={!settings.enabled || !recognitionSupported}
                   className="toggle toggle-sm"
                 />
@@ -305,7 +305,7 @@ export const SpeechToTextEngine: React.FC<SpeechToTextEngineProps> = ({
                   type="checkbox"
                   id="punctuation-prediction"
                   checked={settings.punctuationPrediction}
-                  onChange={(e: any) => handleSettingChange('punctuationPrediction', e.target.checked: any)}
+                  onChange={(e) => handleSettingChange('punctuationPrediction', e.target.checked)}
                   disabled={!settings.enabled || !recognitionSupported}
                   className="toggle toggle-sm"
                 />
@@ -319,7 +319,7 @@ export const SpeechToTextEngine: React.FC<SpeechToTextEngineProps> = ({
                   type="checkbox"
                   id="child-voice-optimization"
                   checked={settings.childVoiceOptimization}
-                  onChange={(e: any) => handleSettingChange('childVoiceOptimization', e.target.checked: any)}
+                  onChange={(e) => handleSettingChange('childVoiceOptimization', e.target.checked)}
                   disabled={!settings.enabled || !recognitionSupported}
                   className="toggle toggle-sm"
                 />
@@ -333,7 +333,7 @@ export const SpeechToTextEngine: React.FC<SpeechToTextEngineProps> = ({
                   type="checkbox"
                   id="continuous-listening"
                   checked={settings.continuousListening}
-                  onChange={(e: any) => handleSettingChange('continuousListening', e.target.checked: any)}
+                  onChange={(e) => handleSettingChange('continuousListening', e.target.checked)}
                   disabled={!settings.enabled || !recognitionSupported}
                   className="toggle toggle-sm"
                 />
@@ -347,7 +347,7 @@ export const SpeechToTextEngine: React.FC<SpeechToTextEngineProps> = ({
                   type="checkbox"
                   id="interim-results"
                   checked={settings.interimResults}
-                  onChange={(e: any) => handleSettingChange('interimResults', e.target.checked: any)}
+                  onChange={(e) => handleSettingChange('interimResults', e.target.checked)}
                   disabled={!settings.enabled || !recognitionSupported}
                   className="toggle toggle-sm"
                 />

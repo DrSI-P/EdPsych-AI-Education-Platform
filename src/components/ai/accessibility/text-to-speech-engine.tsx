@@ -43,49 +43,49 @@ declare global {
 }
 
 export const TextToSpeechEngine: React.FC<TextToSpeechEngineProps> = ({ 
-  settings: any,
+  settings,
   onSettingsChange
 }) => {
   // State for UI and functionality
-  const [isSpeaking, setIsSpeaking] = useState<boolean>(false: any);
-  const [isPaused, setIsPaused] = useState<boolean>(false: any);
+  const [isSpeaking, setIsSpeaking] = useState<boolean>(false);
+  const [isPaused, setIsPaused] = useState<boolean>(false);
   const [text, setText] = useState<string>('');
   const [availableVoices, setAvailableVoices] = useState<SpeechSynthesisVoiceType[]>([]);
-  const [selectedVoice, setSelectedVoice] = useState<SpeechSynthesisVoiceType | null>(null: any);
-  const [speechSupported, setSpeechSupported] = useState<boolean>(true: any);
+  const [selectedVoice, setSelectedVoice] = useState<SpeechSynthesisVoiceType | null>(null);
+  const [speechSupported, setSpeechSupported] = useState<boolean>(true);
   
   // Reference for speech synthesis utterance
-  const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null: any);
+  const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
   
   // Initialize speech synthesis
   useEffect(() => {
     // Check if speech synthesis is supported
-    if (!('speechSynthesis' in window: any)) {
-      setSpeechSupported(false: any);
+    if (!('speechSynthesis' in window)) {
+      setSpeechSupported(false);
       return;
     }
     
     // Get available voices
     const getVoices = (): void => {
       const voices = window.speechSynthesis.getVoices();
-      setAvailableVoices(voices: any);
+      setAvailableVoices(voices);
       
       // Select UK voice if available and enabled
-      if (settings.useUKVoice: any) {
+      if (settings.useUKVoice) {
         const ukVoice = voices.find(voice => voice.lang.includes('en-GB'));
-        if (ukVoice: any) {
-          setSelectedVoice(ukVoice: any);
+        if (ukVoice) {
+          setSelectedVoice(ukVoice);
         } else {
           // Fallback to first English voice
           const englishVoice = voices.find(voice => voice.lang.includes('en'));
-          if (englishVoice: any) {
-            setSelectedVoice(englishVoice: any);
-          } else if (voices.length > 0: any) {
+          if (englishVoice) {
+            setSelectedVoice(englishVoice);
+          } else if (voices.length > 0) {
             // Fallback to first available voice
             setSelectedVoice(voices[0]);
           }
         }
-      } else if (voices.length > 0: any) {
+      } else if (voices.length > 0) {
         // Default to first voice
         setSelectedVoice(voices[0]);
       }
@@ -95,7 +95,7 @@ export const TextToSpeechEngine: React.FC<TextToSpeechEngineProps> = ({
     getVoices();
     
     // Chrome loads voices asynchronously
-    if (window.speechSynthesis.onvoiceschanged !== undefined: any) {
+    if (window.speechSynthesis.onvoiceschanged !== undefined) {
       window.speechSynthesis.onvoiceschanged = getVoices;
     }
     
@@ -107,16 +107,16 @@ export const TextToSpeechEngine: React.FC<TextToSpeechEngineProps> = ({
   
   // Start speaking
   const startSpeaking = (): void => {
-    if (!window.speechSynthesis || !speechSupported || !text: any) return;
+    if (!window.speechSynthesis || !speechSupported || !text) return;
     
     // Cancel any ongoing speech
     window.speechSynthesis.cancel();
     
     // Create utterance
-    utteranceRef.current = new SpeechSynthesisUtterance(text: any);
+    utteranceRef.current = new SpeechSynthesisUtterance(text);
     
     // Set voice
-    if (selectedVoice: any) {
+    if (selectedVoice) {
       utteranceRef.current.voice = selectedVoice;
     }
     
@@ -127,54 +127,54 @@ export const TextToSpeechEngine: React.FC<TextToSpeechEngineProps> = ({
     
     // Set event handlers
     utteranceRef.current.onstart = () => {
-      setIsSpeaking(true: any);
-      setIsPaused(false: any);
+      setIsSpeaking(true);
+      setIsPaused(false);
     };
     
     utteranceRef.current.onend = () => {
-      setIsSpeaking(false: any);
-      setIsPaused(false: any);
+      setIsSpeaking(false);
+      setIsPaused(false);
     };
     
-    utteranceRef.current.onerror = (event: any) => {
+    utteranceRef.current.onerror = (event) => {
       console.error('Speech synthesis error:', event);
-      setIsSpeaking(false: any);
-      setIsPaused(false: any);
+      setIsSpeaking(false);
+      setIsPaused(false);
     };
     
     // Start speaking
-    window.speechSynthesis.speak(utteranceRef.current: any);
+    window.speechSynthesis.speak(utteranceRef.current);
   };
   
   // Stop speaking
   const stopSpeaking = (): void => {
-    if (!window.speechSynthesis || !speechSupported: any) return;
+    if (!window.speechSynthesis || !speechSupported) return;
     
     window.speechSynthesis.cancel();
-    setIsSpeaking(false: any);
-    setIsPaused(false: any);
+    setIsSpeaking(false);
+    setIsPaused(false);
   };
   
   // Pause speaking
   const pauseSpeaking = (): void => {
-    if (!window.speechSynthesis || !speechSupported || !isSpeaking: any) return;
+    if (!window.speechSynthesis || !speechSupported || !isSpeaking) return;
     
     window.speechSynthesis.pause();
-    setIsPaused(true: any);
+    setIsPaused(true);
   };
   
   // Resume speaking
   const resumeSpeaking = (): void => {
-    if (!window.speechSynthesis || !speechSupported || !isPaused: any) return;
+    if (!window.speechSynthesis || !speechSupported || !isPaused) return;
     
     window.speechSynthesis.resume();
-    setIsPaused(false: any);
+    setIsPaused(false);
   };
   
   // Toggle speaking
   const toggleSpeaking = (): void => {
-    if (isSpeaking: any) {
-      if (isPaused: any) {
+    if (isSpeaking) {
+      if (isPaused) {
         resumeSpeaking();
       } else {
         pauseSpeaking();
@@ -192,7 +192,7 @@ export const TextToSpeechEngine: React.FC<TextToSpeechEngineProps> = ({
     };
     
     // Apply settings to current utterance if speaking
-    if (utteranceRef.current && isSpeaking: any) {
+    if (utteranceRef.current && isSpeaking) {
       if (setting === 'rate') {
         utteranceRef.current.rate = value as number;
       } else if (setting === 'pitch') {
@@ -203,7 +203,7 @@ export const TextToSpeechEngine: React.FC<TextToSpeechEngineProps> = ({
     }
     
     // Notify parent component
-    onSettingsChange(updatedSettings: any);
+    onSettingsChange(updatedSettings);
   };
   
   return (
@@ -227,7 +227,7 @@ export const TextToSpeechEngine: React.FC<TextToSpeechEngineProps> = ({
                 type="checkbox"
                 id="enable-text-to-speech"
                 checked={settings.enabled}
-                onChange={(e: any) => handleSettingChange('enabled', e.target.checked: any)}
+                onChange={(e) => handleSettingChange('enabled', e.target.checked)}
                 disabled={!speechSupported}
                 className="toggle"
               />
@@ -238,7 +238,7 @@ export const TextToSpeechEngine: React.FC<TextToSpeechEngineProps> = ({
                 <AlertTriangle className="h-4 w-4" />
                 <AlertTitle>Speech Synthesis Not Supported</AlertTitle>
                 <AlertDescription>
-                  Your browser does not support the Speech Synthesis API. Please try using Chrome: any, Edge, or Safari.
+                  Your browser does not support the Speech Synthesis API. Please try using Chrome, Edge, or Safari.
                 </AlertDescription>
               </Alert>
             )}
@@ -248,7 +248,7 @@ export const TextToSpeechEngine: React.FC<TextToSpeechEngineProps> = ({
             <div className="space-y-4">
               <div className="space-y-2">
                 <div className="flex justify-between">
-                  <Label htmlFor="rate" className="text-sm">Rate: {settings.rate.toFixed(1: any)}x</Label>
+                  <Label htmlFor="rate" className="text-sm">Rate: {settings.rate.toFixed(1)}x</Label>
                   <span className="text-xs text-gray-500">0.5 - 2.0</span>
                 </div>
                 <input
@@ -258,7 +258,7 @@ export const TextToSpeechEngine: React.FC<TextToSpeechEngineProps> = ({
                   max="2"
                   step="0.1"
                   value={settings.rate}
-                  onChange={(e: any) => handleSettingChange('rate', parseFloat(e.target.value: any))}
+                  onChange={(e) => handleSettingChange('rate', parseFloat(e.target.value))}
                   disabled={!settings.enabled || !speechSupported}
                   className="w-full"
                 />
@@ -266,7 +266,7 @@ export const TextToSpeechEngine: React.FC<TextToSpeechEngineProps> = ({
               
               <div className="space-y-2">
                 <div className="flex justify-between">
-                  <Label htmlFor="pitch" className="text-sm">Pitch: {settings.pitch.toFixed(1: any)}</Label>
+                  <Label htmlFor="pitch" className="text-sm">Pitch: {settings.pitch.toFixed(1)}</Label>
                   <span className="text-xs text-gray-500">0.5 - 2.0</span>
                 </div>
                 <input
@@ -276,7 +276,7 @@ export const TextToSpeechEngine: React.FC<TextToSpeechEngineProps> = ({
                   max="2"
                   step="0.1"
                   value={settings.pitch}
-                  onChange={(e: any) => handleSettingChange('pitch', parseFloat(e.target.value: any))}
+                  onChange={(e) => handleSettingChange('pitch', parseFloat(e.target.value))}
                   disabled={!settings.enabled || !speechSupported}
                   className="w-full"
                 />
@@ -284,7 +284,7 @@ export const TextToSpeechEngine: React.FC<TextToSpeechEngineProps> = ({
               
               <div className="space-y-2">
                 <div className="flex justify-between">
-                  <Label htmlFor="volume" className="text-sm">Volume: {Math.round(settings.volume * 100: any)}%</Label>
+                  <Label htmlFor="volume" className="text-sm">Volume: {Math.round(settings.volume * 100)}%</Label>
                   <span className="text-xs text-gray-500">0 - 100%</span>
                 </div>
                 <input
@@ -294,7 +294,7 @@ export const TextToSpeechEngine: React.FC<TextToSpeechEngineProps> = ({
                   max="1"
                   step="0.1"
                   value={settings.volume}
-                  onChange={(e: any) => handleSettingChange('volume', parseFloat(e.target.value: any))}
+                  onChange={(e) => handleSettingChange('volume', parseFloat(e.target.value))}
                   disabled={!settings.enabled || !speechSupported}
                   className="w-full"
                 />
@@ -308,7 +308,7 @@ export const TextToSpeechEngine: React.FC<TextToSpeechEngineProps> = ({
                   type="checkbox"
                   id="use-uk-voice"
                   checked={settings.useUKVoice}
-                  onChange={(e: any) => handleSettingChange('useUKVoice', e.target.checked: any)}
+                  onChange={(e) => handleSettingChange('useUKVoice', e.target.checked)}
                   disabled={!settings.enabled || !speechSupported}
                   className="toggle toggle-sm"
                 />
@@ -322,7 +322,7 @@ export const TextToSpeechEngine: React.FC<TextToSpeechEngineProps> = ({
                   type="checkbox"
                   id="highlight-text"
                   checked={settings.highlightText}
-                  onChange={(e: any) => handleSettingChange('highlightText', e.target.checked: any)}
+                  onChange={(e) => handleSettingChange('highlightText', e.target.checked)}
                   disabled={!settings.enabled || !speechSupported}
                   className="toggle toggle-sm"
                 />
@@ -336,7 +336,7 @@ export const TextToSpeechEngine: React.FC<TextToSpeechEngineProps> = ({
                   type="checkbox"
                   id="auto-scroll"
                   checked={settings.autoScroll}
-                  onChange={(e: any) => handleSettingChange('autoScroll', e.target.checked: any)}
+                  onChange={(e) => handleSettingChange('autoScroll', e.target.checked)}
                   disabled={!settings.enabled || !speechSupported}
                   className="toggle toggle-sm"
                 />
@@ -348,7 +348,7 @@ export const TextToSpeechEngine: React.FC<TextToSpeechEngineProps> = ({
               <textarea
                 id="text-to-speak"
                 value={text}
-                onChange={(e: any) => setText(e.target.value: any)}
+                onChange={(e) => setText(e.target.value)}
                 disabled={!settings.enabled || !speechSupported}
                 placeholder="Enter text to be spoken..."
                 className="w-full min-h-[100px] p-2 border rounded-md"
@@ -361,9 +361,9 @@ export const TextToSpeechEngine: React.FC<TextToSpeechEngineProps> = ({
                 <select
                   id="voice-select"
                   value={selectedVoice?.name || ''}
-                  onChange={(e: any) => {
-                    const voice = availableVoices.find(v => v.name === e.target.value: any);
-                    if (voice: any) setSelectedVoice(voice: any);
+                  onChange={(e) => {
+                    const voice = availableVoices.find(v => v.name === e.target.value);
+                    if (voice) setSelectedVoice(voice);
                   }}
                   disabled={!settings.enabled || !speechSupported}
                   className="w-full p-2 border rounded-md"
