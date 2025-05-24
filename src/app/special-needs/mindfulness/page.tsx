@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Discover and practise evidence-based mindfulness exercises to support emotional wellbeing and self-regulation.',
 };
 
-export default function GuidedMindfulnessActivitiesPage() {
+export default function GuidedMindfulnessActivitiesPage(): React.ReactNode {
   return (
     <div className="container mx-auto py-8">
       <GuidedMindfulnessActivities />
