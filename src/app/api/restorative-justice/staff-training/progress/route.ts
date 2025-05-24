@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
@@ -44,7 +44,7 @@ interface TrainingModule {
 }
 
 // GET handler for retrieving user progress
-export async function GET(req: NextRequest): Promise<NextResponse> {
+export async function GET(req: Request): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
     
@@ -89,7 +89,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
 }
 
 // POST handler for updating user progress
-export async function POST(req: NextRequest): Promise<NextResponse> {
+export async function POST(req: Request): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
     
@@ -118,7 +118,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       
       // Handle different action types
       switch (validatedData.action) {
-        case 'access':
+        case 'access': {
           // Record module access
           const existingProgress = await prisma.restorativeTrainingProgress.findFirst({
             where: {
@@ -144,8 +144,9 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
           }
           
           break;
+        }
           
-        case 'complete':
+        case 'complete': {
           // Mark section as complete
           if (!validatedData.sectionId) {
             return NextResponse.json({ error: 'Section ID is required for complete action' }, { status: 400 });
@@ -198,8 +199,9 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
           }
           
           return NextResponse.json(progress);
+        }
           
-        case 'quiz':
+        case 'quiz': {
           // Record quiz attempt
           if (!validatedData.quizId || validatedData.score === undefined) {
             return NextResponse.json({ error: 'Quiz ID and score are required for quiz action' }, { status: 400 });
@@ -235,6 +237,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
           }) as QuizAttempt;
           
           return NextResponse.json({ progress: quizProgress, quizAttempt });
+        }
           
         default:
           return NextResponse.json({ error: 'Invalid action' }, { status: 400 });
