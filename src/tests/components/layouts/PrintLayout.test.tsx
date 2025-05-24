@@ -1,11 +1,13 @@
+// @ts-check
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import PrintLayout from '../../components/layouts/PrintLayout';
 
 // Mock the useRouter hook
-jest.mock('next/navigation', () => ({
+vi.mock('next/navigation', () => ({
   useRouter: () => ({
-    push: jest.fn(),
+    push: vi.fn(),
     pathname: '/test-path',
   }),
 }));
@@ -56,7 +58,7 @@ describe('PrintLayout Component', () => {
   it('renders print button that triggers print dialogue', () => {
     // Mock window.print
     const originalPrint = window.print;
-    window.print = jest.fn();
+    window.print = vi.fn();
     
     render(
       <PrintLayout title="Test Report">
