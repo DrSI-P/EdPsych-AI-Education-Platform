@@ -4,10 +4,17 @@ import { authOptions } from '@/lib/auth/auth-options';
 import prisma from '@/lib/db/prisma';
 import { aiService } from '@/lib/ai/ai-service';
 
+// Type for route params
+type RouteParams = {
+  params: {
+    id: string;
+  };
+};
+
 // POST handler for submitting assessment responses
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: RouteParams
 ) {
   try {
     // Check authentication
