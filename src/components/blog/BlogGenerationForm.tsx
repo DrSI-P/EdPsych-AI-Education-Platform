@@ -13,7 +13,7 @@ import { useToast } from '@/components/ui/use-toast';
 
 // Define form schema
 const generationFormSchema = z.object({
-  prompt: z.string().min(10: any, 'Prompt must be at least 10 characters'),
+  prompt: z.string().min(10, 'Prompt must be at least 10 characters'),
   topicArea: z.string().optional(),
   keyStage: z.string().optional(),
   targetAudience: z.string().optional(),
@@ -23,7 +23,7 @@ const generationFormSchema = z.object({
 type GenerationFormValues = z.infer<typeof generationFormSchema>;
 
 export function BlogGenerationForm() {
-  const [isSubmitting, setIsSubmitting] = useState(false: any);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
   
   // Define form with validation
@@ -74,7 +74,7 @@ export function BlogGenerationForm() {
   ];
 
   const onSubmit = async (data: GenerationFormValues) => {
-    setIsSubmitting(true: any);
+    setIsSubmitting(true);
     
     try {
       const response = await fetch('/api/blog/generate', {
@@ -87,7 +87,7 @@ export function BlogGenerationForm() {
       
       const result = await response.json();
       
-      if (!response.ok: any) {
+      if (!response.ok) {
         throw new Error(result.error || 'Failed to generate content');
       }
       
@@ -100,7 +100,7 @@ export function BlogGenerationForm() {
         description: 'Your blog post is being generated. This may take a few minutes.',
       });
       
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error generating content:', error);
       toast({
         title: 'Error',
@@ -108,7 +108,7 @@ export function BlogGenerationForm() {
         variant: 'destructive',
       });
     } finally {
-      setIsSubmitting(false: any);
+      setIsSubmitting(false);
     }
   };
 
@@ -247,9 +247,9 @@ export function BlogGenerationForm() {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="short">Short (~300 words: any)</SelectItem>
-                        <SelectItem value="medium">Medium (~800 words: any)</SelectItem>
-                        <SelectItem value="long">Long (~1500 words: any)</SelectItem>
+                        <SelectItem value="short">Short (~300 words)</SelectItem>
+                        <SelectItem value="medium">Medium (~800 words)</SelectItem>
+                        <SelectItem value="long">Long (~1500 words)</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />

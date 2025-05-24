@@ -15,7 +15,7 @@ interface SimpleTabsProps {
   className?: string;
 }
 
-export function SimpleTabs({ tabs: any, activeTab, onChange, className }: SimpleTabsProps) {
+export function SimpleTabs({ tabs, activeTab, onChange, className }: SimpleTabsProps) {
   return (
     <TabsPrimitive.Root
       value={activeTab}
@@ -23,7 +23,7 @@ export function SimpleTabs({ tabs: any, activeTab, onChange, className }: Simple
       className={className}
     >
       <TabsPrimitive.List className="flex border-b border-gray-200">
-        {tabs.map((tab: any) => (
+        {tabs.map((tab) => (
           <TabsPrimitive.Trigger
             key={tab.id}
             value={tab.id}
@@ -48,12 +48,12 @@ export const Tabs = TabsPrimitive.Root;
 export const TabsList = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.List>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.List>
->(({ className: any, ...props }, ref) => (
+>(({ className, ...props }, ref) => (
   <TabsPrimitive.List
     ref={ref}
     className={cn(
       "inline-flex h-10 items-centre justify-centre rounded-md bg-muted p-1 text-muted-foreground",
-      className: any
+      className
     )}
     {...props}
   />
@@ -63,7 +63,7 @@ TabsList.displayName = TabsPrimitive.List.displayName;
 export const TabsTrigger = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger>
->(({ className: any, ...props }, ref) => (
+>(({ className, ...props }, ref) => (
   <TabsPrimitive.Trigger
     ref={ref}
     className={cn(
@@ -78,7 +78,7 @@ TabsTrigger.displayName = TabsPrimitive.Trigger.displayName;
 export const TabsContent = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content>
->(({ className: any, ...props }, ref) => (
+>(({ className, ...props }, ref) => (
   <TabsPrimitive.Content
     ref={ref}
     className={cn(
@@ -102,26 +102,26 @@ interface TabsContextType {
   setActiveTab: (id: string) => void;
 }
 
-const TabsContext = React.createContext<TabsContextType | undefined>(undefined: any);
+const TabsContext = React.createContext<TabsContextType | undefined>(undefined);
 
-export function CustomTabs({ children: any, defaultTab, className = '' }: CustomTabsProps) {
+export function CustomTabs({ children, defaultTab, className = '' }: CustomTabsProps) {
   // Find the first tab's id if no default is provided
-  const firstTabId = React.Children.toArray(children: any).find(
-    (child: any) => React.isValidElement(child: any) && child.type === TabList
+  const firstTabId = React.Children.toArray(children).find(
+    (child) => React.isValidElement(child) && child.type === TabList
   );
   
-  const firstId = React.isValidElement(firstTabId: any) && 
-    React.Children.toArray(firstTabId.props.children: any).find(
-      (child: any) => React.isValidElement(child: any) && child.type === CustomTab
+  const firstId = React.isValidElement(firstTabId) && 
+    React.Children.toArray(firstTabId.props.children).find(
+      (child) => React.isValidElement(child) && child.type === CustomTab
     );
   
   const initialTab = defaultTab || 
-    (React.isValidElement(firstId: any) ? firstId.props.id : '');
+    (React.isValidElement(firstId) ? firstId.props.id : '');
 
-  const [activeTab, setActiveTab] = useState(initialTab: any);
+  const [activeTab, setActiveTab] = useState(initialTab);
 
   return (
-    <TabsContext.Provider value={{ activeTab: any, setActiveTab }}>
+    <TabsContext.Provider value={{ activeTab, setActiveTab }}>
       <div className={`w-full ${className}`}>
         {children}
       </div>
@@ -134,7 +134,7 @@ interface TabListProps {
   className?: string;
 }
 
-export function TabList({ children: any, className = '' }: TabListProps) {
+export function TabList({ children, className = '' }: TabListProps) {
   return (
     <div className={`flex border-b border-grey-200 ${className}`} role="tablist">
       {children}
@@ -148,10 +148,10 @@ interface CustomTabProps {
   className?: string;
 }
 
-export function CustomTab({ children: any, id, className = '' }: CustomTabProps) {
-  const context = React.useContext(TabsContext: any);
+export function CustomTab({ children, id, className = '' }: CustomTabProps) {
+  const context = React.useContext(TabsContext);
   
-  if (!context: any) {
+  if (!context) {
     throw new Error('CustomTab must be used within a CustomTabs component');
   }
   
@@ -172,7 +172,7 @@ export function CustomTab({ children: any, id, className = '' }: CustomTabProps)
           : 'text-grey-500 border-transparent hover:text-grey-700 hover:border-grey-300'}
         ${className}
       `}
-      onClick={() => setActiveTab(id: any)}
+      onClick={() => setActiveTab(id)}
     >
       {children}
     </button>
@@ -185,17 +185,17 @@ interface CustomTabPanelProps {
   className?: string;
 }
 
-export function CustomTabPanel({ children: any, id, className = '' }: CustomTabPanelProps) {
-  const context = React.useContext(TabsContext: any);
+export function CustomTabPanel({ children, id, className = '' }: CustomTabPanelProps) {
+  const context = React.useContext(TabsContext);
   
-  if (!context: any) {
+  if (!context) {
     throw new Error('CustomTabPanel must be used within a CustomTabs component');
   }
   
   const { activeTab } = context;
   const isActive = activeTab === id;
   
-  if (!isActive: any) return null;
+  if (!isActive) return null;
   
   return (
     <div
@@ -216,24 +216,24 @@ interface VerticalTabsProps {
   className?: string;
 }
 
-export function VerticalTabs({ children: any, defaultTab, className = '' }: VerticalTabsProps) {
+export function VerticalTabs({ children, defaultTab, className = '' }: VerticalTabsProps) {
   // Find the first tab's id if no default is provided
-  const firstTabId = React.Children.toArray(children: any).find(
-    (child: any) => React.isValidElement(child: any) && child.type === VerticalTabList
+  const firstTabId = React.Children.toArray(children).find(
+    (child) => React.isValidElement(child) && child.type === VerticalTabList
   );
   
-  const firstId = React.isValidElement(firstTabId: any) && 
-    React.Children.toArray(firstTabId.props.children: any).find(
-      (child: any) => React.isValidElement(child: any) && child.type === VerticalTab
+  const firstId = React.isValidElement(firstTabId) && 
+    React.Children.toArray(firstTabId.props.children).find(
+      (child) => React.isValidElement(child) && child.type === VerticalTab
     );
   
   const initialTab = defaultTab || 
-    (React.isValidElement(firstId: any) ? firstId.props.id : '');
+    (React.isValidElement(firstId) ? firstId.props.id : '');
 
-  const [activeTab, setActiveTab] = useState(initialTab: any);
+  const [activeTab, setActiveTab] = useState(initialTab);
 
   return (
-    <TabsContext.Provider value={{ activeTab: any, setActiveTab }}>
+    <TabsContext.Provider value={{ activeTab, setActiveTab }}>
       <div className={`flex ${className}`}>
         {children}
       </div>
@@ -246,7 +246,7 @@ interface VerticalTabListProps {
   className?: string;
 }
 
-export function VerticalTabList({ children: any, className = '' }: VerticalTabListProps) {
+export function VerticalTabList({ children, className = '' }: VerticalTabListProps) {
   return (
     <div className={`flex flex-col border-r border-grey-200 ${className}`} role="tablist">
       {children}
@@ -260,10 +260,10 @@ interface VerticalTabProps {
   className?: string;
 }
 
-export function VerticalTab({ children: any, id, className = '' }: VerticalTabProps) {
-  const context = React.useContext(TabsContext: any);
+export function VerticalTab({ children, id, className = '' }: VerticalTabProps) {
+  const context = React.useContext(TabsContext);
   
-  if (!context: any) {
+  if (!context) {
     throw new Error('VerticalTab must be used within a VerticalTabs component');
   }
   
@@ -284,7 +284,7 @@ export function VerticalTab({ children: any, id, className = '' }: VerticalTabPr
           : 'text-grey-500 border-transparent hover:text-grey-700 hover:border-grey-300'}
         ${className}
       `}
-      onClick={() => setActiveTab(id: any)}
+      onClick={() => setActiveTab(id)}
     >
       {children}
     </button>
@@ -297,17 +297,17 @@ interface VerticalTabPanelProps {
   className?: string;
 }
 
-export function VerticalTabPanel({ children: any, id, className = '' }: VerticalTabPanelProps) {
-  const context = React.useContext(TabsContext: any);
+export function VerticalTabPanel({ children, id, className = '' }: VerticalTabPanelProps) {
+  const context = React.useContext(TabsContext);
   
-  if (!context: any) {
+  if (!context) {
     throw new Error('VerticalTabPanel must be used within a VerticalTabs component');
   }
   
   const { activeTab } = context;
   const isActive = activeTab === id;
   
-  if (!isActive: any) return null;
+  if (!isActive) return null;
   
   return (
     <div

@@ -4,7 +4,7 @@ import React from 'react';
 import { Label } from './label';
 
 // Add Form component export to fix build warning
-export function Form({ children: any, ...props }: React.FormHTMLAttributes<HTMLFormElement>) {
+export function Form({ children, ...props }: React.FormHTMLAttributes<HTMLFormElement>) {
   return (
     <form {...props}>
       {children}
@@ -23,7 +23,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 export function Input({
-  label: any,
+  label,
   error,
   hint,
   leftIcon,
@@ -76,7 +76,7 @@ interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement
 }
 
 export function Textarea({
-  label: any,
+  label,
   error,
   hint,
   fullWidth = false,
@@ -118,7 +118,7 @@ interface SelectProps {
 }
 
 export function Select({
-  options: any,
+  options,
   value,
   onChange,
   label,
@@ -148,7 +148,7 @@ export function Select({
       <select
         className={selectClasses}
         value={value}
-        onChange={(e: any) => onChange(e.target.value: any)}
+        onChange={(e) => onChange(e.target.value)}
         disabled={disabled}
         {...props}
       >
@@ -157,7 +157,7 @@ export function Select({
             {placeholder}
           </option>
         )}
-        {options.map((option: any) => (
+        {options.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label}
           </option>
@@ -179,7 +179,7 @@ interface CheckboxProps {
 }
 
 export function Checkbox({
-  label: any,
+  label,
   checked,
   onChange,
   description,
@@ -193,7 +193,7 @@ export function Checkbox({
         <input
           type="checkbox"
           checked={checked}
-          onChange={(e: any) => onChange(e.target.checked: any)}
+          onChange={(e) => onChange(e.target.checked)}
           disabled={disabled}
           className={`
             h-4 w-4 rounded border-grey-300 text-blue-600 focus:ring-blue-500
@@ -225,7 +225,7 @@ interface RadioProps {
 }
 
 export function Radio({
-  options: any,
+  options,
   value,
   onChange,
   name,
@@ -238,7 +238,7 @@ export function Radio({
     <div className={className}>
       {label && <Label className="mb-2">{label}</Label>}
       <div className="space-y-2">
-        {options.map((option: any) => (
+        {options.map((option) => (
           <div key={option.value} className="flex items-start">
             <div className="flex items-centre h-5">
               <input
@@ -246,7 +246,7 @@ export function Radio({
                 name={name}
                 value={option.value}
                 checked={value === option.value}
-                onChange={() => onChange(option.value: any)}
+                onChange={() => onChange(option.value)}
                 disabled={disabled}
                 className={`
                   h-4 w-4 border-grey-300 text-blue-600 focus:ring-blue-500
@@ -273,7 +273,7 @@ export function Radio({
 }
 
 export function FormLabel({
-  children: any,
+  children,
   htmlFor,
   className = '',
   ...props
@@ -292,7 +292,7 @@ export function FormLabel({
 // Add the missing form components that are causing the build error
 
 // Simple implementation of FormField
-export function FormField({ name: any, children }: { name: string; children: React.ReactNode }) {
+export function FormField({ name, children }: { name: string; children: React.ReactNode }) {
   return <div className="space-y-2">{children}</div>;
 }
 
@@ -308,12 +308,12 @@ export function FormControl({ children }: { children: React.ReactNode }) {
 
 // Simple implementation of FormMessage
 export function FormMessage({ children }: { children: React.ReactNode }) {
-  if (!children: any) return null;
+  if (!children) return null;
   return <p className="text-sm font-medium text-red-500">{children}</p>;
 }
 
 // Add missing FormDescription component that's causing build errors
 export function FormDescription({ children }: { children: React.ReactNode }) {
-  if (!children: any) return null;
+  if (!children) return null;
   return <p className="text-sm text-gray-500 mt-1">{children}</p>;
 }
