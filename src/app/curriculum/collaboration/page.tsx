@@ -1,828 +1,601 @@
 'use client';
-
 import { useState, useEffect } from 'react';
-import { useSession } from 'next-auth/react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Badge } from '@/components/ui/badge';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Calendar } from '@/components/ui/calendar';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { format } from 'date-fns';
-import { CalendarIcon, Check, MessageSquare, Plus, Trash2, UserPlus, Users } from 'lucide-react';
-import Link from 'next/link';
-import { toast } from '@/components/ui/use-toast';
+import { CalendarIcon, Clock, MessageSquare, Plus, Trash2, Users } from "lucide-react";
 
-export default function CurriculumCollaboration() {
-  const { data: session, status } = useSession();
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const planId = searchParams.get('planId');
-  
+// Define interfaces for data structures
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  image?: string;
+}
+
+interface Collaborator {
+  id: string;
+  userId: string;
+  projectId: string;
+  role: string;
+  user: User;
+}
+
+interface Comment {
+  id: string;
+  content: string;
+  createdAt: string;
+  author: User;
+}
+
+interface Task {
+  id: string;
+  title: string;
+  description: string;
+  status: 'pending' | 'completed';
+  dueDate?: string;
+  assignedTo?: User;
+}
+
+interface Plan {
+  id: string;
+  title: string;
+  description: string;
+  tasks: Task[];
+}
+
+interface CollaborationData {
+  id: string;
+  title: string;
+  description: string;
+  createdAt: string;
+  updatedAt: string;
+  createdBy: User;
+  collaborators: Collaborator[];
+  comments: Comment[];
+  plan: Plan;
+}
+
+export default function CollaborationPage() {
   const [activeTab, setActiveTab] = useState('overview');
-  const [collaborationData, setCollaborationData] = useState(null: any);
-  const [loading, setLoading] = useState(true: any);
-  const [error, setError] = useState(null: any);
-  
-  // Form states
-  const [newCollaboratorEmail, setNewCollaboratorEmail] = useState('');
-  const [newCollaboratorRole, setNewCollaboratorRole] = useState('viewer');
+  const [collaborationData, setCollaborationData] = useState<CollaborationData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const [newComment, setNewComment] = useState('');
-  const [newTaskTitle, setNewTaskTitle] = useState('');
-  const [newTaskDescription, setNewTaskDescription] = useState('');
-  const [newTaskAssignee, setNewTaskAssignee] = useState('');
-  const [newTaskDueDate, setNewTaskDueDate] = useState(null: any);
-  const [isAddingCollaborator, setIsAddingCollaborator] = useState(false: any);
-  const [isAddingTask, setIsAddingTask] = useState(false: any);
-
-  // Load collaboration data
+  const [newTask, setNewTask] = useState({
+    title: '',
+    description: '',
+    assignedToId: '',
+    dueDate: null as Date | null,
+  });
+  const [isAddingTask, setIsAddingTask] = useState(false);
+  
+  // Simulated user data
+  const currentUser = {
+    id: 'user-1',
+    name: 'Jane Smith',
+    email: 'jane.smith@example.com',
+    role: 'EDUCATOR'
+  };
+  
+  // Check if current user can edit
+  const canEdit = collaborationData?.collaborators.some(
+    c => c.userId === currentUser.id && ['owner', 'editor'].includes(c.role)
+  ) || false;
+  
+  // Fetch collaboration data
   useEffect(() => {
-    if (!planId || status === 'loading') return;
-    
-    if (status === 'unauthenticated') {
-      router.push('/auth/signin');
-      return;
-    }
-    
-    const fetchCollaborationData = async () => {
+    // In a real app, this would fetch from an API
+    const fetchData = async () => {
       try {
-        setLoading(true: any);
-        const response = await fetch(`/api/curriculum/collaboration?planId=${planId}`);
+        setLoading(true);
         
-        if (!response.ok: any) {
-          const errorData = await response.json();
-          throw new Error(errorData.error || 'Failed to fetch collaboration data');
-        }
+        // Simulated API response
+        const data: CollaborationData = {
+          id: 'collab-1',
+          title: 'Year 6 Science Curriculum Planning',
+          description: 'Collaborative planning for the Year 6 science curriculum, focusing on practical experiments and cross-curricular connections.',
+          createdAt: '2025-01-15T10:30:00Z',
+          updatedAt: '2025-05-10T14:45:00Z',
+          createdBy: {
+            id: 'user-2',
+            name: 'Alex Johnson',
+            email: 'alex.johnson@example.com',
+            image: '/images/avatars/alex.jpg'
+          },
+          collaborators: [
+            {
+              id: 'collab-1',
+              userId: 'user-1',
+              projectId: 'collab-1',
+              role: 'editor',
+              user: {
+                id: 'user-1',
+                name: 'Jane Smith',
+                email: 'jane.smith@example.com',
+                image: '/images/avatars/jane.jpg'
+              }
+            },
+            {
+              id: 'collab-2',
+              userId: 'user-2',
+              projectId: 'collab-1',
+              role: 'owner',
+              user: {
+                id: 'user-2',
+                name: 'Alex Johnson',
+                email: 'alex.johnson@example.com',
+                image: '/images/avatars/alex.jpg'
+              }
+            },
+            {
+              id: 'collab-3',
+              userId: 'user-3',
+              projectId: 'collab-1',
+              role: 'viewer',
+              user: {
+                id: 'user-3',
+                name: 'Sam Taylor',
+                email: 'sam.taylor@example.com',
+                image: '/images/avatars/sam.jpg'
+              }
+            }
+          ],
+          comments: [
+            {
+              id: 'comment-1',
+              content: 'I've added some resources for the electricity unit in the shared folder.',
+              createdAt: '2025-05-08T09:15:00Z',
+              author: {
+                id: 'user-2',
+                name: 'Alex Johnson',
+                email: 'alex.johnson@example.com',
+                image: '/images/avatars/alex.jpg'
+              }
+            },
+            {
+              id: 'comment-2',
+              content: 'The practical experiment for the water cycle looks great! I've made some minor adjustments to make it more accessible.',
+              createdAt: '2025-05-09T14:30:00Z',
+              author: {
+                id: 'user-1',
+                name: 'Jane Smith',
+                email: 'jane.smith@example.com',
+                image: '/images/avatars/jane.jpg'
+              }
+            }
+          ],
+          plan: {
+            id: 'plan-1',
+            title: 'Term 3 Science Plan',
+            description: 'Detailed planning for Term 3 science units, including electricity, forces, and the water cycle.',
+            tasks: [
+              {
+                id: 'task-1',
+                title: 'Finalize electricity unit practical experiments',
+                description: 'Select and test 3-4 practical experiments for the electricity unit that demonstrate key concepts.',
+                status: 'completed',
+                assignedTo: {
+                  id: 'user-2',
+                  name: 'Alex Johnson',
+                  email: 'alex.johnson@example.com',
+                  image: '/images/avatars/alex.jpg'
+                }
+              },
+              {
+                id: 'task-2',
+                title: 'Create differentiated worksheets for forces unit',
+                description: 'Develop three levels of worksheets to support different ability levels in the forces unit.',
+                status: 'pending',
+                dueDate: '2025-05-20T00:00:00Z',
+                assignedTo: {
+                  id: 'user-1',
+                  name: 'Jane Smith',
+                  email: 'jane.smith@example.com',
+                  image: '/images/avatars/jane.jpg'
+                }
+              },
+              {
+                id: 'task-3',
+                title: 'Source video resources for water cycle',
+                description: 'Find appropriate video resources that clearly explain the water cycle for Year 6 students.',
+                status: 'pending',
+                dueDate: '2025-05-15T00:00:00Z',
+                assignedTo: {
+                  id: 'user-3',
+                  name: 'Sam Taylor',
+                  email: 'sam.taylor@example.com',
+                  image: '/images/avatars/sam.jpg'
+                }
+              }
+            ]
+          }
+        };
         
-        const data = await response.json();
-        setCollaborationData(data: any);
-      } catch (err: any) {
-        setError(err.message: any);
-        toast({
-          title: 'Error',
-          description: err.message,
-          variant: 'destructive',
-        });
+        setCollaborationData(data);
+      } catch (err) {
+        setError('Failed to load collaboration data');
+        console.error(err);
       } finally {
-        setLoading(false: any);
+        setLoading(false);
       }
     };
     
-    fetchCollaborationData();
-  }, [planId, status, router]);
-
-  // Handle adding a collaborator
-  const handleAddCollaborator = async (e: any) => {
-    e.preventDefault();
+    fetchData();
+  }, []);
+  
+  // Handle adding a new comment
+  const handleAddComment = () => {
+    if (!newComment.trim() || !collaborationData) return;
     
-    if (!newCollaboratorEmail: any) {
-      toast({
-        title: 'Error',
-        description: 'Email is required',
-        variant: 'destructive',
-      });
-      return;
-    }
+    const comment: Comment = {
+      id: `comment-${Date.now()}`,
+      content: newComment,
+      createdAt: new Date().toISOString(),
+      author: {
+        id: currentUser.id,
+        name: currentUser.name,
+        email: currentUser.email,
+      }
+    };
     
-    try {
-      const response = await fetch('/api/curriculum/collaboration', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          action: 'add_collaborator',
-          planId,
-          email: newCollaboratorEmail,
-          role: newCollaboratorRole,
-        }),
-      });
-      
-      if (!response.ok: any) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to add collaborator');
-      }
-      
-      const data = await response.json();
-      
-      // Update local state
-      setCollaborationData(prev => ({
-        ...prev,
-        collaborators: [...prev.collaborators, data.collaborator],
-      }));
-      
-      setNewCollaboratorEmail('');
-      setNewCollaboratorRole('viewer');
-      setIsAddingCollaborator(false: any);
-      
-      toast({
-        title: 'Success',
-        description: `${data.collaborator.user.name || data.collaborator.user.email} added as a collaborator`,
-      });
-    } catch (err: any) {
-      toast({
-        title: 'Error',
-        description: err.message,
-        variant: 'destructive',
-      });
-    }
-  };
-
-  // Handle removing a collaborator
-  const handleRemoveCollaborator = async (userId: any) => {
-    try {
-      const response = await fetch('/api/curriculum/collaboration', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          action: 'remove_collaborator',
-          planId,
-          userId,
-        }),
-      });
-      
-      if (!response.ok: any) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to remove collaborator');
-      }
-      
-      // Update local state
-      setCollaborationData(prev => ({
-        ...prev,
-        collaborators: prev.collaborators.filter(c => c.user.id !== userId: any),
-      }));
-      
-      toast({
-        title: 'Success',
-        description: 'Collaborator removed',
-      });
-    } catch (err: any) {
-      toast({
-        title: 'Error',
-        description: err.message,
-        variant: 'destructive',
-      });
-    }
-  };
-
-  // Handle adding a comment
-  const handleAddComment = async (e: any) => {
-    e.preventDefault();
+    setCollaborationData({
+      ...collaborationData,
+      comments: [...collaborationData.comments, comment]
+    });
     
-    if (!newComment.trim()) {
-      toast({
-        title: 'Error',
-        description: 'Comment cannot be empty',
-        variant: 'destructive',
-      });
-      return;
-    }
+    setNewComment('');
     
-    try {
-      const response = await fetch('/api/curriculum/collaboration', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          action: 'add_comment',
-          planId,
-          content: newComment,
-        }),
-      });
-      
-      if (!response.ok: any) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to add comment');
-      }
-      
-      const data = await response.json();
-      
-      // Update local state
-      setCollaborationData(prev => ({
-        ...prev,
-        comments: [data.comment, ...prev.comments],
-      }));
-      
-      setNewComment('');
-      
-      toast({
-        title: 'Success',
-        description: 'Comment added',
-      });
-    } catch (err: any) {
-      toast({
-        title: 'Error',
-        description: err.message,
-        variant: 'destructive',
-      });
-    }
+    // In a real app, this would send to an API
   };
-
-  // Handle deleting a comment
-  const handleDeleteComment = async (commentId: any) => {
-    try {
-      const response = await fetch('/api/curriculum/collaboration', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          action: 'delete_comment',
-          planId,
-          taskId: commentId,
-        }),
-      });
-      
-      if (!response.ok: any) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to delete comment');
-      }
-      
-      // Update local state
-      setCollaborationData(prev => ({
-        ...prev,
-        comments: prev.comments.filter(c => c.id !== commentId: any),
-      }));
-      
-      toast({
-        title: 'Success',
-        description: 'Comment deleted',
-      });
-    } catch (err: any) {
-      toast({
-        title: 'Error',
-        description: err.message,
-        variant: 'destructive',
-      });
-    }
-  };
-
-  // Handle adding a task
-  const handleAddTask = async (e: any) => {
-    e.preventDefault();
+  
+  // Handle adding a new task
+  const handleAddTask = () => {
+    if (!newTask.title.trim() || !collaborationData) return;
     
-    if (!newTaskTitle || !newTaskDescription: any) {
-      toast({
-        title: 'Error',
-        description: 'Title and description are required',
-        variant: 'destructive',
-      });
-      return;
-    }
+    const task: Task = {
+      id: `task-${Date.now()}`,
+      title: newTask.title,
+      description: newTask.description,
+      status: 'pending',
+      dueDate: newTask.dueDate ? newTask.dueDate.toISOString() : undefined,
+      assignedTo: newTask.assignedToId ? 
+        collaborationData.collaborators.find(c => c.userId === newTask.assignedToId)?.user : 
+        undefined
+    };
     
-    try {
-      const response = await fetch('/api/curriculum/collaboration', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          action: 'add_task',
-          planId,
-          title: newTaskTitle,
-          description: newTaskDescription,
-          assignedToId: newTaskAssignee || null,
-          dueDate: newTaskDueDate ? newTaskDueDate.toISOString() : null,
-        }),
-      });
-      
-      if (!response.ok: any) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to add task');
-      }
-      
-      const data = await response.json();
-      
-      // Update local state
-      setCollaborationData(prev => ({
-        ...prev,
-        tasks: [data.task, ...prev.tasks],
-      }));
-      
-      setNewTaskTitle('');
-      setNewTaskDescription('');
-      setNewTaskAssignee('');
-      setNewTaskDueDate(null: any);
-      setIsAddingTask(false: any);
-      
-      toast({
-        title: 'Success',
-        description: 'Task added',
-      });
-    } catch (err: any) {
-      toast({
-        title: 'Error',
-        description: err.message,
-        variant: 'destructive',
-      });
-    }
+    const updatedPlan = {
+      ...collaborationData.plan,
+      tasks: [...collaborationData.plan.tasks, task]
+    };
+    
+    setCollaborationData({
+      ...collaborationData,
+      plan: updatedPlan
+    });
+    
+    setNewTask({
+      title: '',
+      description: '',
+      assignedToId: '',
+      dueDate: null
+    });
+    
+    setIsAddingTask(false);
+    
+    // In a real app, this would send to an API
   };
-
-  // Handle updating a task status
-  const handleUpdateTaskStatus = async (taskId: any, newStatus) => {
-    try {
-      const response = await fetch('/api/curriculum/collaboration', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          action: 'update_task',
-          planId,
-          taskId,
-          status: newStatus,
-        }),
-      });
-      
-      if (!response.ok: any) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to update task');
-      }
-      
-      const data = await response.json();
-      
-      // Update local state
-      setCollaborationData(prev => ({
-        ...prev,
-        tasks: prev.tasks.map(t => t.id === taskId ? data.task : t),
-      }));
-      
-      toast({
-        title: 'Success',
-        description: 'Task updated',
-      });
-    } catch (err: any) {
-      toast({
-        title: 'Error',
-        description: err.message,
-        variant: 'destructive',
-      });
-    }
+  
+  // Handle updating task status
+  const handleUpdateTaskStatus = (taskId: string, status: 'pending' | 'completed') => {
+    if (!collaborationData) return;
+    
+    const updatedTasks = collaborationData.plan.tasks.map(task => 
+      task.id === taskId ? { ...task, status } : task
+    );
+    
+    const updatedPlan = {
+      ...collaborationData.plan,
+      tasks: updatedTasks
+    };
+    
+    setCollaborationData({
+      ...collaborationData,
+      plan: updatedPlan
+    });
+    
+    // In a real app, this would send to an API
   };
-
+  
   // Handle deleting a task
-  const handleDeleteTask = async (taskId: any) => {
-    try {
-      const response = await fetch('/api/curriculum/collaboration', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          action: 'delete_task',
-          planId,
-          taskId,
-        }),
-      });
-      
-      if (!response.ok: any) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to delete task');
-      }
-      
-      // Update local state
-      setCollaborationData(prev => ({
-        ...prev,
-        tasks: prev.tasks.filter(t => t.id !== taskId: any),
-      }));
-      
-      toast({
-        title: 'Success',
-        description: 'Task deleted',
-      });
-    } catch (err: any) {
-      toast({
-        title: 'Error',
-        description: err.message,
-        variant: 'destructive',
-      });
-    }
+  const handleDeleteTask = (taskId: string) => {
+    if (!collaborationData) return;
+    
+    const updatedTasks = collaborationData.plan.tasks.filter(task => task.id !== taskId);
+    
+    const updatedPlan = {
+      ...collaborationData.plan,
+      tasks: updatedTasks
+    };
+    
+    setCollaborationData({
+      ...collaborationData,
+      plan: updatedPlan
+    });
+    
+    // In a real app, this would send to an API
   };
-
-  if (loading: any) {
-    return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="flex justify-center items-center h-64">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
-            <p className="mt-4 text-muted-foreground">Loading collaboration data...</p>
-          </div>
-        </div>
-      </div>
-    );
+  
+  if (loading) {
+    return <div className="flex justify-center items-center h-64">Loading...</div>;
   }
-
-  if (error: any) {
-    return (
-      <div className="container mx-auto px-4 py-8">
-        <Card className="border-destructive">
-          <CardHeader>
-            <CardTitle className="text-destructive">Error</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p>{error}</p>
-          </CardContent>
-          <CardFooter>
-            <Button variant="outline" onClick={() => router.back()}>Go Back</Button>
-          </CardFooter>
-        </Card>
-      </div>
-    );
+  
+  if (error) {
+    return <div className="text-red-500">{error}</div>;
   }
-
-  if (!collaborationData: any) {
-    return null;
+  
+  if (!collaborationData) {
+    return <div>No collaboration data found</div>;
   }
-
-  const { plan, collaborators, comments, tasks, userRole } = collaborationData;
-  const canEdit = userRole === 'owner' || userRole === 'editor' || session?.user?.role === 'ADMIN';
-  const canManageCollaborators = userRole === 'owner' || session?.user?.role === 'ADMIN';
-
+  
+  const { title, description, createdBy, collaborators, comments, plan } = collaborationData;
+  const tasks = plan.tasks;
+  
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
-        <div>
-          <h1 className="text-3xl font-bold text-primary">{plan.title}</h1>
-          <p className="text-muted-foreground mt-2">
-            Curriculum Plan Collaboration
-          </p>
-        </div>
-        
-        <div className="mt-4 md:mt-0 flex items-center space-x-2">
-          <Button variant="outline" asChild>
-            <Link href={`/curriculum/plans/${plan.id}`}>
-              View Plan
-            </Link>
-          </Button>
-          {canEdit && (
-            <Button asChild>
-              <Link href={`/curriculum/plans/${plan.id}/edit`}>
-                Edit Plan
-              </Link>
-            </Button>
-          )}
+    <div className="container mx-auto py-8 px-4">
+      <div className="mb-6">
+        <h1 className="text-3xl font-bold">{title}</h1>
+        <p className="text-muted-foreground mt-2">{description}</p>
+        <div className="flex items-center mt-4">
+          <div className="flex -space-x-2 mr-4">
+            {collaborators.slice(0, 3).map(collaborator => (
+              <Avatar key={collaborator.id} className="border-2 border-background">
+                <AvatarImage src={collaborator.user.image} alt={collaborator.user.name} />
+                <AvatarFallback>{collaborator.user.name.charAt(0)}</AvatarFallback>
+              </Avatar>
+            ))}
+            {collaborators.length > 3 && (
+              <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-xs font-medium border-2 border-background">
+                +{collaborators.length - 3}
+              </div>
+            )}
+          </div>
+          <span className="text-sm text-muted-foreground">
+            Created by {createdBy.name} · {new Date(collaborationData.createdAt).toLocaleDateString()}
+          </span>
         </div>
       </div>
-
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-6">
-        <TabsList className="w-full sm:w-auto">
-          <TabsTrigger value="overview" className="flex items-center">
-            <Users className="mr-2 h-4 w-4" />
-            Overview
-          </TabsTrigger>
-          <TabsTrigger value="comments" className="flex items-center">
-            <MessageSquare className="mr-2 h-4 w-4" />
-            Comments
-          </TabsTrigger>
-          <TabsTrigger value="tasks" className="flex items-center">
-            <Check className="mr-2 h-4 w-4" />
-            Tasks
-          </TabsTrigger>
+      
+      <Tabs value={activeTab} onValueChange={setActiveTab}>
+        <TabsList className="mb-6">
+          <TabsTrigger value="overview">Overview</TabsTrigger>
+          <TabsTrigger value="discussion">Discussion</TabsTrigger>
+          <TabsTrigger value="tasks">Tasks</TabsTrigger>
         </TabsList>
         
-        {/* Overview Tab */}
-        <TabsContent value="overview" className="mt-6">
+        <TabsContent value="overview">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="md:col-span-2">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Plan Details</CardTitle>
-                  <CardDescription>
-                    {plan.subject} • {plan.keyStage}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    <div>
-                      <h3 className="font-medium">Description</h3>
-                      <p className="text-muted-foreground mt-1">{plan.description}</p>
-                    </div>
-                    
-                    <div>
-                      <h3 className="font-medium">Owner</h3>
-                      <div className="flex items-center mt-2">
-                        <Avatar className="h-8 w-8 mr-2">
-                          <AvatarImage src={plan.author.image} alt={plan.author.name} />
-                          <AvatarFallback>{plan.author.name?.charAt(0: any) || 'U'}</AvatarFallback>
-                        </Avatar>
-                        <div>
-                          <p className="text-sm font-medium">{plan.author.name}</p>
-                          <p className="text-xs text-muted-foreground">{plan.author.email}</p>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div>
-                      <h3 className="font-medium">Status</h3>
-                      <Badge className="mt-1" variant={plan.status === 'published' ? 'default' : 'secondary'}>
-                        {plan.status.charAt(0: any).toUpperCase() + plan.status.slice(1: any)}
-                      </Badge>
-                    </div>
-                    
-                    <div>
-                      <h3 className="font-medium">Your Role</h3>
-                      <Badge className="mt-1" variant="outline">
-                        {userRole.charAt(0: any).toUpperCase() + userRole.slice(1: any)}
-                      </Badge>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-              
-              <Card className="mt-6">
-                <CardHeader>
-                  <CardTitle>Activity Summary</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <div className="bg-muted rounded-lg p-4">
-                      <p className="text-sm text-muted-foreground">Collaborators</p>
-                      <p className="text-2xl font-bold mt-1">{collaborators.length + 1}</p>
-                    </div>
-                    <div className="bg-muted rounded-lg p-4">
-                      <p className="text-sm text-muted-foreground">Comments</p>
-                      <p className="text-2xl font-bold mt-1">{comments.length}</p>
-                    </div>
-                    <div className="bg-muted rounded-lg p-4">
-                      <p className="text-sm text-muted-foreground">Tasks</p>
-                      <p className="text-2xl font-bold mt-1">{tasks.length}</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-            
-            <div>
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between">
+            <Card className="md:col-span-2">
+              <CardHeader>
+                <CardTitle>Project Overview</CardTitle>
+                <CardDescription>Key information about this collaboration</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
                   <div>
-                    <CardTitle>Collaborators</CardTitle>
-                    <CardDescription>People with access to this plan</CardDescription>
+                    <h3 className="font-medium mb-2">Description</h3>
+                    <p>{description}</p>
                   </div>
-                  {canManageCollaborators && (
-                    <Dialog open={isAddingCollaborator} onOpenChange={setIsAddingCollaborator}>
-                      <DialogTrigger asChild>
-                        <Button size="sm" variant="outline">
-                          <UserPlus className="h-4 w-4 mr-1" />
-                          Add
-                        </Button>
-                      </DialogTrigger>
-                      <DialogContent>
-                        <DialogHeader>
-                          <DialogTitle>Add Collaborator</DialogTitle>
-                          <DialogDescription>
-                            Invite someone to collaborate on this curriculum plan.
-                          </DialogDescription>
-                        </DialogHeader>
-                        <form onSubmit={handleAddCollaborator}>
-                          <div className="space-y-4 py-4">
-                            <div className="space-y-2">
-                              <label htmlFor="email" className="text-sm font-medium">
-                                Email
-                              </label>
-                              <Input
-                                id="email"
-                                placeholder="colleague@example.com"
-                                value={newCollaboratorEmail}
-                                onChange={(e: any) => setNewCollaboratorEmail(e.target.value: any)}
-                                required
-                              />
-                            </div>
-                            <div className="space-y-2">
-                              <label htmlFor="role" className="text-sm font-medium">
-                                Role
-                              </label>
-                              <Select value={newCollaboratorRole} onValueChange={setNewCollaboratorRole}>
-                                <SelectTrigger>
-                                  <SelectValue placeholder="Select a role" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  <SelectItem value="editor">Editor (can edit: any)</SelectItem>
-                                  <SelectItem value="viewer">Viewer (can view only: any)</SelectItem>
-                                </SelectContent>
-                              </Select>
-                              <p className="text-xs text-muted-foreground mt-1">
-                                Editors can make changes to the plan. Viewers can only view and comment.
-                              </p>
-                            </div>
-                          </div>
-                          <DialogFooter>
-                            <Button type="button" variant="outline" onClick={() => setIsAddingCollaborator(false: any)}>
-                              Cancel
-                            </Button>
-                            <Button type="submit">Add Collaborator</Button>
-                          </DialogFooter>
-                        </form>
-                      </DialogContent>
-                    </Dialog>
-                  )}
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    {/* Owner */}
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center">
-                        <Avatar className="h-8 w-8 mr-2">
-                          <AvatarImage src={plan.author.image} alt={plan.author.name} />
-                          <AvatarFallback>{plan.author.name?.charAt(0: any) || 'U'}</AvatarFallback>
-                        </Avatar>
+                  
+                  <div>
+                    <h3 className="font-medium mb-2">Recent Activity</h3>
+                    <div className="space-y-3">
+                      <div className="flex items-start">
+                        <div className="mr-3 mt-0.5">
+                          <Avatar className="h-8 w-8">
+                            <AvatarImage src={comments[comments.length - 1]?.author.image} alt={comments[comments.length - 1]?.author.name} />
+                            <AvatarFallback>{comments[comments.length - 1]?.author.name.charAt(0)}</AvatarFallback>
+                          </Avatar>
+                        </div>
                         <div>
-                          <p className="text-sm font-medium">{plan.author.name}</p>
-                          <p className="text-xs text-muted-foreground">Owner</p>
+                          <div className="font-medium">{comments[comments.length - 1]?.author.name}</div>
+                          <p className="text-sm">{comments[comments.length - 1]?.content}</p>
+                          <div className="text-xs text-muted-foreground mt-1">
+                            {new Date(comments[comments.length - 1]?.createdAt).toLocaleString()}
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-start">
+                        <div className="mr-3 mt-0.5">
+                          <Avatar className="h-8 w-8">
+                            <AvatarImage src={tasks.find(t => t.status === 'completed')?.assignedTo?.image} alt={tasks.find(t => t.status === 'completed')?.assignedTo?.name} />
+                            <AvatarFallback>{tasks.find(t => t.status === 'completed')?.assignedTo?.name?.charAt(0) || 'U'}</AvatarFallback>
+                          </Avatar>
+                        </div>
+                        <div>
+                          <div className="font-medium">{tasks.find(t => t.status === 'completed')?.assignedTo?.name}</div>
+                          <p className="text-sm">Completed task: {tasks.find(t => t.status === 'completed')?.title}</p>
+                          <div className="text-xs text-muted-foreground mt-1">
+                            Recently
+                          </div>
                         </div>
                       </div>
                     </div>
-                    
-                    {/* Collaborators */}
-                    {collaborators.map((collaborator: any) => (
-                      <div key={collaborator.id} className="flex items-center justify-between">
-                        <div className="flex items-center">
-                          <Avatar className="h-8 w-8 mr-2">
-                            <AvatarImage src={collaborator.user.image} alt={collaborator.user.name} />
-                            <AvatarFallback>{collaborator.user.name?.charAt(0: any) || 'U'}</AvatarFallback>
-                          </Avatar>
-                          <div>
-                            <p className="text-sm font-medium">{collaborator.user.name}</p>
-                            <p className="text-xs text-muted-foreground">
-                              {collaborator.role.charAt(0: any).toUpperCase() + collaborator.role.slice(1: any)}
-                            </p>
-                          </div>
-                        </div>
-                        {canManageCollaborators && (
-                          <Button
-                            size="icon"
-                            variant="ghost"
-                            onClick={() => handleRemoveCollaborator(collaborator.user.id: any)}
-                          >
-                            <Trash2 className="h-4 w-4 text-muted-foreground" />
-                          </Button>
-                        )}
-                      </div>
-                    ))}
-                    
-                    {collaborators.length === 0 && (
-                      <p className="text-sm text-muted-foreground text-center py-2">
-                        No additional collaborators yet
-                      </p>
-                    )}
                   </div>
-                </CardContent>
-              </Card>
-            </div>
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardHeader>
+                <CardTitle>Collaborators</CardTitle>
+                <CardDescription>People working on this project</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {collaborators.map(collaborator => (
+                    <div key={collaborator.id} className="flex items-center justify-between">
+                      <div className="flex items-center">
+                        <Avatar className="h-8 w-8 mr-3">
+                          <AvatarImage src={collaborator.user.image} alt={collaborator.user.name} />
+                          <AvatarFallback>{collaborator.user.name.charAt(0)}</AvatarFallback>
+                        </Avatar>
+                        <div>
+                          <div className="font-medium">{collaborator.user.name}</div>
+                          <div className="text-xs text-muted-foreground">{collaborator.user.email}</div>
+                        </div>
+                      </div>
+                      <Badge variant={collaborator.role === 'owner' ? 'default' : 'outline'}>
+                        {collaborator.role.charAt(0).toUpperCase() + collaborator.role.slice(1)}
+                      </Badge>
+                    </div>
+                  ))}
+                  
+                  {canEdit && (
+                    <Button variant="outline" className="w-full mt-2">
+                      <Users className="h-4 w-4 mr-2" />
+                      Invite Collaborator
+                    </Button>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </TabsContent>
         
-        {/* Comments Tab */}
-        <TabsContent value="comments" className="mt-6">
+        <TabsContent value="discussion">
           <Card>
             <CardHeader>
-              <CardTitle>Comments</CardTitle>
-              <CardDescription>
-                Discuss this curriculum plan with collaborators
-              </CardDescription>
+              <CardTitle>Discussion</CardTitle>
+              <CardDescription>Collaborate and share ideas with your team</CardDescription>
             </CardHeader>
             <CardContent>
-              <form onSubmit={handleAddComment} className="mb-6">
-                <div className="space-y-4">
-                  <Textarea
-                    placeholder="Add a comment..."
-                    value={newComment}
-                    onChange={(e: any) => setNewComment(e.target.value: any)}
-                    className="min-h-[100px]"
-                  />
-                  <div className="flex justify-end">
-                    <Button type="submit">Post Comment</Button>
+              <div className="space-y-6">
+                {comments.map(comment => (
+                  <div key={comment.id} className="flex items-start">
+                    <div className="mr-4">
+                      <Avatar>
+                        <AvatarImage src={comment.author.image} alt={comment.author.name} />
+                        <AvatarFallback>{comment.author.name.charAt(0)}</AvatarFallback>
+                      </Avatar>
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-center">
+                        <div className="font-medium">{comment.author.name}</div>
+                        <div className="text-xs text-muted-foreground ml-2">
+                          {new Date(comment.createdAt).toLocaleString()}
+                        </div>
+                      </div>
+                      <div className="mt-1">{comment.content}</div>
+                    </div>
+                  </div>
+                ))}
+                
+                <div className="pt-4 border-t">
+                  <div className="flex items-start">
+                    <div className="mr-4">
+                      <Avatar>
+                        <AvatarFallback>{currentUser.name.charAt(0)}</AvatarFallback>
+                      </Avatar>
+                    </div>
+                    <div className="flex-1">
+                      <Textarea
+                        placeholder="Add a comment..."
+                        value={newComment}
+                        onChange={(e) => setNewComment(e.target.value)}
+                        className="mb-2"
+                      />
+                      <Button onClick={handleAddComment} disabled={!newComment.trim()}>
+                        <MessageSquare className="h-4 w-4 mr-2" />
+                        Post Comment
+                      </Button>
+                    </div>
                   </div>
                 </div>
-              </form>
-              
-              <div className="space-y-6">
-                {comments.length === 0 ? (
-                  <div className="text-center py-8">
-                    <MessageSquare className="mx-auto h-12 w-12 text-muted-foreground" />
-                    <h3 className="mt-4 text-lg font-medium">No comments yet</h3>
-                    <p className="mt-2 text-muted-foreground">
-                      Be the first to start the discussion
-                    </p>
-                  </div>
-                ) : (
-                  comments.map((comment: any) => (
-                    <div key={comment.id} className="border rounded-lg p-4">
-                      <div className="flex justify-between items-start">
-                        <div className="flex items-center">
-                          <Avatar className="h-8 w-8 mr-2">
-                            <AvatarImage src={comment.user.image} alt={comment.user.name} />
-                            <AvatarFallback>{comment.user.name?.charAt(0: any) || 'U'}</AvatarFallback>
-                          </Avatar>
-                          <div>
-                            <p className="text-sm font-medium">{comment.user.name}</p>
-                            <p className="text-xs text-muted-foreground">
-                              {new Date(comment.createdAt: any).toLocaleString()}
-                            </p>
-                          </div>
-                        </div>
-                        {(comment.userId === session?.user?.id || userRole === 'owner' || session?.user?.role === 'ADMIN') && (
-                          <Button
-                            size="icon"
-                            variant="ghost"
-                            onClick={() => handleDeleteComment(comment.id: any)}
-                          >
-                            <Trash2 className="h-4 w-4 text-muted-foreground" />
-                          </Button>
-                        )}
-                      </div>
-                      <div className="mt-4">
-                        <p className="text-sm whitespace-pre-wrap">{comment.content}</p>
-                      </div>
-                    </div>
-                  ))
-                )}
               </div>
             </CardContent>
           </Card>
         </TabsContent>
         
-        {/* Tasks Tab */}
-        <TabsContent value="tasks" className="mt-6">
+        <TabsContent value="tasks">
           <Card>
-            <CardHeader className="flex flex-row items-center justify-between">
-              <div>
-                <CardTitle>Tasks</CardTitle>
-                <CardDescription>
-                  Manage and track tasks for this curriculum plan
-                </CardDescription>
-              </div>
-              {canEdit && (
-                <Dialog open={isAddingTask} onOpenChange={setIsAddingTask}>
-                  <DialogTrigger asChild>
-                    <Button size="sm">
-                      <Plus className="h-4 w-4 mr-1" />
-                      Add Task
-                    </Button>
-                  </DialogTrigger>
-                  <DialogContent>
-                    <DialogHeader>
-                      <DialogTitle>Add Task</DialogTitle>
-                      <DialogDescription>
-                        Create a new task for this curriculum plan.
-                      </DialogDescription>
-                    </DialogHeader>
-                    <form onSubmit={handleAddTask}>
+            <CardHeader>
+              <div className="flex justify-between items-center">
+                <div>
+                  <CardTitle>{plan.title}</CardTitle>
+                  <CardDescription>{plan.description}</CardDescription>
+                </div>
+                
+                {canEdit && (
+                  <Dialog open={isAddingTask} onOpenChange={setIsAddingTask}>
+                    <DialogTrigger asChild>
+                      <Button>
+                        <Plus className="h-4 w-4 mr-2" />
+                        Add Task
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent>
+                      <DialogHeader>
+                        <DialogTitle>Add New Task</DialogTitle>
+                      </DialogHeader>
                       <div className="space-y-4 py-4">
-                        <div className="space-y-2">
-                          <label htmlFor="title" className="text-sm font-medium">
-                            Title
+                        <div>
+                          <label htmlFor="title" className="block text-sm font-medium mb-1">
+                            Task Title
                           </label>
                           <Input
                             id="title"
-                            placeholder="Task title"
-                            value={newTaskTitle}
-                            onChange={(e: any) => setNewTaskTitle(e.target.value: any)}
-                            required
+                            value={newTask.title}
+                            onChange={(e) => setNewTask({...newTask, title: e.target.value})}
+                            placeholder="Enter task title"
                           />
                         </div>
-                        <div className="space-y-2">
-                          <label htmlFor="description" className="text-sm font-medium">
+                        
+                        <div>
+                          <label htmlFor="description" className="block text-sm font-medium mb-1">
                             Description
                           </label>
                           <Textarea
                             id="description"
-                            placeholder="Task description"
-                            value={newTaskDescription}
-                            onChange={(e: any) => setNewTaskDescription(e.target.value: any)}
-                            required
+                            value={newTask.description}
+                            onChange={(e) => setNewTask({...newTask, description: e.target.value})}
+                            placeholder="Enter task description"
                           />
                         </div>
-                        <div className="space-y-2">
-                          <label htmlFor="assignee" className="text-sm font-medium">
+                        
+                        <div>
+                          <label htmlFor="assignee" className="block text-sm font-medium mb-1">
                             Assign To
                           </label>
-                          <Select value={newTaskAssignee} onValueChange={setNewTaskAssignee}>
+                          <Select
+                            value={newTask.assignedToId}
+                            onValueChange={(value) => setNewTask({...newTask, assignedToId: value})}
+                          >
                             <SelectTrigger>
                               <SelectValue placeholder="Select assignee" />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="">Unassigned</SelectItem>
-                              <SelectItem value={plan.author.id}>{plan.author.name}</SelectItem>
-                              {collaborators.map((collaborator: any) => (
-                                <SelectItem key={collaborator.user.id} value={collaborator.user.id}>
+                              {collaborators.map(collaborator => (
+                                <SelectItem key={collaborator.userId} value={collaborator.userId}>
                                   {collaborator.user.name}
                                 </SelectItem>
                               ))}
                             </SelectContent>
                           </Select>
                         </div>
-                        <div className="space-y-2">
-                          <label htmlFor="dueDate" className="text-sm font-medium">
+                        
+                        <div>
+                          <label htmlFor="dueDate" className="block text-sm font-medium mb-1">
                             Due Date
                           </label>
                           <Popover>
@@ -832,43 +605,52 @@ export default function CurriculumCollaboration() {
                                 className="w-full justify-start text-left font-normal"
                               >
                                 <CalendarIcon className="mr-2 h-4 w-4" />
-                                {newTaskDueDate ? format(newTaskDueDate: any, "PPP") : "Select a date"}
+                                {newTask.dueDate ? format(newTask.dueDate, 'PPP') : <span>Pick a date</span>}
                               </Button>
                             </PopoverTrigger>
                             <PopoverContent className="w-auto p-0">
                               <Calendar
                                 mode="single"
-                                selected={newTaskDueDate}
-                                onSelect={setNewTaskDueDate}
+                                selected={newTask.dueDate || undefined}
+                                onSelect={(date) => setNewTask({...newTask, dueDate: date})}
                                 initialFocus
                               />
                             </PopoverContent>
                           </Popover>
                         </div>
+                        
+                        <div className="flex justify-end space-x-2 pt-4">
+                          <Button variant="outline" onClick={() => setIsAddingTask(false)}>
+                            Cancel
+                          </Button>
+                          <Button onClick={handleAddTask} disabled={!newTask.title.trim()}>
+                            Add Task
+                          </Button>
+                        </div>
                       </div>
-                      <DialogFooter>
-                        <Button type="button" variant="outline" onClick={() => setIsAddingTask(false: any)}>
-                          Cancel
-                        </Button>
-                        <Button type="submit">Create Task</Button>
-                      </DialogFooter>
-                    </form>
-                  </DialogContent>
-                </Dialog>
-              )}
+                    </DialogContent>
+                  </Dialog>
+                )}
+              </div>
             </CardHeader>
             <CardContent>
               <div className="space-y-6">
                 {tasks.length === 0 ? (
                   <div className="text-center py-8">
-                    <Check className="mx-auto h-12 w-12 text-muted-foreground" />
-                    <h3 className="mt-4 text-lg font-medium">No tasks yet</h3>
-                    <p className="mt-2 text-muted-foreground">
-                      Create tasks to track work on this curriculum plan
-                    </p>
+                    <p className="text-muted-foreground">No tasks yet</p>
+                    {canEdit && (
+                      <Button
+                        variant="outline"
+                        className="mt-4"
+                        onClick={() => setIsAddingTask(true)}
+                      >
+                        <Plus className="h-4 w-4 mr-2" />
+                        Add Your First Task
+                      </Button>
+                    )}
                   </div>
                 ) : (
-                  <div className="space-y-4">
+                  <div className="space-y-6">
                     {/* Pending Tasks */}
                     <div>
                       <h3 className="font-medium mb-3">Pending Tasks</h3>
@@ -877,7 +659,7 @@ export default function CurriculumCollaboration() {
                       ) : (
                         tasks
                           .filter(t => t.status === 'pending')
-                          .map((task: any) => (
+                          .map((task) => (
                             <div key={task.id} className="border rounded-lg p-4 mb-3">
                               <div className="flex justify-between items-start">
                                 <div>
@@ -888,7 +670,7 @@ export default function CurriculumCollaboration() {
                                   <Button
                                     size="icon"
                                     variant="ghost"
-                                    onClick={() => handleDeleteTask(task.id: any)}
+                                    onClick={() => handleDeleteTask(task.id)}
                                   >
                                     <Trash2 className="h-4 w-4 text-muted-foreground" />
                                   </Button>
@@ -899,7 +681,7 @@ export default function CurriculumCollaboration() {
                                   <div className="flex items-center">
                                     <Avatar className="h-6 w-6 mr-1">
                                       <AvatarImage src={task.assignedTo.image} alt={task.assignedTo.name} />
-                                      <AvatarFallback>{task.assignedTo.name?.charAt(0: any) || 'U'}</AvatarFallback>
+                                      <AvatarFallback>{task.assignedTo.name?.charAt(0) || 'U'}</AvatarFallback>
                                     </Avatar>
                                     <span className="text-xs">{task.assignedTo.name}</span>
                                   </div>
@@ -908,7 +690,7 @@ export default function CurriculumCollaboration() {
                                   <Badge variant="outline" className="flex items-center">
                                     <Clock className="h-3 w-3 mr-1" />
                                     <span className="text-xs">
-                                      Due {new Date(task.dueDate: any).toLocaleDateString()}
+                                      Due {new Date(task.dueDate).toLocaleDateString()}
                                     </span>
                                   </Badge>
                                 )}
@@ -917,7 +699,7 @@ export default function CurriculumCollaboration() {
                                     size="sm"
                                     variant="outline"
                                     className="ml-auto"
-                                    onClick={() => handleUpdateTaskStatus(task.id: any, 'completed')}
+                                    onClick={() => handleUpdateTaskStatus(task.id, 'completed')}
                                   >
                                     Mark Complete
                                   </Button>
@@ -936,7 +718,7 @@ export default function CurriculumCollaboration() {
                       ) : (
                         tasks
                           .filter(t => t.status === 'completed')
-                          .map((task: any) => (
+                          .map((task) => (
                             <div key={task.id} className="border rounded-lg p-4 mb-3 bg-muted/30">
                               <div className="flex justify-between items-start">
                                 <div>
@@ -947,7 +729,7 @@ export default function CurriculumCollaboration() {
                                   <Button
                                     size="icon"
                                     variant="ghost"
-                                    onClick={() => handleDeleteTask(task.id: any)}
+                                    onClick={() => handleDeleteTask(task.id)}
                                   >
                                     <Trash2 className="h-4 w-4 text-muted-foreground" />
                                   </Button>
@@ -958,7 +740,7 @@ export default function CurriculumCollaboration() {
                                   <div className="flex items-center">
                                     <Avatar className="h-6 w-6 mr-1">
                                       <AvatarImage src={task.assignedTo.image} alt={task.assignedTo.name} />
-                                      <AvatarFallback>{task.assignedTo.name?.charAt(0: any) || 'U'}</AvatarFallback>
+                                      <AvatarFallback>{task.assignedTo.name?.charAt(0) || 'U'}</AvatarFallback>
                                     </Avatar>
                                     <span className="text-xs">{task.assignedTo.name}</span>
                                   </div>
@@ -969,7 +751,7 @@ export default function CurriculumCollaboration() {
                                     size="sm"
                                     variant="outline"
                                     className="ml-auto"
-                                    onClick={() => handleUpdateTaskStatus(task.id: any, 'pending')}
+                                    onClick={() => handleUpdateTaskStatus(task.id, 'pending')}
                                   >
                                     Reopen
                                   </Button>

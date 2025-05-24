@@ -1,5 +1,4 @@
 'use client';
-
 import { useState } from 'react';
 import Image from 'next/image';
 import { TextToSpeechEngine } from '@/components/ai/accessibility/text-to-speech-engine';
@@ -49,14 +48,14 @@ export default function TextToSpeechPage() {
   };
   
   const sampleTexts: SampleTexts = {
-    primary: "The cat sat on the mat. It was a sunny day. The birds were singing in the trees. I like to play in the park with my friends. We can run, jump, and climb on the playground. My favourite game is hide and seek.",
-    secondary: "The water cycle is the continuous movement of water within the Earth and atmosphere. It is a complex system that includes many different processes. Liquid water evaporates into water vapor, condenses to form clouds, and precipitates back to earth in the form of rain and snow.",
-    story: "Once upon a time, there was a clever fox who lived in a dense forest. Every day, the fox would watch the birds flying high above the trees. 'How wonderful it must be to soar through the sky,' thought the fox. One day, the fox had an idea. 'Perhaps I can learn to climb to the highest branches, and from there, I might learn to fly!'"
+    primary: "The quick brown fox jumps over the lazy dog. This pangram contains all the letters of the English alphabet.",
+    secondary: "In educational psychology, we study how people learn and develop. Understanding these processes helps us create better learning environments.",
+    story: "Once upon a time, in a digital classroom far away, students from all over the world gathered to learn together. Despite their different backgrounds, they found common ground through shared knowledge."
   };
   
   return (
     <div className="container mx-auto py-8 px-4">
-      <h1 className="text-3xl font-bold mb-6 flex items-centre">
+      <h1 className="text-3xl font-bold mb-6 flex items-center">
         <Image 
           src="/images/text-to-speech-icon.png" 
           alt="Text-to-Speech Icon" 
@@ -70,72 +69,69 @@ export default function TextToSpeechPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
           <TextToSpeechEngine 
+            text={sampleText}
             settings={settings}
             onSettingsChange={handleSettingsChange}
-            text={sampleText}
           />
           
-          <Card className="mb-8">
-            <CardHeader>
-              <CardTitle>Sample Texts</CardTitle>
-              <CardDescription>
-                Try these sample texts to test the text-to-speech feature
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <Button 
-                  variant="outline" 
-                  className="flex items-centre justify-start h-auto py-4"
-                  onClick={() => setSampleText(sampleTexts.primary)}
-                >
-                  <BookOpen className="h-5 w-5 mr-2" />
-                  <div className="text-left">
-                    <div className="font-medium">Primary Level</div>
-                    <div className="text-sm text-muted-foreground">Simple sentences for young readers</div>
-                  </div>
-                </Button>
-                
-                <Button 
-                  variant="outline" 
-                  className="flex items-centre justify-start h-auto py-4"
-                  onClick={() => setSampleText(sampleTexts.secondary)}
-                >
-                  <FileText className="h-5 w-5 mr-2" />
-                  <div className="text-left">
-                    <div className="font-medium">Secondary Level</div>
-                    <div className="text-sm text-muted-foreground">Academic content with subject vocabulary</div>
-                  </div>
-                </Button>
-                
-                <Button 
-                  variant="outline" 
-                  className="flex items-centre justify-start h-auto py-4"
-                  onClick={() => setSampleText(sampleTexts.story)}
-                >
-                  <BookMarked className="h-5 w-5 mr-2" />
-                  <div className="text-left">
-                    <div className="font-medium">Story Sample</div>
-                    <div className="text-sm text-muted-foreground">Narrative text with dialogue</div>
-                  </div>
-                </Button>
-              </div>
-              
-              <Textarea
-                value={sampleText}
-                onChange={(e) => setSampleText(e.target.value)}
-                className="min-h-[100px]"
-                placeholder="Enter or edit sample text here..."
-              />
-            </CardContent>
-          </Card>
+          <div className="mt-6">
+            <h2 className="text-xl font-bold mb-3">Text Input</h2>
+            <Textarea 
+              value={sampleText}
+              onChange={(e) => setSampleText(e.target.value)}
+              className="min-h-[200px] font-medium"
+              placeholder="Enter text to be read aloud..."
+            />
+            <div className="flex justify-end mt-2">
+              <Button 
+                variant="outline" 
+                className="mr-2"
+                onClick={() => setSampleText('')}
+              >
+                Clear
+              </Button>
+              <Button>
+                <FileText className="mr-2 h-4 w-4" />
+                Save Text
+              </Button>
+            </div>
+          </div>
+          
+          <div className="mt-8">
+            <h2 className="text-xl font-bold mb-3">Sample Texts</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <Button 
+                variant="outline" 
+                className="justify-start"
+                onClick={() => setSampleText(sampleTexts.primary)}
+              >
+                <Headphones className="mr-2 h-4 w-4" />
+                Simple Text
+              </Button>
+              <Button 
+                variant="outline" 
+                className="justify-start"
+                onClick={() => setSampleText(sampleTexts.secondary)}
+              >
+                <BookOpen className="mr-2 h-4 w-4" />
+                Educational Content
+              </Button>
+              <Button 
+                variant="outline" 
+                className="justify-start"
+                onClick={() => setSampleText(sampleTexts.story)}
+              >
+                <BookMarked className="mr-2 h-4 w-4" />
+                Story Sample
+              </Button>
+            </div>
+          </div>
         </div>
         
-        <div className="lg:col-span-1">
+        <div>
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-centre">
-                <Headphones className="h-5 w-5 mr-2" />
+              <CardTitle>
                 About Text-to-Speech
               </CardTitle>
               <CardDescription>

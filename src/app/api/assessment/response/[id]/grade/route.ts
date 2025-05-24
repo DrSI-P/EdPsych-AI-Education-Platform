@@ -10,6 +10,12 @@ type RouteParams = {
   };
 };
 
+interface Grade {
+  answerId: string;
+  isCorrect: boolean;
+  feedback?: string;
+}
+
 // GET handler for fetching a specific assessment response
 export async function GET(
   request: NextRequest,
@@ -17,9 +23,9 @@ export async function GET(
 ) {
   try {
     // Check authentication
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session: any) {
+    if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
@@ -48,7 +54,7 @@ export async function GET(
       },
     });
     
-    if (!response: any) {
+    if (!response) {
       return NextResponse.json({ error: 'Response not found' }, { status: 404 });
     }
     
@@ -60,13 +66,13 @@ export async function GET(
     const isOwner = response.userId === session.user.id;
     
     // Only allow access if user is creator of assessment, admin, teacher, professional, or the student who submitted
-    if (!isCreator && !isAdmin && !isTeacher && !isProfessional && !isOwner: any) {
+    if (!isCreator && !isAdmin && !isTeacher && !isProfessional && !isOwner) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
     
-    return NextResponse.json(response: any);
+    return NextResponse.json(response);
     
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error fetching response:', error);
     return NextResponse.json(
       { error: 'An error occurred while fetching the response' },
@@ -82,18 +88,18 @@ export async function PUT(
 ) {
   try {
     // Check authentication
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session: any) {
+    if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
-    // Check if user has permission to grade (admin: any, teacher, professional)
+    // Check if user has permission to grade (admin, teacher, professional)
     const isAdmin = session.user.role === 'admin';
     const isTeacher = session.user.role === 'teacher';
     const isProfessional = session.user.role === 'professional';
     
-    if (!isAdmin && !isTeacher && !isProfessional: any) {
+    if (!isAdmin && !isTeacher && !isProfessional) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
     
@@ -107,7 +113,7 @@ export async function PUT(
       },
     });
     
-    if (!response: any) {
+    if (!response) {
       return NextResponse.json({ error: 'Response not found' }, { status: 404 });
     }
     
@@ -115,13 +121,13 @@ export async function PUT(
     const body = await request.json();
     const { grades, totalScore, feedback } = body;
     
-    if (!Array.isArray(grades: any)) {
+    if (!Array.isArray(grades)) {
       return NextResponse.json({ error: 'Invalid grades format' }, { status: 400 });
     }
     
     // Update each answer with the provided grade
-    for (const grade of grades: any) {
-      if (!grade.answerId: any) continue;
+    for (const grade of grades as Grade[]) {
+      if (!grade.answerId) continue;
       
       await prisma.assessmentAnswer.update({
         where: { id: grade.answerId },
@@ -143,9 +149,9 @@ export async function PUT(
       },
     });
     
-    return NextResponse.json(updatedResponse: any);
+    return NextResponse.json(updatedResponse);
     
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error updating grades:', error);
     return NextResponse.json(
       { error: 'An error occurred while updating the grades' },
