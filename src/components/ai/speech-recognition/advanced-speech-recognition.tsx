@@ -26,7 +26,7 @@ interface SpeechRecognitionProps {
 }
 
 export default function AdvancedSpeechRecognition({
-  onTranscriptChange: any,
+  onTranscriptChange,
   onSpeechEnd,
   placeholder = 'Your speech will appear here...',
   initialText = '',
@@ -39,13 +39,13 @@ export default function AdvancedSpeechRecognition({
   const { toast } = useToast();
   
   // State for speech recognition
-  const [isListening, setIsListening] = useState(false: any);
-  const [transcript, setTranscript] = useState(initialText: any);
+  const [isListening, setIsListening] = useState(false);
+  const [transcript, setTranscript] = useState(initialText);
   const [interimTranscript, setInterimTranscript] = useState('');
-  const [confidence, setConfidence] = useState(0: any);
-  const [volume, setVolume] = useState(0: any);
-  const [isSupported, setIsSupported] = useState(true: any);
-  const [recognitionError, setRecognitionError] = useState<string | null>(null: any);
+  const [confidence, setConfidence] = useState(0);
+  const [volume, setVolume] = useState(0);
+  const [isSupported, setIsSupported] = useState(true);
+  const [recognitionError, setRecognitionError] = useState<string | null>(null);
   
   // State for settings
   const [settings, setSettings] = useState({
@@ -59,19 +59,19 @@ export default function AdvancedSpeechRecognition({
   });
   
   // State for calibration
-  const [isCalibrating, setIsCalibrating] = useState(false: any);
-  const [calibrationStep, setCalibrationStep] = useState(0: any);
-  const [calibrationProgress, setCalibrationProgress] = useState(0: any);
+  const [isCalibrating, setIsCalibrating] = useState(false);
+  const [calibrationStep, setCalibrationStep] = useState(0);
+  const [calibrationProgress, setCalibrationProgress] = useState(0);
   const [calibrationSamples, setCalibrationSamples] = useState<number[]>([]);
   
   // References
-  const recognitionRef = useRef<any>(null: any);
-  const audioContextRef = useRef<AudioContext | null>(null: any);
-  const analyserRef = useRef<AnalyserNode | null>(null: any);
-  const microphoneStreamRef = useRef<MediaStream | null>(null: any);
-  const dataArrayRef = useRef<Uint8Array | null>(null: any);
-  const animationFrameRef = useRef<number | null>(null: any);
-  const silenceTimeoutRef = useRef<NodeJS.Timeout | null>(null: any);
+  const recognitionRef = useRef<any>(null);
+  const audioContextRef = useRef<AudioContext | null>(null);
+  const analyserRef = useRef<AnalyserNode | null>(null);
+  const microphoneStreamRef = useRef<MediaStream | null>(null);
+  const dataArrayRef = useRef<Uint8Array | null>(null);
+  const animationFrameRef = useRef<number | null>(null);
+  const silenceTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   
   // Calibration phrases for children
   const calibrationPhrases = [
@@ -85,8 +85,8 @@ export default function AdvancedSpeechRecognition({
   // Initialize speech recognition
   useEffect(() => {
     // Check if browser supports speech recognition
-    if (!('webkitSpeechRecognition' in window: any) && !('SpeechRecognition' in window: any)) {
-      setIsSupported(false: any);
+    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+      setIsSupported(false);
       return;
     }
     
@@ -101,22 +101,22 @@ export default function AdvancedSpeechRecognition({
     
     // Set up event handlers
     recognitionRef.current.onstart = () => {
-      setIsListening(true: any);
-      setRecognitionError(null: any);
+      setIsListening(true);
+      setRecognitionError(null);
     };
     
     recognitionRef.current.onend = () => {
-      setIsListening(false: any);
+      setIsListening(false);
       
       // If in continuous mode and no error, restart listening
-      if (mode === 'continuous' && !recognitionError && isListening: any) {
+      if (mode === 'continuous' && !recognitionError && isListening) {
         try {
           recognitionRef.current.start();
-        } catch (error: any) {
+        } catch (error) {
           console.error('Error restarting speech recognition:', error);
         }
-      } else if (onSpeechEnd: any) {
-        onSpeechEnd(transcript: any);
+      } else if (onSpeechEnd) {
+        onSpeechEnd(transcript);
       }
     };
     
@@ -129,16 +129,16 @@ export default function AdvancedSpeechRecognition({
         const result = event.results[i];
         const text = result[0].transcript;
         
-        if (result.isFinal: any) {
+        if (result.isFinal) {
           let processedText = text;
           
           // Apply processing based on settings
-          if (settings.autoCapitalization: any) {
-            processedText = autoCapitalize(processedText: any);
+          if (settings.autoCapitalization) {
+            processedText = autoCapitalize(processedText);
           }
           
-          if (settings.punctuationPrediction: any) {
-            processedText = predictPunctuation(processedText: any);
+          if (settings.punctuationPrediction) {
+            processedText = predictPunctuation(processedText);
           }
           
           finalText += processedText + ' ';
@@ -148,24 +148,24 @@ export default function AdvancedSpeechRecognition({
         
         // Track confidence level
         const confidence = result[0].confidence;
-        if (confidence > maxConfidence: any) {
+        if (confidence > maxConfidence) {
           maxConfidence = confidence;
         }
       }
       
       // Update state
       setTranscript(finalText.trim());
-      setInterimTranscript(interimText: any);
-      setConfidence(maxConfidence: any);
+      setInterimTranscript(interimText);
+      setConfidence(maxConfidence);
       
       // Call callback if provided
-      if (onTranscriptChange: any) {
+      if (onTranscriptChange) {
         onTranscriptChange(finalText.trim() + (interimText ? ' ' + interimText : ''));
       }
       
       // Reset silence timeout
-      if (silenceTimeoutRef.current: any) {
-        clearTimeout(silenceTimeoutRef.current: any);
+      if (silenceTimeoutRef.current) {
+        clearTimeout(silenceTimeoutRef.current);
       }
       
       // Set new silence timeout if not in continuous mode
@@ -178,7 +178,7 @@ export default function AdvancedSpeechRecognition({
     
     recognitionRef.current.onerror = (event: any) => {
       console.error('Speech recognition error:', event.error);
-      setRecognitionError(event.error: any);
+      setRecognitionError(event.error);
       
       if (event.error === 'no-speech') {
         toast({
@@ -203,30 +203,30 @@ export default function AdvancedSpeechRecognition({
     
     // Initialize audio context for volume monitoring
     try {
-      audioContextRef.current = new (window.AudioContext || window.webkitAudioContext: any)();
+      audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)();
       analyserRef.current = audioContextRef.current.createAnalyser();
       analyserRef.current.fftSize = 256;
       const bufferLength = analyserRef.current.frequencyBinCount;
-      dataArrayRef.current = new Uint8Array(bufferLength: any);
-    } catch (error: any) {
+      dataArrayRef.current = new Uint8Array(bufferLength);
+    } catch (error) {
       console.error('Error initializing audio context:', error);
     }
     
     // Cleanup on unmount
     return () => {
-      if (recognitionRef.current: any) {
+      if (recognitionRef.current) {
         recognitionRef.current.stop();
       }
       
-      if (silenceTimeoutRef.current: any) {
-        clearTimeout(silenceTimeoutRef.current: any);
+      if (silenceTimeoutRef.current) {
+        clearTimeout(silenceTimeoutRef.current);
       }
       
-      if (animationFrameRef.current: any) {
-        cancelAnimationFrame(animationFrameRef.current: any);
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
       }
       
-      if (microphoneStreamRef.current: any) {
+      if (microphoneStreamRef.current) {
         microphoneStreamRef.current.getTracks().forEach(track => track.stop());
       }
     };
@@ -234,9 +234,9 @@ export default function AdvancedSpeechRecognition({
   
   // Apply child voice optimization settings when enabled
   useEffect(() => {
-    if (!recognitionRef.current: any) return;
+    if (!recognitionRef.current) return;
     
-    if (settings.childVoiceOptimization: any) {
+    if (settings.childVoiceOptimization) {
       // These settings help with child voice recognition
       recognitionRef.current.continuous = true; // Children may pause more frequently
       recognitionRef.current.interimResults = true; // Get partial results for better feedback
@@ -254,24 +254,24 @@ export default function AdvancedSpeechRecognition({
   
   // Start volume monitoring when listening
   useEffect(() => {
-    if (!isListening || !audioContextRef.current || !analyserRef.current || !dataArrayRef.current: any) return;
+    if (!isListening || !audioContextRef.current || !analyserRef.current || !dataArrayRef.current) return;
     
     // Request microphone access
     navigator.mediaDevices.getUserMedia({ audio: true, video: false })
       .then(stream => {
         microphoneStreamRef.current = stream;
-        const source = audioContextRef.current!.createMediaStreamSource(stream: any);
+        const source = audioContextRef.current!.createMediaStreamSource(stream);
         source.connect(analyserRef.current!);
         
         // Start monitoring volume
         const updateVolume = () => {
-          if (!isListening || !analyserRef.current || !dataArrayRef.current: any) return;
+          if (!isListening || !analyserRef.current || !dataArrayRef.current) return;
           
-          analyserRef.current.getByteFrequencyData(dataArrayRef.current: any);
-          const average = dataArrayRef.current.reduce((acc: any, val) => acc + val, 0) / dataArrayRef.current.length;
-          setVolume(average / 255: any); // Normalize to 0-1
+          analyserRef.current.getByteFrequencyData(dataArrayRef.current);
+          const average = dataArrayRef.current.reduce((acc, val) => acc + val, 0) / dataArrayRef.current.length;
+          setVolume(average / 255); // Normalize to 0-1
           
-          animationFrameRef.current = requestAnimationFrame(updateVolume: any);
+          animationFrameRef.current = requestAnimationFrame(updateVolume);
         };
         
         updateVolume();
@@ -286,11 +286,11 @@ export default function AdvancedSpeechRecognition({
       });
       
     return () => {
-      if (animationFrameRef.current: any) {
-        cancelAnimationFrame(animationFrameRef.current: any);
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
       }
       
-      if (microphoneStreamRef.current: any) {
+      if (microphoneStreamRef.current) {
         microphoneStreamRef.current.getTracks().forEach(track => track.stop());
       }
     };
@@ -298,12 +298,12 @@ export default function AdvancedSpeechRecognition({
   
   // Start listening
   const startListening = () => {
-    if (!recognitionRef.current || !isSupported: any) return;
+    if (!recognitionRef.current || !isSupported) return;
     
     try {
       recognitionRef.current.start();
-      setRecognitionError(null: any);
-    } catch (error: any) {
+      setRecognitionError(null);
+    } catch (error) {
       console.error('Error starting speech recognition:', error);
       toast({
         title: "Speech recognition error",
@@ -315,16 +315,16 @@ export default function AdvancedSpeechRecognition({
   
   // Stop listening
   const stopListening = () => {
-    if (!recognitionRef.current || !isListening: any) return;
+    if (!recognitionRef.current || !isListening) return;
     
     try {
       recognitionRef.current.stop();
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error stopping speech recognition:', error);
     }
     
-    if (silenceTimeoutRef.current: any) {
-      clearTimeout(silenceTimeoutRef.current: any);
+    if (silenceTimeoutRef.current) {
+      clearTimeout(silenceTimeoutRef.current);
     }
   };
   
@@ -333,16 +333,16 @@ export default function AdvancedSpeechRecognition({
     setTranscript('');
     setInterimTranscript('');
     
-    if (onTranscriptChange: any) {
+    if (onTranscriptChange) {
       onTranscriptChange('');
     }
   };
   
   // Start calibration process
   const startCalibration = () => {
-    setIsCalibrating(true: any);
-    setCalibrationStep(0: any);
-    setCalibrationProgress(0: any);
+    setIsCalibrating(true);
+    setCalibrationStep(0);
+    setCalibrationProgress(0);
     setCalibrationSamples([]);
     
     toast({
@@ -358,9 +358,9 @@ export default function AdvancedSpeechRecognition({
     setCalibrationSamples(prev => [...prev, confidence]);
     
     const nextStep = calibrationStep + 1;
-    if (nextStep < calibrationPhrases.length: any) {
-      setCalibrationStep(nextStep: any);
-      setCalibrationProgress((nextStep / calibrationPhrases.length: any) * 100);
+    if (nextStep < calibrationPhrases.length) {
+      setCalibrationStep(nextStep);
+      setCalibrationProgress((nextStep / calibrationPhrases.length) * 100);
     } else {
       finishCalibration();
     }
@@ -368,8 +368,8 @@ export default function AdvancedSpeechRecognition({
   
   // Finish calibration process
   const finishCalibration = () => {
-    setIsCalibrating(false: any);
-    setCalibrationProgress(100: any);
+    setIsCalibrating(false);
+    setCalibrationProgress(100);
     
     // In a real implementation, we would use the collected data to optimise the recognition
     // For this demo, we'll just show a success message
@@ -380,7 +380,7 @@ export default function AdvancedSpeechRecognition({
     });
     
     // Save calibration data to user profile
-    if (session?.user: any) {
+    if (session?.user) {
       fetch('/api/ai/speech-recognition/calibration', {
         method: 'POST',
         headers: {
@@ -401,15 +401,15 @@ export default function AdvancedSpeechRecognition({
   
   // Helper function to auto-capitalize text
   const autoCapitalize = (text: string): string => {
-    if (!text: any) return text;
+    if (!text) return text;
     
     // Capitalize first letter of sentences
-    return text.replace(/(^\s*\w|[.!?]\s*\w: any)/g, match => match.toUpperCase());
+    return text.replace(/(^\s*\w|[.!?]\s*\w)/g, match => match.toUpperCase());
   };
   
   // Helper function to predict punctuation
   const predictPunctuation = (text: string): string => {
-    if (!text: any) return text;
+    if (!text) return text;
     
     // This is a simplified implementation
     // In a real application, we would use an AI model for this
@@ -431,13 +431,13 @@ export default function AdvancedSpeechRecognition({
   };
   
   // Render error message if speech recognition is not supported
-  if (!isSupported: any) {
+  if (!isSupported) {
     return (
       <Alert variant="destructive" className={className}>
         <AlertCircle className="h-4 w-4" />
         <AlertTitle>Speech Recognition Not Supported</AlertTitle>
         <AlertDescription>
-          Your browser does not support speech recognition. Please try using a modern browser like Chrome: any, Edge, or Safari.
+          Your browser does not support speech recognition. Please try using a modern browser like Chrome, Edge, or Safari.
         </AlertDescription>
       </Alert>
     );
@@ -460,307 +460,288 @@ export default function AdvancedSpeechRecognition({
               <p className="text-lg font-medium">{calibrationPhrases[calibrationStep]}</p>
             </div>
             
-            <div className="flex items-centre justify-centre gap-4 mb-4">
-              <Button
-                variant={isListening ? "destructive" : "default"}
-                onClick={isListening ? stopListening : startListening}
-                className="flex items-centre gap-2"
-              >
-                {isListening ? (
-                  <>
-                    <MicOff className="h-4 w-4" /> Stop Recording
-                  </>
-                ) : (
-                  <>
-                    <Mic className="h-4 w-4" /> Start Recording
-                  </>
-                )}
-              </Button>
-            </div>
-            
-            {isListening && (
-              <div className="flex items-centre gap-2 mb-4">
-                <div className="w-full bg-muted rounded-full h-2">
-                  <div
-                    className="bg-primary h-2 rounded-full transition-all"
+            <div className="flex items-centre justify-between">
+              <div className="flex items-centre gap-2">
+                <Volume2 className={`h-4 w-4 ${isListening ? 'text-primary' : 'text-muted-foreground'}`} />
+                <div className="w-24 bg-muted rounded-full h-2">
+                  <div 
+                    className="bg-primary h-2 rounded-full" 
                     style={{ width: `${volume * 100}%` }}
                   ></div>
                 </div>
-                <Volume2 className="h-4 w-4 text-muted-foreground" />
               </div>
-            )}
-            
-            <div className="bg-muted/50 p-3 rounded-md min-h-[100px] mb-4">
-              <p>{transcript}</p>
-              <p className="text-muted-foreground">{interimTranscript}</p>
+              
+              <div className="flex items-centre gap-2">
+                <span className="text-sm">Confidence:</span>
+                <span className="text-sm font-medium">{Math.round(confidence * 100)}%</span>
+              </div>
             </div>
           </CardContent>
           <CardFooter className="flex justify-between">
-            <Button variant="outline" onClick={() => setIsCalibrating(false: any)}>
+            <Button 
+              variant="outline" 
+              onClick={() => setIsCalibrating(false)}
+            >
               Cancel
             </Button>
-            <Button onClick={completeCalibrationStep} disabled={!transcript && !interimTranscript}>
-              Next
-            </Button>
+            
+            <div className="flex gap-2">
+              {isListening ? (
+                <Button 
+                  variant="destructive" 
+                  onClick={stopListening}
+                  className="flex items-centre gap-1"
+                >
+                  <MicOff className="h-4 w-4" />
+                  Stop
+                </Button>
+              ) : (
+                <Button 
+                  onClick={startListening}
+                  className="flex items-centre gap-1"
+                >
+                  <Mic className="h-4 w-4" />
+                  Start Speaking
+                </Button>
+              )}
+              
+              <Button 
+                onClick={completeCalibrationStep}
+                disabled={!transcript && !interimTranscript}
+              >
+                Next
+              </Button>
+            </div>
           </CardFooter>
         </Card>
       ) : (
-        <Tabs defaultValue="speech" className="w-full">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="speech">Speech Recognition</TabsTrigger>
-            <TabsTrigger value="settings">Settings</TabsTrigger>
-          </TabsList>
-          
-          <TabsContent value="speech" className="space-y-4">
-            <Card>
-              <CardHeader>
-                <CardTitle>Advanced Speech Recognition</CardTitle>
-                <CardDescription>
-                  Optimised for children's voices with enhanced accuracy
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                {recognitionError && (
-                  <Alert variant="destructive" className="mb-4">
-                    <AlertCircle className="h-4 w-4" />
-                    <AlertTitle>Recognition Error</AlertTitle>
-                    <AlertDescription>
-                      {recognitionError === 'no-speech' && "No speech was detected. Please try again."}
-                      {recognitionError === 'audio-capture' && "Could not access microphone. Please check your device."}
-                      {recognitionError === 'not-allowed' && "Microphone access was denied. Please allow access in your browser settings."}
-                      {recognitionError !== 'no-speech' && recognitionError !== 'audio-capture' && recognitionError !== 'not-allowed' && `An error occurred: ${recognitionError}`}
-                    </AlertDescription>
-                  </Alert>
-                )}
-                
-                <div className="flex items-centre justify-between mb-4">
-                  <Button
-                    variant={isListening ? "destructive" : "default"}
-                    onClick={isListening ? stopListening : startListening}
-                    className="flex items-centre gap-2"
-                  >
-                    {isListening ? (
-                      <>
-                        <MicOff className="h-4 w-4" /> Stop Listening
-                      </>
-                    ) : (
-                      <>
-                        <Mic className="h-4 w-4" /> Start Listening
-                      </>
-                    )}
-                  </Button>
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-centre justify-between">
+              <span>Advanced Speech Recognition</span>
+              {showCalibration && (
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={startCalibration}
+                  className="flex items-centre gap-1"
+                >
+                  <Settings className="h-4 w-4" />
+                  Calibrate Voice
+                </Button>
+              )}
+            </CardTitle>
+            <CardDescription>
+              Speak clearly to convert your speech to text
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Tabs defaultValue="recognition" className="w-full">
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="recognition">Recognition</TabsTrigger>
+                <TabsTrigger value="settings">Settings</TabsTrigger>
+              </TabsList>
+              
+              <TabsContent value="recognition" className="space-y-4 pt-4">
+                <div className="relative">
+                  <Textarea
+                    value={transcript + (interimTranscript ? ' ' + interimTranscript : '')}
+                    placeholder={placeholder}
+                    className="min-h-[150px] pr-12"
+                    readOnly
+                  />
                   
-                  <div className="flex items-centre gap-2">
+                  {transcript && (
                     <Button
-                      variant="outline"
-                      size="icon"
+                      variant="ghost"
+                      size="sm"
+                      className="absolute top-2 right-2 h-8 w-8 p-0"
                       onClick={clearTranscript}
-                      title="Clear transcript"
                     >
-                      <RefreshCw className="h-4 w-4" />
+                      ✕
                     </Button>
-                    
-                    {showCalibration && (
-                      <Button
-                        variant="outline"
-                        onClick={startCalibration}
-                        className="flex items-centre gap-2"
-                      >
-                        <Settings className="h-4 w-4" /> Calibrate
-                      </Button>
-                    )}
-                  </div>
+                  )}
                 </div>
                 
-                {isListening && (
-                  <div className="flex items-centre gap-2 mb-4">
-                    <div className="w-full bg-muted rounded-full h-2">
-                      <div
-                        className="bg-primary h-2 rounded-full transition-all"
+                <div className="flex items-centre justify-between">
+                  <div className="flex items-centre gap-2">
+                    <Volume2 className={`h-4 w-4 ${isListening ? 'text-primary' : 'text-muted-foreground'}`} />
+                    <div className="w-24 bg-muted rounded-full h-2">
+                      <div 
+                        className="bg-primary h-2 rounded-full" 
                         style={{ width: `${volume * 100}%` }}
                       ></div>
                     </div>
-                    <Volume2 className="h-4 w-4 text-muted-foreground" />
                   </div>
-                )}
-                
-                <Textarea
-                  placeholder={placeholder}
-                  value={transcript + (interimTranscript ? ' ' + interimTranscript : '')}
-                  onChange={(e: any) => {
-                    setTranscript(e.target.value: any);
-                    if (onTranscriptChange: any) {
-                      onTranscriptChange(e.target.value: any);
-                    }
-                  }}
-                  className="min-h-[150px] mb-2"
-                />
-                
-                {confidence > 0 && (
-                  <div className="flex items-centre gap-2 text-sm text-muted-foreground">
-                    <Info className="h-4 w-4" />
-                    <span>Recognition confidence: {Math.round(confidence * 100)}%</span>
+                  
+                  <div className="flex items-centre gap-2">
+                    <span className="text-sm">Confidence:</span>
+                    <span className="text-sm font-medium">{Math.round(confidence * 100)}%</span>
                   </div>
+                </div>
+                
+                {recognitionError && (
+                  <Alert variant="destructive">
+                    <AlertCircle className="h-4 w-4" />
+                    <AlertTitle>Recognition Error</AlertTitle>
+                    <AlertDescription>
+                      {recognitionError === 'no-speech' && 'No speech detected. Please try speaking again.'}
+                      {recognitionError === 'audio-capture' && 'Could not access microphone. Please check your device.'}
+                      {recognitionError === 'not-allowed' && 'Microphone access denied. Please allow access in your browser.'}
+                      {recognitionError === 'network' && 'Network error occurred. Please check your connection.'}
+                      {recognitionError === 'aborted' && 'Recognition was aborted. Please try again.'}
+                      {!['no-speech', 'audio-capture', 'not-allowed', 'network', 'aborted'].includes(recognitionError) && 
+                        'An error occurred with speech recognition. Please try again.'}
+                    </AlertDescription>
+                  </Alert>
                 )}
-              </CardContent>
-              <CardFooter>
-                <Alert variant="default" className="w-full">
-                  <Info className="h-4 w-4" />
-                  <AlertTitle>Child Voice Optimization</AlertTitle>
-                  <AlertDescription>
-                    This speech recognition is specially tuned for children's voices, with enhanced accuracy for higher pitches and developing speech patterns.
-                  </AlertDescription>
-                </Alert>
-              </CardFooter>
-            </Card>
-          </TabsContent>
-          
-          <TabsContent value="settings">
-            <Card>
-              <CardHeader>
-                <CardTitle>Recognition Settings</CardTitle>
-                <CardDescription>
-                  Customise speech recognition to match your needs
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
+              </TabsContent>
+              
+              <TabsContent value="settings" className="space-y-4 pt-4">
                 <div className="flex items-centre justify-between">
-                  <div>
-                    <Label htmlFor="childVoiceOptimization" className="font-medium">
-                      Child Voice Optimization
-                    </Label>
-                    <p className="text-sm text-muted-foreground">
-                      Enhances recognition for children's voices
+                  <div className="space-y-0.5">
+                    <Label>Child Voice Optimization</Label>
+                    <p className="text-xs text-muted-foreground">
+                      Optimize for higher-pitched children's voices
                     </p>
                   </div>
-                  <Switch
-                    id="childVoiceOptimization"
+                  <Switch 
                     checked={settings.childVoiceOptimization}
-                    onCheckedChange={(checked: any) => updateSettings('childVoiceOptimization', checked: any)}
+                    onCheckedChange={(checked) => updateSettings('childVoiceOptimization', checked)}
                   />
                 </div>
                 
                 <div className="flex items-centre justify-between">
-                  <div>
-                    <Label htmlFor="noiseReduction" className="font-medium">
-                      Noise Reduction
-                    </Label>
-                    <p className="text-sm text-muted-foreground">
-                      Filters out background noise
+                  <div className="space-y-0.5">
+                    <Label>Noise Reduction</Label>
+                    <p className="text-xs text-muted-foreground">
+                      Filter out background noise
                     </p>
                   </div>
-                  <Switch
-                    id="noiseReduction"
+                  <Switch 
                     checked={settings.noiseReduction}
-                    onCheckedChange={(checked: any) => updateSettings('noiseReduction', checked: any)}
+                    onCheckedChange={(checked) => updateSettings('noiseReduction', checked)}
                   />
                 </div>
                 
                 <div className="flex items-centre justify-between">
-                  <div>
-                    <Label htmlFor="autoCapitalization" className="font-medium">
-                      Auto Capitalization
-                    </Label>
-                    <p className="text-sm text-muted-foreground">
-                      Automatically capitalizes sentences
+                  <div className="space-y-0.5">
+                    <Label>Auto-Capitalization</Label>
+                    <p className="text-xs text-muted-foreground">
+                      Automatically capitalize sentences
                     </p>
                   </div>
-                  <Switch
-                    id="autoCapitalization"
+                  <Switch 
                     checked={settings.autoCapitalization}
-                    onCheckedChange={(checked: any) => updateSettings('autoCapitalization', checked: any)}
+                    onCheckedChange={(checked) => updateSettings('autoCapitalization', checked)}
                   />
                 </div>
                 
                 <div className="flex items-centre justify-between">
-                  <div>
-                    <Label htmlFor="punctuationPrediction" className="font-medium">
-                      Punctuation Prediction
-                    </Label>
-                    <p className="text-sm text-muted-foreground">
-                      Adds punctuation based on speech patterns
+                  <div className="space-y-0.5">
+                    <Label>Punctuation Prediction</Label>
+                    <p className="text-xs text-muted-foreground">
+                      Add punctuation based on speech patterns
                     </p>
                   </div>
-                  <Switch
-                    id="punctuationPrediction"
+                  <Switch 
                     checked={settings.punctuationPrediction}
-                    onCheckedChange={(checked: any) => updateSettings('punctuationPrediction', checked: any)}
+                    onCheckedChange={(checked) => updateSettings('punctuationPrediction', checked)}
                   />
                 </div>
                 
                 <div className="flex items-centre justify-between">
-                  <div>
-                    <Label htmlFor="dialectAdaptation" className="font-medium">
-                      UK Dialect Adaptation
-                    </Label>
-                    <p className="text-sm text-muted-foreground">
-                      Optimizes for UK English dialects
+                  <div className="space-y-0.5">
+                    <Label>Dialect Adaptation</Label>
+                    <p className="text-xs text-muted-foreground">
+                      Adapt to regional accents and dialects
                     </p>
                   </div>
-                  <Switch
-                    id="dialectAdaptation"
+                  <Switch 
                     checked={settings.dialectAdaptation}
-                    onCheckedChange={(checked: any) => updateSettings('dialectAdaptation', checked: any)}
+                    onCheckedChange={(checked) => updateSettings('dialectAdaptation', checked)}
                   />
                 </div>
                 
                 <div className="space-y-2">
                   <div className="flex items-centre justify-between">
-                    <Label htmlFor="confidenceThreshold" className="font-medium">
-                      Confidence Threshold
-                    </Label>
-                    <span className="text-sm text-muted-foreground">
-                      {Math.round(settings.confidenceThreshold * 100: any)}%
+                    <Label>Confidence Threshold</Label>
+                    <span className="text-xs text-muted-foreground">
+                      {Math.round(settings.confidenceThreshold * 100)}%
                     </span>
                   </div>
-                  <Slider
-                    id="confidenceThreshold"
-                    min={0}
-                    max={1}
-                    step={0.05}
-                    value={[settings.confidenceThreshold]}
-                    onValueChange={(value: any) => updateSettings('confidenceThreshold', value[0])}
+                  <Slider 
+                    value={[settings.confidenceThreshold * 100]} 
+                    min={30} 
+                    max={90} 
+                    step={5}
+                    onValueChange={(value) => updateSettings('confidenceThreshold', value[0] / 100)}
                   />
-                  <p className="text-sm text-muted-foreground">
-                    Higher values require more confident recognition
+                  <p className="text-xs text-muted-foreground">
+                    Minimum confidence level for accepting recognition results
                   </p>
                 </div>
                 
                 <div className="space-y-2">
                   <div className="flex items-centre justify-between">
-                    <Label htmlFor="silenceTimeout" className="font-medium">
-                      Silence Timeout
-                    </Label>
-                    <span className="text-sm text-muted-foreground">
-                      {settings.silenceTimeout / 1000}s
+                    <Label>Silence Timeout</Label>
+                    <span className="text-xs text-muted-foreground">
+                      {settings.silenceTimeout}ms
                     </span>
                   </div>
-                  <Slider
-                    id="silenceTimeout"
-                    min={500}
-                    max={5000}
-                    step={500}
-                    value={[settings.silenceTimeout]}
-                    onValueChange={(value: any) => updateSettings('silenceTimeout', value[0])}
+                  <Slider 
+                    value={[settings.silenceTimeout]} 
+                    min={500} 
+                    max={3000} 
+                    step={100}
+                    onValueChange={(value) => updateSettings('silenceTimeout', value[0])}
                   />
-                  <p className="text-sm text-muted-foreground">
-                    How long to wait after speech ends before stopping
+                  <p className="text-xs text-muted-foreground">
+                    Time to wait after speech ends before stopping recognition
                   </p>
                 </div>
-              </CardContent>
-              <CardFooter>
-                <Alert>
-                  <CheckCircle className="h-4 w-4" />
-                  <AlertTitle>Settings are automatically saved</AlertTitle>
-                  <AlertDescription>
-                    Your preferences will be applied immediately to the speech recognition system.
-                  </AlertDescription>
-                </Alert>
-              </CardFooter>
-            </Card>
-          </TabsContent>
-        </Tabs>
+              </TabsContent>
+            </Tabs>
+          </CardContent>
+          <CardFooter className="flex justify-between">
+            <Button 
+              variant="outline" 
+              onClick={clearTranscript}
+              disabled={!transcript && !interimTranscript}
+            >
+              Clear
+            </Button>
+            
+            {isListening ? (
+              <Button 
+                variant="destructive" 
+                onClick={stopListening}
+                className="flex items-centre gap-1"
+              >
+                <MicOff className="h-4 w-4" />
+                Stop Listening
+              </Button>
+            ) : (
+              <Button 
+                onClick={startListening}
+                className="flex items-centre gap-1"
+              >
+                <Mic className="h-4 w-4" />
+                Start Listening
+              </Button>
+            )}
+          </CardFooter>
+        </Card>
       )}
+      
+      <div className="mt-4 p-4 border border-blue-200 rounded-md bg-blue-50">
+        <div className="flex items-start gap-2">
+          <Info className="h-4 w-4 text-blue-600 mt-0.5" />
+          <p className="text-sm text-blue-700">
+            This advanced speech recognition system is optimized for educational settings, with special adaptations for children's voices and classroom environments. For best results, speak clearly and minimize background noise.
+          </p>
+        </div>
+      </div>
     </div>
   );
 }

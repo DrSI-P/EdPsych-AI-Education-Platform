@@ -13,7 +13,7 @@ import { useAIService } from '@/lib/ai/ai-service';
 export default function TeacherAutomation() {
   const { toast } = useToast();
   const aiService = useAIService();
-  const [isProcessing, setIsProcessing] = useState(false: any);
+  const [isProcessing, setIsProcessing] = useState(false);
   const [activeTab, setActiveTab] = useState('lesson-plans');
   const [lessonPlanInput, setLessonPlanInput] = useState({
     subject: '',
@@ -44,14 +44,14 @@ export default function TeacherAutomation() {
     nextSteps: ''
   });
   const [generatedContent, setGeneratedContent] = useState('');
-  const [isRecording, setIsRecording] = useState(false: any);
+  const [isRecording, setIsRecording] = useState(false);
   const [transcription, setTranscription] = useState('');
   const [voiceInputField, setVoiceInputField] = useState('');
   
   // Reference for speech recognition
-  const recognitionRef = useRef<any>(null: any);
+  const recognitionRef = useRef<any>(null);
   
-  // Initialize speech recognition (simulated: any)
+  // Initialize speech recognition (simulated)
   useEffect(() => {
     // In a real implementation, this would use the Web Speech API
     // For now, we'll simulate the functionality
@@ -71,17 +71,17 @@ export default function TeacherAutomation() {
     recognitionRef.current = simulateSpeechRecognition();
     
     return () => {
-      if (recognitionRef.current: any) {
+      if (recognitionRef.current) {
         recognitionRef.current.stop();
       }
     };
   }, []);
   
   const startVoiceInput = (fieldName: string) => {
-    setIsRecording(true: any);
-    setVoiceInputField(fieldName: any);
+    setIsRecording(true);
+    setVoiceInputField(fieldName);
     
-    if (recognitionRef.current: any) {
+    if (recognitionRef.current) {
       recognitionRef.current.start();
       
       // Simulate receiving transcription after 3 seconds
@@ -96,36 +96,36 @@ export default function TeacherAutomation() {
         const transcription = simulatedTranscriptions[fieldName] || 
           'This is simulated voice input transcription for the ' + fieldName + ' field.';
         
-        setTranscription(transcription: any);
+        setTranscription(transcription);
         
         // Update the appropriate input field based on which form is active
-        if (activeTab === 'lesson-plans' && fieldName in lessonPlanInput: any) {
+        if (activeTab === 'lesson-plans' && fieldName in lessonPlanInput) {
           setLessonPlanInput(prev => ({
             ...prev,
             [fieldName]: transcription
           }));
-        } else if (activeTab === 'reports' && fieldName in reportInput: any) {
+        } else if (activeTab === 'reports' && fieldName in reportInput) {
           setReportInput(prev => ({
             ...prev,
             [fieldName]: transcription
           }));
-        } else if (activeTab === 'feedback' && fieldName in feedbackInput: any) {
+        } else if (activeTab === 'feedback' && fieldName in feedbackInput) {
           setFeedbackInput(prev => ({
             ...prev,
             [fieldName]: transcription
           }));
         }
         
-        setIsRecording(false: any);
+        setIsRecording(false);
       }, 3000);
     }
   };
   
   const stopVoiceInput = () => {
-    if (recognitionRef.current: any) {
+    if (recognitionRef.current) {
       recognitionRef.current.stop();
     }
-    setIsRecording(false: any);
+    setIsRecording(false);
   };
   
   const handleLessonPlanChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -154,10 +154,10 @@ export default function TeacherAutomation() {
   
   const handleLearningStyleToggle = (style: string) => {
     setLessonPlanInput(prev => {
-      if (prev.learningStyles.includes(style: any)) {
+      if (prev.learningStyles.includes(style)) {
         return {
           ...prev,
-          learningStyles: prev.learningStyles.filter(s => s !== style: any)
+          learningStyles: prev.learningStyles.filter(s => s !== style)
         };
       } else {
         return {
@@ -170,10 +170,10 @@ export default function TeacherAutomation() {
   
   const handleSpecialNeedsToggle = (need: string) => {
     setLessonPlanInput(prev => {
-      if (prev.specialNeeds.includes(need: any)) {
+      if (prev.specialNeeds.includes(need)) {
         return {
           ...prev,
-          specialNeeds: prev.specialNeeds.filter(n => n !== need: any)
+          specialNeeds: prev.specialNeeds.filter(n => n !== need)
         };
       } else {
         return {
@@ -185,7 +185,7 @@ export default function TeacherAutomation() {
   };
   
   const generateLessonPlan = async () => {
-    setIsProcessing(true: any);
+    setIsProcessing(true);
     try {
       const prompt = `
         Create a detailed lesson plan with the following parameters:
@@ -212,27 +212,27 @@ export default function TeacherAutomation() {
       `;
       
       const response = await aiService.getCompletion({
-        prompt: any,
+        prompt,
         model: 'gpt-4',
         temperature: 0.7,
         max_tokens: 1500
       });
       
-      setGeneratedContent(response: any);
-    } catch (error: any) {
+      setGeneratedContent(response);
+    } catch (error) {
       toast({
         title: "Error generating lesson plan",
         description: "There was a problem creating your lesson plan. Please try again.",
         variant: "destructive"
       });
-      console.error(error: any);
+      console.error(error);
     } finally {
-      setIsProcessing(false: any);
+      setIsProcessing(false);
     }
   };
   
   const generateReport = async () => {
-    setIsProcessing(true: any);
+    setIsProcessing(true);
     try {
       const prompt = `
         Create a professional student progress report with the following information:
@@ -260,27 +260,27 @@ export default function TeacherAutomation() {
       `;
       
       const response = await aiService.getCompletion({
-        prompt: any,
+        prompt,
         model: 'gpt-4',
         temperature: 0.7,
         max_tokens: 1000
       });
       
-      setGeneratedContent(response: any);
-    } catch (error: any) {
+      setGeneratedContent(response);
+    } catch (error) {
       toast({
         title: "Error generating report",
         description: "There was a problem creating the student report. Please try again.",
         variant: "destructive"
       });
-      console.error(error: any);
+      console.error(error);
     } finally {
-      setIsProcessing(false: any);
+      setIsProcessing(false);
     }
   };
   
   const generateFeedback = async () => {
-    setIsProcessing(true: any);
+    setIsProcessing(true);
     try {
       const prompt = `
         Create detailed, constructive feedback for a student assignment with the following information:
@@ -307,34 +307,34 @@ export default function TeacherAutomation() {
       `;
       
       const response = await aiService.getCompletion({
-        prompt: any,
+        prompt,
         model: 'gpt-4',
         temperature: 0.7,
         max_tokens: 1000
       });
       
-      setGeneratedContent(response: any);
-    } catch (error: any) {
+      setGeneratedContent(response);
+    } catch (error) {
       toast({
         title: "Error generating feedback",
         description: "There was a problem creating the assignment feedback. Please try again.",
         variant: "destructive"
       });
-      console.error(error: any);
+      console.error(error);
     } finally {
-      setIsProcessing(false: any);
+      setIsProcessing(false);
     }
   };
   
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(generatedContent: any).then(
+    navigator.clipboard.writeText(generatedContent).then(
       () => {
         toast({
           title: "Copied to clipboard",
           description: "The content has been copied to your clipboard.",
         });
       },
-      (err: any) => {
+      (err) => {
         toast({
           title: "Failed to copy",
           description: "There was an error copying the content.",
@@ -350,19 +350,19 @@ export default function TeacherAutomation() {
     let filename = 'document.txt';
     
     if (activeTab === 'lesson-plans') {
-      filename = `Lesson_Plan_${lessonPlanInput.subject}_${lessonPlanInput.topic.replace(/\s+/g: any, '_')}.txt`;
+      filename = `Lesson_Plan_${lessonPlanInput.subject}_${lessonPlanInput.topic.replace(/\s+/g, '_')}.txt`;
     } else if (activeTab === 'reports') {
-      filename = `Student_Report_${reportInput.studentName.replace(/\s+/g: any, '_')}.txt`;
+      filename = `Student_Report_${reportInput.studentName.replace(/\s+/g, '_')}.txt`;
     } else if (activeTab === 'feedback') {
-      filename = `Assignment_Feedback_${feedbackInput.studentName.replace(/\s+/g: any, '_')}.txt`;
+      filename = `Assignment_Feedback_${feedbackInput.studentName.replace(/\s+/g, '_')}.txt`;
     }
     
     const file = new Blob([generatedContent], {type: 'text/plain'});
-    element.href = URL.createObjectURL(file: any);
+    element.href = URL.createObjectURL(file);
     element.download = filename;
-    document.body.appendChild(element: any);
+    document.body.appendChild(element);
     element.click();
-    document.body.removeChild(element: any);
+    document.body.removeChild(element);
     
     toast({
       title: "Download started",
@@ -431,7 +431,7 @@ export default function TeacherAutomation() {
       </div>
       
       <div>
-        <Label htmlFor="duration">Duration (minutes: any)</Label>
+        <Label htmlFor="duration">Duration (minutes)</Label>
         <Input 
           id="duration" 
           name="duration" 
@@ -451,8 +451,8 @@ export default function TeacherAutomation() {
               <input 
                 type="checkbox" 
                 id={`style-${style}`} 
-                checked={lessonPlanInput.learningStyles.includes(style: any)} 
-                onChange={() => handleLearningStyleToggle(style: any)}
+                checked={lessonPlanInput.learningStyles.includes(style)} 
+                onChange={() => handleLearningStyleToggle(style)}
                 className="h-4 w-4 rounded border-grey-300"
               />
               <Label htmlFor={`style-${style}`} className="text-sm font-normal">{style}</Label>
@@ -469,8 +469,8 @@ export default function TeacherAutomation() {
               <input 
                 type="checkbox" 
                 id={`need-${need}`} 
-                checked={lessonPlanInput.specialNeeds.includes(need: any)} 
-                onChange={() => handleSpecialNeedsToggle(need: any)}
+                checked={lessonPlanInput.specialNeeds.includes(need)} 
+                onChange={() => handleSpecialNeedsToggle(need)}
                 className="h-4 w-4 rounded border-grey-300"
               />
               <Label htmlFor={`need-${need}`} className="text-sm font-normal">{need}</Label>
@@ -516,12 +516,12 @@ export default function TeacherAutomation() {
       
       <div>
         <Label htmlFor="period">Reporting Period</Label>
-        <select 
-          id="period" 
-          name="period" 
-          value={reportInput.period} 
+        <select
+          id="period"
+          name="period"
+          value={reportInput.period}
           onChange={handleReportChange}
-          className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+          className="w-full p-2 border rounded-md"
         >
           <option value="Term 1">Term 1</option>
           <option value="Term 2">Term 2</option>
@@ -550,7 +550,7 @@ export default function TeacherAutomation() {
           name="strengths" 
           value={reportInput.strengths} 
           onChange={handleReportChange} 
-          placeholder="Student's key strengths and achievements"
+          placeholder="Areas where the student excels or shows particular talent"
           className="min-h-[80px]"
         />
       </div>
@@ -574,7 +574,7 @@ export default function TeacherAutomation() {
           name="areasForImprovement" 
           value={reportInput.areasForImprovement} 
           onChange={handleReportChange} 
-          placeholder="Areas where the student could improve"
+          placeholder="Specific areas where the student could improve"
           className="min-h-[80px]"
         />
       </div>
@@ -586,7 +586,7 @@ export default function TeacherAutomation() {
           name="academicProgress" 
           value={reportInput.academicProgress} 
           onChange={handleReportChange} 
-          placeholder="Overview of academic progress in key subjects"
+          placeholder="Overview of academic achievements and progress toward learning goals"
           className="min-h-[80px]"
         />
       </div>
@@ -598,7 +598,7 @@ export default function TeacherAutomation() {
           name="socialEmotional" 
           value={reportInput.socialEmotional} 
           onChange={handleReportChange} 
-          placeholder="Comments on social skills, emotional regulation, behaviour, etc."
+          placeholder="Comments on behaviour, social skills, emotional regulation, etc."
           className="min-h-[80px]"
         />
       </div>
@@ -610,7 +610,7 @@ export default function TeacherAutomation() {
           name="nextSteps" 
           value={reportInput.nextSteps} 
           onChange={handleReportChange} 
-          placeholder="Specific recommendations for continued growth"
+          placeholder="Specific recommendations for continued growth and development"
           className="min-h-[80px]"
         />
       </div>
@@ -627,25 +627,25 @@ export default function TeacherAutomation() {
   
   const renderFeedbackForm = () => (
     <div className="space-y-4">
+      <div>
+        <Label htmlFor="assignmentType">Assignment Type</Label>
+        <select
+          id="assignmentType"
+          name="assignmentType"
+          value={feedbackInput.assignmentType}
+          onChange={handleFeedbackChange}
+          className="w-full p-2 border rounded-md"
+        >
+          <option value="Essay">Essay</option>
+          <option value="Project">Project</option>
+          <option value="Presentation">Presentation</option>
+          <option value="Test/Exam">Test/Exam</option>
+          <option value="Homework">Homework</option>
+          <option value="Creative Work">Creative Work</option>
+        </select>
+      </div>
+      
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <Label htmlFor="assignmentType">Assignment Type</Label>
-          <select 
-            id="assignmentType" 
-            name="assignmentType" 
-            value={feedbackInput.assignmentType} 
-            onChange={handleFeedbackChange}
-            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            <option value="Essay">Essay</option>
-            <option value="Project">Project</option>
-            <option value="Presentation">Presentation</option>
-            <option value="Lab Report">Lab Report</option>
-            <option value="Creative Writing">Creative Writing</option>
-            <option value="Problem Set">Problem Set</option>
-            <option value="Portfolio">Portfolio</option>
-          </select>
-        </div>
         <div>
           <Label htmlFor="studentName">Student Name</Label>
           <Input 
@@ -656,17 +656,16 @@ export default function TeacherAutomation() {
             placeholder="Full name of student"
           />
         </div>
-      </div>
-      
-      <div>
-        <Label htmlFor="gradeLevel">Year Group/Key Stage</Label>
-        <Input 
-          id="gradeLevel" 
-          name="gradeLevel" 
-          value={feedbackInput.gradeLevel} 
-          onChange={handleFeedbackChange} 
-          placeholder="e.g., Year 4, KS2, Year 10"
-        />
+        <div>
+          <Label htmlFor="gradeLevel">Year Group/Key Stage</Label>
+          <Input 
+            id="gradeLevel" 
+            name="gradeLevel" 
+            value={feedbackInput.gradeLevel} 
+            onChange={handleFeedbackChange} 
+            placeholder="e.g., Year 4, KS2, Year 10"
+          />
+        </div>
       </div>
       
       <div className="relative">
@@ -724,7 +723,7 @@ export default function TeacherAutomation() {
           name="grade" 
           value={feedbackInput.grade} 
           onChange={handleFeedbackChange} 
-          placeholder="e.g., A, B+, 85%, Level 6"
+          placeholder="e.g., A, B+, 85%, Merit"
         />
       </div>
       
@@ -751,99 +750,108 @@ export default function TeacherAutomation() {
   );
   
   return (
-    <div className="container mx-auto py-8 px-4">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div>
-          <Card>
-            <CardHeader>
-              <CardTitle>Teacher Administrative Automation</CardTitle>
-              <CardDescription>
-                Save time on administrative tasks with AI-powered document generation. All content is customizable and aligned with UK educational standards.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Tabs defaultValue="lesson-plans" onValueChange={setActiveTab}>
-                <TabsList className="grid w-full grid-cols-3">
-                  <TabsTrigger value="lesson-plans">Lesson Plans</TabsTrigger>
-                  <TabsTrigger value="reports">Student Reports</TabsTrigger>
-                  <TabsTrigger value="feedback">Assignment Feedback</TabsTrigger>
-                </TabsList>
-                <TabsContent value="lesson-plans" className="pt-4">
-                  {renderLessonPlanForm()}
-                </TabsContent>
-                <TabsContent value="reports" className="pt-4">
-                  {renderReportForm()}
-                </TabsContent>
-                <TabsContent value="feedback" className="pt-4">
-                  {renderFeedbackForm()}
-                </TabsContent>
-              </Tabs>
-            </CardContent>
-          </Card>
-          
-          {isRecording && (
-            <Card className="mt-4 border-primary">
-              <CardContent className="pt-6">
-                <div className="flex items-centre justify-between mb-4">
-                  <div className="flex items-centre">
-                    <div className="h-3 w-3 rounded-full bg-red-500 animate-pulse mr-2"></div>
-                    <span className="font-medium">Recording in progress...</span>
-                  </div>
-                  <Button variant="outline" size="sm" onClick={stopVoiceInput}>
-                    Stop Recording
-                  </Button>
+    <div className="container mx-auto p-4 max-w-4xl">
+      <Card className="mb-6">
+        <CardHeader>
+          <CardTitle>Teacher Automation Assistant</CardTitle>
+          <CardDescription>
+            Generate professional lesson plans, student reports, and assignment feedback
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Tabs value={activeTab} onValueChange={setActiveTab}>
+            <TabsList className="grid w-full grid-cols-3">
+              <TabsTrigger value="lesson-plans">Lesson Plans</TabsTrigger>
+              <TabsTrigger value="reports">Student Reports</TabsTrigger>
+              <TabsTrigger value="feedback">Assignment Feedback</TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value="lesson-plans" className="pt-4">
+              {renderLessonPlanForm()}
+            </TabsContent>
+            
+            <TabsContent value="reports" className="pt-4">
+              {renderReportForm()}
+            </TabsContent>
+            
+            <TabsContent value="feedback" className="pt-4">
+              {renderFeedbackForm()}
+            </TabsContent>
+          </Tabs>
+        </CardContent>
+      </Card>
+      
+      {isRecording && (
+        <Card className="mb-6 border-primary">
+          <CardContent className="p-4">
+            <div className="flex items-centre justify-between">
+              <div className="flex items-centre gap-2">
+                <div className="h-3 w-3 rounded-full bg-red-500 animate-pulse"></div>
+                <span className="font-medium">Recording voice input...</span>
+              </div>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                onClick={stopVoiceInput}
+              >
+                Cancel
+              </Button>
+            </div>
+            
+            {transcription && (
+              <div className="mt-4">
+                <p className="text-sm font-medium mb-1">Transcription:</p>
+                <div className="p-3 bg-muted rounded-md text-sm">
+                  {transcription}
                 </div>
-                {transcription && (
-                  <div>
-                    <p className="text-sm font-medium mb-1">Transcription:</p>
-                    <div className="p-3 bg-muted rounded-md text-sm">
-                      {transcription}
-                    </div>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-          )}
-        </div>
-        
-        <div>
-          <Card className="h-full flex flex-col">
-            <CardHeader>
-              <CardTitle>Generated Content</CardTitle>
-              <CardDescription>
-                Review, edit, and use the AI-generated content. You can copy it to your clipboard or download it as a document.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="flex-grow">
-              {generatedContent ? (
-                <div className="relative h-full">
-                  <Textarea 
-                    value={generatedContent}
-                    onChange={(e: any) => setGeneratedContent(e.target.value: any)}
-                    className="min-h-[500px] h-full font-mono text-sm"
-                  />
-                </div>
-              ) : (
-                <div className="flex items-centre justify-centre h-[500px] border-2 border-dashed rounded-md">
-                  <div className="text-centre text-muted-foreground">
-                    <p>Complete the form and generate content</p>
-                    <p className="text-sm">Your AI-generated content will appear here</p>
-                  </div>
-                </div>
-              )}
-            </CardContent>
-            {generatedContent && (
-              <CardFooter className="flex justify-between">
-                <Button variant="outline" onClick={copyToClipboard}>
-                  Copy to Clipboard
-                </Button>
-                <Button onClick={downloadAsDocument}>
-                  Download as Document
-                </Button>
-              </CardFooter>
+              </div>
             )}
-          </Card>
-        </div>
+          </CardContent>
+        </Card>
+      )}
+      
+      {generatedContent && (
+        <Card>
+          <CardHeader>
+            <CardTitle>
+              {activeTab === 'lesson-plans' && 'Generated Lesson Plan'}
+              {activeTab === 'reports' && 'Generated Student Report'}
+              {activeTab === 'feedback' && 'Generated Assignment Feedback'}
+            </CardTitle>
+            <CardDescription>
+              AI-generated content based on your input
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="bg-muted p-4 rounded-md whitespace-pre-wrap">
+              {generatedContent}
+            </div>
+          </CardContent>
+          <CardFooter className="flex justify-between">
+            <Button 
+              variant="outline" 
+              onClick={copyToClipboard}
+              className="flex items-centre gap-1"
+            >
+              <span className="h-4 w-4">📋</span>
+              Copy to Clipboard
+            </Button>
+            <Button 
+              onClick={downloadAsDocument}
+              className="flex items-centre gap-1"
+            >
+              <span className="h-4 w-4">📥</span>
+              Download as Document
+            </Button>
+          </CardFooter>
+        </Card>
+      )}
+      
+      <div className="mt-6 p-4 border border-blue-200 rounded-md bg-blue-50">
+        <h3 className="text-sm font-medium text-blue-800 mb-2">About Teacher Automation Assistant</h3>
+        <p className="text-sm text-blue-700">
+          This tool uses AI to help teachers save time on administrative tasks. All generated content should be reviewed and personalized before use. The assistant is designed to provide high-quality starting points that align with UK educational standards and best practices.
+        </p>
       </div>
     </div>
   );
