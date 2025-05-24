@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
@@ -28,7 +28,7 @@ interface TrainingModule {
   }>;
 }
 
-export async function POST(req: NextRequest): Promise<NextResponse> {
+export async function POST(req: Request): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
     
@@ -227,7 +227,6 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     // Using a type guard instead of console.error
     if (error instanceof Error) {
       // Log error in a production-safe way
-      const errorMessage = `Error generating certificate: ${error.message}`;
       // We could use a proper logging service here instead of console
     }
     return NextResponse.json({ error: 'Failed to generate certificate' }, { status: 500 });
