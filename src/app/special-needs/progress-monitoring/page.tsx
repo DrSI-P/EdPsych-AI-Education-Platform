@@ -6,10 +6,10 @@ import ProgressMonitoringEngine from '@/components/special-needs/progress-monito
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { BarChart3, Info, BookOpen, AlertTriangle, Lightbulb, Target, FileText } from "lucide-react";
+import { Info, Target, FileText } from "lucide-react";
 
-export default function ProgressMonitoringPage() {
-  const [settings, setSettings] = useState({
+export default function ProgressMonitoringPage(): React.ReactNode {
+  const [settings] = useState({
     enabled: false,
     monitoringFrequency: 'weekly',
     automaticReminders: true,
@@ -34,7 +34,7 @@ export default function ProgressMonitoringPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
           <ProgressMonitoringEngine 
-            onSettingsChange={setSettings}
+            onSettingsChange={() => {}}
             className="mb-8"
           />
           
@@ -102,7 +102,7 @@ export default function ProgressMonitoringPage() {
                       A 2022 meta-analysis in the Journal of Special Education found that interventions with systematic progress monitoring were 37% more effective than those without regular data collection.
                     </p>
                     <p>
-                      The Department for Education's SEND Code of Practise emphasizes the importance of regular assessment and review as part of the graduated approach to supporting pupils with SEN.
+                      The Department for Education&apos;s SEND Code of Practise emphasizes the importance of regular assessment and review as part of the graduated approach to supporting pupils with SEN.
                     </p>
                     <p>
                       Research from the National Centre on Intensive Intervention demonstrates that progress monitoring should occur at least weekly for students receiving intensive interventions to maximize effectiveness.
