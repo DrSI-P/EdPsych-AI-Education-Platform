@@ -1,6 +1,6 @@
-// Re-export the Prisma client from the centralized implementation
-import prismaClient, { prisma } from './prisma';
+// Re-export the database interface layer
+import db from './db/index';
 
 // Export both named and default exports for backward compatibility
-export { prisma };
-export default prismaClient;
+export { db };
+export default db;

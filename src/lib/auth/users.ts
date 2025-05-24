@@ -93,7 +93,7 @@ export async function updateUserProfile(userId: string, profileData: any) {
 export async function getUsersByRole(role: string) {
   try {
     // Use the db utility to find users by role
-    const users = await db.query('user', 'findMany', {
+    const users = await db.user.findMany({
       where: { role }
     });
     
