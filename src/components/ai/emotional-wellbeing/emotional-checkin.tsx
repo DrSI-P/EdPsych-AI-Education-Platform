@@ -28,8 +28,8 @@ type CheckinData = {
 export function EmotionalCheckin() {
   const { toast } = useToast();
   const aiService = useAIService();
-  const [step, setStep] = useState(1: any);
-  const [isProcessing, setIsProcessing] = useState(false: any);
+  const [step, setStep] = useState(1);
+  const [isProcessing, setIsProcessing] = useState(false);
   const [checkinData, setCheckinData] = useState<CheckinData>({
     mood: '',
     intensity: 5,
@@ -40,9 +40,9 @@ export function EmotionalCheckin() {
   const [suggestedStrategies, setSuggestedStrategies] = useState<string[]>([]);
   const [selectedTriggers, setSelectedTriggers] = useState<string[]>([]);
   const [customTrigger, setCustomTrigger] = useState('');
-  const [historicalPatterns, setHistoricalPatterns] = useState<any>(null: any);
-  const [voiceInput, setVoiceInput] = useState(false: any);
-  const [isRecording, setIsRecording] = useState(false: any);
+  const [historicalPatterns, setHistoricalPatterns] = useState<Record<string, any> | null>(null);
+  const [voiceInput, setVoiceInput] = useState(false);
+  const [isRecording, setIsRecording] = useState(false);
 
   // Sample emotions with descriptions
   const emotions: Emotion[] = [
@@ -69,27 +69,27 @@ export function EmotionalCheckin() {
 
   // Toggle voice input mode
   const toggleVoiceInput = () => {
-    setVoiceInput(!voiceInput: any);
+    setVoiceInput(!voiceInput);
   };
 
-  // Simulate voice recording (in a real implementation: any, this would use the Web Speech API)
+  // Simulate voice recording (in a real implementation, this would use the Web Speech API)
   const toggleRecording = () => {
-    if (isRecording: any) {
-      setIsRecording(false: any);
+    if (isRecording) {
+      setIsRecording(false);
       toast({
         title: "Voice recording stopped",
         description: "Your spoken words have been converted to text.",
       });
       // In a real implementation, this would process the recorded audio
       // For now, we'll simulate by adding some text
-      if (step === 2: any) {
+      if (step === 2) {
         setCheckinData(prev => ({
           ...prev,
           notes: prev.notes + " I'm feeling this way because of what happened at school today. It was difficult to concentrate in class."
         }));
       }
     } else {
-      setIsRecording(true: any);
+      setIsRecording(true);
       toast({
         title: "Voice recording started",
         description: "Please speak clearly about how you're feeling.",
@@ -102,7 +102,7 @@ export function EmotionalCheckin() {
       ...prev,
       mood: emotion
     }));
-    setStep(2: any);
+    setStep(2);
   };
 
   const handleIntensityChange = (value: number[]) => {
@@ -120,22 +120,22 @@ export function EmotionalCheckin() {
   };
 
   const handleTriggerSelect = (trigger: string) => {
-    if (selectedTriggers.includes(trigger: any)) {
-      setSelectedTriggers(selectedTriggers.filter(t => t !== trigger: any));
+    if (selectedTriggers.includes(trigger)) {
+      setSelectedTriggers(selectedTriggers.filter(t => t !== trigger));
     } else {
       setSelectedTriggers([...selectedTriggers, trigger]);
     }
   };
 
   const addCustomTrigger = () => {
-    if (customTrigger.trim() !== '' && !selectedTriggers.includes(customTrigger: any)) {
+    if (customTrigger.trim() !== '' && !selectedTriggers.includes(customTrigger)) {
       setSelectedTriggers([...selectedTriggers, customTrigger]);
       setCustomTrigger('');
     }
   };
 
   const processCheckin = async () => {
-    setIsProcessing(true: any);
+    setIsProcessing(true);
     try {
       // Update checkin data with selected triggers
       setCheckinData(prev => ({
@@ -158,7 +158,7 @@ export function EmotionalCheckin() {
       `;
       
       const aiResponse = await aiService.getCompletion({
-        prompt: any,
+        prompt,
         model: 'gpt-4',
         temperature: 0.7,
         max_tokens: 500
@@ -169,12 +169,12 @@ export function EmotionalCheckin() {
         .split('\n')
         .filter(line => line.trim().startsWith('-') || line.trim().startsWith('1.') || line.trim().startsWith('2.') || line.trim().startsWith('3.') || line.trim().startsWith('4.') || line.trim().startsWith('5.'))
         .map(line => line.replace(/^[-\d.\s]+/, '').trim())
-        .filter(line => line.length > 0: any)
-        .slice(0: any, 5);
+        .filter(line => line.length > 0)
+        .slice(0, 5);
       
-      setSuggestedStrategies(strategies: any);
+      setSuggestedStrategies(strategies);
       
-      // Save check-in data to database (simulated: any)
+      // Save check-in data to database (simulated)
       // In a real implementation, this would make an API call
       
       // Simulate fetching historical patterns
@@ -194,16 +194,16 @@ export function EmotionalCheckin() {
         ]
       });
       
-      setStep(4: any);
-    } catch (error: any) {
+      setStep(4);
+    } catch (error) {
       toast({
         title: "Error processing check-in",
         description: "There was a problem analysing your emotional check-in. Please try again.",
         variant: "destructive"
       });
-      console.error(error: any);
+      console.error(error);
     } finally {
-      setIsProcessing(false: any);
+      setIsProcessing(false);
     }
   };
 
@@ -221,11 +221,11 @@ export function EmotionalCheckin() {
     });
     
     // Reset form for a new check-in
-    setStep(5: any);
+    setStep(5);
   };
 
   const renderStep = () => {
-    switch (step: any) {
+    switch (step) {
       case 1:
         return (
           <div className="space-y-6">
@@ -236,11 +236,11 @@ export function EmotionalCheckin() {
                   key={emotion.name}
                   variant={checkinData.mood === emotion.name ? "default" : "outline"}
                   className={`h-auto py-3 px-4 justify-start ${checkinData.mood === emotion.name ? 'border-primary' : ''}`}
-                  onClick={() => selectEmotion(emotion.name: any)}
+                  onClick={() => selectEmotion(emotion.name)}
                 >
                   <div className="flex flex-col items-start text-left">
                     <div className="flex items-centre mb-1">
-                      <div className={`w-3 h-3 rounded-full ${emotion.colour} mr-2`}></div>
+                      <div className={`w-3 h-3 rounded-full ${emotion.color} mr-2`}></div>
                       <span>{emotion.name}</span>
                     </div>
                     <span className="text-xs text-muted-foreground">{emotion.description}</span>
@@ -266,9 +266,9 @@ export function EmotionalCheckin() {
                   className="mb-6"
                 />
                 <div className="flex justify-between text-sm text-muted-foreground">
-                  <span>Mild (1: any)</span>
-                  <span>Moderate (5: any)</span>
-                  <span>Strong (10: any)</span>
+                  <span>Mild (1)</span>
+                  <span>Moderate (5)</span>
+                  <span>Strong (10)</span>
                 </div>
               </div>
             </div>
@@ -313,7 +313,7 @@ export function EmotionalCheckin() {
                 </div>
               ) : (
                 <Textarea
-                  placeholder="You can write about what happened: any, what you're thinking about, or anything else you'd like to share..."
+                  placeholder="You can write about what happened, what you're thinking about, or anything else you'd like to share..."
                   value={checkinData.notes}
                   onChange={handleNotesChange}
                   className="min-h-[120px]"
@@ -322,8 +322,8 @@ export function EmotionalCheckin() {
             </div>
             
             <div className="flex justify-between mt-4">
-              <Button variant="outline" onClick={() => setStep(1: any)}>Back</Button>
-              <Button onClick={() => setStep(3: any)}>Next</Button>
+              <Button variant="outline" onClick={() => setStep(1)}>Back</Button>
+              <Button onClick={() => setStep(3)}>Next</Button>
             </div>
           </div>
         );
@@ -333,12 +333,12 @@ export function EmotionalCheckin() {
           <div className="space-y-6">
             <h3 className="text-lg font-medium">What might be causing this feeling?</h3>
             <div className="flex flex-wrap gap-2 mb-4">
-              {commonTriggers.map((trigger: any) => (
+              {commonTriggers.map((trigger) => (
                 <Badge
                   key={trigger}
-                  variant={selectedTriggers.includes(trigger: any) ? "default" : "outline"}
+                  variant={selectedTriggers.includes(trigger) ? "default" : "outline"}
                   className="cursor-pointer py-1.5 px-3"
-                  onClick={() => handleTriggerSelect(trigger: any)}
+                  onClick={() => handleTriggerSelect(trigger)}
                 >
                   {trigger}
                 </Badge>
@@ -349,7 +349,7 @@ export function EmotionalCheckin() {
               <Textarea
                 placeholder="Add your own reason..."
                 value={customTrigger}
-                onChange={(e: any) => setCustomTrigger(e.target.value: any)}
+                onChange={(e) => setCustomTrigger(e.target.value)}
                 className="min-h-[40px]"
               />
               <Button onClick={addCustomTrigger} className="shrink-0">Add</Button>
@@ -369,7 +369,7 @@ export function EmotionalCheckin() {
             )}
             
             <div className="flex justify-between mt-4">
-              <Button variant="outline" onClick={() => setStep(2: any)}>Back</Button>
+              <Button variant="outline" onClick={() => setStep(2)}>Back</Button>
               <Button 
                 onClick={processCheckin}
                 disabled={isProcessing}
@@ -416,27 +416,37 @@ export function EmotionalCheckin() {
             </div>
             
             <div>
-              <h3 className="text-lg font-medium mb-3">Suggested Strategies</h3>
+              <h3 className="text-lg font-medium mb-4">Suggested Strategies</h3>
               <p className="text-sm text-muted-foreground mb-4">
-                Based on how you're feeling, here are some strategies that might help:
+                Based on your check-in, here are some strategies that might help you manage your feelings:
               </p>
-              <div className="space-y-2">
-                {suggestedStrategies.map((strategy: any, index) => (
-                  <div key={index} className="flex items-start p-3 border rounded-md">
-                    <div className="h-6 w-6 rounded-full bg-primary/10 text-primary flex items-centre justify-centre mr-3 mt-0.5">
-                      {index + 1}
+              
+              <div className="space-y-3">
+                {suggestedStrategies.map((strategy, index) => (
+                  <div 
+                    key={index} 
+                    className="flex items-start p-3 border rounded-md hover:bg-accent cursor-pointer"
+                    onClick={() => {
+                      saveSelectedStrategies([strategy]);
+                    }}
+                  >
+                    <div className="h-6 w-6 rounded-full bg-primary text-primary-foreground flex items-centre justify-centre mr-3 shrink-0">
+                      <span>{index + 1}</span>
                     </div>
                     <p>{strategy}</p>
                   </div>
                 ))}
               </div>
-            </div>
-            
-            <div className="flex justify-between mt-6">
-              <Button variant="outline" onClick={() => setStep(3: any)}>Back</Button>
-              <Button onClick={() => saveSelectedStrategies(suggestedStrategies: any)}>
-                Save and Complete
-              </Button>
+              
+              <div className="mt-6">
+                <Button 
+                  variant="outline" 
+                  onClick={() => saveSelectedStrategies([])}
+                  className="w-full"
+                >
+                  Skip for now
+                </Button>
+              </div>
             </div>
           </div>
         );
@@ -444,93 +454,129 @@ export function EmotionalCheckin() {
       case 5:
         return (
           <div className="space-y-6">
-            <div className="text-centre py-4">
-              <h3 className="text-xl font-medium mb-2">Check-in Complete!</h3>
+            <div className="text-centre py-8">
+              <h3 className="text-xl font-medium mb-2">Thank you for checking in!</h3>
               <p className="text-muted-foreground mb-6">
-                Thank you for sharing how you're feeling. Your check-in has been saved.
+                Regular emotional check-ins help you understand and manage your feelings better.
               </p>
-              <Button onClick={() => setStep(1: any)} className="mx-auto">
-                Start New Check-in
-              </Button>
-            </div>
-            
-            {historicalPatterns && (
-              <Tabs defaultValue="patterns" className="mt-8">
-                <TabsList className="grid w-full grid-cols-2">
-                  <TabsTrigger value="patterns">Your Patterns</TabsTrigger>
-                  <TabsTrigger value="strategies">Effective Strategies</TabsTrigger>
-                </TabsList>
-                
-                <TabsContent value="patterns" className="pt-4">
-                  <div className="space-y-4">
-                    <div>
-                      <h4 className="font-medium mb-2">Recent Moods</h4>
-                      <div className="flex flex-wrap gap-2">
-                        {historicalPatterns.recentMoods.map((item: any, index) => (
-                          <Badge key={index} variant="secondary" className="py-1.5 px-3">
-                            {item.mood} ({item.count})
-                          </Badge>
-                        ))}
-                      </div>
-                    </div>
+              
+              {historicalPatterns && (
+                <div className="space-y-6 mt-8">
+                  <h4 className="text-lg font-medium">Your Emotional Patterns</h4>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="text-base">Recent Moods</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="space-y-2">
+                          {historicalPatterns.recentMoods.map((item: {mood: string, count: number}, index: number) => (
+                            <div key={index} className="flex justify-between items-centre">
+                              <span>{item.mood}</span>
+                              <div className="flex items-centre">
+                                {Array.from({length: item.count}).map((_, i) => (
+                                  <div key={i} className="h-3 w-3 rounded-full bg-primary ml-1"></div>
+                                ))}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </CardContent>
+                    </Card>
                     
-                    <div>
-                      <h4 className="font-medium mb-2">Common Triggers</h4>
-                      <div className="flex flex-wrap gap-2">
-                        {historicalPatterns.commonTriggers.map((item: any, index) => (
-                          <Badge key={index} variant="outline" className="py-1.5 px-3">
-                            {item.trigger} ({item.count})
-                          </Badge>
-                        ))}
-                      </div>
-                    </div>
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="text-base">Common Triggers</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="space-y-2">
+                          {historicalPatterns.commonTriggers.map((item: {trigger: string, count: number}, index: number) => (
+                            <div key={index} className="flex justify-between items-centre">
+                              <span>{item.trigger}</span>
+                              <span className="text-muted-foreground">{item.count} times</span>
+                            </div>
+                          ))}
+                        </div>
+                      </CardContent>
+                    </Card>
                   </div>
-                </TabsContent>
-                
-                <TabsContent value="strategies" className="pt-4">
-                  <div>
-                    <h4 className="font-medium mb-3">Strategies That Helped You</h4>
-                    <div className="space-y-3">
-                      {historicalPatterns.effectiveStrategies.map((item: any, index) => (
-                        <div key={index} className="flex items-centre justify-between p-3 border rounded-md">
-                          <span>{item.strategy}</span>
-                          <div className="flex items-centre">
-                            <div className="w-24 h-2 bg-grey-200 rounded-full mr-2">
+                  
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="text-base">Most Effective Strategies</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="space-y-3">
+                        {historicalPatterns.effectiveStrategies.map((item: {strategy: string, effectiveness: number}, index: number) => (
+                          <div key={index} className="space-y-1">
+                            <div className="flex justify-between items-centre">
+                              <span>{item.strategy}</span>
+                              <span className="text-muted-foreground">{item.effectiveness}% effective</span>
+                            </div>
+                            <div className="w-full bg-muted rounded-full h-2">
                               <div 
-                                className="h-full bg-primary rounded-full" 
+                                className="bg-primary h-2 rounded-full" 
                                 style={{ width: `${item.effectiveness}%` }}
                               ></div>
                             </div>
-                            <span className="text-sm">{item.effectiveness}%</span>
                           </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </TabsContent>
-              </Tabs>
-            )}
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              )}
+              
+              <Button 
+                onClick={() => {
+                  setStep(1);
+                  setCheckinData({
+                    mood: '',
+                    intensity: 5,
+                    notes: '',
+                    triggers: [],
+                    strategies: []
+                  });
+                  setSelectedTriggers([]);
+                  setSuggestedStrategies([]);
+                }}
+                className="mt-8"
+              >
+                New Check-in
+              </Button>
+            </div>
           </div>
         );
       
       default:
-        return null;
+        return (
+          <div className="text-centre py-8">
+            <p>Something went wrong. Please try again.</p>
+            <Button 
+              onClick={() => setStep(1)}
+              className="mt-4"
+            >
+              Start Over
+            </Button>
+          </div>
+        );
     }
   };
 
   return (
-    <div className="container mx-auto py-8 px-4 max-w-3xl">
-      <Card>
-        <CardHeader>
-          <CardTitle>Daily Emotional Check-in</CardTitle>
-          <CardDescription>
-            Take a moment to check in with your feelings. This helps you understand your emotions and find strategies that work for you.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          {renderStep()}
-        </CardContent>
-      </Card>
-    </div>
+    <Card className="w-full max-w-3xl mx-auto">
+      <CardHeader>
+        <CardTitle>Emotional Check-in</CardTitle>
+        <CardDescription>
+          Take a moment to reflect on how you're feeling right now
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        {renderStep()}
+      </CardContent>
+    </Card>
   );
 }
+
+export default EmotionalCheckin;
