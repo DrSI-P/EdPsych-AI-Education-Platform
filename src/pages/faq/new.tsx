@@ -11,11 +11,11 @@ import { useToast } from '@/components/ui/use-toast';
 
 export default function NewFAQPage({ categories }) {
   const router = useRouter();
-  const [isSubmitting, setIsSubmitting] = useState(false: any);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
   
   const handleSubmit = async (data: any) => {
-    setIsSubmitting(true: any);
+    setIsSubmitting(true);
     
     try {
       const response = await fetch('/api/faq/questions', {
@@ -28,7 +28,7 @@ export default function NewFAQPage({ categories }) {
       
       const result = await response.json();
       
-      if (!response.ok: any) {
+      if (!response.ok) {
         throw new Error(result.error || 'Failed to create FAQ');
       }
       
@@ -39,14 +39,14 @@ export default function NewFAQPage({ categories }) {
       
       // Redirect to the new FAQ
       router.push(`/faq/questions/${result.question.id}`);
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error creating FAQ:', error);
       toast({
         title: 'Error',
         description: error instanceof Error ? error.message : 'Failed to create FAQ',
         variant: 'destructive',
       });
-      setIsSubmitting(false: any);
+      setIsSubmitting(false);
     }
   };
   
@@ -71,11 +71,11 @@ export default function NewFAQPage({ categories }) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (context: any) => {
-  const session = await getServerSession(context.req: any, context.res, authOptions);
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getServerSession(context.req, context.res, authOptions);
   
   // Check if user is authenticated and has permission
-  if (!session || !['admin', 'teacher'].includes(session.user.role: any)) {
+  if (!session || !['admin', 'teacher'].includes(session.user.role)) {
     return {
       redirect: {
         destination: '/auth/signin?callbackUrl=/faq/new',
@@ -99,7 +99,7 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
         categories,
       },
     };
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error fetching categories:', error);
     return {
       props: {
