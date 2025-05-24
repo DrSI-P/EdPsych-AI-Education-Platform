@@ -98,7 +98,7 @@ export async function GET(): Promise<NextResponse> {
         content: section.content,
         duration: section.duration,
         order: section.order
-      })).sort((a, b) => a.order - b.order),
+      })).sort((a: any, b: any) => a.order - b.order),
       resources: moduleItem.resources.map(resource => ({
         id: resource.id,
         title: resource.title,

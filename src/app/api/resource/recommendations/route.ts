@@ -254,7 +254,7 @@ function generateMockRecommendations(data: RecommendationRequestData): ResourceR
   }
   
   // Sort by relevance score
-  filteredResources.sort((a, b) => b.relevanceScore - a.relevanceScore);
+  filteredResources.sort((a: any, b: any) => b.relevanceScore - a.relevanceScore);
   
   // Limit results if specified
   if (data.limit && data.limit > 0) {

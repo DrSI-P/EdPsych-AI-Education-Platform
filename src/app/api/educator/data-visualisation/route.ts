@@ -447,7 +447,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     
     // Handle GET requests for dashboard configurations
     const url = new URL(req.url);
-    const configId = url.searchParams.get("configId");
+    const configId = url.searchParams.get("configId") || undefined;
     
     return handleGetDashboardConfig({ configId, action: "get_dashboard_config" }, session as UserSession);
   } catch (error) {

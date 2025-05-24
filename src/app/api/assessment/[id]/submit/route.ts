@@ -228,7 +228,7 @@ export async function POST(
     }
     
     // Calculate percentage score
-    const totalPoints = assessment.questions.reduce((sum, q) => sum + q.points, 0);
+    const totalPoints = assessment.questions.reduce((sum: any, q: any) => sum + q.points, 0);
     const percentage = totalPoints > 0 ? (totalScore / totalPoints) * 100 : 0;
     
     // Generate overall feedback based on score

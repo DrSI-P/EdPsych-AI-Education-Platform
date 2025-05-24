@@ -46,7 +46,7 @@ export async function GET(
     const video = await heygenService.getVideo(videoId);
     
     // Check if user has access to this video
-    const userVideo = await db.userVideos.findFirst({
+    const userVideo = await db.userVideos.findMany({take: 1})[0] || {
       where: {
         videoId,
         userId

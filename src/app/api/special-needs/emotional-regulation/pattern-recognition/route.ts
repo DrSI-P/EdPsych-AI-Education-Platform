@@ -164,7 +164,7 @@ function generateInsights(emotionRecords: any[]) {
   });
   
   const mostCommonEmotion = Object.entries(emotionCounts)
-    .sort((a, b) => b[1] - a[1])[0];
+    .sort((a: any, b: any) => b[1] - a[1])[0];
   
   if (mostCommonEmotion) {
     insights.push({
@@ -187,12 +187,12 @@ function generateInsights(emotionRecords: any[]) {
   });
   
   const averageIntensities = Object.entries(emotionIntensities).map(([emotion, intensities]) => {
-    const average = intensities.reduce((sum, val) => sum + val, 0) / intensities.length;
+    const average = intensities.reduce((sum: any, val: any) => sum + val, 0) / intensities.length;
     return { emotion, average };
   });
   
   const highestIntensityEmotion = averageIntensities
-    .sort((a, b) => b.average - a.average)[0];
+    .sort((a: any, b: any) => b.average - a.average)[0];
   
   if (highestIntensityEmotion) {
     insights.push({
@@ -222,7 +222,7 @@ function generateInsights(emotionRecords: any[]) {
   });
   
   const mostCommonTimeOfDay = Object.entries(timeOfDayCounts)
-    .sort((a, b) => b[1] - a[1])[0];
+    .sort((a: any, b: any) => b[1] - a[1])[0];
   
   if (mostCommonTimeOfDay && mostCommonTimeOfDay[1] > 0) {
     insights.push({
@@ -252,7 +252,7 @@ function generateInsights(emotionRecords: any[]) {
   });
   
   const mostCommonDayOfWeek = Object.entries(dayOfWeekCounts)
-    .sort((a, b) => b[1] - a[1])[0];
+    .sort((a: any, b: any) => b[1] - a[1])[0];
   
   if (mostCommonDayOfWeek && mostCommonDayOfWeek[1] > 0) {
     insights.push({
@@ -278,7 +278,7 @@ function generateInsights(emotionRecords: any[]) {
   });
   
   const mostCommonTrigger = Object.entries(triggerCounts)
-    .sort((a, b) => b[1] - a[1])[0];
+    .sort((a: any, b: any) => b[1] - a[1])[0];
   
   if (mostCommonTrigger && mostCommonTrigger[1] > 1) {
     insights.push({
@@ -341,12 +341,12 @@ function generateTriggerPatterns(emotionRecords: any[]) {
     return {
       trigger,
       ...emotions,
-      total: Object.values(emotions).reduce((sum, count) => sum + count, 0)
+      total: Object.values(emotions).reduce((sum: any, count: any) => sum + count, 0)
     };
   });
   
   // Sort by total occurrences
-  triggerPatternData.sort((a, b) => b.total - a.total);
+  triggerPatternData.sort((a: any, b: any) => b.total - a.total);
   
   return triggerPatternData.slice(0, 5); // Top 5 triggers
 }
@@ -400,7 +400,7 @@ function generateEmotionTrends(emotionRecords: any[]) {
     };
   });
   
-  trendData.sort((a, b) => a.date.localeCompare(b.date));
+  trendData.sort((a: any, b: any) => a.date.localeCompare(b.date));
   
   return trendData;
 }
@@ -431,7 +431,7 @@ function generateEmotionCorrelations(emotionRecords: any[]) {
   });
   
   // Sort records by timestamp
-  const sortedRecords = [...emotionRecords].sort((a, b) => 
+  const sortedRecords = [...emotionRecords].sort((a: any, b: any) => 
     new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
   );
   
@@ -464,7 +464,7 @@ function generateEmotionCorrelations(emotionRecords: any[]) {
   // Filter to only include pairs that occurred at least once
   const significantPairs = Object.values(emotionPairs)
     .filter(pair => pair.count > 0)
-    .sort((a, b) => b.count - a.count);
+    .sort((a: any, b: any) => b.count - a.count);
   
   return significantPairs.slice(0, 10); // Top 10 correlations
 }

@@ -128,13 +128,13 @@ export async function GET(_req: NextRequest): Promise<NextResponse> {
     });
     
     // Calculate mood frequency
-    const moodFrequency = recentCheckins.reduce((acc, checkin) => {
+    const moodFrequency = recentCheckins.reduce((acc: any, checkin: any) => {
       acc[checkin.mood] = (acc[checkin.mood] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
     
     // Calculate trigger frequency
-    const triggerFrequency = recentCheckins.reduce((acc, checkin) => {
+    const triggerFrequency = recentCheckins.reduce((acc: any, checkin: any) => {
       if (Array.isArray(checkin.triggers)) {
         checkin.triggers.forEach((trigger: string) => {
           acc[trigger] = (acc[trigger] || 0) + 1;
@@ -144,7 +144,7 @@ export async function GET(_req: NextRequest): Promise<NextResponse> {
     }, {} as Record<string, number>);
     
     // Calculate strategy effectiveness (simplified)
-    const strategyFrequency = recentCheckins.reduce((acc, checkin) => {
+    const strategyFrequency = recentCheckins.reduce((acc: any, checkin: any) => {
       if (Array.isArray(checkin.strategies)) {
         checkin.strategies.forEach((strategy: string) => {
           acc[strategy] = (acc[strategy] || 0) + 1;

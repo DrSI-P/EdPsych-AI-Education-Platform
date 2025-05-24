@@ -51,7 +51,7 @@ export async function POST(req: NextRequest) {
             kinesthetic: learningStyle.kinesthetic
           };
           
-          const primaryStyle = Object.entries(scores).reduce((a, b) => a[1] > b[1] ? a : b)[0];
+          const primaryStyle = Object.entries(scores).reduce((a: any, b: any) => a[1] > b[1] ? a : b)[0];
           userLearningStyle = primaryStyle.toLowerCase();
         }
       } catch (error) {
