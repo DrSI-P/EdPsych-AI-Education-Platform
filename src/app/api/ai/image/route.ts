@@ -3,7 +3,8 @@ import OpenAI from 'openai';
 import Anthropic from '@anthropic-ai/sdk';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import axios from 'axios';
-import { getAIService } from '@/lib/ai/ai-service';
+// Remove unused import
+// import { getAIService } from '@/lib/ai/ai-service';
 
 // Define AIProvider type locally
 type AIProvider = 'openai' | 'anthropic' | 'gemini' | 'azure' | 'ollama' | 'grok' | 'openrouter' | 'stability';
@@ -20,7 +21,7 @@ export interface AIImageGenerationRequest {
 }
 
 // Handle AI image generation requests
-export async function POST(request: NextRequest) {
+export async function POST(request: NextRequest): Promise<NextResponse> {
   try {
     const requestData: AIImageGenerationRequest = await request.json();
     
@@ -59,6 +60,7 @@ export async function POST(request: NextRequest) {
     
     return NextResponse.json(imageGeneration);
   } catch (error) {
+    // Replace console.error with structured logging when available
     console.error('Error processing AI image generation request:', error);
     return NextResponse.json(
       { error: 'Failed to process AI image generation request' },
@@ -68,7 +70,7 @@ export async function POST(request: NextRequest) {
 }
 
 // Handle OpenAI image generation
-async function handleOpenAIImageGeneration(requestData: AIImageGenerationRequest) {
+async function handleOpenAIImageGeneration(requestData: AIImageGenerationRequest): Promise<any> {
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
     throw new Error('OpenAI API key not configured');
@@ -95,13 +97,14 @@ async function handleOpenAIImageGeneration(requestData: AIImageGenerationRequest
       model: requestData.model
     };
   } catch (error) {
+    // Replace console.error with structured logging when available
     console.error('Error generating OpenAI images:', error);
     throw error;
   }
 }
 
 // Handle Anthropic image generation
-async function handleAnthropicImageGeneration(requestData: AIImageGenerationRequest) {
+async function handleAnthropicImageGeneration(requestData: AIImageGenerationRequest): Promise<any> {
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) {
     throw new Error('Anthropic API key not configured');
@@ -145,6 +148,7 @@ async function handleAnthropicImageGeneration(requestData: AIImageGenerationRequ
       throw new Error('Failed to extract image description from Anthropic response');
     }
     
+    // Replace console.log with structured logging when available
     console.log('Using Anthropic description to generate image with OpenAI:', imageDescription);
     
     return handleOpenAIImageGeneration({
@@ -154,6 +158,7 @@ async function handleAnthropicImageGeneration(requestData: AIImageGenerationRequ
       prompt: imageDescription
     });
   } catch (error) {
+    // Replace console.error with structured logging when available
     console.error('Error with Anthropic image generation:', error);
     // Fallback to OpenAI
     console.log('Falling back to OpenAI for image generation');
@@ -166,7 +171,7 @@ async function handleAnthropicImageGeneration(requestData: AIImageGenerationRequ
 }
 
 // Handle Gemini image generation
-async function handleGeminiImageGeneration(requestData: AIImageGenerationRequest) {
+async function handleGeminiImageGeneration(requestData: AIImageGenerationRequest): Promise<any> {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
     throw new Error('Gemini API key not configured');
@@ -182,6 +187,7 @@ async function handleGeminiImageGeneration(requestData: AIImageGenerationRequest
     const result = await model.generateContent(ukPrompt);
     const imageDescription = result.response.text();
     
+    // Replace console.log with structured logging when available
     console.log('Using Gemini description to generate image with OpenAI:', imageDescription);
     
     // Use OpenAI for actual image generation
@@ -192,6 +198,7 @@ async function handleGeminiImageGeneration(requestData: AIImageGenerationRequest
       prompt: imageDescription
     });
   } catch (error) {
+    // Replace console.error with structured logging when available
     console.error('Error with Gemini image generation:', error);
     // Fallback to OpenAI
     console.log('Falling back to OpenAI for image generation');
@@ -204,7 +211,7 @@ async function handleGeminiImageGeneration(requestData: AIImageGenerationRequest
 }
 
 // Handle Grok image generation
-async function handleGrokImageGeneration(requestData: AIImageGenerationRequest) {
+async function handleGrokImageGeneration(requestData: AIImageGenerationRequest): Promise<any> {
   const apiKey = process.env.GROK_API_KEY;
   if (!apiKey) {
     throw new Error('Grok API key not configured');
@@ -239,6 +246,7 @@ async function handleGrokImageGeneration(requestData: AIImageGenerationRequest) 
     
     const imageDescription = descriptionResponse.data.choices[0]?.message?.content || ukPrompt;
     
+    // Replace console.log with structured logging when available
     console.log('Using Grok description to generate image with OpenAI:', imageDescription);
     
     // Use OpenAI for actual image generation
@@ -249,6 +257,7 @@ async function handleGrokImageGeneration(requestData: AIImageGenerationRequest) 
       prompt: imageDescription
     });
   } catch (error) {
+    // Replace console.error with structured logging when available
     console.error('Error with Grok image generation:', error);
     // Fallback to OpenAI
     console.log('Falling back to OpenAI for image generation');
@@ -261,7 +270,7 @@ async function handleGrokImageGeneration(requestData: AIImageGenerationRequest) 
 }
 
 // Handle OpenRouter image generation
-async function handleOpenRouterImageGeneration(requestData: AIImageGenerationRequest) {
+async function handleOpenRouterImageGeneration(requestData: AIImageGenerationRequest): Promise<any> {
   const apiKey = process.env.OPENROUTER_API_KEY;
   if (!apiKey) {
     throw new Error('OpenRouter API key not configured');
@@ -301,6 +310,7 @@ async function handleOpenRouterImageGeneration(requestData: AIImageGenerationReq
     const data = await response.json();
     const imageDescription = data.choices[0]?.message?.content || ukPrompt;
     
+    // Replace console.log with structured logging when available
     console.log('Using OpenRouter description to generate image with OpenAI:', imageDescription);
     
     // Use OpenAI for actual image generation
@@ -311,6 +321,7 @@ async function handleOpenRouterImageGeneration(requestData: AIImageGenerationReq
       prompt: imageDescription
     });
   } catch (error) {
+    // Replace console.error with structured logging when available
     console.error('Error with OpenRouter image generation:', error);
     // Fallback to OpenAI
     console.log('Falling back to OpenAI for image generation');
