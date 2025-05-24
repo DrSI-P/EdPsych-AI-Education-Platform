@@ -5,7 +5,7 @@
  * for AI avatar video generation and management.
  */
 
-import axios from 'axios';
+import axios, { AxiosInstance } from 'axios';
 
 // Types
 export interface HeygenAvatar {
@@ -48,16 +48,25 @@ export interface VideoGenerationResponse {
   estimated_completion_time?: string;
 }
 
+export interface HeygenVoice {
+  id: string;
+  name: string;
+  language: string;
+  gender: string;
+  preview_url?: string;
+}
+
 // Main API Class
 export class HeygenAPI {
   private static instance: HeygenAPI;
   private apiKey: string = '';
   private baseUrl: string = 'https://api.heygen.com';
   private initialized: boolean = false;
-  private axiosInstance: any;
+  private axiosInstance: AxiosInstance;
 
   private constructor() {
     // Private constructor to enforce singleton pattern
+    this.axiosInstance = axios.create();
   }
 
   /**
@@ -182,7 +191,7 @@ export class HeygenAPI {
   /**
    * Get available voices
    */
-  public async getVoices(): Promise<any[]> {
+  public async getVoices(): Promise<HeygenVoice[]> {
     this.checkInitialized();
     try {
       const response = await this.axiosInstance.get('/v1/voices');
